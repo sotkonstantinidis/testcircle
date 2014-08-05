@@ -1,0 +1,10 @@
+__pycache__
+*.pyc
+
+# Ignore setting files
+qcat/settings/*
+!qcat/settings/base.py
+!qcat/settings/sample.py.dist
+
+# Ignore CodeIntel files
+.codeintel
