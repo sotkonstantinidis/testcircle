@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>QCAT</title>
+    <title>{% trans "QCAT" %}</title>
 
     <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}" />
     <script src="{% static 'js/vendor/modernizr.js' %}"></script>
@@ -22,84 +22,25 @@
       <ul class="title-area">
         <li class="name">
           <h1>
-            <a href="#">
-              QCAT
+            <a href="{% url 'home' %}">
+              {% trans "QCAT" %}
             </a>
           </h1>
         </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
       </ul>
       <section class="top-bar-section">
         <ul class="left">
           <li class="divider"></li>
           <li class="has-dropdown">
-            <a class="active" href="#">Main Item 1</a>
+            <a class="active" href="#">{% trans "Questionnaire" %}</a>
             <ul class="dropdown">
-              <li><label>Section Name</label></li>
-              <li><a href="#" class="">Dropdown Level 1</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li class="divider"></li>
-              <li><label>Section Name</label></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li class="divider"></li>
-              <li><a href="#">See all →</a></li>
-            </ul>
-          </li>
-          <li class="divider"></li>
-          <li><a href="#">Main Item 2</a></li>
-          <li class="divider"></li>
-          <li class="has-dropdown">
-            <a href="#">Main Item 3</a>
-            <ul class="dropdown">
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li class="divider"></li>
-              <li><a href="#">See all →</a></li>
+              <li><label>{% trans "Questionnaire" %}</label></li>
+              <li><a href="{% url 'questionnaire_new' %}">{% trans "New" %}</a></li>
             </ul>
           </li>
         </ul>
         <ul class="right">
-          <li class="divider"></li>
-          <li class="has-dropdown">
-            <a href="#">Main Item 4</a>
-            <ul class="dropdown">
-              <li><label>Section Name</label></li>
-              <li class="has-dropdown">
-                <a href="#" class="">Has Dropdown, Level 1</a>
-                <ul class="dropdown">
-                  <li><a href="#">Dropdown Options</a></li>
-                  <li><a href="#">Dropdown Options</a></li>
-                  <li class="has-dropdown">
-                    <a href="#">Has Dropdown, Level 2</a>
-                    <ul class="dropdown test">
-                      <li><a href="#">Subdropdown Option</a></li>
-                      <li><a href="#">Subdropdown Option</a></li>
-                      <li><a href="#">Subdropdown Option</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Subdropdown Option</a></li>
-                  <li><a href="#">Subdropdown Option</a></li>
-                  <li><a href="#">Subdropdown Option</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li class="divider"></li>
-              <li><label>Section Name</label></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li><a href="#">Dropdown Option</a></li>
-              <li class="divider"></li>
-              <li><a href="#">See all →</a></li>
-            </ul>
-          </li>
-          <li class="divider"></li>
-          <li><a href="#">Main Item 5</a></li>
-          <li class="divider"></li>
           <li class="has-dropdown">
             <a href="#">{% trans "Language" %}</a>
             <ul class="dropdown">
@@ -126,24 +67,6 @@
 
     {% block content %}
     {% endblock %}
-
-    <footer class="row">
-      <div class="large-12 columns">
-        <hr/>
-        <div class="row">
-          <div class="large-6 columns">
-          </div>
-          <div class="large-6 columns">
-            <ul class="inline-list right">
-              <li><a href="#">Section 1</a></li>
-              <li><a href="#">Section 2</a></li>
-              <li><a href="#">Section 3</a></li>
-              <li><a href="#">Section 4</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
 
     <script src="{% static 'js/vendor/jquery.js' %}"></script>
     <script src="{% static 'js/foundation.min.js' %}"></script>
