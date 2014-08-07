@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect
-from django.contrib.formtools.wizard.views import SessionWizardView
+from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
 
 
-class QuestionnaireWizard(SessionWizardView):
+class QuestionnaireWizard(NamedUrlSessionWizardView):
 
     template_name = 'questionnaire.html'
 
@@ -14,5 +14,4 @@ class QuestionnaireWizard(SessionWizardView):
         print (x)
         print (form_dict)
 
-        do_something_with_the_form_data(form_list)
-        return HttpResponseRedirect('/page-to-redirect-to-when-done/')
+        return HttpResponseRedirect('/')

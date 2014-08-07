@@ -6,6 +6,7 @@ urlpatterns = patterns(
     '',
 
     url(r'^$', 'qcat.views.home', name='home'),
+    url(r'^about/$', 'qcat.views.about', name='about'),
 
     # View to change language
     url(r'^i18n/', include('django.conf.urls.i18n')),
