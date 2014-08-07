@@ -6,7 +6,7 @@ from questionnaire.config.base import SLMName, SomeDropdown
 
 class FormPart1(forms.Form):
     slmname = SLMName().getFormField()
-    sender = SomeDropdown().getFormField()
+    somedropdown = SomeDropdown().getFormField()
 
 
 class FormPart2(forms.Form):
