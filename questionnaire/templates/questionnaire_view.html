@@ -7,10 +7,25 @@
 {% endblock %}
 
 {% block content %}
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="panel alert-box {{ message.tags }}">
+            <p>{{ message }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
   <div class="row">
     <div class="large-12 columns">
-      <h3>{% trans "Questionnaire Details" %}</h3>
-      {{ questionnaire }}
+      <div class="panel">
+        <h3>{% trans "Questionnaire Details" %}</h3>
+        {{ questionnaire }}
+      </div>
     </div>
   </div>
 {% endblock %}

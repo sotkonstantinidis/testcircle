@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
 from django.http import Http404
 from django.shortcuts import render, redirect
+from django.utils.translation import ugettext as _
 
 from questionnaire.config.base import BaseConfig
 from questionnaire.models import Questionnaire
@@ -18,8 +20,10 @@ class QuestionnaireWizard(NamedUrlSessionWizardView):
         for step, stepData in form_dict.items():
             baseDict[baseConfig.getConfigByStep(step)] = stepData.cleaned_data
         json = {'base': baseDict}
-
-        return redirect(Questionnaire.create_new(json=json))
+        questionnaire = Questionnaire.create_new(json=json)
+        messages.success(
+            self.request, _('The questionnaire was successfully submitted.'))
+        return redirect(questionnaire)
 
 
 def questionnaire_view(request, questionnaire_id):
