@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="large-12 columns">
+      <h3>{% trans "Questionnaire Details" %}</h3>
+      {{ questionnaire }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block bottom %}
+{% endblock %}

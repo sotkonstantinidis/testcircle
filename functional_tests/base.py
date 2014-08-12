@@ -1,9 +1,9 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerCase
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 
-class FunctionalTest(LiveServerTestCase):
+class FunctionalTest(StaticLiveServerCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()

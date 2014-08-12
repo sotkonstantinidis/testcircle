@@ -12,9 +12,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Document',
+            name='Questionnaire',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('json', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now=True)),
             ],
