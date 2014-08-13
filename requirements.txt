@@ -1,2 +1,4 @@
 Django==1.7c2
 psycopg2==2.5.3
+selenium==2.42.1
+-e git://github.com/niwibe/django-pgjson@fd601e4703c08330346fc679dea4f90f6457ef6c#egg=django_pgjson-origin/HEAD
