@@ -1,0 +1,13 @@
+Questionnaire:
+  Tasks for the Questionnaire app.
+  Form:
+    ☐ Formsets: "Add more"
+        Finish implementation (eg. hide button when maximum is reached).
+    ☐ Formsets: "Remove"
+        Create button and implement logic.
+
+Dependencies:
+  ☐ Django
+      Make sure Django 1.7 is required correctly, not as RC2
+  ☐ django-pgjson
+      Use a productive version instead of the current dev version.

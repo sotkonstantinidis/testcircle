@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="panel">
+        <h5>Welcome to the brand new QCAT!</h5>
+        <p>This is just some sample content. So far, there is not much to do here. But stay tuned, more meaningful content is coming soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-equalizer>
+    <div class="large-6 columns">
+      <div class="panel" data-equalizer-watch>
+        <h5>New Questionnaire</h5>
+        <p>In the meantime, you might want to create a new Questionnaire.</p>
+        <a href="{% url 'questionnaire_new' %}" class="button tiny">New</a>
+      </div>
+    </div>
+    <div class="large-2 columns">
+      <div class="panel" data-equalizer-watch>
+        <p>
+          <img src="http://placehold.it/200x200"/>
+        </p>
+      </div>
+    </div>
+    <div class="large-4 columns">
+      <div class="panel" data-equalizer-watch>
+        <h5>Panel Title</h5>
+        <p>This is a four columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="panel">
+        <h5>Sample content</h5>
+        <p>Again, this is just some sample content. Maybe one day we will show a funny video o a cat here ...</p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
