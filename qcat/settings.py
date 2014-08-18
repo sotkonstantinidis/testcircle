@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..')
+BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
 
 
 # Quick-start development settings - unsuitable for production
@@ -102,3 +102,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.request',
 )
+
+from qcat.settings_local import *
