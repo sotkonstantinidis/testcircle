@@ -8,3 +8,6 @@ qcat/settings/*
 
 # Ignore CodeIntel files
 .codeintel
+
+# Ignore local setting file
+qcat/settings_local.py

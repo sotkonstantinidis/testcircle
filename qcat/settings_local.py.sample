@@ -1,7 +1,7 @@
-"""This is a skeleton sample.py file.  Copy it to sample.py and fill in the necessary information."""
-
-from .base import *
-
+"""
+This is a skeleton settings_local.py file.
+Copy it to settings_local.py and fill in the necessary information.
+"""
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
