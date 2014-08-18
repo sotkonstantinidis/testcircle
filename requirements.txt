@@ -1,4 +1,4 @@
-Django==1.7c2
+# Django==1.7c2 needs to be installed manually: pip3 install https://www.djangoproject.com/download/1.7c2/tarball/
 psycopg2==2.5.3
 selenium==2.42.1
--e git://github.com/niwibe/django-pgjson@fd601e4703c08330346fc679dea4f90f6457ef6c#egg=django_pgjson-origin/HEAD
+-e git://github.com/niwibe/django-pgjson@fd601e4703c08330346fc679dea4f90f6457ef6c#egg=django_pgjson
