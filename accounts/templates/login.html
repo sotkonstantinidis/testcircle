@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+  <div class="row">
+    <div class="large-12 columns">
+      {% if msg %}
+        <div class="alert alert-box">
+          <h4>{% trans "Login failed" %}</h4>
+          {{ msg }}
+        </div>
+      {% endif %}
+      <h3>{% trans "Login" %}</h3>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input id="button_login" type="submit" class="button" value="{% trans "Login" %}" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

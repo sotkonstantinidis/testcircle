@@ -31,12 +31,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     # 'django.contrib.admin',
-    # 'django.contrib.auth',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'questionnaire',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,6 +102,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.request',
+)
+
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+    'accounts.authentication.WocatAuthenticationBackend',
 )
 
 from qcat.settings_local import *

@@ -9,5 +9,13 @@ Questionnaire:
 Dependencies:
   ☐ Django
       Make sure Django 1.7 is required correctly, not as RC2
+      Update requirements.txt
   ☐ django-pgjson
       Use a productive version instead of the current dev version.
+      Update requirements.txt
+
+Automatic deployment:
+  ☐ Reload apache after deployment, maybe use template for Apache
+
+Login:
+  ☐ Correctly use WOCAT login

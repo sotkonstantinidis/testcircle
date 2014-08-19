@@ -152,7 +152,6 @@ class BaseConfig(object):
     ]
 
     def __init__(self, *args, **kwargs):
-        print ("***")
         super(BaseConfig, self).__init__(*args, **kwargs)
 
     def getConfigs(self):
