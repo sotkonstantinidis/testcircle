@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('email', models.EmailField(primary_key=True, max_length=75, serialize=False)),
-                ('name', models.CharField(max_length=100)),
+                ('email', models.EmailField(max_length=75, primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=100, blank=True)),
                 ('last_login', models.DateTimeField(default=django.utils.timezone.now)),
             ],
             options={
