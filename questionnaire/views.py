@@ -20,7 +20,7 @@ class QuestionnaireWizard(NamedUrlSessionWizardView):
         for step, stepData in form_dict.items():
             baseDict[baseConfig.getConfigByStep(step)] = stepData.cleaned_data
         json = {'base': baseDict}
-        questionnaire = Questionnaire.create_new(json=json)
+        questionnaire = Questionnaire.create_new(data=json)
         messages.success(
             self.request, _('The questionnaire was successfully submitted.'))
         return redirect(questionnaire)

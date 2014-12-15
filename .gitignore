@@ -11,3 +11,6 @@ qcat/settings/*
 
 # Ignore local setting file
 qcat/settings_local.py
+
+# Ignore documentation builds
+/docs/_build/*

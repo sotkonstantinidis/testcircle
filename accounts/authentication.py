@@ -1,15 +1,18 @@
 from django.contrib.auth import get_user_model
-User = get_user_model()
 
 from accounts.connection import get_connection
 
 
 class WocatAuthenticationBackend(object):
+    """
+    The class to handle the authentication through :term:`WOCAT`.
+    """
 
     def authenticate(self, username, password):
         """
         Custom authentication. Returns a user if authentication successful.
         """
+        User = get_user_model()
         queried_user = self._do_auth(username, password)
 
         if not queried_user:
@@ -29,6 +32,7 @@ class WocatAuthenticationBackend(object):
         return user
 
     def get_user(self, email):
+        User = get_user_model()
         try:
             return User.objects.get(email=email)
         except User.DoesNotExist:
