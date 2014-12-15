@@ -1,6 +1,9 @@
 from django.contrib.staticfiles.testing import StaticLiveServerCase
+from django.core.urlresolvers import reverse
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+
+loginRouteName = 'login'
 
 
 class FunctionalTest(StaticLiveServerCase):
@@ -57,3 +60,10 @@ class FunctionalTest(StaticLiveServerCase):
 
     def changeLanguage(self, locale):
         self.findBy('name', 'setLang%s' % locale).submit()
+
+    def doLogin(self, username, password):
+        self.browser.get(self.live_server_url + reverse(loginRouteName))
+        self.findBy('name', 'email').send_keys(username)
+        self.findBy('name', 'password').send_keys(password)
+        self.findBy('id', 'button_login').click()
+        self.browser.implicitly_wait(3)
