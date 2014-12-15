@@ -1,3 +1,7 @@
+"""
+This module contains the URL routing patterns for the :mod:`accounts`
+app.
+"""
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
