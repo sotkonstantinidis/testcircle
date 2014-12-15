@@ -1,4 +1,4 @@
-from django.contrib.staticfiles.testing import StaticLiveServerCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -6,7 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 loginRouteName = 'login'
 
 
-class FunctionalTest(StaticLiveServerCase):
+class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
