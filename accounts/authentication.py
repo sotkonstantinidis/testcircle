@@ -20,10 +20,11 @@ class WocatAuthenticationBackend(object):
         try:
             # Check if the user exists in the local database
             user = User.objects.get(email=username)
-            user.update(name=queried_user[4], privileges=privileges)
         except User.DoesNotExist:
             # Create a user in the local database
             user = User.create_new(email=username)
+
+        user.update(name=queried_user[4], privileges=privileges)
 
         return user
 

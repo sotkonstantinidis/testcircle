@@ -31,7 +31,7 @@ class UserModelTest(TestCase):
         user = User.create_new(email='a@b.com', name='Foo')
         self.assertEqual(user.name, 'Foo')
 
-    def test_update_updates_object(self):
+    def test_update_updates_name(self):
         user = User.create_new(email='a@b.com', name='Foo')
         user.update(name='Bar')
         self.assertEqual(user.name, 'Bar')

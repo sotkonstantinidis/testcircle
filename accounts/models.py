@@ -15,7 +15,7 @@ class User(models.Model):
     def is_active(self):
         return True
 
-    def update(self, name, privileges=None):
+    def update(self, name, privileges=[]):
         """
         Handles the one-way synchronization of the user database.
         """
