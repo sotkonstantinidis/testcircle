@@ -13,9 +13,6 @@ users.
 .. automodule:: accounts.authentication
     :members:
 
-    .. autoclass:: WocatAuthenticationBackend
-        :members:
-
 
 ``accounts.connection``
 -----------------------
