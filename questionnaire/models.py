@@ -20,6 +20,7 @@ class Questionnaire(models.Model):
         'QuestionnaireVersion', related_name='active_questionnaire', null=True)
     members = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through='QuestionnaireMembership')
+    configurations = models.ManyToManyField('configuration.Configuration')
 
     def get_absolute_url(self):
         return reverse('questionnaire_view', args=[self.id])
@@ -52,8 +53,8 @@ class Status(models.Model):
     :class:`QuestionnaireVersion`. The status is based on the review
     process and defines which versions are visible to the public.
     """
-    code = models.CharField(max_length=63)
-    description = models.CharField(max_length=255)
+    keyword = models.CharField(max_length=63, unique=True)
+    description = models.TextField(null=True)
 
 
 class QuestionnaireMembership(models.Model):
@@ -72,5 +73,5 @@ class QuestionnaireRole(models.Model):
     :class:`QuestionnaireMembership` which reflects the permissions he
     has when it comes to editing a :class:`Questionnaire`.
     """
-    code = models.CharField(max_length=63)
-    description = models.CharField(max_length=255)
+    keyword = models.CharField(max_length=63, unique=True)
+    description = models.TextField(null=True)

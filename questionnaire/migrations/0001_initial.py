@@ -2,25 +2,26 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import uuidfield.fields
 from django.conf import settings
 import django_pgjson.fields
-import uuidfield.fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('configuration', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Questionnaire',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now=True)),
-                ('uuid', uuidfield.fields.UUIDField(unique=True, max_length=32, blank=True, editable=False)),
+                ('uuid', uuidfield.fields.UUIDField(editable=False, max_length=32, blank=True, unique=True)),
                 ('blocked', models.BooleanField(default=False)),
             ],
             options={
@@ -30,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireMembership',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('questionnaire', models.ForeignKey(to='questionnaire.Questionnaire')),
             ],
             options={
@@ -40,9 +41,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireRole',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code', models.CharField(max_length=63)),
-                ('description', models.CharField(max_length=255)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('keyword', models.CharField(max_length=63, unique=True)),
+                ('description', models.TextField(null=True)),
             ],
             options={
             },
@@ -51,7 +52,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now=True)),
                 ('version', models.IntegerField()),
@@ -64,9 +65,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Status',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code', models.CharField(max_length=63)),
-                ('description', models.CharField(max_length=255)),
+                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('keyword', models.CharField(max_length=63, unique=True)),
+                ('description', models.TextField(null=True)),
             ],
             options={
             },
@@ -99,13 +100,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='questionnaire',
             name='active',
-            field=models.ForeignKey(null=True, related_name='active_questionnaire', to='questionnaire.QuestionnaireVersion'),
+            field=models.ForeignKey(to='questionnaire.QuestionnaireVersion', related_name='active_questionnaire', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='questionnaire',
+            name='configurations',
+            field=models.ManyToManyField(to='configuration.Configuration'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='questionnaire',
             name='members',
-            field=models.ManyToManyField(through='questionnaire.QuestionnaireMembership', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='questionnaire.QuestionnaireMembership'),
             preserve_default=True,
         ),
     ]

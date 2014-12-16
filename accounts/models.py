@@ -3,6 +3,15 @@ from django.utils import timezone
 
 
 class User(models.Model):
+    """
+    The model representing a user of QCAT. This is basically a local
+    replication of the user database of :term:`WOCAT` which handles the
+    authentication. Therefore, no password is stored.
+
+    .. todo::
+        How to handle the privileges with regard to different
+        configurations (e.g. moderator in WOCAT, editor in UNCCD)
+    """
     email = models.EmailField(primary_key=True)
     name = models.CharField(max_length=100, blank=True)
     last_login = models.DateTimeField(default=timezone.now)
