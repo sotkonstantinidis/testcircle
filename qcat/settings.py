@@ -109,4 +109,7 @@ AUTHENTICATION_BACKENDS = (
     'accounts.authentication.WocatAuthenticationBackend',
 )
 
-from qcat.settings_local import *
+try:
+    from qcat.settings_local import *
+except ImportError:
+    pass
