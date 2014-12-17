@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('keyword', models.CharField(max_length=63, unique=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('keyword', models.CharField(unique=True, max_length=63)),
             ],
             options={
             },
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Configuration',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('code', models.CharField(max_length=63)),
                 ('name', models.CharField(max_length=255)),
@@ -39,8 +39,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Key',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('keyword', models.CharField(max_length=63, unique=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('keyword', models.CharField(unique=True, max_length=63)),
+                ('data', django_pgjson.fields.JsonBField(null=True)),
             ],
             options={
             },
@@ -49,7 +50,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Translation',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('translation_type', models.CharField(max_length=63)),
                 ('data', django_pgjson.fields.JsonBField()),
             ],
@@ -60,8 +61,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Value',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('keyword', models.CharField(max_length=63, unique=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('keyword', models.CharField(unique=True, max_length=63)),
+                ('key', models.ForeignKey(to='configuration.Key')),
                 ('translation', models.ForeignKey(to='configuration.Translation')),
             ],
             options={

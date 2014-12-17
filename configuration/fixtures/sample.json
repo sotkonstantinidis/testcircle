@@ -1,0 +1,53 @@
+[
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 1\", \"es\": \"Clave 1\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 1
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 2\", \"es\": \"Clave 2\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 2
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 3\", \"es\": \"Clave 3\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 3
+},
+{
+    "fields": {
+        "keyword": "key_1",
+        "translation": 1,
+        "data": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1
+},
+{
+    "fields": {
+        "keyword": "key_2",
+        "translation": 2,
+        "data": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2
+},
+{
+    "fields": {
+        "keyword": "key_3",
+        "translation": 3,
+        "data": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 3
+}
+]

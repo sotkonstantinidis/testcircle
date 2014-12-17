@@ -7,6 +7,8 @@ from django.utils.translation import ugettext as _
 from questionnaire.config.base import BaseConfig
 from questionnaire.models import Questionnaire
 
+from configuration.configuration import read_configuration
+
 
 class QuestionnaireWizard(NamedUrlSessionWizardView):
 
@@ -33,3 +35,21 @@ def questionnaire_view(request, questionnaire_id):
         raise Http404
     return render(request, 'questionnaire_view.html', {
         'questionnaire': questionnaire})
+
+
+def questionnaire_new(request):
+    category = read_configuration()
+
+    formsets = []
+    for subcategory in category.subcategories:
+        for questionset in subcategory.questionsets:
+            form = questionset.get_form(request.POST or None)
+            if request.method == 'POST':
+                print ("=====")
+                print (questionset.keyword)
+                print (form.cleaned_data)
+                print (form.is_valid())
+                print ("=====")
+            formsets.append(('Label', form))
+
+    return render(request, 'questionnaire_new.html', {'formsets': formsets})

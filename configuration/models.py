@@ -30,6 +30,7 @@ class Key(models.Model):
     """
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey('Translation')
+    data = JsonBField(null=True)
 
 
 class Value(models.Model):
@@ -39,6 +40,7 @@ class Value(models.Model):
     """
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey('Translation')
+    key = models.ForeignKey('Key')
 
 
 class Category(models.Model):
