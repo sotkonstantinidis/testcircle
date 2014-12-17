@@ -32,6 +32,9 @@ class Key(models.Model):
     translation = models.ForeignKey('Translation')
     data = JsonBField(null=True)
 
+    def get_translation(self, locale):
+        return self.translation.data.get(locale)
+
 
 class Value(models.Model):
     """
@@ -50,3 +53,6 @@ class Category(models.Model):
     """
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey('Translation')
+
+    def get_translation(self, locale):
+        return self.translation.data.get(locale)

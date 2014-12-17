@@ -25,6 +25,55 @@
 },
 {
     "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Category 1\", \"es\": \"Categoría 1\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 101
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Category 2\", \"es\": \"Categoría 2\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 102
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Subcategory 1_1\", \"es\": \"Subcategoría 1_1\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 111
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Subcategory 1_2\", \"es\": \"Subcategoría 1_2\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 112
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Subcategory 2_1\", \"es\": \"Subcategoría 2_1\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 113
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Subcategory 2_2\", \"es\": \"Subcategoría 2_2\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 114
+},
+
+{
+    "fields": {
         "keyword": "key_1",
         "translation": 1,
         "data": "{\"type\": \"char\"}"
@@ -49,5 +98,54 @@
     },
     "model": "configuration.key",
     "pk": 3
+},
+
+{
+    "fields": {
+        "keyword": "cat_1",
+        "translation": 101
+    },
+    "model": "configuration.category",
+    "pk": 1
+},
+{
+    "fields": {
+        "keyword": "cat_2",
+        "translation": 102
+    },
+    "model": "configuration.category",
+    "pk": 2
+},
+{
+    "fields": {
+        "keyword": "subcat_1_1",
+        "translation": 111
+    },
+    "model": "configuration.category",
+    "pk": 11
+},
+{
+    "fields": {
+        "keyword": "subcat_1_2",
+        "translation": 112
+    },
+    "model": "configuration.category",
+    "pk": 12
+},
+{
+    "fields": {
+        "keyword": "subcat_2_1",
+        "translation": 113
+    },
+    "model": "configuration.category",
+    "pk": 13
+},
+{
+    "fields": {
+        "keyword": "subcat_2_2",
+        "translation": 114
+    },
+    "model": "configuration.category",
+    "pk": 14
 }
 ]
