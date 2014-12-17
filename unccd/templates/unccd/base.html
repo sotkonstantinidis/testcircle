@@ -7,8 +7,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% trans "QCAT" %}</title>
+    <title>{% trans "UNCCD" %}</title>
 
+    <style media="screen" type="text/css">
+      ul.title-area {
+        background-color: #193E19;
+      }
+    </style>
     <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}" />
     <script src="{% static 'js/vendor/modernizr.js' %}"></script>
 
@@ -22,8 +27,8 @@
       <ul class="title-area">
         <li class="name">
           <h1>
-            <a href="{% url 'home' %}">
-              {% trans "QCAT" %}
+            <a href="{% url 'unccd_home' %}">
+              {% trans "UNCCD" %}
             </a>
           </h1>
         </li>
@@ -32,15 +37,15 @@
       <section class="top-bar-section">
         <ul class="left">
           <li class="divider"></li>
-          <li class="has-dropdown">
-            <a class="active" href="#">{% trans "Configurations" %}</a>
-            <ul class="dropdown">
-              <li><label>{% trans "Configurations" %}</label></li>
-              <li><a href="{% url 'unccd_home' %}">{% trans "UNCCD" %}</a></li>
-            </ul>
-          </li>
           <li>
-            <a href="{% url 'about' %}">{% trans "About" %}</a>
+            <a href="{% url 'home' %}">{% trans "QCAT" %}</a>
+          </li>
+          <li class="has-dropdown">
+            <a class="active" href="#">{% trans "Questionnaire" %}</a>
+            <ul class="dropdown">
+              <li><label>{% trans "Questionnaire" %}</label></li>
+              <li><a href="{% url 'questionnaire_new' %}">{% trans "New" %}</a></li>
+            </ul>
           </li>
         </ul>
         <ul class="right">

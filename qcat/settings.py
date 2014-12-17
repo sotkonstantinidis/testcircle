@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'questionnaire',
     'accounts',
     'configuration',
+    'unccd',
 )
 
 MIDDLEWARE_CLASSES = (
