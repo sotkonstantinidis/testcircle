@@ -11,7 +11,6 @@ urlpatterns = patterns(
     '',
     url(r'^new/(?P<step>.+)/$', questionnaireWizard,
         name='questionnaire_new_step'),
-    url(r'^new/$', questionnaireWizard, name='questionnaire_new'),
     url(r'^view/(\d+)/$', 'questionnaire.views.questionnaire_view',
         name='questionnaire_view'),
 )

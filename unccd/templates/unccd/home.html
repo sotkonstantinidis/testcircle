@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'unccd/base.html' %}
 
 {% load i18n %}
 
@@ -7,8 +7,8 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="panel">
-        <h5>Welcome to the brand new QCAT!</h5>
-        <p>This is just some sample content. So far, there is not much to do here. But stay tuned, more meaningful content is coming soon.</p>
+        <h5>Welcome to UNCCD part of QCAT!</h5>
+        <p>This is the section for the UNCCD configuration of the QCAT application. You can go back to <a href="{% url 'home' %}">QCAT</a> to select a different configuration.</p>
       </div>
     </div>
   </div>
@@ -16,9 +16,9 @@
   <div class="row" data-equalizer>
     <div class="large-6 columns">
       <div class="panel" data-equalizer-watch>
-        <h5>Configurations</h5>
-        <p>This is only the main landing page of QCAT, you might want to proceed to more specific configurations of QCAT. For the time being, the following configurations exist:</p>
-        <a href="{% url 'unccd_home' %}" class="button tiny">UNCCD</a>
+        <h5>New Questionnaire</h5>
+        <p>In the meantime, you might want to create a new Questionnaire.</p>
+        <a href="{% url 'unccd_questionnaire_new' %}" class="button tiny">New</a>
       </div>
     </div>
     <div class="large-2 columns">

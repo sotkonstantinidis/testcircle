@@ -12,6 +12,20 @@ Contents:
 Development
 -----------
 
+.. toctree::
+    :maxdepth: 2
+
+    development/installation
+    development/deployment
+    development/django
+
+QCAT is currently under heavy development. If you are interested in the
+progress of the development, have a look at the issues on the `Redmine`_
+page of the project. Or see the `List of ToDo's`_ for open issues.
+
+.. _Redmine: https://redmine.cde.unibe.ch/projects/unccd-bp/issues
+.. _List of ToDo's: todos.html
+
 Latest changes
 ~~~~~~~~~~~~~~
 
@@ -32,8 +46,8 @@ The code of QCAT can be found on `Github`_.
 .. _Github: https://github.com/CDE-UNIBE/qcat
 
 
-Documentation
-^^^^^^^^^^^^^
+Modules
+^^^^^^^
 
 .. toctree::
    :maxdepth: 2
@@ -49,3 +63,8 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+
+.. toctree::
+   :hidden:
+
+   todos
