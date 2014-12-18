@@ -25,6 +25,22 @@
 },
 {
     "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 4\", \"es\": \"Clave 4\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 4
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 5\", \"es\": \"Clave 5\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 5
+},
+{
+    "fields": {
         "translation_type": "category",
         "data": "{\"en\": \"Category 1\", \"es\": \"Categoría 1\"}"
     },
@@ -98,6 +114,24 @@
     },
     "model": "configuration.key",
     "pk": 3
+},
+{
+    "fields": {
+        "keyword": "key_4",
+        "translation": 4,
+        "data": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 4
+},
+{
+    "fields": {
+        "keyword": "key_5",
+        "translation": 5,
+        "data": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 5
 },
 
 {

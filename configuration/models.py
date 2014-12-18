@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.utils.translation import to_locale, get_language
 from django_pgjson.fields import JsonBField
 
 
@@ -32,8 +33,8 @@ class Key(models.Model):
     translation = models.ForeignKey('Translation')
     data = JsonBField(null=True)
 
-    def get_translation(self, locale):
-        return self.translation.data.get(locale)
+    def get_translation(self):
+        return self.translation.data.get(to_locale(get_language()))
 
 
 class Value(models.Model):
@@ -54,5 +55,5 @@ class Category(models.Model):
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey('Translation')
 
-    def get_translation(self, locale):
-        return self.translation.data.get(locale)
+    def get_translation(self):
+        return self.translation.data.get(to_locale(get_language()))

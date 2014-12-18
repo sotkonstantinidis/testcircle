@@ -15,8 +15,10 @@
             {% if questiongroup_formset.forms %}
               {{ questiongroup_formset.management_form }}
               {% for form in questiongroup_formset.forms %}
-                <div class='formfield'>{{ form }}</div>
-                <input class="button tiny secondary" type="button" value="{%trans 'Add More' %}" id="add_more" onclick="javascript:addFormset('div.formfield', 'TODO')" />
+                <div class="formfield {{questiongroup_formset.prefix}}">{{ form }}</div>
+                {% if questiongroup_formset.max_num > 1 %}
+                  <input class="button tiny secondary" type="button" value="{%trans 'Add More' %}" id="add_more" onclick="javascript:addFormset('{{ questiongroup_formset.prefix }}')" />
+                {% endif %}
               {% endfor %}
             {% else %}
               {{ questiongroup_formset }}

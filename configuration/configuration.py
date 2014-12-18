@@ -1,4 +1,5 @@
 from django import forms
+from django.template.loader import render_to_string
 
 from configuration.models import Category, Key
 from qcat.errors import (
@@ -6,10 +7,8 @@ from qcat.errors import (
     ConfigurationErrorInvalidOption,
 )
 
-LOCALE = 'en'  # TODO: Locale needed
 
-
-def read_configuration(code):
+def read_configuration(questionnaire_configuration, code):
     conf = {
         'categories': [
             {
@@ -36,6 +35,35 @@ def read_configuration(code):
                                 ]
                             }
                         ]
+                    }, {
+                        'keyword': 'subcat_1_2',
+                        'questiongroups': [
+                            {
+                                'keyword': 'qg_3',
+                                'questions': [
+                                    {
+                                        'key': 'key_4'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                'keyword': 'cat_2',
+                'subcategories': [
+                    {
+                        'keyword': 'subcat_2_1',
+                        'questiongroups': [
+                            {
+                                'keyword': 'qg_4',
+                                'questions': [
+                                    {
+                                        'key': 'key_5'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             }
@@ -56,24 +84,25 @@ def read_configuration(code):
                     Category, subcat.get('keyword'))
             questionnaire_subcategory = QuestionnaireSubcategory(subcategory)
             for qgroup in subcat.get('questiongroups', []):
-                questionset = QuestionnaireQuestionset(qgroup.get('keyword'))
+                questiongroup = QuestionnaireQuestiongroup(
+                    qgroup.get('keyword'))
                 for q in qgroup.get('questions', []):
                     try:
                         key = Key.objects.get(keyword=q.get('key'))
                     except Key.DoesNotExist:
                         raise ConfigurationErrorNotInDatabase(
                             Key, q.get('key'))
-                    questionset.add_question(QuestionnaireQuestion(key))
-                questionnaire_subcategory.add_questionset(questionset)
+                    questiongroup.add_question(QuestionnaireQuestion(key))
+                questionnaire_subcategory.add_questionset(questiongroup)
             questionnaire_category.add_subcategory(questionnaire_subcategory)
-    return questionnaire_category
+        questionnaire_configuration.add_category(questionnaire_category)
 
 
 class QuestionnaireQuestion(object):
 
     def __init__(self, key):
         self.keyword = key.keyword
-        self.label = key.get_translation(LOCALE)  # TODO: locale needed
+        self.label = key.get_translation()
         config = key.data
         self.field_type = config.get('type', 'char')
 
@@ -91,8 +120,20 @@ class QuestionnaireQuestion(object):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
 
+    def render_readonly_form(self, data={}):
+        if self.field_type == 'char':
+            d = data.get(self.keyword)
+            rendered = render_to_string(
+                'unccd/questionnaire/readonly/textinput.html', {
+                    'key': self.label,
+                    'value': d})
+            return rendered
+        else:
+            raise ConfigurationErrorInvalidOption(
+                self.field_type, 'type', self)
 
-class QuestionnaireQuestionset(object):
+
+class QuestionnaireQuestiongroup(object):
 
     def __init__(self, keyword):
         self.keyword = keyword
@@ -116,16 +157,26 @@ class QuestionnaireQuestionset(object):
 
         return FormSet(data, prefix=self.keyword)
 
+    def render_readonly_form(self, data=[]):
+        rendered_questions = []
+        for question in self.questions:
+            for d in data:
+                rendered_questions.append(question.render_readonly_form(d))
+        rendered = render_to_string(
+            'unccd/questionnaire/readonly/questiongroup.html', {
+                'questions': rendered_questions})
+        return rendered
+
 
 class QuestionnaireSubcategory(object):
 
     def __init__(self, subcategory):
         self.keyword = subcategory.keyword
-        self.label = subcategory.get_translation(LOCALE)  # TODO: locale needed
-        self.questionsets = []
+        self.label = subcategory.get_translation()
+        self.questiongroups = []
 
-    def add_questionset(self, questionset):
-        self.questionsets.append(questionset)
+    def add_questionset(self, questiongroup):
+        self.questiongroups.append(questiongroup)
 
     def get_form(self, data=None):
         """
@@ -135,19 +186,31 @@ class QuestionnaireSubcategory(object):
             forming a subcategory.
         """
         questionset_formsets = []
-        for questionset in self.questionsets:
-            questionset_formsets.append(questionset.get_form(data))
+        for questiongroup in self.questiongroups:
+            questionset_formsets.append(questiongroup.get_form(data))
         config = {
             'label': self.label
         }
         return config, questionset_formsets
+
+    def render_readonly_form(self, data={}):
+        rendered_questiongroups = []
+        for questiongroup in self.questiongroups:
+            questiongroup_data = data.get(questiongroup.keyword, [])
+            rendered_questiongroups.append(
+                questiongroup.render_readonly_form(questiongroup_data))
+        rendered = render_to_string(
+            'unccd/questionnaire/readonly/subcategory.html', {
+                'questiongroups': rendered_questiongroups,
+                'label': self.label})
+        return rendered
 
 
 class QuestionnaireCategory(object):
 
     def __init__(self, category):
         self.keyword = category.keyword
-        self.label = category.get_translation(LOCALE)  # TODO: locale needed
+        self.label = category.get_translation()
         self.subcategories = []
 
     def add_subcategory(self, subcategory):
@@ -166,3 +229,38 @@ class QuestionnaireCategory(object):
             'label': self.label
         }
         return config, subcategory_formsets
+
+    def render_readonly_form(self, data={}):
+        rendered_subcategories = []
+        for subcategory in self.subcategories:
+            rendered_subcategories.append(
+                subcategory.render_readonly_form(data))
+        rendered = render_to_string(
+            'unccd/questionnaire/readonly/category.html', {
+                'subcategories': rendered_subcategories,
+                'label': self.label,
+                'keyword': self.keyword})
+        return rendered
+
+
+class QuestionnaireConfiguration(object):
+
+    def __init__(self, keyword):
+        self.keyword = keyword
+        self.categories = []
+        read_configuration(self, keyword)
+
+    def add_category(self, category):
+        self.categories.append(category)
+
+    def get_category(self, keyword):
+        for category in self.categories:
+            if category.keyword == keyword:
+                return category
+        return None
+
+    def render_readonly_form(self, data={}):
+        rendered_categories = []
+        for category in self.categories:
+            rendered_categories.append(category.render_readonly_form(data))
+        return rendered_categories

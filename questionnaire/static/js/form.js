@@ -1,10 +1,12 @@
-function addFormset(selector, type) {
+function addFormset(keyword) {
     /**
         Inspired by: http://stackoverflow.com/a/669982/841644
     */
-    var newElement = $(selector+':last').clone(true);
-    var total = $(selector).length;
-    var max = $('#id_' + type + '-MAX_NUM_FORMS').val();
+    var formset_selector = '.' + keyword;
+    var newElement = $(formset_selector+':last').clone(true);
+    var total = $(formset_selector).length;
+    var y = '#id_' + keyword + '-MAX_NUM_FORMS';
+    var max = $('#id_' + keyword + '-MAX_NUM_FORMS').val();
     if (total >= max) return;
     newElement.find(':input').each(function() {
         var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
@@ -16,6 +18,6 @@ function addFormset(selector, type) {
         $(this).attr('for', newFor);
     });
     total++;
-    $('#id_' + type + '-TOTAL_FORMS').val(total);
-    $(selector).after(newElement);
+    $('#id_' + keyword + '-TOTAL_FORMS').val(total);
+    $(formset_selector).after(newElement);
 }
