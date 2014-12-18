@@ -1,17 +1,19 @@
 Django Snippets
 ===============
 
-.. role:: bash(code)
-   :language: bash
-
 A collection of useful Django snippets.
 
 Database migration
 ------------------
 
-    :bash:`(env)$ python3 manage.py makemigrations`
+To detect the latest changes made to the data model and create a script
+reflecting these changes, use::
 
-    :bash:`(env)$ python3 manage.py syncdb`
+    (env)$ python3 manage.py makemigrations
+
+To apply the created migration script to a database, run::
+
+    (env)$ python3 manage.py migrate
 
 
 Fixtures
@@ -20,17 +22,21 @@ Fixtures
 Create fixture from database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Usage:
-    :bash:`(env)$ python3 manage.py dumpdata [appname] --indent 4 > [file]`
+Usage::
 
-Example:
-    :bash:`(env)$ python3 manage.py dumpdata configuration --indent 4 > sample.json`
+    (env)$ python3 manage.py dumpdata [appname] --indent 4 > [file]
+
+Example::
+
+    (env)$ python3 manage.py dumpdata configuration --indent 4 > sample.json
 
 Load data from fixture
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Usage:
-    :bash:`(env)$ python3 manage.py loaddata [file]`
+Usage::
 
-Example:
-    :bash:`(env)$ python3 manage.py loaddata sample.json`
+    (env)$ python3 manage.py loaddata [file]
+
+Example::
+
+    (env)$ python3 manage.py loaddata sample.json

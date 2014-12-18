@@ -14,11 +14,12 @@ Development
 
 .. toctree::
     :maxdepth: 2
-    :glob:
 
-    development/*
+    development/installation
+    development/deployment
+    development/django
 
-QCAT is currently under development. If you are interested in the
+QCAT is currently under heavy development. If you are interested in the
 progress of the development, have a look at the issues on the `Redmine`_
 page of the project. Or see the `List of ToDo's`_ for open issues.
 
