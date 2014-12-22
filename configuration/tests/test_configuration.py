@@ -1,12 +1,16 @@
 from django.test import TestCase
-
-from configuration.configuration import read_configuration
+from configuration.configuration import (
+    read_configuration,
+    QuestionnaireConfiguration,
+)
 
 
 class ConfigurationConfigurationTest(TestCase):
 
-    fixtures = ['configuration/fixtures/sample.json']
+    fixtures = ['sample.json']
 
     def test_foo(self):
-        x = read_configuration()
+        # TODO
+        questionnaire_configuration = QuestionnaireConfiguration('unccd')
+        x = read_configuration(questionnaire_configuration, 'unccd')
         print (x)

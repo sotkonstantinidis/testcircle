@@ -16,6 +16,7 @@ Development
     :maxdepth: 2
 
     development/installation
+    development/testing
     development/deployment
     development/django
 

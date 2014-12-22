@@ -9,6 +9,7 @@ from qcat.errors import (
 
 
 def read_configuration(questionnaire_configuration, code):
+    # TODO: is code same as QuestionnaireConfiguration.keyword?
     conf = {
         'categories': [
             {
