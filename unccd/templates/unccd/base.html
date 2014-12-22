@@ -80,6 +80,12 @@
       </section>
     </nav>
 
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert-box{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 

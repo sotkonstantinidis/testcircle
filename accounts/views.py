@@ -3,6 +3,7 @@ from django.contrib.auth import (
     login as django_login,
     logout as django_logout,
 )
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -21,7 +22,6 @@ def login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('home'))
 
-    msg = None
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
@@ -34,11 +34,13 @@ def login(request):
                     return HttpResponseRedirect(request.GET['next'])
                 return HttpResponseRedirect(reverse('home'))
             else:
-                msg = _('The username and/or password you entered were not '
-                        'correct.')
+                messages.warning(
+                    request, _(
+                        'The username and/or password you entered were not '
+                        'correct.'))
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form, 'msg': msg})
+    return render(request, 'login.html', {'form': form})
 
 
 def logout(request):

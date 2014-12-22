@@ -121,7 +121,7 @@ class QuestionnaireQuestion(object):
                 self.field_type, 'type', self)
 
     def render_readonly_form(self, data={}):
-        if self.field_type == 'char':
+        if self.field_type in ['char', 'text']:
             d = data.get(self.keyword)
             rendered = render_to_string(
                 'unccd/questionnaire/readonly/textinput.html', {
@@ -135,14 +135,15 @@ class QuestionnaireQuestion(object):
 
 class QuestionnaireQuestiongroup(object):
 
-    def __init__(self, keyword):
+    def __init__(self, keyword, required=False):
         self.keyword = keyword
+        self.required = required
         self.questions = []
 
     def add_question(self, question):
         self.questions.append(question)
 
-    def get_form(self, data=None):
+    def get_form(self, post_data=None, initial_data=None):
         """
         Returns:
             ``forms.formset_factory``. A formset consisting of one or
@@ -153,9 +154,16 @@ class QuestionnaireQuestiongroup(object):
         for f in self.questions:
             formfields[f.keyword] = f.get_form()
         Form = type('Form', (forms.Form,), formfields)
-        FormSet = forms.formset_factory(Form, max_num=1)
+        if self.required is True:
+            FormSet = forms.formset_factory(
+                Form, formset=RequiredFormSet, max_num=1)
+        else:
+            FormSet = forms.formset_factory(Form, max_num=1)
 
-        return FormSet(data, prefix=self.keyword)
+        if initial_data and len(initial_data) == 1 and initial_data[0] == {}:
+            initial_data = None
+
+        return FormSet(post_data, prefix=self.keyword, initial=initial_data)
 
     def render_readonly_form(self, data=[]):
         rendered_questions = []
@@ -178,7 +186,7 @@ class QuestionnaireSubcategory(object):
     def add_questionset(self, questiongroup):
         self.questiongroups.append(questiongroup)
 
-    def get_form(self, data=None):
+    def get_form(self, post_data=None, initial_data={}):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -187,7 +195,9 @@ class QuestionnaireSubcategory(object):
         """
         questionset_formsets = []
         for questiongroup in self.questiongroups:
-            questionset_formsets.append(questiongroup.get_form(data))
+            questionset_initial_data = initial_data.get(questiongroup.keyword)
+            questionset_formsets.append(
+                questiongroup.get_form(post_data, questionset_initial_data))
         config = {
             'label': self.label
         }
@@ -216,7 +226,7 @@ class QuestionnaireCategory(object):
     def add_subcategory(self, subcategory):
         self.subcategories.append(subcategory)
 
-    def get_form(self, data=None):
+    def get_form(self, post_data=None, initial_data={}):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -224,7 +234,8 @@ class QuestionnaireCategory(object):
         """
         subcategory_formsets = []
         for subcategory in self.subcategories:
-            subcategory_formsets.append(subcategory.get_form(data))
+            subcategory_formsets.append(
+                subcategory.get_form(post_data, initial_data))
         config = {
             'label': self.label
         }
@@ -264,3 +275,10 @@ class QuestionnaireConfiguration(object):
         for category in self.categories:
             rendered_categories.append(category.render_readonly_form(data))
         return rendered_categories
+
+
+class RequiredFormSet(forms.BaseFormSet):
+    def __init__(self, *args, **kwargs):
+        super(RequiredFormSet, self).__init__(*args, **kwargs)
+        for form in self.forms:
+            form.empty_permitted = False
