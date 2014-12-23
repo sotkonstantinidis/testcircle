@@ -1,4 +1,4 @@
-from django.test import TestCase
+from qcat.tests import TestCase
 
 
 class HomePageTest(TestCase):

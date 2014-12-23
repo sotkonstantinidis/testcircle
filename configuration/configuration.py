@@ -8,97 +8,6 @@ from qcat.errors import (
 )
 
 
-def read_configuration(questionnaire_configuration, code):
-    # TODO: is code same as QuestionnaireConfiguration.keyword?
-    conf = {
-        'categories': [
-            {
-                'keyword': 'cat_1',
-                'subcategories': [
-                    {
-                        'keyword': 'subcat_1_1',
-                        'questiongroups': [
-                            {
-                                'keyword': 'qg_1',
-                                'questions': [
-                                    {
-                                        'key': 'key_1'
-                                    }, {
-                                        'key': 'key_3'
-                                    }
-                                ]
-                            }, {
-                                'keyword': 'qg_2',
-                                'questions': [
-                                    {
-                                        'key': 'key_2'
-                                    }
-                                ]
-                            }
-                        ]
-                    }, {
-                        'keyword': 'subcat_1_2',
-                        'questiongroups': [
-                            {
-                                'keyword': 'qg_3',
-                                'questions': [
-                                    {
-                                        'key': 'key_4'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }, {
-                'keyword': 'cat_2',
-                'subcategories': [
-                    {
-                        'keyword': 'subcat_2_1',
-                        'questiongroups': [
-                            {
-                                'keyword': 'qg_4',
-                                'questions': [
-                                    {
-                                        'key': 'key_5'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-    for cat in conf.get('categories', []):
-        try:
-            category = Category.objects.get(keyword=cat.get('keyword'))
-        except Category.DoesNotExist:
-            raise ConfigurationErrorNotInDatabase(Category, cat.get('keyword'))
-        questionnaire_category = QuestionnaireCategory(category)
-        for subcat in cat.get('subcategories', []):
-            try:
-                subcategory = Category.objects.get(
-                    keyword=subcat.get('keyword'))
-            except Category.DoesNotExist:
-                raise ConfigurationErrorNotInDatabase(
-                    Category, subcat.get('keyword'))
-            questionnaire_subcategory = QuestionnaireSubcategory(subcategory)
-            for qgroup in subcat.get('questiongroups', []):
-                questiongroup = QuestionnaireQuestiongroup(
-                    qgroup.get('keyword'))
-                for q in qgroup.get('questions', []):
-                    try:
-                        key = Key.objects.get(keyword=q.get('key'))
-                    except Key.DoesNotExist:
-                        raise ConfigurationErrorNotInDatabase(
-                            Key, q.get('key'))
-                    questiongroup.add_question(QuestionnaireQuestion(key))
-                questionnaire_subcategory.add_questionset(questiongroup)
-            questionnaire_category.add_subcategory(questionnaire_subcategory)
-        questionnaire_configuration.add_category(questionnaire_category)
-
-
 class QuestionnaireQuestion(object):
 
     def __init__(self, key):
@@ -260,7 +169,7 @@ class QuestionnaireConfiguration(object):
     def __init__(self, keyword):
         self.keyword = keyword
         self.categories = []
-        read_configuration(self, keyword)
+        self.read_configuration()
 
     def add_category(self, category):
         self.categories.append(category)
@@ -276,6 +185,98 @@ class QuestionnaireConfiguration(object):
         for category in self.categories:
             rendered_categories.append(category.render_readonly_form(data))
         return rendered_categories
+
+    def read_configuration(self):
+        conf = {
+            'categories': [
+                {
+                    'keyword': 'cat_1',
+                    'subcategories': [
+                        {
+                            'keyword': 'subcat_1_1',
+                            'questiongroups': [
+                                {
+                                    'keyword': 'qg_1',
+                                    'questions': [
+                                        {
+                                            'key': 'key_1'
+                                        }, {
+                                            'key': 'key_3'
+                                        }
+                                    ]
+                                }, {
+                                    'keyword': 'qg_2',
+                                    'questions': [
+                                        {
+                                            'key': 'key_2'
+                                        }
+                                    ]
+                                }
+                            ]
+                        }, {
+                            'keyword': 'subcat_1_2',
+                            'questiongroups': [
+                                {
+                                    'keyword': 'qg_3',
+                                    'questions': [
+                                        {
+                                            'key': 'key_4'
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }, {
+                    'keyword': 'cat_2',
+                    'subcategories': [
+                        {
+                            'keyword': 'subcat_2_1',
+                            'questiongroups': [
+                                {
+                                    'keyword': 'qg_4',
+                                    'questions': [
+                                        {
+                                            'key': 'key_5'
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+        for cat in conf.get('categories', []):
+            try:
+                category = Category.objects.get(keyword=cat.get('keyword'))
+            except Category.DoesNotExist:
+                raise ConfigurationErrorNotInDatabase(
+                    Category, cat.get('keyword'))
+            questionnaire_category = QuestionnaireCategory(category)
+            for subcat in cat.get('subcategories', []):
+                try:
+                    subcategory = Category.objects.get(
+                        keyword=subcat.get('keyword'))
+                except Category.DoesNotExist:
+                    raise ConfigurationErrorNotInDatabase(
+                        Category, subcat.get('keyword'))
+                questionnaire_subcategory = QuestionnaireSubcategory(
+                    subcategory)
+                for qgroup in subcat.get('questiongroups', []):
+                    questiongroup = QuestionnaireQuestiongroup(
+                        qgroup.get('keyword'))
+                    for q in qgroup.get('questions', []):
+                        try:
+                            key = Key.objects.get(keyword=q.get('key'))
+                        except Key.DoesNotExist:
+                            raise ConfigurationErrorNotInDatabase(
+                                Key, q.get('key'))
+                        questiongroup.add_question(QuestionnaireQuestion(key))
+                    questionnaire_subcategory.add_questionset(questiongroup)
+                questionnaire_category.add_subcategory(
+                    questionnaire_subcategory)
+            self.add_category(questionnaire_category)
 
 
 class RequiredFormSet(forms.BaseFormSet):

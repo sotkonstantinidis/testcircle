@@ -1,8 +1,8 @@
-from django.test import TestCase
 from configuration.configuration import (
-    read_configuration,
+    # read_configuration,
     QuestionnaireConfiguration,
 )
+from qcat.tests import TestCase
 
 
 class ConfigurationConfigurationTest(TestCase):
@@ -12,5 +12,5 @@ class ConfigurationConfigurationTest(TestCase):
     def test_foo(self):
         # TODO
         questionnaire_configuration = QuestionnaireConfiguration('unccd')
-        x = read_configuration(questionnaire_configuration, 'unccd')
-        print (x)
+        # x = read_configuration(questionnaire_configuration, 'unccd')
+        # print (x)

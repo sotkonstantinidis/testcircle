@@ -19,6 +19,14 @@ Run only selected tests based on file path::
 
     (env)$ python3 manage.py test functional_tests.test_login
 
+Run only selected tests based on attribute::
+
+    (env)$ python3 manage.py test --attr=unit
+
+    (env)$ python3 manage.py test --attr='!functional'
+
+The following attributes are available: ``unit``, ``functional``.
+
 
 Coverage
 --------

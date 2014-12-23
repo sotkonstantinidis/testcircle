@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.core.urlresolvers import reverse
-from django.test import TestCase
 from unittest.mock import patch
+
+from qcat.tests import TestCase
 
 loginRouteName = 'login'
 logoutRouteName = 'logout'
