@@ -31,10 +31,10 @@ class WocatAuthenticationBackend(object):
 
         return user
 
-    def get_user(self, email):
+    def get_user(self, user_id):
         User = get_user_model()
         try:
-            return User.objects.get(email=email)
+            return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
 
