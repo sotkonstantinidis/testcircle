@@ -3,7 +3,7 @@ from qcat.tests import TestCase
 
 class HomePageTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     def test_home_page_renders_correct_template(self):
         res = self.client.get('/')

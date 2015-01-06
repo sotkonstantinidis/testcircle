@@ -30,6 +30,11 @@ Example::
 
     (env)$ python3 manage.py dumpdata configuration --indent 4 > sample.json
 
+Use the flag ``-n`` if you don't want to include primary keys in the
+fixture::
+
+    (env)$ python3 manage.py dumpdata -n --indent 4 auth.Group > accounts/fixtures/initial_data.json
+
 Load data from fixture
 ~~~~~~~~~~~~~~~~~~~~~~
 

@@ -54,6 +54,10 @@ Let Django create the database tables for you::
 
     (env)$ python3 manage.py migrate
 
+Load the groups and permissions::
+
+    (env)$ python3 manage.py loaddata groups_permissions.json
+
 Run the application::
 
     (env)$ python3 manage.py runserver

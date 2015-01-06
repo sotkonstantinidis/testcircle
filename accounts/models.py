@@ -25,6 +25,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=100, null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     @property
     def is_active(self):
         """
@@ -47,6 +50,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         The following users have access to the administration interface:
 
             * Superusers (``is_superuser`` set to True)
+            * Members of the following :term:`User Groups`:
+                * :ref:`usergroups-administrators`
 
         Returns:
             ``bool``. Returns ``True`` if a user can access the
@@ -54,10 +59,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         if self.is_superuser is True:
             return True
+        for group in self.groups.all():
+            if group.name in ['Administrators']:
+                return True
         return False
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
     def get_full_name(self):
         """

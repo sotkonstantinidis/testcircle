@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 
 from accounts.connection import get_connection
 
 
-class WocatAuthenticationBackend(object):
+class WocatAuthenticationBackend(ModelBackend):
     """
     The class to handle the authentication through :term:`WOCAT`.
     """

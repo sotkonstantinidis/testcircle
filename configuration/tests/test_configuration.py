@@ -7,7 +7,7 @@ from qcat.tests import TestCase
 
 class ConfigurationConfigurationTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     def test_foo(self):
         # TODO

@@ -13,7 +13,7 @@ aboutRouteName = 'about'
 
 class LoginTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     def test_login_renders_correct_template(self):
         res = self.client.get(reverse(loginRouteName))
@@ -49,7 +49,7 @@ class LoginTest(TestCase):
 
 class LogoutTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
     def test_logout_redirects_to_home(self, mock_do_auth):

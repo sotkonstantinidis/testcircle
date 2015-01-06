@@ -1,8 +1,23 @@
+from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.core.exceptions import ValidationError
 
 from qcat.tests import TestCase
+
+
+class UserModelTestWithFixtures(TestCase):
+    fixtures = ['groups_permissions.json']
+
+    def test_administrator_is_staff(self):
+        user = User.create_new(email='a@b.com', name='foo')
+        user.groups.add(Group.objects.get(name='Administrators'))
+        self.assertTrue(user.is_staff)
+
+    def test_translator_is_not_staff(self):
+        user = User.create_new(email='a@b.com', name='foo')
+        user.groups.add(Group.objects.get(name='Translators'))
+        self.assertFalse(user.is_staff)
 
 
 class UserModelTest(TestCase):
@@ -30,7 +45,7 @@ class UserModelTest(TestCase):
         self.assertTrue(user.is_active)
 
     def test_is_not_staff(self):
-        user = User()
+        user = User.create_new(email='a@b.com', name='foo')
         self.assertFalse(user.is_staff)
 
     def test_superuser_is_staff(self):

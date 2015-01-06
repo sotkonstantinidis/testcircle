@@ -27,6 +27,11 @@ Run only selected tests based on attribute::
 
 The following attributes are available: ``unit``, ``functional``.
 
+To disable the output of logging information, use the flag
+``--nologcapture``::
+
+    (env)$ python3 manage.py test --nologcapture
+
 
 Coverage
 --------

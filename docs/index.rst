@@ -4,9 +4,9 @@ Welcome to QCAT's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   glossary
+    glossary
 
 
 Development
@@ -16,6 +16,7 @@ Development
     :maxdepth: 2
 
     development/installation
+    development/usergroups
     development/testing
     development/deployment
     development/django
