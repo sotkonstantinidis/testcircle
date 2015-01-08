@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('keyword', models.CharField(unique=True, max_length=63)),
             ],
             options={
@@ -24,13 +24,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Configuration',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('data', django_pgjson.fields.JsonBField()),
-                ('code', models.CharField(max_length=63)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('data', django_pgjson.fields.JsonBField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong style="color:red;">Warning!</strong> You should not\n            edit existing JSON configurations directly. Instead, create\n            a new version and edit there.<br/><strong>Hint</strong>: Use\n            <a href="https://jqplay.org/">jq play</a> to format your\n            JSON.')),
+                ('code', models.CharField(help_text='\n            The internal code of the configuration, e.g. "core", "wocat"\n            or "unccd". The same code can be used multiple times but\n            only one configuration per code can be "active".', max_length=63)),
+                ('base_code', models.CharField(help_text='\n            The code of the base configuration from which the\n            configuration inherits. An active configuration with the\n            given code needs to exist.', blank=True, max_length=63)),
                 ('name', models.CharField(max_length=255)),
-                ('description', models.TextField(null=True)),
+                ('description', models.TextField(blank=True, null=True)),
                 ('created', models.DateTimeField(auto_now=True)),
-                ('activated', models.DateTimeField(null=True)),
+                ('active', models.BooleanField(help_text='\n            <strong style="color:red;">Warning!</strong> Only one\n            configuration per code can be active. If you set this\n            configuration "active", an existing configuration with the\n            same code will be set inactive.', default=False)),
+                ('activated', models.DateTimeField(blank=True, null=True)),
             ],
             options={
             },
@@ -39,7 +41,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Key',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('keyword', models.CharField(unique=True, max_length=63)),
                 ('data', django_pgjson.fields.JsonBField(null=True)),
             ],
@@ -50,7 +52,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Translation',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('translation_type', models.CharField(max_length=63)),
                 ('data', django_pgjson.fields.JsonBField()),
             ],
@@ -61,7 +63,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Value',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('keyword', models.CharField(unique=True, max_length=63)),
                 ('key', models.ForeignKey(to='configuration.Key')),
                 ('translation', models.ForeignKey(to='configuration.Translation')),

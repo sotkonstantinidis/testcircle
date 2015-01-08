@@ -8,8 +8,10 @@ from accounts.models import User
 
 class CustomUserChangeForm(forms.ModelForm):
     """
-    A form for updating users.
+    The form to update a :class:`accounts.models.User` in the
+    administration interface.
     """
+
     def clean_password(self):
         """
         A stub function to prevent errors when validating the form.
@@ -18,27 +20,31 @@ class CustomUserChangeForm(forms.ModelForm):
 
 
 class UserAdmin(auth_admin.UserAdmin):
+    """
+    The representation of :class:`accounts.models.User` in the
+    administration interface.
+    """
     form = CustomUserChangeForm
 
     list_display = (
         'email', 'name', 'id', 'is_superuser', 'date_joined', 'last_login')
     list_filter = ('is_superuser', 'groups')
+    search_fields = ('email',)
+    ordering = ('email',)
+    filter_horizontal = ('groups',)
 
-    readonly_fields = ('email',)
     fieldsets = (
         (None, {'fields': ('email', 'name')}),
         ('Permissions', {'fields': ('is_superuser', 'groups')}),
     )
-
-    search_fields = ('email',)
-    ordering = ('email',)
-    filter_horizontal = ('groups',)
+    readonly_fields = ('email',)
 
     # No new users can be added.
     def has_add_permission(self, request):
         return False
 
+admin.site.register(User, UserAdmin)
+
+
 # Groups cannot be managed by the admin interface
 admin.site.unregister(Group)
-
-admin.site.register(User, UserAdmin)

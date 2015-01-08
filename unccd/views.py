@@ -4,15 +4,22 @@ from django.contrib import messages
 
 from configuration.configuration import QuestionnaireConfiguration
 
-questionnaire_configuration = QuestionnaireConfiguration('unccd')
-
 
 def home(request):
+
+    # TODO: Show this warning here? Or in Admin?
+    questionnaire_configuration = QuestionnaireConfiguration('unccd')
+    if questionnaire_configuration.configuration_error is not None:
+        messages.error(
+            request, 'WARNING: INVALID CONFIGURATION. {}'.format(
+                questionnaire_configuration.configuration_error))
+
     return render(request, 'unccd/home.html')
 
 
 def questionnaire_new_step(request, step):
 
+    questionnaire_configuration = QuestionnaireConfiguration('unccd')
     category = questionnaire_configuration.get_category(step)
 
     if category is None:
@@ -60,6 +67,8 @@ def questionnaire_new_step(request, step):
 def questionnaire_new(request):
 
     # request.session.clear()
+
+    questionnaire_configuration = QuestionnaireConfiguration('unccd')
 
     # data = {
     #     "qg_1": [

@@ -9,6 +9,15 @@ Contents:
     glossary
 
 
+Configuration
+-------------
+
+.. toctree::
+    :maxdepth: 2
+
+    configuration/questionnaire
+
+
 Development
 -----------
 

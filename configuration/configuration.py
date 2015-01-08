@@ -1,20 +1,72 @@
 from django import forms
 from django.template.loader import render_to_string
 
-from configuration.models import Category, Key
+from configuration.models import (
+    Category,
+    Configuration,
+    Key,
+)
 from qcat.errors import (
-    ConfigurationErrorNotInDatabase,
+    ConfigurationErrorInvalidConfiguration,
     ConfigurationErrorInvalidOption,
+    ConfigurationErrorNoConfigurationFound,
+    ConfigurationErrorNotInDatabase,
 )
 
 
 class QuestionnaireQuestion(object):
+    """
+    A class representing the configuration of a Question of the
+    Questionnaire. A Question basically consists of the Key and optional
+    Values (for Questions with predefined Answers)
+    """
 
-    def __init__(self, key):
-        self.keyword = key.keyword
+    def __init__(self, configuration):
+        """
+        Parameter ``configuration`` is a dict containing the
+        configuration of the Question. It needs to have the following
+        format::
+
+          {
+            # The key of the question.
+            "key": "KEY"
+          }
+
+        .. seealso::
+            :doc:`/configuration/questionnaire`
+
+        Throws:
+            ``ConfigurationErrorInvalidConfiguration``,
+            ``ConfigurationErrorNotInDatabase``.
+        """
+        valid_options = [
+            'key',
+        ]
+
+        if not isinstance(configuration, dict):
+            raise ConfigurationErrorInvalidConfiguration(
+                'questions', 'list of dicts', 'questions')
+
+        invalid_options = list(set(configuration) - set(valid_options))
+        if len(invalid_options) > 0:
+            raise ConfigurationErrorInvalidOption(
+                invalid_options[0], configuration, self)
+
+        key = configuration.get('key')
+        if not isinstance(key, str):
+            raise ConfigurationErrorInvalidConfiguration(
+                'key', 'str', 'questions')
+
+        try:
+            key = Key.objects.get(keyword=key)
+        except Key.DoesNotExist:
+            raise ConfigurationErrorNotInDatabase(Key, key)
+
+        self.key_object = key
+        self.key_config = key.data
+        self.field_type = self.key_config.get('type', 'char')
         self.label = key.get_translation()
-        config = key.data
-        self.field_type = config.get('type', 'char')
+        self.keyword = key
 
     def get_form(self):
         """
@@ -44,14 +96,71 @@ class QuestionnaireQuestion(object):
 
 
 class QuestionnaireQuestiongroup(object):
+    """
+    A class representing the configuration of a Questiongroup of the
+    Questionnaire.
+    """
 
-    def __init__(self, keyword, required=False):
+    def __init__(self, configuration):
+        """
+        Parameter ``configuration`` is a dict containing the
+        configuration of the Questiongroup. It needs to have the
+        following format::
+
+          {
+            # The keyword of the questiongroup.
+            "keyword": "QUESTIONGROUP_KEYWORD",
+
+            # See class QuestionnaireQuestion for the format of
+            # questions.
+            "questions": [
+              # ...
+            ]
+          }
+
+        .. seealso::
+            :class:`configuration.configuration.QuestionnaireQuestion`
+
+        .. seealso::
+            :doc:`/configuration/questionnaire`
+
+        Throws:
+            ``ConfigurationErrorInvalidConfiguration``.
+        """
+        valid_options = [
+            'keyword',
+            'questions',
+        ]
+
+        if not isinstance(configuration, dict):
+            raise ConfigurationErrorInvalidConfiguration(
+                'questiongroups', 'list of dicts', 'subcategories')
+
+        invalid_options = list(set(configuration) - set(valid_options))
+        if len(invalid_options) > 0:
+            raise ConfigurationErrorInvalidOption(
+                invalid_options[0], configuration, self)
+
+        keyword = configuration.get('keyword')
+        if not isinstance(keyword, str):
+            raise ConfigurationErrorInvalidConfiguration(
+                'keyword', 'str', 'questiongroups')
+
+        questions = []
+        conf_questions = configuration.get('questions', [])
+        if (not isinstance(conf_questions, list) or len(conf_questions) == 0):
+            raise ConfigurationErrorInvalidConfiguration(
+                'questions', 'list of dicts', 'questiongroups')
+
+        for conf_question in conf_questions:
+            questions.append(QuestionnaireQuestion(conf_question))
+
         self.keyword = keyword
-        self.required = required
-        self.questions = []
+        self.configuration = configuration
+        self.questions = questions
 
-    def add_question(self, question):
-        self.questions.append(question)
+        # TODO
+        self.required = False
 
     def get_form(self, post_data=None, initial_data=None):
         """
@@ -87,14 +196,78 @@ class QuestionnaireQuestiongroup(object):
 
 
 class QuestionnaireSubcategory(object):
+    """
+    A class representing the configuration of a Subcategory of the
+    Questionnaire.
+    """
 
-    def __init__(self, subcategory):
-        self.keyword = subcategory.keyword
+    def __init__(self, configuration):
+        """
+        Parameter ``configuration`` is a dict containing the
+        configuration of the Subcategory. It needs to have the following
+        format::
+
+          {
+            # The keyword of the subcategory.
+            "keyword": "SUBCAT_KEYWORD",
+
+            # See class QuestionnaireQuestiongroup for the format of
+            # questiongroups.
+            "questiongroups": [
+              # ...
+            ]
+          }
+
+        .. seealso::
+            :class:`configuration.configuration.QuestionnaireQuestiongroup`
+
+        .. seealso::
+            :doc:`/configuration/questionnaire`
+
+        Throws:
+            ``ConfigurationErrorInvalidConfiguration``,
+            ``ConfigurationErrorNotInDatabase``.
+        """
+        valid_options = [
+            'keyword',
+            'questiongroups',
+        ]
+
+        if not isinstance(configuration, dict):
+            raise ConfigurationErrorInvalidConfiguration(
+                'subcategories', 'list of dicts', 'categories')
+
+        invalid_options = list(set(configuration) - set(valid_options))
+        if len(invalid_options) > 0:
+            raise ConfigurationErrorInvalidOption(
+                invalid_options[0], configuration, self)
+
+        keyword = configuration.get('keyword')
+        if not isinstance(keyword, str):
+            raise ConfigurationErrorInvalidConfiguration(
+                'keyword', 'str', 'subcategories')
+
+        try:
+            subcategory = Category.objects.get(keyword=keyword)
+        except Category.DoesNotExist:
+            raise ConfigurationErrorNotInDatabase(Category, keyword)
+
+        questiongroups = []
+        conf_questiongroups = configuration.get('questiongroups', [])
+        if (not isinstance(conf_questiongroups, list)
+                or len(conf_questiongroups) == 0):
+            raise ConfigurationErrorInvalidConfiguration(
+                'questiongroups', 'list of dicts', 'subcategories')
+
+        for conf_questiongroup in conf_questiongroups:
+            questiongroups.append(
+                QuestionnaireQuestiongroup(conf_questiongroup))
+
+        self.keyword = keyword
+        self.configuration = configuration
+        self.questiongroups = questiongroups
+        self.object = subcategory
         self.label = subcategory.get_translation()
-        self.questiongroups = []
-
-    def add_questionset(self, questiongroup):
-        self.questiongroups.append(questiongroup)
 
     def get_form(self, post_data=None, initial_data={}):
         """
@@ -127,14 +300,77 @@ class QuestionnaireSubcategory(object):
 
 
 class QuestionnaireCategory(object):
+    """
+    A class representing the configuration of a Category of the
+    Questionnaire.
+    """
 
-    def __init__(self, category):
-        self.keyword = category.keyword
+    def __init__(self, configuration):
+        """
+        Parameter ``configuration`` is a ``dict`` containing the
+        configuration of the Category. It needs to have the following
+        format::
+
+          {
+            # The keyword of the category.
+            "keyword": "CAT_KEYWORD",
+
+            # See class QuestionnaireSubcategory for the format of
+            # subcategories.
+            "subcategories": [
+              # ...
+            ]
+          }
+
+        .. seealso::
+            :class:`configuration.configuration.QuestionnaireSubcategory`
+
+        .. seealso::
+            :doc:`/configuration/questionnaire`
+
+        Throws:
+            ``ConfigurationErrorInvalidConfiguration``,
+            ``ConfigurationErrorNotInDatabase``.
+        """
+        valid_options = [
+            'keyword',
+            'subcategories',
+        ]
+
+        if not isinstance(configuration, dict):
+            raise ConfigurationErrorInvalidConfiguration(
+                'categories', 'list of dicts', '-')
+
+        invalid_options = list(set(configuration) - set(valid_options))
+        if len(invalid_options) > 0:
+            raise ConfigurationErrorInvalidOption(
+                invalid_options[0], configuration, self)
+
+        keyword = configuration.get('keyword')
+        if not isinstance(keyword, str):
+            raise ConfigurationErrorInvalidConfiguration(
+                'keyword', 'str', 'categories')
+
+        try:
+            category = Category.objects.get(keyword=keyword)
+        except Category.DoesNotExist:
+            raise ConfigurationErrorNotInDatabase(Category, keyword)
+
+        subcategories = []
+        conf_subcategories = configuration.get('subcategories', [])
+        if (not isinstance(conf_subcategories, list)
+                or len(conf_subcategories) == 0):
+            raise ConfigurationErrorInvalidConfiguration(
+                'subcategories', 'list of dicts', 'categories')
+
+        for conf_subcategory in conf_subcategories:
+            subcategories.append(QuestionnaireSubcategory(conf_subcategory))
+
+        self.keyword = keyword
+        self.configuration = configuration
+        self.subcategories = subcategories
+        self.object = category
         self.label = category.get_translation()
-        self.subcategories = []
-
-    def add_subcategory(self, subcategory):
-        self.subcategories.append(subcategory)
 
     def get_form(self, post_data=None, initial_data={}):
         """
@@ -165,11 +401,26 @@ class QuestionnaireCategory(object):
 
 
 class QuestionnaireConfiguration(object):
+    """
+    TODO
+    """
 
-    def __init__(self, keyword):
+    def __init__(self, keyword, configuration_object=None):
         self.keyword = keyword
         self.categories = []
-        self.read_configuration()
+        self.configuration_object = configuration_object
+        if self.configuration_object is None:
+            self.configuration_object = Configuration.get_active_by_code(
+                self.keyword)
+        self.configuration_error = None
+        try:
+            self.read_configuration()
+        except Exception as e:
+            self.configuration_error = e
+        # if keyword is None:
+        #     self.valid_configuration = False
+        # else:
+        #     self.read_configuration()
 
     def add_category(self, category):
         self.categories.append(category)
@@ -187,96 +438,52 @@ class QuestionnaireConfiguration(object):
         return rendered_categories
 
     def read_configuration(self):
-        conf = {
-            'categories': [
-                {
-                    'keyword': 'cat_1',
-                    'subcategories': [
-                        {
-                            'keyword': 'subcat_1_1',
-                            'questiongroups': [
-                                {
-                                    'keyword': 'qg_1',
-                                    'questions': [
-                                        {
-                                            'key': 'key_1'
-                                        }, {
-                                            'key': 'key_3'
-                                        }
-                                    ]
-                                }, {
-                                    'keyword': 'qg_2',
-                                    'questions': [
-                                        {
-                                            'key': 'key_2'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }, {
-                            'keyword': 'subcat_1_2',
-                            'questiongroups': [
-                                {
-                                    'keyword': 'qg_3',
-                                    'questions': [
-                                        {
-                                            'key': 'key_4'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }, {
-                    'keyword': 'cat_2',
-                    'subcategories': [
-                        {
-                            'keyword': 'subcat_2_1',
-                            'questiongroups': [
-                                {
-                                    'keyword': 'qg_4',
-                                    'questions': [
-                                        {
-                                            'key': 'key_5'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
+        """
+        This function reads an active configuration of a Questionnaire.
+        If a configuration is found, it loads the configuration of all
+        its categories.
+
+        The configuration of the questionnaire needs to have the
+        following format::
+
+          {
+            # See class QuestionnaireCategory for the format of categories.
+            "categories": [
+              # ...
             ]
-        }
-        for cat in conf.get('categories', []):
-            try:
-                category = Category.objects.get(keyword=cat.get('keyword'))
-            except Category.DoesNotExist:
-                raise ConfigurationErrorNotInDatabase(
-                    Category, cat.get('keyword'))
-            questionnaire_category = QuestionnaireCategory(category)
-            for subcat in cat.get('subcategories', []):
-                try:
-                    subcategory = Category.objects.get(
-                        keyword=subcat.get('keyword'))
-                except Category.DoesNotExist:
-                    raise ConfigurationErrorNotInDatabase(
-                        Category, subcat.get('keyword'))
-                questionnaire_subcategory = QuestionnaireSubcategory(
-                    subcategory)
-                for qgroup in subcat.get('questiongroups', []):
-                    questiongroup = QuestionnaireQuestiongroup(
-                        qgroup.get('keyword'))
-                    for q in qgroup.get('questions', []):
-                        try:
-                            key = Key.objects.get(keyword=q.get('key'))
-                        except Key.DoesNotExist:
-                            raise ConfigurationErrorNotInDatabase(
-                                Key, q.get('key'))
-                        questiongroup.add_question(QuestionnaireQuestion(key))
-                    questionnaire_subcategory.add_questionset(questiongroup)
-                questionnaire_category.add_subcategory(
-                    questionnaire_subcategory)
-            self.add_category(questionnaire_category)
+          }
+
+        .. seealso::
+            :class:`configuration.configuration.QuestionnaireCategory`
+
+        .. seealso::
+            :doc:`/configuration/questionnaire`
+
+        Throws:
+            ``ConfigurationErrorInvalidConfiguration``,
+            ``ConfigurationErrorNoConfigurationFound``.
+        """
+        if self.configuration_object is None:
+            raise ConfigurationErrorNoConfigurationFound(self.keyword)
+
+        valid_options = [
+            'categories',
+        ]
+
+        self.configuration = self.configuration_object.data
+
+        invalid_options = list(set(self.configuration) - set(valid_options))
+        if len(invalid_options) > 0:
+            raise ConfigurationErrorInvalidOption(
+                invalid_options[0], self.configuration, self)
+
+        conf_categories = self.configuration.get('categories', [])
+        if not isinstance(conf_categories, list) or len(conf_categories) == 0:
+            raise ConfigurationErrorInvalidConfiguration(
+                'categories', 'list of dicts', '-')
+        for conf_category in conf_categories:
+
+            self.add_category(QuestionnaireCategory(conf_category))
 
 
 class RequiredFormSet(forms.BaseFormSet):

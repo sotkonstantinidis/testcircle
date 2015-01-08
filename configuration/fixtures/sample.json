@@ -181,5 +181,20 @@
     },
     "model": "configuration.category",
     "pk": 14
+},
+
+{
+    "pk": 1,
+    "fields": {
+        "code": "sample",
+        "description": "Description of Sample Configuration",
+        "active": true,
+        "activated": "2015-01-08T10:12:59.337Z",
+        "data": "{\"categories\": [{\"keyword\": \"cat_1\", \"subcategories\": [{\"keyword\": \"subcat_1_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_1\"}, {\"key\": \"key_3\"}], \"keyword\": \"qg_1\"}, {\"questions\": [{\"key\": \"key_2\"}], \"keyword\": \"qg_2\"}]}, {\"keyword\": \"subcat_1_2\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_4\"}], \"keyword\": \"qg_3\"}]}]}, {\"keyword\": \"cat_2\", \"subcategories\": [{\"keyword\": \"subcat_2_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_5\"}], \"keyword\": \"qg_4\"}]}]}]}",
+        "created": "2015-01-08T10:12:59.337Z",
+        "base_code": "",
+        "name": "Sample Configuration"
+    },
+    "model": "configuration.configuration"
 }
 ]

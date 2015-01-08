@@ -44,6 +44,11 @@
           </li>
         </ul>
         <ul class="right">
+          {% if user.is_staff %}
+            <li>
+              <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
+            </li>
+          {% endif %}
           <li>
             {% if user.is_authenticated %}
               <a href="{% url 'logout' %}">{% trans "Logout" %}</a>

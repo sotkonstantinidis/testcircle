@@ -278,3 +278,6 @@ texinfo_documents = [
 #texinfo_no_detailmenu = False
 
 todo_include_todos = True
+
+# Include documentation of __init__ functions.
+autoclass_content = 'both'

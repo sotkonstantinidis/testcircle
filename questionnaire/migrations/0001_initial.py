@@ -2,26 +2,26 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
-import django_pgjson.fields
 import uuidfield.fields
+import django_pgjson.fields
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('configuration', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('configuration', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Questionnaire',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now=True)),
-                ('uuid', uuidfield.fields.UUIDField(unique=True, editable=False, max_length=32, blank=True)),
+                ('uuid', uuidfield.fields.UUIDField(editable=False, blank=True, unique=True, max_length=32)),
                 ('blocked', models.BooleanField(default=False)),
             ],
             options={
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireMembership',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('questionnaire', models.ForeignKey(to='questionnaire.Questionnaire')),
             ],
             options={
@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireRole',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('keyword', models.CharField(unique=True, max_length=63)),
                 ('description', models.TextField(null=True)),
             ],
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now=True)),
                 ('version', models.IntegerField()),
@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Status',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('keyword', models.CharField(unique=True, max_length=63)),
                 ('description', models.TextField(null=True)),
             ],
