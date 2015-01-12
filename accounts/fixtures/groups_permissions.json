@@ -3,9 +3,9 @@
     "fields": {
         "name": "Translators",
         "permissions": [
-            22,
-            23,
-            24
+            37,
+            38,
+            39
         ]
     },
     "pk": 2,

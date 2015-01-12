@@ -54,9 +54,9 @@ Let Django create the database tables for you::
 
     (env)$ python3 manage.py migrate
 
-Load the groups and permissions::
+Load the initial data of QCAT::
 
-    (env)$ python3 manage.py loaddata groups_permissions.json
+    (env)$ python3 manage.py load_qcat_data
 
 Run the application::
 

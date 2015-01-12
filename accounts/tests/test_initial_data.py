@@ -20,4 +20,11 @@ class InitialGroupsTest(TestCase):
         self.assertEqual(translator_group.permissions.count(), 3)
         # Only contains permissions with content_type = 8
         self.assertEqual(len(translator_group.permissions.all().exclude(
-            content_type=8)), 0)
+            content_type=13)), 0)
+
+
+class InitialPermissionsTest(TestCase):
+
+    def test_all_permissions_are_loaded(self):
+        permissions = Permission.objects.count()
+        self.assertEqual(permissions, 48)
