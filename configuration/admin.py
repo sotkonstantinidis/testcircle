@@ -51,6 +51,8 @@ class ConfigurationAdmin(admin.ModelAdmin):
         'data')
     list_filter = ('code',)
     ordering = ('code',)
+    change_list_template = 'admin/change_list_filter_sidebar.html'
+    change_list_filter_template = 'admin/filter_listing.html'
 
     fieldsets = (
         (None, {'fields': ('code', 'name', 'description', 'created')}),

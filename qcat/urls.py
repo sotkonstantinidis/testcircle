@@ -10,6 +10,7 @@ urlpatterns = patterns(
 
     # View to change language
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 

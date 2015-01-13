@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli.dashboard',
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,6 +119,9 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--cover-html', '--cover-html-dir=coverage_html', '--cover-erase',
     '--cover-package=accounts,configuration,qcat,questionnaire,unccd']
+
+GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
+GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
 
 try:
     from qcat.settings_local import *

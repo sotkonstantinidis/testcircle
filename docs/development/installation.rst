@@ -54,6 +54,10 @@ Let Django create the database tables for you::
 
     (env)$ python3 manage.py migrate
 
+Collect the static files needed by Django::
+
+    (env)$ python3 manage.py collectstatic
+
 Load the initial data of QCAT::
 
     (env)$ python3 manage.py load_qcat_data
