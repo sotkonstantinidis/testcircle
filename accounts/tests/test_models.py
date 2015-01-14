@@ -14,10 +14,10 @@ class UserModelTestWithFixtures(TestCase):
         user.groups.add(Group.objects.get(name='Administrators'))
         self.assertTrue(user.is_staff)
 
-    def test_translator_is_not_staff(self):
+    def test_translator_is_staff(self):
         user = User.create_new(email='a@b.com', name='foo')
         user.groups.add(Group.objects.get(name='Translators'))
-        self.assertFalse(user.is_staff)
+        self.assertTrue(user.is_staff)
 
 
 class UserModelTest(TestCase):

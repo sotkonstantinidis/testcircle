@@ -41,13 +41,29 @@ class CustomIndexDashboard(Dashboard):
         #     ]
         # ))
 
-        # append an app list module for "Applications"
-        self.children.append(modules.AppList(
-            'Applications',
-            collapsible=True,
+        self.children.append(modules.ModelList(
+            title='Accounts',
             column=1,
-            css_classes=('collapse closed',),
-            exclude=('django.contrib.*',),
+            models=('accounts.*',)
+        ))
+
+        self.children.append(modules.ModelList(
+            title='Configurations',
+            column=1,
+            models=('configuration.*',),
+            exclude=('configuration.models.Translation',),
+        ))
+
+        self.children.append(modules.ModelList(
+            title='Translations',
+            column=1,
+            models=('configuration.models.Translation',)
+        ))
+
+        self.children.append(modules.ModelList(
+            title='Questionnaires',
+            column=1,
+            models=('questionnaire.*',)
         ))
 
         # # append an app list module for "Administration"

@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import to_locale, get_language
@@ -115,9 +116,68 @@ class Configuration(models.Model):
 class Translation(models.Model):
     """
     The model representing all translations of the database entries.
+
+    .. important::
+        Every translated model (with a foreign key to this model) needs
+        to have a static attribute ``translation_type`` defined.
     """
     translation_type = models.CharField(max_length=63)
     data = JsonBField()
+
+    def clean(self):
+        """
+        This function is called to validate the model, e.g. before it is
+        saved to the database. Custom validation is handled in this
+        function, namely:
+
+        * ``translation_type`` needs to be a valid type.
+
+          .. seealso::
+              :func:`Translation.get_translation_types`.
+
+        Raises:
+            ``ValidationError``.
+        """
+        if self.translation_type not in self.get_translation_types():
+            raise ValidationError(
+                'Translation.translation_type needs to be one of: {}'.format(
+                    ', '.join(self.get_translation_types())))
+
+    @staticmethod
+    def get_translation_types():
+        """
+        Return all ``translation_type`` attributes of the translated
+        models. In order to do this, all related objects are looped
+        dynamically.
+
+        Returns:
+            ``list``. A list with the ``validation_types`` of the
+            translated models, e.g. ``['key', 'value', 'category']``.
+        """
+        translation_types = []
+        for related in Translation._meta.get_all_related_objects():
+            translation_types.append(related.model.translation_type)
+        return translation_types
+
+    def get_translation(self, locale=None):
+        """
+        Return the translation of the instance by looking it up in the
+        ``data`` JSON field. If no ``locale`` is provided, the currently
+        active locale is used.
+
+        Kwargs:
+            ``locale`` (str): The locale to find the translation for.
+
+        Returns:
+            ``str`` or ``None``. The translation or ``None`` if no entry
+            for the given locale was not found.
+        """
+        if locale is None:
+            locale = to_locale(get_language())
+        return self.data.get(locale)
+
+    def __str__(self):
+        return self.data.get(settings.LANGUAGES[0][0], '-')
 
 
 class Key(models.Model):
@@ -125,12 +185,40 @@ class Key(models.Model):
     The model representing the keys of the
     :class:`questionnaire.models.Questionnaire`.
     """
-    keyword = models.CharField(max_length=63, unique=True)
-    translation = models.ForeignKey('Translation')
-    data = JsonBField(null=True)
+    translation_type = 'key'
 
-    def get_translation(self):
-        return self.translation.data.get(to_locale(get_language()))
+    keyword = models.CharField(max_length=63, unique=True)
+    translation = models.ForeignKey(
+        'Translation', limit_choices_to={'translation_type': translation_type})
+    data = JsonBField(help_text="""
+            The JSON configuration. See section "Questionnaire
+            Configuration" of the manual for more information.<br/>
+            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
+            play</a> to format your JSON.""")
+
+    def get_translation(self, locale=None):
+        """
+        Return the translation of the key. Passes all arguments to the
+        relative :class:`Translation` model's function.
+
+        .. seealso::
+            :func:`Translation.get_translation`
+        """
+        return self.translation.get_translation(locale)
+
+    @property
+    def type_(self):
+        """
+        Helper function to access the ``type`` of the data JSON.
+
+        Returns:
+            ``str`` or ``None``. The value found at key ``type`` of the
+            JSON or None if the key was not found.
+        """
+        return self.data.get('type')
+
+    def __str__(self):
+        return self.keyword
 
 
 class Value(models.Model):
@@ -138,8 +226,11 @@ class Value(models.Model):
     The model representing the predefined values of the
     :class:`questionnaire.models.Questionnaire`.
     """
+    translation_type = 'value'
+
     keyword = models.CharField(max_length=63, unique=True)
-    translation = models.ForeignKey('Translation')
+    translation = models.ForeignKey(
+        'Translation', limit_choices_to={'translation_type': translation_type})
     key = models.ForeignKey('Key')
 
 
@@ -148,8 +239,24 @@ class Category(models.Model):
     The model representing the categories of the
     :class:`questionnaire.models.Questionnaire`.
     """
-    keyword = models.CharField(max_length=63, unique=True)
-    translation = models.ForeignKey('Translation')
+    translation_type = 'category'
 
-    def get_translation(self):
-        return self.translation.data.get(to_locale(get_language()))
+    keyword = models.CharField(max_length=63, unique=True)
+    translation = models.ForeignKey(
+        'Translation', limit_choices_to={'translation_type': translation_type})
+
+    def get_translation(self, locale=None):
+        """
+        Return the translation of the key. Passes all arguments to the
+        relative :class:`Translation` model's function.
+
+        .. seealso::
+            :func:`Translation.get_translation`
+        """
+        return self.translation.get_translation(locale)
+
+    def __str__(self):
+        return self.keyword
+
+    class Meta:
+        verbose_name_plural = 'categories'

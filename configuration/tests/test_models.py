@@ -1,13 +1,181 @@
 from django.core.exceptions import ValidationError
 from unittest.mock import patch
 
-from configuration.models import Configuration
+from configuration.models import (
+    Category,
+    Configuration,
+    Key,
+    Translation,
+)
 from qcat.tests import TestCase
 
 
 def get_valid_configuration_model():
     return Configuration(
         code='sample', name='name', data={"foo": "bar"})
+
+
+def get_valid_translation_model():
+    return Translation(translation_type='key', data={"locale": "foo"})
+
+
+def get_valid_key_model():
+    translation = get_valid_translation_model()
+    translation.save()
+    return Key(keyword='foo', translation=translation, data={"foo": "bar"})
+
+
+def get_valid_category_model():
+    translation = get_valid_translation_model()
+    translation.translation_type = 'category'
+    translation.save()
+    return Category(keyword='foo', translation=translation)
+
+
+class CategoryModelTest(TestCase):
+
+    def setUp(self):
+        self.category = get_valid_category_model()
+
+    def test_get_valid_category_model_is_valid(self):
+        self.category.full_clean()  # Should not raise
+
+    def test_id_is_primary_key(self):
+        self.assertTrue(hasattr(self.category, 'id'))
+
+    def test_keyword_is_mandatory(self):
+        self.category.keyword = None
+        with self.assertRaises(ValidationError):
+            self.category.full_clean()
+
+    def test_translation_is_mandatory(self):
+        with self.assertRaises(ValueError):
+            self.category.translation = None
+
+    def test_translation_needs_correct_type(self):
+        translation = get_valid_translation_model()
+        translation.translation_type = 'foo'
+        translation.save()
+        self.category.translation = translation
+        with self.assertRaises(ValidationError):
+            self.category.full_clean()
+
+    @patch.object(Translation, 'get_translation')
+    def test_get_translation_calls_translation_function(
+            self, mock_Translation_get_translation):
+        self.category.get_translation(locale='foo')
+        mock_Translation_get_translation.assert_called_once_with('foo')
+
+
+class KeyModelTest(TestCase):
+
+    def setUp(self):
+        self.key = get_valid_key_model()
+
+    def test_get_valid_key_model_is_valid(self):
+        self.key.full_clean()  # Should not raise
+
+    def test_id_is_primary_key(self):
+        self.assertTrue(hasattr(self.key, 'id'))
+
+    def test_keyword_is_mandatory(self):
+        self.key.keyword = None
+        with self.assertRaises(ValidationError):
+            self.key.full_clean()
+
+    def test_translation_is_mandatory(self):
+        with self.assertRaises(ValueError):
+            self.key.translation = None
+
+    def test_translation_needs_correct_type(self):
+        translation = get_valid_translation_model()
+        translation.translation_type = 'foo'
+        translation.save()
+        self.key.translation = translation
+        with self.assertRaises(ValidationError):
+            self.key.full_clean()
+
+    def test_data_is_mandatory(self):
+        self.key.data = None
+        with self.assertRaises(ValidationError):
+            self.key.full_clean()
+
+    def test_data_cannot_be_empty(self):
+        self.key.data = {}
+        with self.assertRaises(ValidationError):
+            self.key.full_clean()
+
+    @patch.object(Translation, 'get_translation')
+    def test_get_translation_calls_translation_function(
+            self, mock_Translation_get_translation):
+        self.key.get_translation(locale='foo')
+        mock_Translation_get_translation.assert_called_once_with('foo')
+
+    def test_type_returns_type(self):
+        self.key.data = {"type": "foo"}
+        self.assertEqual(self.key.type_, 'foo')
+
+    def test_type_returns_None_if_not_found(self):
+        self.assertIsNone(self.key.type_)
+
+
+class TranslationModelTest(TestCase):
+
+    def setUp(self):
+        self.translation = get_valid_translation_model()
+
+    def test_get_valid_translation_model_is_valid(self):
+        self.translation.full_clean()  # Should not raise
+
+    def test_id_is_primary_key(self):
+        self.assertTrue(hasattr(self.translation, 'id'))
+
+    def test_translation_type_is_mandatory(self):
+        self.translation.translation_type = None
+        with self.assertRaises(ValidationError):
+            self.translation.full_clean()
+
+    def test_translation_type_needs_to_be_valid(self):
+        self.translation.translation_type = 'foo'
+        with self.assertRaises(ValidationError):
+            self.translation.full_clean()
+
+    def test_data_is_mandatory(self):
+        self.translation.data = None
+        with self.assertRaises(ValidationError):
+            self.translation.full_clean()
+
+    def test_data_cannot_be_empty(self):
+        self.translation.data = {}
+        with self.assertRaises(ValidationError):
+            self.translation.full_clean()
+
+    def test_get_translation_types_returns_list(self):
+        self.assertIsInstance(self.translation.get_translation_types(), list)
+
+    def test_get_translation_types_returns_valid_types(self):
+        valid_types = self.translation.get_translation_types()
+        self.assertEqual(len(valid_types), 3)
+
+    @patch('configuration.models.to_locale')
+    @patch('configuration.models.get_language')
+    def test_get_translation_calls_get_language_if_no_locale_provided(
+            self, mock_get_language, mock_to_locale):
+        mock_to_locale.return_value = ''
+        self.translation.get_translation()
+        mock_get_language.assert_called_once_with()
+
+    @patch('configuration.models.get_language')
+    def test_get_translation_does_not_call_get_language_if_locale_provided(
+            self, mock_get_language):
+        self.translation.get_translation('locale')
+        mock_get_language.assert_not_called()
+
+    def test_get_translation_returns_data_by_locale(self):
+        self.assertEqual(self.translation.get_translation('locale'), 'foo')
+
+    def test_get_translation_returns_None_if_locale_not_found(self):
+        self.assertIsNone(self.translation.get_translation('foo'))
 
 
 class ConfigurationModelTest(TestCase):
@@ -110,7 +278,7 @@ class ConfigurationModelTest(TestCase):
 
 class ConfigurationModelTestFixtures(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     def test_active_can_only_be_set_once_per_code(self):
         conf_1_ret = Configuration.objects.get(pk=1)

@@ -56,6 +56,9 @@ class Status(models.Model):
     keyword = models.CharField(max_length=63, unique=True)
     description = models.TextField(null=True)
 
+    class Meta:
+        verbose_name_plural = 'statuses'
+
 
 class QuestionnaireMembership(models.Model):
     """

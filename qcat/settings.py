@@ -71,6 +71,7 @@ LOCALE_PATHS = (
 )
 
 from django.utils.translation import ugettext_lazy as _
+# The first language is the default language.
 LANGUAGES = (
     ('en', _('English')),
     ('es', _('Spanish')),
@@ -118,7 +119,8 @@ AUTHENTICATION_BACKENDS = (
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--cover-html', '--cover-html-dir=coverage_html', '--cover-erase',
-    '--cover-package=accounts,configuration,qcat,questionnaire,unccd']
+    '--cover-package=accounts,configuration,qcat,questionnaire,unccd',
+    '--nologcapture']
 
 GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
 GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
