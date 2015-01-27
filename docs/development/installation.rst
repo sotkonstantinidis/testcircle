@@ -42,6 +42,12 @@ install the dependencies::
     $ source ../env/bin/activate
     (env)$ pip3 install -r requirements.txt
 
+.. hint::
+    If the installation of the requirements produces errors concerning
+    psycopg2, make sure you have the ``python3-dev`` package installed::
+
+        sudo apt-get install python3-dev
+
 Create and set up a database (with PostGIS extension).
 
 Copy the sample local settings file and adapt it. Especially specify the
