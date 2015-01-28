@@ -146,6 +146,7 @@ module.exports = function(grunt) {
 
   /**
    * Available commands:
+   * IMPORTANT: Update the documentation if you edit or add commands.
    * grunt                : Build (uncompressed) and run the server
    * grunt build          : Build (uncompressed)
    * grunt build:deploy   : Build (compressed)
