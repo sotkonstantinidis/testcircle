@@ -4,9 +4,18 @@ Welcome to QCAT's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   glossary
+    glossary
+
+
+Configuration
+-------------
+
+.. toctree::
+    :maxdepth: 2
+
+    configuration/questionnaire
 
 
 Development
@@ -16,8 +25,11 @@ Development
     :maxdepth: 2
 
     development/installation
+    development/usergroups
+    development/testing
     development/deployment
     development/django
+    development/grunt
 
 QCAT is currently under heavy development. If you are interested in the
 progress of the development, have a look at the issues on the `Redmine`_

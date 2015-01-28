@@ -1,5 +1,5 @@
 from fabric.contrib.files import exists
-from fabric.api import local, run, sudo
+from fabric.api import local, run, sudo, cd
 from fabric.colors import green, yellow
 
 REPO_URL = 'https://github.com/CDE-UNIBE/qcat.git'
@@ -12,7 +12,7 @@ def provision():
     _install_prerequirements()
     _create_directory_structure(site_folder)
     _get_latest_source(source_folder)
-    print (yellow(
+    print(yellow(
         "Provisioning completed. You may now create the local settings file!"))
 
 
@@ -24,11 +24,13 @@ def deploy():
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
-    print (green("Everything OK"))
+    print(green("Everything OK"))
 
 
 def _install_prerequirements():
-    sudo('apt-get install apache2 git python3 python3-pip')
+    sudo('apt-get install apache2 git python3 python3-pip nodejs '
+         'nodejs-legacy npm')
+    sudo('npm install -g grunt-cli bower')
     sudo('pip3 install virtualenv')
 
 
@@ -53,15 +55,20 @@ def _update_virtualenv(source_folder):
     if not exists(virtualenv_folder + '/bin/pip'):
         # Virtualenv does not yet exist
         run('virtualenv --python=python3 %s' % virtualenv_folder)
-    run('%s/bin/pip install -r %s/requirements.txt'
+    run('%s/bin/pip3 install -r %s/requirements.txt'
         % (virtualenv_folder, source_folder))
 
 
 def _update_static_files(source_folder):
+    run('cd %s && npm install' % source_folder)
+    run('cd %s && bower install | xargs echo' % source_folder)
+    run('cd %s && grunt build' % source_folder)
     run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput'
         % (source_folder))
 
 
 def _update_database(source_folder):
-    run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput '
+    run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput'
+        % (source_folder))
+    run('cd %s && ../virtualenv/bin/python3 manage.py load_qcat_data'
         % (source_folder))

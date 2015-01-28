@@ -1,6 +1,6 @@
 from django.db.utils import DataError
-from django.test import TestCase
 
+from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 
 

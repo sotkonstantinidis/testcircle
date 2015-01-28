@@ -30,12 +30,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    # 'django.contrib.admin',
+    'grappelli.dashboard',
+    'grappelli',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'questionnaire',
     'accounts',
     'configuration',
@@ -68,6 +71,7 @@ LOCALE_PATHS = (
 )
 
 from django.utils.translation import ugettext_lazy as _
+# The first language is the default language.
 LANGUAGES = (
     ('en', _('English')),
     ('es', _('Spanish')),
@@ -88,7 +92,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'qcat', 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 TEMPLATE_DIRS = (
@@ -110,6 +114,16 @@ AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
     'accounts.authentication.WocatAuthenticationBackend',
 )
+
+# TODO: Try if tests can be run with --with-fixture-bundling
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--cover-html', '--cover-html-dir=coverage_html', '--cover-erase',
+    '--cover-package=accounts,configuration,qcat,questionnaire,unccd',
+    '--nologcapture']
+
+GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
+GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
 
 try:
     from qcat.settings_local import *

@@ -1,0 +1,31 @@
+// Wizard
+.wizard {
+  padding: 0 0 60%;
+
+  fieldset {
+    opacity: 0.5;
+  }
+  .active + fieldset {
+    opacity: 1;
+    border-width: 2px;
+  }
+
+  .multiple-choice {
+    input[type="file"],
+    input[type="checkbox"],
+    input[type="radio"],
+    select {
+      margin: 0;
+    }
+  }
+}
+.wizard-header {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $white-smoke;
+  border-top: 1px solid $smoke;
+
+  z-index: 999;
+}

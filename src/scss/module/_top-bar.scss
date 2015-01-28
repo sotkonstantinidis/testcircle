@@ -1,0 +1,13 @@
+.top-bar {
+  @media #{$medium-up} {
+    padding-left: rem-calc(78);
+  }
+}
+
+.top-bar-section > ul > li {
+  border-right: 1px solid #317395;
+
+  &:first-child {
+    border-left: 1px solid #317395;
+  }
+}

@@ -30,7 +30,7 @@ class LoginTest(FunctionalTest):
         # She tries to submit the form and sees an error message
         self.findBy('id', 'button_login').click()
         self.findBy('class_name', 'alert-box')
-        self.checkOnPage('Login failed')
+        self.checkOnPage('not correct')
 
         mock_do_auth.return_value = ('tempsessionid')
 

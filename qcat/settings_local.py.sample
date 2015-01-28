@@ -1,6 +1,8 @@
 """
 This is a skeleton settings_local.py file.
-Copy it to settings_local.py and fill in the necessary information.
+
+Copy it to settings_local.py and fill in the necessary information. You
+can also overwrite settings of the settings.py file.
 """
 
 # Database

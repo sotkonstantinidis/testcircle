@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from django.test import TestCase
 from unittest.mock import patch
 
 from accounts.authentication import WocatAuthenticationBackend
+from qcat.tests import TestCase
 
 
 def get_mock_do_auth_return_values():

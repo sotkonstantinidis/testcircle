@@ -1,0 +1,25 @@
+.list-item {
+  padding: rem-calc(8px) 0;
+
+  .button-bar + input {
+    margin-top: rem-calc(8px);
+  }
+  &.is-selected {
+    background: rgba($primary-color, 0.3);
+  }
+}
+.list-item-label,
+.list-item-action {
+  font-size: $form-label-font-size;
+  display: block;
+  line-height: $form-label-line-height;
+  margin: 0;
+  padding: ($form-spacing / 2) 0;
+}
+.list-item input {
+  margin: 0;
+}
+
+.list-head label {
+  font-weight: 500;
+}

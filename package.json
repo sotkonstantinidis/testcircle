@@ -1,0 +1,19 @@
+{
+  "name": "qcat",
+  "version": "0.0.1",
+  "description": "Best Practices Database Application",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CDE-UNIBE/qcat.git"
+  },
+  "devDependencies": {
+    "assemble": "^0.4.42",
+    "grunt": "^0.4.5",
+    "grunt-contrib-connect": "^0.9.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-imagemin": "^0.9.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-sass": "^0.17.0"
+  },
+  "dependencies": {}
+}

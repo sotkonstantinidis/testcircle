@@ -1,12 +1,16 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
+from nose.plugins.attrib import attr
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 loginRouteName = 'login'
 
 
+@attr('functional')
 class FunctionalTest(StaticLiveServerTestCase):
+
+    fixtures = ['sample.json']
 
     def setUp(self):
         self.browser = webdriver.Firefox()

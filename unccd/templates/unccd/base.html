@@ -14,8 +14,8 @@
         background-color: #193E19;
       }
     </style>
-    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}" />
-    <script src="{% static 'js/vendor/modernizr.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <script src="{% static 'js/modernizr.js' %}"></script>
 
     {% block head %}
     {% endblock %}
@@ -49,6 +49,11 @@
           </li>
         </ul>
         <ul class="right">
+          {% if user.is_staff %}
+            <li>
+              <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
+            </li>
+          {% endif %}
           <li>
             {% if user.is_authenticated %}
               <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
@@ -80,10 +85,16 @@
       </section>
     </nav>
 
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert-box{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 
-    <script src="{% static 'js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/foundation.min.js' %}"></script>
 
     <script>

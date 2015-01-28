@@ -1,0 +1,32 @@
+---
+layout: default.hbs
+---
+
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+
+    <a class="left-off-canvas-toggle" href="#" ><svg class="icon-lines"><use xlink:href="#icon-lines"></use></svg></a>
+
+    {{!-- Off Canvas Menu --}}
+    <aside class="left-off-canvas-menu">
+        {{> nav_main}}
+    </aside>
+
+   {{!-- Header --}}
+   <header class="row">
+     {{> header}}
+   </header>
+
+   {{!-- Body --}}
+   <main class="row">
+     {{> body}}
+   </main>
+
+  {{!-- close the off-canvas menu --}}
+  <a class="exit-off-canvas"></a>
+
+  </div>
+</div>
+
+
+<script src="js/dropzone.min.js"></script>

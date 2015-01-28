@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.core.urlresolvers import reverse
-from django.test import TestCase
 from unittest.mock import patch
+
+from qcat.tests import TestCase
 
 loginRouteName = 'login'
 logoutRouteName = 'logout'
@@ -11,6 +12,8 @@ aboutRouteName = 'about'
 
 
 class LoginTest(TestCase):
+
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     def test_login_renders_correct_template(self):
         res = self.client.get(reverse(loginRouteName))
@@ -45,6 +48,8 @@ class LoginTest(TestCase):
 
 
 class LogoutTest(TestCase):
+
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
     def test_logout_redirects_to_home(self, mock_do_auth):

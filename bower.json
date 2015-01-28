@@ -1,0 +1,11 @@
+{
+  "name": "foundation-libsass-template",
+  "dependencies": {
+    "foundation": "zurb/bower-foundation"
+  },
+  "devDependencies": {
+    "compass-mixins": "~1.0.1",
+    "highlight": "~7.0.1",
+    "dropzone": "~3.12.0"
+  }
+}

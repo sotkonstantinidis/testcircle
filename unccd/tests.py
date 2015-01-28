@@ -1,3 +1,3 @@
-from django.test import TestCase
+from qcat.tests import TestCase
 
 # Create your tests here.

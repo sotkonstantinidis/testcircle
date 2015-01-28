@@ -1,8 +1,8 @@
-from django.test import TestCase
 from unittest.mock import patch
 from pymysql.err import OperationalError
 
 from accounts.connection import get_connection
+from qcat.tests import TestCase
 
 
 @patch('accounts.connection.settings')

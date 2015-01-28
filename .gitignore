@@ -14,3 +14,12 @@ qcat/settings_local.py
 
 # Ignore documentation builds
 /docs/_build/*
+
+# Ignore coverage files
+.coverage
+coverage_html
+
+# Ignore bower components, node modules and static files
+bower_components
+node_modules
+static
