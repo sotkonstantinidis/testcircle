@@ -1,0 +1,16 @@
+// Mixins
+@mixin reset-list() {
+  list-style: none;
+  padding: 0;
+}
+
+@function lineHeight($lines, $base: $base-font-size) {
+    @return rem-calc(($lines * $base-line-height), $base);
+}
+
+@mixin rhythm($lines: 1, $base: $base-font-size) {
+  margin-top: lineHeight($lines);
+  &:first-child {
+    margin-top: 0;
+  }
+}
