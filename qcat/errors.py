@@ -1,4 +1,8 @@
-class ConfigurationErrorNoConfigurationFound(Exception):
+class ConfigurationError(Exception):
+    pass
+
+
+class ConfigurationErrorNoConfigurationFound(ConfigurationError):
 
     def __init__(self, keyword):
         self.keyword = keyword
@@ -8,7 +12,7 @@ class ConfigurationErrorNoConfigurationFound(Exception):
             self.keyword)
 
 
-class ConfigurationErrorNotInDatabase(Exception):
+class ConfigurationErrorNotInDatabase(ConfigurationError):
 
     def __init__(self, Model, keyword):
         self.Model = Model
@@ -19,7 +23,7 @@ class ConfigurationErrorNotInDatabase(Exception):
             self.keyword, self.Model)
 
 
-class ConfigurationErrorInvalidOption(Exception):
+class ConfigurationErrorInvalidOption(ConfigurationError):
 
     def __init__(self, option, configuration, object_):
         self.option = option
@@ -31,7 +35,7 @@ class ConfigurationErrorInvalidOption(Exception):
             .format(self.option, self.configuration, self.object_)
 
 
-class ConfigurationErrorInvalidConfiguration(Exception):
+class ConfigurationErrorInvalidConfiguration(ConfigurationError):
 
     def __init__(self, configuration, format, parent):
         self.configuration = configuration

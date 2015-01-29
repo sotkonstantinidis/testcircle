@@ -12,7 +12,7 @@ from qcat.tests import TestCase
 
 def get_valid_configuration_model():
     return Configuration(
-        code='sample', name='name', data={"foo": "bar"})
+        code='sample', name='name', data={"categories": []})
 
 
 def get_valid_translation_model():
@@ -278,14 +278,19 @@ class ConfigurationModelTest(TestCase):
 
 class ConfigurationModelTestFixtures(TestCase):
 
-    fixtures = ['groups_permissions.json', 'sample.json']
-
     def test_active_can_only_be_set_once_per_code(self):
-        conf_1_ret = Configuration.objects.get(pk=1)
+        conf_1_ret = get_valid_configuration_model()
+        conf_1_ret.active = True
+        conf_1_ret.name = 'conf_1'
+        conf_1_ret.save()
         self.assertTrue(conf_1_ret.active)
         conf_2 = get_valid_configuration_model()
         conf_2.active = True
         conf_2.data = conf_1_ret.data
         conf_2.full_clean()
-        conf_1_ret = Configuration.objects.get(pk=1)
+        conf_1_ret = Configuration.objects.get(name='conf_1')
         self.assertFalse(conf_1_ret.active)
+        conf_2.save()
+        active = Configuration.objects.filter(active=True).all()
+        self.assertEqual(len(active), 1)
+        self.assertEqual(active[0], conf_2)

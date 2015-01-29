@@ -79,7 +79,6 @@ def questionnaire_new(request):
     #     ]
     # }
     data = request.session.get('session_questionnaire', {})
-    print (data)
     if data != {}:
         messages.info(request, '[TODO] Data retrieved from Session.')
 
