@@ -56,14 +56,14 @@ class QuestionnaireQuestion(object):
                 'key', 'str', 'questions')
 
         try:
-            key = Key.objects.get(keyword=key)
+            key_object = Key.objects.get(keyword=key)
         except Key.DoesNotExist:
             raise ConfigurationErrorNotInDatabase(Key, key)
 
-        self.key_object = key
-        self.key_config = key.data
+        self.key_object = key_object
+        self.key_config = key_object.data
         self.field_type = self.key_config.get('type', 'char')
-        self.label = key.get_translation()
+        self.label = key_object.get_translation()
         self.keyword = key
 
     def get_form(self):

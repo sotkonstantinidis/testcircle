@@ -3,8 +3,8 @@
 ``accounts``
 ============
 
-The Django app :mod:`accounts` handles the authentication and authorization of
-users.
+The Django app :mod:`accounts` handles the authentication and
+authorization of users.
 
 
 ``accounts.authentication``

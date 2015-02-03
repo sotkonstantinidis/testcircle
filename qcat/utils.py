@@ -1,3 +1,8 @@
+from importlib import import_module
+from django.conf import settings
+session_store = import_module(settings.SESSION_ENGINE).SessionStore()
+
+
 def find_dict_in_list(list_, key, value, not_found={}):
     """
     A helper function to find a dict based on a given key and value pair
@@ -20,3 +25,45 @@ def find_dict_in_list(list_, key, value, not_found={}):
             if el.get(key) == value:
                 return el
     return not_found
+
+
+def get_session_questionnaire():
+    """
+    Return the data for a questionnaire from the session. The
+    questionnaire(s) are stored in the session dictionary under the key
+    ``session_questionnaires``.
+
+    .. todo::
+        Currently, only one questionnaire is stored to the session. In
+        the fututre, it should be possible to store (and retrieve)
+        multiple questionnaires.
+
+    Returns:
+        ``dict``. The data dictionary of the questionnaire as found in
+        the session or an empty dictionary (``{}``) if not found.
+    """
+    session_questionnaires = session_store.get('session_questionnaires')
+    if (isinstance(session_questionnaires, list)
+            and len(session_questionnaires) > 0):
+        # TODO: Do not always return first questionnaire
+        return session_questionnaires[0]
+    else:
+        return {}
+
+
+def save_session_questionnaire(session_questionnaire):
+    """
+    Save the data of a questionnaire to the session, using the key
+    ``session_questionnaires``.
+
+    .. todo::
+        Currently, only one questionnaire is stored to the session. In
+        the fututre, it should be possible to store (and retrieve)
+        multiple questionnaires.
+
+    Args:
+        ``session_questionnaire`` (dict): The data dictionary of the
+        questionnaire to be stored.
+    """
+    session_store['session_questionnaires'] = [session_questionnaire]
+    session_store.save()

@@ -1,5 +1,10 @@
 from qcat.tests import TestCase
-from qcat.utils import find_dict_in_list
+from qcat.utils import (
+    find_dict_in_list,
+    get_session_questionnaire,
+    save_session_questionnaire,
+)
+from qcat.utils import session_store
 
 
 class FindDictInListTest(TestCase):
@@ -37,3 +42,43 @@ class FindDictInListTest(TestCase):
     def test_returns_not_found_if_value_None(self):
         retu = find_dict_in_list(self.l, 'foo', None)
         self.assertEqual(retu, {})
+
+
+class GetSessionQuestionnaireTest(TestCase):
+
+    def setUp(self):
+        self.session_store = session_store
+        self.session_store.clear()
+
+    def test_returns_empty_dict_if_no_session_questionnaire(self):
+        ret = get_session_questionnaire()
+        self.assertEqual(ret, {})
+
+    def test_returns_empty_dict_if_session_questionnaires_not_list(self):
+        self.session_store['session_questionnaires'] = "foo"
+        ret = get_session_questionnaire()
+        self.assertEqual(ret, {})
+
+    def test_returns_empty_dict_if_session_questionnaire_empty(self):
+        self.session_store['session_questionnaires'] = []
+        ret = get_session_questionnaire()
+        self.assertEqual(ret, {})
+
+    def test_always_returns_first_session_questionnaire(self):
+        self.session_store['session_questionnaires'] = [
+            {"foo": "bar"}, {"bar": "faz"}]
+        ret = get_session_questionnaire()
+        self.assertEqual(ret, {"foo": "bar"})
+
+
+class SaveSessionQuestionnaireTest(TestCase):
+
+    def setUp(self):
+        self.session_store = session_store
+        self.session_store.clear()
+
+    def test_saves_questionnaire(self):
+        self.assertIsNone(self.session_store.get('session_questionnaires'))
+        save_session_questionnaire({"foo": "bar"})
+        self.assertEqual(
+            self.session_store.get('session_questionnaires'), [{"foo": "bar"}])

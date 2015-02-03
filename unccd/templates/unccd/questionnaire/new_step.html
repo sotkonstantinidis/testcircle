@@ -10,20 +10,22 @@
       <form id="myform" action="" method="post">
         {% csrf_token %}
         {% for subcategory_config, subcategory_formsets in category_formsets %}
-          <h4>{{ subcategory_config.label }}</h4>
-          {% for questiongroup_formset in subcategory_formsets %}
-            {% if questiongroup_formset.forms %}
-              {{ questiongroup_formset.management_form }}
-              {% for form in questiongroup_formset.forms %}
-                <div class="formfield {{questiongroup_formset.prefix}}">{{ form }}</div>
-                {% if questiongroup_formset.max_num > 1 %}
-                  <input class="button tiny secondary" type="button" value="{%trans 'Add More' %}" id="add_more" onclick="javascript:addFormset('{{ questiongroup_formset.prefix }}')" />
-                {% endif %}
-              {% endfor %}
-            {% else %}
-              {{ questiongroup_formset }}
-            {% endif %}
-          {% endfor %}
+          <fieldset class="row">
+            <legend>{{ subcategory_config.label }}</legend>
+            {% for questiongroup_formset in subcategory_formsets %}
+              {% if questiongroup_formset.forms %}
+                {{ questiongroup_formset.management_form }}
+                {% for form in questiongroup_formset.forms %}
+                  <div class="formfield {{questiongroup_formset.prefix}}">{{ form }}</div>
+                  {% if questiongroup_formset.max_num > 1 %}
+                    <input class="button tiny secondary" type="button" value="{%trans 'Add More' %}" id="add_more" onclick="javascript:addFormset('{{ questiongroup_formset.prefix }}')" />
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                {{ questiongroup_formset }}
+              {% endif %}
+            {% endfor %}
+          </fieldset>
         {% endfor %}
         <p>
           <input id="button-submit" class="button tiny" type="submit" value="{% trans "Submit" %}"/>

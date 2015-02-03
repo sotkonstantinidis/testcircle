@@ -1,8 +1,11 @@
-from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
 
 from configuration.configuration import QuestionnaireConfiguration
+from questionnaire.views import (
+    generic_questionnaire_new_step,
+    generic_questionnaire_new,
+)
 
 
 def home(request):
@@ -18,72 +21,44 @@ def home(request):
 
 
 def questionnaire_new_step(request, step):
+    """
+    View to show the form of a single step of a new UNCCD questionnaire.
+    Also handles the form submit of the step along with its validation
+    and redirect.
 
-    questionnaire_configuration = QuestionnaireConfiguration('unccd')
-    category = questionnaire_configuration.get_category(step)
+    .. seealso::
+        The actual rendering of the form and the form validation is
+        handled by the generic questionnaire function
+        :func:`questionnaire.views.questionnaire_new_step`.
 
-    if category is None:
-        raise Http404
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
 
-    initial_data = {}
-    if request.method != 'POST':
-        initial_data = request.session.get('session_questionnaire', {})
+        ``step`` (str): The code of the questionnaire category.
 
-    category_config, category_formsets = category.get_form(
-        request.POST or None, initial_data=initial_data)
-
-    if request.method == 'POST':
-        valid = True
-        data = {}
-        for __, subcategory_formsets in category_formsets:
-            for formset in subcategory_formsets:
-
-                valid = valid and formset.is_valid()
-
-                if valid is False:
-                    break
-
-                for f in formset.forms:
-                    questiongroup_keyword = f.prefix.split('-')[0]
-                    try:
-                        data[questiongroup_keyword].append(f.cleaned_data)
-                    except KeyError:
-                        data[questiongroup_keyword] = [f.cleaned_data]
-
-        if valid is True:
-            session_data = request.session.get('session_questionnaire', {})
-            session_data.update(data)
-            request.session['session_questionnaire'] = session_data
-            messages.success(
-                request, '[TODO] Data successfully stored to Session.')
-            return redirect('unccd_questionnaire_new')
-
-    return render(request, 'unccd/questionnaire/new_step.html', {
-        'category_formsets': category_formsets,
-        'category_config': category_config
-    })
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    return generic_questionnaire_new_step(
+        request, step, 'unccd', 'unccd/questionnaire/new_step.html',
+        'unccd_questionnaire_new')
 
 
 def questionnaire_new(request):
+    """
+    View to show the overview of a new UNCCD questionnaire. Also
+    handles the form submit of the entire questionnaire.
 
-    # request.session.clear()
+    .. seealso::
+        The actual rendering of the form and the form validation is
+        handled by the generic questionnaire function
+        :func:`questionnaire.views.questionnaire_new`.
 
-    questionnaire_configuration = QuestionnaireConfiguration('unccd')
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
 
-    # data = {
-    #     "qg_1": [
-    #         {
-    #             "key_1": "Foo",
-    #             "key_3": "Bar",
-    #         }
-    #     ]
-    # }
-    data = request.session.get('session_questionnaire', {})
-    if data != {}:
-        messages.info(request, '[TODO] Data retrieved from Session.')
-
-    categories = questionnaire_configuration.render_readonly_form(data)
-
-    return render(request, 'unccd/questionnaire/new.html', {
-        'categories': categories
-    })
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    return generic_questionnaire_new(
+        request, 'unccd', 'unccd/questionnaire/new.html')
