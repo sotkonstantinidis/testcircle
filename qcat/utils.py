@@ -67,3 +67,17 @@ def save_session_questionnaire(session_questionnaire):
     """
     session_store['session_questionnaires'] = [session_questionnaire]
     session_store.save()
+
+
+def clear_session_questionnaire():
+    """
+    Clear the data of a questionnaire from the session key
+    ``session_questionnaires``.
+
+    .. todo::
+        Currently, only one questionnaire is stored to the session. In
+        the fututre, it should be possible to store (and delete)
+        multiple questionnaires.
+    """
+    session_store['session_questionnaires'] = []
+    session_store.save()

@@ -7,4 +7,8 @@ urlpatterns = patterns(
         name='unccd_questionnaire_new'),
     url(r'^new/(?P<step>\w+)/$', 'unccd.views.questionnaire_new_step',
         name='unccd_questionnaire_new_step'),
+    url(r'^view/(\d+)/$', 'unccd.views.questionnaire_details',
+        name='unccd_questionnaire_details'),
+    url(r'^edit/(\d+)/$', 'unccd.views.questionnaire_edit',
+        name='unccd_questionnaire_edit'),
 )

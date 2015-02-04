@@ -3,9 +3,12 @@ from unittest.mock import patch
 
 from qcat.tests import TestCase
 from unccd.views import (
+    questionnaire_details,
     questionnaire_new,
     questionnaire_new_step,
 )
+
+details_route = '/unccd/details/'
 
 
 def get_valid_new_step_values():
@@ -15,7 +18,12 @@ def get_valid_new_step_values():
 
 
 def get_valid_new_values():
-    return ('unccd', 'unccd/questionnaire/new.html')
+    return (
+        'unccd', 'unccd/questionnaire/new.html', 'unccd_questionnaire_details')
+
+
+def get_valid_details_values():
+    return (1, 'unccd', 'unccd/questionnaire/details.html')
 
 
 class QuestionnaireNewTest(TestCase):
@@ -31,8 +39,7 @@ class QuestionnaireNewTest(TestCase):
         self.assertEqual(res.status_code, 200)
 
     @patch('unccd.views.generic_questionnaire_new')
-    def test_questionnaire_new_test_calls_generic_function(
-            self, mock_questionnaire_new):
+    def test_calls_generic_function(self, mock_questionnaire_new):
         request = self.factory.get('/unccd/new')
         questionnaire_new(request)
         mock_questionnaire_new.assert_called_once_with(
@@ -52,9 +59,23 @@ class QuestionnaireNewStepTest(TestCase):
         self.assertEqual(res.status_code, 200)
 
     @patch('unccd.views.generic_questionnaire_new_step')
-    def test_calls_generic_function(
-            self, mock_questionnaire_new_step):
+    def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get('/unccd/new/cat_1')
         questionnaire_new_step(request, 'cat_1')
         mock_questionnaire_new_step.assert_called_once_with(
             request, *get_valid_new_step_values())
+
+
+class QuestionnaireDetailsTest(TestCase):
+
+    fixtures = ['groups_permissions.json', 'sample.json']
+
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    @patch('unccd.views.generic_questionnaire_details')
+    def test_calls_generic_function(self, mock_questionnaire_details):
+        request = self.factory.get('{}{}'.format(details_route, 1))
+        questionnaire_details(request, 1)
+        mock_questionnaire_details.assert_called_once_with(
+            request, *get_valid_details_values())

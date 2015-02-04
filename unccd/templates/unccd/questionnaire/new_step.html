@@ -7,7 +7,7 @@
   <div class="row">
     <div class="large-12 columns">
       <h3>{{ category_config.label }}</h3>
-      <form id="myform" action="" method="post">
+      <form id="questionnaire_step" action="" method="post">
         {% csrf_token %}
         {% for subcategory_config, subcategory_formsets in category_formsets %}
           <fieldset class="row">

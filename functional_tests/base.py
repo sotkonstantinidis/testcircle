@@ -80,6 +80,27 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.fail('Element %s was not found by %s' % (el, by))
         return f
 
+    def findManyBy(self, by, el, base=None):
+        if base is None:
+            base = self.browser
+        f = None
+        try:
+            if by == 'class_name':
+                f = base.find_elements_by_class_name(el)
+            elif by == 'link_text':
+                f = base.find_elements_by_link_text(el)
+            elif by == 'name':
+                f = base.find_elements_by_name(el)
+            elif by == 'xpath':
+                f = base.find_elements_by_xpath(el)
+            elif by == 'id':
+                f = base.find_elements_by_id(el)
+            else:
+                self.fail('Argument "by" = "%s" is not valid.' % by)
+        except NoSuchElementException:
+            self.fail('Elements %s were not found by %s' % (el, by))
+        return f
+
     def checkOnPage(self, text):
         self.assertIn(text, self.browser.page_source)
 

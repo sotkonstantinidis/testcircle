@@ -80,11 +80,11 @@ class QuestionnaireQuestion(object):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
 
-    def render_readonly_form(self, data={}):
+    def get_details(self, data={}):
         if self.field_type in ['char', 'text']:
             d = data.get(self.keyword)
             rendered = render_to_string(
-                'unccd/questionnaire/readonly/textinput.html', {
+                'unccd/questionnaire/parts/textinput_details.html', {
                     'key': self.label,
                     'value': d})
             return rendered
@@ -238,13 +238,13 @@ class QuestionnaireQuestiongroup(object):
 
         return FormSet(post_data, prefix=self.keyword, initial=initial_data)
 
-    def render_readonly_form(self, data=[]):
+    def get_details(self, data=[]):
         rendered_questions = []
         for question in self.questions:
             for d in data:
-                rendered_questions.append(question.render_readonly_form(d))
+                rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
-            'unccd/questionnaire/readonly/questiongroup.html', {
+            'unccd/questionnaire/parts/questiongroup_details.html', {
                 'questions': rendered_questions})
         return rendered
 
@@ -401,14 +401,14 @@ class QuestionnaireSubcategory(object):
         }
         return config, questionset_formsets
 
-    def render_readonly_form(self, data={}):
+    def get_details(self, data={}):
         rendered_questiongroups = []
         for questiongroup in self.questiongroups:
             questiongroup_data = data.get(questiongroup.keyword, [])
             rendered_questiongroups.append(
-                questiongroup.render_readonly_form(questiongroup_data))
+                questiongroup.get_details(questiongroup_data))
         rendered = render_to_string(
-            'unccd/questionnaire/readonly/subcategory.html', {
+            'unccd/questionnaire/parts/subcategory_details.html', {
                 'questiongroups': rendered_questiongroups,
                 'label': self.label})
         return rendered
@@ -560,16 +560,18 @@ class QuestionnaireCategory(object):
         }
         return config, subcategory_formsets
 
-    def render_readonly_form(self, data={}):
+    def get_details(self, data={}, editable=False):
         rendered_subcategories = []
         for subcategory in self.subcategories:
             rendered_subcategories.append(
-                subcategory.render_readonly_form(data))
+                subcategory.get_details(data))
         rendered = render_to_string(
-            'unccd/questionnaire/readonly/category.html', {
+            'unccd/questionnaire/parts/category_details.html', {
                 'subcategories': rendered_subcategories,
                 'label': self.label,
-                'keyword': self.keyword})
+                'keyword': self.keyword,
+                'editable': editable,
+            })
         return rendered
 
 
@@ -606,10 +608,11 @@ class QuestionnaireConfiguration(object):
                 return category
         return None
 
-    def render_readonly_form(self, data={}):
+    def get_details(self, data={}, editable=False):
         rendered_categories = []
         for category in self.categories:
-            rendered_categories.append(category.render_readonly_form(data))
+            rendered_categories.append(category.get_details(
+                data, editable=editable))
         return rendered_categories
 
     def read_configuration(self):

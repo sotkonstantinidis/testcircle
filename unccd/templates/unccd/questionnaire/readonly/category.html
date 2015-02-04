@@ -1,7 +1,0 @@
-{% load i18n %}
-
-<h3>{{ label }}</h3>
-{% for subcategory in subcategories %}
-    {{ subcategory }}
-{% endfor %}
-<p><a href="{% url 'unccd_questionnaire_new_step' keyword %}" class="button tiny">{% trans "Edit" %}</a></p>

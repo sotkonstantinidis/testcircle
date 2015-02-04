@@ -45,3 +45,13 @@ class ConfigurationErrorInvalidConfiguration(ConfigurationError):
     def __str__(self):
         return 'Configuration "{}" (part of "{}") is missing or is not of '\
             'format "{}"'.format(self.configuration, self.parent, self.format)
+
+
+class QuestionnaireFormatError(Exception):
+
+    def __init__(self, questionnaire_data):
+        self.questionnaire_data = questionnaire_data
+
+    def __str__(self):
+        return 'The questionnaire format is invalid: "{}"'.format(
+            self.questionnaire_data)

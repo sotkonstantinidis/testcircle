@@ -1,10 +1,11 @@
 from qcat.tests import TestCase
 from qcat.utils import (
+    clear_session_questionnaire,
     find_dict_in_list,
     get_session_questionnaire,
     save_session_questionnaire,
+    session_store,
 )
-from qcat.utils import session_store
 
 
 class FindDictInListTest(TestCase):
@@ -82,3 +83,20 @@ class SaveSessionQuestionnaireTest(TestCase):
         save_session_questionnaire({"foo": "bar"})
         self.assertEqual(
             self.session_store.get('session_questionnaires'), [{"foo": "bar"}])
+
+
+class ClearSessionQuestionnaireTest(TestCase):
+
+    def setUp(self):
+        self.session_store = session_store
+        self.session_store.clear()
+
+    def test_clears_questionnaire(self):
+        self.session_store['session_questionnaires'] = 'foo'
+        clear_session_questionnaire()
+        self.assertEqual(self.session_store['session_questionnaires'], [])
+
+    def test_only_clears_questionnaire(self):
+        self.session_store['foo'] = 'bar'
+        clear_session_questionnaire()
+        self.assertEqual(self.session_store['foo'], 'bar')

@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.http import Http404
 from django.http.response import HttpResponse
 from django.test.client import RequestFactory
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from configuration.configuration import (
     QuestionnaireConfiguration,
@@ -9,6 +10,7 @@ from configuration.configuration import (
 )
 from qcat.tests import TestCase
 from qcat.utils import session_store
+from questionnaire.models import Questionnaire
 from questionnaire.views import (
     generic_questionnaire_new_step,
     generic_questionnaire_new,
@@ -99,9 +101,9 @@ class GenericQuestionnaireNewTest(TestCase):
         self.request = self.factory.get('/unccd/new')
 
     @patch.object(QuestionnaireConfiguration, '__init__')
-    @patch.object(QuestionnaireConfiguration, 'render_readonly_form')
+    @patch.object(QuestionnaireConfiguration, 'get_details')
     def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration_get_category,
+            self, mock_QuestionnaireConfiguration_get_details,
             mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
         generic_questionnaire_new(self.request, *get_valid_new_values())
@@ -113,15 +115,87 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(self.request, *get_valid_new_values())
         mock_get_session_questionnaire.assert_called_once_with()
 
-    @patch.object(QuestionnaireConfiguration, 'render_readonly_form')
-    def test_calls_render_readonly_form(self, mock_render_readonly_form):
-        generic_questionnaire_new(self.request, *get_valid_new_values())
-        mock_render_readonly_form.assert_called_once_with({})
+    @patch('questionnaire.views.is_empty_questionnaire')
+    def test_calls_is_empty_questionnaire(self, mock_is_empty_questionnaire):
+        r = self.request
+        r.method = 'POST'
+        generic_questionnaire_new(r, *get_valid_new_values())
+        mock_is_empty_questionnaire.assert_called_once_with({})
 
-    @patch.object(QuestionnaireCategory, 'render_readonly_form')
+    @patch.object(messages, 'info')
+    def test_adds_message_if_empty(self, mock_messages_info):
+        r = self.request
+        r.method = 'POST'
+        generic_questionnaire_new(r, *get_valid_new_values())
+        mock_messages_info.assert_called_once_with(
+            r, '[TODO] You cannot submit an empty questionnaire',
+            fail_silently=True)
+
+    @patch('questionnaire.views.redirect')
+    def test_redirects_to_same_path_if_empty(self, mock_redirect):
+        r = self.request
+        r.method = 'POST'
+        r.path = 'foo'
+        generic_questionnaire_new(r, *get_valid_new_values())
+        mock_redirect.assert_called_once_with('foo')
+
+    @patch.object(Questionnaire, 'create_new')
+    @patch('questionnaire.views.is_empty_questionnaire')
+    def test_calls_create_new_questionnaire(
+            self, mock_is_empty_questionnaire, mock_create_new):
+        r = self.request
+        r.method = 'POST'
+        mock_is_empty_questionnaire.return_value = False
+        mock_create_new.return_value = Mock()
+        mock_create_new.return_value.id = 1
+        generic_questionnaire_new(r, *get_valid_new_values())
+        mock_create_new.assert_called_once_with({})
+
+    @patch('questionnaire.views.clear_session_questionnaire')
+    @patch('questionnaire.views.is_empty_questionnaire')
+    def test_calls_clear_session_questionnaire(
+            self, mock_is_empty_questionnaire,
+            mock_clear_session_questionnaire):
+        r = self.request
+        r.method = 'POST'
+        mock_is_empty_questionnaire.return_value = False
+        generic_questionnaire_new(r, *get_valid_new_values())
+        mock_clear_session_questionnaire.assert_called_once_with()
+
+    @patch.object(messages, 'success')
+    @patch('questionnaire.views.is_empty_questionnaire')
+    def test_adds_message(
+            self, mock_is_empty_questionnaire, mock_messages_sucess):
+        r = self.request
+        r.method = 'POST'
+        mock_is_empty_questionnaire.return_value = False
+        generic_questionnaire_new(r, *get_valid_new_values())
+        mock_messages_sucess.assert_called_once_with(
+            r, '[TODO] The questionnaire was successfully created.',
+            fail_silently=True)
+
+    @patch('questionnaire.views.redirect')
+    @patch.object(Questionnaire, 'create_new')
+    @patch('questionnaire.views.is_empty_questionnaire')
+    def test_redirects_to_success_route(
+            self, mock_is_empty_questionnaire, mock_create_new, mock_redirect):
+        r = self.request
+        r.method = 'POST'
+        mock_is_empty_questionnaire.return_value = False
+        mock_create_new.return_value = Mock()
+        mock_create_new.return_value.id = 1
+        generic_questionnaire_new(r, *get_valid_new_values())
+        mock_redirect.assert_called_once_with('unccd_questionnaire_details', 1)
+
+    @patch.object(QuestionnaireConfiguration, 'get_details')
+    def test_calls_get_details(self, mock_get_details):
+        generic_questionnaire_new(self.request, *get_valid_new_values())
+        mock_get_details.assert_called_once_with({}, editable=True)
+
+    @patch.object(QuestionnaireCategory, 'get_details')
     @patch('questionnaire.views.render')
-    def test_calls_render(self, mock_render, mock_render_readonly_form):
-        mock_render_readonly_form.return_value = "foo"
+    def test_calls_render(self, mock_render, mock_get_details):
+        mock_get_details.return_value = "foo"
         generic_questionnaire_new(
             self.request, *get_valid_new_values())
         mock_render.assert_called_once_with(

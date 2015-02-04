@@ -23,7 +23,7 @@ class Questionnaire(models.Model):
     configurations = models.ManyToManyField('configuration.Configuration')
 
     def get_absolute_url(self):
-        return reverse('questionnaire_view', args=[self.id])
+        return reverse('questionnaire_view_details', args=[self.id])
 
     @staticmethod
     def create_new(data):

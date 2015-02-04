@@ -6,15 +6,13 @@
 {% block content %}
   <div class="row">
     <div class="large-12 columns">
-      <h3>{% trans "New UNCCD Questionnaire" %}</h3>
+      <h3>{% trans "[TODO] UNCCD Questionnaire Details" %}</h3>
       {% for category in categories %}
         {{ category }}
       {% endfor %}
-
-      <form action="" method="POST">
-        {% csrf_token %}
-        <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
-      </form>
+      <p>
+        <a href="{% url 'unccd_questionnaire_edit' questionnaire_id %}" class="button tiny">{% trans "Edit" %}</a>
+      </p>
     </div>
   </div>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.contrib import messages
 
 from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
+    generic_questionnaire_details,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
 )
@@ -61,4 +62,35 @@ def questionnaire_new(request):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'unccd', 'unccd/questionnaire/new.html')
+        request, 'unccd', 'unccd/questionnaire/new.html',
+        'unccd_questionnaire_details')
+
+
+def questionnaire_details(request, questionnaire_id):
+    """
+    VIew to show the details of an existing UNCCD questionnaire.
+
+    .. seealso::
+        The actual rendering of the details is handled by the generic
+        questionnaire function
+        :func:`questionnaire.views.questionnaire_details`
+
+    Args:
+        ``request`` (django.http.HttpResponse): The request object.
+
+        ``questionnaire_id`` (int): The id of the questionnaire.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    return generic_questionnaire_details(
+        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
+
+
+def questionnaire_edit(request, questionnaire_id):
+    """
+    TODO
+    """
+    # TODO
+    return generic_questionnaire_details(
+        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
