@@ -65,9 +65,15 @@ module.exports = function(grunt) {
           'static/js/modernizr.js': 'bower_components/modernizr/modernizr.js',
           'static/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
           'static/js/jquery.min.map': 'bower_components/jquery/dist/jquery.min.map',
-          'static/js/foundation.min.js': 'bower_components/foundation/js/foundation.min.js',
           'static/js/dropzone.min.js': 'bower_components/dropzone/downloads/dropzone.min.js',
-          'static/js/app.js': 'src/js/app.js'
+          'static/js/app.js': 'src/js/app.js',
+          'static/js/wocat.magellan.js': 'src/js/wocat.magellan.js',
+          'static/js/wizard.js': 'src/js/wizard.js'
+        },{
+          expand: true,
+          cwd: 'bower_components/foundation/js/foundation/',
+          src: ['**/*'],
+          dest: 'static/js/foundation/'
         }]
       },
       assets: {

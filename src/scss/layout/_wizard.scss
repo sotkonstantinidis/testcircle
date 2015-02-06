@@ -1,15 +1,23 @@
 // Wizard
 .wizard {
-  padding: 0 0 60%;
+  padding: 4em 3em 50%;
+  @media #{$large-up} {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
   fieldset {
     opacity: 0.5;
+    margin-bottom: 4em;
+
   }
   .active + fieldset {
     opacity: 1;
     border-width: 2px;
   }
-
+  textarea {
+    min-height: 6em;
+  }
   .multiple-choice {
     input[type="file"],
     input[type="checkbox"],
@@ -28,4 +36,40 @@
   border-top: 1px solid $smoke;
 
   z-index: 999;
+}
+
+.layout-wizard {
+  [data-magellan-expedition-clone] {
+    display: none;
+  }
+  [data-magellan-expedition],
+  [data-magellan-expedition-clone] {
+    right: 0;
+    left: auto;
+    width: auto;
+    min-width: 0;
+    background: none;
+  }
+  [data-magellan-expedition] {
+    position: fixed;
+    top: 0;
+    dl {
+      margin: 0;
+    }
+    dd a {
+      display: block;
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+
+      width: 1em;
+      height: 1em;
+      border-radius: 0.5em;
+
+      background: $smoke;
+    }
+    dd.active a {
+      background: $primary-color;
+    }
+  }
 }
