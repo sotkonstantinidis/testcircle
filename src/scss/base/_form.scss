@@ -1,3 +1,6 @@
 textarea {
   height: auto;
+  &.big {
+    min-height: 12em;
+  }
 }

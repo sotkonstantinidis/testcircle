@@ -92,8 +92,8 @@ $font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 
 // We use these to define default font weights
-// $font-weight-normal: normal !default;
-// $font-weight-bold: bold !default;
+$font-weight-normal: 400;
+$font-weight-bold: 600;
 
 // $white       : #FFFFFF;
 // $ghost       : #FAFAFA;
@@ -202,7 +202,7 @@ $body-font-family: "Avenir Next", "Varela", $font-family-sans-serif;
 
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
-// $header-font-weight: $font-weight-normal;
+$header-font-weight: 100;
 // $header-font-style: normal;
 // $header-font-color: $jet;
 // $header-line-height: 1.4;

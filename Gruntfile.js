@@ -58,6 +58,22 @@ module.exports = function(grunt) {
       }
     },
 
+    // SVG Store for vector icons
+    svgstore: {
+      options: {
+        prefix : 'icon-', // This will prefix each ID
+        cleanup: true,
+        svg: { // will add and overide the the default xmlns="http://www.w3.org/2000/svg" attribute to the resulting SVG
+          style: "display: none;"
+        }
+      },
+      dist: {
+        files: {
+          'src/partial/svg_icons.hbs': ['src/assets/icons/*.svg']
+        }
+      },
+    },
+
     // Copy: copies files (libraries and single files, e.g. fonts)
     copy: {
       main: {
@@ -149,6 +165,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-svgstore');
 
   /**
    * Available commands:
@@ -161,7 +178,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', function(arg) {
     // Default mode is 'dev'
     var mode = (arg && arg === 'deploy') ? 'deploy' : 'dev';
-    grunt.task.run(['sass:' + mode, 'imagemin', 'copy', 'assemble']);
+    grunt.task.run(['sass:' + mode, 'svgstore', 'imagemin', 'copy', 'assemble']);
   });
   grunt.registerTask('server', ['connect:server', 'watch']);
   grunt.registerTask('default', ['build', 'server']);

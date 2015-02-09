@@ -2,31 +2,24 @@
 layout: default.hbs
 ---
 
-<div class="off-canvas-wrap" data-offcanvas>
-  <div class="inner-wrap">
+{{!-- Header --}}
+<header class="row">
+  {{> header}}
+</header>
 
-    <a class="left-off-canvas-toggle" href="#" ><svg class="icon-lines"><use xlink:href="#icon-lines"></use></svg></a>
-
-    {{!-- Off Canvas Menu --}}
-    <aside class="left-off-canvas-menu">
-        {{> nav_main}}
-    </aside>
-
-   {{!-- Header --}}
-   <header class="row">
-     {{> header}}
-   </header>
-
-   {{!-- Body --}}
-   <main class="row">
-     {{> body}}
-   </main>
-
-  {{!-- close the off-canvas menu --}}
-  <a class="exit-off-canvas"></a>
-
+{{!-- Summary --}}
+<aside class="row">
+  <div class="accordion" data-accordion>
+    <nav class="accordion-navigation">
+      <a href="#summary"><svg class="icon-lines inline"><use xlink:href="#icon-list"></use></svg> Table of content</a>
+      <div id="summary" class="content">
+        {{> summary}}
+      </div>
+    </nav>
   </div>
-</div>
+</aside>
 
-
-<script src="js/dropzone.min.js"></script>
+{{!-- Body --}}
+<main class="row">
+  {{> body}}
+</main>

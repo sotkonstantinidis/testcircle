@@ -15,9 +15,6 @@
     opacity: 1;
     border-width: 2px;
   }
-  textarea {
-    min-height: 6em;
-  }
   .multiple-choice {
     input[type="file"],
     input[type="checkbox"],
@@ -32,10 +29,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: $white-smoke;
+  background: #333;
   border-top: 1px solid $smoke;
-
+  padding-top: 1em;
+  color: #fff;
   z-index: 999;
+
+  h2 {
+    color: #fff;
+  }
 }
 
 .layout-wizard {
