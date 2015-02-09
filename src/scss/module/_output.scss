@@ -1,0 +1,22 @@
+.output-header {
+  figure {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    height: 20em;
+  }
+  img {
+    position: absolute;
+    min-width: 100%;
+    top: 50%;
+    margin-top: -30%;
+  }
+  figcaption {
+    position: absolute;
+    background: rgba(white, 0.7);
+    right: 0px;
+    bottom: 0px;
+    z-index: 99;
+    padding: 0.5em;
+  }
+}

@@ -3,9 +3,11 @@ layout: default.hbs
 ---
 
 {{!-- Header --}}
-<header class="row">
+{{#if completed}}
+  {{> header_completed}}
+{{else}}
   {{> header}}
-</header>
+{{/if}}
 
 {{!-- Summary --}}
 <aside class="row">
