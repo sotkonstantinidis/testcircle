@@ -8,11 +8,12 @@
     @include rhythm;
   }
 }
-
 p.is-large {
   font-size: rem-calc(16);
 }
-
+span.is-grayed {
+  color: #aaa;
+}
 sup {
   line-height: 1rem;
 }

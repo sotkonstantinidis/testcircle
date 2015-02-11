@@ -13,10 +13,19 @@ $(function() {
   }).hover(sourceSwap, sourceSwap);
 
 
+  // UTILITIES
+  // -----------------
+  // Toggle view
+  $('body').on('click', '[data-toggle]', function (e) {
+    var target = $('#'+ $(this).data('toggle'));
+    target.toggle();
+    console.log(target);
+  })
+
   // LIST ITEM
   // -----------------
   // List item remove
-  $('body').on('click', '.list-item-action[data-remove-this]', function (e) {
+  .on('click', '.list-item-action[data-remove-this]', function (e) {
     var item = $(this).closest('.list-item.is-removable');
     var otherItems = item.siblings('.list-item.is-removable');
     if(otherItems.length > 1){

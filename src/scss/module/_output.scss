@@ -3,7 +3,7 @@
     position: relative;
     margin: 0;
     overflow: hidden;
-    height: 20em;
+    height: 32em;
   }
   img {
     position: absolute;
@@ -16,7 +16,22 @@
     background: rgba(white, 0.7);
     right: 0px;
     bottom: 0px;
+    max-width: 40%;
     z-index: 99;
-    padding: 0.5em;
+    padding: 0.25em 0.5em;
+    font-size: rem-calc(13);
+    p {
+      font-size: 1em;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
+}
+.output-header-title {
+  font-weight: 400;
+}
+.output-header-info {
+  font-size: rem-calc(14);
+  margin-bottom: 1em;
 }

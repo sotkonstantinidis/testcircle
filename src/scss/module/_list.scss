@@ -11,7 +11,7 @@
 .list-item-label,
 .list-item-action {
   font-size: $form-label-font-size;
-  display: block;
+  display: inline-block;
   line-height: $form-label-line-height;
   margin: 0;
   padding: ($form-spacing / 2) 0;
@@ -22,4 +22,33 @@
 
 .list-head label {
   font-weight: 500;
+}
+.list-ordered .list-item > input {
+  display: inline-block;
+}
+.list-ordered .list-item.is-removable > input {
+  @media #{$medium-up} {
+    max-width: 90%;
+  }
+}
+
+.list-gallery-item {
+  position: relative;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+
+  &.is-selected {
+    border-color: $primary-color
+  }
+
+  & > input {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+  }
+  & > input[type="checkbox"] + label {
+    width: 100%;
+    margin: 0;
+    padding: 0.5em 1em 1em;
+  }
 }

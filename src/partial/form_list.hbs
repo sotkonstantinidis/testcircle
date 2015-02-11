@@ -2,7 +2,7 @@
   <a name="list"></a>
 
   <h2 data-magellan-destination="list">List</h2>
-  
+
   <h3>Simple list</h3>
 
   <dl class="tabs" data-tab>
@@ -15,6 +15,22 @@
     </div>
     <div class="content" id="panel06-02">
       {{#markdown}}{{ embed 'src/partial/form_element/list_simple.hbs' 'xml' }}{{/markdown}}
+    </div>
+  </div>
+
+
+  <h3>Gallery list</h3>
+
+  <dl class="tabs" data-tab>
+    <dd class="active"><a href="#panel06-03">Result</a></dd>
+    <dd><a href="#panel06-04">HTML</a></dd>
+  </dl>
+  <div class="tabs-content panel">
+    <div class="content active" id="panel06-03">
+      {{> list_gallery}}
+    </div>
+    <div class="content" id="panel06-04">
+      {{#markdown}}{{ embed 'src/partial/form_element/list_gallery.hbs' 'xml' }}{{/markdown}}
     </div>
   </div>
 
