@@ -127,7 +127,8 @@ def generic_questionnaire_new(
                 fail_silently=True)
             return redirect(request.path)
         else:
-            questionnaire = Questionnaire.create_new(session_questionnaire)
+            questionnaire = Questionnaire.create_new(
+                configuration_code, session_questionnaire)
             clear_session_questionnaire()
             messages.success(
                 request,
@@ -146,7 +147,22 @@ def generic_questionnaire_new(
 def generic_questionnaire_details(
         request, questionnaire_id, configuration_code, template):
     """
+    A generic view to show the details of a questionnaire.
 
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``questionnaire_id`` (int): The ID of the questionnaire to
+        display.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+        ``template`` (str): The path of the template to be rendered for
+        the details.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
     """
     questionnaire_object = get_object_or_404(
         Questionnaire, pk=questionnaire_id)
@@ -158,4 +174,37 @@ def generic_questionnaire_details(
     return render(request, template, {
         'categories': categories,
         'questionnaire_id': questionnaire_id,
+    })
+
+
+def generic_questionnaire_list(
+        request, configuration_code, template, details_route):
+    """
+    A generic view to show a list of questionnaires.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+        ``template`` (str): The path of the template to be rendered for
+        the list.
+
+        ``details_route`` (str): The route name of the details page of
+        each questionnaire.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    questionnaires = list(Questionnaire.objects.filter(
+        configurations__code=configuration_code))
+    questionnaire_configuration = QuestionnaireConfiguration(
+        configuration_code)
+    list_data = questionnaire_configuration.get_list_data(
+        questionnaires, details_route)
+
+    return render(request, template, {
+        'list_header': list_data[0],
+        'list_data': list_data[1:],
     })

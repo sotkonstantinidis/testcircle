@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http.response import HttpResponse
 from django.test.client import RequestFactory
@@ -12,12 +13,18 @@ from qcat.tests import TestCase
 from qcat.utils import session_store
 from questionnaire.models import Questionnaire
 from questionnaire.views import (
-    generic_questionnaire_new_step,
+    generic_questionnaire_details,
+    generic_questionnaire_list,
     generic_questionnaire_new,
+    generic_questionnaire_new_step,
 )
 from unccd.tests.test_views import (
     get_valid_new_step_values,
     get_valid_new_values,
+    get_valid_details_values,
+    get_valid_list_values,
+    questionnaire_route_details,
+    questionnaire_route_list,
 )
 
 
@@ -149,7 +156,7 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_create_new.return_value = Mock()
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(r, *get_valid_new_values())
-        mock_create_new.assert_called_once_with({})
+        mock_create_new.assert_called_once_with('unccd', {})
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.is_empty_questionnaire')
@@ -205,4 +212,92 @@ class GenericQuestionnaireNewTest(TestCase):
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_new(
             self.request, *get_valid_new_values())
+        self.assertIsInstance(ret, HttpResponse)
+
+
+class GenericQuestionnaireDetailsTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.request = self.factory.get(reverse(
+            questionnaire_route_details, args=[1]))
+
+    @patch('questionnaire.views.get_object_or_404')
+    def test_calls_get_object_or_404(self, mock_get_object_or_404):
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_object_or_404.assert_called_once_with(Questionnaire, pk=1)
+
+    @patch.object(QuestionnaireConfiguration, '__init__')
+    @patch('questionnaire.views.get_object_or_404')
+    @patch.object(QuestionnaireConfiguration, 'get_details')
+    def test_creates_questionnaire_configuration(
+            self, mock_QuestionnaireConfiguration_get_details,
+            mock_get_object_or_404, mock_QuestionnaireConfiguration):
+        mock_QuestionnaireConfiguration.return_value = None
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
+
+    @patch.object(QuestionnaireConfiguration, 'get_details')
+    @patch('questionnaire.views.get_object_or_404')
+    def test_calls_get_details(self, mock_get_object_or_404, mock_get_details):
+        mock_get_object_or_404.return_value.data = {}
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_details.assert_called_once_with({})
+
+    @patch.object(QuestionnaireCategory, 'get_details')
+    @patch('questionnaire.views.get_object_or_404')
+    @patch('questionnaire.views.render')
+    def test_calls_render(
+            self, mock_render, mock_get_object_or_404, mock_get_details):
+        mock_get_details.return_value = "foo"
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_render.assert_called_once_with(
+            self.request, 'unccd/questionnaire/details.html', {
+                'categories': [], 'questionnaire_id': 1})
+
+    @patch('questionnaire.views.get_object_or_404')
+    def test_returns_rendered_response(self, mock_get_object_or_404):
+        ret = generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        self.assertIsInstance(ret, HttpResponse)
+
+
+class GenericQuestionnaireListTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.request = self.factory.get(reverse(questionnaire_route_list))
+
+    @patch.object(QuestionnaireConfiguration, '__init__')
+    @patch.object(QuestionnaireConfiguration, 'get_list_data')
+    def test_creates_questionnaire_configuration(
+            self, mock_QuestionnaireConfiguration_get_list_data,
+            mock_QuestionnaireConfiguration):
+        mock_QuestionnaireConfiguration.return_value = None
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
+
+    @patch.object(QuestionnaireConfiguration, 'get_list_data')
+    def test_calls_get_list(self, mock_get_list_data):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_list_data.assert_called_once_with(
+            [], questionnaire_route_details)
+
+    @patch.object(QuestionnaireConfiguration, 'get_list_data')
+    @patch('questionnaire.views.render')
+    def test_calls_render(
+            self, mock_render, mock_get_list_data):
+        mock_get_list_data.return_value = (("foo",),)
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_render.assert_called_once_with(
+            self.request, 'unccd/questionnaire/list.html', {
+                'list_data': (), 'list_header': ('foo',)})
+
+    def test_returns_rendered_response(self):
+        ret = generic_questionnaire_list(
+            self.request, *get_valid_list_values())
         self.assertIsInstance(ret, HttpResponse)

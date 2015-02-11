@@ -17,6 +17,9 @@ from qcat.errors import (
     ConfigurationErrorNotInDatabase,
 )
 from qcat.tests import TestCase
+from questionnaire.models import Questionnaire
+
+questionnaire_details_route = 'unccd_questionnaire_details'
 
 
 def get_valid_questionnaire_configuration():
@@ -31,6 +34,92 @@ class QuestionnaireConfigurationTest(TestCase):
         get_valid_questionnaire_configuration()
         mock_QuestionnaireConfiguration_read_configuration.\
             assert_called_once_with()
+
+
+class QuestionnaireConfigurationGetListConfigurationTest(TestCase):
+
+    fixtures = ['sample.json']
+
+    @patch.object(QuestionnaireConfiguration, 'get_questiongroups')
+    def test_calls_get_questiongroups(self, mock_get_questiongroups):
+        conf = get_valid_questionnaire_configuration()
+        conf.get_list_configuration()
+        mock_get_questiongroups.assert_called_once_with()
+
+    def test_returns_empty_list(self):
+        conf = get_valid_questionnaire_configuration()
+        self.assertEqual(conf.get_list_configuration(), [])
+
+    def test_returns_list_configuration(self):
+        conf = QuestionnaireConfiguration('unccd')
+        list_conf = conf.get_list_configuration()
+        self.assertEqual(len(list_conf), 2)
+
+    def test_list_configuration_form(self):
+        conf = QuestionnaireConfiguration('unccd')
+        list_conf = conf.get_list_configuration()
+        conf_1 = list_conf[0]
+        self.assertEqual(len(conf_1), 4)
+        self.assertIn('questiongroup', conf_1)
+        self.assertIn('key', conf_1)
+        self.assertIn('label', conf_1)
+        self.assertIn('position', conf_1)
+
+    def test_returns_ordered_list_configuration(self):
+        conf = QuestionnaireConfiguration('unccd')
+        list_conf = conf.get_list_configuration()
+        conf_1 = list_conf[0]
+        conf_2 = list_conf[1]
+        self.assertEqual(conf_1.get('key'), 'key_5')
+        self.assertEqual(conf_2.get('key'), 'key_1')
+        self.assertTrue(conf_1.get('position') < conf_2.get('position'))
+
+
+class QuestionnaireConfigurationGetListDataTest(TestCase):
+
+    fixtures = ['sample.json', 'sample_questionnaires.json']
+
+    @patch.object(QuestionnaireConfiguration, 'get_list_configuration')
+    def test_calls_get_list_configuration(self, mock_get_list_configuration):
+        conf = get_valid_questionnaire_configuration()
+        conf.get_list_data([], 'foo')
+        mock_get_list_configuration.assert_called_once_with()
+
+    @patch.object(QuestionnaireConfiguration, 'get_list_configuration')
+    def test_first_row_is_header(self, mock_get_list_configuration):
+        conf = get_valid_questionnaire_configuration()
+        mock_get_list_configuration.return_value = [{
+            'key': 'key',
+            'label': 'label'
+        }]
+        list_data = conf.get_list_data([], 'foo')
+        self.assertEqual(len(list_data), 1)
+        header = list_data[0]
+        self.assertEqual(len(header), 2)
+        self.assertEqual(header[0], 'id')
+        self.assertEqual(header[1], 'label')
+
+    @patch.object(QuestionnaireConfiguration, 'get_list_configuration')
+    def test_contains_data(self, mock_get_list_configuration):
+        conf = get_valid_questionnaire_configuration()
+        mock_get_list_configuration.return_value = [{
+            'key': 'key_1',
+            'label': 'Key 1',
+            'questiongroup': 'qg_1',
+            'position': 1
+        }]
+        questionnaires = Questionnaire.objects.all()
+        list_data = conf.get_list_data(
+            questionnaires, questionnaire_details_route)
+        self.assertEqual(len(list_data), 3)
+        row_1 = list_data[1]
+        row_2 = list_data[2]
+        self.assertEqual(len(row_1), 2)
+        self.assertEqual(len(row_2), 2)
+        self.assertIn('<a href="', row_1[0])
+        self.assertIn('<a href="', row_2[0])
+        self.assertEqual(row_1[1], 'This is the first key.')
+        self.assertEqual(row_2[1], 'Foo')
 
 
 class QuestionnaireConfigurationReadConfigurationTest(TestCase):

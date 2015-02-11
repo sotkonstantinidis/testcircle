@@ -4,6 +4,7 @@ from django.contrib import messages
 from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
     generic_questionnaire_details,
+    generic_questionnaire_list,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
 )
@@ -66,9 +67,18 @@ def questionnaire_new(request):
         'unccd_questionnaire_details')
 
 
+def questionnaire_edit(request, questionnaire_id):
+    """
+    TODO
+    """
+    # TODO
+    return generic_questionnaire_details(
+        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
+
+
 def questionnaire_details(request, questionnaire_id):
     """
-    VIew to show the details of an existing UNCCD questionnaire.
+    View to show the details of an existing UNCCD questionnaire.
 
     .. seealso::
         The actual rendering of the details is handled by the generic
@@ -87,10 +97,21 @@ def questionnaire_details(request, questionnaire_id):
         request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
 
 
-def questionnaire_edit(request, questionnaire_id):
+def questionnaire_list(request):
     """
-    TODO
+    View to show a list with UNCCD questionnaires.
+
+    .. seealso::
+        The actual rendering of the list is handled by the generic
+        questionnaire function
+        :func:`questionnaire.views.questionnaire_list`
+
+    Args:
+        ``request`` (django.http.HttpResponse): The request object.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
     """
-    # TODO
-    return generic_questionnaire_details(
-        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
+    return generic_questionnaire_list(
+        request, 'unccd', 'unccd/questionnaire/list.html',
+        'unccd_questionnaire_details')

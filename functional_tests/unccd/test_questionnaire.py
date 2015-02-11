@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 
 questionnaire_route = 'unccd_questionnaire_new'
+questionnaire_list_route = 'unccd_questionnaire_list'
 
 
 @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
@@ -94,7 +95,14 @@ class AdminTest(FunctionalTest):
             'xpath', '//a[contains(text(), "Edit")]')
         self.assertEqual(len(edit_buttons), 1)
 
-        # If she goes to the questoinnaire overview form again, she sees
+        # She goes to the list of questionnaires and sees that the
+        #  questionnaire she created is listed there.
+        self.findBy('xpath', '//a[contains(@href, "{}")]'.format(
+            reverse(questionnaire_list_route)))
+        self.checkOnPage('List')
+        self.checkOnPage('Foo')
+
+        # If she goes to the questionnaire overview form again, she sees
         # that the session values are not there anymore.
         self.browser.get(self.live_server_url + reverse(questionnaire_route))
         self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_1")]')

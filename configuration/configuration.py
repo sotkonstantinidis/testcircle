@@ -1,4 +1,5 @@
 from django import forms
+from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 
 from configuration.models import (
@@ -24,6 +25,7 @@ class QuestionnaireQuestion(object):
     """
     valid_options = [
         'key',
+        'list_position',
     ]
 
     def __init__(self, configuration):
@@ -60,6 +62,7 @@ class QuestionnaireQuestion(object):
         except Key.DoesNotExist:
             raise ConfigurationErrorNotInDatabase(Key, key)
 
+        self.list_position = configuration.get('list_position')
         self.key_object = key_object
         self.key_config = key_object.data
         self.field_type = self.key_config.get('type', 'char')
@@ -608,12 +611,95 @@ class QuestionnaireConfiguration(object):
                 return category
         return None
 
+    def get_questiongroups(self):
+        questiongroups = []
+        for category in self.categories:
+            for subcategory in category.subcategories:
+                questiongroups.extend(subcategory.questiongroups)
+        return questiongroups
+
     def get_details(self, data={}, editable=False):
         rendered_categories = []
         for category in self.categories:
             rendered_categories.append(category.get_details(
                 data, editable=editable))
         return rendered_categories
+
+    def get_list_configuration(self):
+        """
+        Get the configuration for the list view of questionnaires. Loops
+        through the questions to find those with the option
+        ``list_position`` set. The returning list is sorted by this
+        value.
+
+        Returns:
+            ``list``. A list of dicts where each dict consists of the
+            following elements:
+
+            - ``questiongroup``: The keyword of the questiongroup. Used
+              to find the question in the questionnaire data.
+            - ``key``: The keyword of the question, respectively of the
+              Key of the question.
+            - ``label``: The (translated) label of the question,
+              respectively of the Key of the question.
+            - ``position``: The value of ``list_position``, used to sort
+              the list.
+        """
+        conf = []
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.list_position is not None:
+                    conf.append({
+                        'questiongroup': questiongroup.keyword,
+                        'key': question.keyword,
+                        'label': question.label,
+                        'position': question.list_position
+                        })
+        return sorted(conf, key=lambda k: k.get('position'))
+
+    def get_list_data(self, questionnaires, details_route):
+        """
+        Get the data for the list representation of questionnaires based
+        on the list_configuration.
+
+        .. seealso::
+            :func:`get_list_configuration`
+
+        Args:
+            ``questionnaires`` (list): A list of
+            :class:`questionnaire.models.Questionnaire` objects.
+
+            ``details_route`` (str): The name of the route to be used
+            for the links to the details page of each Questionnaire.
+
+        Returns:
+            ``tuple``. A tuple of tuples where the first element is the
+            header and each following element represents a row of the
+            list.
+        """
+        conf = self.get_list_configuration()
+
+        # Header
+        header_before_data = ['id']
+        header_after_data = []
+        list_header = []
+        list_header.extend(header_before_data)
+        list_header.extend([c['label'] for c in conf])
+        list_header.extend(header_after_data)
+
+        # Data
+        list_data = [tuple(list_header)]
+        for questionnaire in questionnaires:
+            list_entry = [None] * len(list_header)
+            list_entry[0] = '<a href="{}">{}</a>'.format(
+                reverse(details_route, args=[questionnaire.get_id()]),
+                questionnaire.get_id())
+            for i, c in enumerate(conf):
+                qg = questionnaire.data.get(c['questiongroup'], [])
+                if len(qg) > 0:
+                    list_entry[i+len(header_before_data)] = qg[0].get(c['key'])
+            list_data.append(tuple(list_entry))
+        return tuple(list_data)
 
     def read_configuration(self):
         """

@@ -11,4 +11,6 @@ urlpatterns = patterns(
         name='unccd_questionnaire_details'),
     url(r'^edit/(\d+)/$', 'unccd.views.questionnaire_edit',
         name='unccd_questionnaire_edit'),
+    url(r'^list/$', 'unccd.views.questionnaire_list',
+        name='unccd_questionnaire_list'),
 )
