@@ -400,7 +400,7 @@ class QuestionnaireSubcategory(object):
             questionset_formsets.append(
                 questiongroup.get_form(post_data, questionset_initial_data))
         config = {
-            'label': self.label
+            'label': self.label,
         }
         return config, questionset_formsets
 

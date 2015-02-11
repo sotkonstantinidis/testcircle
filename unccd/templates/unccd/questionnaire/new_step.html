@@ -1,40 +1,66 @@
-{% extends 'unccd/base.html' %}
+{% extends 'unccd/questionnaire/base_form.html' %}
 
 {% load staticfiles %}
 {% load i18n %}
 
 {% block content %}
-  <div class="row">
-    <div class="large-12 columns">
-      <h3>{{ category_config.label }}</h3>
-      <form id="questionnaire_step" action="" method="post">
-        {% csrf_token %}
-        {% for subcategory_config, subcategory_formsets in category_formsets %}
-          <fieldset class="row">
-            <legend>{{ subcategory_config.label }}</legend>
-            {% for questiongroup_formset in subcategory_formsets %}
-              {% if questiongroup_formset.forms %}
-                {{ questiongroup_formset.management_form }}
-                {% for form in questiongroup_formset.forms %}
-                  <div class="formfield {{questiongroup_formset.prefix}}">{{ form }}</div>
-                  {% if questiongroup_formset.max_num > 1 %}
-                    <input class="button tiny secondary" type="button" value="{%trans 'Add More' %}" id="add_more" onclick="javascript:addFormset('{{ questiongroup_formset.prefix }}')" />
-                  {% endif %}
-                {% endfor %}
-              {% else %}
-                {{ questiongroup_formset }}
-              {% endif %}
-            {% endfor %}
-          </fieldset>
-        {% endfor %}
-        <p>
-          <input id="button-submit" class="button tiny" type="submit" value="{% trans "Submit" %}"/>
-        </p>
-      </form>
-    </div>
-  </div>
-{% endblock %}
+  <form class="wizard" action="" method="POST">
+    {% csrf_token %}
 
-{% block bottom %}
-  <script src="{% static 'js/form.js' %}"></script>
+    <header class="wizard-header">
+      <div class="row">
+        <div class="columns small-12">
+          <h2>{{ category_config.label }}</h2>
+          <span>[TODO] 0 / {{ category_formsets|length }} {% trans "completed" %}</span>
+          <div class="progress radius">
+            <span class="meter" style="width:0%"></span>
+          </div>
+          <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}"/>
+          <div class="right">
+
+            {% if category_formsets|length > 1 %}
+              <a class="button button-icon" href="#question1" data-magellan-step="previous">
+                <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
+              </a>
+              <a class="button button-icon" href="#question2" data-magellan-step="next">
+                <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div data-magellan-expedition="fixed" style="" class="fixed">
+        <dl>
+          {% for subcategory_config, subcategory_formsets in category_formsets %}
+            <dd data-magellan-arrival="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}">
+              <a href="#question{{ forloop.counter }}">{{ subcategory_config.label }}</a>
+            </dd>
+          {% endfor %}
+        </dl>
+      </div>
+    </header>
+
+    <main class="main inner-wrap">
+      {% for subcategory_config, subcategory_formsets in category_formsets %}
+        <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
+        <fieldset class="row">
+          <legend>{{ subcategory_config.label }}</legend>
+          {% for questiongroup_formset in subcategory_formsets %}
+            {% if questiongroup_formset.forms %}
+              {{ questiongroup_formset.management_form }}
+              {% for form in questiongroup_formset.forms %}
+                <div class="formfield {{questiongroup_formset.prefix}}">{{ form }}</div>
+                {% if questiongroup_formset.max_num > 1 %}
+                  <input class="button tiny secondary" type="button" value="{%trans 'Add More' %}" id="add_more" onclick="javascript:addFormset('{{ questiongroup_formset.prefix }}')" />
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {{ questiongroup_formset }}
+            {% endif %}
+          {% endfor %}
+        </fieldset>
+      {% endfor %}
+    </main>
+  </form>
+
 {% endblock %}
