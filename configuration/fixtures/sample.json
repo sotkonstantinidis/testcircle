@@ -41,6 +41,14 @@
 },
 {
     "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 6\", \"es\": \"Clave 6\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 6
+},
+{
+    "fields": {
         "translation_type": "category",
         "data": "{\"en\": \"Category 1\", \"es\": \"Categoría 1\"}"
     },
@@ -133,6 +141,15 @@
     "model": "configuration.key",
     "pk": 5
 },
+{
+    "fields": {
+        "keyword": "key_6",
+        "translation": 6,
+        "data": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 6
+},
 
 {
     "fields": {
@@ -186,13 +203,27 @@
 {
     "pk": 1,
     "fields": {
-        "code": "sample",
+        "code": "core",
+        "description": "Description of Sample Core Configuration",
+        "active": true,
+        "activated": "2015-01-08T10:12:59.337Z",
+        "data": "{\"categories\": [{\"keyword\": \"cat_1\", \"subcategories\": [{\"keyword\": \"subcat_1_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_1\", \"list_position\": 2}, {\"key\": \"key_3\"}], \"keyword\": \"qg_1\"}, {\"questions\": [{\"key\": \"key_2\"}], \"keyword\": \"qg_2\"}]}, {\"keyword\": \"subcat_1_2\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_4\"}], \"keyword\": \"qg_3\"}]}]}, {\"keyword\": \"cat_2\", \"subcategories\": [{\"keyword\": \"subcat_2_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_5\", \"list_position\": 1}], \"keyword\": \"qg_4\"}]}]}]}",
+        "created": "2015-01-08T10:12:59.337Z",
+        "base_code": "",
+        "name": "Sample Core Configuration"
+    },
+    "model": "configuration.configuration"
+},
+{
+    "pk": 2,
+    "fields": {
+        "code": "unccd",
         "description": "Description of Sample Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\": [{\"keyword\": \"cat_1\", \"subcategories\": [{\"keyword\": \"subcat_1_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_1\"}, {\"key\": \"key_3\"}], \"keyword\": \"qg_1\"}, {\"questions\": [{\"key\": \"key_2\"}], \"keyword\": \"qg_2\"}]}, {\"keyword\": \"subcat_1_2\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_4\"}], \"keyword\": \"qg_3\"}]}]}, {\"keyword\": \"cat_2\", \"subcategories\": [{\"keyword\": \"subcat_2_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_5\"}], \"keyword\": \"qg_4\"}]}]}]}",
-        "created": "2015-01-08T10:12:59.337Z",
-        "base_code": "",
+        "data": "{\"categories\": [{\"keyword\": \"cat_1\",\"subcategories\": [{\"keyword\": \"subcat_1_2\",\"questiongroups\": [{\"questions\": [{\"key\": \"key_6\"}],\"keyword\": \"qg_3\"}]}]}]}",
+        "created": "2015-01-09T10:12:59.337Z",
+        "base_code": "core",
         "name": "Sample Configuration"
     },
     "model": "configuration.configuration"

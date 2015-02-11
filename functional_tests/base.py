@@ -1,19 +1,40 @@
+from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
 from nose.plugins.attrib import attr
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from unittest import skipUnless
 
 loginRouteName = 'login'
 
 
+def check_firefox_path():
+    """
+    Check if a path for Firefox to be used by Selenium is specified in
+    the (local) settings.
+
+    Returns:
+        ``bool``. Returns ``True`` if the setting
+        ``TESTING_FIREFOX_PATH`` is set. Returns ``False`` if the
+        setting is not present or empty.
+    """
+    try:
+        if settings.TESTING_FIREFOX_PATH != '':
+            return True
+    except:
+        pass
+    return False
+
+
+@skipUnless(check_firefox_path(), "Firefox path not specified")
 @attr('functional')
 class FunctionalTest(StaticLiveServerTestCase):
 
-    fixtures = ['sample.json']
-
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Firefox(
+            firefox_binary=FirefoxBinary(settings.TESTING_FIREFOX_PATH))
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -57,6 +78,27 @@ class FunctionalTest(StaticLiveServerTestCase):
                 self.fail('Argument "by" = "%s" is not valid.' % by)
         except NoSuchElementException:
             self.fail('Element %s was not found by %s' % (el, by))
+        return f
+
+    def findManyBy(self, by, el, base=None):
+        if base is None:
+            base = self.browser
+        f = None
+        try:
+            if by == 'class_name':
+                f = base.find_elements_by_class_name(el)
+            elif by == 'link_text':
+                f = base.find_elements_by_link_text(el)
+            elif by == 'name':
+                f = base.find_elements_by_name(el)
+            elif by == 'xpath':
+                f = base.find_elements_by_xpath(el)
+            elif by == 'id':
+                f = base.find_elements_by_id(el)
+            else:
+                self.fail('Argument "by" = "%s" is not valid.' % by)
+        except NoSuchElementException:
+            self.fail('Elements %s were not found by %s' % (el, by))
         return f
 
     def checkOnPage(self, text):
