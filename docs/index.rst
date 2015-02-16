@@ -16,6 +16,7 @@ Configuration
     :maxdepth: 2
 
     configuration/questionnaire
+    configuration/key
 
 
 Development

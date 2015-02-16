@@ -1,4 +1,5 @@
-from django import forms
+from django.forms import BaseFormSet, formset_factory
+import floppyforms as forms
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 
@@ -69,6 +70,9 @@ class QuestionnaireQuestion(object):
         self.label = key_object.get_translation()
         self.keyword = key
 
+        # TODO
+        self.required = False
+
     def get_form(self):
         """
         Returns:
@@ -76,9 +80,11 @@ class QuestionnaireQuestion(object):
             example a text input field or a dropdown field.
         """
         if self.field_type == 'char':
-            return forms.CharField(label=self.label)
+            return forms.CharField(label=self.label, required=self.required)
         elif self.field_type == 'text':
-            return forms.CharField(label=self.label, widget=forms.Textarea)
+            return forms.CharField(
+                label=self.label, widget=forms.Textarea,
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -104,6 +110,8 @@ class QuestionnaireQuestiongroup(object):
     valid_options = [
         'keyword',
         'questions',
+        'max_num',
+        'template',
     ]
 
     def __init__(self, configuration):
@@ -226,20 +234,41 @@ class QuestionnaireQuestiongroup(object):
             more form fields representing a set of questions belonging
             together and which can possibly be repeated multiple times.
         """
+
+        # TODO
+        max_num = self.configuration.get('max_num', 1)
+        extra = 1
+        template = 'form/questiongroup/{}.html'.format(self.configuration.get(
+            'template', 'default'))
+
         formfields = {}
         for f in self.questions:
             formfields[f.keyword] = f.get_form()
         Form = type('Form', (forms.Form,), formfields)
+
+        formset_options = {
+            'max_num': max_num,
+            'extra': extra,
+            'validate_max': True,
+            'validate_min': True,
+        }
+
         if self.required is True:
-            FormSet = forms.formset_factory(
-                Form, formset=RequiredFormSet, max_num=1)
+            FormSet = formset_factory(
+                Form, formset=RequiredFormSet, max_num=max_num, extra=extra,
+                validate_max=True)
         else:
-            FormSet = forms.formset_factory(Form, max_num=1)
+            FormSet = formset_factory(Form, **formset_options)
 
         if initial_data and len(initial_data) == 1 and initial_data[0] == {}:
             initial_data = None
 
-        return FormSet(post_data, prefix=self.keyword, initial=initial_data)
+        config = {
+            'template': template,
+        }
+
+        return config, FormSet(
+            post_data, prefix=self.keyword, initial=initial_data)
 
     def get_details(self, data=[]):
         rendered_questions = []
@@ -855,8 +884,8 @@ def validate_type(obj, type_, conf_name, type_name, parent_conf_name):
             conf_name, type_name, parent_conf_name)
 
 
-class RequiredFormSet(forms.BaseFormSet):
+class RequiredFormSet(BaseFormSet):
     def __init__(self, *args, **kwargs):
         super(RequiredFormSet, self).__init__(*args, **kwargs)
         for form in self.forms:
-            form.empty_permitted = False
+            form.empty_permitted = True

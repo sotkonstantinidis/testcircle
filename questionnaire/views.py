@@ -62,14 +62,14 @@ def generic_questionnaire_new_step(
         valid = True
         data = {}
         for __, subcategory_formsets in category_formsets:
-            for formset in subcategory_formsets:
+            for __, questiongroup_formset in subcategory_formsets:
 
-                valid = valid and formset.is_valid()
+                valid = valid and questiongroup_formset.is_valid()
 
                 if valid is False:
                     break
 
-                for f in formset.forms:
+                for f in questiongroup_formset.forms:
                     questiongroup_keyword = f.prefix.split('-')[0]
                     try:
                         data[questiongroup_keyword].append(f.cleaned_data)

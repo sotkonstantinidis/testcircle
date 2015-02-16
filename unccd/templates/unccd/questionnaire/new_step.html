@@ -1,7 +1,7 @@
 {% extends 'unccd/questionnaire/base_form.html' %}
 
-{% load staticfiles %}
 {% load i18n %}
+{% load floppyforms %}
 
 {% block content %}
   <form class="wizard" action="" method="POST">
@@ -45,18 +45,10 @@
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
         <fieldset class="row">
           <legend>{{ subcategory_config.label }}</legend>
-          {% for questiongroup_formset in subcategory_formsets %}
-            {% if questiongroup_formset.forms %}
-              {{ questiongroup_formset.management_form }}
-              {% for form in questiongroup_formset.forms %}
-                <div class="formfield {{questiongroup_formset.prefix}}">{{ form }}</div>
-                {% if questiongroup_formset.max_num > 1 %}
-                  <input class="button tiny secondary" type="button" value="{%trans 'Add More' %}" id="add_more" onclick="javascript:addFormset('{{ questiongroup_formset.prefix }}')" />
-                {% endif %}
-              {% endfor %}
-            {% else %}
-              {{ questiongroup_formset }}
-            {% endif %}
+          <p class="form-help">[TODO] Helptext</p>
+          {% for questiongroup_config, questiongroup_formset in subcategory_formsets %}
+            {{ questiongroup_formset.management_form }}
+            {% form questiongroup_formset.forms using questiongroup_config.template %}
           {% endfor %}
         </fieldset>
       {% endfor %}
