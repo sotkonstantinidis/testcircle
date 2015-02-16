@@ -49,6 +49,38 @@
 },
 {
     "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 7\", \"es\": \"Clave 7\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 7
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 8\", \"es\": \"Clave 8\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 8
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 9\", \"es\": \"Clave 9\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 9
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"en\": \"Key 10\", \"es\": \"Clave 10\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 10
+},
+{
+    "fields": {
         "translation_type": "category",
         "data": "{\"en\": \"Category 1\", \"es\": \"Categoría 1\"}"
     },
@@ -62,6 +94,14 @@
     },
     "model": "configuration.translation",
     "pk": 102
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Category 3\", \"es\": \"Categoría 3\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 103
 },
 {
     "fields": {
@@ -94,6 +134,22 @@
     },
     "model": "configuration.translation",
     "pk": 114
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Subcategory 3_1\", \"es\": \"Subcategoría 3_1\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 115
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"en\": \"Subcategory 3_2\", \"es\": \"Subcategoría 3_2\"}"
+    },
+    "model": "configuration.translation",
+    "pk": 116
 },
 
 {
@@ -150,6 +206,42 @@
     "model": "configuration.key",
     "pk": 6
 },
+{
+    "fields": {
+        "keyword": "key_7",
+        "translation": 7,
+        "data": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 7
+},
+{
+    "fields": {
+        "keyword": "key_8",
+        "translation": 8,
+        "data": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 8
+},
+{
+    "fields": {
+        "keyword": "key_9",
+        "translation": 9,
+        "data": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 9
+},
+{
+    "fields": {
+        "keyword": "key_10",
+        "translation": 10,
+        "data": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 10
+},
 
 {
     "fields": {
@@ -166,6 +258,14 @@
     },
     "model": "configuration.category",
     "pk": 2
+},
+{
+    "fields": {
+        "keyword": "cat_3",
+        "translation": 103
+    },
+    "model": "configuration.category",
+    "pk": 3
 },
 {
     "fields": {
@@ -199,6 +299,22 @@
     "model": "configuration.category",
     "pk": 14
 },
+{
+    "fields": {
+        "keyword": "subcat_3_1",
+        "translation": 115
+    },
+    "model": "configuration.category",
+    "pk": 15
+},
+{
+    "fields": {
+        "keyword": "subcat_3_2",
+        "translation": 116
+    },
+    "model": "configuration.category",
+    "pk": 16
+},
 
 {
     "pk": 1,
@@ -207,7 +323,7 @@
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\": [{\"keyword\": \"cat_1\", \"subcategories\": [{\"keyword\": \"subcat_1_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_1\", \"list_position\": 2}, {\"key\": \"key_3\"}], \"keyword\": \"qg_1\"}, {\"questions\": [{\"key\": \"key_2\"}], \"keyword\": \"qg_2\"}]}, {\"keyword\": \"subcat_1_2\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_4\"}], \"keyword\": \"qg_3\"}]}]}, {\"keyword\": \"cat_2\", \"subcategories\": [{\"keyword\": \"subcat_2_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_5\", \"list_position\": 1}], \"keyword\": \"qg_4\"}]}]}]}",
+        "data": "{\"categories\": [{\"keyword\": \"cat_1\", \"subcategories\": [{\"keyword\": \"subcat_1_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_1\", \"list_position\": 2}, {\"key\": \"key_3\"}], \"keyword\": \"qg_1\"}, {\"questions\": [{\"key\": \"key_2\"}], \"keyword\": \"qg_2\"}]}, {\"keyword\": \"subcat_1_2\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_4\"}], \"keyword\": \"qg_3\"}]}]}, {\"keyword\": \"cat_2\", \"subcategories\": [{\"keyword\": \"subcat_2_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_5\", \"list_position\": 1}], \"keyword\": \"qg_4\", \"max_num\": 2}]}]}, {\"keyword\": \"cat_3\", \"subcategories\": [{\"keyword\": \"subcat_3_1\", \"questiongroups\": [{\"questions\": [{\"key\": \"key_7\"}], \"keyword\": \"qg_5\", \"max_num\": 3, \"template\": \"inline_1\"}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "Sample Core Configuration"

@@ -1,7 +1,7 @@
-Configuration of the Questionnaire
-==================================
+Questionnaire Configuration
+===========================
 
-The configuration of the Questionnaires is stored in a JSON format.
+The configuration of a Questionnaire is stored in a JSON format in the ``data`` field of :class:`configuration.models.Configuration`.
 
 Format
 ------

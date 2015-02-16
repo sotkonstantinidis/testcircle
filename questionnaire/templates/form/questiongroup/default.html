@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% for form in questiongroup_formset.forms %}
+  <div class="row list-item">
+    {{ form }}
+  </div>
+{% endfor %}
+
+{% if questiongroup_formset.max_num > 1 %}
+  <div class="row list-action">
+    <div class="small-12 columns"><a data-add-item="" class="button small">{%trans 'Add More' %}</a></div>
+  </div>
+{% endif %}

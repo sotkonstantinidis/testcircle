@@ -2,15 +2,58 @@ from django.core.urlresolvers import reverse
 from functional_tests.base import FunctionalTest
 from unittest.mock import patch
 
-
-questionnaire_route = 'unccd_questionnaire_new'
-questionnaire_list_route = 'unccd_questionnaire_list'
+from unccd.tests.test_views import (
+    questionnaire_route_list,
+    questionnaire_route_new,
+    questionnaire_route_new_step,
+)
 
 
 @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
-class AdminTest(FunctionalTest):
+class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample.json']
+
+    def test_navigate_questionnaire(self, mock_do_auth):
+
+        mock_do_auth.return_value = ('tempsessionid')
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_1']))
+
+        # She sees that the first question is active, the second not
+        self.findBy(
+            'xpath',
+            '//a[@data-magellan-destination="question1" and @class="active"]')
+        self.findByNot(
+            'xpath',
+            '//a[@data-magellan-destination="question2" and @class="active"]')
+
+        # She clicks the button to go to the next question
+        self.findBy('xpath', '//a[@data-magellan-step="next"]').click()
+        self.browser.implicitly_wait(5)
+
+        # Now the first question is inactive, the second is active
+        self.findBy(
+            'xpath',
+            '//a[@data-magellan-destination="question2" and @class="active"]')
+        self.findByNot(
+            'xpath',
+            '//a[@data-magellan-destination="question1" and @class="active"]')
+
+        # A click on the other button goes up one question
+        self.findBy('xpath', '//a[@data-magellan-step="previous"]').click()
+        self.browser.implicitly_wait(5)
+        self.findBy(
+            'xpath',
+            '//a[@data-magellan-destination="question1" and @class="active"]')
+        self.findByNot(
+            'xpath',
+            '//a[@data-magellan-destination="question2" and @class="active"]')
 
     def test_enter_questionnaire(self, mock_do_auth):
 
@@ -20,7 +63,8 @@ class AdminTest(FunctionalTest):
         self.doLogin('a@b.com', 'foo')
 
         # She goes directly to the UNCCD questionnaire
-        self.browser.get(self.live_server_url + reverse(questionnaire_route))
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new))
 
         # She sees the categories but without content, keys are hidden
         # if they are empty.
@@ -44,7 +88,7 @@ class AdminTest(FunctionalTest):
         edit_buttons[0].click()
 
         # She sees the form for Category 1
-        self.findBy('xpath', '//h3[contains(text(), "Category 1")]')
+        self.findBy('xpath', '//h2[contains(text(), "Category 1")]')
         self.findBy('xpath', '//legend[contains(text(), "Subcategory 1_1")]')
         self.findBy('xpath', '//legend[contains(text(), "Subcategory 1_2")]')
 
@@ -98,13 +142,14 @@ class AdminTest(FunctionalTest):
         # She goes to the list of questionnaires and sees that the
         #  questionnaire she created is listed there.
         self.findBy('xpath', '//a[contains(@href, "{}")]'.format(
-            reverse(questionnaire_list_route)))
+            reverse(questionnaire_route_list)))
         self.checkOnPage('List')
         self.checkOnPage('Foo')
 
         # If she goes to the questionnaire overview form again, she sees
         # that the session values are not there anymore.
-        self.browser.get(self.live_server_url + reverse(questionnaire_route))
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new))
         self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 1")]')
         self.findByNot('xpath', '//*[contains(text(), "Foo")]')
