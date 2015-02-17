@@ -178,12 +178,12 @@ class QuestionnaireQuestiongroup(object):
             raise ConfigurationErrorTemplateNotFound(template, self)
 
         min_num = configuration.get('min_num', 1)
-        if not isinstance(min_num, int) or min_num <= 1:
+        if not isinstance(min_num, int) or min_num < 1:
             raise ConfigurationErrorInvalidConfiguration(
                 'min_num', 'integer >= 1', 'questiongroup')
 
         max_num = configuration.get('max_num', min_num)
-        if not isinstance(max_num, int) or max_num <= 1:
+        if not isinstance(max_num, int) or max_num < 1:
             raise ConfigurationErrorInvalidConfiguration(
                 'max_num', 'integer >= 1', 'questiongroup')
 

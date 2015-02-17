@@ -35,7 +35,6 @@ with the appropriate rights on the host server and create a folder for
 the app to live in. The script assumes the application will live in
 ``/srv/webapps/qcat/``. Then run the following command::
 
-    (env)$ cd deploy_tools/
     (env)$ fab provision -H [user]@[server]
 
 This will install the required software, create the folder structures
@@ -58,7 +57,6 @@ Deploy
 
 To deploy the latest code to the server, use the following command::
 
-    (env)$ cd deploy_tools/
     (env)$ fab deploy -H [user]@[server]
 
 If needed, add and enable the site in Apache.

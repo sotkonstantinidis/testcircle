@@ -1,5 +1,5 @@
 from fabric.contrib.files import exists
-from fabric.api import local, run, sudo, cd
+from fabric.api import local, run, sudo
 from fabric.colors import green, yellow
 
 REPO_URL = 'https://github.com/CDE-UNIBE/qcat.git'
