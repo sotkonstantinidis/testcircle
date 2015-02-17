@@ -1,13 +1,13 @@
 {% load i18n %}
 {% load floppyforms %}
 
-{% for form in questiongroup_formset.forms %}
-  <div class="row list-item is-removable">
+{% for form in forms %}
+  <div class="row list-item is-removable" data-questiongroup-keyword="{{ questiongroup_config.keyword }}">
 
     {% form form using %}
         {% for field in form.visible_fields %}
+
           {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
-            {% include "floppyforms/errors.html" with errors=field.errors %}
 
             <div class="small-2 columns">
             {% block label %}{% if field|id %}<label class="right list-item-label" for="{{ field|id }}">{% endif %}{{ label }}{% if label|last not in ".:!?" %}:{% endif %}{% if field|id %}</label>{% endif %}{% endblock %}
@@ -16,7 +16,9 @@
               {% block widget %}{% formfield field %}{% endblock %}
             </div>
             <div class="small-2 columns">
-              <a class="right list-item-action" data-remove-this="">{% trans "Remove" %}</a>
+              <a class="right list-item-action" data-remove-this="" {% if forloop.parentloop.counter <= questiongroup_formset.min_num and questiongroup_formset|length <= questiongroup_formset.min_num %}
+              style="display: none;"
+            {% endif %}>{% trans "Remove" %}</a>
             </div>
             {% block hidden_fields %}{% for field in hidden_fields %}{{ field.as_hidden }}{% endfor %}{% endblock %}
           {% endwith %}
@@ -26,8 +28,8 @@
   </div>
 {% endfor %}
 
-{% if questiongroup_formset.max_num > 1 %}
+{% if questiongroup_formset.max_num > questiongroup_formset.min_num %}
   <div class="row list-action">
-    <div class="small-12 columns"><a data-add-item="" class="button small">{% trans 'Add More' %}</a></div>
+    <div class="small-12 columns"><a data-add-item="" data-questiongroup-keyword="{{ questiongroup_config.keyword }}" class="button small{% if questiongroup_formset.total_form_count >= questiongroup_formset.max_num %} disabled{% endif %}">{% trans 'Add More' %}</a></div>
   </div>
 {% endif %}

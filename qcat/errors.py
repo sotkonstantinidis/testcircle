@@ -47,6 +47,17 @@ class ConfigurationErrorInvalidConfiguration(ConfigurationError):
             'format "{}"'.format(self.configuration, self.parent, self.format)
 
 
+class ConfigurationErrorTemplateNotFound(ConfigurationError):
+
+    def __init__(self, template, object_):
+        self.template = template
+        self.object_ = object_
+
+    def __str__(self):
+        return 'Template "{}" for object "{}" not found.'.format(
+            self.template, self.object_)
+
+
 class QuestionnaireFormatError(Exception):
 
     def __init__(self, questionnaire_data):

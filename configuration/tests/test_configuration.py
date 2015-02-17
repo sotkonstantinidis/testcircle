@@ -15,6 +15,7 @@ from qcat.errors import (
     ConfigurationErrorInvalidOption,
     ConfigurationErrorNoConfigurationFound,
     ConfigurationErrorNotInDatabase,
+    ConfigurationErrorTemplateNotFound,
 )
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
@@ -460,6 +461,51 @@ class QuestionnaireQuestiongroupTest(TestCase):
     def test_raises_error_if_keyword_not_string(self):
         configuration = {
             "keyword": ["bar"]
+        }
+        with self.assertRaises(ConfigurationErrorInvalidConfiguration):
+            QuestionnaireQuestiongroup(configuration)
+
+    def test_raises_error_if_template_not_found(self):
+        configuration = {
+            "keyword": "foo",
+            "template": "foo",
+            "questions": [{"key": "key_1"}]
+        }
+        with self.assertRaises(ConfigurationErrorTemplateNotFound):
+            QuestionnaireQuestiongroup(configuration)
+
+    def test_raises_error_if_min_num_not_integer(self):
+        configuration = {
+            "keyword": "foo",
+            "min_num": "foo",
+            "questions": [{"key": "key_1"}]
+        }
+        with self.assertRaises(ConfigurationErrorInvalidConfiguration):
+            QuestionnaireQuestiongroup(configuration)
+
+    def test_raises_error_if_min_num_smaller_than_1(self):
+        configuration = {
+            "keyword": "foo",
+            "min_num": 0,
+            "questions": [{"key": "key_1"}]
+        }
+        with self.assertRaises(ConfigurationErrorInvalidConfiguration):
+            QuestionnaireQuestiongroup(configuration)
+
+    def test_raises_error_if_max_num_not_integer(self):
+        configuration = {
+            "keyword": "foo",
+            "max_num": "foo",
+            "questions": [{"key": "key_1"}]
+        }
+        with self.assertRaises(ConfigurationErrorInvalidConfiguration):
+            QuestionnaireQuestiongroup(configuration)
+
+    def test_raises_error_if_max_num_smaller_than_1(self):
+        configuration = {
+            "keyword": "foo",
+            "max_num": -1,
+            "questions": [{"key": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
             QuestionnaireQuestiongroup(configuration)

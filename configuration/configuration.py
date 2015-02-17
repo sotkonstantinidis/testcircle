@@ -1,7 +1,8 @@
-from django.forms import BaseFormSet, formset_factory
 import floppyforms as forms
+from django.forms import BaseFormSet, formset_factory
 from django.core.urlresolvers import reverse
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
+from django.template.base import TemplateDoesNotExist
 
 from configuration.models import (
     Category,
@@ -14,6 +15,7 @@ from qcat.errors import (
     ConfigurationErrorInvalidOption,
     ConfigurationErrorNoConfigurationFound,
     ConfigurationErrorNotInDatabase,
+    ConfigurationErrorTemplateNotFound,
 )
 from qcat.utils import find_dict_in_list
 
@@ -111,6 +113,7 @@ class QuestionnaireQuestiongroup(object):
         'keyword',
         'questions',
         'max_num',
+        'min_num',
         'template',
     ]
 
@@ -123,6 +126,22 @@ class QuestionnaireQuestiongroup(object):
           {
             # The keyword of the questiongroup.
             "keyword": "QUESTIONGROUP_KEYWORD",
+
+            # An optional template to be used for the rendering of the
+            # questiongroup. The name of the templates needs to match a
+            # file inside questionnaire/templates/form/questiongroup. If
+            # omitted, the default layout is used.
+            "template": "TEMPLATE_NAME",
+
+            # An optional minimum for repeating questiongroups to
+            # appear. Defaults to 1.
+            "min_num": X,
+
+            # An optional maximum for repeating questiongroups to
+            # appear. If larger than min_num, buttons to add or remove
+            # questiongroups will be rendered in the form. Defaults to
+            # min_num if omitted.
+            "max_num": X,
 
             # See class QuestionnaireQuestion for the format of
             # questions.
@@ -151,6 +170,23 @@ class QuestionnaireQuestiongroup(object):
             raise ConfigurationErrorInvalidConfiguration(
                 'keyword', 'str', 'questiongroups')
 
+        template = 'form/questiongroup/{}.html'.format(
+            configuration.get('template', 'default'))
+        try:
+            get_template(template)
+        except TemplateDoesNotExist:
+            raise ConfigurationErrorTemplateNotFound(template, self)
+
+        min_num = configuration.get('min_num', 1)
+        if not isinstance(min_num, int) or min_num <= 1:
+            raise ConfigurationErrorInvalidConfiguration(
+                'min_num', 'integer >= 1', 'questiongroup')
+
+        max_num = configuration.get('max_num', min_num)
+        if not isinstance(max_num, int) or max_num <= 1:
+            raise ConfigurationErrorInvalidConfiguration(
+                'max_num', 'integer >= 1', 'questiongroup')
+
         questions = []
         conf_questions = configuration.get('questions', [])
         if (not isinstance(conf_questions, list) or len(conf_questions) == 0):
@@ -162,6 +198,9 @@ class QuestionnaireQuestiongroup(object):
 
         self.keyword = keyword
         self.configuration = configuration
+        self.template = template
+        self.min_num = min_num
+        self.max_num = max_num
         self.questions = questions
 
         # TODO
@@ -234,29 +273,22 @@ class QuestionnaireQuestiongroup(object):
             more form fields representing a set of questions belonging
             together and which can possibly be repeated multiple times.
         """
-
-        # TODO
-        max_num = self.configuration.get('max_num', 1)
-        extra = 1
-        template = 'form/questiongroup/{}.html'.format(self.configuration.get(
-            'template', 'default'))
-
         formfields = {}
         for f in self.questions:
             formfields[f.keyword] = f.get_form()
         Form = type('Form', (forms.Form,), formfields)
 
         formset_options = {
-            'max_num': max_num,
-            'extra': extra,
+            'max_num': self.max_num,
+            'min_num': self.min_num,
+            'extra': 0,
             'validate_max': True,
             'validate_min': True,
         }
 
         if self.required is True:
             FormSet = formset_factory(
-                Form, formset=RequiredFormSet, max_num=max_num, extra=extra,
-                validate_max=True)
+                Form, formset=RequiredFormSet, **formset_options)
         else:
             FormSet = formset_factory(Form, **formset_options)
 
@@ -264,7 +296,8 @@ class QuestionnaireQuestiongroup(object):
             initial_data = None
 
         config = {
-            'template': template,
+            'template': self.template,
+            'keyword': self.keyword,
         }
 
         return config, FormSet(

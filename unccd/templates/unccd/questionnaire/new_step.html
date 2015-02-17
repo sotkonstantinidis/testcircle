@@ -47,6 +47,7 @@
           <legend>{{ subcategory_config.label }}</legend>
           <p class="form-help">[TODO] Helptext</p>
           {% for questiongroup_config, questiongroup_formset in subcategory_formsets %}
+            {% block errors %}{% include "form/errors.html" with errors=questiongroup_formset.non_form_errors %}{% endblock %}
             {{ questiongroup_formset.management_form }}
             {% form questiongroup_formset.forms using questiongroup_config.template %}
           {% endfor %}

@@ -37,6 +37,10 @@ def get_valid_list_values():
         'unccd_questionnaire_details')
 
 
+def get_category_count():
+    return 3
+
+
 class QuestionnaireNewTest(TestCase):
 
     def setUp(self):

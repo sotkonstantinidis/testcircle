@@ -19,6 +19,7 @@ from questionnaire.views import (
     generic_questionnaire_new_step,
 )
 from unccd.tests.test_views import (
+    get_category_count,
     get_valid_new_step_values,
     get_valid_new_values,
     get_valid_details_values,
@@ -207,7 +208,7 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values())
         mock_render.assert_called_once_with(
             self.request, 'unccd/questionnaire/new.html', {
-                'categories': ["foo", "foo"]})
+                'categories': ["foo"]*get_category_count()})
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_new(
