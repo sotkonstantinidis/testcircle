@@ -11,13 +11,12 @@
       <div class="row">
         <div class="columns small-12">
           <h2>{{ category_config.label }}</h2>
-          <span>[TODO] 0 / {{ category_formsets|length }} {% trans "completed" %}</span>
+          <span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span> {% trans "completed" %}
           <div class="progress radius">
             <span class="meter" style="width:0%"></span>
           </div>
           <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}"/>
           <div class="right">
-
             {% if category_formsets|length > 1 %}
               <a class="button button-icon" href="#question1" data-magellan-step="previous">
                 <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>

@@ -17,7 +17,10 @@ from qcat.errors import (
     ConfigurationErrorNotInDatabase,
     ConfigurationErrorTemplateNotFound,
 )
-from qcat.utils import find_dict_in_list
+from qcat.utils import (
+    find_dict_in_list,
+    is_empty_list_of_dicts,
+)
 
 
 class QuestionnaireQuestion(object):
@@ -467,16 +470,27 @@ class QuestionnaireSubcategory(object):
         return config, questionset_formsets
 
     def get_details(self, data={}):
+        """
+        Returns:
+            ``string``. A rendered representation of the subcategory
+            with its questiongroups.
+
+            ``bool``. A boolean indicating whether the subcategory and
+            its questiongroups have some data in them or not.
+        """
         rendered_questiongroups = []
+        has_content = False
         for questiongroup in self.questiongroups:
             questiongroup_data = data.get(questiongroup.keyword, [])
-            rendered_questiongroups.append(
-                questiongroup.get_details(questiongroup_data))
+            if not is_empty_list_of_dicts(questiongroup_data):
+                has_content = True
+                rendered_questiongroups.append(
+                    questiongroup.get_details(questiongroup_data))
         rendered = render_to_string(
             'unccd/questionnaire/parts/subcategory_details.html', {
                 'questiongroups': rendered_questiongroups,
                 'label': self.label})
-        return rendered
+        return rendered, has_content
 
 
 class QuestionnaireCategory(object):
@@ -627,15 +641,21 @@ class QuestionnaireCategory(object):
 
     def get_details(self, data={}, editable=False):
         rendered_subcategories = []
+        with_content = 0
         for subcategory in self.subcategories:
-            rendered_subcategories.append(
-                subcategory.get_details(data))
+            rendered_subcategory, has_content = subcategory.get_details(data)
+            if has_content:
+                rendered_subcategories.append(rendered_subcategory)
+                with_content += 1
         rendered = render_to_string(
             'unccd/questionnaire/parts/category_details.html', {
                 'subcategories': rendered_subcategories,
                 'label': self.label,
                 'keyword': self.keyword,
                 'editable': editable,
+                'complete': with_content,
+                'total': len(self.subcategories),
+                'progress': with_content / len(self.subcategories) * 100
             })
         return rendered
 

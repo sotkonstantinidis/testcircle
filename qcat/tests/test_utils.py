@@ -2,10 +2,22 @@ from qcat.tests import TestCase
 from qcat.utils import (
     clear_session_questionnaire,
     find_dict_in_list,
+    is_empty_list_of_dicts,
     get_session_questionnaire,
     save_session_questionnaire,
     session_store,
 )
+
+
+class IsEmptyListOfDictsTest(TestCase):
+
+    def test_returns_false_if_not_empty(self):
+        is_empty = is_empty_list_of_dicts([{"foo": "bar"}])
+        self.assertFalse(is_empty)
+
+    def test_returns_true_if_empty(self):
+        is_empty = is_empty_list_of_dicts([{"foo": ""}])
+        self.assertTrue(is_empty)
 
 
 class FindDictInListTest(TestCase):
