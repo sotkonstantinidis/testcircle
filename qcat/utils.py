@@ -17,14 +17,37 @@ def find_dict_in_list(list_, key, value, not_found={}):
         ``value`` (str): The value of the key the dict has to match.
 
     Kwargs:
-        ``not_found`` (): The return value if no dict was found.
+        ``not_found`` (dict): The return value if no dict was found.
         Defaults to ``{}``.
+
+    Returns:
+        ``dict``. The dict if found. If not found, the return value as
+        provided is returned or an empty dict by default.
     """
     if value is not None:
         for el in list_:
             if el.get(key) == value:
                 return el
     return not_found
+
+
+def is_empty_list_of_dicts(list_):
+    """
+    A helper function to find out if a list of dicts contains values or
+    not.
+
+    Args:
+        ``list_`` (list): A list of dicts.
+
+    Returns:
+        ``bool``. ``True`` if the list contains only empty dicts,
+        ``False`` if not.
+    """
+    for dict in list_:
+        for key, value in dict.items():
+            if value != '':
+                return False
+    return True
 
 
 def get_session_questionnaire():

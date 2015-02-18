@@ -2,7 +2,42 @@
 // -----------------
 // Next / Previous step
 
+
+/**
+ * Updates the process indicators while entering the form. Updates the
+ * number of subcategories filled out and the progress bar.
+ */
+function watchFormProgress() {
+  var completed = 0;
+  $('fieldset.row').each(function() {
+    var content = false;
+    $(this).find('div.row.list-item input, div.row.list-item textarea').each(function() {
+      if ($(this).val() != '') {
+        content = true;
+        return;
+      }
+    });
+    if (content) {
+      completed++;
+    }
+  });
+  var stepsElement = $('.progress-completed');
+  stepsElement.html(completed);
+  var total = stepsElement.next('.progress-total').html();
+  var progress = completed / total * 100;
+  var progressbar = stepsElement.siblings('.progress');
+  progressbar.find('.meter').width(progress + '%');
+}
+
 $(function() {
+
+  // Initial form progress
+  watchFormProgress();
+
+  // Form progress upon input
+  $('fieldset.row div.row.list-item').on('change', function() {
+    watchFormProgress();
+  });
 
   $('body').on('click', '[data-magellan-step]', function (e) {
 

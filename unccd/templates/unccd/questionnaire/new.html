@@ -1,20 +1,32 @@
-{% extends 'unccd/base.html' %}
+{% extends 'unccd/questionnaire/base_form.html' %}
 
-{% load staticfiles %}
 {% load i18n %}
 
 {% block content %}
-  <div class="row">
-    <div class="large-12 columns">
-      <h3>{% trans "New UNCCD Questionnaire" %}</h3>
-      {% for category in categories %}
-        {{ category }}
-      {% endfor %}
 
-      <form action="" method="POST">
-        {% csrf_token %}
-        <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
-      </form>
+  <aside class="row">
+    <div class="accordion" data-accordion>
+      <nav class="accordion-navigation">
+        <a href="#summary"><svg class="icon-lines inline"><use xlink:href="#icon-list"></use></svg> {% trans "Table of Content" %}</a>
+        <div id="summary" class="content">
+          <ol>
+            {% for keyword, label in category_names %}
+              <li data-magellan-arrival="{{ keyword }}">
+                <a href="#{{ keyword }}">{{ label }}</a>
+              </li>
+            {% endfor %}
+          </ol>
+        </div>
+      </nav>
     </div>
-  </div>
+  </aside>
+  <main class="row">
+    {% for category in categories %}
+      {{ category }}
+    {% endfor %}
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+    </form>
+  </main>
 {% endblock %}

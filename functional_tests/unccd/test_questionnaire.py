@@ -186,6 +186,80 @@ class QuestionnaireTest(FunctionalTest):
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
 
+    def test_form_progress(self, mock_do_auth):
+
+        mock_do_auth.return_value = ('tempsessionid')
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes directly to the UNCCD questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new))
+
+        # She sees that all progress bars are to 0%
+        progress_indicators = self.findManyBy(
+            'xpath', '//div[@class="progress radius"]')
+        self.assertEqual(len(progress_indicators), get_category_count())
+        for x in progress_indicators:
+            self.assertIn('0 /', x.text)
+        progress_bars = self.findManyBy(
+            'xpath', '//span[@class="meter" and @style="width:0.0%"]')
+        self.assertEqual(len(progress_bars), len(progress_indicators))
+
+        # She goes to the first category and sees another progress bar
+        self.findBy('xpath', '//a[contains(@href, "new/cat")][1]').click()
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+        completed_steps = self.findBy('class_name', 'progress-completed')
+        self.assertEqual(completed_steps.text, '0')
+        total_steps = self.findBy('class_name', 'progress-total')
+        self.assertEqual(total_steps.text, '2')
+
+        # She types something in the first field and sees that the
+        # progress bar changed
+        self.findBy('name', 'qg_1-0-key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-key_3').send_keys('')
+        self.findByNot('xpath', '//span[@class="meter" and @style="width:0%"]')
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+        completed_steps = self.findBy('class_name', 'progress-completed')
+        self.assertEqual(completed_steps.text, '1')
+
+        # She saves the step and sees that the progress bar on the
+        # overview page has changed
+        self.findBy('id', 'button-submit').click()
+        progress_bars = self.findManyBy(
+            'xpath', '//span[@class="meter" and @style="width:0.0%"]')
+        self.assertEqual(len(progress_bars), get_category_count() - 1)
+        progress_bars = self.findBy(
+            'xpath', '//span[@class="meter" and @style="width:50.0%"]')
+        progress_indicator = self.findBy(
+            'xpath', '//div[@class="progress radius"][1]')
+        self.assertEqual(progress_indicator.text, '1 / 2')
+
+        # She decides to edit the step again and deletes what she
+        # entered. She notices that the bar is back to 0, also on the
+        # overview page.
+        self.findBy('xpath', '//a[contains(@href, "new/cat")][1]').click()
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+        self.findBy('name', 'qg_1-0-key_1').clear()
+        self.findBy('name', 'qg_1-0-key_3').send_keys('')
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 0%;"]')
+        self.findBy('id', 'button-submit').click()
+
+        progress_indicators = self.findManyBy(
+            'xpath', '//div[@class="progress radius"]')
+        self.assertEqual(len(progress_indicators), get_category_count())
+        for x in progress_indicators:
+            self.assertIn('0 /', x.text)
+        progress_bars = self.findManyBy(
+            'xpath', '//span[@class="meter" and @style="width:0.0%"]')
+        self.assertEqual(len(progress_bars), len(progress_indicators))
+
+        # Alice tries to submit the questionnaire but it is empty and
+        # she sees an error message
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "info")]')
+
     def test_enter_questionnaire(self, mock_do_auth):
 
         mock_do_auth.return_value = ('tempsessionid')
@@ -197,15 +271,15 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new))
 
-        # She sees the categories but without content, keys are hidden
-        # if they are empty.
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_1")]')
+        # She sees the categories but without content, keys and
+        # subcategories are hidden if they are empty.
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 1")]')
         self.findByNot('xpath', '//*[contains(text(), "Foo")]')
         self.findByNot('xpath', '//*[contains(text(), "Bar")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_2")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
 
         # She tries to submit the form empty and sees an error message
@@ -214,7 +288,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees X buttons to edit a category and clicks the first
         edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(text(), "Edit")]')
+            'xpath', '//a[contains(@href, "new/cat")]')
         self.assertEqual(len(edit_buttons), get_category_count())
         edit_buttons[0].click()
 
@@ -241,13 +315,13 @@ class QuestionnaireTest(FunctionalTest):
         # She sees that she was redirected to the overview page and is
         # shown a success message
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_1")]')
+        self.findBy('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
         self.findBy('xpath', '//*[contains(text(), "Key 1")]')
         self.findBy('xpath', '//*[contains(text(), "Foo")]')
         self.findBy('xpath', '//*[contains(text(), "Bar")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_2")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 4")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
+        self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
 
         # She submits the entire questionnaire
@@ -256,13 +330,13 @@ class QuestionnaireTest(FunctionalTest):
         # She is being redirected to the details page and sees a success
         # message.
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_1")]')
+        self.findBy('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
         self.findBy('xpath', '//*[contains(text(), "Key 1")]')
         self.findBy('xpath', '//*[contains(text(), "Foo")]')
         self.findBy('xpath', '//*[contains(text(), "Bar")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_2")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 4")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
+        self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
 
         # She sees that on the detail page, there is only one edit button
@@ -281,11 +355,11 @@ class QuestionnaireTest(FunctionalTest):
         # that the session values are not there anymore.
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new))
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_1")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 1")]')
         self.findByNot('xpath', '//*[contains(text(), "Foo")]')
         self.findByNot('xpath', '//*[contains(text(), "Bar")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 1_2")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
-        self.findBy('xpath', '//h4[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
