@@ -91,6 +91,9 @@ The following is an arbitrary example of how a configuration could look like::
                 "questions": [
                   {
                     "key": "key_2"
+                  },
+                  {
+                    "key": "key_3"
                   }
                 ],
                 "keyword": "qg_2"
@@ -125,8 +128,7 @@ The following is an arbitrary example of how a configuration could look like::
                     "list_position": 1
                   }
                 ],
-                "keyword": "qg_4",
-                "max_num": 2
+                "keyword": "qg_4"
               }
             ]
           }
@@ -144,17 +146,15 @@ The following is an arbitrary example of how a configuration could look like::
                     "key": "key_7"
                   }
                 ],
-                "keyword": "qg_5",
-                "template": "inline_1"
-              }, {
+                "keyword": "qg_5"
+              },
+              {
                 "questions": [
                   {
                     "key": "key_8"
                   }
                 ],
-                "keyword": "qg_6",
-                "template": "inline_1",
-                "max_num": 3
+                "keyword": "qg_6"
               }
             ]
           },
@@ -162,22 +162,21 @@ The following is an arbitrary example of how a configuration could look like::
             "keyword": "subcat_3_2",
             "questiongroups": [
               {
-                  "questions": [
+                "questions": [
                   {
                     "key": "key_9"
                   }
                 ],
                 "keyword": "qg_7",
-                "template": "inline_1",
-                "min_num": 2
-              }, {
+                "template": "inline_1"
+              },
+              {
                 "questions": [
                   {
                     "key": "key_10"
                   }
                 ],
                 "keyword": "qg_8",
-                "template": "inline_1",
                 "max_num": 3,
                 "min_num": 2
               }

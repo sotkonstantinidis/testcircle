@@ -38,7 +38,15 @@ def get_valid_list_values():
 
 
 def get_category_count():
-    return 3
+    return len(get_categories())
+
+
+def get_categories():
+    return (
+        ('cat_1', 'Category 1'),
+        ('cat_2', 'Category 2'),
+        ('cat_3', 'Category 3'),
+    )
 
 
 class QuestionnaireNewTest(TestCase):

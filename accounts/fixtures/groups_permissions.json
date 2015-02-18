@@ -103,6 +103,21 @@
                 "category"
             ],
             [
+                "add_questiongroup",
+                "configuration",
+                "questiongroup"
+            ],
+            [
+                "change_questiongroup",
+                "configuration",
+                "questiongroup"
+            ],
+            [
+                "delete_questiongroup",
+                "configuration",
+                "questiongroup"
+            ],
+            [
                 "add_configuration",
                 "configuration",
                 "configuration"

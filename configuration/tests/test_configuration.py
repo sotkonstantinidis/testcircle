@@ -431,21 +431,10 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
     fixtures = ['sample.json']
 
-    @patch('configuration.configuration.validate_type')
-    def test_calls_validate_type(self, mock_validate_type):
-        configuration = {
-            "foo": "bar"
-        }
-        with self.assertRaises(ConfigurationErrorInvalidOption):
-            QuestionnaireQuestiongroup(configuration)
-        mock_validate_type.assert_called_once_with(
-            configuration, dict, 'questiongroups', 'list of dicts',
-            'subcategories')
-
     @patch('configuration.configuration.validate_options')
     def test_calls_validate_options(self, mock_validate_options):
         configuration = {
-            "foo": "bar"
+            "keyword": "qg_1"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
             QuestionnaireQuestiongroup(configuration)
@@ -467,7 +456,7 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
     def test_raises_error_if_template_not_found(self):
         configuration = {
-            "keyword": "foo",
+            "keyword": "qg_1",
             "template": "foo",
             "questions": [{"key": "key_1"}]
         }
@@ -476,7 +465,7 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
     def test_raises_error_if_min_num_not_integer(self):
         configuration = {
-            "keyword": "foo",
+            "keyword": "qg_1",
             "min_num": "foo",
             "questions": [{"key": "key_1"}]
         }
@@ -485,7 +474,7 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
     def test_raises_error_if_min_num_smaller_than_1(self):
         configuration = {
-            "keyword": "foo",
+            "keyword": "qg_1",
             "min_num": 0,
             "questions": [{"key": "key_1"}]
         }
@@ -494,7 +483,7 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
     def test_raises_error_if_max_num_not_integer(self):
         configuration = {
-            "keyword": "foo",
+            "keyword": "qg_1",
             "max_num": "foo",
             "questions": [{"key": "key_1"}]
         }
@@ -503,12 +492,21 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
     def test_raises_error_if_max_num_smaller_than_1(self):
         configuration = {
-            "keyword": "foo",
+            "keyword": "qg_1",
             "max_num": -1,
             "questions": [{"key": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
             QuestionnaireQuestiongroup(configuration)
+
+    # def test_raises_error_if_helptext_not_found(self):
+    #     configuration = {
+    #         "keyword": "qg_1",
+    #         "helptext": -1,
+    #         "questions": [{"key": "key_1"}]
+    #     }
+    #     with self.assertRaises(ConfigurationErrorInvalidOption):
+    #         QuestionnaireQuestiongroup(configuration)
 
     def test_raises_error_if_no_questions(self):
         configuration = {

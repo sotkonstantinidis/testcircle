@@ -69,6 +69,9 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_3']))
 
+        # She sees the helptext
+        self.checkOnPage('Helptext 1')
+
         # She sees many buttons to add more questions
         add_more_buttons = self.findManyBy(
             'xpath', '//a[@data-questiongroup-keyword]')

@@ -159,7 +159,7 @@ class Translation(models.Model):
             translation_types.append(related.model.translation_type)
         return translation_types
 
-    def get_translation(self, locale=None):
+    def get_translation(self, keyword, locale=None):
         """
         Return the translation of the instance by looking it up in the
         ``data`` JSON field. If no ``locale`` is provided, the currently
@@ -174,7 +174,7 @@ class Translation(models.Model):
         """
         if locale is None:
             locale = to_locale(get_language())
-        return self.data.get(locale)
+        return self.data.get(keyword, {}).get(locale)
 
     def __str__(self):
         return self.data.get(settings.LANGUAGES[0][0], '-')
@@ -190,13 +190,13 @@ class Key(models.Model):
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
-    data = JsonBField(help_text="""
+    configuration = JsonBField(help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
             play</a> to format your JSON.""")
 
-    def get_translation(self, locale=None):
+    def get_translation(self, *args, **kwargs):
         """
         Return the translation of the key. Passes all arguments to the
         relative :class:`Translation` model's function.
@@ -204,18 +204,19 @@ class Key(models.Model):
         .. seealso::
             :func:`Translation.get_translation`
         """
-        return self.translation.get_translation(locale)
+        return self.translation.get_translation(*args, **kwargs)
 
     @property
     def type_(self):
         """
-        Helper function to access the ``type`` of the data JSON.
+        Helper function to access the ``type`` of the configuration
+        JSON.
 
         Returns:
             ``str`` or ``None``. The value found at key ``type`` of the
             JSON or None if the key was not found.
         """
-        return self.data.get('type')
+        return self.configuration.get('type')
 
     def __str__(self):
         return self.keyword
@@ -234,6 +235,37 @@ class Value(models.Model):
     key = models.ForeignKey('Key')
 
 
+class Questiongroup(models.Model):
+    """
+    The model representing the questiongroups of the
+    :class:`questionnaire.models.Questionnaire`
+    """
+    translation_type = 'value'
+
+    keyword = models.CharField(max_length=63, unique=True)
+    translation = models.ForeignKey(
+        'Translation', limit_choices_to={'translation_type': translation_type},
+        null=True, blank=True)
+    configuration = JsonBField(blank=True, help_text="""
+            The JSON configuration. See section "Questionnaire
+            Configuration" of the manual for more information.<br/>
+            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
+            play</a> to format your JSON.""")
+
+    def get_translation(self, *args, **kwargs):
+        """
+        Return the translation of the questiongroup. Passes all
+        arguments to the relative :class:`Translation` model's function.
+
+        .. seealso::
+            :func:`Translation.get_translation`
+        """
+        return self.translation.get_translation(*args, **kwargs)
+
+    def __str__(self):
+        return self.keyword
+
+
 class Category(models.Model):
     """
     The model representing the categories of the
@@ -245,15 +277,15 @@ class Category(models.Model):
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
 
-    def get_translation(self, locale=None):
+    def get_translation(self, *args, **kwargs):
         """
-        Return the translation of the key. Passes all arguments to the
-        relative :class:`Translation` model's function.
+        Return the translation of the category. Passes all arguments to
+        the relative :class:`Translation` model's function.
 
         .. seealso::
             :func:`Translation.get_translation`
         """
-        return self.translation.get_translation(locale)
+        return self.translation.get_translation(*args, **kwargs)
 
     def __str__(self):
         return self.keyword

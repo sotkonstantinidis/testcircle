@@ -19,6 +19,7 @@ from questionnaire.views import (
     generic_questionnaire_new_step,
 )
 from unccd.tests.test_views import (
+    get_categories,
     get_category_count,
     get_valid_new_step_values,
     get_valid_new_values,
@@ -114,7 +115,8 @@ class GenericQuestionnaireNewTest(TestCase):
             self, mock_QuestionnaireConfiguration_get_details,
             mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
-        generic_questionnaire_new(self.request, *get_valid_new_values())
+        with self.assertRaises(AttributeError):
+            generic_questionnaire_new(self.request, *get_valid_new_values())
         mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
 
     @patch('questionnaire.views.get_session_questionnaire')
@@ -208,6 +210,7 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values())
         mock_render.assert_called_once_with(
             self.request, 'unccd/questionnaire/new.html', {
+                'category_names': get_categories(),
                 'categories': ["foo"]*get_category_count()})
 
     def test_returns_rendered_response(self):

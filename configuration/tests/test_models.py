@@ -5,6 +5,7 @@ from configuration.models import (
     Category,
     Configuration,
     Key,
+    Questiongroup,
     Translation,
 )
 from qcat.tests import TestCase
@@ -19,10 +20,15 @@ def get_valid_translation_model():
     return Translation(translation_type='key', data={"locale": "foo"})
 
 
+def get_valid_questiongroup_model():
+    return Questiongroup(keyword='foo', configuration={})
+
+
 def get_valid_key_model():
     translation = get_valid_translation_model()
     translation.save()
-    return Key(keyword='foo', translation=translation, data={"foo": "bar"})
+    return Key(
+        keyword='foo', translation=translation, configuration={"foo": "bar"})
 
 
 def get_valid_category_model():
@@ -63,8 +69,40 @@ class CategoryModelTest(TestCase):
     @patch.object(Translation, 'get_translation')
     def test_get_translation_calls_translation_function(
             self, mock_Translation_get_translation):
-        self.category.get_translation(locale='foo')
-        mock_Translation_get_translation.assert_called_once_with('foo')
+        self.category.get_translation('keyword', locale='foo')
+        mock_Translation_get_translation.assert_called_once_with(
+            'keyword', locale='foo')
+
+
+class QuestiongroupModelTest(TestCase):
+
+    def setUp(self):
+        self.questiongroup = get_valid_questiongroup_model()
+
+    def test_get_valid_questiongroup_model_is_valid(self):
+        self.questiongroup.full_clean()  # Should not raise
+
+    def test_id_is_primary_key(self):
+        self.assertTrue(hasattr(self.questiongroup, 'id'))
+
+    def test_keyword_is_mandatory(self):
+        self.questiongroup.keyword = None
+        with self.assertRaises(ValidationError):
+            self.questiongroup.full_clean()
+
+    def test_keyword_is_unique(self):
+        self.questiongroup.save()
+        q2 = get_valid_questiongroup_model()
+        with self.assertRaises(ValidationError):
+            q2.full_clean()
+
+    def test_translation_is_not_mandatory(self):
+        self.questiongroup.translation = None
+        self.questiongroup.full_clean()  # Should not raise
+
+    def test_configuration_is_not_mandatory(self):
+        self.questiongroup.configuration = {}
+        self.questiongroup.full_clean()  # Should not raise
 
 
 class KeyModelTest(TestCase):
@@ -95,24 +133,25 @@ class KeyModelTest(TestCase):
         with self.assertRaises(ValidationError):
             self.key.full_clean()
 
-    def test_data_is_mandatory(self):
-        self.key.data = None
+    def test_configuration_is_mandatory(self):
+        self.key.configuration = None
         with self.assertRaises(ValidationError):
             self.key.full_clean()
 
-    def test_data_cannot_be_empty(self):
-        self.key.data = {}
+    def test_configuration_cannot_be_empty(self):
+        self.key.configuration = {}
         with self.assertRaises(ValidationError):
             self.key.full_clean()
 
     @patch.object(Translation, 'get_translation')
     def test_get_translation_calls_translation_function(
             self, mock_Translation_get_translation):
-        self.key.get_translation(locale='foo')
-        mock_Translation_get_translation.assert_called_once_with('foo')
+        self.key.get_translation('keyword', locale='foo')
+        mock_Translation_get_translation.assert_called_once_with(
+            'keyword', locale='foo')
 
     def test_type_returns_type(self):
-        self.key.data = {"type": "foo"}
+        self.key.configuration = {"type": "foo"}
         self.assertEqual(self.key.type_, 'foo')
 
     def test_type_returns_None_if_not_found(self):
@@ -155,27 +194,30 @@ class TranslationModelTest(TestCase):
 
     def test_get_translation_types_returns_valid_types(self):
         valid_types = self.translation.get_translation_types()
-        self.assertEqual(len(valid_types), 3)
+        self.assertEqual(len(valid_types), 4)
 
     @patch('configuration.models.to_locale')
     @patch('configuration.models.get_language')
     def test_get_translation_calls_get_language_if_no_locale_provided(
             self, mock_get_language, mock_to_locale):
         mock_to_locale.return_value = ''
-        self.translation.get_translation()
+        self.translation.get_translation('keyword')
         mock_get_language.assert_called_once_with()
 
     @patch('configuration.models.get_language')
     def test_get_translation_does_not_call_get_language_if_locale_provided(
             self, mock_get_language):
-        self.translation.get_translation('locale')
+        self.translation.get_translation('keyword', locale='locale')
         mock_get_language.assert_not_called()
 
     def test_get_translation_returns_data_by_locale(self):
-        self.assertEqual(self.translation.get_translation('locale'), 'foo')
+        self.translation.data = {"keyword": {"locale": "foo"}}
+        self.assertEqual(self.translation.get_translation(
+            'keyword', locale='locale'), 'foo')
 
     def test_get_translation_returns_None_if_locale_not_found(self):
-        self.assertIsNone(self.translation.get_translation('foo'))
+        self.assertIsNone(self.translation.get_translation(
+            'keyword', locale='foo'))
 
 
 class ConfigurationModelTest(TestCase):

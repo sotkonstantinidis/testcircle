@@ -2,16 +2,16 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django_pgjson.fields
 import uuid
+import django_pgjson.fields
 from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('configuration', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('configuration', '0001_initial'),
     ]
 
     operations = [
@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='questionnaire',
             name='active',
-            field=models.ForeignKey(to='questionnaire.QuestionnaireVersion', related_name='active_questionnaire', null=True),
+            field=models.ForeignKey(related_name='active_questionnaire', to='questionnaire.QuestionnaireVersion', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -113,7 +113,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='questionnaire',
             name='members',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='questionnaire.QuestionnaireMembership'),
+            field=models.ManyToManyField(through='questionnaire.QuestionnaireMembership', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]
