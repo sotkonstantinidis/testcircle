@@ -510,6 +510,15 @@ class QuestionnaireQuestiongroupTest(TestCase):
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
             QuestionnaireQuestiongroup(configuration)
 
+    def test_raises_error_if_helptext_not_found(self):
+        configuration = {
+            "keyword": "foo",
+            "helptext": -1,
+            "questions": [{"key": "key_1"}]
+        }
+        with self.assertRaises(ConfigurationErrorInvalidOption):
+            QuestionnaireQuestiongroup(configuration)
+
     def test_raises_error_if_no_questions(self):
         configuration = {
             "keyword": "qg_1"

@@ -45,8 +45,10 @@
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
         <fieldset class="row">
           <legend>{{ subcategory_config.label }}</legend>
-          <p class="form-help">[TODO] Helptext</p>
           {% for questiongroup_config, questiongroup_formset in subcategory_formsets %}
+            {% if questiongroup_config.helptext %}
+              <p class="help-bloc">{{ questiongroup_config.helptext }}</p>
+            {% endif %}
             {% block errors %}{% include "form/errors.html" with errors=questiongroup_formset.non_form_errors %}{% endblock %}
             {{ questiongroup_formset.management_form }}
             {% for form in questiongroup_formset.forms %}

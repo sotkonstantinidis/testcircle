@@ -8,6 +8,7 @@ from configuration.models import (
     Category,
     Configuration,
     Key,
+    Translation,
 )
 from qcat.errors import (
     ConfigurationError,
@@ -118,6 +119,7 @@ class QuestionnaireQuestiongroup(object):
         'max_num',
         'min_num',
         'template',
+        'helptext',
     ]
 
     def __init__(self, configuration):
@@ -190,6 +192,16 @@ class QuestionnaireQuestiongroup(object):
             raise ConfigurationErrorInvalidConfiguration(
                 'max_num', 'integer >= 1', 'questiongroup')
 
+        helptext = ''
+        helptext_id = configuration.get('helptext')
+        if helptext_id:
+            try:
+                helptext = Translation.objects.get(
+                    pk=helptext_id).get_translation()
+            except Translation.DoesNotExist:
+                raise ConfigurationErrorInvalidOption(
+                    helptext_id, 'helptext', '<Questiongroup>')
+
         questions = []
         conf_questions = configuration.get('questions', [])
         if (not isinstance(conf_questions, list) or len(conf_questions) == 0):
@@ -204,6 +216,7 @@ class QuestionnaireQuestiongroup(object):
         self.template = template
         self.min_num = min_num
         self.max_num = max_num
+        self.helptext = helptext
         self.questions = questions
 
         # TODO
@@ -301,6 +314,7 @@ class QuestionnaireQuestiongroup(object):
         config = {
             'template': self.template,
             'keyword': self.keyword,
+            'helptext': self.helptext,
         }
 
         return config, FormSet(
