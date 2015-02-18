@@ -43,6 +43,11 @@
     l0.561,3.074c0.128,0.514,0.691,0.936,1.252,0.936h16.312c0.561,0,1.124-0.422,1.252-0.936l0.561-3.074
     C20.096,14.468,19.828,14.053,19.338,13.532z"/> </symbol></svg>
 
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert-box{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
 
     {% block content %}
     {% endblock %}

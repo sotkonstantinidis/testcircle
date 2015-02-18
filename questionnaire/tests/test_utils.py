@@ -44,6 +44,13 @@ class IsEmptyQuestionnaireTest(TestCase):
         }
         self.assertFalse(is_empty_questionnaire(not_empty))
 
+    def test_foo(self):
+        empty = {
+            'qg_1': [{'key_1': '', 'key_3': ''}],
+            'qg_2': [{'key_2': ''}],
+            'qg_3': [{'key_6': '', 'key_4': ''}]}
+        self.assertTrue(is_empty_questionnaire(empty))
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 

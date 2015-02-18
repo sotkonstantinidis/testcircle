@@ -11,7 +11,7 @@ function watchFormProgress() {
   var completed = 0;
   $('fieldset.row').each(function() {
     var content = false;
-    $(this).find('div.row.list-item input').each(function() {
+    $(this).find('div.row.list-item input, div.row.list-item textarea').each(function() {
       if ($(this).val() != '') {
         content = true;
         return;

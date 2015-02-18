@@ -85,6 +85,8 @@ $(function() {
     $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
     $('.list-action [data-add-item][data-questiongroup-keyword="' + qg + '"]').toggleClass('disabled', currentCount >= maxCount);
 
+    watchFormProgress();
+
   })
   // List item add
   .on('click', '.list-action [data-add-item]', function (e) {

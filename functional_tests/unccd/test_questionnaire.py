@@ -255,6 +255,11 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//span[@class="meter" and @style="width:0.0%"]')
         self.assertEqual(len(progress_bars), len(progress_indicators))
 
+        # Alice tries to submit the questionnaire but it is empty and
+        # she sees an error message
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "info")]')
+
     def test_enter_questionnaire(self, mock_do_auth):
 
         mock_do_auth.return_value = ('tempsessionid')

@@ -138,9 +138,13 @@ def generic_questionnaire_new(
 
     categories = questionnaire_configuration.get_details(
         session_questionnaire, editable=True)
+    category_names = []
+    for category in questionnaire_configuration.categories:
+        category_names.append((category.keyword, category.label))
 
     return render(request, template, {
-        'categories': categories
+        'categories': categories,
+        'category_names': tuple(category_names),
     })
 
 

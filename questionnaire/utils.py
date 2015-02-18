@@ -1,4 +1,5 @@
 from qcat.errors import QuestionnaireFormatError
+from qcat.utils import is_empty_list_of_dicts
 
 
 def is_empty_questionnaire(questionnaire_data):
@@ -21,7 +22,7 @@ def is_empty_questionnaire(questionnaire_data):
     for k, v in questionnaire_data.items():
         if v == [{}]:
             continue
-        if len(v) > 0:
+        if not is_empty_list_of_dicts(v):
             return False
     return True
 
