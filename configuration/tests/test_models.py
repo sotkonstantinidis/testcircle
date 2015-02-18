@@ -5,6 +5,7 @@ from configuration.models import (
     Category,
     Configuration,
     Key,
+    Questiongroup,
     Translation,
 )
 from qcat.tests import TestCase
@@ -19,10 +20,15 @@ def get_valid_translation_model():
     return Translation(translation_type='key', data={"locale": "foo"})
 
 
+def get_valid_questiongroup_model():
+    return Questiongroup(keyword='foo', configuration={})
+
+
 def get_valid_key_model():
     translation = get_valid_translation_model()
     translation.save()
-    return Key(keyword='foo', translation=translation, data={"foo": "bar"})
+    return Key(
+        keyword='foo', translation=translation, configuration={"foo": "bar"})
 
 
 def get_valid_category_model():
@@ -67,6 +73,37 @@ class CategoryModelTest(TestCase):
         mock_Translation_get_translation.assert_called_once_with('foo')
 
 
+class QuestiongroupModelTest(TestCase):
+
+    def setUp(self):
+        self.questiongroup = get_valid_questiongroup_model()
+
+    def test_get_valid_questiongroup_model_is_valid(self):
+        self.questiongroup.full_clean()  # Should not raise
+
+    def test_id_is_primary_key(self):
+        self.assertTrue(hasattr(self.questiongroup, 'id'))
+
+    def test_keyword_is_mandatory(self):
+        self.questiongroup.keyword = None
+        with self.assertRaises(ValidationError):
+            self.questiongroup.full_clean()
+
+    def test_keyword_is_unique(self):
+        self.questiongroup.save()
+        q2 = get_valid_questiongroup_model()
+        with self.assertRaises(ValidationError):
+            q2.full_clean()
+
+    def test_translation_is_not_mandatory(self):
+        self.questiongroup.translation = None
+        self.questiongroup.full_clean()  # Should not raise
+
+    def test_configuration_is_not_mandatory(self):
+        self.questiongroup.configuration = {}
+        self.questiongroup.full_clean()  # Should not raise
+
+
 class KeyModelTest(TestCase):
 
     def setUp(self):
@@ -95,13 +132,13 @@ class KeyModelTest(TestCase):
         with self.assertRaises(ValidationError):
             self.key.full_clean()
 
-    def test_data_is_mandatory(self):
-        self.key.data = None
+    def test_configuration_is_mandatory(self):
+        self.key.configuration = None
         with self.assertRaises(ValidationError):
             self.key.full_clean()
 
-    def test_data_cannot_be_empty(self):
-        self.key.data = {}
+    def test_configuration_cannot_be_empty(self):
+        self.key.configuration = {}
         with self.assertRaises(ValidationError):
             self.key.full_clean()
 
@@ -112,7 +149,7 @@ class KeyModelTest(TestCase):
         mock_Translation_get_translation.assert_called_once_with('foo')
 
     def test_type_returns_type(self):
-        self.key.data = {"type": "foo"}
+        self.key.configuration = {"type": "foo"}
         self.assertEqual(self.key.type_, 'foo')
 
     def test_type_returns_None_if_not_found(self):

@@ -164,7 +164,7 @@
     "fields": {
         "keyword": "key_1",
         "translation": 1,
-        "data": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 1
@@ -173,7 +173,7 @@
     "fields": {
         "keyword": "key_2",
         "translation": 2,
-        "data": "{\"type\": \"text\"}"
+        "configuration": "{\"type\": \"text\"}"
     },
     "model": "configuration.key",
     "pk": 2
@@ -182,7 +182,7 @@
     "fields": {
         "keyword": "key_3",
         "translation": 3,
-        "data": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 3
@@ -191,7 +191,7 @@
     "fields": {
         "keyword": "key_4",
         "translation": 4,
-        "data": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 4
@@ -200,7 +200,7 @@
     "fields": {
         "keyword": "key_5",
         "translation": 5,
-        "data": "{\"type\": \"text\"}"
+        "configuration": "{\"type\": \"text\"}"
     },
     "model": "configuration.key",
     "pk": 5
@@ -209,7 +209,7 @@
     "fields": {
         "keyword": "key_6",
         "translation": 6,
-        "data": "{\"type\": \"text\"}"
+        "configuration": "{\"type\": \"text\"}"
     },
     "model": "configuration.key",
     "pk": 6
@@ -218,7 +218,7 @@
     "fields": {
         "keyword": "key_7",
         "translation": 7,
-        "data": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 7
@@ -227,7 +227,7 @@
     "fields": {
         "keyword": "key_8",
         "translation": 8,
-        "data": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 8
@@ -236,7 +236,7 @@
     "fields": {
         "keyword": "key_9",
         "translation": 9,
-        "data": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 9
@@ -245,7 +245,7 @@
     "fields": {
         "keyword": "key_10",
         "translation": 10,
-        "data": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 10

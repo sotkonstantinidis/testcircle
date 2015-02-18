@@ -190,7 +190,7 @@ class Key(models.Model):
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
-    data = JsonBField(help_text="""
+    configuration = JsonBField(help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
@@ -209,13 +209,14 @@ class Key(models.Model):
     @property
     def type_(self):
         """
-        Helper function to access the ``type`` of the data JSON.
+        Helper function to access the ``type`` of the configuration
+        JSON.
 
         Returns:
             ``str`` or ``None``. The value found at key ``type`` of the
             JSON or None if the key was not found.
         """
-        return self.data.get('type')
+        return self.configuration.get('type')
 
     def __str__(self):
         return self.keyword
@@ -244,8 +245,8 @@ class Questiongroup(models.Model):
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type},
-        null=True)
-    configuration = JsonBField(help_text="""
+        null=True, blank=True)
+    configuration = JsonBField(blank=True, help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq

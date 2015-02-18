@@ -9,7 +9,6 @@ from configuration.models import (
     Configuration,
     Key,
     Questiongroup,
-    Translation,
 )
 from qcat.errors import (
     ConfigurationError,
@@ -72,7 +71,7 @@ class QuestionnaireQuestion(object):
 
         self.list_position = configuration.get('list_position')
         self.key_object = key_object
-        self.key_config = key_object.data
+        self.key_config = key_object.configuration
         self.field_type = self.key_config.get('type', 'char')
         self.label = key_object.get_translation()
         self.keyword = key
