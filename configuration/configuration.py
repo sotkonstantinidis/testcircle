@@ -73,7 +73,7 @@ class QuestionnaireQuestion(object):
         self.key_object = key_object
         self.key_config = key_object.configuration
         self.field_type = self.key_config.get('type', 'char')
-        self.label = key_object.get_translation()
+        self.label = key_object.get_translation('label')
         self.keyword = key
 
         # TODO
@@ -206,7 +206,7 @@ class QuestionnaireQuestiongroup(object):
         self.helptext = ''
         translation = questiongroup_object.translation
         if translation:
-            self.helptext = translation.get_translation()
+            self.helptext = translation.get_translation('helptext')
 
         self.questions = []
         conf_questions = self.configuration.get('questions', [])
@@ -397,7 +397,7 @@ class QuestionnaireSubcategory(object):
         self.configuration = configuration
         self.questiongroups = questiongroups
         self.object = subcategory
-        self.label = subcategory.get_translation()
+        self.label = subcategory.get_translation('label')
 
     @staticmethod
     def merge_configurations(base, specific):
@@ -567,7 +567,7 @@ class QuestionnaireCategory(object):
         self.configuration = configuration
         self.subcategories = subcategories
         self.object = category
-        self.label = category.get_translation()
+        self.label = category.get_translation('label')
 
     @staticmethod
     def merge_configurations(base, specific):

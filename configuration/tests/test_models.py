@@ -69,8 +69,9 @@ class CategoryModelTest(TestCase):
     @patch.object(Translation, 'get_translation')
     def test_get_translation_calls_translation_function(
             self, mock_Translation_get_translation):
-        self.category.get_translation(locale='foo')
-        mock_Translation_get_translation.assert_called_once_with('foo')
+        self.category.get_translation('keyword', locale='foo')
+        mock_Translation_get_translation.assert_called_once_with(
+            'keyword', locale='foo')
 
 
 class QuestiongroupModelTest(TestCase):
@@ -145,8 +146,9 @@ class KeyModelTest(TestCase):
     @patch.object(Translation, 'get_translation')
     def test_get_translation_calls_translation_function(
             self, mock_Translation_get_translation):
-        self.key.get_translation(locale='foo')
-        mock_Translation_get_translation.assert_called_once_with('foo')
+        self.key.get_translation('keyword', locale='foo')
+        mock_Translation_get_translation.assert_called_once_with(
+            'keyword', locale='foo')
 
     def test_type_returns_type(self):
         self.key.configuration = {"type": "foo"}
@@ -199,20 +201,23 @@ class TranslationModelTest(TestCase):
     def test_get_translation_calls_get_language_if_no_locale_provided(
             self, mock_get_language, mock_to_locale):
         mock_to_locale.return_value = ''
-        self.translation.get_translation()
+        self.translation.get_translation('keyword')
         mock_get_language.assert_called_once_with()
 
     @patch('configuration.models.get_language')
     def test_get_translation_does_not_call_get_language_if_locale_provided(
             self, mock_get_language):
-        self.translation.get_translation('locale')
+        self.translation.get_translation('keyword', locale='locale')
         mock_get_language.assert_not_called()
 
     def test_get_translation_returns_data_by_locale(self):
-        self.assertEqual(self.translation.get_translation('locale'), 'foo')
+        self.translation.data = {"keyword": {"locale": "foo"}}
+        self.assertEqual(self.translation.get_translation(
+            'keyword', locale='locale'), 'foo')
 
     def test_get_translation_returns_None_if_locale_not_found(self):
-        self.assertIsNone(self.translation.get_translation('foo'))
+        self.assertIsNone(self.translation.get_translation(
+            'keyword', locale='foo'))
 
 
 class ConfigurationModelTest(TestCase):
