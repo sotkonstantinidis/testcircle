@@ -8,6 +8,7 @@ from configuration.models import (
     Category,
     Configuration,
     Key,
+    Questiongroup,
     Translation,
 )
 from qcat.errors import (
@@ -121,8 +122,10 @@ class QuestionnaireQuestiongroup(object):
         'template',
         'helptext',
     ]
+    default_template = 'default'
+    default_min_num = 1
 
-    def __init__(self, configuration):
+    def __init__(self, custom_configuration):
         """
         Parameter ``configuration`` is a dict containing the
         configuration of the Questiongroup. It needs to have the
@@ -164,60 +167,56 @@ class QuestionnaireQuestiongroup(object):
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`
         """
-        validate_type(
-            configuration, dict, 'questiongroups', 'list of dicts',
-            'subcategories')
-        validate_options(
-            configuration, self.valid_options, QuestionnaireQuestiongroup)
-
-        keyword = configuration.get('keyword')
-        if not isinstance(keyword, str):
+        self.keyword = custom_configuration.get('keyword')
+        if not isinstance(self.keyword, str):
             raise ConfigurationErrorInvalidConfiguration(
                 'keyword', 'str', 'questiongroups')
 
-        template = 'form/questiongroup/{}.html'.format(
-            configuration.get('template', 'default'))
         try:
-            get_template(template)
-        except TemplateDoesNotExist:
-            raise ConfigurationErrorTemplateNotFound(template, self)
+            questiongroup_object = Questiongroup.objects.get(
+                keyword=self.keyword)
+        except Questiongroup.DoesNotExist:
+            raise ConfigurationErrorNotInDatabase(Questiongroup, self.keyword)
+        self.configuration = questiongroup_object.configuration
 
-        min_num = configuration.get('min_num', 1)
-        if not isinstance(min_num, int) or min_num < 1:
+        self.configuration.update(custom_configuration)
+
+        validate_type(
+            self.configuration, dict, 'questiongroups', 'list of dicts',
+            'subcategories')
+        validate_options(
+            self.configuration, self.valid_options, QuestionnaireQuestiongroup)
+
+        self.template = 'form/questiongroup/{}.html'.format(
+            self.configuration.get('template', self.default_template))
+        try:
+            get_template(self.template)
+        except TemplateDoesNotExist:
+            raise ConfigurationErrorTemplateNotFound(self.template, self)
+
+        self.min_num = self.configuration.get('min_num', self.default_min_num)
+        if not isinstance(self.min_num, int) or self.min_num < 1:
             raise ConfigurationErrorInvalidConfiguration(
                 'min_num', 'integer >= 1', 'questiongroup')
 
-        max_num = configuration.get('max_num', min_num)
-        if not isinstance(max_num, int) or max_num < 1:
+        self.max_num = self.configuration.get('max_num', self.min_num)
+        if not isinstance(self.max_num, int) or self.max_num < 1:
             raise ConfigurationErrorInvalidConfiguration(
                 'max_num', 'integer >= 1', 'questiongroup')
 
-        helptext = ''
-        helptext_id = configuration.get('helptext')
-        if helptext_id:
-            try:
-                helptext = Translation.objects.get(
-                    pk=helptext_id).get_translation()
-            except Translation.DoesNotExist:
-                raise ConfigurationErrorInvalidOption(
-                    helptext_id, 'helptext', '<Questiongroup>')
+        self.helptext = ''
+        translation = questiongroup_object.translation
+        if translation:
+            self.helptext = translation.get_translation()
 
-        questions = []
-        conf_questions = configuration.get('questions', [])
+        self.questions = []
+        conf_questions = self.configuration.get('questions', [])
         if (not isinstance(conf_questions, list) or len(conf_questions) == 0):
             raise ConfigurationErrorInvalidConfiguration(
                 'questions', 'list of dicts', 'questiongroups')
 
         for conf_question in conf_questions:
-            questions.append(QuestionnaireQuestion(conf_question))
-
-        self.keyword = keyword
-        self.configuration = configuration
-        self.template = template
-        self.min_num = min_num
-        self.max_num = max_num
-        self.helptext = helptext
-        self.questions = questions
+            self.questions.append(QuestionnaireQuestion(conf_question))
 
         # TODO
         self.required = False

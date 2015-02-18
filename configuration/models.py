@@ -234,6 +234,24 @@ class Value(models.Model):
     key = models.ForeignKey('Key')
 
 
+class Questiongroup(models.Model):
+    """
+    The model representing the questiongroups of the
+    :class:`questionnaire.models.Questionnaire`
+    """
+    translation_type = 'value'
+
+    keyword = models.CharField(max_length=63, unique=True)
+    translation = models.ForeignKey(
+        'Translation', limit_choices_to={'translation_type': translation_type},
+        null=True)
+    configuration = JsonBField(help_text="""
+            The JSON configuration. See section "Questionnaire
+            Configuration" of the manual for more information.<br/>
+            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
+            play</a> to format your JSON.""")
+
+
 class Category(models.Model):
     """
     The model representing the categories of the

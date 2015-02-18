@@ -155,7 +155,7 @@ class TranslationModelTest(TestCase):
 
     def test_get_translation_types_returns_valid_types(self):
         valid_types = self.translation.get_translation_types()
-        self.assertEqual(len(valid_types), 3)
+        self.assertEqual(len(valid_types), 4)
 
     @patch('configuration.models.to_locale')
     @patch('configuration.models.get_language')
