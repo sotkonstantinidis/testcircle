@@ -19,8 +19,13 @@ def login(request):
     After login, redirect users to where they came from or to the home
     page by default.
     """
+    redirect = request.GET.get('next')
+
     if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('home'))
+        if redirect:
+            return HttpResponseRedirect(redirect)
+        else:
+            return HttpResponseRedirect(reverse('home'))
 
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
@@ -30,8 +35,8 @@ def login(request):
                 password=form.cleaned_data['password'])
             if user is not None:
                 django_login(request, user)
-                if 'next' in request.GET:
-                    return HttpResponseRedirect(request.GET['next'])
+                if redirect:
+                    return HttpResponseRedirect(redirect)
                 return HttpResponseRedirect(reverse('home'))
             else:
                 messages.warning(
@@ -40,7 +45,7 @@ def login(request):
                         'correct.'))
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'redirect': redirect})
 
 
 def logout(request):

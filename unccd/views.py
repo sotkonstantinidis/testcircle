@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
@@ -22,6 +23,7 @@ def home(request):
     return render(request, 'unccd/home.html')
 
 
+@login_required
 def questionnaire_new_step(request, step):
     """
     View to show the form of a single step of a new UNCCD questionnaire.
@@ -46,6 +48,7 @@ def questionnaire_new_step(request, step):
         'unccd_questionnaire_new')
 
 
+@login_required
 def questionnaire_new(request):
     """
     View to show the overview of a new UNCCD questionnaire. Also
@@ -67,6 +70,7 @@ def questionnaire_new(request):
         'unccd_questionnaire_details')
 
 
+@login_required
 def questionnaire_edit(request, questionnaire_id):
     """
     TODO

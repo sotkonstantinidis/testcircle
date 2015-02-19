@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import (
     render,
@@ -17,6 +18,7 @@ from questionnaire.models import Questionnaire
 from questionnaire.utils import is_empty_questionnaire
 
 
+@login_required
 def generic_questionnaire_new_step(
         request, step, configuration_code, template, success_route):
     """
@@ -92,6 +94,7 @@ def generic_questionnaire_new_step(
     })
 
 
+@login_required
 def generic_questionnaire_new(
         request, configuration_code, template, success_route):
     """

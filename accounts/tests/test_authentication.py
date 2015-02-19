@@ -15,6 +15,16 @@ def get_mock_do_auth_return_values():
 
 
 @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
+def do_log_in(client, mock_do_auth):
+    mock_do_auth.return_value = get_mock_do_auth_return_values()
+    client.login(username='a@b.com', password='foo')
+
+
+def create_new_user():
+    return User.create_new(email='a@b.com', name='foo')
+
+
+@patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
 class AuthenticateTest(TestCase):
 
     def setUp(self):

@@ -8,6 +8,9 @@ from unccd.tests.test_views import (
     questionnaire_route_new_step,
     get_category_count,
 )
+from accounts.tests.test_views import (
+    accounts_route_login,
+)
 
 
 @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
@@ -262,6 +265,32 @@ class QuestionnaireTest(FunctionalTest):
         # she sees an error message
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "info")]')
+
+    def test_enter_questionnaire_requires_login(self, mock_do_auth):
+
+        # Alice opens the login form and does not see a message
+        self.browser.get(self.live_server_url + reverse(accounts_route_login))
+        self.findByNot(
+            'xpath', '//div[@class="alert-box info" and contains(text(), "' +
+            reverse(questionnaire_route_new) + '")]')
+
+        # Alice tries to access the form without being logged in
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new))
+        self.findBy(
+            'xpath', '//div[@class="alert-box info" and contains(text(), "' +
+            reverse(questionnaire_route_new) + '")]')
+
+        # She sees that she has been redirected to the login page
+        self.checkOnPage('Login')
+        # self.checkOnPage(reverse(
+        #     questionnaire_route_new))
+        self.findBy('name', 'email').send_keys('a@b.com')
+        self.findBy('name', 'password').send_keys('foo')
+        self.findBy('id', 'button_login').click()
+
+        # She sees that she is logged in and was redirected back to the form.
+        self.checkOnPage('Category 1')
 
     def test_enter_questionnaire(self, mock_do_auth):
 

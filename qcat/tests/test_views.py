@@ -1,6 +1,10 @@
 from qcat.tests import TestCase
 
 
+qcat_route_home = 'home'
+qcat_route_about = 'about'
+
+
 class HomePageTest(TestCase):
 
     fixtures = ['groups_permissions.json', 'sample.json']

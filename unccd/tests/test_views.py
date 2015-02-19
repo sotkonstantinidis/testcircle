@@ -2,6 +2,10 @@ from django.test.client import RequestFactory
 from unittest.mock import patch
 from django.core.urlresolvers import reverse
 
+from accounts.tests.test_authentication import (
+    create_new_user,
+    do_log_in,
+)
 from qcat.tests import TestCase
 from unccd.views import (
     questionnaire_details,
@@ -55,14 +59,20 @@ class QuestionnaireNewTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(questionnaire_route_new)
 
-    def test_questionnaire_new_test_renders_correct_template(self):
+    def test_questionnaire_new_login_required(self):
         res = self.client.get(self.url, follow=True)
+        self.assertTemplateUsed(res, 'login.html')
+
+    def test_questionnaire_new_test_renders_correct_template(self):
+        do_log_in(self.client)
+        res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'unccd/questionnaire/new.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('unccd.views.generic_questionnaire_new')
     def test_calls_generic_function(self, mock_questionnaire_new):
         request = self.factory.get(self.url)
+        request.user = create_new_user()
         questionnaire_new(request)
         mock_questionnaire_new.assert_called_once_with(
             request, *get_valid_new_values())
@@ -76,7 +86,12 @@ class QuestionnaireNewStepTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(questionnaire_route_new_step, args=['cat_1'])
 
+    def test_questionnaire_new_step_login_required(self):
+        res = self.client.get(self.url, follow=True)
+        self.assertTemplateUsed(res, 'login.html')
+
     def test_renders_correct_template(self):
+        do_log_in(self.client)
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'unccd/questionnaire/new_step.html')
         self.assertEqual(res.status_code, 200)
@@ -84,6 +99,7 @@ class QuestionnaireNewStepTest(TestCase):
     @patch('unccd.views.generic_questionnaire_new_step')
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
+        request.user = create_new_user()
         questionnaire_new_step(request, 'cat_1')
         mock_questionnaire_new_step.assert_called_once_with(
             request, *get_valid_new_step_values())

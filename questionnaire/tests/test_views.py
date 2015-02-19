@@ -5,6 +5,10 @@ from django.http.response import HttpResponse
 from django.test.client import RequestFactory
 from unittest.mock import patch, Mock
 
+from accounts.tests.test_authentication import (
+    create_new_user,
+    do_log_in,
+)
 from configuration.configuration import (
     QuestionnaireConfiguration,
     QuestionnaireCategory,
@@ -37,6 +41,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.request = self.factory.get('/unccd/new/cat_1')
+        self.request.user = create_new_user()
         session_store.clear()
 
     @patch.object(QuestionnaireConfiguration, '__init__')
@@ -108,6 +113,7 @@ class GenericQuestionnaireNewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.request = self.factory.get('/unccd/new')
+        self.request.user = create_new_user()
 
     @patch.object(QuestionnaireConfiguration, '__init__')
     @patch.object(QuestionnaireConfiguration, 'get_details')

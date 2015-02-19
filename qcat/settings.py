@@ -115,6 +115,7 @@ AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
     'accounts.authentication.WocatAuthenticationBackend',
 )
+LOGIN_URL = 'login'
 
 # TODO: Try if tests can be run with --with-fixture-bundling
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
