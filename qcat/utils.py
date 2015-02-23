@@ -43,9 +43,13 @@ def is_empty_list_of_dicts(list_):
         ``bool``. ``True`` if the list contains only empty dicts,
         ``False`` if not.
     """
-    for dict in list_:
-        for key, value in dict.items():
-            if value != '':
+    for d in list_:
+        for key, value in d.items():
+            if isinstance(value, dict):
+                for k, v in value.items():
+                    if v != '':
+                        return False
+            elif value != '':
                 return False
     return True
 

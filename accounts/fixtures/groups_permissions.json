@@ -253,6 +253,21 @@
                 "questionnaireversion"
             ],
             [
+                "add_questionnairetranslation",
+                "questionnaire",
+                "questionnairetranslation"
+            ],
+            [
+                "change_questionnairetranslation",
+                "questionnaire",
+                "questionnairetranslation"
+            ],
+            [
+                "delete_questionnairetranslation",
+                "questionnaire",
+                "questionnairetranslation"
+            ],
+            [
                 "add_status",
                 "questionnaire",
                 "status"

@@ -21,6 +21,13 @@ their versions.
     :members:
 
 
+``questionnaire.utils``
+-----------------------
+
+.. automodule:: questionnaire.utils
+    :members:
+
+
 ``questionnaire.views``
 -----------------------
 

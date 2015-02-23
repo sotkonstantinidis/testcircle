@@ -24,7 +24,7 @@ def home(request):
 
 
 @login_required
-def questionnaire_new_step(request, step):
+def questionnaire_new_step(request, step, questionnaire_id=None):
     """
     View to show the form of a single step of a new UNCCD questionnaire.
     Also handles the form submit of the step along with its validation
@@ -49,10 +49,10 @@ def questionnaire_new_step(request, step):
 
 
 @login_required
-def questionnaire_new(request):
+def questionnaire_new(request, questionnaire_id=None):
     """
-    View to show the overview of a new UNCCD questionnaire. Also
-    handles the form submit of the entire questionnaire.
+    View to show the overview of a new or edited UNCCD questionnaire.
+    Also handles the form submit of the entire questionnaire.
 
     .. seealso::
         The actual rendering of the form and the form validation is
@@ -67,17 +67,7 @@ def questionnaire_new(request):
     """
     return generic_questionnaire_new(
         request, 'unccd', 'unccd/questionnaire/new.html',
-        'unccd_questionnaire_details')
-
-
-@login_required
-def questionnaire_edit(request, questionnaire_id):
-    """
-    TODO
-    """
-    # TODO
-    return generic_questionnaire_details(
-        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
+        'unccd_questionnaire_details', questionnaire_id=questionnaire_id)
 
 
 def questionnaire_details(request, questionnaire_id):

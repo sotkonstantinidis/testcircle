@@ -62,6 +62,19 @@ class Questionnaire(models.Model):
         return json.dumps(self.data)
 
 
+class QuestionnaireTranslation(models.Model):
+    """
+    Represents a many-to-many relationship between Questionnaires and
+    languages with additional fields. Each translation of a
+    Questionnaire gets an entry to allow a quick overview in which
+    languages a Questionnaire is available. Additional fields mark the
+    language in which the Questionnaire was originally entered.
+    """
+    questionnaire = models.ForeignKey('Questionnaire')
+    language = models.CharField(max_length=63, choices=settings.LANGUAGES)
+    original_language = models.BooleanField(default=False)
+
+
 class QuestionnaireVersion(models.Model):
     """
     The model representing a version of a :class:`Questionnaire`. For a
