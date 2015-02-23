@@ -83,7 +83,7 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
     @patch.object(QuestionnaireConfiguration, 'get_list_configuration')
     def test_calls_get_list_configuration(self, mock_get_list_configuration):
         conf = get_valid_questionnaire_configuration()
-        conf.get_list_data([], 'foo')
+        conf.get_list_data([], 'foo', current_locale='en')
         mock_get_list_configuration.assert_called_once_with()
 
     @patch.object(QuestionnaireConfiguration, 'get_list_configuration')
@@ -93,7 +93,7 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
             'key': 'key',
             'label': 'label'
         }]
-        list_data = conf.get_list_data([], 'foo')
+        list_data = conf.get_list_data([], 'foo', current_locale='en')
         self.assertEqual(len(list_data), 1)
         header = list_data[0]
         self.assertEqual(len(header), 2)
@@ -111,7 +111,7 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         }]
         questionnaires = Questionnaire.objects.all()
         list_data = conf.get_list_data(
-            questionnaires, questionnaire_details_route)
+            questionnaires, questionnaire_details_route, current_locale='en')
         self.assertEqual(len(list_data), 3)
         row_1 = list_data[1]
         row_2 = list_data[2]

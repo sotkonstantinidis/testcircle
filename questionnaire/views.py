@@ -114,7 +114,8 @@ def generic_questionnaire_new_step(
 
 @login_required
 def generic_questionnaire_new(
-        request, configuration_code, template, success_route):
+        request, configuration_code, template, success_route,
+        questionnaire_id=None):
     """
     A generic view to show an entire questionnaire.
 
@@ -134,11 +135,20 @@ def generic_questionnaire_new(
         ``success_route`` (str): The name of the route to be used to
         redirect to after successful form submission.
 
+        ``questionnaire_id`` (id): The ID of a questionnaire if the it
+        is an edit form.
+
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
+
+    if questionnaire_id is not None:
+        questionnaire_object = get_object_or_404(
+            Questionnaire, pk=questionnaire_id)
+        save_session_questionnaire(questionnaire_object.data)
+
     session_questionnaire = get_session_questionnaire()
 
     if request.method == 'POST':
@@ -168,6 +178,7 @@ def generic_questionnaire_new(
     return render(request, template, {
         'categories': categories,
         'category_names': tuple(category_names),
+        'questionnaire_id': questionnaire_id,
     })
 
 
@@ -195,8 +206,10 @@ def generic_questionnaire_details(
         Questionnaire, pk=questionnaire_id)
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
+    data = get_questionnaire_data_in_single_language(
+        questionnaire_object.data, get_language())
     categories = questionnaire_configuration.get_details(
-        questionnaire_object.data)
+        data)
 
     return render(request, template, {
         'categories': categories,
@@ -229,7 +242,7 @@ def generic_questionnaire_list(
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
     list_data = questionnaire_configuration.get_list_data(
-        questionnaires, details_route)
+        questionnaires, details_route, get_language())
 
     return render(request, template, {
         'list_header': list_data[0],

@@ -799,7 +799,7 @@ class QuestionnaireConfiguration(object):
                         })
         return sorted(conf, key=lambda k: k.get('position'))
 
-    def get_list_data(self, questionnaires, details_route):
+    def get_list_data(self, questionnaires, details_route, current_locale):
         """
         Get the data for the list representation of questionnaires based
         on the list_configuration.
@@ -813,6 +813,8 @@ class QuestionnaireConfiguration(object):
 
             ``details_route`` (str): The name of the route to be used
             for the links to the details page of each Questionnaire.
+
+            ``current_locale`` (str): The current locale.
 
         Returns:
             ``tuple``. A tuple of tuples where the first element is the
@@ -839,7 +841,10 @@ class QuestionnaireConfiguration(object):
             for i, c in enumerate(conf):
                 qg = questionnaire.data.get(c['questiongroup'], [])
                 if len(qg) > 0:
-                    list_entry[i+len(header_before_data)] = qg[0].get(c['key'])
+                    entry = qg[0].get(c['key'])
+                    if isinstance(entry, dict):
+                        entry = entry.get(current_locale)
+                    list_entry[i+len(header_before_data)] = entry
             list_data.append(tuple(list_entry))
         return tuple(list_data)
 

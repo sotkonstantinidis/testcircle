@@ -241,7 +241,7 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(len(progress_bars), len(progress_indicators))
 
         # She goes to the first category and sees another progress bar
-        self.findBy('xpath', '//a[contains(@href, "new/cat")][1]').click()
+        self.findBy('xpath', '//a[contains(@href, "edit/cat")][1]').click()
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         completed_steps = self.findBy('class_name', 'progress-completed')
         self.assertEqual(completed_steps.text, '0')
@@ -272,7 +272,7 @@ class QuestionnaireTest(FunctionalTest):
         # She decides to edit the step again and deletes what she
         # entered. She notices that the bar is back to 0, also on the
         # overview page.
-        self.findBy('xpath', '//a[contains(@href, "new/cat")][1]').click()
+        self.findBy('xpath', '//a[contains(@href, "edit/cat")][1]').click()
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         self.findBy('name', 'qg_1-0-original_key_1').clear()
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('')
@@ -347,7 +347,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees X buttons to edit a category and clicks the first
         edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(@href, "new/cat")]')
+            'xpath', '//a[contains(@href, "edit/cat")]')
         self.assertEqual(len(edit_buttons), get_category_count())
         edit_buttons[0].click()
 
@@ -422,3 +422,50 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
+
+    def test_edit_questionnaire(self, mock_do_auth):
+
+        mock_do_auth.return_value = ('tempsessionid')
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes directly to the first category of the UNCCD
+        # questionnaire and enters some data
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_1']))
+
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+
+        # She submits the entire questionnaire and clicks the edit
+        # button on the detail page
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # She is back at the overview page of the questionnaire with the
+        # previously entered values already there
+        self.findBy('xpath', '//*[contains(text(), "Key 1")]')
+        self.findBy('xpath', '//*[contains(text(), "Foo")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 3")]')
+        self.findBy('xpath', '//*[contains(text(), "Bar")]')
+
+        # She edits a form and sees the values are there already
+        self.findManyBy(
+            'xpath', '//a[contains(@href, "edit/cat")]')[0].click()
+        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
+        self.assertEqual(key_1.get_attribute('value'), 'Foo')
+        key_3 = self.findBy('name', 'qg_1-0-original_key_3')
+        self.assertEqual(key_3.get_attribute('value'), 'Bar')
+        key_1.clear()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Faz')
+
+        # She submits the step and sees that the values on the overview
+        # page changed.
+        self.findBy('id', 'button-submit').click()
+        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
+        self.findBy('xpath', '//*[contains(text(), "Faz")]')
+
+        # She submits the entire questionnaire
+        self.findBy('id', 'button-submit').click()

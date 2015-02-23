@@ -130,28 +130,34 @@ class GenericQuestionnaireNewTest(TestCase):
             mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
         with self.assertRaises(AttributeError):
-            generic_questionnaire_new(self.request, *get_valid_new_values())
+            generic_questionnaire_new(
+                self.request, *get_valid_new_values()[0],
+                **get_valid_new_values()[1])
         mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
 
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
         mock_get_session_questionnaire.return_value = {}
-        generic_questionnaire_new(self.request, *get_valid_new_values())
+        generic_questionnaire_new(
+            self.request, *get_valid_new_values()[0],
+            **get_valid_new_values()[1])
         mock_get_session_questionnaire.assert_called_once_with()
 
     @patch('questionnaire.views.is_empty_questionnaire')
     def test_calls_is_empty_questionnaire(self, mock_is_empty_questionnaire):
         r = self.request
         r.method = 'POST'
-        generic_questionnaire_new(r, *get_valid_new_values())
+        generic_questionnaire_new(
+            r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_is_empty_questionnaire.assert_called_once_with({})
 
     @patch.object(messages, 'info')
     def test_adds_message_if_empty(self, mock_messages_info):
         r = self.request
         r.method = 'POST'
-        generic_questionnaire_new(r, *get_valid_new_values())
+        generic_questionnaire_new(
+            r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_info.assert_called_once_with(
             r, '[TODO] You cannot submit an empty questionnaire',
             fail_silently=True)
@@ -161,7 +167,8 @@ class GenericQuestionnaireNewTest(TestCase):
         r = self.request
         r.method = 'POST'
         r.path = 'foo'
-        generic_questionnaire_new(r, *get_valid_new_values())
+        generic_questionnaire_new(
+            r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_redirect.assert_called_once_with('foo')
 
     @patch.object(Questionnaire, 'create_new')
@@ -173,7 +180,8 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_is_empty_questionnaire.return_value = False
         mock_create_new.return_value = Mock()
         mock_create_new.return_value.id = 1
-        generic_questionnaire_new(r, *get_valid_new_values())
+        generic_questionnaire_new(
+            r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_create_new.assert_called_once_with('unccd', {})
 
     @patch('questionnaire.views.clear_session_questionnaire')
@@ -184,7 +192,8 @@ class GenericQuestionnaireNewTest(TestCase):
         r = self.request
         r.method = 'POST'
         mock_is_empty_questionnaire.return_value = False
-        generic_questionnaire_new(r, *get_valid_new_values())
+        generic_questionnaire_new(
+            r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_clear_session_questionnaire.assert_called_once_with()
 
     @patch.object(messages, 'success')
@@ -194,7 +203,8 @@ class GenericQuestionnaireNewTest(TestCase):
         r = self.request
         r.method = 'POST'
         mock_is_empty_questionnaire.return_value = False
-        generic_questionnaire_new(r, *get_valid_new_values())
+        generic_questionnaire_new(
+            r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_sucess.assert_called_once_with(
             r, '[TODO] The questionnaire was successfully created.',
             fail_silently=True)
@@ -209,18 +219,23 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_is_empty_questionnaire.return_value = False
         mock_create_new.return_value = Mock()
         mock_create_new.return_value.id = 1
-        generic_questionnaire_new(r, *get_valid_new_values())
+        generic_questionnaire_new(
+            r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_redirect.assert_called_once_with('unccd_questionnaire_details', 1)
 
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
     def test_calls_get_questionnaire_data_in_single_language(
             self, mock_get_questionnaire_data):
-        generic_questionnaire_new(self.request, *get_valid_new_values())
+        generic_questionnaire_new(
+            self.request, *get_valid_new_values()[0],
+            **get_valid_new_values()[1])
         mock_get_questionnaire_data.assert_called_once_with({}, 'en')
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     def test_calls_get_details(self, mock_get_details):
-        generic_questionnaire_new(self.request, *get_valid_new_values())
+        generic_questionnaire_new(
+            self.request, *get_valid_new_values()[0],
+            **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with({}, editable=True)
 
     @patch.object(QuestionnaireCategory, 'get_details')
@@ -228,15 +243,18 @@ class GenericQuestionnaireNewTest(TestCase):
     def test_calls_render(self, mock_render, mock_get_details):
         mock_get_details.return_value = "foo"
         generic_questionnaire_new(
-            self.request, *get_valid_new_values())
+            self.request, *get_valid_new_values()[0],
+            **get_valid_new_values()[1])
         mock_render.assert_called_once_with(
             self.request, 'unccd/questionnaire/new.html', {
+                'questionnaire_id': None,
                 'category_names': get_categories(),
                 'categories': ["foo"]*get_category_count()})
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_new(
-            self.request, *get_valid_new_values())
+            self.request, *get_valid_new_values()[0],
+            **get_valid_new_values()[1])
         self.assertIsInstance(ret, HttpResponse)
 
 
@@ -249,6 +267,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
 
     @patch('questionnaire.views.get_object_or_404')
     def test_calls_get_object_or_404(self, mock_get_object_or_404):
+        mock_get_object_or_404.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_get_object_or_404.assert_called_once_with(Questionnaire, pk=1)
@@ -260,6 +279,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
             self, mock_QuestionnaireConfiguration_get_details,
             mock_get_object_or_404, mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
+        mock_get_object_or_404.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
@@ -278,6 +298,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
     def test_calls_render(
             self, mock_render, mock_get_object_or_404, mock_get_details):
         mock_get_details.return_value = "foo"
+        mock_get_object_or_404.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_render.assert_called_once_with(
@@ -286,6 +307,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
 
     @patch('questionnaire.views.get_object_or_404')
     def test_returns_rendered_response(self, mock_get_object_or_404):
+        mock_get_object_or_404.return_value.data = {}
         ret = generic_questionnaire_details(
             self.request, *get_valid_details_values())
         self.assertIsInstance(ret, HttpResponse)
@@ -310,7 +332,7 @@ class GenericQuestionnaireListTest(TestCase):
     def test_calls_get_list(self, mock_get_list_data):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_list_data.assert_called_once_with(
-            [], questionnaire_route_details)
+            [], questionnaire_route_details, 'en')
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     @patch('questionnaire.views.render')

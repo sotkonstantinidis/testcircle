@@ -27,8 +27,10 @@ def get_valid_new_step_values():
 
 
 def get_valid_new_values():
-    return (
+    args = (
         'unccd', 'unccd/questionnaire/new.html', 'unccd_questionnaire_details')
+    kwargs = {'questionnaire_id': None}
+    return args, kwargs
 
 
 def get_valid_details_values():
@@ -75,7 +77,7 @@ class QuestionnaireNewTest(TestCase):
         request.user = create_new_user()
         questionnaire_new(request)
         mock_questionnaire_new.assert_called_once_with(
-            request, *get_valid_new_values())
+            request, *get_valid_new_values()[0], **get_valid_new_values()[1])
 
 
 class QuestionnaireNewStepTest(TestCase):
