@@ -12,7 +12,7 @@ function watchFormProgress() {
   $('fieldset.row').each(function() {
     var content = false;
     $(this).find('div.row.list-item input, div.row.list-item textarea').each(function() {
-      if ($(this).val() != '') {
+      if ($(this).is(":visible") && $(this).val() != '') {
         content = true;
         return;
       }

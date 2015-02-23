@@ -6,7 +6,7 @@ from django.shortcuts import (
     redirect,
     get_object_or_404,
 )
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
 
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.utils import (
@@ -15,7 +15,12 @@ from qcat.utils import (
     save_session_questionnaire,
 )
 from questionnaire.models import Questionnaire
-from questionnaire.utils import is_empty_questionnaire
+from questionnaire.utils import (
+    is_empty_questionnaire,
+    get_questiongroup_data_from_translation_form,
+    get_questionnaire_data_in_single_language,
+    get_questionnaire_data_for_translation_form,
+)
 
 
 @login_required
@@ -57,8 +62,18 @@ def generic_questionnaire_new_step(
     if request.method != 'POST':
         session_questionnaire = get_session_questionnaire()
 
+    # TODO: Make this more dynamic
+    original_locale = None
+    current_locale = get_language()
+    show_translation = (
+        original_locale is not None and current_locale != original_locale)
+
+    initial_data = get_questionnaire_data_for_translation_form(
+        session_questionnaire, current_locale, original_locale)
+
     category_config, category_formsets = category.get_form(
-        request.POST or None, initial_data=session_questionnaire)
+        post_data=request.POST or None, initial_data=initial_data,
+        show_translation=show_translation)
 
     if request.method == 'POST':
         valid = True
@@ -73,10 +88,13 @@ def generic_questionnaire_new_step(
 
                 for f in questiongroup_formset.forms:
                     questiongroup_keyword = f.prefix.split('-')[0]
+                    cleaned_data = \
+                        get_questiongroup_data_from_translation_form(
+                            f.cleaned_data, current_locale, original_locale)
                     try:
-                        data[questiongroup_keyword].append(f.cleaned_data)
+                        data[questiongroup_keyword].append(cleaned_data)
                     except KeyError:
-                        data[questiongroup_keyword] = [f.cleaned_data]
+                        data[questiongroup_keyword] = [cleaned_data]
 
         if valid is True:
             session_questionnaire = get_session_questionnaire()
@@ -139,8 +157,10 @@ def generic_questionnaire_new(
                 fail_silently=True)
             return redirect(success_route, questionnaire.id)
 
-    categories = questionnaire_configuration.get_details(
-        session_questionnaire, editable=True)
+    data = get_questionnaire_data_in_single_language(
+        session_questionnaire, get_language())
+
+    categories = questionnaire_configuration.get_details(data, editable=True)
     category_names = []
     for category in questionnaire_configuration.categories:
         category_names.append((category.keyword, category.label))

@@ -12,6 +12,6 @@
       style="display: none;"
     {% endif %}>{% trans "Remove" %}</a>
     </div>
-    {% block hidden_fields %}{% for field in hidden_fields %}{{ field.as_hidden }}{% endfor %}{% endblock %}
   {% endwith %}
 {% endfor %}
+{% for field in form.hidden_fields %}{{ field.as_hidden }}{% endfor %}

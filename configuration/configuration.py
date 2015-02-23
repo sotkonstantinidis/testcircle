@@ -34,6 +34,9 @@ class QuestionnaireQuestion(object):
         'key',
         'list_position',
     ]
+    translation_original_prefix = 'original_'
+    translation_translation_prefix = 'translation_'
+    translation_old_prefix = 'old_'
 
     def __init__(self, configuration):
         """
@@ -79,21 +82,59 @@ class QuestionnaireQuestion(object):
         # TODO
         self.required = False
 
-    def get_form(self):
+    def add_form(self, formfields, show_translation=False):
         """
+        Adds one or more fields to a dictionary of formfields.
+
+        Args:
+            ``formfields`` (dict): A dictionary of formfields.
+
+            ``show_translation`` (bool): A boolean indicating whether to
+            add additional fields for translation (``True``) or not
+            (``False``). Defaults to ``False``.
+
         Returns:
-            ``forms.Field``. The form field for a single question, for
-            example a text input field or a dropdown field.
+            ``dict``. The updated formfields dictionary.
         """
+        readonly_attrs = {'readonly': 'readonly'}
+        field = None
+        translation_field = None
         if self.field_type == 'char':
-            return forms.CharField(label=self.label, required=self.required)
+            field = forms.CharField(
+                label=self.label, widget=forms.TextInput(),
+                required=self.required)
+            translation_field = forms.CharField(
+                label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
+                required=self.required)
         elif self.field_type == 'text':
-            return forms.CharField(
-                label=self.label, widget=forms.Textarea,
+            field = forms.CharField(
+                label=self.label, widget=forms.Textarea(),
+                required=self.required)
+            translation_field = forms.CharField(
+                label=self.label, widget=forms.Textarea(attrs=readonly_attrs),
                 required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
+
+        if translation_field is None:
+            # Values which are not translated
+            formfields[self.keyword] = field
+        else:
+            # Store the old values in a hidden field
+            old = forms.CharField(
+                label=self.label, widget=forms.HiddenInput(),
+                required=self.required)
+            if show_translation:
+                formfields['{}{}'.format(
+                    self.translation_translation_prefix,
+                    self.keyword)] = translation_field
+            formfields['{}{}'.format(
+                self.translation_original_prefix, self.keyword)] = field
+            formfields['{}{}'.format(
+                self.translation_old_prefix, self.keyword)] = old
+
+        return formfields
 
     def get_details(self, data={}):
         if self.field_type in ['char', 'text']:
@@ -280,7 +321,8 @@ class QuestionnaireQuestiongroup(object):
         base['questions'] = merged_questions
         return base
 
-    def get_form(self, post_data=None, initial_data=None):
+    def get_form(
+            self, post_data=None, initial_data=None, show_translation=False):
         """
         Returns:
             ``forms.formset_factory``. A formset consisting of one or
@@ -289,7 +331,7 @@ class QuestionnaireQuestiongroup(object):
         """
         formfields = {}
         for f in self.questions:
-            formfields[f.keyword] = f.get_form()
+            formfields = f.add_form(formfields, show_translation)
         Form = type('Form', (forms.Form,), formfields)
 
         formset_options = {
@@ -464,7 +506,8 @@ class QuestionnaireSubcategory(object):
         base['questiongroups'] = merged_questiongroups
         return base
 
-    def get_form(self, post_data=None, initial_data={}):
+    def get_form(
+            self, post_data=None, initial_data={}, show_translation=False):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -475,7 +518,9 @@ class QuestionnaireSubcategory(object):
         for questiongroup in self.questiongroups:
             questionset_initial_data = initial_data.get(questiongroup.keyword)
             questionset_formsets.append(
-                questiongroup.get_form(post_data, questionset_initial_data))
+                questiongroup.get_form(
+                    post_data=post_data, initial_data=questionset_initial_data,
+                    show_translation=show_translation))
         config = {
             'label': self.label,
         }
@@ -636,7 +681,8 @@ class QuestionnaireCategory(object):
             raise ConfigurationErrorInvalidOption(
                 invalid_options[0], configuration, self)
 
-    def get_form(self, post_data=None, initial_data={}):
+    def get_form(
+            self, post_data=None, initial_data={}, show_translation=False):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -645,7 +691,9 @@ class QuestionnaireCategory(object):
         subcategory_formsets = []
         for subcategory in self.subcategories:
             subcategory_formsets.append(
-                subcategory.get_form(post_data, initial_data))
+                subcategory.get_form(
+                    post_data=post_data, initial_data=initial_data,
+                    show_translation=show_translation))
         config = {
             'label': self.label
         }

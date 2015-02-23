@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from functional_tests.base import FunctionalTest
 from unittest.mock import patch
 
+from qcat.utils import get_session_questionnaire, clear_session_questionnaire
 from unccd.tests.test_views import (
     questionnaire_route_list,
     questionnaire_route_new,
@@ -17,6 +18,32 @@ from accounts.tests.test_views import (
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample.json']
+
+    def test_stores_session_dictionary_correctly(self, mock_do_auth):
+
+        clear_session_questionnaire()
+
+        mock_do_auth.return_value = ('tempsessionid')
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_1']))
+
+        # She enters something as first key
+        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
+        self.assertEqual(key_1.text, '')
+        key_1.send_keys('Foo')
+
+        self.findBy('id', 'button-submit').click()
+
+        self.findBy('xpath', '//*[contains(text(), "Foo")]')
+        session_data = get_session_questionnaire()
+        self.assertEqual(session_data, {'qg_2': [{'key_3': {'en': ''}, 'key_2': {'en': ''}}], 'qg_1': [{'key_1': {'en': 'Foo'}, 'key_3': {'en': ''}}], 'qg_3': [{'key_4': {'en': ''}, 'key_6': {'en': ''}}]})
+
+        # self.assertEqual(self.browser.current_url, 'foo')
 
     def test_navigate_questionnaire(self, mock_do_auth):
 
@@ -82,18 +109,18 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees the first questiongroups which has no possibility to
         # add more questions
-        self.findBy('name', 'qg_5-0-key_7')
-        self.findByNot('name', 'qg_5-1-key_7')
+        self.findBy('name', 'qg_5-0-original_key_7')
+        self.findByNot('name', 'qg_5-1-original_key_7')
 
         # The second questiongroup is shown only once but can be
         # repeated up to 3 times
-        self.findBy('name', 'qg_6-0-key_8').send_keys('1')
-        self.findByNot('name', 'qg_6-1-key_8')
+        self.findBy('name', 'qg_6-0-original_key_8').send_keys('1')
+        self.findByNot('name', 'qg_6-1-original_key_8')
 
         # She adds another one and sees there is a remove button
         self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_6"]').click()
-        self.findBy('name', 'qg_6-1-key_8').send_keys('2')
-        self.findByNot('name', 'qg_6-2-key_8')
+        self.findBy('name', 'qg_6-1-original_key_8').send_keys('2')
+        self.findByNot('name', 'qg_6-2-original_key_8')
         remove_buttons = self.findManyBy(
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
@@ -101,8 +128,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # And yet another one
         self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_6"]').click()
-        self.findBy('name', 'qg_6-1-key_8')
-        self.findBy('name', 'qg_6-2-key_8').send_keys('3')
+        self.findBy('name', 'qg_6-1-original_key_8')
+        self.findBy('name', 'qg_6-2-original_key_8').send_keys('3')
         remove_buttons = self.findManyBy(
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
@@ -110,16 +137,16 @@ class QuestionnaireTest(FunctionalTest):
 
         # Adding a fourth questiongroup is not possible
         self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_6"]').click()
-        self.findByNot('name', 'qg_6-3-key_8')
+        self.findByNot('name', 'qg_6-3-original_key_8')
 
         # She removes the middle one and sees that the correct one is
         # removed and the names of the other ones are updated.
         remove_buttons[1].click()
-        f1 = self.findBy('name', 'qg_6-0-key_8')
+        f1 = self.findBy('name', 'qg_6-0-original_key_8')
         self.assertEqual(f1.get_attribute('value'), '1')
-        f2 = self.findBy('name', 'qg_6-1-key_8')
+        f2 = self.findBy('name', 'qg_6-1-original_key_8')
         self.assertEqual(f2.get_attribute('value'), '3')
-        self.findByNot('name', 'qg_6-2-key_8')
+        self.findByNot('name', 'qg_6-2-original_key_8')
         remove_buttons = self.findManyBy(
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
@@ -128,26 +155,26 @@ class QuestionnaireTest(FunctionalTest):
         # She removes the first one and sees that only one remains with
         # no button to remove it
         remove_buttons[0].click()
-        f1 = self.findBy('name', 'qg_6-0-key_8')
+        f1 = self.findBy('name', 'qg_6-0-original_key_8')
         self.assertEqual(f1.get_attribute('value'), '3')
-        self.findByNot('name', 'qg_6-1-key_8')
-        self.findByNot('name', 'qg_6-2-key_8')
+        self.findByNot('name', 'qg_6-1-original_key_8')
+        self.findByNot('name', 'qg_6-2-original_key_8')
         self.findByNot(
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
 
         # The third questiongroup appears two times but has no buttons
-        self.findBy('name', 'qg_7-0-key_9').send_keys('a')
-        self.findBy('name', 'qg_7-1-key_9').send_keys('b')
+        self.findBy('name', 'qg_7-0-original_key_9').send_keys('a')
+        self.findBy('name', 'qg_7-1-original_key_9').send_keys('b')
 
         # The fourth questiongroup has two minimum fields and maximum 3
-        self.findBy('name', 'qg_8-0-key_10').send_keys('x')
-        self.findBy('name', 'qg_8-1-key_10').send_keys('y')
-        self.findByNot('name', 'qg_8-2-key_10')
+        self.findBy('name', 'qg_8-0-original_key_10').send_keys('x')
+        self.findBy('name', 'qg_8-1-original_key_10').send_keys('y')
+        self.findByNot('name', 'qg_8-2-original_key_10')
 
         # She adds one questiongroup and sees the button to remove it 3 times.
         self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_8"]').click()
-        self.findBy('name', 'qg_8-2-key_10').send_keys('z')
+        self.findBy('name', 'qg_8-2-original_key_10').send_keys('z')
         remove_buttons = self.findManyBy(
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
@@ -169,17 +196,17 @@ class QuestionnaireTest(FunctionalTest):
             questionnaire_route_new_step, args=['cat_3']))
 
         # Key 8 is there only once
-        f1 = self.findBy('name', 'qg_6-0-key_8')
+        f1 = self.findBy('name', 'qg_6-0-original_key_8')
         self.assertEqual(f1.get_attribute('value'), '3')
-        self.findByNot('name', 'qg_6-1-key_8')
-        self.findByNot('name', 'qg_6-2-key_8')
+        self.findByNot('name', 'qg_6-1-original_key_8')
+        self.findByNot('name', 'qg_6-2-original_key_8')
 
         # Key 10 is there 3 times
-        f1 = self.findBy('name', 'qg_8-0-key_10')
+        f1 = self.findBy('name', 'qg_8-0-original_key_10')
         self.assertEqual(f1.get_attribute('value'), 'x')
-        f2 = self.findBy('name', 'qg_8-1-key_10')
+        f2 = self.findBy('name', 'qg_8-1-original_key_10')
         self.assertEqual(f2.get_attribute('value'), 'y')
-        f3 = self.findBy('name', 'qg_8-2-key_10')
+        f3 = self.findBy('name', 'qg_8-2-original_key_10')
         self.assertEqual(f3.get_attribute('value'), 'z')
 
         # She removes one Key 10 and submits the form again
@@ -223,8 +250,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She types something in the first field and sees that the
         # progress bar changed
-        self.findBy('name', 'qg_1-0-key_1').send_keys('Foo')
-        self.findBy('name', 'qg_1-0-key_3').send_keys('')
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('')
         self.findByNot('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         completed_steps = self.findBy('class_name', 'progress-completed')
@@ -247,8 +274,8 @@ class QuestionnaireTest(FunctionalTest):
         # overview page.
         self.findBy('xpath', '//a[contains(@href, "new/cat")][1]').click()
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
-        self.findBy('name', 'qg_1-0-key_1').clear()
-        self.findBy('name', 'qg_1-0-key_3').send_keys('')
+        self.findBy('name', 'qg_1-0-original_key_1').clear()
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('')
         self.findBy('xpath', '//span[@class="meter" and @style="width: 0%;"]')
         self.findBy('id', 'button-submit').click()
 
@@ -330,7 +357,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//legend[contains(text(), "Subcategory 1_2")]')
 
         # She enters Key 1
-        self.findBy('name', 'qg_1-0-key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
 
         # # She tries to submit the form and sees an error message saying
         # # that Key 3 is also required.
@@ -341,7 +368,7 @@ class QuestionnaireTest(FunctionalTest):
         # self.assertEqual(error.text, "This field is required.")
 
         # She enters Key 3 and submits the form again
-        self.findBy('name', 'qg_1-0-key_3').send_keys('Bar')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
         self.findBy('id', 'button-submit').click()
 
         # She sees that she was redirected to the overview page and is

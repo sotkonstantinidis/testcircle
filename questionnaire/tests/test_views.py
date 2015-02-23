@@ -7,7 +7,6 @@ from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import (
     create_new_user,
-    do_log_in,
 )
 from configuration.configuration import (
     QuestionnaireConfiguration,
@@ -67,16 +66,25 @@ class GenericQuestionnaireNewStepTest(TestCase):
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
+        mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values())
         mock_get_session_questionnaire.assert_called_once_with()
+
+    @patch('questionnaire.views.get_questionnaire_data_for_translation_form')
+    def test_calls_get_questionnaire_data_for_translation_form(
+            self, mock_get_questionnaire_data):
+        generic_questionnaire_new_step(
+            self.request, *get_valid_new_step_values())
+        mock_get_questionnaire_data.assert_called_once_with({}, 'en', None)
 
     @patch.object(QuestionnaireCategory, 'get_form')
     def test_calls_category_get_form(self, mock_get_form):
         mock_get_form.return_value = None, None
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values())
-        mock_get_form.assert_called_once_with(None, initial_data={})
+        mock_get_form.assert_called_once_with(
+            post_data=None, show_translation=False, initial_data={})
 
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.save_session_questionnaire')
@@ -128,6 +136,7 @@ class GenericQuestionnaireNewTest(TestCase):
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
+        mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new(self.request, *get_valid_new_values())
         mock_get_session_questionnaire.assert_called_once_with()
 
@@ -202,6 +211,12 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(r, *get_valid_new_values())
         mock_redirect.assert_called_once_with('unccd_questionnaire_details', 1)
+
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    def test_calls_get_questionnaire_data_in_single_language(
+            self, mock_get_questionnaire_data):
+        generic_questionnaire_new(self.request, *get_valid_new_values())
+        mock_get_questionnaire_data.assert_called_once_with({}, 'en')
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     def test_calls_get_details(self, mock_get_details):
