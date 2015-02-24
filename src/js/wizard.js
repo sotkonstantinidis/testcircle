@@ -11,8 +11,16 @@ function watchFormProgress() {
   var completed = 0;
   $('fieldset.row').each(function() {
     var content = false;
-    $(this).find('div.row.list-item input, div.row.list-item textarea').each(function() {
+    // Textfields and Textareas
+    $(this).find('div.row.list-item input:text, div.row.list-item textarea').each(function() {
       if ($(this).is(":visible") && $(this).val() != '') {
+        content = true;
+        return;
+      }
+    });
+    // Radio
+    $(this).find('div.row.list-item input:radio').each(function() {
+      if ($(this).is(':checked')) {
         content = true;
         return;
       }

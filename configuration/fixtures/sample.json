@@ -81,6 +81,14 @@
 },
 {
     "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 11\", \"es\": \"Clave 11\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 11
+},
+{
+    "fields": {
         "translation_type": "category",
         "data": "{\"label\":{\"en\": \"Category 1\", \"es\": \"Categoría 1\"}}"
     },
@@ -250,6 +258,15 @@
     "model": "configuration.key",
     "pk": 10
 },
+{
+    "fields": {
+        "keyword": "key_11",
+        "translation": 11,
+        "configuration": "{\"type\": \"bool\"}"
+    },
+    "model": "configuration.key",
+    "pk": 11
+},
 
 {
     "fields": {
@@ -404,7 +421,7 @@
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\",\"template\":\"inline_1\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\",\"template\":\"inline_1\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "Sample Core Configuration"

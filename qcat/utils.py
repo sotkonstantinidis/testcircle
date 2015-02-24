@@ -34,7 +34,10 @@ def find_dict_in_list(list_, key, value, not_found={}):
 def is_empty_list_of_dicts(list_):
     """
     A helper function to find out if a list of dicts contains values or
-    not.
+    not. The following values are considered as empty values:
+
+    * ``''``
+    * ``None``
 
     Args:
         ``list_`` (list): A list of dicts.
@@ -47,9 +50,9 @@ def is_empty_list_of_dicts(list_):
         for key, value in d.items():
             if isinstance(value, dict):
                 for k, v in value.items():
-                    if v != '':
+                    if v is not None and v != '':
                         return False
-            elif value != '':
+            elif value is not None and value != '':
                 return False
     return True
 

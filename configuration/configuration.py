@@ -3,6 +3,7 @@ from django.forms import BaseFormSet, formset_factory
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string, get_template
 from django.template.base import TemplateDoesNotExist
+from django.utils.translation import ugettext as _
 
 from configuration.models import (
     Category,
@@ -79,6 +80,10 @@ class QuestionnaireQuestion(object):
         self.label = key_object.get_translation('label')
         self.keyword = key
 
+        self.choices = ()
+        if self.field_type == 'bool':
+            self.choices = ((True, _('Yes')), (False, _('No')))
+
         # TODO
         self.required = False
 
@@ -113,6 +118,10 @@ class QuestionnaireQuestion(object):
             translation_field = forms.CharField(
                 label=self.label, widget=forms.Textarea(attrs=readonly_attrs),
                 required=self.required)
+        elif self.field_type == 'bool':
+            field = forms.NullBooleanField(
+                label=self.label, widget=RadioSelect(choices=self.choices),
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -139,6 +148,13 @@ class QuestionnaireQuestion(object):
     def get_details(self, data={}):
         if self.field_type in ['char', 'text']:
             d = data.get(self.keyword)
+            rendered = render_to_string(
+                'unccd/questionnaire/parts/textinput_details.html', {
+                    'key': self.label,
+                    'value': d})
+            return rendered
+        elif self.field_type == 'bool':
+            d = dict(self.choices).get(data.get(self.keyword))
             rendered = render_to_string(
                 'unccd/questionnaire/parts/textinput_details.html', {
                     'key': self.label,
@@ -1000,6 +1016,14 @@ def validate_type(obj, type_, conf_name, type_name, parent_conf_name):
     if not isinstance(obj, type_):
         raise ConfigurationErrorInvalidConfiguration(
             conf_name, type_name, parent_conf_name)
+
+
+class RadioSelect(forms.RadioSelect):
+    """
+    A custom form class for a Radio Select field. Allows to overwrite
+    the template used.
+    """
+    template_name = 'form/question/radio.html'
 
 
 class RequiredFormSet(BaseFormSet):

@@ -22,8 +22,9 @@ The following options are valid for ``type``. Default type is ``char``.
 | ``char``           | A simple textfield for short text, with the label      |
 |                    | above the field.                                       |
 +--------------------+--------------------------------------------------------+
-| ``shortchar``      | A textfield for very short text with the label next to |
-|                    | the field.                                             |
-+--------------------+--------------------------------------------------------+
 | ``text``           | A textarea for larger text                             |
++--------------------+--------------------------------------------------------+
+| ``bool``           | A field for boolean values Yes (stored as ``True``)    |
+|                    | and No (stored as ``False``). Renders as radio         |
+|                    | buttons.                                               |
 +--------------------+--------------------------------------------------------+
