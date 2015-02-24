@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_nose',
     'floppyforms',
+    'django_extensions',
     'questionnaire',
     'accounts',
     'configuration',

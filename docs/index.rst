@@ -26,6 +26,7 @@ Development
     :maxdepth: 2
 
     development/installation
+    development/datamodel
     development/usergroups
     development/testing
     development/deployment

@@ -45,3 +45,12 @@ Usage::
 Example::
 
     (env)$ python3 manage.py loaddata sample.json
+
+
+Graph Data Model
+-----------------
+
+You can let Django (through `django-extensions`_) create graphs of your
+data model automatically::
+
+    (env)$ python3 manage.py graph_models -a -g -o docs/images/qcat_datamodel.png
