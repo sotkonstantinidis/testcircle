@@ -41,7 +41,8 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('xpath', '//*[contains(text(), "Foo")]')
         session_data = get_session_questionnaire()
-        self.assertEqual(session_data, {'qg_2': [{'key_3': {'en': ''}, 'key_2': {'en': ''}}], 'qg_1': [{'key_1': {'en': 'Foo'}, 'key_3': {'en': ''}}], 'qg_3': [{'key_4': {'en': ''}, 'key_6': {'en': ''}}]})
+        self.assertEqual(session_data, {'qg_1': [{'key_3': {'en': ''}, 'key_1': {'en': 'Foo'}}], 'qg_2': [{'key_3': {'en': ''}, 'key_2': {'en': ''}}], 'qg_3': [{'key_4': {'en': ''}, 'key_6': {'en': ''}, 'key_11': None}]}
+        )
 
         # self.assertEqual(self.browser.current_url, 'foo')
 
@@ -292,6 +293,162 @@ class QuestionnaireTest(FunctionalTest):
         # she sees an error message
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "info")]')
+
+    def test_measure_selects(self, mock_do_auth):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_2']))
+
+        # She sees Key 12 in a row which is not selected
+        self.findByNot(
+            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'contains(text(), "Key 12")]')
+
+        # She sees that the first (None) value is selected by default
+        self.findBy(
+            'xpath', '//input[@checked="" and @name="qg_9-0-key_12" and '
+            '@value=""]')
+
+        # She sees that the form progress is at 0
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+
+        # She submits the form empty and sees that no value was submitted,
+        # progress of Category 2 is still 0
+        self.findBy('id', 'button-submit').click()
+        self.findByNot('xpath', '//*[contains(text(), "Key 12")]')
+        progress_indicator = self.findBy(
+            'xpath', '(//div[@class="progress radius"])[2]')
+        self.assertIn('0 /', progress_indicator.text)
+
+        # She goes back to the questionnaire step and sees that form
+        # progress is still at 0 and the row is unselected
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_2']))
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+        self.findByNot(
+            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'contains(text(), "Key 12")]')
+
+        # She selects the first value and sees that the row is now
+        # selected and the form progress was updated
+        self.findBy(
+            'xpath', '//label/span[contains(text(), "Value 1")]').click()
+        self.findBy(
+            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'contains(text(), "Key 12")]')
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
+        # She submits the step and sees that the value was submitted and
+        # the form progress on the overview page is updated
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//*[contains(text(), "Key 12")]')
+        self.findBy('xpath', '//*[contains(text(), "Value 1")]')
+        progress_indicator = self.findBy(
+            'xpath', '(//div[@class="progress radius"])[2]')
+        self.assertIn('1 /', progress_indicator.text)
+
+        # She goes back to the step and sees the row is highlighted and
+        # Value 1 selected, form progress is at 1
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_2']))
+        self.findBy(
+            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'contains(text(), "Key 12")]')
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
+        # She selects None and sees that the row is not highlighted
+        # anymore and the progress was updated
+        self.findBy(
+            'xpath', '//label/span[contains(text(), "-")]').click()
+        self.findByNot(
+            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'contains(text(), "Key 12")]')
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 0%;"]')
+
+        # She then selects Value 2 and submits the form
+        self.findBy(
+            'xpath', '//label/span[contains(text(), "Value 2")]').click()
+        self.findBy('id', 'button-submit').click()
+
+        # The overview now shows Value 2 and she submits the form
+        self.findBy('xpath', '//*[contains(text(), "Key 12")]')
+        self.findBy('xpath', '//*[contains(text(), "Value 2")]')
+
+        # She submits the form and sees that the radio value is stored
+        # correctly
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//*[contains(text(), "Key 12: Value 2")]')
+
+    def test_radio_selects(self, mock_do_auth):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_1']))
+
+        # She sees that Key 11 is a radio button
+        radios = self.findManyBy(
+            'xpath', '//input[@name="qg_3-0-key_11" and @type="radio"]')
+        self.assertEqual(len(radios), 2)
+
+        # She sees that the form does not have any progress
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+
+        # She submits the form empty and sees no value was submitted,
+        # progress of Category 1 is still 0
+        self.findBy('id', 'button-submit').click()
+        self.findByNot('xpath', '//*[contains(text(), "Key 11")]')
+        progress_indicator = self.findBy(
+            'xpath', '//div[@class="progress radius"][1]')
+        self.assertIn('0 /', progress_indicator.text)
+
+        # She goes to the form again and clicks "Yes".
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_1']))
+        self.findBy(
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="True"]')\
+            .click()
+
+        # She sees that the progress was updated and submits the form.
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+
+        self.findBy('id', 'button-submit').click()
+
+        # She sees the value was transmitted and the progress was updated
+        self.findBy('xpath', '//*[contains(text(), "Key 11: Yes")]')
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width:50.0%"]')
+        progress_indicator = self.findBy(
+            'xpath', '//div[@class="progress radius"][1]')
+        self.assertEqual(progress_indicator.text, '1 / 2')
+
+        # She edits the form again and sets the radio button to "No"
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_1']))
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+        self.findBy(
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="True" and '
+            '@checked=""]')
+        self.findBy(
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="False"]')\
+            .click()
+        self.findBy('id', 'button-submit').click()
+
+        # She sees the value was updated
+        self.findBy('xpath', '//*[contains(text(), "Key 11: No")]')
+
+        # She submits the form and sees the radio value is stored correctly
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//*[contains(text(), "Key 11: No")]')
 
     def test_enter_questionnaire_requires_login(self, mock_do_auth):
 

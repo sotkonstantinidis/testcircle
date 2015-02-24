@@ -1,0 +1,6 @@
+{% for group_name, choices in optgroups %}
+  {% for choice in choices %}
+    <input type="radio" id="{{ attrs.id }}_{{ forloop.counter }}" value="{{ choice.0 }}" name="{{ name }}"{% if required %} required{% endif %}{% if choice.0 in value %} checked{% endif %}>
+    <label for="{{ attrs.id }}_{{ forloop.counter }}">{{ choice.1 }}</label>
+  {% endfor %}
+{% endfor %}

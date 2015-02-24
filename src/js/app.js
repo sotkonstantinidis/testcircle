@@ -46,6 +46,19 @@ function updateFieldsetElement(element, prefix, index, reset) {
     });
 }
 
+/**
+ * Toggles CSS class "is-selected" for button bars. If a value is
+ * selected, the row is highlighted. If no value (empty string or '') is
+ * selected, it is not.
+ *
+ * $(this): div.button-bar
+ */
+function toggleButtonBarSelected() {
+  var selectedValue = $(this).find('input[type="radio"]:checked').val();
+  var item = $(this).closest('.list-item');
+  item.toggleClass('is-selected', !(!selectedValue || 0 === selectedValue.length));
+}
+
 $(function() {
   $('img[data-alt-src]').each(function() {
       new Image().src = $(this).data('alt-src');
@@ -116,14 +129,6 @@ $(function() {
   // BUTTON BAR
   // -----------------
   // Button bar select line
-  .on('click', '.button-bar label', function (e) {
-    var item = $(this).closest('.list-item');
-    var selectedValue = $(this).prev('input[type="radio"]').val();
-    if(selectedValue === 'none'){
-      item.removeClass('is-selected');
-    } else {
-      item.addClass('is-selected');
-    }
-  });
+  .on('click', '.button-bar', toggleButtonBarSelected)
 
 });
