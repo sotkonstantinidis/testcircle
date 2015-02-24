@@ -35,6 +35,12 @@ class QuestionnaireQuestion(object):
         'key',
         'list_position',
     ]
+    valid_field_types = [
+        'char',
+        'text',
+        'bool',
+        'measure',
+    ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
     translation_old_prefix = 'old_'
@@ -76,13 +82,27 @@ class QuestionnaireQuestion(object):
         self.list_position = configuration.get('list_position')
         self.key_object = key_object
         self.key_config = key_object.configuration
-        self.field_type = self.key_config.get('type', 'char')
         self.label = key_object.get_translation('label')
         self.keyword = key
 
+        self.field_type = self.key_config.get('type', 'char')
+        if self.field_type not in self.valid_field_types:
+            raise ConfigurationErrorInvalidOption(
+                self.field_type, 'type', 'Key')
+
         self.choices = ()
+        self.value_objects = []
         if self.field_type == 'bool':
             self.choices = ((True, _('Yes')), (False, _('No')))
+        elif self.field_type == 'measure':
+            self.value_objects = self.key_object.value_set.all()
+            if len(self.value_objects) == 0:
+                raise ConfigurationErrorNotInDatabase(
+                    '[values of key {}]'.format(self.keyword), self)
+            choices = [('', '-')]
+            for v in self.value_objects:
+                choices.append((v.keyword, v.get_translation('label')))
+            self.choices = tuple(choices)
 
         # TODO
         self.required = False
@@ -122,6 +142,10 @@ class QuestionnaireQuestion(object):
             field = forms.NullBooleanField(
                 label=self.label, widget=RadioSelect(choices=self.choices),
                 required=self.required)
+        elif self.field_type == 'measure':
+            field = forms.ChoiceField(
+                label=self.label, choices=self.choices, widget=MeasureSelect,
+                required=self.required, initial=self.choices[0][0])
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -146,23 +170,31 @@ class QuestionnaireQuestion(object):
         return formfields
 
     def get_details(self, data={}):
-        if self.field_type in ['char', 'text']:
-            d = data.get(self.keyword)
+        value = data.get(self.keyword)
+        if self.field_type in ['bool', 'measure']:
+            value = self.lookup_choice_label_by_keyword(value)
+        if self.field_type in ['char', 'text', 'bool', 'measure']:
             rendered = render_to_string(
                 'unccd/questionnaire/parts/textinput_details.html', {
                     'key': self.label,
-                    'value': d})
-            return rendered
-        elif self.field_type == 'bool':
-            d = dict(self.choices).get(data.get(self.keyword))
-            rendered = render_to_string(
-                'unccd/questionnaire/parts/textinput_details.html', {
-                    'key': self.label,
-                    'value': d})
+                    'value': value})
             return rendered
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
+
+    def lookup_choice_label_by_keyword(self, keyword):
+        """
+        Small helper function to lookup the label of a choice (a value
+        of the key) based on its keyword.
+
+        Args:
+            ``keyword`` (str): The keyword of the value.
+
+        Returns:
+            ``str``. The label of the value.
+        """
+        return dict(self.choices).get(keyword)
 
 
 class QuestionnaireQuestiongroup(object):
@@ -1024,6 +1056,10 @@ class RadioSelect(forms.RadioSelect):
     the template used.
     """
     template_name = 'form/question/radio.html'
+
+
+class MeasureSelect(forms.RadioSelect):
+    template_name = 'form/question/measure.html'
 
 
 class RequiredFormSet(BaseFormSet):

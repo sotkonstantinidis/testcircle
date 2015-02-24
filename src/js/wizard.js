@@ -20,7 +20,7 @@ function watchFormProgress() {
     });
     // Radio
     $(this).find('div.row.list-item input:radio').each(function() {
-      if ($(this).is(':checked')) {
+      if ($(this).is(':checked') && $(this).val() != '') {
         content = true;
         return;
       }
@@ -41,6 +41,9 @@ $(function() {
 
   // Initial form progress
   watchFormProgress();
+
+  // Initial button bar selected toggle
+  $('.button-bar').each(toggleButtonBarSelected);
 
   // Form progress upon input
   $('fieldset.row div.row.list-item').on('change', function() {

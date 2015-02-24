@@ -234,6 +234,16 @@ class Value(models.Model):
         'Translation', limit_choices_to={'translation_type': translation_type})
     key = models.ForeignKey('Key')
 
+    def get_translation(self, *args, **kwargs):
+        """
+        Return the translation of the value. Passes all arguments to the
+        relative :class:`Translation` model's function.
+
+        .. seealso::
+            :func:`Translation.get_translation`
+        """
+        return self.translation.get_translation(*args, **kwargs)
+
 
 class Questiongroup(models.Model):
     """
