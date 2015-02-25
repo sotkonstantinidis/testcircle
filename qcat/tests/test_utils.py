@@ -27,6 +27,10 @@ class IsEmptyListOfDictsTest(TestCase):
         is_empty = is_empty_list_of_dicts([{"foo": False}])
         self.assertFalse(is_empty)
 
+    def test_returns_true_if_empty_list(self):
+        is_empty = is_empty_list_of_dicts([{"foo": []}])
+        self.assertTrue(is_empty)
+
     def test_returns_False_if_not_empty_in_nested_dict(self):
         is_empty = is_empty_list_of_dicts([{"foo": {"en": "bar"}}])
         self.assertFalse(is_empty)

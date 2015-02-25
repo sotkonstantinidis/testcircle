@@ -40,6 +40,7 @@ class QuestionnaireQuestion(object):
         'text',
         'bool',
         'measure',
+        'checklist',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -94,12 +95,15 @@ class QuestionnaireQuestion(object):
         self.value_objects = []
         if self.field_type == 'bool':
             self.choices = ((True, _('Yes')), (False, _('No')))
-        elif self.field_type == 'measure':
+        elif self.field_type in ['measure', 'checklist']:
             self.value_objects = self.key_object.value_set.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
                     '[values of key {}]'.format(self.keyword), self)
-            choices = [('', '-')]
+            if self.field_type in ['measure']:
+                choices = [('', '-')]
+            else:
+                choices = []
             for v in self.value_objects:
                 choices.append((v.keyword, v.get_translation('label')))
             self.choices = tuple(choices)
@@ -146,6 +150,10 @@ class QuestionnaireQuestion(object):
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=MeasureSelect,
                 required=self.required, initial=self.choices[0][0])
+        elif self.field_type == 'checklist':
+            field = forms.MultipleChoiceField(
+                label=self.label, widget=Checkbox, choices=self.choices,
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -171,30 +179,45 @@ class QuestionnaireQuestion(object):
 
     def get_details(self, data={}):
         value = data.get(self.keyword)
-        if self.field_type in ['bool', 'measure']:
-            value = self.lookup_choice_label_by_keyword(value)
+        if self.field_type in ['bool', 'measure', 'checklist']:
+            if not isinstance(value, list):
+                value = [value]
+            values = self.lookup_choices_labels_by_keywords(value)
         if self.field_type in ['char', 'text', 'bool', 'measure']:
             rendered = render_to_string(
                 'unccd/questionnaire/parts/textinput_details.html', {
                     'key': self.label,
-                    'value': value})
+                    'value': values[0]})
+            return rendered
+        elif self.field_type in ['checklist']:
+            rendered = render_to_string(
+                'unccd/questionnaire/parts/checkbox_details.html', {
+                    'key': self.label,
+                    'values': values
+                })
             return rendered
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
 
-    def lookup_choice_label_by_keyword(self, keyword):
+    def lookup_choices_labels_by_keywords(self, keywords):
         """
-        Small helper function to lookup the label of a choice (a value
-        of the key) based on its keyword.
+        Small helper function to lookup the label of choices (values of
+        the keys) based on their keyword. If a label is not found, an
+        empty string is added as label.
 
         Args:
-            ``keyword`` (str): The keyword of the value.
+            ``keywords`` (list): A list with value keywords.
 
         Returns:
-            ``str``. The label of the value.
+            ``list``. A list with labels of the values.
         """
-        return dict(self.choices).get(keyword)
+        labels = []
+        for keyword in keywords:
+            if not isinstance(keyword, str):
+                labels.append('')
+            labels.append(dict(self.choices).get(keyword))
+        return labels
 
 
 class QuestionnaireQuestiongroup(object):
@@ -1060,6 +1083,10 @@ class RadioSelect(forms.RadioSelect):
 
 class MeasureSelect(forms.RadioSelect):
     template_name = 'form/question/measure.html'
+
+
+class Checkbox(forms.CheckboxSelectMultiple):
+    template_name = 'form/question/checkbox.html'
 
 
 class RequiredFormSet(BaseFormSet):
