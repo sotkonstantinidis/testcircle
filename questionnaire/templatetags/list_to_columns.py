@@ -34,6 +34,9 @@ def columnize(items, columns):
 
         ``columns`` (int): Over how many columns the items are to be
         distributed.
+
+    Returns:
+        ``list``. A list containing lists of the distributed elements.
     """
     len_items = len(items)
     el_columns = []
@@ -45,3 +48,24 @@ def columnize(items, columns):
         len_items -= col_size
         columns -= 1
     return el_columns
+
+
+@register.filter
+def get_by_index(items, index):
+    """
+    Return an element of a list based on its index.
+
+    Usage in template::
+        {% load list_to_columns %}
+
+        {{ items|get_by_index:0 }}
+
+    Args:
+        ``items`` (list): A list of elements.
+
+        ``index`` (int): The position of the element to be returned.
+
+    Returns:
+        ``element``. The list element with the given index.
+    """
+    return items[index]

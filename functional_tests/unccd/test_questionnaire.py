@@ -378,6 +378,90 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "Value 13_2")]')
         self.findBy('xpath', '//*[contains(text(), "Value 13_3")]')
 
+    def test_image_checkbox(self, mock_do_auth):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_4']))
+
+        # She sees that no Checkbox of Key 14 is selected by default
+        self.findByNot(
+            'xpath', '//input[@name="qg_11-0-key_14" and @checked="checked"]')
+
+        # She sees that the form progress is at 0
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+
+        # She submits the form empty and sees that no value was submitted,
+        # progress of Category 4 is still 0
+        self.findBy('id', 'button-submit').click()
+        self.findByNot('xpath', '//*[contains(text(), "Key 14")]')
+        progress_indicator = self.findBy(
+            'xpath', '(//div[@class="progress radius"])[4]')
+        self.assertIn('0 /', progress_indicator.text)
+
+        # She goes back to the questionnaire step and sees that form
+        # progress is still at 0 and no checkbox is selected
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_4']))
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+        self.findByNot(
+            'xpath', '//input[@name="qg_11-0-key_14" and @checked="checked"]')
+
+        # She selects a first checkbox and sees that the form progress
+        # was updated
+        self.findBy(
+            'xpath', '(//input[@name="qg_11-0-key_14"])[1]').click()
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
+        # She submits the step and sees that the value was submitted and
+        # the form progress on the overview page is updated
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Key 14')
+        self.findBy('xpath', '//img[@alt="Value 14_1"]')
+        progress_indicator = self.findBy(
+            'xpath', '(//div[@class="progress radius"])[4]')
+        self.assertIn('1 /', progress_indicator.text)
+
+        # She goes back to the step and sees that the first checkbox is
+        # selected, form progress is at 1
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_4']))
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
+        # She deselects the first value and sees that the progress was
+        # updated
+        self.findBy(
+            'xpath', '(//input[@name="qg_11-0-key_14"])[1]').click()
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 0%;"]')
+
+        # She then selects the second and third values and submits the
+        # form
+        self.findBy(
+            'xpath', '(//input[@name="qg_11-0-key_14"])[2]').click()
+        self.findBy(
+            'xpath', '(//input[@name="qg_11-0-key_14"])[3]').click()
+        self.findBy('id', 'button-submit').click()
+
+        # The overview now shows both values
+        self.checkOnPage('Key 14')
+        self.findByNot('xpath', '//img[@alt="Value 14_1"]')
+        self.findBy('xpath', '//img[@alt="Value 14_2"]')
+        self.findBy('xpath', '//img[@alt="Value 14_3"]')
+
+        # She submits the form and sees that the radio value is stored
+        # correctly
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Key 14')
+        self.findByNot('xpath', '//img[@alt="Value 14_1"]')
+        self.findBy('xpath', '//img[@alt="Value 14_2"]')
+        self.findBy('xpath', '//img[@alt="Value 14_3"]')
+
     def test_measure_selects(self, mock_do_auth):
 
         # Alice logs in

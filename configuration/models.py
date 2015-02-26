@@ -233,6 +233,11 @@ class Value(models.Model):
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
     key = models.ForeignKey('Key')
+    configuration = JsonBField(blank=True, help_text="""
+            The JSON configuration. See section "Questionnaire
+            Configuration" of the manual for more information.<br/>
+            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
+            play</a> to format your JSON.""")
 
     def get_translation(self, *args, **kwargs):
         """
