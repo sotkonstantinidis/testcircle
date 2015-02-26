@@ -510,7 +510,7 @@
         "keyword": "value_14_1",
         "translation": 309,
         "key": 14,
-        "configuration": "{\"image_path\":\"landuse_01.png\"}"
+        "configuration": "{\"image_name\":\"landuse_01.png\"}"
     },
     "model": "configuration.value",
     "pk": 9
@@ -520,7 +520,7 @@
         "keyword": "value_14_2",
         "translation": 310,
         "key": 14,
-        "configuration": "{\"image_path\":\"landuse_02.png\"}"
+        "configuration": "{\"image_name\":\"landuse_02.png\"}"
     },
     "model": "configuration.value",
     "pk": 10
@@ -530,7 +530,7 @@
         "keyword": "value_14_3",
         "translation": 311,
         "key": 14,
-        "configuration": "{\"image_path\":\"landuse_03.png\"}"
+        "configuration": "{\"image_name\":\"landuse_03.png\"}"
     },
     "model": "configuration.value",
     "pk": 11

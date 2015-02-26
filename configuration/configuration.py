@@ -50,17 +50,22 @@ class QuestionnaireQuestion(object):
 
     def __init__(self, configuration):
         """
-        Parameter ``configuration`` is a dict containing the
+        Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Question. It needs to have the following
         format::
 
           {
             # The key of the question.
-            "key": "KEY"
+            "key": "KEY",
+
+            # (optional)
+            "list_position": 1
           }
 
         .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/questiongroup`
 
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`,
@@ -112,7 +117,7 @@ class QuestionnaireQuestion(object):
                 if self.field_type == 'image_checklist':
                     self.images.append('{}{}'.format(
                         self.value_image_path,
-                        v.configuration.get('image_path')))
+                        v.configuration.get('image_name')))
             self.choices = tuple(choices)
 
         # TODO
@@ -265,14 +270,13 @@ class QuestionnaireQuestiongroup(object):
         'max_num',
         'min_num',
         'template',
-        'helptext',
     ]
     default_template = 'default'
     default_min_num = 1
 
     def __init__(self, custom_configuration):
         """
-        Parameter ``configuration`` is a dict containing the
+        Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Questiongroup. It needs to have the
         following format::
 
@@ -280,34 +284,25 @@ class QuestionnaireQuestiongroup(object):
             # The keyword of the questiongroup.
             "keyword": "QUESTIONGROUP_KEYWORD",
 
-            # An optional template to be used for the rendering of the
-            # questiongroup. The name of the templates needs to match a
-            # file inside questionnaire/templates/form/questiongroup. If
-            # omitted, the default layout is used.
+            # (optional)
             "template": "TEMPLATE_NAME",
 
-            # An optional minimum for repeating questiongroups to
-            # appear. Defaults to 1.
-            "min_num": X,
+            # (optional)
+            "min_num": 1,
 
-            # An optional maximum for repeating questiongroups to
-            # appear. If larger than min_num, buttons to add or remove
-            # questiongroups will be rendered in the form. Defaults to
-            # min_num if omitted.
-            "max_num": X,
+            # (optional)
+            "max_num": 1,
 
-            # See class QuestionnaireQuestion for the format of
-            # questions.
+            # A list of questions.
             "questions": [
               # ...
             ]
           }
 
         .. seealso::
-            :class:`configuration.configuration.QuestionnaireQuestion`
-
-        .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/questiongroup`
 
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`
@@ -488,7 +483,7 @@ class QuestionnaireSubcategory(object):
 
     def __init__(self, configuration):
         """
-        Parameter ``configuration`` is a dict containing the
+        Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Subcategory. It needs to have the following
         format::
 
@@ -496,18 +491,16 @@ class QuestionnaireSubcategory(object):
             # The keyword of the subcategory.
             "keyword": "SUBCAT_KEYWORD",
 
-            # See class QuestionnaireQuestiongroup for the format of
-            # questiongroups.
+            # A list of questiongroups.
             "questiongroups": [
               # ...
             ]
           }
 
         .. seealso::
-            :class:`configuration.configuration.QuestionnaireQuestiongroup`
-
-        .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/subcategory`
 
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`,
@@ -675,18 +668,18 @@ class QuestionnaireCategory(object):
             # The keyword of the category.
             "keyword": "CAT_KEYWORD",
 
-            # See class QuestionnaireSubcategory for the format of
-            # subcategories.
+            # A list of subcategories.
             "subcategories": [
-              # ...
+              {
+                # ...
+              }
             ]
           }
 
         .. seealso::
-            :class:`configuration.configuration.QuestionnaireSubcategory`
-
-        .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/category`
         """
         validate_type(
             configuration, dict, 'categories', 'list of dicts', '-')
@@ -828,6 +821,11 @@ class QuestionnaireCategory(object):
 class QuestionnaireConfiguration(object):
     """
     A class representing the configuration of a Questionnaire.
+
+    .. seealso::
+        For more information on the format and the configuration
+        options, please refer to the documentation:
+        :doc:`/configuration/questionnaire`
     """
     valid_options = [
         'categories',
