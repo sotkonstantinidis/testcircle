@@ -104,7 +104,7 @@ class QuestionnaireQuestion(object):
         if self.field_type == 'bool':
             self.choices = ((True, _('Yes')), (False, _('No')))
         elif self.field_type in ['measure', 'checklist', 'image_checklist']:
-            self.value_objects = self.key_object.value_set.all()
+            self.value_objects = self.key_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
                     self, '[values of key {}]'.format(self.keyword))
