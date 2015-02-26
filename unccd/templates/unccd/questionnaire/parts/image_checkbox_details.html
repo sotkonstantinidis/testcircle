@@ -1,0 +1,6 @@
+{% if values|length > 0 %}
+{{ key }}:<br/>
+  {% for value in values %}
+    <img src="{{ MEDIA_URL }}{{ value.1 }}" alt="{{ value.0 }}">
+  {% endfor %}
+{% endif %}

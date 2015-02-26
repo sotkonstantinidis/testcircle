@@ -1,0 +1,14 @@
+{% load list_to_columns %}
+
+<div class="list-gallery">
+  {% for group_name, choices in optgroups %}
+    {% for choice in choices %}
+      <div class="list-gallery-item">
+        <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
+        <label for="{{ attrs.id }}_{{ forloop.counter }}" class="list-item-img">{{ choice.1 }}<br>
+          <img src="{{ MEDIA_URL }}{{ images|get_by_index:forloop.counter0 }}" alt="{{ choice.1 }}">
+        </label>
+      </div>
+    {% endfor %}
+  {% endfor %}
+</div>

@@ -1,0 +1,14 @@
+{% load list_to_columns %}
+
+<div class="row">
+  {% for group_name, choices in optgroups %}
+    {% for row in choices|columnize:4 %}
+      <div class="large-3 columns">
+        {% for choice in row %}
+          <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
+          <label for="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">{{ choice.1 }}</label><br>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endfor %}
+</div>

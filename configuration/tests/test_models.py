@@ -7,6 +7,7 @@ from configuration.models import (
     Key,
     Questiongroup,
     Translation,
+    Value,
 )
 from qcat.tests import TestCase
 
@@ -29,6 +30,17 @@ def get_valid_key_model():
     translation.save()
     return Key(
         keyword='foo', translation=translation, configuration={"foo": "bar"})
+
+
+def get_valid_value_model():
+    translation = get_valid_translation_model()
+    translation.translation_type = 'value'
+    translation.save()
+    key = get_valid_key_model()
+    key.save()
+    return Value(
+        keyword='foo', translation=translation, key=key,
+        configuration={"foo": "bar"})
 
 
 def get_valid_category_model():
@@ -156,6 +168,50 @@ class KeyModelTest(TestCase):
 
     def test_type_returns_None_if_not_found(self):
         self.assertIsNone(self.key.type_)
+
+
+class ValueModelTest(TestCase):
+
+    def setUp(self):
+        self.value = get_valid_value_model()
+
+    def test_get_valid_value_model_is_valid(self):
+        self.value.full_clean()  # Should not raise
+
+    def test_id_is_primary_key(self):
+        self.assertTrue(hasattr(self.value, 'id'))
+
+    def test_keyword_is_mandatory(self):
+        self.value.keyword = None
+        with self.assertRaises(ValidationError):
+            self.value.full_clean()
+
+    def test_translation_is_mandatory(self):
+        with self.assertRaises(ValueError):
+            self.value.translation = None
+
+    def test_translation_needs_correct_type(self):
+        translation = get_valid_translation_model()
+        translation.translation_type = 'foo'
+        translation.save()
+        self.value.translation = translation
+        with self.assertRaises(ValidationError):
+            self.value.full_clean()
+
+    def test_configuration_is_not_mandatory(self):
+        self.value.configuration = None
+        self.value.full_clean()  # Should not raise
+
+    def test_configuration_can_be_empty(self):
+        self.value.configuration = {}
+        self.value.full_clean()  # Should not raise
+
+    @patch.object(Translation, 'get_translation')
+    def test_get_translation_calls_translation_function(
+            self, mock_Translation_get_translation):
+        self.value.get_translation('keyword', locale='foo')
+        mock_Translation_get_translation.assert_called_once_with(
+            'keyword', locale='foo')
 
 
 class TranslationModelTest(TestCase):

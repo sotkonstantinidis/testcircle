@@ -40,24 +40,32 @@ class QuestionnaireQuestion(object):
         'text',
         'bool',
         'measure',
+        'checklist',
+        'image_checklist',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
     translation_old_prefix = 'old_'
+    value_image_path = '/static/assets/img/'
 
     def __init__(self, configuration):
         """
-        Parameter ``configuration`` is a dict containing the
+        Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Question. It needs to have the following
         format::
 
           {
             # The key of the question.
-            "key": "KEY"
+            "key": "KEY",
+
+            # (optional)
+            "list_position": 1
           }
 
         .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/questiongroup`
 
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`,
@@ -90,18 +98,26 @@ class QuestionnaireQuestion(object):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', 'Key')
 
+        self.images = []
         self.choices = ()
         self.value_objects = []
         if self.field_type == 'bool':
             self.choices = ((True, _('Yes')), (False, _('No')))
-        elif self.field_type == 'measure':
+        elif self.field_type in ['measure', 'checklist', 'image_checklist']:
             self.value_objects = self.key_object.value_set.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
-                    '[values of key {}]'.format(self.keyword), self)
-            choices = [('', '-')]
+                    self, '[values of key {}]'.format(self.keyword))
+            if self.field_type in ['measure']:
+                choices = [('', '-')]
+            else:
+                choices = []
             for v in self.value_objects:
                 choices.append((v.keyword, v.get_translation('label')))
+                if self.field_type == 'image_checklist':
+                    self.images.append('{}{}'.format(
+                        self.value_image_path,
+                        v.configuration.get('image_name')))
             self.choices = tuple(choices)
 
         # TODO
@@ -146,6 +162,17 @@ class QuestionnaireQuestion(object):
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=MeasureSelect,
                 required=self.required, initial=self.choices[0][0])
+        elif self.field_type == 'checklist':
+            field = forms.MultipleChoiceField(
+                label=self.label, widget=Checkbox, choices=self.choices,
+                required=self.required)
+        elif self.field_type == 'image_checklist':
+            # Make the image paths available to the widget
+            widget = ImageCheckbox
+            widget.images = self.images
+            field = forms.MultipleChoiceField(
+                label=self.label, widget=widget, choices=self.choices,
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -171,30 +198,65 @@ class QuestionnaireQuestion(object):
 
     def get_details(self, data={}):
         value = data.get(self.keyword)
-        if self.field_type in ['bool', 'measure']:
-            value = self.lookup_choice_label_by_keyword(value)
-        if self.field_type in ['char', 'text', 'bool', 'measure']:
+        if self.field_type in [
+                'bool', 'measure', 'checklist', 'image_checklist']:
+            # Look up the labels for the predefined values
+            if not isinstance(value, list):
+                value = [value]
+            values = self.lookup_choices_labels_by_keywords(value)
+        if self.field_type in ['char', 'text']:
             rendered = render_to_string(
                 'unccd/questionnaire/parts/textinput_details.html', {
                     'key': self.label,
                     'value': value})
             return rendered
+        if self.field_type in ['bool', 'measure']:
+            rendered = render_to_string(
+                'unccd/questionnaire/parts/textinput_details.html', {
+                    'key': self.label,
+                    'value': values[0]})
+            return rendered
+        elif self.field_type in ['checklist']:
+            rendered = render_to_string(
+                'unccd/questionnaire/parts/checkbox_details.html', {
+                    'key': self.label,
+                    'values': values
+                })
+            return rendered
+        elif self.field_type in ['image_checklist']:
+            # Look up the image paths for the values
+            images = []
+            for v in value:
+                i = [y[0] for y in list(self.choices)].index(v)
+                images.append(self.images[i])
+            rendered = render_to_string(
+                'unccd/questionnaire/parts/image_checkbox_details.html', {
+                    'key': self.label,
+                    'values': list(zip(values, images)),
+                })
+            return rendered
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
 
-    def lookup_choice_label_by_keyword(self, keyword):
+    def lookup_choices_labels_by_keywords(self, keywords):
         """
-        Small helper function to lookup the label of a choice (a value
-        of the key) based on its keyword.
+        Small helper function to lookup the label of choices (values of
+        the keys) based on their keyword. If a label is not found, an
+        empty string is added as label.
 
         Args:
-            ``keyword`` (str): The keyword of the value.
+            ``keywords`` (list): A list with value keywords.
 
         Returns:
-            ``str``. The label of the value.
+            ``list``. A list with labels of the values.
         """
-        return dict(self.choices).get(keyword)
+        labels = []
+        for keyword in keywords:
+            if not isinstance(keyword, str) and not isinstance(keyword, bool):
+                labels.append('')
+            labels.append(dict(self.choices).get(keyword))
+        return labels
 
 
 class QuestionnaireQuestiongroup(object):
@@ -208,14 +270,13 @@ class QuestionnaireQuestiongroup(object):
         'max_num',
         'min_num',
         'template',
-        'helptext',
     ]
     default_template = 'default'
     default_min_num = 1
 
     def __init__(self, custom_configuration):
         """
-        Parameter ``configuration`` is a dict containing the
+        Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Questiongroup. It needs to have the
         following format::
 
@@ -223,34 +284,25 @@ class QuestionnaireQuestiongroup(object):
             # The keyword of the questiongroup.
             "keyword": "QUESTIONGROUP_KEYWORD",
 
-            # An optional template to be used for the rendering of the
-            # questiongroup. The name of the templates needs to match a
-            # file inside questionnaire/templates/form/questiongroup. If
-            # omitted, the default layout is used.
+            # (optional)
             "template": "TEMPLATE_NAME",
 
-            # An optional minimum for repeating questiongroups to
-            # appear. Defaults to 1.
-            "min_num": X,
+            # (optional)
+            "min_num": 1,
 
-            # An optional maximum for repeating questiongroups to
-            # appear. If larger than min_num, buttons to add or remove
-            # questiongroups will be rendered in the form. Defaults to
-            # min_num if omitted.
-            "max_num": X,
+            # (optional)
+            "max_num": 1,
 
-            # See class QuestionnaireQuestion for the format of
-            # questions.
+            # A list of questions.
             "questions": [
               # ...
             ]
           }
 
         .. seealso::
-            :class:`configuration.configuration.QuestionnaireQuestion`
-
-        .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/questiongroup`
 
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`
@@ -431,7 +483,7 @@ class QuestionnaireSubcategory(object):
 
     def __init__(self, configuration):
         """
-        Parameter ``configuration`` is a dict containing the
+        Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Subcategory. It needs to have the following
         format::
 
@@ -439,18 +491,16 @@ class QuestionnaireSubcategory(object):
             # The keyword of the subcategory.
             "keyword": "SUBCAT_KEYWORD",
 
-            # See class QuestionnaireQuestiongroup for the format of
-            # questiongroups.
+            # A list of questiongroups.
             "questiongroups": [
               # ...
             ]
           }
 
         .. seealso::
-            :class:`configuration.configuration.QuestionnaireQuestiongroup`
-
-        .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/subcategory`
 
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`,
@@ -618,18 +668,18 @@ class QuestionnaireCategory(object):
             # The keyword of the category.
             "keyword": "CAT_KEYWORD",
 
-            # See class QuestionnaireSubcategory for the format of
-            # subcategories.
+            # A list of subcategories.
             "subcategories": [
-              # ...
+              {
+                # ...
+              }
             ]
           }
 
         .. seealso::
-            :class:`configuration.configuration.QuestionnaireSubcategory`
-
-        .. seealso::
-            :doc:`/configuration/questionnaire`
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/category`
         """
         validate_type(
             configuration, dict, 'categories', 'list of dicts', '-')
@@ -771,6 +821,11 @@ class QuestionnaireCategory(object):
 class QuestionnaireConfiguration(object):
     """
     A class representing the configuration of a Questionnaire.
+
+    .. seealso::
+        For more information on the format and the configuration
+        options, please refer to the documentation:
+        :doc:`/configuration/questionnaire`
     """
     valid_options = [
         'categories',
@@ -1060,6 +1115,25 @@ class RadioSelect(forms.RadioSelect):
 
 class MeasureSelect(forms.RadioSelect):
     template_name = 'form/question/measure.html'
+
+
+class Checkbox(forms.CheckboxSelectMultiple):
+    template_name = 'form/question/checkbox.html'
+
+
+class ImageCheckbox(forms.CheckboxSelectMultiple):
+    template_name = 'form/question/image_checkbox.html'
+
+    def get_context_data(self):
+        """
+        Add the image paths to the context data so they are availabel
+        within the template of the widget.
+        """
+        ctx = super(ImageCheckbox, self).get_context_data()
+        ctx.update({
+            'images': self.images,
+        })
+        return ctx
 
 
 class RequiredFormSet(BaseFormSet):

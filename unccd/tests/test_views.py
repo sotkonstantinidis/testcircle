@@ -52,6 +52,7 @@ def get_categories():
         ('cat_1', 'Category 1'),
         ('cat_2', 'Category 2'),
         ('cat_3', 'Category 3'),
+        ('cat_4', 'Category 4'),
     )
 
 

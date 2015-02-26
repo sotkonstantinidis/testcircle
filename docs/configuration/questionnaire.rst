@@ -1,7 +1,20 @@
 Questionnaire Configuration
 ===========================
 
-The configuration of a Questionnaire is stored in a JSON format in the ``data`` field of :class:`configuration.models.Configuration`.
+Contains the configuration of an entire questionnaire. It allows to
+overwrite certain default configurations of its child elements.
+
+The configuration of a Questionnaire is stored in a JSON format in the
+``configuration`` field of :class:`configuration.models.Configuration`.
+
+.. seealso::
+    :class:`configuration.configuration.QuestionnaireConfiguration`
+
++-----------------+----------------------------------------------------+
+| Parent element: | (None)                                             |
++-----------------+----------------------------------------------------+
+| Child element:  | :doc:`/configuration/category`                     |
++-----------------+----------------------------------------------------+
 
 Format
 ------
@@ -53,14 +66,18 @@ The basic format of the configuration is as follows::
   }
 
 .. seealso::
-    :class:`configuration.configuration.QuestionnaireSubcategory`
+    For more information on the configuration of its child elements,
+    please refer to their respective documentation:
 
-.. seealso::
-    :class:`configuration.configuration.QuestionnaireQuestiongroup`
+    * :doc:`/configuration/category`
+    * :doc:`/configuration/subcategory`
+    * :doc:`/configuration/questiongroup`
+    * :doc:`/configuration/question`
+    * :doc:`/configuration/key`
+    * :doc:`/configuration/value`
 
-.. seealso::
-    :class:`configuration.configuration.QuestionnaireQuestion`
 
+.. _configuration_questionnaire_example:
 
 Example
 -------

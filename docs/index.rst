@@ -15,8 +15,14 @@ Configuration
 .. toctree::
     :maxdepth: 2
 
+    configuration/introduction
     configuration/questionnaire
+    configuration/category
+    configuration/subcategory
+    configuration/questiongroup
+    configuration/question
     configuration/key
+    configuration/value
 
 
 Development
@@ -26,6 +32,7 @@ Development
     :maxdepth: 2
 
     development/installation
+    development/datamodel
     development/usergroups
     development/testing
     development/deployment

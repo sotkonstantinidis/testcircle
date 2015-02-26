@@ -25,6 +25,13 @@ function watchFormProgress() {
         return;
       }
     });
+    // Checkbox
+    $(this).find('div.row.list-item input:checkbox').each(function() {
+      if ($(this).is(':checked')) {
+        content = true;
+        return
+      }
+    });
     if (content) {
       completed++;
     }

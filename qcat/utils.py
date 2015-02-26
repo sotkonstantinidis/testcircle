@@ -36,8 +36,9 @@ def is_empty_list_of_dicts(list_):
     A helper function to find out if a list of dicts contains values or
     not. The following values are considered as empty values:
 
-    * ``''``
-    * ``None``
+    * ``[{"key": ""}]``
+    * ``[{"key": None}]``
+    * ``[{"key": []}]``
 
     Args:
         ``list_`` (list): A list of dicts.
@@ -52,7 +53,7 @@ def is_empty_list_of_dicts(list_):
                 for k, v in value.items():
                     if v is not None and v != '':
                         return False
-            elif value is not None and value != '':
+            elif value is not None and value != '' and value != []:
                 return False
     return True
 

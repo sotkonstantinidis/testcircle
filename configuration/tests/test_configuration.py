@@ -656,6 +656,22 @@ class QuestionnaireQuestionTest(TestCase):
         with self.assertRaises(ConfigurationErrorNotInDatabase):
             QuestionnaireQuestion(configuration)
 
+    def test_lookup_choices_lookups_single_choice(self):
+        q = QuestionnaireQuestion({'key': 'key_14'})
+        l = q.lookup_choices_labels_by_keywords(['value_14_1'])
+        self.assertEqual(l, ['Value 14_1'])
+
+    def test_lookup_choices_lookups_many_choices(self):
+        q = QuestionnaireQuestion({'key': 'key_14'})
+        l = q.lookup_choices_labels_by_keywords(['value_14_1', 'value_14_2'])
+        self.assertEqual(l, ['Value 14_1', 'Value 14_2'])
+
+    def test_lookup_choices_boolean(self):
+        q = QuestionnaireQuestion({'key': 'key_14'})
+        q.choices = ((True, 'Yes'), (False, 'No'))
+        l = q.lookup_choices_labels_by_keywords([True])
+        self.assertEqual(l, ['Yes'])
+
 
 class ValidateOptionsTest(TestCase):
 

@@ -95,6 +95,22 @@
     "model": "configuration.translation",
     "pk": 12
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 13\", \"es\": \"Clave 13\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 13
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 14\", \"es\": \"Clave 14\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 14
+},
 
 {
     "fields": {
@@ -119,6 +135,14 @@
     },
     "model": "configuration.translation",
     "pk": 103
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Category 4\", \"es\": \"Categoría 4\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 104
 },
 {
     "fields": {
@@ -170,6 +194,22 @@
 },
 {
     "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Subcategory 4_1\", \"es\": \"Subcategoría 4_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 117
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Subcategory 4_2\", \"es\": \"Subcategoría 4_2\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 118
+},
+{
+    "fields": {
         "translation_type": "questiongroup",
         "data": "{\"helptext\":{\"en\":\"Helptext 1\",\"es\":\"Texto de ayuda\"}}"
     },
@@ -200,6 +240,70 @@
     },
     "model": "configuration.translation",
     "pk": 303
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 13_1\", \"es\": \"Valor 13_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 304
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 13_2\", \"es\": \"Valor 13_2\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 305
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 13_3\", \"es\": \"Valor 13_3\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 306
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 13_4\", \"es\": \"Valor 13_4\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 307
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 13_5\", \"es\": \"Valor 13_5\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 308
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\":\"Value 14_1\",\"es\":\"Valor 14_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 309
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 14_2\", \"es\": \"Valor 14_2\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 310
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 14_3\", \"es\": \"Valor 14_3\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 311
 },
 
 {
@@ -310,6 +414,24 @@
     "model": "configuration.key",
     "pk": 12
 },
+{
+    "fields": {
+        "keyword": "key_13",
+        "translation": 13,
+        "configuration": "{\"type\": \"checklist\"}"
+    },
+    "model": "configuration.key",
+    "pk": 13
+},
+{
+    "fields": {
+        "keyword": "key_14",
+        "translation": 14,
+        "configuration": "{\"type\": \"image_checklist\"}"
+    },
+    "model": "configuration.key",
+    "pk": 14
+},
 
 {
     "fields": {
@@ -338,6 +460,81 @@
     "model": "configuration.value",
     "pk": 3
 },
+{
+    "fields": {
+        "keyword": "value_13_1",
+        "translation": 304,
+        "key": 13
+    },
+    "model": "configuration.value",
+    "pk": 4
+},
+{
+    "fields": {
+        "keyword": "value_13_2",
+        "translation": 305,
+        "key": 13
+    },
+    "model": "configuration.value",
+    "pk": 5
+},
+{
+    "fields": {
+        "keyword": "value_13_3",
+        "translation": 306,
+        "key": 13
+    },
+    "model": "configuration.value",
+    "pk": 6
+},
+{
+    "fields": {
+        "keyword": "value_13_4",
+        "translation": 307,
+        "key": 13
+    },
+    "model": "configuration.value",
+    "pk": 7
+},
+{
+    "fields": {
+        "keyword": "value_13_5",
+        "translation": 308,
+        "key": 13
+    },
+    "model": "configuration.value",
+    "pk": 8
+},
+{
+    "fields": {
+        "keyword": "value_14_1",
+        "translation": 309,
+        "key": 14,
+        "configuration": "{\"image_name\":\"landuse_01.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 9
+},
+{
+    "fields": {
+        "keyword": "value_14_2",
+        "translation": 310,
+        "key": 14,
+        "configuration": "{\"image_name\":\"landuse_02.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 10
+},
+{
+    "fields": {
+        "keyword": "value_14_3",
+        "translation": 311,
+        "key": 14,
+        "configuration": "{\"image_name\":\"landuse_03.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 11
+},
 
 {
     "fields": {
@@ -362,6 +559,14 @@
     },
     "model": "configuration.category",
     "pk": 3
+},
+{
+    "fields": {
+        "keyword": "cat_4",
+        "translation": 104
+    },
+    "model": "configuration.category",
+    "pk": 4
 },
 {
     "fields": {
@@ -410,6 +615,22 @@
     },
     "model": "configuration.category",
     "pk": 16
+},
+{
+    "fields": {
+        "keyword": "subcat_4_1",
+        "translation": 117
+    },
+    "model": "configuration.category",
+    "pk": 17
+},
+{
+    "fields": {
+        "keyword": "subcat_4_2",
+        "translation": 118
+    },
+    "model": "configuration.category",
+    "pk": 18
 },
 
 {
@@ -493,6 +714,24 @@
     "model": "configuration.questiongroup",
     "pk": 9
 },
+{
+    "fields": {
+        "keyword": "qg_10",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 10
+},
+{
+    "fields": {
+        "keyword": "qg_11",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11
+},
 
 {
     "pk": 1,
@@ -501,7 +740,7 @@
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\",\"template\":\"inline_1\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"},{\"questions\":[{\"key\":\"key_13\"}],\"keyword\":\"qg_10\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\",\"template\":\"inline_1\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]},{\"keyword\":\"cat_4\",\"subcategories\":[{\"keyword\":\"subcat_4_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_14\"}],\"keyword\":\"qg_11\"}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "Sample Core Configuration"
