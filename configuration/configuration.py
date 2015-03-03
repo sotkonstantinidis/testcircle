@@ -40,8 +40,8 @@ class QuestionnaireQuestion(object):
         'text',
         'bool',
         'measure',
-        'checklist',
-        'image_checklist',
+        'checkbox',
+        'image_checkbox',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -103,7 +103,7 @@ class QuestionnaireQuestion(object):
         self.value_objects = []
         if self.field_type == 'bool':
             self.choices = ((True, _('Yes')), (False, _('No')))
-        elif self.field_type in ['measure', 'checklist', 'image_checklist']:
+        elif self.field_type in ['measure', 'checkbox', 'image_checkbox']:
             self.value_objects = self.key_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
@@ -114,7 +114,7 @@ class QuestionnaireQuestion(object):
                 choices = []
             for v in self.value_objects:
                 choices.append((v.keyword, v.get_translation('label')))
-                if self.field_type == 'image_checklist':
+                if self.field_type in ['image_checkbox']:
                     self.images.append('{}{}'.format(
                         self.value_image_path,
                         v.configuration.get('image_name')))
@@ -162,13 +162,13 @@ class QuestionnaireQuestion(object):
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=MeasureSelect,
                 required=self.required, initial=self.choices[0][0])
-        elif self.field_type == 'checklist':
+        elif self.field_type == 'checkbox':
             field = forms.MultipleChoiceField(
                 label=self.label, widget=Checkbox, choices=self.choices,
                 required=self.required)
-        elif self.field_type == 'image_checklist':
+        elif self.field_type == 'image_checkbox':
             # Make the image paths available to the widget
-            widget = ImageCheckbox
+            widget = ImageCheckbox()
             widget.images = self.images
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
@@ -199,7 +199,7 @@ class QuestionnaireQuestion(object):
     def get_details(self, data={}):
         value = data.get(self.keyword)
         if self.field_type in [
-                'bool', 'measure', 'checklist', 'image_checklist']:
+                'bool', 'measure', 'checkbox', 'image_checkbox']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
@@ -216,14 +216,14 @@ class QuestionnaireQuestion(object):
                     'key': self.label,
                     'value': values[0]})
             return rendered
-        elif self.field_type in ['checklist']:
+        elif self.field_type in ['checkbox']:
             rendered = render_to_string(
                 'unccd/questionnaire/parts/checkbox_details.html', {
                     'key': self.label,
                     'values': values
                 })
             return rendered
-        elif self.field_type in ['image_checklist']:
+        elif self.field_type in ['image_checkbox']:
             # Look up the image paths for the values
             images = []
             for v in value:

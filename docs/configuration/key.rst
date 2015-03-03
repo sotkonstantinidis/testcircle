@@ -41,13 +41,13 @@ The following options are valid for ``type``. Default type is ``char``.
 |                    | *This type requires values related to the key to be    |
 |                    | present in the database.*                              |
 +--------------------+--------------------------------------------------------+
-| ``checklist``      | A simple checklist to allow the selection of multiple  |
-|                    | values. Renders as checklist.                          |
+| ``checkbox``       | A simple checkbox list to allow the selection of       |
+|                    | multiple values. Renders as checklist.                 |
 |                    |                                                        |
 |                    | *This type requires values related to the key to be    |
 |                    | present in the database.*                              |
 +--------------------+--------------------------------------------------------+
-| ``image_checklist``| A checklist with images to allow the selection of      |
+| ``image_checkbox`` | A checkbox list with images to allow the selection of  |
 |                    | multiple values. Renders as checklist with images.     |
 |                    |                                                        |
 |                    | *This type requires values related to the key to be    |
