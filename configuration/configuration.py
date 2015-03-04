@@ -13,6 +13,7 @@ from configuration.models import (
 )
 from qcat.errors import (
     ConfigurationError,
+    ConfigurationErrorInvalidCondition,
     ConfigurationErrorInvalidConfiguration,
     ConfigurationErrorInvalidOption,
     ConfigurationErrorNoConfigurationFound,
@@ -34,6 +35,8 @@ class QuestionnaireQuestion(object):
     valid_options = [
         'key',
         'list_position',
+        'conditions',
+        'conditional'
     ]
     valid_field_types = [
         'char',
@@ -48,7 +51,7 @@ class QuestionnaireQuestion(object):
     translation_old_prefix = 'old_'
     value_image_path = '/static/assets/img/'
 
-    def __init__(self, configuration):
+    def __init__(self, questiongroup, configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Question. It needs to have the following
@@ -59,7 +62,11 @@ class QuestionnaireQuestion(object):
             "key": "KEY",
 
             # (optional)
-            "list_position": 1
+            "list_position": 1,
+
+            "conditional": true,
+
+            "conditions": [],
           }
 
         .. seealso::
@@ -87,6 +94,7 @@ class QuestionnaireQuestion(object):
         except Key.DoesNotExist:
             raise ConfigurationErrorNotInDatabase(Key, key)
 
+        self.questiongroup = questiongroup
         self.list_position = configuration.get('list_position')
         self.key_object = key_object
         self.key_config = key_object.configuration
@@ -120,6 +128,47 @@ class QuestionnaireQuestion(object):
                         v.configuration.get('image_name')))
             self.choices = tuple(choices)
 
+        self.conditional = configuration.get('conditional', False)
+
+        conditions = []
+        for condition in configuration.get('conditions', []):
+            try:
+                cond_value, cond_expression, cond_key = condition.split('|')
+            except ValueError:
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Needs to have form "value|condition|key"')
+            # Check that value exists
+            if cond_value not in [v[0] for v in self.choices]:
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Value "{}" of condition not found in the Key\''
+                    's choices'.format(cond_value))
+            # Check the condition expression
+            try:
+                cond_expression = eval(cond_expression)
+            except SyntaxError:
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Expression "{}" is not a valid Python '
+                    'condition'.format(cond_expression))
+            if not isinstance(cond_expression, bool):
+                raise ConfigurationErrorInvalidCondition(
+                    condition,
+                    'Only the following Python expressions are valid: bool')
+            # Check that the key exists in the same questiongroup.
+            cond_key_object = self.questiongroup.get_question_by_key_keyword(
+                cond_key)
+            if cond_key_object is None:
+                raise ConfigurationErrorInvalidCondition(
+                    condition,
+                    'Key "{}" is not in the same questiongroup'.format(
+                        cond_key))
+            if not (
+                    self.field_type == 'image_checkbox' and
+                    cond_key_object.field_type == 'image_checkbox'):
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Only valid for types "image_checkbox"')
+            conditions.append((cond_value, cond_expression, cond_key))
+        self.conditions = conditions
+
         # TODO
         self.required = False
 
@@ -140,6 +189,7 @@ class QuestionnaireQuestion(object):
         readonly_attrs = {'readonly': 'readonly'}
         field = None
         translation_field = None
+        widget = None
         if self.field_type == 'char':
             field = forms.CharField(
                 label=self.label, widget=forms.TextInput(),
@@ -194,6 +244,10 @@ class QuestionnaireQuestion(object):
             formfields['{}{}'.format(
                 self.translation_old_prefix, self.keyword)] = old
 
+        if widget:
+            widget.conditional = self.conditional
+            widget.conditions = self.conditions
+
         return formfields
 
     def get_details(self, data={}):
@@ -224,15 +278,30 @@ class QuestionnaireQuestion(object):
                 })
             return rendered
         elif self.field_type in ['image_checkbox']:
+            conditional_outputs = []
+            for v in value:
+                conditional_rendered = None
+                for cond in self.conditions:
+                    if v != cond[0]:
+                        continue
+                    cond_key_object = self.questiongroup.\
+                        get_question_by_key_keyword(cond[2])
+                    conditional_rendered = cond_key_object.get_details(data)
+                conditional_outputs.append(conditional_rendered)
+
             # Look up the image paths for the values
             images = []
             for v in value:
                 i = [y[0] for y in list(self.choices)].index(v)
                 images.append(self.images[i])
+            template = 'unccd/questionnaire/parts/image_checkbox_details.html'
+            if self.conditional:
+                template = 'unccd/questionnaire/parts/'\
+                    'image_checkbox_conditional_details.html'
             rendered = render_to_string(
-                'unccd/questionnaire/parts/image_checkbox_details.html', {
+                template, {
                     'key': self.label,
-                    'values': list(zip(values, images)),
+                    'values': list(zip(values, images, conditional_outputs)),
                 })
             return rendered
         else:
@@ -356,7 +425,7 @@ class QuestionnaireQuestiongroup(object):
                 'questions', 'list of dicts', 'questiongroups')
 
         for conf_question in conf_questions:
-            self.questions.append(QuestionnaireQuestion(conf_question))
+            self.questions.append(QuestionnaireQuestion(self, conf_question))
 
         # TODO
         self.required = False
@@ -463,12 +532,20 @@ class QuestionnaireQuestiongroup(object):
     def get_details(self, data=[]):
         rendered_questions = []
         for question in self.questions:
+            if question.conditional:
+                continue
             for d in data:
                 rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
             'unccd/questionnaire/parts/questiongroup_details.html', {
                 'questions': rendered_questions})
         return rendered
+
+    def get_question_by_key_keyword(self, key_keyword):
+        for question in self.questions:
+            if question.keyword == key_keyword:
+                return question
+        return None
 
 
 class QuestionnaireSubcategory(object):
@@ -1132,6 +1209,8 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
         ctx = super(ImageCheckbox, self).get_context_data()
         ctx.update({
             'images': self.images,
+            'conditional': self.conditional,
+            'conditions': self.conditions,
         })
         return ctx
 

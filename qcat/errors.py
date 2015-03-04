@@ -35,6 +35,17 @@ class ConfigurationErrorInvalidOption(ConfigurationError):
             .format(self.option, self.configuration, self.object_)
 
 
+class ConfigurationErrorInvalidCondition(ConfigurationError):
+
+    def __init__(self, condition, error):
+        self.condition = condition
+        self.error = error
+
+    def __str__(self):
+        return 'Condition "{}" is not valid. Reason: "{}"'.format(
+            self.condition, self.error)
+
+
 class ConfigurationErrorInvalidConfiguration(ConfigurationError):
 
     def __init__(self, configuration, format, parent):

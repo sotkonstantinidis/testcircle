@@ -68,4 +68,33 @@ def get_by_index(items, index):
     Returns:
         ``element``. The list element with the given index.
     """
-    return items[index]
+    try:
+        return items[index]
+    except IndexError:
+        return None
+
+
+@register.filter
+def get_id_from_label_id(id_for_label):
+    """
+    Return only the key id of a form ``id_for_label`` attribute. It is
+    assumed that the attribute has the following form:
+    ``[formset_id]-[formset_count]-[key_id]``. This string is split into
+    pieces by "-" and the last part (key_id) is returned. Example::
+
+        id_for_label = 'qg_12-0-key_15'
+
+        get_id_from_label_id(id_for_label)  # key_15
+
+    Args:
+        ``id_for_label`` (str): The ``id_for_label`` form attribute.
+
+    Returns:
+        ``str`` or ``None``. The id of the key or ``None`` if
+        ``id_for_label`` does not have the expected format.
+    """
+    parts = id_for_label.split('-')
+    try:
+        return parts[2]
+    except IndexError:
+        return None

@@ -1,0 +1,9 @@
+{% if values|length > 0 %}
+  ({{ key }}:
+  {% for value in values %}
+    <img src="{{ MEDIA_URL }}{{ value.1 }}" alt="{{ value.0 }}" onload="this.width/=2;this.onload=null;" >
+    {% if value.2 %}
+      {{ value.2 }}
+    {% endif %}
+  {% endfor %})
+{% endif %}

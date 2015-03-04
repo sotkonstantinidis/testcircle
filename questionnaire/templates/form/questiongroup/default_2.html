@@ -1,0 +1,11 @@
+{% load floppyforms %}
+
+{% for field in form.visible_fields %}
+
+  {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
+
+  {% formfield field %}
+
+  {% endwith %}
+{% endfor %}
+{% for field in form.hidden_fields %}{{ field.as_hidden }}{% endfor %}

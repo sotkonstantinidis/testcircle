@@ -1,0 +1,20 @@
+{% load list_to_columns %}
+{% load floppyforms %}
+
+<div id="{{ attrs_id }}_{{ forloop_counter }}_sub" class="list-sub small-12 columns"{% if not checked %} style="display:none;"{% endif %}>
+  <h4>{{ label }}</h4>
+  <div class="row">
+    {% for group_name, choices in optgroups %}
+      {% for row in choices|columnize:3 %}
+        <div class="large-4 columns list-gallery-item">
+          {% for choice in row %}
+            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
+            <label for="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" class="list-item-img">{{ choice.1 }}<br>
+              <img src="{{ MEDIA_URL }}{{ images|get_by_index:forloop.parentloop.counter0 }}" alt="{{ choice.1 }}">
+            </label>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>

@@ -111,6 +111,23 @@
     "model": "configuration.translation",
     "pk": 14
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 15\", \"es\": \"Clave 15\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 15
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 16\", \"es\": \"Clave 16\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 16
+},
+
 
 {
     "fields": {
@@ -305,6 +322,54 @@
     "model": "configuration.translation",
     "pk": 311
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\":\"Value 15_1\",\"es\":\"Valor 15_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 312
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 15_2\", \"es\": \"Valor 15_2\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 313
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 15_3\", \"es\": \"Valor 15_3\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 314
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\":\"Value 16_1\",\"es\":\"Valor 16_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 315
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 16_2\", \"es\": \"Valor 16_2\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 316
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 16_3\", \"es\": \"Valor 16_3\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 317
+},
 
 {
     "fields": {
@@ -435,6 +500,26 @@
     "model": "configuration.key",
     "pk": 14
 },
+{
+    "fields": {
+        "keyword": "key_15",
+        "translation": 15,
+        "configuration": "{\"type\": \"image_checkbox\"}",
+        "values": [12, 13, 14]
+    },
+    "model": "configuration.key",
+    "pk": 15
+},
+{
+    "fields": {
+        "keyword": "key_16",
+        "translation": 16,
+        "configuration": "{\"type\": \"image_checkbox\"}",
+        "values": [15, 16, 17]
+    },
+    "model": "configuration.key",
+    "pk": 16
+},
 
 {
     "fields": {
@@ -526,6 +611,60 @@
     },
     "model": "configuration.value",
     "pk": 11
+},
+{
+    "fields": {
+        "keyword": "value_15_1",
+        "translation": 312,
+        "configuration": "{\"image_name\":\"landuse_04.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 12
+},
+{
+    "fields": {
+        "keyword": "value_15_2",
+        "translation": 313,
+        "configuration": "{\"image_name\":\"landuse_05.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 13
+},
+{
+    "fields": {
+        "keyword": "value_15_3",
+        "translation": 314,
+        "configuration": "{\"image_name\":\"landuse_06.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 14
+},
+{
+    "fields": {
+        "keyword": "value_16_1",
+        "translation": 315,
+        "configuration": "{\"image_name\":\"landuse_07.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 15
+},
+{
+    "fields": {
+        "keyword": "value_16_2",
+        "translation": 316,
+        "configuration": "{\"image_name\":\"landuse_08.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 16
+},
+{
+    "fields": {
+        "keyword": "value_16_3",
+        "translation": 317,
+        "configuration": "{\"image_name\":\"landuse_09.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 17
 },
 
 {
@@ -724,6 +863,15 @@
     "model": "configuration.questiongroup",
     "pk": 11
 },
+{
+    "fields": {
+        "keyword": "qg_12",
+        "translation": null,
+        "configuration": "{\"template\":\"default_2\"}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 12
+},
 
 {
     "pk": 1,
@@ -732,7 +880,7 @@
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"},{\"questions\":[{\"key\":\"key_13\"}],\"keyword\":\"qg_10\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\",\"template\":\"inline_1\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]},{\"keyword\":\"cat_4\",\"subcategories\":[{\"keyword\":\"subcat_4_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_14\"}],\"keyword\":\"qg_11\"}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"},{\"questions\":[{\"key\":\"key_13\"}],\"keyword\":\"qg_10\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\",\"template\":\"inline_1\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]},{\"keyword\":\"cat_4\",\"subcategories\":[{\"keyword\":\"subcat_4_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_14\"}],\"keyword\":\"qg_11\"},{\"questions\":[{\"key\":\"key_16\",\"conditional\":true},{\"key\":\"key_15\",\"conditions\":[\"value_15_1|True|key_16\"]}],\"keyword\":\"qg_12\"}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "Sample Core Configuration"

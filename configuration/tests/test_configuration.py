@@ -11,6 +11,7 @@ from configuration.configuration import (
 )
 from configuration.tests.test_models import get_valid_configuration_model
 from qcat.errors import (
+    ConfigurationErrorInvalidCondition,
     ConfigurationErrorInvalidConfiguration,
     ConfigurationErrorInvalidOption,
     ConfigurationErrorNoConfigurationFound,
@@ -621,7 +622,7 @@ class QuestionnaireQuestionTest(TestCase):
             "foo": "bar"
         }
         with self.assertRaises(ConfigurationErrorInvalidOption):
-            QuestionnaireQuestion(configuration)
+            QuestionnaireQuestion(None, configuration)
         mock_validate_type.assert_called_once_with(
             configuration, dict, 'questions', 'list of dicts',
             'questiongroups')
@@ -632,7 +633,7 @@ class QuestionnaireQuestionTest(TestCase):
             "foo": "bar"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestion(configuration)
+            QuestionnaireQuestion(None, configuration)
         mock_validate_options.assert_called_once_with(
             configuration, QuestionnaireQuestion.valid_options,
             QuestionnaireQuestion)
@@ -640,37 +641,55 @@ class QuestionnaireQuestionTest(TestCase):
     def test_raises_error_if_key_not_found(self):
         configuration = {}
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestion(configuration)
+            QuestionnaireQuestion(None, configuration)
 
     def test_raises_error_if_key_not_string(self):
         configuration = {
             "key": ["bar"]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestion(configuration)
+            QuestionnaireQuestion(None, configuration)
 
     def test_raises_error_if_not_in_db(self):
         configuration = {
             "key": "bar"
         }
         with self.assertRaises(ConfigurationErrorNotInDatabase):
-            QuestionnaireQuestion(configuration)
+            QuestionnaireQuestion(None, configuration)
 
     def test_lookup_choices_lookups_single_choice(self):
-        q = QuestionnaireQuestion({'key': 'key_14'})
+        q = QuestionnaireQuestion(None, {'key': 'key_14'})
         l = q.lookup_choices_labels_by_keywords(['value_14_1'])
         self.assertEqual(l, ['Value 14_1'])
 
     def test_lookup_choices_lookups_many_choices(self):
-        q = QuestionnaireQuestion({'key': 'key_14'})
+        q = QuestionnaireQuestion(None, {'key': 'key_14'})
         l = q.lookup_choices_labels_by_keywords(['value_14_1', 'value_14_2'])
         self.assertEqual(l, ['Value 14_1', 'Value 14_2'])
 
     def test_lookup_choices_boolean(self):
-        q = QuestionnaireQuestion({'key': 'key_14'})
+        q = QuestionnaireQuestion(None, {'key': 'key_14'})
         q.choices = ((True, 'Yes'), (False, 'No'))
         l = q.lookup_choices_labels_by_keywords([True])
         self.assertEqual(l, ['Yes'])
+
+    def test_raises_error_if_condition_wrong_formatted(self):
+        condition = 'foo'
+        with self.assertRaises(ConfigurationErrorInvalidCondition):
+            QuestionnaireQuestion(
+                None, {'key': 'key_15', 'conditions': [condition]})
+
+    def test_raises_error_if_value_does_not_exist(self):
+        condition = 'foo|True|key_16'
+        with self.assertRaises(ConfigurationErrorInvalidCondition):
+            QuestionnaireQuestion(
+                None, {'key': 'key_15', 'conditions': [condition]})
+
+    def test_raises_error_if_condition_expression_nonsense(self):
+        condition = 'value_15_1|;:_|key_16'
+        with self.assertRaises(ConfigurationErrorInvalidCondition):
+            QuestionnaireQuestion(
+                None, {'key': 'key_15', 'conditions': [condition]})
 
 
 class ValidateOptionsTest(TestCase):
