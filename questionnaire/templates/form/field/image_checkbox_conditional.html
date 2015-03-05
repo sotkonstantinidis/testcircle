@@ -1,5 +1,15 @@
+{% comment %}
+
+  Template to render a conditional checkbox form field with images.
+  Renders the checkboxes vertically with a prominent image.
+
+  This template renders an image checkbox inside another one (see
+  ``image_checkbox.html``). The checkboxes are spread across 3 columns
+  on large screens.
+
+{% endcomment %}
+
 {% load list_to_columns %}
-{% load floppyforms %}
 
 <div id="{{ attrs_id }}_{{ forloop_counter }}_sub" class="list-sub small-12 columns"{% if not checked %} style="display:none;"{% endif %}>
   <h4>{{ label }}</h4>

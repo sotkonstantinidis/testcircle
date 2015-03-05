@@ -45,22 +45,8 @@
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
         <fieldset class="row">
           <legend>{{ subcategory_config.label }}</legend>
-          {% for questiongroup_config, questiongroup_formset in subcategory_formsets %}
-            {% if questiongroup_config.helptext %}
-              <p class="help-bloc">{{ questiongroup_config.helptext }}</p>
-            {% endif %}
-            {% block errors %}{% include "form/errors.html" with errors=questiongroup_formset.non_form_errors %}{% endblock %}
-            {{ questiongroup_formset.management_form }}
-            {% for form in questiongroup_formset.forms %}
-              <div class="row list-item is-removable" data-questiongroup-keyword="{{ questiongroup_config.keyword }}">
-                {% form form using questiongroup_config.template %}
-              </div>
-            {% endfor %}
-            {% if questiongroup_formset.max_num > questiongroup_formset.min_num %}
-              <div class="row list-action">
-                <div class="small-12 columns"><a data-add-item="" data-questiongroup-keyword="{{ questiongroup_config.keyword }}" class="button small{% if questiongroup_formset.total_form_count >= questiongroup_formset.max_num %} disabled{% endif %}">{% trans 'Add More' %}</a></div>
-              </div>
-            {% endif %}
+          {% for questiongroup_config, formset in subcategory_formsets %}
+            {% form formset.forms using "form/questiongroup.html" with config=questiongroup_config formset=formset %}
           {% endfor %}
         </fieldset>
       {% endfor %}

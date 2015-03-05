@@ -1,9 +1,21 @@
-{% load i18n %}
+{% comment %}
+
+  Template to render a checkbox form field with images. Renders the
+  checkboxes vertically with a prominent image.
+
+  If {{ conditions }} are provided, further image checkboxes are
+  rendered with template ``image_checkbox_conditional.html``.
+
+  Image checkboxes with {{ conditional }} are not rendered as they are
+  supposed to be rendered using {{ conditions }} of their parent image
+  checkbox.
+
+{% endcomment %}
+
 {% load floppyforms %}
 {% load list_to_columns %}
 
 {% if not conditional %}
-
   {% block label %}{% if field|id %}<label for="{{ field|id }}">{% endif %}{{ label }}{% if label|last not in ".:!?" %}:{% endif %}{% if field|id %}</label>{% endif %}{% endblock %}
   <div class="list-gallery">
     {% for group_name, choices in optgroups %}
@@ -16,11 +28,11 @@
           {% for c in conditions %}
             {% if choice.0 == c.0 %}
               {% for f in form.visible_fields %}
-                {% if f.id_for_label|get_id_from_label_id == c.2 %}
+                {% if f.name == c.2 %}
                   {% if choice.0 in value %}
-                    {% formfield f using "form/question/image_checkbox_conditional.html" with label=f.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
+                    {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
                   {% else %}
-                    {% formfield f using "form/question/image_checkbox_conditional.html" with label=f.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
+                    {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
                   {% endif %}
                 {% endif %}
               {% endfor %}
@@ -30,9 +42,4 @@
       {% endfor %}
     {% endfor %}
   </div>
-  <div class="columns right">
-    <a class="right list-item-action" data-remove-this="" {% if forloop.parentloop.counter <= questiongroup_formset.min_num and questiongroup_formset|length <= questiongroup_formset.min_num %}
-    style="display: none;"
-  {% endif %}>{% trans "Remove" %}</a>
-
 {% endif %}

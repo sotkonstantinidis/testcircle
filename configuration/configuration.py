@@ -35,6 +35,7 @@ class QuestionnaireQuestion(object):
     valid_options = [
         'key',
         'list_position',
+        'form_template',
         'conditions',
         'conditional'
     ]
@@ -64,8 +65,13 @@ class QuestionnaireQuestion(object):
             # (optional)
             "list_position": 1,
 
+            # (optional)
+            "form_template": "TEMPLATE_NAME",
+
+            # (optional)
             "conditional": true,
 
+            # (optional)
             "conditions": [],
           }
 
@@ -105,6 +111,19 @@ class QuestionnaireQuestion(object):
         if self.field_type not in self.valid_field_types:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', 'Key')
+
+        form_template = 'default'
+        if self.field_type == 'measure':
+            form_template = 'inline_3'
+        elif self.field_type == 'image_checkbox':
+            form_template = 'no_label'
+        form_template = self.key_config.get('form_template', configuration.get(
+            'form_template', form_template))
+        self.form_template = 'form/question/{}.html'.format(form_template)
+        try:
+            get_template(self.form_template)
+        except TemplateDoesNotExist:
+            raise ConfigurationErrorTemplateNotFound(self.form_template, self)
 
         self.images = []
         self.choices = ()
@@ -172,12 +191,15 @@ class QuestionnaireQuestion(object):
         # TODO
         self.required = False
 
-    def add_form(self, formfields, show_translation=False):
+    def add_form(self, formfields, templates, show_translation=False):
         """
         Adds one or more fields to a dictionary of formfields.
 
         Args:
             ``formfields`` (dict): A dictionary of formfields.
+
+            ``templates`` (dict): A dictionary with templates to be used
+            to render the questions.
 
             ``show_translation`` (bool): A boolean indicating whether to
             add additional fields for translation (``True``) or not
@@ -185,6 +207,8 @@ class QuestionnaireQuestion(object):
 
         Returns:
             ``dict``. The updated formfields dictionary.
+
+            ``dict``. The updated templates dictionary.
         """
         readonly_attrs = {'readonly': 'readonly'}
         field = None
@@ -230,6 +254,7 @@ class QuestionnaireQuestion(object):
         if translation_field is None:
             # Values which are not translated
             formfields[self.keyword] = field
+            templates[self.keyword] = self.form_template
         else:
             # Store the old values in a hidden field
             old = forms.CharField(
@@ -243,12 +268,22 @@ class QuestionnaireQuestion(object):
                 self.translation_original_prefix, self.keyword)] = field
             formfields['{}{}'.format(
                 self.translation_old_prefix, self.keyword)] = old
+            for f in [
+                '{}{}'.format(
+                    self.translation_translation_prefix,
+                    self.keyword),
+                '{}{}'.format(
+                    self.translation_original_prefix, self.keyword),
+                '{}{}'.format(
+                    self.translation_old_prefix, self.keyword)
+            ]:
+                templates[f] = self.form_template
 
         if widget:
             widget.conditional = self.conditional
             widget.conditions = self.conditions
 
-        return formfields
+        return formfields, templates
 
     def get_details(self, data={}):
         value = data.get(self.keyword)
@@ -338,7 +373,6 @@ class QuestionnaireQuestiongroup(object):
         'questions',
         'max_num',
         'min_num',
-        'template',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -352,9 +386,6 @@ class QuestionnaireQuestiongroup(object):
           {
             # The keyword of the questiongroup.
             "keyword": "QUESTIONGROUP_KEYWORD",
-
-            # (optional)
-            "template": "TEMPLATE_NAME",
 
             # (optional)
             "min_num": 1,
@@ -395,13 +426,6 @@ class QuestionnaireQuestiongroup(object):
             'subcategories')
         validate_options(
             self.configuration, self.valid_options, QuestionnaireQuestiongroup)
-
-        self.template = 'form/questiongroup/{}.html'.format(
-            self.configuration.get('template', self.default_template))
-        try:
-            get_template(self.template)
-        except TemplateDoesNotExist:
-            raise ConfigurationErrorTemplateNotFound(self.template, self)
 
         self.min_num = self.configuration.get('min_num', self.default_min_num)
         if not isinstance(self.min_num, int) or self.min_num < 1:
@@ -499,8 +523,10 @@ class QuestionnaireQuestiongroup(object):
             together and which can possibly be repeated multiple times.
         """
         formfields = {}
+        templates = {}
         for f in self.questions:
-            formfields = f.add_form(formfields, show_translation)
+            formfields, templates = f.add_form(
+                formfields, templates, show_translation)
         Form = type('Form', (forms.Form,), formfields)
 
         formset_options = {
@@ -521,9 +547,9 @@ class QuestionnaireQuestiongroup(object):
             initial_data = None
 
         config = {
-            'template': self.template,
             'keyword': self.keyword,
             'helptext': self.helptext,
+            'templates': templates,
         }
 
         return config, FormSet(
@@ -1187,19 +1213,19 @@ class RadioSelect(forms.RadioSelect):
     A custom form class for a Radio Select field. Allows to overwrite
     the template used.
     """
-    template_name = 'form/question/radio.html'
+    template_name = 'form/field/radio.html'
 
 
 class MeasureSelect(forms.RadioSelect):
-    template_name = 'form/question/measure.html'
+    template_name = 'form/field/measure.html'
 
 
 class Checkbox(forms.CheckboxSelectMultiple):
-    template_name = 'form/question/checkbox.html'
+    template_name = 'form/field/checkbox.html'
 
 
 class ImageCheckbox(forms.CheckboxSelectMultiple):
-    template_name = 'form/question/image_checkbox.html'
+    template_name = 'form/field/image_checkbox.html'
 
     def get_context_data(self):
         """

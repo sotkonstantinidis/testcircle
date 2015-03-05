@@ -75,26 +75,24 @@ def get_by_index(items, index):
 
 
 @register.filter
-def get_id_from_label_id(id_for_label):
+def get_by_keyword(dictionary, key):
     """
-    Return only the key id of a form ``id_for_label`` attribute. It is
-    assumed that the attribute has the following form:
-    ``[formset_id]-[formset_count]-[key_id]``. This string is split into
-    pieces by "-" and the last part (key_id) is returned. Example::
+    Return the value of a key in a dict.
 
-        id_for_label = 'qg_12-0-key_15'
+    Usage in template::
+        {% load list_to_columns %}
 
-        get_id_from_label_id(id_for_label)  # key_15
+        {{ dictionary|get_by_keyword:"keyword" }}
 
     Args:
-        ``id_for_label`` (str): The ``id_for_label`` form attribute.
+        ``dictionary`` (dict): A dictionary.
+
+        ``key`` (str): The key of the element to be returned.
 
     Returns:
-        ``str`` or ``None``. The id of the key or ``None`` if
-        ``id_for_label`` does not have the expected format.
+        ``value``. The value of the element in the dict.
     """
-    parts = id_for_label.split('-')
     try:
-        return parts[2]
-    except IndexError:
+        return dictionary.get(key)
+    except AttributeError:
         return None

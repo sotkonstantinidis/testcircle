@@ -455,15 +455,6 @@ class QuestionnaireQuestiongroupTest(TestCase):
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
             QuestionnaireQuestiongroup(configuration)
 
-    def test_raises_error_if_template_not_found(self):
-        configuration = {
-            "keyword": "qg_1",
-            "template": "foo",
-            "questions": [{"key": "key_1"}]
-        }
-        with self.assertRaises(ConfigurationErrorTemplateNotFound):
-            QuestionnaireQuestiongroup(configuration)
-
     def test_raises_error_if_min_num_not_integer(self):
         configuration = {
             "keyword": "qg_1",
@@ -655,6 +646,14 @@ class QuestionnaireQuestionTest(TestCase):
             "key": "bar"
         }
         with self.assertRaises(ConfigurationErrorNotInDatabase):
+            QuestionnaireQuestion(None, configuration)
+
+    def test_raises_error_if_form_template_not_found(self):
+        configuration = {
+            'key': 'key_14',
+            'form_template': 'foo'
+        }
+        with self.assertRaises(ConfigurationErrorTemplateNotFound):
             QuestionnaireQuestion(None, configuration)
 
     def test_lookup_choices_lookups_single_choice(self):

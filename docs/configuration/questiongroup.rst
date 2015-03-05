@@ -27,9 +27,6 @@ The basic format of the configuration is as follows::
     "keyword": "QUESTIONGROUP_KEYWORD",
 
     # (optional)
-    "template": "TEMPLATE_NAME",
-
-    # (optional)
     "min_num": 1,
 
     # (optional)
@@ -61,27 +58,6 @@ The keyword of the questiongroup.
     questionnaires. This is because questionnaire data is stored by
     their questiongroup keyword and when queried it needs to be mapped
     to the correct questiongroup.
-
-``template``
-^^^^^^^^^^^^
-
-(Optional). An optional name of a template to be used for the rendering
-of the questions within the questiongroup. The name of the template
-needs to match a file inside
-``questionnaire/templates/form/questiongroup``. If not specified, the
-default layout (``default.html``) is used.
-
-The following questiongroup templates exist. Please note that some of
-them should only be used in combination with certain keys.
-
-+--------------------+--------------------------------------------------------+
-| ``default``        | Renders each field with a simple label on top.         |
-+--------------------+--------------------------------------------------------+
-| ``inline_1``       | Renders each field with the label in front of it, for  |
-|                    | example for short text fields.                         |
-+--------------------+--------------------------------------------------------+
-| ``measure``        | Renders a measure field with the label in front of it. |
-+--------------------+--------------------------------------------------------+
 
 ``min_num``
 ^^^^^^^^^^^

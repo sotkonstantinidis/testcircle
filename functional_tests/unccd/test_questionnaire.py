@@ -91,7 +91,7 @@ class QuestionnaireTest(FunctionalTest):
 
         mock_do_auth.return_value = ('tempsessionid')
 
-        initial_button_count = 2
+        initial_button_count = 3
 
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
@@ -663,7 +663,7 @@ class QuestionnaireTest(FunctionalTest):
             questionnaire_route_new_step, args=['cat_2']))
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findByNot(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
 
         # She selects the first value and sees that the row is now
@@ -671,7 +671,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//label/span[contains(text(), "Value 1")]').click()
         self.findBy(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 100%;"]')
@@ -690,7 +690,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_2']))
         self.findBy(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 100%;"]')
@@ -700,7 +700,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//label/span[contains(text(), "-")]').click()
         self.findByNot(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 0%;"]')
