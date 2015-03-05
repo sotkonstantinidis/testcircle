@@ -54,3 +54,5 @@ You can let Django (through `django-extensions`_) create graphs of your
 data model automatically::
 
     (env)$ python3 manage.py graph_models -a -g -o docs/images/qcat_datamodel.png
+
+.. _django-extensions: https://github.com/django-extensions/django-extensions

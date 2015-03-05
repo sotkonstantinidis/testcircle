@@ -36,10 +36,10 @@ def get_valid_value_model():
     translation = get_valid_translation_model()
     translation.translation_type = 'value'
     translation.save()
-    key = get_valid_key_model()
-    key.save()
+    # key = get_valid_key_model()
+    # key.save()
     return Value(
-        keyword='foo', translation=translation, key=key,
+        keyword='foo', translation=translation,
         configuration={"foo": "bar"})
 
 
@@ -169,6 +169,25 @@ class KeyModelTest(TestCase):
     def test_type_returns_None_if_not_found(self):
         self.assertIsNone(self.key.type_)
 
+    def test_can_have_one_value(self):
+        self.key.save()
+        self.assertEqual(self.key.values.count(), 0)
+        value = get_valid_value_model()
+        value.save()
+        self.key.values.add(value)
+        self.assertEqual(self.key.values.count(), 1)
+
+    def test_can_have_multiple_values(self):
+        self.key.save()
+        value_1 = get_valid_value_model()
+        value_1.save()
+        self.key.values.add(value_1)
+        value_2 = get_valid_value_model()
+        value_2.keyword = 'bar'
+        value_2.save()
+        self.key.values.add(value_2)
+        self.assertEqual(self.key.values.count(), 2)
+
 
 class ValueModelTest(TestCase):
 
@@ -212,6 +231,25 @@ class ValueModelTest(TestCase):
         self.value.get_translation('keyword', locale='foo')
         mock_Translation_get_translation.assert_called_once_with(
             'keyword', locale='foo')
+
+    def test_can_have_one_key(self):
+        self.value.save()
+        self.assertEqual(self.value.key_set.count(), 0)
+        key = get_valid_key_model()
+        key.save()
+        self.value.key_set.add(key)
+        self.assertEqual(self.value.key_set.count(), 1)
+
+    def test_can_have_multiple_keys(self):
+        self.value.save()
+        key_1 = get_valid_key_model()
+        key_1.save()
+        self.value.key_set.add(key_1)
+        key_2 = get_valid_key_model()
+        key_2.keyword = 'bar'
+        key_2.save()
+        self.value.key_set.add(key_2)
+        self.assertEqual(self.value.key_set.count(), 2)
 
 
 class TranslationModelTest(TestCase):

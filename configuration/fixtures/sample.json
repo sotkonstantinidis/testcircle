@@ -111,6 +111,39 @@
     "model": "configuration.translation",
     "pk": 14
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 15\", \"es\": \"Clave 15\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 15
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 16\", \"es\": \"Clave 16\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 16
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 17\", \"es\": \"Clave 17\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 17
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 18\", \"es\": \"Clave 18\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 18
+},
+
 
 {
     "fields": {
@@ -305,12 +338,60 @@
     "model": "configuration.translation",
     "pk": 311
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\":\"Value 15_1\",\"es\":\"Valor 15_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 312
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 15_2\", \"es\": \"Valor 15_2\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 313
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 15_3\", \"es\": \"Valor 15_3\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 314
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\":\"Value 16_1\",\"es\":\"Valor 16_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 315
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 16_2\", \"es\": \"Valor 16_2\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 316
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"Value 16_3\", \"es\": \"Valor 16_3\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 317
+},
 
 {
     "fields": {
         "keyword": "key_1",
         "translation": 1,
-        "configuration": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"char\", \"form_template\": \"inline_2\"}"
     },
     "model": "configuration.key",
     "pk": 1
@@ -409,7 +490,8 @@
     "fields": {
         "keyword": "key_12",
         "translation": 12,
-        "configuration": "{\"type\": \"measure\"}"
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1, 2, 3]
     },
     "model": "configuration.key",
     "pk": 12
@@ -418,7 +500,8 @@
     "fields": {
         "keyword": "key_13",
         "translation": 13,
-        "configuration": "{\"type\": \"checklist\"}"
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [4, 5, 6, 7, 8]
     },
     "model": "configuration.key",
     "pk": 13
@@ -427,17 +510,55 @@
     "fields": {
         "keyword": "key_14",
         "translation": 14,
-        "configuration": "{\"type\": \"image_checklist\"}"
+        "configuration": "{\"type\": \"image_checkbox\"}",
+        "values": [9, 10, 11]
     },
     "model": "configuration.key",
     "pk": 14
+},
+{
+    "fields": {
+        "keyword": "key_15",
+        "translation": 15,
+        "configuration": "{\"type\": \"image_checkbox\"}",
+        "values": [12, 13, 14]
+    },
+    "model": "configuration.key",
+    "pk": 15
+},
+{
+    "fields": {
+        "keyword": "key_16",
+        "translation": 16,
+        "configuration": "{\"type\": \"image_checkbox\"}",
+        "values": [15, 16, 17]
+    },
+    "model": "configuration.key",
+    "pk": 16
+},
+{
+    "fields": {
+        "keyword": "key_17",
+        "translation": 17,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 17
+},
+{
+    "fields": {
+        "keyword": "key_18",
+        "translation": 18,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 18
 },
 
 {
     "fields": {
         "keyword": "value_1",
-        "translation": 301,
-        "key": 12
+        "translation": 301
     },
     "model": "configuration.value",
     "pk": 1
@@ -445,8 +566,7 @@
 {
     "fields": {
         "keyword": "value_2",
-        "translation": 302,
-        "key": 12
+        "translation": 302
     },
     "model": "configuration.value",
     "pk": 2
@@ -454,8 +574,7 @@
 {
     "fields": {
         "keyword": "value_3",
-        "translation": 303,
-        "key": 12
+        "translation": 303
     },
     "model": "configuration.value",
     "pk": 3
@@ -463,8 +582,7 @@
 {
     "fields": {
         "keyword": "value_13_1",
-        "translation": 304,
-        "key": 13
+        "translation": 304
     },
     "model": "configuration.value",
     "pk": 4
@@ -472,8 +590,7 @@
 {
     "fields": {
         "keyword": "value_13_2",
-        "translation": 305,
-        "key": 13
+        "translation": 305
     },
     "model": "configuration.value",
     "pk": 5
@@ -481,8 +598,7 @@
 {
     "fields": {
         "keyword": "value_13_3",
-        "translation": 306,
-        "key": 13
+        "translation": 306
     },
     "model": "configuration.value",
     "pk": 6
@@ -490,8 +606,7 @@
 {
     "fields": {
         "keyword": "value_13_4",
-        "translation": 307,
-        "key": 13
+        "translation": 307
     },
     "model": "configuration.value",
     "pk": 7
@@ -499,8 +614,7 @@
 {
     "fields": {
         "keyword": "value_13_5",
-        "translation": 308,
-        "key": 13
+        "translation": 308
     },
     "model": "configuration.value",
     "pk": 8
@@ -509,7 +623,6 @@
     "fields": {
         "keyword": "value_14_1",
         "translation": 309,
-        "key": 14,
         "configuration": "{\"image_name\":\"landuse_01.png\"}"
     },
     "model": "configuration.value",
@@ -519,7 +632,6 @@
     "fields": {
         "keyword": "value_14_2",
         "translation": 310,
-        "key": 14,
         "configuration": "{\"image_name\":\"landuse_02.png\"}"
     },
     "model": "configuration.value",
@@ -529,11 +641,64 @@
     "fields": {
         "keyword": "value_14_3",
         "translation": 311,
-        "key": 14,
         "configuration": "{\"image_name\":\"landuse_03.png\"}"
     },
     "model": "configuration.value",
     "pk": 11
+},
+{
+    "fields": {
+        "keyword": "value_15_1",
+        "translation": 312,
+        "configuration": "{\"image_name\":\"landuse_04.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 12
+},
+{
+    "fields": {
+        "keyword": "value_15_2",
+        "translation": 313,
+        "configuration": "{\"image_name\":\"landuse_05.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 13
+},
+{
+    "fields": {
+        "keyword": "value_15_3",
+        "translation": 314,
+        "configuration": "{\"image_name\":\"landuse_06.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 14
+},
+{
+    "fields": {
+        "keyword": "value_16_1",
+        "translation": 315,
+        "configuration": "{\"image_name\":\"landuse_07.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 15
+},
+{
+    "fields": {
+        "keyword": "value_16_2",
+        "translation": 316,
+        "configuration": "{\"image_name\":\"landuse_08.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 16
+},
+{
+    "fields": {
+        "keyword": "value_16_3",
+        "translation": 317,
+        "configuration": "{\"image_name\":\"landuse_09.png\"}"
+    },
+    "model": "configuration.value",
+    "pk": 17
 },
 
 {
@@ -673,7 +838,7 @@
     "fields": {
         "keyword": "qg_5",
         "translation": 201,
-        "configuration": "{\"template\":\"inline_1\"}"
+        "configuration": "{}"
     },
     "model": "configuration.questiongroup",
     "pk": 5
@@ -682,7 +847,7 @@
     "fields": {
         "keyword": "qg_6",
         "translation": null,
-        "configuration": "{\"template\":\"inline_1\",\"max_num\":3}"
+        "configuration": "{\"max_num\":3}"
     },
     "model": "configuration.questiongroup",
     "pk": 6
@@ -700,7 +865,7 @@
     "fields": {
         "keyword": "qg_8",
         "translation": null,
-        "configuration": "{\"template\":\"inline_1\"}"
+        "configuration": "{}"
     },
     "model": "configuration.questiongroup",
     "pk": 8
@@ -709,7 +874,7 @@
     "fields": {
         "keyword": "qg_9",
         "translation": null,
-        "configuration": "{\"template\":\"measure\"}"
+        "configuration": "{}"
     },
     "model": "configuration.questiongroup",
     "pk": 9
@@ -732,6 +897,24 @@
     "model": "configuration.questiongroup",
     "pk": 11
 },
+{
+    "fields": {
+        "keyword": "qg_12",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 12
+},
+{
+    "fields": {
+        "keyword": "qg_13",
+        "translation": null,
+        "configuration": "{\"max_num\":3, \"min_num\":2}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 13
+},
 
 {
     "pk": 1,
@@ -740,7 +923,7 @@
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"},{\"questions\":[{\"key\":\"key_13\"}],\"keyword\":\"qg_10\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\",\"template\":\"inline_1\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]},{\"keyword\":\"cat_4\",\"subcategories\":[{\"keyword\":\"subcat_4_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_14\"}],\"keyword\":\"qg_11\"}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"list_position\":2},{\"key\":\"key_3\",\"form_template\":\"inline_2\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"list_position\":1}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"},{\"questions\":[{\"key\":\"key_13\"}],\"keyword\":\"qg_10\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"},{\"questions\":[{\"key\":\"key_17\"},{\"key\":\"key_18\"}],\"keyword\":\"qg_13\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]},{\"keyword\":\"cat_4\",\"subcategories\":[{\"keyword\":\"subcat_4_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_14\"}],\"keyword\":\"qg_11\"},{\"questions\":[{\"key\":\"key_16\",\"conditional\":true},{\"key\":\"key_15\",\"conditions\":[\"value_15_1|True|key_16\"]}],\"keyword\":\"qg_12\"}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "Sample Core Configuration"

@@ -74,8 +74,8 @@ class WocatAuthenticationBackend(ModelBackend):
             "WHERE fe_users.username = %s", [username])
         users = cursor.fetchall()
 
-        if len(users) != 1:
-            # No (or rather unlikely, too many) user found
+        if len(users) < 1:
+            # No user found
             return None
 
         return users[0]

@@ -38,16 +38,20 @@ The following options are valid for ``type``. Default type is ``char``.
 |                    | high). Also allows null values. Renders as button      |
 |                    | group.                                                 |
 |                    |                                                        |
-|                    | *This type requires values related to the key to be    |
-|                    | present in the database.*                              |
-+--------------------+--------------------------------------------------------+
-| ``checklist``      | A simple checklist to allow the selection of multiple  |
-|                    | values. Renders as checklist.                          |
+|                    | The values of ``measure`` fields are stored as         |
+|                    | integers in the database. This allows easier queries   |
+|                    | such as "greater than 'low'".                          |
 |                    |                                                        |
 |                    | *This type requires values related to the key to be    |
 |                    | present in the database.*                              |
 +--------------------+--------------------------------------------------------+
-| ``image_checklist``| A checklist with images to allow the selection of      |
+| ``checkbox``       | A simple checkbox list to allow the selection of       |
+|                    | multiple values. Renders as checklist.                 |
+|                    |                                                        |
+|                    | *This type requires values related to the key to be    |
+|                    | present in the database.*                              |
++--------------------+--------------------------------------------------------+
+| ``image_checkbox`` | A checkbox list with images to allow the selection of  |
 |                    | multiple values. Renders as checklist with images.     |
 |                    |                                                        |
 |                    | *This type requires values related to the key to be    |

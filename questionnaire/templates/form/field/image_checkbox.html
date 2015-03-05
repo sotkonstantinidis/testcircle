@@ -1,0 +1,45 @@
+{% comment %}
+
+  Template to render a checkbox form field with images. Renders the
+  checkboxes vertically with a prominent image.
+
+  If {{ conditions }} are provided, further image checkboxes are
+  rendered with template ``image_checkbox_conditional.html``.
+
+  Image checkboxes with {{ conditional }} are not rendered as they are
+  supposed to be rendered using {{ conditions }} of their parent image
+  checkbox.
+
+{% endcomment %}
+
+{% load floppyforms %}
+{% load list_to_columns %}
+
+{% if not conditional %}
+  {% block label %}{% if field|id %}<label for="{{ field|id }}">{% endif %}{{ label }}{% if label|last not in ".:!?" %}:{% endif %}{% if field|id %}</label>{% endif %}{% endblock %}
+  <div class="list-gallery">
+    {% for group_name, choices in optgroups %}
+      {% for choice in choices %}
+        <div class="list-gallery-item clearfix">
+          <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub">
+          <label for="{{ attrs.id }}_{{ forloop.counter }}" class="list-item-img">{{ choice.1 }}<br>
+            <img src="{{ MEDIA_URL }}{{ images|get_by_index:forloop.counter0 }}" alt="{{ choice.1 }}">
+          </label>
+          {% for c in conditions %}
+            {% if choice.0 == c.0 %}
+              {% for f in form.visible_fields %}
+                {% if f.name == c.2 %}
+                  {% if choice.0 in value %}
+                    {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
+                  {% else %}
+                    {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endif %}

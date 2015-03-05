@@ -124,6 +124,9 @@ The following is an arbitrary example of how a configuration could look like::
                 "questions": [
                   {
                     "key": "key_4"
+                  },
+                  {
+                    "key": "key_11"
                   }
                 ],
                 "keyword": "qg_3"
@@ -146,6 +149,22 @@ The following is an arbitrary example of how a configuration could look like::
                   }
                 ],
                 "keyword": "qg_4"
+              },
+              {
+                "questions": [
+                  {
+                    "key": "key_12"
+                  }
+                ],
+                "keyword": "qg_9"
+              },
+              {
+                "questions": [
+                  {
+                    "key": "key_13"
+                  }
+                ],
+                "keyword": "qg_10"
               }
             ]
           }
@@ -196,6 +215,39 @@ The following is an arbitrary example of how a configuration could look like::
                 "keyword": "qg_8",
                 "max_num": 3,
                 "min_num": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "keyword": "cat_4",
+        "subcategories": [
+          {
+            "keyword": "subcat_4_1",
+            "questiongroups": [
+              {
+                "questions": [
+                  {
+                    "key": "key_14"
+                  }
+                ],
+                "keyword": "qg_11"
+              },
+              {
+                "questions": [
+                  {
+                    "key": "key_16",
+                    "conditional": true
+                  },
+                  {
+                    "key": "key_15",
+                    "conditions": [
+                      "value_15_1|True|key_16"
+                    ]
+                  }
+                ],
+                "keyword": "qg_12"
               }
             ]
           }

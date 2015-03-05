@@ -13,6 +13,7 @@ from configuration.models import (
 )
 from qcat.errors import (
     ConfigurationError,
+    ConfigurationErrorInvalidCondition,
     ConfigurationErrorInvalidConfiguration,
     ConfigurationErrorInvalidOption,
     ConfigurationErrorNoConfigurationFound,
@@ -34,21 +35,24 @@ class QuestionnaireQuestion(object):
     valid_options = [
         'key',
         'list_position',
+        'form_template',
+        'conditions',
+        'conditional'
     ]
     valid_field_types = [
         'char',
         'text',
         'bool',
         'measure',
-        'checklist',
-        'image_checklist',
+        'checkbox',
+        'image_checkbox',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
     translation_old_prefix = 'old_'
     value_image_path = '/static/assets/img/'
 
-    def __init__(self, configuration):
+    def __init__(self, questiongroup, configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Question. It needs to have the following
@@ -59,7 +63,16 @@ class QuestionnaireQuestion(object):
             "key": "KEY",
 
             # (optional)
-            "list_position": 1
+            "list_position": 1,
+
+            # (optional)
+            "form_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "conditional": true,
+
+            # (optional)
+            "conditions": [],
           }
 
         .. seealso::
@@ -87,6 +100,7 @@ class QuestionnaireQuestion(object):
         except Key.DoesNotExist:
             raise ConfigurationErrorNotInDatabase(Key, key)
 
+        self.questiongroup = questiongroup
         self.list_position = configuration.get('list_position')
         self.key_object = key_object
         self.key_config = key_object.configuration
@@ -98,13 +112,26 @@ class QuestionnaireQuestion(object):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', 'Key')
 
+        form_template = 'default'
+        if self.field_type == 'measure':
+            form_template = 'inline_3'
+        elif self.field_type == 'image_checkbox':
+            form_template = 'no_label'
+        form_template = self.key_config.get('form_template', configuration.get(
+            'form_template', form_template))
+        self.form_template = 'form/question/{}.html'.format(form_template)
+        try:
+            get_template(self.form_template)
+        except TemplateDoesNotExist:
+            raise ConfigurationErrorTemplateNotFound(self.form_template, self)
+
         self.images = []
         self.choices = ()
         self.value_objects = []
         if self.field_type == 'bool':
             self.choices = ((True, _('Yes')), (False, _('No')))
-        elif self.field_type in ['measure', 'checklist', 'image_checklist']:
-            self.value_objects = self.key_object.value_set.all()
+        elif self.field_type in ['measure', 'checkbox', 'image_checkbox']:
+            self.value_objects = self.key_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
                     self, '[values of key {}]'.format(self.keyword))
@@ -112,23 +139,70 @@ class QuestionnaireQuestion(object):
                 choices = [('', '-')]
             else:
                 choices = []
-            for v in self.value_objects:
-                choices.append((v.keyword, v.get_translation('label')))
-                if self.field_type == 'image_checklist':
+            for i, v in enumerate(self.value_objects):
+                if self.field_type in ['measure']:
+                    choices.append((i+1, v.get_translation('label')))
+                else:
+                    choices.append((v.keyword, v.get_translation('label')))
+                if self.field_type in ['image_checkbox']:
                     self.images.append('{}{}'.format(
                         self.value_image_path,
                         v.configuration.get('image_name')))
             self.choices = tuple(choices)
 
+        self.conditional = configuration.get('conditional', False)
+
+        conditions = []
+        for condition in configuration.get('conditions', []):
+            try:
+                cond_value, cond_expression, cond_key = condition.split('|')
+            except ValueError:
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Needs to have form "value|condition|key"')
+            # Check that value exists
+            if cond_value not in [v[0] for v in self.choices]:
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Value "{}" of condition not found in the Key\''
+                    's choices'.format(cond_value))
+            # Check the condition expression
+            try:
+                cond_expression = eval(cond_expression)
+            except SyntaxError:
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Expression "{}" is not a valid Python '
+                    'condition'.format(cond_expression))
+            if not isinstance(cond_expression, bool):
+                raise ConfigurationErrorInvalidCondition(
+                    condition,
+                    'Only the following Python expressions are valid: bool')
+            # Check that the key exists in the same questiongroup.
+            cond_key_object = self.questiongroup.get_question_by_key_keyword(
+                cond_key)
+            if cond_key_object is None:
+                raise ConfigurationErrorInvalidCondition(
+                    condition,
+                    'Key "{}" is not in the same questiongroup'.format(
+                        cond_key))
+            if not (
+                    self.field_type == 'image_checkbox' and
+                    cond_key_object.field_type == 'image_checkbox'):
+                raise ConfigurationErrorInvalidCondition(
+                    condition, 'Only valid for types "image_checkbox"')
+            conditions.append((cond_value, cond_expression, cond_key))
+        self.conditions = conditions
+
         # TODO
         self.required = False
 
-    def add_form(self, formfields, show_translation=False):
+    def add_form(self, formfields, templates, show_translation=False):
         """
         Adds one or more fields to a dictionary of formfields.
 
         Args:
             ``formfields`` (dict): A dictionary of formfields.
+
+            ``templates`` (dict): A dictionary with templates to be used
+            to render the questions.
 
             ``show_translation`` (bool): A boolean indicating whether to
             add additional fields for translation (``True``) or not
@@ -136,10 +210,13 @@ class QuestionnaireQuestion(object):
 
         Returns:
             ``dict``. The updated formfields dictionary.
+
+            ``dict``. The updated templates dictionary.
         """
         readonly_attrs = {'readonly': 'readonly'}
         field = None
         translation_field = None
+        widget = None
         if self.field_type == 'char':
             field = forms.CharField(
                 label=self.label, widget=forms.TextInput(),
@@ -162,13 +239,13 @@ class QuestionnaireQuestion(object):
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=MeasureSelect,
                 required=self.required, initial=self.choices[0][0])
-        elif self.field_type == 'checklist':
+        elif self.field_type == 'checkbox':
             field = forms.MultipleChoiceField(
                 label=self.label, widget=Checkbox, choices=self.choices,
                 required=self.required)
-        elif self.field_type == 'image_checklist':
+        elif self.field_type == 'image_checkbox':
             # Make the image paths available to the widget
-            widget = ImageCheckbox
+            widget = ImageCheckbox()
             widget.images = self.images
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
@@ -180,6 +257,7 @@ class QuestionnaireQuestion(object):
         if translation_field is None:
             # Values which are not translated
             formfields[self.keyword] = field
+            templates[self.keyword] = self.form_template
         else:
             # Store the old values in a hidden field
             old = forms.CharField(
@@ -193,13 +271,27 @@ class QuestionnaireQuestion(object):
                 self.translation_original_prefix, self.keyword)] = field
             formfields['{}{}'.format(
                 self.translation_old_prefix, self.keyword)] = old
+            for f in [
+                '{}{}'.format(
+                    self.translation_translation_prefix,
+                    self.keyword),
+                '{}{}'.format(
+                    self.translation_original_prefix, self.keyword),
+                '{}{}'.format(
+                    self.translation_old_prefix, self.keyword)
+            ]:
+                templates[f] = self.form_template
 
-        return formfields
+        if widget:
+            widget.conditional = self.conditional
+            widget.conditions = self.conditions
+
+        return formfields, templates
 
     def get_details(self, data={}):
         value = data.get(self.keyword)
         if self.field_type in [
-                'bool', 'measure', 'checklist', 'image_checklist']:
+                'bool', 'measure', 'checkbox', 'image_checkbox']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
@@ -216,23 +308,39 @@ class QuestionnaireQuestion(object):
                     'key': self.label,
                     'value': values[0]})
             return rendered
-        elif self.field_type in ['checklist']:
+        elif self.field_type in ['checkbox']:
             rendered = render_to_string(
                 'unccd/questionnaire/parts/checkbox_details.html', {
                     'key': self.label,
                     'values': values
                 })
             return rendered
-        elif self.field_type in ['image_checklist']:
+        elif self.field_type in ['image_checkbox']:
+            conditional_outputs = []
+            for v in value:
+                conditional_rendered = None
+                for cond in self.conditions:
+                    if v != cond[0]:
+                        continue
+                    cond_key_object = self.questiongroup.\
+                        get_question_by_key_keyword(cond[2])
+                    conditional_rendered = cond_key_object.get_details(data)
+                conditional_outputs.append(conditional_rendered)
+
             # Look up the image paths for the values
             images = []
             for v in value:
-                i = [y[0] for y in list(self.choices)].index(v)
-                images.append(self.images[i])
+                if v is not None:
+                    i = [y[0] for y in list(self.choices)].index(v)
+                    images.append(self.images[i])
+            template = 'unccd/questionnaire/parts/image_checkbox_details.html'
+            if self.conditional:
+                template = 'unccd/questionnaire/parts/'\
+                    'image_checkbox_conditional_details.html'
             rendered = render_to_string(
-                'unccd/questionnaire/parts/image_checkbox_details.html', {
+                template, {
                     'key': self.label,
-                    'values': list(zip(values, images)),
+                    'values': list(zip(values, images, conditional_outputs)),
                 })
             return rendered
         else:
@@ -253,7 +361,8 @@ class QuestionnaireQuestion(object):
         """
         labels = []
         for keyword in keywords:
-            if not isinstance(keyword, str) and not isinstance(keyword, bool):
+            if (not isinstance(keyword, str) and not isinstance(keyword, bool)
+                    and not isinstance(keyword, int)):
                 labels.append('')
             labels.append(dict(self.choices).get(keyword))
         return labels
@@ -269,7 +378,6 @@ class QuestionnaireQuestiongroup(object):
         'questions',
         'max_num',
         'min_num',
-        'template',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -283,9 +391,6 @@ class QuestionnaireQuestiongroup(object):
           {
             # The keyword of the questiongroup.
             "keyword": "QUESTIONGROUP_KEYWORD",
-
-            # (optional)
-            "template": "TEMPLATE_NAME",
 
             # (optional)
             "min_num": 1,
@@ -327,13 +432,6 @@ class QuestionnaireQuestiongroup(object):
         validate_options(
             self.configuration, self.valid_options, QuestionnaireQuestiongroup)
 
-        self.template = 'form/questiongroup/{}.html'.format(
-            self.configuration.get('template', self.default_template))
-        try:
-            get_template(self.template)
-        except TemplateDoesNotExist:
-            raise ConfigurationErrorTemplateNotFound(self.template, self)
-
         self.min_num = self.configuration.get('min_num', self.default_min_num)
         if not isinstance(self.min_num, int) or self.min_num < 1:
             raise ConfigurationErrorInvalidConfiguration(
@@ -356,7 +454,7 @@ class QuestionnaireQuestiongroup(object):
                 'questions', 'list of dicts', 'questiongroups')
 
         for conf_question in conf_questions:
-            self.questions.append(QuestionnaireQuestion(conf_question))
+            self.questions.append(QuestionnaireQuestion(self, conf_question))
 
         # TODO
         self.required = False
@@ -430,8 +528,10 @@ class QuestionnaireQuestiongroup(object):
             together and which can possibly be repeated multiple times.
         """
         formfields = {}
+        templates = {}
         for f in self.questions:
-            formfields = f.add_form(formfields, show_translation)
+            formfields, templates = f.add_form(
+                formfields, templates, show_translation)
         Form = type('Form', (forms.Form,), formfields)
 
         formset_options = {
@@ -452,9 +552,9 @@ class QuestionnaireQuestiongroup(object):
             initial_data = None
 
         config = {
-            'template': self.template,
             'keyword': self.keyword,
             'helptext': self.helptext,
+            'templates': templates,
         }
 
         return config, FormSet(
@@ -463,12 +563,20 @@ class QuestionnaireQuestiongroup(object):
     def get_details(self, data=[]):
         rendered_questions = []
         for question in self.questions:
+            if question.conditional:
+                continue
             for d in data:
                 rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
             'unccd/questionnaire/parts/questiongroup_details.html', {
                 'questions': rendered_questions})
         return rendered
+
+    def get_question_by_key_keyword(self, key_keyword):
+        for question in self.questions:
+            if question.keyword == key_keyword:
+                return question
+        return None
 
 
 class QuestionnaireSubcategory(object):
@@ -863,6 +971,12 @@ class QuestionnaireConfiguration(object):
                 questiongroups.extend(subcategory.questiongroups)
         return questiongroups
 
+    def get_questiongroup_by_keyword(self, keyword):
+        for questiongroup in self.get_questiongroups():
+            if questiongroup.keyword == keyword:
+                return questiongroup
+        return None
+
     def get_details(self, data={}, editable=False):
         rendered_categories = []
         for category in self.categories:
@@ -1110,19 +1224,19 @@ class RadioSelect(forms.RadioSelect):
     A custom form class for a Radio Select field. Allows to overwrite
     the template used.
     """
-    template_name = 'form/question/radio.html'
+    template_name = 'form/field/radio.html'
 
 
 class MeasureSelect(forms.RadioSelect):
-    template_name = 'form/question/measure.html'
+    template_name = 'form/field/measure.html'
 
 
 class Checkbox(forms.CheckboxSelectMultiple):
-    template_name = 'form/question/checkbox.html'
+    template_name = 'form/field/checkbox.html'
 
 
 class ImageCheckbox(forms.CheckboxSelectMultiple):
-    template_name = 'form/question/image_checkbox.html'
+    template_name = 'form/field/image_checkbox.html'
 
     def get_context_data(self):
         """
@@ -1132,6 +1246,8 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
         ctx = super(ImageCheckbox, self).get_context_data()
         ctx.update({
             'images': self.images,
+            'conditional': self.conditional,
+            'conditions': self.conditions,
         })
         return ctx
 

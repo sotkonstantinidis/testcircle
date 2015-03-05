@@ -1,5 +1,7 @@
 from qcat.tests import TestCase
-from questionnaire.templatetags.list_to_columns import columnize
+from questionnaire.templatetags.list_to_columns import (
+    columnize,
+)
 
 
 def get_list_of_elements():

@@ -68,4 +68,31 @@ def get_by_index(items, index):
     Returns:
         ``element``. The list element with the given index.
     """
-    return items[index]
+    try:
+        return items[index]
+    except IndexError:
+        return None
+
+
+@register.filter
+def get_by_keyword(dictionary, key):
+    """
+    Return the value of a key in a dict.
+
+    Usage in template::
+        {% load list_to_columns %}
+
+        {{ dictionary|get_by_keyword:"keyword" }}
+
+    Args:
+        ``dictionary`` (dict): A dictionary.
+
+        ``key`` (str): The key of the element to be returned.
+
+    Returns:
+        ``value``. The value of the element in the dict.
+    """
+    try:
+        return dictionary.get(key)
+    except AttributeError:
+        return None

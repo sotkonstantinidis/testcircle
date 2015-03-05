@@ -59,6 +59,20 @@ function toggleButtonBarSelected() {
   item.toggleClass('is-selected', !(!selectedValue || 0 === selectedValue.length));
 }
 
+/**
+ * Toggle the conditional image checkboxes if the parent checkbox was
+ * clicked. If deselected, all conditional checkboxes are unchecked.
+ *
+ * el: div of conditional image checkboxes
+ */
+function toggleImageCheckboxConditional(el) {
+  console.log(el);
+  var topCb = el.parent('.list-gallery-item').find('input[data-toggle]');
+  if (!topCb.is(':checked')) {
+    el.find('input').removeAttr('checked')
+  }
+}
+
 $(function() {
   $('img[data-alt-src]').each(function() {
       new Image().src = $(this).data('alt-src');
@@ -68,10 +82,10 @@ $(function() {
   // UTILITIES
   // -----------------
   // Toggle view
-  $('body').on('click', '[data-toggle]', function (e) {
+  $('body').on('click', '.list-gallery-item [data-toggle]', function (e) {
     var target = $('#'+ $(this).data('toggle'));
     target.toggle();
-    console.log(target);
+    toggleImageCheckboxConditional(target);
   })
 
   // LIST ITEM

@@ -26,7 +26,16 @@ The basic format of the configuration is as follows::
     "key": "KEY",
 
     # (optional)
-    "list_position": 1
+    "list_position": 1,
+
+    # (optional)
+    "form_template": "TEMPLATE_NAME",
+
+    # (optional)
+    "conditional": true,
+
+    # (optional)
+    "conditions": [],
   }
 
 .. seealso::
@@ -51,3 +60,57 @@ The keyword of the key of this question.
 (Optional). An optional integer indicating if and at which position this
 question should appear in the list representation of questionnaires. If
 not set, the question will not appear in the list.
+
+``form_template``
+^^^^^^^^^^^^^^^^^
+
+(Optional). An optional name of a template to be used for the rendering
+of the question form. The name of the template needs to match a file
+with the ending ``.html`` inside
+``questionnaire/templates/form/question/``. If not specified, the
+default layout for each key type is used (usually ``default.html``).
+
+The following question templates exist. Please note that not every
+template should be used with any field type.
+
++--------------------+--------------------------------------------------------+
+| ``default``        | Label on top, field below it.                          |
+|                    |                                                        |
+|                    | The default for most key types.                        |
++--------------------+--------------------------------------------------------+
+| ``inline_2``       | Label on the left (aligned right in a 2 column div),   |
+|                    | field on the right (in a 10 column div).               |
++--------------------+--------------------------------------------------------+
+| ``inline_3``       | Label on the left (in a 3 column div), field on the    |
+|                    | right (in a 9 column div).                             |
+|                    |                                                        |
+|                    | The default for key type ``measure``.                  |
++--------------------+--------------------------------------------------------+
+| ``no_label``       | No label (should be handled by the field).             |
+|                    |                                                        |
+|                    | The default for key type ``image_checkbox``            |
++--------------------+--------------------------------------------------------+
+
+``conditional``
+^^^^^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether this question is only
+shown depending on the condition (value) of another question. If set to
+``true``, another question of this questiongroup should have the option
+``conditions`` set.
+
+.. important::
+    Questions with ``"conditional": true`` need to be listed **before**
+    the question with ``"conditions": []`` triggering them.
+
+``conditions``
+^^^^^^^^^^^^^^
+
+(Optional). An optional list of conditions triggering conditional
+questions. Each condition must have the format
+``""value_keyword|Boolean|key_keyword""``. Example::
+
+    "conditions": ["value_15_1|True|key_16"]
+
+For the time being, conditions can only be set for Key
+(see :doc:`/configuration/key`) with type ``image_checkbox``.

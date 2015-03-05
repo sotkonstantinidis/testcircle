@@ -16,7 +16,7 @@ from qcat.utils import (
 )
 from questionnaire.models import Questionnaire
 from questionnaire.utils import (
-    is_empty_questionnaire,
+    clean_questionnaire_data,
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
@@ -99,7 +99,16 @@ def generic_questionnaire_new_step(
         if valid is True:
             session_questionnaire = get_session_questionnaire()
             session_questionnaire.update(data)
-            save_session_questionnaire(session_questionnaire)
+
+            cleaned_questionnaire_data, errors = clean_questionnaire_data(
+                session_questionnaire, questionnaire_configuration)
+            if errors:
+                messages.error(
+                    request, 'Something went wrong. The step cannot be saved '
+                    'because of the following errors: <br/>{}'.format(
+                        '<br/>'.join(errors)))
+
+            save_session_questionnaire(cleaned_questionnaire_data)
 
             messages.success(
                 request, _('[TODO] Data successfully stored to Session.'),
@@ -152,7 +161,14 @@ def generic_questionnaire_new(
     session_questionnaire = get_session_questionnaire()
 
     if request.method == 'POST':
-        if is_empty_questionnaire(session_questionnaire):
+        cleaned_questionnaire_data, errors = clean_questionnaire_data(
+            session_questionnaire, questionnaire_configuration)
+        if errors:
+            messages.error(
+                request, 'Something went wrong. The questionnaire cannot be '
+                'submitted because of the following errors: <br/>{}'.format(
+                    '<br/>'.join(errors)))
+        if not cleaned_questionnaire_data:
             messages.info(
                 request, _('[TODO] You cannot submit an empty questionnaire'),
                 fail_silently=True)

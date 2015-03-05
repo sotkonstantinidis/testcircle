@@ -195,6 +195,7 @@ class Key(models.Model):
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
             play</a> to format your JSON.""")
+    values = models.ManyToManyField('Value')
 
     def get_translation(self, *args, **kwargs):
         """
@@ -232,7 +233,6 @@ class Value(models.Model):
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
-    key = models.ForeignKey('Key')
     configuration = JsonBField(blank=True, help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>

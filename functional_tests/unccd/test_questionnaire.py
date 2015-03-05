@@ -41,8 +41,7 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('xpath', '//*[contains(text(), "Foo")]')
         session_data = get_session_questionnaire()
-        self.assertEqual(session_data, {'qg_1': [{'key_3': {'en': ''}, 'key_1': {'en': 'Foo'}}], 'qg_2': [{'key_3': {'en': ''}, 'key_2': {'en': ''}}], 'qg_3': [{'key_4': {'en': ''}, 'key_6': {'en': ''}, 'key_11': None}]}
-        )
+        self.assertEqual(session_data, {'qg_1': [{'key_1': {'en': 'Foo'}}]})
 
         # self.assertEqual(self.browser.current_url, 'foo')
 
@@ -91,7 +90,7 @@ class QuestionnaireTest(FunctionalTest):
 
         mock_do_auth.return_value = ('tempsessionid')
 
-        initial_button_count = 2
+        initial_button_count = 3
 
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
@@ -462,6 +461,171 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//img[@alt="Value 14_2"]')
         self.findBy('xpath', '//img[@alt="Value 14_3"]')
 
+    def test_image_checkbox_subcategory(self, mock_do_auth):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_4']))
+
+        # She sees the checkbox images of Key 15 which are not the same
+        # as for Key 14.
+        img_1_key_14 = self.findBy('xpath', '//img[@alt="Value 14_1"]')
+        img_1_key_15 = self.findBy('xpath', '//img[@alt="Value 15_1"]')
+        self.assertNotEqual(
+            img_1_key_14.get_attribute('src'),
+            img_1_key_15.get_attribute('src'))
+
+        # She sees that no Checkbox of Key 15 is selected by default
+        self.findByNot(
+            'xpath', '//input[@name="qg_12-0-key_15" and @checked="checked"]')
+
+        # She also sees that Key 16 is not visible
+        subcat_val_1 = self.findBy(
+            'xpath', '//div[@class="list-sub small-12 columns"]')
+        self.findBy(
+            'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
+        self.assertEqual(subcat_val_1.get_attribute('style'), 'display: none;')
+
+        # She sees that the form progress is at 0
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+
+        # She submits the form empty and sees that no value was submitted,
+        # progress of Category 4 is still 0
+        self.findBy('id', 'button-submit').click()
+        self.findByNot('xpath', '//*[contains(text(), "Key 15")]')
+        progress_indicator = self.findBy(
+            'xpath', '(//div[@class="progress radius"])[4]')
+        self.assertIn('0 /', progress_indicator.text)
+
+        # She goes back to the questionnaire step and sees that form
+        # progress is still at 0 and no checkbox is selected
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_4']))
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+        self.findByNot(
+            'xpath', '//input[@name="qg_12-0-key_15" and @checked="checked"]')
+
+        # She also sees that Key 16 is not visible
+        subcat_val_1 = self.findBy(
+            'xpath', '//div[@class="list-sub small-12 columns"]')
+        self.findBy(
+            'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
+        self.assertEqual(subcat_val_1.get_attribute('style'), 'display: none;')
+
+        # She selects the first checkbox and sees that the form progress
+        # was updated
+        self.findBy(
+            'xpath', '(//input[@name="qg_12-0-key_15"])[1]').click()
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
+        # She also sees that Key 16 is now visible but no value is selected
+        subcat_val_1 = self.findBy(
+            'xpath', '//div[@class="list-sub small-12 columns"]')
+        self.findBy(
+            'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
+        self.assertEqual(subcat_val_1.get_attribute('style'), '')
+        self.findByNot(
+            'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
+
+        # She submits the step and sees that Key 15 was submitted and
+        # the form progress on the overview page is updated
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Key 15')
+        self.findBy('xpath', '//img[@alt="Value 15_1"]')
+        progress_indicator = self.findBy(
+            'xpath', '(//div[@class="progress radius"])[4]')
+        self.assertIn('1 /', progress_indicator.text)
+
+        # She goes back to the step and sees that the value of Key 15 is
+        # selected, form progress is at 1
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_4']))
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
+        # Key 16 is visible but no value selected
+        subcat_val_1 = self.findBy(
+            'xpath', '//div[@class="list-sub small-12 columns"]')
+        self.findBy(
+            'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
+        self.assertEqual(subcat_val_1.get_attribute('style'), '')
+        self.findByNot(
+            'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
+
+        # She selects a value of Key 16
+        self.findBy(
+            'xpath', '(//input[@name="qg_12-0-key_16"])[1]').click()
+
+        # She submits the step and sees that both values are submitted
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Key 15')
+        self.findBy('xpath', '//img[@alt="Value 15_1"]')
+        self.checkOnPage('Key 16')
+        self.findBy('xpath', '//img[@alt="Value 16_1"]')
+        progress_indicator = self.findBy(
+            'xpath', '(//div[@class="progress radius"])[4]')
+        self.assertIn('1 /', progress_indicator.text)
+
+        # She goes back to the step and sees that the value of Key 15 is
+        # selected, form progress is at 1
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_4']))
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
+        # She sees that the value of Key 15 is selected. Key 16 is
+        # visible and the first value is selected.
+        subcat_val_1 = self.findBy(
+            'xpath', '//div[@class="list-sub small-12 columns"]')
+        self.findBy(
+            'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
+        self.assertEqual(subcat_val_1.get_attribute('style'), '')
+        self.findBy(
+            'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
+
+        # She deselects the value of Key 15 and sees that Key 16 is not
+        # visible anymore
+        self.findBy(
+            'xpath', '(//input[@name="qg_12-0-key_15"])[1]').click()
+
+        subcat_val_1 = self.findBy(
+            'xpath', '//div[@class="list-sub small-12 columns"]')
+        self.findBy(
+            'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
+        self.assertEqual(subcat_val_1.get_attribute('style'), 'display: none;')
+
+        # She reselects the value of Key 15 and sees that the previously
+        # selected value of Key 16 is not selected anymore.
+        self.findBy(
+            'xpath', '(//input[@name="qg_12-0-key_15"])[1]').click()
+        self.findByNot(
+            'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
+
+        # She selects two values of Key 16 again and submits the form
+        self.findBy(
+            'xpath', '(//input[@name="qg_12-0-key_16"])[1]').click()
+        self.findBy(
+            'xpath', '(//input[@name="qg_12-0-key_16"])[2]').click()
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Key 15')
+        self.findBy('xpath', '//img[@alt="Value 15_1"]')
+        self.checkOnPage('Key 16')
+        self.findBy('xpath', '//img[@alt="Value 16_1"]')
+        self.findBy('xpath', '//img[@alt="Value 16_2"]')
+
+        # She submits the form and sees that the values were stored
+        # correctly
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Key 15')
+        self.findBy('xpath', '//img[@alt="Value 15_1"]')
+        self.checkOnPage('Key 16')
+        self.findBy('xpath', '//img[@alt="Value 16_1"]')
+        self.findBy('xpath', '//img[@alt="Value 16_2"]')
+
     def test_measure_selects(self, mock_do_auth):
 
         # Alice logs in
@@ -498,7 +662,7 @@ class QuestionnaireTest(FunctionalTest):
             questionnaire_route_new_step, args=['cat_2']))
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findByNot(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
 
         # She selects the first value and sees that the row is now
@@ -506,7 +670,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//label/span[contains(text(), "Value 1")]').click()
         self.findBy(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 100%;"]')
@@ -525,7 +689,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_2']))
         self.findBy(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 100%;"]')
@@ -535,7 +699,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//label/span[contains(text(), "-")]').click()
         self.findByNot(
-            'xpath', '//div[@class="row list-item is-selected"]/div/label['
+            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 0%;"]')

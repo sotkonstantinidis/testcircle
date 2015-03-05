@@ -144,13 +144,18 @@ class GenericQuestionnaireNewTest(TestCase):
             **get_valid_new_values()[1])
         mock_get_session_questionnaire.assert_called_once_with()
 
-    @patch('questionnaire.views.is_empty_questionnaire')
-    def test_calls_is_empty_questionnaire(self, mock_is_empty_questionnaire):
+    @patch('questionnaire.views.QuestionnaireConfiguration')
+    @patch('questionnaire.views.clean_questionnaire_data')
+    def test_calls_clean_questionnaire_data(
+            self, mock_clean_questionnaire_data,
+            mock_QuestionnaireConfiguration):
+        mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         r = self.request
         r.method = 'POST'
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_is_empty_questionnaire.assert_called_once_with({})
+        mock_clean_questionnaire_data.assert_called_once_with(
+            {}, mock_QuestionnaireConfiguration())
 
     @patch.object(messages, 'info')
     def test_adds_message_if_empty(self, mock_messages_info):
@@ -172,12 +177,12 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_redirect.assert_called_once_with('foo')
 
     @patch.object(Questionnaire, 'create_new')
-    @patch('questionnaire.views.is_empty_questionnaire')
+    @patch('questionnaire.views.clean_questionnaire_data')
     def test_calls_create_new_questionnaire(
-            self, mock_is_empty_questionnaire, mock_create_new):
+            self, mock_clean_questionnaire_data, mock_create_new):
         r = self.request
         r.method = 'POST'
-        mock_is_empty_questionnaire.return_value = False
+        mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         mock_create_new.return_value = Mock()
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(
@@ -185,24 +190,24 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_create_new.assert_called_once_with('unccd', {})
 
     @patch('questionnaire.views.clear_session_questionnaire')
-    @patch('questionnaire.views.is_empty_questionnaire')
+    @patch('questionnaire.views.clean_questionnaire_data')
     def test_calls_clear_session_questionnaire(
-            self, mock_is_empty_questionnaire,
+            self, mock_clean_questionnaire_data,
             mock_clear_session_questionnaire):
         r = self.request
         r.method = 'POST'
-        mock_is_empty_questionnaire.return_value = False
+        mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_clear_session_questionnaire.assert_called_once_with()
 
     @patch.object(messages, 'success')
-    @patch('questionnaire.views.is_empty_questionnaire')
+    @patch('questionnaire.views.clean_questionnaire_data')
     def test_adds_message(
-            self, mock_is_empty_questionnaire, mock_messages_sucess):
+            self, mock_clean_questionnaire_data, mock_messages_sucess):
         r = self.request
         r.method = 'POST'
-        mock_is_empty_questionnaire.return_value = False
+        mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_sucess.assert_called_once_with(
@@ -211,12 +216,13 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch('questionnaire.views.redirect')
     @patch.object(Questionnaire, 'create_new')
-    @patch('questionnaire.views.is_empty_questionnaire')
+    @patch('questionnaire.views.clean_questionnaire_data')
     def test_redirects_to_success_route(
-            self, mock_is_empty_questionnaire, mock_create_new, mock_redirect):
+            self, mock_clean_questionnaire_data,
+            mock_create_new, mock_redirect):
         r = self.request
         r.method = 'POST'
-        mock_is_empty_questionnaire.return_value = False
+        mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         mock_create_new.return_value = Mock()
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(

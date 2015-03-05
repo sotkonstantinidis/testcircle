@@ -2,32 +2,107 @@ import ast
 
 from configuration.configuration import QuestionnaireQuestion
 from qcat.errors import QuestionnaireFormatError
-from qcat.utils import is_empty_list_of_dicts
 
 
-def is_empty_questionnaire(questionnaire_data):
+def clean_questionnaire_data(data, configuration):
     """
-    Helper function to check if the data of a questionnaire is empty,
-    e.g. does not contain any values. Entries such as [{}] are
-    considered as empty.
+    Clean a questionnaire data dictionary so it can be saved to the
+    database. This namely removes all empty values and parses measured
+    values to integers.
+
+    This function can also be used to test if a questionnaire data
+    dictionary is empty (if returned cleaned data = {}).
 
     Args:
-        ``questionnaire_data`` (dict): A questionnaire data dictionary.
+        ``data`` (dict): A questionnaire data dictionary.
+
+        ``configuration``
+        (:class:`configuration.configuration.QuestionnaireConfiguration`):
+        The configuration of the questionnaire to test the data against.
 
     Returns:
-        ``bool``. ``True`` if the dictionary is empty or contains only
-        empty values, ``False`` otherwise.
+        ``dict``. The cleaned questionnaire data dictionary.
 
-    Raises:
-        ``qcat.errors.QuestionnaireFormatError``
+        ``list``. A list with errors encountered. Empty if the
+        dictionary is valid.
     """
-    is_valid_questionnaire_format(questionnaire_data)
-    for k, v in questionnaire_data.items():
-        if v == [{}]:
+    errors = []
+    cleaned_data = {}
+    try:
+        is_valid_questionnaire_format(data)
+    except QuestionnaireFormatError as e:
+        return cleaned_data, [str(e)]
+    for qg_keyword, qg_data_list in data.items():
+        questiongroup = configuration.get_questiongroup_by_keyword(qg_keyword)
+        if questiongroup is None:
+            errors.append(
+                'Questiongroup with keyword "{}" does not exist'.format(
+                    qg_keyword))
             continue
-        if not is_empty_list_of_dicts(v):
-            return False
-    return True
+        cleaned_qg_list = []
+        for qg_data in qg_data_list:
+            cleaned_qg = {}
+            for key, value in qg_data.items():
+                if not value and not isinstance(value, bool):
+                    continue
+                question = questiongroup.get_question_by_key_keyword(key)
+                if question is None:
+                    errors.append(
+                        'Question with keyword "{}" is not valid for '
+                        'Questiongroup with keyword "{}"'.format(
+                            key, qg_keyword))
+                    continue
+                if question.field_type in ['measure']:
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        errors.append(
+                            'Measure value "{}" of key "{}" (questiongroup '
+                            '"{}") is not valid.'.format(
+                                value, key, qg_keyword))
+                        continue
+                if question.field_type in ['bool', 'measure']:
+                    if value not in [c[0] for c in question.choices]:
+                        errors.append(
+                            'Value "{}" is not valid for key "{}" ('
+                            'questiongroup "{}").'.format(
+                                value, key, qg_keyword))
+                        continue
+                elif question.field_type in ['checkbox', 'image_checkbox']:
+                    if not isinstance(value, list):
+                        errors.append(
+                            'Value "{}" of key "{}" needs to be a list'.format(
+                                value, key))
+                        continue
+                    for v in value:
+                        if v not in [c[0] for c in question.choices]:
+                            errors.append(
+                                'Value "{}" is not valid for key "{}" ('
+                                'questiongroup "{}").'.format(
+                                    value, key, qg_keyword))
+                            continue
+                elif question.field_type in ['char', 'text']:
+                    if not isinstance(value, dict):
+                        errors.append(
+                            'Value "{}" of key "{}" needs to be a dict.'
+                            .format(value, key))
+                        continue
+                    translations = {}
+                    for locale, translation in value.items():
+                        if translation:
+                            translations[locale] = translation
+                    value = translations
+                else:
+                    raise NotImplementedError(
+                        'Field type "{}" needs to be checked properly'.format(
+                            question.field_type))
+                if value or isinstance(value, bool):
+                    cleaned_qg[key] = value
+            if cleaned_qg:
+                cleaned_qg_list.append(cleaned_qg)
+        if cleaned_qg_list:
+            cleaned_data[qg_keyword] = cleaned_qg_list
+    return cleaned_data, errors
 
 
 def is_valid_questionnaire_format(questionnaire_data):
