@@ -1,7 +1,6 @@
 from qcat.tests import TestCase
 from questionnaire.templatetags.list_to_columns import (
     columnize,
-    get_id_from_label_id,
 )
 
 
@@ -24,12 +23,3 @@ class ColumnizeTest(TestCase):
         self.assertEqual(len(cols[0]), 4)
         self.assertEqual(len(cols[1]), 3)
         self.assertEqual(len(cols[2]), 3)
-
-
-class GetIdFromLabelIdTest(TestCase):
-
-    def test_returns_id(self):
-        self.assertEqual(get_id_from_label_id('qg_12-0-key_15'), 'key_15')
-
-    def test_returns_None_if_unknown_format(self):
-        self.assertIsNone(get_id_from_label_id('foo'))

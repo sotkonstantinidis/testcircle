@@ -41,8 +41,7 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('xpath', '//*[contains(text(), "Foo")]')
         session_data = get_session_questionnaire()
-        self.assertEqual(session_data, {'qg_1': [{'key_3': {'en': ''}, 'key_1': {'en': 'Foo'}}], 'qg_2': [{'key_3': {'en': ''}, 'key_2': {'en': ''}}], 'qg_3': [{'key_4': {'en': ''}, 'key_6': {'en': ''}, 'key_11': None}]}
-        )
+        self.assertEqual(session_data, {'qg_1': [{'key_1': {'en': 'Foo'}}]})
 
         # self.assertEqual(self.browser.current_url, 'foo')
 

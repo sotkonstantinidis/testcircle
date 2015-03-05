@@ -38,6 +38,10 @@ The following options are valid for ``type``. Default type is ``char``.
 |                    | high). Also allows null values. Renders as button      |
 |                    | group.                                                 |
 |                    |                                                        |
+|                    | The values of ``measure`` fields are stored as         |
+|                    | integers in the database. This allows easier queries   |
+|                    | such as "greater than 'low'".                          |
+|                    |                                                        |
 |                    | *This type requires values related to the key to be    |
 |                    | present in the database.*                              |
 +--------------------+--------------------------------------------------------+

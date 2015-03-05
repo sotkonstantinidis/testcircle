@@ -672,6 +672,12 @@ class QuestionnaireQuestionTest(TestCase):
         l = q.lookup_choices_labels_by_keywords([True])
         self.assertEqual(l, ['Yes'])
 
+    def test_lookup_choices_integer(self):
+        q = QuestionnaireQuestion(None, {'key': 'key_12'})
+        q.choices = ((1, 'Low'), (2, 'High'))
+        l = q.lookup_choices_labels_by_keywords([1])
+        self.assertEqual(l, ['Low'])
+
     def test_raises_error_if_condition_wrong_formatted(self):
         condition = 'foo'
         with self.assertRaises(ConfigurationErrorInvalidCondition):

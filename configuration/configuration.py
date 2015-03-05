@@ -139,8 +139,11 @@ class QuestionnaireQuestion(object):
                 choices = [('', '-')]
             else:
                 choices = []
-            for v in self.value_objects:
-                choices.append((v.keyword, v.get_translation('label')))
+            for i, v in enumerate(self.value_objects):
+                if self.field_type in ['measure']:
+                    choices.append((i+1, v.get_translation('label')))
+                else:
+                    choices.append((v.keyword, v.get_translation('label')))
                 if self.field_type in ['image_checkbox']:
                     self.images.append('{}{}'.format(
                         self.value_image_path,
@@ -327,8 +330,9 @@ class QuestionnaireQuestion(object):
             # Look up the image paths for the values
             images = []
             for v in value:
-                i = [y[0] for y in list(self.choices)].index(v)
-                images.append(self.images[i])
+                if v is not None:
+                    i = [y[0] for y in list(self.choices)].index(v)
+                    images.append(self.images[i])
             template = 'unccd/questionnaire/parts/image_checkbox_details.html'
             if self.conditional:
                 template = 'unccd/questionnaire/parts/'\
@@ -357,7 +361,8 @@ class QuestionnaireQuestion(object):
         """
         labels = []
         for keyword in keywords:
-            if not isinstance(keyword, str) and not isinstance(keyword, bool):
+            if (not isinstance(keyword, str) and not isinstance(keyword, bool)
+                    and not isinstance(keyword, int)):
                 labels.append('')
             labels.append(dict(self.choices).get(keyword))
         return labels
@@ -965,6 +970,12 @@ class QuestionnaireConfiguration(object):
             for subcategory in category.subcategories:
                 questiongroups.extend(subcategory.questiongroups)
         return questiongroups
+
+    def get_questiongroup_by_keyword(self, keyword):
+        for questiongroup in self.get_questiongroups():
+            if questiongroup.keyword == keyword:
+                return questiongroup
+        return None
 
     def get_details(self, data={}, editable=False):
         rendered_categories = []
