@@ -120,13 +120,25 @@ class CleanQuestionnaireDataTest(TestCase):
         }
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(cleaned, data)
-        print(errors)
         self.assertEqual(len(errors), 0)
 
     def test_list_values_need_to_match_choices(self):
         data = {
             "qg_10": [{"key_13": ["value_13_1", "foo"]}]
         }
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
+    def test_passes_if_conditional_question_correct(self):
+        data = {
+            "qg_12": [{"key_15": ["value_15_1"], "key_16": ["value_16_1"]}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_raises_error_if_conditional_question_not_correct(self):
+        data = {
+            "qg_12": [{"key_15": ["value_15_2"], "key_16": ["value_16_1"]}]}
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 

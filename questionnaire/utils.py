@@ -52,6 +52,15 @@ def clean_questionnaire_data(data, configuration):
                         'Questiongroup with keyword "{}"'.format(
                             key, qg_keyword))
                     continue
+                if question.conditional:
+                    for q in question.questiongroup.questions:
+                        for c in q.conditions:
+                            if key in c[2]:
+                                cond_data = qg_data.get(q.keyword)
+                                if not cond_data or c[0] not in cond_data:
+                                    errors.append(
+                                        'Key "{}" is only valid if "{}={}"'
+                                        .format(key, q.keyword, c[0]))
                 if question.field_type in ['measure']:
                     try:
                         value = int(value)
