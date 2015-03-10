@@ -298,19 +298,19 @@ class QuestionnaireQuestion(object):
             values = self.lookup_choices_labels_by_keywords(value)
         if self.field_type in ['char', 'text']:
             rendered = render_to_string(
-                'unccd/questionnaire/parts/textinput_details.html', {
+                'details/field/textinput.html', {
                     'key': self.label,
                     'value': value})
             return rendered
         if self.field_type in ['bool', 'measure']:
             rendered = render_to_string(
-                'unccd/questionnaire/parts/textinput_details.html', {
+                'details/field/textinput.html', {
                     'key': self.label,
                     'value': values[0]})
             return rendered
         elif self.field_type in ['checkbox']:
             rendered = render_to_string(
-                'unccd/questionnaire/parts/checkbox_details.html', {
+                'details/field/checkbox.html', {
                     'key': self.label,
                     'values': values
                 })
@@ -333,10 +333,9 @@ class QuestionnaireQuestion(object):
                 if v is not None:
                     i = [y[0] for y in list(self.choices)].index(v)
                     images.append(self.images[i])
-            template = 'unccd/questionnaire/parts/image_checkbox_details.html'
+            template = 'details/field/image_checkbox.html'
             if self.conditional:
-                template = 'unccd/questionnaire/parts/'\
-                    'image_checkbox_conditional_details.html'
+                template = 'details/field/image_checkbox_conditional.html'
             rendered = render_to_string(
                 template, {
                     'key': self.label,
@@ -568,7 +567,7 @@ class QuestionnaireQuestiongroup(object):
             for d in data:
                 rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
-            'unccd/questionnaire/parts/questiongroup_details.html', {
+            'details/questiongroup.html', {
                 'questions': rendered_questions})
         return rendered
 
@@ -750,7 +749,7 @@ class QuestionnaireSubcategory(object):
                 rendered_questiongroups.append(
                     questiongroup.get_details(questiongroup_data))
         rendered = render_to_string(
-            'unccd/questionnaire/parts/subcategory_details.html', {
+            'details/subcategory.html', {
                 'questiongroups': rendered_questiongroups,
                 'label': self.label})
         return rendered, has_content
@@ -914,14 +913,15 @@ class QuestionnaireCategory(object):
                 rendered_subcategories.append(rendered_subcategory)
                 with_content += 1
         rendered = render_to_string(
-            'unccd/questionnaire/parts/category_details.html', {
+            'details/category.html', {
                 'subcategories': rendered_subcategories,
                 'label': self.label,
                 'keyword': self.keyword,
                 'editable': editable,
                 'complete': with_content,
                 'total': len(self.subcategories),
-                'progress': with_content / len(self.subcategories) * 100
+                'progress': with_content / len(self.subcategories) * 100,
+                'edit_step_route': 'sample_questionnaire_new_step'
             })
         return rendered
 

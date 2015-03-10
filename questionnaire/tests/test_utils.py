@@ -28,13 +28,13 @@ class CleanQuestionnaireDataTest(TestCase):
     fixtures = ['sample.json']
 
     def setUp(self):
-        self.conf = QuestionnaireConfiguration('unccd')
+        self.conf = QuestionnaireConfiguration('sample')
 
     @patch('questionnaire.utils.is_valid_questionnaire_format')
     def test_calls_is_valid_questionnaire_format(
             self, mock_is_valid_questionnaire_format):
         data = get_valid_questionnaire_format()
-        clean_questionnaire_data(data, QuestionnaireConfiguration('unccd'))
+        clean_questionnaire_data(data, QuestionnaireConfiguration('sample'))
         mock_is_valid_questionnaire_format.assert_called_once_with(data)
 
     def test_returns_error_list_if_invalid_questionnaire_format(self):
@@ -57,7 +57,7 @@ class CleanQuestionnaireDataTest(TestCase):
         self.assertEqual(len(errors), 1)
 
     def test_parses_measure_values_to_int(self):
-        conf = QuestionnaireConfiguration('unccd')
+        conf = QuestionnaireConfiguration('sample')
         data = {
             "qg_9": [{"key_12": "1"}]
         }

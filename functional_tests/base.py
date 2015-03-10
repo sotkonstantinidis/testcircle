@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 from nose.plugins.attrib import attr
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -9,6 +10,7 @@ from unittest import skipUnless
 
 from unittest.mock import patch
 from accounts.tests.test_authentication import get_mock_do_auth_return_values
+from qcat.utils import clear_session_questionnaire
 
 loginRouteName = 'login'
 
@@ -32,10 +34,12 @@ def check_firefox_path():
 
 
 @skipUnless(check_firefox_path(), "Firefox path not specified")
+@override_settings(DEBUG=True)
 @attr('functional')
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
+        clear_session_questionnaire()
         self.browser = webdriver.Firefox(
             firefox_binary=FirefoxBinary(settings.TESTING_FIREFOX_PATH))
         self.browser.implicitly_wait(3)

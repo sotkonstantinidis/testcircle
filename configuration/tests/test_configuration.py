@@ -21,7 +21,7 @@ from qcat.errors import (
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 
-questionnaire_details_route = 'unccd_questionnaire_details'
+questionnaire_details_route = 'sample_questionnaire_details'
 
 
 def get_valid_questionnaire_configuration():
@@ -53,12 +53,12 @@ class QuestionnaireConfigurationGetListConfigurationTest(TestCase):
         self.assertEqual(conf.get_list_configuration(), [])
 
     def test_returns_list_configuration(self):
-        conf = QuestionnaireConfiguration('unccd')
+        conf = QuestionnaireConfiguration('sample')
         list_conf = conf.get_list_configuration()
         self.assertEqual(len(list_conf), 2)
 
     def test_list_configuration_form(self):
-        conf = QuestionnaireConfiguration('unccd')
+        conf = QuestionnaireConfiguration('sample')
         list_conf = conf.get_list_configuration()
         conf_1 = list_conf[0]
         self.assertEqual(len(conf_1), 4)
@@ -68,7 +68,7 @@ class QuestionnaireConfigurationGetListConfigurationTest(TestCase):
         self.assertIn('position', conf_1)
 
     def test_returns_ordered_list_configuration(self):
-        conf = QuestionnaireConfiguration('unccd')
+        conf = QuestionnaireConfiguration('sample')
         list_conf = conf.get_list_configuration()
         conf_1 = list_conf[0]
         conf_2 = list_conf[1]

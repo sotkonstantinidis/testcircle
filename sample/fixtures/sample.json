@@ -919,7 +919,7 @@
 {
     "pk": 1,
     "fields": {
-        "code": "core",
+        "code": "sample_core",
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
@@ -933,13 +933,13 @@
 {
     "pk": 2,
     "fields": {
-        "code": "unccd",
+        "code": "sample",
         "description": "Description of Sample Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
         "data": "{\"categories\": [{\"keyword\": \"cat_1\",\"subcategories\": [{\"keyword\": \"subcat_1_2\",\"questiongroups\": [{\"questions\": [{\"key\": \"key_6\"}],\"keyword\": \"qg_3\"}]}]}]}",
         "created": "2015-01-09T10:12:59.337Z",
-        "base_code": "core",
+        "base_code": "sample_core",
         "name": "Sample Configuration"
     },
     "model": "configuration.configuration"

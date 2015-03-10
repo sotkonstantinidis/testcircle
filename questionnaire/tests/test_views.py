@@ -21,7 +21,7 @@ from questionnaire.views import (
     generic_questionnaire_new,
     generic_questionnaire_new_step,
 )
-from unccd.tests.test_views import (
+from sample.tests.test_views import (
     get_categories,
     get_category_count,
     get_valid_new_step_values,
@@ -39,7 +39,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.request = self.factory.get('/unccd/new/cat_1')
+        self.request = self.factory.get('/sample/new/cat_1')
         self.request.user = create_new_user()
         session_store.clear()
 
@@ -52,15 +52,15 @@ class GenericQuestionnaireNewStepTest(TestCase):
         mock_QuestionnaireConfiguration_get_category.return_value = None
         with self.assertRaises(Http404):
             generic_questionnaire_new_step(
-                self.request, 'cat_1', 'unccd', 'template', 'route')
-        mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
+                self.request, 'cat_1', 'sample', 'template', 'route')
+        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
     @patch.object(QuestionnaireConfiguration, 'get_category')
     def test_gets_category(self, mock_get_category):
         mock_get_category.return_value = None
         with self.assertRaises(Http404):
             generic_questionnaire_new_step(
-                self.request, 'cat_1', 'unccd', 'template', 'route')
+                self.request, 'cat_1', 'sample', 'template', 'route')
         mock_get_category.assert_called_once_with('cat_1')
 
     @patch('questionnaire.views.get_session_questionnaire')
@@ -104,7 +104,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values())
         mock_render.assert_called_once_with(
-            self.request, 'unccd/questionnaire/new_step.html', {
+            self.request, 'sample/questionnaire/new_step.html', {
                 'category_formsets': "bar",
                 'category_config': "foo"})
 
@@ -120,7 +120,7 @@ class GenericQuestionnaireNewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.request = self.factory.get('/unccd/new')
+        self.request = self.factory.get('/sample/new')
         self.request.user = create_new_user()
 
     @patch.object(QuestionnaireConfiguration, '__init__')
@@ -133,7 +133,7 @@ class GenericQuestionnaireNewTest(TestCase):
             generic_questionnaire_new(
                 self.request, *get_valid_new_values()[0],
                 **get_valid_new_values()[1])
-        mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
+        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
@@ -187,7 +187,7 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_create_new.assert_called_once_with('unccd', {})
+        mock_create_new.assert_called_once_with('sample', {})
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -227,7 +227,8 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_redirect.assert_called_once_with('unccd_questionnaire_details', 1)
+        mock_redirect.assert_called_once_with(
+            'sample_questionnaire_details', 1)
 
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
     def test_calls_get_questionnaire_data_in_single_language(
@@ -252,7 +253,7 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_render.assert_called_once_with(
-            self.request, 'unccd/questionnaire/new.html', {
+            self.request, 'sample/questionnaire/new.html', {
                 'questionnaire_id': None,
                 'category_names': get_categories(),
                 'categories': ["foo"]*get_category_count()})
@@ -288,7 +289,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_get_object_or_404.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
+        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.get_object_or_404')
@@ -308,7 +309,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_render.assert_called_once_with(
-            self.request, 'unccd/questionnaire/details.html', {
+            self.request, 'sample/questionnaire/details.html', {
                 'categories': [], 'questionnaire_id': 1})
 
     @patch('questionnaire.views.get_object_or_404')
@@ -332,7 +333,7 @@ class GenericQuestionnaireListTest(TestCase):
             mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
         generic_questionnaire_list(self.request, *get_valid_list_values())
-        mock_QuestionnaireConfiguration.assert_called_once_with('unccd')
+        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     def test_calls_get_list(self, mock_get_list_data):
@@ -347,7 +348,7 @@ class GenericQuestionnaireListTest(TestCase):
         mock_get_list_data.return_value = (("foo",),)
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_render.assert_called_once_with(
-            self.request, 'unccd/questionnaire/list.html', {
+            self.request, 'sample/questionnaire/list.html', {
                 'list_data': (), 'list_header': ('foo',)})
 
     def test_returns_rendered_response(self):
