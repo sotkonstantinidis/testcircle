@@ -7,6 +7,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
+from unittest.mock import patch
+from accounts.tests.test_authentication import get_mock_do_auth_return_values
+
 loginRouteName = 'login'
 
 
@@ -107,9 +110,10 @@ class FunctionalTest(StaticLiveServerTestCase):
     def changeLanguage(self, locale):
         self.findBy('name', 'setLang%s' % locale).submit()
 
-    def doLogin(self, username, password):
+    @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
+    def doLogin(self, username, password, mock_do_auth):
+        mock_do_auth.return_value = get_mock_do_auth_return_values(
+            username=username)
+        self.browser.get(self.live_server_url)
+        self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
         self.browser.get(self.live_server_url + reverse(loginRouteName))
-        self.findBy('name', 'email').send_keys(username)
-        self.findBy('name', 'password').send_keys(password)
-        self.findBy('id', 'button_login').click()
-        self.browser.implicitly_wait(3)
