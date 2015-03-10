@@ -1,0 +1,27 @@
+{% extends 'unccd/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="panel">
+        <h5>QCAT Sample!</h5>
+        <p>This is just a sample configuration of QCAT which should be used for testing purposes only. The URLs of this app are turned off in productive versions of QCAT.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-equalizer>
+    <div class="large-6 columns">
+      <div class="panel" data-equalizer-watch>
+        <h5>New Questionnaire</h5>
+        {% comment %}
+        <a href="{% url 'unccd_questionnaire_new' %}" class="button tiny">New</a>
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

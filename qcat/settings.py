@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'accounts',
     'configuration',
     'unccd',
+    'sample',
 )
 
 MIDDLEWARE_CLASSES = (
