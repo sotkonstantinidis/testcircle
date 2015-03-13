@@ -6,9 +6,7 @@ module.exports = function(grunt) {
     // Sass: Compiles .scss files and saves them as .css
     sass: {
       options: {
-        includePaths: [
-          'bower_components/compass-mixins/lib',
-          'bower_components/foundation/scss'],
+        includePaths: ['bower_components/foundation/scss'],
         imagePath: '/assets/img'
       },
       dev: {
@@ -29,11 +27,26 @@ module.exports = function(grunt) {
       }
     },
 
+    // CSS Autorpefix https://github.com/postcss/autoprefixer
+    postcss: {
+      options: {
+        map: true,
+        processors: [
+          require('autoprefixer-core')({browsers: 'last 1 version'}).postcss,
+          require('csswring').postcss
+        ]
+      },
+      dist: {
+        src: 'static/css/app.css'
+      }
+    },
+
     // Assemble: Compiles .hbs files and saves them as .html
     assemble: {
       options: {
         layoutdir: 'src/layout/',
         layout: 'default.hbs',
+        data: 'src/data/*.json',
         flatten: true
       },
       pages: {
@@ -142,6 +155,13 @@ module.exports = function(grunt) {
         options: {
           livereload: true,
         }
+      },
+      data: {
+        files: 'src/data/*.json',
+        tasks: ['assemble'],
+        options: {
+          livereload: true,
+        }
       }
     },
 
@@ -161,6 +181,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('assemble');
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');

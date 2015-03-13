@@ -1,0 +1,12 @@
+.page-footer {
+  margin-top: rem-calc(48);
+  margin-bottom: rem-calc(48);
+  padding: rem-calc(12) 0 0;
+  border-top: 2px solid $color-beige;
+  font-size: rem-calc(12);
+}
+.page-footer-copy {
+  @media #{$medium-up} {
+    text-align: right;
+  }
+}

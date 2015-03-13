@@ -1,9 +1,9 @@
-[id^="icon-"] path,
-[id*=" icon-"] path {
+[id^="icon"] path,
+[id*=" icon"] path {
   fill: currentColor;
 }
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon"],
+[class*=" icon"] {
   display: inline-block;
   height: 2rem;
   width: 2rem;

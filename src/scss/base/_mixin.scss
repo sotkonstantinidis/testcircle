@@ -2,6 +2,7 @@
 @mixin reset-list() {
   list-style: none;
   padding: 0;
+  margin-left: 0;
 }
 
 @function lineHeight($lines, $base: $base-font-size) {

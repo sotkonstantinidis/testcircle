@@ -1,0 +1,13 @@
+.label {
+  text-transform: uppercase;
+
+  &.is-review {
+    background-color: rgba($alert-color, 0.7);
+  }
+  &.is-completed {
+    background-color: rgba($success-color, 0.7);
+  }
+  &.is-draft {
+    background-color: rgba($info-color, 0.7);
+  }
+}

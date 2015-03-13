@@ -1,10 +1,23 @@
-$(document).foundation();
+$(document).foundation({
+  equalizer : {
+    equalize_on_stack: true
+  }
+});
+
 
 var sourceSwap = function () {
   var $this = $(this);
   var newSource = $this.data('alt-src');
   $this.data('alt-src', $this.attr('src'));
   $this.attr('src', newSource);
+}
+
+// Replace svg with png if no svg
+if (!Modernizr.svg) {
+  $('img[src$=".svg"]').each(function() {
+      //E.g replaces 'logo.svg' with 'logo.png'.
+      $(this).attr('src', $(this).attr('src').replace('.svg', '.png'));
+  });
 }
 
 

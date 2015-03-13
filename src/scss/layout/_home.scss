@@ -1,4 +1,14 @@
-.layout-home > .off-canvas-wrap,
-.layout-home > .off-canvas-wrap > .inner-wrap {
-  height: 100%;
+.layout-home .page-header {
+  position: relative;
+  background: image-url('home_header_02.jpg') $color-brown no-repeat top center;
+  background-size: cover;
+
+  @media #{$medium-up} {
+    min-height: rem-calc(600);
+  }
+
+}
+.home-search {
+  background: $color-brown;
+  padding: rem-calc(24) 0 rem-calc(12);
 }

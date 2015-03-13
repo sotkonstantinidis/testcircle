@@ -11,12 +11,12 @@
   background: #fff;
   padding: 1em;
   min-height: 10em;
-  @include border-radius(3px);
-  @include opacity(0.5);
-  @include transition(opacity 200ms ease);
+  border-radius: 3px;
+  opacity: 0.5;
+  transition: opacity 200ms ease;
 
   &:hover {
-    @include opacity(1);
+    opacity: 1;
   }
 }
 
@@ -153,8 +153,8 @@
   display: block;
 }
 .dropzone .dz-default.dz-message {
-  @include opacity(1);
-  @include transition(opacity 200ms ease-in-out);
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
   background: image-url('picture.svg') transparent no-repeat center center;
   background-size: 100% 100%;
   position: absolute;
@@ -176,29 +176,29 @@
   margin-top: -87px;
 }
 .dropzone.dz-drag-hover .dz-message {
-  @include opacity(0.2);
+  opacity: 0.2;
 }
 .dropzone.dz-started .dz-message {
   display: block;
-  @include opacity(0);
+  opacity: 0;
 }
 .dropzone .dz-preview,
 .dropzone-previews .dz-preview {
-  @include box-shadow(1px 1px 4px rgba(0,0,0,0.16));
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.16);
   font-size: 14px;
 }
 .dropzone .dz-preview.dz-image-preview:hover .dz-details img,
 .dropzone-previews .dz-preview.dz-image-preview:hover .dz-details img {
   display: block;
-  @include opacity(0.1);
+  opacity: (0.1);
 }
 .dropzone .dz-preview.dz-success .dz-success-mark,
 .dropzone-previews .dz-preview.dz-success .dz-success-mark {
-  @include opacity(1);
+  opacity: (1);
 }
 .dropzone .dz-preview.dz-error .dz-error-mark,
 .dropzone-previews .dz-preview.dz-error .dz-error-mark {
-  @include opacity(1);
+  opacity: (1);
 }
 .dropzone .dz-preview.dz-error .dz-progress .dz-upload,
 .dropzone-previews .dz-preview.dz-error .dz-progress .dz-upload {
@@ -209,8 +209,8 @@
 .dropzone .dz-preview .dz-success-mark,
 .dropzone-previews .dz-preview .dz-success-mark {
   display: block;
-  @include opacity(0);
-  @include transition(opacity 400ms ease-in-out);
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
   background-image: url("../images/spritemap.png");
   background-repeat: no-repeat;
 }
@@ -230,17 +230,8 @@
 }
 .dropzone .dz-preview .dz-progress .dz-upload,
 .dropzone-previews .dz-preview .dz-progress .dz-upload {
-  -webkit-animation: loading 0.4s linear infinite;
-  -moz-animation: loading 0.4s linear infinite;
-  -o-animation: loading 0.4s linear infinite;
-  -ms-animation: loading 0.4s linear infinite;
   animation: loading 0.4s linear infinite;
-  -webkit-transition: width 0.3s ease-in-out;
-  -moz-transition: width 0.3s ease-in-out;
-  -o-transition: width 0.3s ease-in-out;
-  -ms-transition: width 0.3s ease-in-out;
   transition: width 0.3s ease-in-out;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   position: absolute;
   top: 0;
@@ -255,37 +246,29 @@
   .dropzone .dz-preview .dz-progress .dz-upload,
   .dropzone-previews .dz-preview .dz-progress .dz-upload {
     background-image: url("../images/spritemap@2x.png");
-    -webkit-background-size: 428px 406px;
-    -moz-background-size: 428px 406px;
     background-size: 428px 406px;
   }
 }
 .dropzone .dz-preview.dz-success .dz-progress,
 .dropzone-previews .dz-preview.dz-success .dz-progress {
   display: block;
-  @include opacity(0);
-  @include transition(opacity 400ms ease-in-out);
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
 }
 .dropzone .dz-preview .dz-error-message,
 .dropzone-previews .dz-preview .dz-error-message {
   display: block;
-  @include opacity(0);
-  @include transition(opacity 400ms ease-in-out);
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
 }
 .dropzone .dz-preview:hover.dz-error .dz-error-message,
 .dropzone-previews .dz-preview:hover.dz-error .dz-error-message {
   opacity: 1;
-  -ms-filter: none;
   filter: none;
 }
 .dropzone a.dz-remove,
 .dropzone-previews a.dz-remove {
-  background-image: -webkit-linear-gradient(top, #fafafa, #eee);
-  background-image: -moz-linear-gradient(top, #fafafa, #eee);
-  background-image: -o-linear-gradient(top, #fafafa, #eee);
-  background-image: -ms-linear-gradient(top, #fafafa, #eee);
   background-image: linear-gradient(to bottom, #fafafa, #eee);
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   border: 1px solid #eee;
   text-decoration: none;

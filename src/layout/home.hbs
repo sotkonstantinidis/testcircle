@@ -2,26 +2,4 @@
 layout: default.hbs
 ---
 
-{{!-- Header --}}
-{{#if completed}}
-  {{> header_completed}}
-{{else}}
-  {{> header}}
-{{/if}}
-
-{{!-- Summary --}}
-<aside class="row">
-  <div class="accordion" data-accordion>
-    <nav class="accordion-navigation">
-      <a href="#summary"><svg class="icon-lines inline"><use xlink:href="#icon-list"></use></svg> Table of content</a>
-      <div id="summary" class="content">
-        {{> summary}}
-      </div>
-    </nav>
-  </div>
-</aside>
-
-{{!-- Body --}}
-<main class="row">
-  {{> body}}
-</main>
+{{> body}}

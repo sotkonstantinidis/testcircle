@@ -87,7 +87,7 @@ $include-html-global-classes: $include-html-classes;
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // We use these to define default font stacks
-$font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+$font-family-sans-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 // $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 
@@ -115,24 +115,43 @@ $font-weight-bold: 600;
 // $jet         : #222222;
 // $black       : #000000;
 
-// We use these as default colors throughout
-$primary-color: #f0694b;
-$secondary-color: #999;
-$alert-color: #BB0D4A;
-$success-color: #34AE93;
-$warning-color: #FE9D04;
-$info-color: #a0d3e8;
+$color-wocat      : #DC7D35;
+$color-wocat-dark : #D26929;
+$color-wocat-light: #F78F50;
 
-$primary-bg-color: #C5E7F5;
-$alert-bg-color: #F2CFDB;
-$success-bg-color: #D7EFEA;
-$warning-bg-color: #FFECCD;
-$info-bg-color: #C5E7F5;
+$color-unccd      : #4A6D22;
+$color-unccd-dark : #365314;
+$color-unccd-light: #9FC277;
+
+$color-brown      : #3E3B34;
+$color-brown-dark : #2B261A;
+$color-brown-light: #5F594F;
+
+$color-beige      : #CAC5BA;
+$color-beige-dark : #908D89;
+$color-beige-light: #EAE8DF;
+
+// We use these as default colors throughout
+$primary-color    : $color-wocat;
+$secondary-color  : $color-unccd;
+
+$alert-color      : #B75A25;
+$success-color    : #417505;
+$warning-color    : #F5A623;
+$info-color       : #2592B7;
+
+$primary-bg-color : $color-wocat-dark;
+$secondary-bg-color: $color-unccd-dark;
+
+$alert-bg-color   : darker($alert-color, 5%);
+$success-bg-color : darker($success-color, 5%);
+$warning-bg-color : darker($warning-color, 5%);
+$info-bg-color    : darker($info-color, 5%);
 
 // We use these to control various global styles
-// $body-bg: $white;
-// $body-font-color: $jet;
-$body-font-family: "Avenir Next", "Varela", $font-family-sans-serif;
+$body-bg          : $color-beige-light;
+$body-font-color  : $color-brown-dark;
+$body-font-family : $font-family-sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 
@@ -146,7 +165,7 @@ $body-font-family: "Avenir Next", "Varela", $font-family-sans-serif;
 // $last-child-float: $opposite-direction;
 
 // We use these to make sure border radius matches unless we want it different.
-// $global-radius: 3px;
+$global-radius: 2px;
 // $global-rounded: 1000px;
 
 // We use these to control inset shadow shiny edges and depressions.
@@ -211,12 +230,12 @@ $header-font-weight: 100;
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-// $h1-font-size: rem-calc(44);
-// $h2-font-size: rem-calc(37);
-// $h3-font-size: rem-calc(27);
-// $h4-font-size: rem-calc(23);
-// $h5-font-size: rem-calc(18);
-// $h6-font-size: 1rem;
+$h1-font-size: rem-calc(32);
+$h2-font-size: rem-calc(28);
+$h3-font-size: rem-calc(18);
+$h4-font-size: rem-calc(16);
+$h5-font-size: rem-calc(14);
+$h6-font-size: rem-calc(14);
 
 // We use these to control header size reduction on small screens
 // $h1-font-reduction: rem-calc(10) !default;
@@ -239,9 +258,9 @@ $header-font-weight: 100;
 
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
-// $paragraph-font-weight: $font-weight-normal;
-// $paragraph-font-size: 1rem;
-// $paragraph-line-height: 1.6;
+$paragraph-font-weight: 400;
+$paragraph-font-size: rem-calc(14);
+$paragraph-line-height: rem-calc(24);
 // $paragraph-margin-bottom: rem-calc(20);
 // $paragraph-aside-font-size: rem-calc(14);
 // $paragraph-aside-line-height: 1.35;
@@ -261,8 +280,8 @@ $header-font-weight: 100;
 // We use these to style anchors
 // $anchor-text-decoration: none;
 // $anchor-text-decoration-hover: none;
-// $anchor-font-color: $primary-color;
-// $anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
+$anchor-font-color: $body-font-color;
+$anchor-font-color-hover: #000;
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
@@ -788,13 +807,13 @@ $input-focus-bg-color: scale-color($primary-color, $lightness: 90%);
 // $include-html-label-classes: $include-html-classes;
 
 // We use these to style the labels
-$label-padding: 0;
+$label-padding: rem-calc(4) rem-calc(8);
 // $label-radius: $global-radius;
 
 // We use these to style the label text
-// $label-font-sizing: rem-calc(11);
+$label-font-sizing: rem-calc(12);
 // $label-font-weight: $font-weight-normal;
-// $label-font-color: $oil;
+$label-font-color: white;
 // $label-font-color-alt: $white;
 // $label-font-family: $body-font-family;
 
@@ -1370,11 +1389,12 @@ $tabs-content-padding: 0 rem-calc(6);
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-// $topbar-bg-color: $oil;
+$topbar-bg-color: $color-brown-light;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-// $topbar-height: rem-calc(45);
+$topbar-height: rem-calc(36);
+$topbar-input-height: rem-calc(36);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1382,10 +1402,10 @@ $tabs-content-padding: 0 rem-calc(6);
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: $oil;
-// $topbar-dropdown-link-color: $white;
-// $topbar-dropdown-link-bg: $oil;
-// $topbar-dropdown-link-bg-hover: $oil;
+$topbar-dropdown-bg: transparent;
+$topbar-dropdown-link-color: $color-brown-dark;
+$topbar-dropdown-link-bg: white;
+$topbar-dropdown-link-bg-hover: $color-beige;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
 // $topbar-dropdown-toggle-color: $white;
@@ -1397,20 +1417,20 @@ $tabs-content-padding: 0 rem-calc(6);
 // $topbar-link-color-active: $white;
 // $topbar-link-color-active-hover: $white;
 // $topbar-link-weight: $font-weight-normal;
-// $topbar-link-font-size: rem-calc(13);
+$topbar-link-font-size: rem-calc(14);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
-// $topbar-link-bg: $topbar-bg;
-// $topbar-link-bg-color-hover: $charcoal;
-// $topbar-link-bg-hover: $oil;
+$topbar-link-bg: transparent;
+$topbar-link-bg-color-hover: $color-brown-light;
+$topbar-link-bg-hover: $color-brown;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
-// $topbar-link-padding: ($topbar-height / 3);
+$topbar-link-padding: rem-calc(24);
 // $topbar-back-link-size: $h5-font-size;
-// $topbar-link-dropdown-padding: 20px;
+$topbar-link-dropdown-padding: rem-calc(24);
 
-// $topbar-button-font-size: 0.75rem;
+$topbar-button-font-size: rem-calc(14);
 // $topbar-button-top: 7px;
 
 // $topbar-dropdown-label-color: $monsoon;

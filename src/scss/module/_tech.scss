@@ -1,0 +1,69 @@
+
+.tech-list,
+.tech-item {
+  padding-top: rem-calc(48);
+}
+
+.tech-thumbnail {
+  margin-top: rem-calc(12);
+  figure {
+    position: relative;
+    margin: 0;
+    float: left;
+  }
+  .tech-status {
+    position: absolute;
+    bottom: rem-calc(12);
+    left: 0;
+  }
+}
+
+.tech-icons {
+  @include reset-list;
+  float: left;
+  li {
+    margin-top: rem-calc(2);
+    margin-left: rem-calc(2);
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  a {
+    display: inline-block;
+    width: rem-calc(48);
+    height: rem-calc(48);
+    background: $color-beige;
+    color: $color-beige-dark;
+    text-align: center;
+    padding: rem-calc(6) 0;
+    font-size: rem-calc(11);
+    line-height: 1em;
+    transition: color 300ms ease;
+
+    &:hover {
+      color: $color-brown-light;
+      background: white;
+    }
+  }
+  span {
+    display: block;
+  }
+  .icon {
+    max-width: rem-calc(24);
+    max-height: rem-calc(24);
+  }
+}
+
+.tech-infos {
+  padding-bottom: rem-calc(12);
+  dl,
+  dd {
+    margin: 0;
+  }
+  dt {
+    float: left;
+    color: $color-beige-dark;
+    font-weight: 400;
+    margin: 0 rem-calc(6) 0 0;
+  }
+}

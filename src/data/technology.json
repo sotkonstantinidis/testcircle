@@ -1,0 +1,36 @@
+{
+  "technology":[{
+    "id": "AU_067456_ES",
+    "title": "Ecograze",
+    "status": "draft",
+    "location": "Mexico",
+    "author": "Bruce Banner",
+    "date_creation": "2015-02-12",
+    "date_review": "2015-03-16",
+    "short_description": "Open eucalypt woodlands cover approximately 15 million hectares in the semi-arid plains of north-east Australia, and support about a million head of cattle. Keeping these grazing lands productive and healthy demands good management.",
+    "figure": "ex_tech1.jpg",
+    "have_a_video": true
+  },{
+    "id": "KE_558963_EN",
+    "title": "Fanya juu terraces",
+    "status": "review",
+    "location": "Kenya",
+    "author": "Steve Roger",
+    "date_creation": "2012-08-06",
+    "date_review": "2015-02-15",
+    "short_description": "Terrace bund in association with a ditch, along the contour or on a gentle lateral gradient. Soil is thrown on the upper side of the ditch to form the bund, which is often stabilised by planting a fodder grass.",
+    "figure": "ex_tech2.jpg",
+    "have_a_video": true
+  },{
+    "id": "AU_448569_ES",
+    "title": "Green cane trash blanket",
+    "status": "completed",
+    "location": "Mexico",
+    "author": "Mishra Faler Bagan",
+    "date_creation": "2011-06-21",
+    "date_review": "2015-01-24",
+    "short_description": "Under conventional production systems, sugar cane is burnt before being harvested. This reduces the volume of trash - comprising green leaves, dead leaves and top growth - making harvesting of the cane simpler, and subsequent cultivation of the soil.",
+    "figure": "ex_tech3.jpg",
+    "have_a_video": true
+  }]
+}

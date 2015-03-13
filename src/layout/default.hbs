@@ -3,67 +3,71 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>WOCAT Form {{section}}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>WOCAT Form {{section}}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <!-- Theme styles -->
-        <link rel="stylesheet" href="css/app.css">
+  <!-- Theme styles -->
+  <link rel="stylesheet" href="css/app.css">
 
-        <!-- ModernizR -->
-        <script src="js/modernizr.js"></script>
+  <!-- ModernizR -->
+  <script src="js/modernizr.js"></script>
 
-    </head>
-    <body class="layout-{{section}}">
-        {{!-- old IE --}}
-        <!--[if lt IE 9]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+</head>
+<body class="layout-{{section}}">
+  {{!-- old IE --}}
+  <!--[if lt IE 9]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 
-        {{!-- Icons --}}
-        {{> svg_icons}}
+  {{!-- SVG Icons --}}
+  {{> svg_icons}}
 
-        {{> body}}
+  {{!-- Content --}}
+  {{> body}}
 
-        {{!-- Scripts --}}
-        <script src="js/jquery.min.js"></script>
+  {{!-- Footer --}}
+  {{> footer}}
 
-        {{!-- Here we just load what we use --}}
-        <script src="js/foundation/foundation.js"></script>
-        {{!-- <script src="js/foundation/foundation.abide.js"></script> --}}
-        <script src="js/foundation/foundation.accordion.js"></script>
-        {{!-- <script src="js/foundation/foundation.alert.js"></script> --}}
-        {{!-- <script src="js/foundation/foundation.clearing.js"></script> --}}
-        <script src="js/foundation/foundation.dropdown.js"></script>
-        {{!-- <script src="js/foundation/foundation.equalizer.js"></script> --}}
-        {{!-- <script src="js/foundation/foundation.interchange.js"></script> --}}
-        {{!-- <script src="js/foundation/foundation.joyride.js"></script> --}}
-        {{#is section 'wizard'}}
-            <script src="js/wocat.magellan.js"></script>
-        {{else}}
-            <script src="js/foundation/foundation.magellan.js"></script>
-        {{/is}}
-        <script src="js/foundation/foundation.offcanvas.js"></script>
-        {{!-- <script src="js/foundation/foundation.orbit.js"></script> --}}
-        {{!-- <script src="js/foundation/foundation.reveal.js"></script> --}}
-        {{!-- <script src="js/foundation/foundation.slider.js"></script> --}}
-        <script src="js/foundation/foundation.tab.js"></script>
-        <script src="js/foundation/foundation.tooltip.js"></script>
-        <script src="js/foundation/foundation.topbar.js"></script>
+  {{!-- Scripts --}}
+  <script src="js/jquery.min.js"></script>
+
+  {{!-- Here we just load what we use --}}
+  <script src="js/foundation/foundation.js"></script>
+  {{!-- <script src="js/foundation/foundation.abide.js"></script> --}}
+  <script src="js/foundation/foundation.accordion.js"></script>
+  {{!-- <script src="js/foundation/foundation.alert.js"></script> --}}
+  {{!-- <script src="js/foundation/foundation.clearing.js"></script> --}}
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  <script src="js/foundation/foundation.equalizer.js"></script>
+  {{!-- <script src="js/foundation/foundation.interchange.js"></script> --}}
+  {{!-- <script src="js/foundation/foundation.joyride.js"></script> --}}
+  {{#is section 'wizard'}}
+  <script src="js/wocat.magellan.js"></script>
+  {{else}}
+  <script src="js/foundation/foundation.magellan.js"></script>
+  {{/is}}
+  <script src="js/foundation/foundation.offcanvas.js"></script>
+  {{!-- <script src="js/foundation/foundation.orbit.js"></script> --}}
+  {{!-- <script src="js/foundation/foundation.reveal.js"></script> --}}
+  {{!-- <script src="js/foundation/foundation.slider.js"></script> --}}
+  <script src="js/foundation/foundation.tab.js"></script>
+  <script src="js/foundation/foundation.tooltip.js"></script>
+  <script src="js/foundation/foundation.topbar.js"></script>
 
 
-        {{#is section 'home'}}
-            <script src="js/dropzone.min.js"></script>
-        {{/is}}
-        {{#is section 'wizard'}}
-            <script src="js/wizard.js"></script>
-        {{/is}}
+  {{#is section 'home'}}
+  <script src="js/dropzone.min.js"></script>
+  {{/is}}
+  {{#is section 'wizard'}}
+  <script src="js/wizard.js"></script>
+  {{/is}}
 
-        <script src="js/app.js"></script>
-    </body>
+  <script src="js/app.js"></script>
+</body>
 </html>

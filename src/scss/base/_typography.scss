@@ -1,6 +1,3 @@
-// Import font Varela
-@import url(http://fonts.googleapis.com/css?family=Varela);
-
 // Vertical rhythm
 .main section {
   h1, h2, h3, h4, h5, h6,
@@ -8,12 +5,42 @@
     @include rhythm;
   }
 }
+h1, h2, h3, h4, h5, h6 {
+  &.is-wocat {
+    color: $color-wocat-dark;
+  }
+  &.is-unccd {
+    color: $color-unccd-dark;
+  }
+  &.is-group {
+    border-bottom: 2px solid $color-beige;
+    text-transform: uppercase;
+    font-size: rem-calc(16);
+    font-weight: 600;
+  }
+}
+
 p.is-large {
   font-size: rem-calc(16);
+}
+p.is-light {
+  font-weight: 300;
 }
 span.is-grayed {
   color: #aaa;
 }
 sup {
   line-height: 1rem;
+}
+
+main a {
+  background-image: linear-gradient(to bottom, transparent 50%, $color-beige 50%);
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+  background-position: 0 92%;
+  transition: all 300ms ease;
+
+  &:hover {
+    background-image: linear-gradient(to bottom, transparent 50%, $color-beige-dark 50%);
+  }
 }

@@ -1,3 +1,12 @@
 .sub-nav-fixed {
-  background: #dddfe3;
+  background: $color-brown-light;
+}
+
+.sub-nav-footer {
+  a {
+    color: $body-font-color;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }

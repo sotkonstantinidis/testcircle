@@ -1,3 +1,20 @@
+.button,
+button {
+  &.is-wocat {
+    background-color: $color-wocat;
+  }
+  &.is-unccd {
+    background-color: $color-unccd;
+  }
+  &:hover.is-wocat,
+  &:focus.is-wocat {
+    background-color: $color-wocat-dark;
+  }
+  &:hover.is-unccd,
+  &:focus.is-unccd {
+    background-color: $color-unccd-dark;
+  }
+}
 .button-group {
   label.button {
     position: relative;

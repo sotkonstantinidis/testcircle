@@ -4,3 +4,67 @@ textarea {
     min-height: 12em;
   }
 }
+
+input[type='search'] {
+  border: none;
+}
+
+.postfix.light,
+.prefix.light {
+  background: white;
+  border: none;
+  color: $color-brown-dark;
+  &:hover,
+  &:focus {
+    color: $primary-color;
+  }
+  .icon {
+    width: rem-calc(20);
+    height: rem-calc(20);
+    margin: rem-calc(8);
+  }
+}
+.postfix.light {
+  border-left: 1px solid $color-beige;
+}
+.prefix.light {
+  border-right: 1px solid $color-beige;
+}
+
+
+
+.form-search.form-search {
+  @include reset-list;
+  display: inline-block;
+  width: 100%;
+  margin: rem-calc(12) 0;
+
+  @media #{$large-up} {
+    width: rem-calc(458);
+    margin-top: 0;
+  }
+
+  & > li {
+    float: none;
+    padding: 0;
+  }
+
+  input {
+    margin-bottom: 0;
+  }
+
+}
+.form-search-option {
+  text-align: center;
+  margin-top: rem-calc(4);
+  font-size: rem-calc(12);
+  color: #D9D6CC;
+  a {
+    color: #D9D6CC;
+    text-decoration: underline;
+  }
+  a:hover,
+  a:focus {
+    color: #fff;
+  }
+}
