@@ -67,7 +67,8 @@ def questionnaire_new(request, questionnaire_id=None):
     """
     return generic_questionnaire_new(
         request, 'unccd', 'unccd/questionnaire/new.html',
-        'unccd_questionnaire_details', questionnaire_id=questionnaire_id)
+        'unccd_questionnaire_details', 'unccd_questionnaire_new_step',
+        questionnaire_id=questionnaire_id)
 
 
 def questionnaire_details(request, questionnaire_id):

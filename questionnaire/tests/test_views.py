@@ -243,7 +243,8 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
-        mock_get_details.assert_called_once_with({}, editable=True)
+        mock_get_details.assert_called_once_with(
+            {}, editable=True, edit_step_route='sample_questionnaire_new_step')
 
     @patch.object(QuestionnaireCategory, 'get_details')
     @patch('questionnaire.views.render')

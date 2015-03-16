@@ -29,7 +29,7 @@ def get_valid_new_step_values():
 def get_valid_new_values():
     args = (
         'sample', 'sample/questionnaire/new.html',
-        'sample_questionnaire_details')
+        'sample_questionnaire_details', 'sample_questionnaire_new_step')
     kwargs = {'questionnaire_id': None}
     return args, kwargs
 
@@ -112,7 +112,7 @@ class QuestionnaireNewStepTest(TestCase):
 class QuestionnaireDetailsTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'sample.json', 'sample_questionnaires']
+        'groups_permissions.json', 'sample.json', 'sample_questionnaires.json']
 
     def setUp(self):
         self.factory = RequestFactory()

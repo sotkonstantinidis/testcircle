@@ -513,7 +513,7 @@ class QuestionnaireQuestiongroup(object):
             base_question = find_dict_in_list(
                 base_questions, 'key', specific_question.get('key'))
             if not base_question:
-                merged_questions.append(specific_question)
+                merged_questions.append(specific_question.copy())
 
         base['questions'] = merged_questions
         return base
@@ -695,7 +695,7 @@ class QuestionnaireSubcategory(object):
                 base_questiongroup.get('keyword'))
             merged_questiongroups.append(
                 QuestionnaireQuestiongroup.merge_configurations(
-                    base_questiongroup, specific_questiongroup))
+                    base_questiongroup.copy(), specific_questiongroup.copy()))
 
         # Collect all specific questiongroup configurations which are not
         # part of the base questiongroups
@@ -704,9 +704,7 @@ class QuestionnaireSubcategory(object):
                 base_questiongroups, 'keyword',
                 specific_questiongroup.get('keyword'))
             if not base_questiongroup:
-                merged_questiongroups.append(
-                    QuestionnaireQuestiongroup.merge_configurations(
-                        base_questiongroup, specific_questiongroup))
+                merged_questiongroups.append(specific_questiongroup.copy())
 
         base['questiongroups'] = merged_questiongroups
         return base
@@ -864,7 +862,7 @@ class QuestionnaireCategory(object):
                 base_subcategory.get('keyword'))
             merged_subcategories.append(
                 QuestionnaireSubcategory.merge_configurations(
-                    base_subcategory, specific_subcategory))
+                    base_subcategory.copy(), specific_subcategory.copy()))
 
         # Collect all specific subcategory configurations which are not
         # part of the base subcategories
@@ -873,9 +871,7 @@ class QuestionnaireCategory(object):
                 base_subcategories, 'keyword',
                 specific_subcategory.get('keyword'))
             if not base_subcategory:
-                merged_subcategories.append(
-                    QuestionnaireSubcategory.merge_configurations(
-                        base_subcategory, specific_subcategory))
+                merged_subcategories.append(specific_subcategory.copy())
 
         base['subcategories'] = merged_subcategories
         return base
@@ -904,7 +900,9 @@ class QuestionnaireCategory(object):
         }
         return config, subcategory_formsets
 
-    def get_details(self, data={}, editable=False):
+    def get_details(
+            self, data={}, editable=False,
+            edit_step_route=''):
         rendered_subcategories = []
         with_content = 0
         for subcategory in self.subcategories:
@@ -921,7 +919,7 @@ class QuestionnaireCategory(object):
                 'complete': with_content,
                 'total': len(self.subcategories),
                 'progress': with_content / len(self.subcategories) * 100,
-                'edit_step_route': 'sample_questionnaire_new_step'
+                'edit_step_route': edit_step_route,
             })
         return rendered
 
@@ -977,11 +975,11 @@ class QuestionnaireConfiguration(object):
                 return questiongroup
         return None
 
-    def get_details(self, data={}, editable=False):
+    def get_details(self, data={}, editable=False, edit_step_route=''):
         rendered_categories = []
         for category in self.categories:
             rendered_categories.append(category.get_details(
-                data, editable=editable))
+                data, editable=editable, edit_step_route=edit_step_route))
         return rendered_categories
 
     def get_list_configuration(self):
@@ -1156,7 +1154,7 @@ class QuestionnaireConfiguration(object):
                 specific_categories, 'keyword', base_category.get('keyword'))
             merged_categories.append(
                 QuestionnaireCategory.merge_configurations(
-                    base_category, specific_category))
+                    base_category.copy(), specific_category.copy()))
 
         # Collect all specific category configurations which are not
         # part of the base categories
@@ -1164,9 +1162,7 @@ class QuestionnaireConfiguration(object):
             base_category = find_dict_in_list(
                 base_categories, 'keyword', specific_category.get('keyword'))
             if not base_category:
-                merged_categories.append(
-                    QuestionnaireCategory.merge_configurations(
-                        base_category, specific_category))
+                merged_categories.append(specific_category.copy())
 
         base['categories'] = merged_categories
         return base

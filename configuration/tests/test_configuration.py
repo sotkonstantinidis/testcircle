@@ -205,16 +205,62 @@ class QuestionnaireConfigurationMergeConfigurationsTest(TestCase):
         mock_Category_merge_configurations.assert_called_once_with(
             {"foo": "bar"}, {})
 
-    @patch.object(QuestionnaireCategory, 'merge_configurations')
-    def test_calls_category_merge_configurations_twice_if_specific(
-            self, mock_Category_merge_configurations):
-        base = {"categories": [{"foo": "bar"}]}
-        specific = {"categories": [{"bar": "foo"}]}
-        QuestionnaireConfiguration.merge_configurations(base, specific)
-        self.assertEqual(mock_Category_merge_configurations.call_count, 2)
-        self.assertEqual(
-            mock_Category_merge_configurations.call_args_list,
-            [call({"foo": "bar"}, {}), call({}, {"bar": "foo"})])
+    # @patch.object(QuestionnaireCategory, 'merge_configurations')
+    def test_merges_with_base_empty(self):
+        base = {}
+        specific = {
+            "categories": [
+                {
+                    "keyword": "unccd_cat_1",
+                    "subcategories": [
+                        {
+                            "keyword": "unccd_subcat_1_1",
+                            "questiongroups": [
+                                {
+                                    "questions": [
+                                        {
+                                            "key": "unccd_key_1",
+                                            "list_position": 1
+                                        }
+                                    ],
+                                    "keyword": "unccd_qg_1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+        # m = QuestionnaireConfiguration(keyword=None)
+        conf = QuestionnaireConfiguration.merge_configurations(base, specific)
+        self.assertIn('categories', conf)
+        self.assertNotIn('subcategories', conf)
+        self.assertNotIn('questions', conf)
+        self.assertNotIn('questiongroups', conf)
+        self.assertEqual(len(conf['categories']), 1)
+        category = conf['categories'][0]
+        self.assertIn('subcategories', category)
+        self.assertNotIn('questions', category)
+        self.assertNotIn('questiongroups', category)
+        self.assertIn('keyword', category)
+        self.assertEqual(len(category['subcategories']), 1)
+        subcategory = category['subcategories'][0]
+        self.assertIn('questiongroups', subcategory)
+        self.assertNotIn('questions', subcategory)
+        self.assertIn('keyword', subcategory)
+        questiongroups = subcategory['questiongroups']
+        self.assertEqual(len(questiongroups), 1)
+        self.assertIn('questions', questiongroups[0])
+        questions = questiongroups[0]['questions']
+        self.assertEqual(len(questions), 1)
+
+    def test_appends_specific(self):
+        base = {"categories": [{"keyword": "foo", "subcategories": []}]}
+        specific = {"categories": [{"keyword": "bar", "subcategories": []}]}
+        conf = QuestionnaireConfiguration.merge_configurations(base, specific)
+        self.assertEqual(len(conf['categories']), 2)
+        for cat in conf['categories']:
+            self.assertIn(cat['keyword'], ['foo', 'bar'])
 
 
 class QuestionnaireCategoryTest(TestCase):
@@ -310,16 +356,14 @@ class QuestionnaireCategoryMergeConfigurationsTest(TestCase):
         mock_Category_merge_configurations.assert_called_once_with(
             {"foo": "bar"}, {})
 
-    @patch.object(QuestionnaireSubcategory, 'merge_configurations')
-    def test_calls_subcategory_merge_configurations_twice_if_specific(
-            self, mock_Category_merge_configurations):
-        base = {"subcategories": [{"foo": "bar"}]}
-        specific = {"subcategories": [{"bar": "foo"}]}
-        QuestionnaireCategory.merge_configurations(base, specific)
-        self.assertEqual(mock_Category_merge_configurations.call_count, 2)
-        self.assertEqual(
-            mock_Category_merge_configurations.call_args_list,
-            [call({"foo": "bar"}, {}), call({}, {"bar": "foo"})])
+    def test_appends_specific(self):
+        base = {"subcategories": [{"keyword": "foo", "questiongroups": []}]}
+        specific = {
+            "subcategories": [{"keyword": "bar", "questiongroups": []}]}
+        conf = QuestionnaireCategory.merge_configurations(base, specific)
+        self.assertEqual(len(conf['subcategories']), 2)
+        for cat in conf['subcategories']:
+            self.assertIn(cat['keyword'], ['foo', 'bar'])
 
 
 class QuestionnaireSubcategoryTest(TestCase):
@@ -416,16 +460,14 @@ class QuestionnaireSubcategoryMergeConfigurationsTest(TestCase):
         mock_Category_merge_configurations.assert_called_once_with(
             {"foo": "bar"}, {})
 
-    @patch.object(QuestionnaireQuestiongroup, 'merge_configurations')
-    def test_calls_questiongroup_merge_configurations_twice_if_specific(
-            self, mock_Category_merge_configurations):
-        base = {"questiongroups": [{"foo": "bar"}]}
-        specific = {"questiongroups": [{"bar": "foo"}]}
-        QuestionnaireSubcategory.merge_configurations(base, specific)
-        self.assertEqual(mock_Category_merge_configurations.call_count, 2)
-        self.assertEqual(
-            mock_Category_merge_configurations.call_args_list,
-            [call({"foo": "bar"}, {}), call({}, {"bar": "foo"})])
+    def test_appends_specific(self):
+        base = {"questiongroups": [{"keyword": "foo", "questions": []}]}
+        specific = {
+            "questiongroups": [{"keyword": "bar", "questions": []}]}
+        conf = QuestionnaireSubcategory.merge_configurations(base, specific)
+        self.assertEqual(len(conf['questiongroups']), 2)
+        for cat in conf['questiongroups']:
+            self.assertIn(cat['keyword'], ['foo', 'bar'])
 
 
 class QuestionnaireQuestiongroupTest(TestCase):
