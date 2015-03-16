@@ -1,0 +1,56 @@
+{% extends 'sample/questionnaire/base_form.html' %}
+
+{% load i18n %}
+{% load floppyforms %}
+
+{% block content %}
+  <form class="wizard" action="" method="POST">
+    {% csrf_token %}
+
+    <header class="wizard-header">
+      <div class="row">
+        <div class="columns small-12">
+          <h2>{{ category_config.label }}</h2>
+          <span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span> {% trans "completed" %}
+          <div class="progress radius">
+            <span class="meter" style="width:0%"></span>
+          </div>
+          <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}"/>
+          <a class="button secondary" href="{% url 'sample_questionnaire_new' %}">{% trans "Back" %}</a>
+          <div class="right">
+            {% if category_formsets|length > 1 %}
+              <a class="button button-icon" href="#question1" data-magellan-step="previous">
+                <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
+              </a>
+              <a class="button button-icon" href="#question2" data-magellan-step="next">
+                <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div data-magellan-expedition="fixed" style="" class="fixed">
+        <dl>
+          {% for subcategory_config, subcategory_formsets in category_formsets %}
+            <dd data-magellan-arrival="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}">
+              <a href="#question{{ forloop.counter }}">{{ subcategory_config.label }}</a>
+            </dd>
+          {% endfor %}
+        </dl>
+      </div>
+    </header>
+
+    <main class="main inner-wrap">
+      {% for subcategory_config, subcategory_formsets in category_formsets %}
+        <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
+        <fieldset class="row">
+          <legend>{{ subcategory_config.label }}</legend>
+          {% for questiongroup_config, formset in subcategory_formsets %}
+            {% form formset.forms using "form/questiongroup.html" with config=questiongroup_config formset=formset %}
+          {% endfor %}
+        </fieldset>
+      {% endfor %}
+    </main>
+  </form>
+
+{% endblock %}

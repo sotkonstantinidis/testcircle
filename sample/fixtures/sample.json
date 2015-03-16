@@ -5,7 +5,7 @@
         "data": "{\"label\":{\"en\": \"Key 1\", \"es\": \"Clave 1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 1
+    "pk": 10001
 },
 {
     "fields": {
@@ -13,7 +13,7 @@
         "data": "{\"label\":{\"en\": \"Key 2\", \"es\": \"Clave 2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 2
+    "pk": 10002
 },
 {
     "fields": {
@@ -21,7 +21,7 @@
         "data": "{\"label\":{\"en\": \"Key 3\", \"es\": \"Clave 3\"}}"
     },
     "model": "configuration.translation",
-    "pk": 3
+    "pk": 10003
 },
 {
     "fields": {
@@ -29,7 +29,7 @@
         "data": "{\"label\":{\"en\": \"Key 4\", \"es\": \"Clave 4\"}}"
     },
     "model": "configuration.translation",
-    "pk": 4
+    "pk": 10004
 },
 {
     "fields": {
@@ -37,7 +37,7 @@
         "data": "{\"label\":{\"en\": \"Key 5\", \"es\": \"Clave 5\"}}"
     },
     "model": "configuration.translation",
-    "pk": 5
+    "pk": 10005
 },
 {
     "fields": {
@@ -45,7 +45,7 @@
         "data": "{\"label\":{\"en\": \"Key 6\", \"es\": \"Clave 6\"}}"
     },
     "model": "configuration.translation",
-    "pk": 6
+    "pk": 10006
 },
 {
     "fields": {
@@ -53,7 +53,7 @@
         "data": "{\"label\":{\"en\": \"Key 7\", \"es\": \"Clave 7\"}}"
     },
     "model": "configuration.translation",
-    "pk": 7
+    "pk": 10007
 },
 {
     "fields": {
@@ -61,7 +61,7 @@
         "data": "{\"label\":{\"en\": \"Key 8\", \"es\": \"Clave 8\"}}"
     },
     "model": "configuration.translation",
-    "pk": 8
+    "pk": 10008
 },
 {
     "fields": {
@@ -69,7 +69,7 @@
         "data": "{\"label\":{\"en\": \"Key 9\", \"es\": \"Clave 9\"}}"
     },
     "model": "configuration.translation",
-    "pk": 9
+    "pk": 10009
 },
 {
     "fields": {
@@ -77,7 +77,7 @@
         "data": "{\"label\":{\"en\": \"Key 10\", \"es\": \"Clave 10\"}}"
     },
     "model": "configuration.translation",
-    "pk": 10
+    "pk": 10010
 },
 {
     "fields": {
@@ -85,7 +85,7 @@
         "data": "{\"label\":{\"en\": \"Key 11\", \"es\": \"Clave 11\"}}"
     },
     "model": "configuration.translation",
-    "pk": 11
+    "pk": 10011
 },
 {
     "fields": {
@@ -93,7 +93,7 @@
         "data": "{\"label\":{\"en\": \"Key 12\", \"es\": \"Clave 12\"}}"
     },
     "model": "configuration.translation",
-    "pk": 12
+    "pk": 10012
 },
 {
     "fields": {
@@ -101,7 +101,7 @@
         "data": "{\"label\":{\"en\": \"Key 13\", \"es\": \"Clave 13\"}}"
     },
     "model": "configuration.translation",
-    "pk": 13
+    "pk": 10013
 },
 {
     "fields": {
@@ -109,7 +109,7 @@
         "data": "{\"label\":{\"en\": \"Key 14\", \"es\": \"Clave 14\"}}"
     },
     "model": "configuration.translation",
-    "pk": 14
+    "pk": 10014
 },
 {
     "fields": {
@@ -117,7 +117,7 @@
         "data": "{\"label\":{\"en\": \"Key 15\", \"es\": \"Clave 15\"}}"
     },
     "model": "configuration.translation",
-    "pk": 15
+    "pk": 10015
 },
 {
     "fields": {
@@ -125,7 +125,7 @@
         "data": "{\"label\":{\"en\": \"Key 16\", \"es\": \"Clave 16\"}}"
     },
     "model": "configuration.translation",
-    "pk": 16
+    "pk": 10016
 },
 {
     "fields": {
@@ -133,7 +133,7 @@
         "data": "{\"label\":{\"en\": \"Key 17\", \"es\": \"Clave 17\"}}"
     },
     "model": "configuration.translation",
-    "pk": 17
+    "pk": 10017
 },
 {
     "fields": {
@@ -141,7 +141,7 @@
         "data": "{\"label\":{\"en\": \"Key 18\", \"es\": \"Clave 18\"}}"
     },
     "model": "configuration.translation",
-    "pk": 18
+    "pk": 10018
 },
 
 
@@ -151,7 +151,7 @@
         "data": "{\"label\":{\"en\": \"Category 1\", \"es\": \"Categoría 1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 101
+    "pk": 10101
 },
 {
     "fields": {
@@ -159,7 +159,7 @@
         "data": "{\"label\":{\"en\": \"Category 2\", \"es\": \"Categoría 2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 102
+    "pk": 10102
 },
 {
     "fields": {
@@ -167,7 +167,7 @@
         "data": "{\"label\":{\"en\": \"Category 3\", \"es\": \"Categoría 3\"}}"
     },
     "model": "configuration.translation",
-    "pk": 103
+    "pk": 10103
 },
 {
     "fields": {
@@ -175,7 +175,7 @@
         "data": "{\"label\":{\"en\": \"Category 4\", \"es\": \"Categoría 4\"}}"
     },
     "model": "configuration.translation",
-    "pk": 104
+    "pk": 10104
 },
 {
     "fields": {
@@ -183,7 +183,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 1_1\", \"es\": \"Subcategoría 1_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 111
+    "pk": 10111
 },
 {
     "fields": {
@@ -191,7 +191,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 1_2\", \"es\": \"Subcategoría 1_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 112
+    "pk": 10112
 },
 {
     "fields": {
@@ -199,7 +199,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 2_1\", \"es\": \"Subcategoría 2_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 113
+    "pk": 10113
 },
 {
     "fields": {
@@ -207,7 +207,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 2_2\", \"es\": \"Subcategoría 2_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 114
+    "pk": 10114
 },
 {
     "fields": {
@@ -215,7 +215,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 3_1\", \"es\": \"Subcategoría 3_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 115
+    "pk": 10115
 },
 {
     "fields": {
@@ -223,7 +223,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 3_2\", \"es\": \"Subcategoría 3_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 116
+    "pk": 10116
 },
 {
     "fields": {
@@ -231,7 +231,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 4_1\", \"es\": \"Subcategoría 4_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 117
+    "pk": 10117
 },
 {
     "fields": {
@@ -239,7 +239,7 @@
         "data": "{\"label\":{\"en\": \"Subcategory 4_2\", \"es\": \"Subcategoría 4_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 118
+    "pk": 10118
 },
 {
     "fields": {
@@ -247,7 +247,7 @@
         "data": "{\"helptext\":{\"en\":\"Helptext 1\",\"es\":\"Texto de ayuda\"}}"
     },
     "model": "configuration.translation",
-    "pk": 201
+    "pk": 10201
 },
 
 {
@@ -256,7 +256,7 @@
         "data": "{\"label\":{\"en\": \"Value 1\", \"es\": \"Valor 1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 301
+    "pk": 10301
 },
 {
     "fields": {
@@ -264,7 +264,7 @@
         "data": "{\"label\":{\"en\": \"Value 2\", \"es\": \"Valor 2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 302
+    "pk": 10302
 },
 {
     "fields": {
@@ -272,7 +272,7 @@
         "data": "{\"label\":{\"en\": \"Value 3\", \"es\": \"Valor 3\"}}"
     },
     "model": "configuration.translation",
-    "pk": 303
+    "pk": 10303
 },
 {
     "fields": {
@@ -280,7 +280,7 @@
         "data": "{\"label\":{\"en\": \"Value 13_1\", \"es\": \"Valor 13_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 304
+    "pk": 10304
 },
 {
     "fields": {
@@ -288,7 +288,7 @@
         "data": "{\"label\":{\"en\": \"Value 13_2\", \"es\": \"Valor 13_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 305
+    "pk": 10305
 },
 {
     "fields": {
@@ -296,7 +296,7 @@
         "data": "{\"label\":{\"en\": \"Value 13_3\", \"es\": \"Valor 13_3\"}}"
     },
     "model": "configuration.translation",
-    "pk": 306
+    "pk": 10306
 },
 {
     "fields": {
@@ -304,7 +304,7 @@
         "data": "{\"label\":{\"en\": \"Value 13_4\", \"es\": \"Valor 13_4\"}}"
     },
     "model": "configuration.translation",
-    "pk": 307
+    "pk": 10307
 },
 {
     "fields": {
@@ -312,7 +312,7 @@
         "data": "{\"label\":{\"en\": \"Value 13_5\", \"es\": \"Valor 13_5\"}}"
     },
     "model": "configuration.translation",
-    "pk": 308
+    "pk": 10308
 },
 {
     "fields": {
@@ -320,7 +320,7 @@
         "data": "{\"label\":{\"en\":\"Value 14_1\",\"es\":\"Valor 14_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 309
+    "pk": 10309
 },
 {
     "fields": {
@@ -328,7 +328,7 @@
         "data": "{\"label\":{\"en\": \"Value 14_2\", \"es\": \"Valor 14_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 310
+    "pk": 10310
 },
 {
     "fields": {
@@ -336,7 +336,7 @@
         "data": "{\"label\":{\"en\": \"Value 14_3\", \"es\": \"Valor 14_3\"}}"
     },
     "model": "configuration.translation",
-    "pk": 311
+    "pk": 10311
 },
 {
     "fields": {
@@ -344,7 +344,7 @@
         "data": "{\"label\":{\"en\":\"Value 15_1\",\"es\":\"Valor 15_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 312
+    "pk": 10312
 },
 {
     "fields": {
@@ -352,7 +352,7 @@
         "data": "{\"label\":{\"en\": \"Value 15_2\", \"es\": \"Valor 15_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 313
+    "pk": 10313
 },
 {
     "fields": {
@@ -360,7 +360,7 @@
         "data": "{\"label\":{\"en\": \"Value 15_3\", \"es\": \"Valor 15_3\"}}"
     },
     "model": "configuration.translation",
-    "pk": 314
+    "pk": 10314
 },
 {
     "fields": {
@@ -368,7 +368,7 @@
         "data": "{\"label\":{\"en\":\"Value 16_1\",\"es\":\"Valor 16_1\"}}"
     },
     "model": "configuration.translation",
-    "pk": 315
+    "pk": 10315
 },
 {
     "fields": {
@@ -376,7 +376,7 @@
         "data": "{\"label\":{\"en\": \"Value 16_2\", \"es\": \"Valor 16_2\"}}"
     },
     "model": "configuration.translation",
-    "pk": 316
+    "pk": 10316
 },
 {
     "fields": {
@@ -384,418 +384,418 @@
         "data": "{\"label\":{\"en\": \"Value 16_3\", \"es\": \"Valor 16_3\"}}"
     },
     "model": "configuration.translation",
-    "pk": 317
+    "pk": 10317
 },
 
 {
     "fields": {
         "keyword": "key_1",
-        "translation": 1,
+        "translation": 10001,
         "configuration": "{\"type\": \"char\", \"form_template\": \"inline_2\"}"
     },
     "model": "configuration.key",
-    "pk": 1
+    "pk": 10001
 },
 {
     "fields": {
         "keyword": "key_2",
-        "translation": 2,
+        "translation": 10002,
         "configuration": "{\"type\": \"text\"}"
     },
     "model": "configuration.key",
-    "pk": 2
+    "pk": 10002
 },
 {
     "fields": {
         "keyword": "key_3",
-        "translation": 3,
+        "translation": 10003,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
-    "pk": 3
+    "pk": 10003
 },
 {
     "fields": {
         "keyword": "key_4",
-        "translation": 4,
+        "translation": 10004,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
-    "pk": 4
+    "pk": 10004
 },
 {
     "fields": {
         "keyword": "key_5",
-        "translation": 5,
+        "translation": 10005,
         "configuration": "{\"type\": \"text\"}"
     },
     "model": "configuration.key",
-    "pk": 5
+    "pk": 10005
 },
 {
     "fields": {
         "keyword": "key_6",
-        "translation": 6,
+        "translation": 10006,
         "configuration": "{\"type\": \"text\"}"
     },
     "model": "configuration.key",
-    "pk": 6
+    "pk": 10006
 },
 {
     "fields": {
         "keyword": "key_7",
-        "translation": 7,
+        "translation": 10007,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
-    "pk": 7
+    "pk": 10007
 },
 {
     "fields": {
         "keyword": "key_8",
-        "translation": 8,
+        "translation": 10008,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
-    "pk": 8
+    "pk": 10008
 },
 {
     "fields": {
         "keyword": "key_9",
-        "translation": 9,
+        "translation": 10009,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
-    "pk": 9
+    "pk": 10009
 },
 {
     "fields": {
         "keyword": "key_10",
-        "translation": 10,
+        "translation": 10010,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
-    "pk": 10
+    "pk": 10010
 },
 {
     "fields": {
         "keyword": "key_11",
-        "translation": 11,
+        "translation": 10011,
         "configuration": "{\"type\": \"bool\"}"
     },
     "model": "configuration.key",
-    "pk": 11
+    "pk": 10011
 },
 {
     "fields": {
         "keyword": "key_12",
-        "translation": 12,
+        "translation": 10012,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1, 2, 3]
+        "values": [10001, 10002, 10003]
     },
     "model": "configuration.key",
-    "pk": 12
+    "pk": 10012
 },
 {
     "fields": {
         "keyword": "key_13",
-        "translation": 13,
+        "translation": 10013,
         "configuration": "{\"type\": \"checkbox\"}",
-        "values": [4, 5, 6, 7, 8]
+        "values": [10004, 10005, 10006, 10007, 10008]
     },
     "model": "configuration.key",
-    "pk": 13
+    "pk": 10013
 },
 {
     "fields": {
         "keyword": "key_14",
-        "translation": 14,
+        "translation": 10014,
         "configuration": "{\"type\": \"image_checkbox\"}",
-        "values": [9, 10, 11]
+        "values": [10009, 10010, 10011]
     },
     "model": "configuration.key",
-    "pk": 14
+    "pk": 10014
 },
 {
     "fields": {
         "keyword": "key_15",
-        "translation": 15,
+        "translation": 10015,
         "configuration": "{\"type\": \"image_checkbox\"}",
-        "values": [12, 13, 14]
+        "values": [10012, 10013, 10014]
     },
     "model": "configuration.key",
-    "pk": 15
+    "pk": 10015
 },
 {
     "fields": {
         "keyword": "key_16",
-        "translation": 16,
+        "translation": 10016,
         "configuration": "{\"type\": \"image_checkbox\"}",
-        "values": [15, 16, 17]
+        "values": [10015, 10016, 10017]
     },
     "model": "configuration.key",
-    "pk": 16
+    "pk": 10016
 },
 {
     "fields": {
         "keyword": "key_17",
-        "translation": 17,
+        "translation": 10017,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
-    "pk": 17
+    "pk": 10017
 },
 {
     "fields": {
         "keyword": "key_18",
-        "translation": 18,
+        "translation": 10018,
         "configuration": "{\"type\": \"text\"}"
     },
     "model": "configuration.key",
-    "pk": 18
+    "pk": 10018
 },
 
 {
     "fields": {
         "keyword": "value_1",
-        "translation": 301
+        "translation": 10301
     },
     "model": "configuration.value",
-    "pk": 1
+    "pk": 10001
 },
 {
     "fields": {
         "keyword": "value_2",
-        "translation": 302
+        "translation": 10302
     },
     "model": "configuration.value",
-    "pk": 2
+    "pk": 10002
 },
 {
     "fields": {
         "keyword": "value_3",
-        "translation": 303
+        "translation": 10303
     },
     "model": "configuration.value",
-    "pk": 3
+    "pk": 10003
 },
 {
     "fields": {
         "keyword": "value_13_1",
-        "translation": 304
+        "translation": 10304
     },
     "model": "configuration.value",
-    "pk": 4
+    "pk": 10004
 },
 {
     "fields": {
         "keyword": "value_13_2",
-        "translation": 305
+        "translation": 10305
     },
     "model": "configuration.value",
-    "pk": 5
+    "pk": 10005
 },
 {
     "fields": {
         "keyword": "value_13_3",
-        "translation": 306
+        "translation": 10306
     },
     "model": "configuration.value",
-    "pk": 6
+    "pk": 10006
 },
 {
     "fields": {
         "keyword": "value_13_4",
-        "translation": 307
+        "translation": 10307
     },
     "model": "configuration.value",
-    "pk": 7
+    "pk": 10007
 },
 {
     "fields": {
         "keyword": "value_13_5",
-        "translation": 308
+        "translation": 10308
     },
     "model": "configuration.value",
-    "pk": 8
+    "pk": 10008
 },
 {
     "fields": {
         "keyword": "value_14_1",
-        "translation": 309,
+        "translation": 10309,
         "configuration": "{\"image_name\":\"landuse_01.png\"}"
     },
     "model": "configuration.value",
-    "pk": 9
+    "pk": 10009
 },
 {
     "fields": {
         "keyword": "value_14_2",
-        "translation": 310,
+        "translation": 10310,
         "configuration": "{\"image_name\":\"landuse_02.png\"}"
     },
     "model": "configuration.value",
-    "pk": 10
+    "pk": 10010
 },
 {
     "fields": {
         "keyword": "value_14_3",
-        "translation": 311,
+        "translation": 10311,
         "configuration": "{\"image_name\":\"landuse_03.png\"}"
     },
     "model": "configuration.value",
-    "pk": 11
+    "pk": 10011
 },
 {
     "fields": {
         "keyword": "value_15_1",
-        "translation": 312,
+        "translation": 10312,
         "configuration": "{\"image_name\":\"landuse_04.png\"}"
     },
     "model": "configuration.value",
-    "pk": 12
+    "pk": 10012
 },
 {
     "fields": {
         "keyword": "value_15_2",
-        "translation": 313,
+        "translation": 10313,
         "configuration": "{\"image_name\":\"landuse_05.png\"}"
     },
     "model": "configuration.value",
-    "pk": 13
+    "pk": 10013
 },
 {
     "fields": {
         "keyword": "value_15_3",
-        "translation": 314,
+        "translation": 10314,
         "configuration": "{\"image_name\":\"landuse_06.png\"}"
     },
     "model": "configuration.value",
-    "pk": 14
+    "pk": 10014
 },
 {
     "fields": {
         "keyword": "value_16_1",
-        "translation": 315,
+        "translation": 10315,
         "configuration": "{\"image_name\":\"landuse_07.png\"}"
     },
     "model": "configuration.value",
-    "pk": 15
+    "pk": 10015
 },
 {
     "fields": {
         "keyword": "value_16_2",
-        "translation": 316,
+        "translation": 10316,
         "configuration": "{\"image_name\":\"landuse_08.png\"}"
     },
     "model": "configuration.value",
-    "pk": 16
+    "pk": 10016
 },
 {
     "fields": {
         "keyword": "value_16_3",
-        "translation": 317,
+        "translation": 10317,
         "configuration": "{\"image_name\":\"landuse_09.png\"}"
     },
     "model": "configuration.value",
-    "pk": 17
+    "pk": 10017
 },
 
 {
     "fields": {
         "keyword": "cat_1",
-        "translation": 101
+        "translation": 10101
     },
     "model": "configuration.category",
-    "pk": 1
+    "pk": 10001
 },
 {
     "fields": {
         "keyword": "cat_2",
-        "translation": 102
+        "translation": 10102
     },
     "model": "configuration.category",
-    "pk": 2
+    "pk": 10002
 },
 {
     "fields": {
         "keyword": "cat_3",
-        "translation": 103
+        "translation": 10103
     },
     "model": "configuration.category",
-    "pk": 3
+    "pk": 10003
 },
 {
     "fields": {
         "keyword": "cat_4",
-        "translation": 104
+        "translation": 10104
     },
     "model": "configuration.category",
-    "pk": 4
+    "pk": 10004
 },
 {
     "fields": {
         "keyword": "subcat_1_1",
-        "translation": 111
+        "translation": 10111
     },
     "model": "configuration.category",
-    "pk": 11
+    "pk": 10011
 },
 {
     "fields": {
         "keyword": "subcat_1_2",
-        "translation": 112
+        "translation": 10112
     },
     "model": "configuration.category",
-    "pk": 12
+    "pk": 10012
 },
 {
     "fields": {
         "keyword": "subcat_2_1",
-        "translation": 113
+        "translation": 10113
     },
     "model": "configuration.category",
-    "pk": 13
+    "pk": 10013
 },
 {
     "fields": {
         "keyword": "subcat_2_2",
-        "translation": 114
+        "translation": 10114
     },
     "model": "configuration.category",
-    "pk": 14
+    "pk": 10014
 },
 {
     "fields": {
         "keyword": "subcat_3_1",
-        "translation": 115
+        "translation": 10115
     },
     "model": "configuration.category",
-    "pk": 15
+    "pk": 10015
 },
 {
     "fields": {
         "keyword": "subcat_3_2",
-        "translation": 116
+        "translation": 10116
     },
     "model": "configuration.category",
-    "pk": 16
+    "pk": 10016
 },
 {
     "fields": {
         "keyword": "subcat_4_1",
-        "translation": 117
+        "translation": 10117
     },
     "model": "configuration.category",
-    "pk": 17
+    "pk": 10017
 },
 {
     "fields": {
         "keyword": "subcat_4_2",
-        "translation": 118
+        "translation": 10118
     },
     "model": "configuration.category",
-    "pk": 18
+    "pk": 10018
 },
 
 {
@@ -805,7 +805,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 1
+    "pk": 10001
 },
 {
     "fields": {
@@ -814,7 +814,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 2
+    "pk": 10002
 },
 {
     "fields": {
@@ -823,7 +823,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 3
+    "pk": 10003
 },
 {
     "fields": {
@@ -832,16 +832,16 @@
         "configuration": "{\"max_num\":2}"
     },
     "model": "configuration.questiongroup",
-    "pk": 4
+    "pk": 10004
 },
 {
     "fields": {
         "keyword": "qg_5",
-        "translation": 201,
+        "translation": 10201,
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 5
+    "pk": 10005
 },
 {
     "fields": {
@@ -850,7 +850,7 @@
         "configuration": "{\"max_num\":3}"
     },
     "model": "configuration.questiongroup",
-    "pk": 6
+    "pk": 10006
 },
 {
     "fields": {
@@ -859,7 +859,7 @@
         "configuration": "{\"min_num\":2}"
     },
     "model": "configuration.questiongroup",
-    "pk": 7
+    "pk": 10007
 },
 {
     "fields": {
@@ -868,7 +868,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 8
+    "pk": 10008
 },
 {
     "fields": {
@@ -877,7 +877,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 9
+    "pk": 10009
 },
 {
     "fields": {
@@ -886,7 +886,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 10
+    "pk": 10010
 },
 {
     "fields": {
@@ -895,7 +895,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 11
+    "pk": 10011
 },
 {
     "fields": {
@@ -904,7 +904,7 @@
         "configuration": "{}"
     },
     "model": "configuration.questiongroup",
-    "pk": 12
+    "pk": 10012
 },
 {
     "fields": {
@@ -913,13 +913,13 @@
         "configuration": "{\"max_num\":3, \"min_num\":2}"
     },
     "model": "configuration.questiongroup",
-    "pk": 13
+    "pk": 10013
 },
 
 {
-    "pk": 1,
+    "pk": 10001,
     "fields": {
-        "code": "core",
+        "code": "sample_core",
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
@@ -931,15 +931,15 @@
     "model": "configuration.configuration"
 },
 {
-    "pk": 2,
+    "pk": 10002,
     "fields": {
-        "code": "unccd",
+        "code": "sample",
         "description": "Description of Sample Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
         "data": "{\"categories\": [{\"keyword\": \"cat_1\",\"subcategories\": [{\"keyword\": \"subcat_1_2\",\"questiongroups\": [{\"questions\": [{\"key\": \"key_6\"}],\"keyword\": \"qg_3\"}]}]}]}",
         "created": "2015-01-09T10:12:59.337Z",
-        "base_code": "core",
+        "base_code": "sample_core",
         "name": "Sample Configuration"
     },
     "model": "configuration.configuration"

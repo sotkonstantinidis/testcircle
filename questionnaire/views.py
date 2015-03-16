@@ -123,7 +123,7 @@ def generic_questionnaire_new_step(
 
 @login_required
 def generic_questionnaire_new(
-        request, configuration_code, template, success_route,
+        request, configuration_code, template, success_route, edit_step_route,
         questionnaire_id=None):
     """
     A generic view to show an entire questionnaire.
@@ -186,7 +186,8 @@ def generic_questionnaire_new(
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
-    categories = questionnaire_configuration.get_details(data, editable=True)
+    categories = questionnaire_configuration.get_details(
+        data, editable=True, edit_step_route=edit_step_route)
     category_names = []
     for category in questionnaire_configuration.categories:
         category_names.append((category.keyword, category.label))
@@ -224,8 +225,7 @@ def generic_questionnaire_details(
         configuration_code)
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
-    categories = questionnaire_configuration.get_details(
-        data)
+    categories = questionnaire_configuration.get_details(data)
 
     return render(request, template, {
         'categories': categories,

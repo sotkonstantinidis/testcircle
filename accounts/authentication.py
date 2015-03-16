@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
-
-from accounts.connection import get_connection
+from django.db import connection
 
 
 class WocatAuthenticationBackend(ModelBackend):
@@ -9,26 +8,30 @@ class WocatAuthenticationBackend(ModelBackend):
     The class to handle the authentication through :term:`WOCAT`.
     """
 
-    def authenticate(self, username, password):
+    def authenticate(self, token=None):
         """
         Custom authentication. Returns a user if authentication successful.
         """
         User = get_user_model()
-        queried_user = self._do_auth(username, password)
+
+        queried_user = self._do_auth(token)
 
         if not queried_user:
             return None
 
-        privileges = queried_user[1].split(',')
-
         try:
             # Check if the user exists in the local database
-            user = User.objects.get(email=username)
+            user = User.objects.get(email=queried_user[0])
         except User.DoesNotExist:
             # Create a user in the local database
-            user = User.create_new(email=username)
+            user = User.create_new(email=queried_user[0])
 
-        user.update(name=queried_user[4], privileges=privileges)
+        except:
+            return None
+
+        privileges = queried_user[1].split(',')
+        fullname = ' '.join([queried_user[2], queried_user[3]])
+        user.update(name=fullname, privileges=privileges)
 
         return user
 
@@ -39,43 +42,41 @@ class WocatAuthenticationBackend(ModelBackend):
         except User.DoesNotExist:
             return None
 
-    def _do_auth(self, username, password):
+    def _do_auth(self, token):
         """
         Do the actual WOCAT login. The login is based on the username
         and password and upon successful login, it should either return
         - the session_id which can be used to query the user information
           and permission groups
-        or
         - the session_id along with the user information and permission
           groups in a single response.
 
         Returns None or a tuple with:
-        - (str) session id
+
+        - (str) username (= email)
         - (str) groups: comma-separated list of groups (~privileges)
-        - (int) id
-        - (str) username
-        - (str) name
+        - (int) firstname
+        - (str) lastname
         """
+        # TODO: Privileges!
 
-        # TODO: Actually use password to check login!
-
-        if not username or not password:
+        if not token:
             return None
 
-        # TODO
-        # Temporary fix: Try to find the username in the current WOCAT
-        # sessions.
-        cursor = get_connection().cursor()
-        cursor.execute(
-            "SELECT fe_sessions.ses_id, fe_users.usergroup, fe_users.uid, "
-            "fe_users.username, fe_users.name "
-            "FROM fe_sessions JOIN fe_users "
-            "ON fe_sessions.ses_userid = fe_users.uid "
-            "WHERE fe_users.username = %s", [username])
-        users = cursor.fetchall()
+        # Check token
+        cursor = connection.cursor()
+        try:
+            cursor.execute(
+                "SELECT username, status, first_name, last_name FROM "
+                "wocat_users WHERE ses_id = %s",
+                [token])
+            users = cursor.fetchall()
 
-        if len(users) < 1:
-            # No user found
+            if len(users) < 1:
+                # No user found
+                return None
+
+            return users[0]
+
+        except:
             return None
-
-        return users[0]
