@@ -1,12 +1,10 @@
 from functional_tests.base import FunctionalTest
-from unittest.mock import patch
 from selenium.common.exceptions import NoSuchElementException
 from django.contrib.auth.models import Group
 
 from accounts.models import User
 
 
-@patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
 class AdminTest(FunctionalTest):
 
     fixtures = ['groups_permissions.json']
@@ -17,9 +15,7 @@ class AdminTest(FunctionalTest):
         user.is_superuser = True
         user.save()
 
-    def test_admin_page_superuser(self, mock_do_auth):
-
-        mock_do_auth.return_value = ('tempsessionid')
+    def test_admin_page_superuser(self):
 
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
@@ -43,13 +39,11 @@ class AdminTest(FunctionalTest):
         with self.assertRaises(NoSuchElementException):
             column_1.find_element_by_id('module_5')
 
-    def test_admin_page_translators(self, mock_do_auth):
+    def test_admin_page_translators(self):
 
         user = User.create_new('foo@bar.com')
         user.groups.add(Group.objects.filter(name='Translators').first())
         user.save()
-
-        mock_do_auth.return_value = ('tempsessionid')
 
         # Alice logs in
         self.doLogin('foo@bar.com', 'foo')

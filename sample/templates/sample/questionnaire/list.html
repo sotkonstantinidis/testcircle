@@ -1,0 +1,26 @@
+{% extends 'sample/base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+  <div class="row">
+    <div class="large-12 columns">
+      <h3>{% trans "[TODO] [Sample] Questionnaires List" %}</h3>
+      <table>
+        <tr>
+          {% for header in list_header %}
+            <th>{{ header }}</th>
+          {% endfor %}
+        </tr>
+        {% for data in list_data %}
+          <tr>
+            {% for d in data %}
+              <td>{{ d|safe }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}

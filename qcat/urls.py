@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
@@ -22,3 +23,9 @@ urlpatterns += i18n_patterns(
     url(r'^accounts/', include('accounts.urls')),
     url(r'^unccd/', include('unccd.urls')),
 )
+
+if settings.DEBUG:
+    urlpatterns += i18n_patterns(
+        '',
+        url(r'^sample/', include('sample.urls')),
+    )

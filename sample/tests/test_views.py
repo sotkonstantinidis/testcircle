@@ -7,42 +7,41 @@ from accounts.tests.test_authentication import (
     do_log_in,
 )
 from qcat.tests import TestCase
-from unccd.views import (
+from sample.views import (
     questionnaire_details,
     questionnaire_list,
     questionnaire_new,
     questionnaire_new_step,
 )
 
-questionnaire_route_details = 'unccd_questionnaire_details'
-questionnaire_route_home = 'unccd_home'
-questionnaire_route_list = 'unccd_questionnaire_list'
-questionnaire_route_new = 'unccd_questionnaire_new'
-questionnaire_route_new_step = 'unccd_questionnaire_new_step'
+questionnaire_route_details = 'sample_questionnaire_details'
+questionnaire_route_list = 'sample_questionnaire_list'
+questionnaire_route_new = 'sample_questionnaire_new'
+questionnaire_route_new_step = 'sample_questionnaire_new_step'
 
 
 def get_valid_new_step_values():
     return (
-        'unccd_cat_1', 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd_questionnaire_new')
+        'cat_1', 'sample', 'sample/questionnaire/new_step.html',
+        'sample_questionnaire_new')
 
 
 def get_valid_new_values():
     args = (
-        'unccd', 'unccd/questionnaire/new.html', 'unccd_questionnaire_details',
-        'unccd_questionnaire_new_step')
+        'sample', 'sample/questionnaire/new.html',
+        'sample_questionnaire_details', 'sample_questionnaire_new_step')
     kwargs = {'questionnaire_id': None}
     return args, kwargs
 
 
 def get_valid_details_values():
-    return (1, 'unccd', 'unccd/questionnaire/details.html')
+    return (1, 'sample', 'sample/questionnaire/details.html')
 
 
 def get_valid_list_values():
     return (
-        'unccd', 'unccd/questionnaire/list.html',
-        'unccd_questionnaire_details')
+        'sample', 'sample/questionnaire/list.html',
+        'sample_questionnaire_details')
 
 
 def get_category_count():
@@ -51,7 +50,10 @@ def get_category_count():
 
 def get_categories():
     return (
-        ('unccd_cat_1', 'UNCCD Category 1'),
+        ('cat_1', 'Category 1'),
+        ('cat_2', 'Category 2'),
+        ('cat_3', 'Category 3'),
+        ('cat_4', 'Category 4'),
     )
 
 
@@ -68,10 +70,10 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/new.html')
+        self.assertTemplateUsed(res, 'sample/questionnaire/new.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('unccd.views.generic_questionnaire_new')
+    @patch('sample.views.generic_questionnaire_new')
     def test_calls_generic_function(self, mock_questionnaire_new):
         request = self.factory.get(self.url)
         request.user = create_new_user()
@@ -82,11 +84,11 @@ class QuestionnaireNewTest(TestCase):
 
 class QuestionnaireNewStepTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'unccd.json']
+    fixtures = ['groups_permissions.json', 'sample.json']
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_new_step, args=['unccd_cat_1'])
+        self.url = reverse(questionnaire_route_new_step, args=['cat_1'])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -95,14 +97,14 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/new_step.html')
+        self.assertTemplateUsed(res, 'sample/questionnaire/new_step.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('unccd.views.generic_questionnaire_new_step')
+    @patch('sample.views.generic_questionnaire_new_step')
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, 'unccd_cat_1')
+        questionnaire_new_step(request, 'cat_1')
         mock_questionnaire_new_step.assert_called_once_with(
             request, *get_valid_new_step_values())
 
@@ -110,7 +112,7 @@ class QuestionnaireNewStepTest(TestCase):
 class QuestionnaireDetailsTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'unccd.json', 'unccd_questionnaires.json']
+        'groups_permissions.json', 'sample.json', 'sample_questionnaires.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -118,10 +120,10 @@ class QuestionnaireDetailsTest(TestCase):
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/details.html')
+        self.assertTemplateUsed(res, 'sample/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('unccd.views.generic_questionnaire_details')
+    @patch('sample.views.generic_questionnaire_details')
     def test_calls_generic_function(self, mock_questionnaire_details):
         request = self.factory.get(self.url)
         questionnaire_details(request, 1)
@@ -137,10 +139,10 @@ class QuestionnaireListTest(TestCase):
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/list.html')
+        self.assertTemplateUsed(res, 'sample/questionnaire/list.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('unccd.views.generic_questionnaire_list')
+    @patch('sample.views.generic_questionnaire_list')
     def test_calls_generic_function(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
         questionnaire_list(request)

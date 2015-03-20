@@ -298,19 +298,19 @@ class QuestionnaireQuestion(object):
             values = self.lookup_choices_labels_by_keywords(value)
         if self.field_type in ['char', 'text']:
             rendered = render_to_string(
-                'unccd/questionnaire/parts/textinput_details.html', {
+                'details/field/textinput.html', {
                     'key': self.label,
                     'value': value})
             return rendered
         if self.field_type in ['bool', 'measure']:
             rendered = render_to_string(
-                'unccd/questionnaire/parts/textinput_details.html', {
+                'details/field/textinput.html', {
                     'key': self.label,
                     'value': values[0]})
             return rendered
         elif self.field_type in ['checkbox']:
             rendered = render_to_string(
-                'unccd/questionnaire/parts/checkbox_details.html', {
+                'details/field/checkbox.html', {
                     'key': self.label,
                     'values': values
                 })
@@ -333,10 +333,9 @@ class QuestionnaireQuestion(object):
                 if v is not None:
                     i = [y[0] for y in list(self.choices)].index(v)
                     images.append(self.images[i])
-            template = 'unccd/questionnaire/parts/image_checkbox_details.html'
+            template = 'details/field/image_checkbox.html'
             if self.conditional:
-                template = 'unccd/questionnaire/parts/'\
-                    'image_checkbox_conditional_details.html'
+                template = 'details/field/image_checkbox_conditional.html'
             rendered = render_to_string(
                 template, {
                     'key': self.label,
@@ -514,7 +513,7 @@ class QuestionnaireQuestiongroup(object):
             base_question = find_dict_in_list(
                 base_questions, 'key', specific_question.get('key'))
             if not base_question:
-                merged_questions.append(specific_question)
+                merged_questions.append(specific_question.copy())
 
         base['questions'] = merged_questions
         return base
@@ -568,7 +567,7 @@ class QuestionnaireQuestiongroup(object):
             for d in data:
                 rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
-            'unccd/questionnaire/parts/questiongroup_details.html', {
+            'details/questiongroup.html', {
                 'questions': rendered_questions})
         return rendered
 
@@ -696,7 +695,7 @@ class QuestionnaireSubcategory(object):
                 base_questiongroup.get('keyword'))
             merged_questiongroups.append(
                 QuestionnaireQuestiongroup.merge_configurations(
-                    base_questiongroup, specific_questiongroup))
+                    base_questiongroup.copy(), specific_questiongroup.copy()))
 
         # Collect all specific questiongroup configurations which are not
         # part of the base questiongroups
@@ -705,9 +704,7 @@ class QuestionnaireSubcategory(object):
                 base_questiongroups, 'keyword',
                 specific_questiongroup.get('keyword'))
             if not base_questiongroup:
-                merged_questiongroups.append(
-                    QuestionnaireQuestiongroup.merge_configurations(
-                        base_questiongroup, specific_questiongroup))
+                merged_questiongroups.append(specific_questiongroup.copy())
 
         base['questiongroups'] = merged_questiongroups
         return base
@@ -750,7 +747,7 @@ class QuestionnaireSubcategory(object):
                 rendered_questiongroups.append(
                     questiongroup.get_details(questiongroup_data))
         rendered = render_to_string(
-            'unccd/questionnaire/parts/subcategory_details.html', {
+            'details/subcategory.html', {
                 'questiongroups': rendered_questiongroups,
                 'label': self.label})
         return rendered, has_content
@@ -865,7 +862,7 @@ class QuestionnaireCategory(object):
                 base_subcategory.get('keyword'))
             merged_subcategories.append(
                 QuestionnaireSubcategory.merge_configurations(
-                    base_subcategory, specific_subcategory))
+                    base_subcategory.copy(), specific_subcategory.copy()))
 
         # Collect all specific subcategory configurations which are not
         # part of the base subcategories
@@ -874,9 +871,7 @@ class QuestionnaireCategory(object):
                 base_subcategories, 'keyword',
                 specific_subcategory.get('keyword'))
             if not base_subcategory:
-                merged_subcategories.append(
-                    QuestionnaireSubcategory.merge_configurations(
-                        base_subcategory, specific_subcategory))
+                merged_subcategories.append(specific_subcategory.copy())
 
         base['subcategories'] = merged_subcategories
         return base
@@ -905,7 +900,9 @@ class QuestionnaireCategory(object):
         }
         return config, subcategory_formsets
 
-    def get_details(self, data={}, editable=False):
+    def get_details(
+            self, data={}, editable=False,
+            edit_step_route=''):
         rendered_subcategories = []
         with_content = 0
         for subcategory in self.subcategories:
@@ -914,14 +911,15 @@ class QuestionnaireCategory(object):
                 rendered_subcategories.append(rendered_subcategory)
                 with_content += 1
         rendered = render_to_string(
-            'unccd/questionnaire/parts/category_details.html', {
+            'details/category.html', {
                 'subcategories': rendered_subcategories,
                 'label': self.label,
                 'keyword': self.keyword,
                 'editable': editable,
                 'complete': with_content,
                 'total': len(self.subcategories),
-                'progress': with_content / len(self.subcategories) * 100
+                'progress': with_content / len(self.subcategories) * 100,
+                'edit_step_route': edit_step_route,
             })
         return rendered
 
@@ -977,11 +975,11 @@ class QuestionnaireConfiguration(object):
                 return questiongroup
         return None
 
-    def get_details(self, data={}, editable=False):
+    def get_details(self, data={}, editable=False, edit_step_route=''):
         rendered_categories = []
         for category in self.categories:
             rendered_categories.append(category.get_details(
-                data, editable=editable))
+                data, editable=editable, edit_step_route=edit_step_route))
         return rendered_categories
 
     def get_list_configuration(self):
@@ -1156,7 +1154,7 @@ class QuestionnaireConfiguration(object):
                 specific_categories, 'keyword', base_category.get('keyword'))
             merged_categories.append(
                 QuestionnaireCategory.merge_configurations(
-                    base_category, specific_category))
+                    base_category.copy(), specific_category.copy()))
 
         # Collect all specific category configurations which are not
         # part of the base categories
@@ -1164,9 +1162,7 @@ class QuestionnaireConfiguration(object):
             base_category = find_dict_in_list(
                 base_categories, 'keyword', specific_category.get('keyword'))
             if not base_category:
-                merged_categories.append(
-                    QuestionnaireCategory.merge_configurations(
-                        base_category, specific_category))
+                merged_categories.append(specific_category.copy())
 
         base['categories'] = merged_categories
         return base

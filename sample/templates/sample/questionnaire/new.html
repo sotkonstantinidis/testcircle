@@ -1,0 +1,32 @@
+{% extends 'sample/questionnaire/base_form.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+  <aside class="row">
+    <div class="accordion" data-accordion>
+      <nav class="accordion-navigation">
+        <a href="#summary"><svg class="icon-lines inline"><use xlink:href="#icon-list"></use></svg> {% trans "Table of Content" %}</a>
+        <div id="summary" class="content">
+          <ol>
+            {% for keyword, label in category_names %}
+              <li data-magellan-arrival="{{ keyword }}">
+                <a href="#{{ keyword }}">{{ label }}</a>
+              </li>
+            {% endfor %}
+          </ol>
+        </div>
+      </nav>
+    </div>
+  </aside>
+  <main class="row">
+    {% for category in categories %}
+      {{ category }}
+    {% endfor %}
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+    </form>
+  </main>
+{% endblock %}

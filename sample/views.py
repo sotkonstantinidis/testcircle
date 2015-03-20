@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.contrib import messages
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from configuration.configuration import QuestionnaireConfiguration
@@ -12,23 +12,22 @@ from questionnaire.views import (
 
 
 def home(request):
-
     # TODO: Show this warning here? Or in Admin?
-    questionnaire_configuration = QuestionnaireConfiguration('unccd')
+    questionnaire_configuration = QuestionnaireConfiguration('sample')
     if questionnaire_configuration.configuration_error is not None:
         messages.error(
             request, 'WARNING: INVALID CONFIGURATION. {}'.format(
                 questionnaire_configuration.configuration_error))
 
-    return render(request, 'unccd/home.html')
+    return render(request, 'sample/home.html')
 
 
 @login_required
 def questionnaire_new_step(request, step, questionnaire_id=None):
     """
-    View to show the form of a single step of a new UNCCD questionnaire.
-    Also handles the form submit of the step along with its validation
-    and redirect.
+    View to show the form of a single step of a new SAMPLE
+    questionnaire. Also handles the form submit of the step along with
+    its validation and redirect.
 
     .. seealso::
         The actual rendering of the form and the form validation is
@@ -44,14 +43,14 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd_questionnaire_new')
+        request, step, 'sample', 'sample/questionnaire/new_step.html',
+        'sample_questionnaire_new')
 
 
 @login_required
 def questionnaire_new(request, questionnaire_id=None):
     """
-    View to show the overview of a new or edited UNCCD questionnaire.
+    View to show the overview of a new or edited SAMPLE questionnaire.
     Also handles the form submit of the entire questionnaire.
 
     .. seealso::
@@ -66,14 +65,14 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'unccd', 'unccd/questionnaire/new.html',
-        'unccd_questionnaire_details', 'unccd_questionnaire_new_step',
+        request, 'sample', 'sample/questionnaire/new.html',
+        'sample_questionnaire_details', 'sample_questionnaire_new_step',
         questionnaire_id=questionnaire_id)
 
 
 def questionnaire_details(request, questionnaire_id):
     """
-    View to show the details of an existing UNCCD questionnaire.
+    View to show the details of an existing SAMPLE questionnaire.
 
     .. seealso::
         The actual rendering of the details is handled by the generic
@@ -89,12 +88,13 @@ def questionnaire_details(request, questionnaire_id):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
+        request, questionnaire_id, 'sample',
+        'sample/questionnaire/details.html')
 
 
 def questionnaire_list(request):
     """
-    View to show a list with UNCCD questionnaires.
+    View to show a list with SAMPLE questionnaires.
 
     .. seealso::
         The actual rendering of the list is handled by the generic
@@ -108,5 +108,5 @@ def questionnaire_list(request):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_list(
-        request, 'unccd', 'unccd/questionnaire/list.html',
-        'unccd_questionnaire_details')
+        request, 'sample', 'sample/questionnaire/list.html',
+        'sample_questionnaire_details')
