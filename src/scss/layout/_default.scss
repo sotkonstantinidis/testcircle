@@ -3,6 +3,15 @@ body {
   height: 100%;
 }
 
-main .row {
+.is-rhythmed {
   @include rhythm;
+}
+.is-rhythmed-2 {
+  @include rhythm(2);
+}
+.is-rhythmed-3 {
+  @include rhythm(3);
+}
+.is-rhythmed-4 {
+  @include rhythm(4);
 }

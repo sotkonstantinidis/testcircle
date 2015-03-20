@@ -1,9 +1,7 @@
 // Vertical rhythm
-.main section {
-  h1, h2, h3, h4, h5, h6,
-  p, dl, ol, ul {
-    @include rhythm;
-  }
+h1, h2, h3, h4, h5, h6,
+p, dl, ol, ul {
+  @include rhythm;
 }
 h1, h2, h3, h4, h5, h6 {
   &.is-wocat {
@@ -18,6 +16,11 @@ h1, h2, h3, h4, h5, h6 {
     font-size: rem-calc(16);
     font-weight: 600;
   }
+  &.is-small {
+    font-size: $paragraph-font-size;
+    line-height: $paragraph-line-height;
+    font-weight: 400;
+  }
 }
 
 p.is-large {
@@ -26,14 +29,14 @@ p.is-large {
 p.is-light {
   font-weight: 300;
 }
-span.is-grayed {
-  color: #aaa;
+.is-muted {
+  color: $color-beige-dark;
 }
 sup {
   line-height: 1rem;
 }
 
-main a {
+a.link {
   background-image: linear-gradient(to bottom, transparent 50%, $color-beige 50%);
   background-repeat: repeat-x;
   background-size: 2px 2px;
@@ -42,5 +45,13 @@ main a {
 
   &:hover {
     background-image: linear-gradient(to bottom, transparent 50%, $color-beige-dark 50%);
+  }
+
+  &.is-wocat {
+    color: $color-wocat;
+    &:hover {
+      color: $color-wocat-dark;
+      background-image: linear-gradient(to bottom, transparent 50%, $color-wocat-dark 50%);
+    }
   }
 }

@@ -1,0 +1,7 @@
+.summary li {
+  margin-top: rem-calc(12);
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

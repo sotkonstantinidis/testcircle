@@ -10,6 +10,7 @@
     position: relative;
     margin: 0;
     float: left;
+    max-width: rem-calc(240);
   }
   .tech-status {
     position: absolute;
@@ -21,6 +22,7 @@
 .tech-icons {
   @include reset-list;
   float: left;
+  margin-top: 0;
   li {
     margin-top: rem-calc(2);
     margin-left: rem-calc(2);
@@ -28,30 +30,27 @@
       margin-top: 0;
     }
   }
-  a {
-    display: inline-block;
-    width: rem-calc(48);
-    height: rem-calc(48);
-    background: $color-beige;
-    color: $color-beige-dark;
-    text-align: center;
-    padding: rem-calc(6) 0;
-    font-size: rem-calc(11);
-    line-height: 1em;
-    transition: color 300ms ease;
+}
+.tech-icon {
+  display: inline-block;
+  width: rem-calc(48);
+  height: rem-calc(48);
+  background: $color-beige;
+  color: $color-beige-dark;
+  text-align: center;
+  padding: rem-calc(6) 0;
+  font-size: rem-calc(11);
+  line-height: 1em;
+  transition: color 300ms ease;
 
-    &:hover {
-      color: $color-brown-light;
-      background: white;
-    }
-  }
-  span {
-    display: block;
-  }
   .icon {
     max-width: rem-calc(24);
     max-height: rem-calc(24);
   }
+}
+a:hover .tech-icon {
+  color: $color-brown-light;
+  background: white;
 }
 
 .tech-infos {
@@ -66,4 +65,81 @@
     font-weight: 400;
     margin: 0 rem-calc(6) 0 0;
   }
+}
+
+.tech-figure {
+  position: relative;
+  margin: 0;
+
+  .row {
+    @media #{$medium-up} {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+    }
+    @media #{$large-up} {
+      left: 50%;
+      margin-left: -31.25rem;
+    }
+  }
+
+  figcaption {
+    font-size: rem-calc(13);
+    color: $color-beige;
+    background-color: rgba($color-brown, 0.8);
+    padding: 1rem 1.5rem;
+    p {
+      font-size: 1em;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+.tech-figure-container {
+  position: relative;
+  max-height: rem-calc(512);
+  overflow: hidden;
+
+  img {
+    // position: absolute;
+    // right: 0;
+    // left: 0;
+    // z-index: -1;
+    min-width: 100%;
+    // top: 50%;
+    @media #{$medium-up} {
+      margin-top: -12.5%;
+    }
+  }
+}
+
+.tech-output-header {
+  position: relative;
+  padding-top: rem-calc(48);
+
+  .tech-status {
+    position: absolute;
+    top: 0;
+  }
+}
+.tech-output-title {
+  font-size: rem-calc(36);
+  color: #3E3A35;
+  line-height: rem-calc(48);
+}
+.tech-output-infos {
+  @include reset-list;
+  margin-top: rem-calc(36);
+
+  li {
+    margin-top: rem-calc(12);
+  }
+}
+.tech-output-map {
+  border: 2px solid $color-beige;
+}
+
+.tech-section-progress {
+  margin-top: rem-calc(2);
 }

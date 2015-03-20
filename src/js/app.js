@@ -79,7 +79,6 @@ function toggleButtonBarSelected() {
  * el: div of conditional image checkboxes
  */
 function toggleImageCheckboxConditional(el) {
-  console.log(el);
   var topCb = el.parent('.list-gallery-item').find('input[data-toggle]');
   if (!topCb.is(':checked')) {
     el.find('input').removeAttr('checked')
@@ -95,10 +94,15 @@ $(function() {
   // UTILITIES
   // -----------------
   // Toggle view
-  $('body').on('click', '.list-gallery-item [data-toggle]', function (e) {
+  $('body').on('click', '[data-toggle]', function (e) {
     var target = $('#'+ $(this).data('toggle'));
-    target.toggle();
-    toggleImageCheckboxConditional(target);
+    if($(this).parent().hasClass('list-gallery-item')){
+      target.slideToggle();
+      toggleImageCheckboxConditional(target);
+    } else {
+      e.preventDefault();
+      target.slideToggle();
+    }
   })
 
   // LIST ITEM

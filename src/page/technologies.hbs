@@ -1,0 +1,25 @@
+---
+section: technologies
+---
+
+{{!-- Header --}}
+<header class="page-header inner-wrap" role="banner">
+  {{> header_wocat}}
+</header>
+
+{{!-- Advanced search --}}
+<aside id="search-advanced" class="form-search-advanced">
+  {{> form_search_advanced}}
+</aside>
+
+{{!-- Body --}}
+<main class="row large-collapse" role="main">
+  <section class="tech-list small-12 columns">
+    <div class="tech-group">
+      <h2 class="is-group">All technologies</h2>
+      {{#each technology}}
+        {{> tech_item}}
+      {{/each}}
+    </div>
+  </section>
+</main>

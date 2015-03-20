@@ -14,7 +14,7 @@
   display: inline-block;
   line-height: $form-label-line-height;
   margin: 0;
-  padding: ($form-spacing / 2) 0;
+  padding: ($form-spacing / 2) 0 0;
 }
 .list-item input {
   margin: 0;
@@ -51,4 +51,8 @@
     margin: 0;
     padding: 0.5em 1em 1em;
   }
+}
+
+.list-action .link {
+  margin-left: rem-calc(24);
 }

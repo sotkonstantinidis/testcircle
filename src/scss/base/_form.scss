@@ -9,6 +9,25 @@ input[type='search'] {
   border: none;
 }
 
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="color"],
+textarea {
+  margin-bottom: 0;
+  @include rhythm;
+}
+
 .postfix.light,
 .prefix.light {
   background: white;
@@ -66,5 +85,17 @@ input[type='search'] {
   a:hover,
   a:focus {
     color: #fff;
+  }
+}
+
+.form-search-advanced {
+  display: none;
+  background: $color-brown;
+  color: white;
+  padding-top: rem-calc(36);
+  padding-bottom: rem-calc(36);
+
+  label {
+    color: white;
   }
 }

@@ -5,11 +5,11 @@
   margin-left: 0;
 }
 
-@function lineHeight($lines, $base: $base-font-size) {
-    @return rem-calc(($lines * $base-line-height), $base);
+@function lineHeight($lines) {
+    @return $lines * $base-line-height;
 }
 
-@mixin rhythm($lines: 1, $base: $base-font-size) {
+@mixin rhythm($lines: 1) {
   margin-top: lineHeight($lines);
   &:first-child {
     margin-top: 0;

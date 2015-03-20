@@ -1,0 +1,6 @@
+.accordion {
+  @include reset-list;
+}
+.accordion .content {
+  background: $accordion-content-active-bg-color;
+}

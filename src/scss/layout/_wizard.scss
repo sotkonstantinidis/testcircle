@@ -29,14 +29,21 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #333;
-  border-top: 1px solid $smoke;
-  padding-top: 1em;
+  background: $color-brown;
   color: #fff;
   z-index: 999;
+  padding-bottom: rem-calc(36);
 
   h2 {
     color: #fff;
+    margin-top: rem-calc(24);
+  }
+  .progress {
+    margin-top: rem-calc(36);
+  }
+  .button-icon {
+    margin-top: 0;
+    min-width: 49%;
   }
 }
 
@@ -68,7 +75,7 @@
       height: 1em;
       border-radius: 0.5em;
 
-      background: $smoke;
+      background: $color-beige;
     }
     dd.active a {
       background: $primary-color;
