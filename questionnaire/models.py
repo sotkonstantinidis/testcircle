@@ -1,10 +1,11 @@
 import json
-import uuid
+from uuid import uuid4
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django_pgjson.fields import JsonBField
+
 from configuration.models import Configuration
 
 
@@ -16,7 +17,7 @@ class Questionnaire(models.Model):
     """
     data = JsonBField()
     created = models.DateTimeField(auto_now=True)
-    uuid = models.CharField(max_length=64, default=uuid.uuid4)
+    uuid = models.CharField(max_length=64, default=uuid4)
     blocked = models.BooleanField(default=False)
     active = models.ForeignKey(
         'QuestionnaireVersion', related_name='active_questionnaire', null=True)
@@ -119,3 +120,83 @@ class QuestionnaireRole(models.Model):
     """
     keyword = models.CharField(max_length=63, unique=True)
     description = models.TextField(null=True)
+
+
+class File(models.Model):
+    """
+    The model representing a file uploaded by a user.
+
+    Please note that the file itself is not stored in the database, this
+    model just contains the filenames of all of its thumbnails and some
+    meta information (size, file type).
+    """
+    uuid = models.CharField(max_length=64)
+    uploaded = models.DateTimeField(auto_now=True)
+    content_type = models.CharField(max_length=64)
+    size = models.BigIntegerField(null=True)
+    thumbnails = JsonBField()
+
+    @staticmethod
+    def create_new(content_type, size=None, thumbnails={}, uuid=None):
+        """
+        Create and return a new file.
+
+        Args:
+            ``content_type`` (str): The mime type (e.g. ``image/png``) of
+            the file.
+
+        Kwargs:
+            ``size`` (int): The size of the file.
+
+            ``thumbnails`` (dict): A dictionary pointing to the
+            thumbnails based on their predefined dimensions. Example::
+
+              {
+                "header_big": "e0791bc0-e05d-4a03-8ab9-f5f9c2615cac",
+                "header_small": "23592f37-cd5b-43db-9376-04c5d805429d"
+              }
+
+            ``uuid`` (str): The UUID for the file. If not provided, a
+            random UUID will be generated.
+
+        Returns:
+            ``questionnaire.models.File``. The created File model.
+        """
+        if uuid is None:
+            uuid = uuid4()
+        return File.objects.create(
+            uuid=uuid, content_type=content_type, size=size,
+            thumbnails=thumbnails)
+
+    def get_url(self, thumbnail=None):
+        """
+        Return the URL of a file object. If thumbnail is provided,
+        return the respective URL.
+
+        Args:
+            ``thumbnail`` (str or None). The name of the thumbnail for
+            which the URL shall be returned. If not specified, the
+            original file will be returned.
+
+        Returns:
+            ``str`` or ``None``. The relative URL of the file object or
+            ``None`` if the thumbnail was not found.
+        """
+        from questionnaire.upload import (
+            get_url_by_filename,
+            get_file_extension_by_content_type,
+        )
+        uid = self.uuid
+        if thumbnail is not None:
+            uid = self.thumbnails.get(thumbnail)
+            if uid is None:
+                return None
+        if thumbnail is not None:
+            file_extension = 'jpg'
+        else:
+            file_extension = get_file_extension_by_content_type(
+                self.content_type)
+        if file_extension is None:
+            return None
+        filename = '{}.{}'.format(uid, file_extension)
+        return get_url_by_filename(filename)

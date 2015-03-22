@@ -101,6 +101,8 @@ def clean_questionnaire_data(data, configuration):
                         if translation:
                             translations[locale] = translation
                     value = translations
+                elif question.field_type in ['image']:
+                    pass
                 else:
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(

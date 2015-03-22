@@ -1,3 +1,4 @@
+import json
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import Http404
@@ -7,6 +8,7 @@ from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import (
     create_new_user,
+    do_log_in,
 )
 from configuration.configuration import (
     QuestionnaireConfiguration,
@@ -31,6 +33,10 @@ from sample.tests.test_views import (
     questionnaire_route_details,
     questionnaire_route_list,
 )
+
+file_upload_route = 'file_upload'
+valid_file = 'static/assets/img/img01.jpg'
+invalid_file = 'bower.json'  # Needs to exist but not valid file type
 
 
 class GenericQuestionnaireNewStepTest(TestCase):
@@ -356,3 +362,55 @@ class GenericQuestionnaireListTest(TestCase):
         ret = generic_questionnaire_list(
             self.request, *get_valid_list_values())
         self.assertIsInstance(ret, HttpResponse)
+
+
+class GenericFileUploadTest(TestCase):
+
+    fixtures = ['groups_permissions.json']
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(file_upload_route)
+        self.request = self.factory.post(self.url)
+        do_log_in(self.client)
+
+    def test_upload_login_required(self):
+        self.client.logout()
+        res = self.client.post(self.url, follow=True)
+        self.assertTemplateUsed(res, 'login.html')
+
+    def test_upload_only_post_allowed(self):
+        res = self.client.get(self.url, follow=True)
+        self.assertEqual(res.status_code, 405)
+
+    def test_handles_post_without_files(self):
+        res = self.client.post(self.url)
+        self.assertEqual(res.status_code, 400)
+        content = json.loads(res.content.decode('utf-8'))
+        self.assertFalse(content.get('success'))
+
+    @patch('questionnaire.views.handle_upload')
+    def test_calls_handle_upload(self, mock_handle_upload):
+        m = Mock()
+        m.get_url.return_value = 'foo'
+        mock_handle_upload.return_value = m
+        with open(valid_file, 'rb') as fp:
+            self.client.post(self.url, {'file': fp})
+        mock_handle_upload.assert_called_once()
+
+    def test_handles_exception_by_handle_upload(self):
+        with open(invalid_file, 'rb') as fp:
+            res = self.client.post(self.url, {'file': fp})
+        self.assertEqual(res.status_code, 400)
+        content = json.loads(res.content.decode('utf-8'))
+        self.assertFalse(content.get('success'))
+
+    def test_returns_success_values_if_successful(self):
+        with open(valid_file, 'rb') as fp:
+            res = self.client.post(self.url, {'file': fp})
+        self.assertEqual(res.status_code, 200)
+        content = json.loads(res.content.decode('utf-8'))
+        self.assertTrue(content.get('success'))
+        self.assertIn('url', content)
+        self.assertIn('uid', content)
+        self.assertNotIn('msg', content)

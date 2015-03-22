@@ -1,6 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.views.decorators.http import require_POST
+
+from django.http import (
+    Http404,
+    JsonResponse,
+)
 from django.shortcuts import (
     render,
     redirect,
@@ -15,6 +20,7 @@ from qcat.utils import (
     save_session_questionnaire,
 )
 from questionnaire.models import Questionnaire
+from questionnaire.upload import handle_upload
 from questionnaire.utils import (
     clean_questionnaire_data,
     get_questiongroup_data_from_translation_form,
@@ -264,3 +270,62 @@ def generic_questionnaire_list(
         'list_header': list_data[0],
         'list_data': list_data[1:],
     })
+
+
+@login_required
+@require_POST
+def generic_file_upload(request):
+    """
+    A view to handle file uploads. Can only be called with POST requests
+    and returns a JSON.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object. Only
+        request method ``POST`` is accepted and the following parameters
+        are valid:
+
+            ``request.FILES`` (mandatory): The uploaded file.
+
+            ``request.POST.preview_format`` (optional): If available,
+            the URL for this format will be returned. If not specified,
+            the URL to the original file will be returned.
+
+    Returns:
+        ``JsonResponse``. A JSON containing the following entries::
+
+          # Successful requests
+          {
+            "success": true,
+            "uid": "UID",          # The UID of the generated file
+            "url": "URL"           # The URL of the preview file generated
+                                   # (see request.POST.preview_format)
+          }
+
+          # Error requests (status_code: 400)
+          {
+            "success": false,
+            "msg": "ERROR MESSAGE"
+          }
+    """
+    ret = {
+        'success': False,
+    }
+
+    files = request.FILES.getlist('file')
+    if len(files) != 1:
+        ret['msg'] = _('No or multiple files provided.')
+        return JsonResponse(ret, status=400)
+    file = files[0]
+
+    try:
+        db_file = handle_upload(file)
+    except Exception as e:
+        ret['msg'] = str(e)
+        return JsonResponse(ret, status=400)
+
+    ret = {
+        'success': True,
+        'uid': str(db_file.uuid),
+        'url': db_file.get_url(thumbnail=request.POST.get('preview_format')),
+    }
+    return JsonResponse(ret)

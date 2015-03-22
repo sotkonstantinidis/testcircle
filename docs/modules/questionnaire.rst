@@ -14,6 +14,13 @@ their versions.
     :members:
 
 
+``questionnaire.upload``
+------------------------
+
+.. automodule:: questionnaire.upload
+    :members:
+
+
 ``questionnaire.urls``
 ----------------------
 
