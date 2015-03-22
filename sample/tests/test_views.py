@@ -50,11 +50,22 @@ def get_category_count():
 
 def get_categories():
     return (
+        ('cat_0', 'Category 0'),
         ('cat_1', 'Category 1'),
         ('cat_2', 'Category 2'),
         ('cat_3', 'Category 3'),
         ('cat_4', 'Category 4'),
     )
+
+
+def get_position_of_category(category, start0=False):
+    for i, cat in enumerate(get_categories()):
+        if cat[0] == category:
+            if start0 is True:
+                return i
+            else:
+                return i + 1
+    return None
 
 
 class QuestionnaireNewTest(TestCase):

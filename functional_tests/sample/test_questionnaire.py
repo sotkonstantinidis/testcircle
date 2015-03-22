@@ -7,6 +7,7 @@ from sample.tests.test_views import (
     questionnaire_route_new,
     questionnaire_route_new_step,
     get_category_count,
+    get_position_of_category,
 )
 
 
@@ -210,6 +211,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
+        cat_1_position = get_position_of_category('cat_1')
 
         # She goes directly to the Sample questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -226,7 +228,8 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(len(progress_bars), len(progress_indicators))
 
         # She goes to the first category and sees another progress bar
-        self.findBy('xpath', '//a[contains(@href, "edit/cat")][1]').click()
+        self.findBy('xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            cat_1_position)).click()
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         completed_steps = self.findBy('class_name', 'progress-completed')
         self.assertEqual(completed_steps.text, '0')
@@ -251,13 +254,15 @@ class QuestionnaireTest(FunctionalTest):
         progress_bars = self.findBy(
             'xpath', '//span[@class="meter" and @style="width:50.0%"]')
         progress_indicator = self.findBy(
-            'xpath', '//div[@class="progress radius"][1]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_1_position))
         self.assertEqual(progress_indicator.text, '1 / 2')
 
         # She decides to edit the step again and deletes what she
         # entered. She notices that the bar is back to 0, also on the
         # overview page.
-        self.findBy('xpath', '//a[contains(@href, "edit/cat")][1]').click()
+        self.findBy('xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            cat_1_position)).click()
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         self.findBy('name', 'qg_1-0-original_key_1').clear()
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('')
@@ -283,6 +288,8 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
+        cat_2_position = get_position_of_category('cat_2')
+
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_2']))
@@ -299,7 +306,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 13")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[2]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_2_position))
         self.assertIn('0 /', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
@@ -323,7 +331,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "Key 13")]')
         self.findBy('xpath', '//*[contains(text(), "Value 13_1")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[2]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_2_position))
         self.assertIn('1 /', progress_indicator.text)
 
         # She goes back to the step and sees that the first checkbox is
@@ -367,6 +376,8 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
+        cat_4_position = get_position_of_category('cat_4')
+
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_4']))
@@ -383,7 +394,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 14")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[4]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_4_position))
         self.assertIn('0 /', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
@@ -407,7 +419,8 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 14')
         self.findBy('xpath', '//img[@alt="Value 14_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[4]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_4_position))
         self.assertIn('1 /', progress_indicator.text)
 
         # She goes back to the step and sees that the first checkbox is
@@ -451,6 +464,8 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
+        cat_4_position = get_position_of_category('cat_4')
+
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_4']))
@@ -482,7 +497,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 15")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[4]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_4_position))
         self.assertIn('0 /', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
@@ -522,7 +538,8 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 15')
         self.findBy('xpath', '//img[@alt="Value 15_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[4]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_4_position))
         self.assertIn('1 /', progress_indicator.text)
 
         # She goes back to the step and sees that the value of Key 15 is
@@ -552,7 +569,8 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 16')
         self.findBy('xpath', '//img[@alt="Value 16_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[4]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_4_position))
         self.assertIn('1 /', progress_indicator.text)
 
         # She goes back to the step and sees that the value of Key 15 is
@@ -616,6 +634,8 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
+        cat_2_position = get_position_of_category('cat_2')
+
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_2']))
@@ -638,7 +658,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 12")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[2]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_2_position))
         self.assertIn('0 /', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
@@ -666,7 +687,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "Key 12")]')
         self.findBy('xpath', '//*[contains(text(), "Value 1")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[2]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_2_position))
         self.assertIn('1 /', progress_indicator.text)
 
         # She goes back to the step and sees the row is highlighted and
@@ -708,6 +730,8 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
+        cat_1_position = get_position_of_category('cat_1')
+
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
             questionnaire_route_new_step, args=['cat_1']))
@@ -725,7 +749,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 11")]')
         progress_indicator = self.findBy(
-            'xpath', '//div[@class="progress radius"][1]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_1_position))
         self.assertIn('0 /', progress_indicator.text)
 
         # She goes to the form again and clicks "Yes".
@@ -745,7 +770,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width:50.0%"]')
         progress_indicator = self.findBy(
-            'xpath', '//div[@class="progress radius"][1]')
+            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+                cat_1_position))
         self.assertEqual(progress_indicator.text, '1 / 2')
 
         # She edits the form again and sets the radio button to "No"
@@ -793,10 +819,102 @@ class QuestionnaireTest(FunctionalTest):
     #     # # She sees that she is logged in and was redirected back to the form.
     #     # self.checkOnPage('Category 1')
 
+    def test_header_image(self):
+
+
+        # TODO: Check form progress, populate image on edit
+
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_0']))
+
+        # She sees a field to put files, drawn by Dropzone
+        dropzone = self.findBy(
+            'xpath', '//div[@id="id_qg_14-0-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        self.assertTrue(dropzone.is_displayed())
+
+        # She does not see the preview field, which is hidden and does not
+        # contain an image
+        preview = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]')
+        self.assertFalse(preview.is_displayed())
+        self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # The hidden input field is empty
+        filename = self.findBy('xpath', '//input[@id="id_qg_14-0-key_19"]')
+        self.assertEqual(filename.get_attribute('value'), '')
+
+        # She uploads an image
+        self.dropImage('id_qg_14-0-file_key_19')
+
+        # She sees that the dropzone is hidden, the preview is visible
+        self.assertFalse(dropzone.is_displayed())
+        self.assertTrue(preview.is_displayed())
+
+        # Preview contains an image
+        self.findBy(
+            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # The filename was added to the hidden input field
+        self.assertNotEqual(filename.get_attribute('value'), '')
+
+        # She removes the file
+        self.findBy(
+            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]/div/button'
+            ).click()
+
+        # She sees the image was removed and the preview container is not
+        # visible anymore
+        self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+        self.assertFalse(preview.is_displayed())
+
+        # She sees the dropzone container again
+        self.assertTrue(dropzone.is_displayed())
+
+        # The hidden input field is empty again
+        self.assertEqual(filename.get_attribute('value'), '')
+
+        # She uploads an image again
+        self.dropImage('id_qg_14-0-file_key_19')
+
+        # Dropzone is hidden, preview is there, filename was written to field
+        self.assertFalse(dropzone.is_displayed())
+        self.assertTrue(preview.is_displayed())
+        self.assertNotEqual(filename.get_attribute('value'), '')
+
+        img_src = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]/'
+            'div[@class="image-preview"]/img').get_attribute('src')
+        img_name = img_src.split('/')[-1]
+
+        # She submits the form
+        self.findBy('id', 'button-submit').click()
+
+        # On the overview page, she sees the image she uploaded
+        self.findBy('xpath', '//img[contains(@src, "{}")]'.format(img_name))
+
+        # She submits the form
+        self.findBy('id', 'button-submit').click()
+
+        # She sees that the image was submitted correctly
+        self.findBy('xpath', '//img[contains(@src, "{}")]'.format(img_name))
+
     def test_enter_questionnaire(self):
 
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
+
+        cat_1_position = get_position_of_category('cat_1', start0=True)
 
         # She goes directly to the Sample questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -821,7 +939,7 @@ class QuestionnaireTest(FunctionalTest):
         edit_buttons = self.findManyBy(
             'xpath', '//a[contains(@href, "edit/cat")]')
         self.assertEqual(len(edit_buttons), get_category_count())
-        edit_buttons[0].click()
+        edit_buttons[cat_1_position].click()
 
         # She sees the form for Category 1
         self.findBy('xpath', '//h2[contains(text(), "Category 1")]')
@@ -900,6 +1018,8 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
+        cat_1_position = get_position_of_category('cat_1', start0=True)
+
         # She goes directly to the first category of the Sample
         # questionnaire and enters some data
         self.browser.get(self.live_server_url + reverse(
@@ -923,7 +1043,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She edits a form and sees the values are there already
         self.findManyBy(
-            'xpath', '//a[contains(@href, "edit/cat")]')[0].click()
+            'xpath',
+            '//a[contains(@href, "edit/cat")]')[cat_1_position].click()
         key_1 = self.findBy('name', 'qg_1-0-original_key_1')
         self.assertEqual(key_1.get_attribute('value'), 'Foo')
         key_3 = self.findBy('name', 'qg_1-0-original_key_3')

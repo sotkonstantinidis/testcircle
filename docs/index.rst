@@ -16,6 +16,13 @@ Configuration
     :maxdepth: 2
 
     configuration/introduction
+
+Questionnaires
+~~~~~~~~~~~~~~
+
+.. toctree::
+    :maxdepth: 2
+
     configuration/questionnaire
     configuration/category
     configuration/subcategory
@@ -23,6 +30,14 @@ Configuration
     configuration/question
     configuration/key
     configuration/value
+
+Settings
+~~~~~~~~
+
+.. toctree::
+    :maxdepth: 2
+
+    configuration/settings
 
 
 Development

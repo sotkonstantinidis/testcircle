@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load floppyforms %}
+{% load staticfiles %}
 
 {% block content %}
   <form class="wizard" action="" method="POST">
@@ -53,4 +54,11 @@
     </main>
   </form>
 
+{% endblock %}
+
+{% block head %}
+  <script src="{% static 'js/dropzone.min.js' %}"></script>
+  <script type="text/javascript">
+    Dropzone.autoDiscover = false;
+  </script>
 {% endblock %}

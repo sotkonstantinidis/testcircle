@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
-import uuid
 import django_pgjson.fields
+import uuid
 
 
 class Migration(migrations.Migration):
@@ -16,9 +16,23 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='File',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
+                ('uuid', models.CharField(max_length=64)),
+                ('uploaded', models.DateTimeField(auto_now=True)),
+                ('content_type', models.CharField(max_length=64)),
+                ('size', models.BigIntegerField(null=True)),
+                ('thumbnails', django_pgjson.fields.JsonBField()),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Questionnaire',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now=True)),
                 ('uuid', models.CharField(max_length=64, default=uuid.uuid4)),
@@ -31,7 +45,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireMembership',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('questionnaire', models.ForeignKey(to='questionnaire.Questionnaire')),
             ],
             options={
@@ -41,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireRole',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('keyword', models.CharField(max_length=63, unique=True)),
                 ('description', models.TextField(null=True)),
             ],
@@ -52,7 +66,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireTranslation',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('language', models.CharField(choices=[('en', 'English'), ('es', 'Spanish')], max_length=63)),
                 ('original_language', models.BooleanField(default=False)),
                 ('questionnaire', models.ForeignKey(to='questionnaire.Questionnaire')),
@@ -64,7 +78,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireVersion',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now=True)),
                 ('version', models.IntegerField()),
@@ -77,7 +91,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Status',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('keyword', models.CharField(max_length=63, unique=True)),
                 ('description', models.TextField(null=True)),
             ],

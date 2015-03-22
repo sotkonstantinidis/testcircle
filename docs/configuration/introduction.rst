@@ -1,6 +1,15 @@
 Introduction
 ============
 
+Settings
+--------
+
+Please refer to the :doc:`/configuration/settings` of QCAT.
+
+
+Questionnaires
+--------------
+
 A questionnaire consists of several objects which themselves can have multiple child objects. This represents the hierarchy of the questionnaire.
 
 The elements of a Questionnaire are:

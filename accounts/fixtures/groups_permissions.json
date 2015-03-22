@@ -283,6 +283,21 @@
                 "status"
             ],
             [
+                "add_file",
+                "questionnaire",
+                "file"
+            ],
+            [
+                "change_file",
+                "questionnaire",
+                "file"
+            ],
+            [
+                "delete_file",
+                "questionnaire",
+                "file"
+            ],
+            [
                 "add_session",
                 "sessions",
                 "session"
