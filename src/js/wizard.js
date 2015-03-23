@@ -28,7 +28,14 @@ function watchFormProgress() {
     $(this).find('div.row.list-item input:checkbox').each(function() {
       if ($(this).is(':checked')) {
         content = true;
-        return
+        return;
+      }
+    });
+    // Image
+    $(this).find('div.image-preview').each(function() {
+      if ($(this).find('img').length) {
+        content = true;
+        return;
       }
     });
     if (content) {
@@ -140,8 +147,9 @@ $(function() {
           previewContainer.toggle();
           dropzoneContainer.toggle();
           previewContainer.find('.image-preview').empty();
-          return false;
         }
+        watchFormProgress();
+        return false;
       });
 
       previewFormat = dropzoneContainer.data('upload-preview-format');
@@ -160,6 +168,18 @@ $(function() {
         dropzones.push(this);
         $(this.hiddenFileInput).attr(
           'id', this.element.id.replace('file_', 'hidden_'));
+        if (previewContainer) {
+          var el = $('input#' + this.element.id.replace('file_', ''));
+          if (el.val()) {
+            var url = '/questionnaire/file/download/' + el.val() + '/?format=' + previewFormat;
+            var img = $(document.createElement('img'));
+            img.attr('src', url);
+            previewContainer.find('.image-preview').html(img);
+            dropzoneContainer.toggle();
+            previewContainer.toggle();
+            watchFormProgress();
+          }
+        }
       },
       sending: function(file, xhr, formData) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
@@ -168,15 +188,15 @@ $(function() {
         }
       },
       success: function(file, response) {
-        addFilename(response['uid'], file, this);
         if (previewContainer && response['url']) {
           dropzoneContainer.toggle();
           previewContainer.toggle();
-
           var img = $(document.createElement('img'));
           img.attr('src', response['url']);
           previewContainer.find('.image-preview').html(img);
         }
+        watchFormProgress();
+        addFilename(response['uid'], file, this);
       },
       error: function(file, response) {
         this.removeFile(file);
@@ -185,6 +205,7 @@ $(function() {
           previewContainer.toggle();
           previewContainer.find('.image-preview').empty();
         }
+        watchFormProgress();
         showUploadErrorMessage(response['msg']);
       },
       removedfile: function(file) {

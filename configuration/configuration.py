@@ -263,7 +263,8 @@ class QuestionnaireQuestion(object):
             widget.height = dimensions[1]
             formfields['file_{}'.format(self.keyword)] = forms.FileField(
                 widget=widget, required=self.required, label=self.label)
-            field = forms.CharField(required=self.required)
+            field = forms.CharField(
+                required=self.required, widget=forms.HiddenInput())
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)

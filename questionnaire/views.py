@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 
 from django.http import (
     Http404,
+    HttpResponse,
     JsonResponse,
 )
 from django.shortcuts import (
@@ -19,8 +20,14 @@ from qcat.utils import (
     get_session_questionnaire,
     save_session_questionnaire,
 )
-from questionnaire.models import Questionnaire
-from questionnaire.upload import handle_upload
+from questionnaire.models import (
+    Questionnaire,
+    File,
+)
+from questionnaire.upload import (
+    handle_upload,
+    retrieve_file,
+)
 from questionnaire.utils import (
     clean_questionnaire_data,
     get_questiongroup_data_from_translation_form,
@@ -329,3 +336,51 @@ def generic_file_upload(request):
         'url': db_file.get_url(thumbnail=request.POST.get('preview_format')),
     }
     return JsonResponse(ret)
+
+
+def generic_file_serve(request, action, uid):
+    """
+    A view to handle display or download of uploaded files. This
+    function should only be used if you don't know the name of the
+    thumbnail on the client side as this view has to read the file
+    before serving it. On server side, if you want the URL for a
+    thumbnail, use the function
+    :func:`questionnaire.upload.get_url_by_identifier`.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``action`` (str): The action to perform with the file. Available
+        options are ``display`` and ``download``.
+
+        ``uid`` (str): The UUID of the file object.
+
+    GET Parameters:
+        ``format`` (str): The name of the thumbnail format for images.
+
+    Returns:
+        ``HttpResponse``. A Http Response with the file if found, 404 if
+        not found.
+    """
+    if action not in ['display', 'download']:
+        raise Http404()
+
+    file_object = get_object_or_404(File, uuid=uid)
+
+    thumbnail = request.GET.get('format')
+    try:
+        file, filename = retrieve_file(file_object, thumbnail=thumbnail)
+    except:
+        raise Http404()
+    content_type = file_object.content_type
+
+    if thumbnail is not None:
+        content_type = 'image/jpeg'
+
+    response = HttpResponse(file, content_type=content_type)
+    if action == 'download':
+        response['Content-Disposition'] = 'attachment; filename={}'.format(
+            filename)
+        response['Content-Length'] = file_object.size
+
+    return response

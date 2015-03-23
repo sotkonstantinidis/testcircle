@@ -12,6 +12,7 @@ from questionnaire.upload import (
     get_url_by_filename,
     get_url_by_identifier,
     handle_upload,
+    retrieve_file,
     store_file,
 )
 from questionnaire.tests.test_models import get_valid_file
@@ -103,6 +104,30 @@ class StoreFileTest(TestCase):
         file.content_type = 'image/png'
         ret = store_file(file)
         self.assertIsInstance(ret, str)
+
+
+@override_settings(UPLOAD_VALID_FILES=TEST_UPLOAD_VALID_FILES)
+class RetrieveFileTest(TestCase):
+
+    @patch('questionnaire.upload.get_file_extension_by_content_type')
+    def test_calls_get_file_extension_by_content_type(self, mock_func):
+        file = Mock()
+        file.uuid = ''
+        file.content_type = 'foo'
+        with self.assertRaises(FileNotFoundError):
+            retrieve_file(file)
+        mock_func.assert_called_once_with('foo')
+
+    @patch('questionnaire.upload.get_upload_folder_structure')
+    def test_uses_thumbnail_if_provided(
+            self, mock_get_upload_folder_structure):
+        file = Mock()
+        file.uuid = ''
+        file.content_type = 'foo'
+        file.thumbnails = {'bar': 'asdf'}
+        with self.assertRaises(FileNotFoundError):
+            retrieve_file(file, thumbnail='bar')
+        mock_get_upload_folder_structure.assert_called_once_with('asdf')
 
 
 @override_settings(UPLOAD_VALID_FILES=TEST_UPLOAD_VALID_FILES)

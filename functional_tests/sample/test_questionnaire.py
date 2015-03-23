@@ -821,10 +821,6 @@ class QuestionnaireTest(FunctionalTest):
 
     def test_header_image(self):
 
-
-        # TODO: Check form progress, populate image on edit
-
-
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
@@ -851,6 +847,9 @@ class QuestionnaireTest(FunctionalTest):
         filename = self.findBy('xpath', '//input[@id="id_qg_14-0-key_19"]')
         self.assertEqual(filename.get_attribute('value'), '')
 
+        # She sees that the form does not have any progress
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+
         # She uploads an image
         self.dropImage('id_qg_14-0-file_key_19')
 
@@ -865,6 +864,10 @@ class QuestionnaireTest(FunctionalTest):
 
         # The filename was added to the hidden input field
         self.assertNotEqual(filename.get_attribute('value'), '')
+
+        # She sees that the progress was updated.
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
 
         # She removes the file
         self.findBy(
@@ -884,6 +887,9 @@ class QuestionnaireTest(FunctionalTest):
         # The hidden input field is empty again
         self.assertEqual(filename.get_attribute('value'), '')
 
+        # She sees that the form does not have any progress
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 0%;"]')
+
         # She uploads an image again
         self.dropImage('id_qg_14-0-file_key_19')
 
@@ -897,16 +903,33 @@ class QuestionnaireTest(FunctionalTest):
             'div[@class="image-preview"]/img').get_attribute('src')
         img_name = img_src.split('/')[-1]
 
+        # She sees that the progress was updated.
+        self.findBy(
+            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+
         # She submits the form
         self.findBy('id', 'button-submit').click()
 
         # On the overview page, she sees the image she uploaded
         self.findBy('xpath', '//img[contains(@src, "{}")]'.format(img_name))
 
-        # She submits the form
-        self.findBy('id', 'button-submit').click()
+        # She edits the form again and sees the image was populated correctly.
+        self.browser.get(self.live_server_url + reverse(
+            questionnaire_route_new_step, args=['cat_0']))
 
-        # She sees that the image was submitted correctly
+        # Dropzone is hidden, preview is there, filename was written to field
+        dropzone = self.findBy(
+            'xpath', '//div[@id="id_qg_14-0-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        self.assertFalse(dropzone.is_displayed())
+        preview = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]')
+        self.assertTrue(preview.is_displayed())
+        filename = self.findBy('xpath', '//input[@id="id_qg_14-0-key_19"]')
+        self.assertNotEqual(filename.get_attribute('value'), '')
+
+        # She submits the form and sees that the image was submitted correctly.
+        self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//img[contains(@src, "{}")]'.format(img_name))
 
     def test_enter_questionnaire(self):

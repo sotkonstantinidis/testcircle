@@ -87,6 +87,35 @@ def store_file(file):
     return uid
 
 
+def retrieve_file(file_object, thumbnail=None):
+    """
+    Read and return a file.
+
+    Args:
+        ``file_object`` (:mod:`questionnaire.models.File`). A file
+        object.
+
+    Kwargs:
+        ``thumbnail`` (str): The name of the thumbnail format if
+        available.
+
+    Returns:
+        ``Buffer``, ``str``. The file object read into memory and the
+        filename of the file.
+    """
+    file_extension = get_file_extension_by_content_type(
+        file_object.content_type)
+    uid = file_object.uuid
+    if thumbnail is not None:
+        uid = file_object.thumbnails.get(thumbnail)
+        file_extension = 'jpg'
+    filename = '{}.{}'.format(uid, file_extension)
+    upload_folder = settings.MEDIA_ROOT
+    upload_path = os.path.join(
+        upload_folder, *get_upload_folder_structure(uid))
+    return open(os.path.join(upload_path, filename), 'rb'), filename
+
+
 def get_all_file_extensions():
     """
     Return all file extensions which are valid according to the

@@ -16,7 +16,7 @@ from configuration.configuration import (
 )
 from qcat.tests import TestCase
 from qcat.utils import session_store
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
@@ -35,6 +35,7 @@ from sample.tests.test_views import (
 )
 
 file_upload_route = 'file_upload'
+file_display_route = 'file_serve'
 valid_file = 'static/assets/img/img01.jpg'
 invalid_file = 'bower.json'  # Needs to exist but not valid file type
 
@@ -414,3 +415,46 @@ class GenericFileUploadTest(TestCase):
         self.assertIn('url', content)
         self.assertIn('uid', content)
         self.assertNotIn('msg', content)
+
+
+class GenericFileServeTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.file = File.create_new('image/jpeg')
+        self.url = reverse(
+            file_display_route, args=('display', self.file.uuid))
+        self.request = self.factory.get(self.url)
+
+    def test_raises_404_if_invalid_action(self):
+        url = reverse(file_display_route, args=('foo', 'uid'))
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 404)
+
+    def test_raises_404_if_file_not_found(self):
+        url = reverse(file_display_route, args=('display', 'uid'))
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 404)
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_calls_retrieve_file(self, mock_retrieve_file):
+        self.client.get(self.url)
+        mock_retrieve_file.assert_called_once_with(self.file, thumbnail=None)
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_calls_retrieve_file_with_thumbnail(self, mock_retrieve_file):
+        self.client.get(self.url + '?format=foo')
+        mock_retrieve_file.assert_called_once_with(self.file, thumbnail='foo')
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_returns_file(self, mock_retrieve_file):
+        mock_retrieve_file.return_value = ('file', 'filename')
+        res = self.client.get(self.url)
+        self.assertEqual(res.status_code, 200)
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_returns_file_download(self, mock_retrieve_file):
+        url = reverse(file_display_route, args=('download', self.file.uuid))
+        mock_retrieve_file.return_value = ('file', 'filename')
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 200)
