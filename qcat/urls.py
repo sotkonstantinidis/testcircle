@@ -22,12 +22,13 @@ urlpatterns += i18n_patterns(
     '',
     url(r'^questionnaire/', include('questionnaire.urls')),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^unccd/', include('unccd.urls')),
+    url(r'^wocat/', include('wocat.urls', namespace='wocat')),
+    url(r'^unccd/', include('unccd.urls', namespace='unccd')),
 )
 
 if settings.DEBUG:
     urlpatterns += i18n_patterns(
         '',
-        url(r'^sample/', include('sample.urls')),
+        url(r'^sample/', include('sample.urls', namespace='sample')),
     ) + static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

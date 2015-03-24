@@ -1,109 +1,39 @@
+{% extends 'base.html' %}
+
 {% load staticfiles %}
 {% load i18n %}
 
-<!doctype html>
-<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
-<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% trans "[Sample]" %}</title>
+{% block title %}SAMPLE{% endblock %}
 
-    <style media="screen" type="text/css">
-      ul.title-area {
-        background-color: #193E19;
-      }
-    </style>
-    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
-    <script src="{% static 'js/modernizr.js' %}"></script>
+{% block bodyclass %}layout-wocat{% endblock %}
+{% block navclass %}is-wocat{% endblock %}
 
-    {% block head %}
-    {% endblock %}
+{% block logo %}
+  <h1><a href="{% url 'sample:home' %}">{% trans "SAMPLE" %}</a></h1>
+{% endblock %}
 
-  </head>
-  <body>
-
-    <nav class="top-bar" data-topbar>
-      <ul class="title-area">
-        <li class="name">
-          <h1>
-            <a href="{% url 'sample_home' %}">
-              {% trans "[Sample]" %}
-            </a>
-          </h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
-      </ul>
-      <section class="top-bar-section">
-        <ul class="left">
-          <li class="divider"></li>
-          <li>
-            <a href="{% url 'home' %}">{% trans "QCAT" %}</a>
-          </li>
-          <li class="has-dropdown">
-            <a class="active" href="#">{% trans "Questionnaire" %}</a>
-            <ul class="dropdown">
-              <li><label>{% trans "Questionnaire" %}</label></li>
-              <li><a href="{% url 'sample_questionnaire_list' %}">{% trans "List" %}</a></li>
-              <li><a href="{% url 'sample_questionnaire_new' %}">{% trans "New" %}</a></li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="right">
-          {% if user.is_staff %}
-            <li>
-              <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
-            </li>
-          {% endif %}
-          <li>
-            {% if user.is_authenticated %}
-              <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
-            {% else %}
-              <a href="{% url 'login' %}">{% trans "Login" %}</a>
-            {% endif %}
-          </li>
-          <li class="has-dropdown">
-            <a href="#">{% trans "Language" %}</a>
-            <ul class="dropdown">
-              {% for lang in LANGUAGES %}
-                <li>
-                  <form name="setLang{{ lang.0 }}" action="{% url 'set_language' %}" method="POST">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
-                    <input name="language" type="hidden" value="{{ lang.0 }}" />
-                    <a href="#" onclick="document.setLang{{ lang.0 }}.submit(); return false;"
-                    {% if lang.0 == LANGUAGE_CODE %}
-                      class="active"
-                    {% endif %}
-                    >{{ lang.1 }}
-                    </a>
-                  </form>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      </section>
-    </nav>
-
-    {% if messages %}
-      {% for message in messages %}
-      <div class="alert-box{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-
-    {% block content %}
-    {% endblock %}
-
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/foundation.min.js' %}"></script>
-
-    <script>
-      $(document).foundation();
-    </script>
-
-    {% block bottom %}
-    {% endblock %}
-
-  </body>
-</html>
+{% block header %}
+  <ul class="form-search">
+    <li class="has-form">
+      <form action="" role="search">
+        <div class="row collapse">
+          <div class="large-12 columns">
+            <div class="row collapse postfix-radius prefix-radius">
+              <div class="small-10 medium-11 columns">
+                <input type="search" placeholder="Search technology: e.g Soil degradation...">
+              </div>
+              <div class="small-2 medium-1 columns">
+                <a href="#" class="postfix light">
+                  <svg class="icon"><use xlink:href="#icon-search"></use></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-search-option">
+          <a href="#" data-toggle="search-advanced">Advanced filter</a> | <a href="{% url 'sample:questionnaire_list' %}">Show all Technologies</a>
+        </div>
+      </form>
+    </li>
+  </ul>
+{% endblock %}

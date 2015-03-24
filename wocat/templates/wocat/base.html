@@ -3,13 +3,13 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block title %}UNCCD{% endblock %}
+{% block title %}WOCAT{% endblock %}
 
-{% block bodyclass %}layout-unccd{% endblock %}
-{% block navclass %}is-unccd{% endblock %}
+{% block bodyclass %}layout-wocat{% endblock %}
+{% block navclass %}is-wocat{% endblock %}
 
 {% block logo %}
-  <h1><a href="{% url 'unccd:home' %}"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}"></a></h1>
+  <h1><a href="{% url 'wocat:home' %}"><img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}"></a></h1>
 {% endblock %}
 
 {% block header %}
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="form-search-option">
-          <a href="#" data-toggle="search-advanced">Advanced filter</a> | <a href="{% url 'unccd:questionnaire_list' %}">Show all Technologies</a>
+          <a href="#" data-toggle="search-advanced">Advanced filter</a> | <a href="{% url 'wocat:questionnaire_list' %}">Show all Technologies</a>
         </div>
       </form>
     </li>

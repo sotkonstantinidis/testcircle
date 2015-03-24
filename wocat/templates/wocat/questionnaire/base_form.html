@@ -1,0 +1,73 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% trans "[TODO] UNCCD Form" %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- Theme styles -->
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+
+    <!-- ModernizR -->
+    <script src="{% static 'js/modernizr.js' %}"></script>
+
+    {% block head %}
+    {% endblock %}
+
+  </head>
+  <body class="layout-wizard">
+
+        <!--[if lt IE 9]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <svg style="display: none;"><symbol viewBox="0 0 20 20" id="icon-chevron-thin-down"><title>chevron-thin-down</title> <path d="M17.418,6.109c0.272-0.268,0.709-0.268,0.979,0c0.27,0.268,0.271,0.701,0,0.969l-7.908,7.83
+    c-0.27,0.268-0.707,0.268-0.979,0l-7.908-7.83c-0.27-0.268-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.979,0L10,13.25
+    L17.418,6.109z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-chevron-thin-up"><title>chevron-thin-up</title> <path d="M2.582,13.891c-0.272,0.268-0.709,0.268-0.979,0s-0.271-0.701,0-0.969l7.908-7.83c0.27-0.268,0.707-0.268,0.979,0
+    l7.908,7.83c0.27,0.268,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.978,0L10,6.75L2.582,13.891z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-image"><title>image</title> <path fill-rule="evenodd" clip-rule="evenodd" d="M19,2H1C0.447,2,0,2.447,0,3v14c0,0.552,0.447,1,1,1h18c0.553,0,1-0.448,1-1V3
+    C20,2.448,19.553,2,19,2z M18,16H2V4h16V16z M14.315,10.877l-3.231,1.605L7.314,6.381L4,14h12L14.315,10.877z M13.25,9
+    c0.69,0,1.25-0.56,1.25-1.25S13.94,6.5,13.25,6.5S12,7.06,12,7.75S12.56,9,13.25,9z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-list"><title>list</title> <path d="M14.4,9H8.6C8.048,9,8,9.447,8,10s0.048,1,0.6,1H14.4c0.552,0,0.6-0.447,0.6-1S14.952,9,14.4,9z M16.4,14H8.6
+    C8.048,14,8,14.447,8,15s0.048,1,0.6,1H16.4c0.552,0,0.6-0.447,0.6-1S16.952,14,16.4,14z M8.6,6H16.4C16.952,6,17,5.553,17,5
+    s-0.048-1-0.6-1H8.6C8.048,4,8,4.447,8,5S8.048,6,8.6,6z M5.4,9H3.6C3.048,9,3,9.447,3,10s0.048,1,0.6,1H5.4C5.952,11,6,10.553,6,10
+    S5.952,9,5.4,9z M5.4,14H3.6C3.048,14,3,14.447,3,15s0.048,1,0.6,1H5.4C5.952,16,6,15.553,6,15S5.952,14,5.4,14z M5.4,4H3.6
+    C3.048,4,3,4.447,3,5s0.048,1,0.6,1H5.4C5.952,6,6,5.553,6,5S5.952,4,5.4,4z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-upload"><title>upload</title> <path d="M8,12h4V6h3l-5-5L5,6h3V12z M19.338,13.532c-0.21-0.224-1.611-1.723-2.011-2.114C17.062,11.159,16.683,11,16.285,11h-1.757
+    l3.064,2.994h-3.544c-0.102,0-0.194,0.052-0.24,0.133L12.992,16H7.008l-0.816-1.873c-0.046-0.081-0.139-0.133-0.24-0.133H2.408
+    L5.471,11H3.715c-0.397,0-0.776,0.159-1.042,0.418c-0.4,0.392-1.801,1.891-2.011,2.114c-0.489,0.521-0.758,0.936-0.63,1.449
+    l0.561,3.074c0.128,0.514,0.691,0.936,1.252,0.936h16.312c0.561,0,1.124-0.422,1.252-0.936l0.561-3.074
+    C20.096,14.468,19.828,14.053,19.338,13.532z"/> </symbol></svg>
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert-box{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.accordion.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.dropdown.js' %}"></script>
+    <script src="{% static 'js/wocat.magellan.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.offcanvas.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.tab.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.tooltip.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.topbar.js' %}"></script>
+    <script src="{% static 'js/wizard.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+
+    {% block bottom %}
+    {% endblock %}
+  </body>
+</html>

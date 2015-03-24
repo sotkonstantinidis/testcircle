@@ -14,19 +14,19 @@ from questionnaire.views import (
 def home(request):
 
     # TODO: Show this warning here? Or in Admin?
-    questionnaire_configuration = QuestionnaireConfiguration('unccd')
+    questionnaire_configuration = QuestionnaireConfiguration('wocat')
     if questionnaire_configuration.configuration_error is not None:
         messages.error(
             request, 'WARNING: INVALID CONFIGURATION. {}'.format(
                 questionnaire_configuration.configuration_error))
 
-    return render(request, 'unccd/home.html')
+    return render(request, 'wocat/home.html')
 
 
 @login_required
 def questionnaire_new_step(request, step, questionnaire_id=None):
     """
-    View to show the form of a single step of a new UNCCD questionnaire.
+    View to show the form of a single step of a new WOCAT questionnaire.
     Also handles the form submit of the step along with its validation
     and redirect.
 
@@ -44,14 +44,14 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd:questionnaire_new')
+        request, step, 'wocat', 'wocat/questionnaire/new_step.html',
+        'wocat:questionnaire_new')
 
 
 @login_required
 def questionnaire_new(request, questionnaire_id=None):
     """
-    View to show the overview of a new or edited UNCCD questionnaire.
+    View to show the overview of a new or edited WOCAT questionnaire.
     Also handles the form submit of the entire questionnaire.
 
     .. seealso::
@@ -66,14 +66,14 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'unccd', 'unccd/questionnaire/new.html',
-        'unccd:questionnaire_details', 'unccd:questionnaire_new_step',
+        request, 'wocat', 'wocat/questionnaire/new.html',
+        'wocat:questionnaire_details', 'wocat:questionnaire_new_step',
         questionnaire_id=questionnaire_id)
 
 
 def questionnaire_details(request, questionnaire_id):
     """
-    View to show the details of an existing UNCCD questionnaire.
+    View to show the details of an existing WOCAT questionnaire.
 
     .. seealso::
         The actual rendering of the details is handled by the generic
@@ -89,12 +89,12 @@ def questionnaire_details(request, questionnaire_id):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
+        request, questionnaire_id, 'wocat', 'wocat/questionnaire/details.html')
 
 
 def questionnaire_list(request):
     """
-    View to show a list with UNCCD questionnaires.
+    View to show a list with WOCAT questionnaires.
 
     .. seealso::
         The actual rendering of the list is handled by the generic
@@ -108,5 +108,5 @@ def questionnaire_list(request):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_list(
-        request, 'unccd', 'unccd/questionnaire/list.html',
-        'unccd:questionnaire_details')
+        request, 'wocat', 'wocat/questionnaire/list.html',
+        'wocat:questionnaire_details')

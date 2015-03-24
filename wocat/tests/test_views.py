@@ -1,47 +1,49 @@
+from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from unittest.mock import patch
-from django.core.urlresolvers import reverse
 
 from accounts.tests.test_authentication import (
     create_new_user,
     do_log_in,
 )
 from qcat.tests import TestCase
-from sample.views import (
+from wocat.views import (
     questionnaire_details,
     questionnaire_list,
     questionnaire_new,
     questionnaire_new_step,
 )
 
-route_questionnaire_details = 'sample:questionnaire_details'
-route_questionnaire_list = 'sample:questionnaire_list'
-route_questionnaire_new = 'sample:questionnaire_new'
-route_questionnaire_new_step = 'sample:questionnaire_new_step'
+
+route_home = 'wocat:home'
+route_questionnaire_new = 'wocat:questionnaire_new'
+route_questionnaire_new_step = 'wocat:questionnaire_new_step'
+route_questionnaire_details = 'wocat:questionnaire_details'
+route_questionnaire_list = 'wocat:questionnaire_list'
 
 
 def get_valid_new_step_values():
     return (
-        'cat_1', 'sample', 'sample/questionnaire/new_step.html',
-        'sample:questionnaire_new')
+        'wocat_cat_1', 'wocat', 'wocat/questionnaire/new_step.html',
+        'wocat:questionnaire_new')
 
 
 def get_valid_new_values():
     args = (
-        'sample', 'sample/questionnaire/new.html',
-        'sample:questionnaire_details', 'sample:questionnaire_new_step')
+        'wocat', 'wocat/questionnaire/new.html', 'wocat:questionnaire_details',
+        'wocat:questionnaire_new_step')
     kwargs = {'questionnaire_id': None}
     return args, kwargs
 
 
 def get_valid_details_values():
-    return (1, 'sample', 'sample/questionnaire/details.html')
+    return (1, 'wocat', 'wocat/questionnaire/details.html')
 
 
 def get_valid_list_values():
     return (
-        'sample', 'sample/questionnaire/list.html',
-        'sample:questionnaire_details')
+        'wocat', 'wocat/questionnaire/list.html',
+        'wocat:questionnaire_details')
 
 
 def get_category_count():
@@ -50,22 +52,20 @@ def get_category_count():
 
 def get_categories():
     return (
-        ('cat_0', 'Category 0'),
-        ('cat_1', 'Category 1'),
-        ('cat_2', 'Category 2'),
-        ('cat_3', 'Category 3'),
-        ('cat_4', 'Category 4'),
+        ('wocat_cat_1', 'WOCAT Category 1'),
     )
 
 
-def get_position_of_category(category, start0=False):
-    for i, cat in enumerate(get_categories()):
-        if cat[0] == category:
-            if start0 is True:
-                return i
-            else:
-                return i + 1
-    return None
+class WocatHomeTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(route_home)
+
+    def test_renders_correct_template(self):
+        res = self.client.get(self.url)
+        self.assertTemplateUsed(res, 'wocat/home.html')
+        self.assertEqual(res.status_code, 200)
 
 
 class QuestionnaireNewTest(TestCase):
@@ -81,10 +81,10 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'sample/questionnaire/new.html')
+        self.assertTemplateUsed(res, 'wocat/questionnaire/new.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('sample.views.generic_questionnaire_new')
+    @patch('wocat.views.generic_questionnaire_new')
     def test_calls_generic_function(self, mock_questionnaire_new):
         request = self.factory.get(self.url)
         request.user = create_new_user()
@@ -95,11 +95,11 @@ class QuestionnaireNewTest(TestCase):
 
 class QuestionnaireNewStepTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'sample.json']
+    fixtures = ['groups_permissions.json', 'wocat.json']
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_new_step, args=['cat_1'])
+        self.url = reverse(route_questionnaire_new_step, args=['wocat_cat_1'])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -108,14 +108,14 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'sample/questionnaire/new_step.html')
+        self.assertTemplateUsed(res, 'wocat/questionnaire/new_step.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('sample.views.generic_questionnaire_new_step')
+    @patch('wocat.views.generic_questionnaire_new_step')
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, 'cat_1')
+        questionnaire_new_step(request, 'wocat_cat_1')
         mock_questionnaire_new_step.assert_called_once_with(
             request, *get_valid_new_step_values())
 
@@ -123,7 +123,7 @@ class QuestionnaireNewStepTest(TestCase):
 class QuestionnaireDetailsTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'sample.json', 'sample_questionnaires.json']
+        'groups_permissions.json', 'wocat.json', 'wocat_questionnaires.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -131,10 +131,10 @@ class QuestionnaireDetailsTest(TestCase):
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'sample/questionnaire/details.html')
+        self.assertTemplateUsed(res, 'wocat/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('sample.views.generic_questionnaire_details')
+    @patch('wocat.views.generic_questionnaire_details')
     def test_calls_generic_function(self, mock_questionnaire_details):
         request = self.factory.get(self.url)
         questionnaire_details(request, 1)
@@ -150,10 +150,10 @@ class QuestionnaireListTest(TestCase):
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'sample/questionnaire/list.html')
+        self.assertTemplateUsed(res, 'wocat/questionnaire/list.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('sample.views.generic_questionnaire_list')
+    @patch('wocat.views.generic_questionnaire_list')
     def test_calls_generic_function(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
         questionnaire_list(request)

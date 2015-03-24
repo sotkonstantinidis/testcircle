@@ -1,4 +1,4 @@
-{% extends 'sample/base.html' %}
+{% extends 'wocat/base.html' %}
 
 {% load staticfiles %}
 {% load i18n %}
@@ -6,12 +6,12 @@
 {% block content %}
   <div class="row">
     <div class="large-12 columns">
-      <h3>{% trans "[TODO] [Sample] Questionnaire Details" %}</h3>
+      <h3>{% trans "[TODO] WOCAT Questionnaire Details" %}</h3>
       {% for category in categories %}
         {{ category }}
       {% endfor %}
       <p>
-        <a href="{% url 'sample:questionnaire_edit' questionnaire_id %}" class="button tiny">{% trans "Edit" %}</a>
+        <a href="{% url 'wocat:questionnaire_edit' questionnaire_id %}" class="button tiny">{% trans "Edit" %}</a>
       </p>
     </div>
   </div>

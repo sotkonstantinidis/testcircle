@@ -14,23 +14,23 @@ from unccd.views import (
     questionnaire_new_step,
 )
 
-questionnaire_route_details = 'unccd_questionnaire_details'
-questionnaire_route_home = 'unccd_home'
-questionnaire_route_list = 'unccd_questionnaire_list'
-questionnaire_route_new = 'unccd_questionnaire_new'
-questionnaire_route_new_step = 'unccd_questionnaire_new_step'
+route_questionnaire_details = 'unccd:questionnaire_details'
+route_home = 'unccd:home'
+route_questionnaire_list = 'unccd:questionnaire_list'
+route_questionnaire_new = 'unccd:questionnaire_new'
+route_questionnaire_new_step = 'unccd:questionnaire_new_step'
 
 
 def get_valid_new_step_values():
     return (
         'unccd_cat_1', 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd_questionnaire_new')
+        'unccd:questionnaire_new')
 
 
 def get_valid_new_values():
     args = (
-        'unccd', 'unccd/questionnaire/new.html', 'unccd_questionnaire_details',
-        'unccd_questionnaire_new_step')
+        'unccd', 'unccd/questionnaire/new.html', 'unccd:questionnaire_details',
+        'unccd:questionnaire_new_step')
     kwargs = {'questionnaire_id': None}
     return args, kwargs
 
@@ -42,7 +42,7 @@ def get_valid_details_values():
 def get_valid_list_values():
     return (
         'unccd', 'unccd/questionnaire/list.html',
-        'unccd_questionnaire_details')
+        'unccd:questionnaire_details')
 
 
 def get_category_count():
@@ -55,11 +55,23 @@ def get_categories():
     )
 
 
+class UnccdHomeTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(route_home)
+
+    def test_renders_correct_template(self):
+        res = self.client.get(self.url)
+        self.assertTemplateUsed(res, 'unccd/home.html')
+        self.assertEqual(res.status_code, 200)
+
+
 class QuestionnaireNewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_new)
+        self.url = reverse(route_questionnaire_new)
 
     def test_questionnaire_new_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -86,7 +98,7 @@ class QuestionnaireNewStepTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_new_step, args=['unccd_cat_1'])
+        self.url = reverse(route_questionnaire_new_step, args=['unccd_cat_1'])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -114,7 +126,7 @@ class QuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_details, args=[1])
+        self.url = reverse(route_questionnaire_details, args=[1])
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
@@ -133,7 +145,7 @@ class QuestionnaireListTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_list)
+        self.url = reverse(route_questionnaire_list)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
