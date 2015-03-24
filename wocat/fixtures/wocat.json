@@ -1,0 +1,79 @@
+[
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"WOCAT Key 1\", \"es\": \"WOCAT Clave 1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1001
+},
+
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"WOCAT Category 1\", \"es\": \"WOCAT Categoría 1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1101
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"WOCAT Subcategory 1_1\", \"es\": \"WOCAT Subcategoría 1_1\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1111
+},
+
+{
+    "fields": {
+        "keyword": "wocat_key_1",
+        "translation": 1001,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1001
+},
+
+{
+    "fields": {
+        "keyword": "wocat_cat_1",
+        "translation": 1101
+    },
+    "model": "configuration.category",
+    "pk": 1001
+},
+{
+    "fields": {
+        "keyword": "wocat_subcat_1_1",
+        "translation": 1111
+    },
+    "model": "configuration.category",
+    "pk": 1011
+},
+
+{
+    "fields": {
+        "keyword": "wocat_qg_1",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1001
+},
+
+{
+    "fields": {
+        "code": "wocat",
+        "description": "Description of WOCAT Configuration",
+        "active": true,
+        "activated": "2015-01-08T10:12:59.337Z",
+        "data": "{\"categories\":[{\"keyword\":\"wocat_cat_1\",\"subcategories\":[{\"keyword\":\"wocat_subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"wocat_key_1\",\"list_position\":1}],\"keyword\":\"wocat_qg_1\"}]}]}]}",
+        "created": "2015-01-08T10:12:59.337Z",
+        "base_code": "",
+        "name": "WOCAT Configuration"
+    },
+    "model": "configuration.configuration",
+    "pk": 1001
+}
+]
