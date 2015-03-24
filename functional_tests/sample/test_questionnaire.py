@@ -528,7 +528,9 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//div[@class="list-sub small-12 columns"]')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-        self.assertEqual(subcat_val_1.get_attribute('style'), '')
+        self.browser.implicitly_wait(5)
+        self.findBy(
+            'xpath', '//div[@class="list-sub small-12 columns" and @style=""]')
         self.findByNot(
             'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
@@ -599,7 +601,11 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//div[@class="list-sub small-12 columns"]')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-        self.assertEqual(subcat_val_1.get_attribute('style'), 'display: none;')
+        self.browser.implicitly_wait(5)
+        self.findBy(
+            'xpath',
+            '//div[@class="list-sub small-12 columns" and '
+            '@style="display: none;"]')
 
         # She reselects the value of Key 15 and sees that the previously
         # selected value of Key 16 is not selected anymore.
@@ -609,6 +615,7 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
         # She selects two values of Key 16 again and submits the form
+        self.browser.implicitly_wait(5)
         self.findBy(
             'xpath', '(//input[@name="qg_12-0-key_16"])[1]').click()
         self.findBy(
@@ -1019,7 +1026,7 @@ class QuestionnaireTest(FunctionalTest):
         # She goes to the list of questionnaires and sees that the
         #  questionnaire she created is listed there.
         self.findBy('xpath', '//a[contains(@href, "{}")]'.format(
-            reverse(route_questionnaire_list)))
+            reverse(route_questionnaire_list))).click()
         self.checkOnPage('List')
         self.checkOnPage('Foo')
 

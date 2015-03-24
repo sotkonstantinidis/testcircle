@@ -79,10 +79,14 @@
           <ul class="right">
             {% if user.is_authenticated %}
               <li class="has-dropdown">
-                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+                <a href="#">{{ user }}</a>
                 <ul class="dropdown">
-                  <li><a href="#">First link in dropdown</a></li>
-                  <li class="active"><a href="#">Active link in dropdown</a></li>
+                  {% if user.is_staff %}
+                    <li>
+                      <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
+                    </li>
+                  {% endif %}
+                  <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
               </li>
             {% else %}
@@ -113,6 +117,12 @@
       {% endblock %}
 
     </header>
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert-box{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
 
     {% block content %}
     {% endblock %}
