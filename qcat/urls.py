@@ -29,6 +29,6 @@ urlpatterns += i18n_patterns(
 if settings.DEBUG:
     urlpatterns += i18n_patterns(
         '',
-        url(r'^sample/', include('sample.urls')),
+        url(r'^sample/', include('sample.urls', namespace='sample')),
     ) + static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

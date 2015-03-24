@@ -21,7 +21,7 @@ from qcat.errors import (
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 
-questionnaire_details_route = 'sample_questionnaire_details'
+route_questionnaire_details = 'sample:questionnaire_details'
 
 
 def get_valid_questionnaire_configuration():
@@ -112,7 +112,7 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         }]
         questionnaires = Questionnaire.objects.all()
         list_data = conf.get_list_data(
-            questionnaires, questionnaire_details_route, current_locale='en')
+            questionnaires, route_questionnaire_details, current_locale='en')
         self.assertEqual(len(list_data), 3)
         row_1 = list_data[1]
         row_2 = list_data[2]

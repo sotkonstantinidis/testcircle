@@ -14,11 +14,11 @@ from unccd.views import (
     questionnaire_new_step,
 )
 
-questionnaire_route_details = 'unccd:questionnaire_details'
-questionnaire_route_home = 'unccd:home'
-questionnaire_route_list = 'unccd:questionnaire_list'
-questionnaire_route_new = 'unccd:questionnaire_new'
-questionnaire_route_new_step = 'unccd:questionnaire_new_step'
+route_questionnaire_details = 'unccd:questionnaire_details'
+route_home = 'unccd:home'
+route_questionnaire_list = 'unccd:questionnaire_list'
+route_questionnaire_new = 'unccd:questionnaire_new'
+route_questionnaire_new_step = 'unccd:questionnaire_new_step'
 
 
 def get_valid_new_step_values():
@@ -59,7 +59,7 @@ class UnccdHomeTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_home)
+        self.url = reverse(route_home)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url)
@@ -71,7 +71,7 @@ class QuestionnaireNewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_new)
+        self.url = reverse(route_questionnaire_new)
 
     def test_questionnaire_new_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -98,7 +98,7 @@ class QuestionnaireNewStepTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_new_step, args=['unccd_cat_1'])
+        self.url = reverse(route_questionnaire_new_step, args=['unccd_cat_1'])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -126,7 +126,7 @@ class QuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_details, args=[1])
+        self.url = reverse(route_questionnaire_details, args=[1])
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
@@ -145,7 +145,7 @@ class QuestionnaireListTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_list)
+        self.url = reverse(route_questionnaire_list)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)

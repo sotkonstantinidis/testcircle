@@ -30,8 +30,8 @@ from sample.tests.test_views import (
     get_valid_new_values,
     get_valid_details_values,
     get_valid_list_values,
-    questionnaire_route_details,
-    questionnaire_route_list,
+    route_questionnaire_details,
+    route_questionnaire_list,
 )
 
 file_upload_route = 'file_upload'
@@ -235,7 +235,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_redirect.assert_called_once_with(
-            'sample_questionnaire_details', 1)
+            'sample:questionnaire_details', 1)
 
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
     def test_calls_get_questionnaire_data_in_single_language(
@@ -251,7 +251,7 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with(
-            {}, editable=True, edit_step_route='sample_questionnaire_new_step')
+            {}, editable=True, edit_step_route='sample:questionnaire_new_step')
 
     @patch.object(QuestionnaireCategory, 'get_details')
     @patch('questionnaire.views.render')
@@ -278,7 +278,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.request = self.factory.get(reverse(
-            questionnaire_route_details, args=[1]))
+            route_questionnaire_details, args=[1]))
 
     @patch('questionnaire.views.get_object_or_404')
     def test_calls_get_object_or_404(self, mock_get_object_or_404):
@@ -332,7 +332,7 @@ class GenericQuestionnaireListTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.request = self.factory.get(reverse(questionnaire_route_list))
+        self.request = self.factory.get(reverse(route_questionnaire_list))
 
     @patch.object(QuestionnaireConfiguration, '__init__')
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
@@ -347,7 +347,7 @@ class GenericQuestionnaireListTest(TestCase):
     def test_calls_get_list(self, mock_get_list_data):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_list_data.assert_called_once_with(
-            [], questionnaire_route_details, 'en')
+            [], route_questionnaire_details, 'en')
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     @patch('questionnaire.views.render')
