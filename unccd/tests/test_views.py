@@ -14,23 +14,23 @@ from unccd.views import (
     questionnaire_new_step,
 )
 
-questionnaire_route_details = 'unccd_questionnaire_details'
-questionnaire_route_home = 'unccd_home'
-questionnaire_route_list = 'unccd_questionnaire_list'
-questionnaire_route_new = 'unccd_questionnaire_new'
-questionnaire_route_new_step = 'unccd_questionnaire_new_step'
+questionnaire_route_details = 'unccd:questionnaire_details'
+questionnaire_route_home = 'unccd:home'
+questionnaire_route_list = 'unccd:questionnaire_list'
+questionnaire_route_new = 'unccd:questionnaire_new'
+questionnaire_route_new_step = 'unccd:questionnaire_new_step'
 
 
 def get_valid_new_step_values():
     return (
         'unccd_cat_1', 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd_questionnaire_new')
+        'unccd:questionnaire_new')
 
 
 def get_valid_new_values():
     args = (
-        'unccd', 'unccd/questionnaire/new.html', 'unccd_questionnaire_details',
-        'unccd_questionnaire_new_step')
+        'unccd', 'unccd/questionnaire/new.html', 'unccd:questionnaire_details',
+        'unccd:questionnaire_new_step')
     kwargs = {'questionnaire_id': None}
     return args, kwargs
 
@@ -42,7 +42,7 @@ def get_valid_details_values():
 def get_valid_list_values():
     return (
         'unccd', 'unccd/questionnaire/list.html',
-        'unccd_questionnaire_details')
+        'unccd:questionnaire_details')
 
 
 def get_category_count():

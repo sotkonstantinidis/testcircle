@@ -86,6 +86,18 @@ function toggleImageCheckboxConditional(el) {
 }
 
 $(function() {
+
+  // Language switcher
+  $('.top-bar-lang .dropdown a').click(function() {
+    var lang = $(this).data('language');
+    var form = $(this).closest('form');
+    if (form && lang) {
+      form.find('#language_field').val(lang);
+      form.submit();
+    }
+  });
+
+
   $('img[data-alt-src]').each(function() {
       new Image().src = $(this).data('alt-src');
   }).hover(sourceSwap, sourceSwap);

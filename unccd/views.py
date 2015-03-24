@@ -45,7 +45,7 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
     """
     return generic_questionnaire_new_step(
         request, step, 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd_questionnaire_new')
+        'unccd:questionnaire_new')
 
 
 @login_required
@@ -67,7 +67,7 @@ def questionnaire_new(request, questionnaire_id=None):
     """
     return generic_questionnaire_new(
         request, 'unccd', 'unccd/questionnaire/new.html',
-        'unccd_questionnaire_details', 'unccd_questionnaire_new_step',
+        'unccd:questionnaire_details', 'unccd:questionnaire_new_step',
         questionnaire_id=questionnaire_id)
 
 
@@ -109,4 +109,4 @@ def questionnaire_list(request):
     """
     return generic_questionnaire_list(
         request, 'unccd', 'unccd/questionnaire/list.html',
-        'unccd_questionnaire_details')
+        'unccd:questionnaire_details')

@@ -4,7 +4,7 @@ from django.test.client import RequestFactory
 from qcat.tests import TestCase
 
 
-route_home = 'wocat_home'
+route_home = 'wocat:home'
 
 
 class WocatHomeTest(TestCase):

@@ -22,8 +22,8 @@ urlpatterns += i18n_patterns(
     '',
     url(r'^questionnaire/', include('questionnaire.urls')),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^wocat/', include('wocat.urls')),
-    url(r'^unccd/', include('unccd.urls')),
+    url(r'^wocat/', include('wocat.urls', namespace='wocat')),
+    url(r'^unccd/', include('unccd.urls', namespace='unccd')),
 )
 
 if settings.DEBUG:
