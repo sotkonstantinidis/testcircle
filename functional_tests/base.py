@@ -112,7 +112,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertIn(text, self.browser.page_source)
 
     def changeLanguage(self, locale):
-        self.findBy('name', 'setLang%s' % locale).submit()
+        self.findBy('xpath', '//a[@data-language="{}"]'.format(locale)).click()
 
     @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
     def doLogin(self, username, password, mock_do_auth):
