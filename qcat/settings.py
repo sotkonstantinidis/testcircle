@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'questionnaire',
     'accounts',
     'configuration',
+    'wocat',
     'unccd',
     'sample',
 )

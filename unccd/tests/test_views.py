@@ -55,6 +55,18 @@ def get_categories():
     )
 
 
+class UnccdHomeTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(questionnaire_route_home)
+
+    def test_renders_correct_template(self):
+        res = self.client.get(self.url)
+        self.assertTemplateUsed(res, 'unccd/home.html')
+        self.assertEqual(res.status_code, 200)
+
+
 class QuestionnaireNewTest(TestCase):
 
     def setUp(self):
