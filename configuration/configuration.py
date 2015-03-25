@@ -464,9 +464,11 @@ class QuestionnaireQuestiongroup(object):
                 'max_num', 'integer >= 1', 'questiongroup')
 
         self.helptext = ''
+        self.label = ''
         translation = questiongroup_object.translation
         if translation:
             self.helptext = translation.get_translation('helptext')
+            self.label = translation.get_translation('label')
 
         self.questions = []
         conf_questions = self.configuration.get('questions', [])
@@ -575,6 +577,7 @@ class QuestionnaireQuestiongroup(object):
         config = {
             'keyword': self.keyword,
             'helptext': self.helptext,
+            'label': self.label,
             'templates': templates,
         }
 

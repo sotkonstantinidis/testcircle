@@ -23,7 +23,7 @@ route_questionnaire_new_step = 'unccd:questionnaire_new_step'
 
 def get_valid_new_step_values():
     return (
-        'unccd_cat_1', 'unccd', 'unccd/questionnaire/new_step.html',
+        get_categories()[0][0], 'unccd', 'unccd/questionnaire/new_step.html',
         'unccd:questionnaire_new')
 
 
@@ -98,7 +98,8 @@ class QuestionnaireNewStepTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_new_step, args=['unccd_cat_1'])
+        self.url = reverse(
+            route_questionnaire_new_step, args=[get_categories()[0][0]])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -114,7 +115,7 @@ class QuestionnaireNewStepTest(TestCase):
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, 'unccd_cat_1')
+        questionnaire_new_step(request, get_categories()[0][0])
         mock_questionnaire_new_step.assert_called_once_with(
             request, *get_valid_new_step_values())
 

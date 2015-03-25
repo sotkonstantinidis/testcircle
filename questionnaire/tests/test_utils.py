@@ -253,6 +253,17 @@ class GetQuestiongroupDataFromTranslationFormTest(TestCase):
             data_trans['qg_1'][0], 'es', 'en')
         self.assertEqual(qg_1_cleaned, data['qg_1'][0])
 
+    def test_handles_keys_with_keyword_in_them(self):
+        data = {
+            "qg_1": [{"wocat_original_landuse": {
+                "en": "value_en", "es": "value_es"}}],
+        }
+        data_trans = get_questionnaire_data_for_translation_form(
+            data, current_locale='es', original_locale='en')
+        qg_1_cleaned = get_questiongroup_data_from_translation_form(
+            data_trans['qg_1'][0], 'es', 'en')
+        self.assertEqual(qg_1_cleaned, data['qg_1'][0])
+
     def test_returns_non_translated_values(self):
         data = get_valid_questionnaire_content()
         data_trans = get_questionnaire_data_for_translation_form(

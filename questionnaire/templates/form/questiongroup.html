@@ -4,7 +4,7 @@
   Adds buttons to add or remove additional questiongroups
 
   config: The configuration of the questiongroup
-    - DDDDDDDDDDDDDDDD
+    -
 
   formset (??)
 
@@ -13,6 +13,10 @@
 {% load i18n %}
 {% load floppyforms %}
 {% load list_to_columns %}
+
+{% if config.label %}
+  <label>{{ config.label }}</label>
+{% endif %}
 
 {% if config.helptext %}
   <p class="help-bloc">{{ config.helptext }}</p>

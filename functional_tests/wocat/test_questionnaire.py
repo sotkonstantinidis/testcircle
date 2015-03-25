@@ -5,6 +5,7 @@ from wocat.tests.test_views import (
     route_home,
     route_questionnaire_new_step,
     get_category_count,
+    get_categories,
 )
 
 
@@ -34,7 +35,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to the first step and sees the link works.
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['wocat_cat_1']))
+            route_questionnaire_new_step, args=[get_categories()[0][0]]))
 
         self.findBy('id', 'button-submit').click()
         progress_indicators = self.findManyBy(
