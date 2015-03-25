@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-import requests
 
 
 def login(request):
@@ -65,6 +64,9 @@ def logout(request):
     Log the user out, then redirect to home page. Deletes the WOCAT
     session ID of the user (``fe_typo_user``)
 
+    Because the WOCAT logout function does not delete the session
+    cookie, a redirect back here is necessary to delete it manually.
+
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
@@ -74,12 +76,14 @@ def logout(request):
     if request.user.is_authenticated():
         django_logout(request)
 
+        return HttpResponseRedirect(
+            'https://www.wocat.net/en/sitefunctions/login.'
+            'html?logintype=logout&redirect_url={}'.format(
+                request.build_absolute_uri(reverse('logout'))))
+
     next_url = request.build_absolute_uri(
         request.GET.get('next', reverse('home')))
 
-    requests.get(
-        'https://www.wocat.net/en/sitefunctions/login.'
-        'html?logintype=logout&redirect_url={}'.format(next_url))
     res = HttpResponseRedirect(next_url)
     res.delete_cookie('fe_typo_user')
     return res
