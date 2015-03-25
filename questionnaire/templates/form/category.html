@@ -1,4 +1,4 @@
-{% extends 'unccd/questionnaire/base_form.html' %}
+{% extends 'form/base.html' %}
 
 {% load i18n %}
 {% load floppyforms %}
@@ -17,7 +17,7 @@
             <span class="meter" style="width:0%"></span>
           </div>
           <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}"/>
-          <a class="button secondary" href="{% url 'unccd:questionnaire_new' %}">{% trans "Back" %}</a>
+          <a class="button secondary" href="{% url route_overview %}">{% trans "Back" %}</a>
           <div class="right">
             {% if category_formsets|length > 1 %}
               <a class="button button-icon" href="#question1" data-magellan-step="previous">

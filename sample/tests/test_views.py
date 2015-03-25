@@ -21,16 +21,14 @@ route_questionnaire_new_step = 'sample:questionnaire_new_step'
 
 
 def get_valid_new_step_values():
-    return (
-        'cat_1', 'sample', 'sample/questionnaire/new_step.html',
-        'sample:questionnaire_new')
+    args = (get_categories()[0][0], 'sample', 'sample')
+    kwargs = {'page_title': 'SAMPLE Form'}
+    return args, kwargs
 
 
 def get_valid_new_values():
-    args = (
-        'sample', 'sample/questionnaire/new.html',
-        'sample:questionnaire_details', 'sample:questionnaire_new_step')
-    kwargs = {'questionnaire_id': None}
+    args = ('sample', 'sample')
+    kwargs = {'questionnaire_id': None, 'page_title': 'SAMPLE Form Overview'}
     return args, kwargs
 
 
@@ -81,7 +79,7 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'sample/questionnaire/new.html')
+        self.assertTemplateUsed(res, 'form/overview.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('sample.views.generic_questionnaire_new')
@@ -99,7 +97,8 @@ class QuestionnaireNewStepTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_new_step, args=['cat_1'])
+        self.url = reverse(
+            route_questionnaire_new_step, args=[get_categories()[0][0]])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -108,16 +107,17 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'sample/questionnaire/new_step.html')
+        self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('sample.views.generic_questionnaire_new_step')
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, 'cat_1')
+        questionnaire_new_step(request, get_categories()[0][0])
         mock_questionnaire_new_step.assert_called_once_with(
-            request, *get_valid_new_step_values())
+            request, *get_valid_new_step_values()[0],
+            **get_valid_new_step_values()[1])
 
 
 class QuestionnaireDetailsTest(TestCase):
