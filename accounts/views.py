@@ -32,8 +32,9 @@ def login(request):
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
+    next_url = request.GET.get('next', reverse('home'))
     redirect = request.build_absolute_uri(
-        request.GET.get('next', reverse('home')))
+        '{}?next={}'.format(reverse('login'), next_url))
 
     if request.user.is_authenticated():
         return HttpResponseRedirect(redirect)
@@ -42,8 +43,7 @@ def login(request):
         request, 'login.html', {
             'redirect_url': redirect,
             'login_url': 'https://www.wocat.net/en/sitefunctions/login.html',
-            'show_notice': redirect != request.build_absolute_uri(
-                reverse('home'))
+            'show_notice': next_url != reverse('home')
         })
 
     ses_id = request.COOKIES.get('fe_typo_user')
@@ -74,6 +74,11 @@ def logout(request):
     """
     if request.user.is_authenticated():
         django_logout(request)
-    res = HttpResponseRedirect(reverse('home'))
+
+    next_url = request.build_absolute_uri(
+        request.GET.get('next', reverse('home')))
+    res = HttpResponseRedirect(
+        'https://www.wocat.net/en/sitefunctions/login.'
+        'html?logintype=logout&redirect_url={}'.format(next_url))
     res.delete_cookie('fe_typo_user')
     return res

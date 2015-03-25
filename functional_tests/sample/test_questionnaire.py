@@ -329,6 +329,10 @@ class QuestionnaireTest(FunctionalTest):
         # the form progress on the overview page is updated
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[contains(text(), "Key 13")]')
+
+        import time
+        time.sleep(30)
+
         self.findBy('xpath', '//*[contains(text(), "Value 13_1")]')
         progress_indicator = self.findBy(
             'xpath', '(//div[@class="progress radius"])[{}]'.format(
