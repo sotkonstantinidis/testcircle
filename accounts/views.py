@@ -85,5 +85,5 @@ def logout(request):
         request.GET.get('next', reverse('home')))
 
     res = HttpResponseRedirect(next_url)
-    res.delete_cookie('fe_typo_user')
+    res.delete_cookie('fe_typo_user', domain='.wocat.net', path='/')
     return res
