@@ -32,18 +32,16 @@ def login(request):
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    next_url = request.GET.get('next', reverse('home'))
-    redirect = request.build_absolute_uri(
-        '{}?next={}'.format(reverse('login'), next_url))
+    redirect = request.GET.get('next', reverse('home'))
 
     if request.user.is_authenticated():
         return HttpResponseRedirect(redirect)
 
     res = render(
         request, 'login.html', {
-            'redirect_url': redirect,
+            'redirect_url': request.build_absolute_uri(redirect),
             'login_url': 'https://www.wocat.net/en/sitefunctions/login.html',
-            'show_notice': next_url != reverse('home')
+            'show_notice': redirect != reverse('home')
         })
 
     ses_id = request.COOKIES.get('fe_typo_user')
