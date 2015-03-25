@@ -22,16 +22,14 @@ route_questionnaire_new_step = 'unccd:questionnaire_new_step'
 
 
 def get_valid_new_step_values():
-    return (
-        'unccd_cat_1', 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd:questionnaire_new')
+    args = (get_categories()[0][0], 'unccd', 'unccd')
+    kwargs = {'page_title': 'UNCCD Form'}
+    return args, kwargs
 
 
 def get_valid_new_values():
-    args = (
-        'unccd', 'unccd/questionnaire/new.html', 'unccd:questionnaire_details',
-        'unccd:questionnaire_new_step')
-    kwargs = {'questionnaire_id': None}
+    args = ('unccd', 'unccd')
+    kwargs = {'questionnaire_id': None, 'page_title': 'UNCCD Form Overview'}
     return args, kwargs
 
 
@@ -80,7 +78,7 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/new.html')
+        self.assertTemplateUsed(res, 'form/overview.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('unccd.views.generic_questionnaire_new')
@@ -98,7 +96,8 @@ class QuestionnaireNewStepTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_new_step, args=['unccd_cat_1'])
+        self.url = reverse(
+            route_questionnaire_new_step, args=[get_categories()[0][0]])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -107,16 +106,17 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/new_step.html')
+        self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('unccd.views.generic_questionnaire_new_step')
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, 'unccd_cat_1')
+        questionnaire_new_step(request, get_categories()[0][0])
         mock_questionnaire_new_step.assert_called_once_with(
-            request, *get_valid_new_step_values())
+            request, *get_valid_new_step_values()[0],
+            **get_valid_new_step_values()[1])
 
 
 class QuestionnaireDetailsTest(TestCase):

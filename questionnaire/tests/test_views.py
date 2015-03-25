@@ -75,21 +75,21 @@ class GenericQuestionnaireNewStepTest(TestCase):
             self, mock_get_session_questionnaire):
         mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_get_session_questionnaire.assert_called_once_with()
 
     @patch('questionnaire.views.get_questionnaire_data_for_translation_form')
     def test_calls_get_questionnaire_data_for_translation_form(
             self, mock_get_questionnaire_data):
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_get_questionnaire_data.assert_called_once_with({}, 'en', None)
 
     @patch.object(QuestionnaireCategory, 'get_form')
     def test_calls_category_get_form(self, mock_get_form):
         mock_get_form.return_value = None, None
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_get_form.assert_called_once_with(
             post_data=None, show_translation=False, initial_data={})
 
@@ -101,7 +101,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         r = self.request
         r.method = 'POST'
         generic_questionnaire_new_step(
-            r, *get_valid_new_step_values())
+            r, *get_valid_new_step_values()[0])
         mock_save_session_questionnaire.assert_called_once_with({})
 
     @patch.object(QuestionnaireCategory, 'get_form')
@@ -109,15 +109,18 @@ class GenericQuestionnaireNewStepTest(TestCase):
     def test_calls_render(self, mock_render, mock_get_form):
         mock_get_form.return_value = "foo", "bar"
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_render.assert_called_once_with(
-            self.request, 'sample/questionnaire/new_step.html', {
+            self.request, 'form/category.html', {
                 'category_formsets': "bar",
-                'category_config': "foo"})
+                'category_config': "foo",
+                'title': 'QCAT Form',
+                'route_overview': 'sample:questionnaire_new',
+            })
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         self.assertIsInstance(ret, HttpResponse)
 
 
@@ -261,10 +264,12 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_render.assert_called_once_with(
-            self.request, 'sample/questionnaire/new.html', {
+            self.request, 'form/overview.html', {
                 'questionnaire_id': None,
                 'category_names': get_categories(),
-                'categories': ["foo"]*get_category_count()})
+                'categories': ["foo"]*get_category_count(),
+                'title': 'SAMPLE Form Overview'
+            })
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_new(

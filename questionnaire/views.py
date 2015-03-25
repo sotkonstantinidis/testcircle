@@ -38,7 +38,8 @@ from questionnaire.utils import (
 
 @login_required
 def generic_questionnaire_new_step(
-        request, step, configuration_code, template, success_route):
+        request, step, configuration_code, url_namespace,
+        page_title='QCAT Form'):
     """
     A generic view to show the form of a single step of a new or edited
     questionnaire.
@@ -55,11 +56,14 @@ def generic_questionnaire_new_step(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
-        ``template`` (str): The path of the template to be rendered for
-        the form.
+        ``url_namespace`` (str): The namespace of the questionnaire
+        URLs. It is assumed that all questionnaire apps have the same
+        routes for their questionnaires
+        (e.g. ``wocat:questionnaire_new``)
 
-        ``success_route`` (str): The name of the route to be used to
-        redirect to after successful form submission.
+    Kwargs:
+        ``page_title`` (str): The page title to be used in the HTML
+        template. Defaults to ``QCAT Form``.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -126,18 +130,20 @@ def generic_questionnaire_new_step(
             messages.success(
                 request, _('[TODO] Data successfully stored to Session.'),
                 fail_silently=True)
-            return redirect(success_route)
+            return redirect('{}:questionnaire_new'.format(url_namespace))
 
-    return render(request, template, {
+    return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
-        'category_config': category_config
+        'category_config': category_config,
+        'title': page_title,
+        'route_overview': '{}:questionnaire_new'.format(url_namespace)
     })
 
 
 @login_required
 def generic_questionnaire_new(
-        request, configuration_code, template, success_route, edit_step_route,
-        questionnaire_id=None):
+        request, configuration_code, url_namespace,
+        questionnaire_id=None, page_title='QCAT Form Overview'):
     """
     A generic view to show an entire questionnaire.
 
@@ -151,14 +157,17 @@ def generic_questionnaire_new(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
-        ``template`` (str): The path of the template to be rendered for
-        the form.
+        ``url_namespace`` (str): The namespace of the questionnaire
+        URLs. It is assumed that all questionnaire apps have the same
+        routes for their questionnaires
+        (e.g. ``wocat:questionnaire_new``)
 
-        ``success_route`` (str): The name of the route to be used to
-        redirect to after successful form submission.
-
+    Kwargs:
         ``questionnaire_id`` (id): The ID of a questionnaire if the it
         is an edit form.
+
+        ``page_title`` (str): The page title to be used in the HTML
+        template. Defaults to ``QCAT Form``.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -194,21 +203,25 @@ def generic_questionnaire_new(
                 request,
                 _('[TODO] The questionnaire was successfully created.'),
                 fail_silently=True)
-            return redirect(success_route, questionnaire.id)
+            return redirect(
+                '{}:questionnaire_details'.format(url_namespace),
+                questionnaire.id)
 
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
     categories = questionnaire_configuration.get_details(
-        data, editable=True, edit_step_route=edit_step_route)
+        data, editable=True,
+        edit_step_route='{}:questionnaire_new_step'.format(url_namespace))
     category_names = []
     for category in questionnaire_configuration.categories:
         category_names.append((category.keyword, category.label))
 
-    return render(request, template, {
+    return render(request, 'form/overview.html', {
         'categories': categories,
         'category_names': tuple(category_names),
         'questionnaire_id': questionnaire_id,
+        'title': page_title,
     })
 
 

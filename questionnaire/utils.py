@@ -318,12 +318,12 @@ def get_questiongroup_data_from_translation_form(
         if key.startswith(old_prefix):
             continue
         if key.startswith(translation_prefix):
-            k = key.replace(translation_prefix, '')
+            k = key.replace(translation_prefix, '', 1)
             if not isinstance(questiongroup_data_cleaned[k], dict):
                 questiongroup_data_cleaned[k] = {}
             questiongroup_data_cleaned[k].update({current_locale: value})
         elif key.startswith(original_prefix):
-            k = key.replace(original_prefix, '')
+            k = key.replace(original_prefix, '', 1)
             if not isinstance(questiongroup_data_cleaned[k], dict):
                 questiongroup_data_cleaned[k] = {}
             questiongroup_data_cleaned[k].update({original_locale: value})

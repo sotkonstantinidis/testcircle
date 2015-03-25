@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext as _
 
 from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
@@ -44,8 +45,7 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'wocat', 'wocat/questionnaire/new_step.html',
-        'wocat:questionnaire_new')
+        request, step, 'wocat', 'wocat', page_title=_('WOCAT Form'))
 
 
 @login_required
@@ -66,9 +66,8 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'wocat', 'wocat/questionnaire/new.html',
-        'wocat:questionnaire_details', 'wocat:questionnaire_new_step',
-        questionnaire_id=questionnaire_id)
+        request, 'wocat', 'wocat', questionnaire_id=questionnaire_id,
+        page_title=_('WOCAT Form Overview'))
 
 
 def questionnaire_details(request, questionnaire_id):
