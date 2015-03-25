@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+import requests
 
 
 def login(request):
@@ -75,8 +76,10 @@ def logout(request):
 
     next_url = request.build_absolute_uri(
         request.GET.get('next', reverse('home')))
-    res = HttpResponseRedirect(
+
+    requests.get(
         'https://www.wocat.net/en/sitefunctions/login.'
         'html?logintype=logout&redirect_url={}'.format(next_url))
+    res = HttpResponseRedirect(next_url)
     res.delete_cookie('fe_typo_user')
     return res

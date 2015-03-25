@@ -7,8 +7,7 @@ def home(request):
 
     ses_id = request.COOKIES.get('fe_typo_user')
     if ses_id is not None and not request.user.is_authenticated():
-        return HttpResponseRedirect(
-            '{}?{}'.format(reverse('login'), request.get_full_path()))
+        return HttpResponseRedirect(reverse('login'))
 
     return render(request, 'home.html')
 
