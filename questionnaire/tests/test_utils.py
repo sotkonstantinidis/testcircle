@@ -142,6 +142,12 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 
+    def test_passes_image_data_as_such(self):
+        data = {"qg_14": [{"key_19": "61b51f3c-a3e2-43b7-87eb-42840bda7250"}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 0)
+        self.assertEqual(cleaned, data)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 
@@ -241,6 +247,17 @@ class GetQuestiongroupDataFromTranslationFormTest(TestCase):
 
     def test_cleans_translation_fields(self):
         data = get_valid_questionnaire_content()
+        data_trans = get_questionnaire_data_for_translation_form(
+            data, current_locale='es', original_locale='en')
+        qg_1_cleaned = get_questiongroup_data_from_translation_form(
+            data_trans['qg_1'][0], 'es', 'en')
+        self.assertEqual(qg_1_cleaned, data['qg_1'][0])
+
+    def test_handles_keys_with_keyword_in_them(self):
+        data = {
+            "qg_1": [{"wocat_original_landuse": {
+                "en": "value_en", "es": "value_es"}}],
+        }
         data_trans = get_questionnaire_data_for_translation_form(
             data, current_locale='es', original_locale='en')
         qg_1_cleaned = get_questiongroup_data_from_translation_form(

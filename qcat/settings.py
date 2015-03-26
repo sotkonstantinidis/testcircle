@@ -16,16 +16,16 @@ BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'defaultsecretkey'
+"""
+Many of the required settings must be defined in settings_local.py.
+These are in particular:
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
+* DATABASES
+* DEBUG
+* TEMPLATE_DEBUG
+* ALLOWED_HOSTS
+* SECRET_KEY
+"""
 
 # Application definition
 
@@ -41,9 +41,11 @@ INSTALLED_APPS = (
     'django_nose',
     'floppyforms',
     'django_extensions',
+    'imagekit',
     'questionnaire',
     'accounts',
     'configuration',
+    'wocat',
     'unccd',
     'sample',
 )
@@ -97,6 +99,24 @@ STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_URL = '/upload/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'upload')
+
+UPLOAD_VALID_FILES = {
+    'image': (
+        ('image/jpeg', 'jpg'),
+        ('image/png', 'png'),
+        ('image/gif', 'gif'),
+    ),
+    'document': (
+        ('application/pdf', 'pdf'),
+    )
+}
+UPLOAD_MAX_FILE_SIZE = 1000000
+UPLOAD_IMAGE_THUMBNAIL_FORMATS = {
+    'header': (900, 300),
+}
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),

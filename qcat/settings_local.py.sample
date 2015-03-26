@@ -15,16 +15,11 @@ DATABASES = {
         'USER': '',
         'PASSWORD': '',
         'HOST': ''
-    }
-}
-
-AUTH_DATABASE = {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': '',
-    'USER': '',
-    'PASSWORD': '',
-    'HOST': '',
-    'PORT': 3306
+    },
+    # For local development, you can also specify a 'typo3' database
+    # used for authentication. Only works in DEBUG mode. Please note
+    # that there may occur permission issues when running the tests.
+    # 'typo3': { ... }
 }
 
 # SECURITY WARNING: don't run with debug turned on in production!

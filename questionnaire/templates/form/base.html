@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% trans "[TODO] [Sample] Form" %}</title>
+    <title>{{ title }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,6 +20,9 @@
 
     <!-- ModernizR -->
     <script src="{% static 'js/modernizr.js' %}"></script>
+
+    {% block head %}
+    {% endblock %}
 
   </head>
   <body class="layout-wizard">
@@ -63,5 +66,8 @@
     <script src="{% static 'js/foundation/foundation.topbar.js' %}"></script>
     <script src="{% static 'js/wizard.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
+
+    {% block bottom %}
+    {% endblock %}
   </body>
 </html>

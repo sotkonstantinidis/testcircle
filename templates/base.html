@@ -1,84 +1,122 @@
+{% comment %}
+  The very base template.
+
+  Blocks:
+    title: The title of the page.
+      Default: "QCAT"
+    bodyclass: The CSS class of the body element (e.g. body.layout-home)
+      Defaults to "layout-home"
+    navclass: The CSS class of the nav element
+      Default: "is-home"
+    logo: A block for the logo (and link).
+      Default: WOCAT image and link to /.
+    header: A block inside the header's nav element.
+      Default: Empty
+    hero: A block inside the header element.
+      Default: Empty
+    content: A block for the main content.
+      Default: Empty
+{% endcomment %}
+
 {% load staticfiles %}
 {% load i18n %}
+{% load clean_language_url %}
 
-<!doctype html>
-<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
-<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% trans "QCAT" %}</title>
+<!DOCTYPE html>
+  <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}QCAT{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Theme styles -->
     <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+
+    <!-- ModernizR -->
     <script src="{% static 'js/modernizr.js' %}"></script>
 
-    {% block head %}
-    {% endblock %}
-
   </head>
-  <body>
+  <body class="{% block bodyclass %}layout-home{% endblock %}">
 
-    <nav class="top-bar" data-topbar>
-      <ul class="title-area">
-        <li class="name">
-          <h1>
-            <a href="{% url 'home' %}">
-              {% trans "QCAT" %}
-            </a>
-          </h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
-      </ul>
-      <section class="top-bar-section">
-        <ul class="left">
-          <li class="divider"></li>
-          <li class="has-dropdown">
-            <a class="active" href="#">{% trans "Configurations" %}</a>
-            <ul class="dropdown">
-              <li><label>{% trans "Configurations" %}</label></li>
-              <li><a href="{% url 'unccd_home' %}">{% trans "UNCCD" %}</a></li>
-            </ul>
+    <!--[if lt IE 9]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <svg style="display: none;"><symbol viewBox="0 0 20 20" id="icon-chevron-thin-down"><title>chevron-thin-down</title> <path d="M17.418,6.109c0.272-0.268,0.709-0.268,0.979,0c0.27,0.268,0.271,0.701,0,0.969l-7.908,7.83
+    c-0.27,0.268-0.707,0.268-0.979,0l-7.908-7.83c-0.27-0.268-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.979,0L10,13.25
+    L17.418,6.109z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-chevron-thin-up"><title>chevron-thin-up</title> <path d="M2.582,13.891c-0.272,0.268-0.709,0.268-0.979,0s-0.271-0.701,0-0.969l7.908-7.83c0.27-0.268,0.707-0.268,0.979,0
+    l7.908,7.83c0.27,0.268,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.978,0L10,6.75L2.582,13.891z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-edit"><title>edit</title> <path d="M17.561,2.439c-1.442-1.443-2.525-1.227-2.525-1.227L8.984,7.264L2.21,14.037L1.2,18.799l4.763-1.01l6.774-6.771
+    l6.052-6.052C18.788,4.966,19.005,3.883,17.561,2.439z M5.68,17.217l-1.624,0.35c-0.156-0.293-0.345-0.586-0.69-0.932
+    c-0.346-0.346-0.639-0.533-0.932-0.691l0.35-1.623l0.47-0.469c0,0,0.883,0.018,1.881,1.016c0.997,0.996,1.016,1.881,1.016,1.881
+    L5.68,17.217z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-image"><title>image</title> <path fill-rule="evenodd" clip-rule="evenodd" d="M19,2H1C0.447,2,0,2.447,0,3v14c0,0.552,0.447,1,1,1h18c0.553,0,1-0.448,1-1V3
+    C20,2.448,19.553,2,19,2z M18,16H2V4h16V16z M14.315,10.877l-3.231,1.605L7.314,6.381L4,14h12L14.315,10.877z M13.25,9
+    c0.69,0,1.25-0.56,1.25-1.25S13.94,6.5,13.25,6.5S12,7.06,12,7.75S12.56,9,13.25,9z"/> </symbol><symbol viewBox="0 0 20 20" id="icon-list"><title>list</title> <path d="M14.4,9H8.6C8.048,9,8,9.447,8,10s0.048,1,0.6,1H14.4c0.552,0,0.6-0.447,0.6-1S14.952,9,14.4,9z M16.4,14H8.6
+    C8.048,14,8,14.447,8,15s0.048,1,0.6,1H16.4c0.552,0,0.6-0.447,0.6-1S16.952,14,16.4,14z M8.6,6H16.4C16.952,6,17,5.553,17,5
+    s-0.048-1-0.6-1H8.6C8.048,4,8,4.447,8,5S8.048,6,8.6,6z M5.4,9H3.6C3.048,9,3,9.447,3,10s0.048,1,0.6,1H5.4C5.952,11,6,10.553,6,10
+    S5.952,9,5.4,9z M5.4,14H3.6C3.048,14,3,14.447,3,15s0.048,1,0.6,1H5.4C5.952,16,6,15.553,6,15S5.952,14,5.4,14z M5.4,4H3.6
+    C3.048,4,3,4.447,3,5s0.048,1,0.6,1H5.4C5.952,6,6,5.553,6,5S5.952,4,5.4,4z"/> </symbol><symbol viewBox="0 0 23 26" id="icon-pdf"><title>pdf</title><desc>Created with Sketch.</desc> <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->    <g id="pdf-Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <path d="M17.25,0 L0,0 L0,26 L23,26 L23,5.57142857 L17.25,0 Z M1.91666667,1.85714286 L9.58333333,1.85714286 C9.1640625,1.97321429 8.74479167,2.32142857 8.56510417,3.07589286 C8.14583333,4.52678571 8.32552083,6.90625 8.984375,9.16964286 C8.265625,11.5491071 5.33072917,17.1785714 5.15104167,17.5267857 C4.671875,17.7008929 3.17447917,18.2232143 1.91666667,19.2678571 L1.91666667,1.85714286 Z M10.421875,10.7946429 C12.0989583,15.1473214 13.2369792,15.1473214 14.4348958,15.6696429 C11.9192708,16.0178571 10.0026042,16.3080357 7.48697917,17.3526786 C7.3671875,17.5267857 9.76302083,13.1160714 10.421875,10.7946429 L10.421875,10.7946429 Z M21.0833333,24.1428571 L1.91666667,24.1428571 L1.9765625,24.1428571 C2.99479167,24.1428571 4.4921875,23.5625 7.3671875,18.8616071 C8.50520833,18.3973214 9.5234375,18.0491071 9.703125,17.9910714 C11.5,17.5848214 13.4765625,17.2366071 15.3333333,17.0625 C16.9505208,17.8169643 19.1666667,18.3973214 20.3645833,18.4553571 C20.6640625,18.4553571 20.84375,18.3973214 21.0833333,18.3973214 L21.0833333,24.1428571 Z M21.0833333,15.1473214 C20.3645833,14.6830357 19.4661458,14.3928571 18.3880208,14.3928571 C17.6692708,14.3928571 16.890625,14.4508929 16.0520833,14.5089286 C15.2734375,14.1607143 13.296875,13.5803571 11.6796875,8.99553571 C12.1588542,5.97767857 12.0390625,3.94642857 12.0390625,3.94642857 C12.21875,2.4375 11.3203125,1.85714286 10.4817708,1.85714286 L16.3333333,1.85714286 L21.0833333,6.42857143 L21.0833333,15.1473214 Z" id="pdf-pdf" fill="#000000" sketch:type="MSShapeGroup"/> </g> </symbol><symbol viewBox="0 0 20 21" id="icon-search"><title>search</title><desc>Created with Sketch.</desc><path d="M14.871 12.493l5.013 5.013c.077.089.116.189.116.301 0 .111-.039.212-.116.301l-1.822 1.821c-.09.078-.189.117-.301.117-.111 0-.212-.039-.301-.117l-5.013-5.013c-1.326.869-2.779 1.303-4.361 1.303-2.228 0-4.133-.791-5.714-2.373-1.582-1.582-2.373-3.486-2.373-5.714s.791-4.133 2.373-5.714c1.581-1.582 3.485-2.373 5.714-2.373 2.228 0 4.133.791 5.715 2.373 1.581 1.582 2.373 3.486 2.373 5.714 0 1.582-.434 3.035-1.303 4.361zm-10.694-8.254c-1.08 1.08-1.621 2.378-1.621 3.893 0 1.515.54 2.813 1.621 3.893 1.08 1.08 2.384 1.621 3.91 1.621 1.526 0 2.827-.537 3.901-1.612 1.075-1.075 1.612-2.375 1.612-3.901 0-1.526-.537-2.827-1.612-3.901-1.075-1.075-2.375-1.612-3.901-1.612-1.526 0-2.829.54-3.91 1.621z" sketch:type="MSShapeGroup" fill="#3E3A35"/></symbol><symbol viewBox="0 0 20 20" id="icon-upload"><title>upload</title> <path d="M8,12h4V6h3l-5-5L5,6h3V12z M19.338,13.532c-0.21-0.224-1.611-1.723-2.011-2.114C17.062,11.159,16.683,11,16.285,11h-1.757
+    l3.064,2.994h-3.544c-0.102,0-0.194,0.052-0.24,0.133L12.992,16H7.008l-0.816-1.873c-0.046-0.081-0.139-0.133-0.24-0.133H2.408
+    L5.471,11H3.715c-0.397,0-0.776,0.159-1.042,0.418c-0.4,0.392-1.801,1.891-2.011,2.114c-0.489,0.521-0.758,0.936-0.63,1.449
+    l0.561,3.074c0.128,0.514,0.691,0.936,1.252,0.936h16.312c0.561,0,1.124-0.422,1.252-0.936l0.561-3.074
+    C20.096,14.468,19.828,14.053,19.338,13.532z"/> </symbol><symbol viewBox="0 0 30 21" id="icon-video"><title>video</title><desc>Created with Sketch.</desc> <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->    <g id="video-Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <path d="M30,3 L30,1.1985 C30,0.5355 29.4645,0 28.8015,0 L1.2015,0 C0.537,0 0,0.5355 0,1.1985 L0,3 L3,3 L3,6 L0,6 L0,9 L3,9 L3,12 L0,12 L0,15 L3,15 L3,18 L0,18 L0,19.7985 C0,20.4615 0.537,21 1.2015,21 L28.8015,21 C29.4645,21 30,20.4615 30,19.7985 L30,18 L27,18 L27,15 L30,15 L30,12 L27,12 L27,9 L30,9 L30,6 L27,6 L27,3 L30,3 L30,3 Z M12,15 L12,6 L19.5,10.5 L12,15 L12,15 Z" id="video-video" fill="#000000" sketch:type="MSShapeGroup"/> </g> </symbol></svg>
+
+    <header class="page-header inner-wrap" role="banner">
+      <nav class="top-bar {% block navclass %}is-home{% endblock %}" role="navigation" data-topbar data-options="is_hover: false">
+        <ul class="title-area">
+          <li class="name">
+            {% block logo %}<h1><a href="{% url 'home' %}"><img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}"></a></h1>{% endblock %}
           </li>
-          <li>
-            <a href="{% url 'about' %}">{% trans "About" %}</a>
-          </li>
+
+          <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
         </ul>
-        <ul class="right">
-          {% if user.is_staff %}
-            <li>
-              <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
-            </li>
-          {% endif %}
-          <li>
+
+        <section class="top-bar-section">
+          <ul class="right">
             {% if user.is_authenticated %}
-              <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+              <li class="has-dropdown">
+                <a href="#">{{ user }}</a>
+                <ul class="dropdown">
+                  {% if user.is_staff %}
+                    <li>
+                      <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
+                    </li>
+                  {% endif %}
+                  <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+                </ul>
+              </li>
             {% else %}
-              <a href="{% url 'login' %}">{% trans "Login" %}</a>
+              <li>
+                <a href="{% url 'login' %}">{% trans "Login" %}</a>
+              </li>
             {% endif %}
-          </li>
-          <li class="has-dropdown">
-            <a href="#">{% trans "Language" %}</a>
-            <ul class="dropdown">
-              {% for lang in LANGUAGES %}
-                <li>
-                  <form name="setLang{{ lang.0 }}" action="{% url 'set_language' %}" method="POST">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
-                    <input name="language" type="hidden" value="{{ lang.0 }}" />
-                    <a href="#" onclick="document.setLang{{ lang.0 }}.submit(); return false;"
-                    {% if lang.0 == LANGUAGE_CODE %}
-                      class="active"
-                    {% endif %}
-                    >{{ lang.1 }}
-                    </a>
-                  </form>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      </section>
-    </nav>
+            <li class="has-dropdown top-bar-lang">
+              <a href="#">{% for lang in LANGUAGES %}{% if lang.0 == LANGUAGE_CODE %}{{ lang.1 }}{% endif %}{% endfor %}</a>
+              <ul class="dropdown">
+                <form action="{% url 'set_language' %}" method="POST">
+                  {% csrf_token %}
+                  <input name="next" type="hidden" value="{{ request.path|clean_url }}" />
+                  <input id="language_field" name="language" type="hidden" />
+                  {% for lang in LANGUAGES %}
+                    <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="#" data-language="{{ lang.0 }}">{{ lang.1 }}</a></li>
+                  {% endfor %}
+                </form>
+              </ul>
+            </li>
+          </ul>
+          {% block header %}
+          {% endblock %}
+        </section>
+      </nav>
+
+      {% block hero %}
+      {% endblock %}
+
+    </header>
 
     {% if messages %}
       {% for message in messages %}
@@ -89,15 +127,37 @@
     {% block content %}
     {% endblock %}
 
+    <footer class="row page-footer large-collapse" role="contentinfo">
+      <nav class="sub-nav-footer medium-6 columns">
+        <a href="" class="link">About</a> | <a href="" class="link">FAQ </a> | <a href="" class="link">Contact</a>
+      </nav>
+      <div class="page-footer-copy medium-6 columns">
+        © 2015 - CDE - Designed with love by <a href="http://www.wearecube.ch/" target="_blank" class="link">We Are Cube.³</a>
+      </div>
+    </footer>
+
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/foundation.min.js' %}"></script>
 
-    <script>
-      $(document).foundation();
-    </script>
+    <script src="{% static 'js/foundation/foundation.accordion.js' %}"></script>
 
-    {% block bottom %}
-    {% endblock %}
+    <script src="{% static 'js/foundation/foundation.clearing.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.dropdown.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.equalizer.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.interchange.js' %}"></script>
+
+
+    <script src="{% static 'js/foundation/foundation.magellan.js' %}"></script>
+
+    <script src="{% static 'js/foundation/foundation.offcanvas.js' %}"></script>
+
+    <script src="{% static 'js/foundation/foundation.tab.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.tooltip.js' %}"></script>
+    <script src="{% static 'js/foundation/foundation.topbar.js' %}"></script>
+
+    <script src="{% static 'js/dropzone.min.js' %}"></script>
+
+    <script src="{% static 'js/app.js' %}"></script>
 
   </body>
 </html>

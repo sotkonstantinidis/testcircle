@@ -24,6 +24,10 @@ from qcat.utils import (
     find_dict_in_list,
     is_empty_list_of_dicts,
 )
+from questionnaire.upload import (
+    get_url_by_identifier,
+    get_thumbnail_format_by_name,
+)
 
 
 class QuestionnaireQuestion(object):
@@ -46,6 +50,7 @@ class QuestionnaireQuestion(object):
         'measure',
         'checkbox',
         'image_checkbox',
+        'image',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -250,6 +255,16 @@ class QuestionnaireQuestion(object):
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
+        elif self.field_type == 'image':
+            widget = ImageUpload()
+            widget.format = 'header'
+            dimensions = get_thumbnail_format_by_name(widget.format)
+            widget.width = dimensions[0]
+            widget.height = dimensions[1]
+            formfields['file_{}'.format(self.keyword)] = forms.FileField(
+                widget=widget, required=self.required, label=self.label)
+            field = forms.CharField(
+                required=self.required, widget=forms.HiddenInput())
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -341,6 +356,13 @@ class QuestionnaireQuestion(object):
                     'key': self.label,
                     'values': list(zip(values, images, conditional_outputs)),
                 })
+            return rendered
+        elif self.field_type in ['image']:
+            value = get_url_by_identifier(value, 'header')
+            rendered = render_to_string(
+                'details/field/image.html', {
+                    'key': self.label,
+                    'value': value})
             return rendered
         else:
             raise ConfigurationErrorInvalidOption(
@@ -442,9 +464,11 @@ class QuestionnaireQuestiongroup(object):
                 'max_num', 'integer >= 1', 'questiongroup')
 
         self.helptext = ''
+        self.label = ''
         translation = questiongroup_object.translation
         if translation:
             self.helptext = translation.get_translation('helptext')
+            self.label = translation.get_translation('label')
 
         self.questions = []
         conf_questions = self.configuration.get('questions', [])
@@ -553,6 +577,7 @@ class QuestionnaireQuestiongroup(object):
         config = {
             'keyword': self.keyword,
             'helptext': self.helptext,
+            'label': self.label,
             'templates': templates,
         }
 
@@ -1236,7 +1261,7 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
 
     def get_context_data(self):
         """
-        Add the image paths to the context data so they are availabel
+        Add the image paths to the context data so they are available
         within the template of the widget.
         """
         ctx = super(ImageCheckbox, self).get_context_data()
@@ -1244,6 +1269,21 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
             'images': self.images,
             'conditional': self.conditional,
             'conditions': self.conditions,
+        })
+        return ctx
+
+
+class ImageUpload(forms.FileInput):
+    template_name = 'form/field/image_upload.html'
+
+    def get_context_data(self):
+        """
+        """
+        ctx = super(ImageUpload, self).get_context_data()
+        ctx.update({
+            'height': self.height,
+            'width': self.width,
+            'format': self.format,
         })
         return ctx
 

@@ -18,7 +18,3 @@ class TranslationTest(FunctionalTest):
         self.changeLanguage('es')
         self.checkOnPage('Inglés')
         self.checkOnPage('Español')
-
-        # TODO: Go to a subpage and make sure the language can be changed there
-        # as well and that Alice stays on the same page after changing the
-        # language.

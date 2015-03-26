@@ -1,3 +1,4 @@
+import json
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import Http404
@@ -7,6 +8,7 @@ from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import (
     create_new_user,
+    do_log_in,
 )
 from configuration.configuration import (
     QuestionnaireConfiguration,
@@ -14,7 +16,7 @@ from configuration.configuration import (
 )
 from qcat.tests import TestCase
 from qcat.utils import session_store
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
@@ -28,9 +30,14 @@ from sample.tests.test_views import (
     get_valid_new_values,
     get_valid_details_values,
     get_valid_list_values,
-    questionnaire_route_details,
-    questionnaire_route_list,
+    route_questionnaire_details,
+    route_questionnaire_list,
 )
+
+file_upload_route = 'file_upload'
+file_display_route = 'file_serve'
+valid_file = 'static/assets/img/img01.jpg'
+invalid_file = 'bower.json'  # Needs to exist but not valid file type
 
 
 class GenericQuestionnaireNewStepTest(TestCase):
@@ -68,21 +75,21 @@ class GenericQuestionnaireNewStepTest(TestCase):
             self, mock_get_session_questionnaire):
         mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_get_session_questionnaire.assert_called_once_with()
 
     @patch('questionnaire.views.get_questionnaire_data_for_translation_form')
     def test_calls_get_questionnaire_data_for_translation_form(
             self, mock_get_questionnaire_data):
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_get_questionnaire_data.assert_called_once_with({}, 'en', None)
 
     @patch.object(QuestionnaireCategory, 'get_form')
     def test_calls_category_get_form(self, mock_get_form):
         mock_get_form.return_value = None, None
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_get_form.assert_called_once_with(
             post_data=None, show_translation=False, initial_data={})
 
@@ -94,7 +101,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         r = self.request
         r.method = 'POST'
         generic_questionnaire_new_step(
-            r, *get_valid_new_step_values())
+            r, *get_valid_new_step_values()[0])
         mock_save_session_questionnaire.assert_called_once_with({})
 
     @patch.object(QuestionnaireCategory, 'get_form')
@@ -102,15 +109,18 @@ class GenericQuestionnaireNewStepTest(TestCase):
     def test_calls_render(self, mock_render, mock_get_form):
         mock_get_form.return_value = "foo", "bar"
         generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         mock_render.assert_called_once_with(
-            self.request, 'sample/questionnaire/new_step.html', {
+            self.request, 'form/category.html', {
                 'category_formsets': "bar",
-                'category_config': "foo"})
+                'category_config': "foo",
+                'title': 'QCAT Form',
+                'route_overview': 'sample:questionnaire_new',
+            })
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_new_step(
-            self.request, *get_valid_new_step_values())
+            self.request, *get_valid_new_step_values()[0])
         self.assertIsInstance(ret, HttpResponse)
 
 
@@ -228,7 +238,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_redirect.assert_called_once_with(
-            'sample_questionnaire_details', 1)
+            'sample:questionnaire_details', 1)
 
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
     def test_calls_get_questionnaire_data_in_single_language(
@@ -244,7 +254,7 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with(
-            {}, editable=True, edit_step_route='sample_questionnaire_new_step')
+            {}, editable=True, edit_step_route='sample:questionnaire_new_step')
 
     @patch.object(QuestionnaireCategory, 'get_details')
     @patch('questionnaire.views.render')
@@ -254,10 +264,12 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_render.assert_called_once_with(
-            self.request, 'sample/questionnaire/new.html', {
+            self.request, 'form/overview.html', {
                 'questionnaire_id': None,
                 'category_names': get_categories(),
-                'categories': ["foo"]*get_category_count()})
+                'categories': ["foo"]*get_category_count(),
+                'title': 'SAMPLE Form Overview'
+            })
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_new(
@@ -271,7 +283,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.request = self.factory.get(reverse(
-            questionnaire_route_details, args=[1]))
+            route_questionnaire_details, args=[1]))
 
     @patch('questionnaire.views.get_object_or_404')
     def test_calls_get_object_or_404(self, mock_get_object_or_404):
@@ -325,7 +337,7 @@ class GenericQuestionnaireListTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.request = self.factory.get(reverse(questionnaire_route_list))
+        self.request = self.factory.get(reverse(route_questionnaire_list))
 
     @patch.object(QuestionnaireConfiguration, '__init__')
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
@@ -340,7 +352,7 @@ class GenericQuestionnaireListTest(TestCase):
     def test_calls_get_list(self, mock_get_list_data):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_list_data.assert_called_once_with(
-            [], questionnaire_route_details, 'en')
+            [], route_questionnaire_details, 'en')
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     @patch('questionnaire.views.render')
@@ -356,3 +368,98 @@ class GenericQuestionnaireListTest(TestCase):
         ret = generic_questionnaire_list(
             self.request, *get_valid_list_values())
         self.assertIsInstance(ret, HttpResponse)
+
+
+class GenericFileUploadTest(TestCase):
+
+    fixtures = ['groups_permissions.json']
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(file_upload_route)
+        self.request = self.factory.post(self.url)
+        do_log_in(self.client)
+
+    def test_upload_login_required(self):
+        self.client.logout()
+        res = self.client.post(self.url, follow=True)
+        self.assertTemplateUsed(res, 'login.html')
+
+    def test_upload_only_post_allowed(self):
+        res = self.client.get(self.url, follow=True)
+        self.assertEqual(res.status_code, 405)
+
+    def test_handles_post_without_files(self):
+        res = self.client.post(self.url)
+        self.assertEqual(res.status_code, 400)
+        content = json.loads(res.content.decode('utf-8'))
+        self.assertFalse(content.get('success'))
+
+    @patch('questionnaire.views.handle_upload')
+    def test_calls_handle_upload(self, mock_handle_upload):
+        m = Mock()
+        m.get_url.return_value = 'foo'
+        mock_handle_upload.return_value = m
+        with open(valid_file, 'rb') as fp:
+            self.client.post(self.url, {'file': fp})
+        mock_handle_upload.assert_called_once()
+
+    def test_handles_exception_by_handle_upload(self):
+        with open(invalid_file, 'rb') as fp:
+            res = self.client.post(self.url, {'file': fp})
+        self.assertEqual(res.status_code, 400)
+        content = json.loads(res.content.decode('utf-8'))
+        self.assertFalse(content.get('success'))
+
+    def test_returns_success_values_if_successful(self):
+        with open(valid_file, 'rb') as fp:
+            res = self.client.post(self.url, {'file': fp})
+        self.assertEqual(res.status_code, 200)
+        content = json.loads(res.content.decode('utf-8'))
+        self.assertTrue(content.get('success'))
+        self.assertIn('url', content)
+        self.assertIn('uid', content)
+        self.assertNotIn('msg', content)
+
+
+class GenericFileServeTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.file = File.create_new('image/jpeg')
+        self.url = reverse(
+            file_display_route, args=('display', self.file.uuid))
+        self.request = self.factory.get(self.url)
+
+    def test_raises_404_if_invalid_action(self):
+        url = reverse(file_display_route, args=('foo', 'uid'))
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 404)
+
+    def test_raises_404_if_file_not_found(self):
+        url = reverse(file_display_route, args=('display', 'uid'))
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 404)
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_calls_retrieve_file(self, mock_retrieve_file):
+        self.client.get(self.url)
+        mock_retrieve_file.assert_called_once_with(self.file, thumbnail=None)
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_calls_retrieve_file_with_thumbnail(self, mock_retrieve_file):
+        self.client.get(self.url + '?format=foo')
+        mock_retrieve_file.assert_called_once_with(self.file, thumbnail='foo')
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_returns_file(self, mock_retrieve_file):
+        mock_retrieve_file.return_value = ('file', 'filename')
+        res = self.client.get(self.url)
+        self.assertEqual(res.status_code, 200)
+
+    @patch('questionnaire.views.retrieve_file')
+    def test_returns_file_download(self, mock_retrieve_file):
+        url = reverse(file_display_route, args=('download', self.file.uuid))
+        mock_retrieve_file.return_value = ('file', 'filename')
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 200)

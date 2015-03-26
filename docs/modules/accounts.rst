@@ -14,13 +14,6 @@ authorization of users.
     :members:
 
 
-``accounts.connection``
------------------------
-
-.. automodule:: accounts.connection
-    :members:
-
-
 ``accounts.forms``
 ------------------
 

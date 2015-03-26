@@ -1,6 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.views.decorators.http import require_POST
+
+from django.http import (
+    Http404,
+    HttpResponse,
+    JsonResponse,
+)
 from django.shortcuts import (
     render,
     redirect,
@@ -14,7 +20,14 @@ from qcat.utils import (
     get_session_questionnaire,
     save_session_questionnaire,
 )
-from questionnaire.models import Questionnaire
+from questionnaire.models import (
+    Questionnaire,
+    File,
+)
+from questionnaire.upload import (
+    handle_upload,
+    retrieve_file,
+)
 from questionnaire.utils import (
     clean_questionnaire_data,
     get_questiongroup_data_from_translation_form,
@@ -25,7 +38,8 @@ from questionnaire.utils import (
 
 @login_required
 def generic_questionnaire_new_step(
-        request, step, configuration_code, template, success_route):
+        request, step, configuration_code, url_namespace,
+        page_title='QCAT Form'):
     """
     A generic view to show the form of a single step of a new or edited
     questionnaire.
@@ -42,11 +56,14 @@ def generic_questionnaire_new_step(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
-        ``template`` (str): The path of the template to be rendered for
-        the form.
+        ``url_namespace`` (str): The namespace of the questionnaire
+        URLs. It is assumed that all questionnaire apps have the same
+        routes for their questionnaires
+        (e.g. ``wocat:questionnaire_new``)
 
-        ``success_route`` (str): The name of the route to be used to
-        redirect to after successful form submission.
+    Kwargs:
+        ``page_title`` (str): The page title to be used in the HTML
+        template. Defaults to ``QCAT Form``.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -113,18 +130,20 @@ def generic_questionnaire_new_step(
             messages.success(
                 request, _('[TODO] Data successfully stored to Session.'),
                 fail_silently=True)
-            return redirect(success_route)
+            return redirect('{}:questionnaire_new'.format(url_namespace))
 
-    return render(request, template, {
+    return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
-        'category_config': category_config
+        'category_config': category_config,
+        'title': page_title,
+        'route_overview': '{}:questionnaire_new'.format(url_namespace)
     })
 
 
 @login_required
 def generic_questionnaire_new(
-        request, configuration_code, template, success_route, edit_step_route,
-        questionnaire_id=None):
+        request, configuration_code, url_namespace,
+        questionnaire_id=None, page_title='QCAT Form Overview'):
     """
     A generic view to show an entire questionnaire.
 
@@ -138,14 +157,17 @@ def generic_questionnaire_new(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
-        ``template`` (str): The path of the template to be rendered for
-        the form.
+        ``url_namespace`` (str): The namespace of the questionnaire
+        URLs. It is assumed that all questionnaire apps have the same
+        routes for their questionnaires
+        (e.g. ``wocat:questionnaire_new``)
 
-        ``success_route`` (str): The name of the route to be used to
-        redirect to after successful form submission.
-
+    Kwargs:
         ``questionnaire_id`` (id): The ID of a questionnaire if the it
         is an edit form.
+
+        ``page_title`` (str): The page title to be used in the HTML
+        template. Defaults to ``QCAT Form``.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -181,21 +203,25 @@ def generic_questionnaire_new(
                 request,
                 _('[TODO] The questionnaire was successfully created.'),
                 fail_silently=True)
-            return redirect(success_route, questionnaire.id)
+            return redirect(
+                '{}:questionnaire_details'.format(url_namespace),
+                questionnaire.id)
 
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
     categories = questionnaire_configuration.get_details(
-        data, editable=True, edit_step_route=edit_step_route)
+        data, editable=True,
+        edit_step_route='{}:questionnaire_new_step'.format(url_namespace))
     category_names = []
     for category in questionnaire_configuration.categories:
         category_names.append((category.keyword, category.label))
 
-    return render(request, template, {
+    return render(request, 'form/overview.html', {
         'categories': categories,
         'category_names': tuple(category_names),
         'questionnaire_id': questionnaire_id,
+        'title': page_title,
     })
 
 
@@ -264,3 +290,110 @@ def generic_questionnaire_list(
         'list_header': list_data[0],
         'list_data': list_data[1:],
     })
+
+
+@login_required
+@require_POST
+def generic_file_upload(request):
+    """
+    A view to handle file uploads. Can only be called with POST requests
+    and returns a JSON.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object. Only
+        request method ``POST`` is accepted and the following parameters
+        are valid:
+
+            ``request.FILES`` (mandatory): The uploaded file.
+
+            ``request.POST.preview_format`` (optional): If available,
+            the URL for this format will be returned. If not specified,
+            the URL to the original file will be returned.
+
+    Returns:
+        ``JsonResponse``. A JSON containing the following entries::
+
+          # Successful requests
+          {
+            "success": true,
+            "uid": "UID",          # The UID of the generated file
+            "url": "URL"           # The URL of the preview file generated
+                                   # (see request.POST.preview_format)
+          }
+
+          # Error requests (status_code: 400)
+          {
+            "success": false,
+            "msg": "ERROR MESSAGE"
+          }
+    """
+    ret = {
+        'success': False,
+    }
+
+    files = request.FILES.getlist('file')
+    if len(files) != 1:
+        ret['msg'] = _('No or multiple files provided.')
+        return JsonResponse(ret, status=400)
+    file = files[0]
+
+    try:
+        db_file = handle_upload(file)
+    except Exception as e:
+        ret['msg'] = str(e)
+        return JsonResponse(ret, status=400)
+
+    ret = {
+        'success': True,
+        'uid': str(db_file.uuid),
+        'url': db_file.get_url(thumbnail=request.POST.get('preview_format')),
+    }
+    return JsonResponse(ret)
+
+
+def generic_file_serve(request, action, uid):
+    """
+    A view to handle display or download of uploaded files. This
+    function should only be used if you don't know the name of the
+    thumbnail on the client side as this view has to read the file
+    before serving it. On server side, if you want the URL for a
+    thumbnail, use the function
+    :func:`questionnaire.upload.get_url_by_identifier`.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``action`` (str): The action to perform with the file. Available
+        options are ``display`` and ``download``.
+
+        ``uid`` (str): The UUID of the file object.
+
+    GET Parameters:
+        ``format`` (str): The name of the thumbnail format for images.
+
+    Returns:
+        ``HttpResponse``. A Http Response with the file if found, 404 if
+        not found.
+    """
+    if action not in ['display', 'download']:
+        raise Http404()
+
+    file_object = get_object_or_404(File, uuid=uid)
+
+    thumbnail = request.GET.get('format')
+    try:
+        file, filename = retrieve_file(file_object, thumbnail=thumbnail)
+    except:
+        raise Http404()
+    content_type = file_object.content_type
+
+    if thumbnail is not None:
+        content_type = 'image/jpeg'
+
+    response = HttpResponse(file, content_type=content_type)
+    if action == 'download':
+        response['Content-Disposition'] = 'attachment; filename={}'.format(
+            filename)
+        response['Content-Length'] = file_object.size
+
+    return response

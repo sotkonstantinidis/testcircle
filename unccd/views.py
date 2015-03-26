@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext as _
 
 from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
@@ -44,8 +45,7 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'unccd', 'unccd/questionnaire/new_step.html',
-        'unccd_questionnaire_new')
+        request, step, 'unccd', 'unccd', page_title=_('UNCCD Form'))
 
 
 @login_required
@@ -66,8 +66,7 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'unccd', 'unccd/questionnaire/new.html',
-        'unccd_questionnaire_details', 'unccd_questionnaire_new_step',
+        request, 'unccd', 'unccd', page_title=_('UNCCD Form Overview'),
         questionnaire_id=questionnaire_id)
 
 
@@ -109,4 +108,4 @@ def questionnaire_list(request):
     """
     return generic_questionnaire_list(
         request, 'unccd', 'unccd/questionnaire/list.html',
-        'unccd_questionnaire_details')
+        'unccd:questionnaire_details')

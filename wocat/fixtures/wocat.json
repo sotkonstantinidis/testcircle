@@ -1,0 +1,732 @@
+[
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Common name\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1001
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"I accept conditions regarding the use of information provided\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1002
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Definition of the SLM practice (description in one sentence)\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1003
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Description of the SLM practice\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1004
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Country\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1005
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"State / Province\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1006
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Further specification of location (e.g. district / commune) - if relevant\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1007
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Comments\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1008
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Cropland\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1009
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Grazing land\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1010
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Forest/woodlands\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1011
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Mixed\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1012
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Other\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1013
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Original land use (before implementation of SLM practice)\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1014
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Future (final) land use (after implementation of SLM practice) (if relevant)\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1015
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Major crops (cash crops and food crops)\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1016
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Specify type of extensive grazing\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1017
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Specify type of intensive grazing\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1018
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Main / secondary livestock species\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1019
+},
+
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"General Information\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1101
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Specification of the SLM practice\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1102
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Name of the SLM practice\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1201
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Contact details of author / institution\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1202
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Definition of the SLM practice (description in one sentence)\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1203
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Description of the SLM practice\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1204
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Where is the SLM practice applied?\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1205
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"label\":{\"en\": \"Land use\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1206
+},
+
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": "{\"label\":{\"en\":\"On which current land use type(s) is the SLM practice applied?\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1701
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": "{\"label\":{\"en\":\"If land use has changed due to the implementation of the SLM practice, indicate land use type before and after\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1702
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": "{\"helptext\":{\"en\":\"This is some temporary example helptext\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1703
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": "{\"label\":{\"en\":\"Specifications on cropland\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1704
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": "{\"label\":{\"en\":\"Specifications on grazing land\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1705
+},
+
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"low\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1501
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"medium\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1502
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"high\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1503
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"nomadism\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1504
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"semi-nomadism / pastoralism\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1505
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"ranching\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1506
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"cut-and-carry / zero grazing\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1507
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"label\":{\"en\": \"improved pasture\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1508
+},
+
+
+{
+    "fields": {
+        "keyword": "wocat_common_name",
+        "translation": 1001,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1001
+},
+{
+    "fields": {
+        "keyword": "wocat_accept_conditions",
+        "translation": 1002,
+        "configuration": "{\"type\": \"bool\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1002
+},
+{
+    "fields": {
+        "keyword": "wocat_definition",
+        "translation": 1003,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1003
+},
+{
+    "fields": {
+        "keyword": "wocat_description",
+        "translation": 1004,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1004
+},
+{
+    "fields": {
+        "keyword": "wocat_country",
+        "translation": 1005,
+        "configuration": "{\"type\": \"char\", \"form_template\": \"inline_2\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1005
+},
+{
+    "fields": {
+        "keyword": "wocat_state_province",
+        "translation": 1006,
+        "configuration": "{\"type\": \"char\", \"form_template\": \"inline_2\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1006
+},
+{
+    "fields": {
+        "keyword": "wocat_further_location",
+        "translation": 1007,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1007
+},
+{
+    "fields": {
+        "keyword": "wocat_where_comments",
+        "translation": 1008,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1008
+},
+{
+    "fields": {
+        "keyword": "wocat_landuse_cropland",
+        "translation": 1009,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1009
+},
+{
+    "fields": {
+        "keyword": "wocat_landuse_grazingland",
+        "translation": 1010,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1010
+},
+{
+    "fields": {
+        "keyword": "wocat_landuse_forest",
+        "translation": 1011,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1011
+},
+{
+    "fields": {
+        "keyword": "wocat_landuse_mixed",
+        "translation": 1012,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1012
+},
+{
+    "fields": {
+        "keyword": "wocat_landuse_other",
+        "translation": 1013,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1013
+},
+{
+    "fields": {
+        "keyword": "wocat_original_landuse",
+        "translation": 1014,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1014
+},
+{
+    "fields": {
+        "keyword": "wocat_future_landuse",
+        "translation": 1015,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1015
+},
+{
+    "fields": {
+        "keyword": "wocat_major_crops",
+        "translation": 1016,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1016
+},
+{
+    "fields": {
+        "keyword": "wocat_type_extensive_grazing",
+        "translation": 1017,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [1004, 1005, 1006]
+    },
+    "model": "configuration.key",
+    "pk": 1017
+},
+{
+    "fields": {
+        "keyword": "wocat_type_intensive_grazing",
+        "translation": 1018,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [1007, 1008]
+    },
+    "model": "configuration.key",
+    "pk": 1018
+},
+{
+    "fields": {
+        "keyword": "wocat_main_livestock_species",
+        "translation": 1019,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1019
+},
+
+{
+    "fields": {
+        "keyword": "measure_low",
+        "translation": 1501
+    },
+    "model": "configuration.value",
+    "pk": 1001
+},
+{
+    "fields": {
+        "keyword": "measure_medium",
+        "translation": 1502
+    },
+    "model": "configuration.value",
+    "pk": 1002
+},
+{
+    "fields": {
+        "keyword": "measure_high",
+        "translation": 1503
+    },
+    "model": "configuration.value",
+    "pk": 1003
+},
+{
+    "fields": {
+        "keyword": "extensive_gazing_nomadism",
+        "translation": 1504
+    },
+    "model": "configuration.value",
+    "pk": 1004
+},
+{
+    "fields": {
+        "keyword": "extensive_gazing_seminomadism",
+        "translation": 1505
+    },
+    "model": "configuration.value",
+    "pk": 1005
+},
+{
+    "fields": {
+        "keyword": "extensive_gazing_ranching",
+        "translation": 1506
+    },
+    "model": "configuration.value",
+    "pk": 1006
+},
+{
+    "fields": {
+        "keyword": "intensive_grazing_cutandcarry",
+        "translation": 1507
+    },
+    "model": "configuration.value",
+    "pk": 1007
+},
+{
+    "fields": {
+        "keyword": "intensive_gazing_improvedpasture",
+        "translation": 1508
+    },
+    "model": "configuration.value",
+    "pk": 1008
+},
+
+{
+    "fields": {
+        "keyword": "wocat__1",
+        "translation": 1101
+    },
+    "model": "configuration.category",
+    "pk": 1001
+},
+{
+    "fields": {
+        "keyword": "wocat__2",
+        "translation": 1102
+    },
+    "model": "configuration.category",
+    "pk": 1002
+},
+{
+    "fields": {
+        "keyword": "wocat__1__1",
+        "translation": 1201
+    },
+    "model": "configuration.category",
+    "pk": 1101
+},
+{
+    "fields": {
+        "keyword": "wocat__1__2",
+        "translation": 1202
+    },
+    "model": "configuration.category",
+    "pk": 1102
+},
+{
+    "fields": {
+        "keyword": "wocat__2__1",
+        "translation": 1203
+    },
+    "model": "configuration.category",
+    "pk": 1103
+},
+{
+    "fields": {
+        "keyword": "wocat__2__2",
+        "translation": 1204
+    },
+    "model": "configuration.category",
+    "pk": 1104
+},
+{
+    "fields": {
+        "keyword": "wocat__2__3",
+        "translation": 1205
+    },
+    "model": "configuration.category",
+    "pk": 1105
+},
+{
+    "fields": {
+        "keyword": "wocat__2__4",
+        "translation": 1206
+    },
+    "model": "configuration.category",
+    "pk": 1106
+},
+
+{
+    "fields": {
+        "keyword": "wocat_qg_1",
+        "translation": 1703,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1001
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_2",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1002
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_3",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1003
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_4",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1004
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_5",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1005
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_6",
+        "translation": 1701,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1006
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_7",
+        "translation": 1702,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1007
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_8",
+        "translation": 1704,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1008
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_9",
+        "translation": 1705,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1009
+},
+
+{
+    "fields": {
+        "code": "wocat",
+        "description": "Description of WOCAT Configuration",
+        "active": true,
+        "activated": "2015-01-08T10:12:59.337Z",
+        "data": "{\"categories\":[{\"keyword\":\"wocat__1\",\"subcategories\":[{\"keyword\":\"wocat__1__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_1\",\"questions\":[{\"key\":\"wocat_common_name\",\"list_position\":1}]}]},{\"keyword\":\"wocat__1__2\",\"questiongroups\":[{\"keyword\":\"wocat_qg_2\",\"questions\":[{\"key\":\"wocat_accept_conditions\"}]}]}]},{\"keyword\":\"wocat__2\",\"subcategories\":[{\"keyword\":\"wocat__2__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_3\",\"questions\":[{\"key\":\"wocat_definition\"}]}]},{\"keyword\":\"wocat__2__2\",\"questiongroups\":[{\"keyword\":\"wocat_qg_4\",\"questions\":[{\"key\":\"wocat_description\"}]}]},{\"keyword\":\"wocat__2__3\",\"questiongroups\":[{\"keyword\":\"wocat_qg_5\",\"questions\":[{\"key\":\"wocat_country\"},{\"key\":\"wocat_state_province\"},{\"key\":\"wocat_further_location\"},{\"key\":\"wocat_where_comments\"}]}]},{\"keyword\":\"wocat__2__4\",\"questiongroups\":[{\"keyword\":\"wocat_qg_6\",\"questions\":[{\"key\":\"wocat_landuse_cropland\"},{\"key\":\"wocat_landuse_grazingland\"},{\"key\":\"wocat_landuse_forest\"},{\"key\":\"wocat_landuse_mixed\"},{\"key\":\"wocat_landuse_other\"}]},{\"keyword\":\"wocat_qg_7\",\"questions\":[{\"key\":\"wocat_original_landuse\"},{\"key\":\"wocat_future_landuse\"}]},{\"keyword\":\"wocat_qg_8\",\"questions\":[{\"key\":\"wocat_major_crops\"}]},{\"keyword\":\"wocat_qg_9\",\"questions\":[{\"key\":\"wocat_type_extensive_grazing\"},{\"key\":\"wocat_type_intensive_grazing\"},{\"key\":\"wocat_main_livestock_species\"}]}]}]}]}",
+        "created": "2015-01-08T10:12:59.337Z",
+        "base_code": "",
+        "name": "WOCAT Configuration"
+    },
+    "model": "configuration.configuration",
+    "pk": 1001
+}
+]

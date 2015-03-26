@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block bodyclass %}layout-wocat{% endblock %}
+{% block navclass %}is-wocat{% endblock %}
+
 {% block content %}
   <div class="row">
     <div class="large-12 columns">
@@ -16,7 +19,7 @@
         <input id="button_login" type="submit" name="submit" class="button" value="{% trans "Login" %}" />
         <input type="hidden" name="logintype" value="login">
         <input type="hidden" name="pid" value="3">
-        <input type="hidden" name="redirect_url" value="{{ redirect }}">
+        <input type="hidden" name="redirect_url" value="{{ redirect_url }}">
       </form>
     </div>
   </div>

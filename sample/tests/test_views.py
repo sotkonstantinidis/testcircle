@@ -14,23 +14,21 @@ from sample.views import (
     questionnaire_new_step,
 )
 
-questionnaire_route_details = 'sample_questionnaire_details'
-questionnaire_route_list = 'sample_questionnaire_list'
-questionnaire_route_new = 'sample_questionnaire_new'
-questionnaire_route_new_step = 'sample_questionnaire_new_step'
+route_questionnaire_details = 'sample:questionnaire_details'
+route_questionnaire_list = 'sample:questionnaire_list'
+route_questionnaire_new = 'sample:questionnaire_new'
+route_questionnaire_new_step = 'sample:questionnaire_new_step'
 
 
 def get_valid_new_step_values():
-    return (
-        'cat_1', 'sample', 'sample/questionnaire/new_step.html',
-        'sample_questionnaire_new')
+    args = (get_categories()[0][0], 'sample', 'sample')
+    kwargs = {'page_title': 'SAMPLE Form'}
+    return args, kwargs
 
 
 def get_valid_new_values():
-    args = (
-        'sample', 'sample/questionnaire/new.html',
-        'sample_questionnaire_details', 'sample_questionnaire_new_step')
-    kwargs = {'questionnaire_id': None}
+    args = ('sample', 'sample')
+    kwargs = {'questionnaire_id': None, 'page_title': 'SAMPLE Form Overview'}
     return args, kwargs
 
 
@@ -41,7 +39,7 @@ def get_valid_details_values():
 def get_valid_list_values():
     return (
         'sample', 'sample/questionnaire/list.html',
-        'sample_questionnaire_details')
+        'sample:questionnaire_details')
 
 
 def get_category_count():
@@ -50,6 +48,7 @@ def get_category_count():
 
 def get_categories():
     return (
+        ('cat_0', 'Category 0'),
         ('cat_1', 'Category 1'),
         ('cat_2', 'Category 2'),
         ('cat_3', 'Category 3'),
@@ -57,11 +56,21 @@ def get_categories():
     )
 
 
+def get_position_of_category(category, start0=False):
+    for i, cat in enumerate(get_categories()):
+        if cat[0] == category:
+            if start0 is True:
+                return i
+            else:
+                return i + 1
+    return None
+
+
 class QuestionnaireNewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_new)
+        self.url = reverse(route_questionnaire_new)
 
     def test_questionnaire_new_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -70,7 +79,7 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'sample/questionnaire/new.html')
+        self.assertTemplateUsed(res, 'form/overview.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('sample.views.generic_questionnaire_new')
@@ -88,7 +97,8 @@ class QuestionnaireNewStepTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_new_step, args=['cat_1'])
+        self.url = reverse(
+            route_questionnaire_new_step, args=[get_categories()[0][0]])
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -97,16 +107,17 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'sample/questionnaire/new_step.html')
+        self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('sample.views.generic_questionnaire_new_step')
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, 'cat_1')
+        questionnaire_new_step(request, get_categories()[0][0])
         mock_questionnaire_new_step.assert_called_once_with(
-            request, *get_valid_new_step_values())
+            request, *get_valid_new_step_values()[0],
+            **get_valid_new_step_values()[1])
 
 
 class QuestionnaireDetailsTest(TestCase):
@@ -116,7 +127,7 @@ class QuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_details, args=[1])
+        self.url = reverse(route_questionnaire_details, args=[1])
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
@@ -135,7 +146,7 @@ class QuestionnaireListTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(questionnaire_route_list)
+        self.url = reverse(route_questionnaire_list)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)

@@ -1,25 +1,208 @@
-{% extends 'unccd/base.html' %}
+{% extends 'sample/base.html' %}
 
+{% load staticfiles %}
 {% load i18n %}
 
 {% block content %}
 
-  <div class="row">
-    <div class="large-12 columns">
-      <div class="panel">
-        <h5>QCAT Sample!</h5>
-        <p>This is just a sample configuration of QCAT which should be used for testing purposes only. The URLs of this app are turned off in productive versions of QCAT.</p>
-      </div>
+<section class="hero" data-equalizer>
+  <div class="row large-collapse" data-equalizer-watch>
+    <div class="medium-4 large-5 columns">
+      <h1 class="is-wocat">SAMPLE</h1>
+      <p class="is-large">World Overview of Conservation Approaches and Technologies</p>
+      <p class="is-light">SAMPLE is an established global network of Soil and Water Conservation (SWC) specialists, dedicated to sustainable land management (SLM). </p>
+      <a href="{% url 'sample:questionnaire_new' %}" class="button is-wocat">Add a new Technology</a>
     </div>
   </div>
+  <div class="hero-media" data-equalizer-watch>
+    <div class="media-container is-16_9">
+      <iframe src="https://player.vimeo.com/video/30426479?color=ff9933&portrait=0" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
 
-  <div class="row" data-equalizer>
-    <div class="large-6 columns">
-      <div class="panel" data-equalizer-watch>
-        <h5>New Questionnaire</h5>
-        <a href="{% url 'sample_questionnaire_new' %}" class="button tiny">New</a>
-      </div>
+<main class="row large-collapse" role="main">
+  <section class="tech-list small-12 columns">
+    <div class="tech-group">
+      <h2 class="is-group">Last updates</h2>
+      <article role="article" class="row collapse tech-item">
+        <div class="tech-thumbnail medium-4 columns">
+          <figure>
+            <a href="technology_output.html" title="">
+              <img src="{% static 'assets/img/example1_small.jpg' %}" alt="" />
+            </a>
+            <figcaption class="tech-status label is-draft">draft</figcaption>
+          </figure>
+          <ul class="tech-icons">
+            <li>
+              <a href="">
+                <span class="tech-icon">
+                  <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
+                  <br>
+                  PDF
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <span class="tech-icon">
+                  <svg class="icon"><use xlink:href="#icon-video"></use></svg>
+                  Video
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="content medium-8 columns">
+          <header>
+             <h1><a href="technology_output.html" title="" class="link">Ecograze</a> <small>Mexico</small></h1>
+          </header>
+          <aside class="tech-infos row collapse">
+            <dl class="medium-6 columns">
+              <dt>ID:</dt>
+              <dd>AU_067456_ES</dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Creation:</dt>
+              <dd><time datetime="2015-02-12" pubdate="pubdate">2015-02-12</time></dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Update:</dt>
+              <dd><time datetime="2015-03-16">2015-03-16</time></dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Author:</dt>
+              <dd>Bruce Banner</dd>
+            </dl>
+          </aside>
+          <main>
+            <p>Open eucalypt woodlands cover approximately 15 million hectares in the semi-arid plains of north-east Australia, and support about a million head of cattle. Keeping these grazing lands productive and healthy demands good management.</p>
+          </main>
+          <footer>
+            <p class="is-light"><em>This article is also avalable in: <a href="" class="link">deutsch</a>, <a href="" class="link">español</a>, <a href="" class="link">français</a></em></p>
+          </footer>
+        </div>
+      </article>
+
+      <article role="article" class="row collapse tech-item">
+        <div class="tech-thumbnail medium-4 columns">
+          <figure>
+            <a href="technology_output.html" title="">
+              <img src="{% static 'assets/img/fanyajuu01_small.jpg' %}" alt="" />
+            </a>
+            <figcaption class="tech-status label is-review">review</figcaption>
+          </figure>
+          <ul class="tech-icons">
+            <li>
+              <a href="">
+                <span class="tech-icon">
+                  <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
+                  <br>
+                  PDF
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <span class="tech-icon">
+                  <svg class="icon"><use xlink:href="#icon-video"></use></svg>
+                  Video
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="content medium-8 columns">
+          <header>
+             <h1><a href="technology_output.html" title="" class="link">Fanya juu terraces</a> <small>Kenya</small></h1>
+          </header>
+          <aside class="tech-infos row collapse">
+            <dl class="medium-6 columns">
+              <dt>ID:</dt>
+              <dd>KE_558963_EN</dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Creation:</dt>
+              <dd><time datetime="2012-08-06" pubdate="pubdate">2012-08-06</time></dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Update:</dt>
+              <dd><time datetime="2015-02-15">2015-02-15</time></dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Author:</dt>
+              <dd>Steve Roger</dd>
+            </dl>
+          </aside>
+          <main>
+            <p>Terrace bund in association with a ditch, along the contour or on a gentle lateral gradient. Soil is thrown on the upper side of the ditch to form the bund, which is often stabilised by planting a fodder grass.</p>
+          </main>
+          <footer>
+            <p class="is-light"><em>This article is also avalable in: <a href="" class="link">deutsch</a>, <a href="" class="link">español</a>, <a href="" class="link">français</a></em></p>
+          </footer>
+        </div>
+      </article>
+
+      <article role="article" class="row collapse tech-item">
+        <div class="tech-thumbnail medium-4 columns">
+          <figure>
+            <a href="technology_output.html" title="">
+              <img src="{% static 'assets/img/example2_small.jpg' %}" alt="" />
+            </a>
+            <figcaption class="tech-status label is-completed">completed</figcaption>
+          </figure>
+          <ul class="tech-icons">
+            <li>
+              <a href="">
+                <span class="tech-icon">
+                  <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
+                  <br>
+                  PDF
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <span class="tech-icon">
+                  <svg class="icon"><use xlink:href="#icon-video"></use></svg>
+                  Video
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="content medium-8 columns">
+          <header>
+             <h1><a href="technology_output.html" title="" class="link">Green cane trash blanket</a> <small>Mexico</small></h1>
+          </header>
+          <aside class="tech-infos row collapse">
+            <dl class="medium-6 columns">
+              <dt>ID:</dt>
+              <dd>AU_448569_ES</dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Creation:</dt>
+              <dd><time datetime="2011-06-21" pubdate="pubdate">2011-06-21</time></dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Update:</dt>
+              <dd><time datetime="2015-01-24">2015-01-24</time></dd>
+            </dl>
+            <dl class="medium-6 columns">
+              <dt>Author:</dt>
+              <dd>Mishra Faler Bagan</dd>
+            </dl>
+          </aside>
+          <main>
+            <p>Under conventional production systems, sugar cane is burnt before being harvested. This reduces the volume of trash - comprising green leaves, dead leaves and top growth - making harvesting of the cane simpler, and subsequent cultivation of the soil.</p>
+          </main>
+          <footer>
+            <p class="is-light"><em>This article is also avalable in: <a href="" class="link">deutsch</a>, <a href="" class="link">español</a>, <a href="" class="link">français</a></em></p>
+          </footer>
+        </div>
+      </article>
     </div>
-  </div>
+  </section>
+</main>
 
 {% endblock %}

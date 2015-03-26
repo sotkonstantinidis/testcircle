@@ -43,8 +43,7 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'sample', 'sample/questionnaire/new_step.html',
-        'sample_questionnaire_new')
+        request, step, 'sample', 'sample', page_title='SAMPLE Form')
 
 
 @login_required
@@ -65,9 +64,8 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'sample', 'sample/questionnaire/new.html',
-        'sample_questionnaire_details', 'sample_questionnaire_new_step',
-        questionnaire_id=questionnaire_id)
+        request, 'sample', 'sample', questionnaire_id=questionnaire_id,
+        page_title='SAMPLE Form Overview')
 
 
 def questionnaire_details(request, questionnaire_id):
@@ -109,4 +107,4 @@ def questionnaire_list(request):
     """
     return generic_questionnaire_list(
         request, 'sample', 'sample/questionnaire/list.html',
-        'sample_questionnaire_details')
+        'sample:questionnaire_details')

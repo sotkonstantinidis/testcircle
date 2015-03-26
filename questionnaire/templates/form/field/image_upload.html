@@ -1,0 +1,27 @@
+{% comment %}
+
+  Template to render an image upload field. The upload is handled by DropzoneJS.
+
+  Required attributes:
+    height (int): The height of the container (and the corresponding
+      thumbnail format)
+    width (int): The width of the container (and the corresponding
+      thumbnail format)
+    format (str): The name of the thumbnail format.
+
+{% endcomment %}
+
+{% load i18n %}
+
+<div id="{{ attrs.id }}"  style="height: {{ height }}px; width: {{ width }}px;" class="dropzone" data-upload-url="{% url 'file_upload' %}" data-upload-preview-container="preview-{{ attrs.id }}" data-upload-preview-format="{{ format }}">
+  <div class="fallback">
+    Sorry, the upload functionality seems to be broken for the time being. Please come back later.
+  </div>
+</div>
+
+<div id="preview-{{ attrs.id }}" style="display:none;">
+  <div class="image-preview" style="height: {{ height }}px; width: {{ width }}px; background-color: grey; text-align: center;"></div>
+  <div style="position: absolute; bottom: 0; padding: 20px;">
+    <button class="remove-image" data-dropzone-id="{{ attrs.id }}" style="margin-bottom: 0;">{% trans "Remove" %}</button>
+  </div>
+</div>
