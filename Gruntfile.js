@@ -7,11 +7,11 @@ module.exports = function(grunt) {
     sass: {
       options: {
         includePaths: ['bower_components/foundation/scss'],
-        imagePath: '/assets/img'
       },
       dev: {
         options: {
-          outputStyle: 'nested'
+          outputStyle: 'nested',
+          imagePath: '/assets/img'
         },
         files: {
           'static/css/app.css': 'src/scss/app.scss'
@@ -19,7 +19,8 @@ module.exports = function(grunt) {
       },
       deploy: {
         options: {
-          outputStyle: 'compressed'
+          outputStyle: 'compressed',
+          imagePath: 'static/assets/img'
         },
         files: {
           'static/css/app.css': 'src/scss/app.scss'
@@ -68,7 +69,7 @@ module.exports = function(grunt) {
           src: ['**/*.{png,jpg,gif}'],
           dest: 'static/assets/img'
         }]
-      }
+      },
     },
 
     // SVG Store for vector icons
