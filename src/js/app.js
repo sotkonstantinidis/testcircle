@@ -69,7 +69,12 @@ function updateFieldsetElement(element, prefix, index, reset) {
 function toggleButtonBarSelected() {
   var selectedValue = $(this).find('input[type="radio"]:checked').val();
   var item = $(this).closest('.list-item');
-  item.toggleClass('is-selected', !(!selectedValue || 0 === selectedValue.length));
+  if(selectedValue != 'none') {
+    item.addClass('is-selected');
+  } else {
+    item.removeClass('is-selected');
+  }
+  // item.toggleClass('is-selected', !(!selectedValue || 0 === selectedValue.length));
 }
 
 /**
@@ -111,6 +116,15 @@ $(function() {
     if($(this).parent().hasClass('list-gallery-item')){
       target.slideToggle();
       toggleImageCheckboxConditional(target);
+    } else if($(this).parent().hasClass('button-bar')){
+      var selectedValue = $(this).find('input[type="radio"]:checked').val();
+      var item = $(this).closest('.list-item');
+      if(selectedValue != 'none' && !item.hasClass('is-selected')) {
+        target.slideToggle();
+      }
+      if(selectedValue === 'none' && item.hasClass('is-selected')) {
+        target.slideToggle();
+      }
     } else {
       e.preventDefault();
       target.slideToggle();
@@ -173,6 +187,7 @@ $(function() {
   // -----------------
   // Button bar select line
   .on('click', '.button-bar', toggleButtonBarSelected)
+
 
 });
 

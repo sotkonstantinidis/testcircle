@@ -47,7 +47,7 @@ button,
     display: none;
   }
   input[type="radio"]:checked+label{
-    background: #333;
+    background: $color-brown-dark;
     color: white;
   }
   .is-selected &.big-comment input[type="radio"]:checked+label:after {
@@ -61,7 +61,7 @@ button,
     height: 0;
     border-style: solid;
     border-width: 8px 8px 0 8px;
-    border-color: #333 transparent transparent transparent;
+    border-color: $color-brown-dark transparent transparent transparent;
   }
 }
 

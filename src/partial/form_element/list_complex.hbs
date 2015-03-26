@@ -1,21 +1,10 @@
-<div class="row list-head">
-  <div class="small-2 columns">
-    <label>Label</label>
-  </div>
-  <div class="small-10 medium-6 large-4 columns">
-    <label>Importance </label>
-  </div>
-  <div class="medium-4 large-6 column">
-    <label>Description</label>
-  </div>
-</div>
 <div class="row list-item">
-  <div class="small-2 columns">
+  <div class="medium-2 columns">
     <label for="itemCropland" class="list-item-label">Cropland</label>
   </div>
-  <div class="small-10 medium-6 large-4 columns">
+  <div class="medium-10 columns">
     <div class="button-bar">
-      <ul class="button-group radius">
+      <ul class="button-group radius" data-toggle="cropland_sub">
         <li>
           <input id="itemCroplandnone" type="radio" name="itemCropland" value="none" checked="checked">
           <label class="button small secondary" for="itemCroplandnone"><span>none</span></label>
@@ -35,15 +24,53 @@
       </ul>
     </div>
   </div>
-  <div class="medium-4 large-6 columns">
-    <input type="text" name="description">
+  <div id="cropland_sub" class="list-sub">
+    <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+      <li>
+        <div class="list-gallery-item">
+          <input id="checkboxAnnualCroping" type="checkbox">
+          <label for="checkboxAnnualCroping">
+            Annual croping
+            <figure class="list-gallery-icon">
+              <img src="assets/img/landuse_01.png" alt="Annual crops">
+            </figure>
+          </label>
+          <input type="text" placeholder="Details">
+        </div>
+      </li>
+      <li>
+        <div class="list-gallery-item">
+          <input id="checkboxPerennialCroping" type="checkbox">
+          <label for="checkboxPerennialCroping">
+            Perennial cropping
+            <figure class="list-gallery-icon">
+              <img src="assets/img/landuse_02.png" alt="Annual crops">
+            </figure>
+          </label>
+          <input type="text" placeholder="Details">
+        </div>
+      </li>
+      <li>
+        <div class="list-gallery-item">
+          <input id="checkboxTreeCroping" type="checkbox">
+          <label for="checkboxTreeCroping">
+            Tree and shrub cropping
+            <figure class="list-gallery-icon">
+              <img src="assets/img/landuse_03.png" alt="Annual crops">
+            </figure>
+          </label>
+          <input type="text" placeholder="Details">
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
+
 <div class="row list-item">
-  <div class="small-2 columns">
-    <label for="itemGrazing" class="list-item-label">Grazing land</label>
+  <div class="medium-2 columns">
+    <label for="itemGrazing" class="list-item-label">Grazing Land</label>
   </div>
-  <div class="small-10 medium-6 large-4 columns">
+  <div class="medium-10 columns">
     <div class="button-bar">
       <ul class="button-group radius">
         <li>
@@ -65,76 +92,38 @@
       </ul>
     </div>
   </div>
-  <div class="medium-4 large-6 column">
-    <input type="text" name="description">
-  </div>
 </div>
+
 <div class="row list-item">
-  <div class="small-2 columns">
-    <label for="itemForest" class="list-item-label">Forest/woodlands</label>
+  <div class="medium-2 columns">
+    <input type="text" placeholder="Other:">
   </div>
-  <div class="small-10 medium-6 large-4 columns">
+  <div class="medium-10 columns">
     <div class="button-bar">
       <ul class="button-group radius">
         <li>
-          <input id="itemForestnone" type="radio" name="itemForest" value="none" checked="checked">
-          <label class="button small secondary" for="itemForestnone"><span>none</span></label>
+          <input id="itemCustomnone" type="radio" name="itemCustom" value="none" checked="checked">
+          <label class="button small secondary" for="itemCustomnone"><span>none</span></label>
         </li>
         <li>
-          <input id="itemForestsmall" type="radio" name="itemForest" value="small">
-          <label class="button small secondary" for="itemForestsmall"><span>small</span></label>
+          <input id="itemCustomsmall" type="radio" name="itemCustom" value="small">
+          <label class="button small secondary" for="itemCustomsmall"><span>small</span></label>
         </li>
         <li>
-          <input id="itemForestmiddle" type="radio" name="itemForest" value="middle">
-          <label class="button small secondary" for="itemForestmiddle"><span>middle</span></label>
+          <input id="itemCustommiddle" type="radio" name="itemCustom" value="middle">
+          <label class="button small secondary" for="itemCustommiddle"><span>middle</span></label>
         </li>
         <li>
-          <input id="itemForesthigh" type="radio" name="itemForest" value="high">
-          <label class="button small secondary" for="itemForesthigh"><span>high</span></label>
+          <input id="itemCustomhigh" type="radio" name="itemCustom" value="high">
+          <label class="button small secondary" for="itemCustomhigh"><span>high</span></label>
         </li>
       </ul>
     </div>
-  </div>
-  <div class="medium-4 large-6 column">
-    <input type="text" name="description">
-  </div>
-</div>
-<div class="row list-item is-removable">
-  <div class="small-2 columns">
-    <input type="text" name="description">
-  </div>
-  <div class="small-10 medium-6 large-4 columns">
-    <div class="button-bar">
-      <ul class="button-group radius">
-        <li>
-          <input id="item09none" type="radio" name="item09" value="none" checked="checked">
-          <label class="button small secondary" for="item09none"><span>none</span></label>
-        </li>
-        <li>
-          <input id="item09small" type="radio" name="item09" value="small">
-          <label class="button small secondary" for="item09small"><span>small</span></label>
-        </li>
-        <li>
-          <input id="item09middle" type="radio" name="item09" value="middle">
-          <label class="button small secondary" for="item09middle"><span>middle</span></label>
-        </li>
-        <li>
-          <input id="item09high" type="radio" name="item09" value="high">
-          <label class="button small secondary" for="item09high"><span>high</span></label>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="medium-3 large-5 columns">
-    <input type="text" name="description">
-  </div>
-  <div class="medium-1 columns">
-    <a class="right list-item-action" data-remove-this style="display:none">remove</a>
   </div>
 </div>
 
 <div class="row list-action">
   <div class="small-12 columns">
-    <a class="button small" data-add-item>Add</a>
+    <p><a class="link is-wocat" data-add-item>Add an element</a></p>
   </div>
 </div>

@@ -34,16 +34,27 @@
   z-index: 999;
   padding-bottom: rem-calc(36);
 
-  h2 {
-    color: #fff;
-    margin-top: rem-calc(24);
-  }
   .progress {
-    margin-top: rem-calc(36);
+    margin-top: rem-calc(24);
   }
   .button-icon {
     margin-top: 0;
     min-width: 49%;
+  }
+}
+.wizard-header-title {
+  color: #fff;
+  margin-top: 0;
+}
+.wizard-header-back {
+  display: inline-block;
+  line-height: rem-calc(24);
+  font-size: rem-calc(12);
+  margin-top: rem-calc(12);
+  color: $color-beige-dark;
+
+  &:hover {
+    color: #fff;
   }
 }
 

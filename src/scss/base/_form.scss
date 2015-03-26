@@ -27,6 +27,24 @@ textarea {
   margin-bottom: 0;
   @include rhythm;
 }
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="color"],
+.postfix,
+.prefix {
+  height: rem-calc(36);
+}
 
 .postfix.light,
 .prefix.light {
