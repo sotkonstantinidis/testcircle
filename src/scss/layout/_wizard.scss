@@ -1,6 +1,6 @@
 // Wizard
 .wizard {
-  padding: 4em 3em 50%;
+  padding: 4em 3em 70vh;
   @media #{$large-up} {
     padding-left: 0;
     padding-right: 0;
@@ -32,14 +32,20 @@
   background: $color-brown;
   color: #fff;
   z-index: 999;
-  padding-bottom: rem-calc(36);
+  padding-bottom: rem-calc(24);
 
   .progress {
     margin-top: rem-calc(24);
+    margin-bottom: rem-calc(12);
   }
   .button-icon {
     margin-top: 0;
-    min-width: 49%;
+    width: 49.5%;
+    margin-left: 1%;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
 .wizard-header-title {
