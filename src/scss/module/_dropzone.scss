@@ -1,4 +1,9 @@
 /* The MIT License */
+
+.dropzone-container {
+  margin-top: rem-calc(48);
+}
+
 .dropzone,
 .dropzone *,
 .dropzone-previews,
@@ -7,8 +12,8 @@
 }
 .dropzone {
   position: relative;
-  border: 3px dashed #ddd;
-  background: #fff;
+  border: 3px dashed $color-beige-dark;
+  background: $color-beige;
   padding: 1em;
   min-height: 10em;
   border-radius: 3px;
@@ -34,8 +39,8 @@
   opacity: 1;
 }
 .dropzone.dz-drag-hover {
-  border-color: rgba(0,0,0,0.15);
-  background: rgba(0,0,0,0.04);
+  border-color: rgba($color-beige-dark,0.15);
+  background: rgba($color-beige,0.04);
 }
 .dropzone.dz-started .dz-message {
   display: none;

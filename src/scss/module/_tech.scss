@@ -10,7 +10,10 @@
     position: relative;
     margin: 0;
     float: left;
-    max-width: rem-calc(240);
+    width: rem-calc(240);
+    max-width: 100%;
+    img {
+    }
   }
   .tech-status {
     position: absolute;
@@ -21,14 +24,9 @@
 
 .tech-icons {
   @include reset-list;
-  float: left;
   margin-top: 0;
   li {
-    margin-top: rem-calc(2);
-    margin-left: rem-calc(2);
-    &:first-child {
-      margin-top: 0;
-    }
+    float: left;
   }
 }
 .tech-icon {
@@ -70,6 +68,13 @@ a:hover .tech-icon {
 .tech-figure {
   position: relative;
   margin: 0;
+  background-color: $color-beige;
+  overflow: hidden;
+
+  @media #{$medium-up} {
+    height: 60vh;
+    max-height: 60vw;
+  }
 
   .row {
     @media #{$medium-up} {
@@ -98,16 +103,11 @@ a:hover .tech-icon {
 }
 .tech-figure-container {
   position: relative;
-  max-height: rem-calc(512);
+  max-height: 60vh;
   overflow: hidden;
 
   img {
-    // position: absolute;
-    // right: 0;
-    // left: 0;
-    // z-index: -1;
     min-width: 100%;
-    // top: 50%;
     @media #{$medium-up} {
       margin-top: -12.5%;
     }
@@ -142,4 +142,5 @@ a:hover .tech-icon {
 
 .tech-section-progress {
   margin-top: rem-calc(2);
+  margin-bottom: rem-calc(12);
 }

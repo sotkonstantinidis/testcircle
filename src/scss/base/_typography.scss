@@ -6,10 +6,12 @@ p, dl, ol, ul {
   @include rhythm;
 }
 h1, h2, h3, h4, h5, h6 {
-  &.is-wocat {
+  &.is-wocat,
+  & span.is-wocat {
     color: $color-wocat-dark;
   }
-  &.is-unccd {
+  &.is-unccd,
+  & span.is-unccd {
     color: $color-unccd-dark;
   }
   &.is-group {
@@ -56,4 +58,8 @@ a.link {
       background-image: linear-gradient(to bottom, transparent 50%, $color-wocat-dark 50%);
     }
   }
+}
+
+pre code {
+  line-height: rem-calc(18);
 }

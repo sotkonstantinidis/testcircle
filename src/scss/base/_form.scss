@@ -23,10 +23,18 @@ input[type="tel"],
 input[type="time"],
 input[type="url"],
 input[type="color"],
-textarea {
+input[type="checkbox"],
+input[type="radiobox"],
+textarea,
+select {
   margin-bottom: 0;
-  @include rhythm;
+  @include rhythm(0.5);
+
+  label + & {
+    margin-top: 0;
+  }
 }
+
 input[type="text"],
 input[type="password"],
 input[type="date"],
@@ -41,6 +49,7 @@ input[type="tel"],
 input[type="time"],
 input[type="url"],
 input[type="color"],
+select,
 .postfix,
 .prefix {
   height: rem-calc(36);

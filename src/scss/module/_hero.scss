@@ -42,17 +42,20 @@
     color: white;
     font-size: rem-calc(36);
     font-weight: 300;
-    &.is-wocat {
+    &.is-wocat,
+    & span.is-wocat {
       color: $color-wocat-light;
     }
-    &.is-unccd {
+    &.is-unccd,
+    & span.is-unccd {
       color: $color-wocat-light;
     }
   }
 }
 
 .hero-big {
-  padding: rem-calc(120) 0 rem-calc(72);
+  padding-top: rem-calc(120);
+  padding-bottom: rem-calc(72);
 
   h2 {
     font-size: rem-calc(36);

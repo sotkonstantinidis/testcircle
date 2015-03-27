@@ -1,6 +1,9 @@
 .top-bar.is-home {
   background: transparent;
 }
+.top-bar.expanded {
+  background: $color-brown-dark;
+}
 .top-bar .title-area {
   z-index: 1;
 }

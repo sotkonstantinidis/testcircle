@@ -74,10 +74,12 @@ button,
 }
 
 .button-download {
+  position: relative;
   display: block;
   color: white;
   background-color: $color-beige;
   font-weight: 300;
+  padding-left: rem-calc(48);
 
   &:hover,
   &:hover .tech-icon {
@@ -92,7 +94,9 @@ button,
     color: $color-beige-light;
   }
   .tech-icon {
-    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: $color-beige-dark;
     color: white;
   }
