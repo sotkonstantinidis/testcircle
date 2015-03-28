@@ -5,29 +5,26 @@
 {% load staticfiles %}
 
 {% block content %}
-  <form class="wizard" action="" method="POST">
+  <form id="wizard-form" class="wizard" action="" method="POST">
     {% csrf_token %}
 
-    <header class="wizard-header">
+    <header class="wizard-header" role="banner">
       <div class="row">
-        <div class="columns small-12">
+        <div class="columns small-12 medium-9">
           <h2>{{ category_config.label }}</h2>
-          <span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span> {% trans "completed" %}
-          <div class="progress radius">
+          <div class="progress">
             <span class="meter" style="width:0%"></span>
           </div>
-          <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}"/>
-          <a class="button secondary" href="{% url route_overview %}">{% trans "Back" %}</a>
-          <div class="right">
-            {% if category_formsets|length > 1 %}
-              <a class="button button-icon" href="#question1" data-magellan-step="previous">
-                <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
-              </a>
-              <a class="button button-icon" href="#question2" data-magellan-step="next">
-                <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
-              </a>
-            {% endif %}
-          </div>
+        </div>
+        <div class="columns small-12 medium-3">
+          <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
+            <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
+          </a>
+          <a class="button secondary button-icon" href="#question2" data-magellan-step="next">
+            <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
+          </a>
+          <a id="button-submit" class="button expand is-wocat" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span>)</strong></a>
+          <!-- <a class="button secondary" href="{% url route_overview %}">{% trans "Back" %}</a> -->
         </div>
       </div>
       <div data-magellan-expedition="fixed" style="" class="fixed">

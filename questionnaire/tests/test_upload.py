@@ -7,7 +7,7 @@ from questionnaire.models import File
 from questionnaire.upload import (
     get_all_file_extensions,
     get_file_extension_by_content_type,
-    get_thumbnail_format_by_name,
+    get_interchange_urls_by_identifier,
     get_upload_folder_structure,
     get_url_by_filename,
     get_url_by_identifier,
@@ -18,10 +18,11 @@ from questionnaire.upload import (
 from questionnaire.tests.test_models import get_valid_file
 from questionnaire.tests.test_views import valid_file
 
-TEST_UPLOAD_IMAGE_THUMBNAIL_FORMATS = {
-    'header_1': (900, 300),
-    'header_2': (200, 100),
-}
+TEST_UPLOAD_IMAGE_THUMBNAIL_FORMATS = (
+    ('default', (640, 480)),
+    ('small', (1024, 768)),
+    ('medium', (1440, 1080)),
+)
 
 TEST_UPLOAD_VALID_FILES = {
     'image': (
@@ -189,15 +190,17 @@ class GetUrlByIdentifierTest(TestCase):
 
 @override_settings(
     UPLOAD_IMAGE_THUMBNAIL_FORMATS=TEST_UPLOAD_IMAGE_THUMBNAIL_FORMATS)
-class GetThumbnailFormatByName(TestCase):
+class GetInterchangeUrlsByIdentifierTest(TestCase):
 
-    def test_returns_format(self):
-        format = get_thumbnail_format_by_name('header_1')
-        self.assertEqual(format, (900, 300))
+    @patch.object(File, 'get_interchange_urls')
+    def test_calls_file_get_url(self, mock_get_interchange_url):
+        file = get_valid_file()
+        get_interchange_urls_by_identifier(file.uuid)
+        mock_get_interchange_url.assert_called_once_with()
 
-    def test_returns_zero_if_not_found(self):
-        format = get_thumbnail_format_by_name('foo')
-        self.assertEqual(format, (0, 0))
+    def test_returns_empty_string_if_not_found(self):
+        f = get_interchange_urls_by_identifier('foo')
+        self.assertEqual(f, '')
 
 
 class GetUploadFolderStructureTest(TestCase):

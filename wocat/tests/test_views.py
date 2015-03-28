@@ -29,8 +29,8 @@ def get_valid_new_step_values():
 
 
 def get_valid_new_values():
-    args = ('wocat', 'wocat')
-    kwargs = {'questionnaire_id': None, 'page_title': 'WOCAT Form Overview'}
+    args = ('wocat', 'wocat/questionnaire/details.html', 'wocat')
+    kwargs = {'questionnaire_id': None}
     return args, kwargs
 
 
@@ -80,7 +80,7 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'form/overview.html')
+        self.assertTemplateUsed(res, 'wocat/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('wocat.views.generic_questionnaire_new')

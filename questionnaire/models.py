@@ -200,3 +200,23 @@ class File(models.Model):
             return None
         filename = '{}.{}'.format(uid, file_extension)
         return get_url_by_filename(filename)
+
+    def get_interchange_urls(self):
+        """
+        Return the URLs for all the thumbnail sizes of the file. This
+        value can be used by foundation as the ``data-interchange``
+        value to allow interchange of images.
+
+        Also adds ``large`` as last thumbnail size. This size contains
+        the original image as it was uploaded.
+
+        Returns:
+            ``str``. A string with the interchange files. Can be used as
+            such in ``<img data-interchange="">``.
+        """
+        ret = []
+        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
+            ret.append('[{}, ({})]'.format(self.get_url(
+                thumbnail=thumbnail_format[0]), thumbnail_format[0]))
+        ret.append('[{}, ({})]'.format(self.get_url(), 'large'))
+        return ''.join(ret)

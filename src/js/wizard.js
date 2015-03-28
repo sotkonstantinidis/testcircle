@@ -46,8 +46,7 @@ function watchFormProgress() {
   stepsElement.html(completed);
   var total = stepsElement.next('.progress-total').html();
   var progress = completed / total * 100;
-  var progressbar = stepsElement.siblings('.progress');
-  progressbar.find('.meter').width(progress + '%');
+  $('header.wizard-header').find('.meter').width(progress + '%');
 }
 
 $(function() {
@@ -116,7 +115,6 @@ $(function() {
 
     var dropzoneContainer = $(this);
     var previewContainer = $(this).data('upload-preview-container');
-    var previewFormat = null;
     if (previewContainer) {
       previewContainer = $('#' + previewContainer);
       previewContainer.on('mouseover', function() {
@@ -151,8 +149,6 @@ $(function() {
         watchFormProgress();
         return false;
       });
-
-      previewFormat = dropzoneContainer.data('upload-preview-format');
     }
 
     var url = dropzoneContainer.data('upload-url');
@@ -171,29 +167,23 @@ $(function() {
         if (previewContainer) {
           var el = $('input#' + this.element.id.replace('file_', ''));
           if (el.val()) {
-            var url = '/questionnaire/file/download/' + el.val() + '/?format=' + previewFormat;
-            var img = $(document.createElement('img'));
-            img.attr('src', url);
-            previewContainer.find('.image-preview').html(img);
-            dropzoneContainer.toggle();
-            previewContainer.toggle();
-            watchFormProgress();
+
+            $.ajax({
+              url: '/questionnaire/file/interchange/' + el.val()
+            }).done(function(interchange) {
+              addImage(previewContainer, dropzoneContainer, interchange);
+              watchFormProgress();
+            });
           }
         }
       },
       sending: function(file, xhr, formData) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-        if (previewFormat) {
-          formData.append('preview_format', previewFormat);
-        }
       },
       success: function(file, response) {
-        if (previewContainer && response['url']) {
-          dropzoneContainer.toggle();
-          previewContainer.toggle();
-          var img = $(document.createElement('img'));
-          img.attr('src', response['url']);
-          previewContainer.find('.image-preview').html(img);
+        if (previewContainer && response['interchange']) {
+          addImage(previewContainer, dropzoneContainer,
+            response['interchange']);
         }
         watchFormProgress();
         addFilename(response['uid'], file, this);
@@ -216,6 +206,27 @@ $(function() {
     });
   });
 });
+
+/**
+ * Add an image to the preview container. This is done by creating an
+ * image element and adding the interchange attribute.
+ *
+ * @param {element} previewContainer - The preview container to add the
+ *   image to. This element will be made visible.
+ * @param {element} dropzoneContainer - The dropzone container which
+ *   will be hidden.
+ * @param {string} interchangeData - The interchange data.
+ */
+function addImage(previewContainer, dropzoneContainer, interchangeData) {
+  var img = $(document.createElement('img'));
+  img.attr('data-interchange', interchangeData);
+  img.css({'width': '100%'});
+  previewContainer.find('.image-preview').html(img);
+  $(document).foundation();
+  $(document).foundation('interchange', 'reflow');
+  dropzoneContainer.toggle();
+  previewContainer.toggle();
+}
 
 /*
  * Add a filename to the hidden form input field after upload of the

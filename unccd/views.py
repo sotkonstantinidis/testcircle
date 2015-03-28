@@ -66,7 +66,7 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'unccd', 'unccd', page_title=_('UNCCD Form Overview'),
+        request, 'unccd', 'unccd/questionnaire/details.html', 'unccd',
         questionnaire_id=questionnaire_id)
 
 

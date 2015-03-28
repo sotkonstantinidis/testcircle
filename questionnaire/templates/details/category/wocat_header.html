@@ -1,0 +1,42 @@
+{% load i18n %}
+
+  <section id="{{ keyword }}" class="tech-section row is-rhythmed-4" data-magellan-destination="{{ keyword }}">
+    <a name="{{ keyword }}"></a>
+
+    <header class="tech-output-header medium-7 columns">
+      <span class="label tech-status label is-draft">Draft</span>
+      <h1 class="tech-output-title">{{ raw_data.wocat_common_name }}</h1>
+      <p class="tech-output-header-info clearfix"><span class="is-muted left">[ID] - [Country]</span></p>
+      <p class="is-large">{{ raw_data.wocat_definition }}</p>
+      <p class="is-large">{{ raw_data.wocat_description }}</p>
+    </header>
+    <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
+      <ul class="tech-output-infos">
+        <li>
+          <span class="is-muted">Date:</span>
+          <time datetime="1990-10-10" pubdate="">[Date]</time>
+        </li>
+        <li>
+          <span class="is-muted">Update:</span>
+          <time datetime="1990-10-10" pubdate="">[Date]</time>
+        </li>
+        <li>
+          <span class="is-muted">Author:</span>
+          <a rel="author" href="#" class="link">[Author]</a>
+        </li>
+      </ul>
+    </aside>
+
+    {% if editable %}
+      <div class="medium-9 columns">
+        <h2>&nbsp;</h2>
+        <div class="tech-section-progress progress">
+          <span class="progress-steps"></span>
+          <span class="meter" style="width:{{ progress }}%"></span>
+        </div>
+      </div>
+      <div class="medium-3 columns">
+        <a class="button is-wocat right" data-toggle-boolean="section_one" href="{% url edit_step_route keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
+      </div>
+    {% endif %}
+  </section>

@@ -264,11 +264,12 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_render.assert_called_once_with(
-            self.request, 'form/overview.html', {
+            self.request, 'sample/questionnaire/details.html', {
                 'questionnaire_id': None,
                 'category_names': get_categories(),
                 'categories': ["foo"]*get_category_count(),
-                'title': 'SAMPLE Form Overview'
+                'images': [],
+                'mode': 'edit',
             })
 
     def test_returns_rendered_response(self):
@@ -300,8 +301,9 @@ class GenericQuestionnaireDetailsTest(TestCase):
             mock_get_object_or_404, mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
         mock_get_object_or_404.return_value.data = {}
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
+        with self.assertRaises(Exception):
+            generic_questionnaire_details(
+                self.request, *get_valid_details_values())
         mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
@@ -323,7 +325,12 @@ class GenericQuestionnaireDetailsTest(TestCase):
             self.request, *get_valid_details_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
-                'categories': [], 'questionnaire_id': 1})
+                'categories': [],
+                'questionnaire_id': 1,
+                'mode': 'view',
+                'images': [],
+                'category_names': (),
+            })
 
     @patch('questionnaire.views.get_object_or_404')
     def test_returns_rendered_response(self, mock_get_object_or_404):
@@ -400,8 +407,9 @@ class GenericFileUploadTest(TestCase):
         m = Mock()
         m.get_url.return_value = 'foo'
         mock_handle_upload.return_value = m
-        with open(valid_file, 'rb') as fp:
-            self.client.post(self.url, {'file': fp})
+        with self.assertRaises(Exception):
+            with open(valid_file, 'rb') as fp:
+                self.client.post(self.url, {'file': fp})
         mock_handle_upload.assert_called_once()
 
     def test_handles_exception_by_handle_upload(self):

@@ -28,8 +28,8 @@ def get_valid_new_step_values():
 
 
 def get_valid_new_values():
-    args = ('unccd', 'unccd')
-    kwargs = {'questionnaire_id': None, 'page_title': 'UNCCD Form Overview'}
+    args = ('unccd', 'unccd/questionnaire/details.html', 'unccd')
+    kwargs = {'questionnaire_id': None}
     return args, kwargs
 
 
@@ -78,7 +78,7 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         do_log_in(self.client)
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'form/overview.html')
+        self.assertTemplateUsed(res, 'unccd/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('unccd.views.generic_questionnaire_new')

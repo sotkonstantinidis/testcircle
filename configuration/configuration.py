@@ -25,8 +25,8 @@ from qcat.utils import (
     is_empty_list_of_dicts,
 )
 from questionnaire.upload import (
+    get_interchange_urls_by_identifier,
     get_url_by_identifier,
-    get_thumbnail_format_by_name,
 )
 
 
@@ -256,13 +256,8 @@ class QuestionnaireQuestion(object):
                 label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
         elif self.field_type == 'image':
-            widget = ImageUpload()
-            widget.format = 'header'
-            dimensions = get_thumbnail_format_by_name(widget.format)
-            widget.width = dimensions[0]
-            widget.height = dimensions[1]
             formfields['file_{}'.format(self.keyword)] = forms.FileField(
-                widget=widget, required=self.required, label=self.label)
+                widget=ImageUpload(), required=self.required, label=self.label)
             field = forms.CharField(
                 required=self.required, widget=forms.HiddenInput())
         else:
@@ -358,7 +353,7 @@ class QuestionnaireQuestion(object):
                 })
             return rendered
         elif self.field_type in ['image']:
-            value = get_url_by_identifier(value, 'header')
+            value = get_url_by_identifier(value)
             rendered = render_to_string(
                 'details/field/image.html', {
                     'key': self.label,
@@ -786,6 +781,8 @@ class QuestionnaireCategory(object):
     valid_options = [
         'keyword',
         'subcategories',
+        'view_template',
+        'use_raw_data',
     ]
 
     def __init__(self, configuration):
@@ -797,6 +794,12 @@ class QuestionnaireCategory(object):
           {
             # The keyword of the category.
             "keyword": "CAT_KEYWORD",
+
+            # (optional)
+            "view_template": "VIEW_TEMPLATE",
+
+            # (optional)
+            "use_raw_data": true,
 
             # A list of subcategories.
             "subcategories": [
@@ -833,6 +836,8 @@ class QuestionnaireCategory(object):
             raise ConfigurationErrorInvalidConfiguration(
                 'subcategories', 'list of dicts', 'categories')
 
+        view_template = configuration.get('view_template', 'default')
+
         for conf_subcategory in conf_subcategories:
             subcategories.append(QuestionnaireSubcategory(conf_subcategory))
 
@@ -841,6 +846,8 @@ class QuestionnaireCategory(object):
         self.subcategories = subcategories
         self.object = category
         self.label = category.get_translation('label')
+        self.view_template = 'details/category/{}.html'.format(view_template)
+        self.use_raw_data = configuration.get('use_raw_data', False) is True
 
     @staticmethod
     def merge_configurations(base, specific):
@@ -930,14 +937,18 @@ class QuestionnaireCategory(object):
             edit_step_route=''):
         rendered_subcategories = []
         with_content = 0
+        raw_data = {}
         for subcategory in self.subcategories:
             rendered_subcategory, has_content = subcategory.get_details(data)
             if has_content:
                 rendered_subcategories.append(rendered_subcategory)
                 with_content += 1
+            if self.use_raw_data is True:
+                raw_data = self.get_raw_category_data(data)
         rendered = render_to_string(
-            'details/category.html', {
+            self.view_template, {
                 'subcategories': rendered_subcategories,
+                'raw_data': raw_data,
                 'label': self.label,
                 'keyword': self.keyword,
                 'editable': editable,
@@ -947,6 +958,38 @@ class QuestionnaireCategory(object):
                 'edit_step_route': edit_step_route,
             })
         return rendered
+
+    def get_raw_category_data(self, questionnaire_data):
+        """
+        Return only the raw data of a category. The entire questionnaire
+        data is scanned for the questiongroups belonging to the current
+        category. Only the data of these questiongroups is then
+        returned as a flat dict.
+
+        .. important::
+            This function may return unexpected outputs when used on
+            categories with repeating questiongroups or with keys having
+            the same keyword.
+
+        Args:
+            ``questionnaire_data`` (dict): The questionnaire data
+            dictionary.
+
+        Returns:
+            ``dict``. A flat dictionary with only the keys and values of
+            the current category.
+        """
+        raw_category_data = {}
+        for subcategory in self.subcategories:
+            for questiongroup in subcategory.questiongroups:
+                questiongroups_data = questionnaire_data.get(
+                    questiongroup.keyword, {})
+                for question in questiongroup.questions:
+                    for questiongroup_data in questiongroups_data:
+                        question_data = questiongroup_data.get(
+                            question.keyword)
+                        raw_category_data[question.keyword] = question_data
+        return raw_category_data
 
 
 class QuestionnaireConfiguration(object):
@@ -1038,6 +1081,54 @@ class QuestionnaireConfiguration(object):
                         'position': question.list_position
                         })
         return sorted(conf, key=lambda k: k.get('position'))
+
+    def get_image_data(self, data):
+        """
+        Return image data from outside the category. Loops through all
+        the fields to find the questiongroups containing images. For all
+        these, basic information about the images are collected and
+        returned as a list of dictionaries.
+
+        Args:
+            ``data`` (dict): A questionnaire data dictionary.
+
+        Returns:
+            ``list``. A list of dictionaries for each image. Each
+            dictionary has the following entries:
+
+            - ``image``: The URL of the original image.
+
+            - ``interchange``: The data which can be used for the
+              interchange of images.
+
+            - ``caption``: The caption of the image. Corresponds to
+              field ``image_caption``.
+
+            - ``date_location``: The date and location of the image.
+              Corresponds to field ``image_date_location``.
+
+            - ``photographer``: The photographer of the image.
+              Corresponds to field ``image_photographer``.
+        """
+        image_questiongroups = []
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.field_type == 'image' and data.get(
+                        questiongroup.keyword) is not None:
+                    image_questiongroups.extend(
+                        data.get(questiongroup.keyword))
+
+        images = []
+        for image in image_questiongroups:
+            images.append({
+                'image': get_url_by_identifier(image.get('image')),
+                'interchange': get_interchange_urls_by_identifier(
+                    image.get('image')),
+                'caption': image.get('image_caption'),
+                'date_location': image.get('image_date_location'),
+                'photographer': image.get('image_photographer')
+            })
+        return images
 
     def get_list_data(self, questionnaires, details_route, current_locale):
         """
@@ -1275,17 +1366,6 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
 
 class ImageUpload(forms.FileInput):
     template_name = 'form/field/image_upload.html'
-
-    def get_context_data(self):
-        """
-        """
-        ctx = super(ImageUpload, self).get_context_data()
-        ctx.update({
-            'height': self.height,
-            'width': self.width,
-            'format': self.format,
-        })
-        return ctx
 
 
 class RequiredFormSet(BaseFormSet):

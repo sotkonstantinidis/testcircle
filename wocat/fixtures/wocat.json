@@ -151,6 +151,38 @@
     "model": "configuration.translation",
     "pk": 1019
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Image\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1020
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Caption\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1021
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Date and Location\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1022
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Name of photographer\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1023
+},
 
 {
     "fields": {
@@ -171,7 +203,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Name of the SLM practice\"}}"
+        "data": "{\"label\":{\"en\": \"Image\"}}"
     },
     "model": "configuration.translation",
     "pk": 1201
@@ -179,7 +211,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Contact details of author / institution\"}}"
+        "data": "{\"label\":{\"en\": \"Name of the SLM practice\"}}"
     },
     "model": "configuration.translation",
     "pk": 1202
@@ -236,7 +268,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"helptext\":{\"en\":\"This is some temporary example helptext\"}}"
+        "data": "{\"helptext\":{\"en\":\"You can add more images later.\"}}"
     },
     "model": "configuration.translation",
     "pk": 1703
@@ -502,6 +534,42 @@
     "model": "configuration.key",
     "pk": 1019
 },
+{
+    "fields": {
+        "keyword": "image",
+        "translation": 1020,
+        "configuration": "{\"type\": \"image\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1020
+},
+{
+    "fields": {
+        "keyword": "image_caption",
+        "translation": 1021,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1021
+},
+{
+    "fields": {
+        "keyword": "image_date_location",
+        "translation": 1022,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1022
+},
+{
+    "fields": {
+        "keyword": "image_photographer",
+        "translation": 1023,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1023
+},
 
 {
     "fields": {
@@ -721,7 +789,7 @@
         "description": "Description of WOCAT Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"wocat__1\",\"subcategories\":[{\"keyword\":\"wocat__1__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_1\",\"questions\":[{\"key\":\"wocat_common_name\",\"list_position\":1}]}]},{\"keyword\":\"wocat__1__2\",\"questiongroups\":[{\"keyword\":\"wocat_qg_2\",\"questions\":[{\"key\":\"wocat_accept_conditions\"}]}]}]},{\"keyword\":\"wocat__2\",\"subcategories\":[{\"keyword\":\"wocat__2__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_3\",\"questions\":[{\"key\":\"wocat_definition\"}]}]},{\"keyword\":\"wocat__2__2\",\"questiongroups\":[{\"keyword\":\"wocat_qg_4\",\"questions\":[{\"key\":\"wocat_description\"}]}]},{\"keyword\":\"wocat__2__3\",\"questiongroups\":[{\"keyword\":\"wocat_qg_5\",\"questions\":[{\"key\":\"wocat_country\"},{\"key\":\"wocat_state_province\"},{\"key\":\"wocat_further_location\"},{\"key\":\"wocat_where_comments\"}]}]},{\"keyword\":\"wocat__2__4\",\"questiongroups\":[{\"keyword\":\"wocat_qg_6\",\"questions\":[{\"key\":\"wocat_landuse_cropland\"},{\"key\":\"wocat_landuse_grazingland\"},{\"key\":\"wocat_landuse_forest\"},{\"key\":\"wocat_landuse_mixed\"},{\"key\":\"wocat_landuse_other\"}]},{\"keyword\":\"wocat_qg_7\",\"questions\":[{\"key\":\"wocat_original_landuse\"},{\"key\":\"wocat_future_landuse\"}]},{\"keyword\":\"wocat_qg_8\",\"questions\":[{\"key\":\"wocat_major_crops\"}]},{\"keyword\":\"wocat_qg_9\",\"questions\":[{\"key\":\"wocat_type_extensive_grazing\"},{\"key\":\"wocat_type_intensive_grazing\"},{\"key\":\"wocat_main_livestock_species\"}]}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"wocat__1\",\"view_template\":\"wocat_header\",\"use_raw_data\":true,\"subcategories\":[{\"keyword\":\"wocat__1__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_1\",\"questions\":[{\"key\":\"image\"},{\"key\":\"image_caption\"},{\"key\":\"image_date_location\"},{\"key\":\"image_photographer\"}]}]},{\"keyword\":\"wocat__1__2\",\"questiongroups\":[{\"keyword\":\"wocat_qg_2\",\"questions\":[{\"key\":\"wocat_common_name\",\"list_position\":1},{\"key\":\"wocat_definition\"},{\"key\":\"wocat_description\"},{\"key\":\"wocat_accept_conditions\"}]}]}]},{\"keyword\":\"wocat__2\",\"subcategories\":[{\"keyword\":\"wocat__2__3\",\"questiongroups\":[{\"keyword\":\"wocat_qg_5\",\"questions\":[{\"key\":\"wocat_country\"},{\"key\":\"wocat_state_province\"},{\"key\":\"wocat_further_location\"},{\"key\":\"wocat_where_comments\"}]}]},{\"keyword\":\"wocat__2__4\",\"questiongroups\":[{\"keyword\":\"wocat_qg_6\",\"questions\":[{\"key\":\"wocat_landuse_cropland\"},{\"key\":\"wocat_landuse_grazingland\"},{\"key\":\"wocat_landuse_forest\"},{\"key\":\"wocat_landuse_mixed\"},{\"key\":\"wocat_landuse_other\"}]},{\"keyword\":\"wocat_qg_7\",\"questions\":[{\"key\":\"wocat_original_landuse\"},{\"key\":\"wocat_future_landuse\"}]},{\"keyword\":\"wocat_qg_8\",\"questions\":[{\"key\":\"wocat_major_crops\"}]},{\"keyword\":\"wocat_qg_9\",\"questions\":[{\"key\":\"wocat_type_extensive_grazing\"},{\"key\":\"wocat_type_intensive_grazing\"},{\"key\":\"wocat_main_livestock_species\"}]}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "WOCAT Configuration"
