@@ -353,7 +353,7 @@ class QuestionnaireQuestion(object):
                 })
             return rendered
         elif self.field_type in ['image']:
-            value = get_url_by_identifier(value, 'header')
+            value = get_url_by_identifier(value)
             rendered = render_to_string(
                 'details/field/image.html', {
                     'key': self.label,

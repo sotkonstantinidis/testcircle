@@ -17,14 +17,12 @@
           </div>
         </div>
         <div class="columns small-12 medium-3">
-          {% if category_formsets|length > 1 %}
-            <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
-              <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
-            </a>
-            <a class="button secondary button-icon" href="#question2" data-magellan-step="next">
-              <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
-            </a>
-          {% endif %}
+          <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
+            <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
+          </a>
+          <a class="button secondary button-icon" href="#question2" data-magellan-step="next">
+            <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
+          </a>
           <a id="button-submit" class="button expand is-wocat" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span>)</strong></a>
           <!-- <a class="button secondary" href="{% url route_overview %}">{% trans "Back" %}</a> -->
         </div>
