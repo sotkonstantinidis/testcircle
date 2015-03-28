@@ -31,7 +31,7 @@ def handle_upload(file):
     thumbnails = {}
     if file_type == 'image':
         thumbnail_formats = settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS
-        for format_name, format_settings in thumbnail_formats.items():
+        for format_name, format_settings in thumbnail_formats:
             image_generator = Thumbnail(
                 source=file,
                 dimensions=(format_settings[0], format_settings[1]))
@@ -221,20 +221,26 @@ def get_url_by_identifier(uuid, thumbnail=None):
     return file.get_url(thumbnail=thumbnail)
 
 
-def get_thumbnail_format_by_name(name):
+def get_interchange_urls_by_identifier(uuid):
     """
-    Return a thumbnail format based on its name as specified in the
-    setting ``UPLOAD_IMAGE_THUMBNAIL_FORMATS``. If the name was not
-    found, dimensions (0, 0) are returned.
+    Return the interchange URLs of a file based on its identifier. A
+    query is made to find the file in the database table, then the
+    file's method is used to get its URLs.
+
+    .. seealso::
+        :func:`questionnaire.models.File.get_interchange_urls`
 
     Args:
-        ``name`` (str): The name of the thumbnail format.
+        ``uuid`` (str): The identifier of the file.
 
     Returns:
-        ``tuple``. A tuple of two integers (width, height), representing
-        the dimensions of the thumbnail.
+        ``str``. The interchange URLs of the files.
     """
-    return settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS.get(name, (0, 0))
+    try:
+        file = File.objects.get(uuid=uuid)
+    except File.DoesNotExist:
+        return ''
+    return file.get_interchange_urls()
 
 
 def get_upload_folder_structure(filename):

@@ -114,9 +114,12 @@ UPLOAD_VALID_FILES = {
     )
 }
 UPLOAD_MAX_FILE_SIZE = 1000000
-UPLOAD_IMAGE_THUMBNAIL_FORMATS = {
-    'header': (900, 300),
-}
+UPLOAD_IMAGE_THUMBNAIL_FORMATS = (
+    ('default', (640, 480)),
+    ('small', (1024, 768)),
+    ('medium', (1440, 1080)),
+    # 'large' is the original uploaded image.
+)
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),

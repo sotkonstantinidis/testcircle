@@ -64,8 +64,8 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'sample', 'sample', questionnaire_id=questionnaire_id,
-        page_title='SAMPLE Form Overview')
+        request, 'sample', 'sample/questionnaire/details.html', 'sample',
+        questionnaire_id=questionnaire_id)
 
 
 def questionnaire_details(request, questionnaire_id):

@@ -231,7 +231,6 @@ class QuestionnaireConfigurationMergeConfigurationsTest(TestCase):
                 }
             ]
         }
-        # m = QuestionnaireConfiguration(keyword=None)
         conf = QuestionnaireConfiguration.merge_configurations(base, specific)
         self.assertIn('categories', conf)
         self.assertNotIn('subcategories', conf)

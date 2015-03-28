@@ -142,8 +142,8 @@ def generic_questionnaire_new_step(
 
 @login_required
 def generic_questionnaire_new(
-        request, configuration_code, url_namespace,
-        questionnaire_id=None, page_title='QCAT Form Overview'):
+        request, configuration_code, template, url_namespace,
+        questionnaire_id=None):
     """
     A generic view to show an entire questionnaire.
 
@@ -217,11 +217,14 @@ def generic_questionnaire_new(
     for category in questionnaire_configuration.categories:
         category_names.append((category.keyword, category.label))
 
-    return render(request, 'form/overview.html', {
+    images = questionnaire_configuration.get_image_data(data)
+
+    return render(request, template, {
+        'images': images,
         'categories': categories,
         'category_names': tuple(category_names),
         'questionnaire_id': questionnaire_id,
-        'title': page_title,
+        'mode': 'edit',
     })
 
 
@@ -252,10 +255,18 @@ def generic_questionnaire_details(
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
     categories = questionnaire_configuration.get_details(data)
+    category_names = []
+    for category in questionnaire_configuration.categories:
+        category_names.append((category.keyword, category.label))
+
+    images = questionnaire_configuration.get_image_data(data)
 
     return render(request, template, {
+        'images': images,
         'categories': categories,
+        'category_names': tuple(category_names),
         'questionnaire_id': questionnaire_id,
+        'mode': 'view',
     })
 
 
@@ -306,10 +317,6 @@ def generic_file_upload(request):
 
             ``request.FILES`` (mandatory): The uploaded file.
 
-            ``request.POST.preview_format`` (optional): If available,
-            the URL for this format will be returned. If not specified,
-            the URL to the original file will be returned.
-
     Returns:
         ``JsonResponse``. A JSON containing the following entries::
 
@@ -317,8 +324,9 @@ def generic_file_upload(request):
           {
             "success": true,
             "uid": "UID",          # The UID of the generated file
-            "url": "URL"           # The URL of the preview file generated
-                                   # (see request.POST.preview_format)
+            "url": "URL"           # The URL of the uploaded file
+            "interchange": "XYZ"   # The interchange value with all the
+                                   # thumbnails.
           }
 
           # Error requests (status_code: 400)
@@ -346,7 +354,8 @@ def generic_file_upload(request):
     ret = {
         'success': True,
         'uid': str(db_file.uuid),
-        'url': db_file.get_url(thumbnail=request.POST.get('preview_format')),
+        'interchange': db_file.get_interchange_urls(),
+        'url': db_file.get_url(),
     }
     return JsonResponse(ret)
 
@@ -364,7 +373,7 @@ def generic_file_serve(request, action, uid):
         ``request`` (django.http.HttpRequest): The request object.
 
         ``action`` (str): The action to perform with the file. Available
-        options are ``display`` and ``download``.
+        options are ``display``, ``download`` and ``interchange``.
 
         ``uid`` (str): The UUID of the file object.
 
@@ -373,12 +382,16 @@ def generic_file_serve(request, action, uid):
 
     Returns:
         ``HttpResponse``. A Http Response with the file if found, 404 if
-        not found.
+        not found. If the ``action=interchange`` is set, a string with
+        the interchange data is returned.
     """
-    if action not in ['display', 'download']:
+    if action not in ['display', 'download', 'interchange']:
         raise Http404()
 
     file_object = get_object_or_404(File, uuid=uid)
+
+    if action == 'interchange':
+        return HttpResponse(file_object.get_interchange_urls())
 
     thumbnail = request.GET.get('format')
     try:

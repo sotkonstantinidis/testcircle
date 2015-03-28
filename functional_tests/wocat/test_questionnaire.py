@@ -30,7 +30,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She is taken to the form and sees the steps
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="progress radius"]')
+            'xpath', '//div[@class="tech-section-progress progress"]')
         self.assertEqual(len(progress_indicators), get_category_count())
 
         # She goes to the first step and sees the link works.
@@ -39,5 +39,5 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="progress radius"]')
+            'xpath', '//div[@class="tech-section-progress progress"]')
         self.assertEqual(len(progress_indicators), get_category_count())

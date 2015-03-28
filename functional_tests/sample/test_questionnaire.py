@@ -10,6 +10,9 @@ from sample.tests.test_views import (
     get_position_of_category,
 )
 
+from nose.plugins.attrib import attr
+# @attr('foo')
+
 
 class QuestionnaireTest(FunctionalTest):
 
@@ -219,10 +222,11 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that all progress bars are to 0%
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="progress radius"]')
+            'xpath', '//div[@class="tech-section-progress progress"]')
         self.assertEqual(len(progress_indicators), get_category_count())
-        for x in progress_indicators:
-            self.assertIn('0 /', x.text)
+        buttons = self.findManyBy('xpath', '//a[contains(@href, "edit/cat")]')
+        for x in buttons:
+            self.assertIn('0/', x.text)
         progress_bars = self.findManyBy(
             'xpath', '//span[@class="meter" and @style="width:0.0%"]')
         self.assertEqual(len(progress_bars), len(progress_indicators))
@@ -254,9 +258,9 @@ class QuestionnaireTest(FunctionalTest):
         progress_bars = self.findBy(
             'xpath', '//span[@class="meter" and @style="width:50.0%"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_1_position))
-        self.assertEqual(progress_indicator.text, '1 / 2')
+        self.assertIn('1/2', progress_indicator.text)
 
         # She decides to edit the step again and deletes what she
         # entered. She notices that the bar is back to 0, also on the
@@ -270,10 +274,11 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="progress radius"]')
+            'xpath', '//div[@class="tech-section-progress progress"]')
         self.assertEqual(len(progress_indicators), get_category_count())
-        for x in progress_indicators:
-            self.assertIn('0 /', x.text)
+        buttons = self.findManyBy('xpath', '//a[contains(@href, "edit/cat")]')
+        for x in buttons:
+            self.assertIn('0/', x.text)
         progress_bars = self.findManyBy(
             'xpath', '//span[@class="meter" and @style="width:0.0%"]')
         self.assertEqual(len(progress_bars), len(progress_indicators))
@@ -306,9 +311,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 13")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
-        self.assertIn('0 /', progress_indicator.text)
+        self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no checkbox is selected
@@ -335,9 +340,9 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('xpath', '//*[contains(text(), "Value 13_1")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
-        self.assertIn('1 /', progress_indicator.text)
+        self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the first checkbox is
         # selected, form progress is at 1
@@ -398,9 +403,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 14")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_4_position))
-        self.assertIn('0 /', progress_indicator.text)
+        self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no checkbox is selected
@@ -423,9 +428,9 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 14')
         self.findBy('xpath', '//img[@alt="Value 14_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_4_position))
-        self.assertIn('1 /', progress_indicator.text)
+        self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the first checkbox is
         # selected, form progress is at 1
@@ -501,9 +506,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 15")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_4_position))
-        self.assertIn('0 /', progress_indicator.text)
+        self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no checkbox is selected
@@ -544,9 +549,9 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 15')
         self.findBy('xpath', '//img[@alt="Value 15_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_4_position))
-        self.assertIn('1 /', progress_indicator.text)
+        self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the value of Key 15 is
         # selected, form progress is at 1
@@ -575,9 +580,9 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 16')
         self.findBy('xpath', '//img[@alt="Value 16_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_4_position))
-        self.assertIn('1 /', progress_indicator.text)
+        self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the value of Key 15 is
         # selected, form progress is at 1
@@ -669,9 +674,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 12")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
-        self.assertIn('0 /', progress_indicator.text)
+        self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and the row is unselected
@@ -698,9 +703,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "Key 12")]')
         self.findBy('xpath', '//*[contains(text(), "Value 1")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
-        self.assertIn('1 /', progress_indicator.text)
+        self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees the row is highlighted and
         # Value 1 selected, form progress is at 1
@@ -760,9 +765,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[contains(text(), "Key 11")]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_1_position))
-        self.assertIn('0 /', progress_indicator.text)
+        self.assertIn('0/', progress_indicator.text)
 
         # She goes to the form again and clicks "Yes".
         self.browser.get(self.live_server_url + reverse(
@@ -781,9 +786,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width:50.0%"]')
         progress_indicator = self.findBy(
-            'xpath', '(//div[@class="progress radius"])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_1_position))
-        self.assertEqual(progress_indicator.text, '1 / 2')
+        self.assertIn('1/2', progress_indicator.text)
 
         # She edits the form again and sets the radio button to "No"
         self.browser.get(self.live_server_url + reverse(
@@ -909,11 +914,6 @@ class QuestionnaireTest(FunctionalTest):
         self.assertTrue(preview.is_displayed())
         self.assertNotEqual(filename.get_attribute('value'), '')
 
-        img_src = self.findBy(
-            'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]/'
-            'div[@class="image-preview"]/img').get_attribute('src')
-        img_name = img_src.split('/')[-1]
-
         # She sees that the progress was updated.
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 100%;"]')
@@ -922,7 +922,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # On the overview page, she sees the image she uploaded
-        self.findBy('xpath', '//img[contains(@src, "{}")]'.format(img_name))
+        self.findBy('xpath', '//img[@data-interchange]')
 
         # She edits the form again and sees the image was populated correctly.
         self.browser.get(self.live_server_url + reverse(
@@ -932,6 +932,8 @@ class QuestionnaireTest(FunctionalTest):
         dropzone = self.findBy(
             'xpath', '//div[@id="id_qg_14-0-file_key_19" and contains(@class, '
             '"dropzone")]')
+        import time
+        time.sleep(2)
         self.assertFalse(dropzone.is_displayed())
         preview = self.findBy(
             'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]')
@@ -941,7 +943,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She submits the form and sees that the image was submitted correctly.
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//img[contains(@src, "{}")]'.format(img_name))
+        self.findBy('xpath', '//img[@data-interchange]')
 
     def test_enter_questionnaire(self):
 

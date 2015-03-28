@@ -66,8 +66,8 @@ def questionnaire_new(request, questionnaire_id=None):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
-        request, 'wocat', 'wocat', questionnaire_id=questionnaire_id,
-        page_title=_('WOCAT Form Overview'))
+        request, 'wocat', 'wocat/questionnaire/details.html', 'wocat',
+        questionnaire_id=questionnaire_id)
 
 
 def questionnaire_details(request, questionnaire_id):

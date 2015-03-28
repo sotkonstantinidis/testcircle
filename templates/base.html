@@ -5,9 +5,9 @@
     title: The title of the page.
       Default: "QCAT"
     bodyclass: The CSS class of the body element (e.g. body.layout-home)
-      Defaults to "layout-home"
+      Defaults to "layout-wocat"
     navclass: The CSS class of the nav element
-      Default: "is-home"
+      Default: "is-wocat"
     logo: A block for the logo (and link).
       Default: WOCAT image and link to /.
     header: A block inside the header's nav element.
@@ -41,7 +41,7 @@
     <script src="{% static 'js/modernizr.js' %}"></script>
 
   </head>
-  <body class="{% block bodyclass %}layout-home{% endblock %}">
+  <body class="{% block bodyclass %}layout-wocat{% endblock %}">
 
     <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -66,7 +66,7 @@
     C20.096,14.468,19.828,14.053,19.338,13.532z"/> </symbol><symbol viewBox="0 0 30 21" id="icon-video"><title>video</title><desc>Created with Sketch.</desc> <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->    <g id="video-Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <path d="M30,3 L30,1.1985 C30,0.5355 29.4645,0 28.8015,0 L1.2015,0 C0.537,0 0,0.5355 0,1.1985 L0,3 L3,3 L3,6 L0,6 L0,9 L3,9 L3,12 L0,12 L0,15 L3,15 L3,18 L0,18 L0,19.7985 C0,20.4615 0.537,21 1.2015,21 L28.8015,21 C29.4645,21 30,20.4615 30,19.7985 L30,18 L27,18 L27,15 L30,15 L30,12 L27,12 L27,9 L30,9 L30,6 L27,6 L27,3 L30,3 L30,3 Z M12,15 L12,6 L19.5,10.5 L12,15 L12,15 Z" id="video-video" fill="#000000" sketch:type="MSShapeGroup"/> </g> </symbol></svg>
 
     <header class="page-header inner-wrap" role="banner">
-      <nav class="top-bar {% block navclass %}is-home{% endblock %}" role="navigation" data-topbar data-options="is_hover: false">
+      <nav class="top-bar {% block navclass %}is-wocat{% endblock %}" role="navigation" data-topbar data-options="is_hover: false">
         <ul class="title-area">
           <li class="name">
             {% block logo %}<h1><a href="{% url 'home' %}"><img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}"></a></h1>{% endblock %}
