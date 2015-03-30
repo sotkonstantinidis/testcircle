@@ -68,7 +68,7 @@
         "description": "Description of UNCCD Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"unccd_cat_1\",\"subcategories\":[{\"keyword\":\"unccd_subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"unccd_key_1\",\"list_position\":1}],\"keyword\":\"unccd_qg_1\"}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"unccd_cat_1\",\"subcategories\":[{\"keyword\":\"unccd_subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"unccd_key_1\",\"in_list\":true}],\"keyword\":\"unccd_qg_1\"}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "UNCCD Configuration"

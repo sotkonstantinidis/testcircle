@@ -34,12 +34,12 @@
           <div class="small-12 columns">
             <ul class="accordion" data-accordion role="tablist">
               <li class="accordion-navigation">
-                <a href="#summary" role="tab" id="panel1d-heading" aria-controls="panel1d" data-toggle="summary"><svg class="icon-lines inline"><use xlink:href="#icon-list"></use></svg> {% trans "Table of Content" %}</a>
+                <a href="#summary" role="tab" id="panel1d-heading" aria-controls="panel1d" data-toggle="summary"><svg class="icon-lines is-inline"><use xlink:href="#icon-list"></use></svg> {% trans "Table of Content" %}</a>
                 <div id="summary" class="content" role="tabpanel" aria-labelledby="panel1d-heading">
                   <ol class="summary">
                     {% for keyword, label in category_names %}
                       <li data-magellan-arrival="{{ keyword }}">
-                        <a href="#{{ keyword }}">{{ label }}</a>
+                        <a href="#{{ keyword }}" class="link">{{ label }}</a>
                       </li>
                     {% endfor %}
                   </ol>

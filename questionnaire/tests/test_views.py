@@ -356,25 +356,29 @@ class GenericQuestionnaireListTest(TestCase):
         mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
-    def test_calls_get_list(self, mock_get_list_data):
+    def test_calls_get_list_data(self, mock_get_list_data):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_list_data.assert_called_once_with(
-            [], route_questionnaire_details, 'en')
+            [])
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     @patch('questionnaire.views.render')
     def test_calls_render(
             self, mock_render, mock_get_list_data):
-        mock_get_list_data.return_value = (("foo",),)
+        mock_get_list_data.return_value = []
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/list.html', {
-                'list_data': (), 'list_header': ('foo',)})
+                'questionnaire_value_list': []})
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_list(
             self.request, *get_valid_list_values())
         self.assertIsInstance(ret, HttpResponse)
+
+    def test_returns_only_template_values_if_no_template(self):
+        ret = generic_questionnaire_list(self.request, 'sample', [], None)
+        self.assertIsInstance(ret, dict)
 
 
 class GenericFileUploadTest(TestCase):

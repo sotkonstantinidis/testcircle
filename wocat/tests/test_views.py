@@ -40,8 +40,7 @@ def get_valid_details_values():
 
 def get_valid_list_values():
     return (
-        'wocat', 'wocat/questionnaire/list.html',
-        'wocat:questionnaire_details')
+        'wocat', [], 'wocat/questionnaire/list.html')
 
 
 def get_category_count():

@@ -11,7 +11,8 @@
     <header class="wizard-header" role="banner">
       <div class="row">
         <div class="columns small-12 medium-9">
-          <h2>{{ category_config.label }}</h2>
+          <a class="wizard-header-back" href="{% url route_overview %}">{% trans "Go Back" %}</a>
+          <h2 class="wizard-header-title">{{ category_config.label }}</h2>
           <div class="progress">
             <span class="meter" style="width:0%"></span>
           </div>
@@ -19,12 +20,10 @@
         <div class="columns small-12 medium-3">
           <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
             <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
-          </a>
-          <a class="button secondary button-icon" href="#question2" data-magellan-step="next">
+          </a><a class="button secondary button-icon" href="#question2" data-magellan-step="next">
             <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
           </a>
           <a id="button-submit" class="button expand is-wocat" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span>)</strong></a>
-          <!-- <a class="button secondary" href="{% url route_overview %}">{% trans "Back" %}</a> -->
         </div>
       </div>
       <div data-magellan-expedition="fixed" style="" class="fixed">

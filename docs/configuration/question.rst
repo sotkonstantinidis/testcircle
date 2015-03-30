@@ -26,7 +26,7 @@ The basic format of the configuration is as follows::
     "key": "KEY",
 
     # (optional)
-    "list_position": 1,
+    "in_list": true,
 
     # (optional)
     "form_template": "TEMPLATE_NAME",
@@ -54,12 +54,12 @@ The basic format of the configuration is as follows::
 
 The keyword of the key of this question.
 
-``list_position``
-^^^^^^^^^^^^^^^^^
+``in_list``
+^^^^^^^^^^^
 
-(Optional). An optional integer indicating if and at which position this
-question should appear in the list representation of questionnaires. If
-not set, the question will not appear in the list.
+(Optional). An optional boolean indicating whether this question should
+appear in the list representation of questionnaires or not. Defaults to
+``False``, meaning that this question is not shown in the list.
 
 ``form_template``
 ^^^^^^^^^^^^^^^^^

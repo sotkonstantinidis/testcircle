@@ -39,8 +39,7 @@ def get_valid_details_values():
 
 def get_valid_list_values():
     return (
-        'unccd', 'unccd/questionnaire/list.html',
-        'unccd:questionnaire_details')
+        'unccd', [], 'unccd/questionnaire/list.html')
 
 
 def get_category_count():

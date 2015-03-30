@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       deploy: {
         options: {
           outputStyle: 'compressed',
-          imagePath: 'static/assets/img'
+          imagePath: '/static/assets/img'
         },
         files: {
           'static/css/app.css': 'src/scss/app.scss'

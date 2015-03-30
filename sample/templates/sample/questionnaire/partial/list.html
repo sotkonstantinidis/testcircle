@@ -1,0 +1,75 @@
+{% comment %}
+
+  This partial template can be included to display a list of SAMPLE
+  questionnaires.
+
+  Required attributes:
+
+  - questionnaire_value_list
+
+{% endcomment %}
+
+{% load i18n %}
+
+{% if not questionnaire_value_list %}
+  <p>{% trans "No SAMPLE questionnaires found." %}</p>
+{% endif %}
+
+{% for questionnaire_values in questionnaire_value_list %}
+  <article role="article" class="row large-collapse tech-item">
+    <div class="tech-thumbnail medium-4 columns">
+      <figure>
+        <a href="{% url 'sample:questionnaire_details' questionnaire_values.id %}" title=""><img src="{{ questionnaire_values.image }}" alt="" /></a>
+        <figcaption class="tech-status label is-draft">draft</figcaption>
+      </figure>
+      <ul class="tech-icons">
+        <li>
+          <a href="{% url 'sample:questionnaire_details' questionnaire_values.id %}">
+            <span class="tech-icon">
+              <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
+              <br>
+              {% trans "PDF" %}
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'sample:questionnaire_details' questionnaire_values.id %}">
+            <span class="tech-icon">
+              <svg class="icon"><use xlink:href="#icon-video"></use></svg>
+              {% trans "Video" %}
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="content medium-8 columns">
+      <header>
+         <h1><a href="{% url 'sample:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.key_1 }}</a> <small>{{ questionnaire_values.wocat_country }}</small></h1>
+      </header>
+      <aside class="tech-infos row collapse">
+        <dl class="medium-6 columns">
+          <dt>ID:</dt>
+          <dd>[ID]</dd>
+        </dl>
+        <dl class="medium-6 columns">
+          <dt>Creation:</dt>
+          <dd><time datetime="2015-02-12" pubdate="pubdate">[DATE]</time></dd>
+        </dl>
+        <dl class="medium-6 columns">
+          <dt>Update:</dt>
+          <dd><time datetime="2015-03-16">[DATE]</time></dd>
+        </dl>
+        <dl class="medium-6 columns">
+          <dt>Author:</dt>
+          <dd>Bruce Banner</dd>
+        </dl>
+      </aside>
+      <main>
+        <p>{{ questionnaire_values.key_5 }}</p>
+      </main>
+      <footer>
+        <p class="is-light"><em>This article is also avalable in: <a href="" class="link">deutsch</a>, <a href="" class="link">español</a>, <a href="" class="link">français</a></em></p>
+      </footer>
+    </div>
+  </article>
+{% endfor %}
