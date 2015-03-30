@@ -76,7 +76,7 @@ function updateFieldsetElement(element, prefix, index, reset) {
 function toggleButtonBarSelected() {
   var selectedValue = $(this).find('input[type="radio"]:checked').val();
   var item = $(this).closest('.list-item');
-  if(selectedValue != 'none') {
+  if(selectedValue != 'none' && selectedValue != '') {
     item.addClass('is-selected');
   } else {
     item.removeClass('is-selected');

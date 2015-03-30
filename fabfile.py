@@ -22,6 +22,7 @@ def deploy():
     source_folder = site_folder + '/source'
     _get_latest_source(source_folder)
     _update_virtualenv(source_folder)
+    _clean_static_folder(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
     print(green("Everything OK"))
@@ -59,10 +60,14 @@ def _update_virtualenv(source_folder):
         % (virtualenv_folder, source_folder))
 
 
+def _clean_static_folder(source_folder):
+    run('cd %s && rm -r static/*' % source_folder)
+
+
 def _update_static_files(source_folder):
     run('cd %s && npm install' % source_folder)
     run('cd %s && bower install | xargs echo' % source_folder)
-    run('cd %s && grunt build:deploy' % source_folder)
+    run('cd %s && grunt build:deploy --force' % source_folder)
     run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput'
         % (source_folder))
 
