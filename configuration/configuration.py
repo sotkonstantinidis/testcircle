@@ -54,7 +54,7 @@ class QuestionnaireQuestion(object):
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
     translation_old_prefix = 'old_'
-    value_image_path = '/static/assets/img/'
+    value_image_path = 'assets/img/'
 
     def __init__(self, questiongroup, configuration):
         """

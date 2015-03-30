@@ -17,29 +17,33 @@
 
 {% if not conditional %}
   {% block label %}{% if field|id %}<label for="{{ field|id }}">{% endif %}{{ label }}{% if label|last not in ".:!?" %}:{% endif %}{% if field|id %}</label>{% endif %}{% endblock %}
-  <div class="list-gallery">
+  <ul class="list-gallery small-block-grid-1{% if not conditions %} large-block-grid-2{% endif %}">
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
-        <div class="list-gallery-item clearfix">
-          <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub">
-          <label for="{{ attrs.id }}_{{ forloop.counter }}" class="list-item-img">{{ choice.1 }}<br>
-            <img src="{{ MEDIA_URL }}{{ images|get_by_index:forloop.counter0 }}" alt="{{ choice.1 }}">
-          </label>
-          {% for c in conditions %}
-            {% if choice.0 == c.0 %}
-              {% for f in form.visible_fields %}
-                {% if f.name == c.2 %}
-                  {% if choice.0 in value %}
-                    {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
-                  {% else %}
-                    {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
-                  {% endif %}
+        <li>
+          <div class="list-gallery-item">
+            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub">
+            <label for="{{ attrs.id }}_{{ forloop.counter }}">{{ choice.1 }}<br>
+              <figure class="list-gallery-icon">
+                <img src="{{ STATIC_URL }}{{ images|get_by_index:forloop.counter0 }}" alt="{{ choice.1 }}">
+              </figure>
+            </label>
+          </div>
+        </li>
+        {% for c in conditions %}
+          {% if choice.0 == c.0 %}
+            {% for f in form.visible_fields %}
+              {% if f.name == c.2 %}
+                {% if choice.0 in value %}
+                  {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
+                {% else %}
+                  {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
                 {% endif %}
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
     {% endfor %}
-  </div>
+  </ul>
 {% endif %}

@@ -1,3 +1,4 @@
+import time
 from django.core.urlresolvers import reverse
 from functional_tests.base import FunctionalTest
 
@@ -492,11 +493,10 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//input[@name="qg_12-0-key_15" and @checked="checked"]')
 
         # She also sees that Key 16 is not visible
-        subcat_val_1 = self.findBy(
-            'xpath', '//div[@class="list-sub small-12 columns"]')
+        subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-        self.assertEqual(subcat_val_1.get_attribute('style'), 'display: none;')
+        self.assertIn('display: none;', subcat_val_1.get_attribute('style'))
 
         # She sees that the form progress is at 0
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
@@ -519,11 +519,10 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//input[@name="qg_12-0-key_15" and @checked="checked"]')
 
         # She also sees that Key 16 is not visible
-        subcat_val_1 = self.findBy(
-            'xpath', '//div[@class="list-sub small-12 columns"]')
+        subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-        self.assertEqual(subcat_val_1.get_attribute('style'), 'display: none;')
+        self.assertIn('display: none;', subcat_val_1.get_attribute('style'))
 
         # She selects the first checkbox and sees that the form progress
         # was updated
@@ -533,13 +532,11 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//span[@class="meter" and @style="width: 100%;"]')
 
         # She also sees that Key 16 is now visible but no value is selected
-        subcat_val_1 = self.findBy(
-            'xpath', '//div[@class="list-sub small-12 columns"]')
+        subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
         self.browser.implicitly_wait(5)
-        self.findBy(
-            'xpath', '//div[@class="list-sub small-12 columns" and @style=""]')
+        self.assertNotIn('display: none;', subcat_val_1.get_attribute('style'))
         self.findByNot(
             'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
@@ -561,11 +558,10 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//span[@class="meter" and @style="width: 100%;"]')
 
         # Key 16 is visible but no value selected
-        subcat_val_1 = self.findBy(
-            'xpath', '//div[@class="list-sub small-12 columns"]')
+        subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-        self.assertEqual(subcat_val_1.get_attribute('style'), '')
+        self.assertNotIn('display: none;', subcat_val_1.get_attribute('style'))
         self.findByNot(
             'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
@@ -593,11 +589,10 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that the value of Key 15 is selected. Key 16 is
         # visible and the first value is selected.
-        subcat_val_1 = self.findBy(
-            'xpath', '//div[@class="list-sub small-12 columns"]')
+        subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-        self.assertEqual(subcat_val_1.get_attribute('style'), '')
+        self.assertNotIn('display: none;', subcat_val_1.get_attribute('style'))
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
@@ -606,15 +601,11 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '(//input[@name="qg_12-0-key_15"])[1]').click()
 
-        subcat_val_1 = self.findBy(
-            'xpath', '//div[@class="list-sub small-12 columns"]')
+        subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
         self.findBy(
             'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-        self.browser.implicitly_wait(5)
-        self.findBy(
-            'xpath',
-            '//div[@class="list-sub small-12 columns" and '
-            '@style="display: none;"]')
+        time.sleep(1)
+        self.assertIn('display: none;', subcat_val_1.get_attribute('style'))
 
         # She reselects the value of Key 15 and sees that the previously
         # selected value of Key 16 is not selected anymore.
