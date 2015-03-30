@@ -1,9 +1,8 @@
 import floppyforms as forms
 from django.forms import BaseFormSet, formset_factory
-from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string, get_template
 from django.template.base import TemplateDoesNotExist
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
 
 from configuration.models import (
     Category,
@@ -38,7 +37,7 @@ class QuestionnaireQuestion(object):
     """
     valid_options = [
         'key',
-        'list_position',
+        'in_list',
         'form_template',
         'conditions',
         'conditional'
@@ -68,7 +67,7 @@ class QuestionnaireQuestion(object):
             "key": "KEY",
 
             # (optional)
-            "list_position": 1,
+            "in_list": true,
 
             # (optional)
             "form_template": "TEMPLATE_NAME",
@@ -106,7 +105,7 @@ class QuestionnaireQuestion(object):
             raise ConfigurationErrorNotInDatabase(Key, key)
 
         self.questiongroup = questiongroup
-        self.list_position = configuration.get('list_position')
+        self.in_list = configuration.get('in_list', False)
         self.key_object = key_object
         self.key_config = key_object.configuration
         self.label = key_object.get_translation('label')
@@ -1050,38 +1049,6 @@ class QuestionnaireConfiguration(object):
                 data, editable=editable, edit_step_route=edit_step_route))
         return rendered_categories
 
-    def get_list_configuration(self):
-        """
-        Get the configuration for the list view of questionnaires. Loops
-        through the questions to find those with the option
-        ``list_position`` set. The returning list is sorted by this
-        value.
-
-        Returns:
-            ``list``. A list of dicts where each dict consists of the
-            following elements:
-
-            - ``questiongroup``: The keyword of the questiongroup. Used
-              to find the question in the questionnaire data.
-            - ``key``: The keyword of the question, respectively of the
-              Key of the question.
-            - ``label``: The (translated) label of the question,
-              respectively of the Key of the question.
-            - ``position``: The value of ``list_position``, used to sort
-              the list.
-        """
-        conf = []
-        for questiongroup in self.get_questiongroups():
-            for question in questiongroup.questions:
-                if question.list_position is not None:
-                    conf.append({
-                        'questiongroup': questiongroup.keyword,
-                        'key': question.keyword,
-                        'label': question.label,
-                        'position': question.list_position
-                        })
-        return sorted(conf, key=lambda k: k.get('position'))
-
     def get_image_data(self, data):
         """
         Return image data from outside the category. Loops through all
@@ -1130,54 +1097,58 @@ class QuestionnaireConfiguration(object):
             })
         return images
 
-    def get_list_data(self, questionnaires, details_route, current_locale):
+    def get_list_data(self, questionnaires):
         """
-        Get the data for the list representation of questionnaires based
-        on the list_configuration.
-
-        .. seealso::
-            :func:`get_list_configuration`
+        Get the data for the list representation of questionnaires.
+        Which questions are shown depends largely on the option
+        ``in_list`` of the question configuration. Additionally, some
+        meta information about the questionnaire are returned.
 
         Args:
             ``questionnaires`` (list): A list of
             :class:`questionnaire.models.Questionnaire` objects.
 
-            ``details_route`` (str): The name of the route to be used
-            for the links to the details page of each Questionnaire.
-
-            ``current_locale`` (str): The current locale.
-
         Returns:
-            ``tuple``. A tuple of tuples where the first element is the
-            header and each following element represents a row of the
-            list.
+            ``list``. A list of dicts. The data of each questionnaire is
+            stored as a dict where the key is either the keyword of the
+            question to appear in the list or a predefined keyword. Such
+            predefined keywords are:
+
+                - ``id``: The internal id of the questionnaire.
+
+                - ``image``: The URL of the main image (default format).
         """
-        conf = self.get_list_configuration()
+        from questionnaire.utils import (
+            get_questionnaire_data_in_single_language,
+        )
 
-        # Header
-        header_before_data = ['id']
-        header_after_data = []
-        list_header = []
-        list_header.extend(header_before_data)
-        list_header.extend([c['label'] for c in conf])
-        list_header.extend(header_after_data)
+        # Collect which keys are to be shown in the list.
+        list_configuration = []
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.in_list is True:
+                    list_configuration.append((
+                        questiongroup.keyword, question.keyword,
+                        question.field_type))
 
-        # Data
-        list_data = [tuple(list_header)]
+        questionnaire_values = []
         for questionnaire in questionnaires:
-            list_entry = [None] * len(list_header)
-            list_entry[0] = '<a href="{}">{}</a>'.format(
-                reverse(details_route, args=[questionnaire.get_id()]),
-                questionnaire.get_id())
-            for i, c in enumerate(conf):
-                qg = questionnaire.data.get(c['questiongroup'], [])
-                if len(qg) > 0:
-                    entry = qg[0].get(c['key'])
-                    if isinstance(entry, dict):
-                        entry = entry.get(current_locale)
-                    list_entry[i+len(header_before_data)] = entry
-            list_data.append(tuple(list_entry))
-        return tuple(list_data)
+            data = get_questionnaire_data_in_single_language(
+                questionnaire.data, get_language())
+            questionnaire_value = {}
+            for list_entry in list_configuration:
+                for question_data in data.get(list_entry[0], []):
+                    key = list_entry[1]
+                    value = question_data.get(list_entry[1])
+                    if list_entry[2] == 'image':
+                        key = 'image'
+                        value = get_url_by_identifier(value, 'default')
+                    questionnaire_value[key] = value
+
+            questionnaire_value['id'] = questionnaire.id
+            questionnaire_values.append(questionnaire_value)
+
+        return questionnaire_values
 
     def read_configuration(self):
         """

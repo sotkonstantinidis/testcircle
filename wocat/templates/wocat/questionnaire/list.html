@@ -3,24 +3,17 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% block bodyclass %}layout-technologies{% endblock %}
+
 {% block content %}
-  <div class="row">
-    <div class="large-12 columns">
-      <h3>{% trans "[TODO] WOCAT Questionnaires List" %}</h3>
-      <table>
-        <tr>
-          {% for header in list_header %}
-            <th>{{ header }}</th>
-          {% endfor %}
-        </tr>
-        {% for data in list_data %}
-          <tr>
-            {% for d in data %}
-              <td>{{ d|safe }}</td>
-            {% endfor %}
-          </tr>
-        {% endfor %}
-      </table>
-    </div>
-  </div>
+
+  <main class="row large-collapse" role="main">
+    <section class="tech-list small-12 columns">
+      <div class="tech-group">
+        <h2 class="is-group">{% trans "All technologies" %}</h2>
+        {% include "wocat/questionnaire/partial/list.html" %}
+      </div>
+    </section>
+  </main>
+
 {% endblock %}

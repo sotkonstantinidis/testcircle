@@ -1033,7 +1033,7 @@ class QuestionnaireTest(FunctionalTest):
         #  questionnaire she created is listed there.
         self.findBy('xpath', '//a[contains(@href, "{}")]'.format(
             reverse(route_questionnaire_list))).click()
-        self.checkOnPage('List')
+        self.checkOnPage('All')
         self.checkOnPage('Foo')
 
         # If she goes to the questionnaire overview form again, she sees

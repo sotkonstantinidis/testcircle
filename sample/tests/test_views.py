@@ -38,8 +38,7 @@ def get_valid_details_values():
 
 def get_valid_list_values():
     return (
-        'sample', 'sample/questionnaire/list.html',
-        'sample:questionnaire_details')
+        'sample', [], 'sample/questionnaire/list.html')
 
 
 def get_category_count():

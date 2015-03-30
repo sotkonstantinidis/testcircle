@@ -271,7 +271,7 @@ def generic_questionnaire_details(
 
 
 def generic_questionnaire_list(
-        request, configuration_code, template, details_route):
+        request, configuration_code, questionnaires, template):
     """
     A generic view to show a list of questionnaires.
 
@@ -284,23 +284,22 @@ def generic_questionnaire_list(
         ``template`` (str): The path of the template to be rendered for
         the list.
 
-        ``details_route`` (str): The route name of the details page of
-        each questionnaire.
-
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaires = list(Questionnaire.objects.filter(
-        configurations__code=configuration_code))
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
-    list_data = questionnaire_configuration.get_list_data(
-        questionnaires, details_route, get_language())
+    questionnaire_value_list = questionnaire_configuration.get_list_data(
+        questionnaires)
 
-    return render(request, template, {
-        'list_header': list_data[0],
-        'list_data': list_data[1:],
-    })
+    template_values = {
+        'questionnaire_value_list': questionnaire_value_list,
+    }
+
+    if template is None:
+        return template_values
+
+    return render(request, template, template_values)
 
 
 @login_required

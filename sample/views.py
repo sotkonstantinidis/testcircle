@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from configuration.configuration import QuestionnaireConfiguration
+from questionnaire.models import Questionnaire
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
@@ -19,7 +20,15 @@ def home(request):
             request, 'WARNING: INVALID CONFIGURATION. {}'.format(
                 questionnaire_configuration.configuration_error))
 
-    return render(request, 'sample/home.html')
+    questionnaires = list(Questionnaire.objects.filter(
+        configurations__code='sample'))[:3]
+    list_template_values = generic_questionnaire_list(
+        request, 'sample', questionnaires, template=None)
+
+    return render(request, 'sample/home.html', {
+        'questionnaire_value_list': list_template_values.get(
+            'questionnaire_value_list', [])
+    })
 
 
 @login_required
@@ -105,6 +114,7 @@ def questionnaire_list(request):
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
+    questionnaires = list(Questionnaire.objects.filter(
+        configurations__code='sample'))
     return generic_questionnaire_list(
-        request, 'sample', 'sample/questionnaire/list.html',
-        'sample:questionnaire_details')
+        request, 'sample', questionnaires, 'sample/questionnaire/list.html')
