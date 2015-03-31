@@ -148,6 +148,23 @@ class CleanQuestionnaireDataTest(TestCase):
         self.assertEqual(len(errors), 0)
         self.assertEqual(cleaned, data)
 
+    def test_passes_if_conditional_questiongroup_correct(self):
+        data = {'qg_17': [{'key_23': {'en': 'Bar'}}], 'qg_16': [{'key_21': 2}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_raises_error_if_conditional_questiongroup_not_correct(self):
+        data = {'qg_17': [{'key_23': {'en': 'Bar'}}], 'qg_16': [{'key_21': 1}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
+    def test_passes_if_conditional_questiongroup_without_data(self):
+        data = {'qg_17': [{'key_23': {'en': ''}, 'key_22': []}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, {})
+        self.assertEqual(len(errors), 0)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 

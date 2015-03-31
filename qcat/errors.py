@@ -46,6 +46,17 @@ class ConfigurationErrorInvalidCondition(ConfigurationError):
             self.condition, self.error)
 
 
+class ConfigurationErrorInvalidQuestiongroupCondition(ConfigurationError):
+
+    def __init__(self, condition, error):
+        self.condition = condition
+        self.error = error
+
+    def __str__(self):
+        return 'Questiongroup condition "{}" is not valid. Reason: "{}"'.\
+            format(self.condition, self.error)
+
+
 class ConfigurationErrorInvalidConfiguration(ConfigurationError):
 
     def __init__(self, configuration, format, parent):

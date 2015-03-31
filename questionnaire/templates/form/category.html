@@ -37,6 +37,12 @@
       </div>
     </header>
 
+    {% if not valid %}
+      <div data-alert class="alert-box alert">
+        <p>{% trans "There was a problem with your submission. Errors have been highlighted below." %}</p>
+      </div>
+    {% endif %}
+
     <main class="main inner-wrap">
       {% for subcategory_config, subcategory_formsets in category_formsets %}
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>

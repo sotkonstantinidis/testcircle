@@ -14,48 +14,50 @@
 {% load floppyforms %}
 {% load list_to_columns %}
 
-{% if config.label %}
-  <h4>{{ config.label }}</h4>
-{% endif %}
+<div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %}>
 
-{% if config.helptext %}
-  <p class="help-bloc">{{ config.helptext }}</p>
-{% endif %}
+  {% if config.label %}
+    <h4>{{ config.label }}</h4>
+  {% endif %}
 
-{% block errors %}{% include "form/errors.html" with errors=formset.non_form_errors %}{% endblock %}
+  {% if config.helptext %}
+    <p class="help-bloc">{{ config.helptext }}</p>
+  {% endif %}
 
-{{ formset.management_form }}
+  {{ formset.management_form }}
 
-{% block rows %}
-  {% form form using %}
-    {% for f in formset.forms %}
-      <div class="row list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
-        {% for field in f.visible_fields %}
-          <div class="row single-item">
-            {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
-            {% with template=config.templates|get_by_keyword:field.name %}
-              {% block row %}
-                {% if template %}
-                  {% formrow field using template %}
-                {% else %}
-                  {% formrow field using "form/question/default.html" %}
-                {% endif %}
-              {% endblock %}
-            {% endwith %}
+  {% block rows %}
+    {% form form using %}
+      {% for f in formset.forms %}
+        <div class="row list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+          {% for field in f.visible_fields %}
+            <div class="row single-item">
+              {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
+              {% with template=config.templates|get_by_keyword:field.name %}
+                {% block row %}
+                  {% if template %}
+                    {% formrow field using template %}
+                  {% else %}
+                    {% formrow field using "form/question/default.html" %}
+                  {% endif %}
+                {% endblock %}
+              {% endwith %}
+            </div>
+          {% endfor %}
+          <div class="columns right">
+            <a class="right list-item-action" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
+            style="display: none;"{% endif %}>{% trans "Remove" %}</a>
           </div>
-        {% endfor %}
-        <div class="columns right">
-          <a class="right list-item-action" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
-          style="display: none;"{% endif %}>{% trans "Remove" %}</a>
         </div>
-      </div>
-    {% endfor %}
-    {% if formset.max_num > formset.min_num %}
-      <div class="row list-action">
-        <div class="small-12 columns"><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="button small{% if formset.total_form_count >= formset.max_num %} disabled{% endif %}">{% trans 'Add More' %}</a></div>
-      </div>
-    {% endif %}
-  {% endform %}
-  {% if not form.visible_fields %}{% for field in form.hidden_fields %}{% formfield field %}{% endfor %}{% endif %}
+      {% endfor %}
+      {% if formset.max_num > formset.min_num %}
+        <div class="row list-action">
+          <div class="small-12 columns"><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="button small{% if formset.total_form_count >= formset.max_num %} disabled{% endif %}">{% trans 'Add More' %}</a></div>
+        </div>
+      {% endif %}
+    {% endform %}
+    {% if not form.visible_fields %}{% for field in form.hidden_fields %}{% formfield field %}{% endfor %}{% endif %}
 
-{% endblock %}
+  {% endblock %}
+
+</div>

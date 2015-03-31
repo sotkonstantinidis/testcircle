@@ -14,6 +14,7 @@ from qcat.errors import (
     ConfigurationErrorInvalidCondition,
     ConfigurationErrorInvalidConfiguration,
     ConfigurationErrorInvalidOption,
+    ConfigurationErrorInvalidQuestiongroupCondition,
     ConfigurationErrorNoConfigurationFound,
     ConfigurationErrorNotInDatabase,
     ConfigurationErrorTemplateNotFound,
@@ -661,6 +662,20 @@ class QuestionnaireQuestionTest(TestCase):
         with self.assertRaises(ConfigurationErrorInvalidCondition):
             QuestionnaireQuestion(
                 None, {'key': 'key_15', 'conditions': [condition]})
+
+    def test_raises_error_if_questiongroup_condition_wrong_formatted(self):
+        qg_condition = 'foo'
+        with self.assertRaises(
+                ConfigurationErrorInvalidQuestiongroupCondition):
+            QuestionnaireQuestion(None, {
+                'key': 'key_16', 'questiongroup_conditions': [qg_condition]})
+
+    def test_raises_error_if_questiongroup_condition_expression_nonsense(self):
+        qg_condition = ';%.|foo'
+        with self.assertRaises(
+                ConfigurationErrorInvalidQuestiongroupCondition):
+            QuestionnaireQuestion(None, {
+                'key': 'key_16', 'questiongroup_conditions': [qg_condition]})
 
 
 class ValidateOptionsTest(TestCase):

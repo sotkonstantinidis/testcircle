@@ -32,6 +32,25 @@ def clean_questionnaire_data(data, configuration):
         is_valid_questionnaire_format(data)
     except QuestionnaireFormatError as e:
         return cleaned_data, [str(e)]
+    """
+    Collect the questiongroup conditions. This can be done only once for
+    all questiongroups for performance reasons.
+    The conditions are collected in a dict of form:
+    {
+        "CONDITION_NAME": ("QG_KEYWORD", "Q_KEYWORD", ["COND_1", "COND_2"])
+    }
+    """
+    questiongroup_conditions = {}
+    for questiongroup in configuration.get_questiongroups():
+        for question in questiongroup.questions:
+            for conditions in question.questiongroup_conditions:
+                condition, condition_name = conditions.split('|')
+                if condition_name in questiongroup_conditions:
+                    questiongroup_conditions[condition_name][2].append(
+                        condition)
+                else:
+                    questiongroup_conditions[condition_name] = \
+                        questiongroup.keyword, question.keyword, [condition]
     for qg_keyword, qg_data_list in data.items():
         questiongroup = configuration.get_questiongroup_by_keyword(qg_keyword)
         if questiongroup is None:
@@ -113,6 +132,29 @@ def clean_questionnaire_data(data, configuration):
                 cleaned_qg_list.append(cleaned_qg)
         if cleaned_qg_list:
             cleaned_data[qg_keyword] = cleaned_qg_list
+        if cleaned_qg_list and questiongroup.questiongroup_condition:
+            condition_fulfilled = False
+            for condition_name, condition_data in questiongroup_conditions.\
+                    items():
+                if condition_name != questiongroup.questiongroup_condition:
+                    continue
+                for qg_data in data.get(condition_data[0], []):
+                    condition_value = qg_data.get(condition_data[1])
+                    evaluated = True
+                    for c in condition_data[2]:
+                        try:
+                            evaluated = evaluated and eval('{}{}'.format(
+                                condition_value, c))
+                        except:
+                            evaluated = False
+                            continue
+                    condition_fulfilled = evaluated or condition_fulfilled
+            if condition_fulfilled is False:
+                errors.append(
+                    'Questiongroup with keyword "{}" requires condition "{}".'.
+                    format(
+                        questiongroup.keyword,
+                        questiongroup.questiongroup_condition))
     return cleaned_data, errors
 
 

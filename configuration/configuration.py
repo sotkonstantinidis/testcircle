@@ -15,6 +15,7 @@ from qcat.errors import (
     ConfigurationErrorInvalidCondition,
     ConfigurationErrorInvalidConfiguration,
     ConfigurationErrorInvalidOption,
+    ConfigurationErrorInvalidQuestiongroupCondition,
     ConfigurationErrorNoConfigurationFound,
     ConfigurationErrorNotInDatabase,
     ConfigurationErrorTemplateNotFound,
@@ -40,7 +41,8 @@ class QuestionnaireQuestion(object):
         'in_list',
         'form_template',
         'conditions',
-        'conditional'
+        'conditional',
+        'questiongroup_conditions',
     ]
     valid_field_types = [
         'char',
@@ -54,7 +56,7 @@ class QuestionnaireQuestion(object):
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
     translation_old_prefix = 'old_'
-    value_image_path = '/static/assets/img/'
+    value_image_path = 'assets/img/'
 
     def __init__(self, questiongroup, configuration):
         """
@@ -77,6 +79,9 @@ class QuestionnaireQuestion(object):
 
             # (optional)
             "conditions": [],
+
+            # (optional)
+            "questiongroup_conditions": [],
           }
 
         .. seealso::
@@ -195,6 +200,27 @@ class QuestionnaireQuestion(object):
             conditions.append((cond_value, cond_expression, cond_key))
         self.conditions = conditions
 
+        questiongroup_conditions = []
+        for questiongroup_condition in configuration.get(
+                'questiongroup_conditions', []):
+            try:
+                cond_expression, cond_name = questiongroup_condition.split('|')
+            except ValueError:
+                raise ConfigurationErrorInvalidQuestiongroupCondition(
+                    questiongroup_condition,
+                    'Needs to have form "expression|name"')
+            # Check the condition expression
+            try:
+                cond_expression = eval('{}{}'.format(0, cond_expression))
+            except SyntaxError:
+                raise ConfigurationErrorInvalidQuestiongroupCondition(
+                    questiongroup_condition,
+                    'Expression "{}" is not a valid Python condition'.format(
+                        cond_expression))
+            questiongroup_conditions.append(questiongroup_condition)
+
+        self.questiongroup_conditions = questiongroup_conditions
+
         # TODO
         self.required = False
 
@@ -240,8 +266,9 @@ class QuestionnaireQuestion(object):
                 label=self.label, widget=RadioSelect(choices=self.choices),
                 required=self.required)
         elif self.field_type == 'measure':
+            widget = MeasureSelect()
             field = forms.ChoiceField(
-                label=self.label, choices=self.choices, widget=MeasureSelect,
+                label=self.label, choices=self.choices, widget=widget,
                 required=self.required, initial=self.choices[0][0])
         elif self.field_type == 'checkbox':
             field = forms.MultipleChoiceField(
@@ -294,6 +321,8 @@ class QuestionnaireQuestion(object):
         if widget:
             widget.conditional = self.conditional
             widget.conditions = self.conditions
+            widget.questiongroup_conditions = ','.join(
+                self.questiongroup_conditions)
 
         return formfields, templates
 
@@ -393,6 +422,7 @@ class QuestionnaireQuestiongroup(object):
         'questions',
         'max_num',
         'min_num',
+        'questiongroup_condition',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -412,6 +442,9 @@ class QuestionnaireQuestiongroup(object):
 
             # (optional)
             "max_num": 1,
+
+            # (optional)
+            "questiongroup_condition": "CONDITION_NAME",
 
             # A list of questions.
             "questions": [
@@ -463,6 +496,9 @@ class QuestionnaireQuestiongroup(object):
         if translation:
             self.helptext = translation.get_translation('helptext')
             self.label = translation.get_translation('label')
+
+        self.questiongroup_condition = self.configuration.get(
+            'questiongroup_condition')
 
         self.questions = []
         conf_questions = self.configuration.get('questions', [])
@@ -573,6 +609,7 @@ class QuestionnaireQuestiongroup(object):
             'helptext': self.helptext,
             'label': self.label,
             'templates': templates,
+            'questiongroup_condition': self.questiongroup_condition,
         }
 
         return config, FormSet(
@@ -1312,6 +1349,17 @@ class RadioSelect(forms.RadioSelect):
 
 class MeasureSelect(forms.RadioSelect):
     template_name = 'form/field/measure.html'
+
+    def get_context_data(self):
+        """
+        Add the questiongroup conditions to the context data so they are
+        available within the template of the widget.
+        """
+        ctx = super(MeasureSelect, self).get_context_data()
+        ctx.update({
+            'questiongroup_conditions': self.questiongroup_conditions
+        })
+        return ctx
 
 
 class Checkbox(forms.CheckboxSelectMultiple):

@@ -32,6 +32,9 @@ The basic format of the configuration is as follows::
     # (optional)
     "max_num": 1,
 
+    # (optional)
+    "questiongroup_condition": "CONDITION_NAME",
+
     # A list of questions.
     "questions": [
       # ...
@@ -71,6 +74,16 @@ to 1.
 (Optional). The maximum for repeating questiongroups to appear. If
 larger than ``min_num``, buttons to add or remove questiongroups will be
 rendered in the form. Defaults to ``min_num``.
+
+``questiongroup_condition``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(Optional). An optional name of a condition valid for this
+questiongroup. The name must correspond to one of
+``questiongroup_conditions`` of a Question configuration.
+
+.. seealso::
+    :doc:`/configuration/question`
 
 ``questions``
 ^^^^^^^^^^^^^

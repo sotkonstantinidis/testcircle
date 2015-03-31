@@ -116,6 +116,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'category_config': "foo",
                 'title': 'QCAT Form',
                 'route_overview': 'sample:questionnaire_new',
+                'valid': True,
             })
 
     def test_returns_rendered_response(self):
