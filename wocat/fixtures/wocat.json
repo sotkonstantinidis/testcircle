@@ -2,7 +2,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Common name\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Common name\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1001
@@ -10,7 +10,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"I accept conditions regarding the use of information provided\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"I accept conditions regarding the use of information provided\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1002
@@ -18,7 +18,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Definition of the SLM practice (description in one sentence)\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Definition of the SLM practice (description in one sentence)\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1003
@@ -26,7 +26,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Description of the SLM practice\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Description of the SLM practice\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1004
@@ -34,7 +34,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Country\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Country\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1005
@@ -42,7 +42,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"State / Province\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"State / Province\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1006
@@ -50,7 +50,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Further specification of location (e.g. district / commune) - if relevant\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Further specification of location (e.g. district / commune) - if relevant\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1007
@@ -58,7 +58,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Comments\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Comments\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1008
@@ -66,7 +66,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Cropland\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Cropland\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1009
@@ -74,7 +74,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Grazing land\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Grazing land\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1010
@@ -82,7 +82,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Forest/woodlands\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Forest/woodlands\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1011
@@ -90,7 +90,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Mixed\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Mixed\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1012
@@ -98,7 +98,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Other\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Other\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1013
@@ -106,7 +106,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Original land use (before implementation of SLM practice)\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Original land use (before implementation of SLM practice)\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1014
@@ -114,7 +114,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Future (final) land use (after implementation of SLM practice) (if relevant)\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Future (final) land use (after implementation of SLM practice) (if relevant)\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1015
@@ -122,7 +122,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Major crops (cash crops and food crops)\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Major crops (cash crops and food crops)\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1016
@@ -130,7 +130,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Specify type of extensive grazing\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Specify type of extensive grazing\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1017
@@ -138,7 +138,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Specify type of intensive grazing\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Specify type of intensive grazing\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1018
@@ -146,7 +146,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Main / secondary livestock species\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Main / secondary livestock species\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1019
@@ -154,7 +154,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Image\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Image\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1020
@@ -162,7 +162,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Caption\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Caption\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1021
@@ -170,7 +170,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Date and Location\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Date and Location\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1022
@@ -178,7 +178,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Name of photographer\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Name of photographer\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1023
@@ -186,7 +186,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Cropland Subcategories\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Cropland Subcategories\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1024
@@ -194,7 +194,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Grazingland Subcategories\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Grazingland Subcategories\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1025
@@ -204,7 +204,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"General Information\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"General Information\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1101
@@ -212,7 +212,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Specification of the SLM practice\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Specification of the SLM practice\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1102
@@ -220,7 +220,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Image\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Image\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1201
@@ -228,7 +228,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Name of the SLM practice\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Name of the SLM practice\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1202
@@ -236,7 +236,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Definition of the SLM practice (description in one sentence)\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Definition of the SLM practice (description in one sentence)\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1203
@@ -244,7 +244,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Description of the SLM practice\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Description of the SLM practice\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1204
@@ -252,7 +252,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Where is the SLM practice applied?\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Where is the SLM practice applied?\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1205
@@ -260,7 +260,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Land use\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Land use\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1206
@@ -269,7 +269,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"label\":{\"en\":\"On which current land use type(s) is the SLM practice applied?\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\":\"On which current land use type(s) is the SLM practice applied?\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1701
@@ -277,7 +277,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"label\":{\"en\":\"If land use has changed due to the implementation of the SLM practice, indicate land use type before and after\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\":\"If land use has changed due to the implementation of the SLM practice, indicate land use type before and after\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1702
@@ -285,7 +285,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"helptext\":{\"en\":\"You can add more images later.\"}}"
+        "data": "{\"wocat\":{\"helptext\":{\"en\":\"You can add more images later.\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1703
@@ -293,7 +293,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"label\":{\"en\":\"Specifications on cropland\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\":\"Specifications on cropland\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1704
@@ -301,7 +301,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"label\":{\"en\":\"Specifications on grazing land\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\":\"Specifications on grazing land\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1705
@@ -310,7 +310,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"low\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"low\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1501
@@ -318,7 +318,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"medium\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"medium\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1502
@@ -326,7 +326,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"high\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"high\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1503
@@ -334,7 +334,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"nomadism\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"nomadism\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1504
@@ -342,7 +342,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"semi-nomadism / pastoralism\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"semi-nomadism / pastoralism\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1505
@@ -350,7 +350,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"ranching\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"ranching\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1506
@@ -358,7 +358,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"cut-and-carry / zero grazing\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"cut-and-carry / zero grazing\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1507
@@ -366,7 +366,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"improved pasture\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"improved pasture\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1508
@@ -374,7 +374,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"(Ca) Annual cropping\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Ca) Annual cropping\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1509
@@ -382,7 +382,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"(Cp) Perennial (non-woody) cropping\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Cp) Perennial (non-woody) cropping\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1510
@@ -390,7 +390,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"(Ct) Tree and shrub cropping\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Ct) Tree and shrub cropping\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1511
@@ -398,7 +398,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"(Ge) Extensive grazing land\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Ge) Extensive grazing land\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1512
@@ -406,7 +406,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"(Gi) Intensive grazing / fodder production\"}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Gi) Intensive grazing / fodder production\"}}}"
     },
     "model": "configuration.translation",
     "pk": 1513

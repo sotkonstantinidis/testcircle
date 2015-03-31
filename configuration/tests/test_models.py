@@ -18,7 +18,8 @@ def get_valid_configuration_model():
 
 
 def get_valid_translation_model():
-    return Translation(translation_type='key', data={"locale": "foo"})
+    return Translation(translation_type='key', data={
+        "configuration": {"keyword": {"locale": "foo"}}})
 
 
 def get_valid_questiongroup_model():
@@ -81,9 +82,10 @@ class CategoryModelTest(TestCase):
     @patch.object(Translation, 'get_translation')
     def test_get_translation_calls_translation_function(
             self, mock_Translation_get_translation):
-        self.category.get_translation('keyword', locale='foo')
+        self.category.get_translation(
+            'keyword', configuration='foo', locale='bar')
         mock_Translation_get_translation.assert_called_once_with(
-            'keyword', locale='foo')
+            'keyword', configuration='foo', locale='bar')
 
 
 class QuestiongroupModelTest(TestCase):
@@ -158,9 +160,9 @@ class KeyModelTest(TestCase):
     @patch.object(Translation, 'get_translation')
     def test_get_translation_calls_translation_function(
             self, mock_Translation_get_translation):
-        self.key.get_translation('keyword', locale='foo')
+        self.key.get_translation('keyword', configuration='foo', locale='bar')
         mock_Translation_get_translation.assert_called_once_with(
-            'keyword', locale='foo')
+            'keyword', configuration='foo', locale='bar')
 
     def test_type_returns_type(self):
         self.key.configuration = {"type": "foo"}
@@ -228,9 +230,10 @@ class ValueModelTest(TestCase):
     @patch.object(Translation, 'get_translation')
     def test_get_translation_calls_translation_function(
             self, mock_Translation_get_translation):
-        self.value.get_translation('keyword', locale='foo')
+        self.value.get_translation(
+            'keyword', configuration='foo', locale='bar')
         mock_Translation_get_translation.assert_called_once_with(
-            'keyword', locale='foo')
+            'keyword', configuration='foo', locale='bar')
 
     def test_can_have_one_key(self):
         self.value.save()
@@ -304,14 +307,23 @@ class TranslationModelTest(TestCase):
         self.translation.get_translation('keyword', locale='locale')
         mock_get_language.assert_not_called()
 
-    def test_get_translation_returns_data_by_locale(self):
-        self.translation.data = {"keyword": {"locale": "foo"}}
+    def test_get_translation_returns_data_by_configuration_and_locale(self):
         self.assertEqual(self.translation.get_translation(
-            'keyword', locale='locale'), 'foo')
+            'keyword', configuration='configuration', locale='locale'), 'foo')
+
+    def test_get_translation_uses_wocat_configuration_if_not_provided(self):
+        self.translation.data = {"wocat": {"keyword": {"locale": "foo"}}}
+        self.assertEqual(
+            self.translation.get_translation('keyword', locale='locale'),
+            'foo')
 
     def test_get_translation_returns_None_if_locale_not_found(self):
         self.assertIsNone(self.translation.get_translation(
             'keyword', locale='foo'))
+
+    def test_get_translation_returns_None_if_configuration_not_found(self):
+        self.assertIsNone(self.translation.get_translation(
+            'keyword', configuration='foo'))
 
 
 class ConfigurationModelTest(TestCase):

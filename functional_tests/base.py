@@ -45,6 +45,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
+        clear_session_questionnaire()
         self.browser.quit()
 
     def findByNot(self, by, el):

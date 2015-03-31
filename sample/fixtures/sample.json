@@ -2,7 +2,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 1\", \"es\": \"Clave 1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 1\",\"es\":\"Clave 1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10001
@@ -10,7 +10,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 2\", \"es\": \"Clave 2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 2\",\"es\":\"Clave 2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10002
@@ -18,7 +18,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 3\", \"es\": \"Clave 3\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 3\",\"es\":\"Clave 3\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10003
@@ -26,7 +26,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 4\", \"es\": \"Clave 4\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 4\",\"es\":\"Clave 4\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10004
@@ -34,7 +34,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 5\", \"es\": \"Clave 5\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 5\",\"es\":\"Clave 5\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10005
@@ -42,7 +42,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 6\", \"es\": \"Clave 6\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 6\",\"es\":\"Clave 6\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10006
@@ -50,7 +50,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 7\", \"es\": \"Clave 7\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 7\",\"es\":\"Clave 7\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10007
@@ -58,7 +58,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 8\", \"es\": \"Clave 8\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 8\",\"es\":\"Clave 8\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10008
@@ -66,7 +66,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 9\", \"es\": \"Clave 9\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 9\",\"es\":\"Clave 9\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10009
@@ -74,7 +74,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 10\", \"es\": \"Clave 10\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 10\",\"es\":\"Clave 10\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10010
@@ -82,7 +82,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 11\", \"es\": \"Clave 11\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 11\",\"es\":\"Clave 11\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10011
@@ -90,7 +90,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 12\", \"es\": \"Clave 12\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 12\",\"es\":\"Clave 12\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10012
@@ -98,7 +98,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 13\", \"es\": \"Clave 13\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 13\",\"es\":\"Clave 13\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10013
@@ -106,7 +106,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 14\", \"es\": \"Clave 14\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 14\",\"es\":\"Clave 14\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10014
@@ -114,7 +114,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 15\", \"es\": \"Clave 15\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 15\",\"es\":\"Clave 15\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10015
@@ -122,7 +122,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 16\", \"es\": \"Clave 16\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 16\",\"es\":\"Clave 16\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10016
@@ -130,7 +130,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 17\", \"es\": \"Clave 17\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 17\",\"es\":\"Clave 17\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10017
@@ -138,7 +138,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 18\", \"es\": \"Clave 18\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 18\",\"es\":\"Clave 18\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10018
@@ -146,7 +146,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 19\", \"es\": \"Clave 19\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 19\",\"es\":\"Clave 19\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10019
@@ -154,7 +154,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 21\", \"es\": \"Clave 21\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 21\",\"es\":\"Clave 21\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10021
@@ -162,7 +162,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 22\", \"es\": \"Clave 22\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 22\",\"es\":\"Clave 22\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10022
@@ -170,7 +170,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": "{\"label\":{\"en\": \"Key 23\", \"es\": \"Clave 23\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Key 23\",\"es\":\"Clave 23\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10023
@@ -180,7 +180,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Category 1\", \"es\": \"Categoría 1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Category 1\",\"es\":\"Categoría 1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10101
@@ -188,7 +188,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Category 2\", \"es\": \"Categoría 2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Category 2\",\"es\":\"Categoría 2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10102
@@ -196,7 +196,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Category 3\", \"es\": \"Categoría 3\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Category 3\",\"es\":\"Categoría 3\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10103
@@ -204,7 +204,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Category 4\", \"es\": \"Categoría 4\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Category 4\",\"es\":\"Categoría 4\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10104
@@ -212,7 +212,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Category 0\", \"es\": \"Categoría 0\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Category 0\",\"es\":\"Categoría 0\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10105
@@ -220,7 +220,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 1_1\", \"es\": \"Subcategoría 1_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 1_1\",\"es\":\"Subcategoría 1_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10111
@@ -228,7 +228,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 1_2\", \"es\": \"Subcategoría 1_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 1_2\",\"es\":\"Subcategoría 1_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10112
@@ -236,7 +236,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 2_1\", \"es\": \"Subcategoría 2_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 2_1\",\"es\":\"Subcategoría 2_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10113
@@ -244,7 +244,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 2_2\", \"es\": \"Subcategoría 2_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 2_2\",\"es\":\"Subcategoría 2_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10114
@@ -252,7 +252,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 3_1\", \"es\": \"Subcategoría 3_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 3_1\",\"es\":\"Subcategoría 3_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10115
@@ -260,7 +260,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 3_2\", \"es\": \"Subcategoría 3_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 3_2\",\"es\":\"Subcategoría 3_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10116
@@ -268,7 +268,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 4_1\", \"es\": \"Subcategoría 4_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 4_1\",\"es\":\"Subcategoría 4_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10117
@@ -276,7 +276,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 4_2\", \"es\": \"Subcategoría 4_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 4_2\",\"es\":\"Subcategoría 4_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10118
@@ -284,7 +284,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"label\":{\"en\": \"Subcategory 0_1\", \"es\": \"Subcategoría 0_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Subcategory 0_1\",\"es\":\"Subcategoría 0_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10119
@@ -292,7 +292,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"helptext\":{\"en\":\"Helptext 1\",\"es\":\"Texto de ayuda\"}}"
+        "data": "{\"sample\":{\"helptext\":{\"en\":\"Helptext 1\",\"es\":\"Texto de ayuda\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10201
@@ -301,7 +301,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 1\", \"es\": \"Valor 1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 1\", \"es\": \"Valor 1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10301
@@ -309,7 +309,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 2\", \"es\": \"Valor 2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 2\", \"es\": \"Valor 2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10302
@@ -317,7 +317,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 3\", \"es\": \"Valor 3\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 3\", \"es\": \"Valor 3\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10303
@@ -325,7 +325,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 13_1\", \"es\": \"Valor 13_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 13_1\", \"es\": \"Valor 13_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10304
@@ -333,7 +333,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 13_2\", \"es\": \"Valor 13_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 13_2\", \"es\": \"Valor 13_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10305
@@ -341,7 +341,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 13_3\", \"es\": \"Valor 13_3\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 13_3\", \"es\": \"Valor 13_3\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10306
@@ -349,7 +349,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 13_4\", \"es\": \"Valor 13_4\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 13_4\", \"es\": \"Valor 13_4\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10307
@@ -357,7 +357,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 13_5\", \"es\": \"Valor 13_5\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 13_5\", \"es\": \"Valor 13_5\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10308
@@ -365,7 +365,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\":\"Value 14_1\",\"es\":\"Valor 14_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Value 14_1\",\"es\":\"Valor 14_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10309
@@ -373,7 +373,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 14_2\", \"es\": \"Valor 14_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 14_2\", \"es\": \"Valor 14_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10310
@@ -381,7 +381,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 14_3\", \"es\": \"Valor 14_3\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 14_3\", \"es\": \"Valor 14_3\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10311
@@ -389,7 +389,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\":\"Value 15_1\",\"es\":\"Valor 15_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Value 15_1\",\"es\":\"Valor 15_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10312
@@ -397,7 +397,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 15_2\", \"es\": \"Valor 15_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 15_2\", \"es\": \"Valor 15_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10313
@@ -405,7 +405,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 15_3\", \"es\": \"Valor 15_3\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 15_3\", \"es\": \"Valor 15_3\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10314
@@ -413,7 +413,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\":\"Value 16_1\",\"es\":\"Valor 16_1\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\":\"Value 16_1\",\"es\":\"Valor 16_1\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10315
@@ -421,7 +421,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 16_2\", \"es\": \"Valor 16_2\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 16_2\", \"es\": \"Valor 16_2\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10316
@@ -429,7 +429,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"label\":{\"en\": \"Value 16_3\", \"es\": \"Valor 16_3\"}}"
+        "data": "{\"sample\":{\"label\":{\"en\": \"Value 16_3\", \"es\": \"Valor 16_3\"}}}"
     },
     "model": "configuration.translation",
     "pk": 10317

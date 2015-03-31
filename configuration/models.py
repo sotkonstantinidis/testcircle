@@ -159,13 +159,19 @@ class Translation(models.Model):
             translation_types.append(related.model.translation_type)
         return translation_types
 
-    def get_translation(self, keyword, locale=None):
+    def get_translation(self, keyword, configuration='wocat', locale=None):
         """
         Return the translation of the instance by looking it up in the
         ``data`` JSON field. If no ``locale`` is provided, the currently
         active locale is used.
 
+        Args:
+            ``keyword`` (str): The keyword of the translation.
+
         Kwargs:
+            ``configuration`` (str): The keyword of the configuration to
+            find the translation for.
+
             ``locale`` (str): The locale to find the translation for.
 
         Returns:
@@ -174,7 +180,7 @@ class Translation(models.Model):
         """
         if locale is None:
             locale = to_locale(get_language())
-        return self.data.get(keyword, {}).get(locale)
+        return self.data.get(configuration, {}).get(keyword, {}).get(locale)
 
     def __str__(self):
         return self.data.get(settings.LANGUAGES[0][0], '-')
