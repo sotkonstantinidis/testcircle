@@ -5,7 +5,7 @@
     {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
       {% block field %}
         {% block errors %}
-          {% include "floppyforms/errors.html" with errors=field.errors %}
+          {% include "form/errors.html" with errors=field.errors %}
         {% endblock %}
         {% block label %}
           <div class="small-2 columns">

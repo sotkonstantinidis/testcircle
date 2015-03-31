@@ -36,6 +36,9 @@ The basic format of the configuration is as follows::
 
     # (optional)
     "conditions": [],
+
+    # (optional)
+    "questiongroup_conditions": []
   }
 
 .. seealso::
@@ -114,3 +117,20 @@ questions. Each condition must have the format
 
 For the time being, conditions can only be set for Key
 (see :doc:`/configuration/key`) with type ``image_checkbox``.
+
+``questiongroup_conditions``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(Optional). An optional list of conditions triggering conditional
+questiongroups. Each condition must have the format
+``"expresssion|condition_name"`` where ``expression`` is part of a valid
+(Python and Javascript!) boolean expression and ``condition_name`` is
+the name of a Questiongroup's ``questiongroup_condition`` option.
+
+Example::
+
+    "questiongroup_conditions": [">1|questiongroup_17", "<3|questiongroup_17"]
+
+.. seealso::
+    :doc:`/configuration/questiongroup`
+

@@ -421,7 +421,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '(//input[@name="qg_11-0-key_14"])[1]').click()
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She submits the step and sees that the value was submitted and
         # the form progress on the overview page is updated
@@ -438,7 +438,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_4']))
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She deselects the first value and sees that the progress was
         # updated
@@ -468,6 +468,101 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('xpath', '//img[@alt="Value 14_1"]')
         self.findBy('xpath', '//img[@alt="Value 14_2"]')
         self.findBy('xpath', '//img[@alt="Value 14_3"]')
+
+    def test_measure_conditional(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_4']))
+
+        # She sees the measure box for Key 21
+        self.findBy(
+            'xpath',
+            '//div[@class="button-bar"]/ul/li/input[@name="qg_16-0-key_21"]')
+
+        # She sees that Key 22 and Key 23 are not visible
+        key_22 = self.findBy('id', 'id_qg_17-0-key_22_1')
+        key_23 = self.findBy('id', 'id_qg_17-0-original_key_23')
+        self.assertFalse(key_22.is_displayed())
+        self.assertFalse(key_23.is_displayed())
+
+        # She selects measure 2 (id: 3) of Key 21
+        self.findBy('xpath', '//label[@for="id_qg_16-0-key_21_3"]').click()
+
+        # She sees that Keys 22 and 23 are now visible
+        self.assertTrue(key_22.is_displayed())
+        self.assertTrue(key_23.is_displayed())
+
+        # She selects measure 1 of Key 21 and the Keys are hidden again.
+        self.findBy('xpath', '//label[@for="id_qg_16-0-key_21_2"]').click()
+        self.assertFalse(key_22.is_displayed())
+        self.assertFalse(key_23.is_displayed())
+
+        # She selects measure 2, selects a value of Key 22 and enters
+        # some text for Key 23.
+        self.findBy('xpath', '//label[@for="id_qg_16-0-key_21_3"]').click()
+        key_22.click()
+        key_23.send_keys('Foo')
+
+        # She selects measure 1 and then 2 again and sees the previously
+        # selected and entered values are gone.
+        self.findBy('xpath', '//label[@for="id_qg_16-0-key_21_2"]').click()
+        self.assertFalse(key_22.is_displayed())
+        self.assertFalse(key_23.is_displayed())
+
+        self.findBy('xpath', '//label[@for="id_qg_16-0-key_21_3"]').click()
+        self.assertFalse(key_22.is_selected())
+        self.assertEqual(key_23.get_attribute('value'), '')
+
+        # She enters some data, submits the form and sees that all
+        # values were submitted
+        key_22.click()
+        key_23.send_keys('Foo')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.checkOnPage('Key 21')
+        self.checkOnPage('Value 2')
+        self.checkOnPage('Key 22')
+        self.checkOnPage('Value 16_1')
+        self.checkOnPage('Key 23')
+        self.checkOnPage('Foo')
+
+        # She goes back to the form and sees that the values are still
+        # there, Keys 22 and 23 are visible
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_4']))
+        key_22 = self.findBy('id', 'id_qg_17-0-key_22_1')
+        key_23 = self.findBy('id', 'id_qg_17-0-original_key_23')
+        self.assertTrue(key_22.is_displayed())
+        self.assertTrue(key_23.is_displayed())
+
+        # She unchecks Key 22
+        key_22.click()
+        self.assertTrue(key_22.is_displayed())
+
+        # She unselects Key 21 and sees that everything is hidden again
+        self.findBy('xpath', '//label[@for="id_qg_16-0-key_21_4"]').click()
+        self.assertFalse(key_22.is_displayed())
+        self.assertFalse(key_23.is_displayed())
+
+        # She selects Key 21 again and sees it is empty again
+        self.findBy('xpath', '//label[@for="id_qg_16-0-key_21_3"]').click()
+        self.assertFalse(key_22.is_selected())
+        self.assertEqual(key_23.get_attribute('value'), '')
+
+        # She enters some values again and submits the form completely
+        key_23.send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        self.checkOnPage('Key 21')
+        self.checkOnPage('Value 2')
+        self.checkOnPage('Key 23')
+        self.checkOnPage('Bar')
 
     def test_image_checkbox_subcategory(self):
 
@@ -529,7 +624,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '(//input[@name="qg_12-0-key_15"])[1]').click()
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She also sees that Key 16 is now visible but no value is selected
         subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
@@ -555,7 +650,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_4']))
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # Key 16 is visible but no value selected
         subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
@@ -585,7 +680,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_4']))
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She sees that the value of Key 15 is selected. Key 16 is
         # visible and the first value is selected.

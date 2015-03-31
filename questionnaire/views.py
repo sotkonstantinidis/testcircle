@@ -92,8 +92,8 @@ def generic_questionnaire_new_step(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation)
 
+    valid = True
     if request.method == 'POST':
-        valid = True
         data = {}
         for __, subcategory_formsets in category_formsets:
             for __, questiongroup_formset in subcategory_formsets:
@@ -120,23 +120,25 @@ def generic_questionnaire_new_step(
             cleaned_questionnaire_data, errors = clean_questionnaire_data(
                 session_questionnaire, questionnaire_configuration)
             if errors:
+                valid = False
                 messages.error(
                     request, 'Something went wrong. The step cannot be saved '
                     'because of the following errors: <br/>{}'.format(
                         '<br/>'.join(errors)))
+            else:
+                save_session_questionnaire(cleaned_questionnaire_data)
 
-            save_session_questionnaire(cleaned_questionnaire_data)
-
-            messages.success(
-                request, _('[TODO] Data successfully stored to Session.'),
-                fail_silently=True)
-            return redirect('{}:questionnaire_new'.format(url_namespace))
+                messages.success(
+                    request, _('[TODO] Data successfully stored to Session.'),
+                    fail_silently=True)
+                return redirect('{}:questionnaire_new'.format(url_namespace))
 
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
         'category_config': category_config,
         'title': page_title,
-        'route_overview': '{}:questionnaire_new'.format(url_namespace)
+        'route_overview': '{}:questionnaire_new'.format(url_namespace),
+        'valid': valid,
     })
 
 

@@ -9,6 +9,7 @@
 
 {% endcomment %}
 
+{% load staticfiles %}
 {% load list_to_columns %}
 
 <div id="{{ attrs_id }}_{{ forloop_counter }}_sub" class="row small-12 columns" style="margin-left: 25px;{% if not checked %} display:none;{% endif %}>"
@@ -21,7 +22,7 @@
             <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
             <label for="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">{{ choice.1 }}<br>
               <figure class="list-gallery-icon">
-                <img src="{{ STATIC_URL }}{{ images|get_by_index:forloop.counter0 }}" alt="{{ choice.1 }}">
+                <img src="{% static images|get_by_index:forloop.counter0 %}" alt="{{ choice.1 }}">
               </figure>
             </label>
           </div>

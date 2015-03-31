@@ -49,6 +49,76 @@ function watchFormProgress() {
   $('header.wizard-header').find('.meter').width(progress + '%');
 }
 
+
+/**
+ * Checks conditional questiongroups and shows or hides questiongroups
+ * based on an input value condition.
+ *
+ * @param {Element} element - The input element triggering the
+ *   questiongroup.
+ * @param {boolean} initial - Whether the trigger is checked initially
+ *   or not. If the trigger is checked on page load (initial=true), a
+ *   single evaluation to true is enough to trigger the questiongroup,
+ *   regardless of further evaluations being false.
+ */
+function checkConditionalQuestiongroups(element, initial) {
+
+  var all_conditions = $(element).data('questiongroup-condition').split(',');
+
+  // It is necessary to collect all the conditions for a questiongroup
+  // to check if all of them apply.
+  var conditionsByQuestiongroup = {};
+  for (var i = all_conditions.length - 1; i >= 0; i--) {
+    condition = all_conditions[i].split('|');
+    if (condition.length !== 2) return;
+    if (conditionsByQuestiongroup[condition[1]]) {
+      conditionsByQuestiongroup[condition[1]].push(condition[0]);
+    } else {
+      conditionsByQuestiongroup[condition[1]] = [condition[0]];
+    }
+  }
+
+  for (var questiongroup in conditionsByQuestiongroup) {
+    var conditions = conditionsByQuestiongroup[questiongroup];
+    var val = null;
+    var inputType = $(element).attr('type');
+    if (inputType == 'radio' && $(element).is(':checked')) {
+      val = $(element).val();
+    }
+    var toggle = val !== null && val !== '';
+    if (val) {
+      for (var i = conditions.length - 1; i >= 0; i--) {
+        toggle = toggle && eval(val + conditions[i]);
+      };
+    }
+    var questiongroupContainer = $('#' + questiongroup);
+    if (initial) {
+      if (toggle === true) {
+        questiongroupContainer.data('initial', true);
+      }
+      if (toggle === false && questiongroupContainer.data('initial') === true) {
+        toggle = true;
+      }
+    }
+    questiongroupContainer.toggle(toggle);
+    if (!toggle && !initial) {
+      clearQuestiongroup(questiongroupContainer);
+    }
+  }
+}
+
+/**
+ * Clears all form fields of a questiongroup.
+ *
+ * @param {Element} questiongroup - The questiongroup element in which
+ *   to clear all fields.
+ */
+function clearQuestiongroup(questiongroup) {
+  questiongroup.find('input:text, textarea').val('');
+  questiongroup.find('input:radio').removeAttr('selected');
+  questiongroup.find('input:checkbox').removeAttr('checked');
+}
+
 $(function() {
 
   // Initial form progress
@@ -56,6 +126,15 @@ $(function() {
 
   // Initial button bar selected toggle
   $('.button-bar').each(toggleButtonBarSelected);
+
+  // Conditional questiongroups
+  $('[data-questiongroup-condition]')
+    .each(function() {
+      checkConditionalQuestiongroups(this, true);
+    })
+    .on('change', function() {
+      checkConditionalQuestiongroups(this);
+    });
 
   // Form progress upon input
   $('fieldset.row div.row.list-item').on('change', function() {

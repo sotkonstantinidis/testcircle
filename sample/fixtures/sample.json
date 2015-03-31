@@ -151,6 +151,30 @@
     "model": "configuration.translation",
     "pk": 10019
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 21\", \"es\": \"Clave 21\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 10021
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 22\", \"es\": \"Clave 22\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 10022
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"label\":{\"en\": \"Key 23\", \"es\": \"Clave 23\"}}"
+    },
+    "model": "configuration.translation",
+    "pk": 10023
+},
 
 
 {
@@ -596,6 +620,36 @@
     "model": "configuration.key",
     "pk": 10020
 },
+{
+    "fields": {
+        "keyword": "key_21",
+        "translation": 10021,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [10001, 10002, 10003]
+    },
+    "model": "configuration.key",
+    "pk": 10021
+},
+{
+    "fields": {
+        "keyword": "key_22",
+        "translation": 10022,
+        "configuration": "{\"type\": \"image_checkbox\"}",
+        "values": [10015, 10016, 10017]
+    },
+    "model": "configuration.key",
+    "pk": 10022
+},
+{
+    "fields": {
+        "keyword": "key_23",
+        "translation": 10023,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 10023
+},
+
 
 {
     "fields": {
@@ -991,6 +1045,24 @@
     "model": "configuration.questiongroup",
     "pk": 10015
 },
+{
+    "fields": {
+        "keyword": "qg_16",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 10016
+},
+{
+    "fields": {
+        "keyword": "qg_17",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 10017
+},
 
 {
     "pk": 10001,
@@ -999,7 +1071,7 @@
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"cat_0\",\"subcategories\":[{\"keyword\":\"subcat_0_1\",\"questiongroups\":[{\"keyword\":\"qg_14\",\"questions\":[{\"key\":\"key_19\"}]},{\"keyword\":\"qg_15\",\"questions\":[{\"key\":\"key_20\"}]}]}]},{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"in_list\":true},{\"key\":\"key_3\",\"form_template\":\"inline_2\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"in_list\":true}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"},{\"questions\":[{\"key\":\"key_13\"}],\"keyword\":\"qg_10\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"},{\"questions\":[{\"key\":\"key_17\"},{\"key\":\"key_18\"}],\"keyword\":\"qg_13\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]},{\"keyword\":\"cat_4\",\"subcategories\":[{\"keyword\":\"subcat_4_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_14\"}],\"keyword\":\"qg_11\"},{\"questions\":[{\"key\":\"key_16\",\"conditional\":true},{\"key\":\"key_15\",\"conditions\":[\"value_15_1|True|key_16\"]}],\"keyword\":\"qg_12\"}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"cat_0\",\"subcategories\":[{\"keyword\":\"subcat_0_1\",\"questiongroups\":[{\"keyword\":\"qg_14\",\"questions\":[{\"key\":\"key_19\"}]},{\"keyword\":\"qg_15\",\"questions\":[{\"key\":\"key_20\"}]}]}]},{\"keyword\":\"cat_1\",\"subcategories\":[{\"keyword\":\"subcat_1_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_1\",\"in_list\":true},{\"key\":\"key_3\",\"form_template\":\"inline_2\"}],\"keyword\":\"qg_1\"},{\"questions\":[{\"key\":\"key_2\"},{\"key\":\"key_3\"}],\"keyword\":\"qg_2\"}]},{\"keyword\":\"subcat_1_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_4\"},{\"key\":\"key_11\"}],\"keyword\":\"qg_3\"}]}]},{\"keyword\":\"cat_2\",\"subcategories\":[{\"keyword\":\"subcat_2_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_5\",\"in_list\":true}],\"keyword\":\"qg_4\"},{\"questions\":[{\"key\":\"key_12\"}],\"keyword\":\"qg_9\"},{\"questions\":[{\"key\":\"key_13\"}],\"keyword\":\"qg_10\"}]}]},{\"keyword\":\"cat_3\",\"subcategories\":[{\"keyword\":\"subcat_3_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_7\"}],\"keyword\":\"qg_5\"},{\"questions\":[{\"key\":\"key_8\"}],\"keyword\":\"qg_6\"},{\"questions\":[{\"key\":\"key_17\"},{\"key\":\"key_18\"}],\"keyword\":\"qg_13\"}]},{\"keyword\":\"subcat_3_2\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_9\"}],\"keyword\":\"qg_7\"},{\"questions\":[{\"key\":\"key_10\"}],\"keyword\":\"qg_8\",\"max_num\":3,\"min_num\":2}]}]},{\"keyword\":\"cat_4\",\"subcategories\":[{\"keyword\":\"subcat_4_1\",\"questiongroups\":[{\"questions\":[{\"key\":\"key_14\"}],\"keyword\":\"qg_11\"},{\"questions\":[{\"key\":\"key_16\",\"conditional\":true},{\"key\":\"key_15\",\"conditions\":[\"value_15_1|True|key_16\"]}],\"keyword\":\"qg_12\"}]},{\"keyword\":\"subcat_4_2\",\"questiongroups\":[{\"keyword\":\"qg_16\",\"questions\":[{\"key\":\"key_21\",\"questiongroup_conditions\":[\">1|questiongroup_17\",\"<3|questiongroup_17\"]}]},{\"keyword\":\"qg_17\",\"questiongroup_condition\":\"questiongroup_17\",\"questions\":[{\"key\":\"key_22\"},{\"key\":\"key_23\"}]}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "Sample Core Configuration"
