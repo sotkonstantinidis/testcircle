@@ -60,6 +60,22 @@ class Questionnaire(models.Model):
     def get_id(self):
         return self.id
 
+    def get_metadata(self):
+        """
+        Return some metadata about the Questionnaire.
+
+        Returns:
+            ``dict``. A dict containing the following metadata:
+
+            * ``created``
+
+            * ``updated``
+        """
+        return {
+            'created': self.created,
+            'updated': self.updated,
+        }
+
     def __str__(self):
         return json.dumps(self.data)
 

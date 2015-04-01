@@ -61,6 +61,14 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(len(ret_configurations), 1)
         self.assertEqual(ret_configurations[0].id, configuration.id)
 
+    def test_get_metadata(self):
+        questionnaire = Questionnaire.create_new(
+            configuration_code='sample', data={})
+        metadata = questionnaire.get_metadata()
+        self.assertIsInstance(metadata, dict)
+        self.assertEqual(metadata['created'], questionnaire.created)
+        self.assertEqual(metadata['updated'], questionnaire.updated)
+
 
 class FileModelTest(TestCase):
 

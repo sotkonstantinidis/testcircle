@@ -313,7 +313,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_get_object_or_404.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_get_details.assert_called_once_with({})
+        mock_get_details.assert_called_once_with(
+            data={}, questionnaire_object=mock_get_object_or_404.return_value)
 
     @patch.object(QuestionnaireCategory, 'get_details')
     @patch('questionnaire.views.get_object_or_404')

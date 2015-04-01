@@ -834,6 +834,7 @@ class QuestionnaireCategory(object):
         'subcategories',
         'view_template',
         'use_raw_data',
+        'with_metadata',
     ]
 
     def __init__(self, configuration, configuration_dict):
@@ -904,6 +905,8 @@ class QuestionnaireCategory(object):
         self.view_template = 'details/category/{}.html'.format(view_template)
         self.use_raw_data = configuration_dict.get(
             'use_raw_data', False) is True
+        self.with_metadata = configuration_dict.get(
+            'with_metadata', False) is True
 
     @staticmethod
     def merge_configurations(base, specific):
@@ -990,10 +993,11 @@ class QuestionnaireCategory(object):
 
     def get_details(
             self, data={}, editable=False,
-            edit_step_route=''):
+            edit_step_route='', questionnaire_object=None):
         rendered_subcategories = []
         with_content = 0
         raw_data = {}
+        metadata = {}
         for subcategory in self.subcategories:
             rendered_subcategory, has_content = subcategory.get_details(data)
             if has_content:
@@ -1001,10 +1005,13 @@ class QuestionnaireCategory(object):
                 with_content += 1
             if self.use_raw_data is True:
                 raw_data = self.get_raw_category_data(data)
+            if self.with_metadata is True and questionnaire_object is not None:
+                metadata = questionnaire_object.get_metadata()
         rendered = render_to_string(
             self.view_template, {
                 'subcategories': rendered_subcategories,
                 'raw_data': raw_data,
+                'metadata': metadata,
                 'label': self.label,
                 'keyword': self.keyword,
                 'editable': editable,
@@ -1099,11 +1106,14 @@ class QuestionnaireConfiguration(object):
                 return questiongroup
         return None
 
-    def get_details(self, data={}, editable=False, edit_step_route=''):
+    def get_details(
+            self, data={}, editable=False, edit_step_route='',
+            questionnaire_object=None):
         rendered_categories = []
         for category in self.categories:
             rendered_categories.append(category.get_details(
-                data, editable=editable, edit_step_route=edit_step_route))
+                data, editable=editable, edit_step_route=edit_step_route,
+                questionnaire_object=questionnaire_object))
         return rendered_categories
 
     def get_image_data(self, data):
@@ -1209,9 +1219,8 @@ class QuestionnaireConfiguration(object):
                 'id': questionnaire.id,
                 'configurations': configurations,
                 'native_configuration': self.keyword in configurations,
-                'created': questionnaire.created,
-                'updated': questionnaire.updated,
             })
+            questionnaire_value.update(questionnaire.get_metadata())
             questionnaire_values.append(questionnaire_value)
 
         return questionnaire_values
