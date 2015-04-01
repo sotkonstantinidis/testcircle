@@ -1,0 +1,103 @@
+.process {
+  @include reset-list;
+  display: flex;
+  margin: 0;
+  background-color: $color-beige;
+  border-radius: $global-radius;
+}
+
+.process > * {
+  position: relative;
+  display: inline-block;
+  flex: 1;
+  margin: 0 0 0 rem-calc(2);
+  padding: rem-calc(12) rem-calc(12) rem-calc(12) rem-calc(24);
+  text-align: center;
+  color: $color-brown;
+  background: rgba($color-beige-dark, 0.2);
+  transition: background 300ms ease-in-out;
+  cursor: pointer;
+
+  @media #{$medium-up} {
+    padding: rem-calc(12) rem-calc(24) rem-calc(12) rem-calc(36);
+  }
+  &:first-child {
+    padding-left: rem-calc(12);
+    margin-left: 0;
+    border-top-left-radius: $global-radius;
+    border-bottom-left-radius: $global-radius;
+    @media #{$medium-up} {
+      padding-left: rem-calc(24);
+    }
+  }
+  &:last-child {
+    border-top-right-radius: $global-radius;
+    border-bottom-right-radius: $global-radius;
+  }
+  &:after {
+    content: "";
+    border-top: rem-calc(24) solid transparent;
+    border-bottom: rem-calc(24) solid transparent;
+    border-left: rem-calc(12) solid rgba($color-beige-dark, 0.2);
+    position: absolute;
+    right: rem-calc(-12);
+    top: 0;
+    z-index: 1;
+    transition: border-color 300ms ease-in-out;
+  }
+  &:before {
+    content: "";
+    border-top: rem-calc(24) solid transparent;
+    border-bottom: rem-calc(24) solid transparent;
+    border-left: rem-calc(12) solid $color-beige;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  &:first-child:before {
+    content: " ";
+    border: none;
+  }
+  &:last-child:after {
+    content: " ";
+    border: none;
+  }
+  &:hover,
+  &:focus {
+    background: rgba($color-beige-dark, 0.6);
+    &:after {
+      border-left-color: rgba($color-beige-dark, 0.6);
+    }
+  }
+  a {
+    color: $color-brown;
+  }
+
+  // Current
+  &.is-current {
+    background: $color-beige;
+    &:after {
+      border-left-color: $color-beige;
+    }
+  }
+
+  // Done
+  &.is-done {
+    background: rgba($color-beige-dark, 0.6);
+    &:after {
+      border-left-color: rgba($color-beige-dark, 0.6);
+    }
+  }
+}
+
+
+.process-status {
+  margin-top: rem-calc(1);
+  background: $color-beige;
+  border-radius: $global-radius;
+  padding: rem-calc(12) rem-calc(24);
+
+  p {
+    margin-top: rem-calc(6);
+  }
+}

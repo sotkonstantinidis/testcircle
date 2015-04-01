@@ -1,6 +1,16 @@
 .accordion {
   @include reset-list;
+
+  a[role="tab"] {
+    border-radius: $global-radius;
+  }
+  .active a[role="tab"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
 .accordion .content {
   background: $accordion-content-active-bg-color;
+  border-bottom-left-radius: $global-radius;
+  border-bottom-right-radius: $global-radius;
 }

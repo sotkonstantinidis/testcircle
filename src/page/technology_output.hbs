@@ -72,16 +72,39 @@ section: tech
   </div>
 
   {{!-- Media gallery --}}
-  <div class="row is-rhythmed-2">
+  <section class="row is-rhythmed-2">
     <div class="small-12 columns gallery">
-      <h2 class="is-small is-muted">Media Gallery</h2>
+      <h2 class="is-unvisible">Media Gallery</h2>
       <ul class="small-block-grid-3 medium-block-grid-6 clearing-thumbs" data-clearing>
         <li><a href="assets/img/fanyajuu01_full.jpg" class="th"><img src="assets/img/fanyajuu01_small.jpg" alt=""></a></li>
         <li><a href="assets/img/fanyajuu02_full.jpg" class="th"><img src="assets/img/fanyajuu02_small.jpg" alt=""></a></li>
         <li><a href="assets/img/fanyajuu03_full.jpg" class="th"><img src="assets/img/fanyajuu03_small.jpg" alt=""></a></li>
       </ul>
     </div>
-  </div>
+  </section>
+
+  {{!-- Process steps --}}
+  <section class="row is-rhythmed-2">
+    <div class="small-12 columns">
+      <h2 class="is-unvisible">Process Status</h2>
+      <ol class="process">
+        <li class="is-done"><a href="#">Completed (9/28)</a></li>
+        <li class="is-current"><a href="#">Review</a></li>
+        <li><a href="#">Published</a></li>
+      </ol>
+      <div class="process-status">
+        <div class="row collapse">
+          <div class="medium-8 columns">
+            <h3>Pending review</h3>
+            <p>Sended the 23.3.2015, Estimated Review Date 23.04.2015</p>
+          </div>
+          <div class="medium-4 columns text-right">
+            <a href="" class="button small is-wocat">Publish</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   {{!-- Summary --}}
   <section class="row is-rhythmed-2">

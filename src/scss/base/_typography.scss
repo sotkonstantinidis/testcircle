@@ -36,6 +36,14 @@ p.is-light {
 .is-muted {
   color: $color-beige-dark;
 }
+.is-unvisible { // For screen readers only
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
 sup {
   line-height: 1rem;
 }
