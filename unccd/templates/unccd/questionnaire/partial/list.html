@@ -17,34 +17,9 @@
 
 {% for questionnaire_values in questionnaire_value_list %}
   <article role="article" class="row large-collapse tech-item">
-    <div class="tech-thumbnail medium-4 columns">
-      <figure>
-        <a href="{% url 'unccd:questionnaire_details' questionnaire_values.id %}" title=""><img src="{{ questionnaire_values.image }}" alt="" /></a>
-        <figcaption class="tech-status label is-draft">draft</figcaption>
-      </figure>
-      <ul class="tech-icons">
-        <li>
-          <a href="{% url 'unccd:questionnaire_details' questionnaire_values.id %}">
-            <span class="tech-icon">
-              <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
-              <br>
-              {% trans "PDF" %}
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'unccd:questionnaire_details' questionnaire_values.id %}">
-            <span class="tech-icon">
-              <svg class="icon"><use xlink:href="#icon-video"></use></svg>
-              {% trans "Video" %}
-            </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="content medium-8 columns">
+    <div class="content columns">
       <header>
-         <h1><a href="{% url 'unccd:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.name }}</a> <small>{{ questionnaire_values.wocat_country }}</small></h1>
+         <h1><a href="{% url 'unccd:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.name }}</a> <small>{{ questionnaire_values.country }}</small></h1>
       </header>
       <aside class="tech-infos row collapse">
         <dl class="medium-6 columns">

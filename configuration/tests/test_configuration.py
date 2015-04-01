@@ -21,6 +21,7 @@ from qcat.errors import (
 )
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
+from sample.tests.test_views import get_list_data as get_sample_list_data
 
 route_questionnaire_details = 'sample:questionnaire_details'
 
@@ -47,7 +48,12 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         questionnaires = Questionnaire.objects.all()
         conf = get_valid_questionnaire_configuration()
         list_data = conf.get_list_data(questionnaires)
-        self.assertEqual(list_data, [{'id': 1}, {'id': 2}])
+        expected = []
+        for i in [1, 2]:
+            d = get_sample_list_data()
+            d.update({'id': i, 'native_configuration': False})
+            expected.append(d)
+        self.assertEqual(list_data, expected)
 
 
 class QuestionnaireConfigurationReadConfigurationTest(TestCase):

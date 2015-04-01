@@ -1202,7 +1202,14 @@ class QuestionnaireConfiguration(object):
                         value = get_url_by_identifier(value, 'default')
                     questionnaire_value[key] = value
 
-            questionnaire_value['id'] = questionnaire.id
+            configurations = [
+                c.code for c in questionnaire.configurations.all()]
+
+            questionnaire_value.update({
+                'id': questionnaire.id,
+                'configurations': configurations,
+                'native_configuration': self.keyword in configurations
+            })
             questionnaire_values.append(questionnaire_value)
 
         return questionnaire_values

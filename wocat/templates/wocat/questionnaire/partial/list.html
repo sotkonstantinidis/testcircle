@@ -10,6 +10,7 @@
 {% endcomment %}
 
 {% load i18n %}
+{% load staticfiles %}
 
 {% if not questionnaire_value_list %}
   <p>{% trans "No WOCAT questionnaires found." %}</p>
@@ -19,7 +20,7 @@
   <article role="article" class="row large-collapse tech-item">
     <div class="tech-thumbnail medium-4 columns">
       <figure>
-        <a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}" title=""><img src="{{ questionnaire_values.image }}" alt="" /></a>
+        <a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}" title="">{% if questionnaire_values.image %}<img src="{{ questionnaire_values.image }}" alt="{{ questionnaire_values.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
         <figcaption class="tech-status label is-draft">draft</figcaption>
       </figure>
       <ul class="tech-icons">
@@ -44,7 +45,7 @@
     </div>
     <div class="content medium-8 columns">
       <header>
-         <h1><a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.name }}</a> <small>{{ questionnaire_values.wocat_country }}</small></h1>
+         <h1>{% if not questionnaire_values.native_configuration %}<small>[{{ questionnaire_values.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.name }}</a> <small>{{ questionnaire_values.country }}</small></h1>
       </header>
       <aside class="tech-infos row collapse">
         <dl class="medium-6 columns">
