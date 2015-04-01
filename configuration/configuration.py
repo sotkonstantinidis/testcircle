@@ -1208,7 +1208,9 @@ class QuestionnaireConfiguration(object):
             questionnaire_value.update({
                 'id': questionnaire.id,
                 'configurations': configurations,
-                'native_configuration': self.keyword in configurations
+                'native_configuration': self.keyword in configurations,
+                'created': questionnaire.created,
+                'updated': questionnaire.updated,
             })
             questionnaire_values.append(questionnaire_value)
 

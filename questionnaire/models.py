@@ -16,7 +16,8 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     uuid = models.CharField(max_length=64, default=uuid4)
     blocked = models.BooleanField(default=False)
     active = models.ForeignKey(
