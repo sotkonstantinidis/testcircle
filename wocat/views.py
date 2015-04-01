@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 
 from configuration.configuration import QuestionnaireConfiguration
+from configuration.utils import get_configuration_query_filter
 from questionnaire.models import Questionnaire
 from questionnaire.views import (
     generic_questionnaire_details,
@@ -23,7 +24,7 @@ def home(request):
                 questionnaire_configuration.configuration_error))
 
     questionnaires = list(Questionnaire.objects.filter(
-        configurations__code='wocat'))[:3]
+        get_configuration_query_filter('wocat')))[:3]
     list_template_values = generic_questionnaire_list(
         request, 'wocat', questionnaires, template=None)
 
@@ -116,6 +117,6 @@ def questionnaire_list(request):
         ``HttpResponse``. A rendered Http Response.
     """
     questionnaires = list(Questionnaire.objects.filter(
-        configurations__code='wocat'))
+        get_configuration_query_filter('wocat')))
     return generic_questionnaire_list(
         request, 'wocat', questionnaires, 'wocat/questionnaire/list.html')

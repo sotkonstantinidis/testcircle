@@ -11,7 +11,7 @@ from unccd.tests.test_views import (
 
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['unccd.json']
+    fixtures = ['global_key_values.json', 'unccd.json']
 
     def test_questionnaire_is_available(self):
 

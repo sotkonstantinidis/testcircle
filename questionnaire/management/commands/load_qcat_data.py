@@ -20,3 +20,4 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
 
         call_command('loaddata', 'groups_permissions')
+        call_command('loaddata', 'global_key_values')

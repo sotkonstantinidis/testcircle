@@ -1,0 +1,58 @@
+[
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Common name\"}}, \"unccd\":{\"label\":{\"en\": \"Title of best practice\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 5001
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Country\"}}, \"unccd\":{\"label\":{\"en\": \"Country\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 5002
+},
+
+
+{
+    "fields": {
+        "keyword": "name",
+        "translation": 5001,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 1
+},
+{
+    "fields": {
+        "keyword": "country",
+        "translation": 5002,
+        "configuration": "{\"type\": \"char\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2
+},
+
+
+{
+    "fields": {
+        "keyword": "qg_name",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1
+},
+{
+    "fields": {
+        "keyword": "qg_country",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2
+}
+]
