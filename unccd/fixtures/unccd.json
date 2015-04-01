@@ -1,58 +1,44 @@
 [
 {
     "fields": {
-        "translation_type": "category",
-        "data": "{\"unccd\":{\"label\":{\"en\": \"Context of the best practice: frame conditions (natural and human environment)\"}}}"
-    },
-    "model": "configuration.translation",
-    "pk": 2101
-},
-{
-    "fields": {
-        "translation_type": "category",
-        "data": "{\"unccd\":{\"label\":{\"en\": \"Context of the best practice: frame conditions (natural and human environment)\"}}}"
-    },
-    "model": "configuration.translation",
-    "pk": 2111
-},
-
-
-{
-    "fields": {
         "translation_type": "key",
         "data": "{\"unccd\":{\"label\":{\"en\": \"Title of best practice\"}}}"
     },
     "model": "configuration.translation",
-    "pk": 2001
+    "pk": 3001
+},
+
+
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Context of the best practice: frame conditions (natural and human environment)\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4701
+},
+
+
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Context of the best practice: frame conditions (natural and human environment)\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4901
 },
 
 
 {
     "fields": {
         "keyword": "unccd_key_1",
-        "translation": 2001,
+        "translation": 3001,
         "configuration": "{\"type\": \"char\"}"
     },
     "model": "configuration.key",
     "pk": 2001
 },
 
-{
-    "fields": {
-        "keyword": "unccd__1",
-        "translation": 2101
-    },
-    "model": "configuration.category",
-    "pk": 2001
-},
-{
-    "fields": {
-        "keyword": "unccd__1__1",
-        "translation": 2111
-    },
-    "model": "configuration.category",
-    "pk": 2011
-},
 
 {
     "fields": {
@@ -64,13 +50,34 @@
     "pk": 2001
 },
 
+
+{
+    "fields": {
+        "keyword": "unccd__1__1",
+        "translation": 4701
+    },
+    "model": "configuration.category",
+    "pk": 2001
+},
+
+
+{
+    "fields": {
+        "keyword": "unccd__1",
+        "translation": 4901
+    },
+    "model": "configuration.category",
+    "pk": 2701
+},
+
+
 {
     "fields": {
         "code": "unccd",
         "description": "Description of UNCCD Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"unccd__1\",\"subcategories\":[{\"keyword\":\"unccd__1__1\",\"questiongroups\":[{\"questions\":[{\"key\":\"unccd_key_1\",\"in_list\":true}],\"keyword\":\"unccd_qg_1\"}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"unccd__1\",\"subcategories\":[{\"keyword\":\"unccd__1__1\",\"questiongroups\":[{\"keyword\":\"qg_name\",\"questions\":[{\"key\":\"name\",\"in_list\":true}]},{\"keyword\":\"unccd_qg_1\",\"questions\":[{\"key\":\"unccd_key_1\",\"in_list\":true}]}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "UNCCD Configuration"

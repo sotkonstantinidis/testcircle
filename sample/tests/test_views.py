@@ -1,6 +1,7 @@
+from django.db.models import Q
+from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from unittest.mock import patch
-from django.core.urlresolvers import reverse
 
 from accounts.tests.test_authentication import (
     create_new_user,
@@ -14,6 +15,7 @@ from sample.views import (
     questionnaire_new_step,
 )
 
+route_home = 'sample:home'
 route_questionnaire_details = 'sample:questionnaire_details'
 route_questionnaire_list = 'sample:questionnaire_list'
 route_questionnaire_new = 'sample:questionnaire_new'
@@ -65,6 +67,24 @@ def get_position_of_category(category, start0=False):
     return None
 
 
+class SampleHomeTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(route_home)
+
+    def test_renders_correct_template(self):
+        res = self.client.get(self.url)
+        self.assertTemplateUsed(res, 'sample/home.html')
+        self.assertEqual(res.status_code, 200)
+
+    @patch('sample.views.get_configuration_query_filter')
+    def test_calls_get_configuration_query_filter(self, mock_func):
+        mock_func.return_value = Q(configurations__code='sample')
+        self.client.get(self.url)
+        mock_func.assert_called_once_with('sample')
+
+
 class QuestionnaireNewTest(TestCase):
 
     def setUp(self):
@@ -92,7 +112,8 @@ class QuestionnaireNewTest(TestCase):
 
 class QuestionnaireNewStepTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'sample.json']
+    fixtures = [
+        'groups_permissions.json', 'global_key_values.json', 'sample.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -158,3 +179,9 @@ class QuestionnaireListTest(TestCase):
         questionnaire_list(request)
         mock_questionnaire_list.assert_called_once_with(
             request, *get_valid_list_values())
+
+    @patch('sample.views.get_configuration_query_filter')
+    def test_calls_get_configuration_query_filter(self, mock_func):
+        mock_func.return_value = Q(configurations__code='sample')
+        self.client.get(self.url)
+        mock_func.assert_called_once_with('sample')
