@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from unittest.mock import patch
@@ -65,6 +66,12 @@ class WocatHomeTest(TestCase):
         self.assertTemplateUsed(res, 'wocat/home.html')
         self.assertEqual(res.status_code, 200)
 
+    @patch('wocat.views.get_configuration_query_filter')
+    def test_calls_get_configuration_query_filter(self, mock_func):
+        mock_func.return_value = Q(configurations__code='wocat')
+        self.client.get(self.url)
+        mock_func.assert_called_once_with('wocat')
+
 
 class QuestionnaireNewTest(TestCase):
 
@@ -93,7 +100,8 @@ class QuestionnaireNewTest(TestCase):
 
 class QuestionnaireNewStepTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'wocat.json']
+    fixtures = [
+        'groups_permissions.json', 'global_key_values.json', 'wocat.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -159,3 +167,9 @@ class QuestionnaireListTest(TestCase):
         questionnaire_list(request)
         mock_questionnaire_list.assert_called_once_with(
             request, *get_valid_list_values())
+
+    @patch('wocat.views.get_configuration_query_filter')
+    def test_calls_get_configuration_query_filter(self, mock_func):
+        mock_func.return_value = Q(configurations__code='wocat')
+        self.client.get(self.url)
+        mock_func.assert_called_once_with('wocat')

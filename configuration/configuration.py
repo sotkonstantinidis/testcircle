@@ -113,7 +113,11 @@ class QuestionnaireQuestion(object):
         self.in_list = configuration.get('in_list', False)
         self.key_object = key_object
         self.key_config = key_object.configuration
-        self.label = key_object.get_translation('label')
+        self.configuration_keyword = ''
+        if questiongroup:
+            self.configuration_keyword = questiongroup.configuration_keyword
+        self.label = key_object.get_translation(
+            'label', self.configuration_keyword)
         self.keyword = key
 
         self.field_type = self.key_config.get('type', 'char')
@@ -150,9 +154,11 @@ class QuestionnaireQuestion(object):
                 choices = []
             for i, v in enumerate(self.value_objects):
                 if self.field_type in ['measure']:
-                    choices.append((i+1, v.get_translation('label')))
+                    choices.append((i+1, v.get_translation(
+                        'label', self.configuration_keyword)))
                 else:
-                    choices.append((v.keyword, v.get_translation('label')))
+                    choices.append((v.keyword, v.get_translation(
+                        'label', self.configuration_keyword)))
                 if self.field_type in ['image_checkbox']:
                     self.images.append('{}{}'.format(
                         self.value_image_path,
@@ -427,7 +433,7 @@ class QuestionnaireQuestiongroup(object):
     default_template = 'default'
     default_min_num = 1
 
-    def __init__(self, custom_configuration):
+    def __init__(self, subcategory, custom_configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Questiongroup. It needs to have the
@@ -490,16 +496,22 @@ class QuestionnaireQuestiongroup(object):
             raise ConfigurationErrorInvalidConfiguration(
                 'max_num', 'integer >= 1', 'questiongroup')
 
+        self.configuration_keyword = ''
+        if subcategory:
+            self.configuration_keyword = subcategory.configuration_keyword
         self.helptext = ''
         self.label = ''
         translation = questiongroup_object.translation
         if translation:
-            self.helptext = translation.get_translation('helptext')
-            self.label = translation.get_translation('label')
+            self.helptext = translation.get_translation(
+                'helptext', self.configuration_keyword)
+            self.label = translation.get_translation(
+                'label', self.configuration_keyword)
 
         self.questiongroup_condition = self.configuration.get(
             'questiongroup_condition')
 
+        self.subcategory = subcategory
         self.questions = []
         conf_questions = self.configuration.get('questions', [])
         if (not isinstance(conf_questions, list) or len(conf_questions) == 0):
@@ -644,7 +656,7 @@ class QuestionnaireSubcategory(object):
         'questiongroups',
     ]
 
-    def __init__(self, configuration):
+    def __init__(self, category, configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Subcategory. It needs to have the following
@@ -692,15 +704,18 @@ class QuestionnaireSubcategory(object):
             raise ConfigurationErrorInvalidConfiguration(
                 'questiongroups', 'list of dicts', 'subcategories')
 
+        self.category = category
+        self.configuration_keyword = category.configuration_keyword
         for conf_questiongroup in conf_questiongroups:
             questiongroups.append(
-                QuestionnaireQuestiongroup(conf_questiongroup))
+                QuestionnaireQuestiongroup(self, conf_questiongroup))
 
         self.keyword = keyword
         self.configuration = configuration
         self.questiongroups = questiongroups
         self.object = subcategory
-        self.label = subcategory.get_translation('label')
+        self.label = subcategory.get_translation(
+            'label', self.configuration_keyword)
 
     @staticmethod
     def merge_configurations(base, specific):
@@ -821,7 +836,7 @@ class QuestionnaireCategory(object):
         'use_raw_data',
     ]
 
-    def __init__(self, configuration):
+    def __init__(self, configuration, configuration_dict):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Category. It needs to have the following
@@ -851,11 +866,11 @@ class QuestionnaireCategory(object):
             :doc:`/configuration/category`
         """
         validate_type(
-            configuration, dict, 'categories', 'list of dicts', '-')
+            configuration_dict, dict, 'categories', 'list of dicts', '-')
         validate_options(
-            configuration, self.valid_options, QuestionnaireCategory)
+            configuration_dict, self.valid_options, QuestionnaireCategory)
 
-        keyword = configuration.get('keyword')
+        keyword = configuration_dict.get('keyword')
         if not isinstance(keyword, str):
             raise ConfigurationErrorInvalidConfiguration(
                 'keyword', 'str', 'categories')
@@ -866,24 +881,29 @@ class QuestionnaireCategory(object):
             raise ConfigurationErrorNotInDatabase(Category, keyword)
 
         subcategories = []
-        conf_subcategories = configuration.get('subcategories', [])
+        conf_subcategories = configuration_dict.get('subcategories', [])
         if (not isinstance(conf_subcategories, list)
                 or len(conf_subcategories) == 0):
             raise ConfigurationErrorInvalidConfiguration(
                 'subcategories', 'list of dicts', 'categories')
 
-        view_template = configuration.get('view_template', 'default')
+        view_template = configuration_dict.get('view_template', 'default')
 
+        self.configuration_keyword = configuration.keyword
+        self.configuration = configuration
         for conf_subcategory in conf_subcategories:
-            subcategories.append(QuestionnaireSubcategory(conf_subcategory))
+            subcategories.append(
+                QuestionnaireSubcategory(self, conf_subcategory))
 
         self.keyword = keyword
-        self.configuration = configuration
+        self.configuration_dict = configuration_dict
         self.subcategories = subcategories
         self.object = category
-        self.label = category.get_translation('label')
+        self.label = category.get_translation(
+            'label', self.configuration_keyword)
         self.view_template = 'details/category/{}.html'.format(view_template)
-        self.use_raw_data = configuration.get('use_raw_data', False) is True
+        self.use_raw_data = configuration_dict.get(
+            'use_raw_data', False) is True
 
     @staticmethod
     def merge_configurations(base, specific):
@@ -1182,7 +1202,14 @@ class QuestionnaireConfiguration(object):
                         value = get_url_by_identifier(value, 'default')
                     questionnaire_value[key] = value
 
-            questionnaire_value['id'] = questionnaire.id
+            configurations = [
+                c.code for c in questionnaire.configurations.all()]
+
+            questionnaire_value.update({
+                'id': questionnaire.id,
+                'configurations': configurations,
+                'native_configuration': self.keyword in configurations
+            })
             questionnaire_values.append(questionnaire_value)
 
         return questionnaire_values
@@ -1233,7 +1260,7 @@ class QuestionnaireConfiguration(object):
             conf_categories, list, 'categories', 'list of dicts', '-')
 
         for conf_category in conf_categories:
-            self.add_category(QuestionnaireCategory(conf_category))
+            self.add_category(QuestionnaireCategory(self, conf_category))
 
     @staticmethod
     def merge_configurations(base, specific):

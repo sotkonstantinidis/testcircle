@@ -1,6 +1,7 @@
+from django.db.models import Q
+from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from unittest.mock import patch
-from django.core.urlresolvers import reverse
 
 from accounts.tests.test_authentication import (
     create_new_user,
@@ -48,7 +49,7 @@ def get_category_count():
 
 def get_categories():
     return (
-        ('unccd_cat_1', 'UNCCD Category 1'),
+        ('unccd__1', 'UNCCD Category 1'),
     )
 
 
@@ -62,6 +63,12 @@ class UnccdHomeTest(TestCase):
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'unccd/home.html')
         self.assertEqual(res.status_code, 200)
+
+    @patch('unccd.views.get_configuration_query_filter')
+    def test_calls_get_configuration_query_filter(self, mock_func):
+        mock_func.return_value = Q(configurations__code='unccd')
+        self.client.get(self.url)
+        mock_func.assert_called_once_with('unccd')
 
 
 class QuestionnaireNewTest(TestCase):
@@ -91,7 +98,8 @@ class QuestionnaireNewTest(TestCase):
 
 class QuestionnaireNewStepTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'unccd.json']
+    fixtures = [
+        'groups_permissions.json', 'global_key_values.json', 'unccd.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -157,3 +165,9 @@ class QuestionnaireListTest(TestCase):
         questionnaire_list(request)
         mock_questionnaire_list.assert_called_once_with(
             request, *get_valid_list_values())
+
+    @patch('unccd.views.get_configuration_query_filter')
+    def test_calls_get_configuration_query_filter(self, mock_func):
+        mock_func.return_value = Q(configurations__code='unccd')
+        self.client.get(self.url)
+        mock_func.assert_called_once_with('unccd')

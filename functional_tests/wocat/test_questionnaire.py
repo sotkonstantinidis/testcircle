@@ -11,7 +11,7 @@ from wocat.tests.test_views import (
 
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['wocat.json']
+    fixtures = ['global_key_values.json', 'wocat.json']
 
     def test_questionnaire_is_available(self):
 

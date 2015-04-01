@@ -381,6 +381,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "Value 13_2")]')
         self.findBy('xpath', '//*[contains(text(), "Value 13_3")]')
 
+    @attr('tryagain')
     def test_image_checkbox(self):
 
         # Alice logs in
@@ -469,6 +470,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//img[@alt="Value 14_2"]')
         self.findBy('xpath', '//img[@alt="Value 14_3"]')
 
+    @attr('tryagain')
     def test_measure_conditional(self):
 
         # Alice logs in
@@ -564,6 +566,7 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 23')
         self.checkOnPage('Bar')
 
+    @attr('tryagain')
     def test_image_checkbox_subcategory(self):
 
         # Alice logs in

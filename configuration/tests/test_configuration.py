@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from configuration.configuration import (
     QuestionnaireConfiguration,
@@ -21,6 +21,7 @@ from qcat.errors import (
 )
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
+from sample.tests.test_views import get_list_data as get_sample_list_data
 
 route_questionnaire_details = 'sample:questionnaire_details'
 
@@ -47,7 +48,12 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         questionnaires = Questionnaire.objects.all()
         conf = get_valid_questionnaire_configuration()
         list_data = conf.get_list_data(questionnaires)
-        self.assertEqual(list_data, [{'id': 1}, {'id': 2}])
+        expected = []
+        for i in [1, 2]:
+            d = get_sample_list_data()
+            d.update({'id': i, 'native_configuration': False})
+            expected.append(d)
+        self.assertEqual(list_data, expected)
 
 
 class QuestionnaireConfigurationReadConfigurationTest(TestCase):
@@ -192,60 +198,63 @@ class QuestionnaireCategoryTest(TestCase):
 
     fixtures = ['sample.json']
 
+    def setUp(self):
+        self.configuration = 'sample'
+
     @patch('configuration.configuration.validate_type')
     def test_calls_validate_type(self, mock_validate_type):
-        configuration = {
+        configuration_dict = {
             "foo": "bar"
         }
         with self.assertRaises(ConfigurationErrorInvalidOption):
-            QuestionnaireCategory(configuration)
+            QuestionnaireCategory(self.configuration, configuration_dict)
         mock_validate_type.assert_called_once_with(
-            configuration, dict, 'categories', 'list of dicts', '-')
+            configuration_dict, dict, 'categories', 'list of dicts', '-')
 
     @patch('configuration.configuration.validate_options')
     def test_calls_validate_options(self, mock_validate_options):
-        configuration = {
+        configuration_dict = {
             "foo": "bar"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireCategory(configuration)
+            QuestionnaireCategory(self.configuration, configuration_dict)
         mock_validate_options.assert_called_once_with(
-            configuration, QuestionnaireCategory.valid_options,
+            configuration_dict, QuestionnaireCategory.valid_options,
             QuestionnaireCategory)
 
     def test_raises_error_if_keyword_not_found(self):
-        configuration = {}
+        configuration_dict = {}
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireCategory(configuration)
+            QuestionnaireCategory(self.configuration, configuration_dict)
 
     def test_raises_error_if_keyword_not_string(self):
-        configuration = {
+        configuration_dict = {
             "keyword": ["bar"]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireCategory(configuration)
+            QuestionnaireCategory(self.configuration, configuration_dict)
 
     def test_raises_error_if_not_in_db(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "bar"
         }
         with self.assertRaises(ConfigurationErrorNotInDatabase):
-            QuestionnaireCategory(configuration)
+            QuestionnaireCategory(self.configuration, configuration_dict)
 
     def test_raises_error_if_no_subcategories(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "cat_1"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireCategory(configuration)
+            QuestionnaireCategory(self.configuration, configuration_dict)
 
     def test_raises_error_if_subcategories_not_list(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "cat_1",
             "subcategories": "foo"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireCategory(configuration)
+            QuestionnaireCategory(self.configuration, configuration_dict)
 
 
 class QuestionnaireCategoryMergeConfigurationsTest(TestCase):
@@ -295,61 +304,64 @@ class QuestionnaireSubcategoryTest(TestCase):
 
     fixtures = ['sample.json']
 
+    def setUp(self):
+        self.category = None
+
     @patch('configuration.configuration.validate_type')
     def test_calls_validate_type(self, mock_validate_type):
-        configuration = {
+        configuration_dict = {
             "foo": "bar"
         }
         with self.assertRaises(ConfigurationErrorInvalidOption):
-            QuestionnaireSubcategory(configuration)
+            QuestionnaireSubcategory(self.category, configuration_dict)
         mock_validate_type.assert_called_once_with(
-            configuration, dict, 'subcategories', 'list of dicts',
+            configuration_dict, dict, 'subcategories', 'list of dicts',
             'categories')
 
     @patch('configuration.configuration.validate_options')
     def test_calls_validate_options(self, mock_validate_options):
-        configuration = {
+        configuration_dict = {
             "foo": "bar"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireSubcategory(configuration)
+            QuestionnaireSubcategory(self.category, configuration_dict)
         mock_validate_options.assert_called_once_with(
-            configuration, QuestionnaireSubcategory.valid_options,
+            configuration_dict, QuestionnaireSubcategory.valid_options,
             QuestionnaireSubcategory)
 
     def test_raises_error_if_keyword_not_found(self):
-        configuration = {}
+        configuration_dict = {}
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireSubcategory(configuration)
+            QuestionnaireSubcategory(self.category, configuration_dict)
 
     def test_raises_error_if_keyword_not_string(self):
-        configuration = {
+        configuration_dict = {
             "keyword": ["bar"]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireSubcategory(configuration)
+            QuestionnaireSubcategory(self.category, configuration_dict)
 
     def test_raises_error_if_not_in_db(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "bar"
         }
         with self.assertRaises(ConfigurationErrorNotInDatabase):
-            QuestionnaireSubcategory(configuration)
+            QuestionnaireSubcategory(self.category, configuration_dict)
 
     def test_raises_error_if_no_questiongroups(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "subcat_1_1"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireSubcategory(configuration)
+            QuestionnaireSubcategory(self.category, configuration_dict)
 
     def test_raises_error_if_questiongroups_not_list(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "subcat_1_1",
             "questiongroups": "foo"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireSubcategory(configuration)
+            QuestionnaireSubcategory(self.category, configuration_dict)
 
 
 class QuestionnaireSubcategoryMergeConfigurationsTest(TestCase):
@@ -399,64 +411,67 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
     fixtures = ['sample.json']
 
+    def setUp(self):
+        self.subcategory = None
+
     @patch('configuration.configuration.validate_options')
     def test_calls_validate_options(self, mock_validate_options):
-        configuration = {
+        configuration_dict = {
             "keyword": "qg_1"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
         mock_validate_options.assert_called_once_with(
-            configuration, QuestionnaireQuestiongroup.valid_options,
+            configuration_dict, QuestionnaireQuestiongroup.valid_options,
             QuestionnaireQuestiongroup)
 
     def test_raises_error_if_keyword_not_found(self):
-        configuration = {}
+        configuration_dict = {}
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
     def test_raises_error_if_keyword_not_string(self):
-        configuration = {
+        configuration_dict = {
             "keyword": ["bar"]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
     def test_raises_error_if_min_num_not_integer(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "qg_1",
             "min_num": "foo",
             "questions": [{"key": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
     def test_raises_error_if_min_num_smaller_than_1(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "qg_1",
             "min_num": 0,
             "questions": [{"key": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
     def test_raises_error_if_max_num_not_integer(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "qg_1",
             "max_num": "foo",
             "questions": [{"key": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
     def test_raises_error_if_max_num_smaller_than_1(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "qg_1",
             "max_num": -1,
             "questions": [{"key": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
     # def test_raises_error_if_helptext_not_found(self):
     #     configuration = {
@@ -468,19 +483,19 @@ class QuestionnaireQuestiongroupTest(TestCase):
     #         QuestionnaireQuestiongroup(configuration)
 
     def test_raises_error_if_no_questions(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "qg_1"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
     def test_raises_error_if_questions_not_list(self):
-        configuration = {
+        configuration_dict = {
             "keyword": "qg_1",
             "questions": "foo"
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            QuestionnaireQuestiongroup(configuration)
+            QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
 
 class QuestionnaireQuestiongroupMergeConfigurationsTest(TestCase):
@@ -624,12 +639,16 @@ class QuestionnaireQuestionTest(TestCase):
             QuestionnaireQuestion(None, configuration)
 
     def test_lookup_choices_lookups_single_choice(self):
-        q = QuestionnaireQuestion(None, {'key': 'key_14'})
+        mock_Questiongroup = Mock()
+        mock_Questiongroup.configuration_keyword = 'sample'
+        q = QuestionnaireQuestion(mock_Questiongroup, {'key': 'key_14'})
         l = q.lookup_choices_labels_by_keywords(['value_14_1'])
         self.assertEqual(l, ['Value 14_1'])
 
     def test_lookup_choices_lookups_many_choices(self):
-        q = QuestionnaireQuestion(None, {'key': 'key_14'})
+        mock_Questiongroup = Mock()
+        mock_Questiongroup.configuration_keyword = 'sample'
+        q = QuestionnaireQuestion(mock_Questiongroup, {'key': 'key_14'})
         l = q.lookup_choices_labels_by_keywords(['value_14_1', 'value_14_2'])
         self.assertEqual(l, ['Value 14_1', 'Value 14_2'])
 

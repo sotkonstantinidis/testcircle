@@ -5,8 +5,8 @@
 
     <header class="tech-output-header medium-7 columns">
       <span class="label tech-status label is-draft">Draft</span>
-      <h1 class="tech-output-title">{{ raw_data.wocat_common_name|default:"" }}</h1>
-      <p class="tech-output-header-info clearfix"><span class="is-muted left">[ID] - [Country]</span></p>
+      <h1 class="tech-output-title">{{ raw_data.name|default:"" }}</h1>
+      <p class="tech-output-header-info clearfix"><span class="is-muted left">[ID] - {{ raw_data.country|default:"" }}</span></p>
       <p class="is-large">{{ raw_data.wocat_definition|default:"" }}</p>
       <p class="is-large">{{ raw_data.wocat_description|default:"" }}</p>
     </header>

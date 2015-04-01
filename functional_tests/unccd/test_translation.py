@@ -8,7 +8,7 @@ from unccd.tests.test_views import (
 
 class TranslationTest(FunctionalTest):
 
-    fixtures = ['unccd.json']
+    fixtures = ['global_key_values.json', 'unccd.json']
 
     def test_change_languages(self):
 
