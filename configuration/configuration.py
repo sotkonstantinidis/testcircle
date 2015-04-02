@@ -340,13 +340,19 @@ class QuestionnaireQuestion(object):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text']:
+        if self.field_type in ['char']:
             rendered = render_to_string(
                 'details/field/textinput.html', {
                     'key': self.label,
                     'value': value})
             return rendered
-        if self.field_type in ['bool', 'measure']:
+        elif self.field_type in ['text']:
+            rendered = render_to_string(
+                'details/field/textarea.html', {
+                    'key': self.label,
+                    'value': value})
+            return rendered
+        elif self.field_type in ['bool', 'measure']:
             rendered = render_to_string(
                 'details/field/textinput.html', {
                     'key': self.label,

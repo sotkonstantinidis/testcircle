@@ -1,7 +1,8 @@
 import time
 from django.core.urlresolvers import reverse
-from functional_tests.base import FunctionalTest
+from selenium.webdriver.common.keys import Keys
 
+from functional_tests.base import FunctionalTest
 from qcat.utils import get_session_questionnaire
 from sample.tests.test_views import (
     route_questionnaire_list,
@@ -288,6 +289,28 @@ class QuestionnaireTest(FunctionalTest):
         # she sees an error message
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "info")]')
+
+    def test_textarea_preserves_line_breaks(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        # She enters some value for Key 2 with linebreaks
+        textarea = self.findBy('id', 'id_qg_2-0-original_key_2')
+        textarea.send_keys('asdf')
+        textarea.send_keys(Keys.RETURN)
+        textarea.send_keys('asdf')
+
+        # She submits the form
+        self.findBy('id', 'button-submit').click()
+
+        # She sees the values were submitted with linebreaks
+        details = self.findBy('xpath', '//p[contains(text(), "Key 2")]')
+        self.assertEqual(details.text, 'Key 2:\nasdf\nasdf')
 
     def test_checkbox(self):
 
