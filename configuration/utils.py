@@ -1,7 +1,7 @@
 from django.db.models import Q
 
 
-def get_configuration_query_filter(configuration):
+def get_configuration_query_filter(configuration, only_current=False):
     """
     Return a Django ``Q`` object used to encapsulate SQL expressions.
     This object can be used to filter Questionnaires based on their
@@ -22,9 +22,16 @@ def get_configuration_query_filter(configuration):
         ``configuration`` (str): The code of the (current)
         configuration.
 
+    Kwargs:
+        ``only_current`` (bool): If ``True``, always only the current
+        configuration is returned as filter. Defaults to ``False``.
+
     Returns:
         ``django.db.models.Q``. A filter object.
     """
+    if only_current is True:
+        return Q(configurations__code=configuration)
+
     if configuration == 'wocat':
         return (
             Q(configurations__code='wocat') | Q(configurations__code='unccd'))

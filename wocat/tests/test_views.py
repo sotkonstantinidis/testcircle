@@ -70,7 +70,7 @@ class WocatHomeTest(TestCase):
     def test_calls_get_configuration_query_filter(self, mock_func):
         mock_func.return_value = Q(configurations__code='wocat')
         self.client.get(self.url)
-        mock_func.assert_called_once_with('wocat')
+        mock_func.assert_called_once_with('wocat', only_current=True)
 
 
 class QuestionnaireNewTest(TestCase):

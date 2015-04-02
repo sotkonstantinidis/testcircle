@@ -24,7 +24,7 @@ def home(request):
                 questionnaire_configuration.configuration_error))
 
     questionnaires = list(Questionnaire.objects.filter(
-        get_configuration_query_filter('wocat')))[:3]
+        get_configuration_query_filter('wocat', only_current=True)))[:3]
     list_template_values = generic_questionnaire_list(
         request, 'wocat', questionnaires, template=None)
 

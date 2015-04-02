@@ -256,7 +256,8 @@ def generic_questionnaire_details(
         configuration_code)
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
-    categories = questionnaire_configuration.get_details(data)
+    categories = questionnaire_configuration.get_details(
+        data=data, questionnaire_object=questionnaire_object)
     category_names = []
     for category in questionnaire_configuration.categories:
         category_names.append((category.keyword, category.label))

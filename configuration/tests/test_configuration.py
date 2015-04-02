@@ -1,3 +1,4 @@
+import datetime
 from unittest.mock import patch, Mock
 
 from configuration.configuration import (
@@ -21,7 +22,6 @@ from qcat.errors import (
 )
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
-from sample.tests.test_views import get_list_data as get_sample_list_data
 
 route_questionnaire_details = 'sample:questionnaire_details'
 
@@ -48,12 +48,15 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         questionnaires = Questionnaire.objects.all()
         conf = get_valid_questionnaire_configuration()
         list_data = conf.get_list_data(questionnaires)
-        expected = []
-        for i in [1, 2]:
-            d = get_sample_list_data()
-            d.update({'id': i, 'native_configuration': False})
-            expected.append(d)
-        self.assertEqual(list_data, expected)
+        self.assertEqual(len(list_data), 2)
+        for d in list_data:
+            self.assertEqual(len(d), 5)
+            self.assertIsInstance(d['configurations'], list)
+            self.assertEqual(len(d['configurations']), 1)
+            self.assertIsInstance(d['native_configuration'], bool)
+            self.assertIn(d['id'], [1, 2])
+            self.assertIsInstance(d['created'], datetime.datetime)
+            self.assertIsInstance(d['updated'], datetime.datetime)
 
 
 class QuestionnaireConfigurationReadConfigurationTest(TestCase):

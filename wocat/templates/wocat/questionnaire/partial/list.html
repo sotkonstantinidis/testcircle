@@ -53,12 +53,12 @@
           <dd>AU_067456_ES</dd>
         </dl>
         <dl class="medium-6 columns">
-          <dt>Creation:</dt>
-          <dd><time datetime="2015-02-12" pubdate="pubdate">2015-02-12</time></dd>
+          <dt>{% trans "Creation:" %}</dt>
+          <dd><time datetime="{{ questionnaire_values.created|date:"c" }}" pubdate="pubdate">{{ questionnaire_values.created|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
         </dl>
         <dl class="medium-6 columns">
-          <dt>Update:</dt>
-          <dd><time datetime="2015-03-16">2015-03-16</time></dd>
+          <dt>{% trans "Update:" %}</dt>
+          <dd><time datetime="{{ questionnaire_values.updated|date:"c" }}">{{ questionnaire_values.updated|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
         </dl>
         <dl class="medium-6 columns">
           <dt>Author:</dt>

@@ -16,7 +16,8 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     uuid = models.CharField(max_length=64, default=uuid4)
     blocked = models.BooleanField(default=False)
     active = models.ForeignKey(
@@ -24,6 +25,9 @@ class Questionnaire(models.Model):
     members = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through='QuestionnaireMembership')
     configurations = models.ManyToManyField('configuration.Configuration')
+
+    class Meta:
+        ordering = ['-updated']
 
     def get_absolute_url(self):
         return reverse('questionnaire_view_details', args=[self.id])
@@ -58,6 +62,22 @@ class Questionnaire(models.Model):
 
     def get_id(self):
         return self.id
+
+    def get_metadata(self):
+        """
+        Return some metadata about the Questionnaire.
+
+        Returns:
+            ``dict``. A dict containing the following metadata:
+
+            * ``created``
+
+            * ``updated``
+        """
+        return {
+            'created': self.created,
+            'updated': self.updated,
+        }
 
     def __str__(self):
         return json.dumps(self.data)

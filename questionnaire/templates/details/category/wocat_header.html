@@ -13,12 +13,12 @@
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
       <ul class="tech-output-infos">
         <li>
-          <span class="is-muted">Date:</span>
-          <time datetime="1990-10-10" pubdate="">[Date]</time>
+          <span class="is-muted">{% trans "Creation:" %}</span>
+          <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT" }}</time>
         </li>
         <li>
-          <span class="is-muted">Update:</span>
-          <time datetime="1990-10-10" pubdate="">[Date]</time>
+          <span class="is-muted">{% trans "Update:" %}</span>
+          <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT" }}</time>
         </li>
         <li>
           <span class="is-muted">Author:</span>

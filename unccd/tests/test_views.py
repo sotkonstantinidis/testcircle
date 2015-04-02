@@ -68,7 +68,7 @@ class UnccdHomeTest(TestCase):
     def test_calls_get_configuration_query_filter(self, mock_func):
         mock_func.return_value = Q(configurations__code='unccd')
         self.client.get(self.url)
-        mock_func.assert_called_once_with('unccd')
+        mock_func.assert_called_once_with('unccd', only_current=True)
 
 
 class QuestionnaireNewTest(TestCase):

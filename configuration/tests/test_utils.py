@@ -26,3 +26,12 @@ class GetConfigurationQureyFilterTest(TestCase):
         self.assertEqual(attrs[1][0], 'configurations__code')
         self.assertEqual(attrs[1][1], 'unccd')
         self.assertEqual(query_filter.connector, 'OR')
+
+    def test_returns_only_current_configuration_if_selected(self):
+        query_filter = get_configuration_query_filter(
+            'wocat', only_current=True)
+        self.assertIsInstance(query_filter, Q)
+        attrs = query_filter.children
+        self.assertEqual(len(attrs), 1)
+        self.assertEqual(attrs[0][0], 'configurations__code')
+        self.assertEqual(attrs[0][1], 'wocat')
