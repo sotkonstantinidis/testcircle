@@ -82,7 +82,7 @@ class SampleHomeTest(TestCase):
     def test_calls_get_configuration_query_filter(self, mock_func):
         mock_func.return_value = Q(configurations__code='sample')
         self.client.get(self.url)
-        mock_func.assert_called_once_with('sample')
+        mock_func.assert_called_once_with('sample', only_current=True)
 
 
 class QuestionnaireNewTest(TestCase):

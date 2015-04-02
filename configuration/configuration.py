@@ -853,6 +853,9 @@ class QuestionnaireCategory(object):
             # (optional)
             "use_raw_data": true,
 
+            # (optional)
+            "with_metadata": true,
+
             # A list of subcategories.
             "subcategories": [
               {

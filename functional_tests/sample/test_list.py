@@ -30,20 +30,26 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 3)
 
-
-        # TODO: The entries should be ordered by date, this has to be
-        # implemented! Also order of entire list!!
-
-        # Each entry contains Keys 1 and 5 of the questionnaires.
+        # The entries are ordered with the latest changes on top and
+        # each entry contains Keys 1 and 5 of the questionnaires.
         self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 1")]', base=list_entries[0])
-        self.findBy('xpath', '//p[text()="Faz 1"]', base=list_entries[0])
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
+            'text()="Faz 4"]')
         link = self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 2")]', base=list_entries[1])
-        self.findBy('xpath', '//p[text()="Faz 2"]', base=list_entries[1])
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 3")]')
         self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 3")]', base=list_entries[2])
-        self.findBy('xpath', '//p[text()="Faz 3"]', base=list_entries[2])
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
+            'text()="Faz 3"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
+            'text()="Faz 2"]')
 
         # Each entry has a placeholder because there is no image
         for e in list_entries:
@@ -63,19 +69,32 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 4)
 
-        # Each entry contains Keys 1 and 5 of the questionnaires.
+        # The entries are also ordered and each entry contains Keys 1 and 5 of
+        # the questionnaires.
         self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 1")]', base=list_entries[0])
-        self.findBy('xpath', '//p[text()="Faz 1"]', base=list_entries[0])
-        link = self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 2")]', base=list_entries[1])
-        self.findBy('xpath', '//p[text()="Faz 2"]', base=list_entries[1])
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
         self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 3")]', base=list_entries[2])
-        self.findBy('xpath', '//p[text()="Faz 3"]', base=list_entries[2])
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
+            'text()="Faz 4"]')
         self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 4")]', base=list_entries[3])
-        self.findBy('xpath', '//p[text()="Faz 4"]', base=list_entries[3])
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 3")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
+            'text()="Faz 3"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
+            'text()="Faz 2"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
+            'contains(text(), "Foo 1")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
+            'text()="Faz 1"]')
 
         # Each entry has a placeholder because there is no image
         for e in list_entries:
@@ -98,7 +117,36 @@ class ListTest(FunctionalTest):
 
         # The UNCCD entry has a valid key but the attribute [unccd] in front
         # of the title
-        unccd_entry = list_entries[4]
         self.findBy(
-            'xpath', '//h1/a[contains(text(), "Foo 5")]', base=unccd_entry)
-        self.findBy('xpath', '//h1/small[text()="[unccd]"]', base=unccd_entry)
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/small['
+            'text()="[unccd]"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 5")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
+            'text()="Faz 5"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
+            'text()="Faz 4"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 3")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
+            'text()="Faz 3"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
+            'text()="Faz 2"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[5]//h1/a['
+            'contains(text(), "Foo 1")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[5]//p['
+            'text()="Faz 1"]')

@@ -26,6 +26,9 @@ class Questionnaire(models.Model):
         settings.AUTH_USER_MODEL, through='QuestionnaireMembership')
     configurations = models.ManyToManyField('configuration.Configuration')
 
+    class Meta:
+        ordering = ['-updated']
+
     def get_absolute_url(self):
         return reverse('questionnaire_view_details', args=[self.id])
 

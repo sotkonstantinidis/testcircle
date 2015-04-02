@@ -31,6 +31,9 @@ The basic format of the configuration is as follows::
     # (optional)
     "use_raw_data": true,
 
+    # (optional)
+    "with_metadata": true,
+
     # A list of subcategories.
     "subcategories": [
       {
@@ -75,6 +78,13 @@ example for manual rendering of the category details. Defaults to
 
 .. seealso::
   :func:`configuration.configuration.QuestionnaireCategory.get_raw_category_data`
+
+
+``with_metadata``
+^^^^^^^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether to add the metadata
+of the current Questionnaire to the template or not. Defaults to ``False``.
 
 
 ``subcategories``
