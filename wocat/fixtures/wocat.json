@@ -183,6 +183,86 @@
     "model": "configuration.translation",
     "pk": 1025
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Forest/woodlands Subcategories\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1026
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Removal of trees\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1027
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"timber\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1028
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"fuelwood\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1029
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"fruits and nuts\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1030
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"grazing / browsing\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1031
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"other forest products / uses (honey, medical, etc.)\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1032
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"nature conservation / protection\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1033
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"recreation / tourism\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1034
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"protection against natural hazards\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1035
+},
 
 
 {
@@ -289,6 +369,54 @@
     "model": "configuration.translation",
     "pk": 1513
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Fn) Natural\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1514
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Fp) Plantations, afforestations\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1515
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"(Fo) Other\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1516
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Selective felling\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1517
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Clear felling\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1518
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Shifting cultivation\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 1519
+},
 
 
 {
@@ -330,6 +458,14 @@
     },
     "model": "configuration.translation",
     "pk": 2205
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": "{\"wocat\":{\"label\":{\"en\":\"For what purpose do land users use forests and woodlands?\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 2206
 },
 
 
@@ -376,10 +512,26 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": "{\"wocat\":{\"label\":{\"en\": \"Land use\"}}}"
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Cropland\"}}}"
     },
     "model": "configuration.translation",
     "pk": 2706
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Grazing Land\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 2707
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Forest / Woodlands\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 2708
 },
 
 
@@ -398,6 +550,14 @@
     },
     "model": "configuration.translation",
     "pk": 2902
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"wocat\":{\"label\":{\"en\": \"Land Use\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 2903
 },
 
 
@@ -617,6 +777,106 @@
     "model": "configuration.key",
     "pk": 1025
 },
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_subcategories",
+        "translation": 1026,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [1014, 1015, 1016]
+    },
+    "model": "configuration.key",
+    "pk": 1026
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_removaloftrees",
+        "translation": 1027,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [1017, 1018, 1019]
+    },
+    "model": "configuration.key",
+    "pk": 1027
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_timber",
+        "translation": 1028,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1028
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_fuelwood",
+        "translation": 1029,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1029
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_fruitsnuts",
+        "translation": 1030,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1030
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_grazingbrowsing",
+        "translation": 1031,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1031
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_otherforestproducts",
+        "translation": 1032,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1032
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_natureconservation",
+        "translation": 1033,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1033
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_recreationtourism",
+        "translation": 1034,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1034
+},
+{
+    "fields": {
+        "keyword": "wocat_forestwoodlands_usage_protectionnaturalhazards",
+        "translation": 1035,
+        "configuration": "{\"type\": \"measure\"}",
+        "values": [1001, 1002, 1003]
+    },
+    "model": "configuration.key",
+    "pk": 1035
+},
 
 
 {
@@ -723,6 +983,54 @@
     "model": "configuration.value",
     "pk": 1013
 },
+{
+    "fields": {
+        "keyword": "forestwoodlands_sub_natural",
+        "translation": 1514
+    },
+    "model": "configuration.value",
+    "pk": 1014
+},
+{
+    "fields": {
+        "keyword": "forestwoodlands_sub_plantations",
+        "translation": 1515
+    },
+    "model": "configuration.value",
+    "pk": 1015
+},
+{
+    "fields": {
+        "keyword": "forestwoodlands_sub_other",
+        "translation": 1516
+    },
+    "model": "configuration.value",
+    "pk": 1016
+},
+{
+    "fields": {
+        "keyword": "forestwoodlands_removaloftrees_selectivefelling",
+        "translation": 1517
+    },
+    "model": "configuration.value",
+    "pk": 1017
+},
+{
+    "fields": {
+        "keyword": "forestwoodlands_removaloftrees_clearfelling",
+        "translation": 1518
+    },
+    "model": "configuration.value",
+    "pk": 1018
+},
+{
+    "fields": {
+        "keyword": "forestwoodlands_removaloftrees_shiftingcultivation",
+        "translation": 1519
+    },
+    "model": "configuration.value",
+    "pk": 1019
+},
 
 
 {
@@ -824,6 +1132,24 @@
     "model": "configuration.questiongroup",
     "pk": 1011
 },
+{
+    "fields": {
+        "keyword": "wocat_qg_12",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1012
+},
+{
+    "fields": {
+        "keyword": "wocat_qg_13",
+        "translation": 2206,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1013
+},
 
 
 {
@@ -868,11 +1194,27 @@
 },
 {
     "fields": {
-        "keyword": "wocat__2__4",
+        "keyword": "wocat__2a__1",
         "translation": 2706
     },
     "model": "configuration.category",
     "pk": 1006
+},
+{
+    "fields": {
+        "keyword": "wocat__2a__2",
+        "translation": 2707
+    },
+    "model": "configuration.category",
+    "pk": 1007
+},
+{
+    "fields": {
+        "keyword": "wocat__2a__3",
+        "translation": 2708
+    },
+    "model": "configuration.category",
+    "pk": 1008
 },
 
 
@@ -892,6 +1234,14 @@
     "model": "configuration.category",
     "pk": 1702
 },
+{
+    "fields": {
+        "keyword": "wocat__2a",
+        "translation": 2903
+    },
+    "model": "configuration.category",
+    "pk": 1703
+},
 
 
 {
@@ -900,7 +1250,7 @@
         "description": "Description of WOCAT Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"wocat__1\",\"view_template\":\"wocat_header\",\"use_raw_data\":true,\"with_metadata\":true,\"subcategories\":[{\"keyword\":\"wocat__1__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_1\",\"questions\":[{\"key\":\"image\",\"in_list\":true},{\"key\":\"image_caption\"},{\"key\":\"image_date_location\"},{\"key\":\"image_photographer\"}]}]},{\"keyword\":\"wocat__1__2\",\"questiongroups\":[{\"keyword\":\"qg_name\",\"questions\":[{\"key\":\"name\",\"in_list\":true}]},{\"keyword\":\"wocat_qg_2\",\"questions\":[{\"key\":\"wocat_definition\",\"in_list\":true}]},{\"keyword\":\"qg_country\",\"questions\":[{\"key\":\"country\",\"in_list\":true}]},{\"keyword\":\"wocat_qg_10\",\"questions\":[{\"key\":\"wocat_accept_conditions\"}]}]}]},{\"keyword\":\"wocat__2\",\"subcategories\":[{\"keyword\":\"wocat__2__3\",\"questiongroups\":[{\"keyword\":\"wocat_qg_11\",\"questions\":[{\"key\":\"wocat_description\"}]},{\"keyword\":\"wocat_qg_5\",\"questions\":[{\"key\":\"wocat_state_province\"},{\"key\":\"wocat_further_location\"},{\"key\":\"wocat_where_comments\"}]}]},{\"keyword\":\"wocat__2__4\",\"questiongroups\":[{\"keyword\":\"wocat_qg_6\",\"questions\":[{\"key\":\"wocat_landuse_cropland\",\"questiongroup_conditions\":[\">0|wocat_landuse_cropland\"]}]},{\"keyword\":\"wocat_qg_8\",\"questiongroup_condition\":\"wocat_landuse_cropland\",\"questions\":[{\"key\":\"wocat_cropland_subcategories\"},{\"key\":\"wocat_major_crops\"}]},{\"keyword\":\"wocat_qg_4\",\"questions\":[{\"key\":\"wocat_landuse_grazingland\",\"questiongroup_conditions\":[\">0|wocat_landuse_grazingland\"]}]},{\"keyword\":\"wocat_qg_9\",\"questiongroup_condition\":\"wocat_landuse_grazingland\",\"questions\":[{\"key\":\"wocat_grazingland_subcategories\"},{\"key\":\"wocat_type_extensive_grazing\"},{\"key\":\"wocat_type_intensive_grazing\"},{\"key\":\"wocat_main_livestock_species\"}]},{\"keyword\":\"wocat_qg_3\",\"questions\":[{\"key\":\"wocat_landuse_forest\"},{\"key\":\"wocat_landuse_mixed\"},{\"key\":\"wocat_landuse_other\"}]},{\"keyword\":\"wocat_qg_7\",\"questions\":[{\"key\":\"wocat_original_landuse\"},{\"key\":\"wocat_future_landuse\"}]}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"wocat__1\",\"view_template\":\"wocat_header\",\"use_raw_data\":true,\"with_metadata\":true,\"subcategories\":[{\"keyword\":\"wocat__1__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_1\",\"questions\":[{\"key\":\"image\",\"in_list\":true},{\"key\":\"image_caption\"},{\"key\":\"image_date_location\"},{\"key\":\"image_photographer\"}]}]},{\"keyword\":\"wocat__1__2\",\"questiongroups\":[{\"keyword\":\"qg_name\",\"questions\":[{\"key\":\"name\",\"in_list\":true}]},{\"keyword\":\"wocat_qg_2\",\"questions\":[{\"key\":\"wocat_definition\",\"in_list\":true}]},{\"keyword\":\"qg_country\",\"questions\":[{\"key\":\"country\",\"in_list\":true}]},{\"keyword\":\"wocat_qg_10\",\"questions\":[{\"key\":\"wocat_accept_conditions\"}]}]}]},{\"keyword\":\"wocat__2\",\"subcategories\":[{\"keyword\":\"wocat__2__3\",\"questiongroups\":[{\"keyword\":\"wocat_qg_11\",\"questions\":[{\"key\":\"wocat_description\"}]},{\"keyword\":\"wocat_qg_5\",\"questions\":[{\"key\":\"wocat_state_province\"},{\"key\":\"wocat_further_location\"},{\"key\":\"wocat_where_comments\"}]}]}]},{\"keyword\":\"wocat__2a\",\"subcategories\":[{\"keyword\":\"wocat__2a__1\",\"questiongroups\":[{\"keyword\":\"wocat_qg_6\",\"questions\":[{\"key\":\"wocat_landuse_cropland\",\"questiongroup_conditions\":[\">0|wocat_landuse_cropland\"]}]},{\"keyword\":\"wocat_qg_8\",\"questiongroup_condition\":\"wocat_landuse_cropland\",\"questions\":[{\"key\":\"wocat_cropland_subcategories\"},{\"key\":\"wocat_major_crops\"}]}]},{\"keyword\":\"wocat__2a__2\",\"questiongroups\":[{\"keyword\":\"wocat_qg_4\",\"questions\":[{\"key\":\"wocat_landuse_grazingland\",\"questiongroup_conditions\":[\">0|wocat_landuse_grazingland\"]}]},{\"keyword\":\"wocat_qg_9\",\"questiongroup_condition\":\"wocat_landuse_grazingland\",\"questions\":[{\"key\":\"wocat_grazingland_subcategories\"},{\"key\":\"wocat_type_extensive_grazing\"},{\"key\":\"wocat_type_intensive_grazing\"},{\"key\":\"wocat_main_livestock_species\"}]}]},{\"keyword\":\"wocat__2a__3\",\"questiongroups\":[{\"keyword\":\"wocat_qg_3\",\"questions\":[{\"key\":\"wocat_landuse_forest\",\"questiongroup_conditions\":[\">0|wocat_landuse_forest\",\">0|wocat_forestwoodlands_usage\"]}]},{\"keyword\":\"wocat_qg_12\",\"questiongroup_condition\":\"wocat_landuse_forest\",\"questions\":[{\"key\":\"wocat_forestwoodlands_subcategories\"},{\"key\":\"wocat_forestwoodlands_removaloftrees\"}]},{\"keyword\":\"wocat_qg_13\",\"questiongroup_condition\":\"wocat_forestwoodlands_usage\",\"questions\":[{\"key\":\"wocat_forestwoodlands_usage_timber\"},{\"key\":\"wocat_forestwoodlands_usage_fuelwood\"},{\"key\":\"wocat_forestwoodlands_usage_fruitsnuts\"},{\"key\":\"wocat_forestwoodlands_usage_grazingbrowsing\"},{\"key\":\"wocat_forestwoodlands_usage_otherforestproducts\"},{\"key\":\"wocat_forestwoodlands_usage_natureconservation\"},{\"key\":\"wocat_forestwoodlands_usage_recreationtourism\"},{\"key\":\"wocat_forestwoodlands_usage_protectionnaturalhazards\"}]}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "WOCAT Configuration"
