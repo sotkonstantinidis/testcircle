@@ -313,6 +313,38 @@
     "model": "configuration.translation",
     "pk": 11517
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"sample\":{\"label\":{\"en\": \"Afghanistan\", \"es\": \"Afghanistan\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 11518
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"sample\":{\"label\":{\"en\": \"Germany\", \"es\": \"Alemania\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 11519
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"sample\":{\"label\":{\"en\": \"Cambodia\", \"es\": \"Cambodia\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 11520
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"sample\":{\"label\":{\"en\": \"Switzerland\", \"es\": \"Suiza\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 11521
+},
 
 
 {
@@ -472,7 +504,8 @@
     "fields": {
         "keyword": "key_4",
         "translation": 11004,
-        "configuration": "{\"type\": \"char\"}"
+        "configuration": "{\"type\": \"select_type\"}",
+        "values": [11018, 11019, 11020, 11021]
     },
     "model": "configuration.key",
     "pk": 11004
@@ -801,6 +834,38 @@
     },
     "model": "configuration.value",
     "pk": 11017
+},
+{
+    "fields": {
+        "keyword": "country_1",
+        "translation": 11518
+    },
+    "model": "configuration.value",
+    "pk": 11018
+},
+{
+    "fields": {
+        "keyword": "country_2",
+        "translation": 11519
+    },
+    "model": "configuration.value",
+    "pk": 11019
+},
+{
+    "fields": {
+        "keyword": "country_3",
+        "translation": 11520
+    },
+    "model": "configuration.value",
+    "pk": 11020
+},
+{
+    "fields": {
+        "keyword": "country_4",
+        "translation": 11521
+    },
+    "model": "configuration.value",
+    "pk": 11021
 },
 
 

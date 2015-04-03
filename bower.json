@@ -6,6 +6,7 @@
   "devDependencies": {
     "compass-mixins": "~1.0.1",
     "highlight": "~7.0.1",
-    "dropzone": "~3.12.0"
+    "dropzone": "~3.12.0",
+    "chosen": "~1.4.2"
   }
 }

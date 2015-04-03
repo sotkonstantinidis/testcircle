@@ -58,3 +58,8 @@ The following options are valid for ``type``. Default type is ``char``.
 |                    | present in the database and to have a valid*           |
 |                    | :ref:`value_configuration_image_name` *configuration.* |
 +--------------------+--------------------------------------------------------+
+| ``select_type``    | A select field which allows selection by typing.       |
+|                    | Renders the field with `Chosen`_.                      |
++--------------------+--------------------------------------------------------+
+
+.. _Chosen: http://harvesthq.github.io/chosen/

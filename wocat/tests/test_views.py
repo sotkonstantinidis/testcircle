@@ -52,6 +52,7 @@ def get_categories():
     return (
         ('wocat__1', 'General Information'),
         ('wocat__2', 'Specification of the SLM practice'),
+        ('wocat__2a', 'Land Use'),
     )
 
 

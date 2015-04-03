@@ -38,6 +38,13 @@ function watchFormProgress() {
         return;
       }
     });
+    // Select
+    $(this).find('div.row.list-item select').each(function() {
+      if ($(this).find(':selected').val()) {
+        content = true;
+        return;
+      }
+    });
     if (content) {
       completed++;
     }
@@ -140,6 +147,9 @@ $(function() {
   $('fieldset.row div.row.list-item').on('change', function() {
     watchFormProgress();
   });
+
+  // Select inputs with chosen
+  $(".chosen-select").chosen();
 
   $('body').on('click', '[data-magellan-step]', function(e) {
 

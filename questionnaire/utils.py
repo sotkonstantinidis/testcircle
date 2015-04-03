@@ -89,7 +89,7 @@ def clean_questionnaire_data(data, configuration):
                             '"{}") is not valid.'.format(
                                 value, key, qg_keyword))
                         continue
-                if question.field_type in ['bool', 'measure']:
+                if question.field_type in ['bool', 'measure', 'select_type']:
                     if value not in [c[0] for c in question.choices]:
                         errors.append(
                             'Value "{}" is not valid for key "{}" ('
