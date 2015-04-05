@@ -335,6 +335,14 @@ class QuestionnaireTest(FunctionalTest):
         chosen_field = self.findBy('xpath', '//a[@class="chosen-single"]')
         self.assertEqual(chosen_field.text, '-')
 
+        # She sees that the values are ordered alphabetically
+        values = ['Afghanistan', 'Cambodia', 'Germany', 'Switzerland']
+        for i, v in enumerate(values):
+            self.findBy(
+                'xpath',
+                '//select[@name="qg_3-0-key_4"]/option[{}][contains(text(),'
+                ' "{}")]'.format(i+2, v))
+
         # She sees that the form progress is at 0
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
 
@@ -646,7 +654,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.checkOnPage('Key 21')
-        self.checkOnPage('Value 2')
+        self.checkOnPage('medium')
         self.checkOnPage('Key 22')
         self.checkOnPage('Value 16_1')
         self.checkOnPage('Key 23')
@@ -682,7 +690,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         self.checkOnPage('Key 21')
-        self.checkOnPage('Value 2')
+        self.checkOnPage('medium')
         self.checkOnPage('Key 23')
         self.checkOnPage('Bar')
 
@@ -896,10 +904,17 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
 
+        # She sees that the values are not ordered alphabetically
+        measures = ["low", "medium", "high"]
+        for i, m in enumerate(measures):
+            self.findBy(
+                'xpath', '(//div[@class="button-bar"]/ul/li/label/span)[{}]['
+                'contains(text(), "{}")]'.format(i + 2, m))
+
         # She selects the first value and sees that the row is now
         # selected and the form progress was updated
         self.findBy(
-            'xpath', '//label/span[contains(text(), "Value 1")]').click()
+            'xpath', '//label/span[contains(text(), "low")]').click()
         self.findBy(
             'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
@@ -910,14 +925,14 @@ class QuestionnaireTest(FunctionalTest):
         # the form progress on the overview page is updated
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//*[contains(text(), "Value 1")]')
+        self.findBy('xpath', '//*[contains(text(), "low")]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
         self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees the row is highlighted and
-        # Value 1 selected, form progress is at 1
+        # low selected, form progress is at 1
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_2']))
         self.findBy(
@@ -936,19 +951,19 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 0%;"]')
 
-        # She then selects Value 2 and submits the form
+        # She then selects medium and submits the form
         self.findBy(
-            'xpath', '//label/span[contains(text(), "Value 2")]').click()
+            'xpath', '//label/span[contains(text(), "medium")]').click()
         self.findBy('id', 'button-submit').click()
 
-        # The overview now shows Value 2 and she submits the form
+        # The overview now shows medium and she submits the form
         self.findBy('xpath', '//*[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//*[contains(text(), "Value 2")]')
+        self.findBy('xpath', '//*[contains(text(), "medium")]')
 
         # She submits the form and sees that the radio value is stored
         # correctly
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 12: Value 2")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 12: medium")]')
 
     def test_radio_selects(self):
 

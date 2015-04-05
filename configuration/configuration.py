@@ -154,7 +154,10 @@ class QuestionnaireQuestion(object):
                 choices = [('', '-')]
             else:
                 choices = []
+            ordered_values = False
             for i, v in enumerate(self.value_objects):
+                if v.order_value:
+                    ordered_values = True
                 if self.field_type in ['measure']:
                     choices.append((i+1, v.get_translation(
                         'label', self.configuration_keyword)))
@@ -165,6 +168,11 @@ class QuestionnaireQuestion(object):
                     self.images.append('{}{}'.format(
                         self.value_image_path,
                         v.configuration.get('image_name')))
+            if ordered_values is False:
+                try:
+                    choices = sorted(choices, key=lambda tup: tup[1])
+                except TypeError:
+                    pass
             self.choices = tuple(choices)
 
         self.conditional = configuration.get('conditional', False)

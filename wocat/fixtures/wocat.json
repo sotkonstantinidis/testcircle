@@ -268,30 +268,6 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": "{\"wocat\":{\"label\":{\"en\": \"low\"}}}"
-    },
-    "model": "configuration.translation",
-    "pk": 1501
-},
-{
-    "fields": {
-        "translation_type": "value",
-        "data": "{\"wocat\":{\"label\":{\"en\": \"medium\"}}}"
-    },
-    "model": "configuration.translation",
-    "pk": 1502
-},
-{
-    "fields": {
-        "translation_type": "value",
-        "data": "{\"wocat\":{\"label\":{\"en\": \"high\"}}}"
-    },
-    "model": "configuration.translation",
-    "pk": 1503
-},
-{
-    "fields": {
-        "translation_type": "value",
         "data": "{\"wocat\":{\"label\":{\"en\": \"nomadism\"}}}"
     },
     "model": "configuration.translation",
@@ -620,7 +596,7 @@
         "keyword": "wocat_landuse_cropland",
         "translation": 1009,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1009
@@ -630,7 +606,7 @@
         "keyword": "wocat_landuse_grazingland",
         "translation": 1010,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1010
@@ -640,7 +616,7 @@
         "keyword": "wocat_landuse_forest",
         "translation": 1011,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1011
@@ -650,7 +626,7 @@
         "keyword": "wocat_landuse_mixed",
         "translation": 1012,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1012
@@ -660,7 +636,7 @@
         "keyword": "wocat_landuse_other",
         "translation": 1013,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1013
@@ -802,7 +778,7 @@
         "keyword": "wocat_forestwoodlands_usage_timber",
         "translation": 1028,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1028
@@ -812,7 +788,7 @@
         "keyword": "wocat_forestwoodlands_usage_fuelwood",
         "translation": 1029,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1029
@@ -822,7 +798,7 @@
         "keyword": "wocat_forestwoodlands_usage_fruitsnuts",
         "translation": 1030,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1030
@@ -832,7 +808,7 @@
         "keyword": "wocat_forestwoodlands_usage_grazingbrowsing",
         "translation": 1031,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1031
@@ -842,7 +818,7 @@
         "keyword": "wocat_forestwoodlands_usage_otherforestproducts",
         "translation": 1032,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1032
@@ -852,7 +828,7 @@
         "keyword": "wocat_forestwoodlands_usage_natureconservation",
         "translation": 1033,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1033
@@ -862,7 +838,7 @@
         "keyword": "wocat_forestwoodlands_usage_recreationtourism",
         "translation": 1034,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1034
@@ -872,37 +848,13 @@
         "keyword": "wocat_forestwoodlands_usage_protectionnaturalhazards",
         "translation": 1035,
         "configuration": "{\"type\": \"measure\"}",
-        "values": [1001, 1002, 1003]
+        "values": [250, 251, 252]
     },
     "model": "configuration.key",
     "pk": 1035
 },
 
 
-{
-    "fields": {
-        "keyword": "measure_low",
-        "translation": 1501
-    },
-    "model": "configuration.value",
-    "pk": 1001
-},
-{
-    "fields": {
-        "keyword": "measure_medium",
-        "translation": 1502
-    },
-    "model": "configuration.value",
-    "pk": 1002
-},
-{
-    "fields": {
-        "keyword": "measure_high",
-        "translation": 1503
-    },
-    "model": "configuration.value",
-    "pk": 1003
-},
 {
     "fields": {
         "keyword": "extensive_gazing_nomadism",
