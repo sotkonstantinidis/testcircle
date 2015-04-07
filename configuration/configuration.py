@@ -52,6 +52,7 @@ class QuestionnaireQuestion(object):
         'checkbox',
         'image_checkbox',
         'image',
+        'select_type',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -143,16 +144,20 @@ class QuestionnaireQuestion(object):
         self.value_objects = []
         if self.field_type == 'bool':
             self.choices = ((True, _('Yes')), (False, _('No')))
-        elif self.field_type in ['measure', 'checkbox', 'image_checkbox']:
+        elif self.field_type in [
+                'measure', 'checkbox', 'image_checkbox', 'select_type']:
             self.value_objects = self.key_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
                     self, '[values of key {}]'.format(self.keyword))
-            if self.field_type in ['measure']:
+            if self.field_type in ['measure', 'select_type']:
                 choices = [('', '-')]
             else:
                 choices = []
+            ordered_values = False
             for i, v in enumerate(self.value_objects):
+                if v.order_value:
+                    ordered_values = True
                 if self.field_type in ['measure']:
                     choices.append((i+1, v.get_translation(
                         'label', self.configuration_keyword)))
@@ -163,6 +168,11 @@ class QuestionnaireQuestion(object):
                     self.images.append('{}{}'.format(
                         self.value_image_path,
                         v.configuration.get('image_name')))
+            if ordered_values is False:
+                try:
+                    choices = sorted(choices, key=lambda tup: tup[1])
+                except TypeError:
+                    pass
             self.choices = tuple(choices)
 
         self.conditional = configuration.get('conditional', False)
@@ -292,6 +302,12 @@ class QuestionnaireQuestion(object):
                 widget=ImageUpload(), required=self.required, label=self.label)
             field = forms.CharField(
                 required=self.required, widget=forms.HiddenInput())
+        elif self.field_type == 'select_type':
+            widget = Select()
+            widget.searchable = True
+            field = forms.ChoiceField(
+                label=self.label, widget=widget, choices=self.choices,
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -335,18 +351,25 @@ class QuestionnaireQuestion(object):
     def get_details(self, data={}):
         value = data.get(self.keyword)
         if self.field_type in [
-                'bool', 'measure', 'checkbox', 'image_checkbox']:
+                'bool', 'measure', 'checkbox', 'image_checkbox',
+                'select_type']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text']:
+        if self.field_type in ['char']:
             rendered = render_to_string(
                 'details/field/textinput.html', {
                     'key': self.label,
                     'value': value})
             return rendered
-        if self.field_type in ['bool', 'measure']:
+        elif self.field_type in ['text']:
+            rendered = render_to_string(
+                'details/field/textarea.html', {
+                    'key': self.label,
+                    'value': value})
+            return rendered
+        elif self.field_type in ['bool', 'measure', 'select_type']:
             rendered = render_to_string(
                 'details/field/textinput.html', {
                     'key': self.label,
@@ -1388,6 +1411,21 @@ class RadioSelect(forms.RadioSelect):
     template_name = 'form/field/radio.html'
 
 
+class Select(forms.Select):
+    template_name = 'form/field/select.html'
+
+    def get_context_data(self):
+        """
+        Add a variable (searchable or not) to the context data so it is
+        available within the template of the widget.
+        """
+        ctx = super(Select, self).get_context_data()
+        ctx.update({
+            'searchable': self.searchable,
+        })
+        return ctx
+
+
 class MeasureSelect(forms.RadioSelect):
     template_name = 'form/field/measure.html'
 
@@ -1398,7 +1436,7 @@ class MeasureSelect(forms.RadioSelect):
         """
         ctx = super(MeasureSelect, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions
+            'questiongroup_conditions': self.questiongroup_conditions,
         })
         return ctx
 

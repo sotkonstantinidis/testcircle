@@ -180,7 +180,12 @@ class Translation(models.Model):
         """
         if locale is None:
             locale = to_locale(get_language())
-        return self.data.get(configuration, {}).get(keyword, {}).get(locale)
+        translation = self.data.get(configuration, {}).get(keyword, {}).get(
+            locale)
+        if translation is None and configuration != 'wocat':
+            translation = self.data.get('wocat', {}).get(keyword, {}).get(
+                locale)
+        return translation
 
     def __str__(self):
         return self.data.get(settings.LANGUAGES[0][0], '-')
@@ -237,6 +242,7 @@ class Value(models.Model):
     translation_type = 'value'
 
     keyword = models.CharField(max_length=63, unique=True)
+    order_value = models.IntegerField(blank=True, null=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
     configuration = JsonBField(blank=True, help_text="""
@@ -244,6 +250,9 @@ class Value(models.Model):
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
             play</a> to format your JSON.""")
+
+    class Meta:
+        ordering = ('order_value',)
 
     def get_translation(self, *args, **kwargs):
         """

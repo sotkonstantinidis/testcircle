@@ -96,6 +96,10 @@ module.exports = function(grunt) {
           'static/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
           'static/js/jquery.min.map': 'bower_components/jquery/dist/jquery.min.map',
           'static/js/dropzone.min.js': 'bower_components/dropzone/downloads/dropzone.min.js',
+          'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
+          'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css',
+          'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png',
+          'static/css/chosen-sprite@2x.png': 'bower_components/chosen/chosen-sprite@2x.png',
           'static/js/app.js': 'src/js/app.js',
           'static/js/wocat.magellan.js': 'src/js/wocat.magellan.js',
           'static/js/wizard.js': 'src/js/wizard.js'

@@ -52,6 +52,7 @@ def get_categories():
     return (
         ('wocat__1', 'General Information'),
         ('wocat__2', 'Specification of the SLM practice'),
+        ('wocat__2a', 'Land Use'),
     )
 
 
@@ -131,7 +132,8 @@ class QuestionnaireNewStepTest(TestCase):
 class QuestionnaireDetailsTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'wocat.json', 'wocat_questionnaires.json']
+        'groups_permissions.json', 'global_key_values.json', 'wocat.json',
+        'wocat_questionnaires.json']
 
     def setUp(self):
         self.factory = RequestFactory()
