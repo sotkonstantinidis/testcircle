@@ -1236,6 +1236,21 @@ class QuestionnaireConfiguration(object):
                     if list_entry[2] == 'image':
                         key = 'image'
                         value = get_url_by_identifier(value, 'default')
+                    if list_entry[2] in [
+                            'bool', 'measure', 'checkbox', 'image_checkbox',
+                            'select_type']:
+                        # Look up the labels for the predefined values
+                        if not isinstance(value, list):
+                            value = [value]
+                        qg = self.get_questiongroup_by_keyword(list_entry[0])
+                        if qg is None:
+                            break
+                        k = qg.get_question_by_key_keyword(list_entry[1])
+                        if k is None:
+                            break
+                        values = k.lookup_choices_labels_by_keywords(value)
+                        if list_entry[2] in ['bool', 'measure', 'select_type']:
+                            value = values[0]
                     questionnaire_value[key] = value
 
             configurations = [

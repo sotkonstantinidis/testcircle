@@ -160,7 +160,7 @@ $(function() {
 
     currentCount--;
     $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
-    $('.list-action [data-add-item][data-questiongroup-keyword="' + qg + '"]').toggleClass('disabled', currentCount >= maxCount);
+    $('.list-action [data-add-item][data-questiongroup-keyword="' + qg + '"]').toggle(currentCount < maxCount);
 
     watchFormProgress();
 
@@ -187,7 +187,7 @@ $(function() {
 
     currentCount++;
     $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
-    $(this).toggleClass('disabled', currentCount >= maxCount);
+    $(this).toggle(currentCount < maxCount);
   })
 
   // BUTTON BAR

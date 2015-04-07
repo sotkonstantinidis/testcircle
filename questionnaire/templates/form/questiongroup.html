@@ -45,14 +45,16 @@
             </div>
           {% endfor %}
           <div class="columns right">
-            <a class="right list-item-action" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
+            <a class="right list-item-action link is-wocat" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
             style="display: none;"{% endif %}>{% trans "Remove" %}</a>
           </div>
         </div>
       {% endfor %}
       {% if formset.max_num > formset.min_num %}
         <div class="row list-action">
-          <div class="small-12 columns"><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="button small{% if formset.total_form_count >= formset.max_num %} disabled{% endif %}">{% trans 'Add More' %}</a></div>
+          <div class="small-12 columns">
+            <p><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="link is-wocat" {% if formset.total_form_count >= formset.max_num %} style="display:none;"{% endif %}>{% trans 'Add More' %}</a></p>
+          </div>
         </div>
       {% endif %}
     {% endform %}

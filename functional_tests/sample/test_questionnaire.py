@@ -111,8 +111,13 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('name', 'qg_6-0-original_key_8').send_keys('1')
         self.findByNot('name', 'qg_6-1-original_key_8')
 
+        btn_add_more_qg_6 = self.findBy(
+            'xpath', '//a[@data-questiongroup-keyword="qg_6"]')
+        self.assertTrue(btn_add_more_qg_6.is_displayed())
+
         # She adds another one and sees there is a remove button
-        self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_6"]').click()
+        btn_add_more_qg_6.click()
+        self.assertTrue(btn_add_more_qg_6.is_displayed())
         self.findBy('name', 'qg_6-1-original_key_8').send_keys('2')
         self.findByNot('name', 'qg_6-2-original_key_8')
         remove_buttons = self.findManyBy(
@@ -120,18 +125,16 @@ class QuestionnaireTest(FunctionalTest):
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
         self.assertEqual(len(remove_buttons), 2)
 
-        # And yet another one
-        self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_6"]').click()
+        # And yet another one. The maximum is reached and the button to add
+        # one more is hidden.
+        btn_add_more_qg_6.click()
+        self.assertFalse(btn_add_more_qg_6.is_displayed())
         self.findBy('name', 'qg_6-1-original_key_8')
         self.findBy('name', 'qg_6-2-original_key_8').send_keys('3')
         remove_buttons = self.findManyBy(
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
         self.assertEqual(len(remove_buttons), 3)
-
-        # Adding a fourth questiongroup is not possible
-        self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_6"]').click()
-        self.findByNot('name', 'qg_6-3-original_key_8')
 
         # She removes the middle one and sees that the correct one is
         # removed and the names of the other ones are updated.
@@ -167,12 +170,17 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('name', 'qg_8-2-original_key_10')
 
         # She adds one questiongroup and sees the button to remove it 3 times.
-        self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_8"]').click()
+        btn_add_more_qg_8 = self.findBy(
+            'xpath', '//a[@data-questiongroup-keyword="qg_8"]')
+        btn_add_more_qg_8.click()
         self.findBy('name', 'qg_8-2-original_key_10').send_keys('z')
         remove_buttons = self.findManyBy(
             'xpath',
             '//a[@data-remove-this and not(contains(@style,"display: none"))]')
         self.assertEqual(len(remove_buttons), 3)
+
+        # The butto to add another one is not visible anymore
+        self.assertFalse(btn_add_more_qg_8.is_displayed())
 
         # She submits the form
         self.findBy('id', 'button-submit').click()
@@ -202,6 +210,11 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(f2.get_attribute('value'), 'y')
         f3 = self.findBy('name', 'qg_8-2-original_key_10')
         self.assertEqual(f3.get_attribute('value'), 'z')
+
+        # The button to add onther one is not visible
+        btn_add_more_qg_8 = self.findBy(
+            'xpath', '//a[@data-questiongroup-keyword="qg_8"]')
+        self.assertFalse(btn_add_more_qg_8.is_displayed())
 
         # She removes one Key 10 and submits the form again
         remove_buttons = self.findManyBy(
