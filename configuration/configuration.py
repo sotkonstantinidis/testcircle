@@ -1064,6 +1064,7 @@ class QuestionnaireCategory(object):
                 'total': len(self.subcategories),
                 'progress': with_content / len(self.subcategories) * 100,
                 'edit_step_route': edit_step_route,
+                'configuration_name': self.configuration_keyword,
             })
         return rendered
 
