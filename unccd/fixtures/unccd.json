@@ -15,6 +15,111 @@
     "model": "configuration.translation",
     "pk": 3002
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Contribution to Desertification, land degradation and drought (DLDD) measures\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3003
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Contribution to the strategic objectives\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3004
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Type of impact\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3005
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Linkages with the other best practice themes\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3006
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Location\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3007
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Climate\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3008
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Soil\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3009
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Topography\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3010
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Income level\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3011
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Main income sources\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3012
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Land tenure and land use rights\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3013
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Short description of the best practice\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3014
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"On the basis of which criteria and/or indicator(s) (not related to The Strategy) the proposed practice and corresponding technology has been considered as ‘best’?\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3015
+},
+
 
 
 {
@@ -65,6 +170,150 @@
     "model": "configuration.translation",
     "pk": 3506
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Prevention\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3507
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Mitigation\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3508
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Adaptation\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3509
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Rehabilitation\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3510
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"To improve the living conditions of affected populations\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3511
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"To improve the conditions of affected ecosystems\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3512
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"To generate global benefits through effective implementation of the Convention\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3513
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"On-site impacts on production or productivity\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3514
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"On-site socio-economic and cultural impacts\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3515
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"On-site environmental impacts\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3516
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Other on-site impacts\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3517
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Off-site impacts\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3518
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Capacity-building and awareness-raising\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3519
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"DLDD and SLM monitoring and assessment/research\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3520
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Knowledge management and decision support\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3521
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Policy, legislative and institutional framework\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3522
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Funding and resource mobilization\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3523
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Participation, collaboration and networking\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 3524
+},
 
 
 {
@@ -75,6 +324,79 @@
     "model": "configuration.translation",
     "pk": 4701
 },
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Contribution\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4702
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"General Information\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4703
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Impact\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4704
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Linkages\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4705
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Location\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4706
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Brief description of the natural environment within the specified location\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4707
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Prevailing socio-economic conditions of those living in the location and/or nearby\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4708
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Short description of the best practice\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4709
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"On the basis of which criteria and/or indicator(s) (not related to The Strategy) the proposed practice and corresponding technology has been considered as ‘best’?\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4710
+},
+
 
 
 {
@@ -84,6 +406,14 @@
     },
     "model": "configuration.translation",
     "pk": 4901
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"unccd\":{\"label\":{\"en\": \"Section 1: Context of the best practice: frame conditions (natural and human environment)\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 4902
 },
 
 
@@ -105,6 +435,127 @@
     },
     "model": "configuration.key",
     "pk": 2002
+},
+{
+    "fields": {
+        "keyword": "unccd_contribution_to_dldd_measures",
+        "translation": 3003,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [2007, 2008, 2009, 2010]
+    },
+    "model": "configuration.key",
+    "pk": 2003
+},
+{
+    "fields": {
+        "keyword": "unccd_contribution_to_strategic_objectives",
+        "translation": 3004,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [2011, 2012, 2013]
+    },
+    "model": "configuration.key",
+    "pk": 2004
+},
+{
+    "fields": {
+        "keyword": "unccd_impact_type",
+        "translation": 3005,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [2014, 2015, 2016, 2017, 2018]
+    },
+    "model": "configuration.key",
+    "pk": 2005
+},
+{
+    "fields": {
+        "keyword": "unccd_linkages",
+        "translation": 3006,
+        "configuration": "{\"type\": \"checkbox\"}",
+        "values": [2019, 2020, 2021, 2022, 2023, 2024]
+    },
+    "model": "configuration.key",
+    "pk": 2006
+},
+{
+    "fields": {
+        "keyword": "unccd_location",
+        "translation": 3007,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2007
+},
+{
+    "fields": {
+        "keyword": "unccd_natural_environment_climate",
+        "translation": 3008,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2008
+},
+{
+    "fields": {
+        "keyword": "unccd_natural_environment_soil",
+        "translation": 3009,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2009
+},
+{
+    "fields": {
+        "keyword": "unccd_natural_environment_topography",
+        "translation": 3010,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2010
+},
+{
+    "fields": {
+        "keyword": "unccd_socioeconomic_income_level",
+        "translation": 3011,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2011
+},
+{
+    "fields": {
+        "keyword": "unccd_socioeconomic_income_sources",
+        "translation": 3012,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2012
+},
+{
+    "fields": {
+        "keyword": "unccd_socioeconomic_land_tenure",
+        "translation": 3013,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2013
+},
+{
+    "fields": {
+        "keyword": "unccd_description",
+        "translation": 3014,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2014
+},
+{
+    "fields": {
+        "keyword": "unccd_best_practice_criteria",
+        "translation": 3015,
+        "configuration": "{\"type\": \"text\"}"
+    },
+    "model": "configuration.key",
+    "pk": 2015
 },
 
 
@@ -162,6 +613,168 @@
     "model": "configuration.value",
     "pk": 2006
 },
+{
+    "fields": {
+        "keyword": "unccd_dldd_measures_prevention",
+        "translation": 3507,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 2007
+},
+{
+    "fields": {
+        "keyword": "unccd_dldd_measures_mitigation",
+        "translation": 3508,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 2008
+},
+{
+    "fields": {
+        "keyword": "unccd_dldd_measures_adaptation",
+        "translation": 3509,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 2009
+},
+{
+    "fields": {
+        "keyword": "unccd_dldd_measures_rehabilitation",
+        "translation": 3510,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 2010
+},
+{
+    "fields": {
+        "keyword": "unccd_dldd_objectives_populations",
+        "translation": 3511,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 2011
+},
+{
+    "fields": {
+        "keyword": "unccd_dldd_objectives_ecosystems",
+        "translation": 3512,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 2012
+},
+{
+    "fields": {
+        "keyword": "unccd_dldd_objectives_implementation",
+        "translation": 3513,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 2013
+},
+{
+    "fields": {
+        "keyword": "unccd_impact_type_onsite_production",
+        "translation": 3514,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 2014
+},
+{
+    "fields": {
+        "keyword": "unccd_impact_type_onsite_socioeconomic",
+        "translation": 3515,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 2015
+},
+{
+    "fields": {
+        "keyword": "unccd_impact_type_onsite_environmental",
+        "translation": 3516,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 2016
+},
+{
+    "fields": {
+        "keyword": "unccd_impact_type_onsite_other",
+        "translation": 3517,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 2017
+},
+{
+    "fields": {
+        "keyword": "unccd_impact_type_offsite",
+        "translation": 3518,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 2018
+},
+{
+    "fields": {
+        "keyword": "unccd_linkages_capacity_building",
+        "translation": 3519,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 2019
+},
+{
+    "fields": {
+        "keyword": "unccd_linkages_monitoring",
+        "translation": 3520,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 2020
+},
+{
+    "fields": {
+        "keyword": "unccd_linkages_knowledge_management",
+        "translation": 3521,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 2021
+},
+{
+    "fields": {
+        "keyword": "unccd_linkages_policy",
+        "translation": 3522,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 2022
+},
+{
+    "fields": {
+        "keyword": "unccd_linkages_funding",
+        "translation": 3523,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 2023
+},
+{
+    "fields": {
+        "keyword": "unccd_linkages_participation",
+        "translation": 3524,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 2024
+},
 
 
 {
@@ -182,6 +795,87 @@
     "model": "configuration.questiongroup",
     "pk": 2002
 },
+{
+    "fields": {
+        "keyword": "unccd_qg_3",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2003
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_4",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2004
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_5",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2005
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_6",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2006
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_7",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2007
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_8",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2008
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_9",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2009
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_10",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2010
+},
+{
+    "fields": {
+        "keyword": "unccd_qg_11",
+        "translation": null,
+        "configuration": "{}"
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2011
+},
 
 
 {
@@ -191,6 +885,78 @@
     },
     "model": "configuration.category",
     "pk": 2001
+},
+{
+    "fields": {
+        "keyword": "unccd__1__2",
+        "translation": 4702
+    },
+    "model": "configuration.category",
+    "pk": 2002
+},
+{
+    "fields": {
+        "keyword": "unccd__1__0",
+        "translation": 4703
+    },
+    "model": "configuration.category",
+    "pk": 2003
+},
+{
+    "fields": {
+        "keyword": "unccd__1__3",
+        "translation": 4704
+    },
+    "model": "configuration.category",
+    "pk": 2004
+},
+{
+    "fields": {
+        "keyword": "unccd__1__4",
+        "translation": 4705
+    },
+    "model": "configuration.category",
+    "pk": 2005
+},
+{
+    "fields": {
+        "keyword": "unccd__2__1",
+        "translation": 4706
+    },
+    "model": "configuration.category",
+    "pk": 2006
+},
+{
+    "fields": {
+        "keyword": "unccd__2__2",
+        "translation": 4707
+    },
+    "model": "configuration.category",
+    "pk": 2007
+},
+{
+    "fields": {
+        "keyword": "unccd__2__3",
+        "translation": 4708
+    },
+    "model": "configuration.category",
+    "pk": 2008
+},
+{
+    "fields": {
+        "keyword": "unccd__2__4",
+        "translation": 4709
+    },
+    "model": "configuration.category",
+    "pk": 2009
+},
+{
+    "fields": {
+        "keyword": "unccd__2__5",
+        "translation": 4710
+    },
+    "model": "configuration.category",
+    "pk": 2010
 },
 
 
@@ -202,6 +968,14 @@
     "model": "configuration.category",
     "pk": 2701
 },
+{
+    "fields": {
+        "keyword": "unccd__2",
+        "translation": 4902
+    },
+    "model": "configuration.category",
+    "pk": 2702
+},
 
 
 {
@@ -210,7 +984,7 @@
         "description": "Description of UNCCD Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"categories\":[{\"keyword\":\"unccd__1\",\"subcategories\":[{\"keyword\":\"unccd__1__1\",\"questiongroups\":[{\"keyword\":\"qg_name\",\"questions\":[{\"key\":\"name\",\"in_list\":true}]},{\"keyword\":\"qg_country\",\"questions\":[{\"key\":\"country\",\"in_list\":true}]},{\"keyword\":\"unccd_qg_1\",\"questions\":[{\"key\":\"unccd_landuse\",\"questiongroup_conditions\":[\"=='unccd_landuse_other'|unccd_qg_2\"]}]},{\"keyword\":\"unccd_qg_2\",\"questiongroup_condition\":\"unccd_qg_2\",\"questions\":[{\"key\":\"unccd_remark\"}]}]}]}]}",
+        "data": "{\"categories\":[{\"keyword\":\"unccd__1\",\"subcategories\":[{\"keyword\":\"unccd__1__0\",\"questiongroups\":[{\"keyword\":\"qg_name\",\"questions\":[{\"key\":\"name\",\"in_list\":true}]},{\"keyword\":\"qg_country\",\"questions\":[{\"key\":\"country\",\"in_list\":true}]}]},{\"keyword\":\"unccd__1__1\",\"questiongroups\":[{\"keyword\":\"unccd_qg_1\",\"questions\":[{\"key\":\"unccd_landuse\",\"questiongroup_conditions\":[\"=='unccd_landuse_other'|unccd_qg_2\"]}]},{\"keyword\":\"unccd_qg_2\",\"questiongroup_condition\":\"unccd_qg_2\",\"questions\":[{\"key\":\"unccd_remark\"}]}]},{\"keyword\":\"unccd__1__2\",\"questiongroups\":[{\"keyword\":\"unccd_qg_3\",\"questions\":[{\"key\":\"unccd_contribution_to_dldd_measures\"}]},{\"keyword\":\"unccd_qg_4\",\"questions\":[{\"key\":\"unccd_contribution_to_strategic_objectives\"}]}]},{\"keyword\":\"unccd__1__3\",\"questiongroups\":[{\"keyword\":\"unccd_qg_5\",\"questions\":[{\"key\":\"unccd_impact_type\"}]}]},{\"keyword\":\"unccd__1__4\",\"questiongroups\":[{\"keyword\":\"unccd_qg_6\",\"questions\":[{\"key\":\"unccd_linkages\"}]}]}]},{\"keyword\":\"unccd__2\",\"subcategories\":[{\"keyword\":\"unccd__2__1\",\"questiongroups\":[{\"keyword\":\"unccd_qg_7\",\"questions\":[{\"key\":\"unccd_location\",\"form_template\":\"no_label\"}]}]},{\"keyword\":\"unccd__2__2\",\"questiongroups\":[{\"keyword\":\"unccd_qg_8\",\"questions\":[{\"key\":\"unccd_natural_environment_climate\"},{\"key\":\"unccd_natural_environment_soil\"},{\"key\":\"unccd_natural_environment_topography\"}]}]},{\"keyword\":\"unccd__2__3\",\"questiongroups\":[{\"keyword\":\"unccd_qg_9\",\"questions\":[{\"key\":\"unccd_socioeconomic_income_level\"},{\"key\":\"unccd_socioeconomic_income_sources\"},{\"key\":\"unccd_socioeconomic_land_tenure\"}]}]},{\"keyword\":\"unccd__2__4\",\"questiongroups\":[{\"keyword\":\"unccd_qg_10\",\"questions\":[{\"key\":\"unccd_description\",\"form_template\":\"no_label\"}]}]},{\"keyword\":\"unccd__2__5\",\"questiongroups\":[{\"keyword\":\"unccd_qg_11\",\"questions\":[{\"key\":\"unccd_best_practice_criteria\",\"form_template\":\"no_label\"}]}]}]}]}",
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "UNCCD Configuration"
