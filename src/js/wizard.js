@@ -63,17 +63,12 @@ function watchFormProgress() {
  *
  * @param {Element} element - The input element triggering the
  *   questiongroup.
- * @param {boolean} initial - Whether the trigger is checked initially
- *   or not. If the trigger is checked on page load (initial=true), a
- *   single evaluation to true is enough to trigger the questiongroup,
- *   regardless of further evaluations being false.
  */
-function checkConditionalQuestiongroups(element, initial) {
+function checkConditionalQuestiongroups(element) {
 
+  // Collect all the conditions for a questiongroup as they must all be
+  // fulfilled and group them by questiongroup identifier.
   var all_conditions = $(element).data('questiongroup-condition').split(',');
-
-  // It is necessary to collect all the conditions for a questiongroup
-  // to check if all of them apply.
   var conditionsByQuestiongroup = {};
   for (var i = all_conditions.length - 1; i >= 0; i--) {
     condition = all_conditions[i].split('|');
@@ -85,30 +80,44 @@ function checkConditionalQuestiongroups(element, initial) {
     }
   }
 
+  // Collect all the input fields with the same name, which is important
+  // for example for checkboxes.
+  allElements = $('[name="' + $(element).attr('name') + '"]');
+
+  // For each conditional questiongroup, check if one of the form
+  // elements with the given name fulfills all the conditions. If this
+  // is true, then show the conditional questiongroup.
   for (var questiongroup in conditionsByQuestiongroup) {
-    var conditions = conditionsByQuestiongroup[questiongroup];
-    var val = null;
-    var inputType = $(element).attr('type');
-    if (inputType == 'radio' && $(element).is(':checked')) {
-      val = $(element).val();
-    }
-    var toggle = val !== null && val !== '';
-    if (val) {
-      for (var i = conditions.length - 1; i >= 0; i--) {
-        toggle = toggle && eval(val + conditions[i]);
-      };
-    }
+    var currentConditions = conditionsByQuestiongroup[questiongroup];
+    var currentConditionsFulfilled = false;
+
+    allElements.each(function() {
+      var currentElement = $(this);
+      var val = null;
+
+      var inputType = currentElement.attr('type');
+      if ((inputType == 'radio' || inputType == 'checkbox') && currentElement.is(':checked')) {
+        val = currentElement.val();
+      }
+
+      var conditionsFulfilled = val !== null && val !== '';
+      if (val) {
+        for (var c in currentConditions) {
+          if (parseInt(val)) {
+            var e = val + currentConditions[c];
+          } else {
+            var e = '"' + val + '"' + currentConditions[c];
+          }
+          conditionsFulfilled = conditionsFulfilled && eval(e);
+        }
+      }
+
+      currentConditionsFulfilled = currentConditionsFulfilled || conditionsFulfilled;
+    });
+
     var questiongroupContainer = $('#' + questiongroup);
-    if (initial) {
-      if (toggle === true) {
-        questiongroupContainer.data('initial', true);
-      }
-      if (toggle === false && questiongroupContainer.data('initial') === true) {
-        toggle = true;
-      }
-    }
-    questiongroupContainer.toggle(toggle);
-    if (!toggle && !initial) {
+    questiongroupContainer.toggle(currentConditionsFulfilled);
+    if (!currentConditionsFulfilled) {
       clearQuestiongroup(questiongroupContainer);
     }
   }
@@ -137,7 +146,7 @@ $(function() {
   // Conditional questiongroups
   $('[data-questiongroup-condition]')
     .each(function() {
-      checkConditionalQuestiongroups(this, true);
+      checkConditionalQuestiongroups(this);
     })
     .on('change', function() {
       checkConditionalQuestiongroups(this);

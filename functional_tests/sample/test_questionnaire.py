@@ -307,6 +307,61 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "info")]')
 
+    def test_textarea_maximum_length(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        # She tries to enter a lot of characters to Key 2, which is
+        # limited to 50 chars. Only the first 50 characters are entered
+        key_2 = self.findBy('id', 'id_qg_2-0-original_key_2')
+        key_2.send_keys("x" * 60)
+        self.assertEqual(key_2.get_attribute('value'), "x" * 50)
+
+        # She sees that the textarea is only 2 rows high
+        self.assertEqual(int(key_2.get_attribute('rows')), 2)
+
+        # She tries to enter a huge amount of characters to Key 6 which
+        # has a default max_length of 500. Again, only the first 500
+        # characters are entered.
+        key_6 = self.findBy('id', 'id_qg_3-0-original_key_6')
+        key_6.send_keys("x" * 600)
+        self.assertEqual(key_6.get_attribute('value'), "x" * 500)
+
+        # She sees that the textarea is by default 10 rows high
+        self.assertEqual(int(key_6.get_attribute('rows')), 10)
+
+        # She tries the same with the first Key 3, a textfield with 50
+        # chars limit
+        key_3_1 = self.findBy('id', 'id_qg_1-0-original_key_3')
+        key_3_1.send_keys("x" * 60)
+        self.assertEqual(key_3_1.get_attribute('value'), "x" * 50)
+
+        # The second Key 3 is a textfield with the default limit of 200
+        key_3_2 = self.findBy('id', 'id_qg_2-0-original_key_3')
+        key_3_2.send_keys("x" * 210)
+        self.assertEqual(key_3_2.get_attribute('value'), "x" * 200)
+
+        # By some hack, she enters more values than allowed in Key 2 and
+        # she tries to submit the form
+        self.browser.execute_script(
+            "document.getElementById('id_qg_2-0-original_key_2')."
+            "value='{}'".format("x" * 600))
+        self.findBy('id', 'button-submit').click()
+
+        # She sees an error message and the form was not submitted
+        self.findBy('xpath', '//div[contains(@class, "alert")]')
+
+        # She enters an accepted amount of characters and can submit the
+        # form completely
+        self.findBy('id', 'id_qg_2-0-original_key_2').send_keys("x" * 60)
+        self.findBy('id', 'button-submit').click()
+        self.findBy('id', 'button-submit').click()
+
     def test_textarea_preserves_line_breaks(self):
 
         # Alice logs in
@@ -522,7 +577,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "Value 13_2")]')
         self.findBy('xpath', '//*[contains(text(), "Value 13_3")]')
 
-    @attr('tryagain')
     def test_image_checkbox(self):
 
         # Alice logs in
@@ -611,7 +665,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//img[@alt="Value 14_2"]')
         self.findBy('xpath', '//img[@alt="Value 14_3"]')
 
-    @attr('tryagain')
     def test_measure_conditional(self):
 
         # Alice logs in
@@ -707,7 +760,90 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 23')
         self.checkOnPage('Bar')
 
-    @attr('tryagain')
+    def test_checkbox_conditional(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_2']))
+
+        # She sees the checkbox (Value 13_5) for Key 13
+        value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
+
+        # She sees that Key 24 (Remark) is not visible
+        key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
+        self.assertFalse(key_24.is_displayed())
+
+        # She selects Value 5 and sees that Key 24 is now visible
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+
+        # She deselects Value 5 and the Key is hidden again
+        value_5.click()
+        self.assertFalse(key_24.is_displayed())
+
+        # She selects Value 5 and enters some text for Key 24
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+        key_24.send_keys('Foo')
+
+        # She selects Value 4 and sees that nothing happens to Key 24
+        self.findBy('id', 'id_qg_10-0-key_13_3_1').click()
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), 'Foo')
+
+        # She deselects Value 5 and selects it again and sees that the
+        # entered text is gone.
+        value_5.click()
+        self.assertFalse(key_24.is_displayed())
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), '')
+
+        # She enters some text again, submits the form and sees that
+        # Key 24 was submitted.
+        key_24.send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.checkOnPage('Key 13')
+        self.checkOnPage('Value 13_5')
+        self.checkOnPage('Key 24')
+        self.checkOnPage('Bar')
+
+        # She goes back to the form and sees that the values are still
+        # there, Key 24 is visible
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_2']))
+        value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
+        self.findBy(
+            'xpath',
+            '//input[@id="id_qg_10-0-key_13_4_1" and @checked="checked"]')
+        key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), 'Bar')
+
+        # She unchecks value 5 and sees that everything is hidden again
+        value_5.click()
+        self.assertFalse(key_24.is_displayed())
+
+        # She selects Value 5 again and sees it is empty again
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), '')
+
+        # She enters some values again and submits the form completely
+        key_24.send_keys('Foo')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        self.checkOnPage('Key 13')
+        self.checkOnPage('Value 13_5')
+        self.checkOnPage('Key 24')
+        self.checkOnPage('Foo')
+
     def test_image_checkbox_subcategory(self):
 
         # Alice logs in

@@ -23,7 +23,7 @@
           </a><a class="button secondary button-icon" href="#question2" data-magellan-step="next">
             <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
           </a>
-          <a id="button-submit" class="button expand is-wocat" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span>)</strong></a>
+          <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span>)</strong></a>
         </div>
       </div>
       <div data-magellan-expedition="fixed" style="" class="fixed">

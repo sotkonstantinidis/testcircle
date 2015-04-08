@@ -139,6 +139,7 @@ def generic_questionnaire_new_step(
         'title': page_title,
         'route_overview': '{}:questionnaire_new'.format(url_namespace),
         'valid': valid,
+        'configuration_name': url_namespace,
     })
 
 
