@@ -165,6 +165,29 @@ class CleanQuestionnaireDataTest(TestCase):
         self.assertEqual(cleaned, {})
         self.assertEqual(len(errors), 0)
 
+    def test_passes_with_conditional_checkbox_questiongroup(self):
+        data = {
+            'qg_10': [{'key_13': ['value_13_5']}],
+            'qg_18': [{'key_24': {'en': 'Bar'}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_passes_with_conditional_multiple_checkbox_questiongroup(self):
+        data = {
+            'qg_10': [{'key_13': ['value_13_5', 'value_13_4']}],
+            'qg_18': [{'key_24': {'en': 'Bar'}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_fails_with_conditional_checkbox_questiongroup(self):
+        data = {
+            'qg_10': [{'key_13': ['value_13_4']}],
+            'qg_18': [{'key_24': {'en': 'Bar'}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 

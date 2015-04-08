@@ -140,15 +140,34 @@ def clean_questionnaire_data(data, configuration):
                     continue
                 for qg_data in data.get(condition_data[0], []):
                     condition_value = qg_data.get(condition_data[1])
-                    evaluated = True
-                    for c in condition_data[2]:
-                        try:
-                            evaluated = evaluated and eval('{}{}'.format(
-                                condition_value, c))
-                        except:
-                            evaluated = False
-                            continue
-                    condition_fulfilled = evaluated or condition_fulfilled
+                    if isinstance(condition_value, list):
+                        all_values_evaluated = False
+                        for cond_value in condition_value:
+                            evaluated = True
+                            for c in condition_data[2]:
+                                try:
+                                    evaluated = evaluated and eval(
+                                        '{}{}'.format(cond_value, c))
+                                except NameError:
+                                    evaluated = evaluated and eval(
+                                        '"{}"{}'.format(cond_value, c))
+                                except:
+                                    evaluated = False
+                                    continue
+                            all_values_evaluated = (
+                                all_values_evaluated or evaluated)
+                        condition_fulfilled = (
+                            condition_fulfilled or all_values_evaluated)
+                    else:
+                        evaluated = True
+                        for c in condition_data[2]:
+                            try:
+                                evaluated = evaluated and eval('{}{}'.format(
+                                    condition_value, c))
+                            except:
+                                evaluated = False
+                                continue
+                        condition_fulfilled = evaluated or condition_fulfilled
             if condition_fulfilled is False:
                 errors.append(
                     'Questiongroup with keyword "{}" requires condition "{}".'.

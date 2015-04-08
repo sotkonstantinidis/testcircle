@@ -12,7 +12,7 @@
     {% for row in choices|columnize:4 %}
       <div class="large-3 columns">
         {% for choice in row %}
-          <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
+          <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}"{% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %}>
           <label for="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">{{ choice.1 }}</label><br>
         {% endfor %}
       </div>

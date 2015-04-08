@@ -287,8 +287,9 @@ class QuestionnaireQuestion(object):
                 label=self.label, choices=self.choices, widget=widget,
                 required=self.required, initial=self.choices[0][0])
         elif self.field_type == 'checkbox':
+            widget = Checkbox()
             field = forms.MultipleChoiceField(
-                label=self.label, widget=Checkbox, choices=self.choices,
+                label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
         elif self.field_type == 'image_checkbox':
             # Make the image paths available to the widget
@@ -1458,6 +1459,17 @@ class MeasureSelect(forms.RadioSelect):
 
 class Checkbox(forms.CheckboxSelectMultiple):
     template_name = 'form/field/checkbox.html'
+
+    def get_context_data(self):
+        """
+        Add the questiongroup conditions to the context data so they are
+        available within the template of the widget.
+        """
+        ctx = super(Checkbox, self).get_context_data()
+        ctx.update({
+            'questiongroup_conditions': self.questiongroup_conditions,
+        })
+        return ctx
 
 
 class ImageCheckbox(forms.CheckboxSelectMultiple):

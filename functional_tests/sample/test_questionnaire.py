@@ -522,7 +522,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "Value 13_2")]')
         self.findBy('xpath', '//*[contains(text(), "Value 13_3")]')
 
-    @attr('tryagain')
     def test_image_checkbox(self):
 
         # Alice logs in
@@ -611,7 +610,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//img[@alt="Value 14_2"]')
         self.findBy('xpath', '//img[@alt="Value 14_3"]')
 
-    @attr('tryagain')
     def test_measure_conditional(self):
 
         # Alice logs in
@@ -707,7 +705,90 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 23')
         self.checkOnPage('Bar')
 
-    @attr('tryagain')
+    def test_checkbox_conditional(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_2']))
+
+        # She sees the checkbox (Value 13_5) for Key 13
+        value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
+
+        # She sees that Key 24 (Remark) is not visible
+        key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
+        self.assertFalse(key_24.is_displayed())
+
+        # She selects Value 5 and sees that Key 24 is now visible
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+
+        # She deselects Value 5 and the Key is hidden again
+        value_5.click()
+        self.assertFalse(key_24.is_displayed())
+
+        # She selects Value 5 and enters some text for Key 24
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+        key_24.send_keys('Foo')
+
+        # She selects Value 4 and sees that nothing happens to Key 24
+        self.findBy('id', 'id_qg_10-0-key_13_3_1').click()
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), 'Foo')
+
+        # She deselects Value 5 and selects it again and sees that the
+        # entered text is gone.
+        value_5.click()
+        self.assertFalse(key_24.is_displayed())
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), '')
+
+        # She enters some text again, submits the form and sees that
+        # Key 24 was submitted.
+        key_24.send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.checkOnPage('Key 13')
+        self.checkOnPage('Value 13_5')
+        self.checkOnPage('Key 24')
+        self.checkOnPage('Bar')
+
+        # She goes back to the form and sees that the values are still
+        # there, Key 24 is visible
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_2']))
+        value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
+        self.findBy(
+            'xpath',
+            '//input[@id="id_qg_10-0-key_13_4_1" and @checked="checked"]')
+        key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), 'Bar')
+
+        # She unchecks value 5 and sees that everything is hidden again
+        value_5.click()
+        self.assertFalse(key_24.is_displayed())
+
+        # She selects Value 5 again and sees it is empty again
+        value_5.click()
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), '')
+
+        # She enters some values again and submits the form completely
+        key_24.send_keys('Foo')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        self.checkOnPage('Key 13')
+        self.checkOnPage('Value 13_5')
+        self.checkOnPage('Key 24')
+        self.checkOnPage('Foo')
+
     def test_image_checkbox_subcategory(self):
 
         # Alice logs in
