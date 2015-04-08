@@ -307,6 +307,61 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "info")]')
 
+    def test_textarea_maximum_length(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        # She tries to enter a lot of characters to Key 2, which is
+        # limited to 50 chars. Only the first 50 characters are entered
+        key_2 = self.findBy('id', 'id_qg_2-0-original_key_2')
+        key_2.send_keys("x" * 60)
+        self.assertEqual(key_2.get_attribute('value'), "x" * 50)
+
+        # She sees that the textarea is only 2 rows high
+        self.assertEqual(int(key_2.get_attribute('rows')), 2)
+
+        # She tries to enter a huge amount of characters to Key 6 which
+        # has a default max_length of 500. Again, only the first 500
+        # characters are entered.
+        key_6 = self.findBy('id', 'id_qg_3-0-original_key_6')
+        key_6.send_keys("x" * 600)
+        self.assertEqual(key_6.get_attribute('value'), "x" * 500)
+
+        # She sees that the textarea is by default 10 rows high
+        self.assertEqual(int(key_6.get_attribute('rows')), 10)
+
+        # She tries the same with the first Key 3, a textfield with 50
+        # chars limit
+        key_3_1 = self.findBy('id', 'id_qg_1-0-original_key_3')
+        key_3_1.send_keys("x" * 60)
+        self.assertEqual(key_3_1.get_attribute('value'), "x" * 50)
+
+        # The second Key 3 is a textfield with the default limit of 200
+        key_3_2 = self.findBy('id', 'id_qg_2-0-original_key_3')
+        key_3_2.send_keys("x" * 210)
+        self.assertEqual(key_3_2.get_attribute('value'), "x" * 200)
+
+        # By some hack, she enters more values than allowed in Key 2 and
+        # she tries to submit the form
+        self.browser.execute_script(
+            "document.getElementById('id_qg_2-0-original_key_2')."
+            "value='{}'".format("x" * 600))
+        self.findBy('id', 'button-submit').click()
+
+        # She sees an error message and the form was not submitted
+        self.findBy('xpath', '//div[contains(@class, "alert")]')
+
+        # She enters an accepted amount of characters and can submit the
+        # form completely
+        self.findBy('id', 'id_qg_2-0-original_key_2').send_keys("x" * 60)
+        self.findBy('id', 'button-submit').click()
+        self.findBy('id', 'button-submit').click()
+
     def test_textarea_preserves_line_breaks(self):
 
         # Alice logs in

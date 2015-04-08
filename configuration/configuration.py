@@ -43,6 +43,8 @@ class QuestionnaireQuestion(object):
         'conditions',
         'conditional',
         'questiongroup_conditions',
+        'max_length',
+        'num_rows',
     ]
     valid_field_types = [
         'char',
@@ -83,6 +85,12 @@ class QuestionnaireQuestion(object):
 
             # (optional)
             "questiongroup_conditions": [],
+
+            # (optional)
+            "max_length": 500,
+
+            # (optional)
+            "num_rows": 10,
           }
 
         .. seealso::
@@ -138,6 +146,9 @@ class QuestionnaireQuestion(object):
             get_template(self.form_template)
         except TemplateDoesNotExist:
             raise ConfigurationErrorTemplateNotFound(self.form_template, self)
+
+        self.max_length = configuration.get('max_length', None)
+        self.num_rows = configuration.get('num_rows', 10)
 
         self.images = []
         self.choices = ()
@@ -264,16 +275,23 @@ class QuestionnaireQuestion(object):
         translation_field = None
         widget = None
         if self.field_type == 'char':
+            max_length = self.max_length
+            if max_length is None:
+                max_length = 200
             field = forms.CharField(
                 label=self.label, widget=forms.TextInput(),
-                required=self.required)
+                required=self.required, max_length=max_length)
             translation_field = forms.CharField(
                 label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
-                required=self.required)
+                required=self.required, max_length=max_length)
         elif self.field_type == 'text':
+            max_length = self.max_length
+            if max_length is None:
+                max_length = 500
             field = forms.CharField(
-                label=self.label, widget=forms.Textarea(),
-                required=self.required)
+                label=self.label, widget=forms.Textarea(
+                    attrs={'rows': self.num_rows}),
+                required=self.required, max_length=max_length)
             translation_field = forms.CharField(
                 label=self.label, widget=forms.Textarea(attrs=readonly_attrs),
                 required=self.required)

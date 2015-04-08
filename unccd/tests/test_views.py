@@ -49,7 +49,8 @@ def get_category_count():
 
 def get_categories():
     return (
-        ('unccd__1', 'UNCCD Category 1'),
+        ('unccd__1', 'Classification'),
+        ('unccd__2', 'Section 1: ...'),
     )
 
 

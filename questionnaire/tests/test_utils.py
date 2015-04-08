@@ -188,6 +188,20 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 
+    def test_fails_if_text_length_exceeds_max_length(self):
+        data = {'qg_2': [{
+            'key_2':
+            {'en': 'The limit is 50 chars but this text contains 55 chars.'},
+            'key_3': {'en': ''}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
+    def test_passes_if_text_length_below_max_length(self):
+        data = {'qg_2': [{'key_2': {'en': 'This is short enough.'}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 

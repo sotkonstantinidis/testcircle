@@ -118,6 +118,13 @@ def clean_questionnaire_data(data, configuration):
                     translations = {}
                     for locale, translation in value.items():
                         if translation:
+                            if (question.max_length and
+                                    len(translation) > question.max_length):
+                                errors.append(
+                                    'Value "{}" of key "{}" exceeds the '
+                                    'max_length of {}.'.format(
+                                        translation, key, question.max_length))
+                                continue
                             translations[locale] = translation
                     value = translations
                 elif question.field_type in ['image']:

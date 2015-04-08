@@ -38,7 +38,13 @@ The basic format of the configuration is as follows::
     "conditions": [],
 
     # (optional)
-    "questiongroup_conditions": []
+    "questiongroup_conditions": [],
+
+    # (optional)
+    "max_length": 500,
+
+    # (optional)
+    "num_rows": 10
   }
 
 .. seealso::
@@ -134,3 +140,17 @@ Example::
 .. seealso::
     :doc:`/configuration/questiongroup`
 
+``max_length``
+^^^^^^^^^^^^^^
+
+(Optional). An optional integer to specify the maximum length of
+characters for this value. Renders as a validator for text fields. This
+is only meaningful for key types ``char`` (default value: 200) and
+``text`` (default value: 500).
+
+``num_rows``
+^^^^^^^^^^^^
+
+(Optional). An optional integer to define the number of rows to be shown
+for textarea fields. This is only meaningful for key type ``text``.
+Defaults to 10.
