@@ -1,4 +1,10 @@
 <h3>{{ label }}</h3>
-{% for questiongroup in questiongroups %}
+{% if subcategories %}
+  {% for subcategory in subcategories %}
+    {{ subcategory }}
+  {% endfor %}
+{% else %}
+  {% for questiongroup in questiongroups %}
     {{ questiongroup }}
-{% endfor %}
+  {% endfor %}
+{% endif %}

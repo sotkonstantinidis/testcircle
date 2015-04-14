@@ -805,6 +805,11 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 QuestionnaireQuestiongroup(self, conf_questiongroup))
         self.questiongroups = questiongroups
 
+        if len(self.subcategories) > 0:
+            self.children = self.subcategories
+        else:
+            self.children = self.questiongroups
+
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False):
         """
@@ -849,9 +854,16 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 has_content = True
                 rendered_questiongroups.append(
                     questiongroup.get_details(questiongroup_data))
+        subcategories = []
+        for subcategory in self.subcategories:
+            sub_rendered, sub_has_content = subcategory.get_details(data=data)
+            if sub_has_content:
+                subcategories.append(sub_rendered)
+                has_content = True
         rendered = render_to_string(
             'details/subcategory.html', {
                 'questiongroups': rendered_questiongroups,
+                'subcategories': subcategories,
                 'label': self.label})
         return rendered, has_content
 
@@ -1131,12 +1143,18 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         return None
 
     def get_questiongroups(self):
-        questiongroups = []
-        for sections in self.sections:
-            for category in sections.categories:
-                for subcategory in category.subcategories:
-                    questiongroups.extend(subcategory.questiongroups)
-        return questiongroups
+        def unnest_questiongroups(nested):
+            ret = []
+            try:
+                for child in nested.children:
+                    if not isinstance(child, QuestionnaireQuestiongroup):
+                        ret.extend(unnest_questiongroups(child))
+                    else:
+                        ret.append(child)
+            except AttributeError:
+                pass
+            return ret
+        return unnest_questiongroups(self)
 
     def get_questiongroup_by_keyword(self, keyword):
         for questiongroup in self.get_questiongroups():
@@ -1333,6 +1351,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         for conf_section in conf_sections:
             self.sections.append(QuestionnaireSection(self, conf_section))
+        self.children = self.sections
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

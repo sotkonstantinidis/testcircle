@@ -68,6 +68,64 @@ def generic_questionnaire_new_step(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
+    def _validate_formsets(
+            nested_formsets, current_locale, original_locale):
+        """
+        Helper function to validate a set of nested formsets. Unnests
+        the formsets and validates each of them. Returns the cleaned
+        data if the formsets are valid.
+
+        Args:
+            ``nested_formsets`` (list): A nested list of tuples with
+            formsets. Each tuple contains of the configuration [0] and
+            the formsets [1]
+
+            ``current_locale`` (str): The current locale.
+
+            ``original_locale`` (str): The original locale in which the
+            questionnaire was originally created.
+
+        Returns:
+            ``dict``. The cleaned data dictionary if the formsets are
+            valid. Else ``None``.
+
+            ``bool``. A boolean indicating whether the formsets are
+            valid or not.
+        """
+        def unnest_formets(nested_formsets):
+            """
+            Small helper function to unnest nested formsets. Returns them
+            all in a flat array.
+            """
+            ret = []
+            for __, f in nested_formsets:
+                if isinstance(f, list):
+                    ret.extend(unnest_formets(f))
+                else:
+                    ret.append(f)
+            return ret
+
+        data = {}
+        is_valid = True
+        formsets = unnest_formets(nested_formsets)
+        for formset in formsets:
+            is_valid = is_valid and formset.is_valid()
+
+            if is_valid is False:
+                return None, False
+
+            for f in formset.forms:
+                questiongroup_keyword = f.prefix.split('-')[0]
+                print(questiongroup_keyword)
+                cleaned_data = \
+                    get_questiongroup_data_from_translation_form(
+                        f.cleaned_data, current_locale, original_locale)
+                try:
+                    data[questiongroup_keyword].append(cleaned_data)
+                except KeyError:
+                    data[questiongroup_keyword] = [cleaned_data]
+
+        return data, True
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
     category = questionnaire_configuration.get_category(step)
@@ -94,24 +152,9 @@ def generic_questionnaire_new_step(
 
     valid = True
     if request.method == 'POST':
-        data = {}
-        for __, subcategory_formsets in category_formsets:
-            for __, questiongroup_formset in subcategory_formsets:
 
-                valid = valid and questiongroup_formset.is_valid()
-
-                if valid is False:
-                    break
-
-                for f in questiongroup_formset.forms:
-                    questiongroup_keyword = f.prefix.split('-')[0]
-                    cleaned_data = \
-                        get_questiongroup_data_from_translation_form(
-                            f.cleaned_data, current_locale, original_locale)
-                    try:
-                        data[questiongroup_keyword].append(cleaned_data)
-                    except KeyError:
-                        data[questiongroup_keyword] = [cleaned_data]
+        data, valid = _validate_formsets(
+            category_formsets, current_locale, original_locale)
 
         if valid is True:
             session_questionnaire = get_session_questionnaire()
