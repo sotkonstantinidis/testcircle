@@ -13,6 +13,7 @@ from accounts.tests.test_authentication import (
 from configuration.configuration import (
     QuestionnaireConfiguration,
     QuestionnaireCategory,
+    QuestionnaireSection,
 )
 from qcat.tests import TestCase
 from qcat.utils import session_store
@@ -24,8 +25,7 @@ from questionnaire.views import (
     generic_questionnaire_new_step,
 )
 from sample.tests.test_views import (
-    get_categories,
-    get_category_count,
+    get_section_count,
     get_valid_new_step_values,
     get_valid_new_values,
     get_valid_details_values,
@@ -117,6 +117,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'title': 'QCAT Form',
                 'route_overview': 'sample:questionnaire_new',
                 'valid': True,
+                'configuration_name': 'sample',
             })
 
     def test_returns_rendered_response(self):
@@ -257,7 +258,7 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_get_details.assert_called_once_with(
             {}, editable=True, edit_step_route='sample:questionnaire_new_step')
 
-    @patch.object(QuestionnaireCategory, 'get_details')
+    @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')
     def test_calls_render(self, mock_render, mock_get_details):
         mock_get_details.return_value = "foo"
@@ -267,8 +268,7 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
                 'questionnaire_id': None,
-                'category_names': get_categories(),
-                'categories': ["foo"]*get_category_count(),
+                'sections': ["foo"]*get_section_count(),
                 'images': [],
                 'mode': 'edit',
             })
@@ -327,11 +327,10 @@ class GenericQuestionnaireDetailsTest(TestCase):
             self.request, *get_valid_details_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
-                'categories': [],
+                'sections': [],
                 'questionnaire_id': 1,
                 'mode': 'view',
                 'images': [],
-                'category_names': (),
             })
 
     @patch('questionnaire.views.get_object_or_404')

@@ -14,7 +14,7 @@ from qcat.tests import TestCase
 
 def get_valid_configuration_model():
     return Configuration(
-        code='sample', name='name', data={"categories": []})
+        code='sample', name='name', data={"sections": []})
 
 
 def get_valid_translation_model():

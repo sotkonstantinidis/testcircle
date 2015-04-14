@@ -532,9 +532,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[contains(text(), "Key 13")]')
 
-        import time
-        time.sleep(30)
-
         self.findBy('xpath', '//*[contains(text(), "Value 13_1")]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(

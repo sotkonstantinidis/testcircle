@@ -160,6 +160,9 @@ def generic_questionnaire_new(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
+        ``template`` (str): The name and path of the template to render
+        the response with.
+
         ``url_namespace`` (str): The namespace of the questionnaire
         URLs. It is assumed that all questionnaire apps have the same
         routes for their questionnaires
@@ -213,19 +216,15 @@ def generic_questionnaire_new(
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
-    categories = questionnaire_configuration.get_details(
+    sections = questionnaire_configuration.get_details(
         data, editable=True,
         edit_step_route='{}:questionnaire_new_step'.format(url_namespace))
-    category_names = []
-    for category in questionnaire_configuration.categories:
-        category_names.append((category.keyword, category.label))
 
     images = questionnaire_configuration.get_image_data(data)
 
     return render(request, template, {
         'images': images,
-        'categories': categories,
-        'category_names': tuple(category_names),
+        'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'edit',
     })
@@ -245,8 +244,8 @@ def generic_questionnaire_details(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
-        ``template`` (str): The path of the template to be rendered for
-        the details.
+        ``template`` (str): The name and path of the template to render
+        the response with.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -257,18 +256,15 @@ def generic_questionnaire_details(
         configuration_code)
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
-    categories = questionnaire_configuration.get_details(
+
+    sections = questionnaire_configuration.get_details(
         data=data, questionnaire_object=questionnaire_object)
-    category_names = []
-    for category in questionnaire_configuration.categories:
-        category_names.append((category.keyword, category.label))
 
     images = questionnaire_configuration.get_image_data(data)
 
     return render(request, template, {
         'images': images,
-        'categories': categories,
-        'category_names': tuple(category_names),
+        'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'view',
     })

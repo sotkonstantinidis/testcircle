@@ -1,0 +1,15 @@
+{% load floppyforms %}
+
+{% if config.next_level == 'subcategories' %}
+  <p>{{ config.label }}</p>
+  {% for sub_config, sub_formsets in formsets %}
+    {% form form using "form/subcategory.html" with config=sub_config formsets=sub_formsets %}
+  {% endfor %}
+{% else %}
+  <fieldset class="row">
+    <legend>{{ config.label }}</legend>
+    {% for questiongroup_config, questiongroup_formset in formsets %}
+        {% form form using "form/questiongroup.html" with config=questiongroup_config formset=questiongroup_formset %}
+    {% endfor %}
+  </fieldset>
+{% endif %}
