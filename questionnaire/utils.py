@@ -62,7 +62,7 @@ def clean_questionnaire_data(data, configuration):
         for qg_data in qg_data_list:
             cleaned_qg = {}
             for key, value in qg_data.items():
-                if not value and not isinstance(value, bool):
+                if not value and not isinstance(value, (bool, int)):
                     continue
                 question = questiongroup.get_question_by_key_keyword(key)
                 if question is None:
@@ -133,7 +133,7 @@ def clean_questionnaire_data(data, configuration):
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(
                             question.field_type))
-                if value or isinstance(value, bool):
+                if value or isinstance(value, (bool, int)):
                     cleaned_qg[key] = value
             if cleaned_qg:
                 cleaned_qg_list.append(cleaned_qg)

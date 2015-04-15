@@ -202,6 +202,23 @@ class CleanQuestionnaireDataTest(TestCase):
         self.assertEqual(cleaned, data)
         self.assertEqual(len(errors), 0)
 
+    def test_passes_with_boolean_True_as_integer(self):
+        data = {'qg_3': [{'key_11': 1}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_passes_with_boolean_False_as_integer(self):
+        data = {'qg_3': [{'key_11': 0}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_fails_with_boolean_impossible_value_as_integer(self):
+        data = {'qg_3': [{'key_11': 99}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 

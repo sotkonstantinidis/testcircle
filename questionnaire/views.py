@@ -116,7 +116,6 @@ def generic_questionnaire_new_step(
 
             for f in formset.forms:
                 questiongroup_keyword = f.prefix.split('-')[0]
-                print(questiongroup_keyword)
                 cleaned_data = \
                     get_questiongroup_data_from_translation_form(
                         f.cleaned_data, current_locale, original_locale)

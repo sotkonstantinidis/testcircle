@@ -301,7 +301,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.choices = ()
         self.value_objects = []
         if self.field_type == 'bool':
-            self.choices = ((True, _('Yes')), (False, _('No')))
+            self.choices = ((1, _('Yes')), (0, _('No')))
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type']:
             self.value_objects = self.configuration_object.values.all()
@@ -445,8 +445,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 label=self.label, widget=forms.Textarea(attrs=readonly_attrs),
                 required=self.required)
         elif self.field_type == 'bool':
-            field = forms.NullBooleanField(
-                label=self.label, widget=RadioSelect(choices=self.choices),
+            widget = RadioSelect(choices=self.choices)
+            field = forms.IntegerField(
+                label=self.label, widget=widget,
                 required=self.required)
         elif self.field_type == 'measure':
             widget = MeasureSelect()
@@ -1386,6 +1387,17 @@ class RadioSelect(forms.RadioSelect):
     the template used.
     """
     template_name = 'form/field/radio.html'
+
+    def get_context_data(self):
+        """
+        Add the questiongroup conditions to the context data so they are
+        available within the template of the widget.
+        """
+        ctx = super(RadioSelect, self).get_context_data()
+        ctx.update({
+            'questiongroup_conditions': self.questiongroup_conditions,
+        })
+        return ctx
 
 
 class Select(forms.Select):

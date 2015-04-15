@@ -1227,7 +1227,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_1']))
         self.findBy(
-            'xpath', '//input[@name="qg_3-0-key_11" and @value="True"]')\
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="1"]')\
             .click()
 
         # She sees that the progress was updated and submits the form.
@@ -1249,10 +1249,10 @@ class QuestionnaireTest(FunctionalTest):
             route_questionnaire_new_step, args=['cat_1']))
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         self.findBy(
-            'xpath', '//input[@name="qg_3-0-key_11" and @value="True" and '
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="1" and '
             '@checked=""]')
         self.findBy(
-            'xpath', '//input[@name="qg_3-0-key_11" and @value="False"]')\
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="0"]')\
             .click()
         self.findBy('id', 'button-submit').click()
 
