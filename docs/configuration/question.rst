@@ -22,8 +22,8 @@ Format
 The basic format of the configuration is as follows::
 
   {
-    # The key of the question.
-    "key": "KEY",
+    # The keyword of the key of the question.
+    "keyword": "KEY",
 
     # (optional)
     "in_list": true,
@@ -58,8 +58,8 @@ The basic format of the configuration is as follows::
     Questionnaire configuration.
 
 
-``key``
-^^^^^^^
+``keyword``
+^^^^^^^^^^^
 
 The keyword of the key of this question.
 

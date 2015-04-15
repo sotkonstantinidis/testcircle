@@ -30,14 +30,177 @@ from questionnaire.upload import (
 )
 
 
-class QuestionnaireQuestion(object):
+class BaseConfigurationObject(object):
+    """
+    This is the base class for all Questionnaire Configuration objects.
+    """
+
+    def __init__(self, parent_object, configuration):
+        """
+        Sets the following attributes for each configuration object:
+
+            ``self.configuration``: The configuration dictionary.
+
+            ``self.keyword``: The keyword identifier of the object.
+
+            ``self.configuration_object``: The database configuration
+                object
+
+            ``self.configuration_keyword``: The code of the current
+                configuration
+
+            ``self.parent_object``: The parent configuration object.
+
+            ``self.label``: The (translated) label.
+
+            ``self.children``: The child configuration objects if
+                available.
+        """
+        validate_type(
+            configuration, dict, self.name_current, 'list of dicts',
+            self.name_parent)
+        self.configuration = configuration
+        self.validate_options()
+
+        keyword = self.configuration.get('keyword')
+        if not isinstance(keyword, str):
+            raise ConfigurationErrorInvalidConfiguration(
+                'keyword', 'str', self.name_current)
+        self.keyword = keyword
+
+        if isinstance(self, (
+                QuestionnaireSection, QuestionnaireCategory,
+                QuestionnaireSubcategory)):
+            try:
+                self.configuration_object = Category.objects.get(
+                    keyword=self.keyword)
+            except Category.DoesNotExist:
+                raise ConfigurationErrorNotInDatabase(Category, self.keyword)
+        elif isinstance(self, QuestionnaireQuestiongroup):
+            try:
+                self.configuration_object = Questiongroup.objects.get(
+                    keyword=self.keyword)
+            except Questiongroup.DoesNotExist:
+                raise ConfigurationErrorNotInDatabase(
+                    Questiongroup, self.keyword)
+        elif isinstance(self, QuestionnaireQuestion):
+            try:
+                self.configuration_object = Key.objects.get(
+                    keyword=self.keyword)
+            except Key.DoesNotExist:
+                raise ConfigurationErrorNotInDatabase(Key, self.keyword)
+        else:
+            raise Exception('Unknown instance')
+
+        self.configuration_keyword = parent_object.configuration_keyword
+        self.parent_object = parent_object
+
+        self.helptext = ''
+        self.label = ''
+        translation = self.configuration_object.translation
+        if translation:
+            self.helptext = translation.get_translation(
+                'helptext', self.configuration_keyword)
+            self.label = translation.get_translation(
+                'label', self.configuration_keyword)
+
+        # Should be at the bottom of the function
+        children = []
+        configuration_children = self.configuration.get(self.name_children)
+        if configuration_children:
+            if (not isinstance(configuration_children, list)
+                    or len(configuration_children) == 0):
+                raise ConfigurationErrorInvalidConfiguration(
+                    self.name_children, 'list of dicts', self.name_current)
+            for configuration_child in configuration_children:
+                children.append(
+                    self.Child(self, configuration_child))
+            self.children = children
+
+    def validate_options(self):
+        """
+        Validate a configuration dict to check if it contains invalid
+        options as keys.
+
+        Raises:
+            :class:`qcat.errors.ConfigurationErrorInvalidOption`
+        """
+        invalid_options = list(
+            set(self.configuration) - set(self.valid_options))
+        if len(invalid_options) > 0:
+            raise ConfigurationErrorInvalidOption(
+                invalid_options[0], self.configuration, self)
+
+    @staticmethod
+    def merge_configurations(obj, base_configuration, specific_configuration):
+        """
+        Merges two configuration dicts into a single one. The base
+        configuration is extended by the specific configuration.
+
+        Children are identified by their keyword and merged. The merging
+        of the children is handled by the respective class.
+
+        Args:
+            ``obj`` (BaseConfigurationObject): A configuration object.
+
+            ``base_configuration`` (dict): The base configuration on which the
+            specific configuration is based.
+
+            ``specific_configuration`` (dict): The specific configuration
+            extending the base configuration.
+
+        Returns:
+            ``dict``. The merged configuration.
+        """
+        validate_type(
+            base_configuration, dict, obj.name_current, dict, obj.name_parent)
+        validate_type(
+            specific_configuration, dict, obj.name_current, dict,
+            obj.name_parent)
+
+        merged_children = []
+        base_children = base_configuration.get(obj.name_children, [])
+        specific_children = specific_configuration.get(obj.name_children, [])
+
+        if base_children:
+            validate_type(
+                base_children, list, obj.name_children, list, obj.name_current)
+        validate_type(
+            specific_children, list, obj.name_children, list, obj.name_current)
+
+        # Collect all base configurations and find eventual specific
+        # configurations for these children
+        for base_child in base_children:
+            specific_child = find_dict_in_list(
+                specific_children, 'keyword', base_child.get('keyword'))
+            merged_children.append(
+                obj.Child.merge_configurations(
+                    obj.Child, base_child.copy(), specific_child.copy()))
+
+        # Collect all specific configurations which are not part of the
+        # base children
+        for specific_child in specific_children:
+            base_child = find_dict_in_list(
+                base_children, 'keyword', specific_child.get('keyword'))
+            if not base_child:
+                merged_children.append(specific_child.copy())
+
+        if obj.name_children:
+            base_configuration[obj.name_children] = merged_children
+        else:
+            base_configuration.update(specific_configuration)
+
+        return base_configuration
+
+
+class QuestionnaireQuestion(BaseConfigurationObject):
     """
     A class representing the configuration of a Question of the
     Questionnaire. A Question basically consists of the Key and optional
     Values (for Questions with predefined Answers)
     """
     valid_options = [
-        'key',
+        'keyword',
         'in_list',
         'form_template',
         'conditions',
@@ -60,16 +223,20 @@ class QuestionnaireQuestion(object):
     translation_translation_prefix = 'translation_'
     translation_old_prefix = 'old_'
     value_image_path = 'assets/img/'
+    name_current = 'questions'
+    name_parent = 'questiongroups'
+    name_children = ''
+    Child = None
 
-    def __init__(self, questiongroup, configuration):
+    def __init__(self, parent_object, configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Question. It needs to have the following
         format::
 
           {
-            # The key of the question.
-            "key": "KEY",
+            # The keyword of the key of the question.
+            "keyword": "KEY",
 
             # (optional)
             "in_list": true,
@@ -102,32 +269,12 @@ class QuestionnaireQuestion(object):
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`,
             ``ConfigurationErrorNotInDatabase``.
         """
-        validate_type(
-            configuration, dict, 'questions', 'list of dicts',
-            'questiongroups')
-        validate_options(
-            configuration, self.valid_options, QuestionnaireQuestion)
+        super(QuestionnaireQuestion, self).__init__(
+            parent_object, configuration)
+        self.questiongroup = parent_object
 
-        key = configuration.get('key')
-        if not isinstance(key, str):
-            raise ConfigurationErrorInvalidConfiguration(
-                'key', 'str', 'questions')
-
-        try:
-            key_object = Key.objects.get(keyword=key)
-        except Key.DoesNotExist:
-            raise ConfigurationErrorNotInDatabase(Key, key)
-
-        self.questiongroup = questiongroup
         self.in_list = configuration.get('in_list', False)
-        self.key_object = key_object
-        self.key_config = key_object.configuration
-        self.configuration_keyword = ''
-        if questiongroup:
-            self.configuration_keyword = questiongroup.configuration_keyword
-        self.label = key_object.get_translation(
-            'label', self.configuration_keyword)
-        self.keyword = key
+        self.key_config = self.configuration_object.configuration
 
         self.field_type = self.key_config.get('type', 'char')
         if self.field_type not in self.valid_field_types:
@@ -154,10 +301,10 @@ class QuestionnaireQuestion(object):
         self.choices = ()
         self.value_objects = []
         if self.field_type == 'bool':
-            self.choices = ((True, _('Yes')), (False, _('No')))
+            self.choices = ((1, _('Yes')), (0, _('No')))
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type']:
-            self.value_objects = self.key_object.values.all()
+            self.value_objects = self.configuration_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
                     self, '[values of key {}]'.format(self.keyword))
@@ -211,19 +358,21 @@ class QuestionnaireQuestion(object):
                 raise ConfigurationErrorInvalidCondition(
                     condition,
                     'Only the following Python expressions are valid: bool')
+
+            # TODO
             # Check that the key exists in the same questiongroup.
-            cond_key_object = self.questiongroup.get_question_by_key_keyword(
-                cond_key)
-            if cond_key_object is None:
-                raise ConfigurationErrorInvalidCondition(
-                    condition,
-                    'Key "{}" is not in the same questiongroup'.format(
-                        cond_key))
-            if not (
-                    self.field_type == 'image_checkbox' and
-                    cond_key_object.field_type == 'image_checkbox'):
-                raise ConfigurationErrorInvalidCondition(
-                    condition, 'Only valid for types "image_checkbox"')
+            # cond_key_object = self.questiongroup.get_question_by_key_keyword(
+            #     cond_key)
+            # if cond_key_object is None:
+            #     raise ConfigurationErrorInvalidCondition(
+            #         condition,
+            #         'Key "{}" is not in the same questiongroup'.format(
+            #             cond_key))
+            # if not (
+            #         self.field_type == 'image_checkbox' and
+            #         cond_key_object.field_type == 'image_checkbox'):
+            #     raise ConfigurationErrorInvalidCondition(
+            #         condition, 'Only valid for types "image_checkbox"')
             conditions.append((cond_value, cond_expression, cond_key))
         self.conditions = conditions
 
@@ -296,8 +445,9 @@ class QuestionnaireQuestion(object):
                 label=self.label, widget=forms.Textarea(attrs=readonly_attrs),
                 required=self.required)
         elif self.field_type == 'bool':
-            field = forms.NullBooleanField(
-                label=self.label, widget=RadioSelect(choices=self.choices),
+            widget = RadioSelect(choices=self.choices)
+            field = forms.IntegerField(
+                label=self.label, widget=widget,
                 required=self.required)
         elif self.field_type == 'measure':
             widget = MeasureSelect()
@@ -460,7 +610,7 @@ class QuestionnaireQuestion(object):
         return labels
 
 
-class QuestionnaireQuestiongroup(object):
+class QuestionnaireQuestiongroup(BaseConfigurationObject):
     """
     A class representing the configuration of a Questiongroup of the
     Questionnaire.
@@ -474,8 +624,12 @@ class QuestionnaireQuestiongroup(object):
     ]
     default_template = 'default'
     default_min_num = 1
+    name_current = 'questiongroups'
+    name_parent = 'subcategories'
+    name_children = 'questions'
+    Child = QuestionnaireQuestion
 
-    def __init__(self, subcategory, custom_configuration):
+    def __init__(self, parent_object, configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Questiongroup. It needs to have the
@@ -508,25 +662,13 @@ class QuestionnaireQuestiongroup(object):
         Raises:
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`
         """
-        self.keyword = custom_configuration.get('keyword')
-        if not isinstance(self.keyword, str):
-            raise ConfigurationErrorInvalidConfiguration(
-                'keyword', 'str', 'questiongroups')
+        super(QuestionnaireQuestiongroup, self).__init__(
+            parent_object, configuration)
+        self.questions = self.children
 
-        try:
-            questiongroup_object = Questiongroup.objects.get(
-                keyword=self.keyword)
-        except Questiongroup.DoesNotExist:
-            raise ConfigurationErrorNotInDatabase(Questiongroup, self.keyword)
-        self.configuration = questiongroup_object.configuration
-
-        self.configuration.update(custom_configuration)
-
-        validate_type(
-            self.configuration, dict, 'questiongroups', 'list of dicts',
-            'subcategories')
-        validate_options(
-            self.configuration, self.valid_options, QuestionnaireQuestiongroup)
+        self.configuration = self.configuration_object.configuration
+        self.configuration.update(configuration)
+        self.validate_options()
 
         self.min_num = self.configuration.get('min_num', self.default_min_num)
         if not isinstance(self.min_num, int) or self.min_num < 1:
@@ -538,93 +680,11 @@ class QuestionnaireQuestiongroup(object):
             raise ConfigurationErrorInvalidConfiguration(
                 'max_num', 'integer >= 1', 'questiongroup')
 
-        self.configuration_keyword = ''
-        if subcategory:
-            self.configuration_keyword = subcategory.configuration_keyword
-        self.helptext = ''
-        self.label = ''
-        translation = questiongroup_object.translation
-        if translation:
-            self.helptext = translation.get_translation(
-                'helptext', self.configuration_keyword)
-            self.label = translation.get_translation(
-                'label', self.configuration_keyword)
-
         self.questiongroup_condition = self.configuration.get(
             'questiongroup_condition')
 
-        self.subcategory = subcategory
-        self.questions = []
-        conf_questions = self.configuration.get('questions', [])
-        if (not isinstance(conf_questions, list) or len(conf_questions) == 0):
-            raise ConfigurationErrorInvalidConfiguration(
-                'questions', 'list of dicts', 'questiongroups')
-
-        for conf_question in conf_questions:
-            self.questions.append(QuestionnaireQuestion(self, conf_question))
-
         # TODO
         self.required = False
-
-    @staticmethod
-    def merge_configurations(base, specific):
-        """
-        Merges two configurations of questiongroups into a single one.
-        The base configuration is extended by the specific
-        configuration.
-
-        Questions are identified by their key and merged. If a question
-        is part of both configurations, the specific configuration will
-        completely overwrite the base configuration of the question.
-
-        Args:
-            ``base`` (dict): The configuration of the base Questiongroup
-            on which the specific configuration is based.
-
-            ``specific`` (dict): The configuration of the specific
-            Questiongroup extending the base configuration.
-
-        Returns:
-            ``dict``. The merged configuration.
-        """
-        validate_type(
-            base, dict, 'questiongroups', 'list of dicts', 'subcategories')
-        validate_type(
-            specific, dict, 'questiongroups', 'list of dicts', 'subcategories')
-
-        merged_questions = []
-        base_questions = base.get('questions', [])
-        specific_questions = specific.get('questions', [])
-
-        if base_questions:
-            validate_type(
-                base_questions, list, 'questions', 'list of dicts',
-                'questiongroups')
-        validate_type(
-            specific_questions, list, 'questions', 'list of dicts',
-            'questiongroups')
-
-        # Collect all base question configurations. If the same
-        # questions are also defined in the specific configuration,
-        # simply overwrite the base configuration.
-        for base_question in base_questions:
-            specific_question = find_dict_in_list(
-                specific_questions, 'key', base_question.get('key'))
-            if specific_question:
-                merged_questions.append(specific_question)
-            else:
-                merged_questions.append(base_question)
-
-        # Collect all specific question configurations which are not
-        # part of the base questions
-        for specific_question in specific_questions:
-            base_question = find_dict_in_list(
-                base_questions, 'key', specific_question.get('key'))
-            if not base_question:
-                merged_questions.append(specific_question.copy())
-
-        base['questions'] = merged_questions
-        return base
 
     def get_form(
             self, post_data=None, initial_data=None, show_translation=False):
@@ -688,7 +748,7 @@ class QuestionnaireQuestiongroup(object):
         return None
 
 
-class QuestionnaireSubcategory(object):
+class QuestionnaireSubcategory(BaseConfigurationObject):
     """
     A class representing the configuration of a Subcategory of the
     Questionnaire.
@@ -696,9 +756,14 @@ class QuestionnaireSubcategory(object):
     valid_options = [
         'keyword',
         'questiongroups',
+        'subcategories',
     ]
+    name_current = 'subcategories'
+    name_parent = 'categories'
+    name_children = 'questiongroups'
+    Child = QuestionnaireQuestiongroup
 
-    def __init__(self, category, configuration):
+    def __init__(self, parent_object, configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Subcategory. It needs to have the following
@@ -723,104 +788,28 @@ class QuestionnaireSubcategory(object):
             :class:`qcat.errors.ConfigurationErrorInvalidConfiguration`,
             ``ConfigurationErrorNotInDatabase``.
         """
-        validate_type(
-            configuration, dict, 'subcategories', 'list of dicts',
-            'categories')
-        validate_options(
-            configuration, self.valid_options, QuestionnaireSubcategory)
+        super(QuestionnaireSubcategory, self).__init__(
+            parent_object, configuration)
 
-        keyword = configuration.get('keyword')
-        if not isinstance(keyword, str):
-            raise ConfigurationErrorInvalidConfiguration(
-                'keyword', 'str', 'subcategories')
-
-        try:
-            subcategory = Category.objects.get(keyword=keyword)
-        except Category.DoesNotExist:
-            raise ConfigurationErrorNotInDatabase(Category, keyword)
+        # A Subcategory can have further subcategories or questiongroups
+        subcategories = []
+        conf_subcategories = self.configuration.get('subcategories', [])
+        for conf_subcategory in conf_subcategories:
+            subcategories.append(
+                QuestionnaireSubcategory(self, conf_subcategory))
+        self.subcategories = subcategories
 
         questiongroups = []
-        conf_questiongroups = configuration.get('questiongroups', [])
-        if (not isinstance(conf_questiongroups, list)
-                or len(conf_questiongroups) == 0):
-            raise ConfigurationErrorInvalidConfiguration(
-                'questiongroups', 'list of dicts', 'subcategories')
-
-        self.category = category
-        self.configuration_keyword = category.configuration_keyword
+        conf_questiongroups = self.configuration.get('questiongroups', [])
         for conf_questiongroup in conf_questiongroups:
             questiongroups.append(
                 QuestionnaireQuestiongroup(self, conf_questiongroup))
-
-        self.keyword = keyword
-        self.configuration = configuration
         self.questiongroups = questiongroups
-        self.object = subcategory
-        self.label = subcategory.get_translation(
-            'label', self.configuration_keyword)
 
-    @staticmethod
-    def merge_configurations(base, specific):
-        """
-        Merges two configurations of Subcategories into a single one.
-        The base configuration is extended by the specific
-        configuration.
-
-        Questiongroups are identified by their keyword and merged.
-
-        .. seealso::
-            The merging of the configuration of questiongroups is
-            handled by
-            :func:`QuestionnaireQuestiongroup.merge_configurations`
-
-        Args:
-            ``base`` (dict): The configuration of the base Subcategory
-            on which the specific configuration is based.
-
-            ``specific`` (dict): The configuration of the specific
-            Subcategory extending the base configuration.
-
-        Returns:
-            ``dict``. The merged configuration.
-        """
-        validate_type(
-            base, dict, 'subcategories', 'list of dicts', 'categories')
-        validate_type(
-            specific, dict, 'subcategories', 'list of dicts', 'categories')
-
-        merged_questiongroups = []
-        base_questiongroups = base.get('questiongroups', [])
-        specific_questiongroups = specific.get('questiongroups', [])
-
-        if base_questiongroups:
-            validate_type(
-                base_questiongroups, list, 'questiongroups', 'list of dicts',
-                'subcategories')
-        validate_type(
-            specific_questiongroups, list, 'questiongroups', 'list of dicts',
-            'subcategories')
-
-        # Collect all base questiongroup configurations and find eventual
-        # specific configurations for these questiongroups
-        for base_questiongroup in base_questiongroups:
-            specific_questiongroup = find_dict_in_list(
-                specific_questiongroups, 'keyword',
-                base_questiongroup.get('keyword'))
-            merged_questiongroups.append(
-                QuestionnaireQuestiongroup.merge_configurations(
-                    base_questiongroup.copy(), specific_questiongroup.copy()))
-
-        # Collect all specific questiongroup configurations which are not
-        # part of the base questiongroups
-        for specific_questiongroup in specific_questiongroups:
-            base_questiongroup = find_dict_in_list(
-                base_questiongroups, 'keyword',
-                specific_questiongroup.get('keyword'))
-            if not base_questiongroup:
-                merged_questiongroups.append(specific_questiongroup.copy())
-
-        base['questiongroups'] = merged_questiongroups
-        return base
+        if len(self.subcategories) > 0:
+            self.children = self.subcategories
+        else:
+            self.children = self.questiongroups
 
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False):
@@ -830,17 +819,24 @@ class QuestionnaireSubcategory(object):
             ``list``. A list of formsets of question groups, together
             forming a subcategory.
         """
-        questionset_formsets = []
-        for questiongroup in self.questiongroups:
-            questionset_initial_data = initial_data.get(questiongroup.keyword)
-            questionset_formsets.append(
-                questiongroup.get_form(
-                    post_data=post_data, initial_data=questionset_initial_data,
-                    show_translation=show_translation))
+        formsets = []
         config = {
             'label': self.label,
         }
-        return config, questionset_formsets
+        for questiongroup in self.questiongroups:
+            questionset_initial_data = initial_data.get(questiongroup.keyword)
+            formsets.append(
+                questiongroup.get_form(
+                    post_data=post_data, initial_data=questionset_initial_data,
+                    show_translation=show_translation))
+            config['next_level'] = 'questiongroups'
+        for subcategory in self.subcategories:
+            formsets.append(
+                subcategory.get_form(
+                    post_data=post_data, initial_data=initial_data,
+                    show_translation=show_translation))
+            config['next_level'] = 'subcategories'
+        return config, formsets
 
     def get_details(self, data={}):
         """
@@ -859,14 +855,21 @@ class QuestionnaireSubcategory(object):
                 has_content = True
                 rendered_questiongroups.append(
                     questiongroup.get_details(questiongroup_data))
+        subcategories = []
+        for subcategory in self.subcategories:
+            sub_rendered, sub_has_content = subcategory.get_details(data=data)
+            if sub_has_content:
+                subcategories.append(sub_rendered)
+                has_content = True
         rendered = render_to_string(
             'details/subcategory.html', {
                 'questiongroups': rendered_questiongroups,
+                'subcategories': subcategories,
                 'label': self.label})
         return rendered, has_content
 
 
-class QuestionnaireCategory(object):
+class QuestionnaireCategory(BaseConfigurationObject):
     """
     A class representing the configuration of a Category of the
     Questionnaire.
@@ -877,9 +880,14 @@ class QuestionnaireCategory(object):
         'view_template',
         'use_raw_data',
         'with_metadata',
+        'include_toc',
     ]
+    name_current = 'categories'
+    name_parent = 'sections'
+    name_children = 'subcategories'
+    Child = QuestionnaireSubcategory
 
-    def __init__(self, configuration, configuration_dict):
+    def __init__(self, parent_object, configuration):
         """
         Parameter ``configuration`` is a ``dict`` containing the
         configuration of the Category. It needs to have the following
@@ -898,6 +906,9 @@ class QuestionnaireCategory(object):
             # (optional)
             "with_metadata": true,
 
+            # (optional)
+            "include_toc": true,
+
             # A list of subcategories.
             "subcategories": [
               {
@@ -911,112 +922,18 @@ class QuestionnaireCategory(object):
             options, please refer to the documentation:
             :doc:`/configuration/category`
         """
-        validate_type(
-            configuration_dict, dict, 'categories', 'list of dicts', '-')
-        validate_options(
-            configuration_dict, self.valid_options, QuestionnaireCategory)
+        super(QuestionnaireCategory, self).__init__(
+            parent_object, configuration)
+        self.subcategories = self.children
 
-        keyword = configuration_dict.get('keyword')
-        if not isinstance(keyword, str):
-            raise ConfigurationErrorInvalidConfiguration(
-                'keyword', 'str', 'categories')
-
-        try:
-            category = Category.objects.get(keyword=keyword)
-        except Category.DoesNotExist:
-            raise ConfigurationErrorNotInDatabase(Category, keyword)
-
-        subcategories = []
-        conf_subcategories = configuration_dict.get('subcategories', [])
-        if (not isinstance(conf_subcategories, list)
-                or len(conf_subcategories) == 0):
-            raise ConfigurationErrorInvalidConfiguration(
-                'subcategories', 'list of dicts', 'categories')
-
-        view_template = configuration_dict.get('view_template', 'default')
-
-        self.configuration_keyword = configuration.keyword
-        self.configuration = configuration
-        for conf_subcategory in conf_subcategories:
-            subcategories.append(
-                QuestionnaireSubcategory(self, conf_subcategory))
-
-        self.keyword = keyword
-        self.configuration_dict = configuration_dict
-        self.subcategories = subcategories
-        self.object = category
-        self.label = category.get_translation(
-            'label', self.configuration_keyword)
+        view_template = self.configuration.get('view_template', 'default')
         self.view_template = 'details/category/{}.html'.format(view_template)
-        self.use_raw_data = configuration_dict.get(
+
+        self.use_raw_data = self.configuration.get(
             'use_raw_data', False) is True
-        self.with_metadata = configuration_dict.get(
+        self.with_metadata = self.configuration.get(
             'with_metadata', False) is True
-
-    @staticmethod
-    def merge_configurations(base, specific):
-        """
-        Merges two configurations of Categories into a single one. The
-        base configuration is extended by the specific configuration.
-
-        Subcategories are identified by their keyword and merged.
-
-        .. seealso::
-            The merging of the configuration of subcategories is handled
-            by :func:`QuestionnaireSubcategory.merge_configurations`
-
-        Args:
-            ``base`` (dict): The configuration of the base Category on
-            which the specific configuration is based.
-
-            ``specific`` (dict): The configuration of the specific
-            Category extending the base configuration.
-
-        Returns:
-            ``dict``. The merged configuration.
-        """
-        validate_type(base, dict, 'categories', 'list of dicts', '-')
-        validate_type(specific, dict, 'categories', 'list of dicts', '-')
-
-        merged_subcategories = []
-        base_subcategories = base.get('subcategories', [])
-        specific_subcategories = specific.get('subcategories', [])
-
-        if base_subcategories:
-            validate_type(
-                base_subcategories, list, 'subcategories', 'list of dicts',
-                'categories')
-        validate_type(
-            specific_subcategories, list, 'subcategories', 'list of dicts',
-            'categories')
-
-        # Collect all base subcategory configurations and find eventual
-        # specific configurations for these subcategories
-        for base_subcategory in base_subcategories:
-            specific_subcategory = find_dict_in_list(
-                specific_subcategories, 'keyword',
-                base_subcategory.get('keyword'))
-            merged_subcategories.append(
-                QuestionnaireSubcategory.merge_configurations(
-                    base_subcategory.copy(), specific_subcategory.copy()))
-
-        # Collect all specific subcategory configurations which are not
-        # part of the base subcategories
-        for specific_subcategory in specific_subcategories:
-            base_subcategory = find_dict_in_list(
-                base_subcategories, 'keyword',
-                specific_subcategory.get('keyword'))
-            if not base_subcategory:
-                merged_subcategories.append(specific_subcategory.copy())
-
-        base['subcategories'] = merged_subcategories
-        return base
-
-    def validate_options(self, configuration):
-        invalid_options = list(set(configuration) - set(self.valid_options))
-        if len(invalid_options) > 0:
-            raise ConfigurationErrorInvalidOption(
-                invalid_options[0], configuration, self)
+        self.include_toc = self.configuration.get('include_toc', False) is True
 
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False):
@@ -1052,7 +969,12 @@ class QuestionnaireCategory(object):
                 raw_data = self.get_raw_category_data(data)
             if self.with_metadata is True and questionnaire_object is not None:
                 metadata = questionnaire_object.get_metadata()
-        rendered = render_to_string(
+
+        toc_content = []
+        if self.include_toc:
+            toc_content = self.parent_object.parent_object.get_toc_data()
+
+        return render_to_string(
             self.view_template, {
                 'subcategories': rendered_subcategories,
                 'raw_data': raw_data,
@@ -1065,8 +987,8 @@ class QuestionnaireCategory(object):
                 'progress': with_content / len(self.subcategories) * 100,
                 'edit_step_route': edit_step_route,
                 'configuration_name': self.configuration_keyword,
+                'toc_content': tuple(toc_content),
             })
-        return rendered
 
     def get_raw_category_data(self, questionnaire_data):
         """
@@ -1101,7 +1023,83 @@ class QuestionnaireCategory(object):
         return raw_category_data
 
 
-class QuestionnaireConfiguration(object):
+class QuestionnaireSection(BaseConfigurationObject):
+    """
+    A class representing the configuration of a Section of the
+    Questionnaire.
+    """
+    valid_options = [
+        'categories',
+        'keyword',
+        'view_template',
+        'include_toc',
+    ]
+    name_current = 'sections'
+    name_parent = None
+    name_children = 'categories'
+    Child = QuestionnaireCategory
+
+    def __init__(self, parent_object, configuration):
+        """
+        Parameter ``configuration`` is a ``dict`` containing the
+        configuration of the Section. It needs to have the following
+        format::
+
+          {
+            # The keyword of the section.
+            "keyword": "SECTION_KEYWORD",
+
+            # (optional)
+            "view_template": "VIEW_TEMPLATE",
+
+            # (optional)
+            "include_toc": true,
+
+            # A list of categories.
+            "categories": [
+              {
+                # ...
+              }
+            ]
+          }
+
+        .. seealso::
+            For more information on the format and the configuration
+            options, please refer to the documentation:
+            :doc:`/configuration/section`
+        """
+        super(QuestionnaireSection, self).__init__(
+            parent_object, configuration)
+        self.categories = self.children
+
+        view_template = self.configuration.get('view_template', 'default')
+        self.view_template = 'details/section/{}.html'.format(view_template)
+
+        self.include_toc = self.configuration.get('include_toc', False) is True
+
+    def get_details(
+            self, data={}, editable=False, edit_step_route='',
+            questionnaire_object=None):
+
+        rendered_categories = []
+        for category in self.categories:
+            rendered_categories.append(category.get_details(
+                data, editable=editable, edit_step_route=edit_step_route,
+                questionnaire_object=questionnaire_object))
+
+        toc_content = []
+        if self.include_toc:
+            toc_content = self.parent_object.get_toc_data()
+
+        return render_to_string(self.view_template, {
+            'label': self.label,
+            'keyword': self.keyword,
+            'categories': rendered_categories,
+            'toc_content': toc_content,
+        })
+
+
+class QuestionnaireConfiguration(BaseConfigurationObject):
     """
     A class representing the configuration of a Questionnaire.
 
@@ -1111,12 +1109,17 @@ class QuestionnaireConfiguration(object):
         :doc:`/configuration/questionnaire`
     """
     valid_options = [
-        'categories',
+        'sections',
     ]
+    name_current = '-'
+    name_parent = '-'
+    name_children = 'sections'
+    Child = QuestionnaireSection
 
     def __init__(self, keyword, configuration_object=None):
         self.keyword = keyword
-        self.categories = []
+        self.configuration_keyword = keyword
+        self.sections = []
         self.configuration_object = configuration_object
         if self.configuration_object is None:
             self.configuration_object = Configuration.get_active_by_code(
@@ -1134,17 +1137,25 @@ class QuestionnaireConfiguration(object):
         self.categories.append(category)
 
     def get_category(self, keyword):
-        for category in self.categories:
-            if category.keyword == keyword:
-                return category
+        for section in self.sections:
+            for category in section.categories:
+                if category.keyword == keyword:
+                    return category
         return None
 
     def get_questiongroups(self):
-        questiongroups = []
-        for category in self.categories:
-            for subcategory in category.subcategories:
-                questiongroups.extend(subcategory.questiongroups)
-        return questiongroups
+        def unnest_questiongroups(nested):
+            ret = []
+            try:
+                for child in nested.children:
+                    if not isinstance(child, QuestionnaireQuestiongroup):
+                        ret.extend(unnest_questiongroups(child))
+                    else:
+                        ret.append(child)
+            except AttributeError:
+                pass
+            return ret
+        return unnest_questiongroups(self)
 
     def get_questiongroup_by_keyword(self, keyword):
         for questiongroup in self.get_questiongroups():
@@ -1155,12 +1166,22 @@ class QuestionnaireConfiguration(object):
     def get_details(
             self, data={}, editable=False, edit_step_route='',
             questionnaire_object=None):
-        rendered_categories = []
-        for category in self.categories:
-            rendered_categories.append(category.get_details(
+        rendered_sections = []
+        for section in self.sections:
+            rendered_sections.append(section.get_details(
                 data, editable=editable, edit_step_route=edit_step_route,
                 questionnaire_object=questionnaire_object))
-        return rendered_categories
+        return rendered_sections
+
+    def get_toc_data(self):
+        sections = []
+        for section in self.sections:
+            categories = []
+            for category in section.categories:
+                categories.append((category.keyword, category.label))
+            sections.append(
+                (section.keyword, section.label, tuple(categories)))
+        return tuple(sections)
 
     def get_image_data(self, data):
         """
@@ -1290,20 +1311,20 @@ class QuestionnaireConfiguration(object):
         """
         This function reads an active configuration of a Questionnaire.
         If a configuration is found, it loads the configuration of all
-        its categories.
+        its sections.
 
         The configuration of the questionnaire needs to have the
         following format::
 
           {
-            # See class QuestionnaireCategory for the format of categories.
-            "categories": [
+            # See class QuestionnaireSection for the format of sections.
+            "sections": [
               # ...
             ]
           }
 
         .. seealso::
-            :class:`configuration.configuration.QuestionnaireCategory`
+            :class:`configuration.configuration.QuestionnaireSection`
 
         .. seealso::
             :doc:`/configuration/questionnaire`
@@ -1321,95 +1342,17 @@ class QuestionnaireConfiguration(object):
                 raise ConfigurationErrorNoConfigurationFound(base_code)
             base_configuration = base_configuration_object.data
 
-        self.configuration = QuestionnaireConfiguration.merge_configurations(
-            base_configuration, specific_configuration)
+        self.configuration = self.merge_configurations(
+            self, base_configuration, specific_configuration)
+        self.validate_options()
 
-        validate_options(
-            self.configuration, self.valid_options, QuestionnaireConfiguration)
-
-        conf_categories = self.configuration.get('categories')
+        conf_sections = self.configuration.get('sections')
         validate_type(
-            conf_categories, list, 'categories', 'list of dicts', '-')
+            conf_sections, list, 'sections', 'list of dicts', '-')
 
-        for conf_category in conf_categories:
-            self.add_category(QuestionnaireCategory(self, conf_category))
-
-    @staticmethod
-    def merge_configurations(base, specific):
-        """
-        Merges two configurations of Questionnaires into a single one.
-        The base configuration is extended by the specific
-        configuration.
-
-        Categories are identified by their keyword and merged.
-
-        .. seealso::
-            The merging of the configuration of categories is handled by
-            :func:`QuestionnaireCategory.merge_configurations`
-
-        Args:
-            ``base`` (dict): The configuration of the base
-            Questionnaire on which the specific configuration is based.
-
-            ``specific`` (dict): The configuration of the specific
-            Questionnaire extending the base configuration.
-
-        Returns:
-            ``dict``. The merged configuration.
-        """
-        validate_type(base, dict, 'base', 'dict', '-')
-        validate_type(specific, dict, 'base', 'dict', '-')
-
-        merged_categories = []
-        base_categories = base.get('categories', [])
-        specific_categories = specific.get('categories', [])
-
-        if base_categories:
-            validate_type(
-                base_categories, list, 'categories', 'list of dicts', '-')
-        validate_type(
-            specific_categories, list, 'categories', 'list of dicts', '-')
-
-        # Collect all base category configurations and find eventual
-        # specific configurations for these categories
-        for base_category in base_categories:
-            specific_category = find_dict_in_list(
-                specific_categories, 'keyword', base_category.get('keyword'))
-            merged_categories.append(
-                QuestionnaireCategory.merge_configurations(
-                    base_category.copy(), specific_category.copy()))
-
-        # Collect all specific category configurations which are not
-        # part of the base categories
-        for specific_category in specific_categories:
-            base_category = find_dict_in_list(
-                base_categories, 'keyword', specific_category.get('keyword'))
-            if not base_category:
-                merged_categories.append(specific_category.copy())
-
-        base['categories'] = merged_categories
-        return base
-
-
-def validate_options(configuration, valid_options, obj):
-    """
-    Validate a configuration dict to check if it contains invalid
-    options as keys.
-
-    Args:
-        ``configuration`` (dict): A configuration dictionary.
-
-        ``valid_options`` (list): A list with possible options.
-
-        ``obj`` (object): An object to indicate in the error message.
-
-    Raises:
-        :class:`qcat.errors.ConfigurationErrorInvalidOption`
-    """
-    invalid_options = list(set(configuration) - set(valid_options))
-    if len(invalid_options) > 0:
-        raise ConfigurationErrorInvalidOption(
-            invalid_options[0], configuration, obj)
+        for conf_section in conf_sections:
+            self.sections.append(QuestionnaireSection(self, conf_section))
+        self.children = self.sections
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):
@@ -1444,6 +1387,17 @@ class RadioSelect(forms.RadioSelect):
     the template used.
     """
     template_name = 'form/field/radio.html'
+
+    def get_context_data(self):
+        """
+        Add the questiongroup conditions to the context data so they are
+        available within the template of the widget.
+        """
+        ctx = super(RadioSelect, self).get_context_data()
+        ctx.update({
+            'questiongroup_conditions': self.questiongroup_conditions,
+        })
+        return ctx
 
 
 class Select(forms.Select):

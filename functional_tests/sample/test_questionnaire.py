@@ -386,6 +386,90 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
 
+    def test_nested_subcategories(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        cat_2_position = get_position_of_category('cat_2')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_2']))
+
+        # She sees values which are inside nested subcategories
+        self.findBy('id', 'id_qg_19-0-original_key_5')
+        self.findBy('id', 'id_qg_20-0-original_key_25')
+        self.findBy('id', 'id_qg_21-0-original_key_26')
+
+        # She sees the progress is at 0
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+
+        # She submits the form empty and sees that no values were submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[contains(text(), "Key 25")]')
+        self.findByNot('xpath', '//*[contains(text(), "Key 26")]')
+        progress_indicator = self.findBy(
+            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+                cat_2_position))
+        self.assertIn('0/', progress_indicator.text)
+
+        # She goes back to the step and fills out some fields
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_2']))
+        self.findBy('id', 'id_qg_19-0-original_key_5').send_keys('Foo')
+        self.findBy('id', 'id_qg_20-0-original_key_25').send_keys('')
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 25%;"]')
+        self.findBy('id', 'id_qg_21-0-original_key_26').send_keys('Bar')
+        self.findBy('id', 'id_qg_20-0-original_key_25').send_keys('')
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+
+        # She submits the form and sees the values were submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 26")]')
+        self.findBy('xpath', '//*[contains(text(), "Bar")]')
+        self.findByNot('xpath', '//*[contains(text(), "Key 25")]')
+
+        # She sees that value to key 25 was only submitted once
+        key_26 = self.findManyBy('xpath', '//*[contains(text(), "Key 26")]')
+        self.assertEqual(len(key_26), 1)
+
+        # She goes back to the form and sees that the values are populated
+        # correctly in the form
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_2']))
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+        self.assertEqual(self.findBy(
+            'id', 'id_qg_19-0-original_key_5').get_attribute('value'), 'Foo')
+        self.assertEqual(self.findBy(
+            'id', 'id_qg_21-0-original_key_26').get_attribute('value'), 'Bar')
+        self.findBy('id', 'id_qg_20-0-original_key_25').send_keys('Faz')
+
+        # She submits the form and sees the values were submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 26")]')
+        self.findBy('xpath', '//*[contains(text(), "Bar")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 25")]')
+        self.findBy('xpath', '//*[contains(text(), "Faz")]')
+
+        # She submits the form completely and sees the values were submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 26")]')
+        self.findBy('xpath', '//*[contains(text(), "Bar")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 25")]')
+        self.findBy('xpath', '//*[contains(text(), "Faz")]')
+
     def test_selects_with_chosen(self):
 
         # Alice logs in
@@ -525,15 +609,12 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '(//input[@name="qg_10-0-key_13"])[1]').click()
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 25%;"]')
 
         # She submits the step and sees that the value was submitted and
         # the form progress on the overview page is updated
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[contains(text(), "Key 13")]')
-
-        import time
-        time.sleep(30)
 
         self.findBy('xpath', '//*[contains(text(), "Value 13_1")]')
         progress_indicator = self.findBy(
@@ -546,7 +627,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_2']))
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 25%;"]')
 
         # She deselects the first value and sees that the progress was
         # updated
@@ -1068,7 +1149,7 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 25%;"]')
 
         # She submits the step and sees that the value was submitted and
         # the form progress on the overview page is updated
@@ -1088,7 +1169,7 @@ class QuestionnaireTest(FunctionalTest):
             'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 25%;"]')
 
         # She selects None and sees that the row is not highlighted
         # anymore and the progress was updated
@@ -1146,7 +1227,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_1']))
         self.findBy(
-            'xpath', '//input[@name="qg_3-0-key_11" and @value="True"]')\
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="1"]')\
             .click()
 
         # She sees that the progress was updated and submits the form.
@@ -1168,10 +1249,10 @@ class QuestionnaireTest(FunctionalTest):
             route_questionnaire_new_step, args=['cat_1']))
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         self.findBy(
-            'xpath', '//input[@name="qg_3-0-key_11" and @value="True" and '
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="1" and '
             '@checked=""]')
         self.findBy(
-            'xpath', '//input[@name="qg_3-0-key_11" and @value="False"]')\
+            'xpath', '//input[@name="qg_3-0-key_11" and @value="0"]')\
             .click()
         self.findBy('id', 'button-submit').click()
 

@@ -47,6 +47,10 @@ def get_category_count():
     return len(get_categories())
 
 
+def get_section_count():
+    return len(get_sections())
+
+
 def get_categories():
     return (
         ('cat_0', 'Category 0'),
@@ -54,6 +58,13 @@ def get_categories():
         ('cat_2', 'Category 2'),
         ('cat_3', 'Category 3'),
         ('cat_4', 'Category 4'),
+    )
+
+
+def get_sections():
+    return (
+        ('section_1', 'Section 1'),
+        ('section_2', 'Section 2'),
     )
 
 

@@ -68,6 +68,63 @@ def generic_questionnaire_new_step(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
+    def _validate_formsets(
+            nested_formsets, current_locale, original_locale):
+        """
+        Helper function to validate a set of nested formsets. Unnests
+        the formsets and validates each of them. Returns the cleaned
+        data if the formsets are valid.
+
+        Args:
+            ``nested_formsets`` (list): A nested list of tuples with
+            formsets. Each tuple contains of the configuration [0] and
+            the formsets [1]
+
+            ``current_locale`` (str): The current locale.
+
+            ``original_locale`` (str): The original locale in which the
+            questionnaire was originally created.
+
+        Returns:
+            ``dict``. The cleaned data dictionary if the formsets are
+            valid. Else ``None``.
+
+            ``bool``. A boolean indicating whether the formsets are
+            valid or not.
+        """
+        def unnest_formets(nested_formsets):
+            """
+            Small helper function to unnest nested formsets. Returns them
+            all in a flat array.
+            """
+            ret = []
+            for __, f in nested_formsets:
+                if isinstance(f, list):
+                    ret.extend(unnest_formets(f))
+                else:
+                    ret.append(f)
+            return ret
+
+        data = {}
+        is_valid = True
+        formsets = unnest_formets(nested_formsets)
+        for formset in formsets:
+            is_valid = is_valid and formset.is_valid()
+
+            if is_valid is False:
+                return None, False
+
+            for f in formset.forms:
+                questiongroup_keyword = f.prefix.split('-')[0]
+                cleaned_data = \
+                    get_questiongroup_data_from_translation_form(
+                        f.cleaned_data, current_locale, original_locale)
+                try:
+                    data[questiongroup_keyword].append(cleaned_data)
+                except KeyError:
+                    data[questiongroup_keyword] = [cleaned_data]
+
+        return data, True
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
     category = questionnaire_configuration.get_category(step)
@@ -94,24 +151,9 @@ def generic_questionnaire_new_step(
 
     valid = True
     if request.method == 'POST':
-        data = {}
-        for __, subcategory_formsets in category_formsets:
-            for __, questiongroup_formset in subcategory_formsets:
 
-                valid = valid and questiongroup_formset.is_valid()
-
-                if valid is False:
-                    break
-
-                for f in questiongroup_formset.forms:
-                    questiongroup_keyword = f.prefix.split('-')[0]
-                    cleaned_data = \
-                        get_questiongroup_data_from_translation_form(
-                            f.cleaned_data, current_locale, original_locale)
-                    try:
-                        data[questiongroup_keyword].append(cleaned_data)
-                    except KeyError:
-                        data[questiongroup_keyword] = [cleaned_data]
+        data, valid = _validate_formsets(
+            category_formsets, current_locale, original_locale)
 
         if valid is True:
             session_questionnaire = get_session_questionnaire()
@@ -159,6 +201,9 @@ def generic_questionnaire_new(
 
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
+
+        ``template`` (str): The name and path of the template to render
+        the response with.
 
         ``url_namespace`` (str): The namespace of the questionnaire
         URLs. It is assumed that all questionnaire apps have the same
@@ -213,19 +258,15 @@ def generic_questionnaire_new(
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
-    categories = questionnaire_configuration.get_details(
+    sections = questionnaire_configuration.get_details(
         data, editable=True,
         edit_step_route='{}:questionnaire_new_step'.format(url_namespace))
-    category_names = []
-    for category in questionnaire_configuration.categories:
-        category_names.append((category.keyword, category.label))
 
     images = questionnaire_configuration.get_image_data(data)
 
     return render(request, template, {
         'images': images,
-        'categories': categories,
-        'category_names': tuple(category_names),
+        'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'edit',
     })
@@ -245,8 +286,8 @@ def generic_questionnaire_details(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
-        ``template`` (str): The path of the template to be rendered for
-        the details.
+        ``template`` (str): The name and path of the template to render
+        the response with.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -257,18 +298,15 @@ def generic_questionnaire_details(
         configuration_code)
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
-    categories = questionnaire_configuration.get_details(
+
+    sections = questionnaire_configuration.get_details(
         data=data, questionnaire_object=questionnaire_object)
-    category_names = []
-    for category in questionnaire_configuration.categories:
-        category_names.append((category.keyword, category.label))
 
     images = questionnaire_configuration.get_image_data(data)
 
     return render(request, template, {
         'images': images,
-        'categories': categories,
-        'category_names': tuple(category_names),
+        'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'view',
     })

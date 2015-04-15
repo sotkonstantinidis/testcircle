@@ -10,8 +10,8 @@ The configuration of a Category is only part of the
     :class:`configuration.configuration.QuestionnaireCategory`
 
 +-----------------+----------------------------------------------------+
-| Parent element: | :doc:`/configuration/questionnaire`                |
-+-----------------+----------------------------------------------------+
+| Parent element: | :doc:`/configuration/section`                      |
++-----------------+---------->------------------------------------------+
 | Child element:  | :doc:`/configuration/subcategory`                  |
 +-----------------+----------------------------------------------------+
 
@@ -33,6 +33,9 @@ The basic format of the configuration is as follows::
 
     # (optional)
     "with_metadata": true,
+
+    # (optional)
+    "include_toc": true,
 
     # A list of subcategories.
     "subcategories": [
@@ -85,6 +88,14 @@ example for manual rendering of the category details. Defaults to
 
 (Optional). An optional boolean indicating whether to add the metadata
 of the current Questionnaire to the template or not. Defaults to ``False``.
+
+
+``include_toc``
+^^^^^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether to add a table of
+contents to the current category or not. The ToC is rendered at the top
+of the category. Defaults to ``False``.
 
 
 ``subcategories``

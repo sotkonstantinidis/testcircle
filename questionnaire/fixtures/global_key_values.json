@@ -2037,6 +2037,32 @@
 
 {
     "fields": {
+        "translation_type": "category",
+        "data": "{\"wocat\":{\"label\":{\"en\":\"General Information\"}}, \"unccd\":{\"label\":{\"en\":\"General Information\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 5981
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"wocat\":{\"label\":{\"en\":\"Specifications\"}}, \"unccd\":{\"label\":{\"en\":\"Specifications\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 5982
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": "{\"wocat\":{\"label\":{\"en\":\"Analysis\"}}, \"unccd\":{\"label\":{\"en\":\"Analysis\"}}}"
+    },
+    "model": "configuration.translation",
+    "pk": 5983
+},
+
+
+{
+    "fields": {
         "keyword": "name",
         "translation": 5001,
         "configuration": "{\"type\": \"char\"}"
@@ -4094,5 +4120,31 @@
     },
     "model": "configuration.questiongroup",
     "pk": 2
+},
+
+
+{
+    "fields": {
+        "keyword": "section_general_information",
+        "translation": 5981
+    },
+    "model": "configuration.category",
+    "pk": 1901
+},
+{
+    "fields": {
+        "keyword": "section_specifications",
+        "translation": 5982
+    },
+    "model": "configuration.category",
+    "pk": 1902
+},
+{
+    "fields": {
+        "keyword": "section_analysis",
+        "translation": 5983
+    },
+    "model": "configuration.category",
+    "pk": 1903
 }
 ]

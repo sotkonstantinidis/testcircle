@@ -27,29 +27,9 @@
 
   <article role="main">
     <main class="is-rhythmed-4">
-      {% for category in categories %}
-        {{ category }}
-      {% if forloop.counter == 1 %}
-        <section class="row is-rhythmed-2">
-          <div class="small-12 columns">
-            <ul class="accordion" data-accordion role="tablist">
-              <li class="accordion-navigation">
-                <a href="#summary" role="tab" id="panel1d-heading" aria-controls="panel1d" data-toggle="summary"><svg class="icon-lines is-inline"><use xlink:href="#icon-list"></use></svg> {% trans "Table of Content" %}</a>
-                <div id="summary" class="content" role="tabpanel" aria-labelledby="panel1d-heading">
-                  <ol class="summary">
-                    {% for keyword, label in category_names %}
-                      <li data-magellan-arrival="{{ keyword }}">
-                        <a href="#{{ keyword }}" class="link">{{ label }}</a>
-                      </li>
-                    {% endfor %}
-                  </ol>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-      {% endif %}
-    {% endfor %}
+      {% for section in sections %}
+        {{ section }}
+      {% endfor %}
     </main>
     {% if mode == 'edit' %}
       <form action="" method="POST">

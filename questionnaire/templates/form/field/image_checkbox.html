@@ -33,12 +33,12 @@
         </li>
         {% for c in conditions %}
           {% if choice.0 == c.0 %}
-            {% for f in form.visible_fields %}
-              {% if f.name == c.2 %}
+            {% for f2 in f.visible_fields %}
+              {% if f2.name == c.2 %}
                 {% if choice.0 in value %}
-                  {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
+                  {% formfield f2 using "form/field/image_checkbox_conditional.html" with label=f2.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
                 {% else %}
-                  {% formfield f using "form/field/image_checkbox_conditional.html" with label=f.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
+                  {% formfield f2 using "form/field/image_checkbox_conditional.html" with label=f2.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
                 {% endif %}
               {% endif %}
             {% endfor %}
