@@ -22,20 +22,20 @@
       <li class="accordion-navigation">
         <a href="#summary_{{ toc_keyword }}" role="tab" id="panel1d-heading_{{ toc_keyword }}" aria-controls="panel1d" data-toggle="summary_{{ toc_keyword }}"><svg class="icon-lines is-inline"><use xlink:href="#icon-list"></use></svg> {% trans "Table of Content" %}</a>
         <div id="summary_{{ toc_keyword }}" class="content" role="tabpanel" aria-labelledby="panel1d-heading_{{ toc_keyword }}">
-          <ol class="summary">
+          <ul class="summary">
             {% for section_keyword, section_label, categories in toc_content %}
               <li data-magellan-arrival="{{ section_keyword }}">
                 <a href="#{{ section_keyword }}" class="link">{{ section_label }}</a>
               </li>
-              <ol>
+              <ul>
               {% for category_keyword, category_label in categories %}
                 <li data-magellan-arrival="{{ category_keyword }}">
                   <a href="#{{ category_keyword }}" class="link">{{ category_label }}</a>
                 </li>
               {% endfor %}
-              </ol>
+              </ul>
             {% endfor %}
-          </ol>
+          </ul>
         </div>
       </li>
     </ul>
