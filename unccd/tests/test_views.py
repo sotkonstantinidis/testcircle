@@ -52,6 +52,12 @@ def get_categories():
         ('unccd_0_general_information', 'General Information'),
         ('unccd_0_classification', 'Classification'),
         ('unccd_1_context', 'Section 1: ...'),
+        ('unccd_2_problems_addressed', 'Section 2: ...'),
+        ('unccd_3_activities', 'Section 3: ...'),
+        ('unccd_4_actors_involved', 'Section 4: ...'),
+        ('unccd_5_impact', 'Section 5: ...'),
+        ('unccd_6_adoption_replicability', 'Section 6: ...'),
+        ('unccd_7_lessons_learned', 'Section 7: ...'),
     )
 
 

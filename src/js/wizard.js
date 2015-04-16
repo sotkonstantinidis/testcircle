@@ -124,15 +124,17 @@ function checkConditionalQuestiongroups(element) {
 }
 
 /**
- * Clears all form fields of a questiongroup.
+ * Clears all form fields of a questiongroup. It is important to trigger
+ * the change event for each so chained conditional questiongroups are
+ * validated.
  *
  * @param {Element} questiongroup - The questiongroup element in which
  *   to clear all fields.
  */
 function clearQuestiongroup(questiongroup) {
-  questiongroup.find('input:text, textarea').val('');
-  questiongroup.find('input:radio').removeAttr('selected');
-  questiongroup.find('input:checkbox').removeAttr('checked');
+  questiongroup.find('input:text, textarea').val('').change();
+  questiongroup.find('input:radio').prop('checked', false).change();
+  questiongroup.find('input:checkbox').prop('checked', false).change();
 }
 
 $(function() {
