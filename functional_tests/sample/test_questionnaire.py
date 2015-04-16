@@ -925,6 +925,102 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 24')
         self.checkOnPage('Foo')
 
+    def test_conditional_chaining(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        # She sees the radio button for Key 11
+        key_11_yes = self.findBy('id', 'id_qg_3-0-key_11_1')
+
+        # She does not see the Keys 27 and 28
+        key_27_value_3 = self.findBy('id', 'id_qg_22-0-key_27_3_1')
+        self.assertFalse(key_27_value_3.is_displayed())
+        key_28 = self.findBy('id', 'id_qg_23-0-original_key_28')
+        self.assertFalse(key_28.is_displayed())
+
+        # She selects Key 11 and sees that Key 27 is visible but Key 28
+        # is not
+        key_11_yes.click()
+        self.assertTrue(key_27_value_3.is_displayed())
+        self.assertFalse(key_28.is_displayed())
+
+        # She selects Key 27 and sees that Key 28 is now visible
+        key_27_value_3.click()
+        self.assertTrue(key_28.is_displayed())
+
+        # She enters some text for Key 28 and deselects Key 27. She sees
+        # that Key 28 is hidden
+        key_28.send_keys('Foo')
+        key_27_value_3.click()
+        self.assertFalse(key_28.is_displayed())
+
+        # She reselects Key 27 and sees Key 28 is visible again but empty
+        key_27_value_3.click()
+        self.assertTrue(key_28.is_displayed())
+        self.assertEqual(key_28.get_attribute('value'), '')
+
+        # She enters some text again and decides to deselect Key 11
+        key_28.send_keys('Foo')
+        key_11_no = self.findBy('id', 'id_qg_3-0-key_11_2')
+        key_11_no.click()
+
+        # She sees that both Key 27 and 28 are not visible anymore
+        self.assertFalse(key_27_value_3.is_displayed())
+        self.assertFalse(key_28.is_displayed())
+
+        # She reselects Key 11 and sees that only Key 27 is visible and empty
+        key_11_yes.click()
+        self.assertTrue(key_27_value_3.is_displayed())
+        self.assertFalse(key_28.is_displayed())
+
+        # She reselects Key 27 and sees that Key 28 is visible and empty
+        key_27_value_3.click()
+        self.assertTrue(key_28.is_displayed())
+        self.assertEqual(key_28.get_attribute('value'), '')
+
+        # She enters some text and submits the form
+        key_28.send_keys('Foo')
+        self.findBy('id', 'button-submit').click()
+
+        # She sees all values were submitted correctly
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.checkOnPage('Key 11')
+        self.checkOnPage('Yes')
+        self.checkOnPage('Key 27')
+        self.checkOnPage('Value 27 C')
+        self.checkOnPage('Key 28')
+        self.checkOnPage('Foo')
+
+        # She goes back to the form and sees that the values are still
+        # there, Keys 27 and 28 are visible
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+        key_11_yes = self.findBy('id', 'id_qg_3-0-key_11_1')
+        # She does not see the Keys 27 and 28
+        key_27_value_3 = self.findBy(
+            'xpath',
+            '//input[@id="id_qg_22-0-key_27_3_1" and @checked="checked"]')
+        self.assertTrue(key_27_value_3.is_displayed())
+        key_28 = self.findBy('id', 'id_qg_23-0-original_key_28')
+        self.assertTrue(key_28.is_displayed())
+        self.assertEqual(key_28.get_attribute('value'), 'Foo')
+
+        # She submits the form completely and sees all the values were
+        # submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Key 11')
+        self.checkOnPage('Yes')
+        self.checkOnPage('Key 27')
+        self.checkOnPage('Value 27 C')
+        self.checkOnPage('Key 28')
+        self.checkOnPage('Foo')
+
     def test_image_checkbox_subcategory(self):
 
         # Alice logs in
