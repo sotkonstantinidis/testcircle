@@ -93,7 +93,7 @@ module.exports = function(grunt) {
     // 1 file to rule them all! (just choose what you always need)
     concat: {
       options: {
-        separator: '\n'
+        separator: ';\n'
       },
       dist: {
         src: [
@@ -190,7 +190,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: 'src/js/**/*.js',
-        tasks: ['copy'],
+        tasks: ['concat', 'uglify', 'copy'],
         options: {
           livereload: true,
         }

@@ -196,6 +196,34 @@ $(function() {
   .on('click', '.button-bar', toggleButtonBarSelected)
 
 
+  // Slider
+  // -----------------
+  // See full do here: http://lokku.github.io/jquery-nstslider/
+  $('.nstSlider').nstSlider({
+    "crossable_handles": false,
+    "left_grip_selector": ".leftGrip",
+    "right_grip_selector": ".rightGrip",
+    "value_bar_selector": ".bar",
+    "value_changed_callback": function(cause, leftValue, rightValue, prevLeft, prevRight) {
+      var $grip = $(this).find('.leftGrip'),
+          whichGrip = 'left grip';
+      if (leftValue === prevLeft) {
+          $grip = $(this).find('.rightGrip');
+          whichGrip = 'right grip';
+      }
+      var text = [];
+      text.push('<b>Moving ' + whichGrip + '</b>');
+      text.push('role: ' + $grip.attr('role'));
+      text.push('aria-valuemin: ' + $grip.attr('aria-valuemin'));
+      text.push('aria-valuenow: ' + $grip.attr('aria-valuenow'));
+      text.push('aria-valuemax: ' + $grip.attr('aria-valuemax'));
+      text.push('aria-disabled: ' + $grip.attr('aria-disabled'));
+      $('.ariaAttributesAsText').html(text.join('<br />'));
+      $(this).parent().find('.leftLabel').text(leftValue);
+      $(this).parent().find('.rightLabel').text(rightValue);
+    }
+  });
+
 });
 
 /**
