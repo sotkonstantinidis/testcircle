@@ -88,6 +88,48 @@ module.exports = function(grunt) {
       },
     },
 
+
+    // Foundation scripts
+    // 1 file to rule them all! (just choose what you always need)
+    concat: {
+      options: {
+        separator: '\n'
+      },
+      dist: {
+        src: [
+          'bower_components/foundation/js/foundation/foundation.js',
+          // 'bower_components/foundation/js/foundation/foundation.abide.js',
+          'bower_components/foundation/js/foundation/foundation.accordion.js',
+          // 'bower_components/foundation/js/foundation/foundation.alert.js',
+          'bower_components/foundation/js/foundation/foundation.clearing.js',
+          'bower_components/foundation/js/foundation/foundation.dropdown.js',
+          'bower_components/foundation/js/foundation/foundation.equalizer.js',
+          'bower_components/foundation/js/foundation/foundation.interchange.js',
+          // 'bower_components/foundation/js/foundation/foundation.joyride.js',
+          // 'bower_components/foundation/js/foundation/foundation.magellan.js',
+          'bower_components/foundation/js/foundation/foundation.offcanvas.js',
+          // 'bower_components/foundation/js/foundation/foundation.orbit.js',
+          // 'bower_components/foundation/js/foundation/foundation.reveal.js',
+          // 'bower_components/foundation/js/foundation/foundation.slider.js',
+          'bower_components/foundation/js/foundation/foundation.tab.js',
+          'bower_components/foundation/js/foundation/foundation.tooltip.js',
+          'bower_components/foundation/js/foundation/foundation.topbar.js'
+        ],
+        dest: 'src/js/foundation.js',
+      }
+    },
+    // Make it smaller
+    uglify: {
+      options: {
+        mangle: false
+      },
+      dist: {
+        files: {
+          'static/js/foundation.min.js': ['src/js/foundation.js']
+        }
+      }
+    },
+
     // Copy: copies files (libraries and single files, e.g. fonts)
     copy: {
       main: {
@@ -95,20 +137,19 @@ module.exports = function(grunt) {
           'static/js/modernizr.js': 'bower_components/modernizr/modernizr.js',
           'static/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
           'static/js/jquery.min.map': 'bower_components/jquery/dist/jquery.min.map',
+          'static/js/jquery.nstSlider.min.js': 'bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.js',
           'static/js/dropzone.min.js': 'bower_components/dropzone/downloads/dropzone.min.js',
-          'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
-          'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css',
-          'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png',
-          'static/css/chosen-sprite@2x.png': 'bower_components/chosen/chosen-sprite@2x.png',
           'static/js/app.js': 'src/js/app.js',
           'static/js/wocat.magellan.js': 'src/js/wocat.magellan.js',
           'static/js/wizard.js': 'src/js/wizard.js'
-        },{
+        }
+        ,{
           expand: true,
           cwd: 'bower_components/foundation/js/foundation/',
           src: ['**/*'],
           dest: 'static/js/foundation/'
-        }]
+        }
+        ]
       },
       assets: {
         files: [{
@@ -187,6 +228,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('assemble');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-postcss');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -204,7 +247,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', function(arg) {
     // Default mode is 'dev'
     var mode = (arg && arg === 'deploy') ? 'deploy' : 'dev';
-    grunt.task.run(['sass:' + mode, 'svgstore', 'imagemin', 'copy', 'assemble']);
+    grunt.task.run(['sass:' + mode, 'svgstore', 'imagemin', 'concat', 'uglify', 'copy', 'assemble']);
   });
   grunt.registerTask('server', ['connect:server', 'watch']);
   grunt.registerTask('default', ['build', 'server']);

@@ -7,6 +7,7 @@
     "compass-mixins": "~1.0.1",
     "highlight": "~7.0.1",
     "dropzone": "~3.12.0",
-    "chosen": "~1.4.2"
+    "chosen": "~1.4.2",
+    "jquery-nstSlider": "~1.0.11"
   }
 }
