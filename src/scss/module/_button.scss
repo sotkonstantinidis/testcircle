@@ -42,6 +42,11 @@ button,
     position: relative;
     margin: 0;
     font-size: rem-calc(14);
+    z-index: 1;
+  }
+  label.button:focus,
+  label.button:hover {
+    z-index: 0;
   }
   input[type="radio"]{
     display: none;
@@ -49,6 +54,11 @@ button,
   input[type="radio"]:checked+label{
     background: $color-brown-dark;
     color: white;
+
+    &:focus,
+    &:hover {
+      box-shadow: 0 0 0 $button-shadow-effect $color-brown-dark;
+    }
   }
   .is-selected &.big-comment input[type="radio"]:checked+label:after {
     content: '';
