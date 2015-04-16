@@ -19,6 +19,7 @@
     </div>
   </div>
 
+
   <h3>Measuring with comment</h3>
 
   <dl class="tabs" data-tab>
@@ -34,4 +35,19 @@
     </div>
   </div>
 
+  <h3>Importance in Charts</h3>
+  <p class="help-bloc">We use chart-bars with five levels of colors ".is-level-n", corresponding to the importance of each element.</p>
+
+  <dl class="tabs" data-tab>
+    <dd class="active"><a href="#panel05-05">Result</a></dd>
+    <dd><a href="#panel05-06">HTML</a></dd>
+  </dl>
+  <div class="tabs-content panel">
+    <div class="content active" id="panel05-05">
+      {{> qualify_chart}}
+    </div>
+    <div class="content" id="panel05-06">
+      {{#markdown}}{{ embed 'src/partial/form_element/qualify_chart.hbs' 'xml' }}{{/markdown}}
+    </div>
+  </div>
 </section>

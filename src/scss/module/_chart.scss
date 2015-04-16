@@ -1,0 +1,85 @@
+.chart-horizontal-bars,
+.chart-pyramidal-bars {
+  @include reset-list;
+}
+.chart-horizontal-bars .chart-bar,
+.chart-pyramidal-bars .chart-bar {
+  display: block;
+  padding: rem-calc(6 12 5);
+  background-color: $color-brown;
+  border-radius: rem-calc(2);
+  color: white;
+  // Different importance level (max 5)
+  @for $i from 1 through 5 {
+    &.is-level-#{$i} {
+      background-color: rgba($color-brown, 0.2 * $i );
+    }
+  }
+
+  & + .chart-bar {
+    margin-top: rem-calc(1);
+  }
+}
+
+$bars-max-number: 20;
+$bars-factor: 4;
+
+.chart-pyramidal-bars {
+  @for $i from 1 through $bars-max-number {
+    .chart-bar:nth-child(#{$i}) {
+      margin-right: rem-calc($bars-max-number - ($i * $bars-factor));
+    }
+  }
+  &.text-right {
+    @for $i from 1 through $bars-max-number {
+      .chart-bar:nth-child(#{$i}) {
+        margin-right: 0;
+        margin-left: rem-calc($bars-max-number - ($i * $bars-factor));
+      }
+    }
+  }
+}
+.chart-pyramidal-bars.is-desc {
+  @for $i from 1 through $bars-max-number {
+    .chart-bar:nth-child(#{$i}) {
+      margin-right: rem-calc($i * $bars-factor);
+    }
+  }
+  &.text-right {
+    @for $i from 1 through $bars-max-number {
+      .chart-bar:nth-child(#{$i}) {
+        margin-right: 0;
+        margin-left: rem-calc($i * $bars-factor);
+      }
+    }
+  }
+}
+.chart-pyramidal-bars.is-sided {
+  @for $i from 1 through $bars-max-number {
+    .chart-bar:nth-child(#{$i}) {
+      margin-right: rem-calc($bars-max-number - ($i * $bars-factor));
+      margin-left: rem-calc($bars-max-number - ($i * $bars-factor));
+    }
+  }
+
+  &.is-desc {
+    @for $i from 1 through $bars-max-number {
+      .chart-bar:nth-child(#{$i}) {
+        margin-right: rem-calc($i * $bars-factor);
+        margin-left: rem-calc($i * $bars-factor);
+      }
+    }
+  }
+}
+
+.chart-label {
+  display: inline-block;
+  max-width: 75%;
+}
+.chart-value {
+  display: inline-block;
+  float: right;
+  text-align: right;
+  min-width: 15%;
+  margin-left: 1rem;
+}
