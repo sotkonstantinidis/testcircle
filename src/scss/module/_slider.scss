@@ -64,9 +64,21 @@ $color-orange: #E87722;
     top: 0;
   }
 }
+.leftLabel,
+.rightLabel {
+  font-size: rem-calc(14);
+}
+.leftLabel  {
+  float: left;
+  margin-top: rem-calc(12);
+}
+.rightLabel {
+  margin-top: rem-calc(12);
+  float: right;
+}
 
 .form-search-advanced .nstSlider {
-  background: $color-beige-dark;
+  background: $color-brown-light;
   .rightGrip,
   .leftGrip {
     background: $color-beige-light;
@@ -81,13 +93,7 @@ $color-orange: #E87722;
     background: $color-beige;
   }
 }
-
-// styling these should be really up to you as they live outside this plugin
-.leftLabel  {
-  float: left;
-  margin-top: rem-calc(12);
-}
-.rightLabel {
-  margin-top: rem-calc(12);
-  float: right;
+.form-search-advanced .leftLabel,
+.form-search-advanced .rightLabel {
+  color: $color-beige;
 }

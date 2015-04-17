@@ -1,0 +1,33 @@
+.filter {
+  padding-bottom: rem-calc(12);
+  background: #34312C;
+}
+.filter-list {
+  @include reset-list;
+}
+.filter-item {
+  float: left;
+  a {
+    display: inline-block;
+    padding: rem-calc(6 8 6 12);
+    margin: rem-calc(12 12 0 0);
+    background-color: $color-brown;
+    color: $color-beige;
+  }
+}
+.filter-value {
+  color: white;
+}
+.filter-action {
+  font-size: rem-calc(12);
+  margin-top: rem-calc(18);
+  color: #D9D6CC;
+  a {
+    color: #D9D6CC;
+    text-decoration: underline;
+  }
+  a:hover,
+  a:focus {
+    color: #fff;
+  }
+}
