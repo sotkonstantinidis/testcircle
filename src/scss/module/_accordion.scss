@@ -14,3 +14,29 @@
   border-bottom-left-radius: $global-radius;
   border-bottom-right-radius: $global-radius;
 }
+
+.accordion.is-light {
+  .accordion-navigation {
+    border-bottom: 2px solid $color-brown-light;
+  }
+  .accordion-navigation:first-child {
+    border-top: 2px solid $color-brown-light;
+  }
+  .accordion-navigation a {
+    background-color: transparent;
+    color: white;
+    padding: 1rem 0;
+  }
+
+  .active .content {
+    background-color: transparent;
+    padding: rem-calc(0 24 24);
+  }
+  .icon {
+    transition: transform 300ms ease;
+    transform-origin: 50% 50%;
+  }
+  .active .icon {
+    transform: rotate(90deg);
+  }
+}
