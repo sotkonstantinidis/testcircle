@@ -135,7 +135,11 @@ $(function() {
     } else {
       e.preventDefault();
       target.slideToggle();
+
+      // We have to refresh sliders if their are in a collapsed element (grip position issue)
+      $('.nstSlider').nstSlider('refresh');
     }
+
   })
 
   // LIST ITEM
@@ -198,7 +202,7 @@ $(function() {
 
   // Slider
   // -----------------
-  // See full do here: http://lokku.github.io/jquery-nstslider/
+  // See full doc here: http://lokku.github.io/jquery-nstslider/
   $('.nstSlider').nstSlider({
     "crossable_handles": false,
     "left_grip_selector": ".leftGrip",
@@ -223,7 +227,6 @@ $(function() {
       $(this).parent().find('.rightLabel').text(rightValue);
     }
   });
-
 });
 
 /**

@@ -2,7 +2,7 @@
   <a name="choice"></a>
 
   <h2 data-magellan-destination="choice">Choices</h2>
-  
+
   <h3>Boolean choice</h3>
 
   <dl class="tabs" data-tab>
@@ -34,5 +34,19 @@
     </div>
   </div>
 
-  
+  <h3>Range slider</h3>
+  <p>We use an external plugin: <a href="http://lokku.github.io/jquery-nstslider/">jquery-ntSlider</a></p>
+  <dl class="tabs" data-tab>
+    <dd class="active"><a href="#panel04-05">Result</a></dd>
+    <dd><a href="#panel04-06">HTML</a></dd>
+  </dl>
+  <div class="tabs-content panel">
+    <div class="content active" id="panel04-05">
+      {{> range_slider}}
+    </div>
+    <div class="content" id="panel04-06">
+      {{#markdown}}{{ embed 'src/partial/form_element/range_slider.hbs' 'xml' }}{{/markdown}}
+    </div>
+  </div>
+
 </section>
