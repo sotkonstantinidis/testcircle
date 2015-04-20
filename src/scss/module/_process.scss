@@ -17,6 +17,7 @@
   background: rgba($color-beige-dark, 0.2);
   transition: background 300ms ease-in-out;
   cursor: pointer;
+  border-bottom: 1px solid $color-beige-light;
 
   @media #{$medium-up} {
     padding: rem-calc(12) rem-calc(24) rem-calc(12) rem-calc(36);
@@ -62,13 +63,13 @@
     content: " ";
     border: none;
   }
-  &:hover,
-  &:focus {
-    background: rgba($color-beige-dark, 0.6);
-    &:after {
-      border-left-color: rgba($color-beige-dark, 0.6);
-    }
-  }
+  // &:hover,
+  // &:focus {
+  //   background: rgba($color-beige-dark, 0.6);
+  //   &:after {
+  //     border-left-color: rgba($color-beige-dark, 0.6);
+  //   }
+  // }
   a {
     color: $color-brown;
   }
@@ -76,23 +77,15 @@
   // Current
   &.is-current {
     background: $color-beige;
+    border-bottom: none;
     &:after {
       border-left-color: $color-beige;
-    }
-  }
-
-  // Done
-  &.is-done {
-    background: rgba($color-beige-dark, 0.6);
-    &:after {
-      border-left-color: rgba($color-beige-dark, 0.6);
     }
   }
 }
 
 
 .process-status {
-  margin-top: rem-calc(1);
   background: $color-beige;
   border-radius: $global-radius;
   padding: rem-calc(12) rem-calc(24);
