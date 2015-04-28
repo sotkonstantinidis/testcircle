@@ -146,3 +146,7 @@ select,
     height: rem-calc(24);
   }
 }
+
+fieldset > div.questiongroup:not(:first-of-type) {
+  margin-top: 1rem;
+}

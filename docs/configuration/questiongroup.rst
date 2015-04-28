@@ -35,6 +35,9 @@ The basic format of the configuration is as follows::
     # (optional)
     "questiongroup_condition": "CONDITION_NAME",
 
+    # (optional)
+    "view_template": "VIEW_TEMPLATE",
+
     # A list of questions.
     "questions": [
       # ...
@@ -84,6 +87,52 @@ questiongroup. The name must correspond to one of
 
 .. seealso::
     :doc:`/configuration/question`
+
+``view_template``
+^^^^^^^^^^^^^^^^^
+
+(Optional). An optional name of a template to be used for the rendering
+of the questiongroup in the detail view. The name of the template needs
+to match a file with the ending ``.html`` inside
+``questionnaire/templates/details/questiongroup/``. If not specified,
+the default layout (``default.html``) is used.
+
+The following question templates exist. Please note that not every
+template should be used with any field type.
+
++-------------------------+---------------------------------------------------+
+| ``default``             | Simply renders each question of the questiongroup |
+|                         | without additional output.                        |
+|                         |                                                   |
+|                         | This is the default.                              |
++-------------------------+---------------------------------------------------+
+| ``bars``                | Renders all questions of the questiongroup as     |
+|                         | horizontal bars.                                  |
+|                         |                                                   |
+|                         | Should only be used for questiongroups containing |
+|                         | only questions with type ``measure``.             |
++-------------------------+---------------------------------------------------+
+| ``bars_pyramid``        | Renders all questions of the questiongroup as     |
+|                         | horizontal bars in the form of a pyramid (steps   |
+|                         | ascending on the right side).                     |
+|                         |                                                   |
+|                         | Should only be used for questiongroups containing |
+|                         | only questions with type ``measure``.             |
++-------------------------+---------------------------------------------------+
+| ``bars_pyramid_center`` | Renders all questions of the questiongroup as     |
+|                         | horizontal bars in the form of a pyramid (steps   |
+|                         | ascending on either side).                        |
+|                         |                                                   |
+|                         | Should only be used for questiongroups containing |
+|                         | only questions with type ``measure``.             |
++-------------------------+---------------------------------------------------+
+| ``bars_pyramid_desc``   | Renders all questions of the questiongroup as     |
+|                         | horizontal bars in the form of a pyramid (steps   |
+|                         | descending the left side).                        |
+|                         |                                                   |
+|                         | Should only be used for questiongroups containing |
+|                         | only questions with type ``measure``.             |
++-------------------------+---------------------------------------------------+
 
 ``questions``
 ^^^^^^^^^^^^^

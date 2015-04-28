@@ -14,7 +14,7 @@
 {% load floppyforms %}
 {% load list_to_columns %}
 
-<div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %}>
+<div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %} class="questiongroup">
 
   {% if config.label %}
     <h4>{{ config.label }}</h4>

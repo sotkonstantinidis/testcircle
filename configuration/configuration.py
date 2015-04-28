@@ -203,6 +203,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'keyword',
         'in_list',
         'form_template',
+        'view_template',
         'conditions',
         'conditional',
         'questiongroup_conditions',
@@ -243,6 +244,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
             # (optional)
             "form_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "view_template": "TEMPLATE_NAME",
 
             # (optional)
             "conditional": true,
@@ -293,6 +297,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             get_template(self.form_template)
         except TemplateDoesNotExist:
             raise ConfigurationErrorTemplateNotFound(self.form_template, self)
+
+        self.view_template = configuration.get('view_template')
 
         self.max_length = configuration.get('max_length', None)
         self.num_rows = configuration.get('num_rows', 10)
@@ -538,11 +544,29 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     'key': self.label,
                     'value': value})
             return rendered
-        elif self.field_type in ['bool', 'measure', 'select_type']:
+        elif self.field_type in ['bool', 'select_type']:
             rendered = render_to_string(
                 'details/field/textinput.html', {
                     'key': self.label,
                     'value': values[0]})
+            return rendered
+        elif self.field_type in ['measure']:
+            template_name = 'measure_bar'
+            if self.view_template:
+                template_name = self.view_template
+            template = 'details/field/{}.html'.format(template_name)
+            level = None
+            try:
+                pos = [c[1] for c in self.choices].index(values[0])
+                level = round(pos / len(self.choices) * 5)
+            except ValueError:
+                pass
+            rendered = render_to_string(
+                template, {
+                    'key': self.label,
+                    'value': values[0],
+                    'level': level,
+                })
             return rendered
         elif self.field_type in ['checkbox']:
             rendered = render_to_string(
@@ -621,6 +645,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         'max_num',
         'min_num',
         'questiongroup_condition',
+        'view_template',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -648,6 +673,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             # (optional)
             "questiongroup_condition": "CONDITION_NAME",
 
+            # (optional)
+            "view_template": "VIEW_TEMPLATE",
+
             # A list of questions.
             "questions": [
               # ...
@@ -665,6 +693,10 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         super(QuestionnaireQuestiongroup, self).__init__(
             parent_object, configuration)
         self.questions = self.children
+
+        view_template = self.configuration.get('view_template', 'default')
+        self.view_template = 'details/questiongroup/{}.html'.format(
+            view_template)
 
         self.configuration = self.configuration_object.configuration
         self.configuration.update(configuration)
@@ -737,8 +769,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             for d in data:
                 rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
-            'details/questiongroup.html', {
-                'questions': rendered_questions})
+            self.view_template, {
+                'questions': rendered_questions,
+            })
         return rendered
 
     def get_question_by_key_keyword(self, key_keyword):
