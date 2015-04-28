@@ -763,10 +763,10 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
     def get_details(self, data=[]):
         rendered_questions = []
-        for question in self.questions:
-            if question.conditional:
-                continue
-            for d in data:
+        for d in data:
+            for question in self.questions:
+                if question.conditional:
+                    continue
                 rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
             self.view_template, {
