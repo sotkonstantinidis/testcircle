@@ -219,6 +219,26 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 
+    def test_passes_if_num_lower_than_max_num_of_questiongroups(self):
+        data = {'qg_6': [
+            {'key_8': {'en': 'Key 8 - 1'}},
+            {'key_8': {'en': 'Key 8 - 2'}},
+            {'key_8': {'en': 'Key 8 - 3'}}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_raises_error_if_num_higher_than_max_num_of_questiongroups(self):
+        data = {'qg_6': [
+            {'key_8': {'en': 'Key 8 - 1'}},
+            {'key_8': {'en': 'Key 8 - 2'}},
+            {'key_8': {'en': 'Key 8 - 3'}},
+            {'key_8': {'en': 'Key 8 - 4'}}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 

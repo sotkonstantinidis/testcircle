@@ -58,6 +58,12 @@ def clean_questionnaire_data(data, configuration):
                 'Questiongroup with keyword "{}" does not exist'.format(
                     qg_keyword))
             continue
+        if questiongroup.max_num < len(qg_data_list):
+            errors.append(
+                'Questiongroup with keyword "{}" has a max_num of {} but '
+                'appears {} times'.format(
+                    qg_keyword, questiongroup.max_num, len(qg_data_list)))
+            continue
         cleaned_qg_list = []
         for qg_data in qg_data_list:
             cleaned_qg = {}
