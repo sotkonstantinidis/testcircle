@@ -140,6 +140,7 @@ module.exports = function(grunt) {
           'static/js/jquery.nstSlider.min.js': 'bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.js',
           'static/js/dropzone.min.js': 'bower_components/dropzone/downloads/dropzone.min.js',
           'static/js/app.js': 'src/js/app.js',
+          'static/js/filter.js': 'src/js/filter.js',
           'static/js/wocat.magellan.js': 'src/js/wocat.magellan.js',
           'static/js/wizard.js': 'src/js/wizard.js'
         }

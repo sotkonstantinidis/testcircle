@@ -203,11 +203,13 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'keyword',
         'in_list',
         'form_template',
+        'view_template',
         'conditions',
         'conditional',
         'questiongroup_conditions',
         'max_length',
         'num_rows',
+        'filter',
     ]
     valid_field_types = [
         'char',
@@ -243,6 +245,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
             # (optional)
             "form_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "view_template": "TEMPLATE_NAME",
 
             # (optional)
             "conditional": true,
@@ -294,8 +299,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         except TemplateDoesNotExist:
             raise ConfigurationErrorTemplateNotFound(self.form_template, self)
 
+        self.view_template = configuration.get('view_template')
+
         self.max_length = configuration.get('max_length', None)
         self.num_rows = configuration.get('num_rows', 10)
+
+        self.filterable = configuration.get('filter', False) is True
 
         self.images = []
         self.choices = ()
@@ -538,11 +547,29 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     'key': self.label,
                     'value': value})
             return rendered
-        elif self.field_type in ['bool', 'measure', 'select_type']:
+        elif self.field_type in ['bool', 'select_type']:
             rendered = render_to_string(
                 'details/field/textinput.html', {
                     'key': self.label,
                     'value': values[0]})
+            return rendered
+        elif self.field_type in ['measure']:
+            template_name = 'measure_bar'
+            if self.view_template:
+                template_name = self.view_template
+            template = 'details/field/{}.html'.format(template_name)
+            level = None
+            try:
+                pos = [c[1] for c in self.choices].index(values[0])
+                level = round(pos / len(self.choices) * 5)
+            except ValueError:
+                pass
+            rendered = render_to_string(
+                template, {
+                    'key': self.label,
+                    'value': values[0],
+                    'level': level,
+                })
             return rendered
         elif self.field_type in ['checkbox']:
             rendered = render_to_string(
@@ -621,6 +648,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         'max_num',
         'min_num',
         'questiongroup_condition',
+        'view_template',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -648,6 +676,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             # (optional)
             "questiongroup_condition": "CONDITION_NAME",
 
+            # (optional)
+            "view_template": "VIEW_TEMPLATE",
+
             # A list of questions.
             "questions": [
               # ...
@@ -665,6 +696,10 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         super(QuestionnaireQuestiongroup, self).__init__(
             parent_object, configuration)
         self.questions = self.children
+
+        view_template = self.configuration.get('view_template', 'default')
+        self.view_template = 'details/questiongroup/{}.html'.format(
+            view_template)
 
         self.configuration = self.configuration_object.configuration
         self.configuration.update(configuration)
@@ -731,14 +766,15 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
     def get_details(self, data=[]):
         rendered_questions = []
-        for question in self.questions:
-            if question.conditional:
-                continue
-            for d in data:
+        for d in data:
+            for question in self.questions:
+                if question.conditional:
+                    continue
                 rendered_questions.append(question.get_details(d))
         rendered = render_to_string(
-            'details/questiongroup.html', {
-                'questions': rendered_questions})
+            self.view_template, {
+                'questions': rendered_questions,
+            })
         return rendered
 
     def get_question_by_key_keyword(self, key_keyword):
@@ -1098,6 +1134,20 @@ class QuestionnaireSection(BaseConfigurationObject):
             'toc_content': toc_content,
         })
 
+    def get_questiongroups(self):
+        def unnest_questiongroups(nested):
+            ret = []
+            try:
+                for child in nested.children:
+                    if not isinstance(child, QuestionnaireQuestiongroup):
+                        ret.extend(unnest_questiongroups(child))
+                    else:
+                        ret.append(child)
+            except AttributeError:
+                pass
+            return ret
+        return unnest_questiongroups(self)
+
 
 class QuestionnaireConfiguration(BaseConfigurationObject):
     """
@@ -1161,6 +1211,13 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         for questiongroup in self.get_questiongroups():
             if questiongroup.keyword == keyword:
                 return questiongroup
+        return None
+
+    def get_question_by_keyword(self, questiongroup_keyword, keyword):
+        questiongroup = self.get_questiongroup_by_keyword(
+            questiongroup_keyword)
+        if questiongroup is not None:
+            return questiongroup.get_question_by_key_keyword(keyword)
         return None
 
     def get_details(
@@ -1230,6 +1287,68 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 'photographer': image.get('image_photographer')
             })
         return images
+
+    def get_filter_configuration(self):
+        """
+        Return the data needed to create the filter panels. Loops the
+        sections and within them the fields can be filtered.
+
+        Returns:
+            ``list``. A list of dictionaries for each section containing
+            filterable keys. Each section dictionary contains a list of
+            dictionaries for each key within the section which can be
+            filtered. Each dictionary has the following entries:
+
+            - ``keyword``: The keyword of the section.
+
+            - ``label``: The label of the section.
+
+            - ``filters``: A list of dictionaries for each key of this
+              section which is filterable. Each dictionary has the
+              following entries:
+
+              - ``keyword``: The keyword of the key.
+
+              - ``label``: The label of the key.
+
+              - ``values``: If available, the values as list of tuples.
+
+              - ``type``: The type of the field (eg. ``checkbox``).
+
+              - ``images`` : If available, the images as list of tuples.
+
+              - ``questiongroup``: The keyword of the questiongroup.
+        """
+        filter_configuration = []
+
+        for section in self.sections:
+            for questiongroup in section.get_questiongroups():
+                for question in questiongroup.questions:
+                    if question.filterable is True:
+                        print(question)
+
+                        s = next((
+                            item for item in filter_configuration if
+                            item["keyword"] == section.keyword), None)
+
+                        if not s:
+                            s = {
+                                'keyword': section.keyword,
+                                'label': section.label,
+                                'filters': [],
+                            }
+                            filter_configuration.append(s)
+
+                        s['filters'].append({
+                            'keyword': question.keyword,
+                            'label': question.label,
+                            'values': question.choices,
+                            'type': question.field_type,
+                            'images': question.images,
+                            'questiongroup': questiongroup.keyword,
+                        })
+
+        return tuple(filter_configuration)
 
     def get_list_data(self, questionnaires):
         """

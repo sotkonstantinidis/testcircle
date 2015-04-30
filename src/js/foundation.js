@@ -14,7 +14,7 @@
     var head = $('head');
 
     while (i--) {
-      if (head.has('.' + class_array[i]).length === 0) {
+      if(head.has('.' + class_array[i]).length === 0) {
         head.append('<meta class="' + class_array[i] + '" />');
       }
     }
@@ -34,7 +34,7 @@
 
   // Enable FastClick if present
 
-  $(function () {
+  $(function() {
     if (typeof FastClick !== 'undefined') {
       // Don't attach to body if undefined
       if (typeof document.body !== 'undefined') {
@@ -52,9 +52,7 @@
         var cont;
         if (context.jquery) {
           cont = context[0];
-          if (!cont) {
-            return context;
-          }
+          if (!cont) return context;
         } else {
           cont = context;
         }
@@ -71,12 +69,8 @@
 
   var attr_name = function (init) {
     var arr = [];
-    if (!init) {
-      arr.push('data');
-    }
-    if (this.namespace.length > 0) {
-      arr.push(this.namespace);
-    }
+    if (!init) arr.push('data');
+    if (this.namespace.length > 0) arr.push(this.namespace);
     arr.push(this.name);
 
     return arr.join('-');
@@ -106,20 +100,24 @@
 
   var bindings = function (method, options) {
     var self = this,
-        bind = function(){
-          var $this = S(this),
-              should_bind_events = !$this.data(self.attr_name(true) + '-init');
-          $this.data(self.attr_name(true) + '-init', $.extend({}, self.settings, (options || method), self.data_options($this)));
-
-          if (should_bind_events) {
-            self.events(this);
-          }
-        };
+        should_bind_events = !S(this).data(this.attr_name(true));
 
     if (S(this.scope).is('[' + this.attr_name() +']')) {
-      bind.call(this.scope);
+      S(this.scope).data(this.attr_name(true) + '-init', $.extend({}, this.settings, (options || method), this.data_options(S(this.scope))));
+
+      if (should_bind_events) {
+        this.events(this.scope);
+      }
+
     } else {
-      S('[' + this.attr_name() +']', this.scope).each(bind);
+      S('[' + this.attr_name() +']', this.scope).each(function () {
+        var should_bind_events = !S(this).data(self.attr_name(true) + '-init');
+        S(this).data(self.attr_name(true) + '-init', $.extend({}, self.settings, (options || method), self.data_options(S(this))));
+
+        if (should_bind_events) {
+          self.events(this);
+        }
+      });
     }
     // # Patch to fix #5043 to move this *after* the if/else clause in order for Backbone and similar frameworks to have improved control over event binding and data-options updating.
     if (typeof method === 'string') {
@@ -161,7 +159,7 @@
     https://github.com/paulirish/matchMedia.js
   */
 
-  window.matchMedia = window.matchMedia || (function ( doc ) {
+  window.matchMedia = window.matchMedia || (function( doc ) {
 
     'use strict';
 
@@ -186,8 +184,8 @@
       docElem.removeChild( fakeBody );
 
       return {
-        matches : bool,
-        media : q
+        matches: bool,
+        media: q
       };
 
     };
@@ -203,8 +201,7 @@
    * Licensed under the MIT license.
    */
 
-  (function(jQuery) {
-
+  (function($) {
 
   // requestAnimationFrame polyfill adapted from Erik Möller
   // fixes from Paul Irish and Tino Zijdel
@@ -270,7 +267,8 @@
 
   }
 
-  }( $ ));
+  }( jQuery ));
+
 
   function removeQuotes (string) {
     if (typeof string === 'string' || string instanceof String) {
@@ -283,7 +281,7 @@
   window.Foundation = {
     name : 'Foundation',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     media_queries : {
       'small'       : S('.foundation-mq-small').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
@@ -299,8 +297,8 @@
 
     stylesheet : $('<style></style>').appendTo('head')[0].sheet,
 
-    global : {
-      namespace : undefined
+    global: {
+      namespace: undefined
     },
 
     init : function (scope, libraries, method, options, response) {
@@ -325,7 +323,7 @@
         }
       }
 
-      S(window).load(function () {
+      S(window).load(function(){
         S(window)
           .trigger('resize.fndtn.clearing')
           .trigger('resize.fndtn.dropdown')
@@ -347,7 +345,8 @@
         if (args && args.hasOwnProperty(lib)) {
             if (typeof this.libs[lib].settings !== 'undefined') {
               $.extend(true, this.libs[lib].settings, args[lib]);
-            } else if (typeof this.libs[lib].defaults !== 'undefined') {
+            }
+            else if (typeof this.libs[lib].defaults !== 'undefined') {
               $.extend(true, this.libs[lib].defaults, args[lib]);
             }
           return this.libs[lib].init.apply(this.libs[lib], [this.scope, args[lib]]);
@@ -382,7 +381,7 @@
       }
     },
 
-    set_namespace : function () {
+    set_namespace: function () {
 
       // Description:
       //    Don't bother reading the namespace out of the meta tag
@@ -470,16 +469,12 @@
           var context = this, args = arguments;
           var later = function () {
             timeout = null;
-            if (!immediate) {
-              result = func.apply(context, args);
-            }
+            if (!immediate) result = func.apply(context, args);
           };
           var callNow = immediate && !timeout;
           clearTimeout(timeout);
           timeout = setTimeout(later, delay);
-          if (callNow) {
-            result = func.apply(context, args);
-          }
+          if (callNow) result = func.apply(context, args);
           return result;
         };
       },
@@ -516,13 +511,11 @@
         ii = opts_arr.length;
 
         function isNumber (o) {
-          return !isNaN (o - 0) && o !== null && o !== '' && o !== false && o !== true;
+          return ! isNaN (o-0) && o !== null && o !== '' && o !== false && o !== true;
         }
 
         function trim (str) {
-          if (typeof str === 'string') {
-            return $.trim(str);
-          }
+          if (typeof str === 'string') return $.trim(str);
           return str;
         }
 
@@ -530,12 +523,8 @@
           p = opts_arr[ii].split(':');
           p = [p[0], p.slice(1).join(':')];
 
-          if (/true/i.test(p[1])) {
-            p[1] = true;
-          }
-          if (/false/i.test(p[1])) {
-            p[1] = false;
-          }
+          if (/true/i.test(p[1])) p[1] = true;
+          if (/false/i.test(p[1])) p[1] = false;
           if (isNumber(p[1])) {
             if (p[1].indexOf('.') === -1) {
               p[1] = parseInt(p[1], 10);
@@ -561,7 +550,7 @@
       //
       //    Class (String): Class name for the generated <meta> tag
       register_media : function (media, media_class) {
-        if (Foundation.media_queries[media] === undefined) {
+        if(Foundation.media_queries[media] === undefined) {
           $('head').append('<meta class="' + media_class + '"/>');
           Foundation.media_queries[media] = removeQuotes($('.' + media_class).css('font-family'));
         }
@@ -623,9 +612,7 @@
       // Returns:
       //    Rand (String): Pseudo-random, alphanumeric string.
       random_str : function () {
-        if (!this.fidx) {
-          this.fidx = 0;
-        }
+        if (!this.fidx) this.fidx = 0;
         this.prefix = this.prefix || [(this.name || 'F'), (+new Date).toString(36)].join('-');
 
         return this.prefix + (this.fidx++).toString(36);
@@ -708,13 +695,13 @@
   Foundation.libs.accordion = {
     name : 'accordion',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     settings : {
-      content_class : 'content',
-      active_class : 'active',
-      multi_expand : false,
-      toggleable : true,
+      content_class: 'content',
+      active_class: 'active',
+      multi_expand: false,
+      toggleable: true,
       callback : function () {}
     },
 
@@ -733,13 +720,13 @@
             settings = accordion.data(self.attr_name(true) + '-init') || self.settings,
             target = S('#' + this.href.split('#')[1]),
             aunts = $('> .accordion-navigation', accordion),
-            siblings = aunts.children('.' + settings.content_class),
+            siblings = aunts.children('.'+settings.content_class),
             active_content = siblings.filter('.' + settings.active_class);
 
         e.preventDefault();
 
         if (accordion.attr(self.attr_name())) {
-          siblings = siblings.add('[' + groupSelector + '] dd > ' + '.' + settings.content_class);
+          siblings = siblings.add('[' + groupSelector + '] dd > '+'.'+settings.content_class);
           aunts = aunts.add('[' + groupSelector + '] .accordion-navigation');
         }
 
@@ -776,7 +763,7 @@
   Foundation.libs.clearing = {
     name : 'clearing',
 
-    version : '5.5.1',
+    version: '5.5.0',
 
     settings : {
       templates : {
@@ -788,7 +775,7 @@
 
       // comma delimited list of selectors that, on click, will close clearing,
       // add 'div.clearing-blackout, div.visible-img' to close on background click
-      close_selectors : '.clearing-close, div.clearing-blackout',
+      close_selectors : '.clearing-close, div.clearing-blackout', 
 
       // Default to the entire li element.
       open_selectors : '',
@@ -879,27 +866,23 @@
       S = self.S;
 
       S(this.scope)
-        .on('touchstart.fndtn.clearing', '.visible-img', function (e) {
+        .on('touchstart.fndtn.clearing', '.visible-img', function(e) {
           if (!e.touches) { e = e.originalEvent; }
           var data = {
-                start_page_x : e.touches[0].pageX,
-                start_page_y : e.touches[0].pageY,
-                start_time : (new Date()).getTime(),
-                delta_x : 0,
-                is_scrolling : undefined
+                start_page_x: e.touches[0].pageX,
+                start_page_y: e.touches[0].pageY,
+                start_time: (new Date()).getTime(),
+                delta_x: 0,
+                is_scrolling: undefined
               };
 
           S(this).data('swipe-transition', data);
           e.stopPropagation();
         })
-        .on('touchmove.fndtn.clearing', '.visible-img', function (e) {
-          if (!e.touches) {
-            e = e.originalEvent;
-          }
+        .on('touchmove.fndtn.clearing', '.visible-img', function(e) {
+          if (!e.touches) { e = e.originalEvent; }
           // Ignore pinch/zoom events
-          if (e.touches.length > 1 || e.scale && e.scale !== 1) {
-            return;
-          }
+          if(e.touches.length > 1 || e.scale && e.scale !== 1) return;
 
           var data = S(this).data('swipe-transition');
 
@@ -924,7 +907,7 @@
             self.nav(e, direction);
           }
         })
-        .on('touchend.fndtn.clearing', '.visible-img', function (e) {
+        .on('touchend.fndtn.clearing', '.visible-img', function(e) {
           S(this).data('swipe-transition', {});
           e.stopPropagation();
         });
@@ -936,7 +919,7 @@
       if ($el.parent().hasClass('carousel')) {
         return;
       }
-
+      
       $el.after('<div id="foundationClearingHolder"></div>');
 
       var grid = $el.detach(),
@@ -947,12 +930,12 @@
       } else {
         grid_outerHTML = grid[0].outerHTML;
       }
-
+      
       var holder = this.S('#foundationClearingHolder'),
           settings = $el.data(this.attr_name(true) + '-init'),
           data = {
-            grid : '<div class="carousel">' + grid_outerHTML + '</div>',
-            viewing : settings.templates.viewing
+            grid: '<div class="carousel">' + grid_outerHTML + '</div>',
+            viewing: settings.templates.viewing
           },
           wrapper = '<div class="clearing-assembled"><div>' + data.viewing +
             data.grid + '</div></div>',
@@ -976,7 +959,7 @@
           error = false;
 
       // Event to disable scrolling on touch devices when Clearing is activated
-      $('body').on('touchmove', function (e) {
+      $('body').on('touchmove',function(e){
         e.preventDefault();
       });
 
@@ -1048,7 +1031,7 @@
           .removeClass('clearing-blackout');
         container.removeClass('clearing-container');
         visible_image.hide();
-        visible_image.trigger('closed.fndtn.clearing');
+        visible_image.trigger('closed.fndtn.clearing');        
       }
 
       // Event to re-enable scrolling on touch devices
@@ -1067,15 +1050,9 @@
           PREV_KEY = this.rtl ? 39 : 37,
           ESC_KEY = 27;
 
-      if (e.which === NEXT_KEY) {
-        this.go(clearing, 'next');
-      }
-      if (e.which === PREV_KEY) {
-        this.go(clearing, 'prev');
-      }
-      if (e.which === ESC_KEY) {
-        this.S('a.clearing-close').trigger('click').trigger('click.fndtn.clearing');
-      }
+      if (e.which === NEXT_KEY) this.go(clearing, 'next');
+      if (e.which === PREV_KEY) this.go(clearing, 'prev');
+      if (e.which === ESC_KEY) this.S('a.clearing-close').trigger('click').trigger('click.fndtn.clearing');
     },
 
     nav : function (e, direction) {
@@ -1134,18 +1111,34 @@
     },
 
     center_and_label : function (target, label) {
-      if (!this.rtl && label.length > 0) {
-        label.css({
-          marginLeft : -(label.outerWidth() / 2),
-          marginTop : -(target.outerHeight() / 2)-label.outerHeight()-10
+      if (!this.rtl) {
+        target.css({
+          marginLeft : -(target.outerWidth() / 2),
+          marginTop : -(target.outerHeight() / 2)
         });
+
+        if (label.length > 0) {
+          label.css({
+            marginLeft : -(label.outerWidth() / 2),
+            marginTop : -(target.outerHeight() / 2)-label.outerHeight()-10
+          });
+        }
       } else {
-        label.css({
-          marginRight : -(label.outerWidth() / 2),
-          marginTop : -(target.outerHeight() / 2)-label.outerHeight()-10,
+        target.css({
+          marginRight : -(target.outerWidth() / 2),
+          marginTop : -(target.outerHeight() / 2),
           left: 'auto',
           right: '50%'
         });
+
+        if (label.length > 0) {
+          label.css({
+            marginRight : -(label.outerWidth() / 2),
+            marginTop : -(target.outerHeight() / 2)-label.outerHeight()-10,
+            left: 'auto',
+            right: '50%'
+          });
+        }
       }
       return this;
     },
@@ -1163,9 +1156,7 @@
 
       this.preload($image);
 
-      if (href) {
-        return href;
-      }
+      if (href) return href;
       return $image.attr('src');
     },
 
@@ -1204,7 +1195,7 @@
           .hide();
       }
       return this;
-    },
+    }, 
 
     // directional methods
 
@@ -1238,7 +1229,7 @@
       // we use jQuery animate instead of CSS transitions because we
       // need a callback to unlock the next animation
       // needs support for RTL **
-      if (target.index() !== old_index && !/skip/.test(direction)) {
+      if (target.index() !== old_index && !/skip/.test(direction)){
         if (/left/.test(direction)) {
           this.lock();
           dir_obj[dir] = left + width;
@@ -1294,9 +1285,7 @@
 
     adjacent : function (current_index, target_index) {
       for (var i = target_index + 1; i >= target_index - 1; i--) {
-        if (i === current_index) {
-          return true;
-        }
+        if (i === current_index) return true;
       }
       return false;
     },
@@ -1333,17 +1322,17 @@
   Foundation.libs.dropdown = {
     name : 'dropdown',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     settings : {
-      active_class : 'open',
-      disabled_class : 'disabled',
-      mega_class : 'mega',
-      align : 'bottom',
-      is_hover : false,
-      hover_timeout : 150,
-      opened : function () {},
-      closed : function () {}
+      active_class: 'open',
+      disabled_class: 'disabled',
+      mega_class: 'mega',
+      align: 'bottom',
+      is_hover: false,
+      hover_timeout: 150,
+      opened: function(){},
+      closed: function(){}
     },
 
     init : function (scope, method, options) {
@@ -1386,13 +1375,11 @@
 
           var settings = target.data(self.attr_name(true) + '-init') || self.settings;
 
-          if (S(e.currentTarget).data(self.data_attr()) && settings.is_hover) {
+          if(S(e.currentTarget).data(self.data_attr()) && settings.is_hover) {
             self.closeall.call(self);
           }
 
-          if (settings.is_hover) {
-            self.open.apply(self, [dropdown, target]);
-          }
+          if (settings.is_hover) self.open.apply(self, [dropdown, target]);
         })
         .on('mouseleave.fndtn.dropdown', '[' + this.attr_name() + '], [' + this.attr_name() + '-content]', function (e) {
           var $this = S(this);
@@ -1400,20 +1387,17 @@
 
           if ($this.data(self.data_attr())) {
               settings = $this.data(self.data_attr(true) + '-init') || self.settings;
-          } else {
+          } 
+          else {
               var target   = S('[' + self.attr_name() + '="' + S(this).attr('id') + '"]'),
                   settings = target.data(self.attr_name(true) + '-init') || self.settings;
           }
 
           self.timeout = setTimeout(function () {
             if ($this.data(self.data_attr())) {
-              if (settings.is_hover) {
-                self.close.call(self, S('#' + $this.data(self.data_attr())));
-              }
+              if (settings.is_hover) self.close.call(self, S('#' + $this.data(self.data_attr())));
             } else {
-              if (settings.is_hover) {
-                self.close.call(self, $this);
-              }
+              if (settings.is_hover) self.close.call(self, $this);
             }
           }.bind(this), settings.hover_timeout);
         })
@@ -1421,12 +1405,8 @@
           var parent = S(e.target).closest('[' + self.attr_name() + '-content]');
           var links  = parent.find('a');
 
-          if (links.length > 0 && parent.attr('aria-autoclose') !== 'false') {
+          if (links.length > 0 && parent.attr('aria-autoclose') !== "false") {
               self.close.call(self, S('[' + self.attr_name() + '-content]'));
-          }
-
-          if (e.target !== document && !$.contains(document.documentElement, e.target)) {
-            return;
           }
 
           if (S(e.target).closest('[' + self.attr_name() + ']').length > 0) {
@@ -1458,14 +1438,14 @@
       this.resize();
     },
 
-    close : function (dropdown) {
+    close: function (dropdown) {
       var self = this;
       dropdown.each(function () {
-        var original_target = $('[' + self.attr_name() + '=' + dropdown[0].id + ']') || $('aria-controls=' + dropdown[0].id + ']');
+        var original_target = $('[' + self.attr_name() + '=' + dropdown[0].id + ']') || $('aria-controls=' + dropdown[0].id+ ']');
         original_target.attr('aria-expanded', 'false');
         if (self.S(this).hasClass(self.settings.active_class)) {
           self.S(this)
-            .css(Foundation.rtl ? 'right' : 'left', '-99999px')
+            .css(Foundation.rtl ? 'right':'left', '-99999px')
             .attr('aria-hidden', 'true')
             .removeClass(self.settings.active_class)
             .prev('[' + self.attr_name() + ']')
@@ -1478,14 +1458,14 @@
       dropdown.removeClass('f-open-' + this.attr_name(true));
     },
 
-    closeall : function () {
+    closeall: function() {
       var self = this;
-      $.each(self.S('.f-open-' + this.attr_name(true)), function () {
+      $.each(self.S('.f-open-' + this.attr_name(true)), function() {
         self.close.call(self, self.S(this));
       });
     },
 
-    open : function (dropdown, target) {
+    open: function (dropdown, target) {
       this
         .css(dropdown
         .addClass(this.settings.active_class), target);
@@ -1497,7 +1477,7 @@
       dropdown.addClass('f-open-' + this.attr_name(true));
     },
 
-    data_attr : function () {
+    data_attr: function () {
       if (this.namespace.length > 0) {
         return this.namespace + '-' + this.name;
       }
@@ -1519,17 +1499,16 @@
 
       if (dropdown.hasClass(this.settings.active_class)) {
         this.close.call(this, dropdown);
-        if (dropdown.data('target') !== target.get(0)) {
+        if (dropdown.data('target') !== target.get(0))
           this.open.call(this, dropdown, target);
-        }
       } else {
         this.open.call(this, dropdown, target);
       }
     },
 
     resize : function () {
-      var dropdown = this.S('[' + this.attr_name() + '-content].open');
-      var target = $(dropdown.data("target"));
+      var dropdown = this.S('[' + this.attr_name() + '-content].open'),
+          target = this.S('[' + this.attr_name() + '="' + dropdown.attr('id') + '"]');
 
       if (dropdown.length && target.length) {
         this.css(dropdown, target);
@@ -1547,12 +1526,12 @@
 
         dropdown.attr('style', '').removeClass('drop-left drop-right drop-top').css({
           position : 'absolute',
-          width : '95%',
-          'max-width' : 'none',
-          top : p.top
+          width: '95%',
+          'max-width': 'none',
+          top: p.top
         });
 
-        dropdown.css(Foundation.rtl ? 'right' : 'left', left_offset);
+        dropdown.css(Foundation.rtl ? 'right':'left', left_offset);
       } else {
 
         this.style(dropdown, target, settings);
@@ -1562,7 +1541,7 @@
     },
 
     style : function (dropdown, target, settings) {
-      var css = $.extend({position : 'absolute'},
+      var css = $.extend({position: 'absolute'},
         this.dirs[settings.align].call(dropdown, target, settings));
 
       dropdown.attr('style', '').css(css);
@@ -1579,13 +1558,13 @@
 
         p.top -= o.top;
         p.left -= o.left;
-
+        
         //set some flags on the p object to pass along
         p.missRight = false;
         p.missTop = false;
         p.missLeft = false;
         p.leftRightFlag = false;
-
+    
         //lets see if the panel will be off the screen
         //get the actual width of the page and store it
         var actualBodyWidth;
@@ -1597,7 +1576,7 @@
 
         var actualMarginWidth = (window.outerWidth - actualBodyWidth) / 2;
         var actualBoundary = actualBodyWidth;
-
+    
         if (!this.hasClass('mega')) {
           //miss top
           if (t.offset().top <= this.outerHeight()) {
@@ -1605,13 +1584,13 @@
             actualBoundary = window.outerWidth - actualMarginWidth;
             p.leftRightFlag = true;
           }
-
+          
           //miss right
           if (t.offset().left + this.outerWidth() > t.offset().left + actualMarginWidth && t.offset().left - actualMarginWidth > this.outerWidth()) {
             p.missRight = true;
             p.missLeft = false;
           }
-
+          
           //miss left
           if (t.offset().left - this.outerWidth() <= 0) {
             p.missLeft = true;
@@ -1622,34 +1601,34 @@
         return p;
       },
 
-      top : function (t, s) {
+      top: function (t, s) {
         var self = Foundation.libs.dropdown,
             p = self.dirs._base.call(this, t);
 
         this.addClass('drop-top');
-
+        
         if (p.missTop == true) {
           p.top = p.top + t.outerHeight() + this.outerHeight();
           this.removeClass('drop-top');
         }
-
+    
         if (p.missRight == true) {
           p.left = p.left - this.outerWidth() + t.outerWidth();
         }
 
         if (t.outerWidth() < this.outerWidth() || self.small() || this.hasClass(s.mega_menu)) {
-          self.adjust_pip(this, t, s, p);
+          self.adjust_pip(this,t,s,p);
         }
 
         if (Foundation.rtl) {
-          return {left : p.left - this.outerWidth() + t.outerWidth(),
-            top : p.top - this.outerHeight()};
+          return {left: p.left - this.outerWidth() + t.outerWidth(),
+            top: p.top - this.outerHeight()};
         }
 
-        return {left : p.left, top : p.top - this.outerHeight()};
+        return {left: p.left, top: p.top - this.outerHeight()};
       },
 
-      bottom : function (t, s) {
+      bottom: function (t,s) {
         var self = Foundation.libs.dropdown,
             p = self.dirs._base.call(this, t);
 
@@ -1658,35 +1637,35 @@
         }
 
         if (t.outerWidth() < this.outerWidth() || self.small() || this.hasClass(s.mega_menu)) {
-          self.adjust_pip(this, t, s, p);
+          self.adjust_pip(this,t,s,p);
         }
 
         if (self.rtl) {
-          return {left : p.left - this.outerWidth() + t.outerWidth(), top : p.top + t.outerHeight()};
+          return {left: p.left - this.outerWidth() + t.outerWidth(), top: p.top + t.outerHeight()};
         }
 
-        return {left : p.left, top : p.top + t.outerHeight()};
+        return {left: p.left, top: p.top + t.outerHeight()};
       },
 
-      left : function (t, s) {
+      left: function (t, s) {
         var p = Foundation.libs.dropdown.dirs._base.call(this, t);
 
         this.addClass('drop-left');
-
+        
         if (p.missLeft == true) {
           p.left =  p.left + this.outerWidth();
           p.top = p.top + t.outerHeight();
           this.removeClass('drop-left');
         }
 
-        return {left : p.left - this.outerWidth(), top : p.top};
+        return {left: p.left - this.outerWidth(), top: p.top};
       },
 
-      right : function (t, s) {
+      right: function (t, s) {
         var p = Foundation.libs.dropdown.dirs._base.call(this, t);
 
         this.addClass('drop-right');
-
+        
         if (p.missRight == true) {
           p.left = p.left - this.outerWidth();
           p.top = p.top + t.outerHeight();
@@ -1694,25 +1673,26 @@
         } else {
           p.triggeredRight = true;
         }
-
+    
         var self = Foundation.libs.dropdown;
 
         if (t.outerWidth() < this.outerWidth() || self.small() || this.hasClass(s.mega_menu)) {
-          self.adjust_pip(this, t, s, p);
+          self.adjust_pip(this,t,s,p);
         }
 
-        return {left : p.left + t.outerWidth(), top : p.top};
+        return {left: p.left + t.outerWidth(), top: p.top};
       }
     },
 
     // Insert rule to style psuedo elements
-    adjust_pip : function (dropdown, target, settings, position) {
+    adjust_pip : function (dropdown,target,settings,position) {
       var sheet = Foundation.stylesheet,
           pip_offset_base = 8;
 
       if (dropdown.hasClass(settings.mega_class)) {
-        pip_offset_base = position.left + (target.outerWidth() / 2) - 8;
-      } else if (this.small()) {
+        pip_offset_base = position.left + (target.outerWidth()/2) - 8;
+      }
+      else if (this.small()) {
         pip_offset_base += position.left - 8;
       }
 
@@ -1723,7 +1703,7 @@
           sel_after  = '.f-dropdown.open:after',
           css_before = 'left: ' + pip_offset_base + 'px;',
           css_after  = 'left: ' + (pip_offset_base - 1) + 'px;';
-
+        
       if (position.missRight == true) {
         pip_offset_base = dropdown.outerWidth() - 23;
         sel_before = '.f-dropdown.open:before',
@@ -1731,7 +1711,7 @@
         css_before = 'left: ' + pip_offset_base + 'px;',
         css_after  = 'left: ' + (pip_offset_base - 1) + 'px;';
       }
-
+    
       //just a case where right is fired, but its not missing right
       if (position.triggeredRight == true) {
         sel_before = '.f-dropdown.open:before',
@@ -1765,7 +1745,7 @@
         !matchMedia(Foundation.media_queries.medium).matches;
     },
 
-    off : function () {
+    off: function () {
       this.S(this.scope).off('.fndtn.dropdown');
       this.S('html, body').off('.fndtn.dropdown');
       this.S(window).off('.fndtn.dropdown');
@@ -1782,13 +1762,13 @@
   Foundation.libs.equalizer = {
     name : 'equalizer',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     settings : {
-      use_tallest : true,
-      before_height_change : $.noop,
-      after_height_change : $.noop,
-      equalize_on_stack : false
+      use_tallest: true,
+      before_height_change: $.noop,
+      after_height_change: $.noop,
+      equalize_on_stack: false
     },
 
     init : function (scope, method, options) {
@@ -1798,24 +1778,22 @@
     },
 
     events : function () {
-      this.S(window).off('.equalizer').on('resize.fndtn.equalizer', function (e) {
+      this.S(window).off('.equalizer').on('resize.fndtn.equalizer', function(e){
         this.reflow();
       }.bind(this));
     },
 
-    equalize : function (equalizer) {
+    equalize: function(equalizer) {
       var isStacked = false,
           vals = equalizer.find('[' + this.attr_name() + '-watch]:visible'),
-          settings = equalizer.data(this.attr_name(true) + '-init');
+          settings = equalizer.data(this.attr_name(true)+'-init');
 
-      if (vals.length === 0) {
-        return;
-      }
+      if (vals.length === 0) return;
       var firstTopOffset = vals.first().offset().top;
       settings.before_height_change();
       equalizer.trigger('before-height-change').trigger('before-height-change.fndth.equalizer');
       vals.height('inherit');
-      vals.each(function () {
+      vals.each(function(){
         var el = $(this);
         if (el.offset().top !== firstTopOffset) {
           isStacked = true;
@@ -1823,12 +1801,10 @@
       });
 
       if (settings.equalize_on_stack === false) {
-        if (isStacked) {
-          return;
-        }
+        if (isStacked) return;
       };
 
-      var heights = vals.map(function () { return $(this).outerHeight(false) }).get();
+      var heights = vals.map(function(){ return $(this).outerHeight(false) }).get();
 
       if (settings.use_tallest) {
         var max = Math.max.apply(null, heights);
@@ -1844,9 +1820,9 @@
     reflow : function () {
       var self = this;
 
-      this.S('[' + this.attr_name() + ']', this.scope).each(function () {
+      this.S('[' + this.attr_name() + ']', this.scope).each(function(){
         var $eq_target = $(this);
-        self.image_loaded(self.S('img', this), function () {
+        self.image_loaded(self.S('img', this), function(){
           self.equalize($eq_target)
         });
       });
@@ -1860,7 +1836,7 @@
   Foundation.libs.interchange = {
     name : 'interchange',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     cache : {},
 
@@ -1892,7 +1868,7 @@
       },
 
       directives : {
-        replace : function (el, path, trigger) {
+        replace: function (el, path, trigger) {
           // The trigger argument, if called within the directive, fires
           // an event named after the directive on the element, passing
           // any parameters along to the event that you pass to trigger.
@@ -1907,9 +1883,7 @@
           if (/IMG/.test(el[0].nodeName)) {
             var orig_path = el[0].src;
 
-            if (new RegExp(path, 'i').test(orig_path)) {
-              return;
-            }
+            if (new RegExp(path, 'i').test(orig_path)) return;
 
             el[0].src = path;
 
@@ -1918,12 +1892,10 @@
           var last_path = el.data(this.data_attr + '-last-path'),
               self = this;
 
-          if (last_path == path) {
-            return;
-          }
+          if (last_path == path) return;
 
           if (/\.(gif|jpg|jpeg|tiff|png)([?#].*)?/i.test(path)) {
-            $(el).css('background-image', 'url(' + path + ')');
+            $(el).css('background-image', 'url('+path+')');
             el.data('interchange-last-path', path);
             return trigger(path);
           }
@@ -1948,8 +1920,8 @@
       this.load('nodes');
     },
 
-    get_media_hash : function () {
-        var mediaHash = '';
+    get_media_hash : function() {
+        var mediaHash='';
         for (var queryName in this.settings.named_queries ) {
             mediaHash += matchMedia(this.settings.named_queries[queryName]).matches.toString();
         }
@@ -1975,7 +1947,7 @@
     resize : function () {
       var cache = this.cache;
 
-      if (!this.images_loaded || !this.nodes_loaded) {
+      if(!this.images_loaded || !this.nodes_loaded) {
         setTimeout($.proxy(this.resize, this), 50);
         return;
       }
@@ -1986,17 +1958,15 @@
 
           if (passed) {
             this.settings.directives[passed
-              .scenario[1]].call(this, passed.el, passed.scenario[0], (function (passed) {
+              .scenario[1]].call(this, passed.el, passed.scenario[0], function () {
                 if (arguments[0] instanceof Array) { 
                   var args = arguments[0];
-                } else {
+                } else { 
                   var args = Array.prototype.slice.call(arguments, 0);
                 }
 
-                return function() {
-                  passed.el.trigger(passed.scenario[1], args);
-                }
-              }(passed)));
+                passed.el.trigger(passed.scenario[1], args);
+              });
           }
         }
       }
@@ -2017,7 +1987,7 @@
             mq = matchMedia(rule);
           }
           if (mq.matches) {
-            return {el : el, scenario : scenarios[count]};
+            return {el: el, scenario: scenarios[count]};
           }
         }
       }
@@ -2073,6 +2043,7 @@
       this.cached_nodes = [];
       this.nodes_loaded = (count === 0);
 
+
       while (i--) {
         loaded_count++;
         var str = nodes[i].getAttribute(data_attr) || '';
@@ -2081,7 +2052,7 @@
           this.cached_nodes.push(nodes[i]);
         }
 
-        if (loaded_count === count) {
+        if(loaded_count === count) {
           this.nodes_loaded = true;
           this.enhance('nodes');
         }
@@ -2120,23 +2091,24 @@
       if (directive_match) {
         var path  = directive_match[1],
         directive = directive_match[2];
-      } else {
+      }
+      else {
         var cached_split = scenario[0].split(/,\s*$/),
         path             = cached_split[0],
-        directive        = '';
+        directive        = '';               
       }
 
       return [this.trim(path), this.convert_directive(directive), this.trim(media_query)];
     },
 
-    object : function (el) {
+    object : function(el) {
       var raw_arr = this.parse_data_attr(el),
-          scenarios = [],
+          scenarios = [], 
           i = raw_arr.length;
 
       if (i > 0) {
         while (i--) {
-          var split = raw_arr[i].split(/\(([^\)]*?)(\))$/);
+          var split = raw_arr[i].split(/\((.*?)(\))$/);
 
           if (split.length > 1) {
             var params = this.parse_scenario(split);
@@ -2152,16 +2124,14 @@
       var uuid = this.random_str(),
           current_uuid = el.data(this.add_namespace('uuid', true));
 
-      if (this.cache[current_uuid]) {
-        return this.cache[current_uuid];
-      }
+      if (this.cache[current_uuid]) return this.cache[current_uuid];
 
       el.attr(this.add_namespace('data-uuid'), uuid);
 
       return this.cache[uuid] = scenarios;
     },
 
-    trim : function (str) {
+    trim : function(str) {
 
       if (typeof str === 'string') {
         return $.trim(str);
@@ -2170,7 +2140,7 @@
       return str;
     },
 
-    set_data_attr : function (init) {
+    set_data_attr: function (init) {
       if (init) {
         if (this.namespace.length > 0) {
           return this.namespace + '-' + this.settings.load_attr;
@@ -2188,7 +2158,7 @@
 
     parse_data_attr : function (el) {
       var raw = el.attr(this.attr_name()).split(/\[(.*?)\]/),
-          i = raw.length,
+          i = raw.length, 
           output = [];
 
       while (i--) {
@@ -2215,11 +2185,11 @@
   Foundation.libs.offcanvas = {
     name : 'offcanvas',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     settings : {
-      open_method : 'move',
-      close_on_click : false
+      open_method: 'move',
+      close_on_click: false
     },
 
     init : function (scope, method, options) {
@@ -2248,7 +2218,7 @@
       S(this.scope).off('.offcanvas')
         .on('click.fndtn.offcanvas', '.left-off-canvas-toggle', function (e) {
           self.click_toggle_class(e, move_class + right_postfix);
-          if (self.settings.open_method !== 'overlap') {
+          if (self.settings.open_method !== 'overlap'){
             S('.left-submenu').removeClass(move_class + right_postfix);
           }
           $('.left-off-canvas-toggle').attr('aria-expanded', 'true');
@@ -2257,13 +2227,13 @@
           var settings = self.get_settings(e);
           var parent = S(this).parent();
 
-          if (settings.close_on_click && !parent.hasClass('has-submenu') && !parent.hasClass('back')) {
+          if(settings.close_on_click && !parent.hasClass('has-submenu') && !parent.hasClass('back')){
             self.hide.call(self, move_class + right_postfix, self.get_wrapper(e));
             parent.parent().removeClass(move_class + right_postfix);
-          } else if (S(this).parent().hasClass('has-submenu')) {
+          }else if(S(this).parent().hasClass('has-submenu')){
             e.preventDefault();
             S(this).siblings('.left-submenu').toggleClass(move_class + right_postfix);
-          } else if (parent.hasClass('back')) {
+          }else if(parent.hasClass('back')){
             e.preventDefault();
             parent.parent().removeClass(move_class + right_postfix);
           }
@@ -2271,7 +2241,7 @@
         })
         .on('click.fndtn.offcanvas', '.right-off-canvas-toggle', function (e) {
           self.click_toggle_class(e, move_class + left_postfix);
-          if (self.settings.open_method !== 'overlap') {
+          if (self.settings.open_method !== 'overlap'){
             S('.right-submenu').removeClass(move_class + left_postfix);
           }
           $('.right-off-canvas-toggle').attr('aria-expanded', 'true');
@@ -2280,13 +2250,13 @@
           var settings = self.get_settings(e);
           var parent = S(this).parent();
 
-          if (settings.close_on_click && !parent.hasClass('has-submenu') && !parent.hasClass('back')) {
+          if(settings.close_on_click && !parent.hasClass('has-submenu') && !parent.hasClass('back')){
             self.hide.call(self, move_class + left_postfix, self.get_wrapper(e));
             parent.parent().removeClass(move_class + left_postfix);
-          } else if (S(this).parent().hasClass('has-submenu')) {
+          }else if(S(this).parent().hasClass('has-submenu')){
             e.preventDefault();
             S(this).siblings('.right-submenu').toggleClass(move_class + left_postfix);
-          } else if (parent.hasClass('back')) {
+          }else if(parent.hasClass('back')){
             e.preventDefault();
             parent.parent().removeClass(move_class + left_postfix);
           }
@@ -2295,7 +2265,7 @@
         .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e) {
           self.click_remove_class(e, move_class + left_postfix);
           S('.right-submenu').removeClass(move_class + left_postfix);
-          if (right_postfix) {
+          if (right_postfix){
             self.click_remove_class(e, move_class + right_postfix);
             S('.left-submenu').removeClass(move_class + left_postfix);
           }
@@ -2311,7 +2281,7 @@
         });
     },
 
-    toggle : function (class_name, $off_canvas) {
+    toggle: function(class_name, $off_canvas) {
       $off_canvas = $off_canvas || this.get_wrapper();
       if ($off_canvas.is('.' + class_name)) {
         this.hide(class_name, $off_canvas);
@@ -2320,36 +2290,36 @@
       }
     },
 
-    show : function (class_name, $off_canvas) {
+    show: function(class_name, $off_canvas) {
       $off_canvas = $off_canvas || this.get_wrapper();
       $off_canvas.trigger('open').trigger('open.fndtn.offcanvas');
       $off_canvas.addClass(class_name);
     },
 
-    hide : function (class_name, $off_canvas) {
+    hide: function(class_name, $off_canvas) {
       $off_canvas = $off_canvas || this.get_wrapper();
       $off_canvas.trigger('close').trigger('close.fndtn.offcanvas');
       $off_canvas.removeClass(class_name);
     },
 
-    click_toggle_class : function (e, class_name) {
+    click_toggle_class: function(e, class_name) {
       e.preventDefault();
       var $off_canvas = this.get_wrapper(e);
       this.toggle(class_name, $off_canvas);
     },
 
-    click_remove_class : function (e, class_name) {
+    click_remove_class: function(e, class_name) {
       e.preventDefault();
       var $off_canvas = this.get_wrapper(e);
       this.hide(class_name, $off_canvas);
     },
 
-    get_settings : function (e) {
+    get_settings: function(e) {
       var offcanvas  = this.S(e.target).closest('[' + this.attr_name() + ']');
       return offcanvas.data(this.attr_name(true) + '-init') || this.settings;
     },
 
-    get_wrapper : function (e) {
+    get_wrapper: function(e) {
       var $off_canvas = this.S(e ? e.target : this.scope).closest('.off-canvas-wrap');
 
       if ($off_canvas.length === 0) {
@@ -2368,28 +2338,23 @@
   Foundation.libs.tab = {
     name : 'tab',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     settings : {
-      active_class : 'active',
+      active_class: 'active',
       callback : function () {},
-      deep_linking : false,
-      scroll_to_content : true,
-      is_hover : false
+      deep_linking: false,
+      scroll_to_content: true,
+      is_hover: false
     },
 
-    default_tab_hashes : [],
+    default_tab_hashes: [],
 
     init : function (scope, method, options) {
       var self = this,
           S = this.S;
 
       this.bindings(method, options);
-
-      // store the initial href, which is used to allow correct behaviour of the
-      // browser back button when deep linking is turned on.
-      self.entry_location = window.location.href;
-
       this.handle_location_hash_change();
 
       // Store the default active tabs which will be referenced when the
@@ -2405,7 +2370,7 @@
           S = this.S;
 
       var usual_tab_behavior =  function (e) {
-          var settings = S(this).closest('[' + self.attr_name() + ']').data(self.attr_name(true) + '-init');
+          var settings = S(this).closest('[' + self.attr_name() +']').data(self.attr_name(true) + '-init');
           if (!settings.is_hover || Modernizr.touch) {
             e.preventDefault();
             e.stopPropagation();
@@ -2420,10 +2385,8 @@
         .on('click.fndtn.tab', '[' + this.attr_name() + '] > * > a', usual_tab_behavior )
         // Hover event: tab title
         .on('mouseenter.fndtn.tab', '[' + this.attr_name() + '] > * > a', function (e) {
-          var settings = S(this).closest('[' + self.attr_name() + ']').data(self.attr_name(true) + '-init');
-          if (settings.is_hover) {
-            self.toggle_active_tab(S(this).parent());
-          }
+          var settings = S(this).closest('[' + self.attr_name() +']').data(self.attr_name(true) + '-init');
+          if (settings.is_hover) self.toggle_active_tab(S(this).parent());
         });
 
       // Location hash change event
@@ -2474,9 +2437,8 @@
        });
      },
 
-    toggle_active_tab : function (tab, location_hash) {
-      var self = this,
-          S = self.S,
+    toggle_active_tab: function (tab, location_hash) {
+      var S = this.S,
           tabs = tab.closest('[' + this.attr_name() + ']'),
           tab_link = tab.find('a'),
           anchor = tab.children('a').first(),
@@ -2484,7 +2446,7 @@
           target = S(target_hash),
           siblings = tab.siblings(),
           settings = tabs.data(this.attr_name(true) + '-init'),
-          interpret_keyup_action = function (e) {
+          interpret_keyup_action = function(e) {
             // Light modification of Heydon Pickering's Practical ARIA Examples: http://heydonworks.com/practical_aria_examples/js/a11y.js
 
             // define current, previous and next (possible) tabs
@@ -2529,16 +2491,6 @@
             $('#' + $(document.activeElement).attr('href').substring(1))
               .attr('aria-hidden', null);
 
-          },
-          go_to_hash = function(hash) {
-            // This function allows correct behaviour of the browser's back button when deep linking is enabled. Without it
-            // the user would get continually redirected to the default hash.
-            var is_entry_location = window.location.href === self.entry_location,
-                default_hash = settings.scroll_to_content ? self.default_tab_hashes[0] : is_entry_location ? window.location.hash :'fndtn-' + self.default_tab_hashes[0].replace('#', '')
-
-            if (!(is_entry_location && hash === default_hash)) {
-              window.location.hash = hash;
-            }
           };
 
       // allow usage of data-tab-content attribute instead of href
@@ -2550,10 +2502,8 @@
       if (settings.deep_linking) {
 
         if (settings.scroll_to_content) {
-
           // retain current hash to scroll to content
-          go_to_hash(location_hash || target_hash);
-
+          window.location.hash = location_hash || target_hash;
           if (location_hash == undefined || location_hash == target_hash) {
             tab.parent()[0].scrollIntoView();
           } else {
@@ -2562,9 +2512,9 @@
         } else {
           // prefix the hashes so that the browser doesn't scroll down
           if (location_hash != undefined) {
-            go_to_hash('fndtn-' + location_hash.replace('#', ''));
+            window.location.hash = 'fndtn-' + location_hash.replace('#', '');
           } else {
-            go_to_hash('fndtn-' + target_hash.replace('#', ''));
+            window.location.hash = 'fndtn-' + target_hash.replace('#', '');
           }
         }
       }
@@ -2574,10 +2524,10 @@
       // window (notably in Chrome).
       // Clean up multiple attr instances to done once
       tab.addClass(settings.active_class).triggerHandler('opened');
-      tab_link.attr({'aria-selected' : 'true',  tabindex : 0});
+      tab_link.attr({'aria-selected': 'true',  tabindex: 0});
       siblings.removeClass(settings.active_class)
-      siblings.find('a').attr({'aria-selected' : 'false',  tabindex : -1});
-      target.siblings().removeClass(settings.active_class).attr({'aria-hidden' : 'true',  tabindex : -1});
+      siblings.find('a').attr({'aria-selected': 'false',  tabindex: -1});
+      target.siblings().removeClass(settings.active_class).attr({'aria-hidden': 'true',  tabindex: -1});
       target.addClass(settings.active_class).attr('aria-hidden', 'false').removeAttr('tabindex');
       settings.callback(tab);
       target.triggerHandler('toggled', [tab]);
@@ -2586,7 +2536,7 @@
       tab_link.off('keydown').on('keydown', interpret_keyup_action );
     },
 
-    data_attr : function (str) {
+    data_attr: function (str) {
       if (this.namespace.length > 0) {
         return this.namespace + '-' + str;
       }
@@ -2606,15 +2556,15 @@
   Foundation.libs.tooltip = {
     name : 'tooltip',
 
-    version : '5.5.1',
+    version : '5.5.0',
 
     settings : {
       additional_inheritable_classes : [],
       tooltip_class : '.tooltip',
-      append_to : 'body',
-      touch_close_text : 'Tap To Close',
-      disable_for_touch : false,
-      hover_delay : 200,
+      append_to: 'body',
+      touch_close_text: 'Tap To Close',
+      disable_for_touch: false,
+      hover_delay: 200,
       show_on : 'all',
       tip_template : function (selector, content) {
         return '<span data-selector="' + selector + '" id="' + selector + '" class="'
@@ -2630,7 +2580,7 @@
       this.bindings(method, options);
     },
 
-    should_show : function (target, tip) {
+    should_show: function (target, tip) {
       var settings = $.extend({}, this.settings, this.data_options(target));
 
       if (settings.show_on === 'all') {
@@ -2671,19 +2621,15 @@
             return false;
           }
 
-          if (/mouse/i.test(e.type) && self.ie_touch(e)) {
-            return false;
-          }
+          if (/mouse/i.test(e.type) && self.ie_touch(e)) return false;
 
           if ($this.hasClass('open')) {
-            if (Modernizr.touch && /touchstart|MSPointerDown/i.test(e.type)) {
-              e.preventDefault();
-            }
+            if (Modernizr.touch && /touchstart|MSPointerDown/i.test(e.type)) e.preventDefault();
             self.hide($this);
           } else {
             if (settings.disable_for_touch && Modernizr.touch && /touchstart|MSPointerDown/i.test(e.type)) {
               return;
-            } else if (!settings.disable_for_touch && Modernizr.touch && /touchstart|MSPointerDown/i.test(e.type)) {
+            } else if(!settings.disable_for_touch && Modernizr.touch && /touchstart|MSPointerDown/i.test(e.type)) {
               e.preventDefault();
               S(settings.tooltip_class + '.open').hide();
               is_touch = true;
@@ -2702,13 +2648,12 @@
           }
         })
         .on('mouseleave.fndtn.tooltip touchstart.fndtn.tooltip MSPointerDown.fndtn.tooltip', '[' + this.attr_name() + '].open', function (e) {
-          if (/mouse/i.test(e.type) && self.ie_touch(e)) {
-            return false;
-          }
+          if (/mouse/i.test(e.type) && self.ie_touch(e)) return false;
 
-          if ($(this).data('tooltip-open-event-type') == 'touch' && e.type == 'mouseleave') {
+          if($(this).data('tooltip-open-event-type') == 'touch' && e.type == 'mouseleave') {
             return;
-          } else if ($(this).data('tooltip-open-event-type') == 'mouse' && /MSPointerDown|touchstart/i.test(e.type)) {
+          }
+          else if($(this).data('tooltip-open-event-type') == 'mouse' && /MSPointerDown|touchstart/i.test(e.type)) {
             self.convert_to_touch($(this));
           } else {
             self.hide($(this));
@@ -2726,7 +2671,7 @@
 
     showTip : function ($target) {
       var $tip = this.getTip($target);
-      if (this.should_show($target, $tip)) {
+      if (this.should_show($target, $tip)){
         return this.show($target);
       }
       return;
@@ -2773,13 +2718,13 @@
       $tip.addClass(classes).appendTo(settings.append_to);
 
       if (Modernizr.touch) {
-        $tip.append('<span class="tap-to-close">' + settings.touch_close_text + '</span>');
-        $tip.on('touchstart.fndtn.tooltip MSPointerDown.fndtn.tooltip', function (e) {
+        $tip.append('<span class="tap-to-close">'+settings.touch_close_text+'</span>');
+        $tip.on('touchstart.fndtn.tooltip MSPointerDown.fndtn.tooltip', function(e) {
           self.hide($target);
         });
       }
 
-      $target.removeAttr('title').attr('title', '');
+      $target.removeAttr('title').attr('title','');
     },
 
     reposition : function (target, tip, classes) {
@@ -2793,7 +2738,7 @@
       nubWidth = nub.outerHeight();
 
       if (this.small()) {
-        tip.css({'width' : '100%'});
+        tip.css({'width' : '100%' });
       } else {
         tip.css({'width' : (width) ? width : 'auto'});
       }
@@ -2822,9 +2767,7 @@
         objPos(tip, (target.offset().top + target.outerHeight() + 10), 'auto', 'auto', left);
         tip.removeClass('tip-override');
         if (classes && classes.indexOf('tip-top') > -1) {
-          if (Foundation.rtl) {
-            nub.addClass('rtl');
-          }
+          if (Foundation.rtl) nub.addClass('rtl');
           objPos(tip, (target.offset().top - tip.outerHeight()), 'auto', 'auto', left)
             .removeClass('tip-override');
         } else if (classes && classes.indexOf('tip-left') > -1) {
@@ -2859,14 +2802,14 @@
       return $.trim(filtered);
     },
 
-    convert_to_touch : function ($target) {
+    convert_to_touch : function($target) {
       var self = this,
           $tip = self.getTip($target),
           settings = $.extend({}, self.settings, self.data_options($target));
 
       if ($tip.find('.tap-to-close').length === 0) {
-        $tip.append('<span class="tap-to-close">' + settings.touch_close_text + '</span>');
-        $tip.on('click.fndtn.tooltip.tapclose touchstart.fndtn.tooltip.tapclose MSPointerDown.fndtn.tooltip.tapclose', function (e) {
+        $tip.append('<span class="tap-to-close">'+settings.touch_close_text+'</span>');
+        $tip.on('click.fndtn.tooltip.tapclose touchstart.fndtn.tooltip.tapclose MSPointerDown.fndtn.tooltip.tapclose', function(e) {
           self.hide($target);
         });
       }
@@ -2889,7 +2832,7 @@
     hide : function ($target) {
       var $tip = this.getTip($target);
 
-      $tip.fadeOut(150, function () {
+      $tip.fadeOut(150, function() {
         $tip.find('.tap-to-close').remove();
         $tip.off('click.fndtn.tooltip.tapclose MSPointerDown.fndtn.tapclose');
         $target.removeClass('open');
@@ -2914,15 +2857,15 @@
   Foundation.libs.topbar = {
     name : 'topbar',
 
-    version : '5.5.1',
+    version: '5.5.0',
 
     settings : {
       index : 0,
       sticky_class : 'sticky',
-      custom_back_text : true,
-      back_text : 'Back',
-      mobile_show_parent_link : true,
-      is_hover : true,
+      custom_back_text: true,
+      back_text: 'Back',
+      mobile_show_parent_link: true,
+      is_hover: true,
       scrolltop : true, // jump to top when sticky nav menu toggle is clicked
       sticky_on : 'all'
     },
@@ -2970,33 +2913,29 @@
 
     },
 
-    is_sticky : function (topbar, topbarContainer, settings) {
-      var sticky     = topbarContainer.hasClass(settings.sticky_class);
-      var smallMatch = matchMedia(Foundation.media_queries.small).matches;
-      var medMatch   = matchMedia(Foundation.media_queries.medium).matches;
-      var lrgMatch   = matchMedia(Foundation.media_queries.large).matches;
-      
-       if (sticky && settings.sticky_on === 'all') {
-          return true;
-       }
-       if (sticky && this.small() && settings.sticky_on.indexOf('small') !== -1) {
-           if (smallMatch && !medMatch && !lrgMatch) { return true; }
-       }
-       if (sticky && this.medium() && settings.sticky_on.indexOf('medium') !== -1) {
-           if (smallMatch && medMatch && !lrgMatch) { return true; }
-       }
-       if (sticky && this.large() && settings.sticky_on.indexOf('large') !== -1) {
-           if (smallMatch && medMatch && lrgMatch) { return true; }
-       }
+    is_sticky: function (topbar, topbarContainer, settings) {
+      var sticky = topbarContainer.hasClass(settings.sticky_class);
 
-       // fix for iOS browsers
-       if (sticky && navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
+      if (sticky && settings.sticky_on === 'all') {
         return true;
-       }
-       return false;
+      } else if (sticky && this.small() && settings.sticky_on === 'small') {
+        return (matchMedia(Foundation.media_queries.small).matches && !matchMedia(Foundation.media_queries.medium).matches &&
+            !matchMedia(Foundation.media_queries.large).matches);
+        //return true;
+      } else if (sticky && this.medium() && settings.sticky_on === 'medium') {
+        return (matchMedia(Foundation.media_queries.small).matches && matchMedia(Foundation.media_queries.medium).matches &&
+            !matchMedia(Foundation.media_queries.large).matches);
+        //return true;
+      } else if(sticky && this.large() && settings.sticky_on === 'large') {
+        return (matchMedia(Foundation.media_queries.small).matches && matchMedia(Foundation.media_queries.medium).matches &&
+            matchMedia(Foundation.media_queries.large).matches);
+        //return true;
+      }
+
+      return false;
     },
 
-    toggle : function (toggleEl) {
+    toggle: function (toggleEl) {
       var self = this,
           topbar;
 
@@ -3012,11 +2951,11 @@
 
       if (self.breakpoint()) {
         if (!self.rtl) {
-          section.css({left : '0%'});
-          $('>.name', section).css({left : '100%'});
+          section.css({left: '0%'});
+          $('>.name', section).css({left: '100%'});
         } else {
-          section.css({right : '0%'});
-          $('>.name', section).css({right : '100%'});
+          section.css({right: '0%'});
+          $('>.name', section).css({right: '100%'});
         }
 
         self.S('li.moved', section).removeClass('moved');
@@ -3040,7 +2979,7 @@
             topbar.addClass('fixed');
             self.S('body').removeClass('f-topbar-fixed');
 
-            window.scrollTo(0, 0);
+            window.scrollTo(0,0);
           } else {
             topbar.parent().removeClass('expanded');
           }
@@ -3076,10 +3015,11 @@
           e.preventDefault();
           self.toggle(this);
         })
-        .on('click.fndtn.topbar', '.top-bar .top-bar-section li a[href^="#"],[' + this.attr_name() + '] .top-bar-section li a[href^="#"]', function (e) {
+        .on('click.fndtn.topbar','.top-bar .top-bar-section li a[href^="#"],[' + this.attr_name() + '] .top-bar-section li a[href^="#"]',function (e) {
             var li = $(this).closest('li');
-            if (self.breakpoint() && !li.hasClass('back') && !li.hasClass('has-dropdown')) {
-              self.toggle();
+            if(self.breakpoint() && !li.hasClass('back') && !li.hasClass('has-dropdown'))
+            {
+            self.toggle();
             }
         })
         .on('click.fndtn.topbar', '[' + this.attr_name() + '] li.has-dropdown', function (e) {
@@ -3088,18 +3028,13 @@
               topbar = li.closest('[' + self.attr_name() + ']'),
               settings = topbar.data(self.attr_name(true) + '-init');
 
-          if (target.data('revealId')) {
+          if(target.data('revealId')) {
             self.toggle();
             return;
           }
 
-          if (self.breakpoint()) {
-            return;
-          }
-
-          if (settings.is_hover && !Modernizr.touch) {
-            return;
-          }
+          if (self.breakpoint()) return;
+          if (settings.is_hover && !Modernizr.touch) return;
 
           e.stopImmediatePropagation();
 
@@ -3136,20 +3071,20 @@
             $selectedLi.addClass('moved');
 
             if (!self.rtl) {
-              section.css({left : -(100 * topbar.data('index')) + '%'});
-              section.find('>.name').css({left : 100 * topbar.data('index') + '%'});
+              section.css({left: -(100 * topbar.data('index')) + '%'});
+              section.find('>.name').css({left: 100 * topbar.data('index') + '%'});
             } else {
-              section.css({right : -(100 * topbar.data('index')) + '%'});
-              section.find('>.name').css({right : 100 * topbar.data('index') + '%'});
+              section.css({right: -(100 * topbar.data('index')) + '%'});
+              section.find('>.name').css({right: 100 * topbar.data('index') + '%'});
             }
 
             topbar.css('height', $this.siblings('ul').outerHeight(true) + topbar.data('height'));
           }
         });
 
-      S(window).off('.topbar').on('resize.fndtn.topbar', self.throttle(function () {
+      S(window).off('.topbar').on('resize.fndtn.topbar', self.throttle(function() {
           self.resize.call(self);
-      }, 50)).trigger('resize').trigger('resize.fndtn.topbar').load(function () {
+      }, 50)).trigger('resize').trigger('resize.fndtn.topbar').load(function(){
           // Ensure that the offset is calculated after all of the pages resources have loaded
           S(this).trigger('resize.fndtn.topbar');
       });
@@ -3178,11 +3113,11 @@
         topbar.data('index', topbar.data('index') - 1);
 
         if (!self.rtl) {
-          section.css({left : -(100 * topbar.data('index')) + '%'});
-          section.find('>.name').css({left : 100 * topbar.data('index') + '%'});
+          section.css({left: -(100 * topbar.data('index')) + '%'});
+          section.find('>.name').css({left: 100 * topbar.data('index') + '%'});
         } else {
-          section.css({right : -(100 * topbar.data('index')) + '%'});
-          section.find('>.name').css({right : 100 * topbar.data('index') + '%'});
+          section.css({right: -(100 * topbar.data('index')) + '%'});
+          section.find('>.name').css({right: 100 * topbar.data('index') + '%'});
         }
 
         if (topbar.data('index') === 0) {
@@ -3198,10 +3133,10 @@
 
       // Show dropdown menus when their items are focused
       S(this.scope).find('.dropdown a')
-        .focus(function () {
+        .focus(function() {
           $(this).parents('.has-dropdown').addClass('hover');
         })
-        .blur(function () {
+        .blur(function() {
           $(this).parents('.has-dropdown').removeClass('hover');
         });
     },
@@ -3223,18 +3158,18 @@
             .find('li')
             .removeClass('hover');
 
-            if (doToggle) {
+            if(doToggle) {
               self.toggle(topbar);
             }
         }
 
-        if (self.is_sticky(topbar, stickyContainer, settings)) {
-          if (stickyContainer.hasClass('fixed')) {
+        if(self.is_sticky(topbar, stickyContainer, settings)) {
+          if(stickyContainer.hasClass('fixed')) {
             // Remove the fixed to allow for correct calculation of the offset.
             stickyContainer.removeClass('fixed');
 
             stickyOffset = stickyContainer.offset().top;
-            if (self.S(document.body).hasClass('f-topbar-fixed')) {
+            if(self.S(document.body).hasClass('f-topbar-fixed')) {
               stickyOffset -= topbar.data('height');
             }
 
@@ -3279,10 +3214,11 @@
             url = $link.attr('href'),
             $titleLi;
 
+
         if (!$dropdown.find('.title.back').length) {
 
           if (settings.mobile_show_parent_link == true && url) {
-            $titleLi = $('<li class="title back js-generated"><h5><a href="javascript:void(0)"></a></h5></li><li class="parent-link hide-for-large-up"><a class="parent-link js-generated" href="' + url + '">' + $link.html() +'</a></li>');
+            $titleLi = $('<li class="title back js-generated"><h5><a href="javascript:void(0)"></a></h5></li><li class="parent-link show-for-small-only"><a class="parent-link js-generated" href="' + url + '">' + $link.html() +'</a></li>');
           } else {
             $titleLi = $('<li class="title back js-generated"><h5><a href="javascript:void(0)"></a></h5>');
           }
@@ -3307,7 +3243,7 @@
     },
 
     assembled : function (topbar) {
-      topbar.data(this.attr_name(true), $.extend({}, topbar.data(this.attr_name(true)), {assembled : true}));
+      topbar.data(this.attr_name(true), $.extend({}, topbar.data(this.attr_name(true)), {assembled: true}));
     },
 
     height : function (ul) {
@@ -3324,17 +3260,17 @@
     sticky : function () {
       var self = this;
 
-      this.S(window).on('scroll', function () {
+      this.S(window).on('scroll', function() {
         self.update_sticky_positioning();
       });
     },
 
-    update_sticky_positioning : function () {
+    update_sticky_positioning: function() {
       var klass = '.' + this.settings.sticky_class,
           $window = this.S(window),
           self = this;
 
-      if (self.settings.sticky_topbar && self.is_sticky(this.settings.sticky_topbar, this.settings.sticky_topbar.parent(), this.settings)) {
+      if (self.settings.sticky_topbar && self.is_sticky(this.settings.sticky_topbar,this.settings.sticky_topbar.parent(), this.settings)) {
         var distance = this.settings.sticky_topbar.data('stickyoffset');
         if (!self.S(klass).hasClass('expanded')) {
           if ($window.scrollTop() > (distance)) {

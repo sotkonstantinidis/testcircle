@@ -1,9 +1,11 @@
 from unittest.mock import patch
+from django.http import QueryDict
 
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from questionnaire.utils import (
     clean_questionnaire_data,
+    get_active_filters,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
     get_questiongroup_data_from_translation_form,
@@ -219,6 +221,26 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 
+    def test_passes_if_num_lower_than_max_num_of_questiongroups(self):
+        data = {'qg_6': [
+            {'key_8': {'en': 'Key 8 - 1'}},
+            {'key_8': {'en': 'Key 8 - 2'}},
+            {'key_8': {'en': 'Key 8 - 3'}}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
+        self.assertEqual(len(errors), 0)
+
+    def test_raises_error_if_num_higher_than_max_num_of_questiongroups(self):
+        data = {'qg_6': [
+            {'key_8': {'en': 'Key 8 - 1'}},
+            {'key_8': {'en': 'Key 8 - 2'}},
+            {'key_8': {'en': 'Key 8 - 3'}},
+            {'key_8': {'en': 'Key 8 - 4'}}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 
@@ -342,3 +364,80 @@ class GetQuestiongroupDataFromTranslationFormTest(TestCase):
         qg_3_cleaned = get_questiongroup_data_from_translation_form(
             data_trans['qg_3'][0], 'es', 'en')
         self.assertEqual(qg_3_cleaned, data['qg_3'][0])
+
+
+class GetActiveFiltersTest(TestCase):
+
+    fixtures = ['sample.json']
+
+    def setUp(self):
+        self.conf = QuestionnaireConfiguration('sample')
+
+    def test_returns_empty_if_empty_query_dict(self):
+        query_dict = QueryDict('')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(filters, [])
+
+    def test_returns_empty_if_no_filter(self):
+        query_dict = QueryDict('a=1&b=2')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(filters, [])
+
+    def test_skips_invalid_filters(self):
+        query_dict = QueryDict('filter__foo=1&filter__foo__bar__faz=2')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(filters, [])
+
+    def test_skips_filter_with_unknown_questiongroup_or_key(self):
+        query_dict = QueryDict(
+            'filter__qg_1__unknown_key=1&filter__inv_qg__key_1=2')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(filters, [])
+
+    def test_returns_single_query_dict(self):
+        query_dict = QueryDict(
+            'filter__qg_11__key_14=value_14_1')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['questiongroup'], 'qg_11')
+        self.assertEqual(filter_1['key'], 'key_14')
+        self.assertEqual(filter_1['key_label'], 'Key 14')
+        self.assertEqual(filter_1['value'], 'value_14_1')
+        self.assertEqual(filter_1['value_label'], 'Value 14_1')
+        self.assertEqual(filter_1['type'], 'image_checkbox')
+
+    def test_returns_multiple_filters(self):
+        query_dict = QueryDict(
+            'filter__qg_11__key_14=value_14_1&filter__qg_19__key_5=Faz')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 2)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['key_label'], 'Key 14')
+        self.assertEqual(filter_1['value_label'], 'Value 14_1')
+        filter_2 = filters[1]
+        self.assertIsInstance(filter_2, dict)
+        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(filter_2['key_label'], 'Key 5')
+        self.assertEqual(filter_2['value_label'], 'Faz')
+
+    def test_returns_duplicate_filter_keys(self):
+        query_dict = QueryDict(
+            'filter__qg_11__key_14=value_14_1&filter__qg_11__key_14='
+            'value_14_2')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 2)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['key_label'], 'Key 14')
+        self.assertEqual(filter_1['value_label'], 'Value 14_1')
+        filter_2 = filters[1]
+        self.assertIsInstance(filter_2, dict)
+        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(filter_2['key_label'], 'Key 14')
+        self.assertEqual(filter_2['value_label'], 'Value 14_2')

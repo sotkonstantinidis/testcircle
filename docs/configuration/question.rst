@@ -32,6 +32,9 @@ The basic format of the configuration is as follows::
     "form_template": "TEMPLATE_NAME",
 
     # (optional)
+    "view_template": "TEMPLATE_NAME",
+
+    # (optional)
     "conditional": true,
 
     # (optional)
@@ -99,6 +102,17 @@ template should be used with any field type.
 |                    |                                                        |
 |                    | The default for key type ``image_checkbox``            |
 +--------------------+--------------------------------------------------------+
+
+``view_template``
+^^^^^^^^^^^^^^^^^
+
+(Optional). An optional name of a template to be used for the rendering
+of the question in the detail view. The name of the template needs to
+match a file with the ending ``.html`` inside
+``questionnaire/templates/details/question/``. If not specified, the
+default layout for each key type is used (usually ``textinput.html``).
+
+Please note that not every template should be used with any field type.
 
 ``conditional``
 ^^^^^^^^^^^^^^^

@@ -1,6 +1,5 @@
 {% extends 'unccd/base.html' %}
 
-{% load staticfiles %}
 {% load i18n %}
 
 {% block bodyclass %}layout-technologies{% endblock %}
@@ -11,7 +10,9 @@
     <section class="tech-list small-12 columns">
       <div class="tech-group">
         <h2 class="is-group">{% trans "All technologies" %}</h2>
-        {% include "unccd/questionnaire/partial/list.html" %}
+        <div id="questionnaire-list">
+          {% include "unccd/questionnaire/partial/list.html" %}
+        </div>
       </div>
     </section>
   </main>

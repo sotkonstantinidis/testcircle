@@ -698,7 +698,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '(//input[@name="qg_11-0-key_14"])[1]').click()
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
         # She submits the step and sees that the value was submitted and
         # the form progress on the overview page is updated
@@ -715,7 +715,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_4']))
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
         # She deselects the first value and sees that the progress was
         # updated
@@ -1081,7 +1081,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '(//input[@name="qg_12-0-key_15"])[1]').click()
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
         # She also sees that Key 16 is now visible but no value is selected
         subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
@@ -1107,7 +1107,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_4']))
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
         # Key 16 is visible but no value selected
         subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
@@ -1137,7 +1137,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step, args=['cat_4']))
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
         # She sees that the value of Key 15 is selected. Key 16 is
         # visible and the first value is selected.

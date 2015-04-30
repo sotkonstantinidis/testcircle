@@ -1,0 +1,32 @@
+{% comment %}
+
+  This template renders the part with the active filters in place. For
+  each active filter, it renders a button showing the respective filter
+  and allowing to remove it.
+
+  Required attributes:
+
+  - active_filters: A list of active filters.
+
+{% endcomment %}
+
+{% load i18n %}
+
+<div class="filter{% if not active_filters %} hide{% endif %}">
+  <div class="row">
+    <div class="medium-10 columns">
+      <ul class="filter-list">
+        {% for active_filter in active_filters %}
+          <li class="filter-item">
+            <a class="remove-filter" href="" data-questiongroup="{{ active_filter.questiongroup }}" data-key="{{ active_filter.key }}" data-value="{{ active_filter.value }}">{{ active_filter.key_label }}: <span class="filter-value">{{ active_filter.value_label }}</span> <svg class="icon is-inline right"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="medium-2 columns">
+      <div class="filter-action text-right">
+        <a class="filter-reset" id="filter-reset" href="">{% trans "Reset all" %}</a>
+      </div>
+    </div>
+  </div>
+</div>

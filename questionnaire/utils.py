@@ -58,6 +58,12 @@ def clean_questionnaire_data(data, configuration):
                 'Questiongroup with keyword "{}" does not exist'.format(
                     qg_keyword))
             continue
+        if questiongroup.max_num < len(qg_data_list):
+            errors.append(
+                'Questiongroup with keyword "{}" has a max_num of {} but '
+                'appears {} times'.format(
+                    qg_keyword, questiongroup.max_num, len(qg_data_list)))
+            continue
         cleaned_qg_list = []
         for qg_data in qg_data_list:
             cleaned_qg = {}
@@ -399,3 +405,78 @@ def get_questiongroup_data_from_translation_form(
             questiongroup_data_cleaned[key] = value
 
     return questiongroup_data_cleaned
+
+
+def get_active_filters(questionnaire_configuration, query_dict):
+    """
+    Get the currently active filters based on the query dict (eg. from
+    the request). Only valid filters (correct format, based on
+    questiongroups and keys of current configuration) are respected.
+    The query dict can contain multiple keys with the same names.
+
+    The current format of a filter is::
+
+        filter__[questiongroup]__[key]=[value]
+
+    Example::
+
+        filter__qg_11__key_14=value_14_1
+
+    Args:
+        ``questionnaire_configuration``
+        (:class:`configuration.configuration.QuestionnaireConfiguration`):
+        The questionnaire configuration.
+
+        ``query_dict`` (Nested Multidict): A nested multidict object,
+        eg. ``request.GET``.
+
+    Returns:
+        ``list``. A list of dictionaries with the active and valid
+        filters. Each dictionary contains the following entries:
+
+        - ``questiongroup``: The keyword of the questiongroup.
+
+        - ``key``: The keyword of the key.
+
+        - ``key_label``: The label of the key.
+
+        - ``value``: The keyword of the value.
+
+        - ``value_label``: The label of the value if available. Else the
+          value as provided in the filter is returned.
+
+        - ``type``: The field type of the key.
+    """
+    active_filters = []
+    for filter_param, filter_values in query_dict.lists():
+        if not filter_param.startswith('filter__'):
+            continue
+
+        params = filter_param.split('__')
+        if len(params) != 3:
+            continue
+
+        filter_questiongroup = params[1]
+        filter_key = params[2]
+
+        question = questionnaire_configuration.get_question_by_keyword(
+            filter_questiongroup, filter_key)
+
+        if question is None:
+            continue
+
+        for filter_value in filter_values:
+            value_label = next(
+                (v[1] for v in question.choices if v[0] == filter_value),
+                filter_value)
+
+            active_filters.append({
+                'questiongroup': filter_questiongroup,
+                'key': filter_key,
+                'key_label': question.label,
+                'value': filter_value,
+                'value_label': value_label,
+                'type': question.field_type,
+            })
+
+    return sorted(active_filters, key=lambda k: k['key'])
