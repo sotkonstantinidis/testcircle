@@ -117,6 +117,17 @@
                             </li>
                           {% endfor %}
                         </ul>
+                      {% elif filter.type == 'checkbox' %}
+                        <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                          {% for value in filter.values %}
+                            <li>
+                              <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                              <label for="{{ filter.keyword }}_{{ value.0 }}">
+                                {{ value.1 }}
+                              </label>
+                            </li>
+                          {% endfor %}
+                        </ul>
                       {% else %}
                         <p>Filter for type {{ filter.type }} not implemented</p>
                       {% endif %}
