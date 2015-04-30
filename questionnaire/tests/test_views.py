@@ -1,6 +1,7 @@
 import json
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import Http404
 from django.http.response import HttpResponse
 from django.test.client import RequestFactory
@@ -349,18 +350,38 @@ class GenericQuestionnaireListTest(TestCase):
 
     @patch.object(QuestionnaireConfiguration, '__init__')
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
+    @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration_get_list_data,
+            self, mock_Q_get_filter_configuration,
+            mock_QuestionnaireConfiguration_get_list_data,
             mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
-    @patch.object(QuestionnaireConfiguration, 'get_list_data')
-    def test_calls_get_list_data(self, mock_get_list_data):
+    @patch('questionnaire.views.get_configuration_query_filter')
+    def test_calls_get_configuration_query_filter(
+            self, mock_func):
+        mock_func.return_value = Q(configurations__code='sample')
         generic_questionnaire_list(self.request, *get_valid_list_values())
-        mock_get_list_data.assert_called_once_with(
-            [])
+        mock_func.assert_called_once_with('sample', only_current=False)
+
+    # @patch('questionnaire.views.get_active_filters')
+    # @patch.object(QuestionnaireConfiguration, '__init__')
+    # @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
+    # def test_calls_get_active_filters(
+    #         self, mock_Q_get_filter_configuration,
+    #         mock_QuestionnaireConfiguration, mock_get_active_filters):
+    #     mock_QuestionnaireConfiguration.return_value = None
+    #     generic_questionnaire_list(self.request, *get_valid_list_values())
+    #     mock_get_active_filters.assert_called_once_with(
+    #         mock_QuestionnaireConfiguration.return_value, self.request.GET)
+
+    # @patch.object(QuestionnaireConfiguration, 'get_list_data')
+    # def test_calls_get_list_data(self, mock_get_list_data):
+    #     f = Questionnaire.objects.none()
+    #     generic_questionnaire_list(self.request, *get_valid_list_values())
+    #     mock_get_list_data.assert_called_once_with(f)
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     @patch('questionnaire.views.render')
@@ -370,7 +391,11 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/list.html', {
-                'questionnaire_value_list': []})
+                'questionnaire_value_list': [],
+                'filter_configuration': (),
+                'filter_url': '',
+                'active_filters': [],
+            })
 
     def test_returns_rendered_response(self):
         ret = generic_questionnaire_list(
@@ -378,7 +403,7 @@ class GenericQuestionnaireListTest(TestCase):
         self.assertIsInstance(ret, HttpResponse)
 
     def test_returns_only_template_values_if_no_template(self):
-        ret = generic_questionnaire_list(self.request, 'sample', [], None)
+        ret = generic_questionnaire_list(self.request, 'sample', template=None)
         self.assertIsInstance(ret, dict)
 
 

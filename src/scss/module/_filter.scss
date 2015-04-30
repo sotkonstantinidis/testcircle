@@ -31,3 +31,13 @@
     color: #fff;
   }
 }
+.loading-indicator {
+  filter:alpha(opacity=50); /* IE */
+  opacity: 0.5; /* Safari, Opera */
+  -moz-opacity:0.50; /* FireFox */
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  background: url('/static/assets/img/ajax-loader.gif') 50% 25% no-repeat rgb(249,249,249)
+}

@@ -5,8 +5,8 @@
 
 {% block title %}SAMPLE{% endblock %}
 
-{% block bodyclass %}layout-wocat{% endblock %}
-{% block navclass %}is-wocat{% endblock %}
+{% block bodyclass %}layout-sample{% endblock %}
+{% block navclass %}is-sample{% endblock %}
 
 {% block logo %}
   <h1><a href="{% url 'sample:home' %}">{% trans "SAMPLE" %}</a></h1>
@@ -20,7 +20,7 @@
           <div class="large-12 columns">
             <div class="row collapse postfix-radius prefix-radius">
               <div class="small-10 medium-11 columns">
-                <input type="search" placeholder="Search technology: e.g Soil degradation...">
+                <input type="search" placeholder="{% trans 'Search technology: e.g Soil degradation...' %}">
               </div>
               <div class="small-2 medium-1 columns">
                 <a href="#" class="postfix light">
@@ -31,9 +31,23 @@
           </div>
         </div>
         <div class="form-search-option">
-          <a href="#" data-toggle="search-advanced">Advanced filter</a> | <a href="{% url 'sample:questionnaire_list' %}">Show all Technologies</a>
+          {% if filter_configuration %}
+            <a href="#" data-toggle="search-advanced">{% trans "Advanced filter" %}</a>
+          {% else %}
+            <a href="{% url 'sample:questionnaire_list' %}">{% trans "Advanced filter" %}</a>
+          {% endif %}
+           | <a href="{% url 'sample:questionnaire_list' %}">{% trans "Show all Technologies" %}</a>
         </div>
       </form>
     </li>
   </ul>
+{% endblock %}
+
+{% block filter %}
+  {% include "filter.html" %}
+{% endblock %}
+
+{% block bottom %}
+  <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
+  <script src="{% static 'js/filter.js' %}"></script>
 {% endblock %}

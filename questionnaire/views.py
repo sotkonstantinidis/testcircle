@@ -15,6 +15,7 @@ from django.shortcuts import (
 from django.utils.translation import ugettext as _, get_language
 
 from configuration.configuration import QuestionnaireConfiguration
+from configuration.utils import get_configuration_query_filter
 from qcat.utils import (
     clear_session_questionnaire,
     get_session_questionnaire,
@@ -30,6 +31,7 @@ from questionnaire.upload import (
 )
 from questionnaire.utils import (
     clean_questionnaire_data,
+    get_active_filters,
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
@@ -313,7 +315,8 @@ def generic_questionnaire_details(
 
 
 def generic_questionnaire_list(
-        request, configuration_code, questionnaires, template):
+        request, configuration_code, template=None, filter_url='', limit=10,
+        only_current=False):
     """
     A generic view to show a list of questionnaires.
 
@@ -323,19 +326,65 @@ def generic_questionnaire_list(
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
 
+    Kwargs:
         ``template`` (str): The path of the template to be rendered for
         the list.
+
+        ``filter_url`` (str): The URL of the view used to render the
+        list partially. Used by AJAX requests to update the list.
+
+        ``limit`` (int): The limit of results the list will return.
+
+        ``only_current`` (bool): A boolean indicating whether to include
+        only questionnaires from the current configuration. Passed to
+        :func:`configuration.utils.get_configuration_query_filter`
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
+
+    questionnaires = Questionnaire.objects.filter(
+        get_configuration_query_filter(
+            configuration_code, only_current=only_current))
+
+    # Apply filters
+    active_filters = get_active_filters(
+        questionnaire_configuration, request.GET)
+    # TODO: Improve the filtering, also performance wise.
+    for active_filter in active_filters:
+        filtered = []
+        if active_filter['type'] in ['checkbox', 'image_checkbox']:
+            for filtered_questionnaire in Questionnaire.objects.raw("""
+                select *
+                from questionnaire_questionnaire,
+                lateral jsonb_array_elements(data -> %s) questiongroup
+                where questiongroup->%s ? %s;
+            """, [active_filter['questiongroup'], active_filter['key'],
+                    active_filter['value']]):
+                filtered.append(filtered_questionnaire)
+        else:
+            raise NotImplemented()
+
+        questionnaires = questionnaires.filter(id__in=[q.id for q in filtered])
+
+    # Apply limit
+    questionnaires = questionnaires[:limit]
+
+    # Get the values needed for the list template
     questionnaire_value_list = questionnaire_configuration.get_list_data(
         questionnaires)
 
+    # Add the configuration of the filter
+    filter_configuration = questionnaire_configuration.\
+        get_filter_configuration()
+
     template_values = {
         'questionnaire_value_list': questionnaire_value_list,
+        'filter_configuration': filter_configuration,
+        'active_filters': active_filters,
+        'filter_url': filter_url,
     }
 
     if template is None:

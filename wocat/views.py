@@ -1,11 +1,12 @@
-from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
 from configuration.configuration import QuestionnaireConfiguration
-from configuration.utils import get_configuration_query_filter
-from questionnaire.models import Questionnaire
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
@@ -15,7 +16,6 @@ from questionnaire.views import (
 
 
 def home(request):
-
     # TODO: Show this warning here? Or in Admin?
     questionnaire_configuration = QuestionnaireConfiguration('wocat')
     if questionnaire_configuration.configuration_error is not None:
@@ -23,10 +23,8 @@ def home(request):
             request, 'WARNING: INVALID CONFIGURATION. {}'.format(
                 questionnaire_configuration.configuration_error))
 
-    questionnaires = list(Questionnaire.objects.filter(
-        get_configuration_query_filter('wocat', only_current=True)))[:3]
     list_template_values = generic_questionnaire_list(
-        request, 'wocat', questionnaires, template=None)
+        request, 'wocat', template=None, only_current=True, limit=3)
 
     return render(request, 'wocat/home.html', {
         'questionnaire_value_list': list_template_values.get(
@@ -101,6 +99,42 @@ def questionnaire_details(request, questionnaire_id):
         request, questionnaire_id, 'wocat', 'wocat/questionnaire/details.html')
 
 
+def questionnaire_list_partial(request):
+    """
+    View to render the questionnaire list only partially. Returns a JSON
+    response with parts of the template. To be used when uploading the
+    list through AJAX requests.
+
+    Args:
+        ``request`` (django.http.HttpResponse): The request object.
+
+    Returns:
+        ``JsonResponse``. A JSON response with the following entries:
+
+        - ``success`` (bool): A boolean indicating whether query was
+          performed successfully or not.
+
+        - ``list`` (string): The rendered list template.
+
+        - ``active_filters`` (string): The rendered active filters
+          template.
+    """
+    list_values = generic_questionnaire_list(request, 'wocat', template=None)
+
+    list_ = render_to_string('wocat/questionnaire/partial/list.html', {
+        'questionnaire_value_list': list_values['questionnaire_value_list']})
+    active_filters = render_to_string('active_filters.html', {
+        'active_filters': list_values['active_filters']})
+
+    ret = {
+        'success': True,
+        'list': list_,
+        'active_filters': active_filters,
+    }
+
+    return JsonResponse(ret)
+
+
 def questionnaire_list(request):
     """
     View to show a list with WOCAT questionnaires.
@@ -116,7 +150,6 @@ def questionnaire_list(request):
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaires = list(Questionnaire.objects.filter(
-        get_configuration_query_filter('wocat')))
     return generic_questionnaire_list(
-        request, 'wocat', questionnaires, 'wocat/questionnaire/list.html')
+        request, 'wocat', template='wocat/questionnaire/list.html',
+        filter_url=reverse('wocat:questionnaire_list_partial'))
