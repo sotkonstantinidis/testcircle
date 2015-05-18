@@ -116,7 +116,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'category_formsets': "bar",
                 'category_config': "foo",
                 'title': 'QCAT Form',
-                'route_overview': 'sample:questionnaire_new',
+                'overview_url': '/en/sample/edit/#cat_0',
                 'valid': True,
                 'configuration_name': 'sample',
             })

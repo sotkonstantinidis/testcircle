@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_POST
 
 from django.http import (
@@ -151,6 +152,9 @@ def generic_questionnaire_new_step(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation)
 
+    overview_url = '{}#{}'.format(
+        reverse('{}:questionnaire_new'.format(url_namespace)), step)
+
     valid = True
     if request.method == 'POST':
 
@@ -175,13 +179,13 @@ def generic_questionnaire_new_step(
                 messages.success(
                     request, _('[TODO] Data successfully stored to Session.'),
                     fail_silently=True)
-                return redirect('{}:questionnaire_new'.format(url_namespace))
+                return redirect(overview_url)
 
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
         'category_config': category_config,
         'title': page_title,
-        'route_overview': '{}:questionnaire_new'.format(url_namespace),
+        'overview_url': overview_url,
         'valid': valid,
         'configuration_name': url_namespace,
     })

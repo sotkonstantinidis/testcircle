@@ -204,6 +204,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'in_list',
         'form_template',
         'view_template',
+        'view_label',
         'conditions',
         'conditional',
         'questiongroup_conditions',
@@ -248,6 +249,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
             # (optional)
             "view_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "view_label": true,
 
             # (optional)
             "conditional": true,
@@ -300,9 +304,15 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             raise ConfigurationErrorTemplateNotFound(self.form_template, self)
 
         self.view_template = configuration.get('view_template')
+        self.view_label = configuration.get('view_label', True) is True
 
         self.max_length = configuration.get('max_length', None)
-        self.num_rows = configuration.get('num_rows', 10)
+        if self.max_length and not isinstance(self.max_length, int):
+            self.max_length = None
+        default_num_rows = 10
+        if self.max_length:
+            default_num_rows = int(self.max_length / 100)
+        self.num_rows = configuration.get('num_rows', default_num_rows)
 
         self.filterable = configuration.get('filter', False) is True
 
@@ -527,6 +537,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         return formfields, templates
 
     def get_details(self, data={}):
+        template_values = {
+            'view_label': self.view_label,
+        }
         value = data.get(self.keyword)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
@@ -536,48 +549,44 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
         if self.field_type in ['char']:
-            rendered = render_to_string(
-                'details/field/textinput.html', {
-                    'key': self.label,
-                    'value': value})
-            return rendered
+            template_name = 'textarea'
+            template_values.update({
+                'key': self.label,
+                'value': value,
+            })
         elif self.field_type in ['text']:
-            rendered = render_to_string(
-                'details/field/textarea.html', {
-                    'key': self.label,
-                    'value': value})
-            return rendered
+            template_name = 'textarea'
+            template_values.update({
+                'key': self.label,
+                'value': value,
+            })
         elif self.field_type in ['bool', 'select_type']:
-            rendered = render_to_string(
-                'details/field/textinput.html', {
-                    'key': self.label,
-                    'value': values[0]})
-            return rendered
+            template_name = 'textinput'
+            template_values.update({
+                'key': self.label,
+                'value': values[0],
+            })
         elif self.field_type in ['measure']:
             template_name = 'measure_bar'
             if self.view_template:
                 template_name = self.view_template
-            template = 'details/field/{}.html'.format(template_name)
             level = None
             try:
                 pos = [c[1] for c in self.choices].index(values[0])
                 level = round(pos / len(self.choices) * 5)
             except ValueError:
                 pass
-            rendered = render_to_string(
-                template, {
-                    'key': self.label,
-                    'value': values[0],
-                    'level': level,
-                })
-            return rendered
+            template_values.update({
+                'key': self.label,
+                'value': values[0],
+                'level': level,
+            })
         elif self.field_type in ['checkbox']:
-            rendered = render_to_string(
-                'details/field/checkbox.html', {
-                    'key': self.label,
-                    'values': values
-                })
-            return rendered
+            template_name = 'checkbox'
+            template_values.update({
+                'key': self.label,
+                'values': values,
+            })
         elif self.field_type in ['image_checkbox']:
             conditional_outputs = []
             for v in value:
@@ -596,25 +605,25 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 if v is not None:
                     i = [y[0] for y in list(self.choices)].index(v)
                     images.append(self.images[i])
-            template = 'details/field/image_checkbox.html'
+            template_name = 'image_checkbox'
             if self.conditional:
-                template = 'details/field/image_checkbox_conditional.html'
-            rendered = render_to_string(
-                template, {
-                    'key': self.label,
-                    'values': list(zip(values, images, conditional_outputs)),
-                })
-            return rendered
+                template_name = 'image_checkbox_conditional'
+            template_values.update({
+                'key': self.label,
+                'values': list(zip(values, images, conditional_outputs)),
+            })
         elif self.field_type in ['image']:
             value = get_url_by_identifier(value)
-            rendered = render_to_string(
-                'details/field/image.html', {
-                    'key': self.label,
-                    'value': value})
-            return rendered
+            template_name = 'image'
+            template_values.update({
+                'key': self.label,
+                'value': value,
+            })
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
+        template = 'details/field/{}.html'.format(template_name)
+        return render_to_string(template, template_values)
 
     def lookup_choices_labels_by_keywords(self, keywords):
         """
@@ -649,6 +658,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         'min_num',
         'questiongroup_condition',
         'view_template',
+        'numbered',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -678,6 +688,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
             # (optional)
             "view_template": "VIEW_TEMPLATE",
+
+            # (optional)
+            "numbered": "NUMBERED",
 
             # A list of questions.
             "questions": [
@@ -717,6 +730,10 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
         self.questiongroup_condition = self.configuration.get(
             'questiongroup_condition')
+
+        self.numbered = self.configuration.get('numbered', '')
+        if self.numbered not in ['inline', 'prefix']:
+            self.numbered = ''
 
         # TODO
         self.required = False
@@ -759,21 +776,28 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'label': self.label,
             'templates': templates,
             'questiongroup_condition': self.questiongroup_condition,
+            'numbered': self.numbered,
         }
 
         return config, FormSet(
             post_data, prefix=self.keyword, initial=initial_data)
 
     def get_details(self, data=[]):
-        rendered_questions = []
+        questiongroups = []
         for d in data:
+            rendered_questions = []
             for question in self.questions:
                 if question.conditional:
                     continue
                 rendered_questions.append(question.get_details(d))
+            questiongroups.append(rendered_questions)
+        config = {
+            'numbered': self.numbered,
+        }
         rendered = render_to_string(
             self.view_template, {
-                'questions': rendered_questions,
+                'questiongroups': questiongroups,
+                'config': config,
             })
         return rendered
 

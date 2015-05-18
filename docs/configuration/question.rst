@@ -35,6 +35,9 @@ The basic format of the configuration is as follows::
     "view_template": "TEMPLATE_NAME",
 
     # (optional)
+    "view_label": true,
+
+    # (optional)
     "conditional": true,
 
     # (optional)
@@ -114,6 +117,14 @@ default layout for each key type is used (usually ``textinput.html``).
 
 Please note that not every template should be used with any field type.
 
+``view_label``
+^^^^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether to display the label
+of the key in the view template or not. Defaults to ``true``. Turn the
+label off if the key has the same label as the subcategory.
+
+
 ``conditional``
 ^^^^^^^^^^^^^^^
 
@@ -167,4 +178,5 @@ is only meaningful for key types ``char`` (default value: 200) and
 
 (Optional). An optional integer to define the number of rows to be shown
 for textarea fields. This is only meaningful for key type ``text``.
-Defaults to 10.
+The default is relative to ``max_length`` if set, else the default is
+10.

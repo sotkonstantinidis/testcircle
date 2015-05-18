@@ -1,3 +1,10 @@
 {% if values|length > 0 %}
-<p>{{ key }}: {{ values|join:", " }}</p>
+  {% if view_label %}
+    <p>{{ key }}:</p>
+  {% endif %}
+  <ul>
+    {% for v in values %}
+      <li>{{ v }}</li>
+    {% endfor %}
+  </ul>
 {% endif %}

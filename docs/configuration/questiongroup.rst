@@ -38,6 +38,9 @@ The basic format of the configuration is as follows::
     # (optional)
     "view_template": "VIEW_TEMPLATE",
 
+    # (optional)
+    "numbered": "NUMBERED",
+
     # A list of questions.
     "questions": [
       # ...
@@ -133,6 +136,14 @@ template should be used with any field type.
 |                         | Should only be used for questiongroups containing |
 |                         | only questions with type ``measure``.             |
 +-------------------------+---------------------------------------------------+
+
+``numbered``
+^^^^^^^^^^^^
+
+(Optional). An optional parameter if the questiongroup is to be
+numbered. Possible values are ``inline`` (numbering inside field label)
+or ``prefix`` (numbering indented before fields). If not specified, no
+numbering is used.
 
 ``questions``
 ^^^^^^^^^^^^^

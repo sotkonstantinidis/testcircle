@@ -150,3 +150,15 @@ select,
 fieldset > div.questiongroup:not(:first-of-type) {
   margin-top: 1rem;
 }
+
+.questiongroup-numbered-left {
+  float: left;
+}
+
+.questiongroup-numbered-left p {
+  padding: 0.5rem 0;
+}
+
+.questiongroup-numbered-right {
+  margin-left: 2.5rem;
+}
