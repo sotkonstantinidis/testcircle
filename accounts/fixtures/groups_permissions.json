@@ -238,19 +238,19 @@
                 "questionnairerole"
             ],
             [
-                "add_questionnaireversion",
+                "add_questionnairelink",
                 "questionnaire",
-                "questionnaireversion"
+                "questionnairelink"
             ],
             [
-                "change_questionnaireversion",
+                "change_questionnairelink",
                 "questionnaire",
-                "questionnaireversion"
+                "questionnairelink"
             ],
             [
-                "delete_questionnaireversion",
+                "delete_questionnairelink",
                 "questionnaire",
-                "questionnaireversion"
+                "questionnairelink"
             ],
             [
                 "add_questionnairetranslation",
@@ -266,21 +266,6 @@
                 "delete_questionnairetranslation",
                 "questionnaire",
                 "questionnairetranslation"
-            ],
-            [
-                "add_status",
-                "questionnaire",
-                "status"
-            ],
-            [
-                "change_status",
-                "questionnaire",
-                "status"
-            ],
-            [
-                "delete_status",
-                "questionnaire",
-                "status"
             ],
             [
                 "add_file",

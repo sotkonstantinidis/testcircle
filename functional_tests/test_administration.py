@@ -33,11 +33,9 @@ class AdminTest(FunctionalTest):
         module_2.find_element_by_link_text('Keys')
         module_3 = self.findBy('id', 'module_3', base=column_1)
         module_3.find_element_by_link_text('Translations')
-        module_4 = self.findBy('id', 'module_4', base=column_1)
-        module_4.find_element_by_link_text('Statuses')
 
         with self.assertRaises(NoSuchElementException):
-            column_1.find_element_by_id('module_5')
+            column_1.find_element_by_id('module_4')
 
     def test_admin_page_translators(self):
 

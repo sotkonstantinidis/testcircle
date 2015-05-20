@@ -446,7 +446,7 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": "{\"sample\":{\"helptext\":{\"en\":\"Helptext 1\",\"es\":\"Texto de ayuda\"}}}"
+        "data": "{\"sample\":{\"helptext\":{\"en\":\"Helptext 1: This is a helptext. Helptexts can be really long and go on seemingly forever. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\",\"es\":\"Texto de ayuda\"}}}"
     },
     "model": "configuration.translation",
     "pk": 12201
