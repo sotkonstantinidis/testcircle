@@ -1,6 +1,8 @@
 {% load staticfiles %}
 {% if values|length > 0 %}
-{{ key }}:<br/>
+  {% if view_label %}
+    {{ key }}:<br/>
+  {% endif %}
   {% for value in values %}
     <img src="{% static value.1 %}" alt="{{ value.0 }}">
     {% if value.2 %}

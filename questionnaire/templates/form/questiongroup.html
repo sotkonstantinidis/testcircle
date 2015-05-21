@@ -14,7 +14,7 @@
 {% load floppyforms %}
 {% load list_to_columns %}
 
-<div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %} class="questiongroup">
+<div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %} class="questiongroup {% if config.numbered %} questiongroup-numbered-{{ config.numbered }}{% endif %}">
 
   {% if config.label %}
     <h4>{{ config.label }}</h4>
@@ -29,6 +29,15 @@
   {% block rows %}
     {% form form using %}
       {% for f in formset.forms %}
+
+        {% if config.numbered == 'prefix' %}
+          <div class="row">
+            <div class="questiongroup-numbered-left">
+              <p class="questiongroup-numbered-number"></p>
+            </div>
+            <div class="questiongroup-numbered-right">
+        {% endif %}
+
         <div class="row list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
           {% for field in f.visible_fields %}
             <div class="row single-item">
@@ -49,6 +58,12 @@
             style="display: none;"{% endif %}>{% trans "Remove" %}</a>
           </div>
         </div>
+
+        {% if config.numbered == 'prefix' %}
+          </div>
+        </div>
+        {% endif %}
+
       {% endfor %}
       {% if formset.max_num > formset.min_num %}
         <div class="row list-action">
