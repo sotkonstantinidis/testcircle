@@ -77,7 +77,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
-        mock_get_session_questionnaire.assert_called_once_with()
+        mock_get_session_questionnaire.assert_called_once_with('sample')
 
     @patch('questionnaire.views.get_questionnaire_data_for_translation_form')
     def test_calls_get_questionnaire_data_for_translation_form(
@@ -103,7 +103,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         r.method = 'POST'
         generic_questionnaire_new_step(
             r, *get_valid_new_step_values()[0])
-        mock_save_session_questionnaire.assert_called_once_with({})
+        mock_save_session_questionnaire.assert_called_once_with({}, 'sample')
 
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
@@ -155,7 +155,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
-        mock_get_session_questionnaire.assert_called_once_with()
+        mock_get_session_questionnaire.assert_called_once_with('sample')
 
     @patch('questionnaire.views.QuestionnaireConfiguration')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -212,7 +212,8 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_clear_session_questionnaire.assert_called_once_with()
+        mock_clear_session_questionnaire.assert_called_once_with(
+            configuration_code='sample')
 
     @patch.object(messages, 'success')
     @patch('questionnaire.views.clean_questionnaire_data')

@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse
 from selenium.webdriver.common.keys import Keys
 
 from functional_tests.base import FunctionalTest
-from qcat.utils import get_session_questionnaire
 from sample.tests.test_views import (
     route_questionnaire_list,
     route_questionnaire_new,
@@ -19,29 +18,6 @@ from nose.plugins.attrib import attr
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample.json']
-
-    def test_stores_session_dictionary_correctly(self):
-
-        # Alice logs in
-        self.doLogin('a@b.com', 'foo')
-
-        # She goes to a step of the questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
-
-        # She enters something as first key
-        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
-        self.assertEqual(key_1.text, '')
-        key_1.send_keys('Foo')
-
-        self.findBy('id', 'button-submit').click()
-
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        session_data = get_session_questionnaire()
-        self.assertEqual(session_data, {'qg_1': [{'key_1': {'en': 'Foo'}}]})
-
-        # self.assertEqual(self.browser.current_url, 'foo')
-        self.findBy('id', 'button-submit').click()
 
     def test_navigate_questionnaire(self):
 

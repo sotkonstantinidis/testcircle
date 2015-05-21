@@ -18,7 +18,7 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin('a@b.com', 'foo')
 
-        # She goes to the UNCCD app
+        # She goes to the wocat app
         self.browser.get(self.live_server_url + reverse(
             route_home))
 

@@ -128,6 +128,7 @@ def generic_questionnaire_new_step(
                     data[questiongroup_keyword] = [cleaned_data]
 
         return data, True
+
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
     category = questionnaire_configuration.get_category(step)
@@ -137,7 +138,7 @@ def generic_questionnaire_new_step(
 
     session_questionnaire = {}
     if request.method != 'POST':
-        session_questionnaire = get_session_questionnaire()
+        session_questionnaire = get_session_questionnaire(configuration_code)
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -162,7 +163,8 @@ def generic_questionnaire_new_step(
             category_formsets, current_locale, original_locale)
 
         if valid is True:
-            session_questionnaire = get_session_questionnaire()
+            session_questionnaire = get_session_questionnaire(
+                configuration_code)
             session_questionnaire.update(data)
 
             cleaned_questionnaire_data, errors = clean_questionnaire_data(
@@ -174,7 +176,8 @@ def generic_questionnaire_new_step(
                     'because of the following errors: <br/>{}'.format(
                         '<br/>'.join(errors)))
             else:
-                save_session_questionnaire(cleaned_questionnaire_data)
+                save_session_questionnaire(
+                    cleaned_questionnaire_data, configuration_code)
 
                 messages.success(
                     request, _('[TODO] Data successfully stored to Session.'),
@@ -232,9 +235,10 @@ def generic_questionnaire_new(
     if questionnaire_id is not None:
         questionnaire_object = get_object_or_404(
             Questionnaire, pk=questionnaire_id)
-        save_session_questionnaire(questionnaire_object.data)
+        save_session_questionnaire(
+            questionnaire_object.data, configuration_code)
 
-    session_questionnaire = get_session_questionnaire()
+    session_questionnaire = get_session_questionnaire(configuration_code)
 
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
@@ -252,7 +256,7 @@ def generic_questionnaire_new(
         else:
             questionnaire = Questionnaire.create_new(
                 configuration_code, session_questionnaire)
-            clear_session_questionnaire()
+            clear_session_questionnaire(configuration_code=configuration_code)
             messages.success(
                 request,
                 _('[TODO] The questionnaire was successfully created.'),
