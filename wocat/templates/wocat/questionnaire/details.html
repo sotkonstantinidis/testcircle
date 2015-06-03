@@ -30,14 +30,18 @@
       {% for section in sections %}
         {{ section }}
       {% endfor %}
+      <section class="row">
+        <div class="small-12 columns">
+          {% if mode == 'edit' %}
+            <form action="" method="POST">
+              {% csrf_token %}
+              <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+            </form>
+          {% else %}
+            <a href="{% url 'wocat:questionnaire_edit' questionnaire_id %}" class="button">{% trans "Edit" %}</a>
+          {% endif %}
+        </div>
+      </section>
     </main>
-    {% if mode == 'edit' %}
-      <form action="" method="POST">
-        {% csrf_token %}
-        <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
-      </form>
-    {% else %}
-      <a href="{% url 'wocat:questionnaire_edit' questionnaire_id %}" class="button">{% trans "Edit" %}</a>
-    {% endif %}
   </article>
 {% endblock %}
