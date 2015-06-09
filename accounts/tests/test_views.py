@@ -8,15 +8,38 @@ from qcat.tests import TestCase
 from qcat.tests.test_views import (
     qcat_route_home,
 )
-from accounts.tests.test_authentication import (
+from accounts.tests.test_models import (
     create_new_user,
 )
-from accounts.views import login
+from accounts.views import (
+    login,
+    welcome,
+)
 from django.http import HttpResponseRedirect
 
 
 accounts_route_login = 'login'
 accounts_route_logout = 'logout'
+accounts_route_welcome = 'welcome'
+
+
+class WelcomeTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.request = self.factory.get('/unccd/new/cat_1')
+        self.request.user = create_new_user()
+
+    def test_redirects_home_if_user_not_authenticated(self):
+        res = welcome(self.request)
+        self.assertEqual(res.url, reverse(qcat_route_home))
+
+    def test_redirects_home_if_no_session_id(self):
+        mock_is_authenticated = Mock()
+        mock_is_authenticated.return_value = True
+        self.request.user.is_authenticated = mock_is_authenticated
+        res = welcome(self.request)
+        self.assertEqual(res.url, reverse(qcat_route_home))
 
 
 class LoginTest(TestCase):
@@ -47,36 +70,16 @@ class LoginTest(TestCase):
         self.assertIsInstance(res, HttpResponseRedirect)
         self.assertEqual(res.url, 'foo')
 
-    @patch('accounts.views.django_login')
-    @patch('accounts.views.authenticate')
-    def test_calls_authenticate_with_ses_id(
-            self, mock_authenticate, mock_django_login):
+    @patch('accounts.views.get_login_url')
+    @patch('accounts.views.render')
+    def test_redirect_url_is_welcome_url(
+            self, mock_render, mock_get_login_url):
         mock_is_authenticated = Mock()
         mock_is_authenticated.return_value = False
         self.request.user.is_authenticated = mock_is_authenticated
-        self.request.COOKIES = {'fe_typo_user': 'foo'}
         login(self.request)
-        mock_authenticate.assert_called_once_with(token='foo')
-
-    @patch('accounts.views.django_login')
-    @patch('accounts.views.authenticate')
-    def test_calls_django_login(
-            self, mock_authenticate, mock_django_login):
-        mock_is_authenticated = Mock()
-        mock_is_authenticated.return_value = False
-        mock_authenticate.return_value = self.request.user
-        self.request.user.is_authenticated = mock_is_authenticated
-        self.request.COOKIES = {'fe_typo_user': 'foo'}
-        login(self.request)
-        mock_django_login.assert_called_once_with(
-            self.request, self.request.user)
-
-
-# class LogoutTest(TestCase):
-
-#     fixtures = ['groups_permissions.json', 'sample.json']
-
-#     def test_logout_redirects_to_home(self):
-#         self.client.login(username='a@b.com', password='foo')
-#         res = self.client.get(reverse(accounts_route_logout), follow=True)
-#         self.assertRedirects(res, reverse(qcat_route_home))
+        mock_render.assert_called_once_with(self.request, 'login.html', {
+            'redirect_url': 'http://testserver/en/accounts/welcome?next=/',
+            'login_url': mock_get_login_url.return_value,
+            'show_notice': False,
+        })

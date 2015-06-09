@@ -2,72 +2,107 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from unittest.mock import patch
 
-from accounts.authentication import WocatAuthenticationBackend
+from accounts.authentication import (
+    get_user_information,
+    WocatAuthenticationBackend,
+    validate_session,
+)
+from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
 
 
-def get_mock_do_auth_return_values(username='test@qcat.com'):
+def get_mock_validate_session_values():
     """
-    Returns mock values that correspond to the actual _do_auth function
-    in accounts.authentication.
+    Returns mock values that correspond to the actual validate_session
+    function in accounts.authentication.
     """
-    return (username, '1,2', 'Firstname', 'Lastname')
+    return 1
 
 
-@patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
-def do_log_in(client, mock_do_auth):
-    mock_do_auth.return_value = get_mock_do_auth_return_values()
-    client.login(token='foo')
+def get_mock_user_information_values():
+    """
+    Returns mock values that correspond to the actual
+    get_user_information function in accounts.authentication.
+    """
+    return {
+        'uid': 1,
+        'username': 'foo@bar.com',
+        'first_name': 'Foo',
+        'last_name': 'Bar',
+    }
 
 
-def create_new_user():
-    return User.create_new(email='a@b.com', name='foo')
-
-
-@patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
+@patch('accounts.authentication.validate_session')
 class AuthenticateTest(TestCase):
 
     def setUp(self):
         self.backend = WocatAuthenticationBackend()
 
-    def test_passes_credentials_to_auth_function(self, mock_do_auth):
+    def test_passes_credentials_to_validate_function(
+            self, mock_validate_session):
         self.backend.authenticate(token='foo')
-        mock_do_auth.assert_called_once_with('foo')
+        mock_validate_session.assert_called_once_with('foo')
 
-    def test_returns_none_if_auth_function_returns_none(self, mock_do_auth):
-        mock_do_auth.return_value = None
+    def test_returns_none_if_validate_function_returns_none(
+            self, mock_validate_session):
+        mock_validate_session.return_value = None
         user = self.backend.authenticate(token='foo')
         self.assertIsNone(user)
 
-    def test_finds_existing_user_with_username(self, mock_do_auth):
-        actual_user = User.objects.create(email='test@qcat.com')
-        mock_do_auth.return_value = get_mock_do_auth_return_values()
+    def test_returns_current_user_if_session_belongs_to_him(
+            self, mock_validate_session):
+        mock_validate_session.return_value = 1
+        current_user = create_new_user()
+        user = self.backend.authenticate(
+            token='foo', current_user=current_user)
+        self.assertEqual(user, current_user)
+
+    def test_finds_existing_user_with_id(self, mock_validate_session):
+        actual_user = User.objects.create(id=1, email='test@qcat.com')
+        mock_validate_session.return_value = get_mock_validate_session_values()
         found_user = self.backend.authenticate(token='foo')
         self.assertEqual(found_user, actual_user)
 
-    def test_creates_new_user_if_necessary(self, mock_do_auth):
-        mock_do_auth.return_value = get_mock_do_auth_return_values()
+    @patch('accounts.authentication.get_user_information')
+    def test_creates_new_user_if_necessary(
+            self, mock_get_user_information, mock_validate_session):
+        mock_get_user_information.return_value = \
+            get_mock_user_information_values()
+        mock_validate_session.return_value = get_mock_validate_session_values()
         found_user = self.backend.authenticate(token='foo')
-        new_user = User.objects.get(email='test@qcat.com')
+        new_user = User.objects.get(pk=1)
         self.assertEqual(found_user, new_user)
 
-    @patch('accounts.models.User.update')
-    def test_calls_user_update_function(self, mock_User_update, mock_do_auth):
-        mock_do_auth.return_value = get_mock_do_auth_return_values()
+    @patch('accounts.authentication.get_user_information')
+    def test_creates_new_user_calls_get_user_information(
+            self, mock_get_user_information, mock_validate_session):
+        mock_validate_session.return_value = get_mock_validate_session_values()
         self.backend.authenticate(token='foo')
-        mock_User_update.assert_called_once_with(
-            name='Firstname Lastname', privileges=['1', '2'])
+        mock_get_user_information.assert_called_once_with(
+            'foo', mock_validate_session.return_value)
 
 
-class DoAuthTest(TestCase):
+@patch('accounts.authentication.api_login')
+class ValidateSessionTest(TestCase):
 
-    def setUp(self):
-        self.do_auth = WocatAuthenticationBackend()._do_auth
+    def test_calls_api_login(self, mock_api_login):
+        validate_session('foo')
+        mock_api_login.assert_called_once_with()
 
-    def test_returns_none_if_no_token(self):
-        ret = self.do_auth(token=None)
-        self.assertIsNone(ret)
+    def test_returns_None_if_api_login_is_not_valid(self, mock_api_login):
+        mock_api_login.return_value = None
+        user_id = validate_session('foo')
+        self.assertIsNone(user_id)
 
-    def test_returns_none_if_no_user_found(self):
-        ret = self.do_auth(token='foo')
-        self.assertIsNone(ret)
+
+@patch('accounts.authentication.api_login')
+class GetUserInformationTest(TestCase):
+
+    def test_calls_api_login(self, mock_api_login):
+        get_user_information('foo', 1)
+        mock_api_login.assert_called_once_with()
+
+    def test_returns_None_if_api_login_is_not_valid(self, mock_api_login):
+        mock_api_login.return_value = None
+        user_info = get_user_information('foo', 1)
+        self.assertIsNone(user_info)

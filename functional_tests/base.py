@@ -9,7 +9,7 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
 from unittest.mock import patch
-from accounts.tests.test_authentication import get_mock_do_auth_return_values
+from accounts.tests.test_models import create_new_user
 from qcat.utils import clear_session_questionnaire
 
 loginRouteName = 'login'
@@ -115,11 +115,13 @@ class FunctionalTest(StaticLiveServerTestCase):
     def changeLanguage(self, locale):
         self.findBy('xpath', '//a[@data-language="{}"]'.format(locale)).click()
 
-    @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
-    def doLogin(self, username, password, mock_do_auth):
-        mock_do_auth.return_value = get_mock_do_auth_return_values(
-            username=username)
-        self.browser.get(self.live_server_url)
+    @patch('accounts.authentication.auth_authenticate')
+    def doLogin(self, mock_authenticate, user=None):
+        if user is None:
+            user = create_new_user()
+        user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        mock_authenticate.return_value = user
+        self.browser.get(self.live_server_url + '/404_no_such_url/')
         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
         self.browser.get(self.live_server_url + reverse(loginRouteName))
 
