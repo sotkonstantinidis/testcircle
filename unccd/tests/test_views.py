@@ -5,7 +5,6 @@ from unittest.mock import patch
 
 from accounts.tests.test_authentication import (
     create_new_user,
-    do_log_in,
 )
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
@@ -103,8 +102,9 @@ class QuestionnaireNewTest(TestCase):
         self.assertTemplateUsed(res, 'login.html')
 
     def test_questionnaire_new_test_renders_correct_template(self):
-        do_log_in(self.client)
-        res = self.client.get(self.url)
+        request = self.factory.get(self.url)
+        request.user = create_new_user()
+        res = questionnaire_new(request)
         self.assertTemplateUsed(res, 'unccd/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
@@ -132,8 +132,9 @@ class QuestionnaireNewStepTest(TestCase):
         self.assertTemplateUsed(res, 'login.html')
 
     def test_renders_correct_template(self):
-        do_log_in(self.client)
-        res = self.client.get(self.url, follow=True)
+        request = self.factory.get(self.url)
+        request.user = create_new_user()
+        res = questionnaire_new_step(request, step=get_categories()[0][0])
         self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 

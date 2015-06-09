@@ -16,10 +16,6 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': ''
     },
-    # For local development, you can also specify a 'typo3' database
-    # used for authentication. Only works in DEBUG mode. Please note
-    # that there may occur permission issues when running the tests.
-    # 'typo3': { ... }
 }
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -30,5 +26,18 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 SECRET_KEY = ''
+
+# The base URL of the Typo3 REST API used for authentication
+AUTH_API_URL = 'https://dev.wocat.net/rest/'
+
+# The username used for API login
+AUTH_API_USER = ''
+
+# The key used for API login
+AUTH_API_KEY = ''
+
+# The URL of the WOCAT authentication form. Used to handle both login
+# and logout
+AUTH_LOGIN_FORM = 'https://dev.wocat.net/en/sitefunctions/login.html'
 
 TESTING_FIREFOX_PATH = ''

@@ -1,3 +1,4 @@
+import urllib
 from datetime import datetime
 from django.conf import settings
 from importlib import import_module
@@ -163,3 +164,21 @@ def clear_session_questionnaire(configuration_code=None):
             if q.get('configuration') == configuration_code:
                 session_questionnaires.remove(q)
     session_store.save()
+
+
+def url_with_querystring(path, **kwargs):
+    """
+    Build a URL with query strings.
+
+    Args:
+        ``path`` (str): The base path of the URL before the query
+        strings.
+
+    Kwargs:
+        ``**(key=value)``: One or more parameters as keys and values to
+        be added as query strings.
+
+    Returns:
+        ``str``. A URL with query strings.
+    """
+    return path + '?' + urllib.parse.urlencode(kwargs)

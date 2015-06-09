@@ -19,7 +19,7 @@ class SessionTest(FunctionalTest):
     def test_stores_session_dictionary_correctly(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -42,7 +42,7 @@ class SessionTest(FunctionalTest):
     def test_sessions_separated_by_configuration(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the sample questionnaire
         self.browser.get(self.live_server_url + reverse(

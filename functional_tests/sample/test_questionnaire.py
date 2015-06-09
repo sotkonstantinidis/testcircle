@@ -22,7 +22,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_navigate_questionnaire(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -61,7 +61,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_numbered_questiongroups(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -93,7 +93,7 @@ class QuestionnaireTest(FunctionalTest):
         initial_button_count = 3
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -237,7 +237,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_form_progress(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
         cat_1_position = get_position_of_category('cat_1')
 
         # She goes directly to the Sample questionnaire
@@ -315,7 +315,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_textarea_maximum_length(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -370,7 +370,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_textarea_preserves_line_breaks(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -394,7 +394,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_nested_subcategories(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_2_position = get_position_of_category('cat_2')
 
@@ -478,7 +478,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_selects_with_chosen(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1')
 
@@ -577,7 +577,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_checkbox(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_2_position = get_position_of_category('cat_2')
 
@@ -666,7 +666,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_image_checkbox(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_4_position = get_position_of_category('cat_4')
 
@@ -754,7 +754,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_measure_conditional(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -849,7 +849,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_checkbox_conditional(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -933,7 +933,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_conditional_chaining(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -1029,7 +1029,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_image_checkbox_subcategory(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_4_position = get_position_of_category('cat_4')
 
@@ -1196,7 +1196,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_measure_selects(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_2_position = get_position_of_category('cat_2')
 
@@ -1299,7 +1299,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_radio_selects(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1')
 
@@ -1393,7 +1393,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_header_image(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -1505,7 +1505,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_enter_questionnaire(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
 
@@ -1609,7 +1609,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_edit_questionnaire(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
 

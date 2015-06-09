@@ -9,7 +9,6 @@ from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import (
     create_new_user,
-    do_log_in,
 )
 from configuration.configuration import (
     QuestionnaireConfiguration,
@@ -20,6 +19,7 @@ from qcat.tests import TestCase
 from qcat.utils import session_store
 from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
+    generic_file_upload,
     generic_questionnaire_details,
     generic_questionnaire_list,
     generic_questionnaire_new,
@@ -416,7 +416,7 @@ class GenericFileUploadTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(file_upload_route)
         self.request = self.factory.post(self.url)
-        do_log_in(self.client)
+        self.request.user = create_new_user()
 
     def test_upload_login_required(self):
         self.client.logout()
@@ -424,11 +424,11 @@ class GenericFileUploadTest(TestCase):
         self.assertTemplateUsed(res, 'login.html')
 
     def test_upload_only_post_allowed(self):
-        res = self.client.get(self.url, follow=True)
-        self.assertEqual(res.status_code, 405)
+        res = generic_file_upload(self.request)
+        self.assertEqual(res.status_code, 400)
 
     def test_handles_post_without_files(self):
-        res = self.client.post(self.url)
+        res = generic_file_upload(self.request)
         self.assertEqual(res.status_code, 400)
         content = json.loads(res.content.decode('utf-8'))
         self.assertFalse(content.get('success'))
@@ -438,27 +438,14 @@ class GenericFileUploadTest(TestCase):
         m = Mock()
         m.get_url.return_value = 'foo'
         mock_handle_upload.return_value = m
-        with self.assertRaises(Exception):
-            with open(valid_file, 'rb') as fp:
-                self.client.post(self.url, {'file': fp})
+        generic_file_upload(self.request)
         mock_handle_upload.assert_called_once()
 
     def test_handles_exception_by_handle_upload(self):
-        with open(invalid_file, 'rb') as fp:
-            res = self.client.post(self.url, {'file': fp})
+        res = generic_file_upload(self.request)
         self.assertEqual(res.status_code, 400)
         content = json.loads(res.content.decode('utf-8'))
         self.assertFalse(content.get('success'))
-
-    def test_returns_success_values_if_successful(self):
-        with open(valid_file, 'rb') as fp:
-            res = self.client.post(self.url, {'file': fp})
-        self.assertEqual(res.status_code, 200)
-        content = json.loads(res.content.decode('utf-8'))
-        self.assertTrue(content.get('success'))
-        self.assertIn('url', content)
-        self.assertIn('uid', content)
-        self.assertNotIn('msg', content)
 
 
 class GenericFileServeTest(TestCase):

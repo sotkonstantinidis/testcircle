@@ -1,7 +1,55 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.backends import ModelBackend
-from django.db import connection
+import requests
 from django.conf import settings
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth import (
+    authenticate as auth_authenticate,
+    get_user_model,
+    login as django_login,
+    logout as django_logout,
+)
+
+
+class WocatAuthenticationMiddleware(object):
+    """
+    Middleware checking the (remote) authentication for each request.
+    """
+
+    def __init__(self):
+        self.delete_auth_cookie = False
+
+    def process_request(self, request):
+        """
+        Function being called for each request. Check if a session ID is
+        present and if so, check if it is valid.
+        """
+        try:
+            current_user = request.user
+        except AttributeError:
+            current_user = None
+
+        session_id = request.COOKIES.get(get_session_cookie_name())
+        if session_id is not None:
+            # There is a session ID, make sure it is valid
+            user = auth_authenticate(
+                token=session_id, current_user=current_user)
+            if user is not None:
+                django_login(request, user)
+            else:
+                self.delete_auth_cookie = True
+        else:
+            # There is no session ID (anymore), log the user out to make sure
+            if request.user.is_authenticated():
+                django_logout(request)
+
+    def process_response(self, request, response):
+        """
+        Function being called for each response. Used to delete a
+        cookie.
+        """
+        if self.delete_auth_cookie is True:
+            response.delete_cookie(get_session_cookie_name())
+            self.delete_auth_cookie = False
+        return response
 
 
 class WocatAuthenticationBackend(ModelBackend):
@@ -9,30 +57,38 @@ class WocatAuthenticationBackend(ModelBackend):
     The class to handle the authentication through :term:`WOCAT`.
     """
 
-    def authenticate(self, token=None):
+    def authenticate(self, token=None, current_user=None):
         """
-        Custom authentication. Returns a user if authentication successful.
+        Custom authentication. Returns a user if authentication
+        successful.
         """
         User = get_user_model()
 
-        queried_user = self._do_auth(token)
-
-        if not queried_user:
+        user_id = validate_session(token)
+        if user_id is None:
             return None
+
+        # If a user is already logged in, make sure the session ID
+        # matches the current user. This also prevents having to query
+        # the user again from the database.
+        if current_user and str(current_user.id) == user_id:
+            return current_user
 
         try:
             # Check if the user exists in the local database
-            user = User.objects.get(email=queried_user[0])
+            user = User.objects.get(pk=user_id)
         except User.DoesNotExist:
             # Create a user in the local database
-            user = User.create_new(email=queried_user[0])
+            user_info = get_user_information(token, user_id)
+            user = User.create_new(
+                id=user_id, email=user_info.get('username'),
+                lastname=user_info.get('last_name'),
+                firstname=user_info.get('first_name'))
 
         except:
             return None
 
-        privileges = queried_user[1].split(',')
-        fullname = ' '.join([queried_user[2], queried_user[3]])
-        user.update(name=fullname, privileges=privileges)
+        # TODO: Handle privileges and permissions
 
         return user
 
@@ -43,64 +99,127 @@ class WocatAuthenticationBackend(ModelBackend):
         except User.DoesNotExist:
             return None
 
-    def _do_auth(self, token):
-        """
-        Do the actual WOCAT login. The login is based on the username
-        and password and upon successful login, it should either return
-        - the session_id which can be used to query the user information
-          and permission groups
-        - the session_id along with the user information and permission
-          groups in a single response.
 
-        Returns None or a tuple with:
+def api_login():
+    """
+    Log in to the Typo3 REST API of WOCAT.
 
-        - (str) username (= email)
-        - (str) groups: comma-separated list of groups (~privileges)
-        - (int) firstname
-        - (str) lastname
-        """
-        # TODO: Privileges!
+    Returns:
+        ``requests.models.Response``. The response of the login if it
+        was successful. The coookies of this response can be used for
+        following calls. Returns ``None`` if the login was not successful.
+    """
+    data = {
+        "username": settings.AUTH_API_USER,
+        "apikey": settings.AUTH_API_KEY,
+    }
+    login_request = requests.post(
+        '{}auth/login'.format(settings.AUTH_API_URL), data=data)
+    if login_request.status_code != 200:
+        return None
+    if login_request.json().get('status') != 'logged-in':
+        return None
+    return login_request
 
-        if not token:
-            return None
 
-        # Check token
-        cursor = connection.cursor()
-        try:
-            cursor.execute(
-                "SELECT username, status, first_name, last_name FROM "
-                "wocat_users WHERE ses_id = %s",
-                [token])
-            users = cursor.fetchall()
+def validate_session(session_id):
+    """
+    Validate a session ID against the Typo3 REST API of WOCAT.
 
-            if len(users) < 1:
-                # No user found
-                return None
+    Args:
+        ``session_id`` (str): The session ID as found in the cookie.
 
-            return users[0]
+    Returns:
+        ``None`` or ``int``. Returns the user ID if the session is
+        valid, ``None`` if it is not.
+    """
+    api_login_request = api_login()
+    if api_login_request is None:
+        return None
 
-        except:
-            """
-            In DEBUG mode, try also to authenticate through an external
-            typo3 database. This is used for local development when the
-            foreign authentication table is not available locally.
-            """
-            if settings.DEBUG is True and 'typo3' in settings.DATABASES:
-                from django.db import connections
-                cursor = connections['typo3'].cursor()
-                try:
-                    cursor.execute(
-                        "SELECT username, status, first_name, last_name FROM "
-                        "wocat_users WHERE ses_id = %s",
-                        [token])
-                    users = cursor.fetchall()
+    data = {
+        'id': session_id,
+    }
+    session_request = requests.post(
+        '{}get_session'.format(settings.AUTH_API_URL), data=data,
+        cookies=api_login_request.cookies)
 
-                    if len(users) < 1:
-                        # No user found
-                        return None
+    if session_request.status_code != 200:
+        return None
 
-                    return users[0]
-                except:
-                    pass
+    session_data = session_request.json()
+    if not session_data.get('success') or not session_data.get('login'):
+        return None
 
-            return None
+    return session_data.get('userid')
+
+
+def get_user_information(session_id, user_id):
+    """
+    Get the information of a user through the Typo3 REST API of WOCAT.
+
+    Args:
+        ``session_id`` (str): The session ID as found in the cookie.
+
+        ``user_id`` (int): The id of the user to query.
+
+    Returns:
+        ``dict``. A dict with the user information retrieved from the
+        API. If no information was found, an empty dict is returend.
+    """
+    api_login_request = api_login()
+    if api_login_request is None:
+        return None
+
+    data = {
+        'session_id': session_id,
+        'id': user_id,
+    }
+    user_request = requests.post(
+        '{}get_user'.format(settings.AUTH_API_URL), data=data,
+        cookies=api_login_request.cookies)
+
+    if user_request.status_code != 200:
+        return {}
+
+    user_data = user_request.json()
+    if not user_data.get('success'):
+        return {}
+
+    return user_data
+
+
+def get_login_url():
+    """
+    Return the login URL of WOCAT as specified in the settings.
+
+    Returns:
+        ``str``. The URL of the login form.
+    """
+    return settings.AUTH_LOGIN_FORM
+
+
+def get_logout_url(redirect):
+    """
+    Return the logout URL of WOCAT as specified in the settings.
+
+    Args:
+        ``redirect`` (str): A redirect URL to return to after successful
+        logout.
+
+        .. important::
+            Make sure to provide the full URL (starting with ``http://``
+            for the redirect to function properly.)
+
+    Returns:
+        ``str``. The URL of the logout form.
+    """
+    return '{}?logintype=logout&redirect_url={}'.format(
+        settings.AUTH_LOGIN_FORM, redirect)
+
+
+def get_session_cookie_name():
+    """
+    Return the name of the cookie used for the authentication.
+    """
+    return 'fe_typo_user'

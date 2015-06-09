@@ -27,7 +27,8 @@ class UserAdmin(auth_admin.UserAdmin):
     form = CustomUserChangeForm
 
     list_display = (
-        'email', 'name', 'id', 'is_superuser', 'date_joined', 'last_login')
+        'email', 'lastname', 'firstname', 'id', 'is_superuser', 'date_joined',
+        'last_login')
     list_filter = ('is_superuser', 'groups')
     search_fields = ('email',)
     ordering = ('email',)
@@ -36,7 +37,7 @@ class UserAdmin(auth_admin.UserAdmin):
     change_list_filter_template = 'admin/filter_listing.html'
 
     fieldsets = (
-        (None, {'fields': ('email', 'name')}),
+        (None, {'fields': ('email', 'lastname', 'firstname')}),
         ('Permissions', {'fields': ('is_superuser', 'groups')}),
     )
     readonly_fields = ('email',)

@@ -16,11 +16,10 @@ class QuestionnaireTest(FunctionalTest):
     def test_questionnaire_is_available(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to the wocat app
-        self.browser.get(self.live_server_url + reverse(
-            route_home))
+        self.browser.get(self.live_server_url + reverse(route_home))
 
         # She sees a link to enter a new questionnaire and clicks it
         self.findBy(
