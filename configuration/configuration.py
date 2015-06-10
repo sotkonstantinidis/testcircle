@@ -659,6 +659,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         'questiongroup_condition',
         'view_template',
         'numbered',
+        'detail_level',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -691,6 +692,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
             # (optional)
             "numbered": "NUMBERED",
+
+            # (optional)
+            "detail_level": "DETAIL_LEVEL",
 
             # A list of questions.
             "questions": [
@@ -735,6 +739,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         if self.numbered not in ['inline', 'prefix']:
             self.numbered = ''
 
+        self.detail_level = self.configuration.get('detail_level')
+
         # TODO
         self.required = False
 
@@ -777,6 +783,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'templates': templates,
             'questiongroup_condition': self.questiongroup_condition,
             'numbered': self.numbered,
+            'detail_level': self.detail_level,
         }
 
         return config, FormSet(

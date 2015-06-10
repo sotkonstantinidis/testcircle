@@ -41,6 +41,9 @@ The basic format of the configuration is as follows::
     # (optional)
     "numbered": "NUMBERED",
 
+    # (optional)
+    "detail_level": "DETAIL_LEVEL",
+
     # A list of questions.
     "questions": [
       # ...
@@ -144,6 +147,14 @@ template should be used with any field type.
 numbered. Possible values are ``inline`` (numbering inside field label)
 or ``prefix`` (numbering indented before fields). If not specified, no
 numbering is used.
+
+``detail_level``
+^^^^^^^^^^^^^^^^
+
+(Optional). An optional parameter if the questiongroup contains
+additional, mostly more detailed questions which are only visible after
+clicking on a link. This is used for the "Plus"-Questions. The value of
+the parameter can be freely chosen.
 
 ``questions``
 ^^^^^^^^^^^^^

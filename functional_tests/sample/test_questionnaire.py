@@ -1364,6 +1364,87 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[text()[contains(.,"Key 11: No")]]')
 
+    def test_plus_questiongroup(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        # She sees that Subcategory 1_2 contains an additional
+        # questiongroups for "plus" questions, the keys initially hidden
+        plus_button = self.findBy(
+            'xpath', '//ul[contains(@class, "plus-questiongroup")]/li/a')
+
+        key_37 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_37"]')
+        key_38 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_38"]')
+        self.assertFalse(key_37.is_displayed())
+        self.assertFalse(key_38.is_displayed())
+
+        # She clicks on the button and sees the keys are now visible
+        plus_button.click()
+        time.sleep(1)
+        self.assertTrue(key_37.is_displayed())
+        self.assertTrue(key_38.is_displayed())
+
+        # She enters some text and sees that the progress was updated
+        key_37.send_keys('Foo')
+        key_38.send_keys('Bar')
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+
+        # She submits the form and sees that the values were submitted
+        # correctly.
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
+        # She goes back to the form and sees the additional
+        # questiongroups are now visible because they have initial
+        # values
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        key_37 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_37"]')
+        key_38 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_38"]')
+        self.assertTrue(key_37.is_displayed())
+        self.assertTrue(key_38.is_displayed())
+
+        # She hides the keys and shows them again, the values are still
+        # there
+        plus_button = self.findBy(
+            'xpath', '//ul[contains(@class, "plus-questiongroup")]/li/a')
+        plus_button.click()
+        time.sleep(1)
+        self.assertFalse(key_37.is_displayed())
+        self.assertFalse(key_38.is_displayed())
+        plus_button.click()
+        time.sleep(1)
+
+        key_37_value = self.findBy(
+            'xpath',
+            '//input[@name="qg_29-0-original_key_37" and @value="Foo"]')
+        key_38_value = self.findBy(
+            'xpath',
+            '//input[@name="qg_29-0-original_key_38" and @value="Bar"]')
+        self.assertTrue(key_37_value.is_displayed())
+        self.assertTrue(key_38_value.is_displayed())
+
+        # She submits the form and sees that the values were submitted
+        # correctly.
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
     def test_table_entry(self):
 
         # Alice logs in
@@ -1598,7 +1679,6 @@ class QuestionnaireTest(FunctionalTest):
         dropzone = self.findBy(
             'xpath', '//div[@id="id_qg_14-0-file_key_19" and contains(@class, '
             '"dropzone")]')
-        import time
         time.sleep(2)
         self.assertFalse(dropzone.is_displayed())
         preview = self.findBy(
