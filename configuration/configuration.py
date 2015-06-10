@@ -958,9 +958,15 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 rendered_questiongroups.append(
                     questiongroup.get_details(questiongroup_data))
                 if self.table_grouping:
+                    # Order the values of the questiongroups according
+                    # to their questions
+                    q_order = [q.keyword for q in questiongroup.questions]
+                    sorted_questiongroup_data = [
+                        sorted(qg.items(), key=lambda i: q_order.index(i[0]))
+                        for qg in questiongroup_data]
                     raw_questiongroups.append({
                         "qg_keyword": questiongroup.keyword,
-                        "data": questiongroup_data
+                        "data": sorted_questiongroup_data
                     })
         subcategories = []
         for subcategory in self.subcategories:
@@ -1404,7 +1410,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             for questiongroup in section.get_questiongroups():
                 for question in questiongroup.questions:
                     if question.filterable is True:
-                        print(question)
 
                         s = next((
                             item for item in filter_configuration if

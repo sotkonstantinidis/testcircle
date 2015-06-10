@@ -17,7 +17,7 @@
         {% if questiongroup.qg_keyword in table_grouping.0 %}
           <tr>
             {% for qg in questiongroup.data %}
-              {% for k, v in qg.items %}
+              {% for k, v in qg %}
               <td>
                 {{ v }}
               </td>
@@ -28,7 +28,7 @@
               <table class="columns small-12 output-table">
                 {% for qg in questiongroup.data %}
                   <tr>
-                    {% for k, v in qg.items %}
+                    {% for k, v in qg %}
                       <td>
                         {{ v }}
                       </td>

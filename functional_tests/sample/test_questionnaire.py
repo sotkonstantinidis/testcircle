@@ -1364,6 +1364,117 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[text()[contains(.,"Key 11: No")]]')
 
+    def test_table_entry(self):
+
+        # Alice logs in
+        self.doLogin('a@b.com', 'foo')
+
+        # She goes to a step of the questionnaire with a table
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_5']))
+
+        # She sees a table and enters some values
+        table = self.findBy('xpath', '//table')
+
+        headers = self.findManyBy('xpath', '//th', base=table)
+        self.assertEqual(len(headers), 4)
+        self.assertEqual(headers[0].text, 'Key 33')
+        self.assertEqual(headers[1].text, 'Key 34')
+        self.assertEqual(headers[2].text, 'Key 35')
+        self.assertEqual(headers[3].text, 'Key 36')
+
+        row_1 = self.findBy('xpath', '//tr[1]', base=table)
+        td_1_1 = self.findBy('xpath', '//td[1]', base=row_1)
+        self.findBy(
+            'xpath', '//input[@name="qg_25-0-original_key_33"]',
+            base=td_1_1).send_keys('Foo 1')
+        td_1_2 = self.findBy('xpath', '//td[2]', base=row_1)
+        self.findBy(
+            'xpath', '//input[@name="qg_25-0-original_key_34"]',
+            base=td_1_2).send_keys('Bar 1')
+        td_1_3 = self.findBy('xpath', '//td[3]', base=row_1)
+        td_1_3_row_1 = self.findBy('xpath', '//table/tbody/tr[1]', base=td_1_3)
+        self.findBy(
+            'xpath', '//input[@name="qg_26-0-original_key_35"]',
+            base=td_1_3_row_1).send_keys('Foobar 1_1')
+        self.findBy(
+            'xpath', '//input[@name="qg_26-0-original_key_36"]',
+            base=td_1_3_row_1).send_keys('Foobar 1_2')
+        td_1_3_row_2 = self.findBy('xpath', '//table/tbody/tr[2]', base=td_1_3)
+        self.findBy(
+            'xpath', '//input[@name="qg_26-1-original_key_35"]',
+            base=td_1_3_row_2).send_keys('Foobar 2_1')
+        self.findBy(
+            'xpath', '//input[@name="qg_26-1-original_key_36"]',
+            base=td_1_3_row_2).send_keys('Foobar 2_2')
+
+        row_2 = self.findBy('xpath', '//tr[2]', base=table)
+        td_2_1 = self.findBy('xpath', '//td[1]', base=row_2)
+        self.findBy(
+            'xpath', '//input[@name="qg_27-0-original_key_33"]',
+            base=td_2_1).send_keys('Foo 2')
+        td_2_2 = self.findBy('xpath', '//td[2]', base=row_2)
+        self.findBy(
+            'xpath', '//input[@name="qg_27-0-original_key_34"]',
+            base=td_2_2).send_keys('Bar 2')
+        td_2_3 = self.findBy('xpath', '//td[3]', base=row_2)
+        td_2_3_row_1 = self.findBy('xpath', '//table/tbody/tr[1]', base=td_2_3)
+        self.findBy(
+            'xpath', '//input[@name="qg_28-0-original_key_35"]',
+            base=td_2_3_row_1).send_keys('Foobar 3_1')
+        self.findBy(
+            'xpath', '//input[@name="qg_28-0-original_key_36"]',
+            base=td_2_3_row_1).send_keys('Foobar 3_2')
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the values are represented as table
+        table = self.findBy('xpath', '//div/table')
+        table_text = table.text
+
+        headers = self.findManyBy('xpath', '//th', base=table)
+        self.assertEqual(len(headers), 4)
+        self.assertEqual(headers[0].text, 'Key 33')
+        self.assertEqual(headers[1].text, 'Key 34')
+        self.assertEqual(headers[2].text, 'Key 35')
+        self.assertEqual(headers[3].text, 'Key 36')
+
+        row_1 = self.findBy('xpath', '//tr[1]', base=table)
+        td_1_1 = self.findBy('xpath', '//td[1]', base=row_1)
+        self.assertEqual(td_1_1.text, 'Foo 1')
+        td_1_2 = self.findBy('xpath', '//td[2]', base=row_1)
+        self.assertEqual(td_1_2.text, 'Bar 1')
+        td_1_3_1_1 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[1]/td[1]')
+        self.assertEqual(td_1_3_1_1.text, 'Foobar 1_1')
+        td_1_3_1_2 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[1]/td[2]')
+        self.assertEqual(td_1_3_1_2.text, 'Foobar 1_2')
+        td_1_3_2_1 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[2]/td[1]')
+        self.assertEqual(td_1_3_2_1.text, 'Foobar 2_1')
+        td_1_3_2_2 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[2]/td[2]')
+        self.assertEqual(td_1_3_2_2.text, 'Foobar 2_2')
+
+        td_2_1 = self.findBy('xpath', '//div/table/tbody/tr[2]/td[1]')
+        self.assertEqual(td_2_1.text, 'Foo 2')
+        td_2_2 = self.findBy('xpath', '//div/table/tbody/tr[2]/td[2]')
+        self.assertEqual(td_2_2.text, 'Bar 2')
+        td_2_3_1_1 = self.findBy(
+            'xpath', '//table/tbody/tr[2]/td[3]/table/tbody/tr[1]/td[1]')
+        self.assertEqual(td_2_3_1_1.text, 'Foobar 3_1')
+        td_2_3_1_2 = self.findBy(
+            'xpath', '//table/tbody/tr[2]/td[3]/table/tbody/tr[1]/td[2]')
+        self.assertEqual(td_2_3_1_2.text, 'Foobar 3_2')
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        table_output = self.findBy('xpath', '//div/table')
+        self.assertEqual(table_text, table_output.text)
+
     # def test_enter_questionnaire_requires_login(self):
 
     #     # Alice opens the login form and does not see a message
