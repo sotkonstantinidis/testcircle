@@ -333,6 +333,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'questionnaire_id': 1,
                 'mode': 'view',
                 'images': [],
+                'links': [],
             })
 
     @patch('questionnaire.views.get_object_or_404')

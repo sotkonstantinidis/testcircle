@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
 from django.http import (
@@ -314,11 +315,26 @@ def generic_questionnaire_details(
 
     images = questionnaire_configuration.get_image_data(data)
 
+    links = []
+    for l in questionnaire_object.links.all():
+        link_configuration_code = l.configurations.first().code
+        link_configuration = QuestionnaireConfiguration(
+            link_configuration_code)
+        link_data = link_configuration.get_list_data([l])
+        link_template = '{}/questionnaire/partial/link.html'.format(
+            link_configuration_code)
+        link_route = '{}:questionnaire_details'.format(link_configuration_code)
+        links.append(render_to_string(link_template, {
+            'link_data': link_data[0],
+            'link_url': reverse(link_route, args=(l.id,))
+        }))
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'view',
+        'links': links,
     })
 
 

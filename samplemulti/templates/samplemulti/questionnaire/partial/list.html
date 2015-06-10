@@ -45,7 +45,7 @@
     </div>
     <div class="content medium-8 columns">
       <header>
-         <h1>{% if not questionnaire_values.native_configuration %}<small>[{{ questionnaire_values.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'samplemulti:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.key_1 }}</a> <small>{{ questionnaire_values.country }}</small></h1>
+         <h1>{% if not questionnaire_values.native_configuration %}<small>[{{ questionnaire_values.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'samplemulti:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.mkey_01 }}</a> <small>{{ questionnaire_values.country }}</small></h1>
       </header>
       <aside class="tech-infos row collapse">
         <dl class="medium-6 columns">

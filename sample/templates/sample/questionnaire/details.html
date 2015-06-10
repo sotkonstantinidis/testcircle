@@ -30,7 +30,17 @@
       {% for section in sections %}
         {{ section }}
       {% endfor %}
-      <section class="row">
+      {% if links %}
+        <section class="row">
+          <div class="small-12 columns">
+            <h4>{% trans "Linked Questionnaires" %}</h4>
+            {% for link in links %}
+              {{ link }}
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+      <section class="row is-rhythmed-2">
         <div class="small-12 columns">
           {% if mode == 'edit' %}
             <form action="" method="POST">
