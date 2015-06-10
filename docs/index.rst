@@ -24,6 +24,7 @@ Questionnaires
     :maxdepth: 2
 
     configuration/questionnaire
+    configuration/section
     configuration/category
     configuration/subcategory
     configuration/questiongroup

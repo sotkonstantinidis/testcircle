@@ -817,6 +817,9 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         'keyword',
         'questiongroups',
         'subcategories',
+        'form_template',
+        'view_template',
+        'table_grouping',
     ]
     name_current = 'subcategories'
     name_parent = 'categories'
@@ -833,8 +836,22 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             # The keyword of the subcategory.
             "keyword": "SUBCAT_KEYWORD",
 
+            # (optional)
+            "form_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "view_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "table_grouping": [],
+
             # A list of questiongroups.
             "questiongroups": [
+              # ...
+            ],
+
+            # A list of subcategories.
+            "subcategories": [
               # ...
             ]
           }
@@ -850,6 +867,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         """
         super(QuestionnaireSubcategory, self).__init__(
             parent_object, configuration)
+
+        form_template = configuration.get('form_template', 'default')
+        self.form_template = 'form/subcategory/{}.html'.format(form_template)
+
+        view_template = configuration.get('view_template', 'default')
+        self.view_template = 'details/subcategory/{}.html'.format(
+            view_template)
 
         # A Subcategory can have further subcategories or questiongroups
         subcategories = []
@@ -871,6 +895,15 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         else:
             self.children = self.questiongroups
 
+        self.table_grouping = configuration.get('table_grouping', None)
+        self.table_headers = []
+        if self.table_grouping:
+            for questiongroup in self.questiongroups:
+                if questiongroup.keyword in [
+                        g[0] for g in self.table_grouping]:
+                    for question in questiongroup.questions:
+                        self.table_headers.append(question.label)
+
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False):
         """
@@ -882,6 +915,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         formsets = []
         config = {
             'label': self.label,
+            'form_template': self.form_template,
         }
         for questiongroup in self.questiongroups:
             questionset_initial_data = initial_data.get(questiongroup.keyword)
@@ -896,6 +930,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation))
             config['next_level'] = 'subcategories'
+
+        if self.table_grouping:
+            config.update({
+                'table_grouping': self.table_grouping,
+                'table_headers': self.table_headers,
+            })
+
         return config, formsets
 
     def get_details(self, data={}):
@@ -908,6 +949,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             its questiongroups have some data in them or not.
         """
         rendered_questiongroups = []
+        raw_questiongroups = []
         has_content = False
         for questiongroup in self.questiongroups:
             questiongroup_data = data.get(questiongroup.keyword, [])
@@ -915,17 +957,36 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 has_content = True
                 rendered_questiongroups.append(
                     questiongroup.get_details(questiongroup_data))
+                if self.table_grouping:
+                    # Order the values of the questiongroups according
+                    # to their questions
+                    q_order = [q.keyword for q in questiongroup.questions]
+                    sorted_questiongroup_data = [
+                        sorted(qg.items(), key=lambda i: q_order.index(i[0]))
+                        for qg in questiongroup_data]
+                    raw_questiongroups.append({
+                        "qg_keyword": questiongroup.keyword,
+                        "data": sorted_questiongroup_data
+                    })
         subcategories = []
         for subcategory in self.subcategories:
             sub_rendered, sub_has_content = subcategory.get_details(data=data)
             if sub_has_content:
                 subcategories.append(sub_rendered)
                 has_content = True
-        rendered = render_to_string(
-            'details/subcategory.html', {
-                'questiongroups': rendered_questiongroups,
-                'subcategories': subcategories,
-                'label': self.label})
+
+        template_values = {
+            'questiongroups': rendered_questiongroups,
+            'subcategories': subcategories,
+            'label': self.label,
+        }
+        if self.table_grouping:
+            template_values.update({
+                'table_grouping': self.table_grouping,
+                'table_headers': self.table_headers,
+                'raw_questiongroups': raw_questiongroups,
+            })
+        rendered = render_to_string(self.view_template, template_values)
         return rendered, has_content
 
 
@@ -1349,7 +1410,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             for questiongroup in section.get_questiongroups():
                 for question in questiongroup.questions:
                     if question.filterable is True:
-                        print(question)
 
                         s = next((
                             item for item in filter_configuration if
