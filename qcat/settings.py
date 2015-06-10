@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'wocat',
     'unccd',
     'sample',
+    'samplemulti',
 )
 
 MIDDLEWARE_CLASSES = (

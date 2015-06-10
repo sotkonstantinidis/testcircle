@@ -30,5 +30,7 @@ if settings.DEBUG:
     urlpatterns += i18n_patterns(
         '',
         url(r'^sample/', include('sample.urls', namespace='sample')),
+        url(r'^samplemulti/', include('samplemulti.urls',
+            namespace='samplemulti')),
     ) + static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
