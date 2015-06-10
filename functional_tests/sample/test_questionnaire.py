@@ -1367,7 +1367,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_table_entry(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire with a table
         self.browser.get(self.live_server_url + reverse(
