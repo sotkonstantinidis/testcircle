@@ -77,9 +77,12 @@ def get_session_questionnaire(configuration_code):
 
     Returns:
         ``dict``. The data dictionary of the questionnaire as found in
-        the session or an empty dictionary (``{}``) if not found. Only
-        the dictionary data is retrieved without additional data such as
-        configuration_code or date of modification
+        the session or an empty dictionary (``{}``) if not found.
+
+        ``dict``. A dictionary containing the links of this
+        questionnaire as found in the session or an empty dictionary
+        (``{}``) if not found. This dictionary can be used to populate
+        the form of the questionnaire links.
     """
     session_questionnaires = session_store.get('session_questionnaires')
     if (isinstance(session_questionnaires, list)
@@ -87,12 +90,13 @@ def get_session_questionnaire(configuration_code):
 
         for q in session_questionnaires:
             if q.get('configuration') == configuration_code:
-                return q.get('questionnaire', {})
+                return q.get('questionnaire', {}), q.get('links', {})
 
-    return {}
+    return {}, {}
 
 
-def save_session_questionnaire(questionnaire, configuration_code):
+def save_session_questionnaire(
+        configuration_code, questionnaire_data, questionnaire_links):
     """
     Save the data of a questionnaire to the session, using the key
     ``session_questionnaires``.
@@ -104,7 +108,8 @@ def save_session_questionnaire(questionnaire, configuration_code):
             {
                 "configuration": "CONFIGURATION_CODE",
                 "modified": "DATETIME_OF_LAST_MODIFICATION",
-                "questionnaire": {}  # data of the questionnaire
+                "questionnaire": {},  # data of the questionnaire
+                "links": {}  # data of the links
             }
         ]
 
@@ -114,11 +119,16 @@ def save_session_questionnaire(questionnaire, configuration_code):
         store (and retrieve) multiple questionnaires.
 
     Args:
+        ``configuration_code`` (str): The code of the configuration of
+        the questionnaire to store.
+
         ``session_questionnaire`` (dict): The data dictionary of the
         questionnaire to be stored.
 
-        ``configuration_code`` (str): The code of the configuration of
-        the questionnaire to store.
+        ``questionnaire_links`` (dict): The dictionary containing the
+        links of the questionnaire. The format of the dictionary
+        corresponds to the format used by the link forms to populate
+        its fields.
     """
     session_questionnaires = session_store.get('session_questionnaires', [])
 
@@ -132,7 +142,8 @@ def save_session_questionnaire(questionnaire, configuration_code):
 
     # Update the session data
     session_questionnaire.update({
-        'questionnaire': questionnaire,
+        'questionnaire': questionnaire_data,
+        'links': questionnaire_links,
         'modified': str(datetime.now()),
     })
 

@@ -1,9 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.template.loader import render_to_string
-from django.views.decorators.http import require_POST
-
+from django.forms import formset_factory
 from django.http import (
     Http404,
     HttpResponse,
@@ -15,6 +13,7 @@ from django.shortcuts import (
     get_object_or_404,
 )
 from django.utils.translation import ugettext as _, get_language
+from django.views.decorators.http import require_POST
 
 from configuration.configuration import QuestionnaireConfiguration
 from configuration.utils import get_configuration_query_filter
@@ -23,6 +22,7 @@ from qcat.utils import (
     get_session_questionnaire,
     save_session_questionnaire,
 )
+from questionnaire.forms import QuestionnaireLinkForm
 from questionnaire.models import (
     Questionnaire,
     File,
@@ -34,10 +34,105 @@ from questionnaire.upload import (
 from questionnaire.utils import (
     clean_questionnaire_data,
     get_active_filters,
+    get_link_data,
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
 )
+
+
+@login_required
+def generic_questionnaire_link_form(
+        request, configuration_code, url_namespace, page_title='QCAT Links'):
+    """
+    A generic view to add or remove linked questionnaires. By default,
+    the forms are shown. If the form was submitted, the submitted
+    questionnaires are validated and stored in the session, followed by
+    a redirect to the overview.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+        ``url_namespace`` (str): The namespace of the questionnaire
+        URLs. It is assumed that all questionnaire apps have the same
+        routes for their questionnaires
+        (e.g. ``wocat:questionnaire_new``)
+
+    Kwargs:
+        ``page_title`` (str): The page title to be used in the HTML
+        template. Defaults to ``QCAT Form``.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    questionnaire_configuration = QuestionnaireConfiguration(
+        configuration_code)
+    links_configuration = questionnaire_configuration.get_links_configuration()
+
+    session_questionnaire, session_links = get_session_questionnaire(
+        configuration_code)
+
+    link_formsets = []
+    for links_config in links_configuration:
+        config_code = links_config.get('keyword')
+        initial_data = session_links.get(config_code, [])
+        LinkFormset = formset_factory(
+            QuestionnaireLinkForm, extra=0, min_num=1, max_num=3)
+        formset = LinkFormset(
+            data=request.POST or None, initial=initial_data,
+            prefix=config_code)
+        formset_config = {
+            'keyword': config_code,
+        }
+        link_formsets.append((formset_config, formset))
+
+    overview_url = '{}#links'.format(
+        reverse('{}:questionnaire_new'.format(url_namespace)))
+
+    valid = True
+    if request.method == 'POST':
+        link_data = {}
+        for __, link_formset in link_formsets:
+            valid &= link_formset.is_valid()
+            if valid is True:
+                cleaned_links = []
+                for link in link_formset.cleaned_data:
+                    if not link.get('id'):
+                        continue
+                    try:
+                        link_object = Questionnaire.objects.get(pk=link['id'])
+                    except Questionnaire.DoesNotExist:
+                        messages.error(
+                            request, '[TODO] The linked questionnaire with ID '
+                            '{} does not exist'.format(link['id']))
+                        valid = False
+                        continue
+                    link_configuration_code = link_formset.prefix
+                    current_link_data = get_link_data(
+                        [link_object],
+                        link_configuration_code=link_configuration_code)
+                    cleaned_links.extend(
+                        current_link_data.get(link_configuration_code))
+                if len(cleaned_links):
+                    link_data[link_formset.prefix] = cleaned_links
+
+        if valid is True:
+            save_session_questionnaire(
+                configuration_code, session_questionnaire, link_data)
+            messages.success(
+                request, _('[TODO] Data successfully stored to Session.'))
+            return redirect(overview_url)
+
+    return render(request, 'form/links.html', {
+        'valid': valid,
+        'overview_url': overview_url,
+        'link_forms': link_formsets,
+        'configuration_name': url_namespace,
+        'title': page_title,
+    })
 
 
 @login_required
@@ -50,7 +145,7 @@ def generic_questionnaire_new_step(
 
     By default, the form is shown. If the form was submitted, it is
     validated and if valid stored in the session, followed by a redirect
-    to the desired route (``success_route``).
+    to the overview.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -139,7 +234,8 @@ def generic_questionnaire_new_step(
 
     session_questionnaire = {}
     if request.method != 'POST':
-        session_questionnaire = get_session_questionnaire(configuration_code)
+        session_questionnaire, __ = get_session_questionnaire(
+            configuration_code)
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -164,11 +260,11 @@ def generic_questionnaire_new_step(
             category_formsets, current_locale, original_locale)
 
         if valid is True:
-            session_questionnaire = get_session_questionnaire(
+            session_questionnaire, session_links = get_session_questionnaire(
                 configuration_code)
             session_questionnaire.update(data)
 
-            cleaned_questionnaire_data, errors = clean_questionnaire_data(
+            questionnaire_data, errors = clean_questionnaire_data(
                 session_questionnaire, questionnaire_configuration)
             if errors:
                 valid = False
@@ -178,11 +274,10 @@ def generic_questionnaire_new_step(
                         '<br/>'.join(errors)))
             else:
                 save_session_questionnaire(
-                    cleaned_questionnaire_data, configuration_code)
+                    configuration_code, questionnaire_data, session_links)
 
                 messages.success(
-                    request, _('[TODO] Data successfully stored to Session.'),
-                    fail_silently=True)
+                    request, _('[TODO] Data successfully stored to Session.'))
                 return redirect(overview_url)
 
     return render(request, 'form/category.html', {
@@ -234,12 +329,16 @@ def generic_questionnaire_new(
         configuration_code)
 
     if questionnaire_id is not None:
+        # For edits, copy the data to the session first.
         questionnaire_object = get_object_or_404(
             Questionnaire, pk=questionnaire_id)
+        questionnaire_links = get_link_data(questionnaire_object.links.all())
         save_session_questionnaire(
-            questionnaire_object.data, configuration_code)
+            configuration_code, questionnaire_data=questionnaire_object.data,
+            questionnaire_links=questionnaire_links)
 
-    session_questionnaire = get_session_questionnaire(configuration_code)
+    session_questionnaire, session_links = get_session_questionnaire(
+        configuration_code)
 
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
@@ -258,6 +357,15 @@ def generic_questionnaire_new(
             questionnaire = Questionnaire.create_new(
                 configuration_code, session_questionnaire)
             clear_session_questionnaire(configuration_code=configuration_code)
+
+            for __, linked_questionnaires in session_links.items():
+                for linked in linked_questionnaires:
+                    try:
+                        link = Questionnaire.objects.get(pk=linked.get('id'))
+                    except Questionnaire.DoesNotExist:
+                        continue
+                    questionnaire.add_link(link)
+
             messages.success(
                 request,
                 _('[TODO] The questionnaire was successfully created.'),
@@ -275,11 +383,16 @@ def generic_questionnaire_new(
 
     images = questionnaire_configuration.get_image_data(data)
 
+    display_links = []
+    for linked_configuration, linked_questionnaires in session_links.items():
+        display_links.extend([l.get('display') for l in linked_questionnaires])
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'edit',
+        'links': display_links,
     })
 
 
@@ -315,26 +428,17 @@ def generic_questionnaire_details(
 
     images = questionnaire_configuration.get_image_data(data)
 
-    links = []
-    for l in questionnaire_object.links.all():
-        link_configuration_code = l.configurations.first().code
-        link_configuration = QuestionnaireConfiguration(
-            link_configuration_code)
-        link_data = link_configuration.get_list_data([l])
-        link_template = '{}/questionnaire/partial/link.html'.format(
-            link_configuration_code)
-        link_route = '{}:questionnaire_details'.format(link_configuration_code)
-        links.append(render_to_string(link_template, {
-            'link_data': link_data[0],
-            'link_url': reverse(link_route, args=(l.id,))
-        }))
+    display_links = []
+    link_data = get_link_data(questionnaire_object.links.all())
+    for __, links in link_data.items():
+        display_links.extend([l.get('display') for l in links])
 
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'view',
-        'links': links,
+        'links': display_links,
     })
 
 

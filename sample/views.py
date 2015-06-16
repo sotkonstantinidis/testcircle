@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
     generic_questionnaire_details,
+    generic_questionnaire_link_form,
     generic_questionnaire_list,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
@@ -29,6 +30,27 @@ def home(request):
         'questionnaire_value_list': list_template_values.get(
             'questionnaire_value_list', [])
     })
+
+
+@login_required
+def questionnaire_link_form(request):
+    """
+    View to show the form for linking questionnaires. Also handles the
+    form submit along with its validation and redirect.
+
+    .. seealso::
+        The actual rendering of the form and the form validation is
+        handled by the generic questionnaire function
+        :func:`questionnaire.views.generic_questionnaire_new_step`.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    return generic_questionnaire_link_form(
+        request, 'sample', 'sample', page_title='SAMPLE Links')
 
 
 @login_required

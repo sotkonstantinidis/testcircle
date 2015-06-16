@@ -1,0 +1,82 @@
+{% extends 'form/base.html' %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+  <form id="wizard-form" class="wizard" action="" method="POST">
+    {% csrf_token %}
+
+    <header class="wizard-header" role="banner">
+      <div class="row">
+        <div class="columns small-12 medium-9">
+          <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back" %}</a>
+          <h2 class="wizard-header-title">{% trans "Linked Questionnaires" %}</h2>
+          <div class="progress">
+            <span class="meter" style="width:0%"></span>
+          </div>
+        </div>
+        <div class="columns small-12 medium-3">
+          <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
+            <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
+          </a><a class="button secondary button-icon" href="#question2" data-magellan-step="next">
+            <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
+          </a>
+          <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span>)</strong></a>
+        </div>
+      </div>
+      <div data-magellan-expedition="fixed" style="" class="fixed">
+        <dl>
+          {% for subcategory_config, subcategory_formsets in category_formsets %}
+            <dd data-magellan-arrival="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}">
+              <a href="#question{{ forloop.counter }}">{{ subcategory_config.label }}</a>
+            </dd>
+          {% endfor %}
+        </dl>
+      </div>
+    </header>
+
+    {% if not valid %}
+      <div data-alert class="alert-box alert">
+        <p>{% trans "There was a problem with your submission. Errors have been highlighted below." %}</p>
+      </div>
+    {% endif %}
+
+    <main class="main inner-wrap">
+      {% for config, formset in link_forms %}
+        <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
+        <fieldset class="row">
+          <legend>{{ config.keyword }}</legend>
+
+          {{ formset.management_form }}
+
+          {% for form in formset.forms %}
+            <div class="row list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+              {{ form }}
+              <div class="columns right">
+                <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
+                style="display: none;"{% endif %}>{% trans "Remove" %}</a>
+              </div>
+            </div>
+          {% endfor %}
+          {% if formset.max_num > formset.min_num %}
+            <div class="row list-action">
+              <div class="small-12 columns">
+                <p><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="link is-{{ configuration_name }}" {% if formset.total_form_count >= formset.max_num %} style="display:none;"{% endif %}>{% trans 'Add More' %}</a></p>
+              </div>
+            </div>
+          {% endif %}
+        </fieldset>
+      {% endfor %}
+    </main>
+  </form>
+
+{% endblock %}
+
+{% block head %}
+  <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block bottom %}
+  <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+{% endblock %}

@@ -7,7 +7,7 @@
         "configurations": [
             12001
         ],
-        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1\"}}]}",
+        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1a\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -23,7 +23,7 @@
         "configurations": [
             12001
         ],
-        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1\"}}]}",
+        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1b\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,

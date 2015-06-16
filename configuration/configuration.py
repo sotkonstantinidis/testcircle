@@ -211,6 +211,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'max_length',
         'num_rows',
         'filter',
+        'is_name',
     ]
     valid_field_types = [
         'char',
@@ -243,6 +244,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
             # (optional)
             "in_list": true,
+
+            # (optional)
+            "is_name": true,
 
             # (optional)
             "form_template": "TEMPLATE_NAME",
@@ -289,6 +293,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         if self.field_type not in self.valid_field_types:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', 'Key')
+
+        self.is_name = self.configuration.get('is_name', False) is True
 
         form_template = 'default'
         if self.field_type == 'measure':
@@ -1252,6 +1258,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     """
     valid_options = [
         'sections',
+        'links',
     ]
     name_current = '-'
     name_parent = '-'
@@ -1517,6 +1524,37 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         return questionnaire_values
 
+    def get_links_configuration(self):
+        try:
+            return self.links_configuration
+        except:
+            return []
+
+    def get_questionnaire_name(self, questionnaire_data):
+        """
+        Return the value of the key flagged with ``is_name`` of a
+        Questionnaire.
+
+        Args:
+            ``questionnaire_data`` (dict): A translated questionnaire
+            data dictionary.
+
+        Returns:
+            ``str``. Returns the value of the key or ``Unknown`` if the
+            key was not found in the data dictionary.
+        """
+        question_keyword = None
+        questiongroup_keyword = None
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.is_name is True:
+                    question_keyword = question.keyword
+                    questiongroup_keyword = questiongroup.keyword
+        if question_keyword:
+            for x in questionnaire_data.get(questiongroup_keyword, []):
+                return x.get(question_keyword)
+        return _('Unknown name')
+
     def read_configuration(self):
         """
         This function reads an active configuration of a Questionnaire.
@@ -1563,6 +1601,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         for conf_section in conf_sections:
             self.sections.append(QuestionnaireSection(self, conf_section))
         self.children = self.sections
+
+        self.links_configuration = self.configuration.get('links', [])
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

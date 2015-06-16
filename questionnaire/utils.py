@@ -1,6 +1,13 @@
 import ast
+from django.core.urlresolvers import reverse
+from django.template.loader import render_to_string
+from django.utils.translation import get_language
 
-from configuration.configuration import QuestionnaireQuestion
+from configuration.configuration import (
+    QuestionnaireQuestion,
+    QuestionnaireConfiguration,
+)
+from configuration.utils import get_or_create_configuration
 from qcat.errors import QuestionnaireFormatError
 
 
@@ -480,3 +487,85 @@ def get_active_filters(questionnaire_configuration, query_dict):
             })
 
     return sorted(active_filters, key=lambda k: k['key'])
+
+
+def get_link_data(linked_objects, link_configuration_code=None):
+    """
+    Return a data representation (to be stored in the session or used in
+    forms) of links retrieved from the database.
+
+    Args:
+        ``linked_objects`` (list of questionnaire.models.Questionnaire):
+        A list of database model objects representing the linked
+        Questionnaires.
+
+    Kwargs:
+        ``link_configuration_code`` (str): Optionally provide a
+        configuration keyword for the link. If none is provided, the
+        configuration is derived from the Questionnaire object.
+
+    Returns:
+        ``dict``. A dictionary containing the links grouped by
+        link_configuration_code. The basic form of the dictionary is as
+        follows::
+
+            {
+              "sample": [
+                {
+                  "id": 1,
+                  "display": "This is a link to Questionnaire with ID 1",
+                  "form_display": "Name of Questionnaire with ID 1"
+                }
+              ]
+            }
+    """
+    link_configurations = {}
+    links = {}
+    for link in linked_objects:
+        if link_configuration_code is None:
+            # TODO: This does not handle questionnaires with multiple
+            # configurations correctly
+            link_configuration_code = link.configurations.first().code
+        link_configuration, link_configurations = get_or_create_configuration(
+            link_configuration_code, link_configurations)
+        link_display = get_link_display(link, link_configuration)
+        link_list = links.get(link_configuration_code, [])
+        link_name = link_configuration.get_questionnaire_name(
+            get_questionnaire_data_in_single_language(
+                link.data, get_language()))
+        link_list.append({
+            'id': link.id,
+            'display': link_display,
+            'form_display': link_name,
+        })
+        links[link_configuration_code] = link_list
+    return links
+
+
+def get_link_display(link_object, link_configuration):
+    """
+    Return the representation of a linked questionnaire used for display
+    of the link. The display representation is the rendered template (
+    ``/questionnaire/partial/link.html``) specific to the given
+    configuration.
+
+    Args:
+        ``link_object`` (questionnaire.models.Questionnaire): The
+        database model object of the linked Questionnaire.
+
+        ``link_configuration`` (
+        configuration.configuration.QuestionnaireConfiguration): The
+        Configuration object of the linked Questionnaire.
+
+    Returns:
+        ``str``. The display representation of the link as rendered
+        HTML.
+    """
+    link_data = link_configuration.get_list_data([link_object])
+    link_template = '{}/questionnaire/partial/link.html'.format(
+        link_configuration.keyword)
+    link_route = '{}:questionnaire_details'.format(link_configuration.keyword)
+    return render_to_string(link_template, {
+        'link_data': link_data[0],
+        'link_url': reverse(link_route, args=(link_object.id,))
+    })

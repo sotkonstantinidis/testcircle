@@ -93,17 +93,17 @@ class GetSessionQuestionnaireTest(TestCase):
 
     def test_returns_empty_dict_if_no_session_questionnaire(self):
         ret = get_session_questionnaire('sample')
-        self.assertEqual(ret, {})
+        self.assertEqual(ret, ({}, {}))
 
     def test_returns_empty_dict_if_session_questionnaires_not_list(self):
         self.session_store['session_questionnaires'] = "foo"
         ret = get_session_questionnaire('sample')
-        self.assertEqual(ret, {})
+        self.assertEqual(ret, ({}, {}))
 
     def test_returns_empty_dict_if_session_questionnaire_empty(self):
         self.session_store['session_questionnaires'] = []
         ret = get_session_questionnaire('sample')
-        self.assertEqual(ret, {})
+        self.assertEqual(ret, ({}, {}))
 
     def test_returns_correct_session_questionnaire(self):
         self.session_store['session_questionnaires'] = [
@@ -116,7 +116,18 @@ class GetSessionQuestionnaireTest(TestCase):
             }
         ]
         ret = get_session_questionnaire('sample')
-        self.assertEqual(ret, {'faz': 'bar'})
+        self.assertEqual(ret, ({'faz': 'bar'}, {}))
+
+    def test_returns_session_links(self):
+        self.session_store['session_questionnaires'] = [
+            {
+                'configuration': 'sample',
+                'questionnaire': {},
+                'links': {'foo': 'bar'}
+            }
+        ]
+        ret = get_session_questionnaire('sample')
+        self.assertEqual(ret, ({}, {'foo': 'bar'}))
 
 
 class SaveSessionQuestionnaireTest(TestCase):
@@ -127,41 +138,45 @@ class SaveSessionQuestionnaireTest(TestCase):
 
     def test_saves_questionnaire(self):
         self.assertIsNone(self.session_store.get('session_questionnaires'))
-        save_session_questionnaire({'foo': 'bar'}, 'sample')
+        save_session_questionnaire('sample', {'foo': 'bar'}, {'faz': 'bar'})
         q = self.session_store.get('session_questionnaires')
         self.assertIsInstance(q, list)
         self.assertEqual(len(q), 1)
         q = q[0]
-        self.assertEqual(len(q), 3)
+        self.assertEqual(len(q), 4)
         self.assertEqual(q['questionnaire'], {'foo': 'bar'})
+        self.assertEqual(q['links'], {'faz': 'bar'})
         self.assertEqual(q['configuration'], 'sample')
         self.assertIn('modified', q)
 
     def test_save_overwrites_existing_questionnaire(self):
-        save_session_questionnaire({'foo': 'bar'}, 'sample')
-        save_session_questionnaire({'faz': 'bar'}, 'sample')
+        save_session_questionnaire('sample', {'foo': 'bar'}, {'faz': 'bar'})
+        save_session_questionnaire('sample', {'faz': 'bar'}, {'foo': 'bar'})
         q = self.session_store.get('session_questionnaires')
         self.assertIsInstance(q, list)
         self.assertEqual(len(q), 1)
         q = q[0]
-        self.assertEqual(len(q), 3)
+        self.assertEqual(len(q), 4)
         self.assertEqual(q['questionnaire'], {'faz': 'bar'})
+        self.assertEqual(q['links'], {'foo': 'bar'})
         self.assertEqual(q['configuration'], 'sample')
         self.assertIn('modified', q)
 
     def test_save_adds_other_configuration_questionnaire(self):
-        save_session_questionnaire({'foo': 'bar'}, 'sample')
-        save_session_questionnaire({'faz': 'bar'}, 'foo')
+        save_session_questionnaire('sample', {'foo': 'bar'}, {'faz': 'bar'})
+        save_session_questionnaire('foo', {'faz': 'bar'}, {'foo': 'bar'})
         q = self.session_store.get('session_questionnaires')
         self.assertIsInstance(q, list)
         self.assertEqual(len(q), 2)
         q_1 = q[0]
-        self.assertEqual(len(q_1), 3)
+        self.assertEqual(len(q_1), 4)
         self.assertEqual(q_1['questionnaire'], {'foo': 'bar'})
+        self.assertEqual(q_1['links'], {'faz': 'bar'})
         self.assertEqual(q_1['configuration'], 'sample')
         q_2 = q[1]
-        self.assertEqual(len(q_2), 3)
+        self.assertEqual(len(q_2), 4)
         self.assertEqual(q_2['questionnaire'], {'faz': 'bar'})
+        self.assertEqual(q_2['links'], {'foo': 'bar'})
         self.assertEqual(q_2['configuration'], 'foo')
 
 
