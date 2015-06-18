@@ -1282,6 +1282,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             else:
                 raise e
 
+    def get_configuration_errors(self):
+        return self.configuration_error
+
     def add_category(self, category):
         self.categories.append(category)
 

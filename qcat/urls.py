@@ -24,6 +24,7 @@ urlpatterns += i18n_patterns(
     url(r'^accounts/', include('accounts.urls')),
     url(r'^wocat/', include('wocat.urls', namespace='wocat')),
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
+    url(r'^search/', include('search.urls', namespace='search')),
 )
 
 if settings.DEBUG:
