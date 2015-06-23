@@ -27,8 +27,7 @@ def home(request):
         request, 'sample', template=None, only_current=True, limit=3)
 
     return render(request, 'sample/home.html', {
-        'questionnaire_value_list': list_template_values.get(
-            'questionnaire_value_list', [])
+        'list_values': list_template_values.get('list_values', [])
     })
 
 
@@ -144,7 +143,7 @@ def questionnaire_list_partial(request):
     list_values = generic_questionnaire_list(request, 'sample', template=None)
 
     list_ = render_to_string('sample/questionnaire/partial/list.html', {
-        'questionnaire_value_list': list_values['questionnaire_value_list']})
+        'list_values': list_values['list_values']})
     active_filters = render_to_string('active_filters.html', {
         'active_filters': list_values['active_filters']})
 

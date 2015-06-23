@@ -82,7 +82,7 @@ class UpdateTest(TestCase):
             mock_get_mappings):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
-        mock_create_index.return_value = None, None
+        mock_create_index.return_value = None, None, ''
         update(self.request, 'foo')
         mock_get_mappings.assert_callert_once_with('foo')
 
@@ -95,7 +95,7 @@ class UpdateTest(TestCase):
             mock_get_mappings):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
-        mock_create_index.return_value = None, None
+        mock_create_index.return_value = None, None, ''
         update(self.request, 'foo')
         mock_create_index.assert_called_once_with(
             'foo', mock_get_mappings.return_value)
@@ -109,7 +109,7 @@ class UpdateTest(TestCase):
             mock_get_mappings):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
-        mock_create_index.return_value = None, None
+        mock_create_index.return_value = None, None, ''
         res = update(self.request, 'foo')
         self.assertEqual(res.status_code, 400)
 
@@ -122,7 +122,7 @@ class UpdateTest(TestCase):
             mock_get_mappings):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
-        mock_create_index.return_value = True, None
+        mock_create_index.return_value = True, None, ''
         res = update(self.request, 'foo')
         self.assertTemplateUsed(res, 'search/admin.html')
         self.assertEqual(res.status_code, 200)
@@ -148,5 +148,5 @@ class SearchTest(TestCase):
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'search/admin.html')
+        self.assertTemplateUsed(res, 'sample/questionnaire/list.html')
         self.assertEqual(res.status_code, 200)

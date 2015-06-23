@@ -456,11 +456,10 @@ class GenericQuestionnaireListTest(TestCase):
     #     mock_get_active_filters.assert_called_once_with(
     #         mock_QuestionnaireConfiguration.return_value, self.request.GET)
 
-    # @patch.object(QuestionnaireConfiguration, 'get_list_data')
-    # def test_calls_get_list_data(self, mock_get_list_data):
-    #     f = Questionnaire.objects.none()
-    #     generic_questionnaire_list(self.request, *get_valid_list_values())
-    #     mock_get_list_data.assert_called_once_with(f)
+    @patch('questionnaire.views.get_list_values')
+    def test_calls_get_list_values(self, mock_get_list_values):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     @patch('questionnaire.views.render')
@@ -470,7 +469,7 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/list.html', {
-                'questionnaire_value_list': [],
+                'list_values': [],
                 'filter_configuration': (),
                 'filter_url': '',
                 'active_filters': [],

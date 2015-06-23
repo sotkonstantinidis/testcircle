@@ -35,6 +35,7 @@ from questionnaire.utils import (
     clean_questionnaire_data,
     get_active_filters,
     get_link_data,
+    get_list_values,
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
@@ -501,15 +502,16 @@ def generic_questionnaire_list(
     questionnaires = questionnaires[:limit]
 
     # Get the values needed for the list template
-    questionnaire_value_list = questionnaire_configuration.get_list_data(
-        questionnaires)
+    list_values = get_list_values(
+        configuration_code=configuration_code,
+        questionnaire_objects=questionnaires)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
     template_values = {
-        'questionnaire_value_list': questionnaire_value_list,
+        'list_values': list_values,
         'filter_configuration': filter_configuration,
         'active_filters': active_filters,
         'filter_url': filter_url,

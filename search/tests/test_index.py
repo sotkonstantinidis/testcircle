@@ -7,6 +7,7 @@ from django.test.utils import override_settings
 from elasticsearch import TransportError
 from unittest.mock import patch, Mock
 
+from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from search.index import (
     create_or_update_index,
@@ -114,13 +115,12 @@ class GetMappingsTest(TestCase):
         qs = qgs.get('foo', {}).get('properties', {})
         for q_name in ['a', 'b']:
             q = qs.get(q_name)
-            self.assertIn(q.get('type'), ['char', 'string'])
-            self.assertNotIn('analyzer', q)
-        for q_name in ['a', 'b']:
-            for l in ['en', 'es']:
-                q = qs.get('{}_{}'.format(q_name, l))
-                self.assertIn(q.get('type'), ['char', 'string'])
-                self.assertIn(q.get('analyzer'), ['english', 'spanish'])
+            self.assertEqual(
+                q.get('properties').get('es'),
+                {'analyzer': 'spanish', 'type': 'string'})
+            self.assertEqual(
+                q.get('properties').get('en'),
+                {'analyzer': 'english', 'type': 'string'})
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -267,7 +267,13 @@ class CreateOrUpdateIndexTest(TestCase):
             es.indices.exists(index=next_index))
 
     def test_keeps_data(self):
-        put_questionnaire_data(TEST_ALIAS, [{"foo": "bar"}])
+        m = Mock()
+        m.configurations.all.return_value = []
+        m.id = 1
+        m.data = [{"foo": "bar"}]
+        m.created = ''
+        m.updated = ''
+        put_questionnaire_data(TEST_ALIAS, [m])
         search = simple_search('bar', configuration_code=TEST_ALIAS)
         hits = search.get('hits', {}).get('hits', [])
         self.assertEqual(len(hits), 1)
@@ -289,6 +295,14 @@ class CreateOrUpdateIndexTest(TestCase):
 class PutQuestionnaireDataTest(TestCase):
 
     @patch('search.index.es')
+    @patch.object(QuestionnaireConfiguration, '__init__')
+    def test_creates_questionnaire_configuration(
+            self, mock_QuestionnaireConfiguration, mock_es):
+        mock_QuestionnaireConfiguration.return_value = None
+        put_questionnaire_data('foo', [])
+        mock_QuestionnaireConfiguration.assert_called_once_with('foo')
+
+    @patch('search.index.es')
     @patch('search.index.get_alias')
     def test_calls_get_alias(self, mock_get_alias, mock_es):
         put_questionnaire_data('foo', [])
@@ -298,13 +312,19 @@ class PutQuestionnaireDataTest(TestCase):
     @patch('search.index.bulk')
     def test_calls_bulk(self, mock_bulk, mock_es):
         mock_bulk.return_value = 0, []
-        put_questionnaire_data('foo', [{'foo': 'bar'}])
+        m = Mock()
+        m.configurations.all.return_value = []
+        put_questionnaire_data('foo', [m])
         data = [{
             '_index': '{}foo'.format(TEST_INDEX_PREFIX),
             '_type': 'questionnaire',
-            '_id': 1,
+            '_id': m.id,
             '_source': {
-                'data': {'foo': 'bar'},
+                'data': m.data,
+                'list_data': {},
+                'created': m.created,
+                'updated': m.updated,
+                'configurations': [],
             }
         }]
         mock_bulk.assert_called_once_with(mock_es, data)

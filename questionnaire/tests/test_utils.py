@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from django.http import QueryDict
 
 from configuration.configuration import QuestionnaireConfiguration
@@ -9,6 +9,7 @@ from questionnaire.utils import (
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
     get_questiongroup_data_from_translation_form,
+    get_list_values,
     is_valid_questionnaire_format,
 )
 from qcat.errors import QuestionnaireFormatError
@@ -441,3 +442,54 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filter_2), 6)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_2')
+
+
+class GetListValuesTest(TestCase):
+
+    def test_returns_values_from_es_search(self):
+        es_search = {
+            'hits': {
+                'hits': [
+                    {
+                        '_id': 1,
+                    }
+                ]
+            }
+        }
+        ret = get_list_values(es_search=es_search)
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 6)
+        self.assertEqual(ret_1.get('configuration'), 'sample')
+        self.assertEqual(ret_1.get('configurations'), [])
+        self.assertEqual(ret_1.get('created', ''), None)
+        self.assertEqual(ret_1.get('updated', ''), None)
+        self.assertEqual(ret_1.get('native_configuration'), False)
+        self.assertEqual(ret_1.get('id'), 1)
+
+    def test_returns_values_from_database(self):
+        obj = Mock()
+        obj.configurations.all.return_value = []
+        questionnaires = [obj]
+        ret = get_list_values(questionnaire_objects=questionnaires)
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 6)
+        self.assertEqual(ret_1.get('configuration'), 'sample')
+        self.assertEqual(ret_1.get('configurations'), [])
+        self.assertEqual(ret_1.get('created', ''), obj.created)
+        self.assertEqual(ret_1.get('updated', ''), obj.updated)
+        self.assertEqual(ret_1.get('native_configuration'), False)
+        self.assertEqual(ret_1.get('id'), obj.id)
+
+    @patch('questionnaire.utils.get_or_create_configuration')
+    def test_from_database_calls_get_or_create_configuration(
+            self, mock_get_or_create_configuration):
+        m = Mock()
+        m.get_list_data.return_value = [{}]
+        mock_get_or_create_configuration.return_value = m, {}
+        obj = Mock()
+        obj.configurations.all.return_value = []
+        questionnaires = [obj]
+        get_list_values(questionnaire_objects=questionnaires)
+        mock_get_or_create_configuration.assert_called_once_with('sample', {})

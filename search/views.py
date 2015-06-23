@@ -10,7 +10,7 @@ from .index import (
     create_or_update_index,
 )
 from .search import simple_search
-
+from questionnaire.utils import get_list_values
 
 es = get_elasticsearch()
 
@@ -57,7 +57,7 @@ def update(request, configuration):
 
     mappings = get_mappings(questionnaire_configuration)
 
-    success, error_msg = create_or_update_index(configuration, mappings)
+    success, logs, error_msg = create_or_update_index(configuration, mappings)
     if success is not True:
         return HttpResponseBadRequest(error_msg)
 
@@ -69,6 +69,10 @@ def search(request):
     Do a full text search.
     """
     search = simple_search(request.GET.get('q', ''))
-    print(search)
 
-    return render(request, 'search/admin.html')
+    list_values = get_list_values(
+        configuration_code=None, es_search=search)
+
+    return render(request, 'sample/questionnaire/list.html', {
+        'list_values': list_values,
+    })

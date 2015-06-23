@@ -2,7 +2,7 @@ import floppyforms as forms
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string, get_template
 from django.template.base import TemplateDoesNotExist
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _
 
 from configuration.models import (
     Category,
@@ -1451,31 +1451,21 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         return tuple(filter_configuration)
 
-    def get_list_data(self, questionnaires):
+    def get_list_data(self, questionnaire_data_list):
         """
         Get the data for the list representation of questionnaires.
         Which questions are shown depends largely on the option
-        ``in_list`` of the question configuration. Additionally, some
-        meta information about the questionnaire are returned.
+        ``in_list`` of the question configuration.
 
         Args:
-            ``questionnaires`` (list): A list of
-            :class:`questionnaire.models.Questionnaire` objects.
+            ``questionnaire_data_list`` (list): A list of Questionnaire
+            data dicts.
 
         Returns:
-            ``list``. A list of dicts. The data of each questionnaire is
-            stored as a dict where the key is either the keyword of the
-            question to appear in the list or a predefined keyword. Such
-            predefined keywords are:
-
-                - ``id``: The internal id of the questionnaire.
-
-                - ``image``: The URL of the main image (default format).
+            ``list``. A list of dicts. A dict containing the keys and
+            values to be appearing in the list. The values are not
+            translated.
         """
-        from questionnaire.utils import (
-            get_questionnaire_data_in_single_language,
-        )
-
         # Collect which keys are to be shown in the list.
         list_configuration = []
         for questiongroup in self.get_questiongroups():
@@ -1485,13 +1475,11 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         questiongroup.keyword, question.keyword,
                         question.field_type))
 
-        questionnaire_values = []
-        for questionnaire in questionnaires:
-            data = get_questionnaire_data_in_single_language(
-                questionnaire.data, get_language())
+        questionnaire_value_list = []
+        for questionnaire_data in questionnaire_data_list:
             questionnaire_value = {}
             for list_entry in list_configuration:
-                for question_data in data.get(list_entry[0], []):
+                for question_data in questionnaire_data.get(list_entry[0], []):
                     key = list_entry[1]
                     value = question_data.get(list_entry[1])
                     if list_entry[2] == 'image':
@@ -1513,19 +1501,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         if list_entry[2] in ['bool', 'measure', 'select_type']:
                             value = values[0]
                     questionnaire_value[key] = value
-
-            configurations = [
-                c.code for c in questionnaire.configurations.all()]
-
-            questionnaire_value.update({
-                'id': questionnaire.id,
-                'configurations': configurations,
-                'native_configuration': self.keyword in configurations,
-            })
-            questionnaire_value.update(questionnaire.get_metadata())
-            questionnaire_values.append(questionnaire_value)
-
-        return questionnaire_values
+            questionnaire_value_list.append(questionnaire_value)
+        return questionnaire_value_list
 
     def get_links_configuration(self):
         try:

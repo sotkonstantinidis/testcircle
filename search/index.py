@@ -28,9 +28,8 @@ def get_mappings(questionnaire_configuration):
     is used to identify the types of fields, making it possible to query
     them properly.
 
-    String values have additional fields (one for each language) for the
-    translations. They also have an analyzer specified to allow string
-    analyzes.
+    String values are objects themselves with a key for each language
+    available.
 
     Args:
         ``questionnaire_configuration`` (
@@ -42,42 +41,44 @@ def get_mappings(questionnaire_configuration):
     """
     language_codes = [l[0] for l in settings.LANGUAGES]
 
-    qg_properties = {}
+    data_properties = {}
     for questiongroup in questionnaire_configuration.get_questiongroups():
-
-        question_properties = {}
+        qg_properties = {}
         for question in questiongroup.questions:
             if question.field_type in ['char', 'text']:
-                question_properties[question.keyword] = {
-                    'type': 'string',
-                }
+                q_properties = {}
                 for language_code in language_codes:
-                    translated_property = {
+                    q = {
                         'type': 'string',
                     }
                     analyzer = get_analyzer(language_code)
                     if analyzer:
-                        translated_property.update({
+                        q.update({
                             'analyzer': analyzer,
                         })
-                    question_properties['{}_{}'.format(
-                        question.keyword, language_code)] = translated_property
+                    q_properties[language_code] = q
+                qg_properties[question.keyword] = {
+                    'properties': q_properties,
+                }
+            elif question.field_type in ['checkbox']:
+                qg_properties[question.keyword] = {'type': 'string'}
 
-        qg_property = {
+        data_properties[questiongroup.keyword] = {
             'type': 'nested',
-            'properties': question_properties,
+            'properties': qg_properties,
         }
-        qg_properties[questiongroup.keyword] = qg_property
 
-    return {
+    mappings = {
         'questionnaire': {
             'properties': {
                 'data': {
-                    'properties': qg_properties,
-                }
+                    'properties': data_properties,
+                },
             }
         }
     }
+
+    return mappings
 
 
 def create_or_update_index(configuration_code, mappings):
@@ -176,7 +177,7 @@ def create_or_update_index(configuration_code, mappings):
     return True, logs, ''
 
 
-def put_questionnaire_data(configuration_code, data):
+def put_questionnaire_data(configuration_code, questionnaire_objects):
     """
     Add a list of documents to the index. New documents will be created,
     existing documents will be updated.
@@ -185,27 +186,40 @@ def put_questionnaire_data(configuration_code, data):
         ``configuration_code`` (str): The code of the Questionnaire
         configuration corresponding to the data.
 
-        ``data`` (list): A list of dictionaries containing the data of
-        the questionnaires.
+        ``questionnaire_objects`` (list): A list (queryset) of
+        :class:`questionnaire.models.Questionnaire` objects.
 
     Returns:
         ``int``. Count of objects created or updated.
 
         ``list``. A list of errors occured.
     """
+    from configuration.configuration import QuestionnaireConfiguration
+    questionnaire_configuration = QuestionnaireConfiguration(
+        configuration_code)
+
     alias = get_alias(configuration_code)
+
     actions = []
-    for i, d in enumerate(data):
+    for obj in questionnaire_objects:
+        list_data = questionnaire_configuration.get_list_data(
+            [obj.data])[0]
         action = {
             '_index': alias,
             '_type': 'questionnaire',
-            '_id': i+1,
+            '_id': obj.id,
             '_source': {
-                'data': d,
+                'data': obj.data,
+                'list_data': list_data,
+                'created': obj.created,
+                'updated': obj.updated,
+                'configurations': [
+                    conf.code for conf in obj.configurations.all()]
             }
         }
         actions.append(action)
     actions_executed, errors = bulk(es, actions)
+
     es.indices.refresh(index=alias)
     return actions_executed, errors
 

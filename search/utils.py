@@ -35,7 +35,7 @@ def get_alias(configuration_code):
     return '{}{}'.format(settings.ES_INDEX_PREFIX, configuration_code)
 
 
-def test_connection(es, index=None):
+def check_connection(es, index=None):
     """
     Test if a connection to a given Elasticsearch instance is possible.
 

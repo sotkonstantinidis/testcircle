@@ -5,7 +5,7 @@ from unittest.mock import Mock
 from qcat.tests import TestCase
 from search.utils import (
     get_analyzer,
-    test_connection,
+    check_connection,
 )
 
 
@@ -31,45 +31,45 @@ class TestConnectionTest(TestCase):
 
     def test_calls_info_if_no_index_provided(self):
         es = Mock()
-        test_connection(es)
+        check_connection(es)
         es.info.assert_called_once_with()
 
     def test_returns_true_if_available_no_index_provided(self):
         es = Mock()
         es.info.return_value = {}
-        success, error_msg = test_connection(es)
+        success, error_msg = check_connection(es)
         self.assertTrue(success)
         self.assertEqual(error_msg, '')
 
     def test_returns_false_if_not_available_no_index_provided(self):
         es = Mock()
         es.info.side_effect = TransportError
-        success, error_msg = test_connection(es)
+        success, error_msg = check_connection(es)
         self.assertFalse(success)
         self.assertNotEqual(error_msg, '')
 
     def test_calls_index_exists_with_index(self):
         es = Mock()
-        test_connection(es, index='foo')
+        check_connection(es, index='foo')
         es.indices.exists.assert_called_once_with(index='foo')
 
     def test_returns_true_if_available_with_index(self):
         es = Mock()
         es.indices.exists.return_value = True
-        success, error_msg = test_connection(es, index='foo')
+        success, error_msg = check_connection(es, index='foo')
         self.assertTrue(success)
         self.assertEqual(error_msg, '')
 
     def test_returns_false_if_not_available_with_index(self):
         es = Mock()
         es.indices.exists.side_effect = TransportError
-        success, error_msg = test_connection(es, index='foo')
+        success, error_msg = check_connection(es, index='foo')
         self.assertFalse(success)
         self.assertNotEqual(error_msg, '')
 
     def test_returns_false_if_index_not_exists_with_index(self):
         es = Mock()
         es.indices.exists.return_value = False
-        success, error_msg = test_connection(es, index='foo')
+        success, error_msg = check_connection(es, index='foo')
         self.assertFalse(success)
         self.assertNotEqual(error_msg, '')

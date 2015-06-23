@@ -71,9 +71,12 @@ class QuestionnaireModelTest(TestCase):
         questionnaire = get_valid_questionnaire()
         self.assertEqual(questionnaire.version, 1)
 
+    @patch('questionnaire.models.put_questionnaire_data')
     @patch.object(Configuration, 'get_active_by_code')
     def test_create_new_calls_configuration_get_active_by_code(
-            self, mock_Configuration_get_active_by_code):
+            self, mock_Configuration_get_active_by_code,
+            mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = 1, []
         Questionnaire.create_new(configuration_code='sample', data={})
         mock_Configuration_get_active_by_code.assert_called_once_with('sample')
 
@@ -87,6 +90,15 @@ class QuestionnaireModelTest(TestCase):
         ret_configurations = ret.configurations.all()
         self.assertEqual(len(ret_configurations), 1)
         self.assertEqual(ret_configurations[0].id, configuration.id)
+
+    @patch.object(Questionnaire.objects, 'create')
+    @patch('questionnaire.models.put_questionnaire_data')
+    def test_create_new_calls_put_questionnaire_data(
+            self, mock_put_questionnaire_data, mock_create):
+        mock_put_questionnaire_data.return_value = 1, []
+        Questionnaire.create_new(configuration_code='sample', data={})
+        mock_put_questionnaire_data.assert_called_once_with(
+            'sample', [mock_create.return_value])
 
     def test_get_metadata(self):
         questionnaire = Questionnaire.create_new(

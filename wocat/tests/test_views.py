@@ -184,21 +184,21 @@ class QuestionnaireListPartialTest(TestCase):
     def test_calls_render_to_string_with_list_template(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'wocat/questionnaire/partial/list.html',
-            {'questionnaire_value_list': 'foo'})
+            {'list_values': 'foo'})
 
     @patch('wocat.views.render_to_string')
     @patch('wocat.views.generic_questionnaire_list')
     def test_calls_render_to_string_with_active_filters(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
