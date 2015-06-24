@@ -24,6 +24,7 @@ route_questionnaire_list = 'wocat:questionnaire_list'
 route_questionnaire_list_partial = 'wocat:questionnaire_list_partial'
 route_questionnaire_new = 'wocat:questionnaire_new'
 route_questionnaire_new_step = 'wocat:questionnaire_new_step'
+route_search = 'wocat:search'
 
 
 def get_valid_new_step_values():
@@ -184,21 +185,21 @@ class QuestionnaireListPartialTest(TestCase):
     def test_calls_render_to_string_with_list_template(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'wocat/questionnaire/partial/list.html',
-            {'questionnaire_value_list': 'foo'})
+            {'list_values': 'foo'})
 
     @patch('wocat.views.render_to_string')
     @patch('wocat.views.generic_questionnaire_list')
     def test_calls_render_to_string_with_active_filters(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
@@ -234,3 +235,29 @@ class QuestionnaireListTest(TestCase):
         mock_questionnaire_list.assert_called_once_with(
             request, 'wocat', template='wocat/questionnaire/list.html',
             filter_url='/en/wocat/list_partial/')
+
+
+class SearchTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(route_search)
+
+    @patch('wocat.views.simple_search')
+    def test_renders_correct_template(self, mock_simple_search):
+        res = self.client.get(self.url)
+        self.assertTemplateUsed(res, 'wocat/questionnaire/list.html')
+        self.assertEqual(res.status_code, 200)
+
+    @patch('wocat.views.simple_search')
+    def test_calls_simple_search(self, mock_simple_search):
+        self.client.get(self.url)
+        mock_simple_search.assert_called_once_with('', configuration_code=None)
+
+    @patch('wocat.views.get_list_values')
+    @patch('wocat.views.simple_search')
+    def test_calls_get_list_values(self, mock_simple_search, mock_list_values):
+        self.client.get(self.url)
+        mock_list_values.assert_called_once_with(
+            configuration_code='wocat',
+            es_search=mock_simple_search.return_value)

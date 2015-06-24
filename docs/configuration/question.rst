@@ -29,6 +29,9 @@ The basic format of the configuration is as follows::
     "in_list": true,
 
     # (optional)
+    "is_name": true,
+
+    # (optional)
     "form_template": "TEMPLATE_NAME",
 
     # (optional)
@@ -75,6 +78,17 @@ The keyword of the key of this question.
 (Optional). An optional boolean indicating whether this question should
 appear in the list representation of questionnaires or not. Defaults to
 ``False``, meaning that this question is not shown in the list.
+
+``is_name``
+^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether this question
+represents the name of the entire Questionnaire.
+
+.. important::
+    Only one question of the entire Questionnaire can have this flag. If
+    the key is inside a repeating questiongroup, only the first
+    appearance of the key will be used as name.
 
 ``form_template``
 ^^^^^^^^^^^^^^^^^

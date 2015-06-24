@@ -133,6 +133,10 @@ $(function() {
     }
   });
 
+  $('#submit-search').click(function() {
+    $(this).closest('form').submit();
+    return false;
+  });
 
   $('img[data-alt-src]').each(function() {
       new Image().src = $(this).data('alt-src');

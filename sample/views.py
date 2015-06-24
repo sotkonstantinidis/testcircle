@@ -6,12 +6,15 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 
 from configuration.configuration import QuestionnaireConfiguration
+from questionnaire.utils import get_list_values
 from questionnaire.views import (
     generic_questionnaire_details,
+    generic_questionnaire_link_form,
     generic_questionnaire_list,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
 )
+from search.search import simple_search
 
 
 def home(request):
@@ -26,9 +29,29 @@ def home(request):
         request, 'sample', template=None, only_current=True, limit=3)
 
     return render(request, 'sample/home.html', {
-        'questionnaire_value_list': list_template_values.get(
-            'questionnaire_value_list', [])
+        'list_values': list_template_values.get('list_values', [])
     })
+
+
+@login_required
+def questionnaire_link_form(request):
+    """
+    View to show the form for linking questionnaires. Also handles the
+    form submit along with its validation and redirect.
+
+    .. seealso::
+        The actual rendering of the form and the form validation is
+        handled by the generic questionnaire function
+        :func:`questionnaire.views.generic_questionnaire_new_step`.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    return generic_questionnaire_link_form(
+        request, 'sample', 'sample', page_title='SAMPLE Links')
 
 
 @login_required
@@ -122,7 +145,7 @@ def questionnaire_list_partial(request):
     list_values = generic_questionnaire_list(request, 'sample', template=None)
 
     list_ = render_to_string('sample/questionnaire/partial/list.html', {
-        'questionnaire_value_list': list_values['questionnaire_value_list']})
+        'list_values': list_values['list_values']})
     active_filters = render_to_string('active_filters.html', {
         'active_filters': list_values['active_filters']})
 
@@ -153,3 +176,28 @@ def questionnaire_list(request):
     return generic_questionnaire_list(
         request, 'sample', template='sample/questionnaire/list.html',
         filter_url=reverse('sample:questionnaire_list_partial'))
+
+
+def search(request):
+    """
+    View the results of a query in a list.
+
+    For the SAMPLE configuration, only the questionnaires of its own
+    configuration are searched.
+
+    Args:
+        ``request`` (django.http.HttpResponse): The request object with
+        the GET parameter ``q`` containing the search string.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    search = simple_search(
+        request.GET.get('q', ''), configuration_code='sample')
+
+    list_values = get_list_values(
+        configuration_code='sample', es_search=search)
+
+    return render(request, 'sample/questionnaire/list.html', {
+        'list_values': list_values,
+    })

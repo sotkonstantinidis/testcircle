@@ -8,6 +8,7 @@ from django.utils.translation import ugettext as _
 from django_pgjson.fields import JsonBField
 
 from configuration.models import Configuration
+from search.index import put_questionnaire_data
 
 
 STATUSES = (
@@ -86,6 +87,11 @@ class Questionnaire(models.Model):
         questionnaire = Questionnaire.objects.create(
             data=data, version=version, status=status)
         questionnaire.configurations.add(configuration)
+
+        # TODO: This should happen on review!
+        added, errors = put_questionnaire_data(
+            configuration_code, [questionnaire])
+
         return questionnaire
 
     def get_id(self):

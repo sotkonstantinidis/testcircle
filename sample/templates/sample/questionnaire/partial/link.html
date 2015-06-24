@@ -1,0 +1,16 @@
+{% comment %}
+
+  This partial template can be included to display a link to SAMPLEMULTI questionnaires.
+
+  Required attributes:
+
+  - link_data (data dictionary)
+  - link_url (url to details of questionnaire)
+
+{% endcomment %}
+
+{% load i18n %}
+
+<p>
+  <strong>[{% trans "SAMPLE" %}]</strong> <a href="{{ link_url }}">{{ link_data.key_1 }}</a>
+</p>

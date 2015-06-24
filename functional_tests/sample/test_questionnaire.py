@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
+    route_questionnaire_details,
     route_questionnaire_list,
     route_questionnaire_new,
     route_questionnaire_new_step,
@@ -1364,10 +1365,91 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[text()[contains(.,"Key 11: No")]]')
 
+    def test_plus_questiongroup(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        # She sees that Subcategory 1_2 contains an additional
+        # questiongroups for "plus" questions, the keys initially hidden
+        plus_button = self.findBy(
+            'xpath', '//ul[contains(@class, "plus-questiongroup")]/li/a')
+
+        key_37 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_37"]')
+        key_38 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_38"]')
+        self.assertFalse(key_37.is_displayed())
+        self.assertFalse(key_38.is_displayed())
+
+        # She clicks on the button and sees the keys are now visible
+        plus_button.click()
+        time.sleep(1)
+        self.assertTrue(key_37.is_displayed())
+        self.assertTrue(key_38.is_displayed())
+
+        # She enters some text and sees that the progress was updated
+        key_37.send_keys('Foo')
+        key_38.send_keys('Bar')
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+
+        # She submits the form and sees that the values were submitted
+        # correctly.
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
+        # She goes back to the form and sees the additional
+        # questiongroups are now visible because they have initial
+        # values
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        key_37 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_37"]')
+        key_38 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_38"]')
+        self.assertTrue(key_37.is_displayed())
+        self.assertTrue(key_38.is_displayed())
+
+        # She hides the keys and shows them again, the values are still
+        # there
+        plus_button = self.findBy(
+            'xpath', '//ul[contains(@class, "plus-questiongroup")]/li/a')
+        plus_button.click()
+        time.sleep(1)
+        self.assertFalse(key_37.is_displayed())
+        self.assertFalse(key_38.is_displayed())
+        plus_button.click()
+        time.sleep(1)
+
+        key_37_value = self.findBy(
+            'xpath',
+            '//input[@name="qg_29-0-original_key_37" and @value="Foo"]')
+        key_38_value = self.findBy(
+            'xpath',
+            '//input[@name="qg_29-0-original_key_38" and @value="Bar"]')
+        self.assertTrue(key_37_value.is_displayed())
+        self.assertTrue(key_38_value.is_displayed())
+
+        # She submits the form and sees that the values were submitted
+        # correctly.
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
     def test_table_entry(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire with a table
         self.browser.get(self.live_server_url + reverse(
@@ -1598,7 +1680,6 @@ class QuestionnaireTest(FunctionalTest):
         dropzone = self.findBy(
             'xpath', '//div[@id="id_qg_14-0-file_key_19" and contains(@class, '
             '"dropzone")]')
-        import time
         time.sleep(2)
         self.assertFalse(dropzone.is_displayed())
         preview = self.findBy(
@@ -1764,3 +1845,122 @@ class QuestionnaireTest(FunctionalTest):
 
         # She submits the entire questionnaire
         self.findBy('id', 'button-submit').click()
+
+
+class QuestionnaireLinkTest(FunctionalTest):
+
+    fixtures = [
+        'sample.json', 'samplemulti.json',
+        'sample_samplemulti_questionnaires.json']
+
+    def test_add_questionnaire_link(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a part of the questionnaire and enters some data
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She goes to the part where she can edit linked questionnaires
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+
+        self.findBy('name', 'samplemulti-0-id').send_keys('3')
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the link was added in category 6
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+
+        # She goes back to the form and sees the one she linked is still
+        # in the form.
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        link_1 = self.findBy(
+            'xpath', '//input[@name="samplemulti-0-id" and @value="3"]')
+        self.findBy(
+            'xpath', '//input[@name="samplemulti-0-form_display" and '
+            '@value="This is key 1a"]')
+
+        # She deletes the link and submits the form
+        link_1.clear()
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+
+        # She goes back to the form and tries to select an invalid link
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy('name', 'samplemulti-0-id').send_keys('-1')
+
+        # She tries to submit the form and sees an error message
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "error")]')
+
+        # She links another questionnaire
+        self.findBy('name', 'samplemulti-0-id').clear()
+        self.findBy('name', 'samplemulti-0-id').send_keys('4')
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the link was added in category 6
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1b")]]')
+
+        # She submits the complete form
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the link was added in category 6
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1b")]]')
+
+        # The link can be clicked
+        self.findBy(
+            'xpath', '//a[contains(@href, "samplemulti/view/")]').click()
+        self.checkOnPage('MSection')
+
+        # There is a link back
+        self.findBy('xpath', '//a[contains(@href, "sample/view/")]')
+
+    def test_edit_questionnaire_link(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She opens an existing questionnaire and sees the link
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, args=['1']))
+
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+        self.findBy(
+            'xpath', '//a[contains(@href, "samplemulti/view/")]').click()
+        self.findBy('xpath', '//a[contains(@href, "sample/view/")]').click()
+
+        # She decides to edit the questionnaire
+        self.findBy('xpath', '//a[contains(@href, "sample/edit/")]').click()
+
+        # She sees the link in the edit overview
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+
+        # She edits the link form and sees the values are populated correctly
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath', '//input[@name="samplemulti-0-id" and @value="3"]')
+        self.findBy(
+            'xpath', '//input[@name="samplemulti-0-form_display" and '
+            '@value="This is key 1a"]')
+
+    """
+    Test:
+    * Reverse linking (from samplemulti to sample)
+    * Linking of multiple questionnaires
+    * Remove linked questionnaire
+    * No links available (should not show in overview)
+    """

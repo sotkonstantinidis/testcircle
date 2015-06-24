@@ -7,7 +7,7 @@
         "configurations": [
             11002
         ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Key 5\"}], \"qg_3\": [{\"key_6\": \"... and I am Key\", \"key_4\": \"Hi, I am Key 4, ...\"}], \"qg_1\": [{\"key_3\": \"And this cannot be empty.\", \"key_1\": \"This is the first key.\"}], \"qg_2\": [{}]}",
+        "data": "{\"qg_1\": [{\"key_1\": {\"en\": \"Sample Key 1a\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -23,12 +23,12 @@
         "configurations": [
             11002
         ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Faz\"}], \"qg_3\": [{}], \"qg_1\": [{\"key_3\": \"Bar\", \"key_1\": \"Foo\"}], \"qg_2\": [{}]}",
+        "data": "{\"qg_1\": [{\"key_1\": {\"en\": \"Sample Key 1b\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,
-        "created": "2015-02-10T16:08:20.904Z",
-        "updated": "2015-02-10T16:08:20.904Z"
+        "created": "2015-02-11T16:08:20.904Z",
+        "updated": "2015-02-11T16:08:20.904Z"
     }
 }
 ]

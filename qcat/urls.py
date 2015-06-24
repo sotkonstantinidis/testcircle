@@ -24,11 +24,14 @@ urlpatterns += i18n_patterns(
     url(r'^accounts/', include('accounts.urls')),
     url(r'^wocat/', include('wocat.urls', namespace='wocat')),
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
+    url(r'^search/', include('search.urls', namespace='search')),
 )
 
 if settings.DEBUG:
     urlpatterns += i18n_patterns(
         '',
         url(r'^sample/', include('sample.urls', namespace='sample')),
+        url(r'^samplemulti/', include('samplemulti.urls',
+            namespace='samplemulti')),
     ) + static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

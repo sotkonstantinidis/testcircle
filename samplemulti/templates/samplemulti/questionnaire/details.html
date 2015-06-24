@@ -1,0 +1,57 @@
+{% extends 'samplemulti/base.html' %}
+
+{% load i18n %}
+
+{% block bodyclass %}layout-tech{% endblock %}
+
+{% block content %}
+
+  {% if images|length %}
+    <figure class="tech-figure">
+      <div class="tech-figure-container">
+        <img alt="{{ images.0.caption }}" data-interchange="{{ images.0.interchange }}">
+      </div>
+      {% if images.0.caption or images.0.photographer %}
+        <div class="row hide-for-small-only">
+          <figcaption class="medium-4 medium-offset-8 columns">
+            <p>{% if images.0.caption %}{{ images.0.caption }}{% endif %}
+              {% if images.0.photographer %}
+              <strong>{% trans "Photo" %}: {{ images.0.photographer }}</strong>
+              {% endif %}
+            </p>
+          </figcaption>
+        </div>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+  <article role="main">
+    <main class="is-rhythmed-4">
+      {% for section in sections %}
+        {{ section }}
+      {% endfor %}
+      {% if links %}
+        <section class="row">
+          <div class="small-12 columns">
+            <h4>{% trans "Linked Questionnaires" %}</h4>
+            {% for link in links %}
+              {{ link }}
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+      <section class="row is-rhythmed-2">
+        <div class="small-12 columns">
+          {% if mode == 'edit' %}
+            <form action="" method="POST">
+              {% csrf_token %}
+              <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+            </form>
+          {% else %}
+            <a href="{% url 'samplemulti:questionnaire_edit' questionnaire_id %}" class="button">{% trans "Edit" %}</a>
+          {% endif %}
+        </div>
+      </section>
+    </main>
+  </article>
+{% endblock %}

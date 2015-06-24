@@ -15,4 +15,5 @@ urlpatterns = patterns(
         name='questionnaire_list'),
     url(r'^list_partial/$', 'wocat.views.questionnaire_list_partial',
         name='questionnaire_list_partial'),
+    url(r'^search/$', 'wocat.views.search', name='search'),
 )

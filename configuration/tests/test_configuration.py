@@ -1,5 +1,5 @@
 import datetime
-from unittest.mock import patch, Mock, call
+from unittest.mock import patch, Mock
 
 from configuration.configuration import (
     QuestionnaireConfiguration,
@@ -46,17 +46,12 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
 
     def test_returns_list(self):
         questionnaires = Questionnaire.objects.all()
-        conf = get_valid_questionnaire_configuration()
-        list_data = conf.get_list_data(questionnaires)
+        conf = QuestionnaireConfiguration('sample')
+        list_data = conf.get_list_data([q.data for q in questionnaires])
         self.assertEqual(len(list_data), 2)
         for d in list_data:
-            self.assertEqual(len(d), 5)
-            self.assertIsInstance(d['configurations'], list)
-            self.assertEqual(len(d['configurations']), 1)
-            self.assertIsInstance(d['native_configuration'], bool)
-            self.assertIn(d['id'], [1, 2])
-            self.assertIsInstance(d['created'], datetime.datetime)
-            self.assertIsInstance(d['updated'], datetime.datetime)
+            self.assertEqual(len(d), 1)
+            self.assertIn('key_1', d)
 
 
 class QuestionnaireConfigurationReadConfigurationTest(TestCase):

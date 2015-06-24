@@ -7,12 +7,14 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
 from configuration.configuration import QuestionnaireConfiguration
+from questionnaire.utils import get_list_values
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
 )
+from search.search import simple_search
 
 
 def home(request):
@@ -27,8 +29,7 @@ def home(request):
         request, 'wocat', template=None, only_current=True, limit=3)
 
     return render(request, 'wocat/home.html', {
-        'questionnaire_value_list': list_template_values.get(
-            'questionnaire_value_list', [])
+        'list_values': list_template_values.get('list_values', [])
     })
 
 
@@ -122,7 +123,7 @@ def questionnaire_list_partial(request):
     list_values = generic_questionnaire_list(request, 'wocat', template=None)
 
     list_ = render_to_string('wocat/questionnaire/partial/list.html', {
-        'questionnaire_value_list': list_values['questionnaire_value_list']})
+        'list_values': list_values['list_values']})
     active_filters = render_to_string('active_filters.html', {
         'active_filters': list_values['active_filters']})
 
@@ -153,3 +154,26 @@ def questionnaire_list(request):
     return generic_questionnaire_list(
         request, 'wocat', template='wocat/questionnaire/list.html',
         filter_url=reverse('wocat:questionnaire_list_partial'))
+
+
+def search(request):
+    """
+    View the results of a query in a list.
+
+    For the WOCAT configuration, the questionnaires of all
+    configurations are searched.
+
+    Args:
+        ``request`` (django.http.HttpResponse): The request object with
+        the GET parameter ``q`` containing the search string.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    search = simple_search(request.GET.get('q', ''), configuration_code=None)
+
+    list_values = get_list_values(configuration_code='wocat', es_search=search)
+
+    return render(request, 'wocat/questionnaire/list.html', {
+        'list_values': list_values,
+    })

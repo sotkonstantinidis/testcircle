@@ -2,6 +2,55 @@
 // -----------------
 // Next / Previous step
 
+
+/**
+ * Loop through the form fields of a subcategory to find out if they are
+ * empty or if they contain values.
+ *
+ * @param {Element} element - An element containing the form fields, for
+ *   example the subcategory fieldset.
+ */
+function hasContent(element) {
+  var content = false;
+  // Textfields and Textareas
+  $(element).find('div.row.list-item input:text, div.row.list-item textarea').each(function() {
+    if ($(this).is(":visible") && $(this).val() != '') {
+      content = true;
+      return;
+    }
+  });
+  // Radio
+  $(element).find('div.row.list-item input:radio').each(function() {
+    if ($(this).is(':checked') && $(this).val() != '') {
+      content = true;
+      return;
+    }
+  });
+  // Checkbox
+  $(element).find('div.row.list-item input:checkbox').each(function() {
+    if ($(this).is(':checked')) {
+      content = true;
+      return;
+    }
+  });
+  // Image
+  $(element).find('div.image-preview').each(function() {
+    if ($(this).find('img').length) {
+      content = true;
+      return;
+    }
+  });
+  // Select
+  $(element).find('div.row.list-item select').each(function() {
+    if ($(this).find(':selected').val()) {
+      content = true;
+      return;
+    }
+  });
+  return content;
+}
+
+
 /**
  * Updates the process indicators while entering the form. Updates the
  * number of subcategories filled out and the progress bar.
@@ -9,42 +58,7 @@
 function watchFormProgress() {
   var completed = 0;
   $('fieldset.row').each(function() {
-    var content = false;
-    // Textfields and Textareas
-    $(this).find('div.row.list-item input:text, div.row.list-item textarea').each(function() {
-      if ($(this).is(":visible") && $(this).val() != '') {
-        content = true;
-        return;
-      }
-    });
-    // Radio
-    $(this).find('div.row.list-item input:radio').each(function() {
-      if ($(this).is(':checked') && $(this).val() != '') {
-        content = true;
-        return;
-      }
-    });
-    // Checkbox
-    $(this).find('div.row.list-item input:checkbox').each(function() {
-      if ($(this).is(':checked')) {
-        content = true;
-        return;
-      }
-    });
-    // Image
-    $(this).find('div.image-preview').each(function() {
-      if ($(this).find('img').length) {
-        content = true;
-        return;
-      }
-    });
-    // Select
-    $(this).find('div.row.list-item select').each(function() {
-      if ($(this).find(':selected').val()) {
-        content = true;
-        return;
-      }
-    });
+    var content = hasContent(this);
     if (content) {
       completed++;
     }
@@ -54,6 +68,16 @@ function watchFormProgress() {
   var total = stepsElement.next('.progress-total').html();
   var progress = completed / total * 100;
   $('header.wizard-header').find('.meter').width(progress + '%');
+}
+
+/**
+ * Check for additional questiongroups ("plus" questions) and hide them
+ * initially if they are empty.
+ */
+function checkAdditionalQuestiongroups() {
+  $('.plus-questiongroup div.content').each(function() {
+    $(this).toggleClass('active', hasContent(this));
+  });
 }
 
 
@@ -97,6 +121,8 @@ function checkConditionalQuestiongroups(element) {
 
       var inputType = currentElement.attr('type');
       if ((inputType == 'radio' || inputType == 'checkbox') && currentElement.is(':checked')) {
+        val = currentElement.val();
+      } else if (inputType == 'text') {
         val = currentElement.val();
       }
 
@@ -152,7 +178,12 @@ $(function() {
     })
     .on('change', function() {
       checkConditionalQuestiongroups(this);
+    })
+    .on('input', function() {
+      checkConditionalQuestiongroups(this);
     });
+
+  checkAdditionalQuestiongroups();
 
   // Form progress upon input
   $('fieldset.row div.row.list-item').on('change', function() {

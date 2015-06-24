@@ -15,15 +15,15 @@
 {% block header %}
   <ul class="form-search">
     <li class="has-form">
-      <form action="" role="search">
+      <form action="{% url 'unccd:search' %}" method="GET" role="search">
         <div class="row collapse">
           <div class="large-12 columns">
             <div class="row collapse postfix-radius prefix-radius">
               <div class="small-10 medium-11 columns">
-                <input type="search" placeholder="{% trans 'Search technology: e.g Soil degradation...' %}">
+                <input type="search" name="q" placeholder="{% trans 'Search technology: e.g Soil degradation...' %}">
               </div>
               <div class="small-2 medium-1 columns">
-                <a href="#" class="postfix light">
+                <a href="#" id="submit-search" class="postfix light">
                   <svg class="icon"><use xlink:href="#icon-search"></use></svg>
                 </a>
               </div>

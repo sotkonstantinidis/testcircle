@@ -11,6 +11,7 @@ from qcat.tests import TestCase
 from sample.views import (
     home,
     questionnaire_details,
+    questionnaire_link_form,
     questionnaire_list,
     questionnaire_list_partial,
     questionnaire_new,
@@ -20,9 +21,17 @@ from sample.views import (
 route_questionnaire_details = 'sample:questionnaire_details'
 route_home = 'sample:home'
 route_questionnaire_list = 'sample:questionnaire_list'
+route_questionnaire_link_form = 'sample:questionnaire_link_form'
 route_questionnaire_list_partial = 'sample:questionnaire_list_partial'
 route_questionnaire_new = 'sample:questionnaire_new'
 route_questionnaire_new_step = 'sample:questionnaire_new_step'
+route_search = 'sample:search'
+
+
+def get_valid_link_form_values():
+    args = ('sample', 'sample')
+    kwargs = {'page_title': 'SAMPLE Links'}
+    return args, kwargs
 
 
 def get_valid_new_step_values():
@@ -60,6 +69,7 @@ def get_categories():
         ('cat_2', 'Category 2'),
         ('cat_3', 'Category 3'),
         ('cat_4', 'Category 4'),
+        ('cat_5', 'Category 5'),
     )
 
 
@@ -106,6 +116,26 @@ class SampleHomeTest(TestCase):
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'sample/home.html')
         self.assertEqual(res.status_code, 200)
+
+
+class QuestionnaireLinkFormTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(route_questionnaire_link_form)
+
+    def test_login_required(self):
+        res = self.client.get(self.url, follow=True)
+        self.assertTemplateUsed(res, 'login.html')
+
+    @patch('sample.views.generic_questionnaire_link_form')
+    def test_calls_generic_function(self, mock_questionnaire_link_form):
+        request = self.factory.get(self.url)
+        request.user = create_new_user()
+        questionnaire_link_form(request)
+        mock_questionnaire_link_form.assert_called_once_with(
+            request, *get_valid_link_form_values()[0],
+            **get_valid_link_form_values()[1])
 
 
 class QuestionnaireNewTest(TestCase):
@@ -205,21 +235,21 @@ class QuestionnaireListPartialTest(TestCase):
     def test_calls_render_to_string_with_list_template(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'sample/questionnaire/partial/list.html',
-            {'questionnaire_value_list': 'foo'})
+            {'list_values': 'foo'})
 
     @patch('sample.views.render_to_string')
     @patch('sample.views.generic_questionnaire_list')
     def test_calls_render_to_string_with_active_filters(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
@@ -255,3 +285,30 @@ class QuestionnaireListTest(TestCase):
         mock_questionnaire_list.assert_called_once_with(
             request, 'sample', template='sample/questionnaire/list.html',
             filter_url='/en/sample/list_partial/')
+
+
+class SearchTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = reverse(route_search)
+
+    @patch('sample.views.simple_search')
+    def test_renders_correct_template(self, mock_simple_search):
+        res = self.client.get(self.url)
+        self.assertTemplateUsed(res, 'sample/questionnaire/list.html')
+        self.assertEqual(res.status_code, 200)
+
+    @patch('sample.views.simple_search')
+    def test_calls_simple_search(self, mock_simple_search):
+        self.client.get(self.url)
+        mock_simple_search.assert_called_once_with(
+            '', configuration_code='sample')
+
+    @patch('sample.views.get_list_values')
+    @patch('sample.views.simple_search')
+    def test_calls_get_list_values(self, mock_simple_search, mock_list_values):
+        self.client.get(self.url)
+        mock_list_values.assert_called_once_with(
+            configuration_code='sample',
+            es_search=mock_simple_search.return_value)

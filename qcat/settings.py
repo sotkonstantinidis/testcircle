@@ -47,7 +47,9 @@ INSTALLED_APPS = (
     'configuration',
     'wocat',
     'unccd',
+    'search',
     'sample',
+    'samplemulti',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -152,6 +154,21 @@ NOSE_ARGS = [
 
 GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
 GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
+
+# Elasticsearch settings
+ES_HOST = 'localhost'
+ES_PORT = 9200
+ES_INDEX_PREFIX = 'qcat_'
+
+# For each language (as set in the setting ``LANGUAGES``), a language
+# analyzer can be specified. This helps to analyze the text in the
+# corresponding language for better search results.
+# https://www.elastic.co/guide/en/elasticsearch/reference/1.6/analysis-lang-analyzer.html
+ES_ANALYZERS = (
+    ('en', 'english'),
+    ('es', 'spanish'),
+)
+
 
 try:
     from qcat.settings_local import *

@@ -21,6 +21,7 @@ from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
     generic_file_upload,
     generic_questionnaire_details,
+    generic_questionnaire_link_form,
     generic_questionnaire_list,
     generic_questionnaire_new,
     generic_questionnaire_new_step,
@@ -31,6 +32,7 @@ from sample.tests.test_views import (
     get_valid_new_values,
     get_valid_details_values,
     get_valid_list_values,
+    get_valid_link_form_values,
     route_questionnaire_details,
     route_questionnaire_list,
 )
@@ -39,6 +41,58 @@ file_upload_route = 'file_upload'
 file_display_route = 'file_serve'
 valid_file = 'static/assets/img/img01.jpg'
 invalid_file = 'bower.json'  # Needs to exist but not valid file type
+
+
+class GenericQuestionnaireLinkFormTest(TestCase):
+
+    fixtures = ['groups_permissions.json', 'sample.json']
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = '/sample/edit/links'
+        self.request = self.factory.get(self.url)
+        self.request.user = create_new_user()
+        session_store.clear()
+
+    def test_requires_login(self):
+        self.client.logout()
+        res = self.client.post(self.url, follow=True)
+        self.assertTemplateUsed(res, 'login.html')
+
+    @patch.object(QuestionnaireConfiguration, 'get_links_configuration')
+    @patch.object(QuestionnaireConfiguration, '__init__')
+    def test_creates_questionnaire_configuration(
+            self, mock_QuestionnaireConfiguration,
+            mock_QuestionnaireConfiguration_get_links_configuration):
+        mock_QuestionnaireConfiguration.return_value = None
+        mock_QuestionnaireConfiguration_get_links_configuration.return_value \
+            = []
+        generic_questionnaire_link_form(
+            self.request, *get_valid_link_form_values()[0],
+            **get_valid_link_form_values()[1])
+        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
+
+    @patch.object(QuestionnaireConfiguration, 'get_links_configuration')
+    @patch.object(QuestionnaireConfiguration, '__init__')
+    def test_calls_get_links_configuration(
+            self, mock_QuestionnaireConfiguration,
+            mock_get_links_configuration):
+        mock_QuestionnaireConfiguration.return_value = None
+        mock_get_links_configuration.return_value \
+            = []
+        generic_questionnaire_link_form(
+            self.request, *get_valid_link_form_values()[0],
+            **get_valid_link_form_values()[1])
+        mock_get_links_configuration.assert_called_once_with()
+
+    @patch('questionnaire.views.get_session_questionnaire')
+    def test_calls_get_session_questionnaire(
+            self, mock_get_session_questionnaire):
+        mock_get_session_questionnaire.return_value = {}, {}
+        generic_questionnaire_link_form(
+            self.request, *get_valid_link_form_values()[0],
+            **get_valid_link_form_values()[1])
+        mock_get_session_questionnaire.assert_called_once_with('sample')
 
 
 class GenericQuestionnaireNewStepTest(TestCase):
@@ -74,7 +128,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
-        mock_get_session_questionnaire.return_value = {}
+        mock_get_session_questionnaire.return_value = {}, {}
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_get_session_questionnaire.assert_called_once_with('sample')
@@ -94,16 +148,19 @@ class GenericQuestionnaireNewStepTest(TestCase):
         mock_get_form.assert_called_once_with(
             post_data=None, show_translation=False, initial_data={})
 
+    @patch.object(messages, 'success')
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.save_session_questionnaire')
     def test_form_submission_saves_form(
-            self, mock_save_session_questionnaire, mock_get_form):
+            self, mock_save_session_questionnaire, mock_get_form,
+            mock_messages):
         mock_get_form.return_value = None, []
         r = self.request
         r.method = 'POST'
         generic_questionnaire_new_step(
             r, *get_valid_new_step_values()[0])
-        mock_save_session_questionnaire.assert_called_once_with({}, 'sample')
+        mock_save_session_questionnaire.assert_called_once_with(
+            'sample', {}, {})
 
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
@@ -151,7 +208,7 @@ class GenericQuestionnaireNewTest(TestCase):
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
-        mock_get_session_questionnaire.return_value = {}
+        mock_get_session_questionnaire.return_value = {}, {}
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
@@ -273,6 +330,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'sections': ["foo"]*get_section_count(),
                 'images': [],
                 'mode': 'edit',
+                'links': [],
             })
 
     def test_returns_rendered_response(self):
@@ -318,6 +376,25 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_get_details.assert_called_once_with(
             data={}, questionnaire_object=mock_get_object_or_404.return_value)
 
+    @patch.object(QuestionnaireConfiguration, 'get_image_data')
+    @patch('questionnaire.views.get_object_or_404')
+    def test_calls_get_image_data(
+            self, mock_get_object_or_404, mock_get_image_data):
+        mock_get_object_or_404.return_value.data = {}
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_image_data.assert_called_once_with({})
+
+    @patch('questionnaire.views.get_link_data')
+    @patch('questionnaire.views.get_object_or_404')
+    def test_calls_get_link_data(
+            self, mock_get_object_or_404, mock_get_link_data):
+        mock_get_object_or_404.return_value.data = {}
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_link_data.assert_called_once_with(
+            mock_get_object_or_404().links.all())
+
     @patch.object(QuestionnaireCategory, 'get_details')
     @patch('questionnaire.views.get_object_or_404')
     @patch('questionnaire.views.render')
@@ -333,6 +410,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'questionnaire_id': 1,
                 'mode': 'view',
                 'images': [],
+                'links': [],
             })
 
     @patch('questionnaire.views.get_object_or_404')
@@ -378,11 +456,10 @@ class GenericQuestionnaireListTest(TestCase):
     #     mock_get_active_filters.assert_called_once_with(
     #         mock_QuestionnaireConfiguration.return_value, self.request.GET)
 
-    # @patch.object(QuestionnaireConfiguration, 'get_list_data')
-    # def test_calls_get_list_data(self, mock_get_list_data):
-    #     f = Questionnaire.objects.none()
-    #     generic_questionnaire_list(self.request, *get_valid_list_values())
-    #     mock_get_list_data.assert_called_once_with(f)
+    @patch('questionnaire.views.get_list_values')
+    def test_calls_get_list_values(self, mock_get_list_values):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch.object(QuestionnaireConfiguration, 'get_list_data')
     @patch('questionnaire.views.render')
@@ -392,7 +469,7 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/list.html', {
-                'questionnaire_value_list': [],
+                'list_values': [],
                 'filter_configuration': (),
                 'filter_url': '',
                 'active_filters': [],
