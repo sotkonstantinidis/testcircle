@@ -224,6 +224,25 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
     return actions_executed, errors
 
 
+def delete_all_indices():
+    """
+    Delete all the indices starting with the prefix as specified in the
+    settings (``ES_INDEX_PREFIX``).
+
+    Returns:
+        ``bool``. A boolean indicating whether the operation was carried
+        out successfully or not.
+
+        ``str``. An optional error message if the operation was not
+        successful.
+    """
+    deleted = es.indices.delete(index='{}*'.format(settings.ES_INDEX_PREFIX))
+    if deleted.get('acknowledged') is not True:
+        return (False, 'Indices could not be deleted')
+
+    return True, ''
+
+
 def get_current_and_next_index(alias):
     """
     Get the current and next index of an alias. Both the currently

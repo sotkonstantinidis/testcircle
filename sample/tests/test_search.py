@@ -3,7 +3,6 @@ import logging
 logging.disable(logging.CRITICAL)
 
 from django.test.utils import override_settings
-from elasticsearch import TransportError
 
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
@@ -11,7 +10,7 @@ from questionnaire.models import Questionnaire
 from questionnaire.utils import get_list_values
 from search.index import (
     create_or_update_index,
-    get_elasticsearch,
+    delete_all_indices,
     get_mappings,
     put_questionnaire_data,
 )
@@ -20,57 +19,34 @@ from search.search import (
     simple_search,
 )
 
-es = get_elasticsearch()
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 TEST_ALIAS_1 = 'sample'
 TEST_ALIAS_2 = 'samplemulti'
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-def setup():
-    """
-    Create a new index with a random name for testing. Will be deleted
-    after the tests ran.
-    """
-    from django.core.management import call_command
-    for fixture in [
-            'global_key_values.json',
-            'sample.json', 'samplemulti.json',
-            'sample_questionnaires_search.json']:
-        call_command('loaddata', fixture)
-    sample_configuration = QuestionnaireConfiguration('sample')
-    mappings = get_mappings(sample_configuration)
-    create_or_update_index(TEST_ALIAS_1, mappings)
-    put_questionnaire_data(
-        TEST_ALIAS_1,
-        Questionnaire.objects.filter(configurations__code='sample'))
-    create_or_update_index(TEST_ALIAS_2, mappings)
-    put_questionnaire_data(
-        TEST_ALIAS_2,
-        Questionnaire.objects.filter(configurations__code='samplemulti'))
-
-
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-def teardown():
-    """
-    Delete the index used for testing.
-
-    Use the following to delete all test indices::
-        curl -XDELETE '[ES_HOST]:[ES_PORT]/[TEST_INDEX_PREFIX]*'
-
-    Example::
-        curl -XDELETE 'http://localhost:9200/qcat_test_prefix_*'
-    """
-    try:
-        es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
-    except TransportError:
-        raise Exception(
-            'Index of Elasticsearch could not be deleted, manual cleanup '
-            'necessary.')
-
-
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class SimpleSearchTest(TestCase):
+
+    fixtures = [
+        'global_key_values.json', 'sample.json', 'samplemulti.json',
+        'sample_questionnaires_search.json']
+
+    def setUp(self):
+        sample_configuration = QuestionnaireConfiguration('sample')
+        mappings = get_mappings(sample_configuration)
+        create_or_update_index(TEST_ALIAS_1, mappings)
+        put_questionnaire_data(
+            TEST_ALIAS_1,
+            Questionnaire.objects.filter(configurations__code='sample'))
+        samplemulti_configuration = QuestionnaireConfiguration('samplemulti')
+        mappings_multi = get_mappings(samplemulti_configuration)
+        create_or_update_index(TEST_ALIAS_2, mappings_multi)
+        put_questionnaire_data(
+            TEST_ALIAS_2,
+            Questionnaire.objects.filter(configurations__code='samplemulti'))
+
+    def tearDown(self):
+        delete_all_indices()
 
     def test_simple_search_returns_results_of_code(self):
         key_search = simple_search('key', configuration_code=TEST_ALIAS_1).get(
@@ -82,15 +58,40 @@ class SimpleSearchTest(TestCase):
         self.assertEqual(one_search.get('total'), 1)
 
     def test_simple_search_returns_all_results_if_no_code(self):
+        """
+        Careful: This also returns results from other indices (eg. the
+        productive indices)!
+        """
         key_search = simple_search('key', configuration_code=None).get('hits')
-        self.assertEqual(key_search.get('total'), 3)
+        self.assertTrue(key_search.get('total') >= 3)
 
         one_search = simple_search('one', configuration_code=None).get('hits')
-        self.assertEqual(one_search.get('total'), 1)
+        self.assertTrue(one_search.get('total') >= 1)
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class AdvancedSearchTest(TestCase):
+
+    fixtures = [
+        'global_key_values.json', 'sample.json', 'samplemulti.json',
+        'sample_questionnaires_search.json']
+
+    def setUp(self):
+        sample_configuration = QuestionnaireConfiguration('sample')
+        mappings = get_mappings(sample_configuration)
+        create_or_update_index(TEST_ALIAS_1, mappings)
+        put_questionnaire_data(
+            TEST_ALIAS_1,
+            Questionnaire.objects.filter(configurations__code='sample'))
+        samplemulti_configuration = QuestionnaireConfiguration('samplemulti')
+        mappings_multi = get_mappings(samplemulti_configuration)
+        create_or_update_index(TEST_ALIAS_2, mappings_multi)
+        put_questionnaire_data(
+            TEST_ALIAS_2,
+            Questionnaire.objects.filter(configurations__code='samplemulti'))
+
+    def tearDown(self):
+        delete_all_indices()
 
     def test_advanced_search(self):
         key_search = advanced_search(
@@ -112,6 +113,27 @@ class AdvancedSearchTest(TestCase):
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class GetListValuesTest(TestCase):
+
+    fixtures = [
+        'global_key_values.json', 'sample.json', 'samplemulti.json',
+        'sample_questionnaires_search.json']
+
+    def setUp(self):
+        sample_configuration = QuestionnaireConfiguration('sample')
+        mappings = get_mappings(sample_configuration)
+        create_or_update_index(TEST_ALIAS_1, mappings)
+        put_questionnaire_data(
+            TEST_ALIAS_1,
+            Questionnaire.objects.filter(configurations__code='sample'))
+        samplemulti_configuration = QuestionnaireConfiguration('samplemulti')
+        mappings_multi = get_mappings(samplemulti_configuration)
+        create_or_update_index(TEST_ALIAS_2, mappings_multi)
+        put_questionnaire_data(
+            TEST_ALIAS_2,
+            Questionnaire.objects.filter(configurations__code='samplemulti'))
+
+    def tearDown(self):
+        delete_all_indices()
 
     def test_returns_same_result_for_es_search_and_db_objects(self):
         res_1 = get_list_values(

@@ -1,22 +1,32 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render
+from django.shortcuts import (
+    render,
+    redirect,
+)
 from django.http import HttpResponseBadRequest
+from elasticsearch import TransportError
 
-from configuration.configuration import QuestionnaireConfiguration
 from .index import (
+    create_or_update_index,
+    delete_all_indices,
     get_elasticsearch,
     get_mappings,
-    create_or_update_index,
+    put_questionnaire_data,
 )
 from .search import simple_search
+from .utils import get_alias
+from configuration.configuration import QuestionnaireConfiguration
+from configuration.models import Configuration
+from questionnaire.models import Questionnaire
 from questionnaire.utils import get_list_values
 
 es = get_elasticsearch()
 
 
 @login_required
-def admin(request):
+def admin(request, log=''):
     """
     The search admin overview. Allow superusers to update the indices
     and execute other administrative tasks.
@@ -30,11 +40,29 @@ def admin(request):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    return render(request, 'search/admin.html')
+    configurations = []
+    for active_configuration in Configuration.objects.filter(active=True):
+        db_count = Questionnaire.objects.filter(
+            configurations__code=active_configuration.code).count()
+        try:
+            index_count = es.count(
+                index=get_alias(active_configuration.code)).get('count')
+        except TransportError:
+            index_count = None
+        config_entry = {
+            'object': active_configuration,
+            'db_count': db_count,
+            'index_count': index_count,
+        }
+        configurations.append(config_entry)
+
+    return render(request, 'search/admin.html', {
+        'configurations': configurations,
+    })
 
 
 @login_required
-def update(request, configuration):
+def index(request, configuration):
     """
     Create or update the mapping of an index.
 
@@ -45,7 +73,8 @@ def update(request, configuration):
         configuration.
 
     Returns:
-        ``HttpResponse``. A rendered Http Response.
+        ``HttpResponse``. A rendered Http Response (redirected to the
+        search admin home page).
     """
     if request.user.is_superuser is not True:
         raise PermissionDenied()
@@ -59,14 +88,85 @@ def update(request, configuration):
 
     success, logs, error_msg = create_or_update_index(configuration, mappings)
     if success is not True:
-        return HttpResponseBadRequest(error_msg)
+        messages.error(request, 'The following error(s) occured: {}'.format(
+            error_msg))
+    else:
+        messages.success(
+            request, 'Index "{}" was created or updated.'.format(
+                configuration))
 
-    return render(request, 'search/admin.html')
+    return redirect('search:admin')
+
+
+@login_required
+def update(request, configuration):
+    """
+    Add the questionnaires of a configuration to the index.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration`` (str): The code of the Questionnaire
+        configuration.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response (redirected to the
+        search admin home page).
+    """
+    if request.user.is_superuser is not True:
+        raise PermissionDenied()
+
+    questionnaire_configuration = QuestionnaireConfiguration(configuration)
+    if questionnaire_configuration.get_configuration_errors() is not None:
+        return HttpResponseBadRequest(
+            questionnaire_configuration.configuration_error)
+
+    processed, errors = put_questionnaire_data(
+        configuration,
+        Questionnaire.objects.filter(configurations__code=configuration))
+
+    if len(errors) > 0:
+        messages.error(request, 'The following error(s) occured: {}'.format(
+            ', '.join(errors)))
+    else:
+        messages.success(
+            request, '{} Questionnaires of configuration "{}" successfully '
+            'indexed.'.format(processed, configuration))
+
+    return redirect('search:admin')
+
+
+@login_required
+def delete_all(request):
+    """
+    Delete all the indices.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response (redirected to the
+        search admin home page).
+    """
+    if request.user.is_superuser is not True:
+        raise PermissionDenied()
+
+    success, error_msg = delete_all_indices()
+    if success is not True:
+        messages.error(request, 'The following error(s) occured: {}'.format(
+            error_msg))
+    else:
+        messages.success(request, 'All indices successfully deleted.')
+
+    return redirect('search:admin')
 
 
 def search(request):
     """
     Do a full text search.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
     """
     search = simple_search(request.GET.get('q', ''))
 

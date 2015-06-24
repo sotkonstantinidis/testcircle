@@ -11,6 +11,7 @@ from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from search.index import (
     create_or_update_index,
+    delete_all_indices,
     get_current_and_next_index,
     get_elasticsearch,
     get_mappings,
@@ -26,38 +27,6 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 TEST_ALIAS = uuid.uuid4()
 TEST_ALIAS_PREFIXED = '{}{}'.format(TEST_INDEX_PREFIX, TEST_ALIAS)
 TEST_INDEX = '{}_1'.format(TEST_ALIAS_PREFIXED)
-
-
-def setup():
-    """
-    Create a new index with a random name for testing. Will be deleted
-    after the tests ran.
-    """
-    try:
-        es.indices.create(index=TEST_INDEX)
-        es.indices.put_alias(index=TEST_INDEX, name=TEST_ALIAS_PREFIXED)
-    except TransportError:
-        raise Exception(
-            'No connection to Elasticsearch possible. Make sure it is running '
-            'and the configuration is correct.')
-
-
-def teardown():
-    """
-    Delete the index used for testing.
-
-    Use the following to delete all test indices::
-        curl -XDELETE '[ES_HOST]:[ES_PORT]/[TEST_INDEX_PREFIX]*'
-
-    Example::
-        curl -XDELETE 'http://localhost:9200/qcat_test_prefix_*'
-    """
-    try:
-        es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
-    except TransportError:
-        raise Exception(
-            'Index of Elasticsearch could not be deleted, manual cleanup '
-            'necessary.')
 
 
 class GetMappingsTest(TestCase):
@@ -125,6 +94,36 @@ class GetMappingsTest(TestCase):
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class CreateOrUpdateIndexTest(TestCase):
+
+    def setUp(self):
+        """
+        Create a new index with a random name for testing. Will be deleted
+        after the tests ran.
+        """
+        try:
+            es.indices.create(index=TEST_INDEX)
+            es.indices.put_alias(index=TEST_INDEX, name=TEST_ALIAS_PREFIXED)
+        except TransportError:
+            raise Exception(
+                'No connection to Elasticsearch possible. Make sure it is '
+                'running and the configuration is correct.')
+
+    def tearDown(self):
+        """
+        Delete the index used for testing.
+
+        Use the following to delete all test indices::
+            curl -XDELETE '[ES_HOST]:[ES_PORT]/[TEST_INDEX_PREFIX]*'
+
+        Example::
+            curl -XDELETE 'http://localhost:9200/qcat_test_prefix_*'
+        """
+        try:
+            es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
+        except TransportError:
+            raise Exception(
+                'Index of Elasticsearch could not be deleted, manual cleanup '
+                'necessary.')
 
     @patch('search.index.get_alias')
     def test_calls_get_alias(self, mock_get_alias):
@@ -342,3 +341,27 @@ class PutQuestionnaireDataTest(TestCase):
         actions, errors = put_questionnaire_data('foo', [])
         self.assertEqual(actions, 'foo')
         self.assertEqual(errors, 'bar')
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+class DeleteAllIndicesTest(TestCase):
+
+    @patch('search.index.es')
+    def test_calls_indices_delete(self, mock_es):
+        delete_all_indices()
+        mock_es.indices.delete.assert_called_once_with(index='{}*'.format(
+            TEST_INDEX_PREFIX))
+
+    @patch('search.index.es')
+    def test_returns_false_if_no_success(self, mock_es):
+        mock_es.indices.delete.return_value = {'acknowledged': False}
+        success, error_msg = delete_all_indices()
+        self.assertFalse(success)
+        self.assertEqual(error_msg, 'Indices could not be deleted')
+
+    @patch('search.index.es')
+    def test_returns_true_if_no_success(self, mock_es):
+        mock_es.indices.delete.return_value = {'acknowledged': True}
+        success, error_msg = delete_all_indices()
+        self.assertTrue(success)
+        self.assertEqual(error_msg, '')
