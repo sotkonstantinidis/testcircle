@@ -9,6 +9,7 @@ from unittest.mock import patch, Mock
 
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
+from questionnaire.models import Questionnaire
 from search.index import (
     create_or_update_index,
     delete_all_indices,
@@ -27,6 +28,23 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 TEST_ALIAS = uuid.uuid4()
 TEST_ALIAS_PREFIXED = '{}{}'.format(TEST_INDEX_PREFIX, TEST_ALIAS)
 TEST_INDEX = '{}_1'.format(TEST_ALIAS_PREFIXED)
+
+
+def create_temp_indices(indices):
+    """
+    For each index, create the index and update it with the
+    questionnaires of the corresponding configuration as found in the
+    database.
+
+    Make sure to override the settings and use a custom prefix for the
+    indices.
+    """
+    for index in indices:
+        configuration = QuestionnaireConfiguration(index)
+        mappings = get_mappings(configuration)
+        create_or_update_index(index, mappings)
+        put_questionnaire_data(
+            index, Questionnaire.objects.filter(configurations__code=index))
 
 
 class GetMappingsTest(TestCase):

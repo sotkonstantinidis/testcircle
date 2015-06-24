@@ -7,7 +7,7 @@
         "configurations": [
             11002
         ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Key 5\"}], \"qg_3\": [{\"key_6\": \"... and I am Key\", \"key_4\": \"Hi, I am Key 4, ...\"}], \"qg_1\": [{\"key_3\": \"And this cannot be empty.\", \"key_1\": \"This is the first key.\"}], \"qg_2\": [{}]}",
+        "data": "{\"qg_4\": [{\"key_5\": {\"en\": \"Key 5\"}}], \"qg_3\": [{\"key_6\": {\"en\": \"... and I am Key 6\"}, \"key_4\": {\"en\": \"Hi, I am Key 4, ...\"}}], \"qg_1\": [{\"key_3\": {\"en\": \"And this cannot be empty.\"}, \"key_1\": {\"en\": \"This is the first key.\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -23,7 +23,7 @@
         "configurations": [
             11002
         ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Faz\"}], \"qg_3\": [{}], \"qg_1\": [{\"key_3\": \"Bar\", \"key_1\": \"Foo\"}], \"qg_2\": [{}]}",
+        "data": "{\"qg_4\": [{\"key_5\": {\"en\": \"Faz\"}}], \"qg_3\": [{}], \"qg_1\": [{\"key_3\": {\"en\": \"Bar\"}, \"key_1\": {\"en\": \"Foo\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,

@@ -170,8 +170,7 @@ def search(request):
     """
     search = simple_search(request.GET.get('q', ''))
 
-    list_values = get_list_values(
-        configuration_code=None, es_search=search)
+    list_values = get_list_values(configuration_code=None, es_search=search)
 
     return render(request, 'sample/questionnaire/list.html', {
         'list_values': list_values,

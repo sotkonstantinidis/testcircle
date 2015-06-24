@@ -2,14 +2,93 @@
 import logging
 logging.disable(logging.CRITICAL)
 
+from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
-from search.index import delete_all_indices
+from qcat.tests.test_views import qcat_route_home
+from sample.tests.test_views import route_home as sample_route_home
+from samplemulti.tests.test_views import route_home as samplemulti_route_home
+from search.index import (
+    create_or_update_index,
+    delete_all_indices,
+    get_mappings,
+    put_questionnaire_data,
+)
+from search.tests.test_index import create_temp_indices
 
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+class SearchTest(FunctionalTest):
+
+    fixtures = [
+        'sample.json', 'samplemulti.json', 'sample_questionnaires_search.json']
+
+    def setUp(self):
+        super(SearchTest, self).setUp()
+        create_temp_indices(['sample', 'samplemulti'])
+
+    def tearDown(self):
+        super(SearchTest, self).tearDown()
+        delete_all_indices()
+
+    def test_search_home(self):
+
+        # Alice goes to the landing page and sees the search field
+        self.browser.get(self.live_server_url + reverse(qcat_route_home))
+
+        # She enters a search value and submits the search form
+        self.findBy('xpath', '//input[@type="search"]').send_keys('key')
+        self.findBy('id', 'submit-search').click()
+
+        # She sees that she has been taken to the WOCAT configuration
+        # where the search results are listed
+        self.assertIn('/wocat/search', self.browser.current_url)
+        results = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(results), 3)
+
+        # She sees that this is the same result as when searching in
+        # WOCAT (at the top of the page)
+        self.findBy('xpath', '//input[@type="search"]').send_keys('key')
+        self.findBy('id', 'submit-search').click()
+
+        self.assertIn('/wocat/search', self.browser.current_url)
+        results = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(results), 3)
+
+    def test_search_sample(self):
+
+        # Alice goes to the home page of the sample configuration and
+        # sees the search field at the top of the page.
+        self.browser.get(self.live_server_url + reverse(sample_route_home))
+
+        # She enters a search value and submits the search form
+        self.findBy('xpath', '//input[@type="search"]').send_keys('key')
+        self.findBy('id', 'submit-search').click()
+
+        # She sees that she has been taken to the SAMPLE configuration
+        # where the search results are listed
+        self.assertIn('/sample/search', self.browser.current_url)
+        results = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(results), 2)
+
+        # Vice versa, the samplemulti configuration only shows results
+        # from the samplemulti configuration
+        self.browser.get(
+            self.live_server_url + reverse(samplemulti_route_home))
+        self.findBy('xpath', '//input[@type="search"]').send_keys('key')
+        self.findBy('id', 'submit-search').click()
+        self.assertIn('/samplemulti/search', self.browser.current_url)
+        results = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(results), 1)
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

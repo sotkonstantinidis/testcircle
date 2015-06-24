@@ -63,10 +63,10 @@ class SimpleSearchTest(TestCase):
         productive indices)!
         """
         key_search = simple_search('key', configuration_code=None).get('hits')
-        self.assertTrue(key_search.get('total') >= 3)
+        self.assertEqual(key_search.get('total'), 3)
 
         one_search = simple_search('one', configuration_code=None).get('hits')
-        self.assertTrue(one_search.get('total') >= 1)
+        self.assertEqual(one_search.get('total'), 1)
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

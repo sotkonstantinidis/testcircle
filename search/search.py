@@ -25,9 +25,11 @@ def simple_search(query_string, configuration_code=None):
         ``dict``. The search results as returned by
         ``elasticsearch.Elasticsearch.search``.
     """
-    alias = None
-    if configuration_code:
-        alias = get_alias(configuration_code)
+    if configuration_code is None:
+        # If no configuration is provided, use the wildcard to append to
+        # the prefix. This way, only the QCAT indices are searched.
+        configuration_code = '*'
+    alias = get_alias(configuration_code)
     return es.search(index=alias, q=query_string)
 
 
@@ -53,9 +55,11 @@ def advanced_search(search_arguments, configuration_code=None):
         ``dict``. The search results as returned by
         ``elasticsearch.Elasticsearch.search``.
     """
-    alias = None
-    if configuration_code:
-        alias = get_alias(configuration_code)
+    if configuration_code is None:
+        # If no configuration is provided, use the wildcard to append to
+        # the prefix. This way, only the QCAT indices are searched.
+        configuration_code = '*'
+    alias = get_alias(configuration_code)
 
     # TODO: Support more operator types.
 
