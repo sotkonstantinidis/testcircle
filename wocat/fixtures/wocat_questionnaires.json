@@ -1,13 +1,13 @@
 [
 {
     "model": "questionnaire.questionnaire",
-    "pk": 1,
+    "pk": 101,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
         "configurations": [
             1001
         ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Key 5\"}], \"qg_3\": [{\"key_6\": \"... and I am Key\", \"key_4\": \"Hi, I am Key 4, ...\"}], \"qg_1\": [{\"key_3\": \"And this cannot be empty.\", \"key_1\": \"This is the first key.\"}], \"qg_2\": [{}]}",
+        "data": "{\"qg_name\": [{\"name\": {\"en\": \"WOCAT practice 1\"}}], \"wocat_qg_1\": [{\"image\": \"cc768477-a8a9-4ee1-8038-a145cd13e812\"}], \"wocat_qg_2\": [{\"wocat_definition\": {\"en\": \"This is the definition of the first WOCAT practice.\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -17,13 +17,13 @@
 },
 {
     "model": "questionnaire.questionnaire",
-    "pk": 2,
+    "pk": 102,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
         "configurations": [
             1001
         ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Faz\"}], \"qg_3\": [{}], \"qg_1\": [{\"key_3\": \"Bar\", \"key_1\": \"Foo\"}], \"qg_2\": [{}]}",
+        "data": "{\"qg_name\": [{\"name\": {\"en\": \"WOCAT practice 2\"}}], \"wocat_qg_1\": [{\"image\": \"cc768477-a8a9-4ee1-8038-a145cd13e812\"}], \"wocat_qg_2\": [{\"wocat_definition\": {\"en\": \"This is the definition of the second WOCAT practice.\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,

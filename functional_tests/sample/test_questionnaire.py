@@ -579,7 +579,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
 
-    @attr('foo')
     def test_checkbox(self):
 
         # Alice logs in

@@ -74,6 +74,12 @@ def get_mappings(questionnaire_configuration):
                 'data': {
                     'properties': data_properties,
                 },
+                'created': {
+                    'type': 'date'
+                },
+                'updated': {
+                    'type': 'date'
+                }
             }
         }
     }

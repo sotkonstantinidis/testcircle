@@ -10,12 +10,7 @@ from functional_tests.base import FunctionalTest
 from qcat.tests.test_views import qcat_route_home
 from sample.tests.test_views import route_home as sample_route_home
 from samplemulti.tests.test_views import route_home as samplemulti_route_home
-from search.index import (
-    create_or_update_index,
-    delete_all_indices,
-    get_mappings,
-    put_questionnaire_data,
-)
+from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
