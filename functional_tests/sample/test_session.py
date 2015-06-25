@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 
 from functional_tests.base import FunctionalTest
 from qcat.utils import get_session_questionnaire
@@ -11,6 +12,10 @@ from unccd.tests.test_views import (
 )
 
 
+TEST_INDEX_PREFIX = 'qcat_test_prefix_'
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class SessionTest(FunctionalTest):
 
     fixtures = [

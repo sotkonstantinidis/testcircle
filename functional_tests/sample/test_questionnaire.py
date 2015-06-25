@@ -1,5 +1,6 @@
 import time
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 from selenium.webdriver.common.keys import Keys
 
 from functional_tests.base import FunctionalTest
@@ -15,7 +16,10 @@ from sample.tests.test_views import (
 from nose.plugins.attrib import attr
 # @attr('foo')
 
+TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample.json']
@@ -575,6 +579,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
 
+    @attr('foo')
     def test_checkbox(self):
 
         # Alice logs in
