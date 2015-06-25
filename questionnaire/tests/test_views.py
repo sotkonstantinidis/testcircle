@@ -438,34 +438,45 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_QuestionnaireConfiguration.assert_called_once_with('sample')
 
-    @patch('questionnaire.views.get_configuration_query_filter')
-    def test_calls_get_configuration_query_filter(
-            self, mock_func):
-        mock_func.return_value = Q(configurations__code='sample')
+    @patch('questionnaire.views.get_active_filters')
+    @patch('questionnaire.views.QuestionnaireConfiguration')
+    def test_calls_get_active_filters(
+            self, mock_QuestionnaireConfiguration, mock_get_active_filters):
         generic_questionnaire_list(self.request, *get_valid_list_values())
-        mock_func.assert_called_once_with('sample', only_current=False)
+        mock_get_active_filters.assert_called_once_with(
+            mock_QuestionnaireConfiguration.return_value, self.request.GET)
 
-    # @patch('questionnaire.views.get_active_filters')
-    # @patch.object(QuestionnaireConfiguration, '__init__')
-    # @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
-    # def test_calls_get_active_filters(
-    #         self, mock_Q_get_filter_configuration,
-    #         mock_QuestionnaireConfiguration, mock_get_active_filters):
-    #     mock_QuestionnaireConfiguration.return_value = None
-    #     generic_questionnaire_list(self.request, *get_valid_list_values())
-    #     mock_get_active_filters.assert_called_once_with(
-    #         mock_QuestionnaireConfiguration.return_value, self.request.GET)
+    @patch('questionnaire.views.get_configuration_index_filter')
+    @patch('questionnaire.views.advanced_search')
+    def test_calls_get_configuration_index_filter(
+            self, mock_advanced_search, mock_get_configuration_index_filter):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_configuration_index_filter.assert_called_once_with(
+            'sample', only_current=False)
+
+    @patch('questionnaire.views.advanced_search')
+    def test_calls_advanced_search(self, mock_advanced_search):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_advanced_search.assert_called_once_with(
+            filter_params=[], query_string='', configuration_codes=['sample'],
+            limit=10)
 
     @patch('questionnaire.views.get_list_values')
     def test_calls_get_list_values(self, mock_get_list_values):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_get_list_values.call_count, 1)
 
-    @patch.object(QuestionnaireConfiguration, 'get_list_data')
+    @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
+    def test_calls_get_filter_configuration(
+            self, mock_get_filter_configuration):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_filter_configuration.assert_called_once_with()
+
+    @patch('questionnaire.views.advanced_search')
     @patch('questionnaire.views.render')
     def test_calls_render(
-            self, mock_render, mock_get_list_data):
-        mock_get_list_data.return_value = []
+            self, mock_render, mock_advanced_search):
+        mock_advanced_search.return_value = {}
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/list.html', {

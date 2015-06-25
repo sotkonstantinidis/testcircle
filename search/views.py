@@ -46,7 +46,7 @@ def admin(request, log=''):
             configurations__code=active_configuration.code).count()
         try:
             index_count = es.count(
-                index=get_alias(active_configuration.code)).get('count')
+                index=get_alias([active_configuration.code])).get('count')
         except TransportError:
             index_count = None
         config_entry = {

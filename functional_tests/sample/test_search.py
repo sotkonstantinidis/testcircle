@@ -4,18 +4,14 @@ logging.disable(logging.CRITICAL)
 
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from unittest.mock import patch
 
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from qcat.tests.test_views import qcat_route_home
 from sample.tests.test_views import route_home as sample_route_home
 from samplemulti.tests.test_views import route_home as samplemulti_route_home
-from search.index import (
-    create_or_update_index,
-    delete_all_indices,
-    get_mappings,
-    put_questionnaire_data,
-)
+from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
@@ -30,13 +26,18 @@ class SearchTest(FunctionalTest):
 
     def setUp(self):
         super(SearchTest, self).setUp()
+        delete_all_indices()
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
         super(SearchTest, self).tearDown()
         delete_all_indices()
 
-    def test_search_home(self):
+    @patch('questionnaire.views.get_configuration_index_filter')
+    def test_search_home(self, mock_get_configuration_index_filter):
+
+        mock_get_configuration_index_filter.return_value = [
+            'sample', 'samplemulti']
 
         # Alice goes to the landing page and sees the search field
         self.browser.get(self.live_server_url + reverse(qcat_route_home))
@@ -47,7 +48,7 @@ class SearchTest(FunctionalTest):
 
         # She sees that she has been taken to the WOCAT configuration
         # where the search results are listed
-        self.assertIn('/wocat/search', self.browser.current_url)
+        self.assertIn('/wocat/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 3)
@@ -57,7 +58,7 @@ class SearchTest(FunctionalTest):
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
         self.findBy('id', 'submit-search').click()
 
-        self.assertIn('/wocat/search', self.browser.current_url)
+        self.assertIn('/wocat/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 3)
@@ -74,7 +75,7 @@ class SearchTest(FunctionalTest):
 
         # She sees that she has been taken to the SAMPLE configuration
         # where the search results are listed
-        self.assertIn('/sample/search', self.browser.current_url)
+        self.assertIn('/sample/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 2)
@@ -85,7 +86,7 @@ class SearchTest(FunctionalTest):
             self.live_server_url + reverse(samplemulti_route_home))
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
         self.findBy('id', 'submit-search').click()
-        self.assertIn('/samplemulti/search', self.browser.current_url)
+        self.assertIn('/samplemulti/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 1)
@@ -98,6 +99,7 @@ class SearchTestAdmin(FunctionalTest):
 
     def setUp(self):
         super(SearchTestAdmin, self).setUp()
+        delete_all_indices()
         user = create_new_user()
         user.is_superuser = True
         user.save()

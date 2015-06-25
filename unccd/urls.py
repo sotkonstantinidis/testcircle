@@ -15,5 +15,4 @@ urlpatterns = patterns(
         name='questionnaire_list'),
     url(r'^list_partial/$', 'unccd.views.questionnaire_list_partial',
         name='questionnaire_list_partial'),
-    url(r'^search/$', 'unccd.views.search', name='search'),
 )

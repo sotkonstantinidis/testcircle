@@ -20,19 +20,24 @@ def get_analyzer(language_code):
         return None
 
 
-def get_alias(configuration_code):
+def get_alias(configuration_codes):
     """
     Return the alias of a configuration code. The alias is composed of
     the prefix as specified in the settings (``ES_INDEX_PREFIX``)
     followed by the ``configuration_code``.
 
     Args:
-        ``configuration_code`` (str). The configuration code.
+        ``configuration_codes`` (list). A list of configuration codes.
+        If the list is empty, a wildcard is added to the prefix to
+        search in all indices.
 
     Returns:
         ``str``. The composed alias.
     """
-    return '{}{}'.format(settings.ES_INDEX_PREFIX, configuration_code)
+    if not configuration_codes:
+        configuration_codes = ['*']
+    return ','.join(['{}{}'.format(
+        settings.ES_INDEX_PREFIX, c) for c in configuration_codes])
 
 
 def check_connection(es, index=None):

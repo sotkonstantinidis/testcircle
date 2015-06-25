@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'qcat.wsgi.application'
 LANGUAGE_CODE = 'en'
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, '../csr/locale'),
+    os.path.join(BASE_DIR, '../qcat/locale'),
 )
 
 from django.utils.translation import ugettext_lazy as _

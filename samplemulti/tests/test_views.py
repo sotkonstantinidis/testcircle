@@ -23,7 +23,6 @@ route_questionnaire_list = 'samplemulti:questionnaire_list'
 route_questionnaire_list_partial = 'samplemulti:questionnaire_list_partial'
 route_questionnaire_new = 'samplemulti:questionnaire_new'
 route_questionnaire_new_step = 'samplemulti:questionnaire_new_step'
-route_search = 'samplemulti:search'
 
 
 def get_valid_new_step_values():
@@ -255,30 +254,3 @@ class QuestionnaireListTest(TestCase):
             request, 'samplemulti',
             template='samplemulti/questionnaire/list.html',
             filter_url='/en/samplemulti/list_partial/')
-
-
-class SearchTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_search)
-
-    @patch('samplemulti.views.simple_search')
-    def test_renders_correct_template(self, mock_simple_search):
-        res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'samplemulti/questionnaire/list.html')
-        self.assertEqual(res.status_code, 200)
-
-    @patch('samplemulti.views.simple_search')
-    def test_calls_simple_search(self, mock_simple_search):
-        self.client.get(self.url)
-        mock_simple_search.assert_called_once_with(
-            '', configuration_code='samplemulti')
-
-    @patch('samplemulti.views.get_list_values')
-    @patch('samplemulti.views.simple_search')
-    def test_calls_get_list_values(self, mock_simple_search, mock_list_values):
-        self.client.get(self.url)
-        mock_list_values.assert_called_once_with(
-            configuration_code='samplemulti',
-            es_search=mock_simple_search.return_value)

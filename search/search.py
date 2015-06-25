@@ -7,7 +7,7 @@ from .utils import (
 es = get_elasticsearch()
 
 
-def simple_search(query_string, configuration_code=None):
+def simple_search(query_string, configuration_codes=[]):
     """
     Perform a simple full text search based on a query string.
 
@@ -18,56 +18,55 @@ def simple_search(query_string, configuration_code=None):
         parameter.
 
     Kwargs:
-        ``configuration_code`` (str): An optional coma-separated
-        configuration_code to limit the search to certain indices.
+        ``configuration_codes`` (list): An optional list of
+        configuration codes to limit the search to certain indices.
 
     Returns:
         ``dict``. The search results as returned by
         ``elasticsearch.Elasticsearch.search``.
     """
-    if configuration_code is None:
-        # If no configuration is provided, use the wildcard to append to
-        # the prefix. This way, only the QCAT indices are searched.
-        configuration_code = '*'
-    alias = get_alias(configuration_code)
+    alias = get_alias(configuration_codes)
     return es.search(index=alias, q=query_string)
 
 
-def advanced_search(search_arguments, configuration_code=None):
+def advanced_search(
+        filter_params=[], query_string='', configuration_codes=[], limit=10):
     """
-    Args:
-        ``search_arguments`` (list): A list of search arguments. Each
-        argument is a tuple consisting of the following elements:
-
-        [0]: questiongroup
-
-        [1]: key
-
-        [2]: value
-
-        [3]: operator
-
     Kwargs:
-        ``configuration_code`` (str): An optional coma-separated
-        configuration_code to limit the search to certain indices.
+        ``filter_params`` (list): A list of filter parameters. Each
+        parameter is a tuple consisting of the following elements:
+
+            [0]: questiongroup
+
+            [1]: key
+
+            [2]: value
+
+            [3]: operator
+
+        ``query_string`` (str): A query string for the full text search.
+
+        ``configuration_codes`` (list): An optional list of
+        configuration codes to limit the search to certain indices.
+
+        ``limit`` (int): A limit of query results to return.
 
     Returns:
         ``dict``. The search results as returned by
         ``elasticsearch.Elasticsearch.search``.
     """
-    if configuration_code is None:
-        # If no configuration is provided, use the wildcard to append to
-        # the prefix. This way, only the QCAT indices are searched.
-        configuration_code = '*'
-    alias = get_alias(configuration_code)
+    alias = get_alias(configuration_codes)
 
     # TODO: Support more operator types.
 
     nested_questiongroups = []
-    for current_argument in search_arguments:
-        questiongroup = current_argument[0]
-        key = current_argument[1]
-        value = current_argument[2]
+
+    # Filter parameters: Nested subqueries to access the correct
+    # questiongroup.
+    for filter_param in filter_params:
+        questiongroup = filter_param[0]
+        key = filter_param[1]
+        value = filter_param[2]
 
         nested_questiongroups.append({
             "nested": {
@@ -82,11 +81,25 @@ def advanced_search(search_arguments, configuration_code=None):
             }
         })
 
+    # Qurey string: Full text search
+    if query_string:
+        nested_questiongroups.append({
+            "query_string": {
+                "query": query_string
+            }
+        })
+
     query = {
         "query": {
             "bool": {
                 "must": nested_questiongroups
             }
-        }
+        },
+        "sort": [
+            {
+                "updated": "desc"
+            }
+        ]
     }
-    return es.search(index=alias, body=query)
+
+    return es.search(index=alias, body=query, size=limit)

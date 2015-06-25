@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 from functional_tests.base import FunctionalTest
 
 from samplemulti.tests.test_views import (
@@ -8,7 +9,10 @@ from samplemulti.tests.test_views import (
     get_categories,
 )
 
+TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['global_key_values.json', 'samplemulti.json']

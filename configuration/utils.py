@@ -42,6 +42,39 @@ def get_configuration_query_filter(configuration, only_current=False):
     return Q(configurations__code=configuration)
 
 
+def get_configuration_index_filter(configuration, only_current=False):
+    """
+    Return the name of the index / indices to be searched by
+    Elasticsearch based on their configuration code.
+
+    The following rules apply:
+
+    * By default, only questionnaires of the provided configuration
+      are visible.
+
+    * For ``wocat``, additionally configuration ``unccd`` is visible.
+
+    Args:
+        ``configuration`` (str): The code of the (current)
+        configuration.
+
+    Kwargs:
+        ``only_current`` (bool): If ``True``, always only the current
+        configuration_code is returned. Defaults to ``False``.
+
+    Returns:
+        ``list``. A list of configuration codes (the index/indices) to
+        be searched.
+    """
+    if only_current is True:
+        return [configuration]
+
+    if configuration == 'wocat':
+        return ['unccd', 'wocat']
+
+    return [configuration]
+
+
 def get_or_create_configuration(code, configurations):
     """
     Check if a given QuestionnaireConfiguration already exists in the

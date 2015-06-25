@@ -4,6 +4,7 @@ from unittest.mock import Mock
 
 from qcat.tests import TestCase
 from search.utils import (
+    get_alias,
     get_analyzer,
     check_connection,
 )
@@ -25,6 +26,22 @@ class GetAnalyzerTest(TestCase):
     def test_returns_None_if_not_set(self):
         ret = get_analyzer('foo')
         self.assertIsNone(ret)
+
+
+@override_settings(ES_INDEX_PREFIX='prefix_')
+class GetAliasTest(TestCase):
+
+    def test_returns_single_configuration_code(self):
+        alias = get_alias(['foo'])
+        self.assertEqual(alias, 'prefix_foo')
+
+    def test_returns_no_configuration_code(self):
+        alias = get_alias([])
+        self.assertEqual(alias, 'prefix_*')
+
+    def test_returns_multiple_configuration_codes(self):
+        alias = get_alias(['foo', 'bar'])
+        self.assertEqual(alias, 'prefix_foo,prefix_bar')
 
 
 class TestConnectionTest(TestCase):

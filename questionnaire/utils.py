@@ -1,7 +1,7 @@
 import ast
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
-from django.utils.translation import get_language
+from django.utils.translation import ugettext as _, get_language
 from django.utils.dateparse import parse_datetime
 
 from configuration.configuration import (
@@ -429,6 +429,14 @@ def get_active_filters(questionnaire_configuration, query_dict):
 
         filter__qg_11__key_14=value_14_1
 
+    Some filters can also be set with a different format. These are:
+
+    * ``q``: A search term for the full text search (``q=search``)
+
+    All the options can also be combined, such as::
+
+        q=search&filter__qg_11__key_14=value_14_1
+
     Args:
         ``questionnaire_configuration``
         (:class:`configuration.configuration.QuestionnaireConfiguration`):
@@ -441,21 +449,38 @@ def get_active_filters(questionnaire_configuration, query_dict):
         ``list``. A list of dictionaries with the active and valid
         filters. Each dictionary contains the following entries:
 
-        - ``questiongroup``: The keyword of the questiongroup.
+        - ``questiongroup``: The keyword of the questiongroup. For
+          ``q``, this is set to ``_search``.
 
-        - ``key``: The keyword of the key.
+        - ``key``: The keyword of the key. For ``q``, this is set to
+          ``_search``.
 
-        - ``key_label``: The label of the key.
+        - ``key_label``: The label of the key. For ``q``, this is set to
+          "Search Terms".
 
         - ``value``: The keyword of the value.
 
         - ``value_label``: The label of the value if available. Else the
           value as provided in the filter is returned.
 
-        - ``type``: The field type of the key.
+        - ``type``: The field type of the key. For ``q``, this is set to
+          ``_search``.
     """
     active_filters = []
     for filter_param, filter_values in query_dict.lists():
+
+        if filter_param == 'q':
+            for filter_value in filter_values:
+                active_filters.append({
+                    'type': '_search',
+                    'key': '_search',
+                    'key_label': _('Search Terms'),
+                    'value': filter_value,
+                    'value_label': filter_value,
+                    'questiongroup': '_search',
+                })
+            continue
+
         if not filter_param.startswith('filter__'):
             continue
 
