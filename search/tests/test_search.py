@@ -44,23 +44,23 @@ class AdvancedSearchTest(TestCase):
     @patch('search.search.es')
     @patch('search.search.get_alias')
     def test_calls_get_alias_with_code(self, mock_get_alias, mock_es):
-        advanced_search([], configuration_code='code')
+        advanced_search(filter_params=[], configuration_code='code')
         mock_get_alias.assert_called_once_with('code')
 
     @patch('search.search.es')
     @patch('search.search.get_alias')
     def test_calls_get_alias_if_no_code(self, mock_get_alias, mock_es):
-        advanced_search([], configuration_code=None)
+        advanced_search(filter_params=[], configuration_code=None)
         mock_get_alias.assert_called_once_with('*')
 
     @patch('search.search.es')
     def test_calls_search(self, mock_es):
-        advanced_search([])
+        advanced_search(filter_params=[])
         mock_es.search.assert_called_once_with(
             index='{}*'.format(TEST_INDEX_PREFIX),
-            body={'query': {'bool': {'must': []}}})
+            body={'query': {'bool': {'must': []}}}, size=10)
 
     @patch('search.search.es')
     def test_returns_search(self, mock_es):
-        ret = advanced_search([])
+        ret = advanced_search(filter_params=[])
         self.assertEqual(ret, mock_es.search())

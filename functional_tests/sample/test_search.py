@@ -47,7 +47,7 @@ class SearchTest(FunctionalTest):
 
         # She sees that she has been taken to the WOCAT configuration
         # where the search results are listed
-        self.assertIn('/wocat/search', self.browser.current_url)
+        self.assertIn('/wocat/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 3)
@@ -57,7 +57,7 @@ class SearchTest(FunctionalTest):
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
         self.findBy('id', 'submit-search').click()
 
-        self.assertIn('/wocat/search', self.browser.current_url)
+        self.assertIn('/wocat/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 3)
@@ -74,7 +74,7 @@ class SearchTest(FunctionalTest):
 
         # She sees that she has been taken to the SAMPLE configuration
         # where the search results are listed
-        self.assertIn('/sample/search', self.browser.current_url)
+        self.assertIn('/sample/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 2)
@@ -85,7 +85,7 @@ class SearchTest(FunctionalTest):
             self.live_server_url + reverse(samplemulti_route_home))
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
         self.findBy('id', 'submit-search').click()
-        self.assertIn('/samplemulti/search', self.browser.current_url)
+        self.assertIn('/samplemulti/list', self.browser.current_url)
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 1)

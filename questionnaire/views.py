@@ -16,7 +16,7 @@ from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
 
 from configuration.configuration import QuestionnaireConfiguration
-from configuration.utils import get_configuration_query_filter
+from configuration.utils import get_configuration_index_filter
 from qcat.utils import (
     clear_session_questionnaire,
     get_session_questionnaire,
@@ -40,6 +40,7 @@ from questionnaire.utils import (
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
 )
+from search.search import advanced_search
 
 
 @login_required
@@ -474,37 +475,32 @@ def generic_questionnaire_list(
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
 
-    questionnaires = Questionnaire.objects.filter(
-        get_configuration_query_filter(
-            configuration_code, only_current=only_current))
-
-    # Apply filters
+    # Get the filters and prepare them to be passed to the search.
     active_filters = get_active_filters(
         questionnaire_configuration, request.GET)
-    # TODO: Improve the filtering, also performance wise.
+    query_string = ''
+    filter_params = []
     for active_filter in active_filters:
-        filtered = []
-        if active_filter['type'] in ['checkbox', 'image_checkbox']:
-            for filtered_questionnaire in Questionnaire.objects.raw("""
-                select *
-                from questionnaire_questionnaire,
-                lateral jsonb_array_elements(data -> %s) questiongroup
-                where questiongroup->%s ? %s;
-            """, [active_filter['questiongroup'], active_filter['key'],
-                    active_filter['value']]):
-                filtered.append(filtered_questionnaire)
+        filter_type = active_filter.get('type')
+        if filter_type in ['_search']:
+            query_string = active_filter.get('value', '')
+        elif filter_type in ['checkbox', 'image_checkbox']:
+            filter_params.append(
+                (active_filter.get('questiongroup'),
+                 active_filter.get('key'), active_filter.get('value'), None))
         else:
-            raise NotImplemented()
+            raise NotImplementedError(
+                'Type "{}" is not valid for filters'.format(filter_type))
 
-        questionnaires = questionnaires.filter(id__in=[q.id for q in filtered])
+    search_configuration_code = get_configuration_index_filter(
+        configuration_code, only_current=only_current)
 
-    # Apply limit
-    questionnaires = questionnaires[:limit]
+    search = advanced_search(
+        filter_params=filter_params, query_string=query_string,
+        configuration_code=search_configuration_code, limit=limit)
 
-    # Get the values needed for the list template
     list_values = get_list_values(
-        configuration_code=configuration_code,
-        questionnaire_objects=questionnaires)
+        configuration_code=configuration_code, es_search=search)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\

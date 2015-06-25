@@ -6,14 +6,12 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 
 from configuration.configuration import QuestionnaireConfiguration
-from questionnaire.utils import get_list_values
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
 )
-from search.search import simple_search
 
 
 def home(request):
@@ -156,28 +154,3 @@ def questionnaire_list(request):
     return generic_questionnaire_list(
         request, 'samplemulti', template='samplemulti/questionnaire/list.html',
         filter_url=reverse('samplemulti:questionnaire_list_partial'))
-
-
-def search(request):
-    """
-    View the results of a query in a list.
-
-    For the SAMPLEMULTI configuration, only the questionnaires of its own
-    configuration are searched.
-
-    Args:
-        ``request`` (django.http.HttpResponse): The request object with
-        the GET parameter ``q`` containing the search string.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    search = simple_search(
-        request.GET.get('q', ''), configuration_code='samplemulti')
-
-    list_values = get_list_values(
-        configuration_code='samplemulti', es_search=search)
-
-    return render(request, 'samplemulti/questionnaire/list.html', {
-        'list_values': list_values,
-    })

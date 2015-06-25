@@ -95,18 +95,19 @@ class AdvancedSearchTest(TestCase):
 
     def test_advanced_search(self):
         key_search = advanced_search(
-            [('qg_1', 'key_1', 'key', 'eq')],
+            filter_params=[('qg_1', 'key_1', 'key', 'eq')],
             configuration_code=TEST_ALIAS_1).get('hits')
         self.assertEqual(key_search.get('total'), 2)
 
         one_search = advanced_search(
-            [('qg_1', 'key_1', 'one', 'eq')],
+            filter_params=[('qg_1', 'key_1', 'one', 'eq')],
             configuration_code=TEST_ALIAS_1).get('hits')
         self.assertEqual(one_search.get('total'), 1)
 
     def test_advanced_search_multiple_arguments(self):
         search_1 = advanced_search(
-            [('qg_1', 'key_1', 'key', 'eq'), ('qg_19', 'key_5', '5', 'eq')],
+            filter_params=[
+                ('qg_1', 'key_1', 'key', 'eq'), ('qg_19', 'key_5', '5', 'eq')],
             configuration_code=TEST_ALIAS_1).get('hits')
         self.assertEqual(search_1.get('total'), 1)
 

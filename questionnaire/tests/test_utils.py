@@ -443,6 +443,39 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_2')
 
+    def test_returns_q_filter(self):
+        query_dict = QueryDict('q=foo')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_search')
+        self.assertEqual(filter_1['key'], '_search')
+        self.assertEqual(filter_1['questiongroup'], '_search')
+        self.assertEqual(filter_1['key_label'], 'Search Terms')
+        self.assertEqual(filter_1['value'], 'foo')
+        self.assertEqual(filter_1['value_label'], 'foo')
+
+    def test_returns_mixed_filters(self):
+        query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 2)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_search')
+        self.assertEqual(filter_1['key'], '_search')
+        self.assertEqual(filter_1['questiongroup'], '_search')
+        self.assertEqual(filter_1['key_label'], 'Search Terms')
+        self.assertEqual(filter_1['value'], 'foo')
+        self.assertEqual(filter_1['value_label'], 'foo')
+        filter_2 = filters[1]
+        self.assertIsInstance(filter_2, dict)
+        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(filter_2['key_label'], 'Key 14')
+        self.assertEqual(filter_2['value_label'], 'Value 14_1')
+
 
 class GetListValuesTest(TestCase):
 

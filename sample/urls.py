@@ -17,5 +17,4 @@ urlpatterns = patterns(
         name='questionnaire_list'),
     url(r'^list_partial/$', 'sample.views.questionnaire_list_partial',
         name='questionnaire_list_partial'),
-    url(r'^search/$', 'sample.views.search', name='search'),
 )

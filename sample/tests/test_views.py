@@ -25,7 +25,6 @@ route_questionnaire_link_form = 'sample:questionnaire_link_form'
 route_questionnaire_list_partial = 'sample:questionnaire_list_partial'
 route_questionnaire_new = 'sample:questionnaire_new'
 route_questionnaire_new_step = 'sample:questionnaire_new_step'
-route_search = 'sample:search'
 
 
 def get_valid_link_form_values():
@@ -285,30 +284,3 @@ class QuestionnaireListTest(TestCase):
         mock_questionnaire_list.assert_called_once_with(
             request, 'sample', template='sample/questionnaire/list.html',
             filter_url='/en/sample/list_partial/')
-
-
-class SearchTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_search)
-
-    @patch('sample.views.simple_search')
-    def test_renders_correct_template(self, mock_simple_search):
-        res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'sample/questionnaire/list.html')
-        self.assertEqual(res.status_code, 200)
-
-    @patch('sample.views.simple_search')
-    def test_calls_simple_search(self, mock_simple_search):
-        self.client.get(self.url)
-        mock_simple_search.assert_called_once_with(
-            '', configuration_code='sample')
-
-    @patch('sample.views.get_list_values')
-    @patch('sample.views.simple_search')
-    def test_calls_get_list_values(self, mock_simple_search, mock_list_values):
-        self.client.get(self.url)
-        mock_list_values.assert_called_once_with(
-            configuration_code='sample',
-            es_search=mock_simple_search.return_value)
