@@ -492,12 +492,12 @@ def generic_questionnaire_list(
             raise NotImplementedError(
                 'Type "{}" is not valid for filters'.format(filter_type))
 
-    search_configuration_code = get_configuration_index_filter(
+    search_configuration_codes = get_configuration_index_filter(
         configuration_code, only_current=only_current)
 
     search = advanced_search(
         filter_params=filter_params, query_string=query_string,
-        configuration_code=search_configuration_code, limit=limit)
+        configuration_codes=search_configuration_codes, limit=limit)
 
     list_values = get_list_values(
         configuration_code=configuration_code, es_search=search)

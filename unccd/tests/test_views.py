@@ -155,7 +155,7 @@ class QuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_details, args=[1])
+        self.url = reverse(route_questionnaire_details, args=[201])
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)

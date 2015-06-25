@@ -147,7 +147,7 @@ class CreateOrUpdateIndexTest(TestCase):
     def test_calls_get_alias(self, mock_get_alias):
         mock_get_alias.return_value = 'foo'
         create_or_update_index('foo', {})
-        mock_get_alias.assert_called_once_with('foo')
+        mock_get_alias.assert_called_once_with(['foo'])
 
     @patch('search.index.es')
     def test_calls_indices_exists_alias(self, mock_es):
@@ -291,11 +291,11 @@ class CreateOrUpdateIndexTest(TestCase):
         m.created = ''
         m.updated = ''
         put_questionnaire_data(TEST_ALIAS, [m])
-        search = simple_search('bar', configuration_code=TEST_ALIAS)
+        search = simple_search('bar', configuration_codes=[TEST_ALIAS])
         hits = search.get('hits', {}).get('hits', [])
         self.assertEqual(len(hits), 1)
         create_or_update_index(TEST_ALIAS, {})
-        search = simple_search('bar', configuration_code=TEST_ALIAS)
+        search = simple_search('bar', configuration_codes=[TEST_ALIAS])
         hits = search.get('hits', {}).get('hits', [])
         self.assertEqual(len(hits), 1)
 
@@ -323,7 +323,7 @@ class PutQuestionnaireDataTest(TestCase):
     @patch('search.index.get_alias')
     def test_calls_get_alias(self, mock_get_alias, mock_es):
         put_questionnaire_data('foo', [])
-        mock_get_alias.assert_called_once_with('foo')
+        mock_get_alias.assert_called_once_with(['foo'])
 
     @patch('search.index.es')
     @patch('search.index.bulk')

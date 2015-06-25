@@ -27,6 +27,7 @@ class ListTest(FunctionalTest):
 
     def setUp(self):
         super(ListTest, self).setUp()
+        delete_all_indices()
         create_temp_indices(['sample', 'unccd'])
 
     def tearDown(self):

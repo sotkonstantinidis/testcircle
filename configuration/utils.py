@@ -63,15 +63,16 @@ def get_configuration_index_filter(configuration, only_current=False):
         configuration_code is returned. Defaults to ``False``.
 
     Returns:
-        ``str``. A string with the index/indices to be searched.
+        ``list``. A list of configuration codes (the index/indices) to
+        be searched.
     """
     if only_current is True:
-        return configuration
+        return [configuration]
 
     if configuration == 'wocat':
-        return '*'
+        return ['unccd', 'wocat']
 
-    return configuration
+    return [configuration]
 
 
 def get_or_create_configuration(code, configurations):

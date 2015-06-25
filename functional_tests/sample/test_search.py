@@ -4,6 +4,7 @@ logging.disable(logging.CRITICAL)
 
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from unittest.mock import patch
 
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
@@ -25,13 +26,18 @@ class SearchTest(FunctionalTest):
 
     def setUp(self):
         super(SearchTest, self).setUp()
+        delete_all_indices()
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
         super(SearchTest, self).tearDown()
         delete_all_indices()
 
-    def test_search_home(self):
+    @patch('questionnaire.views.get_configuration_index_filter')
+    def test_search_home(self, mock_get_configuration_index_filter):
+
+        mock_get_configuration_index_filter.return_value = [
+            'sample', 'samplemulti']
 
         # Alice goes to the landing page and sees the search field
         self.browser.get(self.live_server_url + reverse(qcat_route_home))
@@ -93,6 +99,7 @@ class SearchTestAdmin(FunctionalTest):
 
     def setUp(self):
         super(SearchTestAdmin, self).setUp()
+        delete_all_indices()
         user = create_new_user()
         user.is_superuser = True
         user.save()

@@ -458,7 +458,7 @@ class GenericQuestionnaireListTest(TestCase):
     def test_calls_advanced_search(self, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_advanced_search.assert_called_once_with(
-            filter_params=[], query_string='', configuration_code='sample',
+            filter_params=[], query_string='', configuration_codes=['sample'],
             limit=10)
 
     @patch('questionnaire.views.get_list_values')

@@ -7,7 +7,7 @@ from .utils import (
 es = get_elasticsearch()
 
 
-def simple_search(query_string, configuration_code=None):
+def simple_search(query_string, configuration_codes=[]):
     """
     Perform a simple full text search based on a query string.
 
@@ -18,40 +18,36 @@ def simple_search(query_string, configuration_code=None):
         parameter.
 
     Kwargs:
-        ``configuration_code`` (str): An optional coma-separated
-        configuration_code to limit the search to certain indices.
+        ``configuration_codes`` (list): An optional list of
+        configuration codes to limit the search to certain indices.
 
     Returns:
         ``dict``. The search results as returned by
         ``elasticsearch.Elasticsearch.search``.
     """
-    if configuration_code is None:
-        # If no configuration is provided, use the wildcard to append to
-        # the prefix. This way, only the QCAT indices are searched.
-        configuration_code = '*'
-    alias = get_alias(configuration_code)
+    alias = get_alias(configuration_codes)
     return es.search(index=alias, q=query_string)
 
 
 def advanced_search(
-        filter_params=[], query_string='', configuration_code=None, limit=10):
+        filter_params=[], query_string='', configuration_codes=[], limit=10):
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
         parameter is a tuple consisting of the following elements:
 
-        [0]: questiongroup
+            [0]: questiongroup
 
-        [1]: key
+            [1]: key
 
-        [2]: value
+            [2]: value
 
-        [3]: operator
+            [3]: operator
 
         ``query_string`` (str): A query string for the full text search.
 
-        ``configuration_code`` (str): An optional coma-separated
-        configuration_code to limit the search to certain indices.
+        ``configuration_codes`` (list): An optional list of
+        configuration codes to limit the search to certain indices.
 
         ``limit`` (int): A limit of query results to return.
 
@@ -59,11 +55,7 @@ def advanced_search(
         ``dict``. The search results as returned by
         ``elasticsearch.Elasticsearch.search``.
     """
-    if configuration_code is None:
-        # If no configuration is provided, use the wildcard to append to
-        # the prefix. This way, only the QCAT indices are searched.
-        configuration_code = '*'
-    alias = get_alias(configuration_code)
+    alias = get_alias(configuration_codes)
 
     # TODO: Support more operator types.
 

@@ -129,7 +129,7 @@ def create_or_update_index(configuration_code, mappings):
     }
 
     # Check if there is already an alias pointing to the index.
-    alias = get_alias(configuration_code)
+    alias = get_alias([configuration_code])
     alias_exists = es.indices.exists_alias(name=alias)
 
     if alias_exists is not True:
@@ -204,7 +204,7 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
 
-    alias = get_alias(configuration_code)
+    alias = get_alias([configuration_code])
 
     actions = []
     for obj in questionnaire_objects:

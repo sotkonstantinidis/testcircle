@@ -49,12 +49,12 @@ class SimpleSearchTest(TestCase):
         delete_all_indices()
 
     def test_simple_search_returns_results_of_code(self):
-        key_search = simple_search('key', configuration_code=TEST_ALIAS_1).get(
-            'hits')
+        key_search = simple_search(
+            'key', configuration_codes=[TEST_ALIAS_1]).get('hits')
         self.assertEqual(key_search.get('total'), 2)
 
-        one_search = simple_search('one', configuration_code=TEST_ALIAS_1).get(
-            'hits')
+        one_search = simple_search(
+            'one', configuration_codes=[TEST_ALIAS_1]).get('hits')
         self.assertEqual(one_search.get('total'), 1)
 
     def test_simple_search_returns_all_results_if_no_code(self):
@@ -62,10 +62,10 @@ class SimpleSearchTest(TestCase):
         Careful: This also returns results from other indices (eg. the
         productive indices)!
         """
-        key_search = simple_search('key', configuration_code=None).get('hits')
+        key_search = simple_search('key', configuration_codes=[]).get('hits')
         self.assertEqual(key_search.get('total'), 3)
 
-        one_search = simple_search('one', configuration_code=None).get('hits')
+        one_search = simple_search('one', configuration_codes=[]).get('hits')
         self.assertEqual(one_search.get('total'), 1)
 
 
@@ -96,19 +96,19 @@ class AdvancedSearchTest(TestCase):
     def test_advanced_search(self):
         key_search = advanced_search(
             filter_params=[('qg_1', 'key_1', 'key', 'eq')],
-            configuration_code=TEST_ALIAS_1).get('hits')
+            configuration_codes=[TEST_ALIAS_1]).get('hits')
         self.assertEqual(key_search.get('total'), 2)
 
         one_search = advanced_search(
             filter_params=[('qg_1', 'key_1', 'one', 'eq')],
-            configuration_code=TEST_ALIAS_1).get('hits')
+            configuration_codes=[TEST_ALIAS_1]).get('hits')
         self.assertEqual(one_search.get('total'), 1)
 
     def test_advanced_search_multiple_arguments(self):
         search_1 = advanced_search(
             filter_params=[
                 ('qg_1', 'key_1', 'key', 'eq'), ('qg_19', 'key_5', '5', 'eq')],
-            configuration_code=TEST_ALIAS_1).get('hits')
+            configuration_codes=[TEST_ALIAS_1]).get('hits')
         self.assertEqual(search_1.get('total'), 1)
 
 
@@ -139,7 +139,7 @@ class GetListValuesTest(TestCase):
     def test_returns_same_result_for_es_search_and_db_objects(self):
         res_1 = get_list_values(
             configuration_code='sample', es_search=simple_search(
-                'key', configuration_code='sample'))
+                'key', configuration_codes=['sample']))
         ids = [q.get('id') for q in res_1]
         res_2 = get_list_values(
             configuration_code='sample',
@@ -158,7 +158,7 @@ class GetListValuesTest(TestCase):
     def test_returns_results_for_non_native_results(self):
         res = get_list_values(
             configuration_code='sample', es_search=simple_search(
-                'key', configuration_code='samplemulti'))
+                'key', configuration_codes=['samplemulti']))
         self.assertEqual(len(res), 1)
         res = res[0]
         self.assertEqual(res.get('configuration'), 'sample')
