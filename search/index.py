@@ -79,6 +79,9 @@ def get_mappings(questionnaire_configuration):
                 },
                 'updated': {
                     'type': 'date'
+                },
+                'languages': {
+                    'type': 'string'
                 }
             }
         }
@@ -220,7 +223,10 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
                 'created': obj.created,
                 'updated': obj.updated,
                 'configurations': [
-                    conf.code for conf in obj.configurations.all()]
+                    conf.code for conf in obj.configurations.all()],
+                'translations': [
+                    trans.language for trans in
+                    obj.questionnairetranslation_set.all()],
             }
         }
         actions.append(action)

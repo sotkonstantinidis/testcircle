@@ -492,28 +492,31 @@ class GetListValuesTest(TestCase):
         ret = get_list_values(es_search=es_search)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 6)
+        self.assertEqual(len(ret_1), 7)
         self.assertEqual(ret_1.get('configuration'), 'sample')
         self.assertEqual(ret_1.get('configurations'), [])
         self.assertEqual(ret_1.get('created', ''), None)
         self.assertEqual(ret_1.get('updated', ''), None)
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), 1)
+        self.assertEqual(ret_1.get('translations'), [])
 
     def test_returns_values_from_database(self):
         obj = Mock()
         obj.configurations.all.return_value = []
+        obj.questionnairetranslation_set.all.return_value = []
         questionnaires = [obj]
         ret = get_list_values(questionnaire_objects=questionnaires)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 6)
+        self.assertEqual(len(ret_1), 7)
         self.assertEqual(ret_1.get('configuration'), 'sample')
         self.assertEqual(ret_1.get('configurations'), [])
         self.assertEqual(ret_1.get('created', ''), obj.created)
         self.assertEqual(ret_1.get('updated', ''), obj.updated)
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), obj.id)
+        self.assertEqual(ret_1.get('translations'), [])
 
     @patch('questionnaire.utils.get_or_create_configuration')
     def test_from_database_calls_get_or_create_configuration(
@@ -523,6 +526,7 @@ class GetListValuesTest(TestCase):
         mock_get_or_create_configuration.return_value = m, {}
         obj = Mock()
         obj.configurations.all.return_value = []
+        obj.questionnairetranslation_set.all.return_value = []
         questionnaires = [obj]
         get_list_values(questionnaire_objects=questionnaires)
         mock_get_or_create_configuration.assert_called_once_with('sample', {})

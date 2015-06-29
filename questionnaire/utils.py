@@ -1,4 +1,5 @@
 import ast
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
@@ -634,10 +635,22 @@ def get_list_values(
             configuration_code = 'sample'
 
         template_value = result.get('_source', {}).get('list_data', {})
+
+        translations = result.get('_source', {}).get('translations')
+        if not isinstance(translations, list) or len(translations) == 0:
+            translations = ['en']
+        original_lang = translations[0]
+        try:
+            translations.remove(get_language())
+        except ValueError:
+            pass
+        translations = [
+            lang for lang in settings.LANGUAGES if lang[0] in translations]
+
         for key, value in template_value.items():
             if isinstance(value, dict):
-                # TODO: Fall back to the original language
-                template_value[key] = value.get('en')
+                template_value[key] = value.get(
+                    get_language(), value.get(original_lang))
 
         source = result.get('_source', {})
         configurations = source.get('configurations', [])
@@ -651,6 +664,7 @@ def get_list_values(
                 source.get('created', '')),
             'updated': parse_datetime(
                 source.get('updated', '')),
+            'translations': translations,
         })
         list_entries.append(template_value)
 
@@ -669,10 +683,23 @@ def get_list_values(
 
         template_value = questionnaire_configuration.get_list_data(
             [obj.data])[0]
+
+        translations = [
+            t.language for t in obj.questionnairetranslation_set.all()]
+        if len(translations) == 0:
+            translations = ['en']
+        original_lang = translations[0]
+        try:
+            translations.remove(get_language())
+        except ValueError:
+            pass
+        translations = [
+            lang for lang in settings.LANGUAGES if lang[0] in translations]
+
         for key, value in template_value.items():
             if isinstance(value, dict):
-                # TODO: Fall back to the original language
-                template_value[key] = value.get('en')
+                template_value[key] = value.get(
+                    get_language(), value.get(original_lang))
 
         configurations = [conf.code for conf in obj.configurations.all()]
 
@@ -683,6 +710,7 @@ def get_list_values(
             'native_configuration': configuration_code in configurations,
             'created': obj.created,
             'updated': obj.updated,
+            'translations': translations,
         })
         list_entries.append(template_value)
 

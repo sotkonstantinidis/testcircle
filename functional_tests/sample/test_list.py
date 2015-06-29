@@ -121,7 +121,7 @@ class ListTest(FunctionalTest):
 
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_list_with_foreign_configuration(self, mock_config_index_filter):
-        mock_config_index_filter.return_value = '*'
+        mock_config_index_filter.return_value = ['*']
 
         # Alice goes to the list and sees that there are 5 questionnaires
         # available (one in UNCCD config)

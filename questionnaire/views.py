@@ -16,7 +16,10 @@ from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
 
 from configuration.configuration import QuestionnaireConfiguration
-from configuration.utils import get_configuration_index_filter
+from configuration.utils import (
+    get_configuration_index_filter,
+    get_configuration_query_filter,
+)
 from qcat.utils import (
     clear_session_questionnaire,
     get_session_questionnaire,
@@ -446,7 +449,7 @@ def generic_questionnaire_details(
 
 def generic_questionnaire_list(
         request, configuration_code, template=None, filter_url='', limit=10,
-        only_current=False):
+        only_current=False, db_query=False):
     """
     A generic view to show a list of questionnaires.
 
@@ -468,6 +471,10 @@ def generic_questionnaire_list(
         ``only_current`` (bool): A boolean indicating whether to include
         only questionnaires from the current configuration. Passed to
         :func:`configuration.utils.get_configuration_query_filter`
+
+        ``db_query`` (bool): A boolean indicating whether to query the
+        database for results instead of using Elasticsearch. Please note
+        that filters are ignored if querying the database.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -492,15 +499,25 @@ def generic_questionnaire_list(
             raise NotImplementedError(
                 'Type "{}" is not valid for filters'.format(filter_type))
 
-    search_configuration_codes = get_configuration_index_filter(
-        configuration_code, only_current=only_current)
+    if db_query is True:
+        questionnaires = Questionnaire.objects.filter(
+            get_configuration_query_filter(
+                configuration_code, only_current=only_current))[:limit]
 
-    search = advanced_search(
-        filter_params=filter_params, query_string=query_string,
-        configuration_codes=search_configuration_codes, limit=limit)
+        list_values = get_list_values(
+            configuration_code=configuration_code,
+            questionnaire_objects=questionnaires)
 
-    list_values = get_list_values(
-        configuration_code=configuration_code, es_search=search)
+    else:
+        search_configuration_codes = get_configuration_index_filter(
+            configuration_code, only_current=only_current)
+
+        search = advanced_search(
+            filter_params=filter_params, query_string=query_string,
+            configuration_codes=search_configuration_codes, limit=limit)
+
+        list_values = get_list_values(
+            configuration_code=configuration_code, es_search=search)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\

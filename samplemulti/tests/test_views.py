@@ -96,7 +96,8 @@ class SampleMultiHomeTest(TestCase):
         request = self.factory.get(self.url)
         home(request)
         mock_questionnaire_list.assert_called_once_with(
-            request, 'samplemulti', template=None, only_current=True, limit=3)
+            request, 'samplemulti', template=None, only_current=True, limit=3,
+            db_query=True)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url)

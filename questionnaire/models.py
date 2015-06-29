@@ -180,6 +180,9 @@ class QuestionnaireTranslation(models.Model):
     language = models.CharField(max_length=63, choices=settings.LANGUAGES)
     original_language = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['-original_language']
+
 
 class QuestionnaireLink(models.Model):
     """

@@ -71,7 +71,7 @@
         "configurations": [
             2001
         ],
-        "data": "{\"qg_19\":[{\"key_5\":{\"en\":\"Faz 5\"}}],\"qg_3\":[{}],\"qg_name\":[{\"key_3\":{\"en\":\"Bar\"},\"name\":{\"en\":\"Foo 5\"}}]}",
+        "data": "{\"qg_name\": [{\"name\": {\"en\": \"UNCCD practice 1\"}}], \"unccd_qg_10\": [{\"unccd_description\": {\"en\": \"This is the description of the first UNCCD practice.\"}}]}",
         "status": 3,
         "version": 1,
         "blocked": false,
