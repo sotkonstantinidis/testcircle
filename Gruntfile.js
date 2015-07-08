@@ -137,6 +137,7 @@ module.exports = function(grunt) {
           'static/js/modernizr.js': 'bower_components/modernizr/modernizr.js',
           'static/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
           'static/js/jquery.min.map': 'bower_components/jquery/dist/jquery.min.map',
+          'static/js/jquery-ui.min.js': 'bower_components/jquery-ui/jquery-ui.min.js',
           'static/js/jquery.nstSlider.min.js': 'bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.js',
           'static/js/dropzone.min.js': 'bower_components/dropzone/dist/min/dropzone.min.js',
           'static/js/app.js': 'src/js/app.js',
