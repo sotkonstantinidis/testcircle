@@ -1,7 +1,6 @@
 import json
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from django.http import Http404
 from django.http.response import HttpResponse
 from django.test.client import RequestFactory
@@ -22,6 +21,7 @@ from questionnaire.views import (
     generic_file_upload,
     generic_questionnaire_details,
     generic_questionnaire_link_form,
+    generic_questionnaire_link_search,
     generic_questionnaire_list,
     generic_questionnaire_new,
     generic_questionnaire_new_step,
@@ -35,6 +35,7 @@ from sample.tests.test_views import (
     get_valid_link_form_values,
     route_questionnaire_details,
     route_questionnaire_list,
+    route_questionnaire_link_search,
 )
 
 file_upload_route = 'file_upload'
@@ -93,6 +94,75 @@ class GenericQuestionnaireLinkFormTest(TestCase):
             self.request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
         mock_get_session_questionnaire.assert_called_once_with('sample')
+
+    @patch('questionnaire.views.render')
+    def test_calls_render(self, mock_render):
+        generic_questionnaire_link_form(
+            self.request, *get_valid_link_form_values()[0],
+            **get_valid_link_form_values()[1])
+        mock_render.assert_called_once_with(self.request, 'form/links.html', {
+            'valid': True,
+            'overview_url': '/en/sample/edit/#links',
+            'link_forms': [(
+                {'label': 'samplemulti', 'keyword': 'samplemulti'}, []
+            )],
+            'configuration_name': 'sample',
+            'title': 'SAMPLE Links'
+        })
+
+
+class GenericQuestionnaireLinkSearchTest(TestCase):
+
+    fixtures = ['sample.json', 'sample_questionnaires.json']
+
+    @patch.object(QuestionnaireConfiguration, '__init__')
+    def test_creates_questionnaire_configuration(self, mock_Conf):
+        mock_Conf.return_value = None
+        generic_questionnaire_link_search(Mock(), 'sample')
+        mock_Conf.assert_called_once_with('sample')
+
+    @patch('questionnaire.views.QuestionnaireConfiguration')
+    @patch('questionnaire.views.query_questionnaires_for_link')
+    def test_calls_query_questionnaires_for_link(self, mock_query, mock_Conf):
+        mock_Conf.get_list_data.return_value = []
+        mock_query.return_value = 0, []
+        mock_request = Mock()
+        generic_questionnaire_link_search(mock_request, 'sample')
+        mock_query.assert_called_once_with(mock_Conf(), mock_request.GET.get())
+
+    def test_returns_empty_if_no_q(self):
+        req = RequestFactory().get(reverse(route_questionnaire_link_search))
+        ret = generic_questionnaire_link_search(req, 'sample')
+        j = json.loads(ret.content.decode('utf-8'))
+        self.assertEqual(j, {})
+
+    def test_returns_empty_if_no_results(self):
+        req = RequestFactory().get(reverse(route_questionnaire_link_search))
+        req.GET = {'q': 'foo'}
+        ret = generic_questionnaire_link_search(req, 'sample')
+        j = json.loads(ret.content.decode('utf-8'))
+        self.assertEqual(j, {"total": 0, "data": []})
+
+    def test_returns_results(self):
+        req = RequestFactory().get(reverse(route_questionnaire_link_search))
+        req.GET = {'q': 'key'}
+        ret = generic_questionnaire_link_search(req, 'sample')
+        j = json.loads(ret.content.decode('utf-8'))
+        self.assertEqual(j.get('total'), 2)
+        data = j.get('data')
+        self.assertEqual(len(data), 2)
+        self.assertEqual(len(data[0]), 5)
+        self.assertEqual(data[0].get('code'), 'sample_1')
+        self.assertIn('display', data[0])
+        self.assertEqual(data[0].get('id'), 1)
+        self.assertEqual(data[0].get('name'), 'Sample Key 1a')
+        self.assertEqual(data[0].get('value'), 1)
+        self.assertEqual(len(data[1]), 5)
+        self.assertEqual(data[1].get('code'), 'sample_2')
+        self.assertIn('display', data[1])
+        self.assertEqual(data[1].get('id'), 2)
+        self.assertEqual(data[1].get('name'), 'Sample Key 1b')
+        self.assertEqual(data[1].get('value'), 2)
 
 
 class GenericQuestionnaireNewStepTest(TestCase):
@@ -216,9 +286,11 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch('questionnaire.views.QuestionnaireConfiguration')
     @patch('questionnaire.views.clean_questionnaire_data')
+    @patch('questionnaire.models.put_questionnaire_data')
     def test_calls_clean_questionnaire_data(
-            self, mock_clean_questionnaire_data,
+            self, mock_put_data, mock_clean_questionnaire_data,
             mock_QuestionnaireConfiguration):
+        mock_put_data.return_value = None, None
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         r = self.request
         r.method = 'POST'
@@ -261,9 +333,11 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.clean_questionnaire_data')
+    @patch('questionnaire.models.put_questionnaire_data')
     def test_calls_clear_session_questionnaire(
-            self, mock_clean_questionnaire_data,
+            self, mock_put_data, mock_clean_questionnaire_data,
             mock_clear_session_questionnaire):
+        mock_put_data.return_value = None, None
         r = self.request
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
@@ -274,8 +348,11 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch.object(messages, 'success')
     @patch('questionnaire.views.clean_questionnaire_data')
+    @patch('questionnaire.models.put_questionnaire_data')
     def test_adds_message(
-            self, mock_clean_questionnaire_data, mock_messages_sucess):
+            self, mock_put_data, mock_clean_questionnaire_data,
+            mock_messages_sucess):
+        mock_put_data.return_value = None, None
         r = self.request
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
@@ -421,6 +498,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         self.assertIsInstance(ret, HttpResponse)
 
 
+@patch('questionnaire.views.advanced_search')
 class GenericQuestionnaireListTest(TestCase):
 
     def setUp(self):
@@ -433,7 +511,7 @@ class GenericQuestionnaireListTest(TestCase):
     def test_creates_questionnaire_configuration(
             self, mock_Q_get_filter_configuration,
             mock_QuestionnaireConfiguration_get_list_data,
-            mock_QuestionnaireConfiguration):
+            mock_QuestionnaireConfiguration, mock_advanced_search):
         mock_QuestionnaireConfiguration.return_value = None
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_QuestionnaireConfiguration.assert_called_once_with('sample')
@@ -441,20 +519,19 @@ class GenericQuestionnaireListTest(TestCase):
     @patch('questionnaire.views.get_active_filters')
     @patch('questionnaire.views.QuestionnaireConfiguration')
     def test_calls_get_active_filters(
-            self, mock_QuestionnaireConfiguration, mock_get_active_filters):
+            self, mock_QuestionnaireConfiguration, mock_get_active_filters,
+            mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_active_filters.assert_called_once_with(
             mock_QuestionnaireConfiguration.return_value, self.request.GET)
 
     @patch('questionnaire.views.get_configuration_index_filter')
-    @patch('questionnaire.views.advanced_search')
     def test_calls_get_configuration_index_filter(
-            self, mock_advanced_search, mock_get_configuration_index_filter):
+            self, mock_get_configuration_index_filter, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_configuration_index_filter.assert_called_once_with(
             'sample', only_current=False)
 
-    @patch('questionnaire.views.advanced_search')
     def test_calls_advanced_search(self, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_advanced_search.assert_called_once_with(
@@ -462,17 +539,17 @@ class GenericQuestionnaireListTest(TestCase):
             limit=10)
 
     @patch('questionnaire.views.get_list_values')
-    def test_calls_get_list_values(self, mock_get_list_values):
+    def test_calls_get_list_values(
+            self, mock_get_list_values, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     def test_calls_get_filter_configuration(
-            self, mock_get_filter_configuration):
+            self, mock_get_filter_configuration, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_filter_configuration.assert_called_once_with()
 
-    @patch('questionnaire.views.advanced_search')
     @patch('questionnaire.views.render')
     def test_calls_render(
             self, mock_render, mock_advanced_search):
@@ -486,12 +563,13 @@ class GenericQuestionnaireListTest(TestCase):
                 'active_filters': [],
             })
 
-    def test_returns_rendered_response(self):
+    def test_returns_rendered_response(self, mock_advanced_search):
         ret = generic_questionnaire_list(
             self.request, *get_valid_list_values())
         self.assertIsInstance(ret, HttpResponse)
 
-    def test_returns_only_template_values_if_no_template(self):
+    def test_returns_only_template_values_if_no_template(
+            self, mock_advanced_search):
         ret = generic_questionnaire_list(self.request, 'sample', template=None)
         self.assertIsInstance(ret, dict)
 

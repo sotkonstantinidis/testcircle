@@ -30,13 +30,19 @@
       {% for section in sections %}
         {{ section }}
       {% endfor %}
-      {% if links %}
+      {% if links or mode == 'edit' %}
         <section class="row">
-          <div class="small-12 columns">
-            <h4>{% trans "Linked Questionnaires" %}</h4>
+          <a name="links"></a>
+          <div class="medium-9 columns">
+            <h2>{% trans "Linked Questionnaires" %}</h2>
             {% for link in links %}
-              {{ link }}
+              <p>{{ link }}</p>
             {% endfor %}
+          </div>
+          <div class="medium-3 columns">
+          {% if mode == 'edit' %}
+              <a href="{% url 'samplemulti:questionnaire_link_form' %}" class="button is-samplemulti right">{% trans "Edit links" %}</a>
+            {% endif %}
           </div>
         </section>
       {% endif %}

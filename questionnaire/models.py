@@ -29,6 +29,7 @@ class Questionnaire(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     uuid = models.CharField(max_length=64, default=uuid4)
+    code = models.CharField(max_length=64, default='')
     blocked = models.BooleanField(default=False)
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
@@ -73,9 +74,11 @@ class Questionnaire(models.Model):
             ``ValidationError``
         """
         if previous_version:
-            # TODO. Calculate version and use same UUID as previous version.
+            # TODO. Calculate version and use same UUID and code as
+            # previous version.
             raise NotImplemented()
         else:
+            code = 'todo'
             version = 1
         if status not in [s[0] for s in STATUSES]:
             raise ValidationError('"{}" is not a valid status'.format(status))
@@ -85,7 +88,7 @@ class Questionnaire(models.Model):
                 'No active configuration found for code "{}"'.format(
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
-            data=data, version=version, status=status)
+            data=data, code=code, version=version, status=status)
         questionnaire.configurations.add(configuration)
 
         # TODO: This should happen on review!

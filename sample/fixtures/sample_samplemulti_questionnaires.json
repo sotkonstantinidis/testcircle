@@ -12,7 +12,8 @@
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:07:20.847Z",
-        "updated": "2015-02-10T16:07:20.847Z"
+        "updated": "2015-02-10T16:07:20.847Z",
+        "code": "sample_1"
     }
 },
 {
@@ -28,7 +29,8 @@
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:08:20.904Z",
-        "updated": "2015-02-10T16:08:20.904Z"
+        "updated": "2015-02-10T16:08:20.904Z",
+        "code": "sample_2"
     }
 },
 {
@@ -44,7 +46,8 @@
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:07:20.847Z",
-        "updated": "2015-02-10T16:07:20.847Z"
+        "updated": "2015-02-10T16:07:20.847Z",
+        "code": "samplemulti_1"
     }
 },
 {
@@ -60,7 +63,8 @@
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:08:20.904Z",
-        "updated": "2015-02-10T16:08:20.904Z"
+        "updated": "2015-02-10T16:08:20.904Z",
+        "code": "samplemulti_2"
     }
 },
 {
@@ -82,5 +86,41 @@
         "to_questionnaire": 1,
         "to_status": 3
     }
+},
+{
+    "pk": 3001,
+    "fields": {
+        "questionnaire": 1,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 3002,
+    "fields": {
+        "questionnaire": 2,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 3003,
+    "fields": {
+        "questionnaire": 3,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 3004,
+    "fields": {
+        "questionnaire": 4,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
 }
 ]

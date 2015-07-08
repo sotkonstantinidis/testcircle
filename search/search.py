@@ -30,7 +30,8 @@ def simple_search(query_string, configuration_codes=[]):
 
 
 def advanced_search(
-        filter_params=[], query_string='', configuration_codes=[], limit=10):
+        filter_params=[], query_string='', code='', name='',
+        configuration_codes=[], limit=10):
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -46,6 +47,11 @@ def advanced_search(
 
         ``query_string`` (str): A query string for the full text search.
 
+        ``code`` (str): The code of the questionnaire to search.
+
+        ``name`` (str): The name of the questionnaire to search (search
+        will happen in the ``name`` field of the questionnaire)
+
         ``configuration_codes`` (list): An optional list of
         configuration codes to limit the search to certain indices.
 
@@ -58,6 +64,7 @@ def advanced_search(
     alias = get_alias(configuration_codes)
 
     # TODO: Support more operator types.
+    # TODO: Support AND/OR
 
     nested_questiongroups = []
 
@@ -89,10 +96,27 @@ def advanced_search(
             }
         })
 
+    should = []
+    if code:
+        should.append({
+            'match': {
+                'code': code,
+            }
+        })
+    if name:
+        should.append({
+            'multi_match': {
+                'query': name,
+                'fields': ['name.*'],
+                'type': 'most_fields',
+            }
+        })
+
     query = {
         "query": {
             "bool": {
-                "must": nested_questiongroups
+                "must": nested_questiongroups,
+                'should': should,
             }
         },
         "sort": [

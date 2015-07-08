@@ -114,11 +114,14 @@ class GetMappingsTest(TestCase):
         mock_Conf.get_questiongroups.return_value = []
         mappings = get_mappings(mock_Conf)
         q_props = mappings.get('questionnaire').get('properties')
-        self.assertEqual(len(q_props), 4)
+        self.assertEqual(len(q_props), 7)
         self.assertEqual(q_props['data'], {'properties': {}})
         self.assertEqual(q_props['created'], {'type': 'date'})
         self.assertEqual(q_props['updated'], {'type': 'date'})
-        self.assertEqual(q_props['languages'], {'type': 'string'})
+        self.assertEqual(q_props['translations'], {'type': 'string'})
+        self.assertEqual(q_props['configurations'], {'type': 'string'})
+        self.assertEqual(q_props['code'], {'type': 'string'})
+        self.assertIn('name', q_props)
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -302,6 +305,7 @@ class CreateOrUpdateIndexTest(TestCase):
         m.data = [{"foo": "bar"}]
         m.created = ''
         m.updated = ''
+        m.code = ''
         put_questionnaire_data(TEST_ALIAS, [m])
         search = simple_search('bar', configuration_codes=[TEST_ALIAS])
         hits = search.get('hits', {}).get('hits', [])
@@ -354,6 +358,8 @@ class PutQuestionnaireDataTest(TestCase):
                 'list_data': {},
                 'created': m.created,
                 'updated': m.updated,
+                'code': m.code,
+                'name': {'en': 'Unknown name'},
                 'configurations': [],
                 'translations': [],
             }

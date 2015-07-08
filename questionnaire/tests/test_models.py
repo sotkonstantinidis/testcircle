@@ -25,53 +25,66 @@ def get_valid_questionnaire():
         configuration_code='sample', data={'foo': 'bar'})
 
 
+@patch('questionnaire.models.put_questionnaire_data')
 class QuestionnaireModelTest(TestCase):
 
     fixtures = ['sample.json']
 
-    def test_requires_data(self):
+    def test_requires_data(self, mock_put_questionnaire_data):
         questionnaire = Questionnaire()
         with self.assertRaises(ValidationError):
             questionnaire.full_clean()
 
-    def test_has_primary_key(self):
+    def test_has_primary_key(self, mock_put_questionnaire_data):
         questionnaire = Questionnaire(data={})
         self.assertTrue(hasattr(questionnaire, 'id'))
 
-    def test_has_uuid(self):
+    def test_has_uuid(self, mock_put_questionnaire_data):
         questionnaire = Questionnaire(data={})
         self.assertIsInstance(questionnaire.uuid, uuid.UUID)
 
-    def test_create_new_returns_new_object(self):
+    def test_create_new_returns_new_object(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         returned = Questionnaire.create_new(
             configuration_code='sample', data={'foo': 'bar'})
         new_questionnaire = Questionnaire.objects.get(pk=returned.id)
         self.assertEqual(returned, new_questionnaire)
 
-    def test_create_new_sets_data(self):
+    def test_create_new_sets_data(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         questionnaire = Questionnaire.create_new(
             configuration_code='sample', data={})
         self.assertEqual(questionnaire.data, {})
 
-    def test_create_new_sets_default_status(self):
+    def test_create_new_sets_default_status(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         questionnaire = Questionnaire.create_new(
             configuration_code='sample', data={}, status=2)
         self.assertEqual(questionnaire.status, 2)
 
-    def test_create_new_sets_status(self):
+    def test_create_new_sets_status(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         questionnaire = get_valid_questionnaire()
         self.assertEqual(questionnaire.status, 1)
 
-    def test_create_new_raises_error_if_invalid_status(self):
+    def test_create_new_sets_code(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
+        questionnaire = get_valid_questionnaire()
+        self.assertEqual(questionnaire.code, 'todo')
+
+    def test_create_new_raises_error_if_invalid_status(
+            self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         with self.assertRaises(ValidationError):
             Questionnaire.create_new(
                 configuration_code='sample', data={}, status=-1)
 
-    def test_create_new_sets_default_version(self):
+    def test_create_new_sets_default_version(
+            self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         questionnaire = get_valid_questionnaire()
         self.assertEqual(questionnaire.version, 1)
 
-    @patch('questionnaire.models.put_questionnaire_data')
     @patch.object(Configuration, 'get_active_by_code')
     def test_create_new_calls_configuration_get_active_by_code(
             self, mock_Configuration_get_active_by_code,
@@ -80,11 +93,13 @@ class QuestionnaireModelTest(TestCase):
         Questionnaire.create_new(configuration_code='sample', data={})
         mock_Configuration_get_active_by_code.assert_called_once_with('sample')
 
-    def test_create_new_raises_error_if_no_active_configuration(self):
+    def test_create_new_raises_error_if_no_active_configuration(
+            self, mock_put_questionnaire_data):
         with self.assertRaises(ValidationError):
             Questionnaire.create_new(configuration_code='foo', data={})
 
-    def test_create_new_adds_configuration(self):
+    def test_create_new_adds_configuration(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         configuration = Configuration.get_active_by_code('sample')
         ret = Questionnaire.create_new(configuration_code='sample', data={})
         ret_configurations = ret.configurations.all()
@@ -92,15 +107,15 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(ret_configurations[0].id, configuration.id)
 
     @patch.object(Questionnaire.objects, 'create')
-    @patch('questionnaire.models.put_questionnaire_data')
     def test_create_new_calls_put_questionnaire_data(
-            self, mock_put_questionnaire_data, mock_create):
+            self, mock_create, mock_put_questionnaire_data):
         mock_put_questionnaire_data.return_value = 1, []
         Questionnaire.create_new(configuration_code='sample', data={})
         mock_put_questionnaire_data.assert_called_once_with(
             'sample', [mock_create.return_value])
 
-    def test_get_metadata(self):
+    def test_get_metadata(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         questionnaire = Questionnaire.create_new(
             configuration_code='sample', data={})
         metadata = questionnaire.get_metadata()
@@ -108,11 +123,13 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(metadata['created'], questionnaire.created)
         self.assertEqual(metadata['updated'], questionnaire.updated)
 
-    def test_has_links(self):
+    def test_has_links(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         questionnaire = get_valid_questionnaire()
         self.assertEqual(questionnaire.links.count(), 0)
 
-    def test_add_link_creates_link(self):
+    def test_add_link_creates_link(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         self.assertEqual(QuestionnaireLink.objects.count(), 0)
         questionnaire_1 = get_valid_questionnaire()
         questionnaire_2 = get_valid_questionnaire()
@@ -122,7 +139,8 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire_1.links.first(), questionnaire_2)
         self.assertEqual(questionnaire_2.links.first(), questionnaire_1)
 
-    def test_remove_link_removes_link(self):
+    def test_remove_link_removes_link(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
         questionnaire_1 = get_valid_questionnaire()
         questionnaire_2 = get_valid_questionnaire()
         questionnaire_1.add_link(questionnaire_2)

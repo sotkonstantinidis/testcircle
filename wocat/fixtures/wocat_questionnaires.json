@@ -8,6 +8,7 @@
             1001
         ],
         "data": {"qg_name":[{"name":{"en":"WOCAT practice 1","fr":"WOCAT 1 en français"}}],"wocat_qg_2":[{"wocat_definition":{"en":"This is the definition of the first WOCAT practice.","fr":"Ceci est la déscription 1 en français."}}]},
+        "code": "wocat_1",
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -24,6 +25,7 @@
             1001
         ],
         "data": {"qg_name":[{"name":{"es":"WOCAT 2 en español"}}],"wocat_qg_2":[{"wocat_definition":{"es":"Descripción 2 en español"}}]},
+        "code": "wocat_2",
         "status": 3,
         "version": 1,
         "blocked": false,

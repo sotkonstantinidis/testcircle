@@ -1,7 +1,7 @@
 import json
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import (
     create_new_user,
@@ -211,15 +211,6 @@ class QuestionnaireListPartialTest(TestCase):
         mock_render_to_string.assert_any_call(
             'active_filters.html', {'active_filters': 'bar'})
 
-    def test_renders_json_response(self):
-        res = self.client.get(self.url)
-        self.assertEqual(res.status_code, 200)
-        content = json.loads(res.content.decode('utf-8'))
-        self.assertEqual(len(content), 3)
-        self.assertTrue(content.get('success'))
-        self.assertIn('list', content)
-        self.assertIn('active_filters', content)
-
 
 class QuestionnaireListTest(TestCase):
 
@@ -227,15 +218,10 @@ class QuestionnaireListTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_questionnaire_list)
 
-    def test_renders_correct_template(self):
-        res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/list.html')
-        self.assertEqual(res.status_code, 200)
-
     @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_generic_function(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
+    def test_calls_generic_function(self, mock_generic_function):
+        request = Mock()
         questionnaire_list(request)
-        mock_questionnaire_list.assert_called_once_with(
+        mock_generic_function.assert_called_once_with(
             request, 'unccd', template='unccd/questionnaire/list.html',
             filter_url='/en/unccd/list_partial/')

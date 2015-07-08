@@ -1,6 +1,5 @@
 import ast
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.utils.dateparse import parse_datetime
@@ -10,6 +9,7 @@ from configuration.configuration import (
 )
 from configuration.utils import get_or_create_configuration
 from qcat.errors import QuestionnaireFormatError
+from questionnaire.models import Questionnaire
 
 
 def clean_questionnaire_data(data, configuration):
@@ -593,8 +593,72 @@ def get_link_display(link_object, link_configuration):
     link_route = '{}:questionnaire_details'.format(link_configuration.keyword)
     return render_to_string(link_template, {
         'link_data': link_data[0],
-        'link_url': reverse(link_route, args=(link_object.id,))
+        'link_route': link_route,
+        'id': link_object.id,
     })
+
+
+def query_questionnaires_for_link(configuration, q, limit=10):
+    """
+    Do a raw SQL search in the JSON data field of questionnaires. Only
+    questionnaires of the configuration's keyword are returned. The
+    search happens in the name field as defined by the parameter
+    ``is_name`` in the configuration, searched in any language. The same
+    term can also be used to search by code of the questionnaire.
+
+    Args:
+        ``configuration``
+        (configuration.configuration.QuestionnaireConfiguration): The
+        questionnaire configuration.
+
+        ``q`` (str): The query string (to search either in the name or
+        the code of the questionnaire).
+
+    Kwargs:
+        ``limit`` (int): Limit the number of results to return.
+
+    Returns:
+
+        ``int``. The total count of results encountered in the database.
+
+        ``list``. The list of results. The length of this list may be
+        smaller than the total count because of the limit applied.
+    """
+    question_keyword, questiongroup_keyword = configuration.get_name_keywords()
+    if question_keyword is None or questiongroup_keyword is None:
+        return 0, []
+
+    query = """
+        select questionnaire_questionnaire.id
+        from questionnaire_questionnaire
+            JOIN questionnaire_questionnaire_configurations ON
+                questionnaire_questionnaire.id =
+                questionnaire_questionnaire_configurations.questionnaire_id
+            JOIN configuration_configuration ON
+                questionnaire_questionnaire_configurations.configuration_id =
+                configuration_configuration.id
+                AND configuration_configuration.code = %s,
+        lateral jsonb_array_elements(
+            questionnaire_questionnaire.data -> %s) questiongroup
+        where """
+    args = [configuration.keyword, questiongroup_keyword]
+
+    languages = [l[0] for l in settings.LANGUAGES]
+    for lang in languages:
+        query += """
+            questiongroup->%s->>'{}' ILIKE %s OR
+        """.format(lang)
+        args.extend([question_keyword, '%{}%'.format(q)])
+
+    query += """
+        questionnaire_questionnaire.code LIKE %s;
+    """
+    args.extend(['%{}%'.format(q)])
+
+    results = Questionnaire.objects.raw(query, args)
+    total = len(list(results))
+
+    return total, results[:limit]
 
 
 def get_list_values(

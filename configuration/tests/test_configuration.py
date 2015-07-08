@@ -120,6 +120,18 @@ class QuestionnaireConfigurationMergeConfigurationsTest(TestCase):
             self.obj, base, {})
         self.assertEqual(ret, base)
 
+    def test_returns_base_dict_with_other_attributes(self):
+        base = {"sections": [{"foo": "bar"}], "links": [{"faz": "bar"}]}
+        ret = QuestionnaireConfiguration.merge_configurations(
+            self.obj, base, {})
+        self.assertEqual(ret, base)
+
+    def test_returns_specific_dict_with_other_attributes(self):
+        specific = {"sections": [{"foo": "bar"}], "links": [{"faz": "bar"}]}
+        ret = QuestionnaireConfiguration.merge_configurations(
+            self.obj, {}, specific)
+        self.assertEqual(ret, specific)
+
     @patch.object(QuestionnaireSection, 'merge_configurations')
     def test_calls_category_merge_configurations(
             self, mock_Category_merge_configurations):

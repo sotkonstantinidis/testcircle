@@ -11,6 +11,7 @@ from questionnaire.utils import (
     get_questiongroup_data_from_translation_form,
     get_list_values,
     is_valid_questionnaire_format,
+    query_questionnaires_for_link,
 )
 from qcat.errors import QuestionnaireFormatError
 
@@ -475,6 +476,74 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filter_2), 6)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
+
+
+class QueryQuestionnairesForLinkTest(TestCase):
+
+    fixtures = ['sample.json', 'sample_questionnaires.json']
+
+    def test_calls_get_name_keywords(self):
+        configuration = Mock()
+        configuration.get_name_keywords.return_value = None, None
+        query_questionnaires_for_link(configuration, '')
+        configuration.get_name_keywords.assert_called_once_with()
+
+    def test_returns_empty_if_no_name(self):
+        configuration = Mock()
+        configuration.get_name_keywords.return_value = None, None
+        total, data = query_questionnaires_for_link(configuration, '')
+        self.assertEqual(total, 0)
+        self.assertEqual(data, [])
+
+    def test_returns_by_q(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'key'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 2)
+        self.assertTrue(len(data), 2)
+        self.assertEqual(data[0].id, 1)
+        self.assertEqual(data[1].id, 2)
+
+    def test_returns_by_q_case_insensitive(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'KEY'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 2)
+        self.assertTrue(len(data), 2)
+        self.assertEqual(data[0].id, 1)
+        self.assertEqual(data[1].id, 2)
+
+    def test_returns_single_result(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'key 1b'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 1)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 2)
+
+    def test_applies_limit(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'key'
+        total, data = query_questionnaires_for_link(configuration, q, limit=1)
+        self.assertEqual(total, 2)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 1)
+
+    def test_finds_by_code(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'sample_1'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 1)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 1)
+
+    def test_find_by_other_langauge(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'clave'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 1)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 2)
 
 
 class GetListValuesTest(TestCase):
