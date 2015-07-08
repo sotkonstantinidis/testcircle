@@ -27,7 +27,15 @@
       <p>{{ item.unccd_description }}</p>
     </main>
     <footer>
-      <p class="is-light"><em>This article is also avalable in: <a href="" class="link">deutsch</a>, <a href="" class="link">español</a>, <a href="" class="link">français</a></em></p>
+      {% if item.translations %}
+        <p class="is-light"><em>{% trans "This article is also available in:" %}
+          {% for translation in item.translations %}
+            {% language translation.0 %}
+            <a href="{% url 'unccd:questionnaire_details' item.id %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
+            {% endlanguage %}
+          {% endfor %}
+        </em></p>
+      {% endif %}
     </footer>
   </div>
 </article>

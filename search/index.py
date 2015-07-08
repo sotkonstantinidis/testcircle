@@ -68,6 +68,14 @@ def get_mappings(questionnaire_configuration):
             'properties': qg_properties,
         }
 
+    name_properties = {}
+    for language_code in language_codes:
+        q = {'type': 'string'}
+        analyzer = get_analyzer(language_code)
+        if analyzer:
+            q.update({'analyer': analyzer})
+            name_properties[language_code] = q
+
     mappings = {
         'questionnaire': {
             'properties': {
@@ -79,7 +87,20 @@ def get_mappings(questionnaire_configuration):
                 },
                 'updated': {
                     'type': 'date'
-                }
+                },
+                'translations': {
+                    'type': 'string'
+                },
+                'configurations': {
+                    'type': 'string'
+                },
+                'code': {
+                    'type': 'string'
+                },
+                'name': {
+                    'properties': name_properties
+                },
+                # 'list_data' is added dynamically
             }
         }
     }
@@ -219,8 +240,14 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
                 'list_data': list_data,
                 'created': obj.created,
                 'updated': obj.updated,
+                'code': obj.code,
+                'name': questionnaire_configuration.get_questionnaire_name(
+                    obj.data),
                 'configurations': [
-                    conf.code for conf in obj.configurations.all()]
+                    conf.code for conf in obj.configurations.all()],
+                'translations': [
+                    trans.language for trans in
+                    obj.questionnairetranslation_set.all()],
             }
         }
         actions.append(action)

@@ -109,6 +109,20 @@ class GetMappingsTest(TestCase):
                 q.get('properties').get('en'),
                 {'analyzer': 'english', 'type': 'string'})
 
+    def test_adds_basic_mappings(self):
+        mock_Conf = Mock()
+        mock_Conf.get_questiongroups.return_value = []
+        mappings = get_mappings(mock_Conf)
+        q_props = mappings.get('questionnaire').get('properties')
+        self.assertEqual(len(q_props), 7)
+        self.assertEqual(q_props['data'], {'properties': {}})
+        self.assertEqual(q_props['created'], {'type': 'date'})
+        self.assertEqual(q_props['updated'], {'type': 'date'})
+        self.assertEqual(q_props['translations'], {'type': 'string'})
+        self.assertEqual(q_props['configurations'], {'type': 'string'})
+        self.assertEqual(q_props['code'], {'type': 'string'})
+        self.assertIn('name', q_props)
+
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class CreateOrUpdateIndexTest(TestCase):
@@ -286,10 +300,12 @@ class CreateOrUpdateIndexTest(TestCase):
     def test_keeps_data(self):
         m = Mock()
         m.configurations.all.return_value = []
+        m.questionnairetranslation_set.all.return_value = []
         m.id = 1
         m.data = [{"foo": "bar"}]
         m.created = ''
         m.updated = ''
+        m.code = ''
         put_questionnaire_data(TEST_ALIAS, [m])
         search = simple_search('bar', configuration_codes=[TEST_ALIAS])
         hits = search.get('hits', {}).get('hits', [])
@@ -331,6 +347,7 @@ class PutQuestionnaireDataTest(TestCase):
         mock_bulk.return_value = 0, []
         m = Mock()
         m.configurations.all.return_value = []
+        m.questionnairetranslation_set.all.return_value = []
         put_questionnaire_data('foo', [m])
         data = [{
             '_index': '{}foo'.format(TEST_INDEX_PREFIX),
@@ -341,7 +358,10 @@ class PutQuestionnaireDataTest(TestCase):
                 'list_data': {},
                 'created': m.created,
                 'updated': m.updated,
+                'code': m.code,
+                'name': {'en': 'Unknown name'},
                 'configurations': [],
+                'translations': [],
             }
         }]
         mock_bulk.assert_called_once_with(mock_es, data)

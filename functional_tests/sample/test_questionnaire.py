@@ -1,17 +1,22 @@
 import time
 from django.core.urlresolvers import reverse
+from django.http import JsonResponse
 from django.test.utils import override_settings
 from selenium.webdriver.common.keys import Keys
+from unittest.mock import patch
 
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
     route_questionnaire_details,
+    route_questionnaire_link_form,
     route_questionnaire_list,
     route_questionnaire_new,
     route_questionnaire_new_step,
     get_category_count,
     get_position_of_category,
 )
+from samplemulti.tests.test_views import route_questionnaire_details as \
+    route_questionnaire_details_samplemulti
 
 from nose.plugins.attrib import attr
 # @attr('foo')
@@ -1875,7 +1880,40 @@ class QuestionnaireLinkTest(FunctionalTest):
         # She goes to the part where she can edit linked questionnaires
         self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
 
-        self.findBy('name', 'samplemulti-0-id').send_keys('3')
+        # She sees a field to search for linked questionnaires
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1b"]')
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1a"'
+            ']').click()
+        # She sees that a field with the name was added
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is key 1a")]')
+        # She sees that a hidden field with the id was added
+        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
+
+        # She removes the link and then adds it again
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+        self.findByNot('xpath', '//input[@id="links__samplemulti__3"]')
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1a"'
+            ']').click()
 
         # She submits the step
         self.findBy('id', 'button-submit').click()
@@ -1887,29 +1925,33 @@ class QuestionnaireLinkTest(FunctionalTest):
         # She goes back to the form and sees the one she linked is still
         # in the form.
         self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
-        link_1 = self.findBy(
-            'xpath', '//input[@name="samplemulti-0-id" and @value="3"]')
+        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
         self.findBy(
-            'xpath', '//input[@name="samplemulti-0-form_display" and '
-            '@value="This is key 1a"]')
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is key 1a")]')
 
         # She deletes the link and submits the form
-        link_1.clear()
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+        self.findByNot('xpath', '//input[@id="links__samplemulti__3"]')
+
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findByNot('xpath', '//*[text()[contains(.,"This is key 1a")]]')
 
-        # She goes back to the form and tries to select an invalid link
-        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
-        self.findBy('name', 'samplemulti-0-id').send_keys('-1')
-
-        # She tries to submit the form and sees an error message
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "error")]')
-
         # She links another questionnaire
-        self.findBy('name', 'samplemulti-0-id').clear()
-        self.findBy('name', 'samplemulti-0-id').send_keys('4')
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1b"]').\
+            click()
 
         # She submits the step
         self.findBy('id', 'button-submit').click()
@@ -1951,20 +1993,193 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy('xpath', '//a[contains(@href, "sample/edit/")]').click()
 
         # She sees the link in the edit overview
+        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
         self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
 
         # She edits the link form and sees the values are populated correctly
         self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
         self.findBy(
-            'xpath', '//input[@name="samplemulti-0-id" and @value="3"]')
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is key 1a")]')
+        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
+
+        # She deletes the link and submits the entire form
         self.findBy(
-            'xpath', '//input[@name="samplemulti-0-form_display" and '
-            '@value="This is key 1a"]')
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        self.findByNot('xpath', '//h2[text()="Linked Questionnaires"]')
+
+    def test_edit_questionnaire_multiple_links(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She opens an existing questionnaire (samplemulti) and sees the link
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details_samplemulti, args=['3']))
+
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+
+        # She decides to edit the questionnaire
+        self.findBy(
+            'xpath', '//a[contains(@href, "samplemulti/edit/")]').click()
+
+        # She sees the link in the edit overview
+        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+
+        # She decides to edit the link and sees that the field is
+        # populated correctly
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is the first key")]')
+        self.findBy('xpath', '//input[@id="links__sample__1"]')
+
+        # She tries to add the same link again, this does not work.
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is the first '
+            'key."]').click()
+        x = self.findManyBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is the first key")]')
+        self.assertEqual(len(x), 1)
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').clear()
+
+        # She adds another link
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('foo')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="Foo"]').\
+            click()
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that both links were added
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+
+        # She submits the form and sees that both links were correctly
+        # submitted.
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+
+    @patch('samplemulti.views.generic_questionnaire_link_search')
+    def test_search(self, mock_link_search):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to the link section of a new questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_link_form))
+
+        search_field = self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")][1]')
+
+        mock_link_search.return_value = JsonResponse({
+            'total': 0,
+            'data': []
+        })
+        search_field.send_keys('foo')
+        time.sleep(1)
+        # She enters the name of link which does not exist. She gets a
+        # notice and when she clicks it, no link is added.
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="No results found"]'
+            ).click()
+        self.findByNot(
+            'xpath',
+            '//div[contains(@class, "alert-box")]')
+
+        search_field.clear()
+        # She enters something which returns more results than expected
+        data = [{
+            'name': 'foo',
+            'code': 'bar',
+            'display': 'foo',
+            'value': 1,
+        }] * 15
+        mock_link_search.return_value = JsonResponse({
+            'total': 15,
+            'data': data
+            })
+
+        search_field.send_keys('foo')
+        time.sleep(1)
+        # She gets a message saying there are too many results to
+        # display them all. Clicking on the message does not do
+        # anything. Not all results are shown.
+        results = self.findManyBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="foo"]')
+        self.assertEqual(len(results), 10)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[contains(text(), "Too many '
+            'results")]'
+            ).click()
+        self.findByNot(
+            'xpath',
+            '//div[contains(@class, "alert-box")]')
+
+        empty = self.findBy(
+            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
+        self.assertTrue(empty.is_displayed())
+
+        search_field.clear()
+        search_field.send_keys('foo')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="foo"][1]').click()
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]')
+
+        empty = self.findBy(
+            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
+        self.assertFalse(empty.is_displayed())
+
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+        empty = self.findBy(
+            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
+        self.assertTrue(empty.is_displayed())
 
     """
     Test:
-    * Reverse linking (from samplemulti to sample)
-    * Linking of multiple questionnaires
-    * Remove linked questionnaire
-    * No links available (should not show in overview)
+    * Show pending
     """

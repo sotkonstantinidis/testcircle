@@ -185,6 +185,13 @@ class BaseConfigurationObject(object):
             if not base_child:
                 merged_children.append(specific_child.copy())
 
+        # Collect all remaining attributes of specific, except the
+        # children which are already copied.
+        for specific_key, specific_value in specific_configuration.items():
+            if specific_key == obj.name_children:
+                continue
+            base_configuration[specific_key] = specific_value
+
         if obj.name_children:
             base_configuration[obj.name_children] = merged_children
         else:
@@ -1510,6 +1517,21 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         except:
             return []
 
+    def get_name_keywords(self):
+        """
+        Return the keywords of the question and questiongroup which
+        contain the name of the questionnaire as defined in the
+        configuration by the ``is_name`` parameter.
+        """
+        question_keyword = None
+        questiongroup_keyword = None
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.is_name is True:
+                    question_keyword = question.keyword
+                    questiongroup_keyword = questiongroup.keyword
+        return question_keyword, questiongroup_keyword
+
     def get_questionnaire_name(self, questionnaire_data):
         """
         Return the value of the key flagged with ``is_name`` of a
@@ -1523,17 +1545,11 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             ``str``. Returns the value of the key or ``Unknown`` if the
             key was not found in the data dictionary.
         """
-        question_keyword = None
-        questiongroup_keyword = None
-        for questiongroup in self.get_questiongroups():
-            for question in questiongroup.questions:
-                if question.is_name is True:
-                    question_keyword = question.keyword
-                    questiongroup_keyword = questiongroup.keyword
+        question_keyword, questiongroup_keyword = self.get_name_keywords()
         if question_keyword:
             for x in questionnaire_data.get(questiongroup_keyword, []):
                 return x.get(question_keyword)
-        return _('Unknown name')
+        return {'en': _('Unknown name')}
 
     def read_configuration(self):
         """

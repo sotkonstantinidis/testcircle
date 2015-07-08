@@ -1,7 +1,7 @@
 import json
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import (
     create_new_user,
@@ -12,6 +12,7 @@ from sample.views import (
     home,
     questionnaire_details,
     questionnaire_link_form,
+    questionnaire_link_search,
     questionnaire_list,
     questionnaire_list_partial,
     questionnaire_new,
@@ -20,8 +21,9 @@ from sample.views import (
 
 route_questionnaire_details = 'sample:questionnaire_details'
 route_home = 'sample:home'
-route_questionnaire_list = 'sample:questionnaire_list'
 route_questionnaire_link_form = 'sample:questionnaire_link_form'
+route_questionnaire_link_search = 'sample:questionnaire_link_search'
+route_questionnaire_list = 'sample:questionnaire_list'
 route_questionnaire_list_partial = 'sample:questionnaire_list_partial'
 route_questionnaire_new = 'sample:questionnaire_new'
 route_questionnaire_new_step = 'sample:questionnaire_new_step'
@@ -109,7 +111,8 @@ class SampleHomeTest(TestCase):
         request = self.factory.get(self.url)
         home(request)
         mock_questionnaire_list.assert_called_once_with(
-            request, 'sample', template=None, only_current=True, limit=3)
+            request, 'sample', template=None, only_current=True,
+            limit=3, db_query=True)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url)
@@ -135,6 +138,15 @@ class QuestionnaireLinkFormTest(TestCase):
         mock_questionnaire_link_form.assert_called_once_with(
             request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
+
+
+class QuestionnaireLinkSearchTest(TestCase):
+
+    @patch('sample.views.generic_questionnaire_link_search')
+    def test_calls_generic_function(self, mock_generic_function):
+        request = Mock()
+        questionnaire_link_search(request)
+        mock_generic_function.assert_called_once_with(request, 'sample')
 
 
 class QuestionnaireNewTest(TestCase):
@@ -256,15 +268,6 @@ class QuestionnaireListPartialTest(TestCase):
         mock_render_to_string.assert_any_call(
             'active_filters.html', {'active_filters': 'bar'})
 
-    def test_renders_json_response(self):
-        res = self.client.get(self.url)
-        self.assertEqual(res.status_code, 200)
-        content = json.loads(res.content.decode('utf-8'))
-        self.assertEqual(len(content), 3)
-        self.assertTrue(content.get('success'))
-        self.assertIn('list', content)
-        self.assertIn('active_filters', content)
-
 
 class QuestionnaireListTest(TestCase):
 
@@ -272,15 +275,10 @@ class QuestionnaireListTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_questionnaire_list)
 
-    def test_renders_correct_template(self):
-        res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'sample/questionnaire/list.html')
-        self.assertEqual(res.status_code, 200)
-
     @patch('sample.views.generic_questionnaire_list')
-    def test_calls_generic_function(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
+    def test_calls_generic_function(self, mock_generic_function):
+        request = Mock()
         questionnaire_list(request)
-        mock_questionnaire_list.assert_called_once_with(
+        mock_generic_function.assert_called_once_with(
             request, 'sample', template='sample/questionnaire/list.html',
             filter_url='/en/sample/list_partial/')

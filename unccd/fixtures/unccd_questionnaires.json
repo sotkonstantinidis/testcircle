@@ -7,7 +7,7 @@
         "configurations": [
             2001
         ],
-        "data": "{\"qg_name\": [{\"name\": {\"en\": \"UNCCD practice 1\"}}], \"unccd_qg_10\": [{\"unccd_description\": {\"en\": \"This is the description of the first UNCCD practice.\"}}]}",
+        "data": {"qg_name":[{"name":{"en":"UNCCD practice 1","es":"UNCCD 1 en español"}}],"unccd_qg_10":[{"unccd_description":{"en":"This is the description of the first UNCCD practice.","es":"Descripción 1 en español"}}]},
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -23,12 +23,39 @@
         "configurations": [
             2001
         ],
-        "data": "{\"qg_name\": [{\"name\": {\"en\": \"UNCCD practice 2\"}}], \"unccd_qg_10\": [{\"unccd_description\": {\"en\": \"This is the description of the second UNCCD practice.\"}}]}",
+        "data": {"qg_name":[{"name":{"en":"UNCCD practice 2"}}],"unccd_qg_10":[{"unccd_description":{"en":"This is the description of the second UNCCD practice."}}]},
         "status": 3,
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:08:40.904Z",
         "updated": "2015-02-10T16:08:40.904Z"
     }
+},
+{
+    "pk": 2011,
+    "fields": {
+        "questionnaire": 201,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 2012,
+    "fields": {
+        "questionnaire": 201,
+        "original_language": false,
+        "language": "es"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 2021,
+    "fields": {
+        "questionnaire": 202,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
 }
 ]

@@ -1,6 +1,6 @@
 {% comment %}
 
-  This partial template can be included to display a link to SAMPLEMULTI questionnaires.
+  This partial template can be included to display a link to WOCAT questionnaires.
 
   Required attributes:
 
@@ -13,4 +13,4 @@
 {% load i18n %}
 {% load list_to_columns %}
 
-  <strong>[{% trans "SAMPLE" %}]</strong> <a href="{% url link_route id %}">{{ link_data.key_1|get_by_keyword:'en' }}</a>
+<strong>[{% trans "WOCAT" %}]</strong> <a href="{% url link_route id %}">{{ link_data.name|get_by_keyword:'en' }}</a>

@@ -24,7 +24,8 @@ def home(request):
                 questionnaire_configuration.configuration_error))
 
     list_template_values = generic_questionnaire_list(
-        request, 'unccd', template=None, only_current=True, limit=3)
+        request, 'unccd', template=None, only_current=True, limit=3,
+        db_query=True)
 
     return render(request, 'unccd/home.html', {
         'list_values': list_template_values.get('list_values', [])

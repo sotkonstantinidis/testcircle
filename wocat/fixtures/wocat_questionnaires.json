@@ -7,7 +7,8 @@
         "configurations": [
             1001
         ],
-        "data": "{\"qg_name\": [{\"name\": {\"en\": \"WOCAT practice 1\"}}], \"wocat_qg_1\": [{\"image\": \"cc768477-a8a9-4ee1-8038-a145cd13e812\"}], \"wocat_qg_2\": [{\"wocat_definition\": {\"en\": \"This is the definition of the first WOCAT practice.\"}}]}",
+        "data": {"qg_name":[{"name":{"en":"WOCAT practice 1","fr":"WOCAT 1 en français"}}],"wocat_qg_2":[{"wocat_definition":{"en":"This is the definition of the first WOCAT practice.","fr":"Ceci est la déscription 1 en français."}}]},
+        "code": "wocat_1",
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -23,12 +24,40 @@
         "configurations": [
             1001
         ],
-        "data": "{\"qg_name\": [{\"name\": {\"en\": \"WOCAT practice 2\"}}], \"wocat_qg_1\": [{\"image\": \"cc768477-a8a9-4ee1-8038-a145cd13e812\"}], \"wocat_qg_2\": [{\"wocat_definition\": {\"en\": \"This is the definition of the second WOCAT practice.\"}}]}",
+        "data": {"qg_name":[{"name":{"es":"WOCAT 2 en español"}}],"wocat_qg_2":[{"wocat_definition":{"es":"Descripción 2 en español"}}]},
+        "code": "wocat_2",
         "status": 3,
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:08:20.904Z",
         "updated": "2015-02-10T16:08:20.904Z"
     }
+},
+{
+    "pk": 1011,
+    "fields": {
+        "questionnaire": 101,
+        "original_language": true,
+        "language": "fr"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 1012,
+    "fields": {
+        "questionnaire": 101,
+        "original_language": false,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 1021,
+    "fields": {
+        "questionnaire": 102,
+        "original_language": true,
+        "language": "es"
+    },
+    "model": "questionnaire.questionnairetranslation"
 }
 ]

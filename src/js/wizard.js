@@ -149,6 +149,28 @@ function checkConditionalQuestiongroups(element) {
   }
 }
 
+
+/**
+ * Remove a linked Questionnaire from the form. This is the action
+ * triggered when clicking the "close" button in the link form. Removes
+ * the display entry of the linked questionnaire as well as the hidden
+ * input field for the form.
+ *
+ * @param {Element} el - The close button element. Needs to have the
+ *   identifier of the link stored as data attribute.
+ */
+function removeLinkedQuestionnaire(el) {
+  var fieldset = $(el).parents('fieldset');
+  var identifier = $(el).data('input-hidden');
+  $('#' + identifier).remove();
+  $(el).parent('div.alert-box').remove();
+  if (!fieldset.find('input[type="hidden"]').length) {
+    fieldset.find('.empty').show();
+  }
+  return false;
+}
+
+
 /**
  * Clears all form fields of a questiongroup. It is important to trigger
  * the change event for each so chained conditional questiongroups are
@@ -192,6 +214,90 @@ $(function() {
 
   // Select inputs with chosen
   $(".chosen-select").chosen();
+
+  // Search a linked Questionnaire through AJAX autocomplete.
+  if ($.fn.autocomplete) {
+    $('.link_search_field').autocomplete({
+      source: function(request, response) {
+        var translationNoResults = $(this.element).data('translation-no-results');
+        var translationTooManyResults = $(this.element).data('translation-too-many-results');
+        // AJAX call to the respective link search view.
+        $.ajax({
+          url: '/' + $(this.element).data('keyword') + '/search/links/',
+          dataType: 'json',
+          data: {
+            q: request.term
+          },
+          success: function(data) {
+            if (!data.data.length) {
+              // No results
+              var result = [
+                {
+                  name: translationNoResults,
+                  code: ''
+                }
+              ];
+              response(result);
+            } else {
+              var res = data.data;
+              if (data.total > 10) {
+                // Too many results
+                res = res.slice(0, 10);
+                res.push({
+                  name: translationTooManyResults,
+                  code: ''
+                });
+              }
+              response(res);
+            }
+          }
+        });
+      },
+      create: function () {
+        // Prepare the entries to display the name and code.
+        $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+          return $('<li>')
+                  .append('<a><strong>' + item.name + '</strong><br><i>' + item.code + '</i></a>')
+                  .appendTo(ul);
+              };
+          },
+      select: function( event, ui ) {
+        if (!ui.item.value) {
+          // No value (eg. when clicking "No results"), do nothing
+          return false;
+        }
+        // Add hidden input field with ID.
+        var keyword = $(this).data('keyword');
+        var id = 'links__' + keyword + '__' + ui.item.id;
+        if ($('#' + id).length) {
+          // Do not add the link a second time if it is already there
+          return false;
+        }
+        var hidden_input = $('<input id="' + id + '" type="hidden" name="links__' + keyword + '" />').val(ui.item.id);
+        $(this).parent('fieldset').find('div.links').append(hidden_input);
+
+        // Add display field
+        $(this).parent('fieldset').find('div.links').append(
+          '<div class="alert-box secondary">' + ui.item.display + '<a href="#" class="close" data-input-hidden="' + id + '">&times;</a></div>');
+        $('div.links a.close').click(function() {
+          removeLinkedQuestionnaire(this);
+        });
+
+        // Hide empty message
+        $(this).parent('fieldset').find('.empty').hide();
+
+        $(this).val('');
+        return false;
+      },
+      minLength: 3
+    });
+    $('.ui-autocomplete').addClass('f-dropdown');
+  }
+
+  // Remove linked questionnaires
+  $('div.links a.close').click(function() {
+    removeLinkedQuestionnaire(this);
+  });
 
   $('body').on('click', '[data-magellan-step]', function(e) {
 

@@ -1,5 +1,5 @@
 import ast
-from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.utils.dateparse import parse_datetime
@@ -9,6 +9,7 @@ from configuration.configuration import (
 )
 from configuration.utils import get_or_create_configuration
 from qcat.errors import QuestionnaireFormatError
+from questionnaire.models import Questionnaire
 
 
 def clean_questionnaire_data(data, configuration):
@@ -592,8 +593,72 @@ def get_link_display(link_object, link_configuration):
     link_route = '{}:questionnaire_details'.format(link_configuration.keyword)
     return render_to_string(link_template, {
         'link_data': link_data[0],
-        'link_url': reverse(link_route, args=(link_object.id,))
+        'link_route': link_route,
+        'id': link_object.id,
     })
+
+
+def query_questionnaires_for_link(configuration, q, limit=10):
+    """
+    Do a raw SQL search in the JSON data field of questionnaires. Only
+    questionnaires of the configuration's keyword are returned. The
+    search happens in the name field as defined by the parameter
+    ``is_name`` in the configuration, searched in any language. The same
+    term can also be used to search by code of the questionnaire.
+
+    Args:
+        ``configuration``
+        (configuration.configuration.QuestionnaireConfiguration): The
+        questionnaire configuration.
+
+        ``q`` (str): The query string (to search either in the name or
+        the code of the questionnaire).
+
+    Kwargs:
+        ``limit`` (int): Limit the number of results to return.
+
+    Returns:
+
+        ``int``. The total count of results encountered in the database.
+
+        ``list``. The list of results. The length of this list may be
+        smaller than the total count because of the limit applied.
+    """
+    question_keyword, questiongroup_keyword = configuration.get_name_keywords()
+    if question_keyword is None or questiongroup_keyword is None:
+        return 0, []
+
+    query = """
+        select questionnaire_questionnaire.id
+        from questionnaire_questionnaire
+            JOIN questionnaire_questionnaire_configurations ON
+                questionnaire_questionnaire.id =
+                questionnaire_questionnaire_configurations.questionnaire_id
+            JOIN configuration_configuration ON
+                questionnaire_questionnaire_configurations.configuration_id =
+                configuration_configuration.id
+                AND configuration_configuration.code = %s,
+        lateral jsonb_array_elements(
+            questionnaire_questionnaire.data -> %s) questiongroup
+        where """
+    args = [configuration.keyword, questiongroup_keyword]
+
+    languages = [l[0] for l in settings.LANGUAGES]
+    for lang in languages:
+        query += """
+            questiongroup->%s->>'{}' ILIKE %s OR
+        """.format(lang)
+        args.extend([question_keyword, '%{}%'.format(q)])
+
+    query += """
+        questionnaire_questionnaire.code LIKE %s;
+    """
+    args.extend(['%{}%'.format(q)])
+
+    results = Questionnaire.objects.raw(query, args)
+    total = len(list(results))
+
+    return total, results[:limit]
 
 
 def get_list_values(
@@ -634,10 +699,22 @@ def get_list_values(
             configuration_code = 'sample'
 
         template_value = result.get('_source', {}).get('list_data', {})
+
+        translations = result.get('_source', {}).get('translations')
+        if not isinstance(translations, list) or len(translations) == 0:
+            translations = ['en']
+        original_lang = translations[0]
+        try:
+            translations.remove(get_language())
+        except ValueError:
+            pass
+        translations = [
+            lang for lang in settings.LANGUAGES if lang[0] in translations]
+
         for key, value in template_value.items():
             if isinstance(value, dict):
-                # TODO: Fall back to the original language
-                template_value[key] = value.get('en')
+                template_value[key] = value.get(
+                    get_language(), value.get(original_lang))
 
         source = result.get('_source', {})
         configurations = source.get('configurations', [])
@@ -651,6 +728,7 @@ def get_list_values(
                 source.get('created', '')),
             'updated': parse_datetime(
                 source.get('updated', '')),
+            'translations': translations,
         })
         list_entries.append(template_value)
 
@@ -669,10 +747,23 @@ def get_list_values(
 
         template_value = questionnaire_configuration.get_list_data(
             [obj.data])[0]
+
+        translations = [
+            t.language for t in obj.questionnairetranslation_set.all()]
+        if len(translations) == 0:
+            translations = ['en']
+        original_lang = translations[0]
+        try:
+            translations.remove(get_language())
+        except ValueError:
+            pass
+        translations = [
+            lang for lang in settings.LANGUAGES if lang[0] in translations]
+
         for key, value in template_value.items():
             if isinstance(value, dict):
-                # TODO: Fall back to the original language
-                template_value[key] = value.get('en')
+                template_value[key] = value.get(
+                    get_language(), value.get(original_lang))
 
         configurations = [conf.code for conf in obj.configurations.all()]
 
@@ -683,6 +774,7 @@ def get_list_values(
             'native_configuration': configuration_code in configurations,
             'created': obj.created,
             'updated': obj.updated,
+            'translations': translations,
         })
         list_entries.append(template_value)
 

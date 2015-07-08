@@ -57,7 +57,7 @@ class AdvancedSearchTest(TestCase):
         advanced_search(filter_params=[])
         mock_es.search.assert_called_once_with(
             index=mock_get_alias.return_value,
-            body={'query': {'bool': {'must': []}}, 'sort': [
+            body={'query': {'bool': {'must': [], 'should': []}}, 'sort': [
                 {'updated': 'desc'}]}, size=10)
 
     @patch('search.search.es')
