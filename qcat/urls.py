@@ -23,6 +23,8 @@ urlpatterns += i18n_patterns(
     url(r'^questionnaire/', include('questionnaire.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^wocat/', include('wocat.urls', namespace='wocat')),
+    url(r'^wocat/technologies/', include('technologies.urls',
+        namespace='technologies')),
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
     url(r'^search/', include('search.urls', namespace='search')),
 )

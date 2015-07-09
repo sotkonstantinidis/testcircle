@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<ul>
+  <li class="has-dropdown">
+    <a href="#">{{ current }}</a>
+    <ul class="dropdown">
+      <li>
+        <a href="{% url 'wocat:home' %}">{% trans "WOCAT" %}</a>
+      </li>
+      <li>
+        <a href="{% url 'technologies:home' %}">{% trans "SLM Technologies" %}</a>
+      </li>
+      <li>
+        <a href="{% url 'wocat:home' %}">{% trans "SLM Approaches" %}</a>
+      </li>
+    </ul>
+  </li>
+</ul>
