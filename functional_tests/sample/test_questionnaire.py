@@ -1782,6 +1782,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
 
+        # She sees that the # was removed from the URL
+        self.assertIn('#top', self.browser.current_url)
+
         # She sees that on the detail page, there is only one edit button
         edit_buttons = self.findManyBy(
             'xpath', '//a[contains(text(), "Edit")]')

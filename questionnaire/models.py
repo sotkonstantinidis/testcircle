@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
 from django_pgjson.fields import JsonBField
 
 from configuration.models import Configuration
@@ -95,6 +95,11 @@ class Questionnaire(models.Model):
         QuestionnaireConfiguration.objects.create(
             questionnaire=questionnaire, configuration=configuration,
             original_configuration=True)
+
+        # TODO: Not all translations should be the original ones!
+        QuestionnaireTranslation.objects.create(
+            questionnaire=questionnaire, language=get_language(),
+            original_language=True)
 
         # TODO: This should happen on review!
         added, errors = put_questionnaire_data(

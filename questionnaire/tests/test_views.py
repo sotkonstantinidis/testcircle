@@ -375,8 +375,7 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_redirect.assert_called_once_with(
-            'sample:questionnaire_details', 1)
+        mock_redirect.assert_called_once_with('/en/sample/view/1/#top')
 
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
     def test_calls_get_questionnaire_data_in_single_language(

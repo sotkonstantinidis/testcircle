@@ -416,6 +416,11 @@ def generic_questionnaire_new(
     session_questionnaire, session_links = get_session_questionnaire(
         configuration_code)
 
+    # overview_url = '{}#{}'.format(
+    #     reverse('{}:questionnaire_details'.format(url_namespace), args=[1]))
+    # overview_url = reverse('technologies:questionnaire_details', args=[1])
+    # print(overview_url)
+
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
             session_questionnaire, questionnaire_configuration)
@@ -446,9 +451,10 @@ def generic_questionnaire_new(
                 request,
                 _('[TODO] The questionnaire was successfully created.'),
                 fail_silently=True)
-            return redirect(
-                '{}:questionnaire_details'.format(url_namespace),
-                questionnaire.id)
+
+            return redirect('{}#top'.format(
+                reverse('{}:questionnaire_details'.format(
+                    url_namespace), args=[questionnaire.id])))
 
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
