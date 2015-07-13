@@ -1,7 +1,7 @@
 {% comment %}
 
   This partial template can be included to display a list of WOCAT
-  technologies.
+  approaches.
 
   Required attributes:
 
@@ -16,5 +16,5 @@
     {% include configuration with item=list_entry %}
   {% endwith %}
 {% empty %}
-  <p>{% trans "No WOCAT Technologies found." %}</p>
+  <p>{% trans "No WOCAT Approaches found." %}</p>
 {% endfor %}

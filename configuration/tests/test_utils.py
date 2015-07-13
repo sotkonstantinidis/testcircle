@@ -21,11 +21,13 @@ class GetConfigurationQueryFilterTest(TestCase):
         query_filter = get_configuration_query_filter('wocat')
         self.assertIsInstance(query_filter, Q)
         attrs = query_filter.children
-        self.assertEqual(len(attrs), 2)
+        self.assertEqual(len(attrs), 3)
         self.assertEqual(attrs[0][0], 'configurations__code')
         self.assertEqual(attrs[0][1], 'technologies')
         self.assertEqual(attrs[1][0], 'configurations__code')
-        self.assertEqual(attrs[1][1], 'unccd')
+        self.assertEqual(attrs[1][1], 'approaches')
+        self.assertEqual(attrs[2][0], 'configurations__code')
+        self.assertEqual(attrs[2][1], 'unccd')
         self.assertEqual(query_filter.connector, 'OR')
 
     def test_returns_only_current_configuration_if_selected(self):
@@ -50,7 +52,7 @@ class GetConfigurationIndexFilter(TestCase):
 
     def test_wocat_returns_multiple_configurations(self):
         index_filter = get_configuration_index_filter('wocat')
-        self.assertEqual(index_filter, ['unccd', 'technologies'])
+        self.assertEqual(index_filter, ['unccd', 'technologies', 'approaches'])
 
     def test_wocat_with_only_current_returns_only_wocat(self):
         index_filter = get_configuration_index_filter(

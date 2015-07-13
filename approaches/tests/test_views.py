@@ -4,7 +4,7 @@ from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import create_new_user
 from qcat.tests import TestCase
-from technologies.views import (
+from approaches.views import (
     questionnaire_details,
     questionnaire_link_form,
     questionnaire_link_search,
@@ -15,36 +15,36 @@ from technologies.views import (
 )
 
 
-route_home = 'technologies:home'
-route_questionnaire_details = 'technologies:questionnaire_details'
-route_questionnaire_link_form = 'technologies:questionnaire_link_form'
-route_questionnaire_list = 'technologies:questionnaire_list'
-route_questionnaire_list_partial = 'technologies:questionnaire_list_partial'
-route_questionnaire_new = 'technologies:questionnaire_new'
-route_questionnaire_new_step = 'technologies:questionnaire_new_step'
+route_home = 'approaches:home'
+route_questionnaire_details = 'approaches:questionnaire_details'
+route_questionnaire_link_form = 'approaches:questionnaire_link_form'
+route_questionnaire_list = 'approaches:questionnaire_list'
+route_questionnaire_list_partial = 'approaches:questionnaire_list_partial'
+route_questionnaire_new = 'approaches:questionnaire_new'
+route_questionnaire_new_step = 'approaches:questionnaire_new_step'
 
 
 def get_valid_details_values():
-    return (1, 'technologies', 'technologies/questionnaire/details.html')
+    return (1, 'approaches', 'approaches/questionnaire/details.html')
 
 
 def get_valid_link_form_values():
-    args = ('technologies', 'technologies')
-    kwargs = {'page_title': 'Technology Links'}
+    args = ('approaches', 'approaches')
+    kwargs = {'page_title': 'Approach Links'}
     return args, kwargs
 
 
 def get_valid_new_values():
     args = (
-        'technologies', 'technologies/questionnaire/details.html',
-        'technologies')
+        'approaches', 'approaches/questionnaire/details.html',
+        'approaches')
     kwargs = {'questionnaire_id': None}
     return args, kwargs
 
 
 def get_valid_new_step_values():
-    args = (get_categories()[0][0], 'technologies', 'technologies')
-    kwargs = {'page_title': 'Technologies Form'}
+    args = (get_categories()[0][0], 'approaches', 'approaches')
+    kwargs = {'page_title': 'Approaches Form'}
     return args, kwargs
 
 
@@ -54,9 +54,7 @@ def get_category_count():
 
 def get_categories():
     return (
-        ('tech__1', 'General Information'),
-        ('tech__2', 'Specification of the SLM practice'),
-        ('tech__2a', 'Land Use'),
+        ('app__1', 'First Approaches Section'),
     )
 
 
@@ -69,7 +67,7 @@ class HomeTest(TestCase):
     @patch('questionnaire.views.advanced_search')
     def test_renders_correct_template(self, mock_advanced_search):
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'technologies/questionnaire/list.html')
+        self.assertTemplateUsed(res, 'approaches/questionnaire/list.html')
         self.assertEqual(res.status_code, 200)
 
 
@@ -82,7 +80,7 @@ class QuestionnaireLinkFormTest(TestCase):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'login.html')
 
-    @patch('technologies.views.generic_questionnaire_link_form')
+    @patch('approaches.views.generic_questionnaire_link_form')
     def test_calls_generic_function(self, mock_generic_function):
         request = Mock()
         questionnaire_link_form(request)
@@ -93,11 +91,11 @@ class QuestionnaireLinkFormTest(TestCase):
 
 class QuestionnaireLinkSearchTest(TestCase):
 
-    @patch('technologies.views.generic_questionnaire_link_search')
+    @patch('approaches.views.generic_questionnaire_link_search')
     def test_calls_generic_function(self, mock_generic_function):
         request = Mock()
         questionnaire_link_search(request)
-        mock_generic_function.assert_called_once_with(request, 'technologies')
+        mock_generic_function.assert_called_once_with(request, 'approaches')
 
 
 class QuestionnaireNewTest(TestCase):
@@ -114,10 +112,10 @@ class QuestionnaireNewTest(TestCase):
         request = self.factory.get(self.url)
         request.user = create_new_user()
         res = questionnaire_new(request)
-        self.assertTemplateUsed(res, 'technologies/questionnaire/details.html')
+        self.assertTemplateUsed(res, 'approaches/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('technologies.views.generic_questionnaire_new')
+    @patch('approaches.views.generic_questionnaire_new')
     def test_calls_generic_function(self, mock_questionnaire_new):
         request = self.factory.get(self.url)
         request.user = create_new_user()
@@ -130,7 +128,7 @@ class QuestionnaireNewStepTest(TestCase):
 
     fixtures = [
         'groups_permissions.json', 'global_key_values.json',
-        'technologies.json']
+        'approaches.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -148,7 +146,7 @@ class QuestionnaireNewStepTest(TestCase):
         self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('technologies.views.generic_questionnaire_new_step')
+    @patch('approaches.views.generic_questionnaire_new_step')
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
@@ -162,18 +160,18 @@ class QuestionnaireDetailsTest(TestCase):
 
     fixtures = [
         'groups_permissions.json', 'global_key_values.json',
-        'technologies.json', 'technologies_questionnaires.json']
+        'approaches.json', 'approaches_questionnaires.json']
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_details, args=[101])
+        self.url = reverse(route_questionnaire_details, args=[301])
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'technologies/questionnaire/details.html')
+        self.assertTemplateUsed(res, 'approaches/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
-    @patch('technologies.views.generic_questionnaire_details')
+    @patch('approaches.views.generic_questionnaire_details')
     def test_calls_generic_function(self, mock_questionnaire_details):
         request = self.factory.get(self.url)
         questionnaire_details(request, 1)
@@ -187,15 +185,15 @@ class QuestionnaireListPartialTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_questionnaire_list_partial)
 
-    @patch('technologies.views.generic_questionnaire_list')
+    @patch('approaches.views.generic_questionnaire_list')
     def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
         questionnaire_list_partial(request)
         mock_questionnaire_list.assert_called_once_with(
-            request, 'technologies', template=None)
+            request, 'approaches', template=None)
 
-    @patch('technologies.views.render_to_string')
-    @patch('technologies.views.generic_questionnaire_list')
+    @patch('approaches.views.render_to_string')
+    @patch('approaches.views.generic_questionnaire_list')
     def test_calls_render_to_string_with_list_template(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
@@ -205,11 +203,11 @@ class QuestionnaireListPartialTest(TestCase):
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
-            'technologies/questionnaire/partial/list.html',
+            'approaches/questionnaire/partial/list.html',
             {'list_values': 'foo'})
 
-    @patch('technologies.views.render_to_string')
-    @patch('technologies.views.generic_questionnaire_list')
+    @patch('approaches.views.render_to_string')
+    @patch('approaches.views.generic_questionnaire_list')
     def test_calls_render_to_string_with_active_filters(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
@@ -228,11 +226,11 @@ class QuestionnaireListTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_questionnaire_list)
 
-    @patch('technologies.views.generic_questionnaire_list')
+    @patch('approaches.views.generic_questionnaire_list')
     def test_calls_generic_function(self, mock_generic_function):
         request = Mock()
         questionnaire_list(request)
         mock_generic_function.assert_called_once_with(
-            request, 'technologies',
-            template='technologies/questionnaire/list.html',
+            request, 'approaches',
+            template='approaches/questionnaire/list.html',
             filter_url=reverse(route_questionnaire_list_partial))

@@ -38,6 +38,7 @@ def get_configuration_query_filter(configuration, only_current=False):
     if configuration == 'wocat':
         return (
             Q(configurations__code='technologies') |
+            Q(configurations__code='approaches') |
             Q(configurations__code='unccd'))
 
     return Q(configurations__code=configuration)
@@ -71,7 +72,7 @@ def get_configuration_index_filter(configuration, only_current=False):
         return [configuration]
 
     if configuration == 'wocat':
-        return ['unccd', 'technologies']
+        return ['unccd', 'technologies', 'approaches']
 
     return [configuration]
 
