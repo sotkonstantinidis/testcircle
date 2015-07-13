@@ -43,25 +43,28 @@ class ListTest(FunctionalTest):
             'contains(text(), "UNCCD practice 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
-            'contains(text(), "")]')
+            'contains(text(), "This is the description of the second UNCCD '
+            'practice.")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "WOCAT 2 en español")]')
+            'contains(text(), "WOCAT Tech 2 en español")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
-            'contains(text(), "")]')
+            'contains(text(), "Descripción 2 en español")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
             'contains(text(), "UNCCD practice 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
-            'contains(text(), "")]')
+            'contains(text(), "This is the description of the first UNCCD '
+            'practice.")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
-            'contains(text(), "WOCAT practice 1")]')
+            'contains(text(), "WOCAT Technology 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
-            'contains(text(), "")]')
+            'contains(text(), "This is the definition of the first WOCAT '
+            'Technology.")]')
 
     def test_list_is_multilingual(self):
 
@@ -86,14 +89,15 @@ class ListTest(FunctionalTest):
             'contains(text(), "UNCCD practice 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
-            'contains(text(), "")]')
+            'contains(text(), "This is the description of the second UNCCD '
+            'practice.")]')
         # WOCAT 2
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "WOCAT 2 en español")]')
+            'contains(text(), "WOCAT Tech 2 en español")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
-            'contains(text(), "")]')
+            'contains(text(), "Descripción 2 en español")]')
         self.findBy('xpath', '//article[2]//a[contains(text(), "Spanish")]')
         # UNCCD 1
         self.findBy(
@@ -101,15 +105,17 @@ class ListTest(FunctionalTest):
             'contains(text(), "UNCCD practice 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
-            'contains(text(), "")]')
+            'contains(text(), "This is the description of the first UNCCD '
+            'practice.")]')
         self.findBy('xpath', '//article[3]//a[contains(text(), "Spanish")]')
         # WOCAT 1
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
-            'contains(text(), "WOCAT practice 1")]')
+            'contains(text(), "WOCAT Technology 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
-            'contains(text(), "")]')
+            'contains(text(), "This is the definition of the first WOCAT '
+            'Technology.")]')
         self.findBy('xpath', '//article[4]//a[contains(text(), "French")]')
 
         self.changeLanguage('es')
@@ -124,28 +130,29 @@ class ListTest(FunctionalTest):
             'contains(text(), "UNCCD practice 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
-            'contains(text(), "")]')
+            'contains(text(), "This is the description of the second UNCCD '
+            'practice.")]')
         # WOCAT 2
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "WOCAT 2 en español")]')
+            'contains(text(), "WOCAT Tech 2 en español")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
-            'contains(text(), "")]')
+            'contains(text(), "Descripción 2 en español")]')
         # UNCCD 1
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
             'contains(text(), "UNCCD 1 en español")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
-            'contains(text(), "")]')
+            'contains(text(), "Descripción 1 en español")]')
         self.findBy('xpath', '//article[3]//a[contains(text(), "English")]')
         # WOCAT 1
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
-            'contains(text(), "WOCAT 1 en français")]')
+            'contains(text(), "WOCAT Technology 1 en français")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
-            'contains(text(), "")]')
+            'contains(text(), "Ceci est la déscription 1 en français.")]')
         self.findBy('xpath', '//article[4]//a[contains(text(), "English")]')
         self.findBy('xpath', '//article[4]//a[contains(text(), "French")]')

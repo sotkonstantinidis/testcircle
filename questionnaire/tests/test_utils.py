@@ -562,7 +562,7 @@ class GetListValuesTest(TestCase):
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), 7)
-        self.assertEqual(ret_1.get('configuration'), 'sample')
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
         self.assertEqual(ret_1.get('configurations'), [])
         self.assertEqual(ret_1.get('created', ''), None)
         self.assertEqual(ret_1.get('updated', ''), None)
@@ -570,22 +570,81 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('id'), 1)
         self.assertEqual(ret_1.get('translations'), [])
 
+    def test_es_uses_provided_configuration(self):
+        es_search = {
+            'hits': {
+                'hits': [
+                    {
+                        '_id': 1,
+                    }
+                ]
+            }
+        }
+        ret = get_list_values(es_search=es_search, configuration_code='foo')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'foo')
+
+    def test_es_wocat_uses_default_configuration(self):
+        es_search = {
+            'hits': {
+                'hits': [
+                    {
+                        '_id': 1,
+                    }
+                ]
+            }
+        }
+        ret = get_list_values(es_search=es_search, configuration_code='wocat')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
+
     def test_returns_values_from_database(self):
         obj = Mock()
         obj.configurations.all.return_value = []
+        obj.configurations.first.return_value = None
         obj.questionnairetranslation_set.all.return_value = []
         questionnaires = [obj]
         ret = get_list_values(questionnaire_objects=questionnaires)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), 7)
-        self.assertEqual(ret_1.get('configuration'), 'sample')
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
         self.assertEqual(ret_1.get('configurations'), [])
         self.assertEqual(ret_1.get('created', ''), obj.created)
         self.assertEqual(ret_1.get('updated', ''), obj.updated)
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), obj.id)
         self.assertEqual(ret_1.get('translations'), [])
+
+    def test_db_uses_provided_configuration(self):
+        obj = Mock()
+        obj.configurations.all.return_value = []
+        obj.configurations.first.return_value = None
+        obj.questionnairetranslation_set.all.return_value = []
+        questionnaires = [obj]
+        ret = get_list_values(
+            questionnaire_objects=questionnaires, configuration_code='foo')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'foo')
+
+    def test_db_wocat_uses_default_configuration(self):
+        obj = Mock()
+        obj.configurations.all.return_value = []
+        obj.configurations.first.return_value = None
+        obj.questionnairetranslation_set.all.return_value = []
+        questionnaires = [obj]
+        ret = get_list_values(
+            questionnaire_objects=questionnaires, configuration_code='wocat')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
 
     @patch('questionnaire.utils.get_or_create_configuration')
     def test_from_database_calls_get_or_create_configuration(
@@ -594,8 +653,10 @@ class GetListValuesTest(TestCase):
         m.get_list_data.return_value = [{}]
         mock_get_or_create_configuration.return_value = m, {}
         obj = Mock()
+        obj.configurations.first.return_value = None
         obj.configurations.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         questionnaires = [obj]
         get_list_values(questionnaire_objects=questionnaires)
-        mock_get_or_create_configuration.assert_called_once_with('sample', {})
+        mock_get_or_create_configuration.assert_called_once_with(
+            'technologies', {})

@@ -631,11 +631,11 @@ def query_questionnaires_for_link(configuration, q, limit=10):
     query = """
         select questionnaire_questionnaire.id
         from questionnaire_questionnaire
-            JOIN questionnaire_questionnaire_configurations ON
+            JOIN questionnaire_questionnaireconfiguration ON
                 questionnaire_questionnaire.id =
-                questionnaire_questionnaire_configurations.questionnaire_id
+                questionnaire_questionnaireconfiguration.questionnaire_id
             JOIN configuration_configuration ON
-                questionnaire_questionnaire_configurations.configuration_id =
+                questionnaire_questionnaireconfiguration.configuration_id =
                 configuration_configuration.id
                 AND configuration_configuration.code = %s,
         lateral jsonb_array_elements(
@@ -675,6 +675,8 @@ def get_list_values(
         their configurations. If set to ``None``, the original
         configuration for each questionnaire is used to collect the list
         values.
+        If ``configuration_code=wocat``, every item is rendered in its
+        original configuration.
 
         ``es_search`` (dict): A dictionary as retrieved from an
         Elasticsearch query.
@@ -694,9 +696,13 @@ def get_list_values(
     for result in es_search.get('hits', {}).get('hits', []):
         # Results from Elasticsearch. List values are already available.
 
-        # TODO: Fall back to the original configuration
-        if configuration_code is None:
-            configuration_code = 'sample'
+        # Fall back to the original configuration if viewed from "wocat"
+        # or no configuration selected
+        if configuration_code is None or configuration_code == 'wocat':
+            current_configuration_code = result.get('_source', {}).get(
+                'configurations', ['technologies'])[0]
+        else:
+            current_configuration_code = configuration_code
 
         template_value = result.get('_source', {}).get('list_data', {})
 
@@ -720,10 +726,11 @@ def get_list_values(
         configurations = source.get('configurations', [])
 
         template_value.update({
-            'configuration': configuration_code,  # Used for rendering
+            'configuration': current_configuration_code,  # Used for rendering
             'id': result.get('_id'),
             'configurations': configurations,
-            'native_configuration': configuration_code in configurations,
+            'native_configuration': current_configuration_code in
+            configurations,
             'created': parse_datetime(
                 source.get('created', '')),
             'updated': parse_datetime(
@@ -737,13 +744,20 @@ def get_list_values(
         # Results from database query. List values have to be retrieved
         # through the configuration of the questionnaires.
 
-        # TODO: Fall back to the original configuration
-        if configuration_code is None:
-            configuration_code = 'sample'
+        # Fall back to the original configuration if viewed from "wocat"
+        # or no configuration selected
+        if configuration_code is None or configuration_code == 'wocat':
+            configuration_object = obj.configurations.first()
+            if configuration_object is not None:
+                current_configuration_code = configuration_object.code
+            else:
+                current_configuration_code = 'technologies'
+        else:
+            current_configuration_code = configuration_code
 
         questionnaire_configuration, questionnaire_configurations = \
             get_or_create_configuration(
-                configuration_code, questionnaire_configurations)
+                current_configuration_code, questionnaire_configurations)
 
         template_value = questionnaire_configuration.get_list_data(
             [obj.data])[0]
@@ -768,10 +782,11 @@ def get_list_values(
         configurations = [conf.code for conf in obj.configurations.all()]
 
         template_value.update({
-            'configuration': configuration_code,  # Used for rendering
+            'configuration': current_configuration_code,  # Used for rendering
             'id': obj.id,
             'configurations': configurations,
-            'native_configuration': configuration_code in configurations,
+            'native_configuration': current_configuration_code in
+            configurations,
             'created': obj.created,
             'updated': obj.updated,
             'translations': translations,

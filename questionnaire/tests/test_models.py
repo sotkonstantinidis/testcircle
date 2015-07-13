@@ -6,6 +6,7 @@ from configuration.models import Configuration
 from qcat.tests import TestCase
 from questionnaire.models import (
     Questionnaire,
+    QuestionnaireConfiguration,
     QuestionnaireLink,
     File,
 )
@@ -86,8 +87,9 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire.version, 1)
 
     @patch.object(Configuration, 'get_active_by_code')
+    @patch.object(QuestionnaireConfiguration.objects, 'create')
     def test_create_new_calls_configuration_get_active_by_code(
-            self, mock_Configuration_get_active_by_code,
+            self, mock_create, mock_Configuration_get_active_by_code,
             mock_put_questionnaire_data):
         mock_put_questionnaire_data.return_value = 1, []
         Questionnaire.create_new(configuration_code='sample', data={})
@@ -107,8 +109,10 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(ret_configurations[0].id, configuration.id)
 
     @patch.object(Questionnaire.objects, 'create')
+    @patch.object(QuestionnaireConfiguration.objects, 'create')
     def test_create_new_calls_put_questionnaire_data(
-            self, mock_create, mock_put_questionnaire_data):
+            self, mock_create_conf_link, mock_create,
+            mock_put_questionnaire_data):
         mock_put_questionnaire_data.return_value = 1, []
         Questionnaire.create_new(configuration_code='sample', data={})
         mock_put_questionnaire_data.assert_called_once_with(

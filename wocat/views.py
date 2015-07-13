@@ -11,7 +11,7 @@ from questionnaire.views import (
 
 def home(request):
     list_template_values = generic_questionnaire_list(
-        request, 'wocat', template=None, only_current=True, limit=3,
+        request, 'wocat', template=None, only_current=False, limit=3,
         db_query=True)
 
     return render(request, 'wocat/home.html', {

@@ -20,4 +20,4 @@ class InitialPermissionsTest(TestCase):
 
     def test_all_permissions_are_loaded(self):
         permissions = Permission.objects.count()
-        self.assertEqual(permissions, 54)
+        self.assertEqual(permissions, 57)

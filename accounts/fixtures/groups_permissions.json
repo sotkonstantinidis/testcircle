@@ -253,6 +253,21 @@
                 "questionnairelink"
             ],
             [
+                "add_questionnaireconfiguration",
+                "questionnaire",
+                "questionnaireconfiguration"
+            ],
+            [
+                "change_questionnaireconfiguration",
+                "questionnaire",
+                "questionnaireconfiguration"
+            ],
+            [
+                "delete_questionnaireconfiguration",
+                "questionnaire",
+                "questionnaireconfiguration"
+            ],
+            [
                 "add_questionnairetranslation",
                 "questionnaire",
                 "questionnairetranslation"

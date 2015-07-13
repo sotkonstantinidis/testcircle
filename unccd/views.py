@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
@@ -6,7 +5,6 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
-from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
@@ -16,13 +14,6 @@ from questionnaire.views import (
 
 
 def home(request):
-    # TODO: Show this warning here? Or in Admin?
-    questionnaire_configuration = QuestionnaireConfiguration('unccd')
-    if questionnaire_configuration.configuration_error is not None:
-        messages.error(
-            request, 'WARNING: INVALID CONFIGURATION. {}'.format(
-                questionnaire_configuration.configuration_error))
-
     list_template_values = generic_questionnaire_list(
         request, 'unccd', template=None, only_current=True, limit=3,
         db_query=True)

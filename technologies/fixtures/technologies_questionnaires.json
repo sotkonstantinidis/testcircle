@@ -4,10 +4,7 @@
     "pk": 101,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
-        "configurations": [
-            1001
-        ],
-        "data": {"qg_name":[{"name":{"en":"WOCAT practice 1","fr":"WOCAT 1 en français"}}],"tech_qg_2":[{"tech_definition":{"en":"This is the definition of the first WOCAT practice.","fr":"Ceci est la déscription 1 en français."}}]},
+        "data": {"qg_name":[{"name":{"en":"WOCAT Technology 1","fr":"WOCAT Technology 1 en français"}}],"tech_qg_2":[{"tech_definition":{"en":"This is the definition of the first WOCAT Technology.","fr":"Ceci est la déscription 1 en français."}}]},
         "code": "tech_1",
         "status": 3,
         "version": 1,
@@ -17,20 +14,11 @@
     }
 },
 {
-    "model": "questionnaire.questionnaire",
-    "pk": 102,
+    "model": "questionnaire.questionnaireconfiguration",
     "fields": {
-        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "configurations": [
-            1001
-        ],
-        "data": {"qg_name":[{"name":{"es":"WOCAT 2 en español"}}],"tech_qg_2":[{"tech_definition":{"es":"Descripción 2 en español"}}]},
-        "code": "tech_2",
-        "status": 3,
-        "version": 1,
-        "blocked": false,
-        "created": "2015-02-10T16:08:20.904Z",
-        "updated": "2015-02-10T16:08:20.904Z"
+        "configuration": 1001,
+        "questionnaire": 101,
+        "original_configuration": true
     }
 },
 {
@@ -50,6 +38,28 @@
         "language": "en"
     },
     "model": "questionnaire.questionnairetranslation"
+},
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 102,
+    "fields": {
+        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
+        "data": {"qg_name":[{"name":{"es":"WOCAT Tech 2 en español"}}],"tech_qg_2":[{"tech_definition":{"es":"Descripción 2 en español"}}]},
+        "code": "tech_2",
+        "status": 3,
+        "version": 1,
+        "blocked": false,
+        "created": "2015-02-10T16:08:20.904Z",
+        "updated": "2015-02-10T16:08:20.904Z"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 1001,
+        "questionnaire": 102,
+        "original_configuration": true
+    }
 },
 {
     "pk": 1021,
