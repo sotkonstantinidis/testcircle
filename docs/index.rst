@@ -50,6 +50,7 @@ Development
     development/installation
     development/datamodel
     development/dataformat
+    development/elasticsearch
     development/usergroups
     development/testing
     development/deployment

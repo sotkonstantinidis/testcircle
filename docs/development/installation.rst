@@ -43,6 +43,17 @@ install QCAT, you need to create a database first and install the
 .. _PostGIS: http://postgis.net/
 
 
+Elasticsearch
+^^^^^^^^^^^^^
+
+`Elasticsearch`_ is used as a search engine to query the questionnaires.
+
+.. seealso::
+    :doc:`/development/elasticsearch`
+
+.. _Elasticsearch: https://www.elastic.co/products/elasticsearch
+
+
 Installation on a UNIX system
 -----------------------------
 
@@ -84,6 +95,10 @@ database connection! ::
 
     $ cp qcat/settings_local.py.sample qcat/settings_local.py
     $ vim qcat/settings_local.py
+
+.. hint::
+    Authentication happens against the WOCAT user database, an API key
+    is needed for this.
 
 Let Django create the database tables for you::
 
@@ -144,3 +159,11 @@ Run the application::
 
 Open your browser and go to http://localhost:8000 to see if everything
 worked.
+
+.. important::
+    You need to set up Elasticsearch for QCAT to work properly. If you
+    are logged in as an administrator, there is an entry in the user
+    menu allowing you to create and update the Elasticsearch indices.
+
+    .. seealso::
+        :doc:`/development/elasticsearch`
