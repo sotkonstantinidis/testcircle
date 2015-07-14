@@ -4,10 +4,13 @@ button,
 
   @include rhythm;
   box-shadow: 0 0 0 0 $button-bg-color;
-  transition: all 300ms ease-out;
+  transition: all 200ms ease-out;
 
   &.secondary {
     box-shadow: 0 0 0 0 $secondary-color;
+  }
+  &.light {
+    @include button-style($bg:#fff, $bg-hover:$color-beige-light, $border-color:$color-beige-light);
   }
   &.is-wocat {
     background-color: $color-wocat;
@@ -21,6 +24,10 @@ button,
   &:hover,
   &:focus {
     box-shadow: 0 0 0 $button-shadow-effect $button-bg-hover;
+  }
+  &:hover.light,
+  &:focus.light {
+    box-shadow: 0 0 0 $button-shadow-effect $color-beige-light;
   }
   &:hover.secondary,
   &:focus.secondary {
@@ -37,27 +44,54 @@ button,
     box-shadow: 0 0 0 $button-shadow-effect $color-unccd-dark;
   }
 }
-.button-group {
-  label.button {
+.button-switch {
+  list-style: none;
+  & > li { 
+    display: inline-block;
+    float: left;
+    border: 0;
+    margin: 0 0 0 1px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  & > li > .button {
+    margin: 0;
+  }
+  &.radius > li:first-child > .button{ 
+    border-top-left-radius: $global-radius;
+    border-bottom-left-radius: $global-radius;
+  }
+  &.radius > li:last-child > .button { 
+    border-top-right-radius: $global-radius;
+    border-bottom-right-radius: $global-radius;
+  }
+  .button {
     position: relative;
     margin: 0;
     font-size: rem-calc(14);
     z-index: 1;
   }
-  label.button:focus,
-  label.button:hover {
-    z-index: 0;
+  .button:focus,
+  .button:hover {
+    z-index: 3;
   }
   input[type="radio"]{
     display: none;
   }
-  input[type="radio"]:checked+label{
+  input[type="radio"]:checked+.button{
     background: $color-brown-dark;
     color: white;
-
     &:focus,
     &:hover {
       box-shadow: 0 0 0 $button-shadow-effect $color-brown-dark;
+    }
+  }
+  input[type="radio"]:checked+.light{
+    background: $primary-bg-color;
+    &:focus,
+    &:hover {
+      box-shadow: 0 0 0 $button-shadow-effect $primary-bg-color;
     }
   }
   .is-selected &.big-comment input[type="radio"]:checked+label:after {
@@ -74,7 +108,6 @@ button,
     border-color: $color-brown-dark transparent transparent transparent;
   }
 }
-
 .button-icon {
   padding: 0.6rem 0 0.45rem;
 }
@@ -82,7 +115,6 @@ button,
   width: 2em;
   height: 2em;
 }
-
 .button-download {
   position: relative;
   display: block;
@@ -90,12 +122,10 @@ button,
   background-color: $color-beige;
   font-weight: 300;
   padding-left: rem-calc(48);
-
   &:hover,
   &:hover .tech-icon {
     color: white;
   }
-
   .button-download-title {
     display: inline-block;
     padding: rem-calc(12);

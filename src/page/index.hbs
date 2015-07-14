@@ -20,7 +20,19 @@ section: home
 <section class="home-search">
   <div class="row">
     <div class="small-10 small-centered medium-6 columns">
-      {{> form_search}}
+      <form action="" role="search">
+        <div class="search-input radius">
+          <input type="search" placeholder="Search pratice: e.g Soil degradation...">
+          <div class="search-btn postfix light">
+            <a href="#">
+              <svg class="icon"><use xlink:href="#icon-search"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div class="search-option text-center">
+          <a href="#" data-toggle="search-advanced">Advanced filter</a> | <a href="practices.html">Show all practices</a>
+        </div>
+      </form>
     </div>
   </div>
 </section>

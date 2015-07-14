@@ -9,7 +9,7 @@
 "foundation/components/alert-boxes",
 "foundation/components/block-grid",
 "foundation/components/breadcrumbs",
-"foundation/components/button-groups",
+// "foundation/components/button-groups",
 "foundation/components/buttons",
 "foundation/components/clearing",
 "foundation/components/dropdown",
@@ -42,6 +42,58 @@
 "foundation/components/offcanvas",
 "foundation/components/visibility";
 
-@import "base";
-@import "layout";
-@import "module";
+// Basic HTML elements
+// ---------------------------
+@import 'base/mixin';
+@import 'base/highlight';
+@import 'base/typography';
+@import 'base/table';
+@import 'base/form';
+@import 'base/media';
+
+.browsehappy {
+  display: block;
+  font-size: 18px;
+  background-color: $color-brown;
+  padding: 60px;
+  color: white;
+
+  a,
+  a:hover {
+    color: $color-wocat-light;
+  }
+}
+
+
+// Layouts
+// ---------------------------
+@import "layout/default";
+@import "layout/guideline";
+@import "layout/home";
+@import "layout/page";
+@import "layout/wizard";
+
+
+// Modules
+// ---------------------------
+@import 'module/accordion';
+@import 'module/brand';
+@import 'module/chart';
+@import 'module/dropzone';
+@import 'module/filter';
+@import 'module/gallery';
+@import 'module/help';
+@import 'module/icon';
+@import 'module/sub-nav';
+@import 'module/button';
+@import 'module/process';
+@import 'module/label';
+@import 'module/list';
+@import 'module/hero';
+@import 'module/toc';
+@import 'module/offcanvas';
+@import 'module/top-bar';
+@import 'module/tech';
+@import 'module/search';
+@import 'module/summary';
+@import 'module/slider';
