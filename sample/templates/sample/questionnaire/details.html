@@ -25,6 +25,10 @@
     </figure>
   {% endif %}
 
+  {% if perms.questionnaire.can_moderate %}
+    Moderate
+  {% endif %}
+
   <article role="main">
     <main class="is-rhythmed-4">
       {% for section in sections %}

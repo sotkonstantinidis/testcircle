@@ -1,4 +1,5 @@
 from functional_tests.base import FunctionalTest
+from django.contrib.auth.models import Group
 from accounts.tests.test_models import create_new_user
 from unittest.mock import patch
 
@@ -51,6 +52,83 @@ class LoginTest(FunctionalTest):
         # navbar = self.findBy('class_name', 'top-bar')
         # navbar.find_element_by_link_text('Logout')
 
+
+@patch('accounts.authentication.auth_authenticate')
+class UserTest(FunctionalTest):
+
+    fixtures = ['groups_permissions.json']
+
+    def test_superusers(self, mock_authenticate):
+        user = create_new_user()
+        user.is_superuser = True
+        user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        mock_authenticate.return_value = user
+        self.browser.get(self.live_server_url + '/404_no_such_url/')
+        self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
+        self.browser.get(self.live_server_url)
+
+        # Superusers see the link to the administration
+        self.findBy(
+            'xpath', '//ul[@class="dropdown"]/li/a[@href="/admin/"]')
+
+        # Superusers see the link to the Dashboard
+        self.findBy(
+            'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
+            'admin")]')
+
+    def test_administrators(self, mock_authenticate):
+        user = create_new_user()
+        user.groups = [Group.objects.get(pk=1)]
+        user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        mock_authenticate.return_value = user
+        self.browser.get(self.live_server_url + '/404_no_such_url/')
+        self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
+        self.browser.get(self.live_server_url)
+
+        # Administrators see the link to the administration
+        self.findBy(
+            'xpath', '//ul[@class="dropdown"]/li/a[@href="/admin/"]')
+
+        # Administrators do not see the link to the Dashboard
+        self.findByNot(
+            'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
+            'admin")]')
+
+    def test_moderators(self, mock_authenticate):
+        user = create_new_user()
+        user.groups = [Group.objects.get(pk=3)]
+        user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        mock_authenticate.return_value = user
+        self.browser.get(self.live_server_url + '/404_no_such_url/')
+        self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
+        self.browser.get(self.live_server_url)
+
+        # Moderators do not see the link to the administration
+        self.findByNot(
+            'xpath', '//ul[@class="dropdown"]/li/a[@href="/admin/"]')
+
+        # Moderators do not see the link to the Dashboard
+        self.findByNot(
+            'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
+            'admin")]')
+
+    def test_translators(self, mock_authenticate):
+        user = create_new_user()
+        user.groups = [Group.objects.get(pk=2)]
+        user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        mock_authenticate.return_value = user
+        self.browser.get(self.live_server_url + '/404_no_such_url/')
+        self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
+        self.browser.get(self.live_server_url)
+
+        # Translators see the link to the administration
+        self.findBy(
+            'xpath', '//ul[@class="dropdown"]/li/a[@href="/admin/"]')
+
+        # Translators do not see the link to the Dashboard
+        self.findByNot(
+            'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
+            'admin")]')
 
 # @patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
 # class LogoutTest(FunctionalTest):

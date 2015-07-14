@@ -90,9 +90,11 @@
                     <li>
                       <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
                     </li>
-                    <li>
-                      <a href="{% url 'search:admin' %}">Search Index Administration</a>
-                    </li>
+                    {% if user.is_superuser %}
+                      <li>
+                        <a href="{% url 'search:admin' %}">Search Index Administration</a>
+                      </li>
+                    {% endif %}
                   {% endif %}
                   <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
