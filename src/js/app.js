@@ -227,8 +227,7 @@ $(function() {
   // BUTTON BAR
   // -----------------
   // Button bar select line
-  .on('click', '.button-bar', toggleButtonBarSelected)
-
+  .on('click', '.button-bar', toggleButtonBarSelected);
 
   // Slider
   // -----------------

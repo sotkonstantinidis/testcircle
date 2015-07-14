@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
 from django_pgjson.fields import JsonBField
 
 from configuration.models import Configuration
@@ -35,7 +35,8 @@ class Questionnaire(models.Model):
     version = models.IntegerField()
     members = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through='QuestionnaireMembership')
-    configurations = models.ManyToManyField('configuration.Configuration')
+    configurations = models.ManyToManyField(
+        'configuration.Configuration', through='QuestionnaireConfiguration')
     links = models.ManyToManyField(
         'self', through='QuestionnaireLink', symmetrical=False,
         related_name='linked_to+', null=True)
@@ -89,7 +90,16 @@ class Questionnaire(models.Model):
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
             data=data, code=code, version=version, status=status)
-        questionnaire.configurations.add(configuration)
+
+        # TODO: Not all configurations should be the original ones!
+        QuestionnaireConfiguration.objects.create(
+            questionnaire=questionnaire, configuration=configuration,
+            original_configuration=True)
+
+        # TODO: Not all translations should be the original ones!
+        QuestionnaireTranslation.objects.create(
+            questionnaire=questionnaire, language=get_language(),
+            original_language=True)
 
         # TODO: This should happen on review!
         added, errors = put_questionnaire_data(
@@ -169,6 +179,20 @@ class Questionnaire(models.Model):
 
     def __str__(self):
         return json.dumps(self.data)
+
+
+class QuestionnaireConfiguration(models.Model):
+    """
+    Represents a many-to-many relationship between Questionnaires and
+    Configurations with additional fields. Additional fields mark the
+    configuration in which the Questionnaire was originally entered.
+    """
+    questionnaire = models.ForeignKey('Questionnaire')
+    configuration = models.ForeignKey('configuration.Configuration')
+    original_configuration = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-original_configuration']
 
 
 class QuestionnaireTranslation(models.Model):

@@ -4,9 +4,6 @@
     "pk": 1,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
-        "configurations": [
-            11002
-        ],
         "data": "{\"qg_1\": [{\"key_1\": {\"en\": \"Sample Key 1a\"}}]}",
         "code": "sample_1",
         "status": 3,
@@ -17,13 +14,18 @@
     }
 },
 {
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 1,
+        "original_configuration": true
+    }
+},
+{
     "model": "questionnaire.questionnaire",
     "pk": 2,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "configurations": [
-            11002
-        ],
         "data": "{\"qg_1\": [{\"key_1\": {\"en\": \"Sample Key 1b\", \"es\": \"Clave 1b\"}}]}",
         "code": "sample_2",
         "status": 3,
@@ -31,6 +33,14 @@
         "blocked": false,
         "created": "2015-02-11T16:08:20.904Z",
         "updated": "2015-02-11T16:08:20.904Z"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 2,
+        "original_configuration": true
     }
 }
 ]

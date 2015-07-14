@@ -1,4 +1,3 @@
-import json
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from unittest.mock import patch, Mock
@@ -69,17 +68,8 @@ class UnccdHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(self, mock_Q_Conf):
-        mock_Q_Conf.return_value = None
-        with self.assertRaises(AttributeError):
-            self.client.get(self.url)
-        mock_Q_Conf.assert_called_once_with('unccd')
-
     @patch('unccd.views.generic_questionnaire_list')
-    @patch('unccd.views.messages')
-    def test_calls_generic_questionnaire_list(
-            self, mock_messages, mock_questionnaire_list):
+    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
         home(request)
         mock_questionnaire_list.assert_called_once_with(

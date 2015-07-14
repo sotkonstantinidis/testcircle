@@ -1,12 +1,15 @@
 import uuid
 from django.core.exceptions import ValidationError
+from django.utils.translation import activate
 from unittest.mock import patch
 
 from configuration.models import Configuration
 from qcat.tests import TestCase
 from questionnaire.models import (
     Questionnaire,
+    QuestionnaireConfiguration,
     QuestionnaireLink,
+    QuestionnaireTranslation,
     File,
 )
 
@@ -86,8 +89,9 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire.version, 1)
 
     @patch.object(Configuration, 'get_active_by_code')
+    @patch.object(QuestionnaireConfiguration.objects, 'create')
     def test_create_new_calls_configuration_get_active_by_code(
-            self, mock_Configuration_get_active_by_code,
+            self, mock_create, mock_Configuration_get_active_by_code,
             mock_put_questionnaire_data):
         mock_put_questionnaire_data.return_value = 1, []
         Questionnaire.create_new(configuration_code='sample', data={})
@@ -106,9 +110,37 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(len(ret_configurations), 1)
         self.assertEqual(ret_configurations[0].id, configuration.id)
 
+    @patch('questionnaire.models.get_language')
+    def test_create_new_calls_get_language(
+            self, mock_get_language, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
+        Questionnaire.create_new(configuration_code='sample', data={})
+        mock_get_language.assert_called_once_with()
+
+    def test_create_new_adds_language(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
+        language = 'en'
+        ret = Questionnaire.create_new(configuration_code='sample', data={})
+        ret_languages = ret.questionnairetranslation_set.all()
+        self.assertEqual(len(ret_languages), 1)
+        self.assertEqual(ret_languages[0].language, language)
+
+    def test_create_new_adds_language2(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
+        language = 'es'
+        activate('es')
+        ret = Questionnaire.create_new(configuration_code='sample', data={})
+        ret_languages = ret.questionnairetranslation_set.all()
+        self.assertEqual(len(ret_languages), 1)
+        self.assertEqual(ret_languages[0].language, language)
+        activate('en')
+
     @patch.object(Questionnaire.objects, 'create')
+    @patch.object(QuestionnaireTranslation.objects, 'create')
+    @patch.object(QuestionnaireConfiguration.objects, 'create')
     def test_create_new_calls_put_questionnaire_data(
-            self, mock_create, mock_put_questionnaire_data):
+            self, mock_create_conf_link, mock_create_translation, mock_create,
+            mock_put_questionnaire_data):
         mock_put_questionnaire_data.return_value = 1, []
         Questionnaire.create_new(configuration_code='sample', data={})
         mock_put_questionnaire_data.assert_called_once_with(

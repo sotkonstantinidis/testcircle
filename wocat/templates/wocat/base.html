@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block title %}WOCAT{% endblock %}
+{% block title %}{% trans "WOCAT" %}{% endblock %}
 
 {% block bodyclass %}layout-wocat{% endblock %}
 {% block navclass %}is-wocat{% endblock %}
@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block header %}
+  {% include "wocat/partial/top.html" with current='wocat' %}
   <ul class="form-search">
     <li class="has-form">
       <form action="{% url 'wocat:questionnaire_list' %}" method="GET" role="search">

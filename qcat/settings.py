@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'accounts',
     'configuration',
     'wocat',
+    'technologies',
+    'approaches',
     'unccd',
     'search',
     'sample',
