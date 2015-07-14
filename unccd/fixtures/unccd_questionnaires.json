@@ -1,32 +1,71 @@
 [
 {
     "model": "questionnaire.questionnaire",
-    "pk": 1,
+    "pk": 201,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
-        "configurations": [
-            2001
-        ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Key 5\"}], \"qg_3\": [{\"key_6\": \"... and I am Key\", \"key_4\": \"Hi, I am Key 4, ...\"}], \"qg_1\": [{\"key_3\": \"And this cannot be empty.\", \"key_1\": \"This is the first key.\"}], \"qg_2\": [{}]}",
-        "active": null,
+        "data": {"qg_name":[{"name":{"en":"UNCCD practice 1","es":"UNCCD 1 en español"}}],"unccd_qg_10":[{"unccd_description":{"en":"This is the description of the first UNCCD practice.","es":"Descripción 1 en español"}}]},
+        "status": 3,
+        "version": 1,
         "blocked": false,
-        "created": "2015-02-10T16:07:20.847Z",
-        "updated": "2015-02-10T16:07:20.847Z"
+        "created": "2015-02-10T16:07:40.847Z",
+        "updated": "2015-02-10T16:07:40.847Z"
     }
 },
 {
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 2001,
+        "questionnaire": 201,
+        "original_configuration": true
+    }
+},
+{
+    "pk": 2011,
+    "fields": {
+        "questionnaire": 201,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 2012,
+    "fields": {
+        "questionnaire": 201,
+        "original_language": false,
+        "language": "es"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
     "model": "questionnaire.questionnaire",
-    "pk": 2,
+    "pk": 202,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "configurations": [
-            2001
-        ],
-        "data": "{\"qg_4\": [{\"key_5\": \"Faz\"}], \"qg_3\": [{}], \"qg_1\": [{\"key_3\": \"Bar\", \"key_1\": \"Foo\"}], \"qg_2\": [{}]}",
-        "active": null,
+        "data": {"qg_name":[{"name":{"en":"UNCCD practice 2"}}],"unccd_qg_10":[{"unccd_description":{"en":"This is the description of the second UNCCD practice."}}]},
+        "status": 3,
+        "version": 1,
         "blocked": false,
-        "created": "2015-02-10T16:08:20.904Z",
-        "updated": "2015-02-10T16:08:20.904Z"
+        "created": "2015-02-10T16:08:40.904Z",
+        "updated": "2015-02-10T16:08:40.904Z"
     }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 2001,
+        "questionnaire": 202,
+        "original_configuration": true
+    }
+},
+{
+    "pk": 2021,
+    "fields": {
+        "questionnaire": 202,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
 }
 ]

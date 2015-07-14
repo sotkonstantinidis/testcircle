@@ -24,6 +24,7 @@ Questionnaires
     :maxdepth: 2
 
     configuration/questionnaire
+    configuration/section
     configuration/category
     configuration/subcategory
     configuration/questiongroup
@@ -49,6 +50,7 @@ Development
     development/installation
     development/datamodel
     development/dataformat
+    development/elasticsearch
     development/usergroups
     development/testing
     development/deployment

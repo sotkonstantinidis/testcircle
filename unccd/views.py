@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
@@ -6,7 +5,6 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
-from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_list,
@@ -16,19 +14,12 @@ from questionnaire.views import (
 
 
 def home(request):
-    # TODO: Show this warning here? Or in Admin?
-    questionnaire_configuration = QuestionnaireConfiguration('unccd')
-    if questionnaire_configuration.configuration_error is not None:
-        messages.error(
-            request, 'WARNING: INVALID CONFIGURATION. {}'.format(
-                questionnaire_configuration.configuration_error))
-
     list_template_values = generic_questionnaire_list(
-        request, 'unccd', template=None, only_current=True, limit=3)
+        request, 'unccd', template=None, only_current=True, limit=3,
+        db_query=True)
 
     return render(request, 'unccd/home.html', {
-        'questionnaire_value_list': list_template_values.get(
-            'questionnaire_value_list', [])
+        'list_values': list_template_values.get('list_values', [])
     })
 
 
@@ -122,7 +113,7 @@ def questionnaire_list_partial(request):
     list_values = generic_questionnaire_list(request, 'unccd', template=None)
 
     list_ = render_to_string('unccd/questionnaire/partial/list.html', {
-        'questionnaire_value_list': list_values['questionnaire_value_list']})
+        'list_values': list_values['list_values']})
     active_filters = render_to_string('active_filters.html', {
         'active_filters': list_values['active_filters']})
 

@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from django.http import QueryDict
 
 from configuration.configuration import QuestionnaireConfiguration
@@ -9,7 +9,9 @@ from questionnaire.utils import (
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
     get_questiongroup_data_from_translation_form,
+    get_list_values,
     is_valid_questionnaire_format,
+    query_questionnaires_for_link,
 )
 from qcat.errors import QuestionnaireFormatError
 
@@ -441,3 +443,220 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filter_2), 6)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_2')
+
+    def test_returns_q_filter(self):
+        query_dict = QueryDict('q=foo')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_search')
+        self.assertEqual(filter_1['key'], '_search')
+        self.assertEqual(filter_1['questiongroup'], '_search')
+        self.assertEqual(filter_1['key_label'], 'Search Terms')
+        self.assertEqual(filter_1['value'], 'foo')
+        self.assertEqual(filter_1['value_label'], 'foo')
+
+    def test_returns_mixed_filters(self):
+        query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 2)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_search')
+        self.assertEqual(filter_1['key'], '_search')
+        self.assertEqual(filter_1['questiongroup'], '_search')
+        self.assertEqual(filter_1['key_label'], 'Search Terms')
+        self.assertEqual(filter_1['value'], 'foo')
+        self.assertEqual(filter_1['value_label'], 'foo')
+        filter_2 = filters[1]
+        self.assertIsInstance(filter_2, dict)
+        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(filter_2['key_label'], 'Key 14')
+        self.assertEqual(filter_2['value_label'], 'Value 14_1')
+
+
+class QueryQuestionnairesForLinkTest(TestCase):
+
+    fixtures = ['sample.json', 'sample_questionnaires.json']
+
+    def test_calls_get_name_keywords(self):
+        configuration = Mock()
+        configuration.get_name_keywords.return_value = None, None
+        query_questionnaires_for_link(configuration, '')
+        configuration.get_name_keywords.assert_called_once_with()
+
+    def test_returns_empty_if_no_name(self):
+        configuration = Mock()
+        configuration.get_name_keywords.return_value = None, None
+        total, data = query_questionnaires_for_link(configuration, '')
+        self.assertEqual(total, 0)
+        self.assertEqual(data, [])
+
+    def test_returns_by_q(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'key'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 2)
+        self.assertTrue(len(data), 2)
+        self.assertEqual(data[0].id, 1)
+        self.assertEqual(data[1].id, 2)
+
+    def test_returns_by_q_case_insensitive(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'KEY'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 2)
+        self.assertTrue(len(data), 2)
+        self.assertEqual(data[0].id, 1)
+        self.assertEqual(data[1].id, 2)
+
+    def test_returns_single_result(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'key 1b'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 1)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 2)
+
+    def test_applies_limit(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'key'
+        total, data = query_questionnaires_for_link(configuration, q, limit=1)
+        self.assertEqual(total, 2)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 1)
+
+    def test_finds_by_code(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'sample_1'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 1)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 1)
+
+    def test_find_by_other_langauge(self):
+        configuration = QuestionnaireConfiguration('sample')
+        q = 'clave'
+        total, data = query_questionnaires_for_link(configuration, q)
+        self.assertEqual(total, 1)
+        self.assertTrue(len(data), 1)
+        self.assertEqual(data[0].id, 2)
+
+
+class GetListValuesTest(TestCase):
+
+    def test_returns_values_from_es_search(self):
+        es_search = {
+            'hits': {
+                'hits': [
+                    {
+                        '_id': 1,
+                    }
+                ]
+            }
+        }
+        ret = get_list_values(es_search=es_search)
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
+        self.assertEqual(ret_1.get('configurations'), [])
+        self.assertEqual(ret_1.get('created', ''), None)
+        self.assertEqual(ret_1.get('updated', ''), None)
+        self.assertEqual(ret_1.get('native_configuration'), False)
+        self.assertEqual(ret_1.get('id'), 1)
+        self.assertEqual(ret_1.get('translations'), [])
+
+    def test_es_uses_provided_configuration(self):
+        es_search = {
+            'hits': {
+                'hits': [
+                    {
+                        '_id': 1,
+                    }
+                ]
+            }
+        }
+        ret = get_list_values(es_search=es_search, configuration_code='foo')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'foo')
+
+    def test_es_wocat_uses_default_configuration(self):
+        es_search = {
+            'hits': {
+                'hits': [
+                    {
+                        '_id': 1,
+                    }
+                ]
+            }
+        }
+        ret = get_list_values(es_search=es_search, configuration_code='wocat')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
+
+    def test_returns_values_from_database(self):
+        obj = Mock()
+        obj.configurations.all.return_value = []
+        obj.configurations.first.return_value = None
+        obj.questionnairetranslation_set.all.return_value = []
+        questionnaires = [obj]
+        ret = get_list_values(questionnaire_objects=questionnaires)
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
+        self.assertEqual(ret_1.get('configurations'), [])
+        self.assertEqual(ret_1.get('created', ''), obj.created)
+        self.assertEqual(ret_1.get('updated', ''), obj.updated)
+        self.assertEqual(ret_1.get('native_configuration'), False)
+        self.assertEqual(ret_1.get('id'), obj.id)
+        self.assertEqual(ret_1.get('translations'), [])
+
+    def test_db_uses_provided_configuration(self):
+        obj = Mock()
+        obj.configurations.all.return_value = []
+        obj.configurations.first.return_value = None
+        obj.questionnairetranslation_set.all.return_value = []
+        questionnaires = [obj]
+        ret = get_list_values(
+            questionnaire_objects=questionnaires, configuration_code='foo')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'foo')
+
+    def test_db_wocat_uses_default_configuration(self):
+        obj = Mock()
+        obj.configurations.all.return_value = []
+        obj.configurations.first.return_value = None
+        obj.questionnairetranslation_set.all.return_value = []
+        questionnaires = [obj]
+        ret = get_list_values(
+            questionnaire_objects=questionnaires, configuration_code='wocat')
+        self.assertEqual(len(ret), 1)
+        ret_1 = ret[0]
+        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(ret_1.get('configuration'), 'technologies')
+
+    @patch('questionnaire.utils.get_or_create_configuration')
+    def test_from_database_calls_get_or_create_configuration(
+            self, mock_get_or_create_configuration):
+        m = Mock()
+        m.get_list_data.return_value = [{}]
+        mock_get_or_create_configuration.return_value = m, {}
+        obj = Mock()
+        obj.configurations.first.return_value = None
+        obj.configurations.all.return_value = []
+        obj.questionnairetranslation_set.all.return_value = []
+        questionnaires = [obj]
+        get_list_values(questionnaire_objects=questionnaires)
+        mock_get_or_create_configuration.assert_called_once_with(
+            'technologies', {})

@@ -1,0 +1,146 @@
+[
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 1,
+    "fields": {
+        "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
+        "data": "{\"qg_4\": [{\"key_5\": {\"en\": \"Key 5\"}}], \"qg_3\": [{\"key_6\": {\"en\": \"... and I am Key 6\"}, \"key_4\": {\"en\": \"Hi, I am Key 4, ...\"}}], \"qg_1\": [{\"key_3\": {\"en\": \"And this cannot be empty.\"}, \"key_1\": {\"en\": \"This is the first key.\"}}]}",
+        "status": 3,
+        "version": 1,
+        "blocked": false,
+        "created": "2015-02-10T16:07:20.847Z",
+        "updated": "2015-02-10T16:07:20.847Z",
+        "code": "sample_1"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 1,
+        "original_configuration": true
+    }
+},
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 2,
+    "fields": {
+        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
+        "data": "{\"qg_4\": [{\"key_5\": {\"en\": \"Faz\"}}], \"qg_3\": [{}], \"qg_1\": [{\"key_3\": {\"en\": \"Bar\"}, \"key_1\": {\"en\": \"Foo\"}}]}",
+        "status": 3,
+        "version": 1,
+        "blocked": false,
+        "created": "2015-02-10T16:08:20.904Z",
+        "updated": "2015-02-10T16:08:20.904Z",
+        "code": "sample_2"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 2,
+        "original_configuration": true
+    }
+},
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 3,
+    "fields": {
+        "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1d",
+        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1a\"}}]}",
+        "status": 3,
+        "version": 1,
+        "blocked": false,
+        "created": "2015-02-10T16:07:20.847Z",
+        "updated": "2015-02-10T16:07:20.847Z",
+        "code": "samplemulti_1"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 12001,
+        "questionnaire": 3,
+        "original_configuration": true
+    }
+},
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 4,
+    "fields": {
+        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b06",
+        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1b\"}}]}",
+        "status": 3,
+        "version": 1,
+        "blocked": false,
+        "created": "2015-02-10T16:08:20.904Z",
+        "updated": "2015-02-10T16:08:20.904Z",
+        "code": "samplemulti_2"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 12001,
+        "questionnaire": 4,
+        "original_configuration": true
+    }
+},
+{
+    "model": "questionnaire.questionnairelink",
+    "pk": 1,
+    "fields": {
+        "from_questionnaire": 1,
+        "from_status": 3,
+        "to_questionnaire": 3,
+        "to_status": 3
+    }
+},
+{
+    "model": "questionnaire.questionnairelink",
+    "pk": 2,
+    "fields": {
+        "from_questionnaire": 3,
+        "from_status": 3,
+        "to_questionnaire": 1,
+        "to_status": 3
+    }
+},
+{
+    "pk": 3001,
+    "fields": {
+        "questionnaire": 1,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 3002,
+    "fields": {
+        "questionnaire": 2,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 3003,
+    "fields": {
+        "questionnaire": 3,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+},
+{
+    "pk": 3004,
+    "fields": {
+        "questionnaire": 4,
+        "original_language": true,
+        "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+}
+]

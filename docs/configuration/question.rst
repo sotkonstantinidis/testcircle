@@ -29,10 +29,16 @@ The basic format of the configuration is as follows::
     "in_list": true,
 
     # (optional)
+    "is_name": true,
+
+    # (optional)
     "form_template": "TEMPLATE_NAME",
 
     # (optional)
     "view_template": "TEMPLATE_NAME",
+
+    # (optional)
+    "view_label": true,
 
     # (optional)
     "conditional": true,
@@ -72,6 +78,17 @@ The keyword of the key of this question.
 (Optional). An optional boolean indicating whether this question should
 appear in the list representation of questionnaires or not. Defaults to
 ``False``, meaning that this question is not shown in the list.
+
+``is_name``
+^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether this question
+represents the name of the entire Questionnaire.
+
+.. important::
+    Only one question of the entire Questionnaire can have this flag. If
+    the key is inside a repeating questiongroup, only the first
+    appearance of the key will be used as name.
 
 ``form_template``
 ^^^^^^^^^^^^^^^^^
@@ -113,6 +130,14 @@ match a file with the ending ``.html`` inside
 default layout for each key type is used (usually ``textinput.html``).
 
 Please note that not every template should be used with any field type.
+
+``view_label``
+^^^^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether to display the label
+of the key in the view template or not. Defaults to ``true``. Turn the
+label off if the key has the same label as the subcategory.
+
 
 ``conditional``
 ^^^^^^^^^^^^^^^
@@ -167,4 +192,5 @@ is only meaningful for key types ``char`` (default value: 200) and
 
 (Optional). An optional integer to define the number of rows to be shown
 for textarea fields. This is only meaningful for key type ``text``.
-Defaults to 10.
+The default is relative to ``max_length`` if set, else the default is
+10.

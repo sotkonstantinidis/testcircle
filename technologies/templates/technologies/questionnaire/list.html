@@ -1,0 +1,20 @@
+{% extends 'technologies/base.html' %}
+
+{% load i18n %}
+
+{% block bodyclass %}layout-technologies{% endblock %}
+
+{% block content %}
+
+  <main class="row large-collapse" role="main">
+    <section class="tech-list small-12 columns">
+      <div class="tech-group">
+        <h2 class="is-group">{% trans "All technologies" %}</h2>
+        <div id="questionnaire-list">
+          {% include "technologies/questionnaire/partial/list.html" %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+{% endblock %}

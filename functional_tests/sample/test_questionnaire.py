@@ -1,52 +1,38 @@
 import time
 from django.core.urlresolvers import reverse
+from django.http import JsonResponse
+from django.test.utils import override_settings
 from selenium.webdriver.common.keys import Keys
+from unittest.mock import patch
 
 from functional_tests.base import FunctionalTest
-from qcat.utils import get_session_questionnaire
 from sample.tests.test_views import (
+    route_questionnaire_details,
+    route_questionnaire_link_form,
     route_questionnaire_list,
     route_questionnaire_new,
     route_questionnaire_new_step,
     get_category_count,
     get_position_of_category,
 )
+from samplemulti.tests.test_views import route_questionnaire_details as \
+    route_questionnaire_details_samplemulti
 
 from nose.plugins.attrib import attr
 # @attr('foo')
 
+TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample.json']
 
-    def test_stores_session_dictionary_correctly(self):
-
-        # Alice logs in
-        self.doLogin('a@b.com', 'foo')
-
-        # She goes to a step of the questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
-
-        # She enters something as first key
-        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
-        self.assertEqual(key_1.text, '')
-        key_1.send_keys('Foo')
-
-        self.findBy('id', 'button-submit').click()
-
-        self.findBy('xpath', '//*[contains(text(), "Foo")]')
-        session_data = get_session_questionnaire()
-        self.assertEqual(session_data, {'qg_1': [{'key_1': {'en': 'Foo'}}]})
-
-        # self.assertEqual(self.browser.current_url, 'foo')
-        self.findBy('id', 'button-submit').click()
-
     def test_navigate_questionnaire(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -82,12 +68,42 @@ class QuestionnaireTest(FunctionalTest):
             'xpath',
             '//a[@data-magellan-destination="question2" and @class="active"]')
 
+    def test_numbered_questiongroups(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_3']))
+
+        # She sees that the Questiongroup with Keys 17 and 18 are
+        # numbered inline
+        self.checkOnPage('1: Key 17')
+        self.checkOnPage('1: Key 18')
+        self.checkOnPage('2: Key 17')
+        self.checkOnPage('2: Key 18')
+
+        # She sees that the Questiongroup with Key 9 is numbered
+        numbered_1 = self.findBy(
+            'xpath', '(//p[@class="questiongroup-numbered-number"])[1]')
+        self.assertEqual(numbered_1.text, '1:')
+        numbered_2 = self.findBy(
+            'xpath', '(//p[@class="questiongroup-numbered-number"])[2]')
+        self.assertEqual(numbered_2.text, '2:')
+
+        # TODO: Test numbering in output.
+
+        # She submits the questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('id', 'button-submit').click()
+
     def test_repeating_questiongroups(self):
 
         initial_button_count = 3
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -186,12 +202,11 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # She sees the values were submitted
-        self.checkOnPage('Key 8: 3')
-        self.checkOnPage('Key 9: a')
-        self.checkOnPage('Key 9: b')
-        self.checkOnPage('Key 10: x')
-        self.checkOnPage('Key 10: y')
-        self.checkOnPage('Key 10: z')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 8")]]')
+        self.assertEqual(len(self.findManyBy(
+            'xpath', '//*[text()[contains(.,"Key 9")]]')), 2)
+        self.assertEqual(len(self.findManyBy(
+            'xpath', '//*[text()[contains(.,"Key 10")]]')), 3)
 
         # She edits again
         self.browser.get(self.live_server_url + reverse(
@@ -232,7 +247,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_form_progress(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
         cat_1_position = get_position_of_category('cat_1')
 
         # She goes directly to the Sample questionnaire
@@ -310,7 +325,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_textarea_maximum_length(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -365,7 +380,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_textarea_preserves_line_breaks(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -389,7 +404,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_nested_subcategories(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_2_position = get_position_of_category('cat_2')
 
@@ -408,9 +423,9 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees that no values were submitted
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 25")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 26")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 25")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 26")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
@@ -429,14 +444,14 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form and sees the values were submitted
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 5")]')
-        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 26")]')
-        self.findBy('xpath', '//*[contains(text(), "Bar")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 25")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 26")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 25")]]')
 
         # She sees that value to key 25 was only submitted once
-        key_26 = self.findManyBy('xpath', '//*[contains(text(), "Key 26")]')
+        key_26 = self.findManyBy('xpath', '//*[text()[contains(.,"Key 26")]]')
         self.assertEqual(len(key_26), 1)
 
         # She goes back to the form and sees that the values are populated
@@ -453,27 +468,27 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form and sees the values were submitted
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 5")]')
-        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 26")]')
-        self.findBy('xpath', '//*[contains(text(), "Bar")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 25")]')
-        self.findBy('xpath', '//*[contains(text(), "Faz")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 26")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 25")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
 
         # She submits the form completely and sees the values were submitted
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 5")]')
-        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 26")]')
-        self.findBy('xpath', '//*[contains(text(), "Bar")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 25")]')
-        self.findBy('xpath', '//*[contains(text(), "Faz")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 26")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 25")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
 
     def test_selects_with_chosen(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1')
 
@@ -501,7 +516,7 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees that no value was submitted,
         # progress of Category 1 is still 0
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_1_position))
@@ -531,8 +546,8 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form and sees that the value was submitted,
         # progress of Category 1 is now updated
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 4")]')
-        self.findBy('xpath', '//*[contains(text(), "Afghanistan")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Afghanistan")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_1_position))
@@ -561,18 +576,18 @@ class QuestionnaireTest(FunctionalTest):
 
         # She submits the form and sees the value was updated
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 4")]')
-        self.findBy('xpath', '//*[contains(text(), "Germany")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
 
         # She submits the entire form and sees the value is on the details page
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 4")]')
-        self.findBy('xpath', '//*[contains(text(), "Germany")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
 
     def test_checkbox(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_2_position = get_position_of_category('cat_2')
 
@@ -590,7 +605,7 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees that no value was submitted,
         # progress of Category 2 is still 0
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[contains(text(), "Key 13")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 13")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
@@ -614,9 +629,9 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the step and sees that the value was submitted and
         # the form progress on the overview page is updated
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 13")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 13")]]')
 
-        self.findBy('xpath', '//*[contains(text(), "Value 13_1")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Value 13_1")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
@@ -645,23 +660,23 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # The overview now shows both values
-        self.findBy('xpath', '//*[contains(text(), "Key 13")]')
-        self.findByNot('xpath', '//*[contains(text(), "Value 13_1")]')
-        self.findBy('xpath', '//*[contains(text(), "Value 13_2")]')
-        self.findBy('xpath', '//*[contains(text(), "Value 13_3")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 13")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Value 13_1")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Value 13_2")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Value 13_3")]]')
 
         # She submits the form and sees that the radio value is stored
         # correctly
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 13")]')
-        self.findByNot('xpath', '//*[contains(text(), "Value 13_1")]')
-        self.findBy('xpath', '//*[contains(text(), "Value 13_2")]')
-        self.findBy('xpath', '//*[contains(text(), "Value 13_3")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 13")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Value 13_1")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Value 13_2")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Value 13_3")]]')
 
     def test_image_checkbox(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_4_position = get_position_of_category('cat_4')
 
@@ -679,7 +694,7 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees that no value was submitted,
         # progress of Category 4 is still 0
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[contains(text(), "Key 14")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 14")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_4_position))
@@ -749,7 +764,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_measure_conditional(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -844,7 +859,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_checkbox_conditional(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -928,7 +943,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_conditional_chaining(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -1024,7 +1039,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_image_checkbox_subcategory(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_4_position = get_position_of_category('cat_4')
 
@@ -1056,7 +1071,7 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees that no value was submitted,
         # progress of Category 4 is still 0
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[contains(text(), "Key 15")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 15")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_4_position))
@@ -1191,7 +1206,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_measure_selects(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_2_position = get_position_of_category('cat_2')
 
@@ -1215,7 +1230,7 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees that no value was submitted,
         # progress of Category 2 is still 0
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[contains(text(), "Key 12")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 12")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
@@ -1250,8 +1265,8 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the step and sees that the value was submitted and
         # the form progress on the overview page is updated
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//*[contains(text(), "low")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"low")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_2_position))
@@ -1283,18 +1298,18 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # The overview now shows medium and she submits the form
-        self.findBy('xpath', '//*[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//*[contains(text(), "medium")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
 
         # She submits the form and sees that the radio value is stored
         # correctly
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 12: medium")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12: medium")]]')
 
     def test_radio_selects(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1')
 
@@ -1313,7 +1328,7 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees no value was submitted,
         # progress of Category 1 is still 0
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[contains(text(), "Key 11")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 11")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
                 cat_1_position))
@@ -1332,7 +1347,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # She sees the value was transmitted and the progress was updated
-        self.findBy('xpath', '//*[contains(text(), "Key 11: Yes")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 11: Yes")]]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width:50.0%"]')
         progress_indicator = self.findBy(
@@ -1353,11 +1368,203 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # She sees the value was updated
-        self.findBy('xpath', '//*[contains(text(), "Key 11: No")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 11: No")]]')
 
         # She submits the form and sees the radio value is stored correctly
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[contains(text(), "Key 11: No")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 11: No")]]')
+
+    def test_plus_questiongroup(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        # She sees that Subcategory 1_2 contains an additional
+        # questiongroups for "plus" questions, the keys initially hidden
+        plus_button = self.findBy(
+            'xpath', '//ul[contains(@class, "plus-questiongroup")]/li/a')
+
+        key_37 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_37"]')
+        key_38 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_38"]')
+        self.assertFalse(key_37.is_displayed())
+        self.assertFalse(key_38.is_displayed())
+
+        # She clicks on the button and sees the keys are now visible
+        plus_button.click()
+        time.sleep(1)
+        self.assertTrue(key_37.is_displayed())
+        self.assertTrue(key_38.is_displayed())
+
+        # She enters some text and sees that the progress was updated
+        key_37.send_keys('Foo')
+        key_38.send_keys('Bar')
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+
+        # She submits the form and sees that the values were submitted
+        # correctly.
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
+        # She goes back to the form and sees the additional
+        # questiongroups are now visible because they have initial
+        # values
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+
+        key_37 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_37"]')
+        key_38 = self.findBy(
+            'xpath', '//input[@name="qg_29-0-original_key_38"]')
+        self.assertTrue(key_37.is_displayed())
+        self.assertTrue(key_38.is_displayed())
+
+        # She hides the keys and shows them again, the values are still
+        # there
+        plus_button = self.findBy(
+            'xpath', '//ul[contains(@class, "plus-questiongroup")]/li/a')
+        plus_button.click()
+        time.sleep(1)
+        self.assertFalse(key_37.is_displayed())
+        self.assertFalse(key_38.is_displayed())
+        plus_button.click()
+        time.sleep(1)
+
+        key_37_value = self.findBy(
+            'xpath',
+            '//input[@name="qg_29-0-original_key_37" and @value="Foo"]')
+        key_38_value = self.findBy(
+            'xpath',
+            '//input[@name="qg_29-0-original_key_38" and @value="Bar"]')
+        self.assertTrue(key_37_value.is_displayed())
+        self.assertTrue(key_38_value.is_displayed())
+
+        # She submits the form and sees that the values were submitted
+        # correctly.
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
+        self.findBy('id', 'button-submit').click()
+        self.checkOnPage('Foo')
+        self.checkOnPage('Bar')
+
+    def test_table_entry(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire with a table
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_5']))
+
+        # She sees a table and enters some values
+        table = self.findBy('xpath', '//table')
+
+        headers = self.findManyBy('xpath', '//th', base=table)
+        self.assertEqual(len(headers), 4)
+        self.assertEqual(headers[0].text, 'Key 33')
+        self.assertEqual(headers[1].text, 'Key 34')
+        self.assertEqual(headers[2].text, 'Key 35')
+        self.assertEqual(headers[3].text, 'Key 36')
+
+        row_1 = self.findBy('xpath', '//tr[1]', base=table)
+        td_1_1 = self.findBy('xpath', '//td[1]', base=row_1)
+        self.findBy(
+            'xpath', '//input[@name="qg_25-0-original_key_33"]',
+            base=td_1_1).send_keys('Foo 1')
+        td_1_2 = self.findBy('xpath', '//td[2]', base=row_1)
+        self.findBy(
+            'xpath', '//input[@name="qg_25-0-original_key_34"]',
+            base=td_1_2).send_keys('Bar 1')
+        td_1_3 = self.findBy('xpath', '//td[3]', base=row_1)
+        td_1_3_row_1 = self.findBy('xpath', '//table/tbody/tr[1]', base=td_1_3)
+        self.findBy(
+            'xpath', '//input[@name="qg_26-0-original_key_35"]',
+            base=td_1_3_row_1).send_keys('Foobar 1_1')
+        self.findBy(
+            'xpath', '//input[@name="qg_26-0-original_key_36"]',
+            base=td_1_3_row_1).send_keys('Foobar 1_2')
+        td_1_3_row_2 = self.findBy('xpath', '//table/tbody/tr[2]', base=td_1_3)
+        self.findBy(
+            'xpath', '//input[@name="qg_26-1-original_key_35"]',
+            base=td_1_3_row_2).send_keys('Foobar 2_1')
+        self.findBy(
+            'xpath', '//input[@name="qg_26-1-original_key_36"]',
+            base=td_1_3_row_2).send_keys('Foobar 2_2')
+
+        row_2 = self.findBy('xpath', '//tr[2]', base=table)
+        td_2_1 = self.findBy('xpath', '//td[1]', base=row_2)
+        self.findBy(
+            'xpath', '//input[@name="qg_27-0-original_key_33"]',
+            base=td_2_1).send_keys('Foo 2')
+        td_2_2 = self.findBy('xpath', '//td[2]', base=row_2)
+        self.findBy(
+            'xpath', '//input[@name="qg_27-0-original_key_34"]',
+            base=td_2_2).send_keys('Bar 2')
+        td_2_3 = self.findBy('xpath', '//td[3]', base=row_2)
+        td_2_3_row_1 = self.findBy('xpath', '//table/tbody/tr[1]', base=td_2_3)
+        self.findBy(
+            'xpath', '//input[@name="qg_28-0-original_key_35"]',
+            base=td_2_3_row_1).send_keys('Foobar 3_1')
+        self.findBy(
+            'xpath', '//input[@name="qg_28-0-original_key_36"]',
+            base=td_2_3_row_1).send_keys('Foobar 3_2')
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the values are represented as table
+        table = self.findBy('xpath', '//div/table')
+        table_text = table.text
+
+        headers = self.findManyBy('xpath', '//th', base=table)
+        self.assertEqual(len(headers), 4)
+        self.assertEqual(headers[0].text, 'Key 33')
+        self.assertEqual(headers[1].text, 'Key 34')
+        self.assertEqual(headers[2].text, 'Key 35')
+        self.assertEqual(headers[3].text, 'Key 36')
+
+        row_1 = self.findBy('xpath', '//tr[1]', base=table)
+        td_1_1 = self.findBy('xpath', '//td[1]', base=row_1)
+        self.assertEqual(td_1_1.text, 'Foo 1')
+        td_1_2 = self.findBy('xpath', '//td[2]', base=row_1)
+        self.assertEqual(td_1_2.text, 'Bar 1')
+        td_1_3_1_1 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[1]/td[1]')
+        self.assertEqual(td_1_3_1_1.text, 'Foobar 1_1')
+        td_1_3_1_2 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[1]/td[2]')
+        self.assertEqual(td_1_3_1_2.text, 'Foobar 1_2')
+        td_1_3_2_1 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[2]/td[1]')
+        self.assertEqual(td_1_3_2_1.text, 'Foobar 2_1')
+        td_1_3_2_2 = self.findBy(
+            'xpath', '//table/tbody/tr[1]/td[3]/table/tbody/tr[2]/td[2]')
+        self.assertEqual(td_1_3_2_2.text, 'Foobar 2_2')
+
+        td_2_1 = self.findBy('xpath', '//div/table/tbody/tr[2]/td[1]')
+        self.assertEqual(td_2_1.text, 'Foo 2')
+        td_2_2 = self.findBy('xpath', '//div/table/tbody/tr[2]/td[2]')
+        self.assertEqual(td_2_2.text, 'Bar 2')
+        td_2_3_1_1 = self.findBy(
+            'xpath', '//table/tbody/tr[2]/td[3]/table/tbody/tr[1]/td[1]')
+        self.assertEqual(td_2_3_1_1.text, 'Foobar 3_1')
+        td_2_3_1_2 = self.findBy(
+            'xpath', '//table/tbody/tr[2]/td[3]/table/tbody/tr[1]/td[2]')
+        self.assertEqual(td_2_3_1_2.text, 'Foobar 3_2')
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        table_output = self.findBy('xpath', '//div/table')
+        self.assertEqual(table_text, table_output.text)
 
     # def test_enter_questionnaire_requires_login(self):
 
@@ -1388,7 +1595,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_header_image(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -1482,7 +1689,6 @@ class QuestionnaireTest(FunctionalTest):
         dropzone = self.findBy(
             'xpath', '//div[@id="id_qg_14-0-file_key_19" and contains(@class, '
             '"dropzone")]')
-        import time
         time.sleep(2)
         self.assertFalse(dropzone.is_displayed())
         preview = self.findBy(
@@ -1500,7 +1706,7 @@ class QuestionnaireTest(FunctionalTest):
     def test_enter_questionnaire(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
 
@@ -1511,13 +1717,13 @@ class QuestionnaireTest(FunctionalTest):
         # She sees the categories but without content, keys and
         # subcategories are hidden if they are empty.
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 1")]')
-        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
-        self.findByNot('xpath', '//*[contains(text(), "Bar")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 1")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
 
         # She tries to submit the form empty and sees an error message
         self.findBy('id', 'button-submit').click()
@@ -1553,13 +1759,13 @@ class QuestionnaireTest(FunctionalTest):
         # shown a success message
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 1")]')
-        self.findBy('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Bar")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
 
         # She submits the entire questionnaire
         self.findBy('id', 'button-submit').click()
@@ -1568,13 +1774,16 @@ class QuestionnaireTest(FunctionalTest):
         # message.
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 1")]')
-        self.findBy('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Bar")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
+
+        # She sees that the # was removed from the URL
+        self.assertIn('#top', self.browser.current_url)
 
         # She sees that on the detail page, there is only one edit button
         edit_buttons = self.findManyBy(
@@ -1593,18 +1802,18 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new))
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 1")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 1")]]')
         self.findByNot('xpath', '//*[contains(text(), "Foo")]')
-        self.findByNot('xpath', '//*[contains(text(), "Bar")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 4")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[contains(text(), "Key 5")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
 
     def test_edit_questionnaire(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin()
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
 
@@ -1624,10 +1833,10 @@ class QuestionnaireTest(FunctionalTest):
 
         # She is back at the overview page of the questionnaire with the
         # previously entered values already there
-        self.findBy('xpath', '//*[contains(text(), "Key 1")]')
-        self.findBy('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Key 3")]')
-        self.findBy('xpath', '//*[contains(text(), "Bar")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 3")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
 
         # She edits a form and sees the values are there already
         self.findManyBy(
@@ -1643,8 +1852,337 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the step and sees that the values on the overview
         # page changed.
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Faz")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
 
         # She submits the entire questionnaire
         self.findBy('id', 'button-submit').click()
+
+
+class QuestionnaireLinkTest(FunctionalTest):
+
+    fixtures = [
+        'sample.json', 'samplemulti.json',
+        'sample_samplemulti_questionnaires.json']
+
+    def test_add_questionnaire_link(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a part of the questionnaire and enters some data
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step, args=['cat_1']))
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She goes to the part where she can edit linked questionnaires
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+
+        # She sees a field to search for linked questionnaires
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1b"]')
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1a"'
+            ']').click()
+        # She sees that a field with the name was added
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is key 1a")]')
+        # She sees that a hidden field with the id was added
+        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
+
+        # She removes the link and then adds it again
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+        self.findByNot('xpath', '//input[@id="links__samplemulti__3"]')
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1a"'
+            ']').click()
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the link was added in category 6
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+
+        # She goes back to the form and sees the one she linked is still
+        # in the form.
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is key 1a")]')
+
+        # She deletes the link and submits the form
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+        self.findByNot('xpath', '//input[@id="links__samplemulti__3"]')
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+
+        # She links another questionnaire
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1b"]').\
+            click()
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the link was added in category 6
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1b")]]')
+
+        # She submits the complete form
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the link was added in category 6
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1b")]]')
+
+        # The link can be clicked
+        self.findBy(
+            'xpath', '//a[contains(@href, "samplemulti/view/")]').click()
+        self.checkOnPage('MSection')
+
+        # There is a link back
+        self.findBy('xpath', '//a[contains(@href, "sample/view/")]')
+
+    def test_edit_questionnaire_link(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She opens an existing questionnaire and sees the link
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, args=['1']))
+
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+        self.findBy(
+            'xpath', '//a[contains(@href, "samplemulti/view/")]').click()
+        self.findBy('xpath', '//a[contains(@href, "sample/view/")]').click()
+
+        # She decides to edit the questionnaire
+        self.findBy('xpath', '//a[contains(@href, "sample/edit/")]').click()
+
+        # She sees the link in the edit overview
+        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+
+        # She edits the link form and sees the values are populated correctly
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is key 1a")]')
+        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
+
+        # She deletes the link and submits the entire form
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        self.findByNot('xpath', '//h2[text()="Linked Questionnaires"]')
+
+    def test_edit_questionnaire_multiple_links(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She opens an existing questionnaire (samplemulti) and sees the link
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details_samplemulti, args=['3']))
+
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+
+        # She decides to edit the questionnaire
+        self.findBy(
+            'xpath', '//a[contains(@href, "samplemulti/edit/")]').click()
+
+        # She sees the link in the edit overview
+        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+
+        # She decides to edit the link and sees that the field is
+        # populated correctly
+        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is the first key")]')
+        self.findBy('xpath', '//input[@id="links__sample__1"]')
+
+        # She tries to add the same link again, this does not work.
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('key')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is the first '
+            'key."]').click()
+        x = self.findManyBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
+            'is the first key")]')
+        self.assertEqual(len(x), 1)
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').clear()
+
+        # She adds another link
+        self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")]'
+            '[1]').send_keys('foo')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="Foo"]').\
+            click()
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that both links were added
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+
+        # She submits the form and sees that both links were correctly
+        # submitted.
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+
+    @patch('samplemulti.views.generic_questionnaire_link_search')
+    def test_search(self, mock_link_search):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to the link section of a new questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_link_form))
+
+        search_field = self.findBy(
+            'xpath', '//input[contains(@class, "link_search_field")][1]')
+
+        mock_link_search.return_value = JsonResponse({
+            'total': 0,
+            'data': []
+        })
+        search_field.send_keys('foo')
+        time.sleep(1)
+        # She enters the name of link which does not exist. She gets a
+        # notice and when she clicks it, no link is added.
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="No results found"]'
+            ).click()
+        self.findByNot(
+            'xpath',
+            '//div[contains(@class, "alert-box")]')
+
+        search_field.clear()
+        # She enters something which returns more results than expected
+        data = [{
+            'name': 'foo',
+            'code': 'bar',
+            'display': 'foo',
+            'value': 1,
+        }] * 15
+        mock_link_search.return_value = JsonResponse({
+            'total': 15,
+            'data': data
+            })
+
+        search_field.send_keys('foo')
+        time.sleep(1)
+        # She gets a message saying there are too many results to
+        # display them all. Clicking on the message does not do
+        # anything. Not all results are shown.
+        results = self.findManyBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="foo"]')
+        self.assertEqual(len(results), 10)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[contains(text(), "Too many '
+            'results")]'
+            ).click()
+        self.findByNot(
+            'xpath',
+            '//div[contains(@class, "alert-box")]')
+
+        empty = self.findBy(
+            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
+        self.assertTrue(empty.is_displayed())
+
+        search_field.clear()
+        search_field.send_keys('foo')
+        time.sleep(1)
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="foo"][1]').click()
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")]')
+
+        empty = self.findBy(
+            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
+        self.assertFalse(empty.is_displayed())
+
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
+            .click()
+        empty = self.findBy(
+            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
+        self.assertTrue(empty.is_displayed())
+
+    """
+    Test:
+    * Show pending
+    """

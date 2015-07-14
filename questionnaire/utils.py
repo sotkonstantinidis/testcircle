@@ -1,7 +1,15 @@
 import ast
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext as _, get_language
+from django.utils.dateparse import parse_datetime
 
-from configuration.configuration import QuestionnaireQuestion
+from configuration.configuration import (
+    QuestionnaireQuestion,
+)
+from configuration.utils import get_or_create_configuration
 from qcat.errors import QuestionnaireFormatError
+from questionnaire.models import Questionnaire
 
 
 def clean_questionnaire_data(data, configuration):
@@ -422,6 +430,14 @@ def get_active_filters(questionnaire_configuration, query_dict):
 
         filter__qg_11__key_14=value_14_1
 
+    Some filters can also be set with a different format. These are:
+
+    * ``q``: A search term for the full text search (``q=search``)
+
+    All the options can also be combined, such as::
+
+        q=search&filter__qg_11__key_14=value_14_1
+
     Args:
         ``questionnaire_configuration``
         (:class:`configuration.configuration.QuestionnaireConfiguration`):
@@ -434,21 +450,38 @@ def get_active_filters(questionnaire_configuration, query_dict):
         ``list``. A list of dictionaries with the active and valid
         filters. Each dictionary contains the following entries:
 
-        - ``questiongroup``: The keyword of the questiongroup.
+        - ``questiongroup``: The keyword of the questiongroup. For
+          ``q``, this is set to ``_search``.
 
-        - ``key``: The keyword of the key.
+        - ``key``: The keyword of the key. For ``q``, this is set to
+          ``_search``.
 
-        - ``key_label``: The label of the key.
+        - ``key_label``: The label of the key. For ``q``, this is set to
+          "Search Terms".
 
         - ``value``: The keyword of the value.
 
         - ``value_label``: The label of the value if available. Else the
           value as provided in the filter is returned.
 
-        - ``type``: The field type of the key.
+        - ``type``: The field type of the key. For ``q``, this is set to
+          ``_search``.
     """
     active_filters = []
     for filter_param, filter_values in query_dict.lists():
+
+        if filter_param == 'q':
+            for filter_value in filter_values:
+                active_filters.append({
+                    'type': '_search',
+                    'key': '_search',
+                    'key_label': _('Search Terms'),
+                    'value': filter_value,
+                    'value_label': filter_value,
+                    'questiongroup': '_search',
+                })
+            continue
+
         if not filter_param.startswith('filter__'):
             continue
 
@@ -480,3 +513,284 @@ def get_active_filters(questionnaire_configuration, query_dict):
             })
 
     return sorted(active_filters, key=lambda k: k['key'])
+
+
+def get_link_data(linked_objects, link_configuration_code=None):
+    """
+    Return a data representation (to be stored in the session or used in
+    forms) of links retrieved from the database.
+
+    Args:
+        ``linked_objects`` (list of questionnaire.models.Questionnaire):
+        A list of database model objects representing the linked
+        Questionnaires.
+
+    Kwargs:
+        ``link_configuration_code`` (str): Optionally provide a
+        configuration keyword for the link. If none is provided, the
+        configuration is derived from the Questionnaire object.
+
+    Returns:
+        ``dict``. A dictionary containing the links grouped by
+        link_configuration_code. The basic form of the dictionary is as
+        follows::
+
+            {
+              "sample": [
+                {
+                  "id": 1,
+                  "display": "This is a link to Questionnaire with ID 1",
+                  "form_display": "Name of Questionnaire with ID 1"
+                }
+              ]
+            }
+    """
+    link_configurations = {}
+    links = {}
+    for link in linked_objects:
+        if link_configuration_code is None:
+            # TODO: This does not handle questionnaires with multiple
+            # configurations correctly
+            link_configuration_code = link.configurations.first().code
+        link_configuration, link_configurations = get_or_create_configuration(
+            link_configuration_code, link_configurations)
+        link_display = get_link_display(link, link_configuration)
+        link_list = links.get(link_configuration_code, [])
+        link_name = link_configuration.get_questionnaire_name(
+            get_questionnaire_data_in_single_language(
+                link.data, get_language()))
+        link_list.append({
+            'id': link.id,
+            'display': link_display,
+            'form_display': link_name,
+        })
+        links[link_configuration_code] = link_list
+    return links
+
+
+def get_link_display(link_object, link_configuration):
+    """
+    Return the representation of a linked questionnaire used for display
+    of the link. The display representation is the rendered template (
+    ``/questionnaire/partial/link.html``) specific to the given
+    configuration.
+
+    Args:
+        ``link_object`` (questionnaire.models.Questionnaire): The
+        database model object of the linked Questionnaire.
+
+        ``link_configuration`` (
+        configuration.configuration.QuestionnaireConfiguration): The
+        Configuration object of the linked Questionnaire.
+
+    Returns:
+        ``str``. The display representation of the link as rendered
+        HTML.
+    """
+    link_data = link_configuration.get_list_data([link_object.data])
+    link_template = '{}/questionnaire/partial/link.html'.format(
+        link_configuration.keyword)
+    link_route = '{}:questionnaire_details'.format(link_configuration.keyword)
+    return render_to_string(link_template, {
+        'link_data': link_data[0],
+        'link_route': link_route,
+        'id': link_object.id,
+    })
+
+
+def query_questionnaires_for_link(configuration, q, limit=10):
+    """
+    Do a raw SQL search in the JSON data field of questionnaires. Only
+    questionnaires of the configuration's keyword are returned. The
+    search happens in the name field as defined by the parameter
+    ``is_name`` in the configuration, searched in any language. The same
+    term can also be used to search by code of the questionnaire.
+
+    Args:
+        ``configuration``
+        (configuration.configuration.QuestionnaireConfiguration): The
+        questionnaire configuration.
+
+        ``q`` (str): The query string (to search either in the name or
+        the code of the questionnaire).
+
+    Kwargs:
+        ``limit`` (int): Limit the number of results to return.
+
+    Returns:
+
+        ``int``. The total count of results encountered in the database.
+
+        ``list``. The list of results. The length of this list may be
+        smaller than the total count because of the limit applied.
+    """
+    question_keyword, questiongroup_keyword = configuration.get_name_keywords()
+    if question_keyword is None or questiongroup_keyword is None:
+        return 0, []
+
+    query = """
+        select questionnaire_questionnaire.id
+        from questionnaire_questionnaire
+            JOIN questionnaire_questionnaireconfiguration ON
+                questionnaire_questionnaire.id =
+                questionnaire_questionnaireconfiguration.questionnaire_id
+            JOIN configuration_configuration ON
+                questionnaire_questionnaireconfiguration.configuration_id =
+                configuration_configuration.id
+                AND configuration_configuration.code = %s,
+        lateral jsonb_array_elements(
+            questionnaire_questionnaire.data -> %s) questiongroup
+        where """
+    args = [configuration.keyword, questiongroup_keyword]
+
+    languages = [l[0] for l in settings.LANGUAGES]
+    for lang in languages:
+        query += """
+            questiongroup->%s->>'{}' ILIKE %s OR
+        """.format(lang)
+        args.extend([question_keyword, '%{}%'.format(q)])
+
+    query += """
+        questionnaire_questionnaire.code LIKE %s;
+    """
+    args.extend(['%{}%'.format(q)])
+
+    results = Questionnaire.objects.raw(query, args)
+    total = len(list(results))
+
+    return total, results[:limit]
+
+
+def get_list_values(
+        configuration_code=None, es_search={}, questionnaire_objects=[]):
+    """
+    Retrieves and prepares data to be used in a list representation.
+    Either handles a list of questionnaires retrieved from the database
+    or searched with Elasticsearch.
+
+    Kwargs:
+        ``configuration_code`` (str): Optionally provide a configuration
+        code which will be used for all items. This may result in some
+        items not displaying any data if they are not shown in one of
+        their configurations. If set to ``None``, the original
+        configuration for each questionnaire is used to collect the list
+        values.
+        If ``configuration_code=wocat``, every item is rendered in its
+        original configuration.
+
+        ``es_search`` (dict): A dictionary as retrieved from an
+        Elasticsearch query.
+
+        ``questionnaire_objects`` (list): A list (queryset) of
+        :class:`questionnaire.models.Questionnaire` models retrieved
+        from the database.
+
+    Returns:
+        ``list``. A list of dictionaries containing the values needed
+        for the list representation of Questionnaires. Along the values
+        specified in the settings to appear in the list, some metadata
+        is returned for each entry.
+    """
+    list_entries = []
+
+    for result in es_search.get('hits', {}).get('hits', []):
+        # Results from Elasticsearch. List values are already available.
+
+        # Fall back to the original configuration if viewed from "wocat"
+        # or no configuration selected
+        if configuration_code is None or configuration_code == 'wocat':
+            current_configuration_code = result.get('_source', {}).get(
+                'configurations', ['technologies'])[0]
+        else:
+            current_configuration_code = configuration_code
+
+        template_value = result.get('_source', {}).get('list_data', {})
+
+        translations = result.get('_source', {}).get('translations')
+        if not isinstance(translations, list) or len(translations) == 0:
+            translations = ['en']
+        original_lang = translations[0]
+        try:
+            translations.remove(get_language())
+        except ValueError:
+            pass
+        translations = [
+            lang for lang in settings.LANGUAGES if lang[0] in translations]
+
+        for key, value in template_value.items():
+            if isinstance(value, dict):
+                template_value[key] = value.get(
+                    get_language(), value.get(original_lang))
+
+        source = result.get('_source', {})
+        configurations = source.get('configurations', [])
+
+        template_value.update({
+            'configuration': current_configuration_code,  # Used for rendering
+            'id': result.get('_id'),
+            'configurations': configurations,
+            'native_configuration': current_configuration_code in
+            configurations,
+            'created': parse_datetime(
+                source.get('created', '')),
+            'updated': parse_datetime(
+                source.get('updated', '')),
+            'translations': translations,
+        })
+        list_entries.append(template_value)
+
+    questionnaire_configurations = {}
+    for obj in questionnaire_objects:
+        # Results from database query. List values have to be retrieved
+        # through the configuration of the questionnaires.
+
+        # Fall back to the original configuration if viewed from "wocat"
+        # or no configuration selected
+        if configuration_code is None or configuration_code == 'wocat':
+            configuration_object = obj.configurations.first()
+            if configuration_object is not None:
+                current_configuration_code = configuration_object.code
+            else:
+                current_configuration_code = 'technologies'
+        else:
+            current_configuration_code = configuration_code
+
+        questionnaire_configuration, questionnaire_configurations = \
+            get_or_create_configuration(
+                current_configuration_code, questionnaire_configurations)
+
+        template_value = questionnaire_configuration.get_list_data(
+            [obj.data])[0]
+
+        translations = [
+            t.language for t in obj.questionnairetranslation_set.all()]
+        if len(translations) == 0:
+            translations = ['en']
+        original_lang = translations[0]
+        try:
+            translations.remove(get_language())
+        except ValueError:
+            pass
+        translations = [
+            lang for lang in settings.LANGUAGES if lang[0] in translations]
+
+        for key, value in template_value.items():
+            if isinstance(value, dict):
+                template_value[key] = value.get(
+                    get_language(), value.get(original_lang))
+
+        configurations = [conf.code for conf in obj.configurations.all()]
+
+        template_value.update({
+            'configuration': current_configuration_code,  # Used for rendering
+            'id': obj.id,
+            'configurations': configurations,
+            'native_configuration': current_configuration_code in
+            configurations,
+            'created': obj.created,
+            'updated': obj.updated,
+            'translations': translations,
+        })
+        list_entries.append(template_value)
+
+    return list_entries

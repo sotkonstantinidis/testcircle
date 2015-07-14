@@ -8,8 +8,6 @@ from wocat.tests.test_views import (
 
 class TranslationTest(FunctionalTest):
 
-    fixtures = ['global_key_values.json', 'wocat.json']
-
     def test_change_languages(self):
 
         # Alice goes to the UNCCD app

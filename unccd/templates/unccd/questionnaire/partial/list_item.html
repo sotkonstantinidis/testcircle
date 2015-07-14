@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<article role="article" class="row large-collapse tech-item">
+  <div class="content columns">
+    <header>
+       <h1><a href="{% url 'unccd:questionnaire_details' item.id %}" title="" class="link">{{ item.name }}</a> <small>{{ item.country }}</small></h1>
+    </header>
+    <aside class="tech-infos row collapse">
+      <dl class="medium-6 columns">
+        <dt>ID:</dt>
+        <dd>AU_067456_ES</dd>
+      </dl>
+      <dl class="medium-6 columns">
+        <dt>{% trans "Creation:" %}</dt>
+        <dd><time datetime="{{ item.created|date:"c" }}" pubdate="pubdate">{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
+      </dl>
+      <dl class="medium-6 columns">
+        <dt>{% trans "Update:" %}</dt>
+        <dd><time datetime="{{ item.updated|date:"c" }}">{{ item.updated|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
+      </dl>
+      <dl class="medium-6 columns">
+        <dt>Author:</dt>
+        <dd>Bruce Banner</dd>
+      </dl>
+    </aside>
+    <main>
+      <p>{{ item.unccd_description }}</p>
+    </main>
+    <footer>
+      {% if item.translations %}
+        <p class="is-light"><em>{% trans "This article is also available in:" %}
+          {% for translation in item.translations %}
+            {% language translation.0 %}
+            <a href="{% url 'unccd:questionnaire_details' item.id %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
+            {% endlanguage %}
+          {% endfor %}
+        </em></p>
+      {% endif %}
+    </footer>
+  </div>
+</article>

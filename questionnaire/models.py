@@ -4,9 +4,19 @@ from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _, get_language
 from django_pgjson.fields import JsonBField
 
 from configuration.models import Configuration
+from search.index import put_questionnaire_data
+
+
+STATUSES = (
+    (1, _('Draft')),
+    (2, _('Pending')),
+    (3, _('Approved')),
+    (4, _('Rejected')),
+)
 
 
 class Questionnaire(models.Model):
@@ -19,12 +29,17 @@ class Questionnaire(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     uuid = models.CharField(max_length=64, default=uuid4)
+    code = models.CharField(max_length=64, default='')
     blocked = models.BooleanField(default=False)
-    active = models.ForeignKey(
-        'QuestionnaireVersion', related_name='active_questionnaire', null=True)
+    status = models.IntegerField(choices=STATUSES)
+    version = models.IntegerField()
     members = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through='QuestionnaireMembership')
-    configurations = models.ManyToManyField('configuration.Configuration')
+    configurations = models.ManyToManyField(
+        'configuration.Configuration', through='QuestionnaireConfiguration')
+    links = models.ManyToManyField(
+        'self', through='QuestionnaireLink', symmetrical=False,
+        related_name='linked_to+', null=True)
 
     class Meta:
         ordering = ['-updated']
@@ -33,7 +48,8 @@ class Questionnaire(models.Model):
         return reverse('questionnaire_view_details', args=[self.id])
 
     @staticmethod
-    def create_new(configuration_code, data):
+    def create_new(
+            configuration_code, data, previous_version=None, status=1):
         """
         Create and return a new Questionnaire.
 
@@ -44,6 +60,13 @@ class Questionnaire(models.Model):
 
             ``data`` (dict): The questionnaire data.
 
+        Kwargs:
+            ``previous_version`` (questionnaire.models.Questionnaire):
+            The previous version of the questionnaire.
+
+            ``status`` (int): The status of the questionnaire to be
+            created. Defaults to 1 (draft) if not set.
+
         Returns:
             ``questionnaire.models.Questionnaire``. The created
             Questionnaire.
@@ -51,13 +74,37 @@ class Questionnaire(models.Model):
         Raises:
             ``ValidationError``
         """
+        if previous_version:
+            # TODO. Calculate version and use same UUID and code as
+            # previous version.
+            raise NotImplemented()
+        else:
+            code = 'todo'
+            version = 1
+        if status not in [s[0] for s in STATUSES]:
+            raise ValidationError('"{}" is not a valid status'.format(status))
         configuration = Configuration.get_active_by_code(configuration_code)
         if configuration is None:
             raise ValidationError(
                 'No active configuration found for code "{}"'.format(
                     configuration_code))
-        questionnaire = Questionnaire.objects.create(data=data)
-        questionnaire.configurations.add(configuration)
+        questionnaire = Questionnaire.objects.create(
+            data=data, code=code, version=version, status=status)
+
+        # TODO: Not all configurations should be the original ones!
+        QuestionnaireConfiguration.objects.create(
+            questionnaire=questionnaire, configuration=configuration,
+            original_configuration=True)
+
+        # TODO: Not all translations should be the original ones!
+        QuestionnaireTranslation.objects.create(
+            questionnaire=questionnaire, language=get_language(),
+            original_language=True)
+
+        # TODO: This should happen on review!
+        added, errors = put_questionnaire_data(
+            configuration_code, [questionnaire])
+
         return questionnaire
 
     def get_id(self):
@@ -79,8 +126,73 @@ class Questionnaire(models.Model):
             'updated': self.updated,
         }
 
+    def add_link(self, questionnaire, symm=True):
+        """
+        Add a link to another Questionnaire. This actually creates two
+        entries in the link table to make the reference symmetrical.
+
+        https://charlesleifer.com/blog/self-referencing-many-many-through/
+
+        Args:
+            ``questionnaire`` (questionnaire.models.Questionnaire): The
+            questionnaire to link to.
+
+        Kwargs:
+            ``symm`` (bool): Whether or not to add the symmetrical link
+            (to avoid recursion).
+
+        Returns:
+            ``questionnaire.models.Questionnaire``. The updated
+            questionnaire.
+        """
+        link, created = QuestionnaireLink.objects.get_or_create(
+            from_questionnaire=self,
+            from_status=self.status,
+            to_questionnaire=questionnaire,
+            to_status=questionnaire.status)
+        if symm:
+            # avoid recursion by passing `symm=False`
+            questionnaire.add_link(self, symm=False)
+        return questionnaire
+
+    def remove_link(self, questionnaire, symm=True):
+        """
+        Remove a link to another Questionnaire. This actually removes
+        both links (also the symmetrical one).
+
+        https://charlesleifer.com/blog/self-referencing-many-many-through/
+
+        Args:
+            ``questionnaire`` (questionnaire.models.Questionnaire): The
+            questionnaire to remove.
+
+        Kwargs:
+            ``symm`` (bool): Whether or not to remove the symmetrical
+            link (to avoid recursion).
+        """
+        QuestionnaireLink.objects.filter(
+            from_questionnaire=self,
+            to_questionnaire=questionnaire).delete()
+        if symm:
+            # avoid recursion by passing `symm=False`
+            questionnaire.remove_link(self, symm=False)
+
     def __str__(self):
         return json.dumps(self.data)
+
+
+class QuestionnaireConfiguration(models.Model):
+    """
+    Represents a many-to-many relationship between Questionnaires and
+    Configurations with additional fields. Additional fields mark the
+    configuration in which the Questionnaire was originally entered.
+    """
+    questionnaire = models.ForeignKey('Questionnaire')
+    configuration = models.ForeignKey('configuration.Configuration')
+    original_configuration = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-original_configuration']
 
 
 class QuestionnaireTranslation(models.Model):
@@ -95,31 +207,20 @@ class QuestionnaireTranslation(models.Model):
     language = models.CharField(max_length=63, choices=settings.LANGUAGES)
     original_language = models.BooleanField(default=False)
 
-
-class QuestionnaireVersion(models.Model):
-    """
-    The model representing a version of a :class:`Questionnaire`. For a
-    single Questionnaire, multiple versions can exist.
-    """
-    data = JsonBField()
-    created = models.DateTimeField(auto_now=True)
-    version = models.IntegerField()
-    questionnaire = models.ForeignKey('Questionnaire')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    status = models.ForeignKey('Status')
-
-
-class Status(models.Model):
-    """
-    The model representing the status of a
-    :class:`QuestionnaireVersion`. The status is based on the review
-    process and defines which versions are visible to the public.
-    """
-    keyword = models.CharField(max_length=63, unique=True)
-    description = models.TextField(null=True)
-
     class Meta:
-        verbose_name_plural = 'statuses'
+        ordering = ['-original_language']
+
+
+class QuestionnaireLink(models.Model):
+    """
+
+    """
+    from_questionnaire = models.ForeignKey(
+        'Questionnaire', related_name='from_questionnaire')
+    from_status = models.IntegerField(choices=STATUSES)
+    to_questionnaire = models.ForeignKey(
+        'Questionnaire', related_name='to_questionnaire')
+    to_status = models.IntegerField(choices=STATUSES)
 
 
 class QuestionnaireMembership(models.Model):

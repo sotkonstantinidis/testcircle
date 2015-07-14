@@ -6,16 +6,20 @@ from django.core.exceptions import ValidationError
 from qcat.tests import TestCase
 
 
+def create_new_user(id=1, email='a@b.com', lastname='foo', firstname='bar'):
+    return User.create_new(id, email, lastname=lastname, firstname=firstname)
+
+
 class UserModelTestWithFixtures(TestCase):
     fixtures = ['groups_permissions.json']
 
     def test_administrator_is_staff(self):
-        user = User.create_new(email='a@b.com', name='foo')
+        user = create_new_user()
         user.groups.add(Group.objects.get(name='Administrators'))
         self.assertTrue(user.is_staff)
 
     def test_translator_is_staff(self):
-        user = User.create_new(email='a@b.com', name='foo')
+        user = create_new_user()
         user.groups.add(Group.objects.get(name='Translators'))
         self.assertTrue(user.is_staff)
 
@@ -45,7 +49,7 @@ class UserModelTest(TestCase):
         self.assertTrue(user.is_active)
 
     def test_is_not_staff(self):
-        user = User.create_new(email='a@b.com', name='foo')
+        user = User.create_new(id=1, email='a@b.com', lastname='foo')
         self.assertFalse(user.is_staff)
 
     def test_superuser_is_staff(self):
@@ -66,19 +70,19 @@ class UserModelTest(TestCase):
         self.assertEqual(user.email, str(user))
 
     def test_create_new_returns_new_object(self):
-        returned = User.create_new(email='a@b.com')
+        returned = User.create_new(id=1, email='a@b.com')
         new_user = User.objects.get(email='a@b.com')
         self.assertEqual(returned, new_user)
 
     def test_create_new_without_password(self):
-        user = User.create_new(email='a@b.com')
+        user = User.create_new(id=1, email='a@b.com')
         self.assertEqual(user.password, '')
 
     def test_create_new_sets_name(self):
-        user = User.create_new(email='a@b.com', name='Foo')
-        self.assertEqual(user.name, 'Foo')
+        user = User.create_new(id=1, email='a@b.com', lastname='Foo')
+        self.assertEqual(user.lastname, 'Foo')
 
     def test_update_updates_name(self):
-        user = User.create_new(email='a@b.com', name='Foo')
-        user.update(name='Bar')
-        self.assertEqual(user.name, 'Bar')
+        user = User.create_new(id=1, email='a@b.com', lastname='Foo')
+        user.update(lastname='Bar')
+        self.assertEqual(user.lastname, 'Bar')

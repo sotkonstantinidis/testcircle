@@ -2,7 +2,7 @@ import floppyforms as forms
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string, get_template
 from django.template.base import TemplateDoesNotExist
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _
 
 from configuration.models import (
     Category,
@@ -185,6 +185,13 @@ class BaseConfigurationObject(object):
             if not base_child:
                 merged_children.append(specific_child.copy())
 
+        # Collect all remaining attributes of specific, except the
+        # children which are already copied.
+        for specific_key, specific_value in specific_configuration.items():
+            if specific_key == obj.name_children:
+                continue
+            base_configuration[specific_key] = specific_value
+
         if obj.name_children:
             base_configuration[obj.name_children] = merged_children
         else:
@@ -204,12 +211,14 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'in_list',
         'form_template',
         'view_template',
+        'view_label',
         'conditions',
         'conditional',
         'questiongroup_conditions',
         'max_length',
         'num_rows',
         'filter',
+        'is_name',
     ]
     valid_field_types = [
         'char',
@@ -244,10 +253,16 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             "in_list": true,
 
             # (optional)
+            "is_name": true,
+
+            # (optional)
             "form_template": "TEMPLATE_NAME",
 
             # (optional)
             "view_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "view_label": true,
 
             # (optional)
             "conditional": true,
@@ -286,6 +301,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', 'Key')
 
+        self.is_name = self.configuration.get('is_name', False) is True
+
         form_template = 'default'
         if self.field_type == 'measure':
             form_template = 'inline_3'
@@ -300,9 +317,15 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             raise ConfigurationErrorTemplateNotFound(self.form_template, self)
 
         self.view_template = configuration.get('view_template')
+        self.view_label = configuration.get('view_label', True) is True
 
         self.max_length = configuration.get('max_length', None)
-        self.num_rows = configuration.get('num_rows', 10)
+        if self.max_length and not isinstance(self.max_length, int):
+            self.max_length = None
+        default_num_rows = 10
+        if self.max_length:
+            default_num_rows = int(self.max_length / 100)
+        self.num_rows = configuration.get('num_rows', default_num_rows)
 
         self.filterable = configuration.get('filter', False) is True
 
@@ -527,6 +550,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         return formfields, templates
 
     def get_details(self, data={}):
+        template_values = {
+            'view_label': self.view_label,
+        }
         value = data.get(self.keyword)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
@@ -536,48 +562,44 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
         if self.field_type in ['char']:
-            rendered = render_to_string(
-                'details/field/textinput.html', {
-                    'key': self.label,
-                    'value': value})
-            return rendered
+            template_name = 'textarea'
+            template_values.update({
+                'key': self.label,
+                'value': value,
+            })
         elif self.field_type in ['text']:
-            rendered = render_to_string(
-                'details/field/textarea.html', {
-                    'key': self.label,
-                    'value': value})
-            return rendered
+            template_name = 'textarea'
+            template_values.update({
+                'key': self.label,
+                'value': value,
+            })
         elif self.field_type in ['bool', 'select_type']:
-            rendered = render_to_string(
-                'details/field/textinput.html', {
-                    'key': self.label,
-                    'value': values[0]})
-            return rendered
+            template_name = 'textinput'
+            template_values.update({
+                'key': self.label,
+                'value': values[0],
+            })
         elif self.field_type in ['measure']:
             template_name = 'measure_bar'
             if self.view_template:
                 template_name = self.view_template
-            template = 'details/field/{}.html'.format(template_name)
             level = None
             try:
                 pos = [c[1] for c in self.choices].index(values[0])
                 level = round(pos / len(self.choices) * 5)
             except ValueError:
                 pass
-            rendered = render_to_string(
-                template, {
-                    'key': self.label,
-                    'value': values[0],
-                    'level': level,
-                })
-            return rendered
+            template_values.update({
+                'key': self.label,
+                'value': values[0],
+                'level': level,
+            })
         elif self.field_type in ['checkbox']:
-            rendered = render_to_string(
-                'details/field/checkbox.html', {
-                    'key': self.label,
-                    'values': values
-                })
-            return rendered
+            template_name = 'checkbox'
+            template_values.update({
+                'key': self.label,
+                'values': values,
+            })
         elif self.field_type in ['image_checkbox']:
             conditional_outputs = []
             for v in value:
@@ -596,25 +618,25 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 if v is not None:
                     i = [y[0] for y in list(self.choices)].index(v)
                     images.append(self.images[i])
-            template = 'details/field/image_checkbox.html'
+            template_name = 'image_checkbox'
             if self.conditional:
-                template = 'details/field/image_checkbox_conditional.html'
-            rendered = render_to_string(
-                template, {
-                    'key': self.label,
-                    'values': list(zip(values, images, conditional_outputs)),
-                })
-            return rendered
+                template_name = 'image_checkbox_conditional'
+            template_values.update({
+                'key': self.label,
+                'values': list(zip(values, images, conditional_outputs)),
+            })
         elif self.field_type in ['image']:
             value = get_url_by_identifier(value)
-            rendered = render_to_string(
-                'details/field/image.html', {
-                    'key': self.label,
-                    'value': value})
-            return rendered
+            template_name = 'image'
+            template_values.update({
+                'key': self.label,
+                'value': value,
+            })
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
+        template = 'details/field/{}.html'.format(template_name)
+        return render_to_string(template, template_values)
 
     def lookup_choices_labels_by_keywords(self, keywords):
         """
@@ -649,6 +671,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         'min_num',
         'questiongroup_condition',
         'view_template',
+        'numbered',
+        'detail_level',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -678,6 +702,12 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
             # (optional)
             "view_template": "VIEW_TEMPLATE",
+
+            # (optional)
+            "numbered": "NUMBERED",
+
+            # (optional)
+            "detail_level": "DETAIL_LEVEL",
 
             # A list of questions.
             "questions": [
@@ -717,6 +747,12 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
         self.questiongroup_condition = self.configuration.get(
             'questiongroup_condition')
+
+        self.numbered = self.configuration.get('numbered', '')
+        if self.numbered not in ['inline', 'prefix']:
+            self.numbered = ''
+
+        self.detail_level = self.configuration.get('detail_level')
 
         # TODO
         self.required = False
@@ -759,21 +795,29 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'label': self.label,
             'templates': templates,
             'questiongroup_condition': self.questiongroup_condition,
+            'numbered': self.numbered,
+            'detail_level': self.detail_level,
         }
 
         return config, FormSet(
             post_data, prefix=self.keyword, initial=initial_data)
 
     def get_details(self, data=[]):
-        rendered_questions = []
+        questiongroups = []
         for d in data:
+            rendered_questions = []
             for question in self.questions:
                 if question.conditional:
                     continue
                 rendered_questions.append(question.get_details(d))
+            questiongroups.append(rendered_questions)
+        config = {
+            'numbered': self.numbered,
+        }
         rendered = render_to_string(
             self.view_template, {
-                'questions': rendered_questions,
+                'questiongroups': questiongroups,
+                'config': config,
             })
         return rendered
 
@@ -793,6 +837,9 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         'keyword',
         'questiongroups',
         'subcategories',
+        'form_template',
+        'view_template',
+        'table_grouping',
     ]
     name_current = 'subcategories'
     name_parent = 'categories'
@@ -809,8 +856,22 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             # The keyword of the subcategory.
             "keyword": "SUBCAT_KEYWORD",
 
+            # (optional)
+            "form_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "view_template": "TEMPLATE_NAME",
+
+            # (optional)
+            "table_grouping": [],
+
             # A list of questiongroups.
             "questiongroups": [
+              # ...
+            ],
+
+            # A list of subcategories.
+            "subcategories": [
               # ...
             ]
           }
@@ -826,6 +887,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         """
         super(QuestionnaireSubcategory, self).__init__(
             parent_object, configuration)
+
+        form_template = configuration.get('form_template', 'default')
+        self.form_template = 'form/subcategory/{}.html'.format(form_template)
+
+        view_template = configuration.get('view_template', 'default')
+        self.view_template = 'details/subcategory/{}.html'.format(
+            view_template)
 
         # A Subcategory can have further subcategories or questiongroups
         subcategories = []
@@ -847,6 +915,15 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         else:
             self.children = self.questiongroups
 
+        self.table_grouping = configuration.get('table_grouping', None)
+        self.table_headers = []
+        if self.table_grouping:
+            for questiongroup in self.questiongroups:
+                if questiongroup.keyword in [
+                        g[0] for g in self.table_grouping]:
+                    for question in questiongroup.questions:
+                        self.table_headers.append(question.label)
+
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False):
         """
@@ -858,6 +935,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         formsets = []
         config = {
             'label': self.label,
+            'form_template': self.form_template,
         }
         for questiongroup in self.questiongroups:
             questionset_initial_data = initial_data.get(questiongroup.keyword)
@@ -872,6 +950,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation))
             config['next_level'] = 'subcategories'
+
+        if self.table_grouping:
+            config.update({
+                'table_grouping': self.table_grouping,
+                'table_headers': self.table_headers,
+            })
+
         return config, formsets
 
     def get_details(self, data={}):
@@ -884,6 +969,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             its questiongroups have some data in them or not.
         """
         rendered_questiongroups = []
+        raw_questiongroups = []
         has_content = False
         for questiongroup in self.questiongroups:
             questiongroup_data = data.get(questiongroup.keyword, [])
@@ -891,17 +977,36 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 has_content = True
                 rendered_questiongroups.append(
                     questiongroup.get_details(questiongroup_data))
+                if self.table_grouping:
+                    # Order the values of the questiongroups according
+                    # to their questions
+                    q_order = [q.keyword for q in questiongroup.questions]
+                    sorted_questiongroup_data = [
+                        sorted(qg.items(), key=lambda i: q_order.index(i[0]))
+                        for qg in questiongroup_data]
+                    raw_questiongroups.append({
+                        "qg_keyword": questiongroup.keyword,
+                        "data": sorted_questiongroup_data
+                    })
         subcategories = []
         for subcategory in self.subcategories:
             sub_rendered, sub_has_content = subcategory.get_details(data=data)
             if sub_has_content:
                 subcategories.append(sub_rendered)
                 has_content = True
-        rendered = render_to_string(
-            'details/subcategory.html', {
-                'questiongroups': rendered_questiongroups,
-                'subcategories': subcategories,
-                'label': self.label})
+
+        template_values = {
+            'questiongroups': rendered_questiongroups,
+            'subcategories': subcategories,
+            'label': self.label,
+        }
+        if self.table_grouping:
+            template_values.update({
+                'table_grouping': self.table_grouping,
+                'table_headers': self.table_headers,
+                'raw_questiongroups': raw_questiongroups,
+            })
+        rendered = render_to_string(self.view_template, template_values)
         return rendered, has_content
 
 
@@ -1160,6 +1265,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     """
     valid_options = [
         'sections',
+        'links',
     ]
     name_current = '-'
     name_parent = '-'
@@ -1182,6 +1288,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 self.configuration_error = e
             else:
                 raise e
+
+    def get_configuration_errors(self):
+        return self.configuration_error
 
     def add_category(self, category):
         self.categories.append(category)
@@ -1325,7 +1434,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             for questiongroup in section.get_questiongroups():
                 for question in questiongroup.questions:
                     if question.filterable is True:
-                        print(question)
 
                         s = next((
                             item for item in filter_configuration if
@@ -1350,31 +1458,21 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         return tuple(filter_configuration)
 
-    def get_list_data(self, questionnaires):
+    def get_list_data(self, questionnaire_data_list):
         """
         Get the data for the list representation of questionnaires.
         Which questions are shown depends largely on the option
-        ``in_list`` of the question configuration. Additionally, some
-        meta information about the questionnaire are returned.
+        ``in_list`` of the question configuration.
 
         Args:
-            ``questionnaires`` (list): A list of
-            :class:`questionnaire.models.Questionnaire` objects.
+            ``questionnaire_data_list`` (list): A list of Questionnaire
+            data dicts.
 
         Returns:
-            ``list``. A list of dicts. The data of each questionnaire is
-            stored as a dict where the key is either the keyword of the
-            question to appear in the list or a predefined keyword. Such
-            predefined keywords are:
-
-                - ``id``: The internal id of the questionnaire.
-
-                - ``image``: The URL of the main image (default format).
+            ``list``. A list of dicts. A dict containing the keys and
+            values to be appearing in the list. The values are not
+            translated.
         """
-        from questionnaire.utils import (
-            get_questionnaire_data_in_single_language,
-        )
-
         # Collect which keys are to be shown in the list.
         list_configuration = []
         for questiongroup in self.get_questiongroups():
@@ -1384,13 +1482,11 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         questiongroup.keyword, question.keyword,
                         question.field_type))
 
-        questionnaire_values = []
-        for questionnaire in questionnaires:
-            data = get_questionnaire_data_in_single_language(
-                questionnaire.data, get_language())
+        questionnaire_value_list = []
+        for questionnaire_data in questionnaire_data_list:
             questionnaire_value = {}
             for list_entry in list_configuration:
-                for question_data in data.get(list_entry[0], []):
+                for question_data in questionnaire_data.get(list_entry[0], []):
                     key = list_entry[1]
                     value = question_data.get(list_entry[1])
                     if list_entry[2] == 'image':
@@ -1412,19 +1508,48 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         if list_entry[2] in ['bool', 'measure', 'select_type']:
                             value = values[0]
                     questionnaire_value[key] = value
+            questionnaire_value_list.append(questionnaire_value)
+        return questionnaire_value_list
 
-            configurations = [
-                c.code for c in questionnaire.configurations.all()]
+    def get_links_configuration(self):
+        try:
+            return self.links_configuration
+        except:
+            return []
 
-            questionnaire_value.update({
-                'id': questionnaire.id,
-                'configurations': configurations,
-                'native_configuration': self.keyword in configurations,
-            })
-            questionnaire_value.update(questionnaire.get_metadata())
-            questionnaire_values.append(questionnaire_value)
+    def get_name_keywords(self):
+        """
+        Return the keywords of the question and questiongroup which
+        contain the name of the questionnaire as defined in the
+        configuration by the ``is_name`` parameter.
+        """
+        question_keyword = None
+        questiongroup_keyword = None
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.is_name is True:
+                    question_keyword = question.keyword
+                    questiongroup_keyword = questiongroup.keyword
+        return question_keyword, questiongroup_keyword
 
-        return questionnaire_values
+    def get_questionnaire_name(self, questionnaire_data):
+        """
+        Return the value of the key flagged with ``is_name`` of a
+        Questionnaire.
+
+        Args:
+            ``questionnaire_data`` (dict): A translated questionnaire
+            data dictionary.
+
+        Returns:
+            ``str``. Returns the value of the key or ``Unknown`` if the
+            key was not found in the data dictionary.
+        """
+        question_keyword, questiongroup_keyword = self.get_name_keywords()
+        if question_keyword:
+            for x in questionnaire_data.get(questiongroup_keyword, []):
+                return x.get(question_keyword)
+        return {'en': _('Unknown name')}
 
     def read_configuration(self):
         """
@@ -1472,6 +1597,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         for conf_section in conf_sections:
             self.sections.append(QuestionnaireSection(self, conf_section))
         self.children = self.sections
+
+        self.links_configuration = self.configuration.get('links', [])
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

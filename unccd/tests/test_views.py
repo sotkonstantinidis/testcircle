@@ -1,11 +1,9 @@
-import json
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from accounts.tests.test_authentication import (
     create_new_user,
-    do_log_in,
 )
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
@@ -70,21 +68,13 @@ class UnccdHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(self, mock_Q_Conf):
-        mock_Q_Conf.return_value = None
-        with self.assertRaises(AttributeError):
-            self.client.get(self.url)
-        mock_Q_Conf.assert_called_once_with('unccd')
-
     @patch('unccd.views.generic_questionnaire_list')
-    @patch('unccd.views.messages')
-    def test_calls_generic_questionnaire_list(
-            self, mock_messages, mock_questionnaire_list):
+    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
         home(request)
         mock_questionnaire_list.assert_called_once_with(
-            request, 'unccd', template=None, only_current=True, limit=3)
+            request, 'unccd', template=None, only_current=True, limit=3,
+            db_query=True)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url)
@@ -103,8 +93,9 @@ class QuestionnaireNewTest(TestCase):
         self.assertTemplateUsed(res, 'login.html')
 
     def test_questionnaire_new_test_renders_correct_template(self):
-        do_log_in(self.client)
-        res = self.client.get(self.url)
+        request = self.factory.get(self.url)
+        request.user = create_new_user()
+        res = questionnaire_new(request)
         self.assertTemplateUsed(res, 'unccd/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
@@ -132,8 +123,9 @@ class QuestionnaireNewStepTest(TestCase):
         self.assertTemplateUsed(res, 'login.html')
 
     def test_renders_correct_template(self):
-        do_log_in(self.client)
-        res = self.client.get(self.url, follow=True)
+        request = self.factory.get(self.url)
+        request.user = create_new_user()
+        res = questionnaire_new_step(request, step=get_categories()[0][0])
         self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
@@ -154,7 +146,7 @@ class QuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_details, args=[1])
+        self.url = reverse(route_questionnaire_details, args=[201])
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
@@ -187,36 +179,27 @@ class QuestionnaireListPartialTest(TestCase):
     def test_calls_render_to_string_with_list_template(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'unccd/questionnaire/partial/list.html',
-            {'questionnaire_value_list': 'foo'})
+            {'list_values': 'foo'})
 
     @patch('unccd.views.render_to_string')
     @patch('unccd.views.generic_questionnaire_list')
     def test_calls_render_to_string_with_active_filters(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
-            'questionnaire_value_list': 'foo',
+            'list_values': 'foo',
             'active_filters': 'bar'
         }
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'active_filters.html', {'active_filters': 'bar'})
-
-    def test_renders_json_response(self):
-        res = self.client.get(self.url)
-        self.assertEqual(res.status_code, 200)
-        content = json.loads(res.content.decode('utf-8'))
-        self.assertEqual(len(content), 3)
-        self.assertTrue(content.get('success'))
-        self.assertIn('list', content)
-        self.assertIn('active_filters', content)
 
 
 class QuestionnaireListTest(TestCase):
@@ -225,15 +208,10 @@ class QuestionnaireListTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_questionnaire_list)
 
-    def test_renders_correct_template(self):
-        res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'unccd/questionnaire/list.html')
-        self.assertEqual(res.status_code, 200)
-
     @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_generic_function(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
+    def test_calls_generic_function(self, mock_generic_function):
+        request = Mock()
         questionnaire_list(request)
-        mock_questionnaire_list.assert_called_once_with(
+        mock_generic_function.assert_called_once_with(
             request, 'unccd', template='unccd/questionnaire/list.html',
             filter_url='/en/unccd/list_partial/')

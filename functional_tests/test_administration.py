@@ -2,7 +2,7 @@ from functional_tests.base import FunctionalTest
 from selenium.common.exceptions import NoSuchElementException
 from django.contrib.auth.models import Group
 
-from accounts.models import User
+from accounts.tests.test_models import create_new_user
 
 
 class AdminTest(FunctionalTest):
@@ -11,14 +11,15 @@ class AdminTest(FunctionalTest):
 
     def setUp(self):
         super(AdminTest, self).setUp()
-        user = User.create_new('a@b.com')
+        user = create_new_user()
         user.is_superuser = True
         user.save()
+        self.user = user
 
     def test_admin_page_superuser(self):
 
         # Alice logs in
-        self.doLogin('a@b.com', 'foo')
+        self.doLogin(user=self.user)
 
         # She sees the admin button in the top navigation bar and clicks on it
         navbar = self.findBy('class_name', 'top-bar')
@@ -33,20 +34,18 @@ class AdminTest(FunctionalTest):
         module_2.find_element_by_link_text('Keys')
         module_3 = self.findBy('id', 'module_3', base=column_1)
         module_3.find_element_by_link_text('Translations')
-        module_4 = self.findBy('id', 'module_4', base=column_1)
-        module_4.find_element_by_link_text('Statuses')
 
         with self.assertRaises(NoSuchElementException):
-            column_1.find_element_by_id('module_5')
+            column_1.find_element_by_id('module_4')
 
     def test_admin_page_translators(self):
 
-        user = User.create_new('foo@bar.com')
+        user = create_new_user(id=2, email='foo@bar.com')
         user.groups.add(Group.objects.filter(name='Translators').first())
         user.save()
 
         # Alice logs in
-        self.doLogin('foo@bar.com', 'foo')
+        self.doLogin(user=user)
 
         # She sees the admin button in the top navigation bar and clicks on it
         navbar = self.findBy('class_name', 'top-bar')

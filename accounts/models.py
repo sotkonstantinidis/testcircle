@@ -22,7 +22,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     email = models.EmailField(
         verbose_name='email address', unique=True, max_length=255)
-    name = models.CharField(max_length=100, null=True, blank=True)
+    firstname = models.CharField(max_length=255, null=True, blank=True)
+    lastname = models.CharField(max_length=255, null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'email'
@@ -86,7 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     @staticmethod
-    def create_new(email, name=''):
+    def create_new(id, email, lastname='', firstname=''):
         """
         Creates and returns a new user.
 
@@ -98,10 +99,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         Returns:
             :class:`accounts.models.User`. The newly created user.
         """
-        user = User.objects.create(email=email, name=name)
+        user = User.objects.create(
+            id=id, email=email, lastname=lastname, firstname=firstname)
         return user
 
-    def update(self, name, privileges=[]):
+    def update(self, lastname='', firstname='', privileges=[]):
         """
         Handles the one-way synchronization of the user database by
         updating the values.
@@ -114,15 +116,17 @@ class User(AbstractBaseUser, PermissionsMixin):
             .. todo::
                 Actually handle privileges.
         """
-        self.name = name
+        self.lastname = lastname
+        self.firstname = firstname
+        self.save()
 
-#     def is_authenticated(self):
-#         """
-#         Indicates if a user is authenticated. This is a way to tell if
-#         the user has been authenticated in templates and therefore
-#         always returns True.
+    # def is_authenticated(self):
+    #     """
+    #     Indicates if a user is authenticated. This is a way to tell if
+    #     the user has been authenticated in templates and therefore
+    #     always returns True.
 
-#         Returns:
-#             ``bool``. Always returns ``True``.
-#         """
-#         return True
+    #     Returns:
+    #         ``bool``. Always returns ``True``.
+    #     """
+    #     return True

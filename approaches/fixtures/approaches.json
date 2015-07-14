@@ -1,0 +1,86 @@
+[
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en": "First Approaches Key"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7001
+},
+
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "First Approaches Subcategory"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 8701
+},
+
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "First Approaches Section"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 8901
+},
+
+
+{
+    "fields": {
+        "keyword": "app_first",
+        "translation": 7001,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 3002
+},
+
+
+{
+    "fields": {
+        "keyword": "app_qg_1",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3001
+},
+
+
+{
+    "fields": {
+        "keyword": "app__1__1",
+        "translation": 8701
+    },
+    "model": "configuration.category",
+    "pk": 3001
+},
+
+
+{
+    "fields": {
+        "keyword": "app__1",
+        "translation": 8901
+    },
+    "model": "configuration.category",
+    "pk": 3701
+},
+
+
+{
+    "fields": {
+        "code": "approaches",
+        "description": "Description of WOCAT Approach Configuration",
+        "active": true,
+        "activated": "2015-01-08T10:12:59.337Z",
+        "data": {"sections":[{"keyword":"section_general_information","categories":[{"keyword":"app__1","view_template":"technologies_header","use_raw_data":true,"with_metadata":true,"subcategories":[{"keyword":"app__1__1","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","in_list":true,"is_name":true}]},{"keyword":"app_qg_1","questions":[{"keyword":"app_first","in_list":true}]}]}]}]}]},
+        "created": "2015-07-09T10:12:59.337Z",
+        "base_code": "",
+        "name": "WOCAT Approach Configuration"
+    },
+    "model": "configuration.configuration",
+    "pk": 3001
+}
+]

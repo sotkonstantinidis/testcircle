@@ -97,6 +97,30 @@ function toggleImageCheckboxConditional(el) {
   }
 }
 
+
+/**
+ * Update the numbering of the questiongroups.
+ */
+function updateNumbering() {
+  $('.questiongroup-numbered-inline').each(function() {
+    var counter = 0;
+    $(this).find('.row.list-item').each(function() {
+      counter++;
+      $(this).find('label').each(function() {
+        var label = $(this).html();
+        $(this).html(counter + ': ' + label);
+      });
+    });
+  });
+  $('.questiongroup-numbered-prefix').each(function() {
+    var counter = 1;
+    $(this).find('.questiongroup-numbered-number').each(function() {
+      $(this).html(counter++ + ':');
+    });
+  });
+}
+
+
 $(function() {
 
   // Language switcher
@@ -109,6 +133,10 @@ $(function() {
     }
   });
 
+  $('#submit-search').click(function() {
+    $(this).closest('form').submit();
+    return false;
+  });
 
   $('img[data-alt-src]').each(function() {
       new Image().src = $(this).data('alt-src');
@@ -137,7 +165,9 @@ $(function() {
       target.slideToggle();
 
       // We have to refresh sliders if their are in a collapsed element (grip position issue)
-      $('.nstSlider').nstSlider('refresh');
+      try {
+        $('.nstSlider').nstSlider('refresh');
+      } catch(e) {}
     }
 
   })
@@ -197,36 +227,40 @@ $(function() {
   // BUTTON BAR
   // -----------------
   // Button bar select line
-  .on('click', '.button-bar', toggleButtonBarSelected)
-
+  .on('click', '.button-bar', toggleButtonBarSelected);
 
   // Slider
   // -----------------
   // See full doc here: http://lokku.github.io/jquery-nstslider/
-  $('.nstSlider').nstSlider({
-    "crossable_handles": false,
-    "left_grip_selector": ".leftGrip",
-    "right_grip_selector": ".rightGrip",
-    "value_bar_selector": ".bar",
-    "value_changed_callback": function(cause, leftValue, rightValue, prevLeft, prevRight) {
-      var $grip = $(this).find('.leftGrip'),
-          whichGrip = 'left grip';
-      if (leftValue === prevLeft) {
-          $grip = $(this).find('.rightGrip');
-          whichGrip = 'right grip';
+  try {
+    $('.nstSlider').nstSlider({
+      "crossable_handles": false,
+      "left_grip_selector": ".leftGrip",
+      "right_grip_selector": ".rightGrip",
+      "value_bar_selector": ".bar",
+      "value_changed_callback": function(cause, leftValue, rightValue, prevLeft, prevRight) {
+        var $grip = $(this).find('.leftGrip'),
+            whichGrip = 'left grip';
+        if (leftValue === prevLeft) {
+            $grip = $(this).find('.rightGrip');
+            whichGrip = 'right grip';
+        }
+        var text = [];
+        text.push('<b>Moving ' + whichGrip + '</b>');
+        text.push('role: ' + $grip.attr('role'));
+        text.push('aria-valuemin: ' + $grip.attr('aria-valuemin'));
+        text.push('aria-valuenow: ' + $grip.attr('aria-valuenow'));
+        text.push('aria-valuemax: ' + $grip.attr('aria-valuemax'));
+        text.push('aria-disabled: ' + $grip.attr('aria-disabled'));
+        $('.ariaAttributesAsText').html(text.join('<br />'));
+        $(this).parent().find('.leftLabel').text(leftValue);
+        $(this).parent().find('.rightLabel').text(rightValue);
       }
-      var text = [];
-      text.push('<b>Moving ' + whichGrip + '</b>');
-      text.push('role: ' + $grip.attr('role'));
-      text.push('aria-valuemin: ' + $grip.attr('aria-valuemin'));
-      text.push('aria-valuenow: ' + $grip.attr('aria-valuenow'));
-      text.push('aria-valuemax: ' + $grip.attr('aria-valuemax'));
-      text.push('aria-disabled: ' + $grip.attr('aria-disabled'));
-      $('.ariaAttributesAsText').html(text.join('<br />'));
-      $(this).parent().find('.leftLabel').text(leftValue);
-      $(this).parent().find('.rightLabel').text(rightValue);
-    }
-  });
+    });
+  } catch(e) {}
+
+  // Update the numbering of the questiongroups
+  updateNumbering();
 });
 
 /**

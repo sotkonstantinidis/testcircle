@@ -1,5 +1,7 @@
-from importlib import import_module
+import urllib
+from datetime import datetime
 from django.conf import settings
+from importlib import import_module
 session_store = import_module(settings.SESSION_ENGINE).SessionStore()
 
 
@@ -58,57 +60,136 @@ def is_empty_list_of_dicts(list_):
     return True
 
 
-def get_session_questionnaire():
+def get_session_questionnaire(configuration_code):
     """
     Return the data for a questionnaire from the session. The
     questionnaire(s) are stored in the session dictionary under the key
     ``session_questionnaires``.
 
     .. todo::
-        Currently, only one questionnaire is stored to the session. In
-        the fututre, it should be possible to store (and retrieve)
-        multiple questionnaires.
+        Currently, only one questionnaire per configuration_code is
+        stored to the session. In the fututre, it should be possible to
+        store (and retrieve) multiple questionnaires.
+
+    Args:
+        ``configuration_code`` (str): The code of the configuration of
+        the questionnaire to retrieve.
 
     Returns:
         ``dict``. The data dictionary of the questionnaire as found in
         the session or an empty dictionary (``{}``) if not found.
+
+        ``dict``. A dictionary containing the links of this
+        questionnaire as found in the session or an empty dictionary
+        (``{}``) if not found. This dictionary can be used to populate
+        the form of the questionnaire links.
     """
     session_questionnaires = session_store.get('session_questionnaires')
     if (isinstance(session_questionnaires, list)
             and len(session_questionnaires) > 0):
-        # TODO: Do not always return first questionnaire
-        return session_questionnaires[0]
-    else:
-        return {}
+
+        for q in session_questionnaires:
+            if q.get('configuration') == configuration_code:
+                return q.get('questionnaire', {}), q.get('links', {})
+
+    return {}, {}
 
 
-def save_session_questionnaire(session_questionnaire):
+def save_session_questionnaire(
+        configuration_code, questionnaire_data, questionnaire_links):
     """
     Save the data of a questionnaire to the session, using the key
     ``session_questionnaires``.
 
+    The questionnaires are stored in the session
+    (``session['session_questionnaires']``) in the following format::
+
+        [
+            {
+                "configuration": "CONFIGURATION_CODE",
+                "modified": "DATETIME_OF_LAST_MODIFICATION",
+                "questionnaire": {},  # data of the questionnaire
+                "links": {}  # data of the links
+            }
+        ]
+
     .. todo::
-        Currently, only one questionnaire is stored to the session. In
-        the fututre, it should be possible to store (and retrieve)
-        multiple questionnaires.
+        Currently, only one questionnaire per configuration_code is
+        stored to the session. In the fututre, it should be possible to
+        store (and retrieve) multiple questionnaires.
 
     Args:
+        ``configuration_code`` (str): The code of the configuration of
+        the questionnaire to store.
+
         ``session_questionnaire`` (dict): The data dictionary of the
         questionnaire to be stored.
+
+        ``questionnaire_links`` (dict): The dictionary containing the
+        links of the questionnaire. The format of the dictionary
+        corresponds to the format used by the link forms to populate
+        its fields.
     """
-    session_store['session_questionnaires'] = [session_questionnaire]
+    session_questionnaires = session_store.get('session_questionnaires', [])
+
+    session_questionnaire = next((q for q in session_questionnaires if q.get(
+        'configuration') == configuration_code), None)
+
+    if session_questionnaire is None:
+        # The questionnaire is not yet in the session
+        session_questionnaire = {'configuration': configuration_code}
+        session_questionnaires.append(session_questionnaire)
+
+    # Update the session data
+    session_questionnaire.update({
+        'questionnaire': questionnaire_data,
+        'links': questionnaire_links,
+        'modified': str(datetime.now()),
+    })
+
+    session_store['session_questionnaires'] = session_questionnaires
     session_store.save()
 
 
-def clear_session_questionnaire():
+def clear_session_questionnaire(configuration_code=None):
     """
     Clear the data of a questionnaire from the session key
     ``session_questionnaires``.
 
     .. todo::
-        Currently, only one questionnaire is stored to the session. In
-        the fututre, it should be possible to store (and delete)
-        multiple questionnaires.
+        Currently, only one questionnaire per configuration_code is
+        stored to the session. In the fututre, it should be possible to
+        store (and delete) multiple questionnaires.
+
+    Kwargs:
+        ``configuration_code`` (str): The code of the configuration of
+        the questionnaire to clear. If not provided, all the session
+        questionnaires will be cleared!
     """
-    session_store['session_questionnaires'] = []
+    if configuration_code is None:
+        session_store['session_questionnaires'] = []
+    else:
+        session_questionnaires = session_store.get(
+            'session_questionnaires', [])
+        for q in session_questionnaires:
+            if q.get('configuration') == configuration_code:
+                session_questionnaires.remove(q)
     session_store.save()
+
+
+def url_with_querystring(path, **kwargs):
+    """
+    Build a URL with query strings.
+
+    Args:
+        ``path`` (str): The base path of the URL before the query
+        strings.
+
+    Kwargs:
+        ``**(key=value)``: One or more parameters as keys and values to
+        be added as query strings.
+
+    Returns:
+        ``str``. A URL with query strings.
+    """
+    return path + '?' + urllib.parse.urlencode(kwargs)

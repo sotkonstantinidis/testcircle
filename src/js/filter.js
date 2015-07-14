@@ -77,7 +77,12 @@ function addFilter(questiongroup, key, value) {
  * @return {object} An object with the updated query parameters.
  */
 function removeFilter(questiongroup, key, value) {
-  var keyParameter = createKeyParameter(questiongroup, key);
+  var keyParameter;
+  if (key == '_search') {
+    keyParameter = 'q';
+  } else {
+    keyParameter = createKeyParameter(questiongroup, key);
+  }
   var p = parseQueryString();
   if (keyParameter in p) {
     var i = p[keyParameter].indexOf(value);

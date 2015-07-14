@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-
+from django.core.urlresolvers import reverse
 from django.http import (
     Http404,
     HttpResponse,
@@ -12,10 +11,15 @@ from django.shortcuts import (
     redirect,
     get_object_or_404,
 )
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
+from django.views.decorators.http import require_POST
 
 from configuration.configuration import QuestionnaireConfiguration
-from configuration.utils import get_configuration_query_filter
+from configuration.utils import (
+    get_configuration_index_filter,
+    get_configuration_query_filter,
+)
 from qcat.utils import (
     clear_session_questionnaire,
     get_session_questionnaire,
@@ -32,10 +36,179 @@ from questionnaire.upload import (
 from questionnaire.utils import (
     clean_questionnaire_data,
     get_active_filters,
+    get_link_data,
+    get_list_values,
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
+    query_questionnaires_for_link,
 )
+from search.search import advanced_search
+
+
+@login_required
+def generic_questionnaire_link_form(
+        request, configuration_code, url_namespace, page_title='QCAT Links'):
+    """
+    A generic view to add or remove linked questionnaires. By default,
+    the forms are shown. If the form was submitted, the submitted
+    questionnaires are validated and stored in the session, followed by
+    a redirect to the overview.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+        ``url_namespace`` (str): The namespace of the questionnaire
+        URLs. It is assumed that all questionnaire apps have the same
+        routes for their questionnaires
+        (e.g. ``wocat:questionnaire_new``)
+
+    Kwargs:
+        ``page_title`` (str): The page title to be used in the HTML
+        template. Defaults to ``QCAT Form``.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    questionnaire_configuration = QuestionnaireConfiguration(
+        configuration_code)
+    links_configuration = questionnaire_configuration.get_links_configuration()
+
+    session_questionnaire, session_links = get_session_questionnaire(
+        configuration_code)
+
+    link_forms = []
+    for links_config in links_configuration:
+        config_code = links_config.get('keyword')
+        initial_data = session_links.get(config_code, [])
+        link_forms.append(
+            ({
+                'keyword': config_code,
+                'label': config_code,  # TODO
+            }, initial_data))
+
+    overview_url = '{}#links'.format(
+        reverse('{}:questionnaire_new'.format(url_namespace)))
+
+    valid = True
+    if request.method == 'POST':
+
+        link_data = {}
+        for submitted_key in request.POST.keys():
+
+            if not submitted_key.startswith('links__'):
+                continue
+
+            cleaned_links = []
+            for submitted_link in request.POST.getlist(submitted_key):
+                try:
+                    link_object = Questionnaire.objects.get(pk=submitted_link)
+                except Questionnaire.DoesNotExist:
+                    messages.error(
+                        request, '[TODO] The linked questionnaire with ID {} '
+                        'does not exist'.format(submitted_link))
+                    valid = False
+                    continue
+
+                link_configuration_code = submitted_key.replace('links__', '')
+                current_link_data = get_link_data(
+                    [link_object],
+                    link_configuration_code=link_configuration_code)
+                cleaned_links.extend(
+                    current_link_data.get(link_configuration_code))
+                if len(cleaned_links):
+                    link_data[link_configuration_code] = cleaned_links
+
+        if valid is True:
+            save_session_questionnaire(
+                configuration_code, session_questionnaire, link_data)
+            messages.success(
+                request, _('[TODO] Data successfully stored to Session.'))
+            return redirect(overview_url)
+
+    return render(request, 'form/links.html', {
+        'valid': valid,
+        'overview_url': overview_url,
+        'link_forms': link_forms,
+        'configuration_name': url_namespace,
+        'title': page_title,
+    })
+
+
+def generic_questionnaire_link_search(request, configuration_code):
+    """
+    A generic view to return search for questionnaires to be used in the
+    linked form. Returns the found Questionnaires in JSON format.
+
+    The search happens in the database as users need to see their own
+    pending changes.
+
+    A generic view to add or remove linked questionnaires. By default,
+    the forms are shown. If the form was submitted, the submitted
+    questionnaires are validated and stored in the session, followed by
+    a redirect to the overview.
+
+    Args:
+        ``request`` (django.http.HttpResponse): The request object. The
+        search term is passed as GET parameter ``q`` of the request.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+    Returns:
+        ``JsonResponse``. A rendered JSON Response. If successful, the
+        response contains the following keys:
+
+            ``total`` (int): An integer indicating the total amount of
+            results found.
+
+            ``data`` (list): A list of the results returned. This can
+            contain fewer items than the total count indicates as there
+            is a limit applied to the results.
+    """
+    q = request.GET.get('q', None)
+    if q is None:
+        return JsonResponse({})
+
+    configuration = QuestionnaireConfiguration(configuration_code)
+
+    total, questionnaires = query_questionnaires_for_link(configuration, q)
+
+    link_template = '{}/questionnaire/partial/link.html'.format(
+        configuration_code)
+    link_route = '{}:questionnaire_details'.format(configuration_code)
+
+    link_data = configuration.get_list_data([d.data for d in questionnaires])
+    data = []
+    for i, d in enumerate(questionnaires):
+        display = render_to_string(link_template, {
+            'link_data': link_data[i],
+            'link_route': link_route,
+            'id': d.id,
+        })
+
+        name = configuration.get_questionnaire_name(d.data)
+        try:
+            original_lang = d.questionnairetranslation_set.first().language
+        except AttributeError:
+            original_lang = None
+
+        data.append({
+            'name': name.get(get_language(), name.get(original_lang, '')),
+            'id': d.id,
+            'value': d.id,
+            'code': d.code,
+            'display': display,
+        })
+
+    ret = {
+        'total': total,
+        'data': data,
+    }
+    return JsonResponse(ret)
 
 
 @login_required
@@ -48,7 +221,7 @@ def generic_questionnaire_new_step(
 
     By default, the form is shown. If the form was submitted, it is
     validated and if valid stored in the session, followed by a redirect
-    to the desired route (``success_route``).
+    to the overview.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -127,6 +300,7 @@ def generic_questionnaire_new_step(
                     data[questiongroup_keyword] = [cleaned_data]
 
         return data, True
+
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
     category = questionnaire_configuration.get_category(step)
@@ -136,7 +310,8 @@ def generic_questionnaire_new_step(
 
     session_questionnaire = {}
     if request.method != 'POST':
-        session_questionnaire = get_session_questionnaire()
+        session_questionnaire, __ = get_session_questionnaire(
+            configuration_code)
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -151,6 +326,9 @@ def generic_questionnaire_new_step(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation)
 
+    overview_url = '{}#{}'.format(
+        reverse('{}:questionnaire_new'.format(url_namespace)), step)
+
     valid = True
     if request.method == 'POST':
 
@@ -158,10 +336,11 @@ def generic_questionnaire_new_step(
             category_formsets, current_locale, original_locale)
 
         if valid is True:
-            session_questionnaire = get_session_questionnaire()
+            session_questionnaire, session_links = get_session_questionnaire(
+                configuration_code)
             session_questionnaire.update(data)
 
-            cleaned_questionnaire_data, errors = clean_questionnaire_data(
+            questionnaire_data, errors = clean_questionnaire_data(
                 session_questionnaire, questionnaire_configuration)
             if errors:
                 valid = False
@@ -170,18 +349,18 @@ def generic_questionnaire_new_step(
                     'because of the following errors: <br/>{}'.format(
                         '<br/>'.join(errors)))
             else:
-                save_session_questionnaire(cleaned_questionnaire_data)
+                save_session_questionnaire(
+                    configuration_code, questionnaire_data, session_links)
 
                 messages.success(
-                    request, _('[TODO] Data successfully stored to Session.'),
-                    fail_silently=True)
-                return redirect('{}:questionnaire_new'.format(url_namespace))
+                    request, _('[TODO] Data successfully stored to Session.'))
+                return redirect(overview_url)
 
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
         'category_config': category_config,
         'title': page_title,
-        'route_overview': '{}:questionnaire_new'.format(url_namespace),
+        'overview_url': overview_url,
         'valid': valid,
         'configuration_name': url_namespace,
     })
@@ -226,11 +405,21 @@ def generic_questionnaire_new(
         configuration_code)
 
     if questionnaire_id is not None:
+        # For edits, copy the data to the session first.
         questionnaire_object = get_object_or_404(
             Questionnaire, pk=questionnaire_id)
-        save_session_questionnaire(questionnaire_object.data)
+        questionnaire_links = get_link_data(questionnaire_object.links.all())
+        save_session_questionnaire(
+            configuration_code, questionnaire_data=questionnaire_object.data,
+            questionnaire_links=questionnaire_links)
 
-    session_questionnaire = get_session_questionnaire()
+    session_questionnaire, session_links = get_session_questionnaire(
+        configuration_code)
+
+    # overview_url = '{}#{}'.format(
+    #     reverse('{}:questionnaire_details'.format(url_namespace), args=[1]))
+    # overview_url = reverse('technologies:questionnaire_details', args=[1])
+    # print(overview_url)
 
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
@@ -248,14 +437,24 @@ def generic_questionnaire_new(
         else:
             questionnaire = Questionnaire.create_new(
                 configuration_code, session_questionnaire)
-            clear_session_questionnaire()
+            clear_session_questionnaire(configuration_code=configuration_code)
+
+            for __, linked_questionnaires in session_links.items():
+                for linked in linked_questionnaires:
+                    try:
+                        link = Questionnaire.objects.get(pk=linked.get('id'))
+                    except Questionnaire.DoesNotExist:
+                        continue
+                    questionnaire.add_link(link)
+
             messages.success(
                 request,
                 _('[TODO] The questionnaire was successfully created.'),
                 fail_silently=True)
-            return redirect(
-                '{}:questionnaire_details'.format(url_namespace),
-                questionnaire.id)
+
+            return redirect('{}#top'.format(
+                reverse('{}:questionnaire_details'.format(
+                    url_namespace), args=[questionnaire.id])))
 
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
@@ -266,11 +465,16 @@ def generic_questionnaire_new(
 
     images = questionnaire_configuration.get_image_data(data)
 
+    display_links = []
+    for linked_configuration, linked_questionnaires in session_links.items():
+        display_links.extend([l.get('display') for l in linked_questionnaires])
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'edit',
+        'links': display_links,
     })
 
 
@@ -306,17 +510,23 @@ def generic_questionnaire_details(
 
     images = questionnaire_configuration.get_image_data(data)
 
+    display_links = []
+    link_data = get_link_data(questionnaire_object.links.all())
+    for __, links in link_data.items():
+        display_links.extend([l.get('display') for l in links])
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_id': questionnaire_id,
         'mode': 'view',
+        'links': display_links,
     })
 
 
 def generic_questionnaire_list(
         request, configuration_code, template=None, filter_url='', limit=10,
-        only_current=False):
+        only_current=False, db_query=False):
     """
     A generic view to show a list of questionnaires.
 
@@ -339,49 +549,59 @@ def generic_questionnaire_list(
         only questionnaires from the current configuration. Passed to
         :func:`configuration.utils.get_configuration_query_filter`
 
+        ``db_query`` (bool): A boolean indicating whether to query the
+        database for results instead of using Elasticsearch. Please note
+        that filters are ignored if querying the database.
+
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
 
-    questionnaires = Questionnaire.objects.filter(
-        get_configuration_query_filter(
-            configuration_code, only_current=only_current))
-
-    # Apply filters
+    # Get the filters and prepare them to be passed to the search.
     active_filters = get_active_filters(
         questionnaire_configuration, request.GET)
-    # TODO: Improve the filtering, also performance wise.
+    query_string = ''
+    filter_params = []
     for active_filter in active_filters:
-        filtered = []
-        if active_filter['type'] in ['checkbox', 'image_checkbox']:
-            for filtered_questionnaire in Questionnaire.objects.raw("""
-                select *
-                from questionnaire_questionnaire,
-                lateral jsonb_array_elements(data -> %s) questiongroup
-                where questiongroup->%s ? %s;
-            """, [active_filter['questiongroup'], active_filter['key'],
-                    active_filter['value']]):
-                filtered.append(filtered_questionnaire)
+        filter_type = active_filter.get('type')
+        if filter_type in ['_search']:
+            query_string = active_filter.get('value', '')
+        elif filter_type in ['checkbox', 'image_checkbox']:
+            filter_params.append(
+                (active_filter.get('questiongroup'),
+                 active_filter.get('key'), active_filter.get('value'), None))
         else:
-            raise NotImplemented()
+            raise NotImplementedError(
+                'Type "{}" is not valid for filters'.format(filter_type))
 
-        questionnaires = questionnaires.filter(id__in=[q.id for q in filtered])
+    if db_query is True:
+        questionnaires = Questionnaire.objects.filter(
+            get_configuration_query_filter(
+                configuration_code, only_current=only_current))[:limit]
 
-    # Apply limit
-    questionnaires = questionnaires[:limit]
+        list_values = get_list_values(
+            configuration_code=configuration_code,
+            questionnaire_objects=questionnaires)
 
-    # Get the values needed for the list template
-    questionnaire_value_list = questionnaire_configuration.get_list_data(
-        questionnaires)
+    else:
+        search_configuration_codes = get_configuration_index_filter(
+            configuration_code, only_current=only_current)
+
+        search = advanced_search(
+            filter_params=filter_params, query_string=query_string,
+            configuration_codes=search_configuration_codes, limit=limit)
+
+        list_values = get_list_values(
+            configuration_code=configuration_code, es_search=search)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
     template_values = {
-        'questionnaire_value_list': questionnaire_value_list,
+        'list_values': list_values,
         'filter_configuration': filter_configuration,
         'active_filters': active_filters,
         'filter_url': filter_url,

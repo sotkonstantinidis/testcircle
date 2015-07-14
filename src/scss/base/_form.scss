@@ -80,3 +80,35 @@ select,
 fieldset > div.questiongroup:not(:first-of-type) {
   margin-top: 1rem;
 }
+
+.questiongroup-numbered-left {
+  float: left;
+}
+
+.questiongroup-numbered-left p {
+  padding: 0.5rem 0;
+}
+
+.questiongroup-numbered-right {
+  margin-left: 2.5rem;
+}
+
+td.form-table-contains-inline {
+  padding: 2px 0 0;
+}
+
+td.form-table-contains-inline table {
+  margin-bottom: 0;
+}
+
+td.form-table-contains-inline table tr td {
+  border-bottom: 0;
+}
+
+table.output-table {
+  table-layout: fixed;
+}
+
+table.output-table thead tr th {
+  width: 100%;
+}

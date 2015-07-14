@@ -71,3 +71,10 @@ a.link {
 pre code {
   line-height: rem-calc(18);
 }
+
+.text-warning {
+  color: $alert-color;
+}
+.text-ok {
+  color: $success-color;
+}

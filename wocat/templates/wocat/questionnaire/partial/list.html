@@ -5,72 +5,16 @@
 
   Required attributes:
 
-  - questionnaire_value_list
+  - list_values
 
 {% endcomment %}
 
 {% load i18n %}
-{% load staticfiles %}
 
-{% if not questionnaire_value_list %}
+{% for list_entry in list_values %}
+  {% with configuration=list_entry.configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
+    {% include configuration with item=list_entry %}
+  {% endwith %}
+{% empty %}
   <p>{% trans "No WOCAT questionnaires found." %}</p>
-{% endif %}
-
-{% for questionnaire_values in questionnaire_value_list %}
-  <article role="article" class="row large-collapse tech-item">
-    <div class="tech-thumbnail medium-4 columns">
-      <figure>
-        <a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}" title="">{% if questionnaire_values.image %}<img src="{{ questionnaire_values.image }}" alt="{{ questionnaire_values.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
-        <figcaption class="tech-status label is-draft">draft</figcaption>
-      </figure>
-      <ul class="tech-icons">
-        <li>
-          <a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}">
-            <span class="tech-icon">
-              <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
-              <br>
-              {% trans "PDF" %}
-            </span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}">
-            <span class="tech-icon">
-              <svg class="icon"><use xlink:href="#icon-video"></use></svg>
-              {% trans "Video" %}
-            </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="content medium-8 columns">
-      <header>
-         <h1>{% if not questionnaire_values.native_configuration %}<small>[{{ questionnaire_values.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'wocat:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.name }}</a> <small>{{ questionnaire_values.country }}</small></h1>
-      </header>
-      <aside class="tech-infos row collapse">
-        <dl class="medium-6 columns">
-          <dt>ID:</dt>
-          <dd>AU_067456_ES</dd>
-        </dl>
-        <dl class="medium-6 columns">
-          <dt>{% trans "Creation:" %}</dt>
-          <dd><time datetime="{{ questionnaire_values.created|date:"c" }}" pubdate="pubdate">{{ questionnaire_values.created|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
-        </dl>
-        <dl class="medium-6 columns">
-          <dt>{% trans "Update:" %}</dt>
-          <dd><time datetime="{{ questionnaire_values.updated|date:"c" }}">{{ questionnaire_values.updated|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
-        </dl>
-        <dl class="medium-6 columns">
-          <dt>Author:</dt>
-          <dd>Bruce Banner</dd>
-        </dl>
-      </aside>
-      <main>
-        <p>{{ questionnaire_values.wocat_definition }}</p>
-      </main>
-      <footer>
-        <p class="is-light"><em>This article is also avalable in: <a href="" class="link">deutsch</a>, <a href="" class="link">español</a>, <a href="" class="link">français</a></em></p>
-      </footer>
-    </div>
-  </article>
 {% endfor %}

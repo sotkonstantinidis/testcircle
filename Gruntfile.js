@@ -137,12 +137,15 @@ module.exports = function(grunt) {
           'static/js/modernizr.js': 'bower_components/modernizr/modernizr.js',
           'static/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
           'static/js/jquery.min.map': 'bower_components/jquery/dist/jquery.min.map',
+          'static/js/jquery-ui.min.js': 'bower_components/jquery-ui/jquery-ui.min.js',
           'static/js/jquery.nstSlider.min.js': 'bower_components/jquery-nstSlider/dist/jquery.nstSlider.min.js',
-          'static/js/dropzone.min.js': 'bower_components/dropzone/downloads/dropzone.min.js',
+          'static/js/dropzone.min.js': 'bower_components/dropzone/dist/min/dropzone.min.js',
           'static/js/app.js': 'src/js/app.js',
           'static/js/filter.js': 'src/js/filter.js',
           'static/js/wocat.magellan.js': 'src/js/wocat.magellan.js',
-          'static/js/wizard.js': 'src/js/wizard.js'
+          'static/js/wizard.js': 'src/js/wizard.js',
+          'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
+          'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css'
         }
         ,{
           expand: true,

@@ -11,7 +11,7 @@
     <header class="wizard-header" role="banner">
       <div class="row">
         <div class="columns small-12 medium-9">
-          <a class="wizard-header-back" href="{% url route_overview %}">{% trans "Go Back" %}</a>
+          <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back" %}</a>
           <h2 class="wizard-header-title">{{ category_config.label }}</h2>
           <div class="progress">
             <span class="meter" style="width:0%"></span>
@@ -46,7 +46,7 @@
     <main class="main inner-wrap">
       {% for subcategory_config, subcategory_formsets in category_formsets %}
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
-        {% form form using "form/subcategory.html" with config=subcategory_config formsets=subcategory_formsets %}
+        {% form form using subcategory_config.form_template with config=subcategory_config formsets=subcategory_formsets %}
       {% endfor %}
     </main>
   </form>

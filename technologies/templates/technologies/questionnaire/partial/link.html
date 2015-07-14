@@ -1,0 +1,17 @@
+{% comment %}
+
+  This partial template can be included to display a link to Technology
+  questionnaires.
+
+  Required attributes:
+
+  - link_data (data dictionary)
+  - link_route (name of route to details of questionnaire)
+  - id (id of the questionnaire)
+
+{% endcomment %}
+
+{% load i18n %}
+{% load list_to_columns %}
+
+<strong>[{% trans "Technology" %}]</strong> <a href="{% url link_route id %}">{{ link_data.name|get_by_keyword:'en' }}</a>

@@ -5,46 +5,16 @@
 
   Required attributes:
 
-  - questionnaire_value_list
+  - list_values
 
 {% endcomment %}
 
 {% load i18n %}
 
-{% if not questionnaire_value_list %}
+{% for list_entry in list_values %}
+  {% with configuration=list_entry.configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
+    {% include configuration with item=list_entry %}
+  {% endwith %}
+{% empty %}
   <p>{% trans "No UNCCD questionnaires found." %}</p>
-{% endif %}
-
-{% for questionnaire_values in questionnaire_value_list %}
-  <article role="article" class="row large-collapse tech-item">
-    <div class="content columns">
-      <header>
-         <h1><a href="{% url 'unccd:questionnaire_details' questionnaire_values.id %}" title="" class="link">{{ questionnaire_values.name }}</a> <small>{{ questionnaire_values.country }}</small></h1>
-      </header>
-      <aside class="tech-infos row collapse">
-        <dl class="medium-6 columns">
-          <dt>ID:</dt>
-          <dd>AU_067456_ES</dd>
-        </dl>
-        <dl class="medium-6 columns">
-          <dt>{% trans "Creation:" %}</dt>
-          <dd><time datetime="{{ questionnaire_values.created|date:"c" }}" pubdate="pubdate">{{ questionnaire_values.created|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
-        </dl>
-        <dl class="medium-6 columns">
-          <dt>{% trans "Update:" %}</dt>
-          <dd><time datetime="{{ questionnaire_values.updated|date:"c" }}">{{ questionnaire_values.updated|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
-        </dl>
-        <dl class="medium-6 columns">
-          <dt>Author:</dt>
-          <dd>Bruce Banner</dd>
-        </dl>
-      </aside>
-      <main>
-        <p>{{ questionnaire_values.wocat_definition }}</p>
-      </main>
-      <footer>
-        <p class="is-light"><em>This article is also avalable in: <a href="" class="link">deutsch</a>, <a href="" class="link">español</a>, <a href="" class="link">français</a></em></p>
-      </footer>
-    </div>
-  </article>
 {% endfor %}

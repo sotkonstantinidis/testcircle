@@ -15,13 +15,6 @@ class InitialGroupsTest(TestCase):
         self.assertEqual(
             admin_group.permissions.count(), Permission.objects.count())
 
-    def test_translators_have_status_permissions(self):
-        translator_group = Group.objects.get(name='Translators')
-        self.assertEqual(translator_group.permissions.count(), 3)
-        # Only contains permissions with content_type = 8
-        self.assertEqual(len(translator_group.permissions.all().exclude(
-            content_type=15)), 0)
-
 
 class InitialPermissionsTest(TestCase):
 

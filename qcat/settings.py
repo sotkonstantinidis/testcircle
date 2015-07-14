@@ -46,8 +46,12 @@ INSTALLED_APPS = (
     'accounts',
     'configuration',
     'wocat',
+    'technologies',
+    'approaches',
     'unccd',
+    'search',
     'sample',
+    'samplemulti',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,6 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'accounts.authentication.WocatAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -72,7 +77,7 @@ WSGI_APPLICATION = 'qcat.wsgi.application'
 LANGUAGE_CODE = 'en'
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, '../csr/locale'),
+    os.path.join(BASE_DIR, '../qcat/locale'),
 )
 
 from django.utils.translation import ugettext_lazy as _
@@ -151,6 +156,21 @@ NOSE_ARGS = [
 
 GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
 GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
+
+# Elasticsearch settings
+ES_HOST = 'localhost'
+ES_PORT = 9200
+ES_INDEX_PREFIX = 'qcat_'
+
+# For each language (as set in the setting ``LANGUAGES``), a language
+# analyzer can be specified. This helps to analyze the text in the
+# corresponding language for better search results.
+# https://www.elastic.co/guide/en/elasticsearch/reference/1.6/analysis-lang-analyzer.html
+ES_ANALYZERS = (
+    ('en', 'english'),
+    ('es', 'spanish'),
+)
+
 
 try:
     from qcat.settings_local import *

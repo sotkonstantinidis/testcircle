@@ -1,14 +1,17 @@
 from functional_tests.base import FunctionalTest
-from accounts.tests.test_authentication import get_mock_do_auth_return_values
+from accounts.tests.test_models import create_new_user
 from unittest.mock import patch
 
 
-@patch('accounts.authentication.WocatAuthenticationBackend._do_auth')
+@patch('accounts.authentication.auth_authenticate')
 class LoginTest(FunctionalTest):
 
-    def test_login(self, mock_do_auth):
+    def test_login(self, mock_authenticate):
 
-        mock_do_auth.return_value = None
+        user = create_new_user()
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+
+        mock_authenticate.return_value = None
 
         # Alice opens her web browser and goes to the home page
         self.browser.get(self.live_server_url)
@@ -17,8 +20,6 @@ class LoginTest(FunctionalTest):
         # clicks.
         navbar = self.findBy('class_name', 'top-bar')
         navbar.find_element_by_link_text('Login').click()
-
-        login_url = self.browser.current_url
 
         # She tries to submit the form empty and sees that the form was
         # not submitted.
@@ -36,19 +37,11 @@ class LoginTest(FunctionalTest):
         # self.findBy('class_name', 'alert-box')
         # self.checkOnPage('not correct')
 
-        mock_do_auth.return_value = get_mock_do_auth_return_values()
-        self.browser.get(login_url)
+        mock_authenticate.return_value = user
 
-        # She enters some correct credentials
-        email_field = self.findBy('name', 'user')
-        email_field.clear()
-        email_field.send_keys('correct@user.com')
-        self.findBy('name', 'pass').send_keys('correct')
-        self.findBy('id', 'button_login').click()
-
-        self.browser.get(login_url)
+        self.browser.get(self.live_server_url)
         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
-        self.browser.get(login_url)
+        self.browser.get(self.live_server_url)
 
         self.checkOnPage('Logout')
 
