@@ -46,6 +46,13 @@ button,
 }
 .button-switch {
   list-style: none;
+  margin-left: 0;
+  
+  &:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
   & > li { 
     display: inline-block;
     float: left;

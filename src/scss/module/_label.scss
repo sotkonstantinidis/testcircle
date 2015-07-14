@@ -1,13 +1,18 @@
 .label {
   text-transform: uppercase;
-
+  &.is-tech {
+    background-color: rgba($color-unccd, 0.8);
+  }
+  &.is-approach {
+    background-color: rgba($color-wocat, 0.8);
+  }
   &.is-review {
-    background-color: rgba($alert-color, 0.7);
+    background-color: rgba($alert-color, 0.8);
   }
   &.is-completed {
-    background-color: rgba($success-color, 0.7);
+    background-color: rgba($success-color, 0.8);
   }
   &.is-draft {
-    background-color: rgba($info-color, 0.7);
+    background-color: rgba($info-color, 0.8);
   }
 }

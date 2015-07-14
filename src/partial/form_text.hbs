@@ -54,7 +54,6 @@
     </div>
   </div>
 
-
   {{!-- Answer propositions --}}
   <h3>Answer with propositions</h3>
   <p>Here, the user can choose a proposition or enter text.</p>
@@ -69,6 +68,23 @@
     </div>
     <div class="content" id="panel03-08">
       {{#markdown}}{{ embed 'src/partial/form_element/text_proposition.hbs' 'xml' }}{{/markdown}}
+    </div>
+  </div>
+
+  {{!-- Labels --}}
+  <h3>Labels</h3>
+  <p>Little upgrade from <a href="http://foundation.zurb.com/docs/components/labels.html">Foundation's labels</a></p>
+
+  <dl class="tabs" data-tab>
+    <dd class="active"><a href="#panel03-09">Result</a></dd>
+    <dd><a href="#panel03-10">HTML</a></dd>
+  </dl>
+  <div class="tabs-content panel">
+    <div class="content active" id="panel03-09">
+      {{> labels}}
+    </div>
+    <div class="content" id="panel03-10">
+      {{#markdown}}{{ embed 'src/partial/form_element/labels.hbs' 'xml' }}{{/markdown}}
     </div>
   </div>
   
