@@ -49,21 +49,35 @@ sup {
 }
 
 a.link {
-  background-image: linear-gradient(to bottom, transparent 50%, $color-beige 50%);
-  background-repeat: repeat-x;
-  background-size: 2px 2px;
-  background-position: 0 92%;
-  transition: all 300ms ease;
-
+  position: relative;
+  transition: color 300ms ease;
+  
+  &:before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: .3;
+    background-image: linear-gradient(to bottom, transparent 50%, currentColor 50%);
+    background-repeat: repeat-x;
+    background-size: 2px 2px;
+    background-position: 0 92%;
+    transition: opacity 300ms ease;
+  }
   &:hover {
-    background-image: linear-gradient(to bottom, transparent 50%, $color-beige-dark 50%);
+    color: black;
+    &:before {
+      opacity: .7;
+    }
   }
 
   &.is-wocat {
     color: $color-wocat;
     &:hover {
       color: $color-wocat-dark;
-      background-image: linear-gradient(to bottom, transparent 50%, $color-wocat-dark 50%);
     }
   }
 }
