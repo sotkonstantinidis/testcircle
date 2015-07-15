@@ -18,6 +18,7 @@ from qcat.tests import TestCase
 from qcat.utils import session_store
 from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
+    _handle_review_actions,
     generic_file_upload,
     generic_questionnaire_details,
     generic_questionnaire_link_form,
@@ -438,10 +439,83 @@ class GenericQuestionnaireDetailsTest(TestCase):
             mock_get_object_or_404, mock_QuestionnaireConfiguration):
         mock_QuestionnaireConfiguration.return_value = None
         mock_get_object_or_404.return_value.data = {}
-        # with self.assertRaises(Exception):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_QuestionnaireConfiguration.assert_called_once_with('sample')
+
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.views.get_object_or_404')
+    @patch('questionnaire.views.QuestionnaireConfiguration')
+    def test_calls_get_questionnaire_data_in_single_language(
+            self, mock_Conf, mock_get_object_or_404,
+            mock_get_q_data_in_single_lang):
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_q_data_in_single_lang.assert_called_once_with(
+            mock_get_object_or_404.return_value.data, 'en')
+
+    @patch('questionnaire.views._handle_review_actions')
+    @patch('questionnaire.views.redirect')
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.views.get_object_or_404')
+    @patch('questionnaire.views.QuestionnaireConfiguration')
+    def test_calls_handle_review_actions_if_post_values(
+            self, mock_Conf, mock_get_object_or_404,
+            mock_get_q_data_in_single_lang, mock_redirect,
+            mock_handle_review_actions):
+        self.request.method = 'POST'
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_handle_review_actions.assert_called_once_with(
+            self.request, mock_get_object_or_404.return_value)
+
+    @patch('questionnaire.views.redirect')
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.views.get_object_or_404')
+    @patch('questionnaire.views.QuestionnaireConfiguration')
+    def test_calls_redirect_if_post_values(
+            self, mock_Conf, mock_get_object_or_404,
+            mock_get_q_data_in_single_lang, mock_redirect):
+        self.request.method = 'POST'
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_redirect.assert_called_once_with(
+            'sample:questionnaire_details',
+            mock_get_object_or_404.return_value.id)
+
+    @patch.object(QuestionnaireConfiguration, 'get_details')
+    @patch('questionnaire.views.get_object_or_404')
+    def test_reviewable_false_if_no_moderate_permissions(
+            self, mock_get_object_or_404, mock_get_details):
+        mock_get_object_or_404.return_value.data = {}
+        mock_get_object_or_404.return_value.status = 2
+        user = Mock()
+        user.has_perm.return_value = False
+        self.request.user = user
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_details.assert_called_once_with(
+            data={}, questionnaire_object=mock_get_object_or_404.return_value,
+            review_config={
+                'review_status': mock_get_object_or_404.return_value.status,
+                'csrf_token_value': None, 'reviewable': False})
+
+    @patch.object(QuestionnaireConfiguration, 'get_details')
+    @patch('questionnaire.views.get_object_or_404')
+    def test_reviewable_true_if_no_moderate_permissions(
+            self, mock_get_object_or_404, mock_get_details):
+        mock_get_object_or_404.return_value.data = {}
+        mock_get_object_or_404.return_value.status = 2
+        user = Mock()
+        user.has_perm.return_value = True
+        self.request.user = user
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_details.assert_called_once_with(
+            data={}, questionnaire_object=mock_get_object_or_404.return_value,
+            review_config={
+                'review_status': mock_get_object_or_404.return_value.status,
+                'csrf_token_value': None, 'reviewable': True})
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.get_object_or_404')
@@ -450,7 +524,10 @@ class GenericQuestionnaireDetailsTest(TestCase):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_get_details.assert_called_once_with(
-            data={}, questionnaire_object=mock_get_object_or_404.return_value)
+            data={}, questionnaire_object=mock_get_object_or_404.return_value,
+            review_config={
+                'review_status': mock_get_object_or_404.return_value.status,
+                'csrf_token_value': None})
 
     @patch.object(QuestionnaireConfiguration, 'get_image_data')
     @patch('questionnaire.views.get_object_or_404')
@@ -654,3 +731,114 @@ class GenericFileServeTest(TestCase):
         mock_retrieve_file.return_value = ('file', 'filename')
         res = self.client.get(url)
         self.assertEqual(res.status_code, 200)
+
+
+@patch('questionnaire.views.messages')
+class HandleReviewActionsTest(TestCase):
+
+    def setUp(self):
+        self.request = Mock()
+        self.request.user = 'foo'
+        self.obj = Mock(spec=Questionnaire)
+        self.obj.members.all.return_value = ['foo']
+
+    def test_submit_does_not_update_if_previous_status_not_draft(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'submit': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 3)
+
+    def test_submit_previous_status_not_correct_adds_message(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'submit': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be submitted because it does not have'
+            ' to correct status.')
+
+    # def test_submit_needs_current_user_as_member(self, mock_messages):
+    #     self.obj.status = 1
+    #     self.request.POST = {'submit': 'foo'}
+    #     self.request.user = Mock()
+    #     _handle_review_actions(self.request, self.obj)
+    #     self.assertEqual(self.obj.status, 1)
+
+    # def test_submit_needs_current_user_as_member_adds_error_msg(
+    #         self, mock_messages):
+    #     self.obj.status = 1
+    #     self.request.POST = {'submit': 'foo'}
+    #     self.request.user = Mock()
+    #     _handle_review_actions(self.request, self.obj)
+    #     mock_messages.error.assert_called_once_with(
+    #         self.request,
+    #         'The questionnaire could not be submitted because you do not have '
+    #         'permission to do so.')
+
+    def test_submit_updates_status(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 2)
+
+    def test_submit_adds_message(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully submitted.')
+
+    def test_publish_does_not_update_if_previous_status_not_draft(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'publish': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 3)
+
+    def test_publish_previous_status_not_correct_adds_message(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'publish': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because it does not have'
+            ' to correct status.')
+
+    def test_publish_needs_moderator(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'publish': 'foo'}
+        self.request.user = Mock()
+        self.request.user.has_perm.return_value = False
+        _handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 2)
+
+    def test_publish_needs_moderator_adds_error_msg(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'publish': 'foo'}
+        self.request.user = Mock()
+        self.request.user.has_perm.return_value = False
+        _handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because you do not have '
+            'permission to do so.')
+
+    def test_publish_updates_status(self, mock_messages):
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 3)
+
+    def test_publish_adds_message(self, mock_messages):
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        _handle_review_actions(self.request, self.obj)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully published.')

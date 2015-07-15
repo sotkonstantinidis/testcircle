@@ -75,7 +75,7 @@
         "description": "Description of WOCAT Approach Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": {"sections":[{"keyword":"section_general_information","categories":[{"keyword":"app__1","view_template":"technologies_header","use_raw_data":true,"with_metadata":true,"subcategories":[{"keyword":"app__1__1","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","in_list":true,"is_name":true}]},{"keyword":"app_qg_1","questions":[{"keyword":"app_first","in_list":true}]}]}]}]}]},
+        "data": {"sections":[{"keyword":"section_general_information","review_panel":true,"categories":[{"keyword":"app__1","view_template":"technologies_header","use_raw_data":true,"with_metadata":true,"subcategories":[{"keyword":"app__1__1","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","in_list":true,"is_name":true}]},{"keyword":"app_qg_1","questions":[{"keyword":"app_first","in_list":true}]}]}]}]}]},
         "created": "2015-07-09T10:12:59.337Z",
         "base_code": "",
         "name": "WOCAT Approach Configuration"

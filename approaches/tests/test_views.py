@@ -25,7 +25,8 @@ route_questionnaire_new_step = 'approaches:questionnaire_new_step'
 
 
 def get_valid_details_values():
-    return (1, 'approaches', 'approaches/questionnaire/details.html')
+    return (
+        1, 'approaches', 'approaches', 'approaches/questionnaire/details.html')
 
 
 def get_valid_link_form_values():

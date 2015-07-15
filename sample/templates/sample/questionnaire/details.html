@@ -25,10 +25,6 @@
     </figure>
   {% endif %}
 
-  {% if perms.questionnaire.can_moderate %}
-    Moderate
-  {% endif %}
-
   <article role="main">
     <main class="is-rhythmed-4">
       {% for section in sections %}
@@ -55,7 +51,7 @@
           {% if mode == 'edit' %}
             <form action="" method="POST">
               {% csrf_token %}
-              <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+              <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}">
             </form>
           {% else %}
             <a href="{% url 'sample:questionnaire_edit' questionnaire_id %}" class="button">{% trans "Edit" %}</a>

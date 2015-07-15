@@ -6,6 +6,7 @@ from django.http import (
     HttpResponse,
     JsonResponse,
 )
+from django.middleware.csrf import get_token
 from django.shortcuts import (
     render,
     redirect,
@@ -416,11 +417,6 @@ def generic_questionnaire_new(
     session_questionnaire, session_links = get_session_questionnaire(
         configuration_code)
 
-    # overview_url = '{}#{}'.format(
-    #     reverse('{}:questionnaire_details'.format(url_namespace), args=[1]))
-    # overview_url = reverse('technologies:questionnaire_details', args=[1])
-    # print(overview_url)
-
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
             session_questionnaire, questionnaire_configuration)
@@ -479,7 +475,8 @@ def generic_questionnaire_new(
 
 
 def generic_questionnaire_details(
-        request, questionnaire_id, configuration_code, template):
+        request, questionnaire_id, configuration_code, url_namespace,
+        template):
     """
     A generic view to show the details of a questionnaire.
 
@@ -491,6 +488,9 @@ def generic_questionnaire_details(
 
         ``configuration_code`` (str): The code of the questionnaire
         configuration.
+
+        ``url_namespace`` (str): The namespace of the questionnaire
+        URLs.
 
         ``template`` (str): The name and path of the template to render
         the response with.
@@ -505,8 +505,35 @@ def generic_questionnaire_details(
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
 
+    if request.method == 'POST':
+        _handle_review_actions(request, questionnaire_object)
+        return redirect(
+            '{}:questionnaire_details'.format(url_namespace),
+            questionnaire_object.id)
+
+    # Show the review panel only if the user is logged in and if the
+    # version to be shown is not active.
+    obj_status = questionnaire_object.status
+    if obj_status != 3:
+        review_config = {
+            'review_status': obj_status,
+            'csrf_token_value': get_token(request),
+        }
+    else:
+        review_config = {}
+
+    # Collect additional values needed for the review process
+    if obj_status == 2:
+        # Pending: Can the version be reviewed?
+        reviewable = questionnaire_object.status == 2 and \
+            request.user.has_perm('questionnaire.can_moderate')
+        review_config.update({
+            'reviewable': reviewable,
+        })
+
     sections = questionnaire_configuration.get_details(
-        data=data, questionnaire_object=questionnaire_object)
+        data=data, review_config=review_config,
+        questionnaire_object=questionnaire_object)
 
     images = questionnaire_configuration.get_image_data(data)
 
@@ -720,3 +747,51 @@ def generic_file_serve(request, action, uid):
         response['Content-Length'] = file_object.size
 
     return response
+
+
+def _handle_review_actions(request, questionnaire_object):
+
+    if request.POST.get('submit'):
+
+        # Previous status must be "draft"
+        if questionnaire_object.status != 1:
+            messages.error(
+                request, 'The questionnaire could not be submitted because it '
+                'does not have to correct status.')
+            return
+
+        # # Current user must be an editor
+        # # TODO: Current user should be the original editor
+        # if request.user not in questionnaire_object.members.all():
+        #     messages.error(
+        #         request, 'The questionnaire could not be submitted because you'
+        #         ' do not have permission to do so.')
+        #     return
+
+        questionnaire_object.status = 2
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully submitted.'))
+
+    elif request.POST.get('publish'):
+
+        # Previous status must be "pending"
+        if questionnaire_object.status != 2:
+            messages.error(
+                request, 'The questionnaire could not be published because it '
+                'does not have to correct status.')
+            return
+
+        # Current user must be a moderator
+        if not request.user.has_perm('questionnaire.can_moderate'):
+            messages.error(
+                request, 'The questionnaire could not be published because you'
+                ' do not have permission to do so.')
+            return
+
+        questionnaire_object.status = 3
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully published.'))

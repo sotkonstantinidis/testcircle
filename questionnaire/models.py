@@ -16,6 +16,7 @@ STATUSES = (
     (2, _('Pending')),
     (3, _('Approved')),
     (4, _('Rejected')),
+    (5, _('Inactive')),
 )
 
 
@@ -43,6 +44,9 @@ class Questionnaire(models.Model):
 
     class Meta:
         ordering = ['-updated']
+        permissions = (
+            ("can_moderate", "Can moderate"),
+        )
 
     def get_absolute_url(self):
         return reverse('questionnaire_view_details', args=[self.id])

@@ -1,4 +1,3 @@
-import json
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
 from unittest.mock import patch, Mock
@@ -48,7 +47,7 @@ def get_valid_new_values():
 
 
 def get_valid_details_values():
-    return (1, 'sample', 'sample/questionnaire/details.html')
+    return (1, 'sample', 'sample', 'sample/questionnaire/details.html')
 
 
 def get_valid_list_values():

@@ -37,7 +37,7 @@ def get_valid_new_values():
 
 
 def get_valid_details_values():
-    return (1, 'unccd', 'unccd/questionnaire/details.html')
+    return (1, 'unccd', 'unccd', 'unccd/questionnaire/details.html')
 
 
 def get_valid_list_values():

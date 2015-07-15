@@ -142,7 +142,7 @@ def questionnaire_details(request, questionnaire_id):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'samplemulti',
+        request, questionnaire_id, 'samplemulti', 'samplemulti',
         'samplemulti/questionnaire/details.html')
 
 

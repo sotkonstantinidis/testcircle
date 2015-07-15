@@ -1,14 +1,6 @@
 [
 {
     "fields": {
-        "name": "Can moderate",
-        "content_type": 6,
-        "codename": "can_moderate"
-    },
-    "model": "auth.permission"
-},
-{
-    "fields": {
         "name": "Translators",
         "permissions": [
             [

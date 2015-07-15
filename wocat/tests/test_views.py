@@ -17,7 +17,7 @@ route_questionnaire_list_partial = 'wocat:questionnaire_list_partial'
 
 
 def get_valid_details_values():
-    return (1, 'wocat', 'wocat/questionnaire/details.html')
+    return (1, 'wocat', 'wocat', 'wocat/questionnaire/details.html')
 
 
 def get_valid_list_values():

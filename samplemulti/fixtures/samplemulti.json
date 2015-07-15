@@ -98,7 +98,7 @@
         "description": "Description of Sample Approaches Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": "{\"sections\":[{\"keyword\":\"msection_1\",\"categories\":[{\"keyword\":\"mcat_1\",\"subcategories\":[{\"keyword\":\"msubcat_1_1\",\"questiongroups\":[{\"keyword\":\"mqg_01\",\"questions\":[{\"keyword\":\"mkey_01\",\"in_list\":true,\"is_name\":true}]}]}]}]}],\"links\":[{\"keyword\":\"sample\"}]}",
+        "data": {"sections":[{"keyword":"msection_1","review_panel":true,"categories":[{"keyword":"mcat_1","subcategories":[{"keyword":"msubcat_1_1","questiongroups":[{"keyword":"mqg_01","questions":[{"keyword":"mkey_01","in_list":true,"is_name":true}]}]}]}]}],"links":[{"keyword":"sample"}]},
         "created": "2015-01-09T10:12:59.337Z",
         "base_code": "",
         "name": "SampleMulti Configuration"
