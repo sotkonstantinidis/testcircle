@@ -34,7 +34,7 @@ section: tech
     <header class="tech-output-header medium-7 columns">
       <a href="index.html" class="right is-muted"><svg class="icon is-inline"><use xlink:href="#icon-edit"></use></svg> Edit</a>
       <div class="tech-status">
-        <span class="label is-approach">Approach</span>
+        <span class="label is-tech">Technology</span>
         <span class="label is-draft">Draft</span>
       </div>
       <h1 class="tech-output-title">Fanya juu terraces</h1>
@@ -98,8 +98,11 @@ section: tech
       <div class="process-status">
         <div class="row collapse">
           <div class="medium-8 columns">
-            <h3>Pending review</h3>
-            <p>Sended the 23.3.2015, Estimated Review Date 23.04.2015</p>
+            <p>
+              <strong>Pending review</strong>
+              <br>
+              Sended the 23.3.2015, Estimated Review Date 23.04.2015
+            </p>
           </div>
           <div class="medium-4 columns text-right">
             <a href="" class="button small is-wocat">Publish</a>
@@ -115,7 +118,7 @@ section: tech
       <ul class="accordion" data-accordion role="tablist">
         <li class="accordion-navigation">
           <a href="#summary" role="tab" id="panel1d-heading" aria-controls="panel1d" data-toggle="summary"><svg class="icon-lines is-inline"><use xlink:href="#icon-list"></use></svg> Table of content</a>
-          <div id="summary" class="content" role="tabpanel" aria-labelledby="panel1d-heading">
+          <div id="summary" class="content active" role="tabpanel" aria-labelledby="panel1d-heading">
             {{> summary}}
           </div>
         </li>
@@ -311,13 +314,29 @@ section: tech
     <section id="section04" class="tech-section row is-rhythmed-4" data-magellan-destination="section04">
       <a name="section04"></a>
       <div class="medium-8 large-9 columns">
-        <h2>3. Human Environment</h2>
+        <h2>4. Human Environment</h2>
         <div class="tech-section-progress progress">
           <span class="meter" style="width:0%"></span>
         </div>
       </div>
       <div class="medium-4 large-3 columns">
         <a href="wizard.html" class="button is-wocat right" data-toggle-boolean="section_one">Edit this section <strong>(0/9)</strong></a>
+      </div>
+    </section>
+
+    <section id="section05" class="tech-section row is-rhythmed-4" data-magellan-destination="section05">
+      <a name="section05"></a>
+      <div class="medium-8 large-9 columns">
+        <h2>5. Related approaches</h2>
+        <div class="tech-section-progress progress">
+          <span class="meter" style="width:100%"></span>
+        </div>
+      </div>
+      <div class="medium-4 large-3 columns">
+        <a href="wizard.html" class="button is-wocat right" data-toggle-boolean="section_one">Edit this section <strong>(1/1)</strong></a>
+      </div>
+      <div class="small-12 columns collapse">
+        {{> tech_related}}
       </div>
     </section>
   </main>

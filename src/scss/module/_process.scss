@@ -2,7 +2,6 @@
   @include reset-list;
   display: flex;
   margin: 0;
-  background-color: $color-beige;
   border-radius: $global-radius;
 }
 
@@ -39,7 +38,7 @@
     content: "";
     border-top: rem-calc(24) solid transparent;
     border-bottom: rem-calc(24) solid transparent;
-    border-left: rem-calc(12) solid rgba($color-beige-dark, 0.2);
+    border-left: rem-calc(12) solid $color-beige;
     position: absolute;
     right: rem-calc(-12);
     top: 0;
@@ -63,30 +62,23 @@
     content: " ";
     border: none;
   }
-  // &:hover,
-  // &:focus {
-  //   background: rgba($color-beige-dark, 0.6);
-  //   &:after {
-  //     border-left-color: rgba($color-beige-dark, 0.6);
-  //   }
-  // }
   a {
     color: $color-brown;
   }
 
   // Current
   &.is-current {
-    background: $color-beige;
+    background: white;
     border-bottom: none;
     &:after {
-      border-left-color: $color-beige;
+      border-left-color: white;
     }
   }
 }
 
 
 .process-status {
-  background: $color-beige;
+  background: white;
   border-radius: $global-radius;
   padding: rem-calc(12) rem-calc(24);
 
