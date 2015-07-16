@@ -1,8 +1,10 @@
 from unittest.mock import patch, Mock
 from django.http import QueryDict
 
+from accounts.models import User
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
+from questionnaire.models import Questionnaire
 from questionnaire.utils import (
     clean_questionnaire_data,
     get_active_filters,
@@ -10,7 +12,9 @@ from questionnaire.utils import (
     get_questionnaire_data_for_translation_form,
     get_questiongroup_data_from_translation_form,
     get_list_values,
+    handle_review_actions,
     is_valid_questionnaire_format,
+    query_questionnaires,
     query_questionnaires_for_link,
 )
 from questionnaire.tests.test_models import get_valid_metadata
@@ -479,6 +483,56 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
 
 
+class QueryQuestionnairesTest(TestCase):
+
+    fixtures = [
+        'groups_permissions.json', 'sample.json',
+        'sample_questionnaire_status.json']
+
+    def test_public_only_returns_published(self):
+        request = Mock()
+        request.user.is_authenticated.return_value = False
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 2)
+        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[1].id, 3)
+
+    def test_user_sees_his_own_draft_and_pending(self):
+        request = Mock()
+        request.user = User.objects.get(pk=101)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 1)
+
+    def test_user_sees_his_own_draft_and_pending_2(self):
+        request = Mock()
+        request.user = User.objects.get(pk=102)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 2)
+
+    def test_moderator_sees_pending(self):
+        request = Mock()
+        # request.user.is_authenticated.return_value = True
+        request.user = User.objects.get(pk=103)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 2)
+
+    def test_applies_limit(self):
+        request = Mock()
+        request.user.is_authenticated.return_value = False
+        ret = query_questionnaires(request, 'sample', limit=1)
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0].id, 6)
+
+
 class QueryQuestionnairesForLinkTest(TestCase):
 
     fixtures = ['sample.json', 'sample_questionnaires.json']
@@ -669,3 +723,114 @@ class GetListValuesTest(TestCase):
         get_list_values(questionnaire_objects=questionnaires)
         mock_get_or_create_configuration.assert_called_once_with(
             'technologies', {})
+
+
+@patch('questionnaire.utils.messages')
+class HandleReviewActionsTest(TestCase):
+
+    def setUp(self):
+        self.request = Mock()
+        self.request.user = Mock()
+        self.obj = Mock(spec=Questionnaire)
+        self.obj.members.filter.return_value = [self.request.user]
+
+    def test_submit_does_not_update_if_previous_status_not_draft(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 3)
+
+    def test_submit_previous_status_not_correct_adds_message(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be submitted because it does not have'
+            ' to correct status.')
+
+    def test_submit_needs_current_user_as_member(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = Mock()
+        handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 1)
+
+    def test_submit_needs_current_user_as_member_adds_error_msg(
+            self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = Mock()
+        handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be submitted because you do not have '
+            'permission to do so.')
+
+    def test_submit_updates_status(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 2)
+
+    def test_submit_adds_message(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully submitted.')
+
+    def test_publish_does_not_update_if_previous_status_not_draft(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 3)
+
+    def test_publish_previous_status_not_correct_adds_message(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because it does not have'
+            ' to correct status.')
+
+    def test_publish_needs_moderator(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'publish': 'foo'}
+        self.request.user = Mock()
+        self.request.user.has_perm.return_value = False
+        handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 2)
+
+    def test_publish_needs_moderator_adds_error_msg(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'publish': 'foo'}
+        self.request.user = Mock()
+        self.request.user.has_perm.return_value = False
+        handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because you do not have '
+            'permission to do so.')
+
+    def test_publish_updates_status(self, mock_messages):
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 3)
+
+    def test_publish_adds_message(self, mock_messages):
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully published.')

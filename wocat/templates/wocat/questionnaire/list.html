@@ -7,6 +7,9 @@
 {% block content %}
 
   <main class="row large-collapse" role="main">
+    {% if user.is_authenticated %}
+      <p class="help-bloc">{% trans "Only published questionnaires are visible in this list view." %}</p>
+    {% endif %}
     <section class="tech-list small-12 columns">
       <div class="tech-group">
         <h2 class="is-group">{% trans "All Questionnaires" %}</h2>

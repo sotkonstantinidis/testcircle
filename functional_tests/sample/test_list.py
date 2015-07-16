@@ -8,6 +8,7 @@ from unittest.mock import patch
 
 from functional_tests.base import FunctionalTest
 
+from accounts.models import User
 from sample.tests.test_views import (
     route_home,
     route_questionnaire_list,
@@ -424,3 +425,151 @@ class ListTest(FunctionalTest):
     #     active_filters = self.findManyBy(
     #         'xpath', '//div[@id="active-filters"]//li')
     #     self.assertEqual(len(active_filters), 0)
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+class ListTestStatus(FunctionalTest):
+
+    fixtures = [
+        'groups_permissions.json', 'global_key_values.json', 'sample.json',
+        'sample_questionnaire_status.json']
+
+    def setUp(self):
+        super(ListTestStatus, self).setUp()
+        delete_all_indices()
+        create_temp_indices(['sample'])
+
+    def tearDown(self):
+        super(ListTestStatus, self).tearDown()
+        delete_all_indices()
+
+    def test_list_status_public(self):
+
+        # Alice is not logged in. She goes to the SAMPLE landing page
+        # and sees the latest updates. These are: 3 (published) and 6
+        # (published)
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+
+        # She goes to the list view and sees the same questionnaires
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+
+        # Since she is not logged in, she does not see a note about
+        # seeing only published questionnaires.
+        self.findByNot('xpath', '//p[contains(@class, "help-bloc")]')
+
+    def test_list_status_logged_in(self):
+
+        # Alice logs in as user 1.
+        user = User.objects.get(pk=101)
+        self.doLogin(user=user)
+
+        # She goes to the SAMPLE landing page and sees the latest
+        # updates. These are: 1 (draft), 3 (published) and 6 (published)
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 1"]')
+
+        # She goes to the list view and sees only the published
+        # questionnaires
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+
+        # She also sees a note saying that only published questionnaires
+        # are visible
+        self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
+
+        # She logs in as user 2
+        user = User.objects.get(pk=102)
+        self.doLogin(user=user)
+
+        # She goes to the SAMPLE landing page and sees the latest
+        # updates. These are: 2 (pending), 3 (published) and 6
+        # (published)
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 2"]')
+
+        # She goes to the list view and sees only the published
+        # questionnaires
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+
+        # She also sees a note saying that only published questionnaires
+        # are visible
+        self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
+
+    def test_list_status_moderator(self):
+
+        # Alice logs in as user 3 (moderator).
+        user = User.objects.get(pk=103)
+        self.doLogin(user=user)
+
+        # She goes to the SAMPLE landing page and sees the latest
+        # updates. These are: 2 (pending), 3 (published) and 6
+        # (published)
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 2"]')
+
+        # She goes to the list view and sees only the published
+        # questionnaires
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+
+        # She also sees a note saying that only published questionnaires
+        # are visible
+        self.findBy('xpath', '//p[contains(@class, "help-bloc")]')

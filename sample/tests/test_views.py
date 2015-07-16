@@ -5,7 +5,6 @@ from unittest.mock import patch, Mock
 from accounts.tests.test_authentication import (
     create_new_user,
 )
-from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from sample.views import (
     home,
@@ -96,17 +95,8 @@ class SampleHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(self, mock_Q_Conf):
-        mock_Q_Conf.return_value = None
-        with self.assertRaises(AttributeError):
-            self.client.get(self.url)
-        mock_Q_Conf.assert_called_once_with('sample')
-
     @patch('sample.views.generic_questionnaire_list')
-    @patch('sample.views.messages')
-    def test_calls_generic_questionnaire_list(
-            self, mock_messages, mock_questionnaire_list):
+    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
         home(request)
         mock_questionnaire_list.assert_called_once_with(

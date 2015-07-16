@@ -18,7 +18,6 @@ from qcat.tests import TestCase
 from qcat.utils import session_store
 from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
-    _handle_review_actions,
     generic_file_upload,
     generic_questionnaire_details,
     generic_questionnaire_link_form,
@@ -455,7 +454,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_get_q_data_in_single_lang.assert_called_once_with(
             mock_get_object_or_404.return_value.data, 'en')
 
-    @patch('questionnaire.views._handle_review_actions')
+    @patch('questionnaire.views.handle_review_actions')
     @patch('questionnaire.views.redirect')
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
     @patch('questionnaire.views.get_object_or_404')
@@ -621,6 +620,20 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_get_list_values.call_count, 1)
 
+    @patch('questionnaire.views.query_questionnaires')
+    def test_db_query_calls_query_questionnaires(
+            self, mock_query_questionnaires, mock_advanced_search):
+        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        mock_query_questionnaires.assert_called_once_with(
+            self.request, 'sample', only_current=False, limit=10)
+
+    @patch('questionnaire.views.get_list_values')
+    def test_db_query_calls_get_list_values(
+            self, mock_get_list_values, mock_advanced_search):
+        self.request.user = Mock()
+        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        self.assertEqual(mock_get_list_values.call_count, 1)
+
     @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     def test_calls_get_filter_configuration(
             self, mock_get_filter_configuration, mock_advanced_search):
@@ -732,114 +745,3 @@ class GenericFileServeTest(TestCase):
         mock_retrieve_file.return_value = ('file', 'filename')
         res = self.client.get(url)
         self.assertEqual(res.status_code, 200)
-
-
-@patch('questionnaire.views.messages')
-class HandleReviewActionsTest(TestCase):
-
-    def setUp(self):
-        self.request = Mock()
-        self.request.user = Mock()
-        self.obj = Mock(spec=Questionnaire)
-        self.obj.members.filter.return_value = [self.request.user]
-
-    def test_submit_does_not_update_if_previous_status_not_draft(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'submit': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        self.assertEqual(self.obj.status, 3)
-
-    def test_submit_previous_status_not_correct_adds_message(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'submit': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        mock_messages.error.assert_called_once_with(
-            self.request,
-            'The questionnaire could not be submitted because it does not have'
-            ' to correct status.')
-
-    def test_submit_needs_current_user_as_member(self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        self.request.user = Mock()
-        _handle_review_actions(self.request, self.obj)
-        self.assertEqual(self.obj.status, 1)
-
-    def test_submit_needs_current_user_as_member_adds_error_msg(
-            self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        self.request.user = Mock()
-        _handle_review_actions(self.request, self.obj)
-        mock_messages.error.assert_called_once_with(
-            self.request,
-            'The questionnaire could not be submitted because you do not have '
-            'permission to do so.')
-
-    def test_submit_updates_status(self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        self.assertEqual(self.obj.status, 2)
-
-    def test_submit_adds_message(self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        mock_messages.success.assert_called_once_with(
-            self.request,
-            'The questionnaire was successfully submitted.')
-
-    def test_publish_does_not_update_if_previous_status_not_draft(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'publish': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        self.assertEqual(self.obj.status, 3)
-
-    def test_publish_previous_status_not_correct_adds_message(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'publish': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        mock_messages.error.assert_called_once_with(
-            self.request,
-            'The questionnaire could not be published because it does not have'
-            ' to correct status.')
-
-    def test_publish_needs_moderator(self, mock_messages):
-        self.obj.status = 2
-        self.request.POST = {'publish': 'foo'}
-        self.request.user = Mock()
-        self.request.user.has_perm.return_value = False
-        _handle_review_actions(self.request, self.obj)
-        self.assertEqual(self.obj.status, 2)
-
-    def test_publish_needs_moderator_adds_error_msg(self, mock_messages):
-        self.obj.status = 2
-        self.request.POST = {'publish': 'foo'}
-        self.request.user = Mock()
-        self.request.user.has_perm.return_value = False
-        _handle_review_actions(self.request, self.obj)
-        mock_messages.error.assert_called_once_with(
-            self.request,
-            'The questionnaire could not be published because you do not have '
-            'permission to do so.')
-
-    def test_publish_updates_status(self, mock_messages):
-        self.obj.status = 2
-        self.request.user = Mock()
-        self.request.POST = {'publish': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        self.assertEqual(self.obj.status, 3)
-
-    def test_publish_adds_message(self, mock_messages):
-        self.obj.status = 2
-        self.request.user = Mock()
-        self.request.POST = {'publish': 'foo'}
-        _handle_review_actions(self.request, self.obj)
-        mock_messages.success.assert_called_once_with(
-            self.request,
-            'The questionnaire was successfully published.')

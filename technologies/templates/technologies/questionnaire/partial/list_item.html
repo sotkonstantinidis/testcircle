@@ -5,7 +5,9 @@
   <div class="tech-thumbnail medium-4 columns">
     <figure>
       <a href="{% url 'technologies:questionnaire_details' item.id %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
-      <figcaption class="tech-status label is-draft">draft</figcaption>
+      {% if item.status %}
+        <figcaption class="tech-status label is-{{ item.status }}">{{ item.status }}</figcaption>
+      {% endif %}
     </figure>
     <ul class="tech-icons">
       <li>

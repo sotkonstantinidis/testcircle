@@ -15,7 +15,7 @@ from search.index import put_questionnaire_data
 STATUSES = (
     (1, _('Draft')),
     (2, _('Pending')),
-    (3, _('Approved')),
+    (3, _('Published')),
     (4, _('Rejected')),
     (5, _('Inactive')),
 )
@@ -165,7 +165,8 @@ class Questionnaire(models.Model):
             'configurations': [
                 conf.code for conf in self.configurations.all()],
             'translations': [
-                t.language for t in self.questionnairetranslation_set.all()]
+                t.language for t in self.questionnairetranslation_set.all()],
+            # 'status': 'pending',
         }
 
     def add_link(self, questionnaire, symm=True):

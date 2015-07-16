@@ -19,7 +19,6 @@ from django.views.decorators.http import require_POST
 from configuration.configuration import QuestionnaireConfiguration
 from configuration.utils import (
     get_configuration_index_filter,
-    get_configuration_query_filter,
 )
 from qcat.utils import (
     clear_session_questionnaire,
@@ -42,7 +41,9 @@ from questionnaire.utils import (
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
+    handle_review_actions,
     query_questionnaires_for_link,
+    query_questionnaires,
 )
 from search.search import advanced_search
 
@@ -506,7 +507,7 @@ def generic_questionnaire_details(
         questionnaire_object.data, get_language())
 
     if request.method == 'POST':
-        _handle_review_actions(request, questionnaire_object)
+        handle_review_actions(request, questionnaire_object)
         return redirect(
             '{}:questionnaire_details'.format(url_namespace),
             questionnaire_object.id)
@@ -574,7 +575,7 @@ def generic_questionnaire_list(
 
         ``only_current`` (bool): A boolean indicating whether to include
         only questionnaires from the current configuration. Passed to
-        :func:`configuration.utils.get_configuration_query_filter`
+        :func:`questionnaire.utils.query_questionnaires`
 
         ``db_query`` (bool): A boolean indicating whether to query the
         database for results instead of using Elasticsearch. Please note
@@ -604,9 +605,9 @@ def generic_questionnaire_list(
                 'Type "{}" is not valid for filters'.format(filter_type))
 
     if db_query is True:
-        questionnaires = Questionnaire.objects.filter(
-            get_configuration_query_filter(
-                configuration_code, only_current=only_current))[:limit]
+        questionnaires = query_questionnaires(
+            request, configuration_code, only_current=only_current,
+            limit=limit)
 
         list_values = get_list_values(
             configuration_code=configuration_code,
@@ -747,51 +748,3 @@ def generic_file_serve(request, action, uid):
         response['Content-Length'] = file_object.size
 
     return response
-
-
-def _handle_review_actions(request, questionnaire_object):
-
-    if request.POST.get('submit'):
-
-        # Previous status must be "draft"
-        if questionnaire_object.status != 1:
-            messages.error(
-                request, 'The questionnaire could not be submitted because it '
-                'does not have to correct status.')
-            return
-
-        # Current user must be the author of the questionnaire
-        if request.user not in questionnaire_object.members.filter(
-                questionnairemembership__role='author'):
-            messages.error(
-                request, 'The questionnaire could not be submitted because you'
-                ' do not have permission to do so.')
-            return
-
-        questionnaire_object.status = 2
-        questionnaire_object.save()
-
-        messages.success(
-            request, _('The questionnaire was successfully submitted.'))
-
-    elif request.POST.get('publish'):
-
-        # Previous status must be "pending"
-        if questionnaire_object.status != 2:
-            messages.error(
-                request, 'The questionnaire could not be published because it '
-                'does not have to correct status.')
-            return
-
-        # Current user must be a moderator
-        if not request.user.has_perm('questionnaire.can_moderate'):
-            messages.error(
-                request, 'The questionnaire could not be published because you'
-                ' do not have permission to do so.')
-            return
-
-        questionnaire_object.status = 3
-        questionnaire_object.save()
-
-        messages.success(
-            request, _('The questionnaire was successfully published.'))

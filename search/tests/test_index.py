@@ -45,7 +45,8 @@ def create_temp_indices(indices):
         mappings = get_mappings(configuration)
         create_or_update_index(index, mappings)
         put_questionnaire_data(
-            index, Questionnaire.objects.filter(configurations__code=index))
+            index, Questionnaire.objects.filter(
+                configurations__code=index).filter(status=3))
 
 
 class GetMappingsTest(TestCase):

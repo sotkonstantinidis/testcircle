@@ -1,5 +1,7 @@
 import ast
 from django.conf import settings
+from django.contrib import messages
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.utils.dateparse import parse_datetime
@@ -7,7 +9,10 @@ from django.utils.dateparse import parse_datetime
 from configuration.configuration import (
     QuestionnaireQuestion,
 )
-from configuration.utils import get_or_create_configuration
+from configuration.utils import (
+    get_configuration_query_filter,
+    get_or_create_configuration,
+)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.models import Questionnaire
 
@@ -598,6 +603,56 @@ def get_link_display(link_object, link_configuration):
     })
 
 
+def query_questionnaires(
+        request, configuration_code, only_current=False, limit=10):
+    """
+    Query and return many Questionnaires. The following status filters
+    are applied:
+
+    * Not logged in users always only see "published" Questionnaires.
+
+    * Moderators see all "pending" and "published" Questionnaires.
+
+    * Logged in users see all "published", as well as their own "draft"
+    and "pending" Questionnaires.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+    Kwargs:
+        ``only_current`` (bool): A boolean indicating whether to include
+        only questionnaires from the current configuration.
+
+        ``limit`` (int): The limit of results the query will return.
+
+    Returns:
+        ``django.db.models.query.QuerySet``. The queried Questionnaires.
+    """
+    # Public always only sees "published"
+    status_filter = Q(status=3)
+
+    # Logged in users ...
+    if request.user.is_authenticated():
+
+        # ... see all "pending" and "published" if they are moderators
+        if request.user.has_perm('questionnaire.can_moderate'):
+            status_filter = Q(status__in=[2, 3])
+
+        # ... see "published" and their own "draft" and "pending".
+        else:
+            status_filter = (
+                Q(members=request.user) & (Q(status=1) | Q(status=2))
+                | Q(status=3))
+
+    return Questionnaire.objects.filter(
+        get_configuration_query_filter(
+            configuration_code, only_current=only_current)).filter(
+                status_filter).distinct()[:limit]
+
+
 def query_questionnaires_for_link(configuration, q, limit=10):
     """
     Do a raw SQL search in the JSON data field of questionnaires. Only
@@ -737,7 +792,7 @@ def get_list_values(
                 source.get('updated', '')),
             'translations': translations,
             'code': source.get('code', ''),
-            'authors': source.get('authors', [])
+            'authors': source.get('authors', []),
         })
         list_entries.append(template_value)
 
@@ -793,3 +848,64 @@ def get_list_values(
         list_entries.append(template_value)
 
     return list_entries
+
+
+def handle_review_actions(request, questionnaire_object):
+    """
+    Handle review and form submission actions. Updates the Questionnaire
+    object and adds a message.
+
+    * "draft" Questionnaires can be submitted, sets them "pending".
+
+    * "pending" Questionnaires can be published, sets them "published".
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``questionnaire_object`` (questionnaire.models.Questionnaire):
+        The Questionnaire object to update.
+    """
+    if request.POST.get('submit'):
+
+        # Previous status must be "draft"
+        if questionnaire_object.status != 1:
+            messages.error(
+                request, 'The questionnaire could not be submitted because it '
+                'does not have to correct status.')
+            return
+
+        # Current user must be the author of the questionnaire
+        if request.user not in questionnaire_object.members.filter(
+                questionnairemembership__role='author'):
+            messages.error(
+                request, 'The questionnaire could not be submitted because you'
+                ' do not have permission to do so.')
+            return
+
+        questionnaire_object.status = 2
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully submitted.'))
+
+    elif request.POST.get('publish'):
+
+        # Previous status must be "pending"
+        if questionnaire_object.status != 2:
+            messages.error(
+                request, 'The questionnaire could not be published because it '
+                'does not have to correct status.')
+            return
+
+        # Current user must be a moderator
+        if not request.user.has_perm('questionnaire.can_moderate'):
+            messages.error(
+                request, 'The questionnaire could not be published because you'
+                ' do not have permission to do so.')
+            return
+
+        questionnaire_object.status = 3
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully published.'))
