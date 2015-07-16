@@ -330,7 +330,8 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_create_new.return_value.id = 1
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_create_new.assert_called_once_with('sample', {})
+        mock_create_new.assert_called_once_with(
+            'sample', {}, self.request.user)
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -738,9 +739,9 @@ class HandleReviewActionsTest(TestCase):
 
     def setUp(self):
         self.request = Mock()
-        self.request.user = 'foo'
+        self.request.user = Mock()
         self.obj = Mock(spec=Questionnaire)
-        self.obj.members.all.return_value = ['foo']
+        self.obj.members.filter.return_value = [self.request.user]
 
     def test_submit_does_not_update_if_previous_status_not_draft(
             self, mock_messages):
@@ -759,23 +760,23 @@ class HandleReviewActionsTest(TestCase):
             'The questionnaire could not be submitted because it does not have'
             ' to correct status.')
 
-    # def test_submit_needs_current_user_as_member(self, mock_messages):
-    #     self.obj.status = 1
-    #     self.request.POST = {'submit': 'foo'}
-    #     self.request.user = Mock()
-    #     _handle_review_actions(self.request, self.obj)
-    #     self.assertEqual(self.obj.status, 1)
+    def test_submit_needs_current_user_as_member(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = Mock()
+        _handle_review_actions(self.request, self.obj)
+        self.assertEqual(self.obj.status, 1)
 
-    # def test_submit_needs_current_user_as_member_adds_error_msg(
-    #         self, mock_messages):
-    #     self.obj.status = 1
-    #     self.request.POST = {'submit': 'foo'}
-    #     self.request.user = Mock()
-    #     _handle_review_actions(self.request, self.obj)
-    #     mock_messages.error.assert_called_once_with(
-    #         self.request,
-    #         'The questionnaire could not be submitted because you do not have '
-    #         'permission to do so.')
+    def test_submit_needs_current_user_as_member_adds_error_msg(
+            self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = Mock()
+        _handle_review_actions(self.request, self.obj)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be submitted because you do not have '
+            'permission to do so.')
 
     def test_submit_updates_status(self, mock_messages):
         self.obj.status = 1

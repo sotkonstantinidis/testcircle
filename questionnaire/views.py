@@ -432,7 +432,7 @@ def generic_questionnaire_new(
             return redirect(request.path)
         else:
             questionnaire = Questionnaire.create_new(
-                configuration_code, session_questionnaire)
+                configuration_code, session_questionnaire, request.user)
             clear_session_questionnaire(configuration_code=configuration_code)
 
             for __, linked_questionnaires in session_links.items():
@@ -760,13 +760,13 @@ def _handle_review_actions(request, questionnaire_object):
                 'does not have to correct status.')
             return
 
-        # # Current user must be an editor
-        # # TODO: Current user should be the original editor
-        # if request.user not in questionnaire_object.members.all():
-        #     messages.error(
-        #         request, 'The questionnaire could not be submitted because you'
-        #         ' do not have permission to do so.')
-        #     return
+        # Current user must be the author of the questionnaire
+        if request.user not in questionnaire_object.members.filter(
+                questionnairemembership__role='author'):
+            messages.error(
+                request, 'The questionnaire could not be submitted because you'
+                ' do not have permission to do so.')
+            return
 
         questionnaire_object.status = 2
         questionnaire_object.save()

@@ -19,6 +19,11 @@ STATUSES = (
     (5, _('Inactive')),
 )
 
+QUESTIONNAIRE_ROLES = (
+    ('author', _('Author')),
+    ('editor', _('Editor')),
+)
+
 
 class Questionnaire(models.Model):
     """
@@ -53,7 +58,7 @@ class Questionnaire(models.Model):
 
     @staticmethod
     def create_new(
-            configuration_code, data, previous_version=None, status=1):
+            configuration_code, data, user, previous_version=None, status=1):
         """
         Create and return a new Questionnaire.
 
@@ -104,6 +109,9 @@ class Questionnaire(models.Model):
         QuestionnaireTranslation.objects.create(
             questionnaire=questionnaire, language=get_language(),
             original_language=True)
+
+        QuestionnaireMembership.objects.create(
+            questionnaire=questionnaire, user=user, role='author')
 
         # TODO: This should happen on review!
         added, errors = put_questionnaire_data(
@@ -234,17 +242,7 @@ class QuestionnaireMembership(models.Model):
     """
     questionnaire = models.ForeignKey('Questionnaire')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    role = models.ForeignKey('QuestionnaireRole')
-
-
-class QuestionnaireRole(models.Model):
-    """
-    The model representing the roles of a user in a
-    :class:`QuestionnaireMembership` which reflects the permissions he
-    has when it comes to editing a :class:`Questionnaire`.
-    """
-    keyword = models.CharField(max_length=63, unique=True)
-    description = models.TextField(null=True)
+    role = models.CharField(max_length=64, choices=QUESTIONNAIRE_ROLES)
 
 
 class File(models.Model):
