@@ -286,11 +286,9 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch('questionnaire.views.QuestionnaireConfiguration')
     @patch('questionnaire.views.clean_questionnaire_data')
-    @patch('questionnaire.models.put_questionnaire_data')
     def test_calls_clean_questionnaire_data(
-            self, mock_put_data, mock_clean_questionnaire_data,
+            self, mock_clean_questionnaire_data,
             mock_QuestionnaireConfiguration):
-        mock_put_data.return_value = None, None
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         r = self.request
         r.method = 'POST'
@@ -334,11 +332,9 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.clean_questionnaire_data')
-    @patch('questionnaire.models.put_questionnaire_data')
     def test_calls_clear_session_questionnaire(
-            self, mock_put_data, mock_clean_questionnaire_data,
+            self, mock_clean_questionnaire_data,
             mock_clear_session_questionnaire):
-        mock_put_data.return_value = None, None
         r = self.request
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
@@ -349,11 +345,8 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch.object(messages, 'success')
     @patch('questionnaire.views.clean_questionnaire_data')
-    @patch('questionnaire.models.put_questionnaire_data')
     def test_adds_message(
-            self, mock_put_data, mock_clean_questionnaire_data,
-            mock_messages_sucess):
-        mock_put_data.return_value = None, None
+            self, mock_clean_questionnaire_data, mock_messages_sucess):
         r = self.request
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
@@ -467,7 +460,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_handle_review_actions.assert_called_once_with(
-            self.request, mock_get_object_or_404.return_value)
+            self.request, mock_get_object_or_404.return_value, 'sample')
 
     @patch('questionnaire.views.redirect')
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')

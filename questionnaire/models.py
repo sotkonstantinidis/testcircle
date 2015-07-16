@@ -9,7 +9,6 @@ from django_pgjson.fields import JsonBField
 from itertools import chain
 
 from configuration.models import Configuration
-from search.index import put_questionnaire_data
 
 
 STATUSES = (
@@ -120,10 +119,6 @@ class Questionnaire(models.Model):
 
         QuestionnaireMembership.objects.create(
             questionnaire=questionnaire, user=user, role='author')
-
-        # TODO: This should happen on review!
-        added, errors = put_questionnaire_data(
-            configuration_code, [questionnaire])
 
         return questionnaire
 

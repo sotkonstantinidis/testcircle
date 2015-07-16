@@ -507,7 +507,8 @@ def generic_questionnaire_details(
         questionnaire_object.data, get_language())
 
     if request.method == 'POST':
-        handle_review_actions(request, questionnaire_object)
+        handle_review_actions(
+            request, questionnaire_object, configuration_code)
         return redirect(
             '{}:questionnaire_details'.format(url_namespace),
             questionnaire_object.id)

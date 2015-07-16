@@ -15,6 +15,7 @@ from configuration.utils import (
 )
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.models import Questionnaire
+from search.index import put_questionnaire_data
 
 
 def clean_questionnaire_data(data, configuration):
@@ -850,7 +851,7 @@ def get_list_values(
     return list_entries
 
 
-def handle_review_actions(request, questionnaire_object):
+def handle_review_actions(request, questionnaire_object, configuration_code):
     """
     Handle review and form submission actions. Updates the Questionnaire
     object and adds a message.
@@ -864,6 +865,10 @@ def handle_review_actions(request, questionnaire_object):
 
         ``questionnaire_object`` (questionnaire.models.Questionnaire):
         The Questionnaire object to update.
+
+        ``configuration_code`` (string): The code of the current
+        configuration. This is used when publishing a Questionnaire, in
+        order to add it to Elasticsearch.
     """
     if request.POST.get('submit'):
 
@@ -906,6 +911,9 @@ def handle_review_actions(request, questionnaire_object):
 
         questionnaire_object.status = 3
         questionnaire_object.save()
+
+        added, errors = put_questionnaire_data(
+            configuration_code, [questionnaire_object])
 
         messages.success(
             request, _('The questionnaire was successfully published.'))

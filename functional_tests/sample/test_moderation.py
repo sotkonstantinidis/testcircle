@@ -7,8 +7,12 @@ from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
     route_questionnaire_new,
+    route_questionnaire_list,
     get_position_of_category,
 )
+from search.index import delete_all_indices
+from search.tests.test_index import create_temp_indices
+
 
 from nose.plugins.attrib import attr
 # @attr('foo')
@@ -20,6 +24,15 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 class ModerationTest(FunctionalTest):
 
     fixtures = ['groups_permissions.json', 'sample.json']
+
+    def setUp(self):
+        super(ModerationTest, self).setUp()
+        delete_all_indices()
+        create_temp_indices(['sample'])
+
+    def tearDown(self):
+        super(ModerationTest, self).tearDown()
+        delete_all_indices()
 
     def test_enter_questionnaire_review_panel(self):
 
@@ -86,9 +99,14 @@ class ModerationTest(FunctionalTest):
         # Bob logs in
         self.doLogin(user=user_moderator)
 
+        # He goes to the list view and sees that the questionnaire is
+        # not there yet because it is not "published".
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+        self.findByNot('xpath', '//article[1]//h1/a[text()="Foo"]')
+
         # He goes to the newly created questionnaire
         self.browser.get(overview_url)
-
         time.sleep(1)
 
         # The moderator sees the "publish" button and clicks it
@@ -97,3 +115,8 @@ class ModerationTest(FunctionalTest):
         # There is no review panel anymore.
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findByNot('xpath', '//ol[@class="process"]')
+
+        # He goes to the list view and sees that the questionnaire is now there
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo"]')

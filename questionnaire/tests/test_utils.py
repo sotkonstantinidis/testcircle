@@ -738,14 +738,14 @@ class HandleReviewActionsTest(TestCase):
             self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 3)
 
     def test_submit_previous_status_not_correct_adds_message(
             self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be submitted because it does not have'
@@ -755,7 +755,7 @@ class HandleReviewActionsTest(TestCase):
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
         self.request.user = Mock()
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 1)
 
     def test_submit_needs_current_user_as_member_adds_error_msg(
@@ -763,7 +763,7 @@ class HandleReviewActionsTest(TestCase):
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
         self.request.user = Mock()
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be submitted because you do not have '
@@ -772,13 +772,13 @@ class HandleReviewActionsTest(TestCase):
     def test_submit_updates_status(self, mock_messages):
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 2)
 
     def test_submit_adds_message(self, mock_messages):
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.success.assert_called_once_with(
             self.request,
             'The questionnaire was successfully submitted.')
@@ -787,14 +787,14 @@ class HandleReviewActionsTest(TestCase):
             self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 3)
 
     def test_publish_previous_status_not_correct_adds_message(
             self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be published because it does not have'
@@ -805,7 +805,7 @@ class HandleReviewActionsTest(TestCase):
         self.request.POST = {'publish': 'foo'}
         self.request.user = Mock()
         self.request.user.has_perm.return_value = False
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 2)
 
     def test_publish_needs_moderator_adds_error_msg(self, mock_messages):
@@ -813,24 +813,38 @@ class HandleReviewActionsTest(TestCase):
         self.request.POST = {'publish': 'foo'}
         self.request.user = Mock()
         self.request.user.has_perm.return_value = False
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be published because you do not have '
             'permission to do so.')
 
-    def test_publish_updates_status(self, mock_messages):
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_updates_status(self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
         self.obj.status = 2
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 3)
 
-    def test_publish_adds_message(self, mock_messages):
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_calls_put_questionnaire_data(
+            self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
         self.obj.status = 2
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj)
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_put_data.assert_called_once_with('sample', [self.obj])
+
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_adds_message(self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.success.assert_called_once_with(
             self.request,
             'The questionnaire was successfully published.')
