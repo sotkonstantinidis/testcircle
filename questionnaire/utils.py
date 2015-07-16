@@ -736,6 +736,8 @@ def get_list_values(
             'updated': parse_datetime(
                 source.get('updated', '')),
             'translations': translations,
+            'code': source.get('code', ''),
+            'authors': source.get('authors', [])
         })
         list_entries.append(template_value)
 
@@ -762,8 +764,10 @@ def get_list_values(
         template_value = questionnaire_configuration.get_list_data(
             [obj.data])[0]
 
-        translations = [
-            t.language for t in obj.questionnairetranslation_set.all()]
+        metadata = obj.get_metadata()
+        template_value.update(metadata)
+
+        translations = metadata.get('translations', [])
         if len(translations) == 0:
             translations = ['en']
         original_lang = translations[0]
@@ -779,16 +783,11 @@ def get_list_values(
                 template_value[key] = value.get(
                     get_language(), value.get(original_lang))
 
-        configurations = [conf.code for conf in obj.configurations.all()]
-
         template_value.update({
             'configuration': current_configuration_code,  # Used for rendering
             'id': obj.id,
-            'configurations': configurations,
             'native_configuration': current_configuration_code in
-            configurations,
-            'created': obj.created,
-            'updated': obj.updated,
+            metadata.get('configurations', []),
             'translations': translations,
         })
         list_entries.append(template_value)

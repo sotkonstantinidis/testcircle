@@ -10,6 +10,7 @@ from questionnaire.models import (
     Questionnaire,
     QuestionnaireConfiguration,
     QuestionnaireLink,
+    QuestionnaireMembership,
     QuestionnaireTranslation,
     File,
 )
@@ -30,6 +31,17 @@ def get_valid_questionnaire(user=None):
     return Questionnaire.create_new(
         configuration_code='sample', data={'foo': 'bar'},
         user=user)
+
+
+def get_valid_metadata():
+    return {
+        'created': 'created',
+        'updated': 'updated',
+        'authors': ['author'],
+        'code': 'code',
+        'configurations': ['configuration'],
+        'translations': ['en']
+    }
 
 
 @patch('questionnaire.models.put_questionnaire_data')
@@ -176,8 +188,28 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user)
         metadata = questionnaire.get_metadata()
         self.assertIsInstance(metadata, dict)
+        self.assertEqual(len(metadata), 6)
         self.assertEqual(metadata['created'], questionnaire.created)
         self.assertEqual(metadata['updated'], questionnaire.updated)
+        self.assertEqual(
+            metadata['authors'],
+            [{'id': self.user.id, 'name': str(self.user)}])
+        self.assertEqual(metadata['code'], questionnaire.code)
+        self.assertEqual(metadata['configurations'], ['sample'])
+        self.assertEqual(metadata['translations'], ['en'])
+
+    def test_get_metadata_puts_author_first(self, mock_put_questionnaire_data):
+        mock_put_questionnaire_data.return_value = None, None
+        questionnaire = Questionnaire.create_new(
+            configuration_code='sample', data={}, user=self.user)
+        QuestionnaireMembership.objects.create(
+            user=create_new_user(id=2, email='foo@bar.com'),
+            questionnaire=questionnaire, role='editor')
+        metadata = questionnaire.get_metadata()
+        authors = metadata['authors']
+        self.assertEqual(len(authors), 2)
+        self.assertEqual(authors[0]['id'], 1)
+        self.assertEqual(authors[1]['id'], 2)
 
     def test_has_links(self, mock_put_questionnaire_data):
         mock_put_questionnaire_data.return_value = None, None

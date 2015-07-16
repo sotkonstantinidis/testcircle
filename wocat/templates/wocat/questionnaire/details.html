@@ -51,7 +51,7 @@
           {% if mode == 'edit' %}
             <form action="" method="POST">
               {% csrf_token %}
-              <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+              <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}">
             </form>
           {% else %}
             <a href="{% url 'wocat:questionnaire_edit' questionnaire_id %}" class="button">{% trans "Edit" %}</a>

@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, get_language
 from django_pgjson.fields import JsonBField
+from itertools import chain
 
 from configuration.models import Configuration
 from search.index import put_questionnaire_data
@@ -129,13 +130,42 @@ class Questionnaire(models.Model):
         Returns:
             ``dict``. A dict containing the following metadata:
 
-            * ``created``
+            * ``created`` (timestamp)
 
-            * ``updated``
+            * ``updated`` (timestamp)
+
+            * ``authors`` (list): A list of dictionaries containing
+              information about the authors. Each entry contains the
+              following data:
+
+              * ``id``
+
+              * ``name``
+
+            * ``code`` (string)
+
+            * ``configurations`` (list)
+
+            * ``translations`` (list)
         """
+        authors = []
+        # Make sure the author is first
+        for author in list(chain(
+                self.members.filter(questionnairemembership__role='author'),
+                self.members.filter(questionnairemembership__role='editor'))):
+            authors.append({
+                'id': author.id,
+                'name': str(author),
+            })
         return {
             'created': self.created,
             'updated': self.updated,
+            'authors': authors,
+            'code': self.code,
+            'configurations': [
+                conf.code for conf in self.configurations.all()],
+            'translations': [
+                t.language for t in self.questionnairetranslation_set.all()]
         }
 
     def add_link(self, questionnaire, symm=True):

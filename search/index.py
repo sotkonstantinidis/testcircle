@@ -1,6 +1,7 @@
 from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
+from itertools import chain
 
 from .utils import (
     get_analyzer,
@@ -99,6 +100,17 @@ def get_mappings(questionnaire_configuration):
                 },
                 'name': {
                     'properties': name_properties
+                },
+                'authors': {
+                    'type': 'nested',
+                    'properties': {
+                        'id': {
+                            'type': 'integer',
+                        },
+                        'name': {
+                            'type': 'string',
+                        },
+                    }
                 },
                 # 'list_data' is added dynamically
             }
@@ -231,24 +243,26 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
     for obj in questionnaire_objects:
         list_data = questionnaire_configuration.get_list_data(
             [obj.data])[0]
+        authors = []
+        for author in list(chain(
+                obj.members.filter(questionnairemembership__role='author'),
+                obj.members.filter(questionnairemembership__role='editor'))):
+            authors.append({
+                'id': author.id,
+                'name': str(author),
+            })
+        source = {
+            'data': obj.data,
+            'list_data': list_data,
+            'name': questionnaire_configuration.get_questionnaire_name(
+                obj.data),
+        }
+        source.update(obj.get_metadata())
         action = {
             '_index': alias,
             '_type': 'questionnaire',
             '_id': obj.id,
-            '_source': {
-                'data': obj.data,
-                'list_data': list_data,
-                'created': obj.created,
-                'updated': obj.updated,
-                'code': obj.code,
-                'name': questionnaire_configuration.get_questionnaire_name(
-                    obj.data),
-                'configurations': [
-                    conf.code for conf in obj.configurations.all()],
-                'translations': [
-                    trans.language for trans in
-                    obj.questionnairetranslation_set.all()],
-            }
+            '_source': source,
         }
         actions.append(action)
     actions_executed, errors = bulk(es, actions)

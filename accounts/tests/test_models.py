@@ -67,7 +67,8 @@ class UserModelTest(TestCase):
 
     def test_user_str(self):
         user = User()
-        self.assertEqual(user.email, str(user))
+        self.assertEqual(
+            '{} {}'.format(user.firstname, user.lastname), str(user))
 
     def test_create_new_returns_new_object(self):
         returned = User.create_new(id=1, email='a@b.com')

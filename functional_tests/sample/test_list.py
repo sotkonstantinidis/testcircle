@@ -15,6 +15,9 @@ from sample.tests.test_views import (
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
+from nose.plugins.attrib import attr
+# @attr('foo')
+
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
@@ -167,6 +170,77 @@ class ListTest(FunctionalTest):
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[5]//p['
             'text()="Faz 1"]')
+
+    def test_list_database_es(self):
+
+        # She goes to the WOCAT landing page and sees the latest updates
+        # (retrieved from database) contains metadata entries
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        entry_xpath = '//article[contains(@class, "tech-item")][1]'
+        code = self.findBy(
+            'xpath', '{}//dl/dt[text()="ID:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(code.text, 'sample_4')
+        creation = self.findBy(
+            'xpath', '{}//dl/dt[text()="Creation:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(creation.text, '02/13/2015 5:08 p.m.')
+        update = self.findBy(
+            'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(update.text, '02/13/2015 5:08 p.m.')
+        author = self.findBy(
+            'xpath', '{}//dl/dt[text()="Author:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(author.text, 'Foo Bar')
+
+        html_1 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
+
+        # She also sees that the second entry has two authors (1 author, 1
+        # editor)
+        entry_xpath = '//article[contains(@class, "tech-item")][2]'
+        author = self.findBy(
+            'xpath', '{}//dl/dt[text()="Authors:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(author.text, 'Foo Bar, Faz Taz')
+
+        # # She goes to the WOCAT list and sees the list (retrieved from
+        # # elasticsearch) also contains metadata information and is
+        # # practically identical with the one on the landing page
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        entry_xpath = '//article[contains(@class, "tech-item")][1]'
+        code = self.findBy(
+            'xpath', '{}//dl/dt[text()="ID:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(code.text, 'sample_4')
+        creation = self.findBy(
+            'xpath', '{}//dl/dt[text()="Creation:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(creation.text, '02/13/2015 5:08 p.m.')
+        update = self.findBy(
+            'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(update.text, '02/13/2015 5:08 p.m.')
+        author = self.findBy(
+            'xpath', '{}//dl/dt[text()="Author:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(author.text, 'Foo Bar')
+
+        html_2 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
+
+        # She also sees that the second entry has two authors (1 author, 1
+        # editor)
+        entry_xpath = '//article[contains(@class, "tech-item")][2]'
+        author = self.findBy(
+            'xpath', '{}//dl/dt[text()="Authors:"]/following::dd[1]'.format(
+                entry_xpath))
+        self.assertEqual(author.text, 'Foo Bar, Faz Taz')
+
+        # She sees that both list entries are exactly the same
+        self.assertEqual(html_1, html_2)
 
     # def test_filter_checkbox(self):
 

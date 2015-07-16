@@ -13,6 +13,7 @@ from questionnaire.utils import (
     is_valid_questionnaire_format,
     query_questionnaires_for_link,
 )
+from questionnaire.tests.test_models import get_valid_metadata
 from qcat.errors import QuestionnaireFormatError
 
 
@@ -561,7 +562,7 @@ class GetListValuesTest(TestCase):
         ret = get_list_values(es_search=es_search)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), 9)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
         self.assertEqual(ret_1.get('configurations'), [])
         self.assertEqual(ret_1.get('created', ''), None)
@@ -569,6 +570,8 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), 1)
         self.assertEqual(ret_1.get('translations'), [])
+        self.assertEqual(ret_1.get('code'), '')
+        self.assertEqual(ret_1.get('authors'), [])
 
     def test_es_uses_provided_configuration(self):
         es_search = {
@@ -583,7 +586,7 @@ class GetListValuesTest(TestCase):
         ret = get_list_values(es_search=es_search, configuration_code='foo')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), 9)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
     def test_es_wocat_uses_default_configuration(self):
@@ -599,7 +602,7 @@ class GetListValuesTest(TestCase):
         ret = get_list_values(es_search=es_search, configuration_code='wocat')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), 9)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
     def test_returns_values_from_database(self):
@@ -607,30 +610,34 @@ class GetListValuesTest(TestCase):
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
         obj.questionnairetranslation_set.all.return_value = []
+        obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         ret = get_list_values(questionnaire_objects=questionnaires)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), 9)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
-        self.assertEqual(ret_1.get('configurations'), [])
-        self.assertEqual(ret_1.get('created', ''), obj.created)
-        self.assertEqual(ret_1.get('updated', ''), obj.updated)
+        self.assertEqual(ret_1.get('configurations'), ['configuration'])
+        self.assertEqual(ret_1.get('created', ''), 'created')
+        self.assertEqual(ret_1.get('updated', ''), 'updated')
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), obj.id)
         self.assertEqual(ret_1.get('translations'), [])
+        self.assertEqual(ret_1.get('code'), 'code')
+        self.assertEqual(ret_1.get('authors'), ['author'])
 
     def test_db_uses_provided_configuration(self):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
         obj.questionnairetranslation_set.all.return_value = []
+        obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         ret = get_list_values(
             questionnaire_objects=questionnaires, configuration_code='foo')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), 9)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
     def test_db_wocat_uses_default_configuration(self):
@@ -638,12 +645,13 @@ class GetListValuesTest(TestCase):
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
         obj.questionnairetranslation_set.all.return_value = []
+        obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         ret = get_list_values(
             questionnaire_objects=questionnaires, configuration_code='wocat')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), 9)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
     @patch('questionnaire.utils.get_or_create_configuration')
@@ -656,6 +664,7 @@ class GetListValuesTest(TestCase):
         obj.configurations.first.return_value = None
         obj.configurations.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
+        obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         get_list_values(questionnaire_objects=questionnaires)
         mock_get_or_create_configuration.assert_called_once_with(
