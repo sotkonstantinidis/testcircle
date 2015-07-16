@@ -188,7 +188,7 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user)
         metadata = questionnaire.get_metadata()
         self.assertIsInstance(metadata, dict)
-        self.assertEqual(len(metadata), 6)
+        self.assertEqual(len(metadata), 7)
         self.assertEqual(metadata['created'], questionnaire.created)
         self.assertEqual(metadata['updated'], questionnaire.updated)
         self.assertEqual(
@@ -197,6 +197,7 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(metadata['code'], questionnaire.code)
         self.assertEqual(metadata['configurations'], ['sample'])
         self.assertEqual(metadata['translations'], ['en'])
+        self.assertEqual(metadata['status'], ('draft', 'Draft'))
 
     def test_get_metadata_puts_author_first(self, mock_put_questionnaire_data):
         mock_put_questionnaire_data.return_value = None, None

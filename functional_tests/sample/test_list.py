@@ -455,7 +455,9 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
 
         # She goes to the list view and sees the same questionnaires
         self.browser.get(self.live_server_url + reverse(
@@ -466,7 +468,9 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
 
         # Since she is not logged in, she does not see a note about
         # seeing only published questionnaires.
@@ -487,8 +491,11 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 3)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[3]//h1/a[text()="Foo 1"]')
+        self.findBy('xpath', '//article[3]//figcaption[text()="Draft"]')
 
         # She goes to the list view and sees only the published
         # questionnaires
@@ -500,7 +507,9 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
 
         # She also sees a note saying that only published questionnaires
         # are visible
@@ -520,8 +529,11 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 3)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[3]//h1/a[text()="Foo 2"]')
+        self.findBy('xpath', '//article[3]//figcaption[text()="Pending"]')
 
         # She goes to the list view and sees only the published
         # questionnaires
@@ -555,8 +567,11 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 3)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[3]//h1/a[text()="Foo 2"]')
+        self.findBy('xpath', '//article[3]//figcaption[text()="Pending"]')
 
         # She goes to the list view and sees only the published
         # questionnaires
@@ -568,7 +583,9 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
 
         # She also sees a note saying that only published questionnaires
         # are visible

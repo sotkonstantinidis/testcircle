@@ -19,6 +19,13 @@ STATUSES = (
     (4, _('Rejected')),
     (5, _('Inactive')),
 )
+STATUSES_CODES = (
+    (1, 'draft'),
+    (2, 'pending'),
+    (3, 'published'),
+    (4, 'rejected'),
+    (5, 'inactive'),
+)
 
 QUESTIONNAIRE_ROLES = (
     ('author', _('Author')),
@@ -157,6 +164,9 @@ class Questionnaire(models.Model):
                 'id': author.id,
                 'name': str(author),
             })
+        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
+        status_code = next(
+            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
         return {
             'created': self.created,
             'updated': self.updated,
@@ -166,7 +176,7 @@ class Questionnaire(models.Model):
                 conf.code for conf in self.configurations.all()],
             'translations': [
                 t.language for t in self.questionnairetranslation_set.all()],
-            # 'status': 'pending',
+            'status': (status_code[1], status[1])
         }
 
     def add_link(self, questionnaire, symm=True):
