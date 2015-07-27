@@ -260,5 +260,36 @@
         "role": "author"
     },
     "model": "questionnaire.questionnairemembership"
+},
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 7,
+    "fields": {
+        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
+        "data": {"qg_19":[{"key_5":{"en":"Faz 7"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 7"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}]},
+        "code": "sample_6",
+        "status": 1,
+        "version": 1,
+        "blocked": false,
+        "created": "2015-02-16T16:08:20.904Z",
+        "updated": "2015-03-16T16:08:20.904Z"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 7,
+        "original_configuration": true
+    }
+},
+{
+    "pk": 1062,
+    "fields": {
+        "questionnaire": 7,
+        "user": 103,
+        "role": "author"
+    },
+    "model": "questionnaire.questionnairemembership"
 }
 ]

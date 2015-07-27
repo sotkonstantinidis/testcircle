@@ -638,15 +638,16 @@ def query_questionnaires(
     # Logged in users ...
     if request.user.is_authenticated():
 
-        # ... see all "pending" and "published" if they are moderators
+        # ... see all "pending" and "published" if they are moderators,
+        # along with their own "draft"
         if request.user.has_perm('questionnaire.can_moderate'):
-            status_filter = Q(status__in=[2, 3])
+            status_filter = (
+                Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
 
         # ... see "published" and their own "draft" and "pending".
         else:
             status_filter = (
-                Q(members=request.user) & (Q(status=1) | Q(status=2))
-                | Q(status=3))
+                Q(status=3) | (Q(members=request.user) & Q(status__in=[1, 2])))
 
     return Questionnaire.objects.filter(
         get_configuration_query_filter(

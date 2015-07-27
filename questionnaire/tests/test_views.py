@@ -624,6 +624,7 @@ class GenericQuestionnaireListTest(TestCase):
     def test_db_query_calls_get_list_values(
             self, mock_get_list_values, mock_advanced_search):
         self.request.user = Mock()
+        self.request.user.is_authenticated.return_value = False
         generic_questionnaire_list(self.request, 'sample', db_query=True)
         self.assertEqual(mock_get_list_values.call_count, 1)
 

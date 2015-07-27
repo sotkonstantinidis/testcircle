@@ -558,20 +558,19 @@ class ListTestStatus(FunctionalTest):
         self.doLogin(user=user)
 
         # She goes to the SAMPLE landing page and sees the latest
-        # updates. These are: 2 (pending), 3 (published) and 6
-        # (published)
+        # updates. These are: 7 (draft), 2 (pending), 3 (published)
         self.browser.get(self.live_server_url + reverse(route_home))
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 3)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 7"]')
+        self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 2"]')
-        self.findBy('xpath', '//article[3]//figcaption[text()="Pending"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[3]//figcaption[text()="Published"]')
 
         # She goes to the list view and sees only the published
         # questionnaires

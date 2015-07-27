@@ -515,15 +515,15 @@ class QueryQuestionnairesTest(TestCase):
         self.assertEqual(ret[1].id, 3)
         self.assertEqual(ret[2].id, 2)
 
-    def test_moderator_sees_pending(self):
+    def test_moderator_sees_pending_and_own_drafts(self):
         request = Mock()
-        # request.user.is_authenticated.return_value = True
         request.user = User.objects.get(pk=103)
         ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 3)
-        self.assertEqual(ret[0].id, 6)
-        self.assertEqual(ret[1].id, 3)
-        self.assertEqual(ret[2].id, 2)
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 7)
+        self.assertEqual(ret[1].id, 6)
+        self.assertEqual(ret[2].id, 3)
+        self.assertEqual(ret[3].id, 2)
 
     def test_applies_limit(self):
         request = Mock()

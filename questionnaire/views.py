@@ -394,8 +394,8 @@ def generic_questionnaire_new(
         (e.g. ``wocat:questionnaire_new``)
 
     Kwargs:
-        ``questionnaire_id`` (id): The ID of a questionnaire if the it
-        is an edit form.
+        ``questionnaire_id`` (id): The ID of a questionnaire if it is an
+        edit form.
 
         ``page_title`` (str): The page title to be used in the HTML
         template. Defaults to ``QCAT Form``.
