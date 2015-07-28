@@ -328,7 +328,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_create_new.assert_called_once_with(
-            'sample', {}, self.request.user)
+            'sample', {}, self.request.user, previous_version=None)
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -385,7 +385,8 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with(
-            {}, editable=True, edit_step_route='sample:questionnaire_new_step')
+            {}, editable=True, edit_step_route='sample:questionnaire_new_step',
+            questionnaire_object=None)
 
     @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')

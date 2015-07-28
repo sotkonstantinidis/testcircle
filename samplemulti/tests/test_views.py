@@ -36,7 +36,7 @@ def get_valid_link_form_values():
 
 def get_valid_new_step_values():
     args = (get_categories()[0][0], 'samplemulti', 'samplemulti')
-    kwargs = {'page_title': 'SAMPLEMULTI Form'}
+    kwargs = {'page_title': 'SAMPLEMULTI Form', 'identifier': 'new'}
     return args, kwargs
 
 

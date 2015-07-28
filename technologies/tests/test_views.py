@@ -46,7 +46,7 @@ def get_valid_new_values():
 
 def get_valid_new_step_values():
     args = (get_categories()[0][0], 'technologies', 'technologies')
-    kwargs = {'page_title': 'Technologies Form'}
+    kwargs = {'page_title': 'Technologies Form', 'identifier': 'new'}
     return args, kwargs
 
 

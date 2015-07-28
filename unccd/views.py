@@ -47,7 +47,8 @@ def questionnaire_new_step(request, identifier, step):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'unccd', 'unccd', page_title=_('UNCCD Form'))
+        request, step, 'unccd', 'unccd', page_title=_('UNCCD Form'),
+        identifier=identifier)
 
 
 @login_required

@@ -86,7 +86,7 @@ def questionnaire_new_step(request, identifier, step):
     """
     return generic_questionnaire_new_step(
         request, step, 'approaches', 'approaches',
-        page_title=_('Approaches Form'))
+        page_title=_('Approaches Form'), identifier=identifier)
 
 
 @login_required

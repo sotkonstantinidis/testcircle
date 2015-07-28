@@ -35,7 +35,7 @@ def get_valid_link_form_values():
 
 def get_valid_new_step_values():
     args = (get_categories()[0][0], 'sample', 'sample')
-    kwargs = {'page_title': 'SAMPLE Form'}
+    kwargs = {'page_title': 'SAMPLE Form', 'identifier': 'new'}
     return args, kwargs
 
 

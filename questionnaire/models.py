@@ -92,11 +92,22 @@ class Questionnaire(models.Model):
             ``ValidationError``
         """
         if previous_version:
-            # TODO. Calculate version and use same UUID and code as
-            # previous version.
-            raise NotImplemented()
+            if previous_version.status not in [1, 3]:
+                raise ValidationError(
+                    'The questionnaire cannot be updated because of its status'
+                    ' "{}"'.format(previous_version.status))
+            elif previous_version.status == 1:
+                # Draft: Only update the data
+                previous_version.data = data
+                previous_version.save()
+                return previous_version
+            else:
+                # Published: Create new version with the same code
+                code = previous_version.code
+                version = previous_version.version + 1
         else:
-            code = 'todo'
+            from configuration.utils import create_new_code
+            code = create_new_code(configuration_code, data)
             version = 1
         if status not in [s[0] for s in STATUSES]:
             raise ValidationError('"{}" is not a valid status'.format(status))

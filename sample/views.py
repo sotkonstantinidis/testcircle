@@ -95,7 +95,8 @@ def questionnaire_new_step(request, identifier, step):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'sample', 'sample', page_title='SAMPLE Form')
+        request, step, 'sample', 'sample', page_title='SAMPLE Form',
+        identifier=identifier)
 
 
 @login_required

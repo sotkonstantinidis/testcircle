@@ -1747,6 +1747,7 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
 
+    @attr('foo')
     def test_edit_questionnaire(self):
 
         # Alice logs in
@@ -1779,7 +1780,8 @@ class QuestionnaireTest(FunctionalTest):
         # She edits a form and sees the values are there already
         self.findManyBy(
             'xpath',
-            '//a[contains(@href, "edit/new/cat")]')[cat_1_position].click()
+            '//a[contains(@href, "edit/sample_0/cat")]')[
+                cat_1_position].click()
         key_1 = self.findBy('name', 'qg_1-0-original_key_1')
         self.assertEqual(key_1.get_attribute('value'), 'Foo')
         key_3 = self.findBy('name', 'qg_1-0-original_key_3')

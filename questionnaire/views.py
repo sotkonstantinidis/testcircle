@@ -217,7 +217,7 @@ def generic_questionnaire_link_search(request, configuration_code):
 @login_required
 def generic_questionnaire_new_step(
         request, step, configuration_code, url_namespace,
-        page_title='QCAT Form'):
+        page_title='QCAT Form', identifier=None):
     """
     A generic view to show the form of a single step of a new or edited
     questionnaire.
@@ -242,6 +242,9 @@ def generic_questionnaire_new_step(
     Kwargs:
         ``page_title`` (str): The page title to be used in the HTML
         template. Defaults to ``QCAT Form``.
+
+        ``identifier`` (str) The identifier of the Questionnaire if
+        available.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -329,8 +332,12 @@ def generic_questionnaire_new_step(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation)
 
-    overview_url = '{}#{}'.format(
-        reverse('{}:questionnaire_new'.format(url_namespace)), step)
+    if identifier is None:
+        overview_url = '{}#{}'.format(
+            reverse('{}:questionnaire_new'.format(url_namespace)), step)
+    else:
+        overview_url = '{}#{}'.format(reverse('{}:questionnaire_edit'.format(
+            url_namespace), kwargs={'identifier': identifier}), step)
 
     valid = True
     if request.method == 'POST':
@@ -407,15 +414,22 @@ def generic_questionnaire_new(
         configuration_code)
 
     if identifier is not None:
-        # For edits, copy the data to the session first.
+        # For edits, copy the data to the session first (if it was
+        # edited for the first time only).
         questionnaire_object = query_questionnaire(request, identifier).first()
         if questionnaire_object is None:
             raise Http404()
-        questionnaire_links = get_link_data(questionnaire_object.links.all())
-        save_session_questionnaire(
-            configuration_code, questionnaire_data=questionnaire_object.data,
-            questionnaire_links=questionnaire_links)
+        session_questionnaire, session_links = get_session_questionnaire(
+            configuration_code)
+        if session_questionnaire == {}:
+            questionnaire_links = get_link_data(
+                questionnaire_object.links.all())
+            save_session_questionnaire(
+                configuration_code,
+                questionnaire_data=questionnaire_object.data,
+                questionnaire_links=questionnaire_links)
     else:
+        questionnaire_object = None
         identifier = 'new'
 
     session_questionnaire, session_links = get_session_questionnaire(
@@ -436,7 +450,8 @@ def generic_questionnaire_new(
             return redirect(request.path)
         else:
             questionnaire = Questionnaire.create_new(
-                configuration_code, session_questionnaire, request.user)
+                configuration_code, session_questionnaire, request.user,
+                previous_version=questionnaire_object)
             clear_session_questionnaire(configuration_code=configuration_code)
 
             for __, linked_questionnaires in session_links.items():
@@ -461,7 +476,8 @@ def generic_questionnaire_new(
 
     sections = questionnaire_configuration.get_details(
         data, editable=True,
-        edit_step_route='{}:questionnaire_new_step'.format(url_namespace))
+        edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
+        questionnaire_object=questionnaire_object)
 
     images = questionnaire_configuration.get_image_data(data)
 

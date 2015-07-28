@@ -25,7 +25,7 @@ route_questionnaire_new_step = 'unccd:questionnaire_new_step'
 
 def get_valid_new_step_values():
     args = (get_categories()[0][0], 'unccd', 'unccd')
-    kwargs = {'page_title': 'UNCCD Form'}
+    kwargs = {'page_title': 'UNCCD Form', 'identifier': 'new'}
     return args, kwargs
 
 

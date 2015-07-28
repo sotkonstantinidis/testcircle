@@ -96,7 +96,7 @@ def questionnaire_new_step(request, identifier, step):
     """
     return generic_questionnaire_new_step(
         request, step, 'samplemulti', 'samplemulti',
-        page_title='SAMPLEMULTI Form')
+        page_title='SAMPLEMULTI Form', identifier=identifier)
 
 
 @login_required

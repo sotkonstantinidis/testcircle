@@ -11,7 +11,6 @@ from questionnaire.models import (
     QuestionnaireConfiguration,
     QuestionnaireLink,
     QuestionnaireMembership,
-    QuestionnaireTranslation,
     File,
 )
 
@@ -84,9 +83,36 @@ class QuestionnaireModelTest(TestCase):
         questionnaire = get_valid_questionnaire(self.user)
         self.assertEqual(questionnaire.status, 1)
 
-    def test_create_new_sets_code(self):
-        questionnaire = get_valid_questionnaire(self.user)
-        self.assertEqual(questionnaire.code, 'todo')
+    def test_previous_version_only_allows_certain_status(self):
+        previous = Questionnaire(status=2)
+        with self.assertRaises(ValidationError):
+            Questionnaire.create_new(
+                configuration_code='sample', data={}, user=self.user,
+                previous_version=previous)
+
+    def test_previous_version_pending_updates_same_questionnaire(self):
+        previous = get_valid_questionnaire(self.user)
+        previous.status = 1
+        q = Questionnaire.create_new(
+            configuration_code='sample', data={'faz': 'taz'}, user=self.user,
+            previous_version=previous)
+        self.assertEqual(q, previous)
+        self.assertEqual(previous.data, {'faz': 'taz'})
+
+    def test_previous_version_published_keeps_same_code(self):
+        previous = get_valid_questionnaire(self.user)
+        previous.status = 3
+        q = Questionnaire.create_new(
+            configuration_code='sample', data={'faz': 'taz'}, user=self.user,
+            previous_version=previous)
+        self.assertNotEqual(q, previous)
+        self.assertEqual(q.code, previous.code)
+        self.assertEqual(q.version, previous.version + 1)
+
+    @patch('configuration.utils.create_new_code')
+    def test_create_new_calls_create_code(self, mock_create_new_code):
+        get_valid_questionnaire(self.user)
+        mock_create_new_code.assert_called_once_with('sample', {'foo': 'bar'})
 
     def test_create_new_raises_error_if_invalid_status(self):
         with self.assertRaises(ValidationError):
