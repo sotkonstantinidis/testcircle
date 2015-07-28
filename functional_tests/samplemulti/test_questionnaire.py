@@ -27,8 +27,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees a link to enter a new questionnaire and clicks it
         self.findBy(
-            'xpath',
-            '//a[@href="/en/samplemulti/edit/" and contains(@class, "button")]'
+            'xpath', '//a[@href="/en/samplemulti/edit/new/" and '
+            'contains(@class, "button")]'
         ).click()
 
         # She is taken to the form and sees the steps
@@ -38,7 +38,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to the first step and sees the link works.
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=[get_categories()[0][0]]))
+            route_questionnaire_new_step, kwargs={
+                'identifier': 'new', 'step': get_categories()[0][0]}))
 
         self.findBy('id', 'button-submit').click()
         progress_indicators = self.findManyBy(
@@ -52,7 +53,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes directly to the first step of the form
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['mcat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'mcat_1'}))
 
         # She enters some values for Key 1
         self.findBy('name', 'mqg_01-0-original_mkey_01').send_keys('Foo')

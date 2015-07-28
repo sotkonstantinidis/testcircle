@@ -600,22 +600,39 @@ def get_link_display(link_object, link_configuration):
     return render_to_string(link_template, {
         'link_data': link_data[0],
         'link_route': link_route,
-        'id': link_object.id,
+        'questionnaire_identifier': link_object.code,
     })
+
+
+def query_questionnaire(request, identifier):
+    """
+    Query and return a single Questionnaire.
+
+    .. important::
+        Note that this may return multiple Questionnaire objects, as
+        there may be multiple versions for the same identifier.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``identifier`` (str): The identifier of the Questionnaire.
+
+    Returns:
+        ``django.db.models.query.QuerySet``. The queried
+        Questionnaire(s).
+    """
+    status_filter = get_query_status_filter(request)
+
+    return Questionnaire.objects.filter(code=identifier).filter(status_filter)
 
 
 def query_questionnaires(
         request, configuration_code, only_current=False, limit=10):
     """
-    Query and return many Questionnaires. The following status filters
-    are applied:
+    Query and return many Questionnaires.
 
-    * Not logged in users always only see "published" Questionnaires.
-
-    * Moderators see all "pending" and "published" Questionnaires.
-
-    * Logged in users see all "published", as well as their own "draft"
-    and "pending" Questionnaires.
+    .. seealso::
+        :func:`get_query_status_filter` for the status filters applied.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -631,6 +648,34 @@ def query_questionnaires(
 
     Returns:
         ``django.db.models.query.QuerySet``. The queried Questionnaires.
+    """
+    status_filter = get_query_status_filter(request)
+
+    return Questionnaire.objects.filter(
+        get_configuration_query_filter(
+            configuration_code, only_current=only_current)).filter(
+                status_filter).distinct()[:limit]
+
+
+def get_query_status_filter(request):
+    """
+    Creates a filter object based on the statii of the Questionnaires,
+    to be used for database queries.
+
+    The following status filters are applied:
+
+    * Not logged in users always only see "published" Questionnaires.
+
+    * Moderators see all "pending" and "published" Questionnaires.
+
+    * Logged in users see all "published", as well as their own "draft"
+    and "pending" Questionnaires.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``django.db.models.Q``. A Django filter object.
     """
     # Public always only sees "published"
     status_filter = Q(status=3)
@@ -649,10 +694,7 @@ def query_questionnaires(
             status_filter = (
                 Q(status=3) | (Q(members=request.user) & Q(status__in=[1, 2])))
 
-    return Questionnaire.objects.filter(
-        get_configuration_query_filter(
-            configuration_code, only_current=only_current)).filter(
-                status_filter).distinct()[:limit]
+    return status_filter
 
 
 def query_questionnaires_for_link(configuration, q, limit=10):

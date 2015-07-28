@@ -4,7 +4,8 @@
     "pk": 1,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1d",
-        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1a\"}}]}",
+        "data": {"mqg_01": [{"mkey_01": {"en": "This is key 1a"}}]},
+        "code": "samplemulti_1",
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -25,7 +26,8 @@
     "pk": 2,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b06",
-        "data": "{\"mqg_01\": [{\"mkey_01\": {\"en\": \"This is key 1b\"}}]}",
+        "data": {"mqg_01": [{"mkey_01": {"en": "This is key 1b"}}]},
+        "code": "samplemulti_2",
         "status": 3,
         "version": 1,
         "blocked": false,

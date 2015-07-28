@@ -243,6 +243,13 @@ class ListTest(FunctionalTest):
         # She sees that both list entries are exactly the same
         self.assertEqual(html_1, html_2)
 
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 3")]').click()
+
+        info = self.findBy('xpath', '//ul[@class="tech-output-infos"]')
+        self.assertIn('Foo Bar, Faz Taz', info.text)
+
     # def test_filter_checkbox(self):
 
     #     # Alice goes to the list view

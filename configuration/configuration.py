@@ -1111,6 +1111,10 @@ class QuestionnaireCategory(BaseConfigurationObject):
             if self.with_metadata is True and questionnaire_object is not None:
                 metadata = questionnaire_object.get_metadata()
 
+        questionnaire_identifier = 'new'
+        if questionnaire_object is not None:
+            questionnaire_identifier = questionnaire_object.code
+
         toc_content = []
         if self.include_toc:
             toc_content = self.parent_object.parent_object.get_toc_data()
@@ -1129,6 +1133,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'edit_step_route': edit_step_route,
                 'configuration_name': self.configuration_keyword,
                 'toc_content': tuple(toc_content),
+                'questionnaire_identifier': questionnaire_identifier,
             })
 
     def get_raw_category_data(self, questionnaire_data):

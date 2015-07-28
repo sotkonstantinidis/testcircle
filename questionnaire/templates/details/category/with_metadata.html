@@ -20,7 +20,7 @@
         <li>
           <span class="is-muted">{% if metadata.authors|length > 1 %}{% trans "Authors:" %}{% else %}{% trans "Author:" %}{% endif %}</span>
           {% for author in metadata.authors %}
-            <a rel="author" href="#" class="link">{{ author.name }}</a>
+            <a rel="author" href="#" class="link">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
           {% endfor %}
         </li>
       </ul>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="medium-3 columns">
-        <a class="button is-{{ configuration_name }} right" data-toggle-boolean="section_one" href="{% url edit_step_route keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
+        <a class="button is-{{ configuration_name }} right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
       </div>
     {% else %}
       <div class="medium-12 columns">

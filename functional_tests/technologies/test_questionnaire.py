@@ -40,7 +40,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to the first step and sees the link works.
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=[get_categories()[0][0]]))
+            route_questionnaire_new_step, kwargs={
+                'identifier': 'new', 'step': get_categories()[0][0]}))
 
         self.findBy('id', 'button-submit').click()
         progress_indicators = self.findManyBy(

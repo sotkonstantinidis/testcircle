@@ -55,7 +55,7 @@ class ModerationTest(FunctionalTest):
 
         # She enters some values
         edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(@href, "edit/cat")]')
+            'xpath', '//a[contains(@href, "edit/new/cat")]')
         edit_buttons[cat_1_position].click()
         # She enters Key 1
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')

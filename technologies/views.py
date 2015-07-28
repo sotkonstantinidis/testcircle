@@ -15,7 +15,7 @@ from questionnaire.views import (
 
 
 @login_required
-def questionnaire_link_form(request):
+def questionnaire_link_form(request, identifier):
     """
     View to show the form for linking questionnaires. Also handles the
     form submit along with its validation and redirect.
@@ -27,6 +27,9 @@ def questionnaire_link_form(request):
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
+
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -59,7 +62,7 @@ def questionnaire_link_search(request):
 
 
 @login_required
-def questionnaire_new_step(request, step, questionnaire_id=None):
+def questionnaire_new_step(request, identifier, step):
     """
     View to show the form of a single step of a new Technologies
     questionnaire. Also handles the form submit of the step along with
@@ -73,6 +76,9 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
+
         ``step`` (str): The code of the questionnaire category.
 
     Returns:
@@ -84,7 +90,7 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
 
 
 @login_required
-def questionnaire_new(request, questionnaire_id=None):
+def questionnaire_new(request, identifier=None):
     """
     View to show the overview of a new or edited Technologies
     questionnaire. Also handles the form submit of the entire
@@ -98,15 +104,19 @@ def questionnaire_new(request, questionnaire_id=None):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+    Kwargs:
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
+
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
         request, 'technologies', 'technologies/questionnaire/details.html',
-        'technologies', questionnaire_id=questionnaire_id)
+        'technologies', identifier=identifier)
 
 
-def questionnaire_details(request, questionnaire_id):
+def questionnaire_details(request, identifier):
     """
     View to show the details of an existing Technology questionnaire.
 
@@ -118,13 +128,14 @@ def questionnaire_details(request, questionnaire_id):
     Args:
         ``request`` (django.http.HttpResponse): The request object.
 
-        ``questionnaire_id`` (int): The id of the questionnaire.
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'technologies', 'technologies',
+        request, identifier, 'technologies', 'technologies',
         'technologies/questionnaire/details.html')
 
 

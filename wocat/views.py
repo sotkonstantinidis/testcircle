@@ -19,7 +19,7 @@ def home(request):
     })
 
 
-def questionnaire_details(request, questionnaire_id):
+def questionnaire_details(request, identifier):
     """
     View to show the details of an existing WOCAT questionnaire.
 
@@ -31,13 +31,14 @@ def questionnaire_details(request, questionnaire_id):
     Args:
         ``request`` (django.http.HttpResponse): The request object.
 
-        ``questionnaire_id`` (int): The id of the questionnaire.
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'wocat', 'wocat',
+        request, identifier, 'wocat', 'wocat',
         'wocat/questionnaire/details.html')
 
 

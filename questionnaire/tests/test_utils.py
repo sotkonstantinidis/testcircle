@@ -14,6 +14,7 @@ from questionnaire.utils import (
     get_list_values,
     handle_review_actions,
     is_valid_questionnaire_format,
+    query_questionnaire,
     query_questionnaires,
     query_questionnaires_for_link,
 )
@@ -483,11 +484,30 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
 
 
+class QueryQuestionnaireTest(TestCase):
+
+    @patch('questionnaire.utils.get_query_status_filter')
+    @patch('questionnaire.utils.Questionnaire')
+    def test_calls_status_filter(
+            self, mock_Questionnaire, mock_get_query_status_filter):
+        request = Mock()
+        query_questionnaire(request, 'sample')
+        mock_get_query_status_filter.assert_called_once_with(request)
+
+
 class QueryQuestionnairesTest(TestCase):
 
     fixtures = [
         'groups_permissions.json', 'sample.json',
         'sample_questionnaire_status.json']
+
+    @patch('questionnaire.utils.get_query_status_filter')
+    @patch('questionnaire.utils.Questionnaire')
+    def test_calls_status_filter(
+            self, mock_Questionnaire, mock_get_query_status_filter):
+        request = Mock()
+        query_questionnaires(request, 'sample')
+        mock_get_query_status_filter.assert_called_once_with(request)
 
     def test_public_only_returns_published(self):
         request = Mock()

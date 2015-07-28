@@ -61,7 +61,8 @@ class Questionnaire(models.Model):
         )
 
     def get_absolute_url(self):
-        return reverse('questionnaire_view_details', args=[self.id])
+        return reverse(
+            'questionnaire_view_details', kwargs={'identifier': self.code})
 
     @staticmethod
     def create_new(

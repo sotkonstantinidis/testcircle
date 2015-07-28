@@ -17,6 +17,8 @@ from sample.tests.test_views import (
 )
 from samplemulti.tests.test_views import route_questionnaire_details as \
     route_questionnaire_details_samplemulti
+from search.index import delete_all_indices
+from search.tests.test_index import create_temp_indices
 
 from nose.plugins.attrib import attr
 # @attr('foo')
@@ -36,7 +38,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She sees that the first question is active, the second not
         self.findBy(
@@ -75,7 +78,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_3']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
 
         # She sees that the Questiongroup with Keys 17 and 18 are
         # numbered inline
@@ -107,7 +111,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_3']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
 
         # She sees the helptext
         self.checkOnPage('Helptext 1')
@@ -210,7 +215,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She edits again
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_3']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
 
         # Key 8 is there only once
         f1 = self.findBy('name', 'qg_6-0-original_key_8')
@@ -258,7 +264,8 @@ class QuestionnaireTest(FunctionalTest):
         progress_indicators = self.findManyBy(
             'xpath', '//div[@class="tech-section-progress progress"]')
         self.assertEqual(len(progress_indicators), get_category_count())
-        buttons = self.findManyBy('xpath', '//a[contains(@href, "edit/cat")]')
+        buttons = self.findManyBy(
+            'xpath', '//a[contains(@href, "edit/new/cat")]')
         for x in buttons:
             self.assertIn('0/', x.text)
         progress_bars = self.findManyBy(
@@ -266,8 +273,9 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(len(progress_bars), len(progress_indicators))
 
         # She goes to the first category and sees another progress bar
-        self.findBy('xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
-            cat_1_position)).click()
+        self.findBy(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
+                cat_1_position)).click()
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         completed_steps = self.findBy('class_name', 'progress-completed')
         self.assertEqual(completed_steps.text, '0')
@@ -292,15 +300,16 @@ class QuestionnaireTest(FunctionalTest):
         progress_bars = self.findBy(
             'xpath', '//span[@class="meter" and @style="width:50.0%"]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_1_position))
         self.assertIn('1/2', progress_indicator.text)
 
         # She decides to edit the step again and deletes what she
         # entered. She notices that the bar is back to 0, also on the
         # overview page.
-        self.findBy('xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
-            cat_1_position)).click()
+        self.findBy(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
+                cat_1_position)).click()
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         self.findBy('name', 'qg_1-0-original_key_1').clear()
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('')
@@ -329,7 +338,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She tries to enter a lot of characters to Key 2, which is
         # limited to 50 chars. Only the first 50 characters are entered
@@ -384,7 +394,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She enters some value for Key 2 with linebreaks
         textarea = self.findBy('id', 'id_qg_2-0-original_key_2')
@@ -410,7 +421,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
 
         # She sees values which are inside nested subcategories
         self.findBy('id', 'id_qg_19-0-original_key_5')
@@ -427,13 +439,14 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('xpath', '//*[text()[contains(.,"Key 25")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"Key 26")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_2_position))
         self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the step and fills out some fields
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
         self.findBy('id', 'id_qg_19-0-original_key_5').send_keys('Foo')
         self.findBy('id', 'id_qg_20-0-original_key_25').send_keys('')
         self.findBy('xpath', '//span[@class="meter" and @style="width: 25%;"]')
@@ -457,7 +470,8 @@ class QuestionnaireTest(FunctionalTest):
         # She goes back to the form and sees that the values are populated
         # correctly in the form
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         self.assertEqual(self.findBy(
             'id', 'id_qg_19-0-original_key_5').get_attribute('value'), 'Foo')
@@ -494,7 +508,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She sees Key 4, which is a select, rendered with Chosen.
         # Initially, no value is selected.
@@ -518,14 +533,15 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_1_position))
         self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no value is selected
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findBy('xpath', '//select[@name="qg_3-0-key_4"]')
         chosen_field = self.findBy('xpath', '//a[@class="chosen-single"]')
@@ -549,14 +565,15 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Afghanistan")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_1_position))
         self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the form and sees that the value is still selected
         # and the progress is updated
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
         self.findBy('xpath', '//select[@name="qg_3-0-key_4"]')
         chosen_field = self.findBy('xpath', '//a[@class="chosen-single"]')
         self.assertEqual(chosen_field.text, 'Afghanistan')
@@ -593,7 +610,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
 
         # She sees that no Checkbox of Key 13 is selected by default
         self.findByNot(
@@ -607,14 +625,15 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[text()[contains(.,"Key 13")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_2_position))
         self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no checkbox is selected
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findByNot(
             'xpath', '//input[@name="qg_10-0-key_13" and @checked="checked"]')
@@ -633,14 +652,15 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('xpath', '//*[text()[contains(.,"Value 13_1")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_2_position))
         self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the first checkbox is
         # selected, form progress is at 1
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 25%;"]')
 
@@ -682,7 +702,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
 
         # She sees that no Checkbox of Key 14 is selected by default
         self.findByNot(
@@ -696,14 +717,15 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[text()[contains(.,"Key 14")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_4_position))
         self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no checkbox is selected
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findByNot(
             'xpath', '//input[@name="qg_11-0-key_14" and @checked="checked"]')
@@ -721,14 +743,15 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 14')
         self.findBy('xpath', '//img[@alt="Value 14_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_4_position))
         self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the first checkbox is
         # selected, form progress is at 1
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
@@ -768,7 +791,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
 
         # She sees the measure box for Key 21
         self.findBy(
@@ -825,7 +849,8 @@ class QuestionnaireTest(FunctionalTest):
         # She goes back to the form and sees that the values are still
         # there, Keys 22 and 23 are visible
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
         key_22 = self.findBy('id', 'id_qg_17-0-key_22_1')
         key_23 = self.findBy('id', 'id_qg_17-0-original_key_23')
         self.assertTrue(key_22.is_displayed())
@@ -863,7 +888,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
 
         # She sees the checkbox (Value 13_5) for Key 13
         value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
@@ -911,7 +937,8 @@ class QuestionnaireTest(FunctionalTest):
         # She goes back to the form and sees that the values are still
         # there, Key 24 is visible
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
         value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
         self.findBy(
             'xpath',
@@ -947,7 +974,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She sees the radio button for Key 11
         key_11_yes = self.findBy('id', 'id_qg_3-0-key_11_1')
@@ -1014,7 +1042,8 @@ class QuestionnaireTest(FunctionalTest):
         # She goes back to the form and sees that the values are still
         # there, Keys 27 and 28 are visible
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
         key_11_yes = self.findBy('id', 'id_qg_3-0-key_11_1')
         # She does not see the Keys 27 and 28
         key_27_value_3 = self.findBy(
@@ -1045,7 +1074,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
 
         # She sees the checkbox images of Key 15 which are not the same
         # as for Key 14.
@@ -1073,14 +1103,15 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[text()[contains(.,"Key 15")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_4_position))
         self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no checkbox is selected
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findByNot(
             'xpath', '//input[@name="qg_12-0-key_15" and @checked="checked"]')
@@ -1113,14 +1144,15 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 15')
         self.findBy('xpath', '//img[@alt="Value 15_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_4_position))
         self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the value of Key 15 is
         # selected, form progress is at 1
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
@@ -1143,14 +1175,15 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 16')
         self.findBy('xpath', '//img[@alt="Value 16_1"]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_4_position))
         self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees that the value of Key 15 is
         # selected, form progress is at 1
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_4']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
@@ -1212,7 +1245,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
 
         # She sees Key 12 in a row which is not selected
         self.findByNot(
@@ -1232,14 +1266,15 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[text()[contains(.,"Key 12")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_2_position))
         self.assertIn('0/', progress_indicator.text)
 
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and the row is unselected
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
         self.findByNot(
             'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
@@ -1268,14 +1303,15 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
         self.findBy('xpath', '//*[text()[contains(.,"low")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_2_position))
         self.assertIn('1/', progress_indicator.text)
 
         # She goes back to the step and sees the row is highlighted and
         # low selected, form progress is at 1
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_2']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
         self.findBy(
             'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')
@@ -1315,7 +1351,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She sees that Key 11 is a radio button
         radios = self.findManyBy(
@@ -1330,13 +1367,14 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findByNot('xpath', '//*[text()[contains(.,"Key 11")]]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_1_position))
         self.assertIn('0/', progress_indicator.text)
 
         # She goes to the form again and clicks "Yes".
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
         self.findBy(
             'xpath', '//input[@name="qg_3-0-key_11" and @value="1"]')\
             .click()
@@ -1351,13 +1389,14 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width:50.0%"]')
         progress_indicator = self.findBy(
-            'xpath', '(//a[contains(@href, "edit/cat")])[{}]'.format(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_1_position))
         self.assertIn('1/2', progress_indicator.text)
 
         # She edits the form again and sets the radio button to "No"
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
         self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
         self.findBy(
             'xpath', '//input[@name="qg_3-0-key_11" and @value="1" and '
@@ -1381,7 +1420,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She sees that Subcategory 1_2 contains an additional
         # questiongroups for "plus" questions, the keys initially hidden
@@ -1416,7 +1456,8 @@ class QuestionnaireTest(FunctionalTest):
         # questiongroups are now visible because they have initial
         # values
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         key_37 = self.findBy(
             'xpath', '//input[@name="qg_29-0-original_key_37"]')
@@ -1462,7 +1503,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire with a table
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_5']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_5'}))
 
         # She sees a table and enters some values
         table = self.findBy('xpath', '//table')
@@ -1599,7 +1641,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_0']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_0'}))
 
         # She sees a field to put files, drawn by Dropzone
         dropzone = self.findBy(
@@ -1683,7 +1726,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She edits the form again and sees the image was populated correctly.
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_0']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_0'}))
 
         # Dropzone is hidden, preview is there, filename was written to field
         dropzone = self.findBy(
@@ -1702,6 +1746,73 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//img[@data-interchange]')
 
         self.findBy('id', 'button-submit').click()
+
+    def test_edit_questionnaire(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        cat_1_position = get_position_of_category('cat_1', start0=True)
+
+        # She goes directly to the first category of the Sample
+        # questionnaire and enters some data
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+
+        # She submits the entire questionnaire and clicks the edit
+        # button on the detail page
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # She is back at the overview page of the questionnaire with the
+        # previously entered values already there
+        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 3")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
+
+        # She edits a form and sees the values are there already
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/new/cat")]')[cat_1_position].click()
+        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
+        self.assertEqual(key_1.get_attribute('value'), 'Foo')
+        key_3 = self.findBy('name', 'qg_1-0-original_key_3')
+        self.assertEqual(key_3.get_attribute('value'), 'Bar')
+        key_1.clear()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Faz')
+
+        # She submits the step and sees that the values on the overview
+        # page changed.
+        self.findBy('id', 'button-submit').click()
+        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
+
+        # She submits the entire questionnaire
+        self.findBy('id', 'button-submit').click()
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+class QuestionnaireTestIndex(FunctionalTest):
+    # Tests requiring an index
+
+    fixtures = [
+        'sample.json', 'samplemulti.json',
+        'sample_samplemulti_questionnaires.json']
+
+    def setUp(self):
+        super(QuestionnaireTestIndex, self).setUp()
+        delete_all_indices()
+        create_temp_indices(['sample', 'samplemulti'])
+
+    def tearDown(self):
+        super(QuestionnaireTestIndex, self).tearDown()
+        delete_all_indices()
 
     def test_enter_questionnaire(self):
 
@@ -1731,7 +1842,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees X buttons to edit a category and clicks the first
         edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(@href, "edit/cat")]')
+            'xpath', '//a[contains(@href, "edit/new/cat")]')
         self.assertEqual(len(edit_buttons), get_category_count())
         edit_buttons[cat_1_position].click()
 
@@ -1810,54 +1921,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
 
-    def test_edit_questionnaire(self):
-
-        # Alice logs in
-        self.doLogin()
-
-        cat_1_position = get_position_of_category('cat_1', start0=True)
-
-        # She goes directly to the first category of the Sample
-        # questionnaire and enters some data
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
-
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
-        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
-        self.findBy('id', 'button-submit').click()
-
-        # She submits the entire questionnaire and clicks the edit
-        # button on the detail page
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-
-        # She is back at the overview page of the questionnaire with the
-        # previously entered values already there
-        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 3")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
-
-        # She edits a form and sees the values are there already
-        self.findManyBy(
-            'xpath',
-            '//a[contains(@href, "edit/cat")]')[cat_1_position].click()
-        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
-        self.assertEqual(key_1.get_attribute('value'), 'Foo')
-        key_3 = self.findBy('name', 'qg_1-0-original_key_3')
-        self.assertEqual(key_3.get_attribute('value'), 'Bar')
-        key_1.clear()
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Faz')
-
-        # She submits the step and sees that the values on the overview
-        # page changed.
-        self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
-
-        # She submits the entire questionnaire
-        self.findBy('id', 'button-submit').click()
-
 
 class QuestionnaireLinkTest(FunctionalTest):
 
@@ -1872,7 +1935,8 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She goes to a part of the questionnaire and enters some data
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, args=['cat_1']))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
 
@@ -1881,7 +1945,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She goes to the part where she can edit linked questionnaires
-        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy('xpath', '//a[contains(@href, "/edit/new/link")]').click()
 
         # She sees a field to search for linked questionnaires
         self.findBy(
@@ -1927,7 +1991,7 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She goes back to the form and sees the one she linked is still
         # in the form.
-        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy('xpath', '//a[contains(@href, "/edit/new/link")]').click()
         self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
         self.findBy(
             'xpath',
@@ -1946,7 +2010,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findByNot('xpath', '//*[text()[contains(.,"This is key 1a")]]')
 
         # She links another questionnaire
-        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy('xpath', '//a[contains(@href, "/edit/new/link")]').click()
         self.findBy(
             'xpath', '//input[contains(@class, "link_search_field")]'
             '[1]').send_keys('key')
@@ -1985,7 +2049,7 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She opens an existing questionnaire and sees the link
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, args=['1']))
+            route_questionnaire_details, args=['sample_1']))
 
         self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
         self.findBy(
@@ -2000,7 +2064,8 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
 
         # She edits the link form and sees the values are populated correctly
-        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath', '//a[contains(@href, "/edit/sample_1/link")]').click()
         self.findBy(
             'xpath',
             '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
@@ -2028,7 +2093,7 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She opens an existing questionnaire (samplemulti) and sees the link
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details_samplemulti, args=['3']))
+            route_questionnaire_details_samplemulti, args=['samplemulti_1']))
 
         self.findBy(
             'xpath', '//*[text()[contains(.,"This is the first key")]]')
@@ -2044,7 +2109,9 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She decides to edit the link and sees that the field is
         # populated correctly
-        self.findBy('xpath', '//a[contains(@href, "/edit/link")]').click()
+        self.findBy(
+            'xpath',
+            '//a[contains(@href, "/edit/samplemulti_1/link")]').click()
         self.findBy(
             'xpath',
             '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
@@ -2104,7 +2171,7 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She goes to the link section of a new questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_link_form))
+            route_questionnaire_link_form, kwargs={'identifier': 'new'}))
 
         search_field = self.findBy(
             'xpath', '//input[contains(@class, "link_search_field")][1]')
