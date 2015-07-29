@@ -138,6 +138,11 @@ $(function() {
     return false;
   });
 
+  // Context switcher (WOCAT vs. Approaches vs. Technologies)
+  $('.search-switch.button-switch input').click(function() {
+    window.location = $(this).data('url');
+  });
+
   $('img[data-alt-src]').each(function() {
       new Image().src = $(this).data('alt-src');
   }).hover(sourceSwap, sourceSwap);

@@ -1,18 +1,35 @@
+{% comment %}
+
+  - current: the current configuration (wocat / technologies / approaches)
+
+{% endcomment %}
+
 {% load i18n %}
 
-<ul>
-  <li class="has-dropdown">
-    <a href="#">{{ current }}</a>
-    <ul class="dropdown">
+<form action="{% if current == 'technologies' %}{% url 'technologies:questionnaire_list' %}{% elif current == 'approaches' %}{% url 'approaches:questionnaire_list' %}{% else %}{% url 'wocat:questionnaire_list' %}{% endif %}" method="GET" role="search" class="top-bar-search">
+  <div class="search-group">
+    <ul class="search-switch button-switch radius">
       <li>
-        <a href="{% url 'wocat:home' %}">{% trans "WOCAT" %}</a>
+        <input id="switch-wocat" type="radio" data-url="{% url 'wocat:home' %}" value="" name="search"{% if current == 'wocat' %} checked="checked"{% endif %}>
+        <label for="switch-wocat" class="button small light"><span>{% trans "All" %}</span></label>
       </li>
       <li>
-        <a href="{% url 'technologies:home' %}">{% trans "SLM Technologies" %}</a>
+        <input id="switch-technologies" type="radio" data-url="{% url 'technologies:home' %}" value="" name="search"{% if current == 'technologies' %} checked="checked"{% endif %}>
+        <label for="switch-technologies" class="button small light"><span>{% trans "Technologies" %}</span></label>
       </li>
       <li>
-        <a href="{% url 'approaches:home' %}">{% trans "SLM Approaches" %}</a>
+        <input id="switch-approaches" type="radio" data-url="{% url 'approaches:home' %}" value="" name="search"{% if current == 'approaches' %} checked="checked"{% endif %}>
+        <label for="switch-approaches" class="button small light"><span>{% trans "Approaches" %}</span></label>
       </li>
     </ul>
-  </li>
-</ul>
+    <div class="search-input radius">
+      <input type="search" name="q" placeholder="{% if current == 'technologies' %}{% trans 'Search technology: e.g Soil degradation...' %}{% elif current == 'approaches' %}{% trans 'Search approach: e.g Triple bottom line...' %}{% else %}{% trans 'Search SLM practice: e.g Soil degradation...' %}{% endif %}">
+      <div class="search-btn postfix light">
+        <a href="#" id="submit-search"><svg class="icon"><use xlink:href="#icon-search"></use></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="search-option">
+    <a href="#" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | {% if current == 'technologies' %}<a href="{% url 'technologies:questionnaire_list' %}">{% trans "Show all Technologies" %}</a>{% elif current == 'approaches' %}<a href="{% url 'approaches:questionnaire_list' %}">{% trans "Show all Approaches" %}</a>{% else %}<a href="{% url 'wocat:questionnaire_list' %}">{% trans "Show all SLM Practices" %}</a>{% endif %}
+  </div>
+</form>

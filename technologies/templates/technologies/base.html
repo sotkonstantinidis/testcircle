@@ -14,34 +14,6 @@
 
 {% block header %}
   {% include "wocat/partial/top.html" with current='technologies' %}
-  <ul class="form-search">
-    <li class="has-form">
-      <form action="{% url 'technologies:questionnaire_list' %}" method="GET" role="search">
-        <div class="row collapse">
-          <div class="large-12 columns">
-            <div class="row collapse postfix-radius prefix-radius">
-              <div class="small-10 medium-11 columns">
-                <input type="search" name="q" placeholder="{% trans 'Search technology: e.g Soil degradation...' %}">
-              </div>
-              <div class="small-2 medium-1 columns">
-                <a href="#" id="submit-search" class="postfix light">
-                  <svg class="icon"><use xlink:href="#icon-search"></use></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-search-option">
-          {% if filter_configuration %}
-            <a href="#" data-toggle="search-advanced">{% trans "Advanced filter" %}</a>
-          {% else %}
-            <a href="{% url 'technologies:questionnaire_list' %}">{% trans "Advanced filter" %}</a>
-          {% endif %}
-           | <a href="{% url 'technologies:questionnaire_list' %}">{% trans "Show all Technologies" %}</a>
-        </div>
-      </form>
-    </li>
-  </ul>
 {% endblock %}
 
 {% block filter %}
