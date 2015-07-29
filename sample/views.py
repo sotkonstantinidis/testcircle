@@ -1,11 +1,9 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
-from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_link_form,
@@ -17,13 +15,6 @@ from questionnaire.views import (
 
 
 def home(request):
-    # TODO: Show this warning here? Or in Admin?
-    questionnaire_configuration = QuestionnaireConfiguration('sample')
-    if questionnaire_configuration.configuration_error is not None:
-        messages.error(
-            request, 'WARNING: INVALID CONFIGURATION. {}'.format(
-                questionnaire_configuration.configuration_error))
-
     list_template_values = generic_questionnaire_list(
         request, 'sample', template=None, only_current=True, limit=3,
         db_query=True)
@@ -34,7 +25,7 @@ def home(request):
 
 
 @login_required
-def questionnaire_link_form(request):
+def questionnaire_link_form(request, identifier):
     """
     View to show the form for linking questionnaires. Also handles the
     form submit along with its validation and redirect.
@@ -46,6 +37,9 @@ def questionnaire_link_form(request):
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
+
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -78,7 +72,7 @@ def questionnaire_link_search(request):
 
 
 @login_required
-def questionnaire_new_step(request, step, questionnaire_id=None):
+def questionnaire_new_step(request, identifier, step):
     """
     View to show the form of a single step of a new SAMPLE
     questionnaire. Also handles the form submit of the step along with
@@ -92,17 +86,21 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
+
         ``step`` (str): The code of the questionnaire category.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'sample', 'sample', page_title='SAMPLE Form')
+        request, step, 'sample', 'sample', page_title='SAMPLE Form',
+        identifier=identifier)
 
 
 @login_required
-def questionnaire_new(request, questionnaire_id=None):
+def questionnaire_new(request, identifier=None):
     """
     View to show the overview of a new or edited SAMPLE questionnaire.
     Also handles the form submit of the entire questionnaire.
@@ -115,15 +113,19 @@ def questionnaire_new(request, questionnaire_id=None):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+    Kwargs:
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
+
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
         request, 'sample', 'sample/questionnaire/details.html', 'sample',
-        questionnaire_id=questionnaire_id)
+        identifier=identifier)
 
 
-def questionnaire_details(request, questionnaire_id):
+def questionnaire_details(request, identifier):
     """
     View to show the details of an existing SAMPLE questionnaire.
 
@@ -135,13 +137,14 @@ def questionnaire_details(request, questionnaire_id):
     Args:
         ``request`` (django.http.HttpResponse): The request object.
 
-        ``questionnaire_id`` (int): The id of the questionnaire.
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'sample',
+        request, identifier, 'sample', 'sample',
         'sample/questionnaire/details.html')
 
 

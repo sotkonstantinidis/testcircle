@@ -41,7 +41,7 @@
           </div>
           <div class="medium-3 columns">
           {% if mode == 'edit' %}
-              <a href="{% url 'samplemulti:questionnaire_link_form' %}" class="button is-samplemulti right">{% trans "Edit links" %}</a>
+              <a href="{% url 'samplemulti:questionnaire_link_form' questionnaire_identifier %}" class="button is-samplemulti right">{% trans "Edit links" %}</a>
             {% endif %}
           </div>
         </section>
@@ -51,10 +51,10 @@
           {% if mode == 'edit' %}
             <form action="" method="POST">
               {% csrf_token %}
-              <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+              <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}">
             </form>
           {% else %}
-            <a href="{% url 'samplemulti:questionnaire_edit' questionnaire_id %}" class="button">{% trans "Edit" %}</a>
+            <a href="{% url 'samplemulti:questionnaire_edit' questionnaire_identifier %}" class="button">{% trans "Edit" %}</a>
           {% endif %}
         </div>
       </section>

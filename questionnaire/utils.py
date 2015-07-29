@@ -1,5 +1,7 @@
 import ast
 from django.conf import settings
+from django.contrib import messages
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.utils.dateparse import parse_datetime
@@ -7,9 +9,13 @@ from django.utils.dateparse import parse_datetime
 from configuration.configuration import (
     QuestionnaireQuestion,
 )
-from configuration.utils import get_or_create_configuration
+from configuration.utils import (
+    get_configuration_query_filter,
+    get_or_create_configuration,
+)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.models import Questionnaire
+from search.index import put_questionnaire_data
 
 
 def clean_questionnaire_data(data, configuration):
@@ -594,8 +600,101 @@ def get_link_display(link_object, link_configuration):
     return render_to_string(link_template, {
         'link_data': link_data[0],
         'link_route': link_route,
-        'id': link_object.id,
+        'questionnaire_identifier': link_object.code,
     })
+
+
+def query_questionnaire(request, identifier):
+    """
+    Query and return a single Questionnaire.
+
+    .. important::
+        Note that this may return multiple Questionnaire objects, as
+        there may be multiple versions for the same identifier.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``identifier`` (str): The identifier of the Questionnaire.
+
+    Returns:
+        ``django.db.models.query.QuerySet``. The queried
+        Questionnaire(s).
+    """
+    status_filter = get_query_status_filter(request)
+
+    return Questionnaire.objects.filter(code=identifier).filter(status_filter)
+
+
+def query_questionnaires(
+        request, configuration_code, only_current=False, limit=10):
+    """
+    Query and return many Questionnaires.
+
+    .. seealso::
+        :func:`get_query_status_filter` for the status filters applied.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+    Kwargs:
+        ``only_current`` (bool): A boolean indicating whether to include
+        only questionnaires from the current configuration.
+
+        ``limit`` (int): The limit of results the query will return.
+
+    Returns:
+        ``django.db.models.query.QuerySet``. The queried Questionnaires.
+    """
+    status_filter = get_query_status_filter(request)
+
+    return Questionnaire.objects.filter(
+        get_configuration_query_filter(
+            configuration_code, only_current=only_current)).filter(
+                status_filter).distinct()[:limit]
+
+
+def get_query_status_filter(request):
+    """
+    Creates a filter object based on the statii of the Questionnaires,
+    to be used for database queries.
+
+    The following status filters are applied:
+
+    * Not logged in users always only see "published" Questionnaires.
+
+    * Moderators see all "pending" and "published" Questionnaires.
+
+    * Logged in users see all "published", as well as their own "draft"
+    and "pending" Questionnaires.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``django.db.models.Q``. A Django filter object.
+    """
+    # Public always only sees "published"
+    status_filter = Q(status=3)
+
+    # Logged in users ...
+    if request.user.is_authenticated():
+
+        # ... see all "pending" and "published" if they are moderators,
+        # along with their own "draft"
+        if request.user.has_perm('questionnaire.can_moderate'):
+            status_filter = (
+                Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
+
+        # ... see "published" and their own "draft" and "pending".
+        else:
+            status_filter = (
+                Q(status=3) | (Q(members=request.user) & Q(status__in=[1, 2])))
+
+    return status_filter
 
 
 def query_questionnaires_for_link(configuration, q, limit=10):
@@ -736,6 +835,8 @@ def get_list_values(
             'updated': parse_datetime(
                 source.get('updated', '')),
             'translations': translations,
+            'code': source.get('code', ''),
+            'authors': source.get('authors', []),
         })
         list_entries.append(template_value)
 
@@ -762,8 +863,10 @@ def get_list_values(
         template_value = questionnaire_configuration.get_list_data(
             [obj.data])[0]
 
-        translations = [
-            t.language for t in obj.questionnairetranslation_set.all()]
+        metadata = obj.get_metadata()
+        template_value.update(metadata)
+
+        translations = metadata.get('translations', [])
         if len(translations) == 0:
             translations = ['en']
         original_lang = translations[0]
@@ -779,18 +882,81 @@ def get_list_values(
                 template_value[key] = value.get(
                     get_language(), value.get(original_lang))
 
-        configurations = [conf.code for conf in obj.configurations.all()]
-
         template_value.update({
             'configuration': current_configuration_code,  # Used for rendering
             'id': obj.id,
-            'configurations': configurations,
             'native_configuration': current_configuration_code in
-            configurations,
-            'created': obj.created,
-            'updated': obj.updated,
+            metadata.get('configurations', []),
             'translations': translations,
         })
         list_entries.append(template_value)
 
     return list_entries
+
+
+def handle_review_actions(request, questionnaire_object, configuration_code):
+    """
+    Handle review and form submission actions. Updates the Questionnaire
+    object and adds a message.
+
+    * "draft" Questionnaires can be submitted, sets them "pending".
+
+    * "pending" Questionnaires can be published, sets them "published".
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``questionnaire_object`` (questionnaire.models.Questionnaire):
+        The Questionnaire object to update.
+
+        ``configuration_code`` (string): The code of the current
+        configuration. This is used when publishing a Questionnaire, in
+        order to add it to Elasticsearch.
+    """
+    if request.POST.get('submit'):
+
+        # Previous status must be "draft"
+        if questionnaire_object.status != 1:
+            messages.error(
+                request, 'The questionnaire could not be submitted because it '
+                'does not have to correct status.')
+            return
+
+        # Current user must be the author of the questionnaire
+        if request.user not in questionnaire_object.members.filter(
+                questionnairemembership__role='author'):
+            messages.error(
+                request, 'The questionnaire could not be submitted because you'
+                ' do not have permission to do so.')
+            return
+
+        questionnaire_object.status = 2
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully submitted.'))
+
+    elif request.POST.get('publish'):
+
+        # Previous status must be "pending"
+        if questionnaire_object.status != 2:
+            messages.error(
+                request, 'The questionnaire could not be published because it '
+                'does not have to correct status.')
+            return
+
+        # Current user must be a moderator
+        if not request.user.has_perm('questionnaire.can_moderate'):
+            messages.error(
+                request, 'The questionnaire could not be published because you'
+                ' do not have permission to do so.')
+            return
+
+        questionnaire_object.status = 3
+        questionnaire_object.save()
+
+        added, errors = put_questionnaire_data(
+            configuration_code, [questionnaire_object])
+
+        messages.success(
+            request, _('The questionnaire was successfully published.'))

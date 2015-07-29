@@ -90,9 +90,11 @@
                     <li>
                       <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
                     </li>
-                    <li>
-                      <a href="{% url 'search:admin' %}">Search Index Administration</a>
-                    </li>
+                    {% if user.is_superuser %}
+                      <li>
+                        <a href="{% url 'search:admin' %}">Search Index Administration</a>
+                      </li>
+                    {% endif %}
                   {% endif %}
                   <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
@@ -131,7 +133,7 @@
 
     {% if messages %}
       {% for message in messages %}
-      <div class="notice alert-box{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</div>
+      <div class="notice alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
       {% endfor %}
     {% endif %}
 

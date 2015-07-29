@@ -1095,8 +1095,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
         return config, subcategory_formsets
 
     def get_details(
-            self, data={}, editable=False,
-            edit_step_route='', questionnaire_object=None):
+            self, data={}, editable=False, edit_step_route='',
+            questionnaire_object=None):
         rendered_subcategories = []
         with_content = 0
         raw_data = {}
@@ -1110,6 +1110,10 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 raw_data = self.get_raw_category_data(data)
             if self.with_metadata is True and questionnaire_object is not None:
                 metadata = questionnaire_object.get_metadata()
+
+        questionnaire_identifier = 'new'
+        if questionnaire_object is not None:
+            questionnaire_identifier = questionnaire_object.code
 
         toc_content = []
         if self.include_toc:
@@ -1129,6 +1133,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'edit_step_route': edit_step_route,
                 'configuration_name': self.configuration_keyword,
                 'toc_content': tuple(toc_content),
+                'questionnaire_identifier': questionnaire_identifier,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -1174,6 +1179,7 @@ class QuestionnaireSection(BaseConfigurationObject):
         'keyword',
         'view_template',
         'include_toc',
+        'review_panel',
     ]
     name_current = 'sections'
     name_parent = None
@@ -1196,6 +1202,9 @@ class QuestionnaireSection(BaseConfigurationObject):
             # (optional)
             "include_toc": true,
 
+            # (optional)
+            "review_panel": true,
+
             # A list of categories.
             "categories": [
               {
@@ -1217,10 +1226,15 @@ class QuestionnaireSection(BaseConfigurationObject):
         self.view_template = 'details/section/{}.html'.format(view_template)
 
         self.include_toc = self.configuration.get('include_toc', False) is True
+        self.review_panel = self.configuration.get(
+            'review_panel', False) is True
 
     def get_details(
-            self, data={}, editable=False, edit_step_route='',
-            questionnaire_object=None):
+            self, data={}, editable=False, review_config={},
+            edit_step_route='', questionnaire_object=None):
+
+        if self.review_panel is not True:
+            review_config = {}
 
         rendered_categories = []
         for category in self.categories:
@@ -1237,6 +1251,7 @@ class QuestionnaireSection(BaseConfigurationObject):
             'keyword': self.keyword,
             'categories': rendered_categories,
             'toc_content': toc_content,
+            'review_config': review_config,
         })
 
     def get_questiongroups(self):
@@ -1330,12 +1345,13 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         return None
 
     def get_details(
-            self, data={}, editable=False, edit_step_route='',
-            questionnaire_object=None):
+            self, data={}, editable=False, review_config={},
+            edit_step_route='', questionnaire_object=None):
         rendered_sections = []
         for section in self.sections:
             rendered_sections.append(section.get_details(
-                data, editable=editable, edit_step_route=edit_step_route,
+                data, editable=editable, review_config=review_config,
+                edit_step_route=edit_step_route,
                 questionnaire_object=questionnaire_object))
         return rendered_sections
 

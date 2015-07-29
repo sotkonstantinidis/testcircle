@@ -10,15 +10,15 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('configuration', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='File',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('uuid', models.CharField(max_length=64)),
                 ('uploaded', models.DateTimeField(auto_now=True)),
                 ('content_type', models.CharField(max_length=64)),
@@ -32,17 +32,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Questionnaire',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('data', django_pgjson.fields.JsonBField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('uuid', models.CharField(default=uuid.uuid4, max_length=64)),
                 ('code', models.CharField(default='', max_length=64)),
                 ('blocked', models.BooleanField(default=False)),
-                ('status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Approved'), (4, 'Rejected')])),
+                ('status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Published'), (4, 'Rejected'), (5, 'Inactive')])),
                 ('version', models.IntegerField()),
             ],
             options={
+                'permissions': (('can_moderate', 'Can moderate'),),
                 'ordering': ['-updated'],
             },
             bases=(models.Model,),
@@ -50,7 +51,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireConfiguration',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('original_configuration', models.BooleanField(default=False)),
                 ('configuration', models.ForeignKey(to='configuration.Configuration')),
                 ('questionnaire', models.ForeignKey(to='questionnaire.Questionnaire')),
@@ -63,11 +64,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireLink',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
-                ('from_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Approved'), (4, 'Rejected')])),
-                ('to_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Approved'), (4, 'Rejected')])),
-                ('from_questionnaire', models.ForeignKey(to='questionnaire.Questionnaire', related_name='from_questionnaire')),
-                ('to_questionnaire', models.ForeignKey(to='questionnaire.Questionnaire', related_name='to_questionnaire')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('from_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Published'), (4, 'Rejected'), (5, 'Inactive')])),
+                ('to_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Published'), (4, 'Rejected'), (5, 'Inactive')])),
+                ('from_questionnaire', models.ForeignKey(related_name='from_questionnaire', to='questionnaire.Questionnaire')),
+                ('to_questionnaire', models.ForeignKey(related_name='to_questionnaire', to='questionnaire.Questionnaire')),
             ],
             options={
             },
@@ -76,19 +77,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireMembership',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('role', models.CharField(choices=[('author', 'Author'), ('editor', 'Editor')], max_length=64)),
                 ('questionnaire', models.ForeignKey(to='questionnaire.Questionnaire')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='QuestionnaireRole',
-            fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
-                ('keyword', models.CharField(max_length=63, unique=True)),
-                ('description', models.TextField(null=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -97,8 +89,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='QuestionnaireTranslation',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
-                ('language', models.CharField(max_length=63, choices=[('en', 'English'), ('es', 'Spanish')])),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('language', models.CharField(choices=[('en', 'English'), ('es', 'Spanish')], max_length=63)),
                 ('original_language', models.BooleanField(default=False)),
                 ('questionnaire', models.ForeignKey(to='questionnaire.Questionnaire')),
             ],
@@ -108,33 +100,21 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='questionnairemembership',
-            name='role',
-            field=models.ForeignKey(to='questionnaire.QuestionnaireRole'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='questionnairemembership',
-            name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
-            preserve_default=True,
-        ),
-        migrations.AddField(
             model_name='questionnaire',
             name='configurations',
-            field=models.ManyToManyField(to='configuration.Configuration', through='questionnaire.QuestionnaireConfiguration'),
+            field=models.ManyToManyField(through='questionnaire.QuestionnaireConfiguration', to='configuration.Configuration'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='questionnaire',
             name='links',
-            field=models.ManyToManyField(to='questionnaire.Questionnaire', through='questionnaire.QuestionnaireLink', null=True, related_name='linked_to+'),
+            field=models.ManyToManyField(through='questionnaire.QuestionnaireLink', to='questionnaire.Questionnaire', related_name='linked_to+', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='questionnaire',
             name='members',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='questionnaire.QuestionnaireMembership'),
+            field=models.ManyToManyField(through='questionnaire.QuestionnaireMembership', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]

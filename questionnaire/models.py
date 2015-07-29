@@ -6,16 +6,29 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, get_language
 from django_pgjson.fields import JsonBField
+from itertools import chain
 
 from configuration.models import Configuration
-from search.index import put_questionnaire_data
 
 
 STATUSES = (
     (1, _('Draft')),
     (2, _('Pending')),
-    (3, _('Approved')),
+    (3, _('Published')),
     (4, _('Rejected')),
+    (5, _('Inactive')),
+)
+STATUSES_CODES = (
+    (1, 'draft'),
+    (2, 'pending'),
+    (3, 'published'),
+    (4, 'rejected'),
+    (5, 'inactive'),
+)
+
+QUESTIONNAIRE_ROLES = (
+    ('author', _('Author')),
+    ('editor', _('Editor')),
 )
 
 
@@ -43,13 +56,17 @@ class Questionnaire(models.Model):
 
     class Meta:
         ordering = ['-updated']
+        permissions = (
+            ("can_moderate", "Can moderate"),
+        )
 
     def get_absolute_url(self):
-        return reverse('questionnaire_view_details', args=[self.id])
+        return reverse(
+            'questionnaire_view_details', kwargs={'identifier': self.code})
 
     @staticmethod
     def create_new(
-            configuration_code, data, previous_version=None, status=1):
+            configuration_code, data, user, previous_version=None, status=1):
         """
         Create and return a new Questionnaire.
 
@@ -75,11 +92,22 @@ class Questionnaire(models.Model):
             ``ValidationError``
         """
         if previous_version:
-            # TODO. Calculate version and use same UUID and code as
-            # previous version.
-            raise NotImplemented()
+            if previous_version.status not in [1, 3]:
+                raise ValidationError(
+                    'The questionnaire cannot be updated because of its status'
+                    ' "{}"'.format(previous_version.status))
+            elif previous_version.status == 1:
+                # Draft: Only update the data
+                previous_version.data = data
+                previous_version.save()
+                return previous_version
+            else:
+                # Published: Create new version with the same code
+                code = previous_version.code
+                version = previous_version.version + 1
         else:
-            code = 'todo'
+            from configuration.utils import create_new_code
+            code = create_new_code(configuration_code, data)
             version = 1
         if status not in [s[0] for s in STATUSES]:
             raise ValidationError('"{}" is not a valid status'.format(status))
@@ -101,9 +129,8 @@ class Questionnaire(models.Model):
             questionnaire=questionnaire, language=get_language(),
             original_language=True)
 
-        # TODO: This should happen on review!
-        added, errors = put_questionnaire_data(
-            configuration_code, [questionnaire])
+        QuestionnaireMembership.objects.create(
+            questionnaire=questionnaire, user=user, role='author')
 
         return questionnaire
 
@@ -117,13 +144,46 @@ class Questionnaire(models.Model):
         Returns:
             ``dict``. A dict containing the following metadata:
 
-            * ``created``
+            * ``created`` (timestamp)
 
-            * ``updated``
+            * ``updated`` (timestamp)
+
+            * ``authors`` (list): A list of dictionaries containing
+              information about the authors. Each entry contains the
+              following data:
+
+              * ``id``
+
+              * ``name``
+
+            * ``code`` (string)
+
+            * ``configurations`` (list)
+
+            * ``translations`` (list)
         """
+        authors = []
+        # Make sure the author is first
+        for author in list(chain(
+                self.members.filter(questionnairemembership__role='author'),
+                self.members.filter(questionnairemembership__role='editor'))):
+            authors.append({
+                'id': author.id,
+                'name': str(author),
+            })
+        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
+        status_code = next(
+            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
         return {
             'created': self.created,
             'updated': self.updated,
+            'authors': authors,
+            'code': self.code,
+            'configurations': [
+                conf.code for conf in self.configurations.all()],
+            'translations': [
+                t.language for t in self.questionnairetranslation_set.all()],
+            'status': (status_code[1], status[1])
         }
 
     def add_link(self, questionnaire, symm=True):
@@ -230,17 +290,7 @@ class QuestionnaireMembership(models.Model):
     """
     questionnaire = models.ForeignKey('Questionnaire')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    role = models.ForeignKey('QuestionnaireRole')
-
-
-class QuestionnaireRole(models.Model):
-    """
-    The model representing the roles of a user in a
-    :class:`QuestionnaireMembership` which reflects the permissions he
-    has when it comes to editing a :class:`Questionnaire`.
-    """
-    keyword = models.CharField(max_length=63, unique=True)
-    description = models.TextField(null=True)
+    role = models.CharField(max_length=64, choices=QUESTIONNAIRE_ROLES)
 
 
 class File(models.Model):

@@ -208,6 +208,11 @@
                 "questionnaire"
             ],
             [
+                "can_moderate",
+                "questionnaire",
+                "questionnaire"
+            ],
+            [
                 "add_questionnairemembership",
                 "questionnaire",
                 "questionnairemembership"
@@ -221,21 +226,6 @@
                 "delete_questionnairemembership",
                 "questionnaire",
                 "questionnairemembership"
-            ],
-            [
-                "add_questionnairerole",
-                "questionnaire",
-                "questionnairerole"
-            ],
-            [
-                "change_questionnairerole",
-                "questionnaire",
-                "questionnairerole"
-            ],
-            [
-                "delete_questionnairerole",
-                "questionnaire",
-                "questionnairerole"
             ],
             [
                 "add_questionnairelink",
@@ -315,6 +305,20 @@
         ]
     },
     "pk": 1,
+    "model": "auth.group"
+},
+{
+    "fields": {
+        "name": "Moderators",
+        "permissions": [
+            [
+                "can_moderate",
+                "questionnaire",
+                "questionnaire"
+            ]
+        ]
+    },
+    "pk": 3,
     "model": "auth.group"
 }
 ]

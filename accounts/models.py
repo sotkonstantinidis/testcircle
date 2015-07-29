@@ -84,7 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def __str__(self):
-        return self.email
+        return '{} {}'.format(self.firstname, self.lastname)
 
     @staticmethod
     def create_new(id, email, lastname='', firstname=''):

@@ -1,7 +1,11 @@
+import random
+import string
+
 from django.db.models import Q
 from configuration.configuration import (
     QuestionnaireConfiguration,
 )
+from questionnaire.models import Questionnaire
 
 
 def get_configuration_query_filter(configuration, only_current=False):
@@ -93,3 +97,35 @@ def get_or_create_configuration(code, configurations):
     configuration = configurations.get(code, QuestionnaireConfiguration(code))
     configurations[code] = configuration
     return configuration, configurations
+
+
+def create_new_code(configuration, questionnaire_data):
+    """
+    Create a new and non-existent code for a Questionnaire based on the
+    configuration.
+
+    TODO: This function is currently very limited, needs improvement.
+
+    Args:
+        ``configuration`` (str): The code of the configuration.
+
+        ``questionnaire_data`` (dict): The data dictionary of the
+        Questionnaire object.
+
+    Returns:
+        ``str``. A new and non-existent code.
+    """
+    def random_code(configuration):
+        """
+        Recursive helper function to create a random non-existent code.
+        """
+        code = '{}_{}'.format(
+            configuration, ''.join(random.SystemRandom().choice(
+                string.ascii_uppercase + string.digits) for _ in range(3)))
+        if Questionnaire.objects.filter(code=code).count() != 0:
+            return random_code(configuration)
+        return code
+    code = '{}_{}'.format(configuration, Questionnaire.objects.count())
+    if Questionnaire.objects.filter(code=code).count() != 0:
+        code = random_code(configuration)
+    return code

@@ -1,4 +1,3 @@
-import datetime
 from unittest.mock import patch, Mock
 
 from configuration.configuration import (

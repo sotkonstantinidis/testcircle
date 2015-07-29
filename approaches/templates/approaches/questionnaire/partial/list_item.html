@@ -4,12 +4,14 @@
 <article role="article" class="row large-collapse tech-item">
   <div class="tech-thumbnail medium-4 columns">
     <figure>
-      <a href="{% url 'approaches:questionnaire_details' item.id %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
-      <figcaption class="tech-status label is-draft">draft</figcaption>
+      <a href="{% url 'approaches:questionnaire_details' item.code %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
+      {% if item.status.0 and item.status.0 != 'published' %}
+        <figcaption class="tech-status label is-{{ item.status.0 }}">{{ item.status.1 }}</figcaption>
+      {% endif %}
     </figure>
     <ul class="tech-icons">
       <li>
-        <a href="{% url 'approaches:questionnaire_details' item.id %}">
+        <a href="{% url 'approaches:questionnaire_details' item.code %}">
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
             <br>
@@ -18,7 +20,7 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'approaches:questionnaire_details' item.id %}">
+        <a href="{% url 'approaches:questionnaire_details' item.code %}">
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-video"></use></svg>
             {% trans "Video" %}
@@ -29,12 +31,12 @@
   </div>
   <div class="content medium-8 columns">
     <header>
-       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'approaches:questionnaire_details' item.id %}" title="" class="link">{{ item.name }}</a> <small>{{ item.country }}</small></h1>
+       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'approaches:questionnaire_details' item.code %}" title="" class="link">{{ item.name }}</a> <small>{{ item.country }}</small></h1>
     </header>
     <aside class="tech-infos row collapse">
       <dl class="medium-6 columns">
-        <dt>ID:</dt>
-        <dd>AU_067456_ES</dd>
+        <dt>{% trans "ID:" %}</dt>
+        <dd>{{ item.code }}</dd>
       </dl>
       <dl class="medium-6 columns">
         <dt>{% trans "Creation:" %}</dt>
@@ -45,8 +47,8 @@
         <dd><time datetime="{{ item.updated|date:"c" }}">{{ item.updated|date:"SHORT_DATETIME_FORMAT" }}</time></dd>
       </dl>
       <dl class="medium-6 columns">
-        <dt>Author:</dt>
-        <dd>Bruce Banner</dd>
+        <dt>{% if item.authors|length > 1 %}{% trans "Authors:" %}{% else %}{% trans "Author:" %}{% endif %}</dt>
+        <dd>{% for author in item.authors %}{{ author.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</dd>
       </dl>
     </aside>
     <main>
@@ -57,7 +59,7 @@
         <p class="is-light"><em>{% trans "This article is also available in:" %}
           {% for translation in item.translations %}
             {% language translation.0 %}
-            <a href="{% url 'approaches:questionnaire_details' item.id %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
+            <a href="{% url 'approaches:questionnaire_details' item.code %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
             {% endlanguage %}
           {% endfor %}
         </em></p>

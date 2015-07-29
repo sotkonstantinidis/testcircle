@@ -31,6 +31,9 @@ The basic format of the configuration is as follows::
     # (optional)
     "include_toc": true,
 
+    # (optional)
+    "review_panel": true,
+
     # A list of categories.
     "categories": [
       {
@@ -71,6 +74,15 @@ default layout (``default.html``) for the section is used.
 (Optional). An optional boolean indicating whether to add a table of
 contents to the current section or not. The ToC is rendered at the top
 of the section. Defaults to ``False``.
+
+
+``review_panel``
+^^^^^^^^^^^^^^^^
+
+(Optional). An optional boolean indicating whether to include the review
+panel at the top of the section or not. The review panel contains
+actions related to the editing and moderation workflow (eg. submit,
+publish).
 
 
 ``categories``

@@ -25,7 +25,9 @@ route_questionnaire_new_step = 'technologies:questionnaire_new_step'
 
 
 def get_valid_details_values():
-    return (1, 'technologies', 'technologies/questionnaire/details.html')
+    return (
+        'foo', 'technologies', 'technologies',
+        'technologies/questionnaire/details.html')
 
 
 def get_valid_link_form_values():
@@ -38,13 +40,13 @@ def get_valid_new_values():
     args = (
         'technologies', 'technologies/questionnaire/details.html',
         'technologies')
-    kwargs = {'questionnaire_id': None}
+    kwargs = {'identifier': None}
     return args, kwargs
 
 
 def get_valid_new_step_values():
     args = (get_categories()[0][0], 'technologies', 'technologies')
-    kwargs = {'page_title': 'Technologies Form'}
+    kwargs = {'page_title': 'Technologies Form', 'identifier': 'new'}
     return args, kwargs
 
 
@@ -76,7 +78,8 @@ class HomeTest(TestCase):
 class QuestionnaireLinkFormTest(TestCase):
 
     def setUp(self):
-        self.url = reverse(route_questionnaire_link_form)
+        self.url = reverse(
+            route_questionnaire_link_form, kwargs={'identifier': 'foo'})
 
     def test_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -85,7 +88,7 @@ class QuestionnaireLinkFormTest(TestCase):
     @patch('technologies.views.generic_questionnaire_link_form')
     def test_calls_generic_function(self, mock_generic_function):
         request = Mock()
-        questionnaire_link_form(request)
+        questionnaire_link_form(request, identifier='foo')
         mock_generic_function.assert_called_once_with(
             request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
@@ -135,7 +138,8 @@ class QuestionnaireNewStepTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.url = reverse(
-            route_questionnaire_new_step, args=[get_categories()[0][0]])
+            route_questionnaire_new_step, kwargs={
+                'identifier': 'new', 'step': get_categories()[0][0]})
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -144,7 +148,8 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        res = questionnaire_new_step(request, step=get_categories()[0][0])
+        res = questionnaire_new_step(
+            request, identifier='new', step=get_categories()[0][0])
         self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
@@ -152,7 +157,8 @@ class QuestionnaireNewStepTest(TestCase):
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, get_categories()[0][0])
+        questionnaire_new_step(
+            request, identifier='new', step=get_categories()[0][0])
         mock_questionnaire_new_step.assert_called_once_with(
             request, *get_valid_new_step_values()[0],
             **get_valid_new_step_values()[1])
@@ -166,7 +172,8 @@ class QuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_details, args=[101])
+        self.url = reverse(
+            route_questionnaire_details, kwargs={'identifier': 'tech_1'})
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
@@ -176,7 +183,7 @@ class QuestionnaireDetailsTest(TestCase):
     @patch('technologies.views.generic_questionnaire_details')
     def test_calls_generic_function(self, mock_questionnaire_details):
         request = self.factory.get(self.url)
-        questionnaire_details(request, 1)
+        questionnaire_details(request, 'foo')
         mock_questionnaire_details.assert_called_once_with(
             request, *get_valid_details_values())
 
