@@ -5,9 +5,14 @@
   <div class="tech-thumbnail medium-4 columns">
     <figure>
       <a href="{% url 'approaches:questionnaire_details' item.code %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
-      {% if item.status.0 and item.status.0 != 'published' %}
-        <figcaption class="tech-status label is-{{ item.status.0 }}">{{ item.status.1 }}</figcaption>
-      {% endif %}
+      <figcaption class="tech-status">
+        {% if item.configurations.0 %}
+          <span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
+        {% endif %}
+        {% if item.status.0 and item.status.0 != 'published' %}
+          <span class="label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
+        {% endif %}
+      </figcaption>
     </figure>
     <ul class="tech-icons">
       <li>

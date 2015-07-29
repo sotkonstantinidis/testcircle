@@ -1,11 +1,18 @@
 {% load i18n %}
 
-  <section id="{{ keyword }}" class="tech-section row is-rhythmed-4" data-magellan-destination="{{ keyword }}">
+  <section id="{{ keyword }}" class="row" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
 
     <header class="tech-output-header medium-7 columns">
-      <span class="label tech-status label is-draft">Draft</span>
-      <h1 class="tech-output-title">{{ raw_data.name|default:"" }}</h1>
+      <div class="tech-status">
+        {% if metadata.configurations.0 %}
+          <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
+        {% endif %}
+        {% if metadata.status.0 and metadata.status.0 != 'published' %}
+          <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
+        {% endif %}
+      </div>
+      <h1 class="tech-output-title">{{ raw_data.name|default:'No Title' }}</h1>
       <p class="tech-output-header-info clearfix"><span class="is-muted left">{{ metadata.code }} - {{ raw_data.country|default:"" }}</span></p>
       <p class="is-large">{{ raw_data.wocat_definition|default:"" }}</p>
       <p class="is-large">{{ raw_data.wocat_description|default:"" }}</p>
