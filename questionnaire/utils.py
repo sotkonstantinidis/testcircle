@@ -761,7 +761,8 @@ def query_questionnaires_for_link(configuration, q, limit=10):
 
 
 def get_list_values(
-        configuration_code=None, es_search={}, questionnaire_objects=[]):
+        configuration_code=None, es_search={}, questionnaire_objects=[],
+        with_links=True):
     """
     Retrieves and prepares data to be used in a list representation.
     Either handles a list of questionnaires retrieved from the database
@@ -783,6 +784,13 @@ def get_list_values(
         ``questionnaire_objects`` (list): A list (queryset) of
         :class:`questionnaire.models.Questionnaire` models retrieved
         from the database.
+
+        ``with_links`` (bool): A boolean indicating whether to return
+        link data for the questionnaires or not. By default, for
+        ``questionnaire_objects`` link data is queried from the
+        database. If you do not want to query and display this
+        information (eg. when displaying the links of a single
+        questionnaire in the details page), set this to ``False``.
 
     Returns:
         ``list``. A list of dictionaries containing the values needed
@@ -825,6 +833,7 @@ def get_list_values(
         configurations = source.get('configurations', [])
 
         template_value.update({
+            'links': source.get('links', []),
             'configuration': current_configuration_code,  # Used for rendering
             'id': result.get('_id'),
             'configurations': configurations,
@@ -882,7 +891,15 @@ def get_list_values(
                 template_value[key] = value.get(
                     get_language(), value.get(original_lang))
 
+        links = []
+        if with_links is True:
+            link_data = get_link_data(obj.links.all())
+            for configuration, link_dicts in link_data.items():
+                links.extend(
+                    [link.get('display') for link in link_dicts])
+
         template_value.update({
+            'links': links,
             'configuration': current_configuration_code,  # Used for rendering
             'id': obj.id,
             'native_configuration': current_configuration_code in

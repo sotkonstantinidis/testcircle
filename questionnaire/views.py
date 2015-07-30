@@ -509,7 +509,8 @@ def generic_questionnaire_new(
     link_display = {}
     for configuration, links in links_by_configuration.items():
         link_display[configuration] = get_list_values(
-            configuration_code=configuration, questionnaire_objects=links)
+            configuration_code=configuration, questionnaire_objects=links,
+            with_links=False)
 
     return render(request, template, {
         'images': images,
@@ -597,7 +598,8 @@ def generic_questionnaire_details(
     link_display = {}
     for configuration, links in links_by_configuration.items():
         link_display[configuration] = get_list_values(
-            configuration_code=configuration, questionnaire_objects=links)
+            configuration_code=configuration, questionnaire_objects=links,
+            with_links=False)
 
     return render(request, template, {
         'images': images,

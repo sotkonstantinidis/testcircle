@@ -623,6 +623,8 @@ class QueryQuestionnairesForLinkTest(TestCase):
 
 class GetListValuesTest(TestCase):
 
+    values_length = 10
+
     def test_returns_values_from_es_search(self):
         es_search = {
             'hits': {
@@ -636,7 +638,7 @@ class GetListValuesTest(TestCase):
         ret = get_list_values(es_search=es_search)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 9)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
         self.assertEqual(ret_1.get('configurations'), [])
         self.assertEqual(ret_1.get('created', ''), None)
@@ -646,6 +648,7 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('translations'), [])
         self.assertEqual(ret_1.get('code'), '')
         self.assertEqual(ret_1.get('authors'), [])
+        self.assertEqual(ret_1.get('links'), [])
 
     def test_es_uses_provided_configuration(self):
         es_search = {
@@ -660,7 +663,7 @@ class GetListValuesTest(TestCase):
         ret = get_list_values(es_search=es_search, configuration_code='foo')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 9)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
     def test_es_wocat_uses_default_configuration(self):
@@ -676,20 +679,21 @@ class GetListValuesTest(TestCase):
         ret = get_list_values(es_search=es_search, configuration_code='wocat')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 9)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
     def test_returns_values_from_database(self):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
+        obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         ret = get_list_values(questionnaire_objects=questionnaires)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 9)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
         self.assertEqual(ret_1.get('configurations'), ['configuration'])
         self.assertEqual(ret_1.get('created', ''), 'created')
@@ -699,11 +703,13 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('translations'), [])
         self.assertEqual(ret_1.get('code'), 'code')
         self.assertEqual(ret_1.get('authors'), ['author'])
+        self.assertEqual(ret_1.get('links'), [])
 
     def test_db_uses_provided_configuration(self):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
+        obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
@@ -711,13 +717,14 @@ class GetListValuesTest(TestCase):
             questionnaire_objects=questionnaires, configuration_code='foo')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 9)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
     def test_db_wocat_uses_default_configuration(self):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
+        obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
@@ -725,7 +732,7 @@ class GetListValuesTest(TestCase):
             questionnaire_objects=questionnaires, configuration_code='wocat')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 9)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
     @patch('questionnaire.utils.get_or_create_configuration')
@@ -737,6 +744,7 @@ class GetListValuesTest(TestCase):
         obj = Mock()
         obj.configurations.first.return_value = None
         obj.configurations.all.return_value = []
+        obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]

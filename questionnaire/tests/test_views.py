@@ -402,7 +402,7 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_list_values.assert_called_once_with(
-            questionnaire_objects=[link],
+            questionnaire_objects=[link], with_links=False,
             configuration_code=link.configurations.first().code)
 
     @patch.object(QuestionnaireSection, 'get_details')
@@ -579,7 +579,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_get_list_values.assert_called_once_with(
-            questionnaire_objects=[link],
+            questionnaire_objects=[link], with_links=False,
             configuration_code=link.configurations.first().code)
 
     @patch.object(QuestionnaireCategory, 'get_details')

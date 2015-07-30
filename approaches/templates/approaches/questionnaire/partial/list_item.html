@@ -60,14 +60,25 @@
       <p>{{ item.app_first }}</p>
     </main>
     <footer>
-      {% if item.translations %}
-        <p class="is-light"><em>{% trans "This article is also available in:" %}
-          {% for translation in item.translations %}
-            {% language translation.0 %}
-            <a href="{% url 'approaches:questionnaire_details' item.code %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
-            {% endlanguage %}
-          {% endfor %}
-        </em></p>
+      {% if item.links|length > 0 or item.translations %}
+        <p class="is-light">
+          {% if item.links|length > 0 %}
+            <em>{% trans "Linked Questionnaires:" %}
+              {% for link in item.links %}
+                {{ link|safe }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </em><br>
+          {% endif %}
+          {% if item.translations %}
+            <em>{% trans "This article is also available in:" %}
+              {% for translation in item.translations %}
+                {% language translation.0 %}
+                <a href="{% url 'approaches:questionnaire_details' item.code %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
+                {% endlanguage %}
+              {% endfor %}
+            </em>
+          {% endif %}
+        </p>
       {% endif %}
     </footer>
   </div>

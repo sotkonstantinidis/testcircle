@@ -113,6 +113,7 @@ def get_mappings(questionnaire_configuration):
                     }
                 },
                 # 'list_data' is added dynamically
+                # 'links' is added dynamically
             }
         }
     }
@@ -234,6 +235,7 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
         ``list``. A list of errors occured.
     """
     from configuration.configuration import QuestionnaireConfiguration
+    from questionnaire.utils import get_link_data
     questionnaire_configuration = QuestionnaireConfiguration(
         configuration_code)
 
@@ -243,6 +245,12 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
     for obj in questionnaire_objects:
         list_data = questionnaire_configuration.get_list_data(
             [obj.data])[0]
+
+        links = []
+        link_data = get_link_data(obj.links.all())
+        for configuration, link_dicts in link_data.items():
+            links.extend([link.get('display') for link in link_dicts])
+
         authors = []
         for author in list(chain(
                 obj.members.filter(questionnairemembership__role='author'),
@@ -256,6 +264,7 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
             'list_data': list_data,
             'name': questionnaire_configuration.get_questionnaire_name(
                 obj.data),
+            'links': links,
         }
         source.update(obj.get_metadata())
         action = {

@@ -307,6 +307,7 @@ class CreateOrUpdateIndexTest(TestCase):
     def test_keeps_data(self):
         m = Mock()
         m.configurations.all.return_value = []
+        m.links.all.return_value = []
         m.questionnairetranslation_set.all.return_value = []
         m.id = 1
         m.data = [{"foo": "bar"}]
@@ -356,6 +357,7 @@ class PutQuestionnaireDataTest(TestCase):
         mock_bulk.return_value = 0, []
         m = Mock()
         m.configurations.all.return_value = []
+        m.links.all.return_value = []
         m.questionnairetranslation_set.all.return_value = []
         m.members.filter.return_value = []
         m.get_metadata.return_value = get_valid_metadata()
@@ -368,6 +370,7 @@ class PutQuestionnaireDataTest(TestCase):
         mock_bulk.return_value = 0, []
         m = Mock()
         m.configurations.all.return_value = []
+        m.links.all.return_value = []
         m.questionnairetranslation_set.all.return_value = []
         m.members.filter.return_value = []
         m.get_metadata.return_value = get_valid_metadata()
@@ -386,6 +389,7 @@ class PutQuestionnaireDataTest(TestCase):
                 'configurations': ['configuration'],
                 'translations': ['en'],
                 'authors': ['author'],
+                'links': [],
             }
         }]
         mock_bulk.assert_called_once_with(mock_es, data)

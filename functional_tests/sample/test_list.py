@@ -13,6 +13,10 @@ from sample.tests.test_views import (
     route_home,
     route_questionnaire_list,
 )
+from samplemulti.tests.test_views import (
+    route_home as route_samplemulti_home,
+    route_questionnaire_list as route_samplemulti_list,
+)
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
@@ -432,6 +436,174 @@ class ListTest(FunctionalTest):
     #     active_filters = self.findManyBy(
     #         'xpath', '//div[@id="active-filters"]//li')
     #     self.assertEqual(len(active_filters), 0)
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+class ListTestLinks(FunctionalTest):
+
+    fixtures = [
+        'groups_permissions.json', 'global_key_values.json', 'sample.json',
+        'samplemulti', 'sample_samplemulti_questionnaires.json']
+
+    """
+    1
+        configurations: sample
+        code: sample_1
+        key_1 (en): This is the first key
+        links: 3
+
+    2
+        configurations: sample
+        code: sample_2
+        key_1 (en): Foo
+        links: -
+
+    3
+        configurations: samplemulti
+        code: samplemulti_1
+        key_1 (en): This is key 1a
+        links: 1
+
+    4
+        configurations: samplemulti
+        code: samplemulti_2
+        key_1 (en): This is key 1b
+        links: -
+    """
+
+    def setUp(self):
+        super(ListTestLinks, self).setUp()
+        delete_all_indices()
+        create_temp_indices(['sample', 'samplemulti'])
+
+    def tearDown(self):
+        super(ListTestLinks, self).tearDown()
+        delete_all_indices()
+
+    def test_list_displays_links_home(self):
+
+        # Alice is not logged in. She goes to the SAMPLE landing page
+        # and sees the latest updates. These are: 2 and 1 (with link)
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She sees that the second one (1) contains the link to
+        # SAMPLEMULTI 2.
+        self.findBy(
+            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        self.findBy(
+            'xpath', '//a[contains(text(), "This is key 1a")]',
+            base=list_entries[1])
+
+        # She goes to the SAMPLEMULTI landing page and sees the reverse.
+        # Latest updates: 4 and 3 (with link)
+        self.browser.get(
+            self.live_server_url + reverse(route_samplemulti_home))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She sees that the first one (2) does not have a link
+        self.assertNotIn('Linked Questionnaires: ', list_entries[0].text)
+
+        # She also sees that the second one (1) contains the link to
+        # SAMPLEMULTI 2.
+        self.assertIn('Linked Questionnaires: ', list_entries[1].text)
+        self.findBy(
+            'xpath', '//a[contains(text(), "This is the first key")]',
+            base=list_entries[1])
+
+        # She changes the language to "Spanish"
+        self.changeLanguage('es')
+
+        # She sees that the questionnaires are now listed in Spanish
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # # She sees that the second one (1) contains the link to
+        # # SAMPLEMULTI 2.
+        # self.findBy(
+        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        # self.findBy(
+        #     'xpath', '//a[contains(text(), "Esto es la clave 1")]',
+        #     base=list_entries[1])
+
+        # # Also for SAMPLE, the link is now translated
+        # self.browser.get(self.live_server_url + reverse(route_home))
+
+        # self.findBy(
+        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        # self.findBy(
+        #     'xpath', '//a[contains(text(), "Esto es clave 1a")]',
+        #     base=list_entries[1])
+
+    def test_list_displays_links_search(self):
+
+        # Alice is not logged in. She goes to the SAMPLE search page
+        # and sees the questionnaires. These are: 2 and 1 (with link)
+        self.browser.get(
+            self.live_server_url + reverse(route_questionnaire_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She sees that the second one (1) contains the link to
+        # SAMPLEMULTI 2.
+        self.findBy(
+            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        self.findBy(
+            'xpath', '//a[contains(text(), "This is key 1a")]',
+            base=list_entries[1])
+
+        # She goes to the SAMPLEMULTI landing page and sees the reverse.
+        # Latest updates: 4 and 3 (with link)
+        self.browser.get(
+            self.live_server_url + reverse(route_samplemulti_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She sees that the first one (2) does not have a link
+        self.assertNotIn('Linked Questionnaires: ', list_entries[0].text)
+
+        # She also sees that the second one (1) contains the link to
+        # SAMPLEMULTI 2.
+        self.assertIn('Linked Questionnaires: ', list_entries[1].text)
+        self.findBy(
+            'xpath', '//a[contains(text(), "This is the first key")]',
+            base=list_entries[1])
+
+        # She changes the language to "Spanish"
+        self.changeLanguage('es')
+
+        # She sees that the questionnaires are now listed in Spanish
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # # She sees that the second one (1) contains the link to
+        # # SAMPLEMULTI 2.
+        # self.findBy(
+        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        # self.findBy(
+        #     'xpath', '//a[contains(text(), "Esto es la clave 1")]',
+        #     base=list_entries[1])
+
+        # # Also for SAMPLE, the link is now translated
+        # self.browser.get(self.live_server_url + reverse(route_home))
+
+        # self.findBy(
+        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        # self.findBy(
+        #     'xpath', '//a[contains(text(), "Esto es clave 1a")]',
+        #     base=list_entries[1])
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
