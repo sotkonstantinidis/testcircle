@@ -1165,6 +1165,16 @@ class QuestionnaireCategory(BaseConfigurationObject):
                     for questiongroup_data in questiongroups_data:
                         question_data = questiongroup_data.get(
                             question.keyword)
+                        # Still look up the display values for fields
+                        # with predefined internal values.
+                        if question.field_type in [
+                                'bool', 'measure', 'checkbox',
+                                'image_checkbox', 'select_type']:
+                            if not isinstance(question_data, list):
+                                question_data = [question_data]
+                            question_data = question.\
+                                lookup_choices_labels_by_keywords(
+                                    question_data)
                         raw_category_data[question.keyword] = question_data
         return raw_category_data
 
