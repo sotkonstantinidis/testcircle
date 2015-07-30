@@ -50,7 +50,7 @@
           <div class="links is-rhythmed">
             {% for data in data_list %}
               <div class="alert-box secondary">
-                {{ data.display }}
+                {{ data.name }}
                 <a href="#" class="close" data-input-hidden="links__{{ config.keyword }}__{{ data.id }}">&times;</a>
               </div>
               <input id="links__{{ config.keyword }}__{{ data.id }}" type="hidden" name="links__{{ config.keyword }}" value="{{ data.id }}" />

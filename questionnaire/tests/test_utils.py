@@ -11,6 +11,8 @@ from questionnaire.utils import (
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
     get_questiongroup_data_from_translation_form,
+    get_link_data,
+    get_link_display,
     get_list_values,
     handle_review_actions,
     is_valid_questionnaire_format,
@@ -484,6 +486,66 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
 
 
+class GetLinkDataTest(TestCase):
+
+    @patch('questionnaire.utils.ConfigurationList')
+    def test_creates_configuration_list(self, mock_ConfigurationList):
+        get_link_data([])
+        mock_ConfigurationList.assert_called_once_with()
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_uses_first_code_if_none_provided(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'foo'
+        link_data = get_link_data([link])
+        self.assertIn('foo', link_data)
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_uses_code_provided(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'faz'
+        link_data = get_link_data([link], link_configuration_code='foo')
+        self.assertIn('foo', link_data)
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_calls_get_link_display(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'foo'
+        get_link_data([link])
+        mock_get_link_display.assert_called_once_with(
+            'foo', 'Unknown name', link.code)
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_return_values(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'foo'
+        link_data = get_link_data([link])
+        self.assertEqual(link_data, {'foo': [{
+            'code': link.code,
+            'id': link.id,
+            'link': mock_get_link_display.return_value,
+            'name': 'Unknown name',
+        }]})
+
+
+class GetLinkDisplayTest(TestCase):
+
+    @patch('questionnaire.utils.render_to_string')
+    def test_calls_render_to_string(self, mock_render_to_string):
+        get_link_display('configuration', 'name', 'identifier')
+        mock_render_to_string.assert_called_once_with(
+            'configuration/questionnaire/partial/link.html', {
+                'name': 'name',
+                'link_route': 'configuration:questionnaire_details',
+                'questionnaire_identifier': 'identifier',
+            })
+
+    @patch('questionnaire.utils.render_to_string')
+    def test_returns_render_to_string(self, mock_render_to_string):
+        link_display = get_link_display('configuration', 'name', 'identifier')
+        self.assertEqual(link_display, mock_render_to_string.return_value)
+
+
 class QueryQuestionnaireTest(TestCase):
 
     @patch('questionnaire.utils.get_query_status_filter')
@@ -734,23 +796,6 @@ class GetListValuesTest(TestCase):
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
-
-    @patch('questionnaire.utils.get_or_create_configuration')
-    def test_from_database_calls_get_or_create_configuration(
-            self, mock_get_or_create_configuration):
-        m = Mock()
-        m.get_list_data.return_value = [{}]
-        mock_get_or_create_configuration.return_value = m, {}
-        obj = Mock()
-        obj.configurations.first.return_value = None
-        obj.configurations.all.return_value = []
-        obj.links.all.return_value = []
-        obj.questionnairetranslation_set.all.return_value = []
-        obj.get_metadata.return_value = get_valid_metadata()
-        questionnaires = [obj]
-        get_list_values(questionnaire_objects=questionnaires)
-        mock_get_or_create_configuration.assert_called_once_with(
-            'technologies', {})
 
 
 @patch('questionnaire.utils.messages')

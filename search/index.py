@@ -7,6 +7,7 @@ from .utils import (
     get_analyzer,
     get_alias,
 )
+from configuration.utils import ConfigurationList
 
 
 def get_elasticsearch():
@@ -77,6 +78,10 @@ def get_mappings(questionnaire_configuration):
             q.update({'analyer': analyzer})
             name_properties[language_code] = q
 
+    link_properties = {}
+    for language_code in language_codes:
+        link_properties[language_code] = {'type': 'string'}
+
     mappings = {
         'questionnaire': {
             'properties': {
@@ -112,8 +117,10 @@ def get_mappings(questionnaire_configuration):
                         },
                     }
                 },
+                'links': {
+                    'properties': link_properties,
+                },
                 # 'list_data' is added dynamically
-                # 'links' is added dynamically
             }
         }
     }
@@ -234,11 +241,10 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
 
         ``list``. A list of errors occured.
     """
-    from configuration.configuration import QuestionnaireConfiguration
-    from questionnaire.utils import get_link_data
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    from questionnaire.utils import get_link_display
 
+    config_list = ConfigurationList()
+    questionnaire_configuration = config_list.get(configuration_code)
     alias = get_alias([configuration_code])
 
     actions = []
@@ -246,10 +252,32 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
         list_data = questionnaire_configuration.get_list_data(
             [obj.data])[0]
 
-        links = []
-        link_data = get_link_data(obj.links.all())
-        for configuration, link_dicts in link_data.items():
-            links.extend([link.get('display') for link in link_dicts])
+        language_codes = [l[0] for l in settings.LANGUAGES]
+
+        links = {}
+        for language in language_codes:
+            links[language] = []
+
+        for link in obj.links.all():
+
+            link_configuration_db = link.configurations.first()
+            if link_configuration_db is None:
+                continue
+
+            link_configuration = config_list.get(link_configuration_db.code)
+
+            name_data = link_configuration.get_questionnaire_name(link.data)
+            try:
+                original_language = link.questionnairetranslation_set.first()\
+                    .language
+            except AttributeError:
+                original_language = None
+
+            for language in language_codes:
+                name = name_data.get(
+                    language, name_data.get(original_language))
+                links[language].append(get_link_display(
+                    link_configuration.keyword, name, link.code))
 
         authors = []
         for author in list(chain(

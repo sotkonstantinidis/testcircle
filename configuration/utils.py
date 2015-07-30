@@ -81,22 +81,23 @@ def get_configuration_index_filter(configuration, only_current=False):
     return [configuration]
 
 
-def get_or_create_configuration(code, configurations):
+class ConfigurationList(object):
     """
-    Check if a given QuestionnaireConfiguration already exists in the
-    provided dictionary and return it along with the dictionary if
-    found. If it does not yet exist, create a QuestionnaireConfiguration
-    with the given code, add it to dictionary and return both of them.
-
-    Args:
-        ``code`` (str): The code of the QuestionnaireConfiguration.
-
-        ``configurations`` (dict): A dictionary with existing
-        QuestionnaireConfigurations with their code as keys.
+    Helper object to keep track of QuestionnaireConfiguration objects.
+    Check if a given configuration already exists and returns it if so.
+    If not, it is created and added to the internal list. This prevents
+    having to create a new configuration every time when looping objects
+    of mixed configurations.
     """
-    configuration = configurations.get(code, QuestionnaireConfiguration(code))
-    configurations[code] = configuration
-    return configuration, configurations
+    def __init__(self):
+        self.configurations = {}
+
+    def get(self, code):
+        configuration = self.configurations.get(code)
+        if configuration is None:
+            configuration = QuestionnaireConfiguration(code)
+            self.configurations[code] = configuration
+        return configuration
 
 
 def create_new_code(configuration, questionnaire_data):

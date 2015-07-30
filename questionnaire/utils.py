@@ -10,8 +10,8 @@ from configuration.configuration import (
     QuestionnaireQuestion,
 )
 from configuration.utils import (
+    ConfigurationList,
     get_configuration_query_filter,
-    get_or_create_configuration,
 )
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.models import Questionnaire
@@ -545,36 +545,39 @@ def get_link_data(linked_objects, link_configuration_code=None):
               "sample": [
                 {
                   "id": 1,
-                  "display": "This is a link to Questionnaire with ID 1",
-                  "form_display": "Name of Questionnaire with ID 1"
+                  "code": "code_of_questionnaire_with_id_1",
+                  "name": "Name of Questionnaire with ID 1",
                 }
               ]
             }
     """
-    link_configurations = {}
+    configuration_list = ConfigurationList()
     links = {}
     for link in linked_objects:
         if link_configuration_code is None:
-            # TODO: This does not handle questionnaires with multiple
-            # configurations correctly
             link_configuration_code = link.configurations.first().code
-        link_configuration, link_configurations = get_or_create_configuration(
-            link_configuration_code, link_configurations)
-        link_display = get_link_display(link, link_configuration)
+        link_configuration = configuration_list.get(link_configuration_code)
+
+        name_data = link_configuration.get_questionnaire_name(link.data)
+        try:
+            original_lang = link.questionnairetranslation_set.first().language
+        except AttributeError:
+            original_lang = None
+        name = name_data.get(get_language(), name_data.get(original_lang, ''))
+
         link_list = links.get(link_configuration_code, [])
-        link_name = link_configuration.get_questionnaire_name(
-            get_questionnaire_data_in_single_language(
-                link.data, get_language()))
         link_list.append({
             'id': link.id,
-            'display': link_display,
-            'form_display': link_name,
+            'code': link.code,
+            'name': name,
+            'link': get_link_display(link_configuration_code, name, link.code)
         })
         links[link_configuration_code] = link_list
+
     return links
 
 
-def get_link_display(link_object, link_configuration):
+def get_link_display(configuration_code, name, identifier):
     """
     Return the representation of a linked questionnaire used for display
     of the link. The display representation is the rendered template (
@@ -593,14 +596,13 @@ def get_link_display(link_object, link_configuration):
         ``str``. The display representation of the link as rendered
         HTML.
     """
-    link_data = link_configuration.get_list_data([link_object.data])
     link_template = '{}/questionnaire/partial/link.html'.format(
-        link_configuration.keyword)
-    link_route = '{}:questionnaire_details'.format(link_configuration.keyword)
+        configuration_code)
+    link_route = '{}:questionnaire_details'.format(configuration_code)
     return render_to_string(link_template, {
-        'link_data': link_data[0],
+        'name': name,
         'link_route': link_route,
-        'questionnaire_identifier': link_object.code,
+        'questionnaire_identifier': identifier,
     })
 
 
@@ -833,7 +835,7 @@ def get_list_values(
         configurations = source.get('configurations', [])
 
         template_value.update({
-            'links': source.get('links', []),
+            'links': source.get('links', {}).get(get_language(), []),
             'configuration': current_configuration_code,  # Used for rendering
             'id': result.get('_id'),
             'configurations': configurations,
@@ -849,7 +851,7 @@ def get_list_values(
         })
         list_entries.append(template_value)
 
-    questionnaire_configurations = {}
+    configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
         # Results from database query. List values have to be retrieved
         # through the configuration of the questionnaires.
@@ -865,9 +867,8 @@ def get_list_values(
         else:
             current_configuration_code = configuration_code
 
-        questionnaire_configuration, questionnaire_configurations = \
-            get_or_create_configuration(
-                current_configuration_code, questionnaire_configurations)
+        questionnaire_configuration = configuration_list.get(
+            current_configuration_code)
 
         template_value = questionnaire_configuration.get_list_data(
             [obj.data])[0]
@@ -895,8 +896,7 @@ def get_list_values(
         if with_links is True:
             link_data = get_link_data(obj.links.all())
             for configuration, link_dicts in link_data.items():
-                links.extend(
-                    [link.get('display') for link in link_dicts])
+                links.extend([link.get('link') for link in link_dicts])
 
         template_value.update({
             'links': links,

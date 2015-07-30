@@ -480,6 +480,7 @@ class ListTestLinks(FunctionalTest):
         super(ListTestLinks, self).tearDown()
         delete_all_indices()
 
+    @attr('foo')
     def test_list_displays_links_home(self):
 
         # Alice is not logged in. She goes to the SAMPLE landing page
@@ -525,22 +526,35 @@ class ListTestLinks(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        # # She sees that the second one (1) contains the link to
-        # # SAMPLEMULTI 2.
-        # self.findBy(
-        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        # self.findBy(
-        #     'xpath', '//a[contains(text(), "Esto es la clave 1")]',
-        #     base=list_entries[1])
+        # She sees that the second one (1) contains the link to
+        # SAMPLEMULTI 2.
+        self.findBy(
+            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        self.findBy(
+            'xpath', '//a[contains(text(), "Esto es la clave 1")]',
+            base=list_entries[1])
 
-        # # Also for SAMPLE, the link is now translated
-        # self.browser.get(self.live_server_url + reverse(route_home))
+        # Also for SAMPLE, the link is now translated
+        self.browser.get(self.live_server_url + reverse(route_home))
+        self.changeLanguage('es')
 
-        # self.findBy(
-        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        # self.findBy(
-        #     'xpath', '//a[contains(text(), "Esto es clave 1a")]',
-        #     base=list_entries[1])
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy(
+            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        self.findBy(
+            'xpath', '//a[contains(text(), "Esto es clave 1a")]',
+            base=list_entries[1])
+
+        # She also goes to the details to see if the link is translated
+        # there
+        self.findBy(
+            'xpath', '//article[contains(@class, "tech-item")][2]//a[contains('
+            'text(), "Esto es la clave 1")]').click()
+
+        self.findBy('xpath', '//a[contains(text(), "Esto es clave 1a")]')
 
     def test_list_displays_links_search(self):
 
@@ -588,22 +602,28 @@ class ListTestLinks(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        # # She sees that the second one (1) contains the link to
-        # # SAMPLEMULTI 2.
-        # self.findBy(
-        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        # self.findBy(
-        #     'xpath', '//a[contains(text(), "Esto es la clave 1")]',
-        #     base=list_entries[1])
+        # She sees that the second one (1) contains the link to
+        # SAMPLEMULTI 2.
+        self.findBy(
+            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        self.findBy(
+            'xpath', '//a[contains(text(), "Esto es la clave 1")]',
+            base=list_entries[1])
 
-        # # Also for SAMPLE, the link is now translated
-        # self.browser.get(self.live_server_url + reverse(route_home))
+        # Also for SAMPLE, the link is now translated
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+        self.changeLanguage('es')
 
-        # self.findBy(
-        #     'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        # self.findBy(
-        #     'xpath', '//a[contains(text(), "Esto es clave 1a")]',
-        #     base=list_entries[1])
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy(
+            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+        self.findBy(
+            'xpath', '//a[contains(text(), "Esto es clave 1a")]',
+            base=list_entries[1])
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
