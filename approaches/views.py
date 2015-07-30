@@ -35,7 +35,8 @@ def questionnaire_link_form(request, identifier):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_link_form(
-        request, 'approaches', 'approaches', page_title='Approach Links')
+        request, 'approaches', 'approaches', page_title='Approach Links',
+        identifier=identifier)
 
 
 def questionnaire_link_search(request):

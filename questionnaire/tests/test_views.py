@@ -102,9 +102,13 @@ class GenericQuestionnaireLinkFormTest(TestCase):
             **get_valid_link_form_values()[1])
         mock_render.assert_called_once_with(self.request, 'form/links.html', {
             'valid': True,
-            'overview_url': '/en/sample/edit/new/#links',
+            'overview_url': '/en/sample/edit/foo/#links',
             'link_forms': [(
-                {'label': 'samplemulti', 'keyword': 'samplemulti'}, []
+                {
+                    'label': 'samplemulti',
+                    'keyword': 'samplemulti',
+                    'search_url': '/en/samplemulti/search/links/',
+                }, []
             )],
             'configuration_name': 'sample',
             'title': 'SAMPLE Links'
@@ -388,6 +392,19 @@ class GenericQuestionnaireNewTest(TestCase):
             {}, editable=True, edit_step_route='sample:questionnaire_new_step',
             questionnaire_object=None)
 
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.Questionnaire')
+    def test_calls_get_list_values(
+            self, mock_Questionnaire, mock_get_list_values):
+        link = Mock()
+        mock_Questionnaire.objects.filter.return_value = [link]
+        generic_questionnaire_new(
+            self.request, *get_valid_new_values()[0],
+            **get_valid_new_values()[1])
+        mock_get_list_values.assert_called_once_with(
+            questionnaire_objects=[link],
+            configuration_code=link.configurations.first().code)
+
     @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')
     def test_calls_render(self, mock_render, mock_get_details):
@@ -401,7 +418,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'sections': ["foo"]*get_section_count(),
                 'images': [],
                 'mode': 'edit',
-                'links': [],
+                'links': {},
             })
 
     def test_returns_rendered_response(self):
@@ -550,15 +567,20 @@ class GenericQuestionnaireDetailsTest(TestCase):
             self.request, *get_valid_details_values())
         mock_get_image_data.assert_called_once_with({})
 
-    @patch('questionnaire.views.get_link_data')
+    @patch('questionnaire.views.get_list_values')
     @patch('questionnaire.views.query_questionnaire')
-    def test_calls_get_link_data(
-            self, mock_query_questionnaire, mock_get_link_data):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
+    def test_calls_get_list_values(
+            self, mock_query_questionnaire, mock_get_list_values):
+        q = Mock()
+        q.data = {}
+        link = Mock()
+        q.links.all.return_value = [link]
+        mock_query_questionnaire.return_value.first.return_value = q
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_get_link_data.assert_called_once_with(
-            mock_query_questionnaire().first().links.all())
+        mock_get_list_values.assert_called_once_with(
+            questionnaire_objects=[link],
+            configuration_code=link.configurations.first().code)
 
     @patch.object(QuestionnaireCategory, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
@@ -575,7 +597,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'questionnaire_identifier': 'foo',
                 'mode': 'view',
                 'images': [],
-                'links': [],
+                'links': {},
             })
 
     @patch('questionnaire.views.query_questionnaire')

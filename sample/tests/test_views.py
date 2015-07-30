@@ -29,7 +29,7 @@ route_questionnaire_new_step = 'sample:questionnaire_new_step'
 
 def get_valid_link_form_values():
     args = ('sample', 'sample')
-    kwargs = {'page_title': 'SAMPLE Links'}
+    kwargs = {'page_title': 'SAMPLE Links', 'identifier': 'foo'}
     return args, kwargs
 
 

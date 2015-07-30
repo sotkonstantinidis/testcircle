@@ -1747,7 +1747,6 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
 
-    @attr('foo')
     def test_edit_questionnaire(self):
 
         # Alice logs in

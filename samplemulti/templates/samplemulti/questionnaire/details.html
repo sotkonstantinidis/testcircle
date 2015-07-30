@@ -31,18 +31,28 @@
         {{ section }}
       {% endfor %}
       {% if links or mode == 'edit' %}
-        <section class="row">
+        <section id="links" class="tech-section row is-rhythmed-2" data-magellan-destination="links">
           <a name="links"></a>
-          <div class="medium-9 columns">
-            <h2>{% trans "Linked Questionnaires" %}</h2>
-            {% for link in links %}
-              <p>{{ link }}</p>
-            {% endfor %}
-          </div>
-          <div class="medium-3 columns">
           {% if mode == 'edit' %}
+            <div class="medium-9 columns">
+              <h2>{% trans "Linked Questionnaires" %}</h2>
+            </div>
+            <div class="medium-3 columns">
               <a href="{% url 'samplemulti:questionnaire_link_form' questionnaire_identifier %}" class="button is-samplemulti right">{% trans "Edit links" %}</a>
-            {% endif %}
+            </div>
+          {% else %}
+            <div class="medium-12 columns">
+              <h2>{% trans "Linked Questionnaires" %}</h2>
+            </div>
+          {% endif %}
+          <div class="small-12 columns output">
+            {% for configuration, list_values in links.items %}
+              {% for list_entry in list_values %}
+                {% with configuration=configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
+                  {% include configuration with item=list_entry %}
+                {% endwith %}
+              {% endfor %}
+            {% endfor %}
           </div>
         </section>
       {% endif %}

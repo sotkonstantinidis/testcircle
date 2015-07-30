@@ -45,7 +45,8 @@ def questionnaire_link_form(request, identifier):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_link_form(
-        request, 'samplemulti', 'samplemulti', page_title='SAMPLEMULTI Links')
+        request, 'samplemulti', 'samplemulti', page_title='SAMPLEMULTI Links',
+        identifier=identifier)
 
 
 def questionnaire_link_search(request):

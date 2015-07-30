@@ -44,7 +44,10 @@
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
         <fieldset class="row">
           <legend>{{ config.label }}</legend>
-          <div class="links">
+          <p class="help-bloc">
+            {% trans "Only existing Questionnaires can be linked." %}
+          </p>
+          <div class="links is-rhythmed">
             {% for data in data_list %}
               <div class="alert-box secondary">
                 {{ data.display }}
@@ -55,7 +58,7 @@
               <p class="empty">{% trans "No linked Questionnaires" %}</p>
             {% endfor %}
           </div>
-          <input type="search" placeholder="{% trans 'Search' %}" class="link_search_field" data-keyword="{{ config.keyword }}" data-translation-no-results="{% trans 'No results found' %}" data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}"/>
+          <input type="search" placeholder="{% trans 'Search' %}" class="link_search_field" data-keyword="{{ config.keyword }}" data-url="{{ config.search_url }}" data-translation-no-results="{% trans 'No results found' %}" data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}"/>
         </fieldset>
       {% endfor %}
     </main>

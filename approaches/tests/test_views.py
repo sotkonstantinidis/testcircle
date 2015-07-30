@@ -32,7 +32,7 @@ def get_valid_details_values():
 
 def get_valid_link_form_values():
     args = ('approaches', 'approaches')
-    kwargs = {'page_title': 'Approach Links'}
+    kwargs = {'page_title': 'Approach Links', 'identifier': 'foo'}
     return args, kwargs
 
 

@@ -30,7 +30,7 @@ route_questionnaire_new_step = 'samplemulti:questionnaire_new_step'
 
 def get_valid_link_form_values():
     args = ('samplemulti', 'samplemulti')
-    kwargs = {'page_title': 'SAMPLEMULTI Links'}
+    kwargs = {'page_title': 'SAMPLEMULTI Links', 'identifier': 'foo'}
     return args, kwargs
 
 

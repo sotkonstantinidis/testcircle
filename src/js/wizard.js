@@ -223,7 +223,7 @@ $(function() {
         var translationTooManyResults = $(this.element).data('translation-too-many-results');
         // AJAX call to the respective link search view.
         $.ajax({
-          url: '/' + $(this.element).data('keyword') + '/search/links/',
+          url: $(this.element).data('url'),
           dataType: 'json',
           data: {
             q: request.term
