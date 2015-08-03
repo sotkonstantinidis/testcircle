@@ -116,7 +116,7 @@ class GetMappingsTest(TestCase):
         mock_Conf.get_questiongroups.return_value = []
         mappings = get_mappings(mock_Conf)
         q_props = mappings.get('questionnaire').get('properties')
-        self.assertEqual(len(q_props), 8)
+        self.assertEqual(len(q_props), 9)
         self.assertEqual(q_props['data'], {'properties': {}})
         self.assertEqual(q_props['created'], {'type': 'date'})
         self.assertEqual(q_props['updated'], {'type': 'date'})
@@ -124,6 +124,7 @@ class GetMappingsTest(TestCase):
         self.assertEqual(q_props['configurations'], {'type': 'string'})
         self.assertEqual(q_props['code'], {'type': 'string'})
         self.assertIn('name', q_props)
+        self.assertIn('links', q_props)
         self.assertEqual(
             q_props['authors'],
             {'type': 'nested', 'properties': {
@@ -307,6 +308,7 @@ class CreateOrUpdateIndexTest(TestCase):
     def test_keeps_data(self):
         m = Mock()
         m.configurations.all.return_value = []
+        m.links.all.return_value = []
         m.questionnairetranslation_set.all.return_value = []
         m.id = 1
         m.data = [{"foo": "bar"}]
@@ -337,12 +339,10 @@ class CreateOrUpdateIndexTest(TestCase):
 class PutQuestionnaireDataTest(TestCase):
 
     @patch('search.index.es')
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration, mock_es):
-        mock_QuestionnaireConfiguration.return_value = None
+    @patch('search.index.ConfigurationList')
+    def test_creates_configuration_list(self, mock_ConfList, mock_es):
         put_questionnaire_data('foo', [])
-        mock_QuestionnaireConfiguration.assert_called_once_with('foo')
+        mock_ConfList.assert_called_once_with()
 
     @patch('search.index.es')
     @patch('search.index.get_alias')
@@ -356,6 +356,7 @@ class PutQuestionnaireDataTest(TestCase):
         mock_bulk.return_value = 0, []
         m = Mock()
         m.configurations.all.return_value = []
+        m.links.all.return_value = []
         m.questionnairetranslation_set.all.return_value = []
         m.members.filter.return_value = []
         m.get_metadata.return_value = get_valid_metadata()
@@ -368,6 +369,7 @@ class PutQuestionnaireDataTest(TestCase):
         mock_bulk.return_value = 0, []
         m = Mock()
         m.configurations.all.return_value = []
+        m.links.all.return_value = []
         m.questionnairetranslation_set.all.return_value = []
         m.members.filter.return_value = []
         m.get_metadata.return_value = get_valid_metadata()
@@ -386,6 +388,7 @@ class PutQuestionnaireDataTest(TestCase):
                 'configurations': ['configuration'],
                 'translations': ['en'],
                 'authors': ['author'],
+                'links': {'es': [], 'en': []},
             }
         }]
         mock_bulk.assert_called_once_with(mock_es, data)

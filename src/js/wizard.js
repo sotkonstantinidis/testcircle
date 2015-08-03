@@ -223,7 +223,7 @@ $(function() {
         var translationTooManyResults = $(this.element).data('translation-too-many-results');
         // AJAX call to the respective link search view.
         $.ajax({
-          url: '/' + $(this.element).data('keyword') + '/search/links/',
+          url: $(this.element).data('url'),
           dataType: 'json',
           data: {
             q: request.term
@@ -276,9 +276,9 @@ $(function() {
         var hidden_input = $('<input id="' + id + '" type="hidden" name="links__' + keyword + '" />').val(ui.item.id);
         $(this).parent('fieldset').find('div.links').append(hidden_input);
 
-        // Add display field
+        // Add name field
         $(this).parent('fieldset').find('div.links').append(
-          '<div class="alert-box secondary">' + ui.item.display + '<a href="#" class="close" data-input-hidden="' + id + '">&times;</a></div>');
+          '<div class="alert-box secondary">' + ui.item.name + '<a href="#" class="close" data-input-hidden="' + id + '">&times;</a></div>');
         $('div.links a.close').click(function() {
           removeLinkedQuestionnaire(this);
         });

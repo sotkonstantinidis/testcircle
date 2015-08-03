@@ -1747,7 +1747,6 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
 
-    @attr('foo')
     def test_edit_questionnaire(self):
 
         # Alice logs in
@@ -1963,9 +1962,8 @@ class QuestionnaireLinkTest(FunctionalTest):
             ']').click()
         # She sees that a field with the name was added
         self.findBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
-            'is key 1a")]')
+            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
+            '"This is key 1a")]')
         # She sees that a hidden field with the id was added
         self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
 
@@ -1996,9 +1994,8 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy('xpath', '//a[contains(@href, "/edit/new/link")]').click()
         self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
         self.findBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
-            'is key 1a")]')
+            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
+            '"This is key 1a")]')
 
         # She deletes the link and submits the form
         self.findBy(
@@ -2069,9 +2066,8 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy(
             'xpath', '//a[contains(@href, "/edit/sample_1/link")]').click()
         self.findBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
-            'is key 1a")]')
+            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
+            '"This is key 1a")]')
         self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
 
         # She deletes the link and submits the entire form
@@ -2115,9 +2111,8 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath',
             '//a[contains(@href, "/edit/samplemulti_1/link")]').click()
         self.findBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
-            'is the first key")]')
+            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
+            '"This is the first key")]')
         self.findBy('xpath', '//input[@id="links__sample__1"]')
 
         # She tries to add the same link again, this does not work.
@@ -2130,9 +2125,8 @@ class QuestionnaireLinkTest(FunctionalTest):
             '//li[@class="ui-menu-item"]//strong[text()="This is the first '
             'key."]').click()
         x = self.findManyBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")]//*[contains(text(), "This '
-            'is the first key")]')
+            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
+            ' "This is the first key")]')
         self.assertEqual(len(x), 1)
         self.findBy(
             'xpath', '//input[contains(@class, "link_search_field")]'

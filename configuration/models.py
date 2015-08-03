@@ -2,6 +2,7 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
+from django.db.models.signals import post_save
 from django.utils.translation import to_locale, get_language
 from django_pgjson.fields import JsonBField
 
@@ -111,6 +112,21 @@ class Configuration(models.Model):
 
     def __str__(self):
         return self.name
+
+
+def update_configuration_cache(sender, instance, **kwargs):
+    """
+    Trigger: If a new Configuration is stored in the database, delete
+    the existing Configuration in the cache.
+    """
+    from .cache import delete_configuration_cache
+    if instance.active is True:
+        delete_configuration_cache(instance)
+
+
+post_save.connect(
+    update_configuration_cache, sender=Configuration,
+    dispatch_uid='update_configuration_cache')
 
 
 class Translation(models.Model):

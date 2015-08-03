@@ -41,3 +41,11 @@ AUTH_API_KEY = ''
 AUTH_LOGIN_FORM = 'https://dev.wocat.net/en/sitefunctions/login.html'
 
 TESTING_FIREFOX_PATH = ''
+
+USE_CACHING = True
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}

@@ -1,0 +1,12 @@
+{% if review_config %}
+  {% include 'details/review_panel.html' %}
+{% endif %}
+
+{% if toc_content %}
+  {% include "details/toc.html" with toc_keyword=keyword %}
+{% endif %}
+
+<a name="{{ keyword }}"></a>
+{% for category in categories %}
+  {{ category }}
+{% endfor %}

@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
-        "data": {"qg_3":[{"key_6":{"en":"... and I am Key 6"}}],"qg_1":[{"key_3":{"en":"And this cannot be empty."},"key_1":{"en":"This is the first key."}}]},
+        "data": {"qg_3":[{"key_6":{"en":"... and I am Key 6"}}],"qg_1":[{"key_3":{"en":"And this cannot be empty."},"key_1":{"en":"This is the first key.","es":"Esto es la clave 1"}}]},
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -48,7 +48,7 @@
     "pk": 3,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1d",
-        "data": {"mqg_01": [{"mkey_01": {"en": "This is key 1a"}}]},
+        "data": {"mqg_01": [{"mkey_01": {"en": "This is key 1a","es":"Esto es clave 1a"}}]},
         "status": 3,
         "version": 1,
         "blocked": false,
@@ -70,7 +70,7 @@
     "pk": 4,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b06",
-        "data": {"mqg_01": [{"mkey_01": {"en": "This is key 1b"}}]},
+        "data": {"mqg_01":[{"mkey_01":{"en":"This is key 1b"}}]},
         "status": 3,
         "version": 1,
         "blocked": false,

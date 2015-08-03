@@ -67,15 +67,15 @@ class IndexTest(TestCase):
         with self.assertRaises(PermissionDenied):
             index(request, 'foo')
 
-    @patch('search.views.QuestionnaireConfiguration')
-    def test_calls_QuestionnaireConfiguration(self, mock_Conf, mock_messages):
+    @patch('search.views.get_configuration')
+    def test_calls_QuestionnaireConfiguration(self, mock_conf, mock_messages):
         index(self.request, 'foo')
-        mock_Conf.assert_callert_once_with('foo')
+        mock_conf.assert_callert_once_with('foo')
 
-    @patch('search.views.QuestionnaireConfiguration')
+    @patch('search.views.get_configuration')
     def test_returns_bad_request_if_errors_in_configuration(
-            self, mock_Conf, mock_messages):
-        mock_Conf.configuration_error = 'error'
+            self, mock_conf, mock_messages):
+        mock_conf.configuration_error = 'error'
         res = index(self.request, 'foo')
         self.assertEqual(res.status_code, 400)
 
@@ -161,15 +161,15 @@ class UpdateTest(TestCase):
         with self.assertRaises(PermissionDenied):
             update(request, 'foo')
 
-    @patch('search.views.QuestionnaireConfiguration')
-    def test_calls_QuestionnaireConfiguration(self, mock_Conf, mock_messages):
+    @patch('search.views.get_configuration')
+    def test_calls_get_configuration(self, mock_conf, mock_messages):
         update(self.request, 'foo')
-        mock_Conf.assert_callert_once_with('foo')
+        mock_conf.assert_callert_once_with('foo')
 
-    @patch('search.views.QuestionnaireConfiguration')
+    @patch('search.views.get_configuration')
     def test_returns_bad_request_if_errors_in_configuration(
-            self, mock_Conf, mock_messages):
-        mock_Conf.configuration_error = 'error'
+            self, mock_conf, mock_messages):
+        mock_conf.configuration_error = 'error'
         res = update(self.request, 'foo')
         self.assertEqual(res.status_code, 400)
 

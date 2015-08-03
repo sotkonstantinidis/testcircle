@@ -16,7 +16,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
 
-from configuration.configuration import QuestionnaireConfiguration
+from configuration.cache import get_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
@@ -51,7 +51,8 @@ from search.search import advanced_search
 
 @login_required
 def generic_questionnaire_link_form(
-        request, configuration_code, url_namespace, page_title='QCAT Links'):
+        request, configuration_code, url_namespace, page_title='QCAT Links',
+        identifier=None):
     """
     A generic view to add or remove linked questionnaires. By default,
     the forms are shown. If the form was submitted, the submitted
@@ -73,11 +74,13 @@ def generic_questionnaire_link_form(
         ``page_title`` (str): The page title to be used in the HTML
         template. Defaults to ``QCAT Form``.
 
+        ``identifier`` (str) The identifier of the Questionnaire if
+        available.
+
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
     links_configuration = questionnaire_configuration.get_links_configuration()
 
     session_questionnaire, session_links = get_session_questionnaire(
@@ -89,12 +92,19 @@ def generic_questionnaire_link_form(
         initial_data = session_links.get(config_code, [])
         link_forms.append(
             ({
+                'search_url': reverse(
+                    '{}:questionnaire_link_search'.format(config_code)),
                 'keyword': config_code,
                 'label': config_code,  # TODO
             }, initial_data))
 
-    overview_url = '{}#links'.format(
-        reverse('{}:questionnaire_new'.format(url_namespace)))
+    if identifier is None:
+        overview_url = '{}#links'.format(
+            reverse('{}:questionnaire_new'.format(url_namespace)))
+    else:
+        overview_url = '{}#links'.format(reverse(
+            '{}:questionnaire_edit'.format(
+                url_namespace), kwargs={'identifier': identifier}))
 
     valid = True
     if request.method == 'POST':
@@ -176,7 +186,7 @@ def generic_questionnaire_link_search(request, configuration_code):
     if q is None:
         return JsonResponse({})
 
-    configuration = QuestionnaireConfiguration(configuration_code)
+    configuration = get_configuration(configuration_code)
 
     total, questionnaires = query_questionnaires_for_link(configuration, q)
 
@@ -307,8 +317,7 @@ def generic_questionnaire_new_step(
 
         return data, True
 
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
     category = questionnaire_configuration.get_category(step)
 
     if category is None:
@@ -410,9 +419,7 @@ def generic_questionnaire_new(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
-
+    questionnaire_configuration = get_configuration(configuration_code)
     if identifier is not None:
         # For edits, copy the data to the session first (if it was
         # edited for the first time only).
@@ -481,16 +488,32 @@ def generic_questionnaire_new(
 
     images = questionnaire_configuration.get_image_data(data)
 
-    display_links = []
-    for linked_configuration, linked_questionnaires in session_links.items():
-        display_links.extend([l.get('display') for l in linked_questionnaires])
+    link_ids = []
+    for __, linked_questionnaires in session_links.items():
+        link_ids.extend([l.get('id') for l in linked_questionnaires])
+
+    links_by_configuration = {}
+    for linked in Questionnaire.objects.filter(id__in=link_ids):
+        configuration = linked.configurations.first()
+        if configuration is None:
+            continue
+        if configuration.code not in links_by_configuration:
+            links_by_configuration[configuration.code] = [linked]
+        else:
+            links_by_configuration[configuration.code].append(linked)
+
+    link_display = {}
+    for configuration, links in links_by_configuration.items():
+        link_display[configuration] = get_list_values(
+            configuration_code=configuration, questionnaire_objects=links,
+            with_links=False)
 
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
         'mode': 'edit',
-        'links': display_links,
+        'links': link_display,
     })
 
 
@@ -520,8 +543,7 @@ def generic_questionnaire_details(
     questionnaire_object = query_questionnaire(request, identifier).first()
     if questionnaire_object is None:
         raise Http404()
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
 
@@ -558,17 +580,28 @@ def generic_questionnaire_details(
 
     images = questionnaire_configuration.get_image_data(data)
 
-    display_links = []
-    link_data = get_link_data(questionnaire_object.links.all())
-    for __, links in link_data.items():
-        display_links.extend([l.get('display') for l in links])
+    links_by_configuration = {}
+    for linked in questionnaire_object.links.all():
+        configuration = linked.configurations.first()
+        if configuration is None:
+            continue
+        if configuration.code not in links_by_configuration:
+            links_by_configuration[configuration.code] = [linked]
+        else:
+            links_by_configuration[configuration.code].append(linked)
+
+    link_display = {}
+    for configuration, links in links_by_configuration.items():
+        link_display[configuration] = get_list_values(
+            configuration_code=configuration, questionnaire_objects=links,
+            with_links=False)
 
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
         'mode': 'view',
-        'links': display_links,
+        'links': link_display,
     })
 
 
@@ -604,8 +637,7 @@ def generic_questionnaire_list(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
 
     # Get the filters and prepare them to be passed to the search.
     active_filters = get_active_filters(

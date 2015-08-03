@@ -1,26 +1,32 @@
 {% load i18n %}
 
-  <section id="{{ keyword }}" class="tech-section row is-rhythmed-4" data-magellan-destination="{{ keyword }}">
+  <section id="{{ keyword }}" class="row" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
 
     <header class="tech-output-header medium-7 columns">
-      <span class="label tech-status label is-draft">Draft</span>
+      {% if metadata.status.0 and metadata.status.0 != 'published' %}
+        <div class="tech-status">
+          <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
+        </div>
+      {% endif %}
       <p class="tech-output-header-info clearfix"><span class="is-muted left">{{ metadata.code }}</span></p>
     </header>
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
       <ul class="tech-output-infos">
         <li>
           <span class="is-muted">{% trans "Creation:" %}</span>
-          <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT" }}</time>
+          <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT"|default:"&ndash;" }}</time>
         </li>
         <li>
           <span class="is-muted">{% trans "Update:" %}</span>
-          <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT" }}</time>
+          <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT"|default:"&ndash;" }}</time>
         </li>
         <li>
           <span class="is-muted">{% if metadata.authors|length > 1 %}{% trans "Authors:" %}{% else %}{% trans "Author:" %}{% endif %}</span>
           {% for author in metadata.authors %}
             <a rel="author" href="#" class="link">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
+          {% empty %}
+            &ndash;
           {% endfor %}
         </li>
       </ul>

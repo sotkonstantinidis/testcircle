@@ -423,6 +423,23 @@ class ConfigurationModelTest(TestCase):
         conf_1.save()
         self.assertIsNone(Configuration.get_active_by_code('sample'))
 
+    @patch('configuration.cache.delete_configuration_cache')
+    def test_save_calls_not_delete_configuration_cache_if_not_active(
+            self, mock_update_configuration_cache):
+        conf_1 = get_valid_configuration_model()
+        conf_1.active = False
+        conf_1.save()
+        self.assertEqual(mock_update_configuration_cache.call_count, 0)
+
+    @patch('configuration.cache.delete_configuration_cache')
+    def test_save_calls_delete_configuration_cache_if_active(
+            self, mock_update_configuration_cache):
+        conf_1 = get_valid_configuration_model()
+        conf_1.active = True
+        conf_1.save()
+        mock_update_configuration_cache.assert_called_once_with(conf_1)
+
+
 
 class ConfigurationModelTestFixtures(TestCase):
 

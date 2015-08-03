@@ -16,10 +16,10 @@
 {% load list_to_columns %}
 
 {% if filter_configuration %}
-  <aside class="form-search-advanced">
+  <aside class="search-advanced">
     <div class="loading-indicator" style="display:none;"></div>
     <form action="" id="search-advanced" data-url="{{ filter_url }}">
-      <a class="form-search-close" data-toggle="search-advanced"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+      <a class="search-close" data-toggle="search-advanced"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
       <div class="row">
         <div class="medium-4 columns">
           <label for="location">Location</label>
