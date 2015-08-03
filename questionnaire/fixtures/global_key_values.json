@@ -2,7 +2,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Common name"}}, "unccd":{"label":{"en": "Title of best practice"}}}
+        "data": {"approaches":{"label":{"en":"Name of the approach"}},"technologies":{"label":{"en":"Common name"}},"unccd":{"label":{"en":"Title of best practice"}}}
     },
     "model": "configuration.translation",
     "pk": 5001
@@ -2038,7 +2038,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en":"General Information"}}, "unccd":{"label":{"en":"General Information"}}}
+        "data": {"approaches":{"label":{"en":"General Information"}},"technologies":{"label":{"en":"General Information"}},"unccd":{"label":{"en":"General Information"}}}
     },
     "model": "configuration.translation",
     "pk": 5981
@@ -2046,7 +2046,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en":"Specifications"}}, "unccd":{"label":{"en":"Specifications"}}}
+        "data": {"approaches":{"label":{"en":"Specifications"}},"technologies":{"label":{"en":"Specifications"}},"unccd":{"label":{"en":"Specifications"}}}
     },
     "model": "configuration.translation",
     "pk": 5982

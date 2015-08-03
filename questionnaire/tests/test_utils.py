@@ -1,4 +1,4 @@
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, call
 from django.http import QueryDict
 
 from accounts.models import User
@@ -806,6 +806,7 @@ class HandleReviewActionsTest(TestCase):
         self.request.user = Mock()
         self.obj = Mock(spec=Questionnaire)
         self.obj.members.filter.return_value = [self.request.user]
+        self.obj.links.all.return_value = []
 
     def test_submit_does_not_update_if_previous_status_not_draft(
             self, mock_messages):
@@ -910,6 +911,22 @@ class HandleReviewActionsTest(TestCase):
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         mock_put_data.assert_called_once_with('sample', [self.obj])
+
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_calls_put_questionnaire_data_for_all_links(
+            self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
+        mock_link = Mock()
+        self.obj.links.all.return_value = [mock_link]
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(mock_put_data.call_count, 2)
+        call_1 = call('sample', [self.obj])
+        call_2 = call(
+            mock_link.configurations.first.return_value.code, [mock_link])
+        mock_put_data.assert_has_calls([call_1, call_2])
 
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_adds_message(self, mock_put_data, mock_messages):

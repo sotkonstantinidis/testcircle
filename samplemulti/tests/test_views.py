@@ -5,7 +5,6 @@ from unittest.mock import patch, Mock
 from accounts.tests.test_authentication import (
     create_new_user,
 )
-from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from samplemulti.views import (
     home,
