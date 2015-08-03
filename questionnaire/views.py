@@ -16,7 +16,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
 
-from configuration.configuration import QuestionnaireConfiguration
+from configuration.cache import get_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
@@ -80,8 +80,7 @@ def generic_questionnaire_link_form(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
     links_configuration = questionnaire_configuration.get_links_configuration()
 
     session_questionnaire, session_links = get_session_questionnaire(
@@ -187,7 +186,7 @@ def generic_questionnaire_link_search(request, configuration_code):
     if q is None:
         return JsonResponse({})
 
-    configuration = QuestionnaireConfiguration(configuration_code)
+    configuration = get_configuration(configuration_code)
 
     total, questionnaires = query_questionnaires_for_link(configuration, q)
 
@@ -318,8 +317,7 @@ def generic_questionnaire_new_step(
 
         return data, True
 
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
     category = questionnaire_configuration.get_category(step)
 
     if category is None:
@@ -421,9 +419,7 @@ def generic_questionnaire_new(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
-
+    questionnaire_configuration = get_configuration(configuration_code)
     if identifier is not None:
         # For edits, copy the data to the session first (if it was
         # edited for the first time only).
@@ -547,8 +543,7 @@ def generic_questionnaire_details(
     questionnaire_object = query_questionnaire(request, identifier).first()
     if questionnaire_object is None:
         raise Http404()
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
     data = get_questionnaire_data_in_single_language(
         questionnaire_object.data, get_language())
 
@@ -642,8 +637,7 @@ def generic_questionnaire_list(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    questionnaire_configuration = get_configuration(configuration_code)
 
     # Get the filters and prepare them to be passed to the search.
     active_filters = get_active_filters(

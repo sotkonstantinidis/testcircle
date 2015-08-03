@@ -339,12 +339,10 @@ class CreateOrUpdateIndexTest(TestCase):
 class PutQuestionnaireDataTest(TestCase):
 
     @patch('search.index.es')
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration, mock_es):
-        mock_QuestionnaireConfiguration.return_value = None
+    @patch('search.index.ConfigurationList')
+    def test_creates_configuration_list(self, mock_ConfList, mock_es):
         put_questionnaire_data('foo', [])
-        mock_QuestionnaireConfiguration.assert_called_once_with('foo')
+        mock_ConfList.assert_called_once_with()
 
     @patch('search.index.es')
     @patch('search.index.get_alias')

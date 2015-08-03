@@ -480,7 +480,6 @@ class ListTestLinks(FunctionalTest):
         super(ListTestLinks, self).tearDown()
         delete_all_indices()
 
-    @attr('foo')
     def test_list_displays_links_home(self):
 
         # Alice is not logged in. She goes to the SAMPLE landing page

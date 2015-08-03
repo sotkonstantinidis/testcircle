@@ -93,13 +93,6 @@ class SampleMultiHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(self, mock_Q_Conf):
-        mock_Q_Conf.return_value = None
-        with self.assertRaises(AttributeError):
-            self.client.get(self.url)
-        mock_Q_Conf.assert_called_once_with('samplemulti')
-
     @patch('samplemulti.views.generic_questionnaire_list')
     def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
         request = self.factory.get(self.url)

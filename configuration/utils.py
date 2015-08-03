@@ -2,9 +2,7 @@ import random
 import string
 
 from django.db.models import Q
-from configuration.configuration import (
-    QuestionnaireConfiguration,
-)
+from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire
 
 
@@ -95,7 +93,7 @@ class ConfigurationList(object):
     def get(self, code):
         configuration = self.configurations.get(code)
         if configuration is None:
-            configuration = QuestionnaireConfiguration(code)
+            configuration = get_configuration(code)
             self.configurations[code] = configuration
         return configuration
 
