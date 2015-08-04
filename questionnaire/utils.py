@@ -79,10 +79,14 @@ def clean_questionnaire_data(data, configuration):
                     qg_keyword, questiongroup.max_num, len(qg_data_list)))
             continue
         cleaned_qg_list = []
+        ordered_qg = False
         for qg_data in qg_data_list:
             cleaned_qg = {}
             for key, value in qg_data.items():
                 if not value and not isinstance(value, (bool, int)):
+                    continue
+                if key == '__order':
+                    cleaned_qg['__order'] = value
                     continue
                 question = questiongroup.get_question_by_key_keyword(key)
                 if question is None:
@@ -156,7 +160,14 @@ def clean_questionnaire_data(data, configuration):
                 if value or isinstance(value, (bool, int)):
                     cleaned_qg[key] = value
             if cleaned_qg:
+                if len(cleaned_qg) == 1 and '__order' in cleaned_qg:
+                    continue
                 cleaned_qg_list.append(cleaned_qg)
+                if '__order' in cleaned_qg:
+                    ordered_qg = True
+        if ordered_qg is True:
+            cleaned_qg_list = sorted(
+                cleaned_qg_list, key=lambda qg: qg.get('__order', 0))
         if cleaned_qg_list:
             cleaned_data[qg_keyword] = cleaned_qg_list
         if cleaned_qg_list and questiongroup.questiongroup_condition:
@@ -974,6 +985,21 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         added, errors = put_questionnaire_data(
             configuration_code, [questionnaire_object])
+
+        # It is important to also put the data of the linked
+        # questionnaires so changes (eg. name change) appear in their
+        # links.
+        links_by_configuration = {}
+        for link in questionnaire_object.links.all():
+            configuration_object = link.configurations.first()
+            if configuration_object is None:
+                continue
+            if configuration_object.code not in links_by_configuration:
+                links_by_configuration[configuration_object.code] = []
+            links_by_configuration[configuration_object.code].append(link)
+
+        for link_configuration, links in links_by_configuration.items():
+            added, errors = put_questionnaire_data(link_configuration, links)
 
         messages.success(
             request, _('The questionnaire was successfully published.'))

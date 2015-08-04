@@ -770,6 +770,14 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         for f in self.questions:
             formfields, templates = f.add_form(
                 formfields, templates, show_translation)
+
+        if self.numbered != '':
+            formfields['__order'] = forms.IntegerField(
+                label='order', widget=forms.HiddenInput())
+            if isinstance(initial_data, list):
+                initial_data = sorted(
+                    initial_data, key=lambda qg: qg.get('__order', 0))
+
         Form = type('Form', (forms.Form,), formfields)
 
         formset_options = {
