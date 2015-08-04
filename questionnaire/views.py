@@ -651,7 +651,8 @@ def generic_questionnaire_list(
         elif filter_type in ['checkbox', 'image_checkbox']:
             filter_params.append(
                 (active_filter.get('questiongroup'),
-                 active_filter.get('key'), active_filter.get('value'), None))
+                 active_filter.get('key'), active_filter.get('value'), None,
+                 active_filter.get('type')))
         else:
             raise NotImplementedError(
                 'Type "{}" is not valid for filters'.format(filter_type))

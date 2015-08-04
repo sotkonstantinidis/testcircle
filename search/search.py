@@ -45,6 +45,8 @@ def advanced_search(
 
             [3]: operator
 
+            [4]: type (eg. checkbox / text)
+
         ``query_string`` (str): A query string for the full text search.
 
         ``code`` (str): The code of the questionnaire to search.
@@ -74,19 +76,35 @@ def advanced_search(
         questiongroup = filter_param[0]
         key = filter_param[1]
         value = filter_param[2]
+        filter_type = filter_param[4]
 
-        nested_questiongroups.append({
-            "nested": {
-                "path": "data.{}".format(questiongroup),
-                "query": {
-                    "multi_match": {
-                        "query": value,
-                        "fields": ["data.{}.{}.*".format(questiongroup, key)],
-                        "type": "most_fields",
+        if filter_type in ['checkbox', 'image_checkbox']:
+            nested_questiongroups.append({
+                "nested": {
+                    "path": "data.{}".format(questiongroup),
+                    "query": {
+                        "query_string": {
+                            "query": value,
+                            "fields": ["data.{}.{}".format(questiongroup, key)]
+                        }
                     }
                 }
-            }
-        })
+            })
+
+        elif filter_type in ['text', 'char']:
+            nested_questiongroups.append({
+                "nested": {
+                    "path": "data.{}".format(questiongroup),
+                    "query": {
+                        "multi_match": {
+                            "query": value,
+                            "fields": ["data.{}.{}.*".format(
+                                questiongroup, key)],
+                            "type": "most_fields",
+                        }
+                    }
+                }
+            })
 
     # Qurey string: Full text search
     if query_string:
@@ -125,5 +143,7 @@ def advanced_search(
             }
         ]
     }
+
+    print(query)
 
     return es.search(index=alias, body=query, size=limit)

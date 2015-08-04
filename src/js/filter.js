@@ -25,27 +25,23 @@ $(function() {
     return false;
   });
 
-  // Filter modification
-  // -----------------
-  // Checkbox: Add or remove a filter
-  $('#search-advanced input:checkbox').change(function() {
-    var $t = $(this),
-        questiongroup = $t.data('questiongroup'),
-        key = $t.data('key'),
-        value = $t.data('value'),
-        p;
+  // Button to submit the filter
+  $('#submit-filter').click(function() {
+    var p = {};
 
-    if ($t.is(':checked')) {
-      p = addFilter(questiongroup, key, value);
-    } else {
-      p = removeFilter(questiongroup, key, value);
-    }
+    // Checkboxes
+    $('#search-advanced input:checkbox').each(function() {
+      var $t = $(this);
+      if ($t.is(':checked')) {
+        p = addFilter($t.data('questiongroup'), $t.data('key'), $t.data('value'));
+      }
+    });
 
     var s = ['?', $.param(p, traditional=true)].join('');
     changeUrl(s);
     updateFilter(s);
+    return false;
   });
-
 });
 
 /**
