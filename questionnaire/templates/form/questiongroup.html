@@ -14,7 +14,7 @@
 {% load floppyforms %}
 {% load list_to_columns %}
 
-<div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %} class="questiongroup{% if config.numbered %} questiongroup-numbered-{{ config.numbered }}{% endif %}">
+<div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %} class="questiongroup{% if config.numbered %} questiongroup-numbered-{{ config.numbered }}{% endif %}{% if config.numbered == 'prefix' %} sortable{% endif %}">
 
   {% if config.detail_level %}
     <ul class="accordion plus-questiongroup" role="tablist" data-accordion="">
@@ -40,7 +40,7 @@
         {% if config.numbered == 'prefix' %}
           <div class="row">
             <div class="questiongroup-numbered-left">
-              <p class="questiongroup-numbered-number"></p>
+              <p class="questiongroup-numbered-number"></p><span class="has-tip" title="{% trans 'Drag and drop the number to order the list' %}" aria-haspopup="true" data-tooltip="">?</span>
             </div>
             <div class="questiongroup-numbered-right">
         {% endif %}

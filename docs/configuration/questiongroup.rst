@@ -148,6 +148,9 @@ numbered. Possible values are ``inline`` (numbering inside field label)
 or ``prefix`` (numbering indented before fields). If not specified, no
 numbering is used.
 
+.. hint::
+    If possible, ``prefix`` should be used.
+
 ``detail_level``
 ^^^^^^^^^^^^^^^^
 

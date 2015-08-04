@@ -114,6 +114,10 @@ function updateNumbering() {
   });
   $('.questiongroup-numbered-prefix').each(function() {
     var counter = 1;
+    $(this).find('input[id$=__order]').each(function() {
+      $(this).val(counter++);
+    });
+    counter = 1;
     $(this).find('.questiongroup-numbered-number').each(function() {
       $(this).html(counter++ + ':');
     });
@@ -219,6 +223,17 @@ $(function() {
     otherItems.find('[data-remove-this]').show();
 
     var lastItem = container.prev('.list-item');
+    var doNumberingUpdate = false;
+    if (!lastItem.length) {
+      // The element might be numbered, in which case it needs to be
+      // accessed differently
+      if (container.parent('.questiongroup-numbered-prefix').length) {
+        lastItem = container.prev('.row');
+        doNumberingUpdate = true;
+      }
+    }
+    if (!lastItem.length) return;
+
     newElement = lastItem.clone();
 
     updateFieldsetElement(newElement, qg, currentCount, true);
@@ -227,6 +242,10 @@ $(function() {
     currentCount++;
     $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
     $(this).toggle(currentCount < maxCount);
+
+    if (doNumberingUpdate) {
+      updateNumbering();
+    }
   })
 
   // BUTTON BAR

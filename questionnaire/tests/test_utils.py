@@ -251,6 +251,33 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 
+    def test_orders_questiongroups(self):
+        data = {'qg_7': [
+            {'key_9': {'en': 'Key 9 - 1'}, '__order': 2},
+            {'key_9': {'en': 'Key 9 - 2'}, '__order': 1},
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 0)
+        self.assertEqual(cleaned['qg_7'][0]['key_9']['en'], 'Key 9 - 2')
+        self.assertEqual(cleaned['qg_7'][1]['key_9']['en'], 'Key 9 - 1')
+
+    def test_questiongroups_can_be_unordered(self):
+        data = {'qg_7': [
+            {'key_9': {'en': 'Key 9 - 1'}},
+            {'key_9': {'en': 'Key 9 - 2'}},
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 0)
+
+    def test_questiongroup_is_removed_if_only_order(self):
+        data = {'qg_7': [
+            {'__order': 1},
+            {'__order': 2},
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 0)
+        self.assertEqual(cleaned, {})
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 

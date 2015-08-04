@@ -215,6 +215,13 @@ $(function() {
   // Select inputs with chosen
   $(".chosen-select").chosen();
 
+  $('.sortable').sortable({
+    handle: '.questiongroup-numbered-number',
+    placeholder: 'sortable-placeholder',
+    forcePlaceholderSize: true,
+    stop: updateNumbering
+  });
+
   // Search a linked Questionnaire through AJAX autocomplete.
   if ($.fn.autocomplete) {
     $('.link_search_field').autocomplete({
