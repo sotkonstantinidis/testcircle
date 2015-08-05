@@ -8,10 +8,7 @@ from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_list_values
 from search.index import (
-    create_or_update_index,
     delete_all_indices,
-    get_mappings,
-    put_questionnaire_data,
 )
 from search.search import (
     advanced_search,
@@ -73,19 +70,20 @@ class AdvancedSearchTest(TestCase):
 
     def test_advanced_search(self):
         key_search = advanced_search(
-            filter_params=[('qg_1', 'key_1', 'key', 'eq')],
+            filter_params=[('qg_1', 'key_1', 'key', 'eq', 'char')],
             configuration_codes=['sample']).get('hits')
         self.assertEqual(key_search.get('total'), 2)
 
         one_search = advanced_search(
-            filter_params=[('qg_1', 'key_1', 'one', 'eq')],
+            filter_params=[('qg_1', 'key_1', 'one', 'eq', 'char')],
             configuration_codes=['sample']).get('hits')
         self.assertEqual(one_search.get('total'), 1)
 
     def test_advanced_search_multiple_arguments(self):
         search_1 = advanced_search(
             filter_params=[
-                ('qg_1', 'key_1', 'key', 'eq'), ('qg_19', 'key_5', '5', 'eq')],
+                ('qg_1', 'key_1', 'key', 'eq', 'char'),
+                ('qg_19', 'key_5', '5', 'eq', 'char')],
             configuration_codes=['sample']).get('hits')
         self.assertEqual(search_1.get('total'), 1)
 
@@ -106,8 +104,9 @@ class GetListValuesTest(TestCase):
 
     def test_returns_same_result_for_es_search_and_db_objects(self):
         res_1 = get_list_values(
-            configuration_code='sample', es_search=simple_search(
-                'key', configuration_codes=['sample']))
+            configuration_code='sample', es_hits=simple_search(
+                'key', configuration_codes=['sample']).get(
+                'hits', {}).get('hits', []))
         ids = [q.get('id') for q in res_1]
         res_2 = get_list_values(
             configuration_code='sample',
@@ -125,8 +124,9 @@ class GetListValuesTest(TestCase):
 
     def test_returns_results_for_non_native_results(self):
         res = get_list_values(
-            configuration_code='sample', es_search=simple_search(
-                'key', configuration_codes=['samplemulti']))
+            configuration_code='sample', es_hits=simple_search(
+                'key', configuration_codes=['samplemulti']).get(
+                'hits', {}).get('hits', []))
         self.assertEqual(len(res), 1)
         res = res[0]
         self.assertEqual(res.get('configuration'), 'sample')

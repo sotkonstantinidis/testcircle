@@ -46,6 +46,13 @@ from questionnaire.utils import (
     query_questionnaire,
     query_questionnaires,
 )
+from questionnaire.view_utils import (
+    ESPagination,
+    get_page_parameter,
+    get_pagination_parameters,
+    get_paginator,
+    get_limit_parameter,
+)
 from search.search import advanced_search
 
 
@@ -606,7 +613,7 @@ def generic_questionnaire_details(
 
 
 def generic_questionnaire_list(
-        request, configuration_code, template=None, filter_url='', limit=10,
+        request, configuration_code, template=None, filter_url='', limit=None,
         only_current=False, db_query=False):
     """
     A generic view to show a list of questionnaires.
@@ -657,10 +664,20 @@ def generic_questionnaire_list(
             raise NotImplementedError(
                 'Type "{}" is not valid for filters'.format(filter_type))
 
+    if limit is None:
+        limit = get_limit_parameter(request)
+    page = get_page_parameter(request)
+    offset = page * limit - limit
+
     if db_query is True:
-        questionnaires = query_questionnaires(
+
+        # Limit is handled by the paginator
+        questionnaire_objects = query_questionnaires(
             request, configuration_code, only_current=only_current,
-            limit=limit)
+            limit=None)
+
+        questionnaires, paginator = get_paginator(
+            questionnaire_objects, page, limit)
 
         list_values = get_list_values(
             configuration_code=configuration_code,
@@ -672,10 +689,17 @@ def generic_questionnaire_list(
 
         search = advanced_search(
             filter_params=filter_params, query_string=query_string,
-            configuration_codes=search_configuration_codes, limit=limit)
+            configuration_codes=search_configuration_codes, limit=limit,
+            offset=offset)
+
+        es_hits = search.get('hits', {})
+        es_pagination = ESPagination(
+            es_hits.get('hits', []), es_hits.get('total', 0))
+
+        questionnaires, paginator = get_paginator(es_pagination, page, limit)
 
         list_values = get_list_values(
-            configuration_code=configuration_code, es_search=search)
+            configuration_code=configuration_code, es_hits=questionnaires)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\
@@ -687,6 +711,11 @@ def generic_questionnaire_list(
         'active_filters': active_filters,
         'filter_url': filter_url,
     }
+
+    # Add the pagination parameters
+    pagination_params = get_pagination_parameters(
+        request, paginator, questionnaires)
+    template_values.update(pagination_params)
 
     if template is None:
         return template_values

@@ -31,7 +31,7 @@ def simple_search(query_string, configuration_codes=[]):
 
 def advanced_search(
         filter_params=[], query_string='', code='', name='',
-        configuration_codes=[], limit=10):
+        configuration_codes=[], limit=10, offset=0):
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -106,7 +106,7 @@ def advanced_search(
                 }
             })
 
-    # Qurey string: Full text search
+    # Query string: Full text search
     if query_string:
         nested_questiongroups.append({
             "query_string": {
@@ -144,6 +144,4 @@ def advanced_search(
         ]
     }
 
-    print(query)
-
-    return es.search(index=alias, body=query, size=limit)
+    return es.search(index=alias, body=query, size=limit, from_=offset)
