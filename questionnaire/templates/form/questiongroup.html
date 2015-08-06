@@ -28,7 +28,7 @@
   {% endif %}
 
   {% if config.helptext %}
-    <p class="help-bloc">{{ config.helptext }}</p>
+    <div class="help-bloc">{{ config.helptext|safe }}</div>
   {% endif %}
 
   {{ formset.management_form }}

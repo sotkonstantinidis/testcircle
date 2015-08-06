@@ -203,6 +203,9 @@ class Translation(models.Model):
                 locale)
         return translation
 
+    def get_numbering(self, configuration):
+        return self.data.get(configuration, {}).get('numbering')
+
     def __str__(self):
         return self.data.get(settings.LANGUAGES[0][0], '-')
 

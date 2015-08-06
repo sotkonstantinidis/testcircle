@@ -12,7 +12,7 @@
       <div class="row">
         <div class="columns small-12 medium-9">
           <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back" %}</a>
-          <h2 class="wizard-header-title">{{ category_config.label }}</h2>
+          <h2 class="wizard-header-title">{{ category_config.numbering|default:'' }} {{ category_config.label }}</h2>
           <div class="progress">
             <span class="meter" style="width:0%"></span>
           </div>

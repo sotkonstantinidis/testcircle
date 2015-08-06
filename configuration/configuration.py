@@ -97,12 +97,15 @@ class BaseConfigurationObject(object):
 
         self.helptext = ''
         self.label = ''
+        self.numbering = ''
         translation = self.configuration_object.translation
         if translation:
             self.helptext = translation.get_translation(
                 'helptext', self.configuration_keyword)
             self.label = translation.get_translation(
                 'label', self.configuration_keyword)
+            self.numbering = translation.get_numbering(
+                self.configuration_keyword)
 
         # Should be at the bottom of the function
         children = []
@@ -943,6 +946,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         formsets = []
         config = {
             'label': self.label,
+            'numbering': self.numbering,
             'form_template': self.form_template,
         }
         for questiongroup in self.questiongroups:
@@ -1098,7 +1102,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation))
         config = {
-            'label': self.label
+            'label': self.label,
+            'numbering': self.numbering,
         }
         return config, subcategory_formsets
 
@@ -1133,6 +1138,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'raw_data': raw_data,
                 'metadata': metadata,
                 'label': self.label,
+                'numbering': self.numbering,
                 'keyword': self.keyword,
                 'editable': editable,
                 'complete': with_content,
