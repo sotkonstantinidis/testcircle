@@ -2097,6 +2097,54 @@
     "model": "configuration.translation",
     "pk": 5752
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "0%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5753
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1-25%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5754
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "26-50%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5755
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "51-75%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5756
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "76-99%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5757
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "100%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5758
+},
 
 
 {
@@ -4236,6 +4284,60 @@
     },
     "model": "configuration.value",
     "pk": 252
+},
+{
+    "fields": {
+        "keyword": "percentage_q0",
+        "translation": 5753,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 253
+},
+{
+    "fields": {
+        "keyword": "percentage_q1",
+        "translation": 5754,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 254
+},
+{
+    "fields": {
+        "keyword": "percentage_q2",
+        "translation": 5755,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 255
+},
+{
+    "fields": {
+        "keyword": "percentage_q3",
+        "translation": 5756,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 256
+},
+{
+    "fields": {
+        "keyword": "percentage_q4",
+        "translation": 5757,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 257
+},
+{
+    "fields": {
+        "keyword": "percentage_q5",
+        "translation": 5758,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 258
 },
 
 

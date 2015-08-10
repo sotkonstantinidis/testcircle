@@ -279,7 +279,190 @@
     "model": "configuration.translation",
     "pk": 1035
 },
-
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Technical specifications (related to technical drawing)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1036
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Activity"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1037
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Type of measure"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1038
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Timing"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1039
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Labour (person-days)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1040
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Specify/quantify inputs and costs (in US$), if possible"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1041
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Equipment (US$)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1042
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Agricultural (US$)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1043
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Construction material (US$)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1044
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Specify area to which the following information refers (e.g. number of hectares, acres)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1045
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "If not referring to an area, specify unit (e.g. dam)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1046
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Total costs for establishment"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1047
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Percentage of total establishment costs (including labour and inputs) borne by land users"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1048
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Total costs for maintenance"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1049
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Percentage of total maintenance costs (including labour and inputs) borne by land users"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1050
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Indicate exchange rate used: 1 US$ equals"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1051
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Name of local currency"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1052
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Indicate daily wage cost of hired labour to implement conservation measures (US$ per person day)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1053
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Indicate the date for which the costs apply"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1054
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Indicate for which situation the above costs were calculated (eg length of structure, wind breaks, grass strips, etc. per ha of land affected / protected)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1055
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Describe the most determinate factors affecting the costs"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1056
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Total establishment costs for this technology are (compared to the local context)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1057
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Total maintenance costs for this technology are (compared to the local context)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1058
+},
 
 
 {
@@ -858,6 +1041,70 @@
     "model": "configuration.translation",
     "pk": 1572
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "0"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1573
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1-10"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1574
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "11-50"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1575
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "51-100"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1576
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "101-250"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1577
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "251-500"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1578
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "501-1000"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1579
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": ">1000"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1580
+},
 
 
 
@@ -973,6 +1220,30 @@
     "model": "configuration.translation",
     "pk": 2214
 },
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": {"technologies":{"helptext":{"en":"Please indicate any technical specifications available, such as:<ul><li>Dimensions (height, depth, width, length) of structures or vegetative elements;</li><li>Spacing between structures or plants / vegetative measures</li><li>Vertical intervals structures or vegetative measures</li><li>Slope angle (before and after implementation of SLM technology)</li><li>Lateral gradient of structures</li><li>Capacity of dams, ponds, etc.</li><li>Catchment area and beneficial area of dams, ponds, other water harvesting systems</li><li>Construction material used</li><li>Species used</li><li>Quantity / density of plants (per ha)</li></ul>"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 2215
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": {"technologies":{"helptext":{"en":"Notes to implementation activities, inputs and costs<ul><li>A distinction is made between initial establishment (construction, initiation) and maintenance / recurrent annual activities.</li><li>List activities and inputs and calculate costs for a typical (most common) situation within your conservation area. Indicate what inputs would cost today.</li><li>Indicate all conservation-related activities, inputs and costs (to land users, projects, etc.) of the Technology that are additional to ordinary field operations. In case the ordinary field operations have changed / are part of the Technology (eg conservation agriculture) describe all activities. </li><li>In case the objective is to compare two situations i.e. after / with SLM measures (eg conservation agriculture) and before / without SLM measures (eg conventional agriculture) fill in two questionnaires (refer to page iii)</li><li>Exclude costs for awareness creation, planning, training, research, and financial / material support (these will be addressed in Approach questionnaire 2.3.2.2)</li><li>Activities, inputs and costs preferably should be indicated per area (per hectare) to guarantee comparability between different technologies. Include not only the area which is directly covered by SLM measures (eg the area that is covered with stone walls, tree lines, ditches) but also for the area that is indirectly affected / protected by the conservation measures.</li><li>Where necessary, inputs and costs can alternatively be calculated per unit (other than ha) such as per entity (eg  dam) or per length (eg meter grass strip, meter, tone, line)</li><li>Give US dollar equivalent costs against current exchange rate where possible.</li><li>It may be very difficult to determine the costs of a SLM technology. Nevertheless, we ask you to give your best estimate!</li></ul>"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 2216
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": {"technologies":{"label":{"en":"Rating of costs considering the local context"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 2217
+},
 
 
 
@@ -1056,6 +1327,46 @@
     "model": "configuration.translation",
     "pk": 2710
 },
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"technologies":{"label":{"en": "Technical specifications (related to technical drawing)"},"numbering":"4.2"}}
+    },
+    "model": "configuration.translation",
+    "pk": 2711
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"technologies":{"label":{"en": "Establishment activities"},"numbering":"5.1"}}
+    },
+    "model": "configuration.translation",
+    "pk": 2712
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"technologies":{"label":{"en": "Inputs needed for establishment"},"numbering":"5.2"}}
+    },
+    "model": "configuration.translation",
+    "pk": 2713
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"technologies":{"label":{"en": "Maintenance activities"},"numbering":"5.3"}}
+    },
+    "model": "configuration.translation",
+    "pk": 2714
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"technologies":{"label":{"en": "Inputs needed for maintenance"},"numbering":"5.4"}}
+    },
+    "model": "configuration.translation",
+    "pk": 2715
+},
 
 
 
@@ -1083,6 +1394,23 @@
     "model": "configuration.translation",
     "pk": 2903
 },
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"technologies":{"label":{"en": "Technical specifications"},"numbering":"4."}}
+    },
+    "model": "configuration.translation",
+    "pk": 2904
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"technologies":{"label":{"en": "Implementation steps, inputs and costs"},"numbering":"5."}}
+    },
+    "model": "configuration.translation",
+    "pk": 2905
+},
+
 
 
 {
@@ -1621,6 +1949,398 @@
     },
     "model": "configuration.key",
     "pk": 1055
+},
+{
+    "fields": {
+        "keyword": "tech_tech_specifications",
+        "translation": 1036,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 1056
+},
+{
+    "fields": {
+        "keyword": "tech_tech_specifications_comments",
+        "translation": 5004,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 1057
+},
+{
+    "fields": {
+        "keyword": "tech_est_activity",
+        "translation": 1037,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1058
+},
+{
+    "fields": {
+        "keyword": "tech_est_type",
+        "translation": 1038,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1059
+},
+{
+    "fields": {
+        "keyword": "tech_est_timing",
+        "translation": 1039,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1060
+},
+{
+    "fields": {
+        "keyword": "tech_est_comments",
+        "translation": 5004,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 1061
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_labour",
+        "translation": 1040,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1062
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_specify",
+        "translation": 1041,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1063
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_equipment",
+        "translation": 1042,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1064
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_agricultural",
+        "translation": 1043,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1065
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_material",
+        "translation": 1044,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1066
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_other_specify",
+        "translation": 1008,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1067
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_other_measure",
+        "translation": 1008,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1068
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_area",
+        "translation": 1045,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1069
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_unit",
+        "translation": 1046,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1070
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_total",
+        "translation": 1047,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1071
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_percentage",
+        "translation": 1048,
+        "configuration": {"type": "measure"},
+        "values": [253, 254, 255, 256, 257, 258]
+    },
+    "model": "configuration.key",
+    "pk": 1072
+},
+{
+    "fields": {
+        "keyword": "tech_input_est_comments",
+        "translation": 5004,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 1073
+},
+{
+    "fields": {
+        "keyword": "tech_maint_activity",
+        "translation": 1037,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1074
+},
+{
+    "fields": {
+        "keyword": "tech_maint_type",
+        "translation": 1038,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1075
+},
+{
+    "fields": {
+        "keyword": "tech_maint_timing",
+        "translation": 1039,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1076
+},
+{
+    "fields": {
+        "keyword": "tech_maint_comments",
+        "translation": 5004,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 1077
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_labour",
+        "translation": 1040,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1078
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_specify",
+        "translation": 1041,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1079
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_equipment",
+        "translation": 1042,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1080
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_agricultural",
+        "translation": 1043,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1081
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_material",
+        "translation": 1044,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1082
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_other_specify",
+        "translation": 1008,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1083
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_other_measure",
+        "translation": 1008,
+        "configuration": {"type": "measure"},
+        "values": [1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080]
+    },
+    "model": "configuration.key",
+    "pk": 1084
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_area",
+        "translation": 1045,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1085
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_unit",
+        "translation": 1046,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1086
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_total",
+        "translation": 1049,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1087
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_percentage",
+        "translation": 1050,
+        "configuration": {"type": "measure"},
+        "values": [253, 254, 255, 256, 257, 258]
+    },
+    "model": "configuration.key",
+    "pk": 1088
+},
+{
+    "fields": {
+        "keyword": "tech_input_maint_comments",
+        "translation": 5004,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 1089
+},
+{
+    "fields": {
+        "keyword": "tech_exchange_rate",
+        "translation": 1051,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1090
+},
+{
+    "fields": {
+        "keyword": "tech_local_currency",
+        "translation": 1052,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1091
+},
+{
+    "fields": {
+        "keyword": "tech_daily_wage",
+        "translation": 1053,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1092
+},
+{
+    "fields": {
+        "keyword": "tech_costs_date",
+        "translation": 1054,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1093
+},
+{
+    "fields": {
+        "keyword": "tech_costs_situation",
+        "translation": 1055,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1094
+},
+{
+    "fields": {
+        "keyword": "tech_costs_factors",
+        "translation": 1056,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 1095
+},
+{
+    "fields": {
+        "keyword": "tech_costs_est_compared",
+        "translation": 1057,
+        "configuration": {"type": "measure"},
+        "values": [250, 251, 252]
+    },
+    "model": "configuration.key",
+    "pk": 1096
+},
+{
+    "fields": {
+        "keyword": "tech_costs_maint_compared",
+        "translation": 1058,
+        "configuration": {"type": "measure"},
+        "values": [250, 251, 252]
+    },
+    "model": "configuration.key",
+    "pk": 1097
 },
 
 
@@ -2202,6 +2922,70 @@
     "model": "configuration.value",
     "pk": 1072
 },
+{
+    "fields": {
+        "keyword": "cost_investment_0",
+        "translation": 1573
+    },
+    "model": "configuration.value",
+    "pk": 1073
+},
+{
+    "fields": {
+        "keyword": "cost_investment_1_10",
+        "translation": 1574
+    },
+    "model": "configuration.value",
+    "pk": 1074
+},
+{
+    "fields": {
+        "keyword": "cost_investment_11_50",
+        "translation": 1575
+    },
+    "model": "configuration.value",
+    "pk": 1075
+},
+{
+    "fields": {
+        "keyword": "cost_investment_51_100",
+        "translation": 1576
+    },
+    "model": "configuration.value",
+    "pk": 1076
+},
+{
+    "fields": {
+        "keyword": "cost_investment_101_250",
+        "translation": 1577
+    },
+    "model": "configuration.value",
+    "pk": 1077
+},
+{
+    "fields": {
+        "keyword": "cost_investment_251_500",
+        "translation": 1578
+    },
+    "model": "configuration.value",
+    "pk": 1078
+},
+{
+    "fields": {
+        "keyword": "cost_investment_501_1000",
+        "translation": 1579
+    },
+    "model": "configuration.value",
+    "pk": 1079
+},
+{
+    "fields": {
+        "keyword": "cost_investment_1000plus",
+        "translation": 1580
+    },
+    "model": "configuration.value",
+    "pk": 1080
+},
 
 
 
@@ -2655,6 +3439,195 @@
     "model": "configuration.questiongroup",
     "pk": 1050
 },
+{
+    "fields": {
+        "keyword": "tech_qg_33",
+        "translation": 2215,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1051
+},
+{
+    "fields": {
+        "keyword": "tech_qg_34",
+        "translation": 2216,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1052
+},
+{
+    "fields": {
+        "keyword": "tech_qg_35",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1053
+},
+{
+    "fields": {
+        "keyword": "tech_qg_36",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1054
+},
+{
+    "fields": {
+        "keyword": "tech_qg_37",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1055
+},
+{
+    "fields": {
+        "keyword": "tech_qg_38",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1056
+},
+{
+    "fields": {
+        "keyword": "tech_qg_39",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1057
+},
+{
+    "fields": {
+        "keyword": "tech_qg_40",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1058
+},
+{
+    "fields": {
+        "keyword": "tech_qg_41",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1059
+},
+{
+    "fields": {
+        "keyword": "tech_qg_42",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1060
+},
+{
+    "fields": {
+        "keyword": "tech_qg_43",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1061
+},
+{
+    "fields": {
+        "keyword": "tech_qg_44",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1062
+},
+{
+    "fields": {
+        "keyword": "tech_qg_45",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1063
+},
+{
+    "fields": {
+        "keyword": "tech_qg_46",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1064
+},
+{
+    "fields": {
+        "keyword": "tech_qg_47",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1065
+},
+{
+    "fields": {
+        "keyword": "tech_qg_48",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1066
+},
+{
+    "fields": {
+        "keyword": "tech_qg_49",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1067
+},
+{
+    "fields": {
+        "keyword": "tech_qg_50",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1068
+},
+{
+    "fields": {
+        "keyword": "tech_qg_51",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1069
+},
+{
+    "fields": {
+        "keyword": "tech_qg_52",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1070
+},
+{
+    "fields": {
+        "keyword": "tech_qg_53",
+        "translation": 2217,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1071
+},
 
 
 
@@ -2738,6 +3711,46 @@
     "model": "configuration.category",
     "pk": 1010
 },
+{
+    "fields": {
+        "keyword": "tech__4__2",
+        "translation": 2711
+    },
+    "model": "configuration.category",
+    "pk": 1011
+},
+{
+    "fields": {
+        "keyword": "tech__5__1",
+        "translation": 2712
+    },
+    "model": "configuration.category",
+    "pk": 1012
+},
+{
+    "fields": {
+        "keyword": "tech__5__2",
+        "translation": 2713
+    },
+    "model": "configuration.category",
+    "pk": 1013
+},
+{
+    "fields": {
+        "keyword": "tech__5__3",
+        "translation": 2714
+    },
+    "model": "configuration.category",
+    "pk": 1014
+},
+{
+    "fields": {
+        "keyword": "tech__5__4",
+        "translation": 2715
+    },
+    "model": "configuration.category",
+    "pk": 1015
+},
 
 
 
@@ -2765,6 +3778,23 @@
     "model": "configuration.category",
     "pk": 1703
 },
+{
+    "fields": {
+        "keyword": "tech__4",
+        "translation": 2904
+    },
+    "model": "configuration.category",
+    "pk": 1704
+},
+{
+    "fields": {
+        "keyword": "tech__5",
+        "translation": 2905
+    },
+    "model": "configuration.category",
+    "pk": 1705
+},
+
 
 
 {
@@ -2773,7 +3803,7 @@
         "description": "Description of WOCAT Technology Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": {"sections":[{"keyword":"section_general_information","view_template":"empty","categories":[{"keyword":"tech__1","view_template":"technologies_header","use_raw_data":true,"with_metadata":true,"subcategories":[{"keyword":"tech__1__1","questiongroups":[{"keyword":"qg_image","questions":[{"keyword":"image","in_list":true},{"keyword":"image_caption"},{"keyword":"image_date_location"},{"keyword":"image_photographer"}]}]},{"keyword":"tech__1__2","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","in_list":true,"is_name":true},{"keyword":"name_local"}]},{"keyword":"tech_qg_4","questions":[{"keyword":"tech_accept_conditions"}]}]}]},{"keyword":"tech__2","subcategories":[{"keyword":"tech__2__1","questiongroups":[{"keyword":"tech_qg_1","questions":[{"keyword":"tech_definition","in_list":true,"form_template":"no_label","max_length":500}]}]},{"keyword":"tech__2__2","questiongroups":[{"keyword":"tech_qg_2","questions":[{"keyword":"tech_description","form_template":"no_label"},{"keyword":"tech_description_comments","num_rows":3}]}]},{"keyword":"tech__2__4","questiongroups":[{"keyword":"tech_qg_3","questions":[{"keyword":"country","in_list":true},{"keyword":"state_province"},{"keyword":"further_location"},{"keyword":"location_comments","num_rows":3}]}]}]},{"keyword":"tech__3","subcategories":[{"keyword":"tech__3__1","form_template":"tech_dev_time","questiongroups":[{"keyword":"tech_qg_5","questions":[{"keyword":"tech_dev_land_users_initiative","form_template":"default"},{"keyword":"tech_dev_time","form_template":"no_label"}]},{"keyword":"tech_qg_6","questions":[{"keyword":"tech_dev_experiments","form_template":"default"},{"keyword":"tech_dev_time"}]},{"keyword":"tech_qg_7","questions":[{"keyword":"tech_dev_externally","form_template":"default"},{"keyword":"tech_dev_time"}]},{"keyword":"tech_qg_8","questions":[{"keyword":"tech_dev_other_specify"},{"keyword":"tech_dev_other_measure","form_template":"no_label"},{"keyword":"tech_dev_time"}]},{"keyword":"tech_qg_9","questions":[{"keyword":"tech_dev_comments","num_rows":5}]}]},{"keyword":"tech__3__2","questiongroups":[{"keyword":"tech_qg_10","questions":[{"keyword":"tech_lu_cropland","questiongroup_conditions":[">0|tech_lu_cropland"]}]},{"keyword":"tech_qg_10a","questiongroup_condition":"tech_lu_cropland","questions":[{"keyword":"tech_lu_cropland_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_11","questions":[{"keyword":"tech_lu_grazingland","questiongroup_conditions":[">0|tech_lu_grazingland"]}]},{"keyword":"tech_qg_11a","questiongroup_condition":"tech_lu_grazingland","questions":[{"keyword":"tech_lu_grazingland_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_12","questions":[{"keyword":"tech_lu_forests","questiongroup_conditions":[">0|tech_lu_forests"]}]},{"keyword":"tech_qg_12a","questiongroup_condition":"tech_lu_forests","questions":[{"keyword":"tech_lu_forests_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_13","questions":[{"keyword":"tech_lu_mixed","questiongroup_conditions":[">0|tech_lu_mixed"]}]},{"keyword":"tech_qg_13a","questiongroup_condition":"tech_lu_mixed","questions":[{"keyword":"tech_lu_mixed_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_14","questions":[{"keyword":"tech_lu_settlements","questiongroup_conditions":[">0|tech_lu_settlements"]}]},{"keyword":"tech_qg_14a","questiongroup_condition":"tech_lu_settlements","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_15","questions":[{"keyword":"tech_lu_waterways","questiongroup_conditions":[">0|tech_lu_waterways"]}]},{"keyword":"tech_qg_15a","questiongroup_condition":"tech_lu_waterways","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_16","questions":[{"keyword":"tech_lu_mines","questiongroup_conditions":[">0|tech_lu_mines"]}]},{"keyword":"tech_qg_16a","questiongroup_condition":"tech_lu_mines","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_17","questions":[{"keyword":"tech_lu_unproductive","questiongroup_conditions":[">0|tech_lu_unproductive"]}]},{"keyword":"tech_qg_17a","questiongroup_condition":"tech_lu_unproductive","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_18","max_num":3,"questions":[{"keyword":"tech_lu_other_specify"},{"keyword":"tech_lu_other_measure","form_template":"no_label_topmargin"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_19","questions":[{"keyword":"tech_original_landuse"},{"keyword":"tech_future_landuse"}]}]},{"keyword":"tech__3__3","questiongroups":[{"keyword":"tech_qg_20","questions":[{"keyword":"tech_measures_agronomic","questiongroup_conditions":[">0|tech_measures_agronomic"]}]},{"keyword":"tech_qg_20a","questiongroup_condition":"tech_measures_agronomic","questions":[{"keyword":"tech_measures_agronomic_sub"}]},{"keyword":"tech_qg_21","questions":[{"keyword":"tech_measures_vegetative","questiongroup_conditions":[">0|tech_measures_vegetative"]}]},{"keyword":"tech_qg_21a","questiongroup_condition":"tech_measures_vegetative","questions":[{"keyword":"tech_measures_vegetative_sub"}]},{"keyword":"tech_qg_22","questions":[{"keyword":"tech_measures_structural","questiongroup_conditions":[">0|tech_measures_structural"]}]},{"keyword":"tech_qg_22a","questiongroup_condition":"tech_measures_structural","questions":[{"keyword":"tech_measures_structural_sub"}]},{"keyword":"tech_qg_23","questions":[{"keyword":"tech_measures_management","questiongroup_conditions":[">0|tech_measures_management"]}]},{"keyword":"tech_qg_23a","questiongroup_condition":"tech_measures_management","questions":[{"keyword":"tech_measures_management_sub"}]},{"keyword":"tech_qg_24","questions":[{"keyword":"tech_measures_comments","num_rows":5}]}]},{"keyword":"tech__3__4","questiongroups":[{"keyword":"tech_qg_25","questions":[{"keyword":"degradation_erosion_water","questiongroup_conditions":[">0|degradation_erosion_water"]}]},{"keyword":"tech_qg_25a","questiongroup_condition":"degradation_erosion_water","questions":[{"keyword":"degradation_erosion_water_sub"}]},{"keyword":"tech_qg_26","questions":[{"keyword":"degradation_wind","questiongroup_conditions":[">0|degradation_wind"]}]},{"keyword":"tech_qg_26a","questiongroup_condition":"degradation_wind","questions":[{"keyword":"degradation_wind_sub"}]},{"keyword":"tech_qg_27","questions":[{"keyword":"degradation_chemical","questiongroup_conditions":[">0|degradation_chemical"]}]},{"keyword":"tech_qg_27a","questiongroup_condition":"degradation_chemical","questions":[{"keyword":"degradation_chemical_sub"}]},{"keyword":"tech_qg_28","questions":[{"keyword":"degradation_physical","questiongroup_conditions":[">0|degradation_physical"]}]},{"keyword":"tech_qg_28a","questiongroup_condition":"degradation_physical","questions":[{"keyword":"degradation_physical_sub"}]},{"keyword":"tech_qg_29","questions":[{"keyword":"degradation_biological","questiongroup_conditions":[">0|degradation_biological"]}]},{"keyword":"tech_qg_29a","questiongroup_condition":"degradation_biological","questions":[{"keyword":"degradation_biological_sub"}]},{"keyword":"tech_qg_30","questions":[{"keyword":"degradation_water","questiongroup_conditions":[">0|degradation_water"]}]},{"keyword":"tech_qg_30a","questiongroup_condition":"degradation_water","questions":[{"keyword":"degradation_water_sub"}]},{"keyword":"tech_qg_31","questions":[{"keyword":"degradation_comments","num_rows":5}]}]},{"keyword":"tech__3__5","questiongroups":[{"keyword":"tech_qg_32","questions":[{"keyword":"purpose_prevention"},{"keyword":"purpose_mitigation"},{"keyword":"purpose_adaption"},{"keyword":"purpose_rehabilitation"},{"keyword":"purpose_comments","num_rows":5}]}]}]}]}],"links":[{"keyword":"approaches"}]},
+        "data": {"sections":[{"keyword":"section_general_information","view_template":"empty","categories":[{"keyword":"tech__1","view_template":"technologies_header","use_raw_data":true,"with_metadata":true,"subcategories":[{"keyword":"tech__1__1","questiongroups":[{"keyword":"qg_image","questions":[{"keyword":"image","in_list":true},{"keyword":"image_caption"},{"keyword":"image_date_location"},{"keyword":"image_photographer"}]}]},{"keyword":"tech__1__2","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","in_list":true,"is_name":true},{"keyword":"name_local"}]},{"keyword":"tech_qg_4","questions":[{"keyword":"tech_accept_conditions"}]}]}]},{"keyword":"tech__2","subcategories":[{"keyword":"tech__2__1","questiongroups":[{"keyword":"tech_qg_1","questions":[{"keyword":"tech_definition","in_list":true,"form_template":"no_label","max_length":500}]}]},{"keyword":"tech__2__2","questiongroups":[{"keyword":"tech_qg_2","questions":[{"keyword":"tech_description","form_template":"no_label"},{"keyword":"tech_description_comments","num_rows":3}]}]},{"keyword":"tech__2__4","questiongroups":[{"keyword":"tech_qg_3","questions":[{"keyword":"country","in_list":true},{"keyword":"state_province"},{"keyword":"further_location"},{"keyword":"location_comments","num_rows":3}]}]}]},{"keyword":"tech__3","subcategories":[{"keyword":"tech__3__1","form_template":"tech_dev_time","questiongroups":[{"keyword":"tech_qg_5","questions":[{"keyword":"tech_dev_land_users_initiative","form_template":"default"},{"keyword":"tech_dev_time","form_template":"no_label"}]},{"keyword":"tech_qg_6","questions":[{"keyword":"tech_dev_experiments","form_template":"default"},{"keyword":"tech_dev_time"}]},{"keyword":"tech_qg_7","questions":[{"keyword":"tech_dev_externally","form_template":"default"},{"keyword":"tech_dev_time"}]},{"keyword":"tech_qg_8","questions":[{"keyword":"tech_dev_other_specify"},{"keyword":"tech_dev_other_measure","form_template":"no_label"},{"keyword":"tech_dev_time"}]},{"keyword":"tech_qg_9","questions":[{"keyword":"tech_dev_comments","num_rows":5}]}]},{"keyword":"tech__3__2","questiongroups":[{"keyword":"tech_qg_10","questions":[{"keyword":"tech_lu_cropland","questiongroup_conditions":[">0|tech_lu_cropland"]}]},{"keyword":"tech_qg_10a","questiongroup_condition":"tech_lu_cropland","questions":[{"keyword":"tech_lu_cropland_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_11","questions":[{"keyword":"tech_lu_grazingland","questiongroup_conditions":[">0|tech_lu_grazingland"]}]},{"keyword":"tech_qg_11a","questiongroup_condition":"tech_lu_grazingland","questions":[{"keyword":"tech_lu_grazingland_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_12","questions":[{"keyword":"tech_lu_forests","questiongroup_conditions":[">0|tech_lu_forests"]}]},{"keyword":"tech_qg_12a","questiongroup_condition":"tech_lu_forests","questions":[{"keyword":"tech_lu_forests_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_13","questions":[{"keyword":"tech_lu_mixed","questiongroup_conditions":[">0|tech_lu_mixed"]}]},{"keyword":"tech_qg_13a","questiongroup_condition":"tech_lu_mixed","questions":[{"keyword":"tech_lu_mixed_sub"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_14","questions":[{"keyword":"tech_lu_settlements","questiongroup_conditions":[">0|tech_lu_settlements"]}]},{"keyword":"tech_qg_14a","questiongroup_condition":"tech_lu_settlements","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_15","questions":[{"keyword":"tech_lu_waterways","questiongroup_conditions":[">0|tech_lu_waterways"]}]},{"keyword":"tech_qg_15a","questiongroup_condition":"tech_lu_waterways","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_16","questions":[{"keyword":"tech_lu_mines","questiongroup_conditions":[">0|tech_lu_mines"]}]},{"keyword":"tech_qg_16a","questiongroup_condition":"tech_lu_mines","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_17","questions":[{"keyword":"tech_lu_unproductive","questiongroup_conditions":[">0|tech_lu_unproductive"]}]},{"keyword":"tech_qg_17a","questiongroup_condition":"tech_lu_unproductive","questions":[{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_18","max_num":3,"questions":[{"keyword":"tech_lu_other_specify"},{"keyword":"tech_lu_other_measure","form_template":"no_label_topmargin"},{"keyword":"tech_lu_specify","num_rows":2}]},{"keyword":"tech_qg_19","questions":[{"keyword":"tech_original_landuse"},{"keyword":"tech_future_landuse"}]}]},{"keyword":"tech__3__3","questiongroups":[{"keyword":"tech_qg_20","questions":[{"keyword":"tech_measures_agronomic","questiongroup_conditions":[">0|tech_measures_agronomic"]}]},{"keyword":"tech_qg_20a","questiongroup_condition":"tech_measures_agronomic","questions":[{"keyword":"tech_measures_agronomic_sub"}]},{"keyword":"tech_qg_21","questions":[{"keyword":"tech_measures_vegetative","questiongroup_conditions":[">0|tech_measures_vegetative"]}]},{"keyword":"tech_qg_21a","questiongroup_condition":"tech_measures_vegetative","questions":[{"keyword":"tech_measures_vegetative_sub"}]},{"keyword":"tech_qg_22","questions":[{"keyword":"tech_measures_structural","questiongroup_conditions":[">0|tech_measures_structural"]}]},{"keyword":"tech_qg_22a","questiongroup_condition":"tech_measures_structural","questions":[{"keyword":"tech_measures_structural_sub"}]},{"keyword":"tech_qg_23","questions":[{"keyword":"tech_measures_management","questiongroup_conditions":[">0|tech_measures_management"]}]},{"keyword":"tech_qg_23a","questiongroup_condition":"tech_measures_management","questions":[{"keyword":"tech_measures_management_sub"}]},{"keyword":"tech_qg_24","questions":[{"keyword":"tech_measures_comments","num_rows":5}]}]},{"keyword":"tech__3__4","questiongroups":[{"keyword":"tech_qg_25","questions":[{"keyword":"degradation_erosion_water","questiongroup_conditions":[">0|degradation_erosion_water"]}]},{"keyword":"tech_qg_25a","questiongroup_condition":"degradation_erosion_water","questions":[{"keyword":"degradation_erosion_water_sub"}]},{"keyword":"tech_qg_26","questions":[{"keyword":"degradation_wind","questiongroup_conditions":[">0|degradation_wind"]}]},{"keyword":"tech_qg_26a","questiongroup_condition":"degradation_wind","questions":[{"keyword":"degradation_wind_sub"}]},{"keyword":"tech_qg_27","questions":[{"keyword":"degradation_chemical","questiongroup_conditions":[">0|degradation_chemical"]}]},{"keyword":"tech_qg_27a","questiongroup_condition":"degradation_chemical","questions":[{"keyword":"degradation_chemical_sub"}]},{"keyword":"tech_qg_28","questions":[{"keyword":"degradation_physical","questiongroup_conditions":[">0|degradation_physical"]}]},{"keyword":"tech_qg_28a","questiongroup_condition":"degradation_physical","questions":[{"keyword":"degradation_physical_sub"}]},{"keyword":"tech_qg_29","questions":[{"keyword":"degradation_biological","questiongroup_conditions":[">0|degradation_biological"]}]},{"keyword":"tech_qg_29a","questiongroup_condition":"degradation_biological","questions":[{"keyword":"degradation_biological_sub"}]},{"keyword":"tech_qg_30","questions":[{"keyword":"degradation_water","questiongroup_conditions":[">0|degradation_water"]}]},{"keyword":"tech_qg_30a","questiongroup_condition":"degradation_water","questions":[{"keyword":"degradation_water_sub"}]},{"keyword":"tech_qg_31","questions":[{"keyword":"degradation_comments","num_rows":5}]}]},{"keyword":"tech__3__5","questiongroups":[{"keyword":"tech_qg_32","questions":[{"keyword":"purpose_prevention"},{"keyword":"purpose_mitigation"},{"keyword":"purpose_adaption"},{"keyword":"purpose_rehabilitation"},{"keyword":"purpose_comments","num_rows":5}]}]}]},{"keyword":"tech__4","subcategories":[{"keyword":"tech__4__2","questiongroups":[{"keyword":"tech_qg_33","questions":[{"keyword":"tech_tech_specifications","form_template":"no_label"},{"keyword":"tech_tech_specifications_comments","num_rows":5}]}]}]},{"keyword":"tech__5","subcategories":[{"keyword":"tech__5__1","form_template":"table_2","view_template":"table_2","table_grouping":[["tech_qg_34"]],"questiongroups":[{"keyword":"tech_qg_34","min_num":10,"questions":[{"keyword":"tech_est_activity"},{"keyword":"tech_est_type"},{"keyword":"tech_est_timing"}]},{"keyword":"tech_qg_35","questions":[{"keyword":"tech_est_comments","num_rows":5}]}]},{"keyword":"tech__5__2","form_template":"table_input","view_template":"table_input","table_grouping":[["tech_qg_36","tech_qg_37","tech_qg_38","tech_qg_39","tech_qg_40"]],"questiongroups":[{"keyword":"tech_qg_41","questions":[{"keyword":"tech_input_est_area"},{"keyword":"tech_input_est_unit"}]},{"keyword":"tech_qg_36","questions":[{"keyword":"tech_input_est_labour"},{"keyword":"tech_input_est_specify"}]},{"keyword":"tech_qg_37","questions":[{"keyword":"tech_input_est_equipment"},{"keyword":"tech_input_est_specify"}]},{"keyword":"tech_qg_38","questions":[{"keyword":"tech_input_est_agricultural"},{"keyword":"tech_input_est_specify"}]},{"keyword":"tech_qg_39","questions":[{"keyword":"tech_input_est_material"},{"keyword":"tech_input_est_specify"}]},{"keyword":"tech_qg_40","questions":[{"keyword":"tech_input_est_other_specify"},{"keyword":"tech_input_est_other_measure"},{"keyword":"tech_input_est_specify"}]},{"keyword":"tech_qg_42","questions":[{"keyword":"tech_input_est_total"},{"keyword":"tech_input_est_percentage"},{"keyword":"tech_input_est_comments"}]}]},{"keyword":"tech__5__3","form_template":"table_2","view_template":"table_2","table_grouping":[["tech_qg_43"]],"questiongroups":[{"keyword":"tech_qg_43","min_num":10,"questions":[{"keyword":"tech_maint_activity"},{"keyword":"tech_maint_type"},{"keyword":"tech_maint_timing"}]},{"keyword":"tech_qg_44","questions":[{"keyword":"tech_maint_comments","num_rows":5}]}]},{"keyword":"tech__5__4","form_template":"table_input","view_template":"table_input","table_grouping":[["tech_qg_45","tech_qg_46","tech_qg_47","tech_qg_48","tech_qg_49"]],"questiongroups":[{"keyword":"tech_qg_50","questions":[{"keyword":"tech_input_maint_area"},{"keyword":"tech_input_maint_unit"}]},{"keyword":"tech_qg_45","questions":[{"keyword":"tech_input_maint_labour"},{"keyword":"tech_input_maint_specify"}]},{"keyword":"tech_qg_46","questions":[{"keyword":"tech_input_maint_equipment"},{"keyword":"tech_input_maint_specify"}]},{"keyword":"tech_qg_47","questions":[{"keyword":"tech_input_maint_agricultural"},{"keyword":"tech_input_maint_specify"}]},{"keyword":"tech_qg_48","questions":[{"keyword":"tech_input_maint_material"},{"keyword":"tech_input_maint_specify"}]},{"keyword":"tech_qg_49","questions":[{"keyword":"tech_input_maint_other_specify"},{"keyword":"tech_input_maint_other_measure"},{"keyword":"tech_input_maint_specify"}]},{"keyword":"tech_qg_51","questions":[{"keyword":"tech_input_maint_total"},{"keyword":"tech_input_maint_percentage"},{"keyword":"tech_input_maint_comments"}]},{"keyword":"tech_qg_52","questions":[{"keyword":"tech_exchange_rate"},{"keyword":"tech_local_currency"},{"keyword":"tech_daily_wage"},{"keyword":"tech_costs_date"},{"keyword":"tech_costs_situation"},{"keyword":"tech_costs_factors"}]},{"keyword":"tech_qg_53","questions":[{"keyword":"tech_costs_est_compared"},{"keyword":"tech_costs_maint_compared"}]}]}]}]}],"links":[{"keyword":"approaches"}]},
         "created": "2015-07-09T10:12:59.337Z",
         "base_code": "",
         "name": "WOCAT Technology Configuration"

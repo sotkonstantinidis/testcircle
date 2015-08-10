@@ -987,19 +987,44 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             questiongroup_data = data.get(questiongroup.keyword, [])
             if not is_empty_list_of_dicts(questiongroup_data):
                 has_content = True
-                rendered_questiongroups.append(
-                    questiongroup.get_details(questiongroup_data))
-                if self.table_grouping:
+                if self.table_grouping and questiongroup.keyword in [
+                        item for sublist in self.table_grouping
+                        for item in sublist]:
                     # Order the values of the questiongroups according
                     # to their questions
                     q_order = [q.keyword for q in questiongroup.questions]
                     sorted_questiongroup_data = [
                         sorted(qg.items(), key=lambda i: q_order.index(i[0]))
                         for qg in questiongroup_data]
+
+                    data_labelled = []
+                    for qg in sorted_questiongroup_data:
+                        qg_labelled = []
+                        for q in qg:
+                            q_value = q[1]
+                            q_obj = questiongroup.get_question_by_key_keyword(
+                                q[0])
+                            if not q_obj:
+                                continue
+                            q_choice = next((
+                                item for item in q_obj.choices if
+                                item[0] == q_value), None)
+                            if q_choice:
+                                q_value = q_choice[1]
+                            qg_labelled.append((q_obj.label, q_value))
+                        data_labelled.append(qg_labelled)
                     raw_questiongroups.append({
                         "qg_keyword": questiongroup.keyword,
-                        "data": sorted_questiongroup_data
+                        "data": sorted_questiongroup_data,
+                        "data_labelled": data_labelled,
                     })
+                else:
+                    questiongroup_config = {
+                        'keyword': questiongroup.keyword,
+                    }
+                    rendered_questiongroups.append((
+                        questiongroup_config,
+                        questiongroup.get_details(questiongroup_data)))
         subcategories = []
         for subcategory in self.subcategories:
             sub_rendered, sub_has_content = subcategory.get_details(data=data)

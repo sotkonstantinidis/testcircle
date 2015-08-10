@@ -4,7 +4,7 @@
     {{ subcategory }}
   {% endfor %}
 {% else %}
-  {% for questiongroup in questiongroups %}
-    {{ questiongroup }}
+  {% for qg_config, qg_rendered in questiongroups %}
+    {{ qg_rendered }}
   {% endfor %}
 {% endif %}
