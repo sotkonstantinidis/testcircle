@@ -232,6 +232,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'image_checkbox',
         'image',
         'select_type',
+        'select',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -338,12 +339,13 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         if self.field_type == 'bool':
             self.choices = ((1, _('Yes')), (0, _('No')))
         elif self.field_type in [
-                'measure', 'checkbox', 'image_checkbox', 'select_type']:
+                'measure', 'checkbox', 'image_checkbox', 'select_type',
+                'select']:
             self.value_objects = self.configuration_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
                     self, '[values of key {}]'.format(self.keyword))
-            if self.field_type in ['measure', 'select_type']:
+            if self.field_type in ['measure', 'select_type', 'select']:
                 choices = [('', '-')]
             else:
                 choices = []
@@ -486,6 +488,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 required=self.required)
         elif self.field_type == 'measure':
             widget = MeasureSelect()
+            field = forms.ChoiceField(
+                label=self.label, choices=self.choices, widget=widget,
+                required=self.required, initial=self.choices[0][0])
+        elif self.field_type == 'select':
+            widget = Select()
+            widget.searchable = False
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
                 required=self.required, initial=self.choices[0][0])
@@ -946,6 +954,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         formsets = []
         config = {
             'label': self.label,
+            'helptext': self.helptext,
             'numbering': self.numbering,
             'form_template': self.form_template,
         }
@@ -1129,6 +1138,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         config = {
             'label': self.label,
             'numbering': self.numbering,
+            'helptext': self.helptext,
         }
         return config, subcategory_formsets
 
