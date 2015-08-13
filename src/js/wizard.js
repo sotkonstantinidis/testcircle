@@ -2,7 +2,6 @@
 // -----------------
 // Next / Previous step
 
-
 /**
  * Loop through the form fields of a subcategory to find out if they are
  * empty or if they contain values.
@@ -186,6 +185,109 @@ function clearQuestiongroup(questiongroup) {
 }
 
 $(function() {
+
+  $('body')
+  // LIST ITEM
+  // -----------------
+  // List item remove
+  .on('click', '.list-item-action[data-remove-this]', function (e) {
+
+    var qg = $(this).closest('.list-item').data('questiongroup-keyword');
+    var currentCount = parseInt($('#id_' + qg + '-TOTAL_FORMS').val());
+    var maxCount = parseInt($('#id_' + qg + '-MAX_NUM_FORMS').val());
+    var minCount = parseInt($('#id_' + qg + '-MIN_NUM_FORMS').val());
+
+    var item = $(this).closest('.list-item.is-removable');
+    item.remove();
+    var otherItems = $('.list-item[data-questiongroup-keyword="' + qg + '"]');
+    if (otherItems.length <= minCount) {
+      otherItems.find('[data-remove-this]').hide();
+    }
+    otherItems.each(function(i, el) {
+      updateFieldsetElement($(el), qg, i);
+    });
+
+    currentCount--;
+    $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
+    $('.list-action [data-add-item][data-questiongroup-keyword="' + qg + '"]').toggle(currentCount < maxCount);
+
+    watchFormProgress();
+
+  })
+  // List item add
+  .on('click', '.list-action [data-add-item]', function (e) {
+
+    var qg = $(this).data('questiongroup-keyword');
+    var currentCount = parseInt($('#id_' + qg + '-TOTAL_FORMS').val());
+    var maxCount = parseInt($('#id_' + qg + '-MAX_NUM_FORMS').val());
+
+    if (currentCount >= maxCount) return;
+
+    var container = $(this).closest('.list-action');
+
+    var otherItems = $('.list-item[data-questiongroup-keyword="' + qg + '"]');
+    otherItems.find('[data-remove-this]').show();
+
+    var lastItem = container.prev('.list-item');
+    var doNumberingUpdate = false;
+    if (!lastItem.length) {
+      // The element might be numbered, in which case it needs to be
+      // accessed differently
+      if (container.parent('.questiongroup-numbered-prefix').length) {
+        lastItem = container.prev('.row');
+        doNumberingUpdate = true;
+      }
+    }
+    if (!lastItem.length) return;
+
+    newElement = lastItem.clone();
+
+    updateFieldsetElement(newElement, qg, currentCount, true);
+    newElement.insertBefore(container);
+
+    currentCount++;
+    $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
+    $(this).toggle(currentCount < maxCount);
+
+    if (doNumberingUpdate) {
+      updateNumbering();
+    }
+  })
+
+  // BUTTON BAR
+  // -----------------
+  // Button bar select line
+  .on('click', '.button-bar', toggleButtonBarSelected);
+
+  // Slider
+  // -----------------
+  // See full doc here: http://lokku.github.io/jquery-nstslider/
+  try {
+    $('.nstSlider').nstSlider({
+      "crossable_handles": false,
+      "left_grip_selector": ".leftGrip",
+      "right_grip_selector": ".rightGrip",
+      "value_bar_selector": ".bar",
+      "value_changed_callback": function(cause, leftValue, rightValue, prevLeft, prevRight) {
+        var $grip = $(this).find('.leftGrip'),
+            whichGrip = 'left grip';
+        if (leftValue === prevLeft) {
+            $grip = $(this).find('.rightGrip');
+            whichGrip = 'right grip';
+        }
+        var text = [];
+        text.push('<b>Moving ' + whichGrip + '</b>');
+        text.push('role: ' + $grip.attr('role'));
+        text.push('aria-valuemin: ' + $grip.attr('aria-valuemin'));
+        text.push('aria-valuenow: ' + $grip.attr('aria-valuenow'));
+        text.push('aria-valuemax: ' + $grip.attr('aria-valuemax'));
+        text.push('aria-disabled: ' + $grip.attr('aria-disabled'));
+        $('.ariaAttributesAsText').html(text.join('<br />'));
+        $(this).parent().find('.leftLabel').text(leftValue);
+        $(this).parent().find('.rightLabel').text(rightValue);
+      }
+    });
+  } catch(e) {}
 
   // Initial form progress
   watchFormProgress();
@@ -525,5 +627,77 @@ function showUploadErrorMessage(message) {
     alert('Error: ' + message);
   } else {
     alert('An error occurred while uploading the file.');
+  }
+}
+
+
+/**
+ * Toggles CSS class "is-selected" for button bars. If a value is
+ * selected, the row is highlighted. If no value (empty string or '') is
+ * selected, it is not.
+ *
+ * $(this): div.button-bar
+ */
+function toggleButtonBarSelected() {
+  var selectedValue = $(this).find('input[type="radio"]:checked').val();
+  var item = $(this).closest('.list-item');
+  if(selectedValue != 'none' && selectedValue != '') {
+    item.addClass('is-selected');
+  } else {
+    item.removeClass('is-selected');
+  }
+  // item.toggleClass('is-selected', !(!selectedValue || 0 === selectedValue.length));
+}
+
+
+/**
+ * Updates elements of a form fieldset. Fields of a Django formset are
+ * named "[prefix]-[index]-[fieldname]" and their ID is
+ * "id_[prefix]-[index]-[fieldname]". When adding or removing elements
+ * of a fieldset, the name and index need to be updated.
+ *
+ * This function udates the name and id of each input field inside the
+ * given fieldset element. It also updates the "label-for" attribute for
+ * any label found inside the given element.
+ *
+ * Use this function to correctly label newly added fields of a
+ * questiongroup ("Add more") or to re-label the remaining fields after
+ * removing a field from a questiongroup ("Remove").
+ *
+ * @param {Element} element - The form element.
+ * @param {string} prefix - The prefix of the questiongroup.
+ * @param {integer} index - The index of the element.
+ * @param {boolean} reset - Whether to reset the values of the input
+ * fields or not. Defaults to false (do not reset the values).
+ */
+function updateFieldsetElement(element, prefix, index, reset) {
+  reset = (typeof reset === "undefined") ? false : true;
+  var id_regex = new RegExp('(' + prefix + '-\\d+-)');
+  var replacement = prefix + '-' + index + '-';
+  element.find(':input').each(function() {
+      var name = $(this).attr('name').replace(id_regex, replacement);
+      var id = $(this).attr('id').replace(id_regex, replacement);
+      $(this).attr({'name': name, 'id': id});
+    });
+    element.find('label').each(function() {
+        var newFor = $(this).attr('for').replace(id_regex, replacement);
+        $(this).attr('for', newFor);
+    });
+  if (reset) {
+    clearQuestiongroup(element);
+  }
+}
+
+
+/**
+ * Toggle the conditional image checkboxes if the parent checkbox was
+ * clicked. If deselected, all conditional checkboxes are unchecked.
+ *
+ * el: div of conditional image checkboxes
+ */
+function toggleImageCheckboxConditional(el) {
+  var topCb = el.parent('.list-gallery-item').find('input[data-toggle]');
+  if (!topCb.is(':checked')) {
+    el.find('input').removeAttr('checked')
   }
 }
