@@ -563,14 +563,6 @@ class QuestionnaireQuestionTest(TestCase):
         with self.assertRaises(ConfigurationErrorNotInDatabase):
             QuestionnaireQuestion(self.parent_obj, configuration)
 
-    def test_raises_error_if_form_template_not_found(self):
-        configuration = {
-            'keyword': 'key_14',
-            'form_template': 'foo'
-        }
-        with self.assertRaises(ConfigurationErrorTemplateNotFound):
-            QuestionnaireQuestion(self.parent_obj, configuration)
-
     def test_lookup_choices_lookups_single_choice(self):
         mock_Questiongroup = Mock()
         mock_Questiongroup.configuration_keyword = 'sample'

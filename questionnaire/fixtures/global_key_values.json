@@ -42,7 +42,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"approaches":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"}},"technologies":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"}}}
+        "data": {"approaches":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"}},"technologies":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"},"label_view":{"en": "Further specification of location"}}}
     },
     "model": "configuration.translation",
     "pk": 5006

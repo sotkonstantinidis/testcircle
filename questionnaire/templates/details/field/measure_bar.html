@@ -1,4 +1,4 @@
-<li class="chart-bar is-level-{{ level }}">
+<li class="chart-bar is-level-{{ level|default:0 }}">
   <span class="chart-label">{{ key }}</span>
   <span class="chart-value">{{ value }}</span>
 </li>

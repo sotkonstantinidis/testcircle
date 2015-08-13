@@ -128,7 +128,7 @@ def generic_questionnaire_link_form(
                     link_object = Questionnaire.objects.get(pk=submitted_link)
                 except Questionnaire.DoesNotExist:
                     messages.error(
-                        request, '[TODO] The linked questionnaire with ID {} '
+                        request, 'The linked questionnaire with ID {} '
                         'does not exist'.format(submitted_link))
                     valid = False
                     continue
@@ -146,7 +146,7 @@ def generic_questionnaire_link_form(
             save_session_questionnaire(
                 configuration_code, session_questionnaire, link_data)
             messages.success(
-                request, _('[TODO] Data successfully stored to Session.'))
+                request, _('Data successfully stored to Session.'))
             return redirect(overview_url)
 
     return render(request, 'form/links.html', {
@@ -379,7 +379,7 @@ def generic_questionnaire_new_step(
                     configuration_code, questionnaire_data, session_links)
 
                 messages.success(
-                    request, _('[TODO] Data successfully stored to Session.'))
+                    request, _('Data successfully stored to Session.'))
                 return redirect(overview_url)
 
     return render(request, 'form/category.html', {
@@ -459,7 +459,7 @@ def generic_questionnaire_new(
                     '<br/>'.join(errors)), extra_tags='safe')
         if not cleaned_questionnaire_data:
             messages.info(
-                request, _('[TODO] You cannot submit an empty questionnaire'),
+                request, _('You cannot submit an empty questionnaire'),
                 fail_silently=True)
             return redirect(request.path)
         else:
@@ -478,7 +478,7 @@ def generic_questionnaire_new(
 
             messages.success(
                 request,
-                _('[TODO] The questionnaire was successfully created.'),
+                _('The questionnaire was successfully created.'),
                 fail_silently=True)
 
             return redirect('{}#top'.format(

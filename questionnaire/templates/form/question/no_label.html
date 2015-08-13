@@ -8,7 +8,7 @@
           {% include "form/errors.html" with errors=field.errors %}
         {% endblock %}
         {% block widget %}
-          <div class="small-12 columns">
+          <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
             {% formfield field %}
           </div>
         {% endblock %}

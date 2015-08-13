@@ -145,3 +145,11 @@ a:hover .tech-icon {
   margin-top: rem-calc(2);
   margin-bottom: rem-calc(12);
 }
+
+.output .tech-item-inline:first-of-type {
+  margin-top: 1rem;
+}
+
+.output .tech-output-columns:first-of-type, .output .tech-output-columns.top-margin {
+  margin-top: 1.5rem;
+}

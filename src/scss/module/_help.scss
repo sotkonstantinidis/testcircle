@@ -5,6 +5,7 @@
   background-color: $color-beige;
   padding: rem-calc(12) rem-calc(12) rem-calc(12) rem-calc(36);
   border-radius: 0.5em;
+  margin-bottom: 0.75rem;
 }
 
 .help-bloc:before {
@@ -21,6 +22,6 @@
   // margin-top: -0.9em;
 }
 
-.help-block ul {
+.help-bloc ul {
   margin-top: 0.5rem;
 }

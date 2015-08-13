@@ -4,7 +4,7 @@
   {% endif %}
   <ul>
     {% for v in values %}
-      <li>{{ v }}</li>
+      {% if v %}<li>{{ v }}</li>{% endif %}
     {% endfor %}
   </ul>
 {% endif %}

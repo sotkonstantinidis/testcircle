@@ -301,7 +301,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_info.assert_called_once_with(
-            r, '[TODO] You cannot submit an empty questionnaire',
+            r, 'You cannot submit an empty questionnaire',
             fail_silently=True)
 
     @patch('questionnaire.views.redirect')
@@ -350,7 +350,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_sucess.assert_called_once_with(
-            r, '[TODO] The questionnaire was successfully created.',
+            r, 'The questionnaire was successfully created.',
             fail_silently=True)
 
     @patch('questionnaire.views.redirect')

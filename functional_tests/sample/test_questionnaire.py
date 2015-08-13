@@ -247,7 +247,7 @@ class QuestionnaireTest(FunctionalTest):
             '"questiongroup")][3]/div[contains(@class, "row")][2]//p['
             'contains(@class, "questiongroup-numbered-number")]')
         ActionChains(self.browser).click_and_hold(
-            on_element=el_1).move_by_offset(0, -200).release().perform()
+            on_element=el_1).move_by_offset(0, -300).release().perform()
 
         # She submits the step and sees the values are presented in the
         # correct order in the overview
@@ -607,8 +607,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # She sees the values were submitted with linebreaks
-        details = self.findBy('xpath', '//p[contains(text(), "Key 2")]')
-        self.assertEqual(details.text, 'Key 2:\nasdf\nasdf')
+        self.findBy('xpath', '//h3[contains(text(), "Key 2")]')
+        details = self.findBy('xpath', '//p[contains(text(), "asdf")]')
+        self.assertEqual(details.text, 'asdf\nasdf')
 
         self.findBy('id', 'button-submit').click()
 
@@ -1521,7 +1522,7 @@ class QuestionnaireTest(FunctionalTest):
         # She selects None and sees that the row is not highlighted
         # anymore and the progress was updated
         self.findBy(
-            'xpath', '//label/span[contains(text(), "-")]').click()
+            'xpath', '//label/span[contains(text(), "×")]').click()
         self.findByNot(
             'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
             'contains(text(), "Key 12")]')

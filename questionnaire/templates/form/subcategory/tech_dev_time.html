@@ -6,7 +6,7 @@
     {% for questiongroup_config, questiongroup_formset in formsets %}
       <div class="questiongroup">
         {% if questiongroup_config.helptext %}
-          <p class="help-bloc">{{ questiongroup_config.helptext|safe }}</p>
+          <div class="help-bloc">{{ questiongroup_config.helptext|safe }}</div>
         {% endif %}
 
         {{ questiongroup_formset.management_form }}
@@ -51,7 +51,7 @@
                     <div class="small-12 medium-7 columns">
                       <div class="row">
                   {% endif %}
-                      {% with template=questiongroup_config.templates|get_by_keyword:field.name %}
+                      {% with template=questiongroup_config.templates|get_by_keyword:field.name options=questiongroup_config.options|get_by_keyword:field.name %}
                         {% if template %}
                           {% if forloop.counter == 2 %}
                             {% formrow field using template with field_css_class="is-rhythmed" %}

@@ -109,14 +109,18 @@
   cursor: pointer;
 }
 
-.chosen-container {
-  margin-bottom: 1rem;
-}
-
 .top-margin {
   margin-top: 1rem;
 }
 
 fieldset.row table {
   width: 100%;
+}
+
+form .single-item:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.questiongroup h4 {
+  margin-top: 2rem;
 }
