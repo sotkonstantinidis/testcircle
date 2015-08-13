@@ -26,6 +26,7 @@ from questionnaire.views import (
     generic_questionnaire_new,
     generic_questionnaire_new_step,
 )
+from questionnaire.tests.test_view_utils import get_valid_pagination_parameters
 from sample.tests.test_views import (
     get_section_count,
     get_valid_new_step_values,
@@ -300,7 +301,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_info.assert_called_once_with(
-            r, '[TODO] You cannot submit an empty questionnaire',
+            r, 'You cannot submit an empty questionnaire',
             fail_silently=True)
 
     @patch('questionnaire.views.redirect')
@@ -349,7 +350,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_sucess.assert_called_once_with(
-            r, '[TODO] The questionnaire was successfully created.',
+            r, 'The questionnaire was successfully created.',
             fail_silently=True)
 
     @patch('questionnaire.views.redirect')
@@ -621,31 +622,38 @@ class GenericQuestionnaireListTest(TestCase):
         mock_get_active_filters.assert_called_once_with(
             mock_conf.return_value, self.request.GET)
 
-    @patch('questionnaire.views.get_configuration_index_filter')
-    def test_calls_get_configuration_index_filter(
-            self, mock_get_configuration_index_filter, mock_advanced_search):
+    @patch('questionnaire.views.get_limit_parameter')
+    def test_calls_get_limit_parameter(
+            self, mock_get_limit_parameter, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
-        mock_get_configuration_index_filter.assert_called_once_with(
-            'sample', only_current=False)
+        mock_get_limit_parameter.assert_called_once_with(self.request)
 
-    def test_calls_advanced_search(self, mock_advanced_search):
+    @patch('questionnaire.views.get_page_parameter')
+    def test_calls_get_page_parameter(
+            self, mock_get_page_parameter, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
-        mock_advanced_search.assert_called_once_with(
-            filter_params=[], query_string='', configuration_codes=['sample'],
-            limit=10)
-
-    @patch('questionnaire.views.get_list_values')
-    def test_calls_get_list_values(
-            self, mock_get_list_values, mock_advanced_search):
-        generic_questionnaire_list(self.request, *get_valid_list_values())
-        self.assertEqual(mock_get_list_values.call_count, 1)
+        mock_get_page_parameter.assert_called_once_with(self.request)
 
     @patch('questionnaire.views.query_questionnaires')
     def test_db_query_calls_query_questionnaires(
             self, mock_query_questionnaires, mock_advanced_search):
+        mock_query_questionnaires.return_value = []
         generic_questionnaire_list(self.request, 'sample', db_query=True)
         mock_query_questionnaires.assert_called_once_with(
-            self.request, 'sample', only_current=False, limit=10)
+            self.request, 'sample', only_current=False, limit=None)
+
+    @patch('questionnaire.views.get_pagination_parameters')
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.query_questionnaires')
+    @patch('questionnaire.views.get_paginator')
+    def test_db_query_calls_get_paginator(
+            self, mock_get_paginator, mock_query_questionnaires,
+            mock_get_list_values, mock_get_pagination_parameters,
+            mock_advanced_search):
+        mock_query_questionnaires.return_value = []
+        mock_get_paginator.return_value = None, None
+        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        mock_get_paginator.assert_called_once_with([], 1, 10)
 
     @patch('questionnaire.views.get_list_values')
     def test_db_query_calls_get_list_values(
@@ -655,11 +663,52 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, 'sample', db_query=True)
         self.assertEqual(mock_get_list_values.call_count, 1)
 
+    @patch('questionnaire.views.get_configuration_index_filter')
+    def test_es_calls_get_configuration_index_filter(
+            self, mock_get_configuration_index_filter, mock_advanced_search):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_configuration_index_filter.assert_called_once_with(
+            'sample', only_current=False)
+
+    def test_es_calls_advanced_search(self, mock_advanced_search):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_advanced_search.assert_called_once_with(
+            filter_params=[], query_string='', configuration_codes=['sample'],
+            limit=10, offset=0)
+
+    @patch('questionnaire.views.get_pagination_parameters')
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.get_paginator')
+    @patch('questionnaire.views.ESPagination')
+    def test_es_creates_esPagination(
+            self, mock_ESPagination, mock_get_paginator, mock_get_list_values,
+            mock_get_pagination_parameters, mock_advanced_search):
+        mock_get_paginator.return_value = None, None
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        self.assertEqual(mock_ESPagination.call_count, 1)
+
+    @patch('questionnaire.views.get_list_values')
+    def test_es_calls_get_list_values(
+            self, mock_get_list_values, mock_advanced_search):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        self.assertEqual(mock_get_list_values.call_count, 1)
+
     @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     def test_calls_get_filter_configuration(
             self, mock_get_filter_configuration, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_filter_configuration.assert_called_once_with()
+
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.get_paginator')
+    @patch('questionnaire.views.get_pagination_parameters')
+    def test_calls_get_pagination_parameters(
+            self, mock_get_pagination_parameters, mock_get_paginator,
+            mock_get_list_values, mock_advanced_search):
+        mock_get_paginator.return_value = None, None
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_pagination_parameters.assert_called_once_with(
+            self.request, None, None)
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.render')
@@ -667,15 +716,17 @@ class GenericQuestionnaireListTest(TestCase):
             self, mock_render, mock_conf, mock_advanced_search):
         mock_advanced_search.return_value = {}
         generic_questionnaire_list(self.request, *get_valid_list_values())
+        ret = {
+            'list_values': [],
+            'filter_configuration':
+                mock_conf.return_value.get_filter_configuration
+                                      .return_value,
+            'filter_url': '',
+            'active_filters': [],
+        }
+        ret.update(get_valid_pagination_parameters())
         mock_render.assert_called_once_with(
-            self.request, 'sample/questionnaire/list.html', {
-                'list_values': [],
-                'filter_configuration':
-                    mock_conf.return_value.get_filter_configuration
-                                          .return_value,
-                'filter_url': '',
-                'active_filters': [],
-            })
+            self.request, 'sample/questionnaire/list.html', ret)
 
     def test_returns_rendered_response(self, mock_advanced_search):
         ret = generic_questionnaire_list(

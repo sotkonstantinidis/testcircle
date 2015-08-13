@@ -29,7 +29,10 @@ The basic format of the configuration is as follows::
     "form_template": "TEMPLATE_NAME",
 
     # (optional)
-    "view_template": "TEMPLATE_NAME",
+    "view_options": {},
+
+    # (optional)
+    "form_options": {},
 
     # (optional)
     "table_grouping": [],
@@ -71,16 +74,19 @@ default layout (``default.html``) is used.
 
 Please note that some templates require additional options to be set.
 
-``view_template``
-^^^^^^^^^^^^^^^^^
+``view_options``
+^^^^^^^^^^^^^^^^
 
-(Optional). An optional name of a template to be used for the rendering
-of the subcategory form. The name of the template needs to match a file
-with the ending ``.html`` inside
-``questionnaire/templates/details/subcategory/``. If not specified, the
-default layout (``default.html``) is used.
+(Optional). An optional object containing configuration options for the
+view representation of the question.
 
-Please note that some templates require additional options to be set.
+
+``form_options``
+^^^^^^^^^^^^^^^^
+
+(Optional). An optional object containing configuration options for the
+form representation of the question.
+
 
 ``table_grouping``
 ^^^^^^^^^^^^^^^^^^

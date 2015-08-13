@@ -1,0 +1,92 @@
+{% comment %}
+  The template to render a questiongroup.
+
+  Adds buttons to add or remove additional questiongroups
+
+  config: The configuration of the questiongroup
+    -
+
+  formset (??)
+
+{% endcomment %}
+
+{% load i18n %}
+{% load floppyforms %}
+{% load list_to_columns %}
+
+<div class="questiongroup">
+
+  {% if config.label %}
+    <h4 class="is-rhythmed">{{ config.label }}</h4>
+  {% endif %}
+
+  {% if config.helptext %}
+    <div class="help-bloc">{{ config.helptext|safe }}</div>
+  {% endif %}
+
+  {{ formset.management_form }}
+
+  {% block rows %}
+    {% form form using %}
+      {% for f in formset.forms %}
+
+        <div class="row list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+          {% for field in f.visible_fields %}
+
+            {% if forloop.counter == 1 %}
+              <div class="row single-item">
+                <div class="medium-3 columns">
+                  <div class="row">
+                    {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+                      {% if template %}
+                        {% formrow field using template %}
+                      {% else %}
+                        {% formrow field using "form/question/default.html" %}
+                      {% endif %}
+                    {% endwith %}
+                  </div>
+                </div>
+            {% elif forloop.counter == 2 %}
+                <div class="medium-9 columns">
+                  <div class="row">
+                    {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+                      {% if template %}
+                        {% formrow field using template %}
+                      {% else %}
+                        {% formrow field using "form/question/default.html" %}
+                      {% endif %}
+                    {% endwith %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="row single-item">
+                {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+                  {% if template %}
+                    {% formrow field using template %}
+                  {% else %}
+                    {% formrow field using "form/question/default.html" %}
+                  {% endif %}
+                {% endwith %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          <div class="columns right">
+            <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
+            style="display: none;"{% endif %}>{% trans "Remove" %}</a>
+          </div>
+        </div>
+
+      {% endfor %}
+      {% if formset.max_num > formset.min_num %}
+        <div class="row list-action">
+          <div class="small-12 columns">
+            <p><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="link is-{{ configuration_name }}" {% if formset.total_form_count >= formset.max_num %} style="display:none;"{% endif %}>{% trans 'Add More' %}</a></p>
+          </div>
+        </div>
+      {% endif %}
+    {% endform %}
+    {% if not form.visible_fields %}{% for field in form.hidden_fields %}{% formfield field %}{% endfor %}{% endif %}
+
+  {% endblock %}
+</div>

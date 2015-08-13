@@ -1,5 +1,4 @@
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from django.test.utils import override_settings
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -126,6 +125,196 @@ class ListTest(FunctionalTest):
         for e in list_entries:
             self.findBy(
                 'xpath', '//div[contains(@style, "height: 180px")]', base=e)
+
+    def test_pagination(self):
+
+        # Alice goes to the list view
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        # She sees 4 entries
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # She does not see the pagination because there are not enough entries
+        self.findByNot('xpath', '//div[contains(@class, "pagination")]')
+
+        # She adds a limit to the URL and sees it is used to narrow the results
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list) + '?limit=1')
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+
+        # Now the pagination is visible
+        self.findBy('xpath', '//div[contains(@class, "pagination")]')
+        pagination = self.findManyBy(
+            'xpath', '//ul[contains(@class, "pagination")]/li')
+        self.assertEqual(len(pagination), 6)
+
+        # She goes to the next page
+        self.findBy('xpath', '//li[@class="arrow"]/a').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        pagination = self.findManyBy(
+            'xpath', '//ul[contains(@class, "pagination")]/li')
+        self.assertEqual(len(pagination), 6)
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 3")]')
+
+        # She adds a filter
+        self.findBy('link_text', 'Advanced filter').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.ID, "section_2-heading")))
+        self.findBy('id', 'section_2-heading').click()
+        self.findBy('id', 'key_14_value_14_3').click()
+        self.findBy('id', 'submit-filter').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that the list was filtered and that she is back on the
+        # first page
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+
+        pagination = self.findManyBy(
+            'xpath', '//ul[contains(@class, "pagination")]/li')
+        self.assertEqual(len(pagination), 4)
+
+        # She goes to the next page and sees the filter persists
+        self.findBy('xpath', '//li[@class="arrow"]/a').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 3")]')
+
+        pagination = self.findManyBy(
+            'xpath', '//ul[contains(@class, "pagination")]/li')
+        self.assertEqual(len(pagination), 4)
+
+        url = self.browser.current_url
+        item_1 = self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])').text
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]/div').text
+        pagination_1 = self.findBy(
+            'xpath', '//ul[contains(@class, "pagination")]').text
+
+        # She opens the current URL directly and sees that she is taken to the
+        # exact same page
+        self.browser.get(url)
+
+        item_2 = self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])').text
+        filter_2 = self.findBy('xpath', '//div[@id="active-filters"]/div').text
+        pagination_2 = self.findBy(
+            'xpath', '//ul[contains(@class, "pagination")]').text
+        self.assertEqual(item_1, item_2)
+        self.assertEqual(filter_1, filter_2)
+        self.assertEqual(pagination_1, pagination_2)
+
+        # She removes the specific filter and is back on the first page with
+        # all results
+        self.findBy(
+            'xpath', '//ul[@class="filter-list"]//a[@class="remove-filter"]'
+            '[1]').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+
+        pagination = self.findManyBy(
+            'xpath', '//ul[contains(@class, "pagination")]/li')
+        self.assertEqual(len(pagination), 6)
+
+        # She adds another filter
+        self.findBy('link_text', 'Advanced filter').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.ID, "section_2-heading")))
+        self.findBy('id', 'section_2-heading').click()
+        self.findBy('id', 'key_14_value_14_1').click()
+        self.findBy('id', 'submit-filter').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+
+        pagination = self.findManyBy(
+            'xpath', '//ul[contains(@class, "pagination")]/li')
+        self.assertEqual(len(pagination), 4)
+
+        # She goes to the second page
+        self.findBy('xpath', '//li[@class="arrow"]/a').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 1")]')
+
+        # She removes all filters
+        self.findBy('id', 'filter-reset').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She is back on the first page and the limit is still set
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+
+        pagination = self.findManyBy(
+            'xpath', '//ul[contains(@class, "pagination")]/li')
+        self.assertEqual(len(pagination), 6)
 
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_list_with_foreign_configuration(self, mock_config_index_filter):
@@ -254,188 +443,235 @@ class ListTest(FunctionalTest):
         info = self.findBy('xpath', '//ul[@class="tech-output-infos"]')
         self.assertIn('Foo Bar, Faz Taz', info.text)
 
-    # def test_filter_checkbox(self):
+    def test_filter_checkbox(self):
 
-    #     # Alice goes to the list view
-    #     self.browser.get(self.live_server_url + reverse(
-    #         route_questionnaire_list))
+        # Alice goes to the list view
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
 
-    #     # She sees there are 4 Questionnaires in the list
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 4)
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
 
-    #     # There is no active filter set
-    #     active_filter_panel = self.findBy(
-    #         'xpath', '//div[@id="active-filters"]/div')
-    #     self.assertFalse(active_filter_panel.is_displayed())
-    #     active_filters = self.findManyBy(
-    #         'xpath', '//div[@id="active-filters"]//li')
-    #     self.assertEqual(len(active_filters), 0)
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
 
-    #     # She sees a link for advanced filtering which opens the filter
-    #     # panel
-    #     filter_panel = self.findBy('id', 'search-advanced')
-    #     self.assertFalse(filter_panel.is_displayed())
-    #     self.findBy('link_text', 'Advanced filter').click()
-    #     self.assertTrue(filter_panel.is_displayed())
+        # She sees a link for advanced filtering which opens the filter
+        # panel
+        filter_panel = self.findBy('id', 'search-advanced')
+        self.assertFalse(filter_panel.is_displayed())
+        self.findBy('link_text', 'Advanced filter').click()
+        self.assertTrue(filter_panel.is_displayed())
 
-    #     # She sees section 2 and below the image checkboxes for values
-    #     # 14_1, 14_2 and 14_3
-    #     self.findBy('id', 'section_2-heading').click()
-    #     val_1 = self.findBy('id', 'key_14_value_14_1')
-    #     val_2 = self.findBy('id', 'key_14_value_14_2')
-    #     val_3 = self.findBy('id', 'key_14_value_14_3')
+        # She sees section 2 and below the image checkboxes for values
+        # 14_1, 14_2 and 14_3
+        self.findBy('id', 'section_2-heading').click()
+        val_1 = self.findBy('id', 'key_14_value_14_1')
+        val_2 = self.findBy('id', 'key_14_value_14_2')
+        val_3 = self.findBy('id', 'key_14_value_14_3')
 
-    #     # She selects value 2 and sees the list is now filtered
-    #     val_2.click()
+        # She selects value 2
+        val_2.click()
 
-    #     WebDriverWait(self.browser, 10).until(
-    #         EC.invisibility_of_element_located(
-    #             (By.CLASS_NAME, "loading-indicator")))
+        # She clicks the button to apply the filter
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
 
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 1)
-    #     self.findBy(
-    #         'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-    #         'contains(text(), "Foo 2")]')
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
-    #     # The filter was added to the list of active filters
-    #     active_filter_panel = self.findBy(
-    #         'xpath', '//div[@id="active-filters"]/div')
-    #     self.assertTrue(active_filter_panel.is_displayed())
-    #     active_filters = self.findManyBy(
-    #         'xpath', '//div[@id="active-filters"]//li')
-    #     self.assertEqual(len(active_filters), 1)
-    #     filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-    #     self.assertEqual(filter_1.text, 'Key 14: Value 14_2')
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 2")]')
 
-    #     # She removes the filter again, the list is unfiltered again
-    #     val_2.click()
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Key 14: Value 14_2')
 
-    #     WebDriverWait(self.browser, 10).until(
-    #         EC.invisibility_of_element_located(
-    #             (By.CLASS_NAME, "loading-indicator")))
+        # She unchecks the checkbox and updates the filter
+        val_2.click()
+        filter_button.click()
 
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 4)
-    #     active_filter_panel = self.findBy(
-    #         'xpath', '//div[@id="active-filters"]/div')
-    #     self.assertFalse(active_filter_panel.is_displayed())
-    #     active_filters = self.findManyBy(
-    #         'xpath', '//div[@id="active-filters"]//li')
-    #     self.assertEqual(len(active_filters), 0)
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
-    #     # She selects the first checkbox and again, the list is filtered
-    #     val_1.click()
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
 
-    #     WebDriverWait(self.browser, 10).until(
-    #         EC.invisibility_of_element_located(
-    #             (By.CLASS_NAME, "loading-indicator")))
+        # She selects the first checkbox and updates the filter
+        val_1.click()
+        filter_button.click()
 
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 2)
-    #     self.findBy(
-    #         'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-    #         'contains(text(), "Foo 4")]')
-    #     self.findBy(
-    #         'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-    #         'contains(text(), "Foo 1")]')
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
-    #     # The filter was added to the list of active filters
-    #     active_filter_panel = self.findBy(
-    #         'xpath', '//div[@id="active-filters"]/div')
-    #     self.assertTrue(active_filter_panel.is_displayed())
-    #     active_filters = self.findManyBy(
-    #         'xpath', '//div[@id="active-filters"]//li')
-    #     self.assertEqual(len(active_filters), 1)
-    #     filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-    #     self.assertEqual(filter_1.text, 'Key 14: Value 14_1')
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 1")]')
 
-    #     # She also selects value 3
-    #     val_3.click()
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Key 14: Value 14_1')
 
-    #     WebDriverWait(self.browser, 10).until(
-    #         EC.invisibility_of_element_located(
-    #             (By.CLASS_NAME, "loading-indicator")))
+        # She also selects value 3 and updates the filter
+        val_3.click()
+        filter_button.click()
 
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 1)
-    #     self.findBy(
-    #         'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-    #         'contains(text(), "Foo 4")]')
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
-    #     # The filter was added to the list of active filters
-    #     active_filter_panel = self.findBy(
-    #         'xpath', '//div[@id="active-filters"]/div')
-    #     self.assertTrue(active_filter_panel.is_displayed())
-    #     active_filters = self.findManyBy(
-    #         'xpath', '//div[@id="active-filters"]//li')
-    #     self.assertEqual(len(active_filters), 2)
-    #     filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-    #     self.assertEqual(filter_1.text, 'Key 14: Value 14_1')
-    #     filter_2 = self.findBy('xpath', '//div[@id="active-filters"]//li[2]')
-    #     self.assertEqual(filter_2.text, 'Key 14: Value 14_3')
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
 
-    #     # She sees that she can also remove the filter in the list of
-    #     # filters
-    #     self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 2)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Key 14: Value 14_1')
+        filter_2 = self.findBy('xpath', '//div[@id="active-filters"]//li[2]')
+        self.assertEqual(filter_2.text, 'Key 14: Value 14_3')
 
-    #     WebDriverWait(self.browser, 10).until(
-    #         EC.invisibility_of_element_located(
-    #             (By.CLASS_NAME, "loading-indicator")))
+        # She sees that she can also remove the filter in the list of
+        # filters
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
 
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 2)
-    #     self.findBy(
-    #         'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-    #         'contains(text(), "Foo 4")]')
-    #     self.findBy(
-    #         'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-    #         'contains(text(), "Foo 3")]')
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
-    #     # The filter was removed from the list of active filters
-    #     active_filter_panel = self.findBy(
-    #         'xpath', '//div[@id="active-filters"]/div')
-    #     self.assertTrue(active_filter_panel.is_displayed())
-    #     active_filters = self.findManyBy(
-    #         'xpath', '//div[@id="active-filters"]//li')
-    #     self.assertEqual(len(active_filters), 1)
-    #     filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-    #     self.assertEqual(filter_1.text, 'Key 14: Value 14_3')
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 3")]')
 
-    #     # She adds another filter
-    #     # She also selects value 3
-    #     val_2.click()
+        # The filter was removed from the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Key 14: Value 14_3')
 
-    #     WebDriverWait(self.browser, 10).until(
-    #         EC.invisibility_of_element_located(
-    #             (By.CLASS_NAME, "loading-indicator")))
+        # She adds another filter: She also selects value 3 and updates the
+        # filter
+        val_2.click()
+        filter_button.click()
 
-    #     # She clicks the button to clear all filters and sees they are all gone
-    #     self.findBy('id', 'filter-reset').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
-    #     WebDriverWait(self.browser, 10).until(
-    #         EC.invisibility_of_element_located(
-    #             (By.CLASS_NAME, "loading-indicator")))
+        # She clicks the button to clear all filters and sees they are all gone
+        self.findBy('id', 'filter-reset').click()
 
-    #     # She sees there are 4 Questionnaires in the list
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 4)
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
-    #     # There is no active filter set
-    #     active_filter_panel = self.findBy(
-    #         'xpath', '//div[@id="active-filters"]/div')
-    #     self.assertFalse(active_filter_panel.is_displayed())
-    #     active_filters = self.findManyBy(
-    #         'xpath', '//div[@id="active-filters"]//li')
-    #     self.assertEqual(len(active_filters), 0)
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She adds a first filter again
+        self.findBy('id', 'key_14_value_14_3').click()
+        self.findBy('id', 'submit-filter').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # There is one active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+
+        # She removes the first filter and adds another filter instead
+        self.findBy('id', 'key_14_value_14_3').click()
+        self.findBy('id', 'key_14_value_14_2').click()
+        self.findBy('id', 'submit-filter').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # Again, there is one active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+
+        # She reloads the same page and sees the correct checkbox was selected
+        self.browser.get(self.browser.current_url)
+
+        cb = self.findBy('xpath', '//input[@id="key_14_value_14_2"]')
+        self.assertTrue(cb.is_selected())
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

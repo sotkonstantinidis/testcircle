@@ -46,6 +46,13 @@ from questionnaire.utils import (
     query_questionnaire,
     query_questionnaires,
 )
+from questionnaire.view_utils import (
+    ESPagination,
+    get_page_parameter,
+    get_pagination_parameters,
+    get_paginator,
+    get_limit_parameter,
+)
 from search.search import advanced_search
 
 
@@ -121,7 +128,7 @@ def generic_questionnaire_link_form(
                     link_object = Questionnaire.objects.get(pk=submitted_link)
                 except Questionnaire.DoesNotExist:
                     messages.error(
-                        request, '[TODO] The linked questionnaire with ID {} '
+                        request, 'The linked questionnaire with ID {} '
                         'does not exist'.format(submitted_link))
                     valid = False
                     continue
@@ -139,7 +146,7 @@ def generic_questionnaire_link_form(
             save_session_questionnaire(
                 configuration_code, session_questionnaire, link_data)
             messages.success(
-                request, _('[TODO] Data successfully stored to Session.'))
+                request, _('Data successfully stored to Session.'))
             return redirect(overview_url)
 
     return render(request, 'form/links.html', {
@@ -372,7 +379,7 @@ def generic_questionnaire_new_step(
                     configuration_code, questionnaire_data, session_links)
 
                 messages.success(
-                    request, _('[TODO] Data successfully stored to Session.'))
+                    request, _('Data successfully stored to Session.'))
                 return redirect(overview_url)
 
     return render(request, 'form/category.html', {
@@ -452,7 +459,7 @@ def generic_questionnaire_new(
                     '<br/>'.join(errors)), extra_tags='safe')
         if not cleaned_questionnaire_data:
             messages.info(
-                request, _('[TODO] You cannot submit an empty questionnaire'),
+                request, _('You cannot submit an empty questionnaire'),
                 fail_silently=True)
             return redirect(request.path)
         else:
@@ -471,7 +478,7 @@ def generic_questionnaire_new(
 
             messages.success(
                 request,
-                _('[TODO] The questionnaire was successfully created.'),
+                _('The questionnaire was successfully created.'),
                 fail_silently=True)
 
             return redirect('{}#top'.format(
@@ -606,7 +613,7 @@ def generic_questionnaire_details(
 
 
 def generic_questionnaire_list(
-        request, configuration_code, template=None, filter_url='', limit=10,
+        request, configuration_code, template=None, filter_url='', limit=None,
         only_current=False, db_query=False):
     """
     A generic view to show a list of questionnaires.
@@ -651,15 +658,26 @@ def generic_questionnaire_list(
         elif filter_type in ['checkbox', 'image_checkbox']:
             filter_params.append(
                 (active_filter.get('questiongroup'),
-                 active_filter.get('key'), active_filter.get('value'), None))
+                 active_filter.get('key'), active_filter.get('value'), None,
+                 active_filter.get('type')))
         else:
             raise NotImplementedError(
                 'Type "{}" is not valid for filters'.format(filter_type))
 
+    if limit is None:
+        limit = get_limit_parameter(request)
+    page = get_page_parameter(request)
+    offset = page * limit - limit
+
     if db_query is True:
-        questionnaires = query_questionnaires(
+
+        # Limit is handled by the paginator
+        questionnaire_objects = query_questionnaires(
             request, configuration_code, only_current=only_current,
-            limit=limit)
+            limit=None)
+
+        questionnaires, paginator = get_paginator(
+            questionnaire_objects, page, limit)
 
         list_values = get_list_values(
             configuration_code=configuration_code,
@@ -671,10 +689,17 @@ def generic_questionnaire_list(
 
         search = advanced_search(
             filter_params=filter_params, query_string=query_string,
-            configuration_codes=search_configuration_codes, limit=limit)
+            configuration_codes=search_configuration_codes, limit=limit,
+            offset=offset)
+
+        es_hits = search.get('hits', {})
+        es_pagination = ESPagination(
+            es_hits.get('hits', []), es_hits.get('total', 0))
+
+        questionnaires, paginator = get_paginator(es_pagination, page, limit)
 
         list_values = get_list_values(
-            configuration_code=configuration_code, es_search=search)
+            configuration_code=configuration_code, es_hits=questionnaires)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\
@@ -686,6 +711,11 @@ def generic_questionnaire_list(
         'active_filters': active_filters,
         'filter_url': filter_url,
     }
+
+    # Add the pagination parameters
+    pagination_params = get_pagination_parameters(
+        request, paginator, questionnaires)
+    template_values.update(pagination_params)
 
     if template is None:
         return template_values

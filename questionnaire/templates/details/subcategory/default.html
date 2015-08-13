@@ -1,10 +1,10 @@
-<h3>{{ label }}</h3>
+<h3>{{ numbering|default:'' }} {{ label }}</h3>
 {% if subcategories %}
   {% for subcategory in subcategories %}
     {{ subcategory }}
   {% endfor %}
 {% else %}
-  {% for questiongroup in questiongroups %}
-    {{ questiongroup }}
+  {% for qg_config, qg_rendered in questiongroups %}
+    {{ qg_rendered }}
   {% endfor %}
 {% endif %}

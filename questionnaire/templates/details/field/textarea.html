@@ -1,3 +1,14 @@
 {% if value %}
-<p>{% if view_label %}{{ key }}:<br/>{% endif %}{{ value|linebreaksbr }}</p>
+  {% if header == 'inline' %}
+    <p><strong>{{ key }}</strong>: {{ value|linebreaksbr }}</p>
+  {% else %}
+    {% if view_label != 'none' %}
+      {% if header == 'small' %}
+        <h5>{{ key }}:</h5>
+      {% else %}
+        <h3>{{ key }}:</h3>
+      {% endif %}
+    {% endif %}
+    <p>{{ value|linebreaksbr }}</p>
+  {% endif %}
 {% endif %}

@@ -10,10 +10,74 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Country"}}, "unccd":{"label":{"en": "Country"}}}
+        "data": {"approaches":{"label":{"en":"Country"}},"technologies":{"label":{"en":"Country"}},"unccd":{"label":{"en":"Country"}}}
     },
     "model": "configuration.translation",
     "pk": 5002
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en":"Local name (with language)"}},"technologies":{"label":{"en":"Local name (with language)"}},"unccd":{"label":{"en":"Local name"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5003
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en":"Comments"}},"technologies":{"label":{"en":"Comments"}},"unccd":{"label":{"en":"Comments"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5004
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en":"State / Province"}},"technologies":{"label":{"en": "State / Province"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5005
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"}},"technologies":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"},"label_view":{"en": "Further specification of location"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5006
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Image"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5007
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Caption"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5008
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Date and Location"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5009
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Name of photographer"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5010
 },
 
 
@@ -2033,6 +2097,54 @@
     "model": "configuration.translation",
     "pk": 5752
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "0%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5753
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1-25%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5754
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "26-50%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5755
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "51-75%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5756
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "76-99%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5757
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "100%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5758
+},
 
 
 {
@@ -2079,6 +2191,78 @@
     },
     "model": "configuration.key",
     "pk": 2
+},
+{
+    "fields": {
+        "keyword": "name_local",
+        "translation": 5003,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 3
+},
+{
+    "fields": {
+        "keyword": "state_province",
+        "translation": 5005,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 4
+},
+{
+    "fields": {
+        "keyword": "further_location",
+        "translation": 5006,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 5
+},
+{
+    "fields": {
+        "keyword": "location_comments",
+        "translation": 5004,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 6
+},
+{
+    "fields": {
+        "keyword": "image",
+        "translation": 5007,
+        "configuration": {"type": "image"}
+    },
+    "model": "configuration.key",
+    "pk": 7
+},
+{
+    "fields": {
+        "keyword": "image_caption",
+        "translation": 5008,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 8
+},
+{
+    "fields": {
+        "keyword": "image_date_location",
+        "translation": 5009,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 9
+},
+{
+    "fields": {
+        "keyword": "image_photographer",
+        "translation": 5010,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 10
 },
 
 
@@ -4101,6 +4285,60 @@
     "model": "configuration.value",
     "pk": 252
 },
+{
+    "fields": {
+        "keyword": "percentage_q0",
+        "translation": 5753,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 253
+},
+{
+    "fields": {
+        "keyword": "percentage_q1",
+        "translation": 5754,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 254
+},
+{
+    "fields": {
+        "keyword": "percentage_q2",
+        "translation": 5755,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 255
+},
+{
+    "fields": {
+        "keyword": "percentage_q3",
+        "translation": 5756,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 256
+},
+{
+    "fields": {
+        "keyword": "percentage_q4",
+        "translation": 5757,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 257
+},
+{
+    "fields": {
+        "keyword": "percentage_q5",
+        "translation": 5758,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 258
+},
 
 
 {
@@ -4120,6 +4358,15 @@
     },
     "model": "configuration.questiongroup",
     "pk": 2
+},
+{
+    "fields": {
+        "keyword": "qg_image",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3
 },
 
 

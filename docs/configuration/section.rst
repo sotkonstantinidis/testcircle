@@ -26,7 +26,7 @@ The basic format of the configuration is as follows::
     "keyword": "SECTION_KEYWORD",
 
     # (optional)
-    "view_template": "VIEW_TEMPLATE",
+    "view_options": {},
 
     # (optional)
     "include_toc": true,
@@ -58,14 +58,11 @@ The basic format of the configuration is as follows::
 The keyword of the section.
 
 
-``view_template``
-^^^^^^^^^^^^^^^^^
+``view_options``
+^^^^^^^^^^^^^^^^
 
-(Optional). An optional name of a template to be used for the rendering
-of the section details. The name of the template needs to match a file
-with the ending ``.html`` inside
-``questionnaire/templates/details/section/``. If not specified, the
-default layout (``default.html``) for the section is used.
+(Optional). An optional object containing configuration options for the
+view representation of the section.
 
 
 ``include_toc``

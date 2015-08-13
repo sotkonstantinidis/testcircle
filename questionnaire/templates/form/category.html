@@ -12,7 +12,7 @@
       <div class="row">
         <div class="columns small-12 medium-9">
           <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back" %}</a>
-          <h2 class="wizard-header-title">{{ category_config.label }}</h2>
+          <h2 class="wizard-header-title">{{ category_config.numbering|default:'' }} {{ category_config.label }}</h2>
           <div class="progress">
             <span class="meter" style="width:0%"></span>
           </div>
@@ -44,6 +44,11 @@
     {% endif %}
 
     <main class="main inner-wrap">
+
+      {% if category_config.helptext %}
+        <div class="help-bloc">{{ category_config.helptext|safe }}</div>
+      {% endif %}
+
       {% for subcategory_config, subcategory_formsets in category_formsets %}
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
         {% form form using subcategory_config.form_template with config=subcategory_config formsets=subcategory_formsets %}

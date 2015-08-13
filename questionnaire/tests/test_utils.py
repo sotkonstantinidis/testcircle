@@ -641,6 +641,13 @@ class QueryQuestionnairesTest(TestCase):
         self.assertEqual(len(ret), 1)
         self.assertEqual(ret[0].id, 6)
 
+    def test_applies_offset(self):
+        request = Mock()
+        request.user.is_authenticated.return_value = False
+        ret = query_questionnaires(request, 'sample', offset=1)
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0].id, 3)
+
 
 class QueryQuestionnairesForLinkTest(TestCase):
 
@@ -712,19 +719,12 @@ class QueryQuestionnairesForLinkTest(TestCase):
 
 class GetListValuesTest(TestCase):
 
-    values_length = 10
+    def setUp(self):
+        self.values_length = 10
+        self.es_hits = [{'_id': 1}]
 
     def test_returns_values_from_es_search(self):
-        es_search = {
-            'hits': {
-                'hits': [
-                    {
-                        '_id': 1,
-                    }
-                ]
-            }
-        }
-        ret = get_list_values(es_search=es_search)
+        ret = get_list_values(es_hits=self.es_hits)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)
@@ -740,32 +740,14 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('links'), [])
 
     def test_es_uses_provided_configuration(self):
-        es_search = {
-            'hits': {
-                'hits': [
-                    {
-                        '_id': 1,
-                    }
-                ]
-            }
-        }
-        ret = get_list_values(es_search=es_search, configuration_code='foo')
+        ret = get_list_values(es_hits=self.es_hits, configuration_code='foo')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
     def test_es_wocat_uses_default_configuration(self):
-        es_search = {
-            'hits': {
-                'hits': [
-                    {
-                        '_id': 1,
-                    }
-                ]
-            }
-        }
-        ret = get_list_values(es_search=es_search, configuration_code='wocat')
+        ret = get_list_values(es_hits=self.es_hits, configuration_code='wocat')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)

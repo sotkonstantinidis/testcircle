@@ -640,7 +640,7 @@ def query_questionnaire(request, identifier):
 
 
 def query_questionnaires(
-        request, configuration_code, only_current=False, limit=10):
+        request, configuration_code, only_current=False, limit=10, offset=0):
     """
     Query and return many Questionnaires.
 
@@ -659,15 +659,22 @@ def query_questionnaires(
 
         ``limit`` (int): The limit of results the query will return.
 
+        ``offset`` (int): The offset of the results of the query.
+
     Returns:
         ``django.db.models.query.QuerySet``. The queried Questionnaires.
     """
     status_filter = get_query_status_filter(request)
 
-    return Questionnaire.objects.filter(
+    query = Questionnaire.objects.filter(
         get_configuration_query_filter(
             configuration_code, only_current=only_current)).filter(
-                status_filter).distinct()[:limit]
+                status_filter).distinct()
+
+    if limit is not None:
+        return query[offset:offset+limit]
+
+    return query
 
 
 def get_query_status_filter(request):
@@ -774,7 +781,7 @@ def query_questionnaires_for_link(configuration, q, limit=10):
 
 
 def get_list_values(
-        configuration_code=None, es_search={}, questionnaire_objects=[],
+        configuration_code=None, es_hits=[], questionnaire_objects=[],
         with_links=True):
     """
     Retrieves and prepares data to be used in a list representation.
@@ -813,7 +820,7 @@ def get_list_values(
     """
     list_entries = []
 
-    for result in es_search.get('hits', {}).get('hits', []):
+    for result in es_hits:
         # Results from Elasticsearch. List values are already available.
 
         # Fall back to the original configuration if viewed from "wocat"

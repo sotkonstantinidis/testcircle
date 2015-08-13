@@ -24,6 +24,11 @@
 $bars-max-number: 20;
 $bars-factor: 4;
 
+.chart-horizontal-bars .chart-bar.is-level-0 {
+  background-color: inherit;
+  color: inherit;
+}
+
 .chart-pyramidal-bars {
   @for $i from 1 through $bars-max-number {
     .chart-bar:nth-child(#{$i}) {

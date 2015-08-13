@@ -12,6 +12,7 @@
 
 {% endcomment %}
 
+{% load i18n %}
 {% load staticfiles %}
 {% load list_to_columns %}
 
@@ -139,6 +140,13 @@
               {% endfor %}
 
             </ul>
+          </div>
+        </div>
+      </div>
+      <div class="is-rhythmed">
+        <div class="row">
+          <div class="small-12 columns text-right">
+            <input type="submit" id="submit-filter" class="button radius secondary" value="{% trans 'Filter' %}">
           </div>
         </div>
       </div>

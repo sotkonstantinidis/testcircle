@@ -262,6 +262,15 @@ class QuestionnaireListPartialTest(TestCase):
         mock_render_to_string.assert_any_call(
             'active_filters.html', {'active_filters': 'bar'})
 
+    @patch('sample.views.render_to_string')
+    @patch('sample.views.generic_questionnaire_list')
+    def test_calls_render_to_string_with_pagination(
+            self, mock_questionnaire_list, mock_render_to_string):
+        mock_render_to_string.return_value = ''
+        self.client.get(self.url)
+        mock_render_to_string.assert_any_call(
+            'pagination.html', mock_questionnaire_list.return_value)
+
 
 class QuestionnaireListTest(TestCase):
 

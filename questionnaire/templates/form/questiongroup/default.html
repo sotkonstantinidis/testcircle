@@ -28,7 +28,7 @@
   {% endif %}
 
   {% if config.helptext %}
-    <p class="help-bloc">{{ config.helptext }}</p>
+    <div class="help-bloc">{{ config.helptext|safe }}</div>
   {% endif %}
 
   {{ formset.management_form }}
@@ -49,7 +49,7 @@
           {% for field in f.visible_fields %}
             <div class="row single-item">
               {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
-              {% with template=config.templates|get_by_keyword:field.name %}
+              {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
                 {% block row %}
                   {% if template %}
                     {% formrow field using template %}

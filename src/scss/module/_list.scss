@@ -113,3 +113,7 @@
 .list-ordered + .list-action .link {
   margin-left: rem-calc(24);
 }
+
+ul.pagination li.unavailable a {
+  pointer-events: none;
+}

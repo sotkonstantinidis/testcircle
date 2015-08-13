@@ -126,11 +126,13 @@ def questionnaire_list_partial(request):
         'list_values': list_values['list_values']})
     active_filters = render_to_string('active_filters.html', {
         'active_filters': list_values['active_filters']})
+    pagination = render_to_string('pagination.html', list_values)
 
     ret = {
         'success': True,
         'list': list_,
         'active_filters': active_filters,
+        'pagination': pagination,
     }
 
     return JsonResponse(ret)
