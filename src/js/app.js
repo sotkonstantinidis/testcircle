@@ -105,11 +105,12 @@ $(function() {
 
       // We have to refresh sliders if their are in a collapsed element (grip position issue)
       try {
-        $('.nstSlider').nstSlider('refresh');
+        $('.nstSlider').each(function() {
+          $(this).nstSlider('refresh');
+        });
       } catch(e) {}
     }
-
-  })
+  });
 
   // Update the numbering of the questiongroups
   updateNumbering();

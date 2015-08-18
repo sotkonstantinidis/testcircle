@@ -493,6 +493,30 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_1['value'], 'foo')
         self.assertEqual(filter_1['value_label'], 'foo')
 
+    def test_returns_created_filter(self):
+        query_dict = QueryDict('created=2014-2016')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_date')
+        self.assertEqual(filter_1['key'], 'created')
+        self.assertEqual(filter_1['questiongroup'], 'created')
+        self.assertEqual(filter_1['key_label'], 'Created')
+        self.assertEqual(filter_1['value'], '2014-2016')
+        self.assertEqual(filter_1['value_label'], '2014 - 2016')
+
+    def test_handles_invalid_created_dates(self):
+        query_dict = QueryDict('created=2014')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 0)
+
+    def test_handles_invalid_updated_dates(self):
+        query_dict = QueryDict('updated=foo-bar')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 0)
+
     def test_returns_mixed_filters(self):
         query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
         filters = get_active_filters(self.conf, query_dict)

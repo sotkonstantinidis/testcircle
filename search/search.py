@@ -68,7 +68,7 @@ def advanced_search(
     # TODO: Support more operator types.
     # TODO: Support AND/OR
 
-    nested_questiongroups = []
+    must = []
 
     # Filter parameters: Nested subqueries to access the correct
     # questiongroup.
@@ -79,7 +79,7 @@ def advanced_search(
         filter_type = filter_param[4]
 
         if filter_type in ['checkbox', 'image_checkbox']:
-            nested_questiongroups.append({
+            must.append({
                 "nested": {
                     "path": "data.{}".format(questiongroup),
                     "query": {
@@ -92,7 +92,7 @@ def advanced_search(
             })
 
         elif filter_type in ['text', 'char']:
-            nested_questiongroups.append({
+            must.append({
                 "nested": {
                     "path": "data.{}".format(questiongroup),
                     "query": {
@@ -106,9 +106,22 @@ def advanced_search(
                 }
             })
 
+        elif filter_type in ['_date']:
+            years = value.split('-')
+            if len(years) != 2:
+                continue
+            must.append({
+                'range': {
+                    key: {
+                        'from': '{}||/y'.format(years[0]),
+                        'to': '{}||/y'.format(years[1]),
+                    }
+                }
+            })
+
     # Query string: Full text search
     if query_string:
-        nested_questiongroups.append({
+        must.append({
             "query_string": {
                 "query": query_string
             }
@@ -133,7 +146,7 @@ def advanced_search(
     query = {
         "query": {
             "bool": {
-                "must": nested_questiongroups,
+                "must": must,
                 'should': should,
             }
         },

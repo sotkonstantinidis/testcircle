@@ -40,6 +40,7 @@ def clean_questionnaire_data(data, configuration):
         ``list``. A list with errors encountered. Empty if the
         dictionary is valid.
     """
+    # print(data)
     errors = []
     cleaned_data = {}
     try:
@@ -451,6 +452,9 @@ def get_active_filters(questionnaire_configuration, query_dict):
 
     * ``q``: A search term for the full text search (``q=search``)
 
+    * ``created`` or ``updated``: A range of two comma-separated years
+      (``created=2014,2016`` or ``updated=2015,2015``)
+
     All the options can also be combined, such as::
 
         q=search&filter__qg_11__key_14=value_14_1
@@ -498,6 +502,32 @@ def get_active_filters(questionnaire_configuration, query_dict):
                     'questiongroup': '_search',
                 })
             continue
+
+        if filter_param in ['created', 'updated']:
+            years = []
+            for filter_value in filter_values:
+                for y in filter_value.split('-'):
+                    try:
+                        years.append(int(y))
+                    except ValueError:
+                        pass
+            if len(years) != 2:
+                continue
+
+            label = ''
+            if filter_param == 'created':
+                label = _('Created')
+            elif filter_param == 'updated':
+                label = _('Updated')
+
+            active_filters.append({
+                'type': '_date',
+                'key': filter_param,
+                'key_label': label,
+                'value': '-'.join(str(y) for y in sorted(years)),
+                'value_label': ' - '.join(str(y) for y in sorted(years)),
+                'questiongroup': filter_param,
+            })
 
         if not filter_param.startswith('filter__'):
             continue

@@ -45,8 +45,7 @@ class ListTest(FunctionalTest):
 
         # Alice goes to the main page of the configuration and sees a
         # list with questionnaires
-        self.browser.get(self.live_server_url + reverse(
-            route_home))
+        self.browser.get(self.live_server_url + reverse(route_home))
 
         self.checkOnPage('Last updates')
 
@@ -672,6 +671,207 @@ class ListTest(FunctionalTest):
 
         cb = self.findBy('xpath', '//input[@id="key_14_value_14_2"]')
         self.assertTrue(cb.is_selected())
+
+    def test_filter_dates(self):
+
+        # Alice goes to the list view
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She sees a link for advanced filtering which opens the filter
+        # panel
+        filter_panel = self.findBy('id', 'search-advanced')
+        self.assertFalse(filter_panel.is_displayed())
+        self.findBy('link_text', 'Advanced filter').click()
+        self.assertTrue(filter_panel.is_displayed())
+
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "filter-created")))
+
+        # She sees a slider to filter by creation date
+        leftLabel = self.findBy(
+            'xpath', '//span[contains(@class, "filter-created") and '
+            'contains(@class, "leftLabel")]')
+        self.assertEqual(leftLabel.text, '2000')
+        rightLabel = self.findBy(
+            'xpath', '//span[contains(@class, "filter-created") and '
+            'contains(@class, "rightLabel")]')
+        self.assertEqual(rightLabel.text, '2016')
+
+        url = self.browser.current_url
+
+        # She submits the filter and sees the slider values were not submitted
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+        self.assertEqual(self.browser.current_url, '{}?'.format(url))
+
+        # She "changes" the slider
+        created_slider_min = self.findBy(
+            'xpath', '//input[contains(@class, "filter-created") and '
+            'contains(@class, "min")]')
+        self.changeHiddenInput(created_slider_min, '2014')
+        filter_button.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that the filter was submitted in the url and the results
+        # are filtered
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Created: 2014 - 2016')
+
+        # She also sets a filter for the updated year
+        updated_slider_max = self.findBy(
+            'xpath', '//input[contains(@class, "filter-updated") and '
+            'contains(@class, "max")]')
+        self.changeHiddenInput(updated_slider_max, '2012')
+        filter_button.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # Nothing is visible with these two filters
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 0)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Created: 2014 - 2016')
+        filter_2 = self.findBy('xpath', '//div[@id="active-filters"]//li[2]')
+        self.assertEqual(filter_2.text, 'Updated: 2000 - 2012')
+
+        # She removes the first filter (creation date), 2 entries show up
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 1")]')
+
+        # She hits the button to remove all filters
+        self.findBy('id', 'filter-reset').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She sets a filter again and reloads the page
+        created_slider_min = self.findBy(
+            'xpath', '//input[contains(@class, "filter-created") and '
+            'contains(@class, "min")]')
+        self.changeHiddenInput(created_slider_min, '2012')
+        created_slider_max = self.findBy(
+            'xpath', '//input[contains(@class, "filter-created") and '
+            'contains(@class, "max")]')
+        self.changeHiddenInput(created_slider_max, '2013')
+
+        created_left_handle = self.findBy(
+            'xpath', '//div[contains(@class, "leftGrip") and contains(@class, '
+            '"filter-created")]')
+        self.assertEqual(
+            created_left_handle.get_attribute('style'), 'left: 0px;')
+
+        filter_button.click()
+        url = self.browser.current_url
+        self.browser.get(url)
+
+        self.findBy('link_text', 'Advanced filter').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "filter-created")))
+
+        # She sees the filter is set
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 3")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 2")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Created: 2012 - 2013')
+
+        # She sees the slider is set to match the current filter
+        created_left_handle = self.findBy(
+            'xpath', '//div[contains(@class, "leftGrip") and contains(@class, '
+            '"filter-created")]')
+        self.assertNotEqual(
+            created_left_handle.get_attribute('style'), 'left: 0px;')
+
+        # She removes the filter and sees that the slider position has
+        # been reset.
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+        self.assertEqual(
+            created_left_handle.get_attribute('style'), 'left: 0px;')
+
+        # She clicks "filter" again (slider not being set) and sees that
+        # nothing is happening.
+        # She submits the filter and sees the slider values were not submitted
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+        self.assertEqual(
+            self.browser.current_url, '{}?'.format(
+                self.live_server_url + reverse(route_questionnaire_list)))
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

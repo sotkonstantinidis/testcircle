@@ -28,11 +28,7 @@ $(function() {
     var p = parseQueryString();
 
     // Remove all filter parameters
-    for (var k in p) {
-      if (k.lastIndexOf('filter__', 0) === 0) {
-        delete p[k];
-      }
-    }
+    p = removeFilterParams(p);
 
     // Always delete the paging parameter if the filter was modified
     delete p['page'];
@@ -49,17 +45,25 @@ $(function() {
     var p = parseQueryString();
 
     // Remove all filter parameters
-    for (var k in p) {
-      if (k.lastIndexOf('filter__', 0) === 0) {
-        delete p[k];
-      }
-    }
+    p = removeFilterParams(p);
 
     // Checkboxes
     $('#search-advanced input:checkbox').each(function() {
       var $t = $(this);
       if ($t.is(':checked')) {
         p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
+      }
+    });
+
+    // Sliders
+    $('.nstSlider').each(function() {
+      var qs = $(this).data('keyword');
+      var min_val = $(this).parent().find('.min').val();
+      var max_val = $(this).parent().find('.max').val();
+      var min = $(this).data('cur_min');
+      var max = $(this).data('cur_max');
+      if (qs && min_val && max_val && !(min == min_val && max == max_val)) {
+        p = addFilter(p, null, qs, [min_val, max_val].join('-'));
       }
     });
 
@@ -78,6 +82,34 @@ $(function() {
     updateList(s);
     return false;
   });
+
+  // Slider
+  // -----------------
+  // See full doc here: http://lokku.github.io/jquery-nstslider/
+  $('.nstSlider.filter-created').nstSlider({
+    "crossable_handles": false,
+    "left_grip_selector": ".leftGrip.filter-created",
+    "right_grip_selector": ".rightGrip.filter-created",
+    "value_bar_selector": ".bar.filter-created",
+    "value_changed_callback": function(cause, leftValue, rightValue, prevLeft, prevRight) {
+      $(this).parent().find('.leftLabel.filter-created').text(leftValue);
+      $(this).parent().find('.rightLabel.filter-created').text(rightValue);
+      $(this).parent().find('.min.filter-created').val(leftValue);
+      $(this).parent().find('.max.filter-created').val(rightValue);
+    }
+  });
+  $('.nstSlider.filter-updated').nstSlider({
+    "crossable_handles": false,
+    "left_grip_selector": ".leftGrip.filter-updated",
+    "right_grip_selector": ".rightGrip.filter-updated",
+    "value_bar_selector": ".bar.filter-updated",
+    "value_changed_callback": function(cause, leftValue, rightValue, prevLeft, prevRight) {
+      $(this).parent().find('.leftLabel.filter-updated').text(leftValue);
+      $(this).parent().find('.rightLabel.filter-updated').text(rightValue);
+      $(this).parent().find('.min.filter-updated').val(leftValue);
+      $(this).parent().find('.max.filter-updated').val(rightValue);
+    }
+  });
 });
 
 
@@ -90,6 +122,15 @@ function updateFilterInputs() {
   // Uncheck all input fields first
   $('input[data-questiongroup]').prop('checked', false);
 
+  // Reset Sliders
+  $('.nstSlider').each(function() {
+    var min = $(this).data('range_min');
+    var max = $(this).data('range_max');
+    try {
+      $(this).nstSlider('set_position', min, max);
+    } catch(e) {}
+  });
+
   for (var k in p) {
     var args = parseKeyParameter(k);
     if (args.length !== 2) continue;
@@ -101,19 +142,46 @@ function updateFilterInputs() {
       el.prop('checked', true);
     }
   }
+
+  for (var k in p) {
+    if (k != 'created' && k != 'updated') continue;
+
+    $('.nstSlider').each(function() {
+      var kw = $(this).data('keyword');
+      if (kw != k) return;
+
+      var values = p[k];
+      if (values.length != 1) return;
+
+      var years = values[0].split('-');
+      if (years.length != 2) return;
+
+      try {
+        $(this).nstSlider('set_position', years[0], years[1]);
+      } catch(e) {
+        $(this).data('cur_min', years[0]);
+        $(this).data('cur_max', years[1]);
+      }
+    });
+  }
 }
 
 
 /**
  * Add an additional filter to the existing ones.
  *
- * @param {string} questiongroup - The keyword of the questiongroup.
+ * @param {object} p - The object containing the query parameters.
+ * @param {string} questiongroup - The keyword of the questiongroup. If
+ *   null, only the key is used as parameter.
  * @param {string} key - The keyword of the key.
  * @param {string} value - The keyword of the value.
  * @return {object} An object with the updated query parameters.
  */
 function addFilter(p, questiongroup, key, value) {
-  var keyParameter = createKeyParameter(questiongroup, key);
+  var keyParameter = key;
+  if (questiongroup) {
+    keyParameter = createKeyParameter(questiongroup, key);
+  }
   if (keyParameter in p) {
     p[keyParameter].push(value);
   } else {
@@ -135,6 +203,8 @@ function removeFilter(questiongroup, key, value) {
   var keyParameter;
   if (key == '_search') {
     keyParameter = 'q';
+  } else if (key == 'created' || key == 'updated') {
+    keyParameter = key;
   } else {
     keyParameter = createKeyParameter(questiongroup, key);
   }
@@ -196,6 +266,21 @@ function changeUrl(url) {
 }
 
 /**
+ * Delete all filter parameters from the query string.
+ *
+ * @param {object} p - The object containing the query parameters.
+ * @return {object} The updated object with the query parameters.
+ */
+function removeFilterParams(p) {
+  for (var k in p) {
+    if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated') {
+      delete p[k];
+    }
+  }
+  return p;
+}
+
+/**
  * The reverse function of ``parseKeyParameter``.
  *
  * Helper function to create the string needed as query parameter for a
@@ -238,10 +323,10 @@ function parseKeyParameter(param) {
  * http://codereview.stackexchange.com/a/10396
  */
 function parseQueryString() {
-      var query = (location.search || '?').substr(1),
-          map   = {};
-      query.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
-          (map[key] = map[key] || []).push(value);
-      });
-      return map;
-  }
+  var query = (location.search || '?').substr(1),
+      map   = {};
+  query.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function(match, key, value) {
+      (map[key] = map[key] || []).push(value);
+  });
+  return map;
+}
