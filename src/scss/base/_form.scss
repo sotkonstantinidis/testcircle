@@ -24,7 +24,7 @@ input[type="time"],
 input[type="url"],
 input[type="color"],
 input[type="checkbox"],
-input[type="radiobox"],
+input[type="radio"],
 textarea,
 select {
   margin-bottom: 0;
@@ -32,6 +32,21 @@ select {
 
   label + & {
     margin-top: 0;
+  }
+}
+
+.input-multiline {
+  position: relative;
+  margin-top: rem-calc(6);
+  input[type="checkbox"],
+  input[type="radio"] {
+    position: absolute;
+    left: 0;
+    top: rem-calc(6);
+  }
+  span {
+    display: inline-block;
+    margin-left: rem-calc(24);
   }
 }
 
