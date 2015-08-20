@@ -16,143 +16,145 @@
 {% load staticfiles %}
 {% load list_to_columns %}
 
-{% if filter_configuration %}
-  <aside class="search-advanced">
-    <div class="loading-indicator" style="display:none;"></div>
-    <form action="" id="search-advanced" data-url="{{ filter_url }}">
-      <a class="search-close" data-toggle="search-advanced"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+<aside class="search-advanced">
+  <div class="loading-indicator" style="display:none;"></div>
+  <form action="" id="search-advanced" data-url="{{ filter_url }}">
+    <a class="search-close" data-toggle="search-advanced"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+    <div class="row">
+      <div class="medium-4 columns">
+        <label for="location">Location</label>
+        <input type="text" placeholder="Select or type a Country name" list="locations" id="location">
+        <datalist id="locations">
+          <option value="Afghanistan"></option>
+          <option value="Albania"></option>
+          <option value="Algeria"></option>
+          <option value="Andorra"></option>
+          <option value="Angola"></option>
+          <option value="Antigua &amp; Deps"></option>
+          <option value="Argentina"></option>
+          <option value="Armenia"></option>
+          <option value="Australia"></option>
+          <option value="Austria"></option>
+          <option value="Azerbaijan"></option>
+        </datalist>
+      </div>
+      <div class="medium-4 columns">
+        <label for="language">Language</label>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </div>
+      <div class="medium-4 columns">
+        <label for="author">Author</label>
+        <input type="text" placeholder="Select or type the name of the author" list="authors" id="author">
+        <datalist id="authors">
+          <option value="Georges R.R.Martin"></option>
+          <option value="Philipp K. Dick"></option>
+          <option value="Isaac Asimov"></option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="is-rhythmed">
       <div class="row">
-        <div class="medium-4 columns">
-          <label for="location">Location</label>
-          <input type="text" placeholder="Select or type a Country name" list="locations" id="location">
-          <datalist id="locations">
-            <option value="Afghanistan"></option>
-            <option value="Albania"></option>
-            <option value="Algeria"></option>
-            <option value="Andorra"></option>
-            <option value="Angola"></option>
-            <option value="Antigua &amp; Deps"></option>
-            <option value="Argentina"></option>
-            <option value="Armenia"></option>
-            <option value="Australia"></option>
-            <option value="Austria"></option>
-            <option value="Azerbaijan"></option>
-          </datalist>
-        </div>
-        <div class="medium-4 columns">
-          <label for="language">Language</label>
-          <select id="language">
-            <option value="en">English</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-          </select>
-        </div>
-        <div class="medium-4 columns">
-          <label for="author">Author</label>
-          <input type="text" placeholder="Select or type the name of the author" list="authors" id="author">
-          <datalist id="authors">
-            <option value="Georges R.R.Martin"></option>
-            <option value="Philipp K. Dick"></option>
-            <option value="Isaac Asimov"></option>
-          </datalist>
-        </div>
-      </div>
-
-      <div class="is-rhythmed">
-        <div class="row">
-          <div class="small-6 columns">
-            <label for="date-creation">Creation Date</label>
-            <div class="slider-container">
-              <div data-cur_max="2015" data-cur_min="2014" data-range_max="2015" data-range_min="2000" class="nstSlider">
-                  <div class="bar" style="left: 405px; width: 39px;"></div>
-                  <div class="leftGrip" tabindex="0" style="left: 395px;"></div>
-                  <div class="rightGrip" tabindex="0" style="left: 424px;"></div>
-              </div>
-              <span class="leftLabel">2014</span>
-              <span class="rightLabel">2015</span>
+        <div class="small-6 columns">
+          <label for="date-created">Creation Date</label>
+          <div class="slider-container">
+            <div data-cur_max="2016" data-cur_min="2000" data-range_max="2016" data-range_min="2000" data-keyword="created" class="nstSlider filter-created">
+                <div class="bar filter-created"></div>
+                <div class="leftGrip filter-created" tabindex="0"></div>
+                <div class="rightGrip filter-created" tabindex="0"></div>
             </div>
+            <span class="leftLabel filter-created"></span>
+            <input type="hidden" data-query-key="created" class="min filter-created" value="0">
+            <span class="rightLabel filter-created"></span>
+            <input type="hidden" data-query-key="created" class="max filter-created" value="0">
           </div>
-          <div class="small-6 columns">
-            <label for="date-review">Review Date</label>
-            <div class="slider-container">
-              <div data-cur_max="2015" data-cur_min="2014" data-range_max="2015" data-range_min="2000" class="nstSlider">
-                  <div class="bar" style="left: 405px; width: 39px;"></div>
-                  <div class="leftGrip" tabindex="0" style="left: 395px;"></div>
-                  <div class="rightGrip" tabindex="0" style="left: 424px;"></div>
-              </div>
-              <span class="leftLabel">2014</span>
-              <span class="rightLabel">2015</span>
+        </div>
+        <div class="small-6 columns">
+          <label for="date-updated">Update Date</label>
+          <div class="slider-container">
+            <div data-cur_max="2016" data-cur_min="2000" data-range_max="2016" data-range_min="2000" data-keyword="updated" class="nstSlider filter-updated">
+                <div class="bar filter-updated"></div>
+                <div class="leftGrip filter-updated" tabindex="0"></div>
+                <div class="rightGrip filter-updated" tabindex="0"></div>
             </div>
+            <span class="leftLabel filter-updated"></span>
+            <input type="hidden" data-query-key="updated" class="min filter-updated" value="0">
+            <span class="rightLabel filter-updated"></span>
+            <input type="hidden" data-query-key="updated" class="max filter-updated" value="0">
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="is-rhythmed">
-        <div class="row">
-          <div class="small-12 columns">
-            <ul role="tablist" data-accordion="" class="accordion is-light">
+    <div class="is-rhythmed">
+      <div class="row">
+        <div class="small-12 columns">
+          <ul role="tablist" data-accordion="" class="accordion is-light">
 
-              {% for section in filter_configuration %}
-                <li class="accordion-navigation">
-                  <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}">
-                    <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
-                    {{ section.label }}
-                  </a>
-                  <div aria-labelledby="{{ section.keyword }}-heading" role="tabpanel" class="content" id="{{ section.keyword }}">
+            {% for section in filter_configuration %}
+              <li class="accordion-navigation">
+                <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}">
+                  <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                  {{ section.label }}
+                </a>
+                <div aria-labelledby="{{ section.keyword }}-heading" role="tabpanel" class="content" id="{{ section.keyword }}">
 
-                    {% for filter in section.filters %}
+                  {% for filter in section.filters %}
 
-                      {% if filter.type == 'image_checkbox' %}
-                        <ul class="list-gallery small-block-grid-1 large-block-grid-2">
-                          {% for value in filter.values %}
-                            <li>
-                              <div class="list-gallery-item">
-                                <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
-                                <label for="{{ filter.keyword }}_{{ value.0 }}">
-                                  {{ value.1 }}
-                                  <figure class="list-gallery-icon">
-                                    <img alt="{{ value.1 }}" src="{% static filter.images|get_by_index:forloop.counter0 %}">
-                                  </figure>
-                                </label>
-                              </div>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      {% elif filter.type == 'checkbox' %}
-                        <ul class="list-gallery small-block-grid-1 large-block-grid-2">
-                          {% for value in filter.values %}
-                            <li>
+                    {% if filter.type == 'image_checkbox' %}
+                      <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                        {% for value in filter.values %}
+                          <li>
+                            <div class="list-gallery-item">
                               <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
                               <label for="{{ filter.keyword }}_{{ value.0 }}">
                                 {{ value.1 }}
+                                <figure class="list-gallery-icon">
+                                  <img alt="{{ value.1 }}" src="{% static filter.images|get_by_index:forloop.counter0 %}">
+                                </figure>
                               </label>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      {% else %}
-                        <p>Filter for type {{ filter.type }} not implemented</p>
-                      {% endif %}
+                            </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% elif filter.type == 'checkbox' %}
+                      <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                        {% for value in filter.values %}
+                          <li>
+                            <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                            <label for="{{ filter.keyword }}_{{ value.0 }}">
+                              {{ value.1 }}
+                            </label>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% else %}
+                      <p>Filter for type {{ filter.type }} not implemented</p>
+                    {% endif %}
 
-                    {% endfor %}
+                  {% endfor %}
 
-                  </div>
-                </li>
-              {% endfor %}
+                </div>
+              </li>
+            {% endfor %}
 
-            </ul>
-          </div>
+          </ul>
         </div>
       </div>
-      <div class="is-rhythmed">
-        <div class="row">
-          <div class="small-12 columns text-right">
-            <input type="submit" id="submit-filter" class="button radius secondary" value="{% trans 'Filter' %}">
-          </div>
-        </div>
-      </div>
-    </form>
-    <div id="active-filters">
-      {% include "active_filters.html" %}
     </div>
-  </aside>
-{% endif %}
+    <div class="is-rhythmed">
+      <div class="row">
+        <div class="small-12 columns text-right">
+          <input type="submit" id="submit-filter" class="button radius secondary" value="{% trans 'Filter' %}">
+        </div>
+      </div>
+    </div>
+  </form>
+  <div id="active-filters">
+    {% include "active_filters.html" %}
+  </div>
+</aside>

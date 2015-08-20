@@ -36,7 +36,7 @@ class QuestionnaireTest(FunctionalTest):
         # She sees that all the categories are there with their correct name
         # Except the first one which is not displayed in the header template
         for category in [c[1] for c in get_categories()][1:]:
-            self.findBy('xpath', '//h2[text() = "' + category + '"]')
+            self.findBy('xpath', '//h2[contains(text(), "' + category + '")]')
 
         # She goes to the first step and sees the link works.
         self.browser.get(self.live_server_url + reverse(

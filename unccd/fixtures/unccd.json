@@ -82,7 +82,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Climate"}}}
+        "data": {"unccd":{"label":{"en": "Brief description of the natural environment within the specified location."}}}
     },
     "model": "configuration.translation",
     "pk": 3011
@@ -90,7 +90,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Soil"}}}
+        "data": {"unccd":{"label":{"en": "Specify"}}}
     },
     "model": "configuration.translation",
     "pk": 3012
@@ -98,7 +98,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Topography"}}}
+        "data": {"unccd":{"label":{"en": "Specify"}}}
     },
     "model": "configuration.translation",
     "pk": 3013
@@ -106,7 +106,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Income level"}}}
+        "data": {"unccd":{"label":{"en": "Prevailing socio-economic conditions of those living in the location and/or nearby"}}}
     },
     "model": "configuration.translation",
     "pk": 3014
@@ -114,7 +114,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Main income sources"}}}
+        "data": {"unccd":{"label":{"en": "Specify"}}}
     },
     "model": "configuration.translation",
     "pk": 3015
@@ -122,7 +122,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Land tenure and land use rights"}}}
+        "data": {"unccd":{"label":{"en": "Additional questions of Leg 1"}}}
     },
     "model": "configuration.translation",
     "pk": 3016
@@ -162,34 +162,10 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Objective 1"}}}
+        "data": {"unccd":{"label":{"en": "Brief description of main activities, by objective"}}}
     },
     "model": "configuration.translation",
     "pk": 3021
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Objective 2"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 3022
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Objective 3"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 3023
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Objective 4"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 3024
 },
 {
     "fields": {
@@ -202,18 +178,10 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Name"}}}
+        "data": {"unccd":{"label":{"en": "Name and address of the institution developing the technology"}}}
     },
     "model": "configuration.translation",
     "pk": 3026
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Address"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 3027
 },
 {
     "fields": {
@@ -282,34 +250,10 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Production or productivity"}}}
+        "data": {"unccd":{"label":{"en": "Describe on-site impacts (the major two impacts by category)"}}}
     },
     "model": "configuration.translation",
     "pk": 3036
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Socio-economic level (including cultural level)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 3037
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Environmental level"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 3038
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Other (specify)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 3039
 },
 {
     "fields": {
@@ -438,6 +382,22 @@
     },
     "model": "configuration.translation",
     "pk": 3055
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"unccd":{"label":{"en": "If the location has well defined boundaries, specify its extension in hectares"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 3056
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"unccd":{"label":{"en": "Estimated population living in the location"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 3057
 },
 
 
@@ -783,10 +743,18 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": {"unccd":{"helptext":{"en": "Examples of conditions leading to success may include: highly motivated local governments, farmers organized into well structured cooperatives, extremely favourable weather conditions, etc. For each ‘condition of success’ you are able to identify, specify whether in your opinion such condition is: (a) linked to the local context and thus cannot be replicated elsewhere; (b) replicable elsewhere with some level of adaptation; (c) replicable elsewhere with major adaptation."}}}
+        "data": {"unccd":{"helptext":{"en": "Examples of conditions leading to success may include: highly motivated local governments, farmers organized into well structured cooperatives, extremely favourable weather conditions, etc. For each ‘condition of success’ you are able to identify, specify whether in your opinion such condition is: <ul><li>(a) linked to the local context and thus cannot be replicated elsewhere;</li><li>(b) replicable elsewhere with some level of adaptation;</li><li>(c) replicable elsewhere with major adaptation.</li></ul>"}}}
     },
     "model": "configuration.translation",
     "pk": 4201
+},
+{
+    "fields": {
+        "translation_type": "questiongroup",
+        "data": {"unccd":{"helptext":{"en": "Additional questions of Leg 1 which are not in Leg 2 are:<ul><li>Amount committed</li><li>Beneficiaries</li><li>Civil Society Organizations (CSOs) and Science & Technology Institutions (STIs)</li><li>Commitment date</li><li>Funding organization</li><li>Name of activity funded</li><li>Operational objectives</li><li>Recipient country(ies) or (sub)region(s)</li><li>Recipient organization(s)</li><li>Relevant Activity Codes (RACs)</li><li>Reporting Entity</li><li>Reporting entity(ies)</li><li>Rio Marker for desertification</li><li>Role of the Organization(s) in the Programme/Project</li><li>Status</li><li>Target area size/administrative unit</li><li>Target Group</li><li>Title</li><li>United Nations Conventions’ Rio Markers</li></ul>"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 4202
 },
 
 
@@ -1047,6 +1015,22 @@
     "model": "configuration.translation",
     "pk": 4733
 },
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"unccd":{"label":{"en": "Short description of the best practice"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 4734
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"unccd":{"label":{"en": "Additional questions of Leg 1"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 4735
+},
 
 
 
@@ -1121,6 +1105,14 @@
     },
     "model": "configuration.translation",
     "pk": 4909
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"unccd":{"label":{"en": "Section 8. Additional questions of Leg 1"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 4910
 },
 
 
@@ -1222,7 +1214,7 @@
 },
 {
     "fields": {
-        "keyword": "unccd_natural_environment_climate",
+        "keyword": "unccd_natural_environment",
         "translation": 3011,
         "configuration": {"type": "text"}
     },
@@ -1231,7 +1223,7 @@
 },
 {
     "fields": {
-        "keyword": "unccd_natural_environment_soil",
+        "keyword": "unccd_promotion_framework_specify",
         "translation": 3012,
         "configuration": {"type": "text"}
     },
@@ -1240,7 +1232,7 @@
 },
 {
     "fields": {
-        "keyword": "unccd_natural_environment_topography",
+        "keyword": "unccd_population_involved_specify",
         "translation": 3013,
         "configuration": {"type": "text"}
     },
@@ -1249,7 +1241,7 @@
 },
 {
     "fields": {
-        "keyword": "unccd_socioeconomic_income_level",
+        "keyword": "unccd_socioeconomic",
         "translation": 3014,
         "configuration": {"type": "text"}
     },
@@ -1258,7 +1250,7 @@
 },
 {
     "fields": {
-        "keyword": "unccd_socioeconomic_income_sources",
+        "keyword": "unccd_cost_benefit_analysis_text",
         "translation": 3015,
         "configuration": {"type": "text"}
     },
@@ -1267,7 +1259,7 @@
 },
 {
     "fields": {
-        "keyword": "unccd_socioeconomic_land_tenure",
+        "keyword": "unccd_questions_leg1",
         "translation": 3016,
         "configuration": {"type": "text"}
     },
@@ -1312,39 +1304,12 @@
 },
 {
     "fields": {
-        "keyword": "unccd_description_objective_1",
+        "keyword": "unccd_description_objective",
         "translation": 3021,
         "configuration": {"type": "text"}
     },
     "model": "configuration.key",
     "pk": 2021
-},
-{
-    "fields": {
-        "keyword": "unccd_description_objective_2",
-        "translation": 3022,
-        "configuration": {"type": "text"}
-    },
-    "model": "configuration.key",
-    "pk": 2022
-},
-{
-    "fields": {
-        "keyword": "unccd_description_objective_3",
-        "translation": 3023,
-        "configuration": {"type": "text"}
-    },
-    "model": "configuration.key",
-    "pk": 2023
-},
-{
-    "fields": {
-        "keyword": "unccd_description_objective_4",
-        "translation": 3024,
-        "configuration": {"type": "text"}
-    },
-    "model": "configuration.key",
-    "pk": 2024
 },
 {
     "fields": {
@@ -1359,19 +1324,10 @@
     "fields": {
         "keyword": "unccd_institution_name",
         "translation": 3026,
-        "configuration": {"type": "char"}
-    },
-    "model": "configuration.key",
-    "pk": 2026
-},
-{
-    "fields": {
-        "keyword": "unccd_institution_address",
-        "translation": 3027,
         "configuration": {"type": "text"}
     },
     "model": "configuration.key",
-    "pk": 2027
+    "pk": 2026
 },
 {
     "fields": {
@@ -1449,39 +1405,12 @@
 },
 {
     "fields": {
-        "keyword": "unccd_onsite_impacts_production",
+        "keyword": "unccd_onsite_impacts",
         "translation": 3036,
         "configuration": {"type": "text"}
     },
     "model": "configuration.key",
     "pk": 2036
-},
-{
-    "fields": {
-        "keyword": "unccd_onsite_impacts_socioeconomic",
-        "translation": 3037,
-        "configuration": {"type": "text"}
-    },
-    "model": "configuration.key",
-    "pk": 2037
-},
-{
-    "fields": {
-        "keyword": "unccd_onsite_impacts_environmental",
-        "translation": 3038,
-        "configuration": {"type": "text"}
-    },
-    "model": "configuration.key",
-    "pk": 2038
-},
-{
-    "fields": {
-        "keyword": "unccd_onsite_impacts_other",
-        "translation": 3039,
-        "configuration": {"type": "text"}
-    },
-    "model": "configuration.key",
-    "pk": 2039
 },
 {
     "fields": {
@@ -1628,6 +1557,24 @@
     },
     "model": "configuration.key",
     "pk": 2055
+},
+{
+    "fields": {
+        "keyword": "unccd_location_extension",
+        "translation": 3056,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 2056
+},
+{
+    "fields": {
+        "keyword": "unccd_population",
+        "translation": 3057,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 2057
 },
 
 
@@ -2454,6 +2401,15 @@
     "model": "configuration.questiongroup",
     "pk": 2049
 },
+{
+    "fields": {
+        "keyword": "unccd_qg_50",
+        "translation": 4202,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2050
+},
 
 
 
@@ -2721,6 +2677,22 @@
     "model": "configuration.category",
     "pk": 2033
 },
+{
+    "fields": {
+        "keyword": "unccd_1_1_description",
+        "translation": 4734
+    },
+    "model": "configuration.category",
+    "pk": 2034
+},
+{
+    "fields": {
+        "keyword": "unccd_8_1_questions_leg1",
+        "translation": 4735
+    },
+    "model": "configuration.category",
+    "pk": 2035
+},
 
 
 {
@@ -2795,6 +2767,14 @@
     "model": "configuration.category",
     "pk": 2709
 },
+{
+    "fields": {
+        "keyword": "unccd_8_questions_leg1",
+        "translation": 4910
+    },
+    "model": "configuration.category",
+    "pk": 2710
+},
 
 
 
@@ -2804,7 +2784,7 @@
         "description": "The UNCCD Configuration as in PRAIS",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": {"sections":[{"keyword":"section_general_information","view_options":{"template":"empty"},"include_toc":false,"review_panel":true,"categories":[{"keyword":"unccd_0_general_information","view_options":{"template":"with_metadata"},"with_metadata":true,"subcategories":[{"keyword":"unccd_0_1_general_information","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","in_list":true,"is_name":true,"max_length":300}]},{"keyword":"qg_country","questions":[{"keyword":"country","in_list":true}]},{"keyword":"unccd_qg_10","questions":[{"keyword":"unccd_description","in_list":true,"max_length":2500}]}]},{"keyword":"unccd_0_2_property_rights","questiongroups":[{"keyword":"unccd_qg_1","questions":[{"keyword":"unccd_property_rights","questiongroup_conditions":[">0|unccd_qg_2"]}]},{"keyword":"unccd_qg_2","questiongroup_condition":"unccd_qg_2","questions":[{"keyword":"unccd_property_rights_description","max_length":2500}]}]}]},{"keyword":"unccd_0_classification","subcategories":[{"keyword":"unccd_0_3_landuse","questiongroups":[{"keyword":"unccd_qg_3","questions":[{"keyword":"unccd_landuse","filter":true,"form_options":{"template":"no_label"},"view_label":false,"questiongroup_conditions":["=='unccd_landuse_other'|unccd_qg_4"]}]},{"keyword":"unccd_qg_4","questiongroup_condition":"unccd_qg_4","questions":[{"keyword":"unccd_specify","form_options":{"template":"no_label"},"max_length":300}]}]},{"keyword":"unccd_0_4_contribution_measures","questiongroups":[{"keyword":"unccd_qg_5","questions":[{"keyword":"unccd_contribution_measures","form_options":{"template":"no_label"},"view_label":false}]}]},{"keyword":"unccd_0_5_contribution_objectives","questiongroups":[{"keyword":"unccd_qg_6","questions":[{"keyword":"unccd_contribution_objectives","form_options":{"template":"no_label"},"view_label":false}]}]},{"keyword":"unccd_0_6_impact_type","questiongroups":[{"keyword":"unccd_qg_7","questions":[{"keyword":"unccd_impact_type","form_options":{"template":"no_label"},"view_label":false}]}]},{"keyword":"unccd_0_7_linkages","questiongroups":[{"keyword":"unccd_qg_8","questions":[{"keyword":"unccd_linkages","form_options":{"template":"no_label"},"view_label":false}]}]}]}]},{"keyword":"section_specifications","include_toc":true,"categories":[{"keyword":"unccd_1_context","subcategories":[{"keyword":"unccd_1_2_location","questiongroups":[{"keyword":"unccd_qg_9","questions":[{"keyword":"unccd_location","max_length":300,"form_options":{"template":"no_label"},"view_label":false}]}]},{"keyword":"unccd_1_3_description_natural_environment","questiongroups":[{"keyword":"unccd_qg_11","questions":[{"keyword":"unccd_natural_environment_climate","max_length":500},{"keyword":"unccd_natural_environment_soil","max_length":500},{"keyword":"unccd_natural_environment_topography","max_length":500}]}]},{"keyword":"unccd_1_4_socioeconomic_conditions","questiongroups":[{"keyword":"unccd_qg_12","questions":[{"keyword":"unccd_socioeconomic_income_level","max_length":500},{"keyword":"unccd_socioeconomic_income_sources","max_length":500},{"keyword":"unccd_socioeconomic_land_tenure","max_length":500}]}]},{"keyword":"unccd_1_6_best_practice_criteria","questiongroups":[{"keyword":"unccd_qg_13","questions":[{"keyword":"unccd_best_practice_criteria","max_length":1000,"form_options":{"template":"no_label"},"view_label":false}]}]}]},{"keyword":"unccd_2_problems_addressed","subcategories":[{"keyword":"unccd_2_1_main_problems_addressed","questiongroups":[{"keyword":"unccd_qg_14","max_num":3,"questions":[{"keyword":"unccd_main_problems_addressed","form_options":{"template":"no_label"},"view_label":false,"max_length":500}]}]},{"keyword":"unccd_2_2_land_degradation_addressed","questiongroups":[{"keyword":"unccd_qg_15","questions":[{"keyword":"unccd_land_degradation_addressed","form_options":{"template":"no_label"},"view_label":false,"max_length":1000}]}]},{"keyword":"unccd_2_3_objectives","questiongroups":[{"keyword":"unccd_qg_16","max_num":3,"questions":[{"keyword":"unccd_objectives","form_options":{"template":"no_label"},"view_label":false,"max_length":500}]}]}]},{"keyword":"unccd_3_activities","subcategories":[{"keyword":"unccd_3_1_description_main_activities","questiongroups":[{"keyword":"unccd_qg_17","max_num":3,"questions":[{"keyword":"unccd_description_objective_1"}]}]},{"keyword":"unccd_3_1_description_main_activities","questiongroups":[{"keyword":"unccd_qg_18","max_num":3,"questions":[{"keyword":"unccd_description_objective_2"}]}]},{"keyword":"unccd_3_1_description_main_activities","questiongroups":[{"keyword":"unccd_qg_19","max_num":3,"questions":[{"keyword":"unccd_description_objective_3"}]}]},{"keyword":"unccd_3_1_description_main_activities","questiongroups":[{"keyword":"unccd_qg_20","max_num":3,"questions":[{"keyword":"unccd_description_objective_4"}]}]},{"keyword":"unccd_3_2_technology_description","questiongroups":[{"keyword":"unccd_qg_21","questions":[{"keyword":"unccd_technology_description","form_options":{"template":"no_label"},"view_label":false,"max_length":2500}]}]}]},{"keyword":"unccd_4_actors_involved","subcategories":[{"keyword":"unccd_4_1_institutions","questiongroups":[{"keyword":"unccd_qg_22","max_num":3,"questions":[{"keyword":"unccd_institution_name"},{"keyword":"unccd_institution_address","max_length":300}]}]},{"keyword":"unccd_4_2_partnership","questiongroups":[{"keyword":"unccd_qg_23","questions":[{"keyword":"unccd_partnership","form_options":{"template":"no_label"},"view_label":false,"questiongroup_conditions":[">0|unccd_qg_24"]}]},{"keyword":"unccd_qg_24","questiongroup_condition":"unccd_qg_24","max_num":3,"questions":[{"keyword":"unccd_partnership_partners"}]}]},{"keyword":"unccd_4_3_promotion_framework","questiongroups":[{"keyword":"unccd_qg_25","questions":[{"keyword":"unccd_promotion_framework","form_options":{"template":"no_label"},"view_label":false,"questiongroup_conditions":["=='unccd_framework_other'|unccd_qg_26"]}]},{"keyword":"unccd_qg_26","questiongroup_condition":"unccd_qg_26","questions":[{"keyword":"unccd_specify","form_options":{"template":"no_label"},"max_length":300}]}]},{"keyword":"unccd_4_4_local_stakeholders","questiongroups":[{"keyword":"unccd_qg_27","questions":[{"keyword":"unccd_local_stakeholders","form_options":{"template":"no_label"},"view_label":false,"questiongroup_conditions":[">0|unccd_qg_28"]}]},{"keyword":"unccd_qg_28","questiongroup_condition":"unccd_qg_28","max_num":3,"questions":[{"keyword":"unccd_local_stakeholders_list","max_length":300}]}]},{"keyword":"unccd_4_5_stakeholder_roles","questiongroups":[{"keyword":"unccd_qg_29","questions":[{"keyword":"unccd_stakeholder_roles","form_options":{"template":"no_label"},"view_label":false,"max_length":2500}]}]},{"keyword":"unccd_4_6_population_involved","questiongroups":[{"keyword":"unccd_qg_30","questions":[{"keyword":"unccd_population_involved","form_options":{"template":"no_label"},"view_label":false,"questiongroup_conditions":[">0|unccd_qg_31"]}]},{"keyword":"unccd_qg_31","questiongroup_condition":"unccd_qg_31","questions":[{"keyword":"unccd_population_involved_means","questiongroup_conditions":["=='unccd_involvement_other'|unccd_qg_32"]}]},{"keyword":"unccd_qg_32","questiongroup_condition":"unccd_qg_32","questions":[{"keyword":"unccd_specify","form_options":{"template":"no_label"},"max_length":300}]}]}]}]},{"keyword":"section_analysis","include_toc":true,"categories":[{"keyword":"unccd_5_impact","subcategories":[{"keyword":"unccd_5_1_onsite_impacts","questiongroups":[{"keyword":"unccd_qg_33","max_num":2,"min_num":2,"numbered":"inline","questions":[{"keyword":"unccd_onsite_impacts_production","max_length":300}]},{"keyword":"unccd_qg_34","max_num":2,"min_num":2,"numbered":"inline","questions":[{"keyword":"unccd_onsite_impacts_socioeconomic","max_length":300}]},{"keyword":"unccd_qg_35","max_num":2,"min_num":2,"numbered":"inline","questions":[{"keyword":"unccd_onsite_impacts_environmental","max_length":300}]},{"keyword":"unccd_qg_36","max_num":2,"min_num":2,"numbered":"inline","questions":[{"keyword":"unccd_onsite_impacts_other","max_length":300}]}]},{"keyword":"unccd_5_2_offsite_impacts","questiongroups":[{"keyword":"unccd_qg_37","max_num":2,"min_num":2,"numbered":"prefix","questions":[{"keyword":"unccd_offsite_impacts","form_options":{"template":"no_label"},"view_label":false,"max_length":500}]}]},{"keyword":"unccd_5_3_impact_biodiversity","questiongroups":[{"keyword":"unccd_qg_38","questions":[{"keyword":"unccd_impact_biodiversity_conservation"},{"keyword":"unccd_impact_cc_mitigation"},{"keyword":"unccd_impact_cc_adaptation"},{"keyword":"unccd_impact_reasons","max_length":2500}]}]},{"keyword":"unccd_5_4_cost_benefit_analysis","questiongroups":[{"keyword":"unccd_qg_39","questions":[{"keyword":"unccd_cost_benefit_analysis","form_options":{"template":"no_label"},"view_label":false}]}]}]},{"keyword":"unccd_6_adoption_replicability","subcategories":[{"keyword":"unccd_6_1_technology_disseminated","questiongroups":[{"keyword":"unccd_qg_40","questions":[{"keyword":"unccd_technology_disseminated","form_options":{"template":"no_label"},"view_label":false,"questiongroup_conditions":[">0|unccd_qg_41"]}]},{"keyword":"unccd_qg_41","questiongroup_condition":"unccd_qg_41","max_num":3,"questions":[{"keyword":"unccd_technology_disseminated_where"}]}]},{"keyword":"unccd_6_2_incentives","questiongroups":[{"keyword":"unccd_qg_42","questions":[{"keyword":"unccd_incentives","form_options":{"template":"no_label"},"view_label":false,"questiongroup_conditions":[">0|unccd_qg_43"]}]},{"keyword":"unccd_qg_43","questiongroup_condition":"unccd_qg_43","questions":[{"keyword":"unccd_incentives_types"}]}]},{"keyword":"unccd_6_3_success_conditions","questiongroups":[{"keyword":"unccd_qg_44","min_num":3,"max_num":3,"numbered":"prefix","questions":[{"keyword":"unccd_success_conditions","form_options":{"template":"no_label"},"max_length":500}]}]},{"keyword":"unccd_6_4_replicability","questiongroups":[{"keyword":"unccd_qg_45","questions":[{"keyword":"unccd_replicability","questiongroup_conditions":[">0|unccd_qg_46"]}]},{"keyword":"unccd_qg_46","questiongroup_condition":"unccd_qg_46","questions":[{"keyword":"unccd_replicability_level"}]}]}]},{"keyword":"unccd_7_lessons_learned","subcategories":[{"keyword":"unccd_7_1_lessons_human_resources","questiongroups":[{"keyword":"unccd_qg_47","max_num":3,"questions":[{"keyword":"unccd_lessons_human_resources","form_options":{"template":"no_label"},"view_label":false,"max_length":500}]}]},{"keyword":"unccd_7_2_lessons_financial","questiongroups":[{"keyword":"unccd_qg_48","max_num":3,"questions":[{"keyword":"unccd_lessons_financial","form_options":{"template":"no_label"},"view_label":false,"max_length":500}]}]},{"keyword":"unccd_7_3_lessons_technical","questiongroups":[{"keyword":"unccd_qg_49","max_num":3,"questions":[{"keyword":"unccd_lessons_technical","form_options":{"template":"no_label"},"view_label":false,"max_length":500}]}]}]}]}]},
+        "data": {"sections":[{"keyword":"section_general_information","view_options":{"template":"empty"},"include_toc":false,"review_panel":true,"categories":[{"keyword":"unccd_0_general_information","view_options":{"template":"unccd_header"},"with_metadata":true,"use_raw_data":true,"subcategories":[{"keyword":"unccd_0_1_general_information","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","in_list":true,"is_name":true}]},{"keyword":"qg_country","questions":[{"keyword":"country","in_list":true}]}]},{"keyword":"unccd_0_2_property_rights","questiongroups":[{"keyword":"unccd_qg_1","questions":[{"keyword":"unccd_property_rights"},{"keyword":"unccd_property_rights_description","max_length":2500}]}]}]},{"keyword":"unccd_0_classification","subcategories":[{"keyword":"unccd_0_3_landuse","questiongroups":[{"keyword":"unccd_qg_3","questions":[{"keyword":"unccd_landuse","filter":true,"form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"unccd_qg_4","questions":[{"keyword":"unccd_specify","form_options":{"template":"no_label"},"view_options":{"header":"small"}}]}]},{"keyword":"unccd_0_4_contribution_measures","questiongroups":[{"keyword":"unccd_qg_5","questions":[{"keyword":"unccd_contribution_measures","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_0_5_contribution_objectives","questiongroups":[{"keyword":"unccd_qg_6","questions":[{"keyword":"unccd_contribution_objectives","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_0_6_impact_type","questiongroups":[{"keyword":"unccd_qg_7","questions":[{"keyword":"unccd_impact_type","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_0_7_linkages","questiongroups":[{"keyword":"unccd_qg_8","questions":[{"keyword":"unccd_linkages","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]}]}]},{"keyword":"section_specifications","include_toc":true,"categories":[{"keyword":"unccd_1_context","subcategories":[{"keyword":"unccd_1_1_description","questiongroups":[{"keyword":"unccd_qg_10","questions":[{"keyword":"unccd_description","in_list":true,"form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_1_2_location","questiongroups":[{"keyword":"unccd_qg_9","questions":[{"keyword":"unccd_location","form_options":{"template":"no_label"},"view_options":{"label":"none"}},{"keyword":"unccd_location_extension","view_options":{"header":"small"}},{"keyword":"unccd_population","view_options":{"header":"small"}}]}]},{"keyword":"unccd_1_3_description_natural_environment","questiongroups":[{"keyword":"unccd_qg_11","questions":[{"keyword":"unccd_natural_environment","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_1_4_socioeconomic_conditions","questiongroups":[{"keyword":"unccd_qg_12","questions":[{"keyword":"unccd_socioeconomic","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_1_6_best_practice_criteria","questiongroups":[{"keyword":"unccd_qg_13","questions":[{"keyword":"unccd_best_practice_criteria","form_options":{"template":"no_label"},"view_label":false,"view_options":{"label":"none"}}]}]}]},{"keyword":"unccd_2_problems_addressed","subcategories":[{"keyword":"unccd_2_1_main_problems_addressed","questiongroups":[{"keyword":"unccd_qg_14","questions":[{"keyword":"unccd_main_problems_addressed","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_2_2_land_degradation_addressed","questiongroups":[{"keyword":"unccd_qg_15","questions":[{"keyword":"unccd_land_degradation_addressed","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_2_3_objectives","questiongroups":[{"keyword":"unccd_qg_16","questions":[{"keyword":"unccd_objectives","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]}]},{"keyword":"unccd_3_activities","subcategories":[{"keyword":"unccd_3_1_description_main_activities","questiongroups":[{"keyword":"unccd_qg_17","questions":[{"keyword":"unccd_description_objective","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_3_2_technology_description","questiongroups":[{"keyword":"unccd_qg_21","questions":[{"keyword":"unccd_technology_description","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]}]},{"keyword":"unccd_4_actors_involved","subcategories":[{"keyword":"unccd_4_1_institutions","questiongroups":[{"keyword":"unccd_qg_22","questions":[{"keyword":"unccd_institution_name","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_4_2_partnership","questiongroups":[{"keyword":"unccd_qg_23","questions":[{"keyword":"unccd_partnership","form_options":{"template":"no_label"},"view_options":{"label":"none"}},{"keyword":"unccd_partnership_partners","view_options":{"header":"small"}}]}]},{"keyword":"unccd_4_3_promotion_framework","questiongroups":[{"keyword":"unccd_qg_25","questions":[{"keyword":"unccd_promotion_framework","form_options":{"template":"no_label"},"view_options":{"label":"none"}},{"keyword":"unccd_promotion_framework_specify","view_options":{"header":"small"}}]}]},{"keyword":"unccd_4_4_local_stakeholders","questiongroups":[{"keyword":"unccd_qg_27","questions":[{"keyword":"unccd_local_stakeholders","form_options":{"template":"no_label"},"view_options":{"label":"none"}},{"keyword":"unccd_local_stakeholders_list","view_options":{"header":"small"}}]}]},{"keyword":"unccd_4_5_stakeholder_roles","questiongroups":[{"keyword":"unccd_qg_29","questions":[{"keyword":"unccd_stakeholder_roles","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_4_6_population_involved","questiongroups":[{"keyword":"unccd_qg_30","questions":[{"keyword":"unccd_population_involved","form_options":{"template":"no_label"},"view_options":{"label":"none"}},{"keyword":"unccd_population_involved_means","view_options":{"header":"small"}},{"keyword":"unccd_population_involved_specify","form_options":{"template":"no_label"},"view_options":{"header":"small"}}]}]}]}]},{"keyword":"section_analysis","include_toc":true,"categories":[{"keyword":"unccd_5_impact","subcategories":[{"keyword":"unccd_5_1_onsite_impacts","questiongroups":[{"keyword":"unccd_qg_33","questions":[{"keyword":"unccd_onsite_impacts","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_5_2_offsite_impacts","questiongroups":[{"keyword":"unccd_qg_37","questions":[{"keyword":"unccd_offsite_impacts","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_5_3_impact_biodiversity","questiongroups":[{"keyword":"unccd_qg_38","questions":[{"keyword":"unccd_impact_biodiversity_conservation"},{"keyword":"unccd_impact_cc_mitigation"},{"keyword":"unccd_impact_cc_adaptation"},{"keyword":"unccd_impact_reasons","view_options":{"header":"small"}}]}]},{"keyword":"unccd_5_4_cost_benefit_analysis","questiongroups":[{"keyword":"unccd_qg_39","questions":[{"keyword":"unccd_cost_benefit_analysis","form_options":{"template":"no_label"}},{"keyword":"unccd_cost_benefit_analysis_text","view_options":{"header":"small"}}]}]}]},{"keyword":"unccd_6_adoption_replicability","subcategories":[{"keyword":"unccd_6_1_technology_disseminated","questiongroups":[{"keyword":"unccd_qg_40","questions":[{"keyword":"unccd_technology_disseminated","form_options":{"template":"no_label"}},{"keyword":"unccd_technology_disseminated_where","view_options":{"header":"small"}}]}]},{"keyword":"unccd_6_2_incentives","questiongroups":[{"keyword":"unccd_qg_42","questions":[{"keyword":"unccd_incentives","form_options":{"template":"no_label"}},{"keyword":"unccd_incentives_types","view_options":{"header":"small"}}]}]},{"keyword":"unccd_6_3_success_conditions","questiongroups":[{"keyword":"unccd_qg_44","questions":[{"keyword":"unccd_success_conditions","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_6_4_replicability","questiongroups":[{"keyword":"unccd_qg_45","questions":[{"keyword":"unccd_replicability"},{"keyword":"unccd_replicability_level","view_options":{"header":"small"}}]}]}]},{"keyword":"unccd_7_lessons_learned","subcategories":[{"keyword":"unccd_7_1_lessons_human_resources","questiongroups":[{"keyword":"unccd_qg_47","questions":[{"keyword":"unccd_lessons_human_resources","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_7_2_lessons_financial","questiongroups":[{"keyword":"unccd_qg_48","questions":[{"keyword":"unccd_lessons_financial","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]},{"keyword":"unccd_7_3_lessons_technical","questiongroups":[{"keyword":"unccd_qg_49","questions":[{"keyword":"unccd_lessons_technical","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]}]},{"keyword":"unccd_8_questions_leg1","subcategories":[{"keyword":"unccd_8_1_questions_leg1","questiongroups":[{"keyword":"unccd_qg_50","questions":[{"keyword":"unccd_questions_leg1","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]}]}]}]}]},
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "UNCCD PRAIS Configuration"

@@ -15,4 +15,5 @@ urlpatterns = patterns(
         name='questionnaire_list'),
     url(r'^list_partial/$', 'unccd.views.questionnaire_list_partial',
         name='questionnaire_list_partial'),
+    url(r'^import/$', 'unccd.views.unccd_data_import', name='data_import'),
 )

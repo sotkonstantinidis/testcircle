@@ -3,12 +3,12 @@
 <article role="article" class="row large-collapse tech-item">
   <div class="content columns">
     <header>
-       <h1><a href="{% url 'unccd:questionnaire_details' item.code %}" title="" class="link">{{ item.name }}</a> <small>{{ item.country }}</small></h1>
+       <h1>{% if item.configurations.0 %}<span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>{% endif %}<a href="{% url 'unccd:questionnaire_details' item.code %}" title="" class="link">{{ item.name|safe|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
     </header>
     <aside class="tech-infos row collapse">
       <dl class="medium-6 columns">
         <dt>{% trans "ID:" %}</dt>
-        <dd>{{ item.code|default:"&ndash;" }}</dd>
+        <dd><a href="{% url 'unccd:questionnaire_details' item.code %}">{{ item.code|default:"&ndash;" }}</a></dd>
       </dl>
       <dl class="medium-6 columns">
         <dt>{% trans "Creation:" %}</dt>
@@ -24,7 +24,7 @@
       </dl>
     </aside>
     <main>
-      <p>{{ item.unccd_description }}</p>
+      <p>{{ item.unccd_description|safe|truncatewords:50 }}</p>
     </main>
     <footer>
       {% if item.translations %}

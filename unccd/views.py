@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
@@ -21,6 +23,41 @@ def home(request):
     return render(request, 'unccd/home.html', {
         'list_values': list_template_values.get('list_values', [])
     })
+
+
+@login_required
+def unccd_data_import(request):
+    """
+    Call the script for the UNCCD import. This assumes there is a module
+    "unccd.data_import" with a function "data_import".
+
+    Redirects to the administration interface to display a success or
+    error message.
+    """
+    if request.user.is_superuser is not True:
+        raise PermissionDenied()
+
+    redirect_route = 'search:admin'
+
+    try:
+        from .data_import import data_import
+    except ImportError:
+        messages.error(
+            request, 'No import function found. Make sure there is a function '
+            '"data_import" in module "unccd.data_import".')
+        return redirect(redirect_route)
+
+    success, objects = data_import()
+
+    if success is True:
+        messages.success(
+            request, 'The data was parsed correctly. {} questionnaires were '
+            'inserted.'.format(len(objects)))
+    else:
+        messages.error(
+            request, 'The following error(s) occured: {}'.format(objects))
+
+    return redirect(redirect_route)
 
 
 @login_required

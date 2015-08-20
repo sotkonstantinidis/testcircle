@@ -62,6 +62,7 @@
         <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>Delete all indices.</strong></p><p>Delete all the indices.</p><p><strong>HANDLE WITH CARE!</strong></p>">
           <a href="{% url 'search:delete_all' %}" class="small button alert" style="margin-top: 0;">Delete all</a>
         </span>
+        <span data-tooltip arias-haspopup="true" class="right has-tip" title="<p><strong>UNCCD Import</strong></p><p><i>This might take a while, please be patient and do not click the button twice!</i></p><p>Import the UNCCD data. In order for this to work, you need to have a function called 'data_import' in module 'unccd.data_import'.</p><p><strong>This should only be done once!</strong></p>"><a href="{% url 'unccd:data_import' %}" class="small button alert">UNCCD Import</a></span>
       </p>
     {% else %}
       <p>No active configurations found</p>

@@ -609,7 +609,7 @@ class QuestionnaireTest(FunctionalTest):
         # She sees the values were submitted with linebreaks
         self.findBy('xpath', '//h3[contains(text(), "Key 2")]')
         details = self.findBy('xpath', '//p[contains(text(), "asdf")]')
-        self.assertEqual(details.text, 'asdf\nasdf')
+        self.assertEqual(details.text, 'asdf asdf')
 
         self.findBy('id', 'button-submit').click()
 
@@ -1493,8 +1493,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//label/span[contains(text(), "low")]').click()
         self.findBy(
-            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
-            'contains(text(), "Key 12")]')
+            'xpath', '//div[contains(@class, "is-selected")]//label[contains('
+            'text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 25%;"]')
 
@@ -1514,8 +1514,8 @@ class QuestionnaireTest(FunctionalTest):
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_2'}))
         self.findBy(
-            'xpath', '//div[@class="row list-item is-selected"]/div/div/label['
-            'contains(text(), "Key 12")]')
+            'xpath', '//div[contains(@class, "is-selected")]//label[contains('
+            'text(), "Key 12")]')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 25%;"]')
 
@@ -1535,13 +1535,80 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # The overview now shows medium and she submits the form
-        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
+        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
+        self.findBy('xpath', '//span[contains(text(), "medium")]')
 
         # She submits the form and sees that the radio value is stored
         # correctly
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//*[text()[contains(.,"Key 12: medium")]]')
+        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
+        self.findBy('xpath', '//span[contains(text(), "medium")]')
+
+    def test_measure_selects_repeating(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
+
+        # She sees Key 12 and selects a measure (low)
+        self.findBy(
+            'xpath', '//div[@data-questiongroup-keyword="qg_9"][1]//label/'
+            'span[contains(text(), "low")]').click()
+
+        # She adds another questiongroup
+        self.findBy(
+            'xpath', '//fieldset[@class="row"][2]//a[@data-add-item]').click()
+
+        # She selects measure (medium) in the second
+        self.findBy(
+            'xpath', '//div[@data-questiongroup-keyword="qg_9"][2]//label/'
+            'span[contains(text(), "medium")]').click()
+
+        # She changes the first measure (high)
+        self.findBy(
+            'xpath', '//div[@data-questiongroup-keyword="qg_9"][1]//label/'
+            'span[contains(text(), "high")]').click()
+
+        # She submits the step and sees the values were submitted
+        # correctly
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
+        self.findBy('xpath', '//span[contains(text(), "high")]')
+        self.findBy('xpath', '//span[contains(text(), "medium")]')
+
+        # She goes back to the form and sees the values were populated
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
+        self.findBy(
+            'xpath', '//input[@id="id_qg_9-0-key_12_4" and @checked]')
+        self.findBy(
+            'xpath', '//input[@id="id_qg_9-1-key_12_3" and @checked]')
+
+        # She changes the values
+        self.findBy(
+            'xpath', '//div[@data-questiongroup-keyword="qg_9"][1]//label/'
+            'span[contains(text(), "medium")]').click()
+        self.findBy(
+            'xpath', '//div[@data-questiongroup-keyword="qg_9"][2]//label/'
+            'span[contains(text(), "low")]').click()
+
+        # She submits the step and sees the values were submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
+        self.findBy('xpath', '//span[contains(text(), "medium")]')
+        self.findBy('xpath', '//span[contains(text(), "low")]')
+
+        # She submits the questionnaire and sees the values were submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
+        self.findBy('xpath', '//span[contains(text(), "medium")]')
+        self.findBy('xpath', '//span[contains(text(), "low")]')
 
     def test_radio_selects(self):
 

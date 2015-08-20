@@ -581,7 +581,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
     def get_details(self, data={}, measure_label=None):
         template_values = {
-            'view_label': self.view_options.get('label', True) is True,
+            'view_label': self.view_options.get('label'),
             'header': self.view_options.get('header'),
         }
         value = data.get(self.keyword)
