@@ -12,7 +12,7 @@
     border-bottom-right-radius: $global-radius;
   }
 }
-.search-group {
+.flexbox .search-group {
   @media #{$medium-up} {
     display: flex;
     flex-direction: row;
@@ -21,6 +21,23 @@
     }
     .search-switch + .search-input {
       margin-left: rem-calc(6);
+    }
+  }
+}
+.no-flexbox .search-group {
+  @media #{$medium-up} {
+    .search-switch,
+    .search-input {
+      float: left
+    }
+    .search-switch {
+      width: 40%;
+    }
+    .search-input {
+      width: 60%;
+    }
+    .search-option {
+      clear: both;
     }
   }
 }
@@ -43,7 +60,6 @@
   color: #D9D6CC;
   a {
     color: #D9D6CC;
-    text-decoration: underline;
   }
   a:hover,
   a:focus {
