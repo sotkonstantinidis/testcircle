@@ -1,0 +1,50 @@
+{% load floppyforms %}
+{% load list_to_columns %}
+
+{% if config.next_level == 'subcategories' %}
+  <p>{{ config.label }}</p>
+  {% for sub_config, sub_formsets in formsets %}
+    {% form form using sub_config.form_template with config=sub_config formsets=sub_formsets %}
+  {% endfor %}
+{% else %}
+  <fieldset class="row">
+    <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
+    {% for questiongroup_config, questiongroup_formset in formsets %}
+      {% if questiongroup_config.helptext %}
+        <div class="help-bloc">{{ questiongroup_config.helptext|safe }}</div>
+      {% endif %}
+    {% endfor %}
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          {% for header in config.table_headers %}
+            <th>{{ header }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for questiongroup_config, questiongroup_formset in formsets %}
+          {% if questiongroup_config.keyword in config.table_grouping.0 %}
+            {{ questiongroup_formset.management_form }}
+            {% for f in questiongroup_formset.forms %}
+              <tr>
+                <td>{{ forloop.counter }}.</td>
+                {% for field in f.visible_fields %}
+                  <td>
+                    {% formrow field using "form/question/no_label.html" %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {% for questiongroup_config, questiongroup_formset in formsets %}
+      {% if questiongroup_config.keyword not in config.table_grouping.0 %}
+        {% form form using "form/questiongroup.html" with config=questiongroup_config formset=questiongroup_formset %}
+      {% endif %}
+    {% endfor %}
+  </fieldset>
+{% endif %}

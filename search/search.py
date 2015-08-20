@@ -31,7 +31,7 @@ def simple_search(query_string, configuration_codes=[]):
 
 def advanced_search(
         filter_params=[], query_string='', code='', name='',
-        configuration_codes=[], limit=10):
+        configuration_codes=[], limit=10, offset=0):
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -44,6 +44,8 @@ def advanced_search(
             [2]: value
 
             [3]: operator
+
+            [4]: type (eg. checkbox / text)
 
         ``query_string`` (str): A query string for the full text search.
 
@@ -66,7 +68,7 @@ def advanced_search(
     # TODO: Support more operator types.
     # TODO: Support AND/OR
 
-    nested_questiongroups = []
+    must = []
 
     # Filter parameters: Nested subqueries to access the correct
     # questiongroup.
@@ -74,23 +76,52 @@ def advanced_search(
         questiongroup = filter_param[0]
         key = filter_param[1]
         value = filter_param[2]
+        filter_type = filter_param[4]
 
-        nested_questiongroups.append({
-            "nested": {
-                "path": "data.{}".format(questiongroup),
-                "query": {
-                    "multi_match": {
-                        "query": value,
-                        "fields": ["data.{}.{}.*".format(questiongroup, key)],
-                        "type": "most_fields",
+        if filter_type in ['checkbox', 'image_checkbox']:
+            must.append({
+                "nested": {
+                    "path": "data.{}".format(questiongroup),
+                    "query": {
+                        "query_string": {
+                            "query": value,
+                            "fields": ["data.{}.{}".format(questiongroup, key)]
+                        }
                     }
                 }
-            }
-        })
+            })
 
-    # Qurey string: Full text search
+        elif filter_type in ['text', 'char']:
+            must.append({
+                "nested": {
+                    "path": "data.{}".format(questiongroup),
+                    "query": {
+                        "multi_match": {
+                            "query": value,
+                            "fields": ["data.{}.{}.*".format(
+                                questiongroup, key)],
+                            "type": "most_fields",
+                        }
+                    }
+                }
+            })
+
+        elif filter_type in ['_date']:
+            years = value.split('-')
+            if len(years) != 2:
+                continue
+            must.append({
+                'range': {
+                    key: {
+                        'from': '{}||/y'.format(years[0]),
+                        'to': '{}||/y'.format(years[1]),
+                    }
+                }
+            })
+
+    # Query string: Full text search
     if query_string:
-        nested_questiongroups.append({
+        must.append({
             "query_string": {
                 "query": query_string
             }
@@ -115,7 +146,7 @@ def advanced_search(
     query = {
         "query": {
             "bool": {
-                "must": nested_questiongroups,
+                "must": must,
                 'should': should,
             }
         },
@@ -126,4 +157,4 @@ def advanced_search(
         ]
     }
 
-    return es.search(index=alias, body=query, size=limit)
+    return es.search(index=alias, body=query, size=limit, from_=offset)

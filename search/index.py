@@ -1,11 +1,13 @@
 from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
+from itertools import chain
 
 from .utils import (
     get_analyzer,
     get_alias,
 )
+from configuration.utils import ConfigurationList
 
 
 def get_elasticsearch():
@@ -76,6 +78,10 @@ def get_mappings(questionnaire_configuration):
             q.update({'analyer': analyzer})
             name_properties[language_code] = q
 
+    link_properties = {}
+    for language_code in language_codes:
+        link_properties[language_code] = {'type': 'string'}
+
     mappings = {
         'questionnaire': {
             'properties': {
@@ -99,6 +105,20 @@ def get_mappings(questionnaire_configuration):
                 },
                 'name': {
                     'properties': name_properties
+                },
+                'authors': {
+                    'type': 'nested',
+                    'properties': {
+                        'id': {
+                            'type': 'integer',
+                        },
+                        'name': {
+                            'type': 'string',
+                        },
+                    }
+                },
+                'links': {
+                    'properties': link_properties,
                 },
                 # 'list_data' is added dynamically
             }
@@ -221,34 +241,65 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
 
         ``list``. A list of errors occured.
     """
-    from configuration.configuration import QuestionnaireConfiguration
-    questionnaire_configuration = QuestionnaireConfiguration(
-        configuration_code)
+    from questionnaire.utils import get_link_display
 
+    config_list = ConfigurationList()
+    questionnaire_configuration = config_list.get(configuration_code)
     alias = get_alias([configuration_code])
 
     actions = []
     for obj in questionnaire_objects:
         list_data = questionnaire_configuration.get_list_data(
             [obj.data])[0]
+
+        language_codes = [l[0] for l in settings.LANGUAGES]
+
+        links = {}
+        for language in language_codes:
+            links[language] = []
+
+        for link in obj.links.all():
+
+            link_configuration_db = link.configurations.first()
+            if link_configuration_db is None:
+                continue
+
+            link_configuration = config_list.get(link_configuration_db.code)
+
+            name_data = link_configuration.get_questionnaire_name(link.data)
+            try:
+                original_language = link.questionnairetranslation_set.first()\
+                    .language
+            except AttributeError:
+                original_language = None
+
+            for language in language_codes:
+                name = name_data.get(
+                    language, name_data.get(original_language))
+                links[language].append(get_link_display(
+                    link_configuration.keyword, name, link.code))
+
+        authors = []
+        for author in list(chain(
+                obj.members.filter(questionnairemembership__role='author'),
+                obj.members.filter(questionnairemembership__role='editor'))):
+            authors.append({
+                'id': author.id,
+                'name': str(author),
+            })
+        source = {
+            'data': obj.data,
+            'list_data': list_data,
+            'name': questionnaire_configuration.get_questionnaire_name(
+                obj.data),
+            'links': links,
+        }
+        source.update(obj.get_metadata())
         action = {
             '_index': alias,
             '_type': 'questionnaire',
             '_id': obj.id,
-            '_source': {
-                'data': obj.data,
-                'list_data': list_data,
-                'created': obj.created,
-                'updated': obj.updated,
-                'code': obj.code,
-                'name': questionnaire_configuration.get_questionnaire_name(
-                    obj.data),
-                'configurations': [
-                    conf.code for conf in obj.configurations.all()],
-                'translations': [
-                    trans.language for trans in
-                    obj.questionnairetranslation_set.all()],
-            }
+            '_source': source,
         }
         actions.append(action)
     actions_executed, errors = bulk(es, actions)

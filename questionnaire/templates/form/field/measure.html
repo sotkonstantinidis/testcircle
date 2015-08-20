@@ -7,12 +7,12 @@
 {% endcomment %}
 
 <div class="button-bar">
-  <ul class="button-group radius">
+  <ul class="button-switch radius">
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
         <li>
           <input type="radio" id="{{ attrs.id }}_{{ forloop.counter }}" value="{{ choice.0 }}" name="{{ name }}"{% if required %} required{% endif %}{% if choice.0 in value %} checked{% endif %}{% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %}>
-          <label class="button small secondary" for="{{ attrs.id }}_{{ forloop.counter }}"><span>{{ choice.1 }}</span></label>
+          <label class="button small secondary" for="{{ attrs.id }}_{{ forloop.counter }}"><span>{{ choice.1|safe }}</span></label>
         </li>
       {% endfor %}
     {% endfor %}

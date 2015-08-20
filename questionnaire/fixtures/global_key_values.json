@@ -2,7 +2,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Common name"}}, "unccd":{"label":{"en": "Title of best practice"}}}
+        "data": {"approaches":{"label":{"en":"Name of the approach"}},"technologies":{"label":{"en":"Common name"}},"unccd":{"label":{"en":"Title of best practice"}}}
     },
     "model": "configuration.translation",
     "pk": 5001
@@ -10,17 +10,81 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Country"}}, "unccd":{"label":{"en": "Country"}}}
+        "data": {"approaches":{"label":{"en":"Country"}},"technologies":{"label":{"en":"Country"}},"unccd":{"label":{"en":"Country"}}}
     },
     "model": "configuration.translation",
     "pk": 5002
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en":"Local name (with language)"}},"technologies":{"label":{"en":"Local name (with language)"}},"unccd":{"label":{"en":"Local name"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5003
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en":"Comments"}},"technologies":{"label":{"en":"Comments"}},"unccd":{"label":{"en":"Comments"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5004
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en":"State / Province"}},"technologies":{"label":{"en": "State / Province"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5005
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"}},"technologies":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"},"label_view":{"en": "Further specification of location"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5006
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Image"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5007
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Caption"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5008
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Date and Location"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5009
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "Name of photographer"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5010
 },
 
 
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Afghanistan"}},"codes":{"iso_3166_1":"AFG"}}
+        "data": {"technologies":{"label":{"en":"Afghanistan"}},"unccd":{"label":{"en":"Afghanistan"}},"codes":{"iso_3166_1":"AFG"}}
     },
     "model": "configuration.translation",
     "pk": 5501
@@ -28,7 +92,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Albania"}},"codes":{"iso_3166_1":"ALB"}}
+        "data": {"technologies":{"label":{"en":"Albania"}},"unccd":{"label":{"en":"Albania"}},"codes":{"iso_3166_1":"ALB"}}
     },
     "model": "configuration.translation",
     "pk": 5502
@@ -36,7 +100,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Algeria"}},"codes":{"iso_3166_1":"DZA"}}
+        "data": {"technologies":{"label":{"en":"Algeria"}},"unccd":{"label":{"en":"Algeria"}},"codes":{"iso_3166_1":"DZA"}}
     },
     "model": "configuration.translation",
     "pk": 5503
@@ -44,7 +108,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"American Samoa"}},"codes":{"iso_3166_1":"ASM"}}
+        "data": {"technologies":{"label":{"en":"American Samoa"}},"unccd":{"label":{"en":"American Samoa"}},"codes":{"iso_3166_1":"ASM"}}
     },
     "model": "configuration.translation",
     "pk": 5504
@@ -52,7 +116,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Andorra"}},"codes":{"iso_3166_1":"AND"}}
+        "data": {"technologies":{"label":{"en":"Andorra"}},"unccd":{"label":{"en":"Andorra"}},"codes":{"iso_3166_1":"AND"}}
     },
     "model": "configuration.translation",
     "pk": 5505
@@ -60,7 +124,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Angola"}},"codes":{"iso_3166_1":"AGO"}}
+        "data": {"technologies":{"label":{"en":"Angola"}},"unccd":{"label":{"en":"Angola"}},"codes":{"iso_3166_1":"AGO"}}
     },
     "model": "configuration.translation",
     "pk": 5506
@@ -68,7 +132,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Anguilla"}},"codes":{"iso_3166_1":"AIA"}}
+        "data": {"technologies":{"label":{"en":"Anguilla"}},"unccd":{"label":{"en":"Anguilla"}},"codes":{"iso_3166_1":"AIA"}}
     },
     "model": "configuration.translation",
     "pk": 5507
@@ -76,7 +140,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Antarctica"}},"codes":{"iso_3166_1":"ATA"}}
+        "data": {"technologies":{"label":{"en":"Antarctica"}},"unccd":{"label":{"en":"Antarctica"}},"codes":{"iso_3166_1":"ATA"}}
     },
     "model": "configuration.translation",
     "pk": 5508
@@ -84,7 +148,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Antigua and Barbuda"}},"codes":{"iso_3166_1":"ATG"}}
+        "data": {"technologies":{"label":{"en":"Antigua and Barbuda"}},"unccd":{"label":{"en":"Antigua and Barbuda"}},"codes":{"iso_3166_1":"ATG"}}
     },
     "model": "configuration.translation",
     "pk": 5509
@@ -92,7 +156,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Argentina"}},"codes":{"iso_3166_1":"ARG"}}
+        "data": {"technologies":{"label":{"en":"Argentina"}},"unccd":{"label":{"en":"Argentina"}},"codes":{"iso_3166_1":"ARG"}}
     },
     "model": "configuration.translation",
     "pk": 5510
@@ -100,7 +164,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Armenia"}},"codes":{"iso_3166_1":"ARM"}}
+        "data": {"technologies":{"label":{"en":"Armenia"}},"unccd":{"label":{"en":"Armenia"}},"codes":{"iso_3166_1":"ARM"}}
     },
     "model": "configuration.translation",
     "pk": 5511
@@ -108,7 +172,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Aruba"}},"codes":{"iso_3166_1":"ABW"}}
+        "data": {"technologies":{"label":{"en":"Aruba"}},"unccd":{"label":{"en":"Aruba"}},"codes":{"iso_3166_1":"ABW"}}
     },
     "model": "configuration.translation",
     "pk": 5512
@@ -116,7 +180,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Australia"}},"codes":{"iso_3166_1":"AUS"}}
+        "data": {"technologies":{"label":{"en":"Australia"}},"unccd":{"label":{"en":"Australia"}},"codes":{"iso_3166_1":"AUS"}}
     },
     "model": "configuration.translation",
     "pk": 5513
@@ -124,7 +188,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Austria"}},"codes":{"iso_3166_1":"AUT"}}
+        "data": {"technologies":{"label":{"en":"Austria"}},"unccd":{"label":{"en":"Austria"}},"codes":{"iso_3166_1":"AUT"}}
     },
     "model": "configuration.translation",
     "pk": 5514
@@ -132,7 +196,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Azerbaijan"}},"codes":{"iso_3166_1":"AZE"}}
+        "data": {"technologies":{"label":{"en":"Azerbaijan"}},"unccd":{"label":{"en":"Azerbaijan"}},"codes":{"iso_3166_1":"AZE"}}
     },
     "model": "configuration.translation",
     "pk": 5515
@@ -140,7 +204,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bahamas"}},"codes":{"iso_3166_1":"BHS"}}
+        "data": {"technologies":{"label":{"en":"Bahamas"}},"unccd":{"label":{"en":"Bahamas"}},"codes":{"iso_3166_1":"BHS"}}
     },
     "model": "configuration.translation",
     "pk": 5516
@@ -148,7 +212,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bahrain"}},"codes":{"iso_3166_1":"BHR"}}
+        "data": {"technologies":{"label":{"en":"Bahrain"}},"unccd":{"label":{"en":"Bahrain"}},"codes":{"iso_3166_1":"BHR"}}
     },
     "model": "configuration.translation",
     "pk": 5517
@@ -156,7 +220,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bangladesh"}},"codes":{"iso_3166_1":"BGD"}}
+        "data": {"technologies":{"label":{"en":"Bangladesh"}},"unccd":{"label":{"en":"Bangladesh"}},"codes":{"iso_3166_1":"BGD"}}
     },
     "model": "configuration.translation",
     "pk": 5518
@@ -164,7 +228,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Barbados"}},"codes":{"iso_3166_1":"BRB"}}
+        "data": {"technologies":{"label":{"en":"Barbados"}},"unccd":{"label":{"en":"Barbados"}},"codes":{"iso_3166_1":"BRB"}}
     },
     "model": "configuration.translation",
     "pk": 5519
@@ -172,7 +236,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Belarus"}},"codes":{"iso_3166_1":"BLR"}}
+        "data": {"technologies":{"label":{"en":"Belarus"}},"unccd":{"label":{"en":"Belarus"}},"codes":{"iso_3166_1":"BLR"}}
     },
     "model": "configuration.translation",
     "pk": 5520
@@ -180,7 +244,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Belgium"}},"codes":{"iso_3166_1":"BEL"}}
+        "data": {"technologies":{"label":{"en":"Belgium"}},"unccd":{"label":{"en":"Belgium"}},"codes":{"iso_3166_1":"BEL"}}
     },
     "model": "configuration.translation",
     "pk": 5521
@@ -188,7 +252,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Belize"}},"codes":{"iso_3166_1":"BLZ"}}
+        "data": {"technologies":{"label":{"en":"Belize"}},"unccd":{"label":{"en":"Belize"}},"codes":{"iso_3166_1":"BLZ"}}
     },
     "model": "configuration.translation",
     "pk": 5522
@@ -196,7 +260,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Benin"}},"codes":{"iso_3166_1":"BEN"}}
+        "data": {"technologies":{"label":{"en":"Benin"}},"unccd":{"label":{"en":"Benin"}},"codes":{"iso_3166_1":"BEN"}}
     },
     "model": "configuration.translation",
     "pk": 5523
@@ -204,7 +268,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bermuda"}},"codes":{"iso_3166_1":"BMU"}}
+        "data": {"technologies":{"label":{"en":"Bermuda"}},"unccd":{"label":{"en":"Bermuda"}},"codes":{"iso_3166_1":"BMU"}}
     },
     "model": "configuration.translation",
     "pk": 5524
@@ -212,7 +276,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bhutan"}},"codes":{"iso_3166_1":"BTN"}}
+        "data": {"technologies":{"label":{"en":"Bhutan"}},"unccd":{"label":{"en":"Bhutan"}},"codes":{"iso_3166_1":"BTN"}}
     },
     "model": "configuration.translation",
     "pk": 5525
@@ -220,7 +284,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bolivia, Plurinational State of"}},"codes":{"iso_3166_1":"BOL"}}
+        "data": {"technologies":{"label":{"en":"Bolivia, Plurinational State of"}},"unccd":{"label":{"en":"Bolivia, Plurinational State of"}},"codes":{"iso_3166_1":"BOL"}}
     },
     "model": "configuration.translation",
     "pk": 5526
@@ -228,7 +292,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bonaire, Sint Eustatius and Saba"}},"codes":{"iso_3166_1":"BES"}}
+        "data": {"technologies":{"label":{"en":"Bonaire, Sint Eustatius and Saba"}},"unccd":{"label":{"en":"Bonaire, Sint Eustatius and Saba"}},"codes":{"iso_3166_1":"BES"}}
     },
     "model": "configuration.translation",
     "pk": 5527
@@ -236,7 +300,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bosnia and Herzegovina"}},"codes":{"iso_3166_1":"BIH"}}
+        "data": {"technologies":{"label":{"en":"Bosnia and Herzegovina"}},"unccd":{"label":{"en":"Bosnia and Herzegovina"}},"codes":{"iso_3166_1":"BIH"}}
     },
     "model": "configuration.translation",
     "pk": 5528
@@ -244,7 +308,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Botswana"}},"codes":{"iso_3166_1":"BWA"}}
+        "data": {"technologies":{"label":{"en":"Botswana"}},"unccd":{"label":{"en":"Botswana"}},"codes":{"iso_3166_1":"BWA"}}
     },
     "model": "configuration.translation",
     "pk": 5529
@@ -252,7 +316,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bouvet Island"}},"codes":{"iso_3166_1":"BVT"}}
+        "data": {"technologies":{"label":{"en":"Bouvet Island"}},"unccd":{"label":{"en":"Bouvet Island"}},"codes":{"iso_3166_1":"BVT"}}
     },
     "model": "configuration.translation",
     "pk": 5530
@@ -260,7 +324,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Brazil"}},"codes":{"iso_3166_1":"BRA"}}
+        "data": {"technologies":{"label":{"en":"Brazil"}},"unccd":{"label":{"en":"Brazil"}},"codes":{"iso_3166_1":"BRA"}}
     },
     "model": "configuration.translation",
     "pk": 5531
@@ -268,7 +332,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"British Indian Ocean Territory"}},"codes":{"iso_3166_1":"IOT"}}
+        "data": {"technologies":{"label":{"en":"British Indian Ocean Territory"}},"unccd":{"label":{"en":"British Indian Ocean Territory"}},"codes":{"iso_3166_1":"IOT"}}
     },
     "model": "configuration.translation",
     "pk": 5532
@@ -276,7 +340,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Brunei Darussalam"}},"codes":{"iso_3166_1":"BRN"}}
+        "data": {"technologies":{"label":{"en":"Brunei Darussalam"}},"unccd":{"label":{"en":"Brunei Darussalam"}},"codes":{"iso_3166_1":"BRN"}}
     },
     "model": "configuration.translation",
     "pk": 5533
@@ -284,7 +348,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Bulgaria"}},"codes":{"iso_3166_1":"BGR"}}
+        "data": {"technologies":{"label":{"en":"Bulgaria"}},"unccd":{"label":{"en":"Bulgaria"}},"codes":{"iso_3166_1":"BGR"}}
     },
     "model": "configuration.translation",
     "pk": 5534
@@ -292,7 +356,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Burkina Faso"}},"codes":{"iso_3166_1":"BFA"}}
+        "data": {"technologies":{"label":{"en":"Burkina Faso"}},"unccd":{"label":{"en":"Burkina Faso"}},"codes":{"iso_3166_1":"BFA"}}
     },
     "model": "configuration.translation",
     "pk": 5535
@@ -300,7 +364,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Burundi"}},"codes":{"iso_3166_1":"BDI"}}
+        "data": {"technologies":{"label":{"en":"Burundi"}},"unccd":{"label":{"en":"Burundi"}},"codes":{"iso_3166_1":"BDI"}}
     },
     "model": "configuration.translation",
     "pk": 5536
@@ -308,7 +372,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cambodia"}},"codes":{"iso_3166_1":"KHM"}}
+        "data": {"technologies":{"label":{"en":"Cambodia"}},"unccd":{"label":{"en":"Cambodia"}},"codes":{"iso_3166_1":"KHM"}}
     },
     "model": "configuration.translation",
     "pk": 5537
@@ -316,7 +380,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cameroon"}},"codes":{"iso_3166_1":"CMR"}}
+        "data": {"technologies":{"label":{"en":"Cameroon"}},"unccd":{"label":{"en":"Cameroon"}},"codes":{"iso_3166_1":"CMR"}}
     },
     "model": "configuration.translation",
     "pk": 5538
@@ -324,7 +388,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Canada"}},"codes":{"iso_3166_1":"CAN"}}
+        "data": {"technologies":{"label":{"en":"Canada"}},"unccd":{"label":{"en":"Canada"}},"codes":{"iso_3166_1":"CAN"}}
     },
     "model": "configuration.translation",
     "pk": 5539
@@ -332,7 +396,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cape Verde"}},"codes":{"iso_3166_1":"CPV"}}
+        "data": {"technologies":{"label":{"en":"Cape Verde"}},"unccd":{"label":{"en":"Cape Verde"}},"codes":{"iso_3166_1":"CPV"}}
     },
     "model": "configuration.translation",
     "pk": 5540
@@ -340,7 +404,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cayman Islands"}},"codes":{"iso_3166_1":"CYM"}}
+        "data": {"technologies":{"label":{"en":"Cayman Islands"}},"unccd":{"label":{"en":"Cayman Islands"}},"codes":{"iso_3166_1":"CYM"}}
     },
     "model": "configuration.translation",
     "pk": 5541
@@ -348,7 +412,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Central African Republic"}},"codes":{"iso_3166_1":"CAF"}}
+        "data": {"technologies":{"label":{"en":"Central African Republic"}},"unccd":{"label":{"en":"Central African Republic"}},"codes":{"iso_3166_1":"CAF"}}
     },
     "model": "configuration.translation",
     "pk": 5542
@@ -356,7 +420,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Chad"}},"codes":{"iso_3166_1":"TCD"}}
+        "data": {"technologies":{"label":{"en":"Chad"}},"unccd":{"label":{"en":"Chad"}},"codes":{"iso_3166_1":"TCD"}}
     },
     "model": "configuration.translation",
     "pk": 5543
@@ -364,7 +428,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Chile"}},"codes":{"iso_3166_1":"CHL"}}
+        "data": {"technologies":{"label":{"en":"Chile"}},"unccd":{"label":{"en":"Chile"}},"codes":{"iso_3166_1":"CHL"}}
     },
     "model": "configuration.translation",
     "pk": 5544
@@ -372,7 +436,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"China"}},"codes":{"iso_3166_1":"CHN"}}
+        "data": {"technologies":{"label":{"en":"China"}},"unccd":{"label":{"en":"China"}},"codes":{"iso_3166_1":"CHN"}}
     },
     "model": "configuration.translation",
     "pk": 5545
@@ -380,7 +444,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Christmas Island"}},"codes":{"iso_3166_1":"CXR"}}
+        "data": {"technologies":{"label":{"en":"Christmas Island"}},"unccd":{"label":{"en":"Christmas Island"}},"codes":{"iso_3166_1":"CXR"}}
     },
     "model": "configuration.translation",
     "pk": 5546
@@ -388,7 +452,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cocos (Keeling) Islands"}},"codes":{"iso_3166_1":"CCK"}}
+        "data": {"technologies":{"label":{"en":"Cocos (Keeling) Islands"}},"unccd":{"label":{"en":"Cocos (Keeling) Islands"}},"codes":{"iso_3166_1":"CCK"}}
     },
     "model": "configuration.translation",
     "pk": 5547
@@ -396,7 +460,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Colombia"}},"codes":{"iso_3166_1":"COL"}}
+        "data": {"technologies":{"label":{"en":"Colombia"}},"unccd":{"label":{"en":"Colombia"}},"codes":{"iso_3166_1":"COL"}}
     },
     "model": "configuration.translation",
     "pk": 5548
@@ -404,7 +468,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Comoros"}},"codes":{"iso_3166_1":"COM"}}
+        "data": {"technologies":{"label":{"en":"Comoros"}},"unccd":{"label":{"en":"Comoros"}},"codes":{"iso_3166_1":"COM"}}
     },
     "model": "configuration.translation",
     "pk": 5549
@@ -412,7 +476,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Congo"}},"codes":{"iso_3166_1":"COG"}}
+        "data": {"technologies":{"label":{"en":"Congo"}},"unccd":{"label":{"en":"Congo"}},"codes":{"iso_3166_1":"COG"}}
     },
     "model": "configuration.translation",
     "pk": 5550
@@ -420,7 +484,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Congo, the Democratic Republic of the"}},"codes":{"iso_3166_1":"COD"}}
+        "data": {"technologies":{"label":{"en":"Congo, the Democratic Republic of the"}},"unccd":{"label":{"en":"Congo, the Democratic Republic of the"}},"codes":{"iso_3166_1":"COD"}}
     },
     "model": "configuration.translation",
     "pk": 5551
@@ -428,7 +492,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cook Islands"}},"codes":{"iso_3166_1":"COK"}}
+        "data": {"technologies":{"label":{"en":"Cook Islands"}},"unccd":{"label":{"en":"Cook Islands"}},"codes":{"iso_3166_1":"COK"}}
     },
     "model": "configuration.translation",
     "pk": 5552
@@ -436,7 +500,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Costa Rica"}},"codes":{"iso_3166_1":"CRI"}}
+        "data": {"technologies":{"label":{"en":"Costa Rica"}},"unccd":{"label":{"en":"Costa Rica"}},"codes":{"iso_3166_1":"CRI"}}
     },
     "model": "configuration.translation",
     "pk": 5553
@@ -444,7 +508,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Croatia"}},"codes":{"iso_3166_1":"HRV"}}
+        "data": {"technologies":{"label":{"en":"Croatia"}},"unccd":{"label":{"en":"Croatia"}},"codes":{"iso_3166_1":"HRV"}}
     },
     "model": "configuration.translation",
     "pk": 5554
@@ -452,7 +516,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cuba"}},"codes":{"iso_3166_1":"CUB"}}
+        "data": {"technologies":{"label":{"en":"Cuba"}},"unccd":{"label":{"en":"Cuba"}},"codes":{"iso_3166_1":"CUB"}}
     },
     "model": "configuration.translation",
     "pk": 5555
@@ -460,7 +524,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Curaçao"}},"codes":{"iso_3166_1":"CUW"}}
+        "data": {"technologies":{"label":{"en":"Curaçao"}},"unccd":{"label":{"en":"Curaçao"}},"codes":{"iso_3166_1":"CUW"}}
     },
     "model": "configuration.translation",
     "pk": 5556
@@ -468,7 +532,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Cyprus"}},"codes":{"iso_3166_1":"CYP"}}
+        "data": {"technologies":{"label":{"en":"Cyprus"}},"unccd":{"label":{"en":"Cyprus"}},"codes":{"iso_3166_1":"CYP"}}
     },
     "model": "configuration.translation",
     "pk": 5557
@@ -476,7 +540,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Czech Republic"}},"codes":{"iso_3166_1":"CZE"}}
+        "data": {"technologies":{"label":{"en":"Czech Republic"}},"unccd":{"label":{"en":"Czech Republic"}},"codes":{"iso_3166_1":"CZE"}}
     },
     "model": "configuration.translation",
     "pk": 5558
@@ -484,7 +548,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Côte d'Ivoire"}},"codes":{"iso_3166_1":"CIV"}}
+        "data": {"technologies":{"label":{"en":"Côte d'Ivoire"}},"unccd":{"label":{"en":"Côte d'Ivoire"}},"codes":{"iso_3166_1":"CIV"}}
     },
     "model": "configuration.translation",
     "pk": 5559
@@ -492,7 +556,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Denmark"}},"codes":{"iso_3166_1":"DNK"}}
+        "data": {"technologies":{"label":{"en":"Denmark"}},"unccd":{"label":{"en":"Denmark"}},"codes":{"iso_3166_1":"DNK"}}
     },
     "model": "configuration.translation",
     "pk": 5560
@@ -500,7 +564,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Djibouti"}},"codes":{"iso_3166_1":"DJI"}}
+        "data": {"technologies":{"label":{"en":"Djibouti"}},"unccd":{"label":{"en":"Djibouti"}},"codes":{"iso_3166_1":"DJI"}}
     },
     "model": "configuration.translation",
     "pk": 5561
@@ -508,7 +572,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Dominica"}},"codes":{"iso_3166_1":"DMA"}}
+        "data": {"technologies":{"label":{"en":"Dominica"}},"unccd":{"label":{"en":"Dominica"}},"codes":{"iso_3166_1":"DMA"}}
     },
     "model": "configuration.translation",
     "pk": 5562
@@ -516,7 +580,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Dominican Republic"}},"codes":{"iso_3166_1":"DOM"}}
+        "data": {"technologies":{"label":{"en":"Dominican Republic"}},"unccd":{"label":{"en":"Dominican Republic"}},"codes":{"iso_3166_1":"DOM"}}
     },
     "model": "configuration.translation",
     "pk": 5563
@@ -524,7 +588,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Ecuador"}},"codes":{"iso_3166_1":"ECU"}}
+        "data": {"technologies":{"label":{"en":"Ecuador"}},"unccd":{"label":{"en":"Ecuador"}},"codes":{"iso_3166_1":"ECU"}}
     },
     "model": "configuration.translation",
     "pk": 5564
@@ -532,7 +596,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Egypt"}},"codes":{"iso_3166_1":"EGY"}}
+        "data": {"technologies":{"label":{"en":"Egypt"}},"unccd":{"label":{"en":"Egypt"}},"codes":{"iso_3166_1":"EGY"}}
     },
     "model": "configuration.translation",
     "pk": 5565
@@ -540,7 +604,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"El Salvador"}},"codes":{"iso_3166_1":"SLV"}}
+        "data": {"technologies":{"label":{"en":"El Salvador"}},"unccd":{"label":{"en":"El Salvador"}},"codes":{"iso_3166_1":"SLV"}}
     },
     "model": "configuration.translation",
     "pk": 5566
@@ -548,7 +612,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Equatorial Guinea"}},"codes":{"iso_3166_1":"GNQ"}}
+        "data": {"technologies":{"label":{"en":"Equatorial Guinea"}},"unccd":{"label":{"en":"Equatorial Guinea"}},"codes":{"iso_3166_1":"GNQ"}}
     },
     "model": "configuration.translation",
     "pk": 5567
@@ -556,7 +620,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Eritrea"}},"codes":{"iso_3166_1":"ERI"}}
+        "data": {"technologies":{"label":{"en":"Eritrea"}},"unccd":{"label":{"en":"Eritrea"}},"codes":{"iso_3166_1":"ERI"}}
     },
     "model": "configuration.translation",
     "pk": 5568
@@ -564,7 +628,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Estonia"}},"codes":{"iso_3166_1":"EST"}}
+        "data": {"technologies":{"label":{"en":"Estonia"}},"unccd":{"label":{"en":"Estonia"}},"codes":{"iso_3166_1":"EST"}}
     },
     "model": "configuration.translation",
     "pk": 5569
@@ -572,7 +636,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Ethiopia"}},"codes":{"iso_3166_1":"ETH"}}
+        "data": {"technologies":{"label":{"en":"Ethiopia"}},"unccd":{"label":{"en":"Ethiopia"}},"codes":{"iso_3166_1":"ETH"}}
     },
     "model": "configuration.translation",
     "pk": 5570
@@ -580,7 +644,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Falkland Islands (Malvinas)"}},"codes":{"iso_3166_1":"FLK"}}
+        "data": {"technologies":{"label":{"en":"Falkland Islands (Malvinas)"}},"unccd":{"label":{"en":"Falkland Islands (Malvinas)"}},"codes":{"iso_3166_1":"FLK"}}
     },
     "model": "configuration.translation",
     "pk": 5571
@@ -588,7 +652,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Faroe Islands"}},"codes":{"iso_3166_1":"FRO"}}
+        "data": {"technologies":{"label":{"en":"Faroe Islands"}},"unccd":{"label":{"en":"Faroe Islands"}},"codes":{"iso_3166_1":"FRO"}}
     },
     "model": "configuration.translation",
     "pk": 5572
@@ -596,7 +660,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Fiji"}},"codes":{"iso_3166_1":"FJI"}}
+        "data": {"technologies":{"label":{"en":"Fiji"}},"unccd":{"label":{"en":"Fiji"}},"codes":{"iso_3166_1":"FJI"}}
     },
     "model": "configuration.translation",
     "pk": 5573
@@ -604,7 +668,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Finland"}},"codes":{"iso_3166_1":"FIN"}}
+        "data": {"technologies":{"label":{"en":"Finland"}},"unccd":{"label":{"en":"Finland"}},"codes":{"iso_3166_1":"FIN"}}
     },
     "model": "configuration.translation",
     "pk": 5574
@@ -612,7 +676,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"France"}},"codes":{"iso_3166_1":"FRA"}}
+        "data": {"technologies":{"label":{"en":"France"}},"unccd":{"label":{"en":"France"}},"codes":{"iso_3166_1":"FRA"}}
     },
     "model": "configuration.translation",
     "pk": 5575
@@ -620,7 +684,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"French Guiana"}},"codes":{"iso_3166_1":"GUF"}}
+        "data": {"technologies":{"label":{"en":"French Guiana"}},"unccd":{"label":{"en":"French Guiana"}},"codes":{"iso_3166_1":"GUF"}}
     },
     "model": "configuration.translation",
     "pk": 5576
@@ -628,7 +692,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"French Polynesia"}},"codes":{"iso_3166_1":"PYF"}}
+        "data": {"technologies":{"label":{"en":"French Polynesia"}},"unccd":{"label":{"en":"French Polynesia"}},"codes":{"iso_3166_1":"PYF"}}
     },
     "model": "configuration.translation",
     "pk": 5577
@@ -636,7 +700,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"French Southern Territories"}},"codes":{"iso_3166_1":"ATF"}}
+        "data": {"technologies":{"label":{"en":"French Southern Territories"}},"unccd":{"label":{"en":"French Southern Territories"}},"codes":{"iso_3166_1":"ATF"}}
     },
     "model": "configuration.translation",
     "pk": 5578
@@ -644,7 +708,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Gabon"}},"codes":{"iso_3166_1":"GAB"}}
+        "data": {"technologies":{"label":{"en":"Gabon"}},"unccd":{"label":{"en":"Gabon"}},"codes":{"iso_3166_1":"GAB"}}
     },
     "model": "configuration.translation",
     "pk": 5579
@@ -652,7 +716,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Gambia"}},"codes":{"iso_3166_1":"GMB"}}
+        "data": {"technologies":{"label":{"en":"Gambia"}},"unccd":{"label":{"en":"Gambia"}},"codes":{"iso_3166_1":"GMB"}}
     },
     "model": "configuration.translation",
     "pk": 5580
@@ -660,7 +724,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Georgia"}},"codes":{"iso_3166_1":"GEO"}}
+        "data": {"technologies":{"label":{"en":"Georgia"}},"unccd":{"label":{"en":"Georgia"}},"codes":{"iso_3166_1":"GEO"}}
     },
     "model": "configuration.translation",
     "pk": 5581
@@ -668,7 +732,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Germany"}},"codes":{"iso_3166_1":"DEU"}}
+        "data": {"technologies":{"label":{"en":"Germany"}},"unccd":{"label":{"en":"Germany"}},"codes":{"iso_3166_1":"DEU"}}
     },
     "model": "configuration.translation",
     "pk": 5582
@@ -676,7 +740,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Ghana"}},"codes":{"iso_3166_1":"GHA"}}
+        "data": {"technologies":{"label":{"en":"Ghana"}},"unccd":{"label":{"en":"Ghana"}},"codes":{"iso_3166_1":"GHA"}}
     },
     "model": "configuration.translation",
     "pk": 5583
@@ -684,7 +748,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Gibraltar"}},"codes":{"iso_3166_1":"GIB"}}
+        "data": {"technologies":{"label":{"en":"Gibraltar"}},"unccd":{"label":{"en":"Gibraltar"}},"codes":{"iso_3166_1":"GIB"}}
     },
     "model": "configuration.translation",
     "pk": 5584
@@ -692,7 +756,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Greece"}},"codes":{"iso_3166_1":"GRC"}}
+        "data": {"technologies":{"label":{"en":"Greece"}},"unccd":{"label":{"en":"Greece"}},"codes":{"iso_3166_1":"GRC"}}
     },
     "model": "configuration.translation",
     "pk": 5585
@@ -700,7 +764,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Greenland"}},"codes":{"iso_3166_1":"GRL"}}
+        "data": {"technologies":{"label":{"en":"Greenland"}},"unccd":{"label":{"en":"Greenland"}},"codes":{"iso_3166_1":"GRL"}}
     },
     "model": "configuration.translation",
     "pk": 5586
@@ -708,7 +772,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Grenada"}},"codes":{"iso_3166_1":"GRD"}}
+        "data": {"technologies":{"label":{"en":"Grenada"}},"unccd":{"label":{"en":"Grenada"}},"codes":{"iso_3166_1":"GRD"}}
     },
     "model": "configuration.translation",
     "pk": 5587
@@ -716,7 +780,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Guadeloupe"}},"codes":{"iso_3166_1":"GLP"}}
+        "data": {"technologies":{"label":{"en":"Guadeloupe"}},"unccd":{"label":{"en":"Guadeloupe"}},"codes":{"iso_3166_1":"GLP"}}
     },
     "model": "configuration.translation",
     "pk": 5588
@@ -724,7 +788,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Guam"}},"codes":{"iso_3166_1":"GUM"}}
+        "data": {"technologies":{"label":{"en":"Guam"}},"unccd":{"label":{"en":"Guam"}},"codes":{"iso_3166_1":"GUM"}}
     },
     "model": "configuration.translation",
     "pk": 5589
@@ -732,7 +796,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Guatemala"}},"codes":{"iso_3166_1":"GTM"}}
+        "data": {"technologies":{"label":{"en":"Guatemala"}},"unccd":{"label":{"en":"Guatemala"}},"codes":{"iso_3166_1":"GTM"}}
     },
     "model": "configuration.translation",
     "pk": 5590
@@ -740,7 +804,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Guernsey"}},"codes":{"iso_3166_1":"GGY"}}
+        "data": {"technologies":{"label":{"en":"Guernsey"}},"unccd":{"label":{"en":"Guernsey"}},"codes":{"iso_3166_1":"GGY"}}
     },
     "model": "configuration.translation",
     "pk": 5591
@@ -748,7 +812,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Guinea"}},"codes":{"iso_3166_1":"GIN"}}
+        "data": {"technologies":{"label":{"en":"Guinea"}},"unccd":{"label":{"en":"Guinea"}},"codes":{"iso_3166_1":"GIN"}}
     },
     "model": "configuration.translation",
     "pk": 5592
@@ -756,7 +820,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Guinea-Bissau"}},"codes":{"iso_3166_1":"GNB"}}
+        "data": {"technologies":{"label":{"en":"Guinea-Bissau"}},"unccd":{"label":{"en":"Guinea-Bissau"}},"codes":{"iso_3166_1":"GNB"}}
     },
     "model": "configuration.translation",
     "pk": 5593
@@ -764,7 +828,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Guyana"}},"codes":{"iso_3166_1":"GUY"}}
+        "data": {"technologies":{"label":{"en":"Guyana"}},"unccd":{"label":{"en":"Guyana"}},"codes":{"iso_3166_1":"GUY"}}
     },
     "model": "configuration.translation",
     "pk": 5594
@@ -772,7 +836,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Haiti"}},"codes":{"iso_3166_1":"HTI"}}
+        "data": {"technologies":{"label":{"en":"Haiti"}},"unccd":{"label":{"en":"Haiti"}},"codes":{"iso_3166_1":"HTI"}}
     },
     "model": "configuration.translation",
     "pk": 5595
@@ -780,7 +844,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Heard Island and McDonald Mcdonald Islands"}},"codes":{"iso_3166_1":"HMD"}}
+        "data": {"technologies":{"label":{"en":"Heard Island and McDonald Mcdonald Islands"}},"unccd":{"label":{"en":"Heard Island and McDonald Mcdonald Islands"}},"codes":{"iso_3166_1":"HMD"}}
     },
     "model": "configuration.translation",
     "pk": 5596
@@ -788,7 +852,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Holy See (Vatican City State)"}},"codes":{"iso_3166_1":"VAT"}}
+        "data": {"technologies":{"label":{"en":"Holy See (Vatican City State)"}},"unccd":{"label":{"en":"Holy See (Vatican City State)"}},"codes":{"iso_3166_1":"VAT"}}
     },
     "model": "configuration.translation",
     "pk": 5597
@@ -796,7 +860,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Honduras"}},"codes":{"iso_3166_1":"HND"}}
+        "data": {"technologies":{"label":{"en":"Honduras"}},"unccd":{"label":{"en":"Honduras"}},"codes":{"iso_3166_1":"HND"}}
     },
     "model": "configuration.translation",
     "pk": 5598
@@ -804,7 +868,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Hong Kong"}},"codes":{"iso_3166_1":"HKG"}}
+        "data": {"technologies":{"label":{"en":"Hong Kong"}},"unccd":{"label":{"en":"Hong Kong"}},"codes":{"iso_3166_1":"HKG"}}
     },
     "model": "configuration.translation",
     "pk": 5599
@@ -812,7 +876,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Hungary"}},"codes":{"iso_3166_1":"HUN"}}
+        "data": {"technologies":{"label":{"en":"Hungary"}},"unccd":{"label":{"en":"Hungary"}},"codes":{"iso_3166_1":"HUN"}}
     },
     "model": "configuration.translation",
     "pk": 5600
@@ -820,7 +884,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Iceland"}},"codes":{"iso_3166_1":"ISL"}}
+        "data": {"technologies":{"label":{"en":"Iceland"}},"unccd":{"label":{"en":"Iceland"}},"codes":{"iso_3166_1":"ISL"}}
     },
     "model": "configuration.translation",
     "pk": 5601
@@ -828,7 +892,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"India"}},"codes":{"iso_3166_1":"IND"}}
+        "data": {"technologies":{"label":{"en":"India"}},"unccd":{"label":{"en":"India"}},"codes":{"iso_3166_1":"IND"}}
     },
     "model": "configuration.translation",
     "pk": 5602
@@ -836,7 +900,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Indonesia"}},"codes":{"iso_3166_1":"IDN"}}
+        "data": {"technologies":{"label":{"en":"Indonesia"}},"unccd":{"label":{"en":"Indonesia"}},"codes":{"iso_3166_1":"IDN"}}
     },
     "model": "configuration.translation",
     "pk": 5603
@@ -844,7 +908,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Iran, Islamic Republic of"}},"codes":{"iso_3166_1":"IRN"}}
+        "data": {"technologies":{"label":{"en":"Iran, Islamic Republic of"}},"unccd":{"label":{"en":"Iran, Islamic Republic of"}},"codes":{"iso_3166_1":"IRN"}}
     },
     "model": "configuration.translation",
     "pk": 5604
@@ -852,7 +916,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Iraq"}},"codes":{"iso_3166_1":"IRQ"}}
+        "data": {"technologies":{"label":{"en":"Iraq"}},"unccd":{"label":{"en":"Iraq"}},"codes":{"iso_3166_1":"IRQ"}}
     },
     "model": "configuration.translation",
     "pk": 5605
@@ -860,7 +924,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Ireland"}},"codes":{"iso_3166_1":"IRL"}}
+        "data": {"technologies":{"label":{"en":"Ireland"}},"unccd":{"label":{"en":"Ireland"}},"codes":{"iso_3166_1":"IRL"}}
     },
     "model": "configuration.translation",
     "pk": 5606
@@ -868,7 +932,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Isle of Man"}},"codes":{"iso_3166_1":"IMN"}}
+        "data": {"technologies":{"label":{"en":"Isle of Man"}},"unccd":{"label":{"en":"Isle of Man"}},"codes":{"iso_3166_1":"IMN"}}
     },
     "model": "configuration.translation",
     "pk": 5607
@@ -876,7 +940,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Israel"}},"codes":{"iso_3166_1":"ISR"}}
+        "data": {"technologies":{"label":{"en":"Israel"}},"unccd":{"label":{"en":"Israel"}},"codes":{"iso_3166_1":"ISR"}}
     },
     "model": "configuration.translation",
     "pk": 5608
@@ -884,7 +948,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Italy"}},"codes":{"iso_3166_1":"ITA"}}
+        "data": {"technologies":{"label":{"en":"Italy"}},"unccd":{"label":{"en":"Italy"}},"codes":{"iso_3166_1":"ITA"}}
     },
     "model": "configuration.translation",
     "pk": 5609
@@ -892,7 +956,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Jamaica"}},"codes":{"iso_3166_1":"JAM"}}
+        "data": {"technologies":{"label":{"en":"Jamaica"}},"unccd":{"label":{"en":"Jamaica"}},"codes":{"iso_3166_1":"JAM"}}
     },
     "model": "configuration.translation",
     "pk": 5610
@@ -900,7 +964,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Japan"}},"codes":{"iso_3166_1":"JPN"}}
+        "data": {"technologies":{"label":{"en":"Japan"}},"unccd":{"label":{"en":"Japan"}},"codes":{"iso_3166_1":"JPN"}}
     },
     "model": "configuration.translation",
     "pk": 5611
@@ -908,7 +972,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Jersey"}},"codes":{"iso_3166_1":"JEY"}}
+        "data": {"technologies":{"label":{"en":"Jersey"}},"unccd":{"label":{"en":"Jersey"}},"codes":{"iso_3166_1":"JEY"}}
     },
     "model": "configuration.translation",
     "pk": 5612
@@ -916,7 +980,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Jordan"}},"codes":{"iso_3166_1":"JOR"}}
+        "data": {"technologies":{"label":{"en":"Jordan"}},"unccd":{"label":{"en":"Jordan"}},"codes":{"iso_3166_1":"JOR"}}
     },
     "model": "configuration.translation",
     "pk": 5613
@@ -924,7 +988,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Kazakhstan"}},"codes":{"iso_3166_1":"KAZ"}}
+        "data": {"technologies":{"label":{"en":"Kazakhstan"}},"unccd":{"label":{"en":"Kazakhstan"}},"codes":{"iso_3166_1":"KAZ"}}
     },
     "model": "configuration.translation",
     "pk": 5614
@@ -932,7 +996,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Kenya"}},"codes":{"iso_3166_1":"KEN"}}
+        "data": {"technologies":{"label":{"en":"Kenya"}},"unccd":{"label":{"en":"Kenya"}},"codes":{"iso_3166_1":"KEN"}}
     },
     "model": "configuration.translation",
     "pk": 5615
@@ -940,7 +1004,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Kiribati"}},"codes":{"iso_3166_1":"KIR"}}
+        "data": {"technologies":{"label":{"en":"Kiribati"}},"unccd":{"label":{"en":"Kiribati"}},"codes":{"iso_3166_1":"KIR"}}
     },
     "model": "configuration.translation",
     "pk": 5616
@@ -948,7 +1012,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Korea, Democratic People's Republic of"}},"codes":{"iso_3166_1":"PRK"}}
+        "data": {"technologies":{"label":{"en":"Korea, Democratic People's Republic of"}},"unccd":{"label":{"en":"Korea, Democratic People's Republic of"}},"codes":{"iso_3166_1":"PRK"}}
     },
     "model": "configuration.translation",
     "pk": 5617
@@ -956,7 +1020,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Korea, Republic of"}},"codes":{"iso_3166_1":"KOR"}}
+        "data": {"technologies":{"label":{"en":"Korea, Republic of"}},"unccd":{"label":{"en":"Korea, Republic of"}},"codes":{"iso_3166_1":"KOR"}}
     },
     "model": "configuration.translation",
     "pk": 5618
@@ -964,7 +1028,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Kuwait"}},"codes":{"iso_3166_1":"KWT"}}
+        "data": {"technologies":{"label":{"en":"Kuwait"}},"unccd":{"label":{"en":"Kuwait"}},"codes":{"iso_3166_1":"KWT"}}
     },
     "model": "configuration.translation",
     "pk": 5619
@@ -972,7 +1036,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Kyrgyzstan"}},"codes":{"iso_3166_1":"KGZ"}}
+        "data": {"technologies":{"label":{"en":"Kyrgyzstan"}},"unccd":{"label":{"en":"Kyrgyzstan"}},"codes":{"iso_3166_1":"KGZ"}}
     },
     "model": "configuration.translation",
     "pk": 5620
@@ -980,7 +1044,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Lao People's Democratic Republic"}},"codes":{"iso_3166_1":"LAO"}}
+        "data": {"technologies":{"label":{"en":"Lao People's Democratic Republic"}},"unccd":{"label":{"en":"Lao People's Democratic Republic"}},"codes":{"iso_3166_1":"LAO"}}
     },
     "model": "configuration.translation",
     "pk": 5621
@@ -988,7 +1052,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Latvia"}},"codes":{"iso_3166_1":"LVA"}}
+        "data": {"technologies":{"label":{"en":"Latvia"}},"unccd":{"label":{"en":"Latvia"}},"codes":{"iso_3166_1":"LVA"}}
     },
     "model": "configuration.translation",
     "pk": 5622
@@ -996,7 +1060,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Lebanon"}},"codes":{"iso_3166_1":"LBN"}}
+        "data": {"technologies":{"label":{"en":"Lebanon"}},"unccd":{"label":{"en":"Lebanon"}},"codes":{"iso_3166_1":"LBN"}}
     },
     "model": "configuration.translation",
     "pk": 5623
@@ -1004,7 +1068,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Lesotho"}},"codes":{"iso_3166_1":"LSO"}}
+        "data": {"technologies":{"label":{"en":"Lesotho"}},"unccd":{"label":{"en":"Lesotho"}},"codes":{"iso_3166_1":"LSO"}}
     },
     "model": "configuration.translation",
     "pk": 5624
@@ -1012,7 +1076,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Liberia"}},"codes":{"iso_3166_1":"LBR"}}
+        "data": {"technologies":{"label":{"en":"Liberia"}},"unccd":{"label":{"en":"Liberia"}},"codes":{"iso_3166_1":"LBR"}}
     },
     "model": "configuration.translation",
     "pk": 5625
@@ -1020,7 +1084,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Libya"}},"codes":{"iso_3166_1":"LBY"}}
+        "data": {"technologies":{"label":{"en":"Libya"}},"unccd":{"label":{"en":"Libya"}},"codes":{"iso_3166_1":"LBY"}}
     },
     "model": "configuration.translation",
     "pk": 5626
@@ -1028,7 +1092,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Liechtenstein"}},"codes":{"iso_3166_1":"LIE"}}
+        "data": {"technologies":{"label":{"en":"Liechtenstein"}},"unccd":{"label":{"en":"Liechtenstein"}},"codes":{"iso_3166_1":"LIE"}}
     },
     "model": "configuration.translation",
     "pk": 5627
@@ -1036,7 +1100,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Lithuania"}},"codes":{"iso_3166_1":"LTU"}}
+        "data": {"technologies":{"label":{"en":"Lithuania"}},"unccd":{"label":{"en":"Lithuania"}},"codes":{"iso_3166_1":"LTU"}}
     },
     "model": "configuration.translation",
     "pk": 5628
@@ -1044,7 +1108,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Luxembourg"}},"codes":{"iso_3166_1":"LUX"}}
+        "data": {"technologies":{"label":{"en":"Luxembourg"}},"unccd":{"label":{"en":"Luxembourg"}},"codes":{"iso_3166_1":"LUX"}}
     },
     "model": "configuration.translation",
     "pk": 5629
@@ -1052,7 +1116,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Macao"}},"codes":{"iso_3166_1":"MAC"}}
+        "data": {"technologies":{"label":{"en":"Macao"}},"unccd":{"label":{"en":"Macao"}},"codes":{"iso_3166_1":"MAC"}}
     },
     "model": "configuration.translation",
     "pk": 5630
@@ -1060,7 +1124,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Macedonia, the Former Yugoslav Republic of"}},"codes":{"iso_3166_1":"MKD"}}
+        "data": {"technologies":{"label":{"en":"Macedonia, the Former Yugoslav Republic of"}},"unccd":{"label":{"en":"Macedonia, the Former Yugoslav Republic of"}},"codes":{"iso_3166_1":"MKD"}}
     },
     "model": "configuration.translation",
     "pk": 5631
@@ -1068,7 +1132,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Madagascar"}},"codes":{"iso_3166_1":"MDG"}}
+        "data": {"technologies":{"label":{"en":"Madagascar"}},"unccd":{"label":{"en":"Madagascar"}},"codes":{"iso_3166_1":"MDG"}}
     },
     "model": "configuration.translation",
     "pk": 5632
@@ -1076,7 +1140,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Malawi"}},"codes":{"iso_3166_1":"MWI"}}
+        "data": {"technologies":{"label":{"en":"Malawi"}},"unccd":{"label":{"en":"Malawi"}},"codes":{"iso_3166_1":"MWI"}}
     },
     "model": "configuration.translation",
     "pk": 5633
@@ -1084,7 +1148,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Malaysia"}},"codes":{"iso_3166_1":"MYS"}}
+        "data": {"technologies":{"label":{"en":"Malaysia"}},"unccd":{"label":{"en":"Malaysia"}},"codes":{"iso_3166_1":"MYS"}}
     },
     "model": "configuration.translation",
     "pk": 5634
@@ -1092,7 +1156,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Maldives"}},"codes":{"iso_3166_1":"MDV"}}
+        "data": {"technologies":{"label":{"en":"Maldives"}},"unccd":{"label":{"en":"Maldives"}},"codes":{"iso_3166_1":"MDV"}}
     },
     "model": "configuration.translation",
     "pk": 5635
@@ -1100,7 +1164,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Mali"}},"codes":{"iso_3166_1":"MLI"}}
+        "data": {"technologies":{"label":{"en":"Mali"}},"unccd":{"label":{"en":"Mali"}},"codes":{"iso_3166_1":"MLI"}}
     },
     "model": "configuration.translation",
     "pk": 5636
@@ -1108,7 +1172,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Malta"}},"codes":{"iso_3166_1":"MLT"}}
+        "data": {"technologies":{"label":{"en":"Malta"}},"unccd":{"label":{"en":"Malta"}},"codes":{"iso_3166_1":"MLT"}}
     },
     "model": "configuration.translation",
     "pk": 5637
@@ -1116,7 +1180,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Marshall Islands"}},"codes":{"iso_3166_1":"MHL"}}
+        "data": {"technologies":{"label":{"en":"Marshall Islands"}},"unccd":{"label":{"en":"Marshall Islands"}},"codes":{"iso_3166_1":"MHL"}}
     },
     "model": "configuration.translation",
     "pk": 5638
@@ -1124,7 +1188,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Martinique"}},"codes":{"iso_3166_1":"MTQ"}}
+        "data": {"technologies":{"label":{"en":"Martinique"}},"unccd":{"label":{"en":"Martinique"}},"codes":{"iso_3166_1":"MTQ"}}
     },
     "model": "configuration.translation",
     "pk": 5639
@@ -1132,7 +1196,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Mauritania"}},"codes":{"iso_3166_1":"MRT"}}
+        "data": {"technologies":{"label":{"en":"Mauritania"}},"unccd":{"label":{"en":"Mauritania"}},"codes":{"iso_3166_1":"MRT"}}
     },
     "model": "configuration.translation",
     "pk": 5640
@@ -1140,7 +1204,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Mauritius"}},"codes":{"iso_3166_1":"MUS"}}
+        "data": {"technologies":{"label":{"en":"Mauritius"}},"unccd":{"label":{"en":"Mauritius"}},"codes":{"iso_3166_1":"MUS"}}
     },
     "model": "configuration.translation",
     "pk": 5641
@@ -1148,7 +1212,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Mayotte"}},"codes":{"iso_3166_1":"MYT"}}
+        "data": {"technologies":{"label":{"en":"Mayotte"}},"unccd":{"label":{"en":"Mayotte"}},"codes":{"iso_3166_1":"MYT"}}
     },
     "model": "configuration.translation",
     "pk": 5642
@@ -1156,7 +1220,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Mexico"}},"codes":{"iso_3166_1":"MEX"}}
+        "data": {"technologies":{"label":{"en":"Mexico"}},"unccd":{"label":{"en":"Mexico"}},"codes":{"iso_3166_1":"MEX"}}
     },
     "model": "configuration.translation",
     "pk": 5643
@@ -1164,7 +1228,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Micronesia, Federated States of"}},"codes":{"iso_3166_1":"FSM"}}
+        "data": {"technologies":{"label":{"en":"Micronesia, Federated States of"}},"unccd":{"label":{"en":"Micronesia, Federated States of"}},"codes":{"iso_3166_1":"FSM"}}
     },
     "model": "configuration.translation",
     "pk": 5644
@@ -1172,7 +1236,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Moldova, Republic of"}},"codes":{"iso_3166_1":"MDA"}}
+        "data": {"technologies":{"label":{"en":"Moldova, Republic of"}},"unccd":{"label":{"en":"Moldova, Republic of"}},"codes":{"iso_3166_1":"MDA"}}
     },
     "model": "configuration.translation",
     "pk": 5645
@@ -1180,7 +1244,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Monaco"}},"codes":{"iso_3166_1":"MCO"}}
+        "data": {"technologies":{"label":{"en":"Monaco"}},"unccd":{"label":{"en":"Monaco"}},"codes":{"iso_3166_1":"MCO"}}
     },
     "model": "configuration.translation",
     "pk": 5646
@@ -1188,7 +1252,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Mongolia"}},"codes":{"iso_3166_1":"MNG"}}
+        "data": {"technologies":{"label":{"en":"Mongolia"}},"unccd":{"label":{"en":"Mongolia"}},"codes":{"iso_3166_1":"MNG"}}
     },
     "model": "configuration.translation",
     "pk": 5647
@@ -1196,7 +1260,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Montenegro"}},"codes":{"iso_3166_1":"MNE"}}
+        "data": {"technologies":{"label":{"en":"Montenegro"}},"unccd":{"label":{"en":"Montenegro"}},"codes":{"iso_3166_1":"MNE"}}
     },
     "model": "configuration.translation",
     "pk": 5648
@@ -1204,7 +1268,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Montserrat"}},"codes":{"iso_3166_1":"MSR"}}
+        "data": {"technologies":{"label":{"en":"Montserrat"}},"unccd":{"label":{"en":"Montserrat"}},"codes":{"iso_3166_1":"MSR"}}
     },
     "model": "configuration.translation",
     "pk": 5649
@@ -1212,7 +1276,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Morocco"}},"codes":{"iso_3166_1":"MAR"}}
+        "data": {"technologies":{"label":{"en":"Morocco"}},"unccd":{"label":{"en":"Morocco"}},"codes":{"iso_3166_1":"MAR"}}
     },
     "model": "configuration.translation",
     "pk": 5650
@@ -1220,7 +1284,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Mozambique"}},"codes":{"iso_3166_1":"MOZ"}}
+        "data": {"technologies":{"label":{"en":"Mozambique"}},"unccd":{"label":{"en":"Mozambique"}},"codes":{"iso_3166_1":"MOZ"}}
     },
     "model": "configuration.translation",
     "pk": 5651
@@ -1228,7 +1292,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Myanmar"}},"codes":{"iso_3166_1":"MMR"}}
+        "data": {"technologies":{"label":{"en":"Myanmar"}},"unccd":{"label":{"en":"Myanmar"}},"codes":{"iso_3166_1":"MMR"}}
     },
     "model": "configuration.translation",
     "pk": 5652
@@ -1236,7 +1300,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Namibia"}},"codes":{"iso_3166_1":"NAM"}}
+        "data": {"technologies":{"label":{"en":"Namibia"}},"unccd":{"label":{"en":"Namibia"}},"codes":{"iso_3166_1":"NAM"}}
     },
     "model": "configuration.translation",
     "pk": 5653
@@ -1244,7 +1308,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Nauru"}},"codes":{"iso_3166_1":"NRU"}}
+        "data": {"technologies":{"label":{"en":"Nauru"}},"unccd":{"label":{"en":"Nauru"}},"codes":{"iso_3166_1":"NRU"}}
     },
     "model": "configuration.translation",
     "pk": 5654
@@ -1252,7 +1316,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Nepal"}},"codes":{"iso_3166_1":"NPL"}}
+        "data": {"technologies":{"label":{"en":"Nepal"}},"unccd":{"label":{"en":"Nepal"}},"codes":{"iso_3166_1":"NPL"}}
     },
     "model": "configuration.translation",
     "pk": 5655
@@ -1260,7 +1324,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Netherlands"}},"codes":{"iso_3166_1":"NLD"}}
+        "data": {"technologies":{"label":{"en":"Netherlands"}},"unccd":{"label":{"en":"Netherlands"}},"codes":{"iso_3166_1":"NLD"}}
     },
     "model": "configuration.translation",
     "pk": 5656
@@ -1268,7 +1332,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"New Caledonia"}},"codes":{"iso_3166_1":"NCL"}}
+        "data": {"technologies":{"label":{"en":"New Caledonia"}},"unccd":{"label":{"en":"New Caledonia"}},"codes":{"iso_3166_1":"NCL"}}
     },
     "model": "configuration.translation",
     "pk": 5657
@@ -1276,7 +1340,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"New Zealand"}},"codes":{"iso_3166_1":"NZL"}}
+        "data": {"technologies":{"label":{"en":"New Zealand"}},"unccd":{"label":{"en":"New Zealand"}},"codes":{"iso_3166_1":"NZL"}}
     },
     "model": "configuration.translation",
     "pk": 5658
@@ -1284,7 +1348,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Nicaragua"}},"codes":{"iso_3166_1":"NIC"}}
+        "data": {"technologies":{"label":{"en":"Nicaragua"}},"unccd":{"label":{"en":"Nicaragua"}},"codes":{"iso_3166_1":"NIC"}}
     },
     "model": "configuration.translation",
     "pk": 5659
@@ -1292,7 +1356,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Niger"}},"codes":{"iso_3166_1":"NER"}}
+        "data": {"technologies":{"label":{"en":"Niger"}},"unccd":{"label":{"en":"Niger"}},"codes":{"iso_3166_1":"NER"}}
     },
     "model": "configuration.translation",
     "pk": 5660
@@ -1300,7 +1364,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Nigeria"}},"codes":{"iso_3166_1":"NGA"}}
+        "data": {"technologies":{"label":{"en":"Nigeria"}},"unccd":{"label":{"en":"Nigeria"}},"codes":{"iso_3166_1":"NGA"}}
     },
     "model": "configuration.translation",
     "pk": 5661
@@ -1308,7 +1372,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Niue"}},"codes":{"iso_3166_1":"NIU"}}
+        "data": {"technologies":{"label":{"en":"Niue"}},"unccd":{"label":{"en":"Niue"}},"codes":{"iso_3166_1":"NIU"}}
     },
     "model": "configuration.translation",
     "pk": 5662
@@ -1316,7 +1380,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Norfolk Island"}},"codes":{"iso_3166_1":"NFK"}}
+        "data": {"technologies":{"label":{"en":"Norfolk Island"}},"unccd":{"label":{"en":"Norfolk Island"}},"codes":{"iso_3166_1":"NFK"}}
     },
     "model": "configuration.translation",
     "pk": 5663
@@ -1324,7 +1388,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Northern Mariana Islands"}},"codes":{"iso_3166_1":"MNP"}}
+        "data": {"technologies":{"label":{"en":"Northern Mariana Islands"}},"unccd":{"label":{"en":"Northern Mariana Islands"}},"codes":{"iso_3166_1":"MNP"}}
     },
     "model": "configuration.translation",
     "pk": 5664
@@ -1332,7 +1396,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Norway"}},"codes":{"iso_3166_1":"NOR"}}
+        "data": {"technologies":{"label":{"en":"Norway"}},"unccd":{"label":{"en":"Norway"}},"codes":{"iso_3166_1":"NOR"}}
     },
     "model": "configuration.translation",
     "pk": 5665
@@ -1340,7 +1404,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Oman"}},"codes":{"iso_3166_1":"OMN"}}
+        "data": {"technologies":{"label":{"en":"Oman"}},"unccd":{"label":{"en":"Oman"}},"codes":{"iso_3166_1":"OMN"}}
     },
     "model": "configuration.translation",
     "pk": 5666
@@ -1348,7 +1412,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Pakistan"}},"codes":{"iso_3166_1":"PAK"}}
+        "data": {"technologies":{"label":{"en":"Pakistan"}},"unccd":{"label":{"en":"Pakistan"}},"codes":{"iso_3166_1":"PAK"}}
     },
     "model": "configuration.translation",
     "pk": 5667
@@ -1356,7 +1420,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Palau"}},"codes":{"iso_3166_1":"PLW"}}
+        "data": {"technologies":{"label":{"en":"Palau"}},"unccd":{"label":{"en":"Palau"}},"codes":{"iso_3166_1":"PLW"}}
     },
     "model": "configuration.translation",
     "pk": 5668
@@ -1364,7 +1428,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Palestine, State of"}},"codes":{"iso_3166_1":"PSE"}}
+        "data": {"technologies":{"label":{"en":"Palestine, State of"}},"unccd":{"label":{"en":"Palestine, State of"}},"codes":{"iso_3166_1":"PSE"}}
     },
     "model": "configuration.translation",
     "pk": 5669
@@ -1372,7 +1436,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Panama"}},"codes":{"iso_3166_1":"PAN"}}
+        "data": {"technologies":{"label":{"en":"Panama"}},"unccd":{"label":{"en":"Panama"}},"codes":{"iso_3166_1":"PAN"}}
     },
     "model": "configuration.translation",
     "pk": 5670
@@ -1380,7 +1444,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Papua New Guinea"}},"codes":{"iso_3166_1":"PNG"}}
+        "data": {"technologies":{"label":{"en":"Papua New Guinea"}},"unccd":{"label":{"en":"Papua New Guinea"}},"codes":{"iso_3166_1":"PNG"}}
     },
     "model": "configuration.translation",
     "pk": 5671
@@ -1388,7 +1452,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Paraguay"}},"codes":{"iso_3166_1":"PRY"}}
+        "data": {"technologies":{"label":{"en":"Paraguay"}},"unccd":{"label":{"en":"Paraguay"}},"codes":{"iso_3166_1":"PRY"}}
     },
     "model": "configuration.translation",
     "pk": 5672
@@ -1396,7 +1460,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Peru"}},"codes":{"iso_3166_1":"PER"}}
+        "data": {"technologies":{"label":{"en":"Peru"}},"unccd":{"label":{"en":"Peru"}},"codes":{"iso_3166_1":"PER"}}
     },
     "model": "configuration.translation",
     "pk": 5673
@@ -1404,7 +1468,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Philippines"}},"codes":{"iso_3166_1":"PHL"}}
+        "data": {"technologies":{"label":{"en":"Philippines"}},"unccd":{"label":{"en":"Philippines"}},"codes":{"iso_3166_1":"PHL"}}
     },
     "model": "configuration.translation",
     "pk": 5674
@@ -1412,7 +1476,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Pitcairn"}},"codes":{"iso_3166_1":"PCN"}}
+        "data": {"technologies":{"label":{"en":"Pitcairn"}},"unccd":{"label":{"en":"Pitcairn"}},"codes":{"iso_3166_1":"PCN"}}
     },
     "model": "configuration.translation",
     "pk": 5675
@@ -1420,7 +1484,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Poland"}},"codes":{"iso_3166_1":"POL"}}
+        "data": {"technologies":{"label":{"en":"Poland"}},"unccd":{"label":{"en":"Poland"}},"codes":{"iso_3166_1":"POL"}}
     },
     "model": "configuration.translation",
     "pk": 5676
@@ -1428,7 +1492,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Portugal"}},"codes":{"iso_3166_1":"PRT"}}
+        "data": {"technologies":{"label":{"en":"Portugal"}},"unccd":{"label":{"en":"Portugal"}},"codes":{"iso_3166_1":"PRT"}}
     },
     "model": "configuration.translation",
     "pk": 5677
@@ -1436,7 +1500,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Puerto Rico"}},"codes":{"iso_3166_1":"PRI"}}
+        "data": {"technologies":{"label":{"en":"Puerto Rico"}},"unccd":{"label":{"en":"Puerto"}},"codes":{"iso_3166_1":"PRI"}}
     },
     "model": "configuration.translation",
     "pk": 5678
@@ -1444,7 +1508,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Qatar"}},"codes":{"iso_3166_1":"QAT"}}
+        "data": {"technologies":{"label":{"en":"Qatar"}},"unccd":{"label":{"en":"Qatar"}},"codes":{"iso_3166_1":"QAT"}}
     },
     "model": "configuration.translation",
     "pk": 5679
@@ -1452,7 +1516,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Romania"}},"codes":{"iso_3166_1":"ROU"}}
+        "data": {"technologies":{"label":{"en":"Romania"}},"unccd":{"label":{"en":"Romania"}},"codes":{"iso_3166_1":"ROU"}}
     },
     "model": "configuration.translation",
     "pk": 5680
@@ -1460,7 +1524,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Russian Federation"}},"codes":{"iso_3166_1":"RUS"}}
+        "data": {"technologies":{"label":{"en":"Russian Federation"}},"unccd":{"label":{"en":"Russian Federation"}},"codes":{"iso_3166_1":"RUS"}}
     },
     "model": "configuration.translation",
     "pk": 5681
@@ -1468,7 +1532,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Rwanda"}},"codes":{"iso_3166_1":"RWA"}}
+        "data": {"technologies":{"label":{"en":"Rwanda"}},"unccd":{"label":{"en":"Rwanda"}},"codes":{"iso_3166_1":"RWA"}}
     },
     "model": "configuration.translation",
     "pk": 5682
@@ -1476,7 +1540,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Réunion"}},"codes":{"iso_3166_1":"REU"}}
+        "data": {"technologies":{"label":{"en":"Réunion"}},"unccd":{"label":{"en":"Réunion"}},"codes":{"iso_3166_1":"REU"}}
     },
     "model": "configuration.translation",
     "pk": 5683
@@ -1484,7 +1548,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saint Barthélemy"}},"codes":{"iso_3166_1":"BLM"}}
+        "data": {"technologies":{"label":{"en":"Saint Barthélemy"}},"unccd":{"label":{"en":"Saint Barthélemy"}},"codes":{"iso_3166_1":"BLM"}}
     },
     "model": "configuration.translation",
     "pk": 5684
@@ -1492,7 +1556,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saint Helena, Ascension and Tristan da Cunha"}},"codes":{"iso_3166_1":"SHN"}}
+        "data": {"technologies":{"label":{"en":"Saint Helena, Ascension and Tristan da Cunha"}},"unccd":{"label":{"en":"Saint Helena, Ascension and Tristan da Cunha"}},"codes":{"iso_3166_1":"SHN"}}
     },
     "model": "configuration.translation",
     "pk": 5685
@@ -1500,7 +1564,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saint Kitts and Nevis"}},"codes":{"iso_3166_1":"KNA"}}
+        "data": {"technologies":{"label":{"en":"Saint Kitts and Nevis"}},"unccd":{"label":{"en":"Saint Kitts and Nevis"}},"codes":{"iso_3166_1":"KNA"}}
     },
     "model": "configuration.translation",
     "pk": 5686
@@ -1508,7 +1572,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saint Lucia"}},"codes":{"iso_3166_1":"LCA"}}
+        "data": {"technologies":{"label":{"en":"Saint Lucia"}},"unccd":{"label":{"en":"Saint Lucia"}},"codes":{"iso_3166_1":"LCA"}}
     },
     "model": "configuration.translation",
     "pk": 5687
@@ -1516,7 +1580,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saint Martin (French part)"}},"codes":{"iso_3166_1":"MAF"}}
+        "data": {"technologies":{"label":{"en":"Saint Martin (French part)"}},"unccd":{"label":{"en":"Saint Martin (French part)"}},"codes":{"iso_3166_1":"MAF"}}
     },
     "model": "configuration.translation",
     "pk": 5688
@@ -1524,7 +1588,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saint Pierre and Miquelon"}},"codes":{"iso_3166_1":"SPM"}}
+        "data": {"technologies":{"label":{"en":"Saint Pierre and Miquelon"}},"unccd":{"label":{"en":"Saint Pierre and Miquelon"}},"codes":{"iso_3166_1":"SPM"}}
     },
     "model": "configuration.translation",
     "pk": 5689
@@ -1532,7 +1596,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saint Vincent and the Grenadines"}},"codes":{"iso_3166_1":"VCT"}}
+        "data": {"technologies":{"label":{"en":"Saint Vincent and the Grenadines"}},"unccd":{"label":{"en":"Saint Vincent and the Grenadines"}},"codes":{"iso_3166_1":"VCT"}}
     },
     "model": "configuration.translation",
     "pk": 5690
@@ -1540,7 +1604,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Samoa"}},"codes":{"iso_3166_1":"WSM"}}
+        "data": {"technologies":{"label":{"en":"Samoa"}},"unccd":{"label":{"en":"Samoa"}},"codes":{"iso_3166_1":"WSM"}}
     },
     "model": "configuration.translation",
     "pk": 5691
@@ -1548,7 +1612,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"San Marino"}},"codes":{"iso_3166_1":"SMR"}}
+        "data": {"technologies":{"label":{"en":"San Marino"}},"unccd":{"label":{"en":"San Marino"}},"codes":{"iso_3166_1":"SMR"}}
     },
     "model": "configuration.translation",
     "pk": 5692
@@ -1556,7 +1620,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Sao Tome and Principe"}},"codes":{"iso_3166_1":"STP"}}
+        "data": {"technologies":{"label":{"en":"Sao Tome and Principe"}},"unccd":{"label":{"en":"Sao Tome and Principe"}},"codes":{"iso_3166_1":"STP"}}
     },
     "model": "configuration.translation",
     "pk": 5693
@@ -1564,7 +1628,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Saudi Arabia"}},"codes":{"iso_3166_1":"SAU"}}
+        "data": {"technologies":{"label":{"en":"Saudi Arabia"}},"unccd":{"label":{"en":"Saudi Arabia"}},"codes":{"iso_3166_1":"SAU"}}
     },
     "model": "configuration.translation",
     "pk": 5694
@@ -1572,7 +1636,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Senegal"}},"codes":{"iso_3166_1":"SEN"}}
+        "data": {"technologies":{"label":{"en":"Senegal"}},"unccd":{"label":{"en":"Senegal"}},"codes":{"iso_3166_1":"SEN"}}
     },
     "model": "configuration.translation",
     "pk": 5695
@@ -1580,7 +1644,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Serbia"}},"codes":{"iso_3166_1":"SRB"}}
+        "data": {"technologies":{"label":{"en":"Serbia"}},"unccd":{"label":{"en":"Serbia"}},"codes":{"iso_3166_1":"SRB"}}
     },
     "model": "configuration.translation",
     "pk": 5696
@@ -1588,7 +1652,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Seychelles"}},"codes":{"iso_3166_1":"SYC"}}
+        "data": {"technologies":{"label":{"en":"Seychelles"}},"unccd":{"label":{"en":"Seychelles"}},"codes":{"iso_3166_1":"SYC"}}
     },
     "model": "configuration.translation",
     "pk": 5697
@@ -1596,7 +1660,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Sierra Leone"}},"codes":{"iso_3166_1":"SLE"}}
+        "data": {"technologies":{"label":{"en":"Sierra Leone"}},"unccd":{"label":{"en":"Sierra Leone"}},"codes":{"iso_3166_1":"SLE"}}
     },
     "model": "configuration.translation",
     "pk": 5698
@@ -1604,7 +1668,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Singapore"}},"codes":{"iso_3166_1":"SGP"}}
+        "data": {"technologies":{"label":{"en":"Singapore"}},"unccd":{"label":{"en":"Singapore"}},"codes":{"iso_3166_1":"SGP"}}
     },
     "model": "configuration.translation",
     "pk": 5699
@@ -1612,7 +1676,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Sint Maarten (Dutch part)"}},"codes":{"iso_3166_1":"SXM"}}
+        "data": {"technologies":{"label":{"en":"Sint Maarten (Dutch part)"}},"unccd":{"label":{"en":"Sint Maarten (Dutch part)"}},"codes":{"iso_3166_1":"SXM"}}
     },
     "model": "configuration.translation",
     "pk": 5700
@@ -1620,7 +1684,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Slovakia"}},"codes":{"iso_3166_1":"SVK"}}
+        "data": {"technologies":{"label":{"en":"Slovakia"}},"unccd":{"label":{"en":"Slovakia"}},"codes":{"iso_3166_1":"SVK"}}
     },
     "model": "configuration.translation",
     "pk": 5701
@@ -1628,7 +1692,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Slovenia"}},"codes":{"iso_3166_1":"SVN"}}
+        "data": {"technologies":{"label":{"en":"Slovenia"}},"unccd":{"label":{"en":"Slovenia"}},"codes":{"iso_3166_1":"SVN"}}
     },
     "model": "configuration.translation",
     "pk": 5702
@@ -1636,7 +1700,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Solomon Islands"}},"codes":{"iso_3166_1":"SLB"}}
+        "data": {"technologies":{"label":{"en":"Solomon Islands"}},"unccd":{"label":{"en":"Solomon Islands"}},"codes":{"iso_3166_1":"SLB"}}
     },
     "model": "configuration.translation",
     "pk": 5703
@@ -1644,7 +1708,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Somalia"}},"codes":{"iso_3166_1":"SOM"}}
+        "data": {"technologies":{"label":{"en":"Somalia"}},"unccd":{"label":{"en":"Somalia"}},"codes":{"iso_3166_1":"SOM"}}
     },
     "model": "configuration.translation",
     "pk": 5704
@@ -1652,7 +1716,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"South Africa"}},"codes":{"iso_3166_1":"ZAF"}}
+        "data": {"technologies":{"label":{"en":"South Africa"}},"unccd":{"label":{"en":"South Africa"}},"codes":{"iso_3166_1":"ZAF"}}
     },
     "model": "configuration.translation",
     "pk": 5705
@@ -1660,7 +1724,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"South Georgia and the South Sandwich Islands"}},"codes":{"iso_3166_1":"SGS"}}
+        "data": {"technologies":{"label":{"en":"South Georgia and the South Sandwich Islands"}},"unccd":{"label":{"en":"South Georgia and the South Sandwich Islands"}},"codes":{"iso_3166_1":"SGS"}}
     },
     "model": "configuration.translation",
     "pk": 5706
@@ -1668,7 +1732,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"South Sudan"}},"codes":{"iso_3166_1":"SSD"}}
+        "data": {"technologies":{"label":{"en":"South Sudan"}},"unccd":{"label":{"en":"South Sudan"}},"codes":{"iso_3166_1":"SSD"}}
     },
     "model": "configuration.translation",
     "pk": 5707
@@ -1676,7 +1740,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Spain"}},"codes":{"iso_3166_1":"ESP"}}
+        "data": {"technologies":{"label":{"en":"Spain"}},"unccd":{"label":{"en":"Spain"}},"codes":{"iso_3166_1":"ESP"}}
     },
     "model": "configuration.translation",
     "pk": 5708
@@ -1684,7 +1748,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Sri Lanka"}},"codes":{"iso_3166_1":"LKA"}}
+        "data": {"technologies":{"label":{"en":"Sri Lanka"}},"unccd":{"label":{"en":"Sri Lanka"}},"codes":{"iso_3166_1":"LKA"}}
     },
     "model": "configuration.translation",
     "pk": 5709
@@ -1692,7 +1756,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Sudan"}},"codes":{"iso_3166_1":"SDN"}}
+        "data": {"technologies":{"label":{"en":"Sudan"}},"unccd":{"label":{"en":"Sudan"}},"codes":{"iso_3166_1":"SDN"}}
     },
     "model": "configuration.translation",
     "pk": 5710
@@ -1700,7 +1764,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Suriname"}},"codes":{"iso_3166_1":"SUR"}}
+        "data": {"technologies":{"label":{"en":"Suriname"}},"unccd":{"label":{"en":"Suriname"}},"codes":{"iso_3166_1":"SUR"}}
     },
     "model": "configuration.translation",
     "pk": 5711
@@ -1708,7 +1772,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Svalbard and Jan Mayen"}},"codes":{"iso_3166_1":"SJM"}}
+        "data": {"technologies":{"label":{"en":"Svalbard and Jan Mayen"}},"unccd":{"label":{"en":"Svalbard and Jan Mayen"}},"codes":{"iso_3166_1":"SJM"}}
     },
     "model": "configuration.translation",
     "pk": 5712
@@ -1716,7 +1780,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Swaziland"}},"codes":{"iso_3166_1":"SWZ"}}
+        "data": {"technologies":{"label":{"en":"Swaziland"}},"unccd":{"label":{"en":"Swaziland"}},"codes":{"iso_3166_1":"SWZ"}}
     },
     "model": "configuration.translation",
     "pk": 5713
@@ -1724,7 +1788,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Sweden"}},"codes":{"iso_3166_1":"SWE"}}
+        "data": {"technologies":{"label":{"en":"Sweden"}},"unccd":{"label":{"en":"Sweden"}},"codes":{"iso_3166_1":"SWE"}}
     },
     "model": "configuration.translation",
     "pk": 5714
@@ -1732,7 +1796,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Switzerland"}},"codes":{"iso_3166_1":"CHE"}}
+        "data": {"technologies":{"label":{"en":"Switzerland"}},"unccd":{"label":{"en":"Switzerland"}},"codes":{"iso_3166_1":"CHE"}}
     },
     "model": "configuration.translation",
     "pk": 5715
@@ -1740,7 +1804,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Syrian Arab Republic"}},"codes":{"iso_3166_1":"SYR"}}
+        "data": {"technologies":{"label":{"en":"Syrian Arab Republic"}},"unccd":{"label":{"en":"Syrian Arab Republic"}},"codes":{"iso_3166_1":"SYR"}}
     },
     "model": "configuration.translation",
     "pk": 5716
@@ -1748,7 +1812,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Taiwan, Province of China"}},"codes":{"iso_3166_1":"TWN"}}
+        "data": {"technologies":{"label":{"en":"Taiwan, Province of China"}},"unccd":{"label":{"en":"Taiwan, Province of China"}},"codes":{"iso_3166_1":"TWN"}}
     },
     "model": "configuration.translation",
     "pk": 5717
@@ -1756,7 +1820,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Tajikistan"}},"codes":{"iso_3166_1":"TJK"}}
+        "data": {"technologies":{"label":{"en":"Tajikistan"}},"unccd":{"label":{"en":"Tajikistan"}},"codes":{"iso_3166_1":"TJK"}}
     },
     "model": "configuration.translation",
     "pk": 5718
@@ -1764,7 +1828,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Tanzania, United Republic of"}},"codes":{"iso_3166_1":"TZA"}}
+        "data": {"technologies":{"label":{"en":"Tanzania, United Republic of"}},"unccd":{"label":{"en":"Tanzania, United Republic of"}},"codes":{"iso_3166_1":"TZA"}}
     },
     "model": "configuration.translation",
     "pk": 5719
@@ -1772,7 +1836,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Thailand"}},"codes":{"iso_3166_1":"THA"}}
+        "data": {"technologies":{"label":{"en":"Thailand"}},"unccd":{"label":{"en":"Thailand"}},"codes":{"iso_3166_1":"THA"}}
     },
     "model": "configuration.translation",
     "pk": 5720
@@ -1780,7 +1844,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Timor-Leste"}},"codes":{"iso_3166_1":"TLS"}}
+        "data": {"technologies":{"label":{"en":"Timor-Leste"}},"unccd":{"label":{"en":"Timor-Leste"}},"codes":{"iso_3166_1":"TLS"}}
     },
     "model": "configuration.translation",
     "pk": 5721
@@ -1788,7 +1852,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Togo"}},"codes":{"iso_3166_1":"TGO"}}
+        "data": {"technologies":{"label":{"en":"Togo"}},"unccd":{"label":{"en":"Togo"}},"codes":{"iso_3166_1":"TGO"}}
     },
     "model": "configuration.translation",
     "pk": 5722
@@ -1796,7 +1860,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Tokelau"}},"codes":{"iso_3166_1":"TKL"}}
+        "data": {"technologies":{"label":{"en":"Tokelau"}},"unccd":{"label":{"en":"Tokelau"}},"codes":{"iso_3166_1":"TKL"}}
     },
     "model": "configuration.translation",
     "pk": 5723
@@ -1804,7 +1868,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Tonga"}},"codes":{"iso_3166_1":"TON"}}
+        "data": {"technologies":{"label":{"en":"Tonga"}},"unccd":{"label":{"en":"Tonga"}},"codes":{"iso_3166_1":"TON"}}
     },
     "model": "configuration.translation",
     "pk": 5724
@@ -1812,7 +1876,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Trinidad and Tobago"}},"codes":{"iso_3166_1":"TTO"}}
+        "data": {"technologies":{"label":{"en":"Trinidad and Tobago"}},"unccd":{"label":{"en":"Trinidad and Tobago"}},"codes":{"iso_3166_1":"TTO"}}
     },
     "model": "configuration.translation",
     "pk": 5725
@@ -1820,7 +1884,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Tunisia"}},"codes":{"iso_3166_1":"TUN"}}
+        "data": {"technologies":{"label":{"en":"Tunisia"}},"unccd":{"label":{"en":"Tunisia"}},"codes":{"iso_3166_1":"TUN"}}
     },
     "model": "configuration.translation",
     "pk": 5726
@@ -1828,7 +1892,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Turkey"}},"codes":{"iso_3166_1":"TUR"}}
+        "data": {"technologies":{"label":{"en":"Turkey"}},"unccd":{"label":{"en":"Turkey"}},"codes":{"iso_3166_1":"TUR"}}
     },
     "model": "configuration.translation",
     "pk": 5727
@@ -1836,7 +1900,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Turkmenistan"}},"codes":{"iso_3166_1":"TKM"}}
+        "data": {"technologies":{"label":{"en":"Turkmenistan"}},"unccd":{"label":{"en":"Turkmenistan"}},"codes":{"iso_3166_1":"TKM"}}
     },
     "model": "configuration.translation",
     "pk": 5728
@@ -1844,7 +1908,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Turks and Caicos Islands"}},"codes":{"iso_3166_1":"TCA"}}
+        "data": {"technologies":{"label":{"en":"Turks and Caicos Islands"}},"unccd":{"label":{"en":"Turks and Caicos Islands"}},"codes":{"iso_3166_1":"TCA"}}
     },
     "model": "configuration.translation",
     "pk": 5729
@@ -1852,7 +1916,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Tuvalu"}},"codes":{"iso_3166_1":"TUV"}}
+        "data": {"technologies":{"label":{"en":"Tuvalu"}},"unccd":{"label":{"en":"Tuvalu"}},"codes":{"iso_3166_1":"TUV"}}
     },
     "model": "configuration.translation",
     "pk": 5730
@@ -1860,7 +1924,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Uganda"}},"codes":{"iso_3166_1":"UGA"}}
+        "data": {"technologies":{"label":{"en":"Uganda"}},"unccd":{"label":{"en":"Uganda"}},"codes":{"iso_3166_1":"UGA"}}
     },
     "model": "configuration.translation",
     "pk": 5731
@@ -1868,7 +1932,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Ukraine"}},"codes":{"iso_3166_1":"UKR"}}
+        "data": {"technologies":{"label":{"en":"Ukraine"}},"unccd":{"label":{"en":"Ukraine"}},"codes":{"iso_3166_1":"UKR"}}
     },
     "model": "configuration.translation",
     "pk": 5732
@@ -1876,7 +1940,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"United Arab Emirates"}},"codes":{"iso_3166_1":"ARE"}}
+        "data": {"technologies":{"label":{"en":"United Arab Emirates"}},"unccd":{"label":{"en":"United Arab Emirates"}},"codes":{"iso_3166_1":"ARE"}}
     },
     "model": "configuration.translation",
     "pk": 5733
@@ -1884,7 +1948,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"United Kingdom"}},"codes":{"iso_3166_1":"GBR"}}
+        "data": {"technologies":{"label":{"en":"United Kingdom"}},"unccd":{"label":{"en":"United Kingdom"}},"codes":{"iso_3166_1":"GBR"}}
     },
     "model": "configuration.translation",
     "pk": 5734
@@ -1892,7 +1956,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"United States"}},"codes":{"iso_3166_1":"USA"}}
+        "data": {"technologies":{"label":{"en":"United States"}},"unccd":{"label":{"en":"United States"}},"codes":{"iso_3166_1":"USA"}}
     },
     "model": "configuration.translation",
     "pk": 5735
@@ -1900,7 +1964,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"United States Minor Outlying Islands"}},"codes":{"iso_3166_1":"UMI"}}
+        "data": {"technologies":{"label":{"en":"United States Minor Outlying Islands"}},"unccd":{"label":{"en":"United States Minor Outlying Islands"}},"codes":{"iso_3166_1":"UMI"}}
     },
     "model": "configuration.translation",
     "pk": 5736
@@ -1908,7 +1972,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Uruguay"}},"codes":{"iso_3166_1":"URY"}}
+        "data": {"technologies":{"label":{"en":"Uruguay"}},"unccd":{"label":{"en":"Uruguay"}},"codes":{"iso_3166_1":"URY"}}
     },
     "model": "configuration.translation",
     "pk": 5737
@@ -1916,7 +1980,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Uzbekistan"}},"codes":{"iso_3166_1":"UZB"}}
+        "data": {"technologies":{"label":{"en":"Uzbekistan"}},"unccd":{"label":{"en":"Uzbekistan"}},"codes":{"iso_3166_1":"UZB"}}
     },
     "model": "configuration.translation",
     "pk": 5738
@@ -1924,7 +1988,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Vanuatu"}},"codes":{"iso_3166_1":"VUT"}}
+        "data": {"technologies":{"label":{"en":"Vanuatu"}},"unccd":{"label":{"en":"Vanuatu"}},"codes":{"iso_3166_1":"VUT"}}
     },
     "model": "configuration.translation",
     "pk": 5739
@@ -1932,7 +1996,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Venezuela, Bolivarian Republic of"}},"codes":{"iso_3166_1":"VEN"}}
+        "data": {"technologies":{"label":{"en":"Venezuela, Bolivarian Republic of"}},"unccd":{"label":{"en":"Venezuela, Bolivarian Republic of"}},"codes":{"iso_3166_1":"VEN"}}
     },
     "model": "configuration.translation",
     "pk": 5740
@@ -1940,7 +2004,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Viet Nam"}},"codes":{"iso_3166_1":"VNM"}}
+        "data": {"technologies":{"label":{"en":"Viet Nam"}},"unccd":{"label":{"en":"Viet Nam"}},"codes":{"iso_3166_1":"VNM"}}
     },
     "model": "configuration.translation",
     "pk": 5741
@@ -1948,7 +2012,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Virgin Islands, British"}},"codes":{"iso_3166_1":"VGB"}}
+        "data": {"technologies":{"label":{"en":"Virgin Islands, British"}},"unccd":{"label":{"en":"Virgin Islands, British"}},"codes":{"iso_3166_1":"VGB"}}
     },
     "model": "configuration.translation",
     "pk": 5742
@@ -1956,7 +2020,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Virgin Islands, U.S."}},"codes":{"iso_3166_1":"VIR"}}
+        "data": {"technologies":{"label":{"en":"Virgin Islands, U.S."}},"unccd":{"label":{"en":"Virgin Islands, U.S."}},"codes":{"iso_3166_1":"VIR"}}
     },
     "model": "configuration.translation",
     "pk": 5743
@@ -1964,7 +2028,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Wallis and Futuna"}},"codes":{"iso_3166_1":"WLF"}}
+        "data": {"technologies":{"label":{"en":"Wallis and Futuna"}},"unccd":{"label":{"en":"Wallis and Futuna"}},"codes":{"iso_3166_1":"WLF"}}
     },
     "model": "configuration.translation",
     "pk": 5744
@@ -1972,7 +2036,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Western Sahara"}},"codes":{"iso_3166_1":"ESH"}}
+        "data": {"technologies":{"label":{"en":"Western Sahara"}},"unccd":{"label":{"en":"Western Sahara"}},"codes":{"iso_3166_1":"ESH"}}
     },
     "model": "configuration.translation",
     "pk": 5745
@@ -1980,7 +2044,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Yemen"}},"codes":{"iso_3166_1":"YEM"}}
+        "data": {"technologies":{"label":{"en":"Yemen"}},"unccd":{"label":{"en":"Yemen"}},"codes":{"iso_3166_1":"YEM"}}
     },
     "model": "configuration.translation",
     "pk": 5746
@@ -1988,7 +2052,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Zambia"}},"codes":{"iso_3166_1":"ZMB"}}
+        "data": {"technologies":{"label":{"en":"Zambia"}},"unccd":{"label":{"en":"Zambia"}},"codes":{"iso_3166_1":"ZMB"}}
     },
     "model": "configuration.translation",
     "pk": 5747
@@ -1996,7 +2060,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Zimbabwe"}},"codes":{"iso_3166_1":"ZWE"}}
+        "data": {"technologies":{"label":{"en":"Zimbabwe"}},"unccd":{"label":{"en":"Zimbabwe"}},"codes":{"iso_3166_1":"ZWE"}}
     },
     "model": "configuration.translation",
     "pk": 5748
@@ -2004,7 +2068,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en":"Åland Islands"}},"codes":{"iso_3166_1":"ALA"}}
+        "data": {"technologies":{"label":{"en":"Åland Islands"}},"unccd":{"label":{"en":"Åland Islands"}},"codes":{"iso_3166_1":"ALA"}}
     },
     "model": "configuration.translation",
     "pk": 5749
@@ -2033,12 +2097,60 @@
     "model": "configuration.translation",
     "pk": 5752
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "0%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5753
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1-25%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5754
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "26-50%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5755
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "51-75%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5756
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "76-99%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5757
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "100%"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5758
+},
 
 
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en":"General Information"}}, "unccd":{"label":{"en":"General Information"}}}
+        "data": {"approaches":{"label":{"en":"General Information"}},"technologies":{"label":{"en":"General Information"}},"unccd":{"label":{"en":"General Information"}}}
     },
     "model": "configuration.translation",
     "pk": 5981
@@ -2046,7 +2158,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en":"Specifications"}}, "unccd":{"label":{"en":"Specifications"}}}
+        "data": {"approaches":{"label":{"en":"Specifications"}},"technologies":{"label":{"en":"Specifications"}},"unccd":{"label":{"en":"Specifications"}}}
     },
     "model": "configuration.translation",
     "pk": 5982
@@ -2079,6 +2191,78 @@
     },
     "model": "configuration.key",
     "pk": 2
+},
+{
+    "fields": {
+        "keyword": "name_local",
+        "translation": 5003,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 3
+},
+{
+    "fields": {
+        "keyword": "state_province",
+        "translation": 5005,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 4
+},
+{
+    "fields": {
+        "keyword": "further_location",
+        "translation": 5006,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 5
+},
+{
+    "fields": {
+        "keyword": "location_comments",
+        "translation": 5004,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 6
+},
+{
+    "fields": {
+        "keyword": "image",
+        "translation": 5007,
+        "configuration": {"type": "image"}
+    },
+    "model": "configuration.key",
+    "pk": 7
+},
+{
+    "fields": {
+        "keyword": "image_caption",
+        "translation": 5008,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 8
+},
+{
+    "fields": {
+        "keyword": "image_date_location",
+        "translation": 5009,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 9
+},
+{
+    "fields": {
+        "keyword": "image_photographer",
+        "translation": 5010,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 10
 },
 
 
@@ -4101,6 +4285,60 @@
     "model": "configuration.value",
     "pk": 252
 },
+{
+    "fields": {
+        "keyword": "percentage_q0",
+        "translation": 5753,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 253
+},
+{
+    "fields": {
+        "keyword": "percentage_q1",
+        "translation": 5754,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 254
+},
+{
+    "fields": {
+        "keyword": "percentage_q2",
+        "translation": 5755,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 255
+},
+{
+    "fields": {
+        "keyword": "percentage_q3",
+        "translation": 5756,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 256
+},
+{
+    "fields": {
+        "keyword": "percentage_q4",
+        "translation": 5757,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 257
+},
+{
+    "fields": {
+        "keyword": "percentage_q5",
+        "translation": 5758,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 258
+},
 
 
 {
@@ -4120,6 +4358,15 @@
     },
     "model": "configuration.questiongroup",
     "pk": 2
+},
+{
+    "fields": {
+        "keyword": "qg_image",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3
 },
 
 

@@ -19,7 +19,7 @@ def home(request):
     })
 
 
-def questionnaire_details(request, questionnaire_id):
+def questionnaire_details(request, identifier):
     """
     View to show the details of an existing WOCAT questionnaire.
 
@@ -31,13 +31,15 @@ def questionnaire_details(request, questionnaire_id):
     Args:
         ``request`` (django.http.HttpResponse): The request object.
 
-        ``questionnaire_id`` (int): The id of the questionnaire.
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'wocat', 'wocat/questionnaire/details.html')
+        request, identifier, 'wocat', 'wocat',
+        'wocat/questionnaire/details.html')
 
 
 def questionnaire_list_partial(request):
@@ -66,11 +68,13 @@ def questionnaire_list_partial(request):
         'list_values': list_values['list_values']})
     active_filters = render_to_string('active_filters.html', {
         'active_filters': list_values['active_filters']})
+    pagination = render_to_string('pagination.html', list_values)
 
     ret = {
         'success': True,
         'list': list_,
         'active_filters': active_filters,
+        'pagination': pagination,
     }
 
     return JsonResponse(ret)

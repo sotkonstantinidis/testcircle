@@ -17,7 +17,7 @@ route_questionnaire_list_partial = 'wocat:questionnaire_list_partial'
 
 
 def get_valid_details_values():
-    return (1, 'wocat', 'wocat/questionnaire/details.html')
+    return (1, 'wocat', 'wocat', 'wocat/questionnaire/details.html')
 
 
 def get_valid_list_values():
@@ -84,6 +84,15 @@ class QuestionnaireListPartialTest(TestCase):
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'active_filters.html', {'active_filters': 'bar'})
+
+    @patch('wocat.views.render_to_string')
+    @patch('wocat.views.generic_questionnaire_list')
+    def test_calls_render_to_string_with_pagination(
+            self, mock_questionnaire_list, mock_render_to_string):
+        mock_render_to_string.return_value = ''
+        self.client.get(self.url)
+        mock_render_to_string.assert_any_call(
+            'pagination.html', mock_questionnaire_list.return_value)
 
 
 class QuestionnaireListTest(TestCase):

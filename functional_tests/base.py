@@ -109,6 +109,13 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.fail('Elements %s were not found by %s' % (el, by))
         return f
 
+    def changeHiddenInput(self, el, val):
+        self.browser.execute_script('''
+            var elem = arguments[0];
+            var value = arguments[1];
+            elem.value = value;
+        ''', el, val)
+
     def checkOnPage(self, text):
         self.assertIn(text, self.browser.page_source)
 

@@ -1,4 +1,6 @@
-{% load i18n %}
+{% if review_config %}
+  {% include 'details/review_panel.html' %}
+{% endif %}
 
 {% if toc_content %}
   {% include "details/toc.html" with toc_keyword=keyword %}
@@ -6,10 +8,8 @@
 
 <section id="{{ keyword }}" class="tech-section row is-rhythmed-4" data-magellan-destination="{{ keyword }}">
   <a name="{{ keyword }}"></a>
-  <div class="medium-12 columns">
-    <h1>{{ label }}</h1>
-  </div>
   <div class="small-12 columns output is-rhythmed-2">
+    <h1>{{ label }}</h1>
     {% for category in categories %}
       {{ category }}
     {% endfor %}

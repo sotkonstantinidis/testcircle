@@ -4,7 +4,7 @@
     "pk": 101,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
-        "data": {"qg_name":[{"name":{"en":"WOCAT Technology 1","fr":"WOCAT Technology 1 en français"}}],"tech_qg_2":[{"tech_definition":{"en":"This is the definition of the first WOCAT Technology.","fr":"Ceci est la déscription 1 en français."}}]},
+        "data": {"qg_name":[{"name":{"en":"WOCAT Technology 1","fr":"WOCAT Technology 1 en français"}}],"tech_qg_1":[{"tech_definition":{"en":"This is the definition of the first WOCAT Technology.","fr":"Ceci est la déscription 1 en français."}}]},
         "code": "tech_1",
         "status": 3,
         "version": 1,
@@ -44,7 +44,7 @@
     "pk": 102,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "data": {"qg_name":[{"name":{"es":"WOCAT Tech 2 en español"}}],"tech_qg_2":[{"tech_definition":{"es":"Descripción 2 en español"}}]},
+        "data": {"qg_name":[{"name":{"es":"WOCAT Tech 2 en español"}}],"tech_qg_1":[{"tech_definition":{"es":"Descripción 2 en español"}}]},
         "code": "tech_2",
         "status": 3,
         "version": 1,

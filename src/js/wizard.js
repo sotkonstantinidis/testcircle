@@ -2,7 +2,6 @@
 // -----------------
 // Next / Previous step
 
-
 /**
  * Loop through the form fields of a subcategory to find out if they are
  * empty or if they contain values.
@@ -187,6 +186,79 @@ function clearQuestiongroup(questiongroup) {
 
 $(function() {
 
+  $('body')
+  // LIST ITEM
+  // -----------------
+  // List item remove
+  .on('click', '.list-item-action[data-remove-this]', function (e) {
+
+    var qg = $(this).closest('.list-item').data('questiongroup-keyword');
+    var currentCount = parseInt($('#id_' + qg + '-TOTAL_FORMS').val());
+    var maxCount = parseInt($('#id_' + qg + '-MAX_NUM_FORMS').val());
+    var minCount = parseInt($('#id_' + qg + '-MIN_NUM_FORMS').val());
+
+    var item = $(this).closest('.list-item.is-removable');
+    item.remove();
+    var otherItems = $('.list-item[data-questiongroup-keyword="' + qg + '"]');
+    if (otherItems.length <= minCount) {
+      otherItems.find('[data-remove-this]').hide();
+    }
+    otherItems.each(function(i, el) {
+      updateFieldsetElement($(el), qg, i);
+    });
+
+    currentCount--;
+    $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
+    $('.list-action [data-add-item][data-questiongroup-keyword="' + qg + '"]').toggle(currentCount < maxCount);
+
+    watchFormProgress();
+
+  })
+  // List item add
+  .on('click', '.list-action [data-add-item]', function (e) {
+
+    var qg = $(this).data('questiongroup-keyword');
+    var currentCount = parseInt($('#id_' + qg + '-TOTAL_FORMS').val());
+    var maxCount = parseInt($('#id_' + qg + '-MAX_NUM_FORMS').val());
+
+    if (currentCount >= maxCount) return;
+
+    var container = $(this).closest('.list-action');
+
+    var otherItems = $('.list-item[data-questiongroup-keyword="' + qg + '"]');
+    otherItems.find('[data-remove-this]').show();
+
+    var lastItem = container.prev('.list-item');
+    var doNumberingUpdate = false;
+    if (!lastItem.length) {
+      // The element might be numbered, in which case it needs to be
+      // accessed differently
+      if (container.parent('.questiongroup-numbered-prefix').length) {
+        lastItem = container.prev('.row');
+        doNumberingUpdate = true;
+      }
+    }
+    if (!lastItem.length) return;
+
+    newElement = lastItem.clone();
+
+    updateFieldsetElement(newElement, qg, currentCount, true);
+    newElement.insertBefore(container);
+
+    currentCount++;
+    $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
+    $(this).toggle(currentCount < maxCount);
+
+    if (doNumberingUpdate) {
+      updateNumbering();
+    }
+  })
+
+  // BUTTON BAR
+  // -----------------
+  // Button bar select line
+  .on('click', '.button-bar', toggleButtonBarSelected);
+
   // Initial form progress
   watchFormProgress();
 
@@ -215,6 +287,13 @@ $(function() {
   // Select inputs with chosen
   $(".chosen-select").chosen();
 
+  $('.sortable').sortable({
+    handle: '.questiongroup-numbered-number',
+    placeholder: 'sortable-placeholder',
+    forcePlaceholderSize: true,
+    stop: updateNumbering
+  });
+
   // Search a linked Questionnaire through AJAX autocomplete.
   if ($.fn.autocomplete) {
     $('.link_search_field').autocomplete({
@@ -223,7 +302,7 @@ $(function() {
         var translationTooManyResults = $(this.element).data('translation-too-many-results');
         // AJAX call to the respective link search view.
         $.ajax({
-          url: '/' + $(this.element).data('keyword') + '/search/links/',
+          url: $(this.element).data('url'),
           dataType: 'json',
           data: {
             q: request.term
@@ -276,9 +355,9 @@ $(function() {
         var hidden_input = $('<input id="' + id + '" type="hidden" name="links__' + keyword + '" />').val(ui.item.id);
         $(this).parent('fieldset').find('div.links').append(hidden_input);
 
-        // Add display field
+        // Add name field
         $(this).parent('fieldset').find('div.links').append(
-          '<div class="alert-box secondary">' + ui.item.display + '<a href="#" class="close" data-input-hidden="' + id + '">&times;</a></div>');
+          '<div class="alert-box secondary">' + ui.item.name + '<a href="#" class="close" data-input-hidden="' + id + '">&times;</a></div>');
         $('div.links a.close').click(function() {
           removeLinkedQuestionnaire(this);
         });
@@ -518,5 +597,77 @@ function showUploadErrorMessage(message) {
     alert('Error: ' + message);
   } else {
     alert('An error occurred while uploading the file.');
+  }
+}
+
+
+/**
+ * Toggles CSS class "is-selected" for button bars. If a value is
+ * selected, the row is highlighted. If no value (empty string or '') is
+ * selected, it is not.
+ *
+ * $(this): div.button-bar
+ */
+function toggleButtonBarSelected() {
+  var selectedValue = $(this).find('input[type="radio"]:checked').val();
+  var item = $(this).closest('.list-item');
+  if(selectedValue != 'none' && selectedValue != '') {
+    item.addClass('is-selected');
+  } else {
+    item.removeClass('is-selected');
+  }
+  // item.toggleClass('is-selected', !(!selectedValue || 0 === selectedValue.length));
+}
+
+
+/**
+ * Updates elements of a form fieldset. Fields of a Django formset are
+ * named "[prefix]-[index]-[fieldname]" and their ID is
+ * "id_[prefix]-[index]-[fieldname]". When adding or removing elements
+ * of a fieldset, the name and index need to be updated.
+ *
+ * This function udates the name and id of each input field inside the
+ * given fieldset element. It also updates the "label-for" attribute for
+ * any label found inside the given element.
+ *
+ * Use this function to correctly label newly added fields of a
+ * questiongroup ("Add more") or to re-label the remaining fields after
+ * removing a field from a questiongroup ("Remove").
+ *
+ * @param {Element} element - The form element.
+ * @param {string} prefix - The prefix of the questiongroup.
+ * @param {integer} index - The index of the element.
+ * @param {boolean} reset - Whether to reset the values of the input
+ * fields or not. Defaults to false (do not reset the values).
+ */
+function updateFieldsetElement(element, prefix, index, reset) {
+  reset = (typeof reset === "undefined") ? false : true;
+  var id_regex = new RegExp('(' + prefix + '-\\d+-)');
+  var replacement = prefix + '-' + index + '-';
+  element.find(':input').each(function() {
+      var name = $(this).attr('name').replace(id_regex, replacement);
+      var id = $(this).attr('id').replace(id_regex, replacement);
+      $(this).attr({'name': name, 'id': id});
+    });
+    element.find('label').each(function() {
+        var newFor = $(this).attr('for').replace(id_regex, replacement);
+        $(this).attr('for', newFor);
+    });
+  if (reset) {
+    clearQuestiongroup(element);
+  }
+}
+
+
+/**
+ * Toggle the conditional image checkboxes if the parent checkbox was
+ * clicked. If deselected, all conditional checkboxes are unchecked.
+ *
+ * el: div of conditional image checkboxes
+ */
+function toggleImageCheckboxConditional(el) {
+  var topCb = el.parent('.list-gallery-item').find('input[data-toggle]');
+  if (!topCb.is(':checked')) {
+    el.find('input').removeAttr('checked')
   }
 }

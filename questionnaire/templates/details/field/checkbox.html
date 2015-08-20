@@ -1,10 +1,14 @@
 {% if values|length > 0 %}
-  {% if view_label %}
-    <p>{{ key }}:</p>
+  {% if view_label != 'none' %}
+    {% if header == 'small' %}
+      <h5>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h5>
+    {% else %}
+      <h3>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h3>
+    {% endif %}
   {% endif %}
   <ul>
     {% for v in values %}
-      <li>{{ v }}</li>
+      {% if v %}<li>{{ v }}</li>{% endif %}
     {% endfor %}
   </ul>
 {% endif %}

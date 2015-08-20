@@ -1,0 +1,66 @@
+<h3>{{ numbering|default:'' }} {{ label }}</h3>
+{% if subcategories %}
+  {% for subcategory in subcategories %}
+    {{ subcategory }}
+  {% endfor %}
+{% else %}
+
+  {% for qg_config, qg_rendered in questiongroups %}
+    {% if qg_config.keyword == 'tech_qg_41' or qg_config.keyword == 'tech_qg_50' %}
+      {{ qg_rendered }}
+    {% endif %}
+  {% endfor %}
+  <table class="columns small-12 output-table">
+    <thead>
+      <tr>
+        <th>Input</th>
+        <th>Costs / Investment (in US$)</th>
+        <th>{{ table_headers.1 }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for questiongroup in raw_questiongroups %}
+        {% if questiongroup.qg_keyword in table_grouping.0 %}
+          {% if questiongroup.qg_keyword == 'tech_qg_40' or questiongroup.qg_keyword == 'tech_qg_49' %}
+            {% for qg in questiongroup.data_labelled %}
+              <tr>
+                {% for k, v in qg %}
+                  {% if forloop.counter == 1 %}
+                    <td>{{ k }}: {{ v }}</td>
+                  {% else %}
+                    <td>{{ v }}</td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          {% else %}
+            {% for qg in questiongroup.data_labelled %}
+              <tr>
+                {% for k, v in qg %}
+                  {% if forloop.counter == 1 %}
+                    <td>{{ k }}</td>
+                    <td>{{ v }}</td>
+                    {% if qg|length == 1 %}
+                      <td></td>
+                    {% endif %}
+                  {% else %}
+                    {% if qg|length == 1 %}
+                      <td></td>
+                      <td></td>
+                    {% endif %}
+                    <td>{{ v }}</td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+  {% for qg_config, qg_rendered in questiongroups %}
+    {% if qg_config.keyword == 'tech_qg_42' or qg_config.keyword == 'tech_qg_51' or qg_config.keyword == 'tech_qg_52' or qg_config.keyword == 'tech_qg_53' %}
+      {{ qg_rendered }}
+    {% endif %}
+  {% endfor %}
+{% endif %}

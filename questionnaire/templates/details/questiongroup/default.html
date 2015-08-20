@@ -1,4 +1,4 @@
-<div class="{% if config.numbered %} questiongroup-numbered-{{ config.numbered }}{% endif %}">
+{% if config.numbered %}<div class="questiongroup-numbered-{{ config.numbered }}">{% endif %}
   {% for questiongroup in questiongroups %}
     {% if config.numbered == 'prefix' %}
         <div class="questiongroup-numbered-left">
@@ -13,4 +13,4 @@
         </div>
     {% endif %}
   {% endfor %}
-</div>
+{% if config.numbered %}</div>{% endif %}

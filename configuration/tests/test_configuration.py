@@ -1,4 +1,3 @@
-import datetime
 from unittest.mock import patch, Mock
 
 from configuration.configuration import (
@@ -562,14 +561,6 @@ class QuestionnaireQuestionTest(TestCase):
             "keyword": "bar"
         }
         with self.assertRaises(ConfigurationErrorNotInDatabase):
-            QuestionnaireQuestion(self.parent_obj, configuration)
-
-    def test_raises_error_if_form_template_not_found(self):
-        configuration = {
-            'keyword': 'key_14',
-            'form_template': 'foo'
-        }
-        with self.assertRaises(ConfigurationErrorTemplateNotFound):
             QuestionnaireQuestion(self.parent_obj, configuration)
 
     def test_lookup_choices_lookups_single_choice(self):

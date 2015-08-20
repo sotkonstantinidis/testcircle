@@ -26,6 +26,7 @@ from questionnaire.views import (
     generic_questionnaire_new,
     generic_questionnaire_new_step,
 )
+from questionnaire.tests.test_view_utils import get_valid_pagination_parameters
 from sample.tests.test_views import (
     get_section_count,
     get_valid_new_step_values,
@@ -102,9 +103,13 @@ class GenericQuestionnaireLinkFormTest(TestCase):
             **get_valid_link_form_values()[1])
         mock_render.assert_called_once_with(self.request, 'form/links.html', {
             'valid': True,
-            'overview_url': '/en/sample/edit/#links',
+            'overview_url': '/en/sample/edit/foo/#links',
             'link_forms': [(
-                {'label': 'samplemulti', 'keyword': 'samplemulti'}, []
+                {
+                    'label': 'samplemulti',
+                    'keyword': 'samplemulti',
+                    'search_url': '/en/samplemulti/search/links/',
+                }, []
             )],
             'configuration_name': 'sample',
             'title': 'SAMPLE Links'
@@ -121,14 +126,16 @@ class GenericQuestionnaireLinkSearchTest(TestCase):
         generic_questionnaire_link_search(Mock(), 'sample')
         mock_Conf.assert_called_once_with('sample')
 
-    @patch('questionnaire.views.QuestionnaireConfiguration')
+    @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.query_questionnaires_for_link')
-    def test_calls_query_questionnaires_for_link(self, mock_query, mock_Conf):
-        mock_Conf.get_list_data.return_value = []
+    def test_calls_query_questionnaires_for_link(
+            self, mock_query, mock_get_configuration):
+        mock_get_configuration.get_list_data.return_value = []
         mock_query.return_value = 0, []
         mock_request = Mock()
         generic_questionnaire_link_search(mock_request, 'sample')
-        mock_query.assert_called_once_with(mock_Conf(), mock_request.GET.get())
+        mock_query.assert_called_once_with(
+            mock_get_configuration(), mock_request.GET.get())
 
     def test_returns_empty_if_no_q(self):
         req = RequestFactory().get(reverse(route_questionnaire_link_search))
@@ -175,17 +182,13 @@ class GenericQuestionnaireNewStepTest(TestCase):
         self.request.user = create_new_user()
         session_store.clear()
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    @patch.object(QuestionnaireConfiguration, 'get_category')
-    def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration_get_category,
-            mock_QuestionnaireConfiguration):
-        mock_QuestionnaireConfiguration.return_value = None
-        mock_QuestionnaireConfiguration_get_category.return_value = None
-        with self.assertRaises(Http404):
-            generic_questionnaire_new_step(
-                self.request, 'cat_1', 'sample', 'template', 'route')
-        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_get_configuration(self, mock_get_configuration):
+        mock_get_configuration.return_value.get_category.return_value.\
+            get_form.return_value = None, []
+        generic_questionnaire_new_step(
+            self.request, *get_valid_new_step_values()[0])
+        mock_get_configuration.assert_called_once_with('sample')
 
     @patch.object(QuestionnaireConfiguration, 'get_category')
     def test_gets_category(self, mock_get_category):
@@ -243,7 +246,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'category_formsets': "bar",
                 'category_config': "foo",
                 'title': 'QCAT Form',
-                'overview_url': '/en/sample/edit/#cat_0',
+                'overview_url': '/en/sample/edit/new/#cat_0',
                 'valid': True,
                 'configuration_name': 'sample',
             })
@@ -263,17 +266,12 @@ class GenericQuestionnaireNewTest(TestCase):
         self.request = self.factory.get('/sample/new')
         self.request.user = create_new_user()
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    @patch.object(QuestionnaireConfiguration, 'get_details')
-    def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration_get_details,
-            mock_QuestionnaireConfiguration):
-        mock_QuestionnaireConfiguration.return_value = None
-        # with self.assertRaises(AttributeError):
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_get_configuration(self, mock_get_configuration):
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
-        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
+        mock_get_configuration.assert_called_once_with('sample')
 
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
@@ -284,20 +282,17 @@ class GenericQuestionnaireNewTest(TestCase):
             **get_valid_new_values()[1])
         mock_get_session_questionnaire.assert_called_once_with('sample')
 
-    @patch('questionnaire.views.QuestionnaireConfiguration')
+    @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.clean_questionnaire_data')
-    @patch('questionnaire.models.put_questionnaire_data')
     def test_calls_clean_questionnaire_data(
-            self, mock_put_data, mock_clean_questionnaire_data,
-            mock_QuestionnaireConfiguration):
-        mock_put_data.return_value = None, None
+            self, mock_clean_questionnaire_data, mock_get_configuration):
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         r = self.request
         r.method = 'POST'
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_clean_questionnaire_data.assert_called_once_with(
-            {}, mock_QuestionnaireConfiguration())
+            {}, mock_get_configuration())
 
     @patch.object(messages, 'info')
     def test_adds_message_if_empty(self, mock_messages_info):
@@ -306,7 +301,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_info.assert_called_once_with(
-            r, '[TODO] You cannot submit an empty questionnaire',
+            r, 'You cannot submit an empty questionnaire',
             fail_silently=True)
 
     @patch('questionnaire.views.redirect')
@@ -326,18 +321,17 @@ class GenericQuestionnaireNewTest(TestCase):
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         mock_create_new.return_value = Mock()
-        mock_create_new.return_value.id = 1
+        mock_create_new.return_value.code = 'foo'
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_create_new.assert_called_once_with('sample', {})
+        mock_create_new.assert_called_once_with(
+            'sample', {}, self.request.user, previous_version=None)
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.clean_questionnaire_data')
-    @patch('questionnaire.models.put_questionnaire_data')
     def test_calls_clear_session_questionnaire(
-            self, mock_put_data, mock_clean_questionnaire_data,
+            self, mock_clean_questionnaire_data,
             mock_clear_session_questionnaire):
-        mock_put_data.return_value = None, None
         r = self.request
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
@@ -348,18 +342,15 @@ class GenericQuestionnaireNewTest(TestCase):
 
     @patch.object(messages, 'success')
     @patch('questionnaire.views.clean_questionnaire_data')
-    @patch('questionnaire.models.put_questionnaire_data')
     def test_adds_message(
-            self, mock_put_data, mock_clean_questionnaire_data,
-            mock_messages_sucess):
-        mock_put_data.return_value = None, None
+            self, mock_clean_questionnaire_data, mock_messages_sucess):
         r = self.request
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_messages_sucess.assert_called_once_with(
-            r, '[TODO] The questionnaire was successfully created.',
+            r, 'The questionnaire was successfully created.',
             fail_silently=True)
 
     @patch('questionnaire.views.redirect')
@@ -372,10 +363,10 @@ class GenericQuestionnaireNewTest(TestCase):
         r.method = 'POST'
         mock_clean_questionnaire_data.return_value = {"foo": "bar"}, []
         mock_create_new.return_value = Mock()
-        mock_create_new.return_value.id = 1
+        mock_create_new.return_value.code = 'foo'
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
-        mock_redirect.assert_called_once_with('/en/sample/view/1/#top')
+        mock_redirect.assert_called_once_with('/en/sample/view/foo/#top')
 
     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
     def test_calls_get_questionnaire_data_in_single_language(
@@ -391,7 +382,21 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with(
-            {}, editable=True, edit_step_route='sample:questionnaire_new_step')
+            {}, editable=True, edit_step_route='sample:questionnaire_new_step',
+            questionnaire_object=None)
+
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.Questionnaire')
+    def test_calls_get_list_values(
+            self, mock_Questionnaire, mock_get_list_values):
+        link = Mock()
+        mock_Questionnaire.objects.filter.return_value = [link]
+        generic_questionnaire_new(
+            self.request, *get_valid_new_values()[0],
+            **get_valid_new_values()[1])
+        mock_get_list_values.assert_called_once_with(
+            questionnaire_objects=[link], with_links=False,
+            configuration_code=link.configurations.first().code)
 
     @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')
@@ -402,11 +407,11 @@ class GenericQuestionnaireNewTest(TestCase):
             **get_valid_new_values()[1])
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
-                'questionnaire_id': None,
+                'questionnaire_identifier': 'new',
                 'sections': ["foo"]*get_section_count(),
                 'images': [],
                 'mode': 'edit',
-                'links': [],
+                'links': {},
             })
 
     def test_returns_rendered_response(self):
@@ -422,76 +427,175 @@ class GenericQuestionnaireDetailsTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get(reverse(
             route_questionnaire_details, args=[1]))
+        self.request.user = Mock()
+        self.request.user.is_authenticated.return_value = False
 
-    @patch('questionnaire.views.get_object_or_404')
-    def test_calls_get_object_or_404(self, mock_get_object_or_404):
-        mock_get_object_or_404.return_value.data = {}
+    @patch('questionnaire.views.query_questionnaire')
+    def test_calls_query_questionnaire(self, mock_query_questionnaire):
+        mock_query_questionnaire.return_value.first.return_value = None
+        with self.assertRaises(Http404):
+            generic_questionnaire_details(
+                self.request, *get_valid_details_values())
+        mock_query_questionnaire.assert_called_once_with(self.request, 'foo')
+
+    @patch('questionnaire.views.query_questionnaire')
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_get_configuration(
+            self, mock_get_configuration, mock_query_questionnaire):
+        mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_get_object_or_404.assert_called_once_with(Questionnaire, pk=1)
+        mock_get_configuration.assert_called_once_with('sample')
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    @patch('questionnaire.views.get_object_or_404')
-    @patch.object(QuestionnaireConfiguration, 'get_details')
-    def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration_get_details,
-            mock_get_object_or_404, mock_QuestionnaireConfiguration):
-        mock_QuestionnaireConfiguration.return_value = None
-        mock_get_object_or_404.return_value.data = {}
-        # with self.assertRaises(Exception):
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.views.query_questionnaire')
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_get_questionnaire_data_in_single_language(
+            self, mock_conf, mock_query_questionnaire,
+            mock_get_q_data_in_single_lang):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
+        mock_get_q_data_in_single_lang.assert_called_once_with(
+            mock_query_questionnaire.return_value.first.return_value.data,
+            'en')
+
+    @patch('questionnaire.views.handle_review_actions')
+    @patch('questionnaire.views.redirect')
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.views.query_questionnaire')
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_handle_review_actions_if_post_values(
+            self, mock_conf, mock_query_questionnaire,
+            mock_get_q_data_in_single_lang, mock_redirect,
+            mock_handle_review_actions):
+        self.request.method = 'POST'
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_handle_review_actions.assert_called_once_with(
+            self.request,
+            mock_query_questionnaire.return_value.first.return_value, 'sample')
+
+    @patch('questionnaire.views.redirect')
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.views.query_questionnaire')
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_redirect_if_post_values(
+            self, mock_conf, mock_query_questionnaire,
+            mock_get_q_data_in_single_lang, mock_redirect):
+        self.request.method = 'POST'
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_redirect.assert_called_once_with(
+            'sample:questionnaire_details',
+            mock_query_questionnaire.return_value.first.return_value.code)
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
-    @patch('questionnaire.views.get_object_or_404')
-    def test_calls_get_details(self, mock_get_object_or_404, mock_get_details):
-        mock_get_object_or_404.return_value.data = {}
+    @patch('questionnaire.views.query_questionnaire')
+    def test_reviewable_false_if_no_moderate_permissions(
+            self, mock_query_questionnaire, mock_get_details):
+        mock_query_questionnaire.return_value.first.return_value.data = {}
+        mock_query_questionnaire.return_value.first.return_value.status = 2
+        user = Mock()
+        user.has_perm.return_value = False
+        self.request.user = user
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_get_details.assert_called_once_with(
-            data={}, questionnaire_object=mock_get_object_or_404.return_value)
+            data={},
+            questionnaire_object=mock_query_questionnaire.return_value
+                                                         .first.return_value,
+            review_config={
+                'review_status':
+                    mock_query_questionnaire.return_value
+                                            .first.return_value.status,
+                'csrf_token_value': None, 'reviewable': False})
 
-    @patch.object(QuestionnaireConfiguration, 'get_image_data')
-    @patch('questionnaire.views.get_object_or_404')
+    @patch.object(QuestionnaireConfiguration, 'get_details')
+    @patch('questionnaire.views.query_questionnaire')
+    def test_reviewable_true_if_no_moderate_permissions(
+            self, mock_query_questionnaire, mock_get_details):
+        mock_query_questionnaire.return_value.first.return_value.data = {}
+        mock_query_questionnaire.return_value.first.return_value.status = 2
+        user = Mock()
+        user.has_perm.return_value = True
+        self.request.user = user
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_details.assert_called_once_with(
+            data={},
+            questionnaire_object=mock_query_questionnaire.return_value
+                                                         .first.return_value,
+            review_config={
+                'review_status': mock_query_questionnaire.return_value
+                                                         .first.return_value
+                                                         .status,
+                'csrf_token_value': None, 'reviewable': True})
+
+    @patch.object(QuestionnaireConfiguration, 'get_details')
+    @patch('questionnaire.views.query_questionnaire')
+    def test_calls_get_details(
+            self, mock_query_questionnaire, mock_get_details):
+        mock_query_questionnaire.return_value.first.return_value.data = {}
+        generic_questionnaire_details(
+            self.request, *get_valid_details_values())
+        mock_get_details.assert_called_once_with(
+            data={},
+            questionnaire_object=mock_query_questionnaire.return_value
+                                                         .first.return_value,
+            review_config={
+                'review_status':
+                    mock_query_questionnaire.return_value.first
+                                            .return_value.status,
+                'csrf_token_value': None})
+
+    @patch('questionnaire.views.get_configuration')
+    # @patch.object(QuestionnaireConfiguration, 'get_image_data')
+    @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_image_data(
-            self, mock_get_object_or_404, mock_get_image_data):
-        mock_get_object_or_404.return_value.data = {}
+            self, mock_query_questionnaire, mock_conf):
+        mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_get_image_data.assert_called_once_with({})
+        mock_conf.return_value.get_image_data.assert_called_once_with({})
 
-    @patch('questionnaire.views.get_link_data')
-    @patch('questionnaire.views.get_object_or_404')
-    def test_calls_get_link_data(
-            self, mock_get_object_or_404, mock_get_link_data):
-        mock_get_object_or_404.return_value.data = {}
+    @patch('questionnaire.views.get_configuration')
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.query_questionnaire')
+    def test_calls_get_list_values(
+            self, mock_query_questionnaire, mock_get_list_values, mock_conf):
+        q = Mock()
+        q.data = {}
+        link = Mock()
+        q.links.all.return_value = [link]
+        mock_query_questionnaire.return_value.first.return_value = q
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_get_link_data.assert_called_once_with(
-            mock_get_object_or_404().links.all())
+        mock_get_list_values.assert_called_once_with(
+            questionnaire_objects=[link], with_links=False,
+            configuration_code=link.configurations.first().code)
 
-    @patch.object(QuestionnaireCategory, 'get_details')
-    @patch('questionnaire.views.get_object_or_404')
+    @patch('questionnaire.views.get_configuration')
+    @patch('questionnaire.views.query_questionnaire')
     @patch('questionnaire.views.render')
     def test_calls_render(
-            self, mock_render, mock_get_object_or_404, mock_get_details):
-        mock_get_details.return_value = "foo"
-        mock_get_object_or_404.return_value.data = {}
+            self, mock_render, mock_query_questionnaire, mock_conf):
+        mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
-                'sections': [],
-                'questionnaire_id': 1,
+                'sections': mock_conf.return_value.get_details.return_value,
+                'questionnaire_identifier': 'foo',
                 'mode': 'view',
-                'images': [],
-                'links': [],
+                'images': mock_conf.return_value.get_image_data.return_value,
+                'links': {},
             })
 
-    @patch('questionnaire.views.get_object_or_404')
-    def test_returns_rendered_response(self, mock_get_object_or_404):
-        mock_get_object_or_404.return_value.data = {}
+    @patch('questionnaire.views.get_configuration')
+    @patch('questionnaire.views.query_questionnaire')
+    def test_returns_rendered_response(
+            self, mock_query_questionnaire, mock_get_configuration):
+        mock_query_questionnaire.return_value.first.return_value.data = {}
         ret = generic_questionnaire_details(
             self.request, *get_valid_details_values())
         self.assertIsInstance(ret, HttpResponse)
@@ -504,41 +608,87 @@ class GenericQuestionnaireListTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get(reverse(route_questionnaire_list))
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    @patch.object(QuestionnaireConfiguration, 'get_list_data')
-    @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
-    def test_creates_questionnaire_configuration(
-            self, mock_Q_get_filter_configuration,
-            mock_QuestionnaireConfiguration_get_list_data,
-            mock_QuestionnaireConfiguration, mock_advanced_search):
-        mock_QuestionnaireConfiguration.return_value = None
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_get_configuration(
+            self, mock_get_configuration, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
-        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
+        mock_get_configuration.assert_called_once_with('sample')
 
     @patch('questionnaire.views.get_active_filters')
-    @patch('questionnaire.views.QuestionnaireConfiguration')
+    @patch('questionnaire.views.get_configuration')
     def test_calls_get_active_filters(
-            self, mock_QuestionnaireConfiguration, mock_get_active_filters,
-            mock_advanced_search):
+            self, mock_conf, mock_get_active_filters, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_active_filters.assert_called_once_with(
-            mock_QuestionnaireConfiguration.return_value, self.request.GET)
+            mock_conf.return_value, self.request.GET)
+
+    @patch('questionnaire.views.get_limit_parameter')
+    def test_calls_get_limit_parameter(
+            self, mock_get_limit_parameter, mock_advanced_search):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_limit_parameter.assert_called_once_with(self.request)
+
+    @patch('questionnaire.views.get_page_parameter')
+    def test_calls_get_page_parameter(
+            self, mock_get_page_parameter, mock_advanced_search):
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_page_parameter.assert_called_once_with(self.request)
+
+    @patch('questionnaire.views.query_questionnaires')
+    def test_db_query_calls_query_questionnaires(
+            self, mock_query_questionnaires, mock_advanced_search):
+        mock_query_questionnaires.return_value = []
+        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        mock_query_questionnaires.assert_called_once_with(
+            self.request, 'sample', only_current=False, limit=None)
+
+    @patch('questionnaire.views.get_pagination_parameters')
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.query_questionnaires')
+    @patch('questionnaire.views.get_paginator')
+    def test_db_query_calls_get_paginator(
+            self, mock_get_paginator, mock_query_questionnaires,
+            mock_get_list_values, mock_get_pagination_parameters,
+            mock_advanced_search):
+        mock_query_questionnaires.return_value = []
+        mock_get_paginator.return_value = None, None
+        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        mock_get_paginator.assert_called_once_with([], 1, 10)
+
+    @patch('questionnaire.views.get_list_values')
+    def test_db_query_calls_get_list_values(
+            self, mock_get_list_values, mock_advanced_search):
+        self.request.user = Mock()
+        self.request.user.is_authenticated.return_value = False
+        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch('questionnaire.views.get_configuration_index_filter')
-    def test_calls_get_configuration_index_filter(
+    def test_es_calls_get_configuration_index_filter(
             self, mock_get_configuration_index_filter, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_configuration_index_filter.assert_called_once_with(
             'sample', only_current=False)
 
-    def test_calls_advanced_search(self, mock_advanced_search):
+    def test_es_calls_advanced_search(self, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_advanced_search.assert_called_once_with(
             filter_params=[], query_string='', configuration_codes=['sample'],
-            limit=10)
+            limit=10, offset=0)
+
+    @patch('questionnaire.views.get_pagination_parameters')
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.get_paginator')
+    @patch('questionnaire.views.ESPagination')
+    def test_es_creates_esPagination(
+            self, mock_ESPagination, mock_get_paginator, mock_get_list_values,
+            mock_get_pagination_parameters, mock_advanced_search):
+        mock_get_paginator.return_value = None, None
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        self.assertEqual(mock_ESPagination.call_count, 1)
 
     @patch('questionnaire.views.get_list_values')
-    def test_calls_get_list_values(
+    def test_es_calls_get_list_values(
             self, mock_get_list_values, mock_advanced_search):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_get_list_values.call_count, 1)
@@ -549,18 +699,34 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_filter_configuration.assert_called_once_with()
 
+    @patch('questionnaire.views.get_list_values')
+    @patch('questionnaire.views.get_paginator')
+    @patch('questionnaire.views.get_pagination_parameters')
+    def test_calls_get_pagination_parameters(
+            self, mock_get_pagination_parameters, mock_get_paginator,
+            mock_get_list_values, mock_advanced_search):
+        mock_get_paginator.return_value = None, None
+        generic_questionnaire_list(self.request, *get_valid_list_values())
+        mock_get_pagination_parameters.assert_called_once_with(
+            self.request, None, None)
+
+    @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.render')
     def test_calls_render(
-            self, mock_render, mock_advanced_search):
+            self, mock_render, mock_conf, mock_advanced_search):
         mock_advanced_search.return_value = {}
         generic_questionnaire_list(self.request, *get_valid_list_values())
+        ret = {
+            'list_values': [],
+            'filter_configuration':
+                mock_conf.return_value.get_filter_configuration
+                                      .return_value,
+            'filter_url': '',
+            'active_filters': [],
+        }
+        ret.update(get_valid_pagination_parameters())
         mock_render.assert_called_once_with(
-            self.request, 'sample/questionnaire/list.html', {
-                'list_values': [],
-                'filter_configuration': (),
-                'filter_url': '',
-                'active_filters': [],
-            })
+            self.request, 'sample/questionnaire/list.html', ret)
 
     def test_returns_rendered_response(self, mock_advanced_search):
         ret = generic_questionnaire_list(

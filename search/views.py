@@ -17,7 +17,7 @@ from .index import (
 )
 from .search import simple_search
 from .utils import get_alias
-from configuration.configuration import QuestionnaireConfiguration
+from configuration.cache import get_configuration
 from configuration.models import Configuration
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_list_values
@@ -79,7 +79,7 @@ def index(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    questionnaire_configuration = QuestionnaireConfiguration(configuration)
+    questionnaire_configuration = get_configuration(configuration)
     if questionnaire_configuration.get_configuration_errors() is not None:
         return HttpResponseBadRequest(
             questionnaire_configuration.configuration_error)
@@ -116,7 +116,7 @@ def update(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    questionnaire_configuration = QuestionnaireConfiguration(configuration)
+    questionnaire_configuration = get_configuration(configuration)
     if questionnaire_configuration.get_configuration_errors() is not None:
         return HttpResponseBadRequest(
             questionnaire_configuration.configuration_error)
@@ -169,8 +169,9 @@ def search(request):
         ``request`` (django.http.HttpRequest): The request object.
     """
     search = simple_search(request.GET.get('q', ''))
+    hits = search.get('hits', {}).get('hits', [])
 
-    list_values = get_list_values(configuration_code=None, es_search=search)
+    list_values = get_list_values(configuration_code=None, es_hits=hits)
 
     return render(request, 'sample/questionnaire/list.html', {
         'list_values': list_values,

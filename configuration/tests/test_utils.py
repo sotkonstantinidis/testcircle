@@ -1,10 +1,14 @@
 from django.db.models import Q
 
+from configuration.models import Configuration
 from configuration.utils import (
+    create_new_code,
     get_configuration_index_filter,
     get_configuration_query_filter,
 )
 from qcat.tests import TestCase
+from questionnaire.models import Questionnaire
+from questionnaire.tests.test_models import get_valid_questionnaire
 
 
 class GetConfigurationQueryFilterTest(TestCase):
@@ -40,7 +44,7 @@ class GetConfigurationQueryFilterTest(TestCase):
         self.assertEqual(attrs[0][1], 'wocat')
 
 
-class GetConfigurationIndexFilter(TestCase):
+class GetConfigurationIndexFilterTest(TestCase):
 
     def test_returns_single_configuration(self):
         index_filter = get_configuration_index_filter('foo')
@@ -58,3 +62,18 @@ class GetConfigurationIndexFilter(TestCase):
         index_filter = get_configuration_index_filter(
             'wocat', only_current=True)
         self.assertEqual(index_filter, ['wocat'])
+
+
+class CreateNewCodeTest(TestCase):
+
+    def test_returns_new_code(self):
+        code = create_new_code('configuration', {})
+        self.assertIsInstance(code, str)
+
+    def test_always_returns_non_existing_code(self):
+        Configuration(code='sample', active=True).save()
+        questionnaire = get_valid_questionnaire()
+        questionnaire.code = 'sample_1'
+        questionnaire.save()
+        code = create_new_code('sample', {})
+        self.assertEqual(Questionnaire.objects.filter(code=code).count(), 0)

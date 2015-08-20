@@ -61,5 +61,7 @@ The following options are valid for ``type``. Default type is ``char``.
 | ``select_type``    | A select field which allows selection by typing.       |
 |                    | Renders the field with `Chosen`_.                      |
 +--------------------+--------------------------------------------------------+
+| ``select``         | A simple select field without typing.                  |
++--------------------+--------------------------------------------------------+
 
 .. _Chosen: http://harvesthq.github.io/chosen/

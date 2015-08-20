@@ -36,7 +36,10 @@ The basic format of the configuration is as follows::
     "questiongroup_condition": "CONDITION_NAME",
 
     # (optional)
-    "view_template": "VIEW_TEMPLATE",
+    "view_options": {},
+
+    # (optional)
+    "form_options": {},
 
     # (optional)
     "numbered": "NUMBERED",
@@ -94,8 +97,25 @@ questiongroup. The name must correspond to one of
 .. seealso::
     :doc:`/configuration/question`
 
+
+``view_options``
+^^^^^^^^^^^^^^^^
+
+(Optional). An optional object containing configuration options for the
+view representation of the questiongroup.
+
+
+``form_options``
+^^^^^^^^^^^^^^^^
+
+(Optional). An optional object containing configuration options for the
+form representation of the question.
+
+
 ``view_template``
 ^^^^^^^^^^^^^^^^^
+
+(deprecated)
 
 (Optional). An optional name of a template to be used for the rendering
 of the questiongroup in the detail view. The name of the template needs
@@ -147,6 +167,9 @@ template should be used with any field type.
 numbered. Possible values are ``inline`` (numbering inside field label)
 or ``prefix`` (numbering indented before fields). If not specified, no
 numbering is used.
+
+.. hint::
+    If possible, ``prefix`` should be used.
 
 ``detail_level``
 ^^^^^^^^^^^^^^^^

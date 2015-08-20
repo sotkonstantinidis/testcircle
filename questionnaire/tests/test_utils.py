@@ -1,18 +1,26 @@
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, call
 from django.http import QueryDict
 
+from accounts.models import User
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
+from questionnaire.models import Questionnaire
 from questionnaire.utils import (
     clean_questionnaire_data,
     get_active_filters,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
     get_questiongroup_data_from_translation_form,
+    get_link_data,
+    get_link_display,
     get_list_values,
+    handle_review_actions,
     is_valid_questionnaire_format,
+    query_questionnaire,
+    query_questionnaires,
     query_questionnaires_for_link,
 )
+from questionnaire.tests.test_models import get_valid_metadata
 from qcat.errors import QuestionnaireFormatError
 
 
@@ -243,6 +251,33 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 
+    def test_orders_questiongroups(self):
+        data = {'qg_7': [
+            {'key_9': {'en': 'Key 9 - 1'}, '__order': 2},
+            {'key_9': {'en': 'Key 9 - 2'}, '__order': 1},
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 0)
+        self.assertEqual(cleaned['qg_7'][0]['key_9']['en'], 'Key 9 - 2')
+        self.assertEqual(cleaned['qg_7'][1]['key_9']['en'], 'Key 9 - 1')
+
+    def test_questiongroups_can_be_unordered(self):
+        data = {'qg_7': [
+            {'key_9': {'en': 'Key 9 - 1'}},
+            {'key_9': {'en': 'Key 9 - 2'}},
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 0)
+
+    def test_questiongroup_is_removed_if_only_order(self):
+        data = {'qg_7': [
+            {'__order': 1},
+            {'__order': 2},
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 0)
+        self.assertEqual(cleaned, {})
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 
@@ -458,6 +493,30 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_1['value'], 'foo')
         self.assertEqual(filter_1['value_label'], 'foo')
 
+    def test_returns_created_filter(self):
+        query_dict = QueryDict('created=2014-2016')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_date')
+        self.assertEqual(filter_1['key'], 'created')
+        self.assertEqual(filter_1['questiongroup'], 'created')
+        self.assertEqual(filter_1['key_label'], 'Created')
+        self.assertEqual(filter_1['value'], '2014-2016')
+        self.assertEqual(filter_1['value_label'], '2014 - 2016')
+
+    def test_handles_invalid_created_dates(self):
+        query_dict = QueryDict('created=2014')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 0)
+
+    def test_handles_invalid_updated_dates(self):
+        query_dict = QueryDict('updated=foo-bar')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 0)
+
     def test_returns_mixed_filters(self):
         query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
         filters = get_active_filters(self.conf, query_dict)
@@ -476,6 +535,142 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filter_2), 6)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
+
+
+class GetLinkDataTest(TestCase):
+
+    @patch('questionnaire.utils.ConfigurationList')
+    def test_creates_configuration_list(self, mock_ConfigurationList):
+        get_link_data([])
+        mock_ConfigurationList.assert_called_once_with()
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_uses_first_code_if_none_provided(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'foo'
+        link_data = get_link_data([link])
+        self.assertIn('foo', link_data)
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_uses_code_provided(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'faz'
+        link_data = get_link_data([link], link_configuration_code='foo')
+        self.assertIn('foo', link_data)
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_calls_get_link_display(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'foo'
+        get_link_data([link])
+        mock_get_link_display.assert_called_once_with(
+            'foo', 'Unknown name', link.code)
+
+    @patch('questionnaire.utils.get_link_display')
+    def test_return_values(self, mock_get_link_display):
+        link = Mock()
+        link.configurations.first.return_value.code = 'foo'
+        link_data = get_link_data([link])
+        self.assertEqual(link_data, {'foo': [{
+            'code': link.code,
+            'id': link.id,
+            'link': mock_get_link_display.return_value,
+            'name': 'Unknown name',
+        }]})
+
+
+class GetLinkDisplayTest(TestCase):
+
+    @patch('questionnaire.utils.render_to_string')
+    def test_calls_render_to_string(self, mock_render_to_string):
+        get_link_display('configuration', 'name', 'identifier')
+        mock_render_to_string.assert_called_once_with(
+            'configuration/questionnaire/partial/link.html', {
+                'name': 'name',
+                'link_route': 'configuration:questionnaire_details',
+                'questionnaire_identifier': 'identifier',
+            })
+
+    @patch('questionnaire.utils.render_to_string')
+    def test_returns_render_to_string(self, mock_render_to_string):
+        link_display = get_link_display('configuration', 'name', 'identifier')
+        self.assertEqual(link_display, mock_render_to_string.return_value)
+
+
+class QueryQuestionnaireTest(TestCase):
+
+    @patch('questionnaire.utils.get_query_status_filter')
+    @patch('questionnaire.utils.Questionnaire')
+    def test_calls_status_filter(
+            self, mock_Questionnaire, mock_get_query_status_filter):
+        request = Mock()
+        query_questionnaire(request, 'sample')
+        mock_get_query_status_filter.assert_called_once_with(request)
+
+
+class QueryQuestionnairesTest(TestCase):
+
+    fixtures = [
+        'groups_permissions.json', 'sample.json',
+        'sample_questionnaire_status.json']
+
+    @patch('questionnaire.utils.get_query_status_filter')
+    @patch('questionnaire.utils.Questionnaire')
+    def test_calls_status_filter(
+            self, mock_Questionnaire, mock_get_query_status_filter):
+        request = Mock()
+        query_questionnaires(request, 'sample')
+        mock_get_query_status_filter.assert_called_once_with(request)
+
+    def test_public_only_returns_published(self):
+        request = Mock()
+        request.user.is_authenticated.return_value = False
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 2)
+        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[1].id, 3)
+
+    def test_user_sees_his_own_draft_and_pending(self):
+        request = Mock()
+        request.user = User.objects.get(pk=101)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 1)
+
+    def test_user_sees_his_own_draft_and_pending_2(self):
+        request = Mock()
+        request.user = User.objects.get(pk=102)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 2)
+
+    def test_moderator_sees_pending_and_own_drafts(self):
+        request = Mock()
+        request.user = User.objects.get(pk=103)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 7)
+        self.assertEqual(ret[1].id, 6)
+        self.assertEqual(ret[2].id, 3)
+        self.assertEqual(ret[3].id, 2)
+
+    def test_applies_limit(self):
+        request = Mock()
+        request.user.is_authenticated.return_value = False
+        ret = query_questionnaires(request, 'sample', limit=1)
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0].id, 6)
+
+    def test_applies_offset(self):
+        request = Mock()
+        request.user.is_authenticated.return_value = False
+        ret = query_questionnaires(request, 'sample', offset=1)
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0].id, 3)
 
 
 class QueryQuestionnairesForLinkTest(TestCase):
@@ -548,20 +743,15 @@ class QueryQuestionnairesForLinkTest(TestCase):
 
 class GetListValuesTest(TestCase):
 
+    def setUp(self):
+        self.values_length = 10
+        self.es_hits = [{'_id': 1}]
+
     def test_returns_values_from_es_search(self):
-        es_search = {
-            'hits': {
-                'hits': [
-                    {
-                        '_id': 1,
-                    }
-                ]
-            }
-        }
-        ret = get_list_values(es_search=es_search)
+        ret = get_list_values(es_hits=self.es_hits)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
         self.assertEqual(ret_1.get('configurations'), [])
         self.assertEqual(ret_1.get('created', ''), None)
@@ -569,94 +759,215 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), 1)
         self.assertEqual(ret_1.get('translations'), [])
+        self.assertEqual(ret_1.get('code'), '')
+        self.assertEqual(ret_1.get('authors'), [])
+        self.assertEqual(ret_1.get('links'), [])
 
     def test_es_uses_provided_configuration(self):
-        es_search = {
-            'hits': {
-                'hits': [
-                    {
-                        '_id': 1,
-                    }
-                ]
-            }
-        }
-        ret = get_list_values(es_search=es_search, configuration_code='foo')
+        ret = get_list_values(es_hits=self.es_hits, configuration_code='foo')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
     def test_es_wocat_uses_default_configuration(self):
-        es_search = {
-            'hits': {
-                'hits': [
-                    {
-                        '_id': 1,
-                    }
-                ]
-            }
-        }
-        ret = get_list_values(es_search=es_search, configuration_code='wocat')
+        ret = get_list_values(es_hits=self.es_hits, configuration_code='wocat')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
     def test_returns_values_from_database(self):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
+        obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
+        obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         ret = get_list_values(questionnaire_objects=questionnaires)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
-        self.assertEqual(ret_1.get('configurations'), [])
-        self.assertEqual(ret_1.get('created', ''), obj.created)
-        self.assertEqual(ret_1.get('updated', ''), obj.updated)
+        self.assertEqual(ret_1.get('configurations'), ['configuration'])
+        self.assertEqual(ret_1.get('created', ''), 'created')
+        self.assertEqual(ret_1.get('updated', ''), 'updated')
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), obj.id)
         self.assertEqual(ret_1.get('translations'), [])
+        self.assertEqual(ret_1.get('code'), 'code')
+        self.assertEqual(ret_1.get('authors'), ['author'])
+        self.assertEqual(ret_1.get('links'), [])
 
     def test_db_uses_provided_configuration(self):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
+        obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
+        obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         ret = get_list_values(
             questionnaire_objects=questionnaires, configuration_code='foo')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
     def test_db_wocat_uses_default_configuration(self):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
+        obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
+        obj.get_metadata.return_value = get_valid_metadata()
         questionnaires = [obj]
         ret = get_list_values(
             questionnaire_objects=questionnaires, configuration_code='wocat')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), 7)
+        self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
-    @patch('questionnaire.utils.get_or_create_configuration')
-    def test_from_database_calls_get_or_create_configuration(
-            self, mock_get_or_create_configuration):
-        m = Mock()
-        m.get_list_data.return_value = [{}]
-        mock_get_or_create_configuration.return_value = m, {}
-        obj = Mock()
-        obj.configurations.first.return_value = None
-        obj.configurations.all.return_value = []
-        obj.questionnairetranslation_set.all.return_value = []
-        questionnaires = [obj]
-        get_list_values(questionnaire_objects=questionnaires)
-        mock_get_or_create_configuration.assert_called_once_with(
-            'technologies', {})
+
+@patch('questionnaire.utils.messages')
+class HandleReviewActionsTest(TestCase):
+
+    def setUp(self):
+        self.request = Mock()
+        self.request.user = Mock()
+        self.obj = Mock(spec=Questionnaire)
+        self.obj.members.filter.return_value = [self.request.user]
+        self.obj.links.all.return_value = []
+
+    def test_submit_does_not_update_if_previous_status_not_draft(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 3)
+
+    def test_submit_previous_status_not_correct_adds_message(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be submitted because it does not have'
+            ' to correct status.')
+
+    def test_submit_needs_current_user_as_member(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = Mock()
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 1)
+
+    def test_submit_needs_current_user_as_member_adds_error_msg(
+            self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = Mock()
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be submitted because you do not have '
+            'permission to do so.')
+
+    def test_submit_updates_status(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 2)
+
+    def test_submit_adds_message(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'submit': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully submitted.')
+
+    def test_publish_does_not_update_if_previous_status_not_draft(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 3)
+
+    def test_publish_previous_status_not_correct_adds_message(
+            self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because it does not have'
+            ' to correct status.')
+
+    def test_publish_needs_moderator(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'publish': 'foo'}
+        self.request.user = Mock()
+        self.request.user.has_perm.return_value = False
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 2)
+
+    def test_publish_needs_moderator_adds_error_msg(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'publish': 'foo'}
+        self.request.user = Mock()
+        self.request.user.has_perm.return_value = False
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because you do not have '
+            'permission to do so.')
+
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_updates_status(self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 3)
+
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_calls_put_questionnaire_data(
+            self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_put_data.assert_called_once_with('sample', [self.obj])
+
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_calls_put_questionnaire_data_for_all_links(
+            self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
+        mock_link = Mock()
+        self.obj.links.all.return_value = [mock_link]
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(mock_put_data.call_count, 2)
+        call_1 = call('sample', [self.obj])
+        call_2 = call(
+            mock_link.configurations.first.return_value.code, [mock_link])
+        mock_put_data.assert_has_calls([call_1, call_2])
+
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_adds_message(self, mock_put_data, mock_messages):
+        mock_put_data.return_value = None, []
+        self.obj.status = 2
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully published.')

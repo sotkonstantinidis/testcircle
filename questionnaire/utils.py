@@ -1,5 +1,7 @@
 import ast
 from django.conf import settings
+from django.contrib import messages
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.utils.dateparse import parse_datetime
@@ -7,9 +9,13 @@ from django.utils.dateparse import parse_datetime
 from configuration.configuration import (
     QuestionnaireQuestion,
 )
-from configuration.utils import get_or_create_configuration
+from configuration.utils import (
+    ConfigurationList,
+    get_configuration_query_filter,
+)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.models import Questionnaire
+from search.index import put_questionnaire_data
 
 
 def clean_questionnaire_data(data, configuration):
@@ -34,6 +40,7 @@ def clean_questionnaire_data(data, configuration):
         ``list``. A list with errors encountered. Empty if the
         dictionary is valid.
     """
+    # print(data)
     errors = []
     cleaned_data = {}
     try:
@@ -73,10 +80,14 @@ def clean_questionnaire_data(data, configuration):
                     qg_keyword, questiongroup.max_num, len(qg_data_list)))
             continue
         cleaned_qg_list = []
+        ordered_qg = False
         for qg_data in qg_data_list:
             cleaned_qg = {}
             for key, value in qg_data.items():
                 if not value and not isinstance(value, (bool, int)):
+                    continue
+                if key == '__order':
+                    cleaned_qg['__order'] = value
                     continue
                 question = questiongroup.get_question_by_key_keyword(key)
                 if question is None:
@@ -150,7 +161,14 @@ def clean_questionnaire_data(data, configuration):
                 if value or isinstance(value, (bool, int)):
                     cleaned_qg[key] = value
             if cleaned_qg:
+                if len(cleaned_qg) == 1 and '__order' in cleaned_qg:
+                    continue
                 cleaned_qg_list.append(cleaned_qg)
+                if '__order' in cleaned_qg:
+                    ordered_qg = True
+        if ordered_qg is True:
+            cleaned_qg_list = sorted(
+                cleaned_qg_list, key=lambda qg: qg.get('__order', 0))
         if cleaned_qg_list:
             cleaned_data[qg_keyword] = cleaned_qg_list
         if cleaned_qg_list and questiongroup.questiongroup_condition:
@@ -434,6 +452,9 @@ def get_active_filters(questionnaire_configuration, query_dict):
 
     * ``q``: A search term for the full text search (``q=search``)
 
+    * ``created`` or ``updated``: A range of two comma-separated years
+      (``created=2014,2016`` or ``updated=2015,2015``)
+
     All the options can also be combined, such as::
 
         q=search&filter__qg_11__key_14=value_14_1
@@ -481,6 +502,32 @@ def get_active_filters(questionnaire_configuration, query_dict):
                     'questiongroup': '_search',
                 })
             continue
+
+        if filter_param in ['created', 'updated']:
+            years = []
+            for filter_value in filter_values:
+                for y in filter_value.split('-'):
+                    try:
+                        years.append(int(y))
+                    except ValueError:
+                        pass
+            if len(years) != 2:
+                continue
+
+            label = ''
+            if filter_param == 'created':
+                label = _('Created')
+            elif filter_param == 'updated':
+                label = _('Updated')
+
+            active_filters.append({
+                'type': '_date',
+                'key': filter_param,
+                'key_label': label,
+                'value': '-'.join(str(y) for y in sorted(years)),
+                'value_label': ' - '.join(str(y) for y in sorted(years)),
+                'questiongroup': filter_param,
+            })
 
         if not filter_param.startswith('filter__'):
             continue
@@ -539,36 +586,39 @@ def get_link_data(linked_objects, link_configuration_code=None):
               "sample": [
                 {
                   "id": 1,
-                  "display": "This is a link to Questionnaire with ID 1",
-                  "form_display": "Name of Questionnaire with ID 1"
+                  "code": "code_of_questionnaire_with_id_1",
+                  "name": "Name of Questionnaire with ID 1",
                 }
               ]
             }
     """
-    link_configurations = {}
+    configuration_list = ConfigurationList()
     links = {}
     for link in linked_objects:
         if link_configuration_code is None:
-            # TODO: This does not handle questionnaires with multiple
-            # configurations correctly
             link_configuration_code = link.configurations.first().code
-        link_configuration, link_configurations = get_or_create_configuration(
-            link_configuration_code, link_configurations)
-        link_display = get_link_display(link, link_configuration)
+        link_configuration = configuration_list.get(link_configuration_code)
+
+        name_data = link_configuration.get_questionnaire_name(link.data)
+        try:
+            original_lang = link.questionnairetranslation_set.first().language
+        except AttributeError:
+            original_lang = None
+        name = name_data.get(get_language(), name_data.get(original_lang, ''))
+
         link_list = links.get(link_configuration_code, [])
-        link_name = link_configuration.get_questionnaire_name(
-            get_questionnaire_data_in_single_language(
-                link.data, get_language()))
         link_list.append({
             'id': link.id,
-            'display': link_display,
-            'form_display': link_name,
+            'code': link.code,
+            'name': name,
+            'link': get_link_display(link_configuration_code, name, link.code)
         })
         links[link_configuration_code] = link_list
+
     return links
 
 
-def get_link_display(link_object, link_configuration):
+def get_link_display(configuration_code, name, identifier):
     """
     Return the representation of a linked questionnaire used for display
     of the link. The display representation is the rendered template (
@@ -587,15 +637,114 @@ def get_link_display(link_object, link_configuration):
         ``str``. The display representation of the link as rendered
         HTML.
     """
-    link_data = link_configuration.get_list_data([link_object.data])
     link_template = '{}/questionnaire/partial/link.html'.format(
-        link_configuration.keyword)
-    link_route = '{}:questionnaire_details'.format(link_configuration.keyword)
+        configuration_code)
+    link_route = '{}:questionnaire_details'.format(configuration_code)
     return render_to_string(link_template, {
-        'link_data': link_data[0],
+        'name': name,
         'link_route': link_route,
-        'id': link_object.id,
+        'questionnaire_identifier': identifier,
     })
+
+
+def query_questionnaire(request, identifier):
+    """
+    Query and return a single Questionnaire.
+
+    .. important::
+        Note that this may return multiple Questionnaire objects, as
+        there may be multiple versions for the same identifier.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``identifier`` (str): The identifier of the Questionnaire.
+
+    Returns:
+        ``django.db.models.query.QuerySet``. The queried
+        Questionnaire(s).
+    """
+    status_filter = get_query_status_filter(request)
+
+    return Questionnaire.objects.filter(code=identifier).filter(status_filter)
+
+
+def query_questionnaires(
+        request, configuration_code, only_current=False, limit=10, offset=0):
+    """
+    Query and return many Questionnaires.
+
+    .. seealso::
+        :func:`get_query_status_filter` for the status filters applied.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+    Kwargs:
+        ``only_current`` (bool): A boolean indicating whether to include
+        only questionnaires from the current configuration.
+
+        ``limit`` (int): The limit of results the query will return.
+
+        ``offset`` (int): The offset of the results of the query.
+
+    Returns:
+        ``django.db.models.query.QuerySet``. The queried Questionnaires.
+    """
+    status_filter = get_query_status_filter(request)
+
+    query = Questionnaire.objects.filter(
+        get_configuration_query_filter(
+            configuration_code, only_current=only_current)).filter(
+                status_filter).distinct()
+
+    if limit is not None:
+        return query[offset:offset+limit]
+
+    return query
+
+
+def get_query_status_filter(request):
+    """
+    Creates a filter object based on the statii of the Questionnaires,
+    to be used for database queries.
+
+    The following status filters are applied:
+
+    * Not logged in users always only see "published" Questionnaires.
+
+    * Moderators see all "pending" and "published" Questionnaires.
+
+    * Logged in users see all "published", as well as their own "draft"
+    and "pending" Questionnaires.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``django.db.models.Q``. A Django filter object.
+    """
+    # Public always only sees "published"
+    status_filter = Q(status=3)
+
+    # Logged in users ...
+    if request.user.is_authenticated():
+
+        # ... see all "pending" and "published" if they are moderators,
+        # along with their own "draft"
+        if request.user.has_perm('questionnaire.can_moderate'):
+            status_filter = (
+                Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
+
+        # ... see "published" and their own "draft" and "pending".
+        else:
+            status_filter = (
+                Q(status=3) | (Q(members=request.user) & Q(status__in=[1, 2])))
+
+    return status_filter
 
 
 def query_questionnaires_for_link(configuration, q, limit=10):
@@ -662,7 +811,8 @@ def query_questionnaires_for_link(configuration, q, limit=10):
 
 
 def get_list_values(
-        configuration_code=None, es_search={}, questionnaire_objects=[]):
+        configuration_code=None, es_hits=[], questionnaire_objects=[],
+        with_links=True):
     """
     Retrieves and prepares data to be used in a list representation.
     Either handles a list of questionnaires retrieved from the database
@@ -685,6 +835,13 @@ def get_list_values(
         :class:`questionnaire.models.Questionnaire` models retrieved
         from the database.
 
+        ``with_links`` (bool): A boolean indicating whether to return
+        link data for the questionnaires or not. By default, for
+        ``questionnaire_objects`` link data is queried from the
+        database. If you do not want to query and display this
+        information (eg. when displaying the links of a single
+        questionnaire in the details page), set this to ``False``.
+
     Returns:
         ``list``. A list of dictionaries containing the values needed
         for the list representation of Questionnaires. Along the values
@@ -693,7 +850,7 @@ def get_list_values(
     """
     list_entries = []
 
-    for result in es_search.get('hits', {}).get('hits', []):
+    for result in es_hits:
         # Results from Elasticsearch. List values are already available.
 
         # Fall back to the original configuration if viewed from "wocat"
@@ -726,6 +883,7 @@ def get_list_values(
         configurations = source.get('configurations', [])
 
         template_value.update({
+            'links': source.get('links', {}).get(get_language(), []),
             'configuration': current_configuration_code,  # Used for rendering
             'id': result.get('_id'),
             'configurations': configurations,
@@ -736,10 +894,12 @@ def get_list_values(
             'updated': parse_datetime(
                 source.get('updated', '')),
             'translations': translations,
+            'code': source.get('code', ''),
+            'authors': source.get('authors', []),
         })
         list_entries.append(template_value)
 
-    questionnaire_configurations = {}
+    configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
         # Results from database query. List values have to be retrieved
         # through the configuration of the questionnaires.
@@ -755,15 +915,16 @@ def get_list_values(
         else:
             current_configuration_code = configuration_code
 
-        questionnaire_configuration, questionnaire_configurations = \
-            get_or_create_configuration(
-                current_configuration_code, questionnaire_configurations)
+        questionnaire_configuration = configuration_list.get(
+            current_configuration_code)
 
         template_value = questionnaire_configuration.get_list_data(
             [obj.data])[0]
 
-        translations = [
-            t.language for t in obj.questionnairetranslation_set.all()]
+        metadata = obj.get_metadata()
+        template_value.update(metadata)
+
+        translations = metadata.get('translations', [])
         if len(translations) == 0:
             translations = ['en']
         original_lang = translations[0]
@@ -779,18 +940,103 @@ def get_list_values(
                 template_value[key] = value.get(
                     get_language(), value.get(original_lang))
 
-        configurations = [conf.code for conf in obj.configurations.all()]
+        links = []
+        if with_links is True:
+            link_data = get_link_data(obj.links.all())
+            for configuration, link_dicts in link_data.items():
+                links.extend([link.get('link') for link in link_dicts])
 
         template_value.update({
+            'links': links,
             'configuration': current_configuration_code,  # Used for rendering
             'id': obj.id,
-            'configurations': configurations,
             'native_configuration': current_configuration_code in
-            configurations,
-            'created': obj.created,
-            'updated': obj.updated,
+            metadata.get('configurations', []),
             'translations': translations,
         })
         list_entries.append(template_value)
 
     return list_entries
+
+
+def handle_review_actions(request, questionnaire_object, configuration_code):
+    """
+    Handle review and form submission actions. Updates the Questionnaire
+    object and adds a message.
+
+    * "draft" Questionnaires can be submitted, sets them "pending".
+
+    * "pending" Questionnaires can be published, sets them "published".
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``questionnaire_object`` (questionnaire.models.Questionnaire):
+        The Questionnaire object to update.
+
+        ``configuration_code`` (string): The code of the current
+        configuration. This is used when publishing a Questionnaire, in
+        order to add it to Elasticsearch.
+    """
+    if request.POST.get('submit'):
+
+        # Previous status must be "draft"
+        if questionnaire_object.status != 1:
+            messages.error(
+                request, 'The questionnaire could not be submitted because it '
+                'does not have to correct status.')
+            return
+
+        # Current user must be the author of the questionnaire
+        if request.user not in questionnaire_object.members.filter(
+                questionnairemembership__role='author'):
+            messages.error(
+                request, 'The questionnaire could not be submitted because you'
+                ' do not have permission to do so.')
+            return
+
+        questionnaire_object.status = 2
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully submitted.'))
+
+    elif request.POST.get('publish'):
+
+        # Previous status must be "pending"
+        if questionnaire_object.status != 2:
+            messages.error(
+                request, 'The questionnaire could not be published because it '
+                'does not have to correct status.')
+            return
+
+        # Current user must be a moderator
+        if not request.user.has_perm('questionnaire.can_moderate'):
+            messages.error(
+                request, 'The questionnaire could not be published because you'
+                ' do not have permission to do so.')
+            return
+
+        questionnaire_object.status = 3
+        questionnaire_object.save()
+
+        added, errors = put_questionnaire_data(
+            configuration_code, [questionnaire_object])
+
+        # It is important to also put the data of the linked
+        # questionnaires so changes (eg. name change) appear in their
+        # links.
+        links_by_configuration = {}
+        for link in questionnaire_object.links.all():
+            configuration_object = link.configurations.first()
+            if configuration_object is None:
+                continue
+            if configuration_object.code not in links_by_configuration:
+                links_by_configuration[configuration_object.code] = []
+            links_by_configuration[configuration_object.code].append(link)
+
+        for link_configuration, links in links_by_configuration.items():
+            added, errors = put_questionnaire_data(link_configuration, links)
+
+        messages.success(
+            request, _('The questionnaire was successfully published.'))

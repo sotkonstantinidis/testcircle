@@ -4,13 +4,12 @@
 
   Required attributes:
 
-  - link_data (data dictionary)
+  - name (name of the questionnaire)
   - link_route (name of route to details of questionnaire)
-  - id (id of the questionnaire)
+  - questionnaire_identifier (identifier of the questionnaire)
 
 {% endcomment %}
 
 {% load i18n %}
-{% load list_to_columns %}
 
-<strong>[{% trans "SAMPLEMULTI" %}]</strong> <a href="{% url link_route id %}">{{ link_data.mkey_01|get_by_keyword:'en' }}</a>
+<strong>[{% trans "SAMPLEMULTI" %}]</strong> <a href="{% url link_route questionnaire_identifier %}">{{ name }}</a>

@@ -1,7 +1,9 @@
+import random
+import string
+
 from django.db.models import Q
-from configuration.configuration import (
-    QuestionnaireConfiguration,
-)
+from configuration.cache import get_configuration
+from questionnaire.models import Questionnaire
 
 
 def get_configuration_query_filter(configuration, only_current=False):
@@ -77,19 +79,52 @@ def get_configuration_index_filter(configuration, only_current=False):
     return [configuration]
 
 
-def get_or_create_configuration(code, configurations):
+class ConfigurationList(object):
     """
-    Check if a given QuestionnaireConfiguration already exists in the
-    provided dictionary and return it along with the dictionary if
-    found. If it does not yet exist, create a QuestionnaireConfiguration
-    with the given code, add it to dictionary and return both of them.
+    Helper object to keep track of QuestionnaireConfiguration objects.
+    Check if a given configuration already exists and returns it if so.
+    If not, it is created and added to the internal list. This prevents
+    having to create a new configuration every time when looping objects
+    of mixed configurations.
+    """
+    def __init__(self):
+        self.configurations = {}
+
+    def get(self, code):
+        configuration = self.configurations.get(code)
+        if configuration is None:
+            configuration = get_configuration(code)
+            self.configurations[code] = configuration
+        return configuration
+
+
+def create_new_code(configuration, questionnaire_data):
+    """
+    Create a new and non-existent code for a Questionnaire based on the
+    configuration.
+
+    TODO: This function is currently very limited, needs improvement.
 
     Args:
-        ``code`` (str): The code of the QuestionnaireConfiguration.
+        ``configuration`` (str): The code of the configuration.
 
-        ``configurations`` (dict): A dictionary with existing
-        QuestionnaireConfigurations with their code as keys.
+        ``questionnaire_data`` (dict): The data dictionary of the
+        Questionnaire object.
+
+    Returns:
+        ``str``. A new and non-existent code.
     """
-    configuration = configurations.get(code, QuestionnaireConfiguration(code))
-    configurations[code] = configuration
-    return configuration, configurations
+    def random_code(configuration):
+        """
+        Recursive helper function to create a random non-existent code.
+        """
+        code = '{}_{}'.format(
+            configuration, ''.join(random.SystemRandom().choice(
+                string.ascii_uppercase + string.digits) for _ in range(3)))
+        if Questionnaire.objects.filter(code=code).count() != 0:
+            return random_code(configuration)
+        return code
+    code = '{}_{}'.format(configuration, Questionnaire.objects.count())
+    if Questionnaire.objects.filter(code=code).count() != 0:
+        code = random_code(configuration)
+    return code

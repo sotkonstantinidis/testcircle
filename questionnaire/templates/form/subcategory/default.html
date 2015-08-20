@@ -7,9 +7,14 @@
   {% endfor %}
 {% else %}
   <fieldset class="row">
-    <legend>{{ config.label }}</legend>
+    <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
+
+    {% if config.helptext %}
+      <div class="help-bloc">{{ config.helptext|safe }}</div>
+    {% endif %}
+
     {% for questiongroup_config, questiongroup_formset in formsets %}
-        {% form form using "form/questiongroup.html" with config=questiongroup_config formset=questiongroup_formset %}
+        {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
     {% endfor %}
   </fieldset>
 {% endif %}

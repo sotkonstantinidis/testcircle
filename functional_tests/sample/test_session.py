@@ -28,7 +28,8 @@ class SessionTest(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
-            sample_route_questionnaire_new_step, args=['cat_1']))
+            sample_route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She enters something as first key
         key_1 = self.findBy('name', 'qg_1-0-original_key_1')
@@ -52,7 +53,8 @@ class SessionTest(FunctionalTest):
 
         # She goes to a step of the sample questionnaire
         self.browser.get(self.live_server_url + reverse(
-            sample_route_questionnaire_new_step, args=['cat_1']))
+            sample_route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
         # She enters something as first key
         key_1 = self.findBy('name', 'qg_1-0-original_key_1')
@@ -68,7 +70,8 @@ class SessionTest(FunctionalTest):
         # She goes to a step of the unccd questionnaire
         self.browser.get(self.live_server_url + reverse(
             unccd_route_questionnaire_new_step,
-            args=['unccd_0_general_information']))
+            kwargs={
+                'identifier': 'new', 'step': 'unccd_0_general_information'}))
 
         # She enters something as first key
         key_1 = self.findBy('name', 'qg_name-0-original_name')

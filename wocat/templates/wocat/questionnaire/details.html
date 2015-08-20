@@ -31,18 +31,28 @@
         {{ section }}
       {% endfor %}
       {% if links or mode == 'edit' %}
-        <section class="row">
+        <section id="links" class="tech-section row is-rhythmed-2" data-magellan-destination="links">
           <a name="links"></a>
-          <div class="medium-9 columns">
-            <h2>{% trans "Linked Questionnaires" %}</h2>
-            {% for link in links %}
-              <p>{{ link }}</p>
-            {% endfor %}
-          </div>
-          <div class="medium-3 columns">
           {% if mode == 'edit' %}
-              <a href="{% url 'wocat:questionnaire_link_form' %}" class="button is-wocat right">{% trans "Edit links" %}</a>
-            {% endif %}
+            <div class="medium-9 columns">
+              <h2>{% trans "Linked Questionnaires" %}</h2>
+            </div>
+            <div class="medium-3 columns">
+              <a href="{% url 'wocat:questionnaire_link_form' questionnaire_identifier %}" class="button is-wocat right">{% trans "Edit links" %}</a>
+            </div>
+          {% else %}
+            <div class="medium-12 columns">
+              <h2>{% trans "Linked Questionnaires" %}</h2>
+            </div>
+          {% endif %}
+          <div class="small-12 columns output">
+            {% for configuration, list_values in links.items %}
+              {% for list_entry in list_values %}
+                {% with configuration=configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
+                  {% include configuration with item=list_entry %}
+                {% endwith %}
+              {% endfor %}
+            {% endfor %}
           </div>
         </section>
       {% endif %}
@@ -51,10 +61,10 @@
           {% if mode == 'edit' %}
             <form action="" method="POST">
               {% csrf_token %}
-              <input id="button-submit" class="button" type="submit" value="{% trans "Submit" %}">
+              <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}">
             </form>
           {% else %}
-            <a href="{% url 'wocat:questionnaire_edit' questionnaire_id %}" class="button">{% trans "Edit" %}</a>
+
           {% endif %}
         </div>
       </section>

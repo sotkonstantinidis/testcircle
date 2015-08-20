@@ -26,7 +26,7 @@ The basic format of the configuration is as follows::
     "keyword": "CAT_KEYWORD",
 
     # (optional)
-    "view_template": "VIEW_TEMPLATE",
+    "view_options": {},
 
     # (optional)
     "use_raw_data": true,
@@ -36,6 +36,9 @@ The basic format of the configuration is as follows::
 
     # (optional)
     "include_toc": true,
+
+    # (optional)
+    "additional_data": {},
 
     # A list of subcategories.
     "subcategories": [
@@ -61,14 +64,11 @@ The basic format of the configuration is as follows::
 The keyword of the category.
 
 
-``view_template``
-^^^^^^^^^^^^^^^^^
+``view_options``
+^^^^^^^^^^^^^^^^
 
-(Optional). An optional name of a template to be used for the rendering
-of the category details. The name of the template needs to match a file
-with the ending ``.html`` inside
-``questionnaire/templates/details/category/``. If not specified, the
-default layout (``default.html``) for the category is used.
+(Optional). An optional object containing configuration options for the
+view representation of the category.
 
 
 ``use_raw_data``
@@ -96,6 +96,19 @@ of the current Questionnaire to the template or not. Defaults to ``False``.
 (Optional). An optional boolean indicating whether to add a table of
 contents to the current category or not. The ToC is rendered at the top
 of the category. Defaults to ``False``.
+
+
+``additional_data``
+^^^^^^^^^^^^^^^^^^^
+
+(Optional). An optional object containing the keywords of questiongroups
+and questions from which additional data is to be collected.
+
+Example::
+
+  {
+    "qg_1": ["key_1"]
+  }
 
 
 ``subcategories``

@@ -1,11 +1,12 @@
 [
 {
-    "pk": 1,
+    "pk": 2365,
     "model": "accounts.user",
     "fields": {
         "groups": [
             1,
-            2
+            2,
+            3
         ],
         "date_joined": "2015-01-13T08:24:26.031Z",
         "is_superuser": true,
@@ -13,7 +14,8 @@
         "user_permissions": [],
         "password": "",
         "email": "lukas.vonlanthen@cde.unibe.ch",
-        "name": "Lukas Vonlanthen"
+        "firstname": "Lukas",
+        "lastname": "Vonlanthen"
     }
 }
 ]

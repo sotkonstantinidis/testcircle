@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
@@ -24,7 +26,42 @@ def home(request):
 
 
 @login_required
-def questionnaire_new_step(request, step, questionnaire_id=None):
+def unccd_data_import(request):
+    """
+    Call the script for the UNCCD import. This assumes there is a module
+    "unccd.data_import" with a function "data_import".
+
+    Redirects to the administration interface to display a success or
+    error message.
+    """
+    if request.user.is_superuser is not True:
+        raise PermissionDenied()
+
+    redirect_route = 'search:admin'
+
+    try:
+        from .data_import import data_import
+    except ImportError:
+        messages.error(
+            request, 'No import function found. Make sure there is a function '
+            '"data_import" in module "unccd.data_import".')
+        return redirect(redirect_route)
+
+    success, objects = data_import()
+
+    if success is True:
+        messages.success(
+            request, 'The data was parsed correctly. {} questionnaires were '
+            'inserted.'.format(len(objects)))
+    else:
+        messages.error(
+            request, 'The following error(s) occured: {}'.format(objects))
+
+    return redirect(redirect_route)
+
+
+@login_required
+def questionnaire_new_step(request, identifier, step):
     """
     View to show the form of a single step of a new UNCCD questionnaire.
     Also handles the form submit of the step along with its validation
@@ -38,17 +75,21 @@ def questionnaire_new_step(request, step, questionnaire_id=None):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
+
         ``step`` (str): The code of the questionnaire category.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new_step(
-        request, step, 'unccd', 'unccd', page_title=_('UNCCD Form'))
+        request, step, 'unccd', 'unccd', page_title=_('UNCCD Form'),
+        identifier=identifier)
 
 
 @login_required
-def questionnaire_new(request, questionnaire_id=None):
+def questionnaire_new(request, identifier=None):
     """
     View to show the overview of a new or edited UNCCD questionnaire.
     Also handles the form submit of the entire questionnaire.
@@ -61,15 +102,19 @@ def questionnaire_new(request, questionnaire_id=None):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+    Kwargs:
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
+
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_new(
         request, 'unccd', 'unccd/questionnaire/details.html', 'unccd',
-        questionnaire_id=questionnaire_id)
+        identifier=identifier)
 
 
-def questionnaire_details(request, questionnaire_id):
+def questionnaire_details(request, identifier):
     """
     View to show the details of an existing UNCCD questionnaire.
 
@@ -81,13 +126,15 @@ def questionnaire_details(request, questionnaire_id):
     Args:
         ``request`` (django.http.HttpResponse): The request object.
 
-        ``questionnaire_id`` (int): The id of the questionnaire.
+        ``identifier`` (str): The identifier of the Questionnaire
+        object.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, questionnaire_id, 'unccd', 'unccd/questionnaire/details.html')
+        request, identifier, 'unccd', 'unccd',
+        'unccd/questionnaire/details.html')
 
 
 def questionnaire_list_partial(request):
@@ -116,11 +163,13 @@ def questionnaire_list_partial(request):
         'list_values': list_values['list_values']})
     active_filters = render_to_string('active_filters.html', {
         'active_filters': list_values['active_filters']})
+    pagination = render_to_string('pagination.html', list_values)
 
     ret = {
         'success': True,
         'list': list_,
         'active_filters': active_filters,
+        'pagination': pagination,
     }
 
     return JsonResponse(ret)

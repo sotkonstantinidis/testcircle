@@ -5,7 +5,6 @@ from unittest.mock import patch, Mock
 from accounts.tests.test_authentication import (
     create_new_user,
 )
-from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from unccd.views import (
     home,
@@ -26,18 +25,18 @@ route_questionnaire_new_step = 'unccd:questionnaire_new_step'
 
 def get_valid_new_step_values():
     args = (get_categories()[0][0], 'unccd', 'unccd')
-    kwargs = {'page_title': 'UNCCD Form'}
+    kwargs = {'page_title': 'UNCCD Form', 'identifier': 'new'}
     return args, kwargs
 
 
 def get_valid_new_values():
     args = ('unccd', 'unccd/questionnaire/details.html', 'unccd')
-    kwargs = {'questionnaire_id': None}
+    kwargs = {'identifier': None}
     return args, kwargs
 
 
 def get_valid_details_values():
-    return (1, 'unccd', 'unccd/questionnaire/details.html')
+    return ('foo', 'unccd', 'unccd', 'unccd/questionnaire/details.html')
 
 
 def get_valid_list_values():
@@ -59,6 +58,7 @@ def get_categories():
         ('unccd_5_impact', 'Section 5: ...'),
         ('unccd_6_adoption_replicability', 'Section 6: ...'),
         ('unccd_7_lessons_learned', 'Section 7: ...'),
+        ('unccd_8_questions_leg1', 'Section 8: ...'),
     )
 
 
@@ -116,7 +116,8 @@ class QuestionnaireNewStepTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.url = reverse(
-            route_questionnaire_new_step, args=[get_categories()[0][0]])
+            route_questionnaire_new_step, kwargs={
+                'identifier': 'new', 'step': get_categories()[0][0]})
 
     def test_questionnaire_new_step_login_required(self):
         res = self.client.get(self.url, follow=True)
@@ -125,7 +126,8 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        res = questionnaire_new_step(request, step=get_categories()[0][0])
+        res = questionnaire_new_step(
+            request, identifier='new', step=get_categories()[0][0])
         self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
@@ -133,7 +135,8 @@ class QuestionnaireNewStepTest(TestCase):
     def test_calls_generic_function(self, mock_questionnaire_new_step):
         request = self.factory.get(self.url)
         request.user = create_new_user()
-        questionnaire_new_step(request, get_categories()[0][0])
+        questionnaire_new_step(
+            request, identifier='new', step=get_categories()[0][0])
         mock_questionnaire_new_step.assert_called_once_with(
             request, *get_valid_new_step_values()[0],
             **get_valid_new_step_values()[1])
@@ -146,7 +149,8 @@ class QuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_details, args=[201])
+        self.url = reverse(
+            route_questionnaire_details, kwargs={'identifier': 'unccd_1'})
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
@@ -156,7 +160,7 @@ class QuestionnaireDetailsTest(TestCase):
     @patch('unccd.views.generic_questionnaire_details')
     def test_calls_generic_function(self, mock_questionnaire_details):
         request = self.factory.get(self.url)
-        questionnaire_details(request, 1)
+        questionnaire_details(request, 'foo')
         mock_questionnaire_details.assert_called_once_with(
             request, *get_valid_details_values())
 
@@ -200,6 +204,15 @@ class QuestionnaireListPartialTest(TestCase):
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'active_filters.html', {'active_filters': 'bar'})
+
+    @patch('unccd.views.render_to_string')
+    @patch('unccd.views.generic_questionnaire_list')
+    def test_calls_render_to_string_with_pagination(
+            self, mock_questionnaire_list, mock_render_to_string):
+        mock_render_to_string.return_value = ''
+        self.client.get(self.url)
+        mock_render_to_string.assert_any_call(
+            'pagination.html', mock_questionnaire_list.return_value)
 
 
 class QuestionnaireListTest(TestCase):

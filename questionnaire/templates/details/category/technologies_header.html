@@ -1,28 +1,38 @@
 {% load i18n %}
 
-  <section id="{{ keyword }}" class="tech-section row is-rhythmed-4" data-magellan-destination="{{ keyword }}">
+  <section id="{{ keyword }}" class="row" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
 
     <header class="tech-output-header medium-7 columns">
-      <span class="label tech-status label is-draft">Draft</span>
-      <h1 class="tech-output-title">{{ raw_data.name|default:"" }}</h1>
-      <p class="tech-output-header-info clearfix"><span class="is-muted left">[ID] - {{ raw_data.country|default:"" }}</span></p>
-      <p class="is-large">{{ raw_data.wocat_definition|default:"" }}</p>
-      <p class="is-large">{{ raw_data.wocat_description|default:"" }}</p>
+      <div class="tech-status">
+        {% if metadata.configurations.0 %}
+          <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
+        {% endif %}
+        {% if metadata.status.0 and metadata.status.0 != 'published' %}
+          <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
+        {% endif %}
+      </div>
+      <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
+        <p class="is-large subheader">{{ raw_data.name_local|linebreaksbr|default:"" }}</p>
+        <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
     </header>
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
       <ul class="tech-output-infos">
         <li>
           <span class="is-muted">{% trans "Creation:" %}</span>
-          <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT" }}</time>
+          <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
         </li>
         <li>
           <span class="is-muted">{% trans "Update:" %}</span>
-          <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT" }}</time>
+          <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
         </li>
         <li>
-          <span class="is-muted">Author:</span>
-          <a rel="author" href="#" class="link">[Author]</a>
+          <span class="is-muted">{% if metadata.authors|length > 1 %}{% trans "Authors:" %}{% else %}{% trans "Author:" %}{% endif %}</span>
+          {% for author in metadata.authors %}
+            <a rel="author" href="#" class="link">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
+          {% empty %}
+            &ndash;
+          {% endfor %}
         </li>
       </ul>
     </aside>
@@ -36,7 +46,7 @@
         </div>
       </div>
       <div class="medium-3 columns">
-        <a class="button is-wocat right" data-toggle-boolean="section_one" href="{% url edit_step_route keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
+        <a class="button is-technologies right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
       </div>
     {% endif %}
   </section>
