@@ -5,6 +5,7 @@ from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, get_language
+from django.utils import timezone
 from django_pgjson.fields import JsonBField
 from itertools import chain
 
@@ -39,8 +40,8 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(default=timezone.now)
+    updated = models.DateTimeField(default=timezone.now)
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
     blocked = models.BooleanField(default=False)
@@ -66,7 +67,8 @@ class Questionnaire(models.Model):
 
     @staticmethod
     def create_new(
-            configuration_code, data, user, previous_version=None, status=1):
+            configuration_code, data, user, previous_version=None, status=1,
+            created=None, updated=None):
         """
         Create and return a new Questionnaire.
 
@@ -83,6 +85,12 @@ class Questionnaire(models.Model):
 
             ``status`` (int): The status of the questionnaire to be
             created. Defaults to 1 (draft) if not set.
+
+            ``created`` (datetime): A specific datetime object to be set
+            as created timestamp. Defaults to ``now`` if not set.
+
+            ``updated`` (datetime): A specific datetime object to be set
+            as updated timestamp. Defaults to ``now`` if not set.
 
         Returns:
             ``questionnaire.models.Questionnaire``. The created
@@ -118,6 +126,10 @@ class Questionnaire(models.Model):
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
             data=data, code=code, version=version, status=status)
+        if created is not None:
+            questionnaire.created = created
+        if updated is not None:
+            questionnaire.updated = updated
 
         # TODO: Not all configurations should be the original ones!
         QuestionnaireConfiguration.objects.create(

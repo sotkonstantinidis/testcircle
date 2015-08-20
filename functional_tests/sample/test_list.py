@@ -378,11 +378,11 @@ class ListTest(FunctionalTest):
         creation = self.findBy(
             'xpath', '{}//dl/dt[text()="Creation:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(creation.text, '02/13/2015 5:08 p.m.')
+        self.assertEqual(creation.text, '02/13/2014 5:08 p.m.')
         update = self.findBy(
             'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(update.text, '02/13/2015 5:08 p.m.')
+        self.assertEqual(update.text, '02/13/2014 5:08 p.m.')
         author = self.findBy(
             'xpath', '{}//dl/dt[text()="Author:"]/following::dd[1]'.format(
                 entry_xpath))
@@ -412,11 +412,11 @@ class ListTest(FunctionalTest):
         creation = self.findBy(
             'xpath', '{}//dl/dt[text()="Creation:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(creation.text, '02/13/2015 5:08 p.m.')
+        self.assertEqual(creation.text, '02/13/2014 5:08 p.m.')
         update = self.findBy(
             'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(update.text, '02/13/2015 5:08 p.m.')
+        self.assertEqual(update.text, '02/13/2014 5:08 p.m.')
         author = self.findBy(
             'xpath', '{}//dl/dt[text()="Author:"]/following::dd[1]'.format(
                 entry_xpath))

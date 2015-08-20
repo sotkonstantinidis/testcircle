@@ -609,7 +609,7 @@ class QuestionnaireTest(FunctionalTest):
         # She sees the values were submitted with linebreaks
         self.findBy('xpath', '//h3[contains(text(), "Key 2")]')
         details = self.findBy('xpath', '//p[contains(text(), "asdf")]')
-        self.assertEqual(details.text, 'asdf\nasdf')
+        self.assertEqual(details.text, 'asdf asdf')
 
         self.findBy('id', 'button-submit').click()
 

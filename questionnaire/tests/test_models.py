@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import activate
 from unittest.mock import patch
@@ -74,14 +75,24 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user)
         self.assertEqual(questionnaire.data, {})
 
-    def test_create_new_sets_default_status(self):
+    def test_create_new_sets_status(self):
         questionnaire = Questionnaire.create_new(
             configuration_code='sample', data={}, user=self.user, status=2)
         self.assertEqual(questionnaire.status, 2)
 
-    def test_create_new_sets_status(self):
+    def test_create_new_sets_default_status(self):
         questionnaire = get_valid_questionnaire(self.user)
         self.assertEqual(questionnaire.status, 1)
+
+    def test_create_new_sets_default_created(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        self.assertIsNotNone(questionnaire.created)
+
+    def test_create_new_sets_created(self):
+        date = datetime.now()
+        questionnaire = Questionnaire.create_new(
+            configuration_code='sample', data={}, user=self.user, created=date)
+        self.assertEqual(questionnaire.created, date)
 
     def test_previous_version_only_allows_certain_status(self):
         previous = Questionnaire(status=2)

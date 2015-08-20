@@ -1,6 +1,6 @@
 {% if value %}
   <div class="row tech-item-inline">
-    <div class="medium-3 columns"><h5>{{ key }}:</h5></div>
-    <div class="medium-9 columns"><p>{{ value|linebreaksbr }}</p></div>
+    <div class="medium-3 columns"><h5>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h5></div>
+    <div class="medium-9 columns"><p>{{ value|safe }}</p></div>
   </div>
 {% endif %}

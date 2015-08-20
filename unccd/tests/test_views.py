@@ -58,6 +58,7 @@ def get_categories():
         ('unccd_5_impact', 'Section 5: ...'),
         ('unccd_6_adoption_replicability', 'Section 6: ...'),
         ('unccd_7_lessons_learned', 'Section 7: ...'),
+        ('unccd_8_questions_leg1', 'Section 8: ...'),
     )
 
 
