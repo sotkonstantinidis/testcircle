@@ -11,9 +11,7 @@
   <fieldset class="row">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
     {% for questiongroup_config, questiongroup_formset in formsets %}
-      {% if questiongroup_config.helptext %}
-        <div class="help-bloc">{{ questiongroup_config.helptext|safe }}</div>
-      {% endif %}
+      {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
       {% if questiongroup_config.keyword == 'tech_qg_41' or questiongroup_config.keyword == 'tech_qg_50' %}
         {% form form using "form/questiongroup.html" with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}

@@ -254,6 +254,22 @@ $(function() {
     }
   })
 
+  // Helptext: Toggle buttons (Show More / Show Less)
+  .on('click', '.help-toggle-more', function(e) {
+    var more = $(this).siblings('.help-content-more');
+    var first = $(this).siblings('.help-content-first');
+    if (more.is(':visible')) {
+      // Hide "More"
+      $(this).html($(this).data('text-more'));
+      more.slideToggle(400, function() { first.toggle(); });
+    } else {
+      // Show "More"
+      $(this).html($(this).data('text-first'));
+      more.slideToggle();
+      first.toggle();
+    }
+  })
+
   // BUTTON BAR
   // -----------------
   // Button bar select line

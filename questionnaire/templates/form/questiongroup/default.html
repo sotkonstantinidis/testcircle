@@ -27,9 +27,7 @@
     <h4>{{ config.label }}</h4>
   {% endif %}
 
-  {% if config.helptext %}
-    <div class="help-bloc">{{ config.helptext|safe }}</div>
-  {% endif %}
+  {% include "form/helptext.html" with helptext=config.helptext %}
 
   {{ formset.management_form }}
 

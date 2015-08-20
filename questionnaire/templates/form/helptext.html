@@ -1,0 +1,14 @@
+{% if helptext %}
+  {% load i18n %}
+  <div class="help-bloc">
+    <div class="help-content-first">
+      {{ helptext|truncatewords_html:20|safe }}
+    </div>
+    {% if helptext|truncatewords_html:20|safe != helptext|safe %}
+      <div class="help-content-more" style="display: none;">
+        {{ helptext|safe }}
+      </div>
+      <a class="help-toggle-more button small" data-text-more="{% trans 'See More' %}" data-text-first="{% trans 'See Less' %}">{% trans 'See More' %}</a>
+    {% endif %}
+  </div>
+{% endif %}
