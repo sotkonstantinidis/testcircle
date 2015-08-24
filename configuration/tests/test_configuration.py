@@ -17,7 +17,6 @@ from qcat.errors import (
     ConfigurationErrorInvalidQuestiongroupCondition,
     ConfigurationErrorNoConfigurationFound,
     ConfigurationErrorNotInDatabase,
-    ConfigurationErrorTemplateNotFound,
 )
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
@@ -41,7 +40,8 @@ class QuestionnaireConfigurationTest(TestCase):
 
 class QuestionnaireConfigurationGetListDataTest(TestCase):
 
-    fixtures = ['sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'global_key_values.json', 'sample.json', 'sample_questionnaires.json']
 
     def test_returns_list(self):
         questionnaires = Questionnaire.objects.all()

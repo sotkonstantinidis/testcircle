@@ -873,6 +873,174 @@ class ListTest(FunctionalTest):
             self.browser.current_url, '{}?'.format(
                 self.live_server_url + reverse(route_questionnaire_list)))
 
+    def test_filter_country(self):
+
+        # Alice goes to the list view
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She sees a link for advanced filtering which opens the filter
+        # panel
+        filter_panel = self.findBy('id', 'search-advanced')
+        self.assertFalse(filter_panel.is_displayed())
+        self.findBy('link_text', 'Advanced filter').click()
+        self.assertTrue(filter_panel.is_displayed())
+
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "filter-created")))
+
+        # She sees a datalist to filter by country
+        country_filter = self.findBy('id', 'filter-country')
+
+        url = self.browser.current_url
+
+        # She submits the filter and sees no values were submitted
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+        self.assertEqual(self.browser.current_url, '{}?'.format(url))
+
+        # She enters a country
+        country_filter.send_keys('Switzerland')
+        filter_button.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that the filter was submitted in the url and the results
+        # are filtered
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 1")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Country: Switzerland')
+
+        # She enters another country which does not exist
+        country_filter.clear()
+        country_filter.send_keys('Foo Country')
+        filter_button.click()
+
+        # Nothing is visible with this filter
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 0)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Country: Foo Country')
+
+        # She hits the button to remove all filters
+        self.findBy('id', 'filter-reset').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She sets a filter again and reloads the page
+        country_filter.send_keys('Afghanistan')
+        filter_button.click()
+
+        url = self.browser.current_url
+        self.browser.get(url)
+
+        self.findBy('link_text', 'Advanced filter').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "filter-created")))
+
+        # She sees the filter is set
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 3")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Country: Afghanistan')
+
+        # She sees the text in the input field matches the country
+        country_filter = self.findBy('id', 'filter-country')
+        self.assertEqual(country_filter.get_attribute('value'), 'Afghanistan')
+
+        # She removes the filter and sees that the input field has been
+        # reset
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+        self.assertEqual(country_filter.get_attribute('value'), '')
+
+        # She clicks "filter" again and sees that nothing is happening.
+        # She submits the filter and sees no values were submitted
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+        self.assertEqual(
+            self.browser.current_url, '{}?'.format(
+                self.live_server_url + reverse(route_questionnaire_list)))
+
+        # She enters some imaginary country again and reloads the page
+        country_filter = self.findBy('id', 'filter-country')
+        country_filter.send_keys('Bar Country')
+        filter_button.click()
+        url = self.browser.current_url
+        self.browser.get(url)
+
+        # The input remains although the country does not exist.
+        country_filter = self.findBy('id', 'filter-country')
+        # TODO: This is not entirely correct as " " is turned to "+".
+        # Fix it if you like.
+        self.assertEqual(country_filter.get_attribute('value'), 'Bar+Country')
+
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class ListTestLinks(FunctionalTest):

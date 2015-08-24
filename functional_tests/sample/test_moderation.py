@@ -23,7 +23,9 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class ModerationTest(FunctionalTest):
 
-    fixtures = ['groups_permissions.json', 'sample.json']
+    fixtures = [
+        'groups_permissions.json', 'sample_global_key_values.json',
+        'sample.json']
 
     def setUp(self):
         super(ModerationTest, self).setUp()

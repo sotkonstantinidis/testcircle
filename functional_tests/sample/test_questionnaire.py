@@ -30,7 +30,7 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json']
 
     def test_navigate_questionnaire(self):
 
@@ -1093,7 +1093,7 @@ class QuestionnaireTest(FunctionalTest):
             kwargs={'identifier': 'new', 'step': 'cat_2'}))
 
         # She sees the checkbox (Value 13_5) for Key 13
-        value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
+        value_5 = self.findBy('id', 'id_qg_10-0-key_13_1_5')
 
         # She sees that Key 24 (Remark) is not visible
         key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
@@ -1113,7 +1113,7 @@ class QuestionnaireTest(FunctionalTest):
         key_24.send_keys('Foo')
 
         # She selects Value 4 and sees that nothing happens to Key 24
-        self.findBy('id', 'id_qg_10-0-key_13_3_1').click()
+        self.findBy('id', 'id_qg_10-0-key_13_1_4').click()
         self.assertTrue(key_24.is_displayed())
         self.assertEqual(key_24.get_attribute('value'), 'Foo')
 
@@ -1140,10 +1140,10 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_2'}))
-        value_5 = self.findBy('id', 'id_qg_10-0-key_13_4_1')
+        value_5 = self.findBy('id', 'id_qg_10-0-key_13_1_5')
         self.findBy(
             'xpath',
-            '//input[@id="id_qg_10-0-key_13_4_1" and @checked="checked"]')
+            '//input[@id="id_qg_10-0-key_13_1_5" and @checked="checked"]')
         key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
         self.assertTrue(key_24.is_displayed())
         self.assertEqual(key_24.get_attribute('value'), 'Bar')
@@ -1182,7 +1182,7 @@ class QuestionnaireTest(FunctionalTest):
         key_11_yes = self.findBy('id', 'id_qg_3-0-key_11_1')
 
         # She does not see the Keys 27 and 28
-        key_27_value_3 = self.findBy('id', 'id_qg_22-0-key_27_3_1')
+        key_27_value_3 = self.findBy('id', 'id_qg_22-0-key_27_1_3')
         self.assertFalse(key_27_value_3.is_displayed())
         key_28 = self.findBy('id', 'id_qg_23-0-original_key_28')
         self.assertFalse(key_28.is_displayed())
@@ -1249,7 +1249,7 @@ class QuestionnaireTest(FunctionalTest):
         # She does not see the Keys 27 and 28
         key_27_value_3 = self.findBy(
             'xpath',
-            '//input[@id="id_qg_22-0-key_27_3_1" and @checked="checked"]')
+            '//input[@id="id_qg_22-0-key_27_1_3" and @checked="checked"]')
         self.assertTrue(key_27_value_3.is_displayed())
         key_28 = self.findBy('id', 'id_qg_23-0-original_key_28')
         self.assertTrue(key_28.is_displayed())
@@ -2071,7 +2071,7 @@ class QuestionnaireTestIndex(FunctionalTest):
     # Tests requiring an index
 
     fixtures = [
-        'sample.json', 'samplemulti.json',
+        'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
         'sample_samplemulti_questionnaires.json']
 
     def setUp(self):
@@ -2194,7 +2194,7 @@ class QuestionnaireTestIndex(FunctionalTest):
 class QuestionnaireLinkTest(FunctionalTest):
 
     fixtures = [
-        'sample.json', 'samplemulti.json',
+        'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
         'sample_samplemulti_questionnaires.json']
 
     def test_add_questionnaire_link(self):

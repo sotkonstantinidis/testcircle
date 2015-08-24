@@ -1,0 +1,28 @@
+[
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en":"Country"}},"technologies":{"label":{"en":"Country"}},"unccd":{"label":{"en":"Country"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 5002
+},
+{
+    "fields": {
+        "keyword": "country",
+        "translation": 5002,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 2
+},
+{
+    "fields": {
+        "keyword": "qg_country",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 2
+}
+]

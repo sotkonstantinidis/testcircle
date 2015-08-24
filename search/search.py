@@ -78,7 +78,7 @@ def advanced_search(
         value = filter_param[2]
         filter_type = filter_param[4]
 
-        if filter_type in ['checkbox', 'image_checkbox']:
+        if filter_type in ['checkbox', 'image_checkbox', 'select_type']:
             must.append({
                 "nested": {
                     "path": "data.{}".format(questiongroup),

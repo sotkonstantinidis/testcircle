@@ -1,5 +1,6 @@
 from unittest.mock import patch, Mock, call
 from django.http import QueryDict
+from django.test.utils import override_settings
 
 from accounts.models import User
 from configuration.configuration import QuestionnaireConfiguration
@@ -37,7 +38,7 @@ def get_valid_questionnaire_content():
 
 class CleanQuestionnaireDataTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json']
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -405,7 +406,7 @@ class GetQuestiongroupDataFromTranslationFormTest(TestCase):
 
 class GetActiveFiltersTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json']
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -675,7 +676,9 @@ class QueryQuestionnairesTest(TestCase):
 
 class QueryQuestionnairesForLinkTest(TestCase):
 
-    fixtures = ['sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values.json', 'sample.json',
+        'sample_questionnaires.json']
 
     def test_calls_get_name_keywords(self):
         configuration = Mock()
@@ -741,6 +744,7 @@ class QueryQuestionnairesForLinkTest(TestCase):
         self.assertEqual(data[0].id, 2)
 
 
+@override_settings(USE_CACHING=False)
 class GetListValuesTest(TestCase):
 
     def setUp(self):

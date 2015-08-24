@@ -47,7 +47,9 @@ invalid_file = 'bower.json'  # Needs to exist but not valid file type
 
 class GenericQuestionnaireLinkFormTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'sample.json']
+    fixtures = [
+        'groups_permissions.json', 'sample_global_key_values.json',
+        'sample.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -118,7 +120,9 @@ class GenericQuestionnaireLinkFormTest(TestCase):
 
 class GenericQuestionnaireLinkSearchTest(TestCase):
 
-    fixtures = ['sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values.json', 'sample.json',
+        'sample_questionnaires.json']
 
     @patch.object(QuestionnaireConfiguration, '__init__')
     def test_creates_questionnaire_configuration(self, mock_Conf):
@@ -174,7 +178,9 @@ class GenericQuestionnaireLinkSearchTest(TestCase):
 
 class GenericQuestionnaireNewStepTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'sample.json']
+    fixtures = [
+        'groups_permissions.json', 'sample_global_key_values.json',
+        'sample.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -259,7 +265,9 @@ class GenericQuestionnaireNewStepTest(TestCase):
 
 class GenericQuestionnaireNewTest(TestCase):
 
-    fixtures = ['groups_permissions.json', 'sample.json']
+    fixtures = [
+        'groups_permissions.json', 'sample_global_key_values.json',
+        'sample.json']
 
     def setUp(self):
         self.factory = RequestFactory()

@@ -1,5 +1,21 @@
 $(function() {
 
+  // Overwrite the normal functionality of the datalist to be able to
+  // use internal submit values other than the display values.
+  $('body').on('input', '#filter-country', function() {
+    var input = this;
+    var options = $('#' + $(this).attr('list') + ' option');
+    var hiddenInput = $('#' + input.id + '-hidden');
+    hiddenInput.val(input.value);
+    options.each(function() {
+      var $t = $(this);
+      if ($t.html() === input.value) {
+        hiddenInput.val($t.data('value'));
+        return;
+      }
+    });
+  });
+
   // Initially update the filter input fields
   updateFilterInputs();
 
@@ -47,6 +63,9 @@ $(function() {
     // Remove all filter parameters
     p = removeFilterParams(p);
 
+    // Always delete the paging parameter if the filter was modified
+    delete p['page'];
+
     // Checkboxes
     $('#search-advanced input:checkbox').each(function() {
       var $t = $(this);
@@ -67,8 +86,16 @@ $(function() {
       }
     });
 
-    // Always delete the paging parameter if the filter was modified
-    delete p['page'];
+    // Text inputs, also hidden
+    $('#search-advanced input[type=text], #search-advanced input[type=hidden]').each(function() {
+      var $t = $(this);
+      var qg = $t.data('questiongroup');
+      var key = $t.data('key');
+      var val = $t.val();
+      if (qg && key && val) {
+        p = addFilter(p, qg, key, val);
+      }
+    });
 
     var s = ['?', $.param(p, traditional=true)].join('');
     changeUrl(s);
@@ -131,15 +158,46 @@ function updateFilterInputs() {
     } catch(e) {}
   });
 
+  // Empty input fields
+  $('#search-advanced input[type=text], #search-advanced input[type=hidden]').val('');
+
   for (var k in p) {
     var args = parseKeyParameter(k);
     if (args.length !== 2) continue;
 
     var values = p[k];
+    // Checkboxes
     for (var v in values) {
       var el = $('input[data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"][data-value="' + values[v] + '"]');
       if (el.length !== 1) continue;
       el.prop('checked', true);
+    }
+
+    // Datalist
+    for (var v in values) {
+      var el = $('input[type="hidden"][data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"]');
+      if (el.length !== 1) continue;
+
+      // Set hidden value
+      el.val(values[v]);
+
+      // Look through the options to set the display value
+      var inputId = el.attr('id').replace('-hidden', '');
+      var options = $('#' + inputId + '-list option');
+      var optionFound = false;
+      options.each(function() {
+        var $t = $(this);
+        if ($t.data('value') == values[v]) {
+          $('#' + inputId).val($t.html());
+          optionFound = true;
+          return;
+        }
+      });
+
+      // If no option was found, set the value as such in the display field
+      if (!optionFound) {
+        $('#' + inputId).val(values[v]);
+      }
     }
   }
 

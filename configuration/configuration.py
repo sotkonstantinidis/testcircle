@@ -1566,10 +1566,13 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         sections and within them the fields can be filtered.
 
         Returns:
-            ``list``. A list of dictionaries for each section containing
-            filterable keys. Each section dictionary contains a list of
-            dictionaries for each key within the section which can be
-            filtered. Each dictionary has the following entries:
+            ``dict``. A dictionary with a list entry for section filters
+            (``sections``) and additional entries for special filters
+            such as ``countries``.
+
+            Each section dictionary contains a list of dictionaries for
+            each key within the section which can be filtered. Each
+            dictionary has the following entries:
 
             - ``keyword``: The keyword of the section.
 
@@ -1590,6 +1593,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
               - ``images`` : If available, the images as list of tuples.
 
               - ``questiongroup``: The keyword of the questiongroup.
+
+            Each special filter (eg. ``countries``) contains a list of
+            tuples with [0] the internal value and the [1] display value.
         """
         filter_configuration = []
 
@@ -1619,7 +1625,16 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                             'questiongroup': questiongroup.keyword,
                         })
 
-        return tuple(filter_configuration)
+        countries = []
+        country_question = self.get_question_by_keyword(
+            'qg_country', 'country')
+        if country_question:
+            countries = country_question.choices[1:]
+
+        return {
+            'sections': filter_configuration,
+            'countries': countries,
+        }
 
     def get_list_data(self, questionnaire_data_list):
         """

@@ -22,21 +22,14 @@
     <a class="search-close" data-toggle="search-advanced"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
     <div class="row">
       <div class="medium-4 columns">
-        <label for="location">Location</label>
-        <input type="text" placeholder="Select or type a Country name" list="locations" id="location">
-        <datalist id="locations">
-          <option value="Afghanistan"></option>
-          <option value="Albania"></option>
-          <option value="Algeria"></option>
-          <option value="Andorra"></option>
-          <option value="Angola"></option>
-          <option value="Antigua &amp; Deps"></option>
-          <option value="Argentina"></option>
-          <option value="Armenia"></option>
-          <option value="Australia"></option>
-          <option value="Austria"></option>
-          <option value="Azerbaijan"></option>
+        <label for="filter-country-input">{% trans "Country" %}</label>
+        <input type="text" placeholder="{% trans 'Select or type a Country name' %}" list="filter-country-list" id="filter-country">
+        <datalist id="filter-country-list">
+          {% for country in filter_configuration.countries %}
+            <option data-value="{{ country.0 }}">{{ country.1 }}</option>
+          {% endfor %}
         </datalist>
+        <input type="hidden" name="filter-country" id="filter-country-hidden" data-questiongroup="qg_country" data-key="country">
       </div>
       <div class="medium-4 columns">
         <label for="language">Language</label>
@@ -60,7 +53,7 @@
     <div class="is-rhythmed">
       <div class="row">
         <div class="small-6 columns">
-          <label for="date-created">Creation Date</label>
+          <label for="date-created">{% trans "Creation Date" %}</label>
           <div class="slider-container">
             <div data-cur_max="2016" data-cur_min="2000" data-range_max="2016" data-range_min="2000" data-keyword="created" class="nstSlider filter-created">
                 <div class="bar filter-created"></div>
@@ -74,7 +67,7 @@
           </div>
         </div>
         <div class="small-6 columns">
-          <label for="date-updated">Update Date</label>
+          <label for="date-updated">{% trans "Update Date" %}</label>
           <div class="slider-container">
             <div data-cur_max="2016" data-cur_min="2000" data-range_max="2016" data-range_min="2000" data-keyword="updated" class="nstSlider filter-updated">
                 <div class="bar filter-updated"></div>
@@ -95,7 +88,7 @@
         <div class="small-12 columns">
           <ul role="tablist" data-accordion="" class="accordion is-light">
 
-            {% for section in filter_configuration %}
+            {% for section in filter_configuration.sections %}
               <li class="accordion-navigation">
                 <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}">
                   <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>

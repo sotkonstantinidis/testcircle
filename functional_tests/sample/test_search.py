@@ -22,7 +22,8 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 class SearchTest(FunctionalTest):
 
     fixtures = [
-        'sample.json', 'samplemulti.json', 'sample_questionnaires_search.json']
+        'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
+        'sample_questionnaires_search.json']
 
     def setUp(self):
         super(SearchTest, self).setUp()
@@ -95,7 +96,9 @@ class SearchTest(FunctionalTest):
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class SearchTestAdmin(FunctionalTest):
 
-    fixtures = ['sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values.json', 'sample.json',
+        'sample_questionnaires.json']
 
     def setUp(self):
         super(SearchTestAdmin, self).setUp()
