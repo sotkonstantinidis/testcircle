@@ -5,6 +5,7 @@ from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
     get_position_of_category,
+    route_home,
     route_questionnaire_details,
 )
 
@@ -138,3 +139,28 @@ class EditTest(FunctionalTest):
 
         # The newly created version has the same code
         self.assertEqual(Questionnaire.objects.filter(code=code).count(), 2)
+
+        # She goes to the home page and sees the list of last updates
+        # where sample_3 appears only once.
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+
+        self.findBy(
+            'xpath', '//a[contains(text(), "asdf")]',
+            base=list_entries[0])
+        self.findBy(
+            'xpath', '//a[contains(text(), "Foo 6")]',
+            base=list_entries[1])
+        self.findBy(
+            'xpath', '//a[contains(text(), "Foo 1")]',
+            base=list_entries[2])
+
+        # She clicks the first entry and sees that she is taken to the
+        # details page of the latest (pending) version.
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "asdf")]').click()
+        self.checkOnPage('asdf')

@@ -649,6 +649,19 @@ class QueryQuestionnairesTest(TestCase):
         self.assertEqual(ret[1].id, 3)
         self.assertEqual(ret[2].id, 2)
 
+    def test_only_one_version_is_visible(self):
+        user = User.objects.get(pk=102)
+        prev_version = Questionnaire.objects.get(pk=3)
+        Questionnaire.create_new(
+            'sample', {}, user, previous_version=prev_version, status=3)
+        request = Mock()
+        request.user = user
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 8)
+        self.assertEqual(ret[1].id, 6)
+        self.assertEqual(ret[2].id, 2)
+
     def test_moderator_sees_pending_and_own_drafts(self):
         request = Mock()
         request.user = User.objects.get(pk=103)

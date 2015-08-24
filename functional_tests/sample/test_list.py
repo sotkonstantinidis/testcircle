@@ -819,6 +819,8 @@ class ListTest(FunctionalTest):
             created_left_handle.get_attribute('style'), 'left: 0px;')
 
         filter_button.click()
+        import time
+        time.sleep(1)
         url = self.browser.current_url
         self.browser.get(url)
 
