@@ -313,9 +313,18 @@ function updateList(queryParam) {
  * browser does not support this HTML5 feature, do a redirect to the
  * given URL
  *
+ * If the current URL is not yet the filter view, a redirect happens to
+ * take the user to the filter view.
+ *
  * @param {string} url - The new URL.
  */
 function changeUrl(url) {
+  var listUrl = $('#search-advanced').data('list-url');
+  if (window.location.pathname.indexOf(listUrl) < 0) {
+    // Redirect to list view if not there already
+    window.location = listUrl + url;
+    return;
+  }
   if (typeof (history.pushState) != "undefined") {
     history.pushState(null,"", url);
   } else {

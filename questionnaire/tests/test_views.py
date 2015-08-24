@@ -406,9 +406,11 @@ class GenericQuestionnaireNewTest(TestCase):
             questionnaire_objects=[link], with_links=False,
             configuration_code=link.configurations.first().code)
 
+    @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')
-    def test_calls_render(self, mock_render, mock_get_details):
+    def test_calls_render(
+            self, mock_render, mock_get_details, mock_filter_configuration):
         mock_get_details.return_value = "foo"
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
@@ -420,6 +422,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'images': [],
                 'mode': 'edit',
                 'links': {},
+                'filter_configuration': mock_filter_configuration.return_value,
             })
 
     def test_returns_rendered_response(self):
@@ -590,6 +593,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
+        mfc = mock_conf.return_value.get_filter_configuration.return_value
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
                 'sections': mock_conf.return_value.get_details.return_value,
@@ -597,6 +601,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'mode': 'view',
                 'images': mock_conf.return_value.get_image_data.return_value,
                 'links': {},
+                'filter_configuration': mfc,
             })
 
     @patch('questionnaire.views.get_configuration')

@@ -23,13 +23,13 @@
       </div>
     </div>
     <div class="search-option">
-      <a href="#" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | <a href="{% url 'unccd:questionnaire_list' %}">{% trans "Show all Technologies" %}</a>
+      <a href="#" class="link" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | <a href="{% url 'unccd:questionnaire_list' %}" class="link">{% trans "Show all Technologies" %}</a>
     </div>
   </form>
 {% endblock %}
 
 {% block filter %}
-  {% include "filter.html" %}
+  {% include "filter.html" with list_route="unccd:questionnaire_list" %}
 {% endblock %}
 
 {% block bottom %}

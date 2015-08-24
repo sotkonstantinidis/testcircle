@@ -21,7 +21,9 @@ def home(request):
         db_query=True)
 
     return render(request, 'unccd/home.html', {
-        'list_values': list_template_values.get('list_values', [])
+        'list_values': list_template_values.get('list_values', []),
+        'filter_configuration': list_template_values.get(
+            'filter_configuration', {}),
     })
 
 

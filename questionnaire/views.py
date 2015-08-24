@@ -515,12 +515,17 @@ def generic_questionnaire_new(
             configuration_code=configuration, questionnaire_objects=links,
             with_links=False)
 
+    # Add the configuration of the filter
+    filter_configuration = questionnaire_configuration.\
+        get_filter_configuration()
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
         'mode': 'edit',
         'links': link_display,
+        'filter_configuration': filter_configuration,
     })
 
 
@@ -603,12 +608,17 @@ def generic_questionnaire_details(
             configuration_code=configuration, questionnaire_objects=links,
             with_links=False)
 
+    # Add the configuration of the filter
+    filter_configuration = questionnaire_configuration.\
+        get_filter_configuration()
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
         'mode': 'view',
         'links': link_display,
+        'filter_configuration': filter_configuration,
     })
 
 
