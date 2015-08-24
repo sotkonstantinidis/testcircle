@@ -9,9 +9,7 @@
   <fieldset class="row">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
 
-    {% if config.helptext %}
-      <div class="help-bloc">{{ config.helptext|safe }}</div>
-    {% endif %}
+    {% include "form/helptext.html" with helptext=config.helptext %}
 
     {% for questiongroup_config, questiongroup_formset in formsets %}
         {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}

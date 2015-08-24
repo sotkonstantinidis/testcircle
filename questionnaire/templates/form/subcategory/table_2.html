@@ -10,9 +10,7 @@
   <fieldset class="row">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
     {% for questiongroup_config, questiongroup_formset in formsets %}
-      {% if questiongroup_config.helptext %}
-        <div class="help-bloc">{{ questiongroup_config.helptext|safe }}</div>
-      {% endif %}
+      {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
     {% endfor %}
     <table>
       <thead>
