@@ -985,6 +985,8 @@ class ListTest(FunctionalTest):
         # She sets a filter again and reloads the page
         country_filter.send_keys('Afghanistan')
         filter_button.click()
+        import time
+        time.sleep(1)
 
         url = self.browser.current_url
         self.browser.get(url)

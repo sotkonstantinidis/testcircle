@@ -973,17 +973,29 @@ class QuestionnaireTest(FunctionalTest):
 
         # The overview now shows both values
         self.checkOnPage('Key 14')
-        self.findByNot('xpath', '//img[@alt="Value 14_1"]')
-        self.findBy('xpath', '//img[@alt="Value 14_2"]')
-        self.findBy('xpath', '//img[@alt="Value 14_3"]')
+        self.findByNot(
+            'xpath',
+            '//div[contains(@class, "output")]/img[@alt="Value 14_1"]')
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "output")]/img[@alt="Value 14_2"]')
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "output")]/img[@alt="Value 14_3"]')
 
         # She submits the form and sees that the radio value is stored
         # correctly
         self.findBy('id', 'button-submit').click()
         self.checkOnPage('Key 14')
-        self.findByNot('xpath', '//img[@alt="Value 14_1"]')
-        self.findBy('xpath', '//img[@alt="Value 14_2"]')
-        self.findBy('xpath', '//img[@alt="Value 14_3"]')
+        self.findByNot(
+            'xpath',
+            '//div[contains(@class, "output")]/img[@alt="Value 14_1"]')
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "output")]/img[@alt="Value 14_2"]')
+        self.findBy(
+            'xpath',
+            '//div[contains(@class, "output")]/img[@alt="Value 14_3"]')
 
     def test_measure_conditional(self):
 
