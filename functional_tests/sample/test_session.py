@@ -119,7 +119,6 @@ class SessionTest2(FunctionalTest):
         'groups_permissions.json', 'sample_global_key_values.json',
         'sample.json']
 
-    @attr('foo')
     def test_sessions_separated_by_questionnaire(self):
 
         user_moderator = create_new_user(id=2, email='foo@bar.com')
