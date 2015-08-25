@@ -1,16 +1,22 @@
+from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
+from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from qcat.utils import get_session_questionnaire
 from sample.tests.test_views import (
     route_questionnaire_new_step as sample_route_questionnaire_new_step,
     route_questionnaire_new as sample_route_questionnaire_new,
+    route_home as sample_route_home,
 )
 from unccd.tests.test_views import (
     route_questionnaire_new_step as unccd_route_questionnaire_new_step,
 )
 
+
+from nose.plugins.attrib import attr
+# @attr('foo')
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
@@ -39,9 +45,11 @@ class SessionTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        session_data = get_session_questionnaire('sample')
+        session_data = get_session_questionnaire('sample', None)
         self.assertEqual(
-            session_data, ({'qg_1': [{'key_1': {'en': 'Foo'}}]}, {}))
+            session_data.get('questionnaire'),
+            {'qg_1': [{'key_1': {'en': 'Foo'}}]})
+        self.assertEqual(session_data.get('links'), {})
 
         # self.assertEqual(self.browser.current_url, 'foo')
         self.findBy('id', 'button-submit').click()
@@ -103,3 +111,84 @@ class SessionTest(FunctionalTest):
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
+
+
+class SessionTest2(FunctionalTest):
+
+    fixtures = [
+        'groups_permissions.json', 'sample_global_key_values.json',
+        'sample.json']
+
+    @attr('foo')
+    def test_sessions_separated_by_questionnaire(self):
+
+        user_moderator = create_new_user(id=2, email='foo@bar.com')
+        user_moderator.groups = [Group.objects.get(pk=3)]
+        user_moderator.save()
+
+        # Alice logs in
+        self.doLogin(user=user_moderator)
+
+        # She enters a new Questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            sample_route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+
+        # She saves the Questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She submits the Questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She publishes the Questionnaire
+        self.findBy('id', 'button-publish').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She decides to edit the Questionnaire again
+        self.findBy('xpath', '//a[contains(@href, "/sample/edit/")]').click()
+
+        # The values of Questionnaire 1 are not stored in the session.
+        # She decides to start entering a new Questionnaire and sees
+        # that there are no values available yet
+        self.browser.get(
+            self.live_server_url + reverse(sample_route_questionnaire_new))
+        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
+
+        # She enters some values
+        self.browser.get(self.live_server_url + reverse(
+            sample_route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Faz')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Taz')
+        self.findBy('id', 'button-submit').click()
+
+        # She sees the values were stored in the session
+        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Taz")]]')
+
+        # She goes back to edit the first Questionnaire
+        self.browser.get(self.live_server_url + reverse(sample_route_home))
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo")]').click()
+        self.findBy('xpath', '//a[contains(@href, "/sample/edit/")]').click()
+
+        # She sees the previous values are still there, but not the new ones.
+        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Faz")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Taz")]]')
+
+        # She goes back to the new form and sees the new values are still there
+        self.browser.get(
+            self.live_server_url + reverse(sample_route_questionnaire_new))
+        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Taz")]]')
