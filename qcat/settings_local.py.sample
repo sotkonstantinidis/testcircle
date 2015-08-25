@@ -40,6 +40,8 @@ AUTH_API_KEY = ''
 # and logout
 AUTH_LOGIN_FORM = 'https://dev.wocat.net/en/sitefunctions/login.html'
 
+# See https://raw.githubusercontent.com/SeleniumHQ/selenium/master/py/CHANGES
+# for the latest supported firefox version.
 TESTING_FIREFOX_PATH = ''
 
 USE_CACHING = True

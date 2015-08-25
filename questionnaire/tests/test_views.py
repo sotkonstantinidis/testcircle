@@ -92,11 +92,11 @@ class GenericQuestionnaireLinkFormTest(TestCase):
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
-        mock_get_session_questionnaire.return_value = {}, {}
+        mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_link_form(
             self.request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
-        mock_get_session_questionnaire.assert_called_once_with('sample')
+        mock_get_session_questionnaire.assert_called_once_with('sample', 'foo')
 
     @patch('questionnaire.views.render')
     def test_calls_render(self, mock_render):
@@ -207,10 +207,10 @@ class GenericQuestionnaireNewStepTest(TestCase):
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
-        mock_get_session_questionnaire.return_value = {}, {}
+        mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
-        mock_get_session_questionnaire.assert_called_once_with('sample')
+        mock_get_session_questionnaire.assert_called_once_with('sample', None)
 
     @patch('questionnaire.views.get_questionnaire_data_for_translation_form')
     def test_calls_get_questionnaire_data_for_translation_form(
@@ -239,7 +239,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         generic_questionnaire_new_step(
             r, *get_valid_new_step_values()[0])
         mock_save_session_questionnaire.assert_called_once_with(
-            'sample', {}, {})
+            'sample', None, {}, {})
 
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
@@ -284,11 +284,11 @@ class GenericQuestionnaireNewTest(TestCase):
     @patch('questionnaire.views.get_session_questionnaire')
     def test_calls_get_session_questionnaire(
             self, mock_get_session_questionnaire):
-        mock_get_session_questionnaire.return_value = {}, {}
+        mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
-        mock_get_session_questionnaire.assert_called_once_with('sample')
+        mock_get_session_questionnaire.assert_called_once_with('sample', 'new')
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -406,9 +406,11 @@ class GenericQuestionnaireNewTest(TestCase):
             questionnaire_objects=[link], with_links=False,
             configuration_code=link.configurations.first().code)
 
+    @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')
-    def test_calls_render(self, mock_render, mock_get_details):
+    def test_calls_render(
+            self, mock_render, mock_get_details, mock_filter_configuration):
         mock_get_details.return_value = "foo"
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
@@ -420,6 +422,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'images': [],
                 'mode': 'edit',
                 'links': {},
+                'filter_configuration': mock_filter_configuration.return_value,
             })
 
     def test_returns_rendered_response(self):
@@ -590,6 +593,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
+        mfc = mock_conf.return_value.get_filter_configuration.return_value
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
                 'sections': mock_conf.return_value.get_details.return_value,
@@ -597,6 +601,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'mode': 'view',
                 'images': mock_conf.return_value.get_image_data.return_value,
                 'links': {},
+                'filter_configuration': mfc,
             })
 
     @patch('questionnaire.views.get_configuration')

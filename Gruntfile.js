@@ -116,7 +116,14 @@ module.exports = function(grunt) {
           'bower_components/foundation/js/foundation/foundation.topbar.js'
         ],
         dest: 'src/js/foundation.js',
-      }
+      },
+      app: {
+        src: [
+          'src/js/app.js',
+          'src/js/filter.js'
+        ],
+        dest: 'static/js/main.js',
+      },
     },
     // Make it smaller
     uglify: {
@@ -126,6 +133,16 @@ module.exports = function(grunt) {
       dist: {
         files: {
           'static/js/foundation.min.js': ['src/js/foundation.js']
+        }
+      },
+      app: {
+        files: {
+          'static/js/main.min.js': ['static/js/main.js']
+        }
+      },
+      wizard: {
+        files: {
+          'static/js/wizard.min.js': ['src/js/wizard.js']
         }
       }
     },

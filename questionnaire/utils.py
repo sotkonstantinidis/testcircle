@@ -696,10 +696,16 @@ def query_questionnaires(
     """
     status_filter = get_query_status_filter(request)
 
-    query = Questionnaire.objects.filter(
+    # Find the IDs of the Questionnaires which are visible to the
+    # current user. If multiple versions exist for a Questionnaire, only
+    # the latest (visible to the current user) is used.
+    ids = Questionnaire.objects.filter(
         get_configuration_query_filter(
-            configuration_code, only_current=only_current)).filter(
-                status_filter).distinct()
+            configuration_code, only_current=only_current),
+        status_filter).values_list('id', flat=True).order_by(
+            'code', '-updated').distinct('code')
+
+    query = Questionnaire.objects.filter(id__in=ids)
 
     if limit is not None:
         return query[offset:offset+limit]

@@ -10,7 +10,9 @@ from functional_tests.base import FunctionalTest
 from accounts.models import User
 from sample.tests.test_views import (
     route_home,
+    route_questionnaire_details,
     route_questionnaire_list,
+    route_questionnaire_new,
 )
 from samplemulti.tests.test_views import (
     route_home as route_samplemulti_home,
@@ -819,6 +821,8 @@ class ListTest(FunctionalTest):
             created_left_handle.get_attribute('style'), 'left: 0px;')
 
         filter_button.click()
+        import time
+        time.sleep(1)
         url = self.browser.current_url
         self.browser.get(url)
 
@@ -981,6 +985,8 @@ class ListTest(FunctionalTest):
         # She sets a filter again and reloads the page
         country_filter.send_keys('Afghanistan')
         filter_button.click()
+        import time
+        time.sleep(1)
 
         url = self.browser.current_url
         self.browser.get(url)
@@ -1040,6 +1046,159 @@ class ListTest(FunctionalTest):
         # TODO: This is not entirely correct as " " is turned to "+".
         # Fix it if you like.
         self.assertEqual(country_filter.get_attribute('value'), 'Bar+Country')
+
+    def test_filter_routes_to_list(self):
+
+        # Alice goes to the home view
+        self.browser.get(self.live_server_url + reverse(route_home))
+
+        # She sees that she can also apply a filter from there
+        filter_panel = self.findBy('id', 'search-advanced')
+        self.assertFalse(filter_panel.is_displayed())
+        self.findBy('link_text', 'Advanced filter').click()
+        self.assertTrue(filter_panel.is_displayed())
+
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "filter-created")))
+
+        # She filters by country and clicks the button to filter
+        country_filter = self.findBy('id', 'filter-country')
+        country_filter.send_keys('Switzerland')
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that she is redirected to the list view where she
+        # sees the filtered results
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 1")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Country: Switzerland')
+
+        #
+        # She also goes to the detail page of a questionnaire and sees
+        # that she can filter from there
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+
+        # She sees that she can also apply a filter from there
+        filter_panel = self.findBy('id', 'search-advanced')
+        self.assertFalse(filter_panel.is_displayed())
+        self.findBy('link_text', 'Advanced filter').click()
+        self.assertTrue(filter_panel.is_displayed())
+
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "filter-created")))
+
+        # She filters by country and clicks the button to filter
+        country_filter = self.findBy('id', 'filter-country')
+        country_filter.send_keys('Switzerland')
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that she is redirected to the list view where she
+        # sees the filtered results
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 1")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Country: Switzerland')
+
+        #
+        # The same is possible from the overview page to create a new
+        # questionnaire
+        self.doLogin()
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+
+        # She sees that she can also apply a filter from there
+        filter_panel = self.findBy('id', 'search-advanced')
+        self.assertFalse(filter_panel.is_displayed())
+        self.findBy('link_text', 'Advanced filter').click()
+        self.assertTrue(filter_panel.is_displayed())
+
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.CLASS_NAME, "filter-created")))
+
+        # She filters by country and clicks the button to filter
+        country_filter = self.findBy('id', 'filter-country')
+        country_filter.send_keys('Switzerland')
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that she is redirected to the list view where she
+        # sees the filtered results
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 1")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Country: Switzerland')
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

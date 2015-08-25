@@ -60,43 +60,47 @@ def is_empty_list_of_dicts(list_):
     return True
 
 
-def get_session_questionnaire(configuration_code):
+def get_session_questionnaire(configuration_code, questionnaire_code):
     """
     Return the data for a questionnaire from the session. The
     questionnaire(s) are stored in the session dictionary under the key
     ``session_questionnaires``.
 
-    .. todo::
-        Currently, only one questionnaire per configuration_code is
-        stored to the session. In the fututre, it should be possible to
-        store (and retrieve) multiple questionnaires.
+    .. seealso::
+        :func:`save_session_questionnaire` for the format of session
+        data.
 
     Args:
         ``configuration_code`` (str): The code of the configuration of
         the questionnaire to retrieve.
 
-    Returns:
-        ``dict``. The data dictionary of the questionnaire as found in
-        the session or an empty dictionary (``{}``) if not found.
+        ``questionnaire_code`` (str): The code of the questionnaire to
+        retrieve. If ``questionnaire_code`` is ``None``, the code is set
+        to ``new``.
 
-        ``dict``. A dictionary containing the links of this
-        questionnaire as found in the session or an empty dictionary
-        (``{}``) if not found. This dictionary can be used to populate
-        the form of the questionnaire links.
+    Returns:
+        ``dict``. The dictionary of the session data if found (with
+        ``questionnaire`` and ``links``) or an empty dictionary (``{}``)
+        if not found.
     """
     session_questionnaires = session_store.get('session_questionnaires')
-    if (isinstance(session_questionnaires, list)
-            and len(session_questionnaires) > 0):
+    if not isinstance(session_questionnaires, dict):
+        return {}
 
-        for q in session_questionnaires:
-            if q.get('configuration') == configuration_code:
-                return q.get('questionnaire', {}), q.get('links', {})
+    if questionnaire_code is None:
+        questionnaire_code = 'new'
 
-    return {}, {}
+    questionnaires = session_questionnaires.get(configuration_code, [])
+    for q in questionnaires:
+        if q.get('code') == questionnaire_code:
+            return q
+
+    return {}
 
 
 def save_session_questionnaire(
-        configuration_code, questionnaire_data, questionnaire_links):
+        configuration_code, questionnaire_code, questionnaire_data,
+        questionnaire_links):
     """
     Save the data of a questionnaire to the session, using the key
     ``session_questionnaires``.
@@ -104,23 +108,24 @@ def save_session_questionnaire(
     The questionnaires are stored in the session
     (``session['session_questionnaires']``) in the following format::
 
-        [
-            {
-                "configuration": "CONFIGURATION_CODE",
-                "modified": "DATETIME_OF_LAST_MODIFICATION",
-                "questionnaire": {},  # data of the questionnaire
-                "links": {}  # data of the links
-            }
-        ]
-
-    .. todo::
-        Currently, only one questionnaire per configuration_code is
-        stored to the session. In the fututre, it should be possible to
-        store (and retrieve) multiple questionnaires.
+        {
+            "CONFIGURATION_CODE": [
+                {
+                    "code": "QUESTIONNAIRE_CODE",  # if available, else "new"
+                    "modified": "DATETIME_OF_LAST_MODIFICATION",
+                    "questionnaire": {},  # data of the questionnaire
+                    "links": {},  # data of the links
+                }
+            ]
+        }
 
     Args:
         ``configuration_code`` (str): The code of the configuration of
         the questionnaire to store.
+
+        ``questionnaire_code`` (str): The code of the questionnaire to
+        store. If ``questionnaire_code`` is ``None``, the code is set to
+        ``new``.
 
         ``session_questionnaire`` (dict): The data dictionary of the
         questionnaire to be stored.
@@ -130,14 +135,18 @@ def save_session_questionnaire(
         corresponds to the format used by the link forms to populate
         its fields.
     """
-    session_questionnaires = session_store.get('session_questionnaires', [])
+    if questionnaire_code is None:
+        questionnaire_code = 'new'
+
+    session_questionnaires = session_store.get(
+        'session_questionnaires', {}).get(configuration_code, [])
 
     session_questionnaire = next((q for q in session_questionnaires if q.get(
-        'configuration') == configuration_code), None)
+        'code') == questionnaire_code), None)
 
     if session_questionnaire is None:
         # The questionnaire is not yet in the session
-        session_questionnaire = {'configuration': configuration_code}
+        session_questionnaire = {'code': questionnaire_code}
         session_questionnaires.append(session_questionnaire)
 
     # Update the session data
@@ -147,33 +156,45 @@ def save_session_questionnaire(
         'modified': str(datetime.now()),
     })
 
-    session_store['session_questionnaires'] = session_questionnaires
+    if 'session_questionnaires' not in session_store:
+        session_store['session_questionnaires'] = {}
+
+    session_store['session_questionnaires'][
+        configuration_code] = session_questionnaires
     session_store.save()
 
 
-def clear_session_questionnaire(configuration_code=None):
+def clear_session_questionnaire(
+        configuration_code=None, questionnaire_code=None):
     """
     Clear the data of a questionnaire from the session key
     ``session_questionnaires``.
-
-    .. todo::
-        Currently, only one questionnaire per configuration_code is
-        stored to the session. In the fututre, it should be possible to
-        store (and delete) multiple questionnaires.
 
     Kwargs:
         ``configuration_code`` (str): The code of the configuration of
         the questionnaire to clear. If not provided, all the session
         questionnaires will be cleared!
+
+        ``questionnaire_code`` (str): The code of the questionnaire to
+        clear. If not provided, all the session questionnaires with the
+        provided ``configuration_code`` will be cleared! If you want to
+        clear all new questionnaires (without a code), you need to pass
+        ``questionnaire_code=new`` explicitely.
     """
     if configuration_code is None:
-        session_store['session_questionnaires'] = []
+        session_store['session_questionnaires'] = {}
     else:
         session_questionnaires = session_store.get(
-            'session_questionnaires', [])
-        for q in session_questionnaires:
-            if q.get('configuration') == configuration_code:
-                session_questionnaires.remove(q)
+            'session_questionnaires', {})
+        if questionnaire_code is None:
+            if configuration_code in session_questionnaires:
+                del(session_questionnaires[configuration_code])
+        else:
+            q_list = session_questionnaires.get(configuration_code, [])
+            for q in q_list:
+                if q.get('code') == questionnaire_code:
+                    q_list.remove(q)
+            session_questionnaires[configuration_code] = q_list
     session_store.save()
 
 

@@ -4,27 +4,29 @@
   {% include "details/toc.html" with toc_keyword=keyword %}
 {% endif %}
 
-<section id="{{ keyword }}" class="tech-section row is-rhythmed-4" data-magellan-destination="{{ keyword }}">
+<section id="{{ keyword }}" class="tech-section is-rhythmed-2" data-magellan-destination="{{ keyword }}">
   <a name="{{ keyword }}"></a>
-  {% if editable %}
-    <div class="medium-9 columns">
-      <h2>{{ numbering|default:'' }} {{ label }}</h2>
-      <div class="tech-section-progress progress">
-        <span class="progress-steps"></span>
-        <span class="meter" style="width:{{ progress }}%"></span>
+  <div class="row">
+    {% if editable %}
+      <div class="medium-9 columns">
+        <h2>{{ numbering|default:'' }} {{ label }}</h2>
+        <div class="tech-section-progress progress">
+          <span class="progress-steps"></span>
+          <span class="meter" style="width:{{ progress }}%"></span>
+        </div>
       </div>
+      <div class="medium-3 columns">
+        <a class="button is-{{ configuration_name }} right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
+      </div>
+    {% elif subcategories %}
+      <div class="medium-12 columns">
+        <h2>{{ numbering|default:'' }} {{ label }}</h2>
+      </div>
+    {% endif %}
+    <div class="small-12 columns output is-rhythmed-2">
+      {% for subcategory in subcategories %}
+        {{ subcategory }}
+      {% endfor %}
     </div>
-    <div class="medium-3 columns">
-      <a class="button is-{{ configuration_name }} right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
-    </div>
-  {% else %}
-    <div class="medium-12 columns">
-      <h2>{{ numbering|default:'' }} {{ label }}</h2>
-    </div>
-  {% endif %}
-  <div class="small-12 columns output is-rhythmed-2">
-    {% for subcategory in subcategories %}
-      {{ subcategory }}
-    {% endfor %}
   </div>
 </section>

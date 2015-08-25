@@ -17,10 +17,8 @@
 {% endblock %}
 
 {% block filter %}
-  {% include "filter.html" %}
+  {% include "filter.html" with list_route="approaches:questionnaire_list" %}
 {% endblock %}
 
 {% block bottom %}
-  <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
-  <script src="{% static 'js/filter.js' %}"></script>
 {% endblock %}

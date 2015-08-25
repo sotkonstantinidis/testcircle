@@ -90,13 +90,12 @@ def generic_questionnaire_link_form(
     questionnaire_configuration = get_configuration(configuration_code)
     links_configuration = questionnaire_configuration.get_links_configuration()
 
-    session_questionnaire, session_links = get_session_questionnaire(
-        configuration_code)
+    session_data = get_session_questionnaire(configuration_code, identifier)
 
     link_forms = []
     for links_config in links_configuration:
         config_code = links_config.get('keyword')
-        initial_data = session_links.get(config_code, [])
+        initial_data = session_data.get('links', {}).get(config_code, [])
         link_forms.append(
             ({
                 'search_url': reverse(
@@ -144,7 +143,8 @@ def generic_questionnaire_link_form(
 
         if valid is True:
             save_session_questionnaire(
-                configuration_code, session_questionnaire, link_data)
+                configuration_code, identifier,
+                session_data.get('questionnaire', {}), link_data)
             messages.success(
                 request, _('Data successfully stored to Session.'))
             return redirect(overview_url)
@@ -332,8 +332,9 @@ def generic_questionnaire_new_step(
 
     session_questionnaire = {}
     if request.method != 'POST':
-        session_questionnaire, __ = get_session_questionnaire(
-            configuration_code)
+        session_data = get_session_questionnaire(
+            configuration_code, identifier)
+        session_questionnaire = session_data.get('questionnaire', {})
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -362,8 +363,9 @@ def generic_questionnaire_new_step(
             category_formsets, current_locale, original_locale)
 
         if valid is True:
-            session_questionnaire, session_links = get_session_questionnaire(
-                configuration_code)
+            session_data = get_session_questionnaire(
+                configuration_code, identifier)
+            session_questionnaire = session_data.get('questionnaire', {})
             session_questionnaire.update(data)
 
             questionnaire_data, errors = clean_questionnaire_data(
@@ -376,7 +378,8 @@ def generic_questionnaire_new_step(
                         '<br/>'.join(errors)), extra_tags='safe')
             else:
                 save_session_questionnaire(
-                    configuration_code, questionnaire_data, session_links)
+                    configuration_code, identifier, questionnaire_data,
+                    session_data.get('links', {}))
 
                 messages.success(
                     request, _('Data successfully stored to Session.'))
@@ -433,21 +436,22 @@ def generic_questionnaire_new(
         questionnaire_object = query_questionnaire(request, identifier).first()
         if questionnaire_object is None:
             raise Http404()
-        session_questionnaire, session_links = get_session_questionnaire(
-            configuration_code)
-        if session_questionnaire == {}:
+        session_data = get_session_questionnaire(
+            configuration_code, identifier)
+        if session_data.get('questionnaire') is None:
             questionnaire_links = get_link_data(
                 questionnaire_object.links.all())
             save_session_questionnaire(
-                configuration_code,
+                configuration_code, identifier,
                 questionnaire_data=questionnaire_object.data,
                 questionnaire_links=questionnaire_links)
     else:
         questionnaire_object = None
         identifier = 'new'
 
-    session_questionnaire, session_links = get_session_questionnaire(
-        configuration_code)
+    session_data = get_session_questionnaire(configuration_code, identifier)
+    session_questionnaire = session_data.get('questionnaire', {})
+    session_links = session_data.get('links', {})
 
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
@@ -515,12 +519,17 @@ def generic_questionnaire_new(
             configuration_code=configuration, questionnaire_objects=links,
             with_links=False)
 
+    # Add the configuration of the filter
+    filter_configuration = questionnaire_configuration.\
+        get_filter_configuration()
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
         'mode': 'edit',
         'links': link_display,
+        'filter_configuration': filter_configuration,
     })
 
 
@@ -603,12 +612,17 @@ def generic_questionnaire_details(
             configuration_code=configuration, questionnaire_objects=links,
             with_links=False)
 
+    # Add the configuration of the filter
+    filter_configuration = questionnaire_configuration.\
+        get_filter_configuration()
+
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
         'mode': 'view',
         'links': link_display,
+        'filter_configuration': filter_configuration,
     })
 
 
