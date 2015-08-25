@@ -120,7 +120,6 @@ class SessionTest2(FunctionalTest):
         'groups_permissions.json', 'sample_global_key_values.json',
         'sample.json']
 
-    @attr('foo')
     def test_sessions_separated_by_questionnaire(self):
 
         cat_1_position = get_position_of_category('cat_1')

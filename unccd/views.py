@@ -43,10 +43,11 @@ def unccd_data_import(request):
 
     try:
         from .data_import import data_import
-    except ImportError:
+    except ImportError as e:
         messages.error(
-            request, 'No import function found. Make sure there is a function '
-            '"data_import" in module "unccd.data_import".')
+            request, 'No valid import function found. Make sure there is a '
+            'function "data_import" in module "unccd.data_import". The error '
+            'message was: {}'.format(e))
         return redirect(redirect_route)
 
     success, objects = data_import()
