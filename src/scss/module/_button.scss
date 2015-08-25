@@ -16,6 +16,14 @@ button,
     background-color: $color-wocat;
     box-shadow: 0 0 0 0 $color-wocat;
   }
+  &.is-approaches {
+    background-color: $color-approach;
+    box-shadow: 0 0 0 0 $color-approach;
+  }
+  &.is-technologies {
+    background-color: $color-tech;
+    box-shadow: 0 0 0 0 $color-tech;
+  }
   &.is-unccd {
     background-color: $color-unccd;
     box-shadow: 0 0 0 0 $color-unccd;
@@ -47,13 +55,13 @@ button,
 .button-switch {
   list-style: none;
   margin-left: 0;
-  
+
   &:after {
     content: " ";
     display: table;
     clear: both;
   }
-  & > li { 
+  & > li {
     display: inline-block;
     float: left;
     border: 0;
@@ -65,11 +73,11 @@ button,
   & > li > .button {
     margin: 0;
   }
-  &.radius > li:first-child > .button{ 
+  &.radius > li:first-child > .button{
     border-top-left-radius: $global-radius;
     border-bottom-left-radius: $global-radius;
   }
-  &.radius > li:last-child > .button { 
+  &.radius > li:last-child > .button {
     border-top-right-radius: $global-radius;
     border-bottom-right-radius: $global-radius;
   }
