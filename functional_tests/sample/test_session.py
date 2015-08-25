@@ -6,6 +6,7 @@ from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from qcat.utils import get_session_questionnaire
 from sample.tests.test_views import (
+    get_position_of_category,
     route_questionnaire_new_step as sample_route_questionnaire_new_step,
     route_questionnaire_new as sample_route_questionnaire_new,
     route_home as sample_route_home,
@@ -119,7 +120,10 @@ class SessionTest2(FunctionalTest):
         'groups_permissions.json', 'sample_global_key_values.json',
         'sample.json']
 
+    @attr('foo')
     def test_sessions_separated_by_questionnaire(self):
+
+        cat_1_position = get_position_of_category('cat_1')
 
         user_moderator = create_new_user(id=2, email='foo@bar.com')
         user_moderator.groups = [Group.objects.get(pk=3)]
@@ -185,6 +189,34 @@ class SessionTest2(FunctionalTest):
         self.findByNot('xpath', '//*[text()[contains(.,"Taz")]]')
 
         # She goes back to the new form and sees the new values are still there
+        self.browser.get(
+            self.live_server_url + reverse(sample_route_questionnaire_new))
+        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Taz")]]')
+
+        # She once again goes to the first Questionnaires, makes changes
+        # and saves the Questionnaire
+        self.browser.get(self.live_server_url + reverse(sample_route_home))
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo")]').click()
+        self.findBy('xpath', '//a[contains(@href, "/sample/edit/")]').click()
+
+        self.findBy(
+            'xpath', '(//a[contains(@href, "/sample/edit/")])[{}]'.format(
+                cat_1_position)).click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' asdf')
+        self.findBy('id', 'button-submit').click()
+
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo asdf")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Faz")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Taz")]]')
+
+        # Back in the new form, the new values are still there
         self.browser.get(
             self.live_server_url + reverse(sample_route_questionnaire_new))
         self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
