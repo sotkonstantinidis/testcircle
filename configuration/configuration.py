@@ -227,6 +227,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'image',
         'select_type',
         'select',
+        'todo',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -556,6 +557,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.ChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
+        elif self.field_type == 'todo':
+            field = forms.CharField(
+                label=self.label,
+                widget=forms.TextInput(
+                    attrs={'readonly': 'readonly', 'value': '[TODO]'}),
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -606,12 +613,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         value = data.get(self.keyword)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
-                'select_type']:
+                'select_type', 'select']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char']:
+        if self.field_type in ['char', 'todo']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -623,7 +630,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'key': self.label_view,
                 'value': value,
             })
-        elif self.field_type in ['bool', 'select_type']:
+        elif self.field_type in ['bool', 'select_type', 'select']:
             template_name = 'textinput'
             template_values.update({
                 'key': self.label_view,

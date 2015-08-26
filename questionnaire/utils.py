@@ -40,7 +40,6 @@ def clean_questionnaire_data(data, configuration):
         ``list``. A list with errors encountered. Empty if the
         dictionary is valid.
     """
-    # print(data)
     errors = []
     cleaned_data = {}
     try:
@@ -114,7 +113,8 @@ def clean_questionnaire_data(data, configuration):
                             '"{}") is not valid.'.format(
                                 value, key, qg_keyword))
                         continue
-                if question.field_type in ['bool', 'measure', 'select_type']:
+                if question.field_type in [
+                        'bool', 'measure', 'select_type', 'select']:
                     if value not in [c[0] for c in question.choices]:
                         errors.append(
                             'Value "{}" is not valid for key "{}" ('
@@ -152,6 +152,8 @@ def clean_questionnaire_data(data, configuration):
                                 continue
                             translations[locale] = translation
                     value = translations
+                elif question.field_type in ['todo']:
+                    value = None
                 elif question.field_type in ['image']:
                     pass
                 else:

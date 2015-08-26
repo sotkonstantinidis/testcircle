@@ -162,7 +162,8 @@ module.exports = function(grunt) {
           'static/js/wocat.magellan.js': 'src/js/wocat.magellan.js',
           'static/js/wizard.js': 'src/js/wizard.js',
           'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
-          'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css'
+          'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css',
+          'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png'
         }
         ,{
           expand: true,

@@ -17,9 +17,11 @@
             {% formfield field %}
           </div>
         {% endblock %}
-        {% block help_text %}
-          {% if help_text %}<span class="helptext">{{ help_text }}</span>{% endif %}
-        {% endblock %}
+        {% if options.helptext %}
+          <div class="small-12 columns help-bloc-question">
+            {% include "form/helptext.html" with helptext=options.helptext %}
+          </div>
+        {% endif %}
         {% block hidden_fields %}
           {% for field in hidden_fields %}{{ field.as_hidden }}{% endfor %}
         {% endblock %}
