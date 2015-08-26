@@ -15,7 +15,7 @@
       <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
         <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ raw_data.country.0|default:"" }}</span></p>
 
-      <p class="is-large">{{ raw_data.app_first|linebreaksbr|default:"" }}</p>
+      <p class="is-large">{{ raw_data.app_first|default:""|linebreaksbr }}</p>
     </header>
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
       <ul class="tech-output-infos">

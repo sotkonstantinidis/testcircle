@@ -41,7 +41,7 @@
     </table>
     {% for questiongroup_config, questiongroup_formset in formsets %}
       {% if questiongroup_config.keyword not in config.table_grouping.0 %}
-        {% form form using "form/questiongroup.html" with config=questiongroup_config formset=questiongroup_formset %}
+        {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}
   </fieldset>

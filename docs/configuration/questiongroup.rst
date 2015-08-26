@@ -27,25 +27,37 @@ The basic format of the configuration is as follows::
     "keyword": "QUESTIONGROUP_KEYWORD",
 
     # (optional)
-    "min_num": 1,
+    "view_options": {
+      # Default: "default"
+      "template": "TEMPLATE_NAME",
+
+      # Default: ""
+      "extra": "measure_other",
+
+      # Default: ""
+      "colclass": "top-margin"
+    },
 
     # (optional)
-    "max_num": 1,
+    "form_options": {
+      # Default: "default"
+      "template": "TEMPLATE_NAME",
 
-    # (optional)
-    "questiongroup_condition": "CONDITION_NAME",
+      # Default: 1
+      "min_num": 2,
 
-    # (optional)
-    "view_options": {},
+      # Default: 1
+      "max_num: 3,
 
-    # (optional)
-    "form_options": {},
+      # Default: ""
+      "numbered": "NUMBERED",
 
-    # (optional)
-    "numbered": "NUMBERED",
+      # Default: ""
+      "detail_level": "DETAIL_LEVEL",
 
-    # (optional)
-    "detail_level": "DETAIL_LEVEL",
+      # Default: ""
+      "questiongroup_condition": "CONDITION_NAME",
+    },
 
     # A list of questions.
     "questions": [
@@ -74,35 +86,21 @@ The keyword of the questiongroup.
     their questiongroup keyword and when queried it needs to be mapped
     to the correct questiongroup.
 
-``min_num``
-^^^^^^^^^^^
-
-(Optional). The minimum for repeating questiongroups to appear. Defaults
-to 1.
-
-``max_num``
-^^^^^^^^^^^
-
-(Optional). The maximum for repeating questiongroups to appear. If
-larger than ``min_num``, buttons to add or remove questiongroups will be
-rendered in the form. Defaults to ``min_num``.
-
-``questiongroup_condition``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-(Optional). An optional name of a condition valid for this
-questiongroup. The name must correspond to one of
-``questiongroup_conditions`` of a Question configuration.
-
-.. seealso::
-    :doc:`/configuration/question`
-
 
 ``view_options``
 ^^^^^^^^^^^^^^^^
 
 (Optional). An optional object containing configuration options for the
 view representation of the questiongroup.
+
+  * ``template``: An optional template name. Must be a valid file name
+    with ``.html`` ending in folder
+    ``templates/details/questiongroup/``.
+
+  * ``extra``: TODO
+
+  * ``colclass``: An optional name of a CSS class to be passed to the
+    column of the Questiongroup in the template.
 
 
 ``form_options``
@@ -111,73 +109,36 @@ view representation of the questiongroup.
 (Optional). An optional object containing configuration options for the
 form representation of the question.
 
+  * ``template``: An optional template name. Must be a valid file name
+    with ``.html`` ending in folder ``templates/form/questiongroup/``.
 
-``view_template``
-^^^^^^^^^^^^^^^^^
+  * ``min_num``: The minimum for repeating questiongroups to appear.
+    Defaults to 1.
 
-(deprecated)
+  * ``max_num``: The maximum for repeating questiongroups to appear. If
+    larger than ``min_num``, buttons to add or remove questiongroups
+    will be rendered in the form. Defaults to ``min_num``.
 
-(Optional). An optional name of a template to be used for the rendering
-of the questiongroup in the detail view. The name of the template needs
-to match a file with the ending ``.html`` inside
-``questionnaire/templates/details/questiongroup/``. If not specified,
-the default layout (``default.html``) is used.
+  * ``numbered``: An optional parameter if the questiongroup is to be
+    numbered. Possible values are ``inline`` (numbering inside field
+    label) or ``prefix`` (numbering indented before fields). If not
+    specified, no numbering is used.
 
-The following question templates exist. Please note that not every
-template should be used with any field type.
+    .. hint::
+        If possible, ``prefix`` should be used.
 
-+-------------------------+---------------------------------------------------+
-| ``default``             | Simply renders each question of the questiongroup |
-|                         | without additional output.                        |
-|                         |                                                   |
-|                         | This is the default.                              |
-+-------------------------+---------------------------------------------------+
-| ``bars``                | Renders all questions of the questiongroup as     |
-|                         | horizontal bars.                                  |
-|                         |                                                   |
-|                         | Should only be used for questiongroups containing |
-|                         | only questions with type ``measure``.             |
-+-------------------------+---------------------------------------------------+
-| ``bars_pyramid``        | Renders all questions of the questiongroup as     |
-|                         | horizontal bars in the form of a pyramid (steps   |
-|                         | ascending on the right side).                     |
-|                         |                                                   |
-|                         | Should only be used for questiongroups containing |
-|                         | only questions with type ``measure``.             |
-+-------------------------+---------------------------------------------------+
-| ``bars_pyramid_center`` | Renders all questions of the questiongroup as     |
-|                         | horizontal bars in the form of a pyramid (steps   |
-|                         | ascending on either side).                        |
-|                         |                                                   |
-|                         | Should only be used for questiongroups containing |
-|                         | only questions with type ``measure``.             |
-+-------------------------+---------------------------------------------------+
-| ``bars_pyramid_desc``   | Renders all questions of the questiongroup as     |
-|                         | horizontal bars in the form of a pyramid (steps   |
-|                         | descending the left side).                        |
-|                         |                                                   |
-|                         | Should only be used for questiongroups containing |
-|                         | only questions with type ``measure``.             |
-+-------------------------+---------------------------------------------------+
+  * ``detail_level``: An optional parameter if the questiongroup
+    contains additional, mostly more detailed questions which are only
+    visible after clicking on a link. This is used for the
+    "Plus"-Questions. The value of the parameter can be freely chosen.
 
-``numbered``
-^^^^^^^^^^^^
+  * ``questiongroup_condition``: An optional name of a condition valid
+    for this questiongroup. The name must correspond to one of
+    ``questiongroup_conditions`` of a Question configuration.
 
-(Optional). An optional parameter if the questiongroup is to be
-numbered. Possible values are ``inline`` (numbering inside field label)
-or ``prefix`` (numbering indented before fields). If not specified, no
-numbering is used.
+    .. seealso::
+        :doc:`/configuration/question`
 
-.. hint::
-    If possible, ``prefix`` should be used.
-
-``detail_level``
-^^^^^^^^^^^^^^^^
-
-(Optional). An optional parameter if the questiongroup contains
-additional, mostly more detailed questions which are only visible after
-clicking on a link. This is used for the "Plus"-Questions. The value of
-the parameter can be freely chosen.
 
 ``questions``
 ^^^^^^^^^^^^^

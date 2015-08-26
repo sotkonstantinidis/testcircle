@@ -1,3 +1,4 @@
+import time
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from selenium.webdriver.support.ui import WebDriverWait
@@ -731,6 +732,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # She sees that the filter was submitted in the url and the results
         # are filtered
@@ -761,6 +763,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # Nothing is visible with these two filters
         list_entries = self.findManyBy(
@@ -790,6 +793,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # She sees there are 4 Questionnaires in the list
         list_entries = self.findManyBy(
@@ -821,7 +825,6 @@ class ListTest(FunctionalTest):
             created_left_handle.get_attribute('style'), 'left: 0px;')
 
         filter_button.click()
-        import time
         time.sleep(1)
         url = self.browser.current_url
         self.browser.get(url)
@@ -865,6 +868,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
         self.assertEqual(
             created_left_handle.get_attribute('style'), 'left: 0px;')
 
@@ -924,6 +928,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # She sees that the filter was submitted in the url and the results
         # are filtered
@@ -954,6 +959,10 @@ class ListTest(FunctionalTest):
         country_filter.clear()
         country_filter.send_keys('Foo Country')
         filter_button.click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # Nothing is visible with this filter
         list_entries = self.findManyBy(
@@ -968,6 +977,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # She sees there are 4 Questionnaires in the list
         list_entries = self.findManyBy(
@@ -985,7 +995,6 @@ class ListTest(FunctionalTest):
         # She sets a filter again and reloads the page
         country_filter.send_keys('Afghanistan')
         filter_button.click()
-        import time
         time.sleep(1)
 
         url = self.browser.current_url
@@ -1024,6 +1033,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
         self.assertEqual(country_filter.get_attribute('value'), '')
 
         # She clicks "filter" again and sees that nothing is happening.
@@ -1038,6 +1048,7 @@ class ListTest(FunctionalTest):
         country_filter = self.findBy('id', 'filter-country')
         country_filter.send_keys('Bar Country')
         filter_button.click()
+        time.sleep(1)
         url = self.browser.current_url
         self.browser.get(url)
 
@@ -1071,6 +1082,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # She sees that she is redirected to the list view where she
         # sees the filtered results
