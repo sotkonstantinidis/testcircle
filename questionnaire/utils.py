@@ -121,12 +121,22 @@ def clean_questionnaire_data(data, configuration):
                             'questiongroup "{}").'.format(
                                 value, key, qg_keyword))
                         continue
-                elif question.field_type in ['checkbox', 'image_checkbox']:
+                elif question.field_type in [
+                        'checkbox', 'image_checkbox', 'cb_bool']:
                     if not isinstance(value, list):
                         errors.append(
                             'Value "{}" of key "{}" needs to be a list'.format(
                                 value, key))
                         continue
+                    if question.field_type in ['cb_bool']:
+                        try:
+                            value = [int(v) for v in value]
+                        except ValueError:
+                            errors.append(
+                                'Value "{}" is not a valid boolean checkbox '
+                                'value for key "{}" (questiongroup "{}")'
+                                .format(value, key, qg_keyword))
+                            continue
                     for v in value:
                         if v not in [c[0] for c in question.choices]:
                             errors.append(

@@ -228,6 +228,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'select_type',
         'select',
         'todo',
+        'cb_bool',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -347,8 +348,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.choices = ()
         self.choices_helptexts = []
         self.value_objects = []
-        if self.field_type == 'bool':
+        if self.field_type in ['bool']:
             self.choices = ((1, _('Yes')), (0, _('No')))
+        elif self.field_type in ['cb_bool']:
+            self.choices = ((1, self.label),)
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type',
                 'select']:
@@ -534,7 +537,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
                 required=self.required, initial=self.choices[0][0])
-        elif self.field_type == 'checkbox':
+        elif self.field_type in ['checkbox', 'cb_bool']:
             widget = Checkbox()
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
@@ -613,7 +616,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         value = data.get(self.keyword)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
-                'select_type', 'select']:
+                'select_type', 'select', 'cb_bool']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
@@ -653,7 +656,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': values[0],
                 'level': level,
             })
-        elif self.field_type in ['checkbox']:
+        elif self.field_type in ['checkbox', 'cb_bool']:
             template_name = 'checkbox'
             template_values.update({
                 'key': self.label_view,
@@ -1102,6 +1105,14 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     # Order the values of the questiongroups according
                     # to their questions
                     q_order = [q.keyword for q in questiongroup.questions]
+                    # qg_data = []
+                    # Add empty values for all keys not available to
+                    # keep the order inside the table even with empty
+                    # values.
+                    for qg in questiongroup_data:
+                        for q in q_order:
+                            if q not in qg:
+                                qg[q] = []
                     sorted_questiongroup_data = [
                         sorted(qg.items(), key=lambda i: q_order.index(i[0]))
                         for qg in questiongroup_data]
@@ -1115,12 +1126,18 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                                 q[0])
                             if not q_obj:
                                 continue
-                            q_choice = next((
-                                item for item in q_obj.choices if
-                                item[0] == q_value), None)
-                            if q_choice:
-                                q_value = q_choice[1]
-                            qg_labelled.append((q_obj.label, q_value))
+                            if not isinstance(q_value, list):
+                                q_value = [q_value]
+                            values = []
+                            for v in q_value:
+                                q_choice = next((
+                                    item for item in q_obj.choices if
+                                    item[0] == v), None)
+                                if q_choice:
+                                    values.append(q_choice[1])
+                                else:
+                                    values.append(v)
+                            qg_labelled.append((q_obj.label, values))
                         data_labelled.append(qg_labelled)
                     raw_questiongroups.append({
                         "qg_keyword": questiongroup.keyword,
@@ -1146,6 +1163,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'subcategories': subcategories,
             'label': self.label_view,
             'numbering': self.numbering,
+            'helptext': self.helptext,
         }
         if self.table_grouping:
             template_values.update({

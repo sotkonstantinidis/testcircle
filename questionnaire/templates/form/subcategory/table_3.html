@@ -1,6 +1,7 @@
 {% comment %}
-  Table where the first questiongroup is occupying the entire row,
-  repeated several times and numbered.
+  Table where each questiongroup is occupying a table row. The first
+  column is labelled by the helptext of the subcategories' helptext. No
+  numbering.
 
   Further questions are added at the bottom of the table.
 {% endcomment %}
@@ -22,9 +23,12 @@
     <table>
       <thead>
         <tr>
-          <th></th>
           {% for header in config.table_headers %}
-            <th>{{ header }}</th>
+            {% if forloop.counter == 1 %}
+              <th>{{ config.helptext }}</th>
+            {% else %}
+              <th>{{ header }}</th>
+            {% endif %}
           {% endfor %}
         </tr>
       </thead>
@@ -34,10 +38,11 @@
             {{ questiongroup_formset.management_form }}
             {% for f in questiongroup_formset.forms %}
               <tr>
-                <td>{{ forloop.counter }}.</td>
                 {% for field in f.visible_fields %}
                   <td>
-                    {% formrow field using "form/question/no_label.html" %}
+                    {% with options=questiongroup_config.options|get_by_keyword:field.name %}
+                      {% formrow field using "form/question/no_label.html" %}
+                    {% endwith %}
                   </td>
                 {% endfor %}
               </tr>

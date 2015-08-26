@@ -48,13 +48,11 @@
             <div class="row single-item">
               {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
               {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
-                {% block row %}
-                  {% if template %}
-                    {% formrow field using template %}
-                  {% else %}
-                    {% formrow field using "form/question/default.html" %}
-                  {% endif %}
-                {% endblock %}
+                {% if template %}
+                  {% formrow field using template %}
+                {% else %}
+                  {% formrow field using "form/question/default.html" %}
+                {% endif %}
               {% endwith %}
             </div>
           {% endfor %}
