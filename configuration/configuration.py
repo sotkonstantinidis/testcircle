@@ -612,6 +612,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         template_values = {
             'view_label': self.view_options.get('label'),
             'header': self.view_options.get('header'),
+            'extra': self.view_options.get('extra'),
         }
         value = data.get(self.keyword)
         if self.field_type in [

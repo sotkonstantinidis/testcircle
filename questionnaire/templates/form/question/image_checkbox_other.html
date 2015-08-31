@@ -1,4 +1,5 @@
 {% load floppyforms %}
+{% load staticfiles %}
 
 {% block row %}
   {% for field in fields %}
@@ -7,18 +8,23 @@
         {% block errors %}
           {% include "form/errors.html" with errors=field.errors %}
         {% endblock %}
-        <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
-          {% if options.helptext and options.helptext_position == 'tooltip' %}
-            <label for="{{ field|id }}" class="has-tip" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">
-          {% else %}
-            <label for="{{ field|id }}">
-          {% endif %}
-            {{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
+        <div class="medium-12 columns">
+          <div class="small-12 columns">
+            <ul class="list-gallery small-block-grid-1">
+              <li>
+                <div class="list-gallery-item without-label">
+                  {% formfield field %}
+                  <label for="foo">
+                    <figure class="list-gallery-icon">
+                      <img src="{% static 'assets/img/landuse_empty.png' %}">
+                    </figure>
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
-          {% formfield field %}
-        </div>
-        {% if options.helptext and options.helptext_position != 'tooltip' %}
+        {% if options.helptext %}
           <div class="small-12 columns help-bloc-question">
             {% include "form/helptext.html" with helptext=options.helptext %}
           </div>

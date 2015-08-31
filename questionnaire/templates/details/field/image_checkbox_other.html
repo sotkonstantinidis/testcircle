@@ -1,0 +1,10 @@
+{% load staticfiles %}
+{% if value|length > 0 %}
+  {% if view_label != 'none' %}
+    {{ key }}:<br/>
+  {% endif %}
+  <img src="{% static 'assets/img/landuse_empty.png' %}" alt="{{ value }}">
+  </div>
+  <div class="medium-10 columns">
+  <strong>{{ value }}</strong>
+{% endif %}
