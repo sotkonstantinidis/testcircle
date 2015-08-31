@@ -2027,6 +2027,213 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
 
+    def test_upload_multiple_images(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
+
+        # She sees a field to put files, drawn by Dropzone
+        dropzone = self.findBy(
+            'xpath', '//div[@id="id_qg_30-0-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        self.assertTrue(dropzone.is_displayed())
+
+        # She does not see the preview field, which is hidden and does not
+        # contain an image
+        preview = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-0-file_key_19"]')
+        self.assertFalse(preview.is_displayed())
+        self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_30-0-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # The hidden input field is empty
+        filename = self.findBy('xpath', '//input[@id="id_qg_30-0-key_19"]')
+        self.assertEqual(filename.get_attribute('value'), '')
+
+        # She uploads an image
+        self.dropImage('id_qg_30-0-file_key_19')
+
+        # She sees that the dropzone is hidden, the preview is visible
+        self.assertFalse(dropzone.is_displayed())
+        self.assertTrue(preview.is_displayed())
+
+        # Preview contains an image
+        self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-0-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # The filename was added to the hidden input field
+        self.assertNotEqual(filename.get_attribute('value'), '')
+
+        # She adds another image
+        self.findBy(
+            'xpath', '//a[@data-questiongroup-keyword="qg_30"]').click()
+
+        # She sees that another dropzone was added and it is empty.
+        dropzone_2 = self.findBy(
+            'xpath', '//div[@id="id_qg_30-1-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        preview_2 = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]')
+        self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        import time
+        time.sleep(1)
+        self.assertTrue(dropzone_2.is_displayed())
+        self.assertFalse(preview_2.is_displayed())
+
+        # She submits the form and sees only one image was submitted
+        self.findBy('id', 'button-submit').click()
+
+        # On the overview page, she sees the image she uploaded
+        images = self.findManyBy(
+            'xpath', '//div[contains(@class, "output")]/img')
+        self.assertEqual(len(images), 1)
+
+        # She edits the form again and sees the image was populated correctly.
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
+
+        # Dropzone is hidden, preview is there, filename was written to field
+        dropzone = self.findBy(
+            'xpath', '//div[@id="id_qg_30-0-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        time.sleep(1)
+        self.assertFalse(dropzone.is_displayed())
+        preview = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-0-file_key_19"]')
+        self.assertTrue(preview.is_displayed())
+        filename = self.findBy('xpath', '//input[@id="id_qg_30-0-key_19"]')
+        self.assertNotEqual(filename.get_attribute('value'), '')
+
+        # She adds another image
+        self.findBy(
+            'xpath', '//a[@data-questiongroup-keyword="qg_30"]').click()
+
+        # She sees that another dropzone was added and it is empty.
+        dropzone_2 = self.findBy(
+            'xpath', '//div[@id="id_qg_30-1-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        preview_2 = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]')
+        self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # She uploads a second image
+        self.dropImage('id_qg_30-1-file_key_19')
+
+        # The hidden input field is empty
+        filename_2 = self.findBy('xpath', '//input[@id="id_qg_30-1-key_19"]')
+
+        # She sees that the dropzone is hidden, the preview is visible
+        self.assertFalse(dropzone_2.is_displayed())
+        self.assertTrue(preview_2.is_displayed())
+
+        # Preview contains an image
+        self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # The filename was added to the hidden input field
+        self.assertNotEqual(filename_2.get_attribute('value'), '')
+
+        # She submits the step and sees both images are there
+        self.findBy('id', 'button-submit').click()
+
+        # On the overview page, she sees the image she uploaded
+        images = self.findManyBy(
+            'xpath', '//div[contains(@class, "output")]/img')
+        self.assertEqual(len(images), 2)
+
+        # She edits the form again
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
+        import time
+        time.sleep(1)
+
+        # She removes the second image
+        self.findBy(
+            'xpath',
+            '//div[@id="preview-id_qg_30-1-file_key_19"]/div/button').click()
+
+        # The preview is now empty
+        self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]')
+
+        preview_2 = self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # She submits the step and sees the image is there
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # On the overview page, she sees the image she uploaded
+        images = self.findManyBy(
+            'xpath', '//div[contains(@class, "output")]/img')
+        self.assertEqual(len(images), 1)
+
+        # She goes back to edit the form again
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
+        import time
+        time.sleep(1)
+
+        # She adds another image
+        self.findBy(
+            'xpath', '//a[@data-questiongroup-keyword="qg_30"]').click()
+        self.dropImage('id_qg_30-1-file_key_19')
+
+        # She decides to remove the second questiongroup again
+        self.findBy(
+            'xpath', '//div[@data-questiongroup-keyword="qg_30"][2]//a['
+            'contains(@class, "list-item-action")]').click()
+
+        # One image remains
+        self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-0-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # She removes the remaining image and adds a new one
+        self.findBy(
+            'xpath',
+            '//div[@id="preview-id_qg_30-0-file_key_19"]/div/button').click()
+        import time
+        time.sleep(1)
+
+        self.findBy(
+            'xpath', '//div[@id="id_qg_30-0-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        preview_1 = self.findBy(
+            'xpath', '//div[@id="preview-id_qg_30-0-file_key_19"]')
+        self.assertFalse(preview_1.is_displayed())
+        self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_30-0-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        self.dropImage('id_qg_30-0-file_key_19')
+
+        # She submits the entire form and sees the image is there.
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # On the overview page, she sees the image she uploaded
+        images = self.findManyBy(
+            'xpath', '//div[contains(@class, "output")]/img')
+        self.assertEqual(len(images), 1)
+
     def test_edit_questionnaire(self):
 
         # Alice logs in

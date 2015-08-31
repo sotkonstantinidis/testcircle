@@ -34,7 +34,10 @@ The basic format of the configuration is as follows::
       "review_panel": true,
 
       # Default: false
-      "include_toc": true
+      "include_toc": true,
+
+      # Default: false
+      "media_gallery": true
     },
 
     # A list of categories.
@@ -78,6 +81,10 @@ view representation of the section.
     the review panel at the top of the section or not. The review panel
     contains actions related to the editing and moderation workflow (eg.
     submit, publish).
+
+  * ``media_gallery``: An optional boolean indicating whether to include
+    a media gallery at the top of the section or not. The gallery
+    contains all images attached to the questionnaire.
 
 
 ``categories``

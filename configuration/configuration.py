@@ -938,6 +938,41 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
                 return question
         return None
 
+    def get_raw_data(self, data):
+        """
+        Return only the raw data of a questiongroup. Data belonging to
+        this questiongroup is returned as a flat dictionary. Predefined
+        values are looked up to return their display value. The label of
+        the key is also added to the dict.
+
+        Args:
+            ``questionnaire_data`` (dict): The questionnaire data
+            dictionary.
+
+        Returns:
+            ``dict``. A flat dictionary with only the keys and values of
+            the current questiongroup.
+        """
+        raw_data = {}
+        for question in self.questions:
+            for questiongroup_data in data:
+                question_data = questiongroup_data.get(
+                    question.keyword)
+                # Still look up the display values for fields
+                # with predefined internal values.
+                if question.field_type in [
+                        'bool', 'measure', 'checkbox',
+                        'image_checkbox', 'select_type']:
+                    if not isinstance(question_data, list):
+                        question_data = [question_data]
+                    question_data = question.\
+                        lookup_choices_labels_by_keywords(
+                            question_data)
+                raw_data[question.keyword] = question_data
+                raw_data['label_{}'.format(question.keyword)]\
+                    = question.label_view
+        return raw_data
+
 
 class QuestionnaireSubcategory(BaseConfigurationObject):
     """
@@ -1370,23 +1405,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
             for questiongroup in subcategory.questiongroups:
                 questiongroups_data = questionnaire_data.get(
                     questiongroup.keyword, {})
-                for question in questiongroup.questions:
-                    for questiongroup_data in questiongroups_data:
-                        question_data = questiongroup_data.get(
-                            question.keyword)
-                        # Still look up the display values for fields
-                        # with predefined internal values.
-                        if question.field_type in [
-                                'bool', 'measure', 'checkbox',
-                                'image_checkbox', 'select_type']:
-                            if not isinstance(question_data, list):
-                                question_data = [question_data]
-                            question_data = question.\
-                                lookup_choices_labels_by_keywords(
-                                    question_data)
-                        raw_category_data[question.keyword] = question_data
-                        raw_category_data['label_{}'.format(question.keyword)]\
-                            = question.label_view
+                raw_category_data.update(questiongroup.get_raw_data(
+                    questiongroups_data))
         return raw_category_data
 
 
@@ -1424,7 +1444,10 @@ class QuestionnaireSection(BaseConfigurationObject):
               "review_panel": true,
 
               # Default: false
-              "include_toc": true
+              "include_toc": true,
+
+              # Default: false
+              "media_gallery": true
             },
 
             # A list of categories.
@@ -1474,11 +1497,17 @@ class QuestionnaireSection(BaseConfigurationObject):
         if self.view_options.get('include_toc', False) is True:
             toc_content = self.parent_object.get_toc_data()
 
+        media_content = []
+        if self.view_options.get('media_gallery', False) is True:
+            media_content = self.parent_object.get_image_data(
+                data, interchange_as_list=True)
+
         return render_to_string(view_template, {
             'label': self.label,
             'keyword': self.keyword,
             'categories': rendered_categories,
             'toc_content': toc_content,
+            'media_content': media_content,
             'review_config': review_config,
         })
 
@@ -1593,7 +1622,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 (section.keyword, section.label, tuple(categories)))
         return tuple(sections)
 
-    def get_image_data(self, data):
+    def get_image_data(self, data, interchange_as_list=False):
         """
         Return image data from outside the category. Loops through all
         the fields to find the questiongroups containing images. For all
@@ -1602,6 +1631,11 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         Args:
             ``data`` (dict): A questionnaire data dictionary.
+
+        Kwargs:
+            ``interchange_as_list`` (bool): An boolean passed as
+            ``as_list`` to :func:`get_interchange_urls_by_identifier`
+            to return the interchange URLs as list instead of string.
 
         Returns:
             ``list``. A list of dictionaries for each image. Each
@@ -1634,7 +1668,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             images.append({
                 'image': get_url_by_identifier(image.get('image')),
                 'interchange': get_interchange_urls_by_identifier(
-                    image.get('image')),
+                    image.get('image'), as_list=interchange_as_list),
                 'caption': image.get('image_caption'),
                 'date_location': image.get('image_date_location'),
                 'photographer': image.get('image_photographer')

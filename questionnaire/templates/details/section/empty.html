@@ -2,6 +2,10 @@
   {% include 'details/review_panel.html' %}
 {% endif %}
 
+{% if media_content %}
+  {% include 'details/media_gallery.html' %}
+{% endif %}
+
 {% if toc_content %}
   {% include "details/toc.html" with toc_keyword=keyword %}
 {% endif %}

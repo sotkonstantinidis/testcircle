@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<div class="row is-rhythmed-2">
+  <div class="small-12 columns gallery">
+    <h2 class="is-unvisible">{% trans "Media Gallery" %}</h2>
+    <ul class="small-block-grid-3 medium-block-grid-6 clearing-thumbs" data-clearing="">
+      {% for data in media_content %}
+        <li><a class="th" href="{{ data.image }}"><img src="{{ data.interchange.1.0 }}" data-caption="{{ data.caption }}<br><i>{{ data.date_location }}</i><br><strong>Photo: {{ data.photographer }}</strong>"></a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

@@ -245,6 +245,9 @@ $(function() {
     updateFieldsetElement(newElement, qg, currentCount, true);
     newElement.insertBefore(container);
 
+    // Update the dropzones
+    updateDropzones(true);
+
     currentCount++;
     $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
     $(this).toggle(currentCount < maxCount);
@@ -438,12 +441,20 @@ $(function() {
     //   console.log( location.hash );
     // })
 
-  /**
-   * DropzoneJS file upload.
-   */
-  var dropzones = [];
+  updateDropzones();
 
+});
+
+
+/**
+ * DropzoneJS file upload.
+ */
+var dropzones = [];
+function updateDropzones(emptyNew) {
   $('.dropzone').each(function() {
+
+    // If there is already a dropzone attached to it, do nothing.
+    if (this.dropzone) return;
 
     var dropzoneContainer = $(this);
     var previewContainer = $(this).data('upload-preview-container');
@@ -477,6 +488,12 @@ $(function() {
           previewContainer.toggle();
           dropzoneContainer.toggle();
           previewContainer.find('.image-preview').empty();
+
+          // Manually reset the hidden form field if there is no file left.
+          if (files.length == 0) {
+            $('input#' + dropzone.element.id.replace('file_', '')).val('');
+          }
+
         }
         watchFormProgress();
         return false;
@@ -489,7 +506,7 @@ $(function() {
       return;
     }
 
-    new Dropzone(this, {
+    var dz = new Dropzone(this, {
       url: url,
       addRemoveLinks: true,
       init: function() {
@@ -536,8 +553,12 @@ $(function() {
         return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
       }
     });
+
+    if (emptyNew === true) {
+      $('input#' + dz.element.id.replace('file_', '')).val('');
+    }
   });
-});
+}
 
 /**
  * Add an image to the preview container. This is done by creating an
@@ -661,14 +682,31 @@ function updateFieldsetElement(element, prefix, index, reset) {
   var id_regex = new RegExp('(' + prefix + '-\\d+-)');
   var replacement = prefix + '-' + index + '-';
   element.find(':input').each(function() {
+    // Dropzone input button needs to be treated differently. Update all
+    // the field references and reset the image container if necessary.
+    if ($(this).data('dropzone-id')) {
+      var old_dz_id = $(this).data('dropzone-id');
+      var new_dz_id = old_dz_id.replace(id_regex, replacement);
+      var row = $(this).closest('.single-item');
+      var dz_container = row.find('#' + old_dz_id);
+
+      dz_container.attr({'id': new_dz_id, 'data-upload-preview-container': 'preview-' + new_dz_id});
+      row.find('#preview-' + old_dz_id).attr({'id': 'preview-' + new_dz_id});
+      if (reset) {
+        dz_container.html('<div class="fallback">Sorry, no upload functionality right now.</div>');
+        row.find('.image-preview').html('');
+      }
+      row.find('.remove-image').attr({'data-dropzone-id': new_dz_id});
+    } else {
       var name = $(this).attr('name').replace(id_regex, replacement);
       var id = $(this).attr('id').replace(id_regex, replacement);
       $(this).attr({'name': name, 'id': id});
-    });
-    element.find('label').each(function() {
-        var newFor = $(this).attr('for').replace(id_regex, replacement);
-        $(this).attr('for', newFor);
-    });
+    }
+  });
+  element.find('label').each(function() {
+      var newFor = $(this).attr('for').replace(id_regex, replacement);
+      $(this).attr('for', newFor);
+  });
   if (reset) {
     clearQuestiongroup(element);
   }
