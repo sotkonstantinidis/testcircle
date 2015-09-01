@@ -2,9 +2,9 @@
   {% load i18n %}
   <div class="help-bloc">
     <div class="help-content-first">
-      {{ helptext|truncatewords_html:20|safe }}
+      {{ helptext|truncatewords_html:30|safe }}
     </div>
-    {% if helptext|truncatewords_html:20|safe != helptext|safe %}
+    {% if helptext|truncatewords_html:30|safe != helptext|safe %}
       <div class="help-content-more" style="display: none;">
         {{ helptext|safe }}
       </div>

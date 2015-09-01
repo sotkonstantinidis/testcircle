@@ -102,7 +102,7 @@ class ModerationTest(FunctionalTest):
         self.doLogin(user=user_moderator)
 
         # He goes to the list view and sees that the questionnaire is
-        # not there yet because it is not "published".
+        # not there yet because it is not "public".
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
         self.findByNot('xpath', '//article[1]//h1/a[text()="Foo"]')

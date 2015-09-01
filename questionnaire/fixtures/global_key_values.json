@@ -34,7 +34,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"approaches":{"label":{"en":"State / Province"}},"technologies":{"label":{"en": "State / Province"}}}
+        "data": {"approaches":{"label":{"en":"Region / State / Province"}},"technologies":{"label":{"en": "Region / State / Province"}}}
     },
     "model": "configuration.translation",
     "pk": 5005

@@ -4,7 +4,7 @@
     <a name="{{ keyword }}"></a>
 
     <header class="tech-output-header medium-7 columns">
-      {% if metadata.status.0 and metadata.status.0 != 'published' %}
+      {% if metadata.status.0 and metadata.status.0 != 'public' %}
         <div class="tech-status">
           <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
         </div>

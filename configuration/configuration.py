@@ -214,17 +214,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
     """
     valid_options = [
         'keyword',
-        'in_list',
         'view_options',
         'form_options',
-        'view_label',
-        'conditions',
-        'conditional',
-        'questiongroup_conditions',
-        'max_length',
-        'num_rows',
-        'filter',
-        'is_name',
     ]
     valid_field_types = [
         'char',
@@ -236,6 +227,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'image',
         'select_type',
         'select',
+        'todo',
+        'cb_bool',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -257,34 +250,55 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             "keyword": "KEY",
 
             # (optional)
-            "in_list": true,
+            "view_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME",
+
+              # Default: ""
+              "label": "none",
+
+              # Default: ""
+              "header": "small",
+
+              # Default: false
+              "in_list": true,
+
+              # Default: false
+              "is_name": true,
+
+              # Default: false
+              "filter": true
+            },
 
             # (optional)
-            "is_name": true,
+            "form_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME",
 
-            # (optional)
-            "view_label": true,
+              # Default: None
+              "max_length": 500,
 
-            # (optional)
-            "view_options": {},
+              # Default: Relative to max_length, default: 10
+              "num_rows": 5,
 
-            # (optional)
-            "form_options": {},
+              # Default: ""
+              "colclass": "top-margin",
 
-            # (optional)
-            "conditional": true,
+              # Default: ""
+              "helptext": "tooltip",
 
-            # (optional)
-            "conditions": [],
+              # Default: ""
+              "label": "placeholder",
 
-            # (optional)
-            "questiongroup_conditions": [],
+              # Default: []
+              "conditions": [],
 
-            # (optional)
-            "max_length": 500,
+              # Default: false
+              "conditional": true,
 
-            # (optional)
-            "num_rows": 10,
+              # Default: []
+              "questiongroup_conditions": [],
+            }
           }
 
         .. seealso::
@@ -300,7 +314,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             parent_object, configuration)
         self.questiongroup = parent_object
 
-        self.in_list = configuration.get('in_list', False)
         self.key_config = self.configuration_object.configuration
 
         self.field_type = self.key_config.get('type', 'char')
@@ -308,27 +321,37 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', 'Key')
 
-        self.is_name = self.configuration.get('is_name', False) is True
+        view_options = self.configuration.get('view_options', {})
+        if configuration.get('view_options'):
+            view_options.update(configuration.get('view_options'))
+        self.view_options = view_options
 
-        self.view_options = configuration.get('view_options', {})
-        self.form_options = configuration.get('form_options', {})
+        form_options = self.configuration.get('form_options', {})
+        if configuration.get('form_options'):
+            form_options.update(configuration.get('form_options'))
+        self.form_options = form_options
 
-        self.max_length = configuration.get('max_length', None)
+        self.in_list = self.view_options.get('in_list', False) is True
+        self.is_name = self.view_options.get('is_name', False) is True
+
+        self.max_length = self.form_options.get('max_length', None)
         if self.max_length and not isinstance(self.max_length, int):
             self.max_length = None
         default_num_rows = 10
         if self.max_length:
             default_num_rows = int(self.max_length / 100)
-        self.num_rows = configuration.get('num_rows', default_num_rows)
+        self.num_rows = self.form_options.get('num_rows', default_num_rows)
 
-        self.filterable = configuration.get('filter', False) is True
+        self.filterable = self.view_options.get('filter', False) is True
 
         self.images = []
         self.choices = ()
         self.choices_helptexts = []
         self.value_objects = []
-        if self.field_type == 'bool':
+        if self.field_type in ['bool']:
             self.choices = ((1, _('Yes')), (0, _('No')))
+        elif self.field_type in ['cb_bool']:
+            self.choices = ((1, self.label),)
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type',
                 'select']:
@@ -368,10 +391,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.choices = tuple([c[:2] for c in choices])
             self.choices_helptexts = [c[2] for c in choices]
 
-        self.conditional = configuration.get('conditional', False)
+        self.conditional = self.form_options.get('conditional', False)
 
         conditions = []
-        for condition in configuration.get('conditions', []):
+        for condition in self.form_options.get('conditions', []):
             try:
                 cond_value, cond_expression, cond_key = condition.split('|')
             except ValueError:
@@ -412,7 +435,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.conditions = conditions
 
         questiongroup_conditions = []
-        for questiongroup_condition in configuration.get(
+        for questiongroup_condition in self.form_options.get(
                 'questiongroup_conditions', []):
             try:
                 cond_expression, cond_name = questiongroup_condition.split('|')
@@ -514,7 +537,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
                 required=self.required, initial=self.choices[0][0])
-        elif self.field_type == 'checkbox':
+        elif self.field_type in ['checkbox', 'cb_bool']:
             widget = Checkbox()
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
@@ -536,6 +559,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.searchable = True
             field = forms.ChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
+                required=self.required)
+        elif self.field_type == 'todo':
+            field = forms.CharField(
+                label=self.label,
+                widget=forms.TextInput(
+                    attrs={'readonly': 'readonly', 'value': '[TODO]'}),
                 required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
@@ -583,16 +612,17 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         template_values = {
             'view_label': self.view_options.get('label'),
             'header': self.view_options.get('header'),
+            'extra': self.view_options.get('extra'),
         }
         value = data.get(self.keyword)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
-                'select_type']:
+                'select_type', 'select', 'cb_bool']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char']:
+        if self.field_type in ['char', 'todo']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -604,7 +634,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'key': self.label_view,
                 'value': value,
             })
-        elif self.field_type in ['bool', 'select_type']:
+        elif self.field_type in ['bool', 'select_type', 'select']:
             template_name = 'textinput'
             template_values.update({
                 'key': self.label_view,
@@ -627,7 +657,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': values[0],
                 'level': level,
             })
-        elif self.field_type in ['checkbox']:
+        elif self.field_type in ['checkbox', 'cb_bool']:
             template_name = 'checkbox'
             template_values.update({
                 'key': self.label_view,
@@ -702,13 +732,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
     valid_options = [
         'keyword',
         'questions',
-        'max_num',
-        'min_num',
-        'questiongroup_condition',
         'view_options',
         'form_options',
-        'numbered',
-        'detail_level',
     ]
     default_template = 'default'
     default_min_num = 1
@@ -728,25 +753,37 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             "keyword": "QUESTIONGROUP_KEYWORD",
 
             # (optional)
-            "min_num": 1,
+            "view_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME",
+
+              # Default: ""
+              "extra": "measure_other",
+
+              # Default: ""
+              "colclass": "top-margin"
+            },
 
             # (optional)
-            "max_num": 1,
+            "form_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME",
 
-            # (optional)
-            "questiongroup_condition": "CONDITION_NAME",
+              # Default: 1
+              "min_num": 2,
 
-            # (optional)
-            "view_options": {},
+              # Default: 1
+              "max_num: 3,
 
-            # (optional)
-            "form_options": {},
+              # Default: ""
+              "numbered": "NUMBERED",
 
-            # (optional)
-            "numbered": "NUMBERED",
+              # Default: ""
+              "detail_level": "DETAIL_LEVEL",
 
-            # (optional)
-            "detail_level": "DETAIL_LEVEL",
+              # Default: ""
+              "questiongroup_condition": "CONDITION_NAME",
+            },
 
             # A list of questions.
             "questions": [
@@ -766,31 +803,36 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             parent_object, configuration)
         self.questions = self.children
 
-        self.view_options = self.configuration.get('view_options', {})
-        self.form_options = self.configuration.get('form_options', {})
-
         self.configuration = self.configuration_object.configuration
-        self.configuration.update(configuration)
-        self.validate_options()
 
-        self.min_num = self.configuration.get('min_num', self.default_min_num)
+        view_options = self.configuration.get('view_options', {})
+        if configuration.get('view_options'):
+            view_options.update(configuration.get('view_options'))
+        self.view_options = view_options
+
+        form_options = self.configuration.get('form_options', {})
+        if configuration.get('form_options'):
+            form_options.update(configuration.get('form_options'))
+        self.form_options = form_options
+
+        self.min_num = self.form_options.get('min_num', self.default_min_num)
         if not isinstance(self.min_num, int) or self.min_num < 1:
             raise ConfigurationErrorInvalidConfiguration(
                 'min_num', 'integer >= 1', 'questiongroup')
 
-        self.max_num = self.configuration.get('max_num', self.min_num)
+        self.max_num = self.form_options.get('max_num', self.min_num)
         if not isinstance(self.max_num, int) or self.max_num < 1:
             raise ConfigurationErrorInvalidConfiguration(
                 'max_num', 'integer >= 1', 'questiongroup')
 
-        self.questiongroup_condition = self.configuration.get(
+        self.questiongroup_condition = self.form_options.get(
             'questiongroup_condition')
 
-        self.numbered = self.configuration.get('numbered', '')
+        self.numbered = self.form_options.get('numbered', '')
         if self.numbered not in ['inline', 'prefix']:
             self.numbered = ''
 
-        self.detail_level = self.configuration.get('detail_level')
+        self.detail_level = self.form_options.get('detail_level')
 
         # TODO
         self.required = False
@@ -896,6 +938,41 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
                 return question
         return None
 
+    def get_raw_data(self, data):
+        """
+        Return only the raw data of a questiongroup. Data belonging to
+        this questiongroup is returned as a flat dictionary. Predefined
+        values are looked up to return their display value. The label of
+        the key is also added to the dict.
+
+        Args:
+            ``questionnaire_data`` (dict): The questionnaire data
+            dictionary.
+
+        Returns:
+            ``dict``. A flat dictionary with only the keys and values of
+            the current questiongroup.
+        """
+        raw_data = {}
+        for question in self.questions:
+            for questiongroup_data in data:
+                question_data = questiongroup_data.get(
+                    question.keyword)
+                # Still look up the display values for fields
+                # with predefined internal values.
+                if question.field_type in [
+                        'bool', 'measure', 'checkbox',
+                        'image_checkbox', 'select_type']:
+                    if not isinstance(question_data, list):
+                        question_data = [question_data]
+                    question_data = question.\
+                        lookup_choices_labels_by_keywords(
+                            question_data)
+                raw_data[question.keyword] = question_data
+                raw_data['label_{}'.format(question.keyword)]\
+                    = question.label_view
+        return raw_data
+
 
 class QuestionnaireSubcategory(BaseConfigurationObject):
     """
@@ -908,7 +985,6 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         'subcategories',
         'form_options',
         'view_options',
-        'table_grouping',
     ]
     name_current = 'subcategories'
     name_parent = 'categories'
@@ -926,16 +1002,19 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             "keyword": "SUBCAT_KEYWORD",
 
             # (optional)
-            "form_template": "TEMPLATE_NAME",
+            "view_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME",
+
+              # Default: None
+              "table_grouping": []
+            },
 
             # (optional)
-            "view_options": {},
-
-            # (optional)
-            "form_options": {},
-
-            # (optional)
-            "table_grouping": [],
+            "form_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME"
+            },
 
             # A list of questiongroups.
             "questiongroups": [
@@ -960,8 +1039,15 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         super(QuestionnaireSubcategory, self).__init__(
             parent_object, configuration)
 
-        self.form_options = configuration.get('form_options', {})
-        self.view_options = configuration.get('view_options', {})
+        view_options = self.configuration.get('view_options', {})
+        if configuration.get('view_options'):
+            view_options.update(configuration.get('view_options'))
+        self.view_options = view_options
+
+        form_options = self.configuration.get('form_options', {})
+        if configuration.get('form_options'):
+            form_options.update(configuration.get('form_options'))
+        self.form_options = form_options
 
         # A Subcategory can have further subcategories or questiongroups
         subcategories = []
@@ -983,7 +1069,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         else:
             self.children = self.questiongroups
 
-        self.table_grouping = configuration.get('table_grouping', None)
+        self.table_grouping = self.view_options.get('table_grouping', None)
         self.table_headers = []
         if self.table_grouping:
             for questiongroup in self.questiongroups:
@@ -1055,6 +1141,14 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     # Order the values of the questiongroups according
                     # to their questions
                     q_order = [q.keyword for q in questiongroup.questions]
+                    # qg_data = []
+                    # Add empty values for all keys not available to
+                    # keep the order inside the table even with empty
+                    # values.
+                    for qg in questiongroup_data:
+                        for q in q_order:
+                            if q not in qg:
+                                qg[q] = []
                     sorted_questiongroup_data = [
                         sorted(qg.items(), key=lambda i: q_order.index(i[0]))
                         for qg in questiongroup_data]
@@ -1068,12 +1162,18 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                                 q[0])
                             if not q_obj:
                                 continue
-                            q_choice = next((
-                                item for item in q_obj.choices if
-                                item[0] == q_value), None)
-                            if q_choice:
-                                q_value = q_choice[1]
-                            qg_labelled.append((q_obj.label, q_value))
+                            if not isinstance(q_value, list):
+                                q_value = [q_value]
+                            values = []
+                            for v in q_value:
+                                q_choice = next((
+                                    item for item in q_obj.choices if
+                                    item[0] == v), None)
+                                if q_choice:
+                                    values.append(q_choice[1])
+                                else:
+                                    values.append(v)
+                            qg_labelled.append((q_obj.label, values))
                         data_labelled.append(qg_labelled)
                     raw_questiongroups.append({
                         "qg_keyword": questiongroup.keyword,
@@ -1099,6 +1199,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'subcategories': subcategories,
             'label': self.label_view,
             'numbering': self.numbering,
+            'helptext': self.helptext,
         }
         if self.table_grouping:
             template_values.update({
@@ -1119,10 +1220,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
         'keyword',
         'subcategories',
         'view_options',
-        'use_raw_data',
-        'additional_data',
-        'with_metadata',
-        'include_toc',
     ]
     name_current = 'categories'
     name_parent = 'sections'
@@ -1140,19 +1237,24 @@ class QuestionnaireCategory(BaseConfigurationObject):
             "keyword": "CAT_KEYWORD",
 
             # (optional)
-            "view_options": {},
+            "view_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME",
 
-            # (optional)
-            "use_raw_data": true,
+              # Default: false
+              "include_toc": true,
 
-            # (optional)
-            "with_metadata": true,
+              # Default: false
+              "use_raw_data": true,
 
-            # (optional)
-            "include_toc": true,
+              # Default: false
+              "with_metadata": true,
 
-            # (optional)
-            "additional_data": {},
+              # Default: {}
+              "additional_data": {
+                "QUESTIONGROUP": ["KEY"]
+              }
+            },
 
             # A list of subcategories.
             "subcategories": [
@@ -1171,14 +1273,15 @@ class QuestionnaireCategory(BaseConfigurationObject):
             parent_object, configuration)
         self.subcategories = self.children
 
-        self.view_options = self.configuration.get('view_options', {})
+        view_options = self.configuration.get('view_options', {})
+        if configuration.get('view_options'):
+            view_options.update(configuration.get('view_options'))
+        self.view_options = view_options
 
-        self.use_raw_data = self.configuration.get(
-            'use_raw_data', False) is True
-        self.additional_data = self.configuration.get('additional_data', {})
-        self.with_metadata = self.configuration.get(
-            'with_metadata', False) is True
-        self.include_toc = self.configuration.get('include_toc', False) is True
+        form_options = self.configuration.get('form_options', {})
+        if configuration.get('form_options'):
+            form_options.update(configuration.get('form_options'))
+        self.form_options = form_options
 
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False):
@@ -1215,20 +1318,23 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 rendered_subcategories.append(rendered_subcategory)
                 with_content += 1
 
-        if self.with_metadata is True and questionnaire_object is not None:
-                metadata = questionnaire_object.get_metadata()
-        if self.use_raw_data is True:
+        if (self.view_options.get('with_metadata', False) is True
+                and questionnaire_object is not None):
+            metadata = questionnaire_object.get_metadata()
+
+        if self.view_options.get('use_raw_data', False) is True:
             raw_data = self.get_raw_category_data(data)
 
         additional_data = {}
-        if self.additional_data != {}:
+        additional_keys = self.view_options.get('additional_data', {})
+        if additional_keys != {}:
             for qg in self.parent_object.parent_object.get_questiongroups():
                 if qg.keyword not in [
-                        a[0] for a in self.additional_data.items()]:
+                        a[0] for a in additional_keys.items()]:
                     continue
 
                 qg_data = data.get(qg.keyword, [])
-                for key in self.additional_data[qg.keyword]:
+                for key in additional_keys[qg.keyword]:
                     question = qg.get_question_by_key_keyword(key)
                     additional_entry = []
                     for d in qg_data:
@@ -1244,13 +1350,15 @@ class QuestionnaireCategory(BaseConfigurationObject):
                                 lookup_choices_labels_by_keywords(k)
                         additional_entry.append(k)
                     additional_data[key] = additional_entry
+                    additional_data[
+                        'label_{}'.format(key)] = question.label_view
 
         questionnaire_identifier = 'new'
         if questionnaire_object is not None:
             questionnaire_identifier = questionnaire_object.code
 
         toc_content = []
-        if self.include_toc:
+        if self.view_options.get('include_toc', False) is True:
             toc_content = self.parent_object.parent_object.get_toc_data()
 
         return render_to_string(
@@ -1297,21 +1405,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
             for questiongroup in subcategory.questiongroups:
                 questiongroups_data = questionnaire_data.get(
                     questiongroup.keyword, {})
-                for question in questiongroup.questions:
-                    for questiongroup_data in questiongroups_data:
-                        question_data = questiongroup_data.get(
-                            question.keyword)
-                        # Still look up the display values for fields
-                        # with predefined internal values.
-                        if question.field_type in [
-                                'bool', 'measure', 'checkbox',
-                                'image_checkbox', 'select_type']:
-                            if not isinstance(question_data, list):
-                                question_data = [question_data]
-                            question_data = question.\
-                                lookup_choices_labels_by_keywords(
-                                    question_data)
-                        raw_category_data[question.keyword] = question_data
+                raw_category_data.update(questiongroup.get_raw_data(
+                    questiongroups_data))
         return raw_category_data
 
 
@@ -1324,8 +1419,6 @@ class QuestionnaireSection(BaseConfigurationObject):
         'categories',
         'keyword',
         'view_options',
-        'include_toc',
-        'review_panel',
     ]
     name_current = 'sections'
     name_parent = None
@@ -1343,13 +1436,19 @@ class QuestionnaireSection(BaseConfigurationObject):
             "keyword": "SECTION_KEYWORD",
 
             # (optional)
-            "view_options": {},
+            "view_options": {
+              # Default: "default"
+              "template": "TEMPLATE_NAME",
 
-            # (optional)
-            "include_toc": true,
+              # Default: false
+              "review_panel": true,
 
-            # (optional)
-            "review_panel": true,
+              # Default: false
+              "include_toc": true,
+
+              # Default: false
+              "media_gallery": true
+            },
 
             # A list of categories.
             "categories": [
@@ -1368,11 +1467,15 @@ class QuestionnaireSection(BaseConfigurationObject):
             parent_object, configuration)
         self.categories = self.children
 
-        self.view_options = self.configuration.get('view_options', {})
+        view_options = self.configuration.get('view_options', {})
+        if configuration.get('view_options'):
+            view_options.update(configuration.get('view_options'))
+        self.view_options = view_options
 
-        self.include_toc = self.configuration.get('include_toc', False) is True
-        self.review_panel = self.configuration.get(
-            'review_panel', False) is True
+        form_options = self.configuration.get('form_options', {})
+        if configuration.get('form_options'):
+            form_options.update(configuration.get('form_options'))
+        self.form_options = form_options
 
     def get_details(
             self, data={}, editable=False, review_config={},
@@ -1380,7 +1483,8 @@ class QuestionnaireSection(BaseConfigurationObject):
 
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
-        if self.review_panel is not True:
+
+        if self.view_options.get('review_panel', False) is not True:
             review_config = {}
 
         rendered_categories = []
@@ -1390,14 +1494,20 @@ class QuestionnaireSection(BaseConfigurationObject):
                 questionnaire_object=questionnaire_object))
 
         toc_content = []
-        if self.include_toc:
+        if self.view_options.get('include_toc', False) is True:
             toc_content = self.parent_object.get_toc_data()
+
+        media_content = []
+        if self.view_options.get('media_gallery', False) is True:
+            media_content = self.parent_object.get_image_data(
+                data, interchange_as_list=True)
 
         return render_to_string(view_template, {
             'label': self.label,
             'keyword': self.keyword,
             'categories': rendered_categories,
             'toc_content': toc_content,
+            'media_content': media_content,
             'review_config': review_config,
         })
 
@@ -1512,7 +1622,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 (section.keyword, section.label, tuple(categories)))
         return tuple(sections)
 
-    def get_image_data(self, data):
+    def get_image_data(self, data, interchange_as_list=False):
         """
         Return image data from outside the category. Loops through all
         the fields to find the questiongroups containing images. For all
@@ -1521,6 +1631,11 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         Args:
             ``data`` (dict): A questionnaire data dictionary.
+
+        Kwargs:
+            ``interchange_as_list`` (bool): An boolean passed as
+            ``as_list`` to :func:`get_interchange_urls_by_identifier`
+            to return the interchange URLs as list instead of string.
 
         Returns:
             ``list``. A list of dictionaries for each image. Each
@@ -1553,7 +1668,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             images.append({
                 'image': get_url_by_identifier(image.get('image')),
                 'interchange': get_interchange_urls_by_identifier(
-                    image.get('image')),
+                    image.get('image'), as_list=interchange_as_list),
                 'caption': image.get('image_caption'),
                 'date_location': image.get('image_date_location'),
                 'photographer': image.get('image_photographer')

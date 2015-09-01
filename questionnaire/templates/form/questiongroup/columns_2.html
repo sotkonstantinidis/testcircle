@@ -45,7 +45,10 @@
 
         <div class="row list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
           {% for field in f.visible_fields %}
-            <div class="row single-item">
+            {% if not forloop.counter|divisibleby:"2" %}
+              <div class="row single-item">
+            {% endif %}
+              <div class="medium-6 columns">
               {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
               {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
                 {% if template %}
@@ -54,7 +57,10 @@
                   {% formrow field using "form/question/default.html" %}
                 {% endif %}
               {% endwith %}
-            </div>
+              </div>
+            {% if forloop.counter|divisibleby:"2" %}
+              </div>
+            {% endif %}
           {% endfor %}
           <div class="columns right">
             <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}

@@ -15,14 +15,14 @@ from configuration.models import Configuration
 STATUSES = (
     (1, _('Draft')),
     (2, _('Pending')),
-    (3, _('Published')),
+    (3, _('Public')),
     (4, _('Rejected')),
     (5, _('Inactive')),
 )
 STATUSES_CODES = (
     (1, 'draft'),
     (2, 'pending'),
-    (3, 'published'),
+    (3, 'public'),
     (4, 'rejected'),
     (5, 'inactive'),
 )
@@ -110,7 +110,7 @@ class Questionnaire(models.Model):
                 previous_version.save()
                 return previous_version
             else:
-                # Published: Create new version with the same code
+                # Public: Create new version with the same code
                 code = previous_version.code
                 version = previous_version.version + 1
         else:
@@ -403,3 +403,20 @@ class File(models.Model):
                 thumbnail=thumbnail_format[0]), thumbnail_format[0]))
         ret.append('[{}, ({})]'.format(self.get_url(), 'large'))
         return ''.join(ret)
+
+    def get_interchange_urls_as_list(self):
+        """
+        Return the URLs for all the thumbnail sizes of the file. Similar
+        to :func:`get_interchange_urls` but returns list of tuples
+        instead of text.
+
+        Returns:
+            ``list``. A list of tuples with the interchange URLs and the
+            sizes.
+        """
+        ret = []
+        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
+            ret.append((self.get_url(
+                thumbnail=thumbnail_format[0]), thumbnail_format[0]))
+        ret.append((self.get_url(), 'large'))
+        return ret

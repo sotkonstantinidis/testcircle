@@ -6,7 +6,7 @@
     <ol class="process">
       <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Drafted" %}</li>
       <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Submitted" %}</li>
-      <li>{% trans "Published" %}</li>
+      <li>{% trans "Public" %}</li>
     </ol>
     <div class="process-status">
       <div class="row collapse">
@@ -23,7 +23,7 @@
           {% elif review_config.review_status == 2 %}
             <div class="{% if review_config.reviewable %}medium-8{% else %}medium-12{% endif %} columns">
               <h3>{% trans "Pending review" %}</h3>
-              <p>{% trans "This questionnaire is currently waiting to be reviewed. It will be publicly visible once it was reviewed and published." %}</p>
+              <p>{% trans "This questionnaire is currently waiting to be reviewed. It will be publicly visible once it was reviewed and set public." %}</p>
             </div>
             {% if review_config.reviewable %}
               <div class="medium-4 columns text-right">

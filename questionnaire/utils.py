@@ -40,7 +40,6 @@ def clean_questionnaire_data(data, configuration):
         ``list``. A list with errors encountered. Empty if the
         dictionary is valid.
     """
-    # print(data)
     errors = []
     cleaned_data = {}
     try:
@@ -114,19 +113,30 @@ def clean_questionnaire_data(data, configuration):
                             '"{}") is not valid.'.format(
                                 value, key, qg_keyword))
                         continue
-                if question.field_type in ['bool', 'measure', 'select_type']:
+                if question.field_type in [
+                        'bool', 'measure', 'select_type', 'select']:
                     if value not in [c[0] for c in question.choices]:
                         errors.append(
                             'Value "{}" is not valid for key "{}" ('
                             'questiongroup "{}").'.format(
                                 value, key, qg_keyword))
                         continue
-                elif question.field_type in ['checkbox', 'image_checkbox']:
+                elif question.field_type in [
+                        'checkbox', 'image_checkbox', 'cb_bool']:
                     if not isinstance(value, list):
                         errors.append(
                             'Value "{}" of key "{}" needs to be a list'.format(
                                 value, key))
                         continue
+                    if question.field_type in ['cb_bool']:
+                        try:
+                            value = [int(v) for v in value]
+                        except ValueError:
+                            errors.append(
+                                'Value "{}" is not a valid boolean checkbox '
+                                'value for key "{}" (questiongroup "{}")'
+                                .format(value, key, qg_keyword))
+                            continue
                     for v in value:
                         if v not in [c[0] for c in question.choices]:
                             errors.append(
@@ -152,6 +162,8 @@ def clean_questionnaire_data(data, configuration):
                                 continue
                             translations[locale] = translation
                     value = translations
+                elif question.field_type in ['todo']:
+                    value = None
                 elif question.field_type in ['image']:
                     pass
                 else:
@@ -720,11 +732,11 @@ def get_query_status_filter(request):
 
     The following status filters are applied:
 
-    * Not logged in users always only see "published" Questionnaires.
+    * Not logged in users always only see "public" Questionnaires.
 
-    * Moderators see all "pending" and "published" Questionnaires.
+    * Moderators see all "pending" and "public" Questionnaires.
 
-    * Logged in users see all "published", as well as their own "draft"
+    * Logged in users see all "public", as well as their own "draft"
     and "pending" Questionnaires.
 
     Args:
@@ -733,19 +745,19 @@ def get_query_status_filter(request):
     Returns:
         ``django.db.models.Q``. A Django filter object.
     """
-    # Public always only sees "published"
+    # Public always only sees "public"
     status_filter = Q(status=3)
 
     # Logged in users ...
     if request.user.is_authenticated():
 
-        # ... see all "pending" and "published" if they are moderators,
+        # ... see all "pending" and "public" if they are moderators,
         # along with their own "draft"
         if request.user.has_perm('questionnaire.can_moderate'):
             status_filter = (
                 Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
 
-        # ... see "published" and their own "draft" and "pending".
+        # ... see "public" and their own "draft" and "pending".
         else:
             status_filter = (
                 Q(status=3) | (Q(members=request.user) & Q(status__in=[1, 2])))
@@ -972,7 +984,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
     * "draft" Questionnaires can be submitted, sets them "pending".
 
-    * "pending" Questionnaires can be published, sets them "published".
+    * "pending" Questionnaires can be set public, sets them "public".
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -1012,15 +1024,15 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Previous status must be "pending"
         if questionnaire_object.status != 2:
             messages.error(
-                request, 'The questionnaire could not be published because it '
-                'does not have to correct status.')
+                request, 'The questionnaire could not be set public because '
+                'it does not have to correct status.')
             return
 
         # Current user must be a moderator
         if not request.user.has_perm('questionnaire.can_moderate'):
             messages.error(
-                request, 'The questionnaire could not be published because you'
-                ' do not have permission to do so.')
+                request, 'The questionnaire could not be set public because '
+                'you do not have permission to do so.')
             return
 
         questionnaire_object.status = 3
@@ -1045,4 +1057,4 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             added, errors = put_questionnaire_data(link_configuration, links)
 
         messages.success(
-            request, _('The questionnaire was successfully published.'))
+            request, _('The questionnaire was successfully set public.'))

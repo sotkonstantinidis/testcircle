@@ -221,7 +221,7 @@ def get_url_by_identifier(uuid, thumbnail=None):
     return file.get_url(thumbnail=thumbnail)
 
 
-def get_interchange_urls_by_identifier(uuid):
+def get_interchange_urls_by_identifier(uuid, as_list=False):
     """
     Return the interchange URLs of a file based on its identifier. A
     query is made to find the file in the database table, then the
@@ -233,6 +233,11 @@ def get_interchange_urls_by_identifier(uuid):
     Args:
         ``uuid`` (str): The identifier of the file.
 
+    Kwargs:
+        ``as_list`` (bool): A boolean indicating whether the list of
+        interchange URLs is to be returned as string (``True``) or as
+        list (``False``).
+
     Returns:
         ``str``. The interchange URLs of the files.
     """
@@ -240,7 +245,10 @@ def get_interchange_urls_by_identifier(uuid):
         file = File.objects.get(uuid=uuid)
     except File.DoesNotExist:
         return ''
-    return file.get_interchange_urls()
+    if as_list is True:
+        return file.get_interchange_urls_as_list()
+    else:
+        return file.get_interchange_urls()
 
 
 def get_upload_folder_structure(filename):

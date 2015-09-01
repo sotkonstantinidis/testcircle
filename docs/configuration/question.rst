@@ -26,34 +26,55 @@ The basic format of the configuration is as follows::
     "keyword": "KEY",
 
     # (optional)
-    "in_list": true,
+    "view_options": {
+      # Default: "default"
+      "template": "TEMPLATE_NAME",
+
+      # Default: ""
+      "label": "none",
+
+      # Default: ""
+      "header": "small",
+
+      # Default: false
+      "in_list": true,
+
+      # Default: false
+      "is_name": true,
+
+      # Default: false
+      "filter": true
+    },
 
     # (optional)
-    "is_name": true,
+    "form_options": {
+      # Default: "default"
+      "template": "TEMPLATE_NAME",
 
-    # (optional)
-    "view_label": true,
+      # Default: None
+      "max_length": 500,
 
-    # (optional)
-    "view_options": {},
+      # Default: Relative to max_length, default: 10
+      "num_rows": 5,
 
-    # (optional)
-    "form_options": {},
+      # Default: ""
+      "colclass": "top-margin",
 
-    # (optional)
-    "conditional": true,
+      # Default: ""
+      "helptext": "tooltip",
 
-    # (optional)
-    "conditions": [],
+      # Default: ""
+      "label": "placeholder",
 
-    # (optional)
-    "questiongroup_conditions": [],
+      # Default: []
+      "conditions": [],
 
-    # (optional)
-    "max_length": 500,
+      # Default: false
+      "conditional": true,
 
-    # (optional)
-    "num_rows": 10
+      # Default: []
+      "questiongroup_conditions": [],
+    }
   }
 
 .. seealso::
@@ -72,59 +93,39 @@ The basic format of the configuration is as follows::
 
 The keyword of the key of this question.
 
-``in_list``
-^^^^^^^^^^^
-
-(Optional). An optional boolean indicating whether this question should
-appear in the list representation of questionnaires or not. Defaults to
-``False``, meaning that this question is not shown in the list.
-
-``is_name``
-^^^^^^^^^^^
-
-(Optional). An optional boolean indicating whether this question
-represents the name of the entire Questionnaire.
-
-.. important::
-    Only one question of the entire Questionnaire can have this flag. If
-    the key is inside a repeating questiongroup, only the first
-    appearance of the key will be used as name.
-
-``form_template``
-^^^^^^^^^^^^^^^^^
-
-(Optional). An optional name of a template to be used for the rendering
-of the question form. The name of the template needs to match a file
-with the ending ``.html`` inside
-``questionnaire/templates/form/question/``. If not specified, the
-default layout for each key type is used (usually ``default.html``).
-
-The following question templates exist. Please note that not every
-template should be used with any field type.
-
-+--------------------+--------------------------------------------------------+
-| ``default``        | Label on top, field below it.                          |
-|                    |                                                        |
-|                    | The default for most key types.                        |
-+--------------------+--------------------------------------------------------+
-| ``inline_2``       | Label on the left (aligned right in a 2 column div),   |
-|                    | field on the right (in a 10 column div).               |
-+--------------------+--------------------------------------------------------+
-| ``inline_3``       | Label on the left (in a 3 column div), field on the    |
-|                    | right (in a 9 column div).                             |
-|                    |                                                        |
-|                    | The default for key type ``measure``.                  |
-+--------------------+--------------------------------------------------------+
-| ``no_label``       | No label (should be handled by the field).             |
-|                    |                                                        |
-|                    | The default for key type ``image_checkbox``            |
-+--------------------+--------------------------------------------------------+
 
 ``view_options``
 ^^^^^^^^^^^^^^^^
 
 (Optional). An optional object containing configuration options for the
 view representation of the question.
+
+  * ``template``: An optional template name. Must be a valid file name
+    with ``.html`` ending in folder ``templates/details/question/``.
+
+  * ``label``: An optional name for label display or placement. Possible
+    values are: ``none`` (no label displayed).
+
+  * ``header``: An optional name for how the label is to be displayed.
+    Possible values are: ``small`` (small header), ``inline`` (inline
+    positioning of header).
+
+  * ``in_list``: An optional boolean indicating whether this question
+    should appear in the list representation of questionnaires or not.
+    Defaults to ``False``, meaning that this question is not shown in
+    the list.
+
+  * ``is_name``: An optional boolean indicating whether this question
+    represents the name of the entire Questionnaire.
+
+    .. important::
+        Only one question of the entire Questionnaire can have this
+        flag. If the key is inside a repeating questiongroup, only the
+        first appearance of the key will be used as name.
+
+  * ``filter``: An optional boolean indicating whether this question is
+    filterable or not. If set to ``True``, the question will appear in
+    the filter dropdown.
 
 
 ``form_options``
@@ -133,67 +134,58 @@ view representation of the question.
 (Optional). An optional object containing configuration options for the
 form representation of the question.
 
+  * ``template``: An optional template name. Must be a valid file name
+    with ``.html`` ending in folder ``templates/form/question/``.
 
-``view_label``
-^^^^^^^^^^^^^^
+  * ``max_length``: An optional integer to specify the maximum length of
+    characters for this value. Renders as a validator for text fields.
+    This is only meaningful for key types ``char`` (default value: 200)
+    and ``text`` (default value: 500).
 
-(Optional). An optional boolean indicating whether to display the label
-of the key in the view template or not. Defaults to ``true``. Turn the
-label off if the key has the same label as the subcategory.
+  * ``num_rows``: An optional integer to define the number of rows to be
+    shown for textarea fields. This is only meaningful for key type
+    ``text``. The default is relative to ``max_length`` if set, else the
+    default is 10.
 
+  * ``colclass``: An optional name of a CSS class to be passed to the
+    column of the Questiongroup in the template.
 
-``conditional``
-^^^^^^^^^^^^^^^
+  * ``helptext``: An optional name for the placement of helptext related
+    to the question. Possible values are ``tooltip`` (showing the
+    helptext as a tooltip on the question label)
 
-(Optional). An optional boolean indicating whether this question is only
-shown depending on the condition (value) of another question. If set to
-``true``, another question of this questiongroup should have the option
-``conditions`` set.
+  * ``label``: An optional name for the display and positioning of the
+    label. Possible values are: ``placeholder`` (showing the label as a
+    placeholder inside the input field)
 
-.. important::
-    Questions with ``"conditional": true`` need to be listed **before**
-    the question with ``"conditions": []`` triggering them.
+  * ``conditions``: An optional list of conditions triggering
+    conditional questions. Each condition must have the format
+    ``""value_keyword|Boolean|key_keyword""``. Example::
 
-``conditions``
-^^^^^^^^^^^^^^
+      "conditions": ["value_15_1|True|key_16"]
 
-(Optional). An optional list of conditions triggering conditional
-questions. Each condition must have the format
-``""value_keyword|Boolean|key_keyword""``. Example::
+    For the time being, conditions can only be set for Key
+    (see :doc:`/configuration/key`) with type ``image_checkbox``.
 
-    "conditions": ["value_15_1|True|key_16"]
+  * ``conditional``: An optional boolean indicating whether this
+    question is only shown depending on the condition (value) of another
+    question. If set to ``true``, another question of this questiongroup
+    should have the option ``conditions`` set.
 
-For the time being, conditions can only be set for Key
-(see :doc:`/configuration/key`) with type ``image_checkbox``.
+    .. important::
+        Questions with ``"conditional": true`` need to be listed **before**
+        the question with ``"conditions": []`` triggering them.
 
-``questiongroup_conditions``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  * ``questiongroup_conditions``: An optional list of conditions
+    triggering conditional questiongroups. Each condition must have the
+    format ``"expresssion|condition_name"`` where ``expression`` is part
+    of a valid (Python and Javascript!) boolean expression and
+    ``condition_name`` is the name of a Questiongroup's
+    ``questiongroup_condition`` option.
 
-(Optional). An optional list of conditions triggering conditional
-questiongroups. Each condition must have the format
-``"expresssion|condition_name"`` where ``expression`` is part of a valid
-(Python and Javascript!) boolean expression and ``condition_name`` is
-the name of a Questiongroup's ``questiongroup_condition`` option.
+    Example::
 
-Example::
+        "questiongroup_conditions": [">1|questiongroup_17", "<3|questiongroup_17"]
 
-    "questiongroup_conditions": [">1|questiongroup_17", "<3|questiongroup_17"]
-
-.. seealso::
-    :doc:`/configuration/questiongroup`
-
-``max_length``
-^^^^^^^^^^^^^^
-
-(Optional). An optional integer to specify the maximum length of
-characters for this value. Renders as a validator for text fields. This
-is only meaningful for key types ``char`` (default value: 200) and
-``text`` (default value: 500).
-
-``num_rows``
-^^^^^^^^^^^^
-
-(Optional). An optional integer to define the number of rows to be shown
-for textarea fields. This is only meaningful for key type ``text``.
-The default is relative to ``max_length`` if set, else the default is
-10.
+    .. seealso::
+        :doc:`/configuration/questiongroup`

@@ -17,14 +17,27 @@
 {% load list_to_columns %}
 
 {% if not conditional %}
-  {% block label %}{% if field|id %}<label for="{{ field|id }}">{% endif %}{{ label }}{% if label|last not in ".:!?" %}:{% endif %}{% if field|id %}</label>{% endif %}{% endblock %}
-  <ul class="list-gallery small-block-grid-1{% if not conditions %} large-block-grid-2{% endif %}">
+  {% if options.label != 'none' %}
+    <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
+  {% endif %}
+  <ul class="list-gallery small-block-grid-1">
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
         <li>
-          <div class="list-gallery-item">
+          <div class="list-gallery-item without-label">
             <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub">
-            <label for="{{ attrs.id }}_{{ forloop.counter }}">{{ choice.1 }}<br>
+            {% if options.helptext_choices %}
+              {% with ttip=options.helptext_choices|get_by_index:forloop.counter0 %}
+                {% if ttip %}
+                  <label for="{{ attrs.id }}_{{ forloop.counter }}" class="has-tip" title="{{ ttip }}" data-tooltip="">
+                {% else %}
+                  <label for="{{ attrs.id }}_{{ forloop.counter }}">
+                {% endif %}
+              {% endwith %}
+            {% else %}
+              <label for="{{ attrs.id }}_{{ forloop.counter }}">
+            {% endif %}
+              {{ choice.1 }}
               <figure class="list-gallery-icon">
                 <img src="{% static images|get_by_index:forloop.counter0 %}" alt="{{ choice.1 }}">
               </figure>

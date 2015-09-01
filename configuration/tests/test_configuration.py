@@ -389,7 +389,7 @@ class QuestionnaireQuestiongroupTest(TestCase):
     def test_raises_error_if_min_num_not_integer(self):
         configuration_dict = {
             "keyword": "qg_1",
-            "min_num": "foo",
+            "form_options": {"min_num": "foo"},
             "questions": [{"keyword": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
@@ -398,7 +398,7 @@ class QuestionnaireQuestiongroupTest(TestCase):
     def test_raises_error_if_min_num_smaller_than_1(self):
         configuration_dict = {
             "keyword": "qg_1",
-            "min_num": 0,
+            "form_options": {"min_num": 0},
             "questions": [{"keyword": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
@@ -407,7 +407,7 @@ class QuestionnaireQuestiongroupTest(TestCase):
     def test_raises_error_if_max_num_not_integer(self):
         configuration_dict = {
             "keyword": "qg_1",
-            "max_num": "foo",
+            "form_options": {"max_num": "foo"},
             "questions": [{"keyword": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
@@ -416,20 +416,11 @@ class QuestionnaireQuestiongroupTest(TestCase):
     def test_raises_error_if_max_num_smaller_than_1(self):
         configuration_dict = {
             "keyword": "qg_1",
-            "max_num": -1,
+            "form_options": {"max_num": -1},
             "questions": [{"keyword": "key_1"}]
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
             QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
-
-    # def test_raises_error_if_helptext_not_found(self):
-    #     configuration = {
-    #         "keyword": "qg_1",
-    #         "helptext": -1,
-    #         "questions": [{"key": "key_1"}]
-    #     }
-    #     with self.assertRaises(ConfigurationErrorInvalidOption):
-    #         QuestionnaireQuestiongroup(configuration)
 
     def test_raises_error_if_questions_not_list(self):
         configuration_dict = {
@@ -594,21 +585,24 @@ class QuestionnaireQuestionTest(TestCase):
         with self.assertRaises(ConfigurationErrorInvalidCondition):
             QuestionnaireQuestion(
                 self.parent_obj,
-                {'keyword': 'key_15', 'conditions': [condition]})
+                {'keyword': 'key_15', 'form_options': {
+                    'conditions': [condition]}})
 
     def test_raises_error_if_value_does_not_exist(self):
         condition = 'foo|True|key_16'
         with self.assertRaises(ConfigurationErrorInvalidCondition):
             QuestionnaireQuestion(
                 self.parent_obj,
-                {'keyword': 'key_15', 'conditions': [condition]})
+                {'keyword': 'key_15', 'form_options': {
+                    'conditions': [condition]}})
 
     def test_raises_error_if_condition_expression_nonsense(self):
         condition = 'value_15_1|;:_|key_16'
         with self.assertRaises(ConfigurationErrorInvalidCondition):
             QuestionnaireQuestion(
                 self.parent_obj,
-                {'keyword': 'key_15', 'conditions': [condition]})
+                {'keyword': 'key_15', 'form_options': {
+                    'conditions': [condition]}})
 
     def test_raises_error_if_questiongroup_condition_wrong_formatted(self):
         qg_condition = 'foo'
@@ -618,7 +612,8 @@ class QuestionnaireQuestionTest(TestCase):
                 self.parent_obj,
                 {
                     'keyword': 'key_16',
-                    'questiongroup_conditions': [qg_condition]})
+                    'form_options': {
+                        'questiongroup_conditions': [qg_condition]}})
 
     def test_raises_error_if_questiongroup_condition_expression_nonsense(self):
         qg_condition = ';%.|foo'
@@ -627,7 +622,8 @@ class QuestionnaireQuestionTest(TestCase):
             QuestionnaireQuestion(
                 self.parent_obj, {
                     'keyword': 'key_16',
-                    'questiongroup_conditions': [qg_condition]})
+                    'form_options': {
+                        'questiongroup_conditions': [qg_condition]}})
 
 
 class BaseConfigurationObjectMergeConfigurationTest(TestCase):

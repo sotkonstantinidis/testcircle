@@ -8,7 +8,7 @@
         {% if metadata.configurations.0 %}
           <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
         {% endif %}
-        {% if metadata.status.0 and metadata.status.0 != 'published' %}
+        {% if metadata.status.0 and metadata.status.0 != 'public' %}
           <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
         {% endif %}
       </div>
@@ -16,12 +16,12 @@
         <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ raw_data.country.0|default:"" }}</span></p>
 
       {% if raw_data.country %}
-        <p class="is-large"><strong>{% trans "Country: " %}</strong>{{ raw_data.country.0 }}</p>
+        <p class="is-large"><strong>{{ raw_data.label_country }}{% if raw_data.label_country|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.country.0 }}</p>
       {% endif %}
-      <p class="is-large"><strong>{% trans "Reporting Entity: " %}</strong>{{ raw_data.unccd_reporting_entity }}</p>
+      <p class="is-large"><strong>{{ raw_data.label_unccd_reporting_entity }}{% if raw_data.label_unccd_reporting_entity|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.unccd_reporting_entity }}</p>
       <p class="is-large">{{ raw_data.unccd_description|safe|default:"" }}</p>
         {% if raw_data.unccd_property_rights %}
-          <p>{% trans "Clarify if the technology described in the template, or a part of it, is covered by property rights: " %}{{ raw_data.unccd_property_rights.0 }}</p>
+          <p><strong>{{ raw_data.label_unccd_property_rights }}{% if raw_data.label_unccd_property_rights|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.unccd_property_rights.0 }}</p>
         {% endif %}
         {% if raw_data.unccd_property_rights_description %}
           <p>{% trans "Comments" %}: {{ raw_data.unccd_property_rights_description|safe }}</p>

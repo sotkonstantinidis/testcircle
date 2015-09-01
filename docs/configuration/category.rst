@@ -26,19 +26,24 @@ The basic format of the configuration is as follows::
     "keyword": "CAT_KEYWORD",
 
     # (optional)
-    "view_options": {},
+    "view_options": {
+      # Default: "default"
+      "template": "TEMPLATE_NAME",
 
-    # (optional)
-    "use_raw_data": true,
+      # Default: false
+      "include_toc": true,
 
-    # (optional)
-    "with_metadata": true,
+      # Default: false
+      "use_raw_data": true,
 
-    # (optional)
-    "include_toc": true,
+      # Default: false
+      "with_metadata": true,
 
-    # (optional)
-    "additional_data": {},
+      # Default: {}
+      "additional_data": {
+        "QUESTIONGROUP": ["KEY"]
+      }
+    },
 
     # A list of subcategories.
     "subcategories": [
@@ -70,45 +75,34 @@ The keyword of the category.
 (Optional). An optional object containing configuration options for the
 view representation of the category.
 
+  * ``template``: An optional template name. Must be a valid file name
+    with ``.html`` ending in folder ``templates/details/category/``.
 
-``use_raw_data``
-^^^^^^^^^^^^^^^^
+  * ``include_toc``: An optional boolean indicating whether to add a
+    table of contents to the current section or not. The ToC is rendered
+    at the top of the category. Defaults to ``False``.
 
-(Optional). An optional boolean indicating whether to add the raw
-category data to the template or not. These values can then be used for
-example for manual rendering of the category details. Defaults to
-``False``.
+  * ``use_raw_data``: An optional boolean indicating whether to add the
+    raw category data to the template or not. These values can then be
+    used for example for manual rendering of the category details.
+    Defaults to ``False``.
 
-.. seealso::
-  :func:`configuration.configuration.QuestionnaireCategory.get_raw_category_data`
+    .. seealso::
+      :func:`configuration.configuration.QuestionnaireCategory.get_raw_category_data`
 
+  * ``with_metadata``: An optional boolean indicating whether to add the
+    metadata of the current Questionnaire to the template or not.
+    Defaults to ``False``.
 
-``with_metadata``
-^^^^^^^^^^^^^^^^^
+  * ``additional_data``: An optional object containing the keywords of
+    questiongroups and questions from which additional data is to be
+    collected.
 
-(Optional). An optional boolean indicating whether to add the metadata
-of the current Questionnaire to the template or not. Defaults to ``False``.
+    Example::
 
-
-``include_toc``
-^^^^^^^^^^^^^^^
-
-(Optional). An optional boolean indicating whether to add a table of
-contents to the current category or not. The ToC is rendered at the top
-of the category. Defaults to ``False``.
-
-
-``additional_data``
-^^^^^^^^^^^^^^^^^^^
-
-(Optional). An optional object containing the keywords of questiongroups
-and questions from which additional data is to be collected.
-
-Example::
-
-  {
-    "qg_1": ["key_1"]
-  }
+      {
+        "qg_1": ["key_1"]
+      }
 
 
 ``subcategories``

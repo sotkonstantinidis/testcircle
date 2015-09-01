@@ -63,5 +63,8 @@ The following options are valid for ``type``. Default type is ``char``.
 +--------------------+--------------------------------------------------------+
 | ``select``         | A simple select field without typing.                  |
 +--------------------+--------------------------------------------------------+
+| ``cb_bool``        | Basically a boolean field but rendered as a single     |
+|                    | checkbox (selected = true, not selected = false).      |
++--------------------+--------------------------------------------------------+
 
 .. _Chosen: http://harvesthq.github.io/chosen/

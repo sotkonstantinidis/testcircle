@@ -13,7 +13,7 @@
     {% for questiongroup_config, questiongroup_formset in formsets %}
       {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
       {% if questiongroup_config.keyword == 'tech_qg_41' or questiongroup_config.keyword == 'tech_qg_50' %}
-        {% form form using "form/questiongroup.html" with config=questiongroup_config formset=questiongroup_formset %}
+        {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}
     <table>
@@ -62,7 +62,7 @@
     </table>
     {% for qg_config, questiongroup_formset in formsets %}
       {% if questiongroup_config.keyword == 'tech_qg_42' or qg_config.keyword == 'tech_qg_51' or qg_config.keyword == 'tech_qg_52' or qg_config.keyword == 'tech_qg_53' %}
-        {% form form using "form/questiongroup.html" with config=qg_config formset=questiongroup_formset %}
+        {% form form using "form/questiongroup/default.html" with config=qg_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}
   </fieldset>
