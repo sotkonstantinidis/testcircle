@@ -473,7 +473,7 @@ function updateDropzones(emptyNew) {
          */
         var dropzone = null;
 
-        var dropzoneId = $(this).data('dropzone-id');
+        var dropzoneId = $(this).closest('.single-item').find('.dropzone').attr('id');
         for (var d in dropzones) {
           if (dropzones[d].element.id === dropzoneId) {
             dropzone = dropzones[d];
@@ -493,8 +493,8 @@ function updateDropzones(emptyNew) {
           if (files.length == 0) {
             $('input#' + dropzone.element.id.replace('file_', '')).val('');
           }
-
         }
+
         watchFormProgress();
         return false;
       });

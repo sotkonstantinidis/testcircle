@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from unittest.mock import patch
 
 from functional_tests.base import FunctionalTest
+from questionnaire.models import File
 from sample.tests.test_views import (
     route_questionnaire_details,
     route_questionnaire_link_form,
@@ -2146,6 +2147,44 @@ class QuestionnaireTest(FunctionalTest):
 
         # The filename was added to the hidden input field
         self.assertNotEqual(filename_2.get_attribute('value'), '')
+
+        # She removes the second image again
+        self.findBy(
+            'xpath',
+            '//div[@id="preview-id_qg_30-1-file_key_19"]/div/button').click()
+
+        # She sees the preview is empty
+        self.findBy(
+            'xpath', '//div[@id="id_qg_30-1-file_key_19" and contains(@class, '
+            '"dropzone")]')
+        self.findByNot(
+            'xpath',
+            '//div[@id="id_qg_30-1-file_key_19"]//div[@class="dz-image"]')
+        self.findByNot(
+            'xpath', '//div[@id="preview-id_qg_30-1-file_key_19"]/'
+            'div[@class="image-preview"]/img')
+
+        # She submits and sees the correct image was submitted
+        self.findBy('id', 'button-submit').click()
+
+        img = self.findManyBy('xpath', '//div[contains(@class, "output")]/img')
+        self.assertEqual(len(img), 1)
+
+        db_images = File.objects.all()
+        self.assertEqual(len(db_images), 2)
+
+        should_image = db_images[0]
+        self.assertTrue(should_image.uuid in img[0].get_attribute("src"))
+
+        # She goes back to the form
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_3'}))
+
+        # She adds another image
+        self.findBy(
+            'xpath', '//a[@data-questiongroup-keyword="qg_30"]').click()
+        self.dropImage('id_qg_30-1-file_key_19')
 
         # She submits the step and sees both images are there
         self.findBy('id', 'button-submit').click()
