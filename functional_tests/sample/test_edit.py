@@ -84,7 +84,7 @@ class EditTest(FunctionalTest):
         # Also there was no additional version created in the database
         self.assertEqual(Questionnaire.objects.count(), 7)
 
-    def test_edit_published(self):
+    def test_edit_public(self):
 
         code = 'sample_3'
 
@@ -92,7 +92,7 @@ class EditTest(FunctionalTest):
         user = User.objects.get(pk=101)
         self.doLogin(user=user)
 
-        # She goes to the detail page of a "published" Questionnaire
+        # She goes to the detail page of a "public" Questionnaire
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_details, kwargs={'identifier': code}))
         self.assertIn(code, self.browser.current_url)

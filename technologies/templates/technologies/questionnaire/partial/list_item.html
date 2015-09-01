@@ -9,7 +9,7 @@
         {% if item.configurations.0 %}
           <span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
         {% endif %}
-        {% if item.status.0 and item.status.0 != 'published' %}
+        {% if item.status.0 and item.status.0 != 'public' %}
           <span class="label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
         {% endif %}
       </figcaption>

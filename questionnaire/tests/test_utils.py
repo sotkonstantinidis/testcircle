@@ -623,7 +623,7 @@ class QueryQuestionnairesTest(TestCase):
         query_questionnaires(request, 'sample')
         mock_get_query_status_filter.assert_called_once_with(request)
 
-    def test_public_only_returns_published(self):
+    def test_public_only_returns_public(self):
         request = Mock()
         request.user.is_authenticated.return_value = False
         ret = query_questionnaires(request, 'sample')
@@ -921,8 +921,8 @@ class HandleReviewActionsTest(TestCase):
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
-            'The questionnaire could not be published because it does not have'
-            ' to correct status.')
+            'The questionnaire could not be set public because it does not '
+            'have to correct status.')
 
     def test_publish_needs_moderator(self, mock_messages):
         self.obj.status = 2
@@ -940,8 +940,8 @@ class HandleReviewActionsTest(TestCase):
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
-            'The questionnaire could not be published because you do not have '
-            'permission to do so.')
+            'The questionnaire could not be set public because you do not '
+            'have permission to do so.')
 
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_updates_status(self, mock_put_data, mock_messages):
@@ -987,4 +987,4 @@ class HandleReviewActionsTest(TestCase):
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.success.assert_called_once_with(
             self.request,
-            'The questionnaire was successfully published.')
+            'The questionnaire was successfully set public.')

@@ -8,7 +8,7 @@
         {% if metadata.configurations.0 %}
           <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
         {% endif %}
-        {% if metadata.status.0 and metadata.status.0 != 'published' %}
+        {% if metadata.status.0 and metadata.status.0 != 'public' %}
           <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
         {% endif %}
       </div>

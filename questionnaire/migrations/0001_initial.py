@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('uuid', models.CharField(default=uuid.uuid4, max_length=64)),
                 ('code', models.CharField(default='', max_length=64)),
                 ('blocked', models.BooleanField(default=False)),
-                ('status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Published'), (4, 'Rejected'), (5, 'Inactive')])),
+                ('status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Public'), (4, 'Rejected'), (5, 'Inactive')])),
                 ('version', models.IntegerField()),
             ],
             options={
@@ -65,8 +65,8 @@ class Migration(migrations.Migration):
             name='QuestionnaireLink',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('from_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Published'), (4, 'Rejected'), (5, 'Inactive')])),
-                ('to_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Published'), (4, 'Rejected'), (5, 'Inactive')])),
+                ('from_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Public'), (4, 'Rejected'), (5, 'Inactive')])),
+                ('to_status', models.IntegerField(choices=[(1, 'Draft'), (2, 'Pending'), (3, 'Public'), (4, 'Rejected'), (5, 'Inactive')])),
                 ('from_questionnaire', models.ForeignKey(related_name='from_questionnaire', to='questionnaire.Questionnaire')),
                 ('to_questionnaire', models.ForeignKey(related_name='to_questionnaire', to='questionnaire.Questionnaire')),
             ],

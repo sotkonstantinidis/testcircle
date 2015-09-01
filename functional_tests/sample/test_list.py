@@ -1419,8 +1419,8 @@ class ListTestStatus(FunctionalTest):
     def test_list_status_public(self):
 
         # Alice is not logged in. She goes to the SAMPLE landing page
-        # and sees the latest updates. These are: 3 (published) and 6
-        # (published)
+        # and sees the latest updates. These are: 3 (public) and 6
+        # (public)
         self.browser.get(self.live_server_url + reverse(route_home))
 
         list_entries = self.findManyBy(
@@ -1428,9 +1428,9 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees the same questionnaires
         self.browser.get(self.live_server_url + reverse(
@@ -1441,12 +1441,12 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # Since she is not logged in, she does not see a note about
-        # seeing only published questionnaires.
+        # seeing only public questionnaires.
         self.findByNot('xpath', '//p[contains(@class, "help-bloc")]')
 
     def test_list_status_logged_in(self):
@@ -1456,7 +1456,7 @@ class ListTestStatus(FunctionalTest):
         self.doLogin(user=user)
 
         # She goes to the SAMPLE landing page and sees the latest
-        # updates. These are: 1 (draft), 3 (published) and 6 (published)
+        # updates. These are: 1 (draft), 3 (public) and 6 (public)
         self.browser.get(self.live_server_url + reverse(route_home))
 
         list_entries = self.findManyBy(
@@ -1464,13 +1464,13 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 3)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[3]//h1/a[text()="Foo 1"]')
         self.findBy('xpath', '//article[3]//figcaption[text()="Draft"]')
 
-        # She goes to the list view and sees only the published
+        # She goes to the list view and sees only the public
         # questionnaires
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
@@ -1480,11 +1480,11 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
-        # She also sees a note saying that only published questionnaires
+        # She also sees a note saying that only public questionnaires
         # are visible
         self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
 
@@ -1493,8 +1493,8 @@ class ListTestStatus(FunctionalTest):
         self.doLogin(user=user)
 
         # She goes to the SAMPLE landing page and sees the latest
-        # updates. These are: 2 (pending), 3 (published) and 6
-        # (published)
+        # updates. These are: 2 (pending), 3 (public) and 6
+        # (public)
         self.browser.get(self.live_server_url + reverse(route_home))
 
         list_entries = self.findManyBy(
@@ -1502,13 +1502,13 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 3)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[3]//h1/a[text()="Foo 2"]')
         self.findBy('xpath', '//article[3]//figcaption[text()="Pending"]')
 
-        # She goes to the list view and sees only the published
+        # She goes to the list view and sees only the public
         # questionnaires
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
@@ -1520,7 +1520,7 @@ class ListTestStatus(FunctionalTest):
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
 
-        # She also sees a note saying that only published questionnaires
+        # She also sees a note saying that only public questionnaires
         # are visible
         self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
 
@@ -1531,7 +1531,7 @@ class ListTestStatus(FunctionalTest):
         self.doLogin(user=user)
 
         # She goes to the SAMPLE landing page and sees the latest
-        # updates. These are: 7 (draft), 2 (pending), 3 (published)
+        # updates. These are: 7 (draft), 2 (pending), 3 (public)
         self.browser.get(self.live_server_url + reverse(route_home))
 
         list_entries = self.findManyBy(
@@ -1541,11 +1541,11 @@ class ListTestStatus(FunctionalTest):
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 7"]')
         self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[3]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[3]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
-        # She goes to the list view and sees only the published
+        # She goes to the list view and sees only the public
         # questionnaires
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
@@ -1555,10 +1555,10 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Published"]')
+        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
-        # She also sees a note saying that only published questionnaires
+        # She also sees a note saying that only public questionnaires
         # are visible
         self.findBy('xpath', '//p[contains(@class, "help-bloc")]')

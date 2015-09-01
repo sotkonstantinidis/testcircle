@@ -305,7 +305,7 @@ class QuestionnaireTest(FunctionalTest):
 
     def test_repeating_questiongroups(self):
 
-        initial_button_count = 3
+        initial_button_count = 4
 
         # Alice logs in
         self.doLogin()
@@ -610,7 +610,7 @@ class QuestionnaireTest(FunctionalTest):
         # She sees the values were submitted with linebreaks
         self.findBy('xpath', '//h3[contains(text(), "Key 2")]')
         details = self.findBy('xpath', '//p[contains(text(), "asdf")]')
-        self.assertEqual(details.text, 'asdf asdf')
+        self.assertEqual(details.text, 'asdf\nasdf')
 
         self.findBy('id', 'button-submit').click()
 

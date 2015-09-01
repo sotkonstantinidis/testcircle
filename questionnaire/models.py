@@ -15,14 +15,14 @@ from configuration.models import Configuration
 STATUSES = (
     (1, _('Draft')),
     (2, _('Pending')),
-    (3, _('Published')),
+    (3, _('Public')),
     (4, _('Rejected')),
     (5, _('Inactive')),
 )
 STATUSES_CODES = (
     (1, 'draft'),
     (2, 'pending'),
-    (3, 'published'),
+    (3, 'public'),
     (4, 'rejected'),
     (5, 'inactive'),
 )
@@ -110,7 +110,7 @@ class Questionnaire(models.Model):
                 previous_version.save()
                 return previous_version
             else:
-                # Published: Create new version with the same code
+                # Public: Create new version with the same code
                 code = previous_version.code
                 version = previous_version.version + 1
         else:

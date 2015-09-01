@@ -110,7 +110,7 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(q, previous)
         self.assertEqual(previous.data, {'faz': 'taz'})
 
-    def test_previous_version_published_keeps_same_code(self):
+    def test_previous_version_public_keeps_same_code(self):
         previous = get_valid_questionnaire(self.user)
         previous.status = 3
         q = Questionnaire.create_new(
