@@ -7,9 +7,8 @@
 <section class="hero" data-equalizer>
   <div class="row large-collapse" data-equalizer-watch>
     <div class="medium-4 large-5 columns">
-      <h1 class="is-wocat">WOCAT</h1>
-      <p class="is-large">World Overview of Conservation Approaches and Technologies</p>
-      <p class="is-light">WOCAT is an established global network of Soil and Water Conservation (SWC) specialists, dedicated to sustainable land management (SLM). </p>
+      <h1 class="is-wocat">{% trans "WOCAT" %}</h1>
+      <p class="is-large">{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
       <a href="{% url 'technologies:questionnaire_new' %}" class="button is-technologies">{% trans "Add a new SLM Technology" %}</a>
       <a href="{% url 'approaches:questionnaire_new' %}" class="button is-approaches">{% trans "Add a new SLM Approach" %}</a>
     </div>
@@ -24,7 +23,7 @@
 <main class="row large-collapse" role="main">
   <section class="tech-list small-12 columns">
     <div class="tech-group">
-      <h2 class="is-group">Last updates</h2>
+      <h2 class="is-group">{% trans "Last updates" %}</h2>
       {% include "wocat/questionnaire/partial/list.html" %}
     </div>
   </section>
