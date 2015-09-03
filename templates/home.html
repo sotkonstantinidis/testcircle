@@ -30,7 +30,9 @@
             </div>
           </div>
           <div class="search-option text-center">
+            {% comment %}
             <a href="#" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | <a href="#">{% trans "Show all practices" %}</a>
+            {% endcomment %}
           </div>
         </form>
       </div>
@@ -39,14 +41,14 @@
 
   <main class="row" role="main">
     <div class="hero-big medium-6 large-4 large-offset-1 columns">
-      <h2 class="is-wocat">{% trans "WOCAT" %}</h2>
+      <h2 class="is-wocat">{% trans "WOCAT portal" %}</h2>
       <p>{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
       <a href="{% url 'wocat:home' %}" class="button is-wocat">{% trans "WOCAT SLM practices" %}</a>
     </div>
 
     <div class="hero-big medium-6 large-4 large-offset-2 columns end">
-      <h2 class="is-unccd">{% trans "UNCCD" %}</h2>
-      <p>{% trans "The UNCCD database on SLM practices comprises of SLM best practices from UNCCD Member States that were included in the UNCCD PRAIS system." %}</p>
+      <h2 class="is-unccd">{% trans "UNCCD portal" %}</h2>
+      <p>{% trans "The UNCCD database on SLM practices comprises of SLM best practices from UNCCD Member States that were included in the UNCCD PRAIS system and new newly reported SLM practices." %}</p>
       <a href="{% url 'unccd:home' %}" class="button is-unccd">{% trans "UNCCD SLM practices" %}</a>
     </div>
   </main>

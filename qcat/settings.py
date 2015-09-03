@@ -171,6 +171,11 @@ ES_ANALYZERS = (
     ('es', 'spanish'),
 )
 
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.INFO: 'secondary',
+}
+
 
 try:
     from qcat.settings_local import *
