@@ -52,6 +52,9 @@
                 <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>Update the index.</strong></p><p>Scan all the questionnaires of the configuration in the database and add them to the index.</p>">
                   <a href="{% url 'search:update' config.object.code %}" class="small button" style="margin-top: 0;">Update</a>
                 </span>
+                <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>Delete the index.</strong></p><p>Delete the given index.</p>">
+                  <a href="{% url 'search:delete_one' config.object.code %}" class="small button" style="margin-top: 0;">Delete</a>
+                </span>
               </td>
             </tr>
           {% endfor %}

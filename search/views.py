@@ -11,6 +11,7 @@ from elasticsearch import TransportError
 from .index import (
     create_or_update_index,
     delete_all_indices,
+    delete_single_index,
     get_elasticsearch,
     get_mappings,
     put_questionnaire_data,
@@ -157,6 +158,35 @@ def delete_all(request):
             error_msg))
     else:
         messages.success(request, 'All indices successfully deleted.')
+
+    return redirect('search:admin')
+
+
+@login_required
+def delete_one(request, configuration):
+    """
+    Delete a single index.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``configuration`` (str): The code of the Questionnaire
+        configuration.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response (redirected to the
+        search admin home page).
+    """
+    if request.user.is_superuser is not True:
+        raise PermissionDenied()
+
+    success, error_msg = delete_single_index(configuration)
+    if success is not True:
+        messages.error(request, 'The following error(s) occured: {}'.format(
+            error_msg))
+    else:
+        messages.success(request, 'Index "{}" successfully deleted.'.format(
+            configuration))
 
     return redirect('search:admin')
 

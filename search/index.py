@@ -327,6 +327,28 @@ def delete_all_indices():
     return True, ''
 
 
+def delete_single_index(index):
+    """
+    Delete a specific index.
+
+    Args:
+        ``ìndex`` (str): The name of the index to be deleted.
+
+    Returns:
+        ``bool``. A boolean indicating whether the operation was carried
+        out successfully or not.
+
+        ``str``. An optional error message if the operation was not
+        successful.
+    """
+    deleted = es.indices.delete(
+        index='{}{}'.format(settings.ES_INDEX_PREFIX, index), ignore=[404])
+    if deleted.get('acknowledged') is not True:
+        return (False, 'Index could not be deleted')
+
+    return True, ''
+
+
 def get_current_and_next_index(alias):
     """
     Get the current and next index of an alias. Both the currently
