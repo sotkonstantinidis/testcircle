@@ -308,6 +308,27 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
     return actions_executed, errors
 
 
+def delete_questionnaires_from_es(configuration_code, questionnaire_objects):
+    """
+    Remove specific Questionnaires from the index.
+
+    Args:
+        ``configuration_code`` (str): The code of the Questionnaire
+        configuration corresponding to the data.
+
+        ``questionnaire_objects`` (list): A list (queryset) of
+        :class:`questionnaire.models.Questionnaire` objects to be
+        removed.
+    """
+    alias = get_alias([configuration_code])
+    for questionnaire in questionnaire_objects:
+        try:
+            es.delete(
+                index=alias, doc_type='questionnaire', id=questionnaire.id)
+        except:
+            pass
+
+
 def delete_all_indices():
     """
     Delete all the indices starting with the prefix as specified in the

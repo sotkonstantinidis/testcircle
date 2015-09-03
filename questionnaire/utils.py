@@ -15,7 +15,10 @@ from configuration.utils import (
 )
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.models import Questionnaire
-from search.index import put_questionnaire_data
+from search.index import (
+    put_questionnaire_data,
+    delete_questionnaires_from_es,
+)
 
 
 def clean_questionnaire_data(data, configuration):
@@ -1034,6 +1037,16 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 request, 'The questionnaire could not be set public because '
                 'you do not have permission to do so.')
             return
+
+        # Set the previously "public" Questionnaire to "inactive".
+        # Also remove it from ES.
+        previously_public = Questionnaire.objects.filter(
+            code=questionnaire_object.code, status=3)
+        for previous_object in previously_public:
+            previous_object.status = 5
+            previous_object.save()
+            delete_questionnaires_from_es(
+                configuration_code, [previous_object])
 
         questionnaire_object.status = 3
         questionnaire_object.save()
