@@ -1,5 +1,6 @@
 {% extends 'wocat/base.html' %}
 
+{% load staticfiles %}
 {% load i18n %}
 
 {% block content %}
@@ -34,7 +35,7 @@
   </div>
   <div class="hero-media" data-equalizer-watch>
     <div class="media-container is-16_9">
-      <iframe src="https://player.vimeo.com/video/30426479?color=ff9933&portrait=0" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <img src="{% static 'assets/img/wocat_hero.jpg' %}">
     </div>
   </div>
 </section>
