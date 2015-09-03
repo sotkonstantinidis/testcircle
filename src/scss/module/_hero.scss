@@ -96,3 +96,19 @@
     font-weight: 300;
   }
 }
+#wocat-hero-image {
+  background: image-url('wocat_hero.jpg') $color-brown no-repeat top center;
+  background-size: cover;
+
+  @media #{$medium-up} {
+    min-height: rem-calc(500);
+  }
+}
+#unccd-hero-image {
+  background: image-url('unccd_hero.jpg') $color-brown no-repeat top center;
+  background-size: cover;
+
+  @media #{$medium-up} {
+    min-height: rem-calc(500);
+  }
+}
