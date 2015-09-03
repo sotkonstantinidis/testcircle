@@ -16,14 +16,14 @@
   <form action="{% url 'unccd:questionnaire_list' %}" method="GET" role="search" class="top-bar-search">
     <div class="search-group">
       <div class="search-input radius">
-        <input type="search" name="q" placeholder="{% trans 'Search technology: e.g Soil degradation...' %}">
+        <input type="search" name="q" placeholder="{% trans 'Search SLM best practice: e.g Soil degradation...' %}">
         <div class="search-btn postfix light">
           <a href="#" id="submit-search"><svg class="icon"><use xlink:href="#icon-search"></use></svg></a>
         </div>
       </div>
     </div>
     <div class="search-option">
-      <a href="#" class="link" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | <a href="{% url 'unccd:questionnaire_list' %}" class="link">{% trans "Show all Technologies" %}</a>
+      <a href="#" class="link" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | <a href="{% url 'unccd:questionnaire_list' %}" class="link">{% trans "Show all SLM best practices" %}</a>
     </div>
   </form>
 {% endblock %}

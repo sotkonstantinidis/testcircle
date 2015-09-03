@@ -9,8 +9,27 @@
     <div class="medium-4 large-5 columns">
       <h1 class="is-wocat">{% trans "WOCAT" %}</h1>
       <p class="is-large">{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
-      <a href="{% url 'technologies:questionnaire_new' %}" class="button is-technologies">{% trans "Add a new SLM Technology" %}</a>
-      <a href="{% url 'approaches:questionnaire_new' %}" class="button is-approaches">{% trans "Add a new SLM Approach" %}</a>
+      <div class="row">
+        <div class="medium-6 columns button-column">
+          <a href="{% url 'technologies:questionnaire_list' %}" class="button is-technologies">{% trans "View SLM Technologies" %}</a>
+        </div>
+        <div class="medium-6 columns button-column">
+          <a href="{% url 'approaches:questionnaire_list' %}" class="button is-approaches">{% trans "View SLM Approaches" %}</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-12 columns button-column">
+          <a href="{% url 'wocat:questionnaire_list' %}" class="button light">{% trans "View WOCAT and UNCCD SLM practices" %}</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns button-column">
+          <a href="{% url 'technologies:questionnaire_new' %}" class="button is-technologies">{% trans "Add new SLM Technology" %}</a>
+        </div>
+        <div class="medium-6 columns button-column">
+          <a href="{% url 'approaches:questionnaire_new' %}" class="button is-approaches">{% trans "Add new SLM Approach" %}</a>
+        </div>
+      </div>
     </div>
   </div>
   <div class="hero-media" data-equalizer-watch>

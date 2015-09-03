@@ -10,16 +10,16 @@
   <div class="search-group">
     <ul class="search-switch button-switch radius">
       <li>
-        <input id="switch-wocat" type="radio" data-url="{% url 'wocat:home' %}" value="" name="search"{% if current == 'wocat' %} checked="checked"{% endif %}>
-        <label for="switch-wocat" class="button small light"><span>{% trans "All" %}</span></label>
+        <input id="switch-approaches" type="radio" data-url="{% url 'approaches:home' %}" value="" name="search">
+        <label for="switch-approaches" class="button small light{% if current == 'approaches' %} is-approaches{% endif %}"><span>{% trans "Approaches" %}</span></label>
       </li>
       <li>
-        <input id="switch-technologies" type="radio" data-url="{% url 'technologies:home' %}" value="" name="search"{% if current == 'technologies' %} checked="checked"{% endif %}>
-        <label for="switch-technologies" class="button small light"><span>{% trans "Technologies" %}</span></label>
+        <input id="switch-technologies" type="radio" data-url="{% url 'technologies:home' %}" value="" name="search">
+        <label for="switch-technologies" class="button small light{% if current == 'technologies' %} is-technologies{% endif %}"><span>{% trans "Technologies" %}</span></label>
       </li>
       <li>
-        <input id="switch-approaches" type="radio" data-url="{% url 'approaches:home' %}" value="" name="search"{% if current == 'approaches' %} checked="checked"{% endif %}>
-        <label for="switch-approaches" class="button small light"><span>{% trans "Approaches" %}</span></label>
+      <input id="switch-wocat" type="radio" data-url="{% url 'wocat:home' %}" value="" name="search"{% if current == 'wocat' %} checked="checked"{% endif %}>
+        <label for="switch-wocat" class="button small light"><span>{% trans "All practices" %}</span></label>
       </li>
     </ul>
     <div class="search-input radius">
@@ -30,6 +30,6 @@
     </div>
   </div>
   <div class="search-option">
-    <a href="#" class="link" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | {% if current == 'technologies' %}<a href="{% url 'technologies:questionnaire_list' %}" class="link">{% trans "Show all Technologies" %}</a>{% elif current == 'approaches' %}<a href="{% url 'approaches:questionnaire_list' %}" class="link">{% trans "Show all Approaches" %}</a>{% else %}<a href="{% url 'wocat:questionnaire_list' %}" class="link">{% trans "Show all SLM practices" %}</a>{% endif %}
+    <a href="#" class="link" data-toggle="search-advanced">{% trans "Advanced filter" %}</a><!--  | {% if current == 'technologies' %}<a href="{% url 'technologies:questionnaire_list' %}" class="link">{% trans "Show all Technologies" %}</a>{% elif current == 'approaches' %}<a href="{% url 'approaches:questionnaire_list' %}" class="link">{% trans "Show all Approaches" %}</a>{% else %}<a href="{% url 'wocat:questionnaire_list' %}" class="link">{% trans "Show all SLM practices" %}</a>{% endif %} -->
   </div>
 </form>
