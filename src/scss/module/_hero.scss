@@ -17,6 +17,11 @@
       padding-top: rem-calc(72);
       padding-bottom: rem-calc(72);
     }
+
+    .row {
+      padding-top: rem-calc(24);
+      padding-bottom: rem-calc(0);
+    }
   }
 
   .hero-media {
@@ -48,7 +53,7 @@
     }
     &.is-unccd,
     & span.is-unccd {
-      color: $color-wocat-light;
+      color: $color-unccd-light;
     }
   }
 }
@@ -60,6 +65,15 @@
   h2 {
     font-size: rem-calc(36);
   }
+}
+
+.hero .button-column {
+  padding-left: rem-calc(2);
+  padding-right: rem-calc(2);
+}
+
+.hero .button-column .button {
+  width: 100%;
 }
 
 .hero-home {
@@ -80,5 +94,21 @@
   p {
     font-size: rem-calc(18);
     font-weight: 300;
+  }
+}
+#wocat-hero-image {
+  background: image-url('wocat_hero.jpg') $color-brown no-repeat top center;
+  background-size: cover;
+
+  @media #{$medium-up} {
+    min-height: rem-calc(500);
+  }
+}
+#unccd-hero-image {
+  background: image-url('unccd_hero.jpg') $color-brown no-repeat top center;
+  background-size: cover;
+
+  @media #{$medium-up} {
+    min-height: rem-calc(500);
   }
 }

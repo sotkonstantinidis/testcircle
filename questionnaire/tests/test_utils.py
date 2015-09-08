@@ -943,10 +943,44 @@ class HandleReviewActionsTest(TestCase):
             'The questionnaire could not be set public because you do not '
             'have permission to do so.')
 
+    @patch('questionnaire.utils.Questionnaire')
+    @patch('questionnaire.utils.delete_questionnaires_from_es')
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_updates_status_of_previously_public(
+            self, mock_put_data, mock_delete_data, mock_Questionnaire,
+            mock_messages):
+        mock_put_data.return_value = None, []
+        self.obj.status = 2
+        self.obj.code = 'code'
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        prev = Mock()
+        mock_Questionnaire.objects.filter.return_value = [prev]
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(prev.status, 5)
+        prev.save.assert_called_once_with()
+
+    @patch('questionnaire.utils.Questionnaire')
+    @patch('questionnaire.utils.delete_questionnaires_from_es')
+    @patch('questionnaire.utils.put_questionnaire_data')
+    def test_publish_removes_previously_public_from_es(
+            self, mock_put_data, mock_delete_data, mock_Questionnaire,
+            mock_messages):
+        mock_put_data.return_value = None, []
+        self.obj.status = 2
+        self.obj.code = 'code'
+        self.request.user = Mock()
+        self.request.POST = {'publish': 'foo'}
+        prev = Mock()
+        mock_Questionnaire.objects.filter.return_value = [prev]
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_delete_data.assert_called_once_with('sample', [prev])
+
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_updates_status(self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         self.obj.status = 2
+        self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
@@ -957,6 +991,7 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         self.obj.status = 2
+        self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
@@ -969,6 +1004,7 @@ class HandleReviewActionsTest(TestCase):
         mock_link = Mock()
         self.obj.links.all.return_value = [mock_link]
         self.obj.status = 2
+        self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
@@ -982,6 +1018,7 @@ class HandleReviewActionsTest(TestCase):
     def test_publish_adds_message(self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         self.obj.status = 2
+        self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')

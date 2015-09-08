@@ -14,6 +14,8 @@ from questionnaire.tests.test_models import get_valid_metadata
 from search.index import (
     create_or_update_index,
     delete_all_indices,
+    delete_questionnaires_from_es,
+    delete_single_index,
     get_current_and_next_index,
     get_elasticsearch,
     get_mappings,
@@ -409,6 +411,23 @@ class PutQuestionnaireDataTest(TestCase):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+class DeleteQuestionnairesFromEsTest(TestCase):
+
+    def setUp(self):
+        self.objects = [Mock()]
+
+    @patch('search.index.es')
+    def test_calls_indices_delete(self, mock_es):
+        delete_questionnaires_from_es('sample', self.objects)
+        mock_es.delete.assert_called_once_with(
+            index='{}{}'.format(TEST_INDEX_PREFIX, 'sample'),
+            doc_type='questionnaire', id=self.objects[0].id)
+
+    def test_fails_silently_if_no_such_object(self):
+        delete_questionnaires_from_es('sample', self.objects)
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class DeleteAllIndicesTest(TestCase):
 
     @patch('search.index.es')
@@ -428,5 +447,29 @@ class DeleteAllIndicesTest(TestCase):
     def test_returns_true_if_no_success(self, mock_es):
         mock_es.indices.delete.return_value = {'acknowledged': True}
         success, error_msg = delete_all_indices()
+        self.assertTrue(success)
+        self.assertEqual(error_msg, '')
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+class DeleteSingleIndexTest(TestCase):
+
+    @patch('search.index.es')
+    def test_calls_indices_delete(self, mock_es):
+        delete_single_index('index')
+        mock_es.indices.delete.assert_called_once_with(index='{}{}'.format(
+            TEST_INDEX_PREFIX, 'index'), ignore=[404])
+
+    @patch('search.index.es')
+    def test_returns_false_if_no_success(self, mock_es):
+        mock_es.indices.delete.return_value = {'acknowledged': False}
+        success, error_msg = delete_single_index('index')
+        self.assertFalse(success)
+        self.assertEqual(error_msg, 'Index could not be deleted')
+
+    @patch('search.index.es')
+    def test_returns_true_if_no_success(self, mock_es):
+        mock_es.indices.delete.return_value = {'acknowledged': True}
+        success, error_msg = delete_single_index('index')
         self.assertTrue(success)
         self.assertEqual(error_msg, '')

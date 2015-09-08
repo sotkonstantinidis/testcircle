@@ -1,6 +1,6 @@
 .layout-home .page-header {
   position: relative;
-  background: image-url('home_header_02.jpg') $color-brown no-repeat top center;
+  background: image-url('home_header_wocat.jpg') $color-brown no-repeat top center;
   background-size: cover;
 
   @media #{$medium-up} {
@@ -10,5 +10,5 @@
 }
 .home-search {
   background: $color-brown;
-  padding: rem-calc(24) 0 rem-calc(12);
+  padding: rem-calc(24) 0 rem-calc(24);
 }

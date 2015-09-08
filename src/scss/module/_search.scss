@@ -56,7 +56,7 @@
 }
 .search-option {
   margin-top: rem-calc(4);
-  font-size: rem-calc(12);
+  font-size: rem-calc(14);
   color: #D9D6CC;
   a {
     color: #D9D6CC;
@@ -100,5 +100,13 @@
   [class*=" icon"] {
     width: rem-calc(24);
     height: rem-calc(24);
+  }
+}
+.search-switch input[type="radio"]:checked+.button{
+  background: #D9D6CC;
+  color: #333333;
+  &:focus,
+  &:hover {
+    box-shadow: 0 0 0 $button-shadow-effect #eae8df;
   }
 }

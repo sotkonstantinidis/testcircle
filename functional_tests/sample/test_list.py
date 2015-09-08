@@ -9,7 +9,9 @@ from unittest.mock import patch
 from functional_tests.base import FunctionalTest
 
 from accounts.models import User
+from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
+    get_position_of_category,
     route_home,
     route_questionnaire_details,
     route_questionnaire_list,
@@ -26,6 +28,8 @@ from nose.plugins.attrib import attr
 # @attr('foo')
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
+
+cat_1_position = get_position_of_category('cat_1', start0=True)
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -1562,3 +1566,106 @@ class ListTestStatus(FunctionalTest):
         # She also sees a note saying that only public questionnaires
         # are visible
         self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
+
+    def test_list_shows_only_one_public(self):
+
+        code = 'sample_3'
+
+        # Alice logs in
+        user = User.objects.get(pk=101)
+        self.doLogin(user=user)
+
+        # She goes to the detail page of a "public" Questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': code}))
+        self.assertIn(code, self.browser.current_url)
+
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"asdf")]]')
+
+        # She edits the Questionnaire and sees that the URL contains the
+        # code of the Questionnaire
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/{}/cat")]'.format(code))[
+                cat_1_position].click()
+        self.assertIn(code, self.browser.current_url)
+
+        # She makes some changes and submits the category
+        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
+        key_1.clear()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
+        self.findBy('id', 'button-submit').click()
+
+        # She submits the Questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the value of Key 1 was updated
+        self.findByNot('xpath', '//*[text()[contains(.,"Foo 3")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
+
+        # Also there was an additional version created in the database
+        self.assertEqual(Questionnaire.objects.count(), 8)
+
+        # The newly created version has the same code
+        self.assertEqual(Questionnaire.objects.filter(code=code).count(), 2)
+
+        # She goes to the list view and sees only two entries: Foo 6 and Foo 3
+        self.browser.get(
+            self.live_server_url + reverse(route_questionnaire_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy(
+            'xpath', '//a[contains(text(), "Foo 6")]',
+            base=list_entries[0])
+        self.findBy(
+            'xpath', '//a[contains(text(), "Foo 3")]',
+            base=list_entries[1])
+
+        # She goes to the detail page of the questionnaire and sees the
+        # draft version.
+        self.findBy(
+            'xpath', '//a[contains(text(), "Foo 3")]').click()
+        self.checkOnPage('asdf')
+
+        # She submits the questionnaire
+        self.findBy('xpath', '//input[@name="submit"]').click()
+        url = self.browser.current_url
+
+        # Bob (the moderator) logs in
+        user_moderator = User.objects.get(pk=103)
+        self.doLogin(user=user_moderator)
+
+        # In the DB, there is one active version (id: 3)
+        db_q = Questionnaire.objects.filter(code=code, status=3)
+        self.assertEqual(len(db_q), 1)
+        self.assertEqual(db_q[0].id, 3)
+
+        # The moderator publishes the questionnaire
+        self.browser.get(url)
+        self.findBy('xpath', '//input[@name="publish"]').click()
+
+        # In the DB, there is still only one active version (now id: 8)
+        db_q = Questionnaire.objects.filter(code=code, status=3)
+        self.assertEqual(len(db_q), 1)
+        self.assertEqual(db_q[0].id, 8)
+
+        # He goes to the list view and sees only two entries: asdf and Foo 6.
+        self.browser.get(
+            self.live_server_url + reverse(route_questionnaire_list))
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        self.findBy(
+            'xpath', '//a[contains(text(), "asdf")]',
+            base=list_entries[0])
+        self.findBy(
+            'xpath', '//a[contains(text(), "Foo 6")]',
+            base=list_entries[1])

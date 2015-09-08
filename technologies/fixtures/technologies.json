@@ -1645,7 +1645,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "V3: Clearing of vegetation (eg fire breaks/reduced fuel)"}}}
+        "data": {"technologies":{"label":{"en": "V3: Clearing of vegetation"},"helptext":{"en":"Eg. fire breaks/reduced fuel"}}}
     },
     "model": "configuration.translation",
     "pk": 1524
@@ -1661,7 +1661,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S1: Bench terraces (slope of terrace bed <6%)"}}}
+        "data": {"technologies":{"label":{"en": "S1: Bench terraces"},"helptext":{"en":"slope of terrace bed <6%"}}}
     },
     "model": "configuration.translation",
     "pk": 1526
@@ -1669,7 +1669,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S2: Forward sloping terraces (slope of terrace bed >6%)"}}}
+        "data": {"technologies":{"label":{"en": "S2: Forward sloping terraces"},"helptext":{"en":"slope of terrace bed >6%"}}}
     },
     "model": "configuration.translation",
     "pk": 1527
@@ -1685,7 +1685,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S4: Graded ditches / waterways (to drain and convey water)"}}}
+        "data": {"technologies":{"label":{"en": "S4: Graded ditches / waterways"},"helptext":{"en":"to drain and convey water"}}}
     },
     "model": "configuration.translation",
     "pk": 1529
@@ -1709,7 +1709,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S7: Reshaping surface (reducing slope)"}}}
+        "data": {"technologies":{"label":{"en": "S7: Reshaping surface"},"helptext":{"en":"reducing slope"}}}
     },
     "model": "configuration.translation",
     "pk": 1532
@@ -1765,7 +1765,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "M5: Control / change of species composition (if annually or in a rotational sequence as done eg on cropland -> A1"}}}
+        "data": {"technologies":{"label":{"en": "M5: Control / change of species composition"},"helptext":{"en":"if annually or in a rotational sequence as done eg on cropland -> A1"}}}
     },
     "model": "configuration.translation",
     "pk": 1539
@@ -1773,7 +1773,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "M6: Waste Management: includes recycling, re-use or reduce: includes both artificial and natural methods for waste management"}}}
+        "data": {"technologies":{"label":{"en": "M6: Waste Management"},"helptext":{"en":"includes recycling, re-use or reduce: includes both artificial and natural methods for waste management"}}}
     },
     "model": "configuration.translation",
     "pk": 1540
@@ -1789,7 +1789,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Wt: loss of topsoil / surface erosion: even removal of top soil, sheet and interrill erosion"}}}
+        "data": {"technologies":{"label":{"en": "Wt: loss of topsoil / surface erosion"},"helptext":{"en":"even removal of top soil, sheet and interrill erosion"}}}
     },
     "model": "configuration.translation",
     "pk": 1542
@@ -1829,7 +1829,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Wo: offsite degradation effects: deposition of sediments, downstream flooding, siltation of reservoirs and waterways, and pollution of water bodies with eroded sediments"}}}
+        "data": {"technologies":{"label":{"en": "Wo: offsite degradation effects"},"helptext":{"en":"deposition of sediments, downstream flooding, siltation of reservoirs and waterways, and pollution of water bodies with eroded sediments"}}}
     },
     "model": "configuration.translation",
     "pk": 1547
@@ -1837,7 +1837,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Et: loss of topsoil: uniform displacement"}}}
+        "data": {"technologies":{"label":{"en": "Et: loss of topsoil"},"helptext":{"en":"uniform displacement"}}}
     },
     "model": "configuration.translation",
     "pk": 1548
@@ -1845,7 +1845,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Ed: deflation and deposition: uneven removal of soil material"}}}
+        "data": {"technologies":{"label":{"en": "Ed: deflation and deposition"},"helptext":{"en":"uneven removal of soil material"}}}
     },
     "model": "configuration.translation",
     "pk": 1549
@@ -1853,7 +1853,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Eo: offsite degradation effects: covering of the terrain with windborne sand particles from distant sources (\"overblowing\")"}}}
+        "data": {"technologies":{"label":{"en": "Eo: offsite degradation effects"},"helptext":{"en":"covering of the terrain with windborne sand particles from distant sources (\"overblowing\")"}}}
     },
     "model": "configuration.translation",
     "pk": 1550
@@ -1861,7 +1861,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Cn: fertility decline and reduced organic matter content (not caused by erosion): eg leaching, soil fertility mining, nutrient oxidation and volatisation (N)"}}}
+        "data": {"technologies":{"label":{"en": "Cn: fertility decline and reduced organic matter content (not caused by erosion)"},"helptext":{"en":"eg leaching, soil fertility mining, nutrient oxidation and volatisation (N)"}}}
     },
     "model": "configuration.translation",
     "pk": 1551
@@ -1869,7 +1869,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Ca: acidification: lowering of the soil pH"}}}
+        "data": {"technologies":{"label":{"en": "Ca: acidification"},"helptext":{"en":"lowering of the soil pH"}}}
     },
     "model": "configuration.translation",
     "pk": 1552
@@ -1877,7 +1877,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Cp: soil pollution: contamination of the soil with toxic materials"}}}
+        "data": {"technologies":{"label":{"en": "Cp: soil pollution"},"helptext":{"en":"contamination of the soil with toxic materials"}}}
     },
     "model": "configuration.translation",
     "pk": 1553
@@ -1885,7 +1885,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Cs: salinisation / alkalinisation: a net increase of the salt content of the (top) soil leading to a productivity decline"}}}
+        "data": {"technologies":{"label":{"en": "Cs: salinisation / alkalinisation"},"helptext":{"en":"a net increase of the salt content of the (top) soil leading to a productivity decline"}}}
     },
     "model": "configuration.translation",
     "pk": 1554
@@ -1893,7 +1893,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pc: compaction: deterioration of soil structure by trampling or the weight and/or frequent use of machinery"}}}
+        "data": {"technologies":{"label":{"en": "Pc: compaction"},"helptext":{"en":"deterioration of soil structure by trampling or the weight and/or frequent use of machinery"}}}
     },
     "model": "configuration.translation",
     "pk": 1555
@@ -1901,7 +1901,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pk: sealing and crusting: clogging of pores with fine soil material and development of a thin impervious layer at the soil surface obstructing the infiltration of rainwater"}}}
+        "data": {"technologies":{"label":{"en": "Pk: sealing and crusting"},"helptext":{"en":"clogging of pores with fine soil material and development of a thin impervious layer at the soil surface obstructing the infiltration of rainwater"}}}
     },
     "model": "configuration.translation",
     "pk": 1556
@@ -1909,7 +1909,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pw: waterlogging: effects of human induced water saturation of soils (excluding paddy fields)"}}}
+        "data": {"technologies":{"label":{"en": "Pw: waterlogging"},"helptext":{"en":"effects of human induced water saturation of soils (excluding paddy fields)"}}}
     },
     "model": "configuration.translation",
     "pk": 1557
@@ -1925,7 +1925,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pu: loss of bio-productive function due to other activities (eg construction, mining, roads, etc)"}}}
+        "data": {"technologies":{"label":{"en": "Pu: loss of bio-productive function due to other activities"},"helptext":{"en":"eg construction, mining, roads, etc"}}}
     },
     "model": "configuration.translation",
     "pk": 1559
@@ -1933,7 +1933,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bc: reduction of vegetation cover: increase of bare / unprotected soil"}}}
+        "data": {"technologies":{"label":{"en": "Bc: reduction of vegetation cover"},"helptext":{"en":"increase of bare / unprotected soil"}}}
     },
     "model": "configuration.translation",
     "pk": 1560
@@ -1941,7 +1941,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bh: loss of habitats: decreasing vegetation diversity (fallow land, mixed systems, field borders), increased fragmentation of habitats"}}}
+        "data": {"technologies":{"label":{"en": "Bh: loss of habitats"},"helptext":{"en":"decreasing vegetation diversity (fallow land, mixed systems, field borders), increased fragmentation of habitats"}}}
     },
     "model": "configuration.translation",
     "pk": 1561
@@ -1949,7 +1949,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bq: quantity / biomass decline: reduced vegetative production for different land use"}}}
+        "data": {"technologies":{"label":{"en": "Bq: quantity / biomass decline"},"helptext":{"en":"reduced vegetative production for different land use"}}}
     },
     "model": "configuration.translation",
     "pk": 1562
@@ -1957,7 +1957,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bf: detrimental effects of fires (includes low / high severity of fires): on forest (eg slash and burn), bush, grazing and cropland (burning of residues)"}}}
+        "data": {"technologies":{"label":{"en": "Bf: detrimental effects of fires (includes low / high severity of fires)"},"helptext":{"en":"on forest (eg slash and burn), bush, grazing and cropland (burning of residues)"}}}
     },
     "model": "configuration.translation",
     "pk": 1563
@@ -1965,7 +1965,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bs: quality and species composition /diversity decline: loss of natural species, land races, palatable perennial grasses; spreading of invasive, salt-tolerant, unpalatable, species / weeds"}}}
+        "data": {"technologies":{"label":{"en": "Bs: quality and species composition /diversity decline"},"helptext":{"en":"loss of natural species, land races, palatable perennial grasses; spreading of invasive, salt-tolerant, unpalatable, species / weeds"}}}
     },
     "model": "configuration.translation",
     "pk": 1564
@@ -1973,7 +1973,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bl: loss of soil life: decline of soil macro-organisms and micro-organisms in quantity and quality"}}}
+        "data": {"technologies":{"label":{"en": "Bl: loss of soil life"},"helptext":{"en":"decline of soil macro-organisms and micro-organisms in quantity and quality"}}}
     },
     "model": "configuration.translation",
     "pk": 1565
@@ -1981,7 +1981,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bp: increase of pests / diseases, loss of predators: reduction of biological control"}}}
+        "data": {"technologies":{"label":{"en": "Bp: increase of pests / diseases, loss of predators"},"helptext":{"en":"reduction of biological control"}}}
     },
     "model": "configuration.translation",
     "pk": 1566
@@ -1989,7 +1989,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Ha: aridification: decrease of average soil moisture content"}}}
+        "data": {"technologies":{"label":{"en": "Ha: aridification"},"helptext":{"en":"decrease of average soil moisture content"}}}
     },
     "model": "configuration.translation",
     "pk": 1567
@@ -1997,7 +1997,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hs: change in quantity of surface water: change of the flow regime (flood, /peak flow, low flow, drying up of rivers and lakes)"}}}
+        "data": {"technologies":{"label":{"en": "Hs: change in quantity of surface water"},"helptext":{"en":"change of the flow regime (flood, /peak flow, low flow, drying up of rivers and lakes)"}}}
     },
     "model": "configuration.translation",
     "pk": 1568
@@ -2005,7 +2005,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hg: change in groundwater / aquifer level: lowering of groundwater table due to over-exploitation or reduced recharge of groundwater; or increase of groundwater table resulting in waterlogging and/or salinisation"}}}
+        "data": {"technologies":{"label":{"en": "Hg: change in groundwater / aquifer level"},"helptext":{"en":"lowering of groundwater table due to over-exploitation or reduced recharge of groundwater; or increase of groundwater table resulting in waterlogging and/or salinisation"}}}
     },
     "model": "configuration.translation",
     "pk": 1569
@@ -2013,7 +2013,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hp: decline of surface water quality: increased sediments and pollutants in fresh water bodies due to point pollution and land-based pollution"}}}
+        "data": {"technologies":{"label":{"en": "Hp: decline of surface water quality"},"helptext":{"en":"increased sediments and pollutants in fresh water bodies due to point pollution and land-based pollution"}}}
     },
     "model": "configuration.translation",
     "pk": 1570
@@ -2021,7 +2021,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hq: decline of groundwater quality: due to pollutants infiltrating into the aquifers"}}}
+        "data": {"technologies":{"label":{"en": "Hq: decline of groundwater quality"},"helptext":{"en":"due to pollutants infiltrating into the aquifers"}}}
     },
     "model": "configuration.translation",
     "pk": 1571
@@ -2029,7 +2029,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hw: reduction of the buffering capacity of wetland areas: to cope with flooding and pollution"}}}
+        "data": {"technologies":{"label":{"en": "Hw: reduction of the buffering capacity of wetland areas"},"helptext":{"en":"to cope with flooding and pollution"}}}
     },
     "model": "configuration.translation",
     "pk": 1572
@@ -5457,7 +5457,8 @@
 {
     "fields": {
         "keyword": "lu_cropland_ca",
-        "translation": 1504
+        "translation": 1504,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1004
@@ -5465,7 +5466,8 @@
 {
     "fields": {
         "keyword": "lu_cropland_cp",
-        "translation": 1505
+        "translation": 1505,
+        "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1005
@@ -5473,7 +5475,8 @@
 {
     "fields": {
         "keyword": "lu_cropland_ct",
-        "translation": 1506
+        "translation": 1506,
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 1006
@@ -5481,7 +5484,8 @@
 {
     "fields": {
         "keyword": "lu_grazingland_ge",
-        "translation": 1507
+        "translation": 1507,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1007
@@ -5489,7 +5493,8 @@
 {
     "fields": {
         "keyword": "lu_grazingland_gi",
-        "translation": 1508
+        "translation": 1508,
+        "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1008
@@ -5497,7 +5502,8 @@
 {
     "fields": {
         "keyword": "lu_forests_fn",
-        "translation": 1509
+        "translation": 1509,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1009
@@ -5505,7 +5511,8 @@
 {
     "fields": {
         "keyword": "lu_forests_fp",
-        "translation": 1510
+        "translation": 1510,
+        "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1010
@@ -5513,7 +5520,8 @@
 {
     "fields": {
         "keyword": "lu_forests_fo",
-        "translation": 1511
+        "translation": 1511,
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 1011
@@ -5521,7 +5529,8 @@
 {
     "fields": {
         "keyword": "lu_mixed_mf",
-        "translation": 1512
+        "translation": 1512,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1012
@@ -5529,7 +5538,8 @@
 {
     "fields": {
         "keyword": "lu_mixed_mp",
-        "translation": 1513
+        "translation": 1513,
+        "order_value": 2
     },
 
     "model": "configuration.value",
@@ -5538,7 +5548,8 @@
 {
     "fields": {
         "keyword": "lu_mixed_ma",
-        "translation": 1514
+        "translation": 1514,
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 1014
@@ -5546,7 +5557,8 @@
 {
     "fields": {
         "keyword": "lu_mixed_ms",
-        "translation": 1515
+        "translation": 1515,
+        "order_value": 4
     },
     "model": "configuration.value",
     "pk": 1015
@@ -5554,7 +5566,8 @@
 {
     "fields": {
         "keyword": "lu_mixed_mo",
-        "translation": 1516
+        "translation": 1516,
+        "order_value": 5
     },
     "model": "configuration.value",
     "pk": 1016
@@ -5562,7 +5575,8 @@
 {
     "fields": {
         "keyword": "measures_agronomic_a1",
-        "translation": 1517
+        "translation": 1517,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1017
@@ -5570,7 +5584,8 @@
 {
     "fields": {
         "keyword": "measures_agronomic_a2",
-        "translation": 1518
+        "translation": 1518,
+        "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1018
@@ -5578,7 +5593,8 @@
 {
     "fields": {
         "keyword": "measures_agronomic_a3",
-        "translation": 1519
+        "translation": 1519,
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 1019
@@ -5586,7 +5602,8 @@
 {
     "fields": {
         "keyword": "measures_agronomic_a4",
-        "translation": 1520
+        "translation": 1520,
+        "order_value": 4
     },
     "model": "configuration.value",
     "pk": 1020
@@ -5594,7 +5611,8 @@
 {
     "fields": {
         "keyword": "measures_agronomic_a5",
-        "translation": 1521
+        "translation": 1521,
+        "order_value": 5
     },
     "model": "configuration.value",
     "pk": 1021
@@ -5602,7 +5620,8 @@
 {
     "fields": {
         "keyword": "measures_vegetative_v1",
-        "translation": 1522
+        "translation": 1522,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1022
@@ -5610,7 +5629,8 @@
 {
     "fields": {
         "keyword": "measures_vegetative_v2",
-        "translation": 1523
+        "translation": 1523,
+        "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1023
@@ -5618,7 +5638,8 @@
 {
     "fields": {
         "keyword": "measures_vegetative_v3",
-        "translation": 1524
+        "translation": 1524,
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 1024
@@ -5626,7 +5647,8 @@
 {
     "fields": {
         "keyword": "measures_vegetative_v4",
-        "translation": 1525
+        "translation": 1525,
+        "order_value": 4
     },
     "model": "configuration.value",
     "pk": 1025
@@ -5634,7 +5656,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s1",
-        "translation": 1526
+        "translation": 1526,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1026
@@ -5642,7 +5665,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s2",
-        "translation": 1527
+        "translation": 1527,
+        "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1027
@@ -5650,7 +5674,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s3",
-        "translation": 1528
+        "translation": 1528,
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 1028
@@ -5658,7 +5683,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s4",
-        "translation": 1529
+        "translation": 1529,
+        "order_value": 4
     },
     "model": "configuration.value",
     "pk": 1029
@@ -5666,7 +5692,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s5",
-        "translation": 1530
+        "translation": 1530,
+        "order_value": 5
     },
     "model": "configuration.value",
     "pk": 1030
@@ -5674,7 +5701,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s6",
-        "translation": 1531
+        "translation": 1531,
+        "order_value": 6
     },
     "model": "configuration.value",
     "pk": 1031
@@ -5682,7 +5710,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s7",
-        "translation": 1532
+        "translation": 1532,
+        "order_value": 7
     },
     "model": "configuration.value",
     "pk": 1032
@@ -5690,7 +5719,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s8",
-        "translation": 1533
+        "translation": 1533,
+        "order_value": 8
     },
     "model": "configuration.value",
     "pk": 1033
@@ -5698,7 +5728,8 @@
 {
     "fields": {
         "keyword": "measures_structural_s9",
-        "translation": 1534
+        "translation": 1534,
+        "order_value": 9
     },
     "model": "configuration.value",
     "pk": 1034
@@ -5706,7 +5737,8 @@
 {
     "fields": {
         "keyword": "measures_management_m1",
-        "translation": 1535
+        "translation": 1535,
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1035
@@ -5714,7 +5746,8 @@
 {
     "fields": {
         "keyword": "measures_management_m2",
-        "translation": 1536
+        "translation": 1536,
+        "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1036
@@ -5722,7 +5755,8 @@
 {
     "fields": {
         "keyword": "measures_management_m3",
-        "translation": 1537
+        "translation": 1537,
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 1037
@@ -5730,7 +5764,8 @@
 {
     "fields": {
         "keyword": "measures_management_m4",
-        "translation": 1538
+        "translation": 1538,
+        "order_value": 4
     },
     "model": "configuration.value",
     "pk": 1038
@@ -5738,7 +5773,8 @@
 {
     "fields": {
         "keyword": "measures_management_m5",
-        "translation": 1539
+        "translation": 1539,
+        "order_value": 5
     },
     "model": "configuration.value",
     "pk": 1039
@@ -5746,7 +5782,8 @@
 {
     "fields": {
         "keyword": "measures_management_m6",
-        "translation": 1540
+        "translation": 1540,
+        "order_value": 6
     },
     "model": "configuration.value",
     "pk": 1040
@@ -5754,7 +5791,8 @@
 {
     "fields": {
         "keyword": "measures_management_m7",
-        "translation": 1541
+        "translation": 1541,
+        "order_value": 7
     },
     "model": "configuration.value",
     "pk": 1041
@@ -6443,7 +6481,7 @@
     "fields": {
         "keyword": "tech_lu_cropland",
         "translation": 1619,
-        "configuration": {"image_name":"landuse_01.png"}
+        "configuration": {"image_name":"pictos/land_1.png"}
     },
     "model": "configuration.value",
     "pk": 1119
@@ -6452,7 +6490,7 @@
     "fields": {
         "keyword": "tech_lu_grazingland",
         "translation": 1620,
-        "configuration": {"image_name":"landuse_04.png"}
+        "configuration": {"image_name":"pictos/land_5.png"}
     },
     "model": "configuration.value",
     "pk": 1120
@@ -6461,7 +6499,7 @@
     "fields": {
         "keyword": "tech_lu_forest",
         "translation": 1621,
-        "configuration": {"image_name":"landuse_06.png"}
+        "configuration": {"image_name":"pictos/land_7.png"}
     },
     "model": "configuration.value",
     "pk": 1121
@@ -6470,7 +6508,7 @@
     "fields": {
         "keyword": "tech_lu_mixed",
         "translation": 1622,
-        "configuration": {"image_name":"landuse_10.png"}
+        "configuration": {"image_name":"pictos/land_agrosilvopast.png"}
     },
     "model": "configuration.value",
     "pk": 1122
@@ -6479,7 +6517,7 @@
     "fields": {
         "keyword": "tech_lu_settlements",
         "translation": 1623,
-        "configuration": {"image_name":"landuse_05.png"}
+        "configuration": {"image_name":"pictos/land_urban.png"}
     },
     "model": "configuration.value",
     "pk": 1123
@@ -6488,7 +6526,7 @@
     "fields": {
         "keyword": "tech_lu_waterways",
         "translation": 1624,
-        "configuration": {"image_name":"landuse_13.png"}
+        "configuration": {"image_name":"landuse_empty.png"}
     },
     "model": "configuration.value",
     "pk": 1124
@@ -6497,7 +6535,7 @@
     "fields": {
         "keyword": "tech_lu_mines",
         "translation": 1625,
-        "configuration": {"image_name":"landuse_12.png"}
+        "configuration": {"image_name":"pictos/land_mining.png"}
     },
     "model": "configuration.value",
     "pk": 1125
@@ -6506,7 +6544,7 @@
     "fields": {
         "keyword": "tech_lu_unproductive",
         "translation": 1626,
-        "configuration": {"image_name":"landuse_14.png"}
+        "configuration": {"image_name":"pictos/degra_wastelands.png"}
     },
     "model": "configuration.value",
     "pk": 1126
@@ -6542,7 +6580,7 @@
     "fields": {
         "keyword": "tech_measures_agronomic",
         "translation": 1630,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/swc_2_agro.png"}
     },
     "model": "configuration.value",
     "pk": 1130
@@ -6551,7 +6589,7 @@
     "fields": {
         "keyword": "tech_measures_vegetative",
         "translation": 1631,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/swc_3_veg.png"}
     },
     "model": "configuration.value",
     "pk": 1131
@@ -6560,7 +6598,7 @@
     "fields": {
         "keyword": "tech_measures_structural",
         "translation": 1632,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/swc_1_struc.png"}
     },
     "model": "configuration.value",
     "pk": 1132
@@ -6569,7 +6607,7 @@
     "fields": {
         "keyword": "tech_measures_management",
         "translation": 1633,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/swc_4_manag.png"}
     },
     "model": "configuration.value",
     "pk": 1133
@@ -6578,7 +6616,7 @@
     "fields": {
         "keyword": "degradation_erosion_water",
         "translation": 1634,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/degra_watererosion.png"}
     },
     "model": "configuration.value",
     "pk": 1134
@@ -6587,7 +6625,7 @@
     "fields": {
         "keyword": "degradation_erosion_wind",
         "translation": 1635,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/degra_winderosion.png"}
     },
     "model": "configuration.value",
     "pk": 1135
@@ -6596,7 +6634,7 @@
     "fields": {
         "keyword": "degradation_chemical",
         "translation": 1636,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/degra_2_chem.png"}
     },
     "model": "configuration.value",
     "pk": 1136
@@ -6605,7 +6643,7 @@
     "fields": {
         "keyword": "degradation_physical",
         "translation": 1637,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/degra_1_phys.png"}
     },
     "model": "configuration.value",
     "pk": 1137
@@ -6614,7 +6652,7 @@
     "fields": {
         "keyword": "degradation_biological",
         "translation": 1638,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/degra_vegetation.png"}
     },
     "model": "configuration.value",
     "pk": 1138
@@ -6623,7 +6661,7 @@
     "fields": {
         "keyword": "degradation_water",
         "translation": 1639,
-        "configuration": {"image_name":"landuse_02.png"}
+        "configuration": {"image_name":"pictos/degra_waterdegrade.png"}
     },
     "model": "configuration.value",
     "pk": 1139
