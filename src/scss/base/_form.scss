@@ -122,8 +122,10 @@ td.form-table-contains-inline table tr td {
 
 table.output-table {
   table-layout: fixed;
+  margin-top: rem-calc(12);
 }
 
 table.output-table thead tr th {
   width: 100%;
+  padding: rem-calc(8) rem-calc(10);
 }

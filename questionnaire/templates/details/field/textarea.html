@@ -1,6 +1,6 @@
 {% if value %}
   {% if header == 'inline' %}
-    <p><strong>{{ key }}</strong>{% if key|last not in ".:!?" %}:{% endif %} {{ value|safe|linebreaks }}</p>
+    <p><strong>{{ key }}</strong>{% if key|last not in ".:!?" %}:{% endif %} {{ value|linebreaksbr }}</p>
   {% else %}
     {% if view_label != 'none' %}
       {% if header == 'small' %}
@@ -9,6 +9,6 @@
         <h3>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h3>
       {% endif %}
     {% endif %}
-    <p>{{ value|safe|linebreaks }}</p>
+    <p>{{ value|linebreaksbr }}</p>
   {% endif %}
 {% endif %}

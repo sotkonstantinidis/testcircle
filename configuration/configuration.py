@@ -401,7 +401,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 raise ConfigurationErrorInvalidCondition(
                     condition, 'Needs to have form "value|condition|key"')
             # Check that value exists
-            if cond_value not in [v[0] for v in self.choices]:
+            if cond_value not in [str(v[0]) for v in self.choices]:
                 raise ConfigurationErrorInvalidCondition(
                     condition, 'Value "{}" of condition not found in the Key\''
                     's choices'.format(cond_value))
@@ -416,7 +416,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 raise ConfigurationErrorInvalidCondition(
                     condition,
                     'Only the following Python expressions are valid: bool')
-
             # TODO
             # Check that the key exists in the same questiongroup.
             # cond_key_object = self.questiongroup.get_question_by_key_keyword(
@@ -890,6 +889,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'numbered': self.numbered,
             'detail_level': self.detail_level,
             'template': form_template,
+            'extra': self.view_options.get('extra'),
         }
 
         return config, FormSet(
@@ -1071,12 +1071,14 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
         self.table_grouping = self.view_options.get('table_grouping', None)
         self.table_headers = []
+        self.table_helptexts = []
         if self.table_grouping:
             for questiongroup in self.questiongroups:
                 if questiongroup.keyword in [
                         g[0] for g in self.table_grouping]:
                     for question in questiongroup.questions:
                         self.table_headers.append(question.label)
+                        self.table_helptexts.append(question.helptext)
 
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False):
@@ -1113,6 +1115,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             config.update({
                 'table_grouping': self.table_grouping,
                 'table_headers': self.table_headers,
+                'table_helptexts': self.table_helptexts,
             })
 
         return config, formsets
@@ -1176,13 +1179,17 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                             qg_labelled.append((q_obj.label, values))
                         data_labelled.append(qg_labelled)
                     raw_questiongroups.append({
-                        "qg_keyword": questiongroup.keyword,
-                        "data": sorted_questiongroup_data,
-                        "data_labelled": data_labelled,
+                        'qg_keyword': questiongroup.keyword,
+                        'data': sorted_questiongroup_data,
+                        'data_labelled': data_labelled,
+                        'label': questiongroup.label,
+                        'extra': questiongroup.view_options.get('extra'),
                     })
                 else:
                     questiongroup_config = {
                         'keyword': questiongroup.keyword,
+                        'label': questiongroup.label,
+                        'extra': questiongroup.view_options.get('extra'),
                     }
                     rendered_questiongroups.append((
                         questiongroup_config,

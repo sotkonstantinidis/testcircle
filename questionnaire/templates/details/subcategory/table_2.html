@@ -22,13 +22,15 @@
     <tbody>
       {% for questiongroup in raw_questiongroups %}
         {% if questiongroup.qg_keyword in table_grouping.0 %}
-          {% for qg in questiongroup.data %}
+          {% for qg in questiongroup.data_labelled %}
             <tr>
               <td>{{ forloop.counter }}.</td>
-              {% for k, v in qg %}
-              <td>
-                {{ v }}
-              </td>
+              {% for k, values in qg %}
+                {% for v in values %}
+                  <td>
+                    {{ v }}
+                  </td>
+                {% endfor %}
               {% endfor %}
             </tr>
           {% endfor %}

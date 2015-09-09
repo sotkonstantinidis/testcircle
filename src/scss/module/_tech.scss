@@ -147,7 +147,11 @@ a:hover .tech-icon {
 }
 
 .output .tech-item-inline:first-of-type {
-  margin-top: 1rem;
+  margin-top: rem-calc(16);
+}
+
+.output .tech-item-inline {
+  margin-top: rem-calc(8);
 }
 
 .output .tech-output-columns:first-of-type, .output .tech-output-columns.top-margin {
