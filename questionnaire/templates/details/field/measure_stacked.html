@@ -1,0 +1,10 @@
+{% if key %}
+  <h5>{{ key }}</h5>
+{% endif %}
+<ul class="chart-horizontal-bars text-right">
+  {% for value in all_values %}
+    <li class="chart-bar is-level-{{ value.0|default:0 }}">
+      {{ value.1 }}
+    </li>
+  {% endfor %}
+</ul>

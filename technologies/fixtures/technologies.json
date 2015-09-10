@@ -466,7 +466,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "< 250 mm"}}}
+        "data": {"technologies":{"label":{"en": "Average annual rainfall"}}}
     },
     "model": "configuration.translation",
     "pk": 1059
@@ -474,63 +474,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "250-500 mm"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1060
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "500-750 mm"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1061
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "750-1000 mm"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1062
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "1000-1500 mm"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1063
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "1500-2000 mm"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1064
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "2000-3000 mm"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1065
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "3000-4000 mm"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1066
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "> 4000 mm"}}}
+        "data": {"technologies":{"label":{"en": "Indicate the name of the reference meteorological station considered"}}}
     },
     "model": "configuration.translation",
     "pk": 1067
@@ -538,7 +482,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Specifications / comments on rainfall: eg. specify annual rainfall (if known) and seasonality (eg. monsoon, winter-/summer rains) / length of dry periods, etc."}}}
+        "data": {"technologies":{"label":{"en": "Specifications/comments on rainfall"},"helptext":{"en":"E.g. specify annual rainfall (if known) and seasonality (e.g. monsoon, winter-/summer rains), number / length / months of rainy seasons, occurrence of heavy rains, length of dry periods"}}}
     },
     "model": "configuration.translation",
     "pk": 1068
@@ -546,7 +490,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "humid"}}}
+        "data": {"technologies":{"label":{"en": "Agro-climatic zone"}}}
     },
     "model": "configuration.translation",
     "pk": 1069
@@ -554,31 +498,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "subhumid"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1070
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "semi-arid"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1071
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "arid"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1072
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Specifications / comments on climate"}}}
+        "data": {"technologies":{"label":{"en": "Specifications / comments on climate"},"helptext":{"en":"E.g. local climate classification, information about temperature, etc."}}}
     },
     "model": "configuration.translation",
     "pk": 1073
@@ -586,7 +506,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "flat (0-2%)"}}}
+        "data": {"technologies":{"label":{"en": "Slopes on average"}, "helptext":{"en":"<strong>Slope gradient conversion table</strong><table><thead><tr><th>Slope in degrees</th><th>Slope in percent</th></tr></thead><tbody><tr><th>1°</th><th>2%</th></tr><tr><th>3°</th><th>5%</th></tr><tr><th>5°</th><th>8%</th></tr><tr><th>9°</th><th>16%</th></tr><tr><th>17°</th><th>30%</th></tr><tr><th>31°</th><th>60%</th></tr><tr><th>45°</th><th>100%</th></tr></tbody></table>"}}}
     },
     "model": "configuration.translation",
     "pk": 1074
@@ -594,55 +514,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "gentle (2-5%)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1075
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "moderate (5-8%)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1076
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "rolling (8-16%)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1077
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "hilly (16-30%)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1078
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "steep (30-60%)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1079
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "very steep (> 60%)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1080
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "plateau / plains"}}}
+        "data": {"technologies":{"label":{"en": "Landforms"}, "helptext":{"en":"<strong>Landforms</strong> (modified after ISRIC 1993):<ul><li><strong>Plateau / plains</strong>: extended level land (slopes less than 8 %).</li><li><strong>Ridges</strong>: narrow elongated area rising above the surrounding area, often hilltops or mountain-tops.</li><li><strong>Mountain slopes (including major escarpments)</strong>: extended area with altitude differences of more than 600 m per 2 km and slopes greater than 15 %.</li><li><strong>Hill slopes (including valley and minor escarpment slopes)</strong>: altitude difference of less than 600 m per 2 km and slopes greater than 8 %.</li><li><strong>Footslopes</strong>: zone bordering steeper mountain / hill slopes on one side and valley floors / plains / plateaus on the other side.</li><li><strong>Valley floors</strong>: elongated strips of level land (less than 8 % slope), flanked by sloping or steep land on both sides.</li></ul>"}}}
     },
     "model": "configuration.translation",
     "pk": 1081
@@ -650,47 +522,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "ridges"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1082
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "mountain slopes"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1083
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "hill slopes"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1084
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "footslopes"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1085
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "valley floors"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1086
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "0-100 m a.s.l."}}}
+        "data": {"technologies":{"label":{"en": "Altitudinal zone"}}}
     },
     "model": "configuration.translation",
     "pk": 1087
@@ -698,71 +530,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "100-500 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1088
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "500-1000 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1089
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "1000-1500 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1090
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "1500-2000 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1091
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "2000-2500 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1092
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "2500-3000 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1093
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "3000-4000 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1094
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "> 4000 m a.s.l."}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1095
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Comments and further specifications on topography"}}}
+        "data": {"technologies":{"label":{"en": "Comments and further specifications on topography (e.g. exact altitude and slope angles of the evaluated sites)"}}}
     },
     "model": "configuration.translation",
     "pk": 1096
@@ -770,7 +538,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Indicate if SLM technology is specifically applied in convex or concave situations"},"helptext":{"en":"<ul><li><strong>convex</strong>: swell (diversion of water flow)</li><li><strong>concave</strong>: depression (conversion of water flow)</li></ul>"}}}
+        "data": {"technologies":{"label":{"en": "Indicate if SLM technology is specifically applied in convex or concave situations"}}}
     },
     "model": "configuration.translation",
     "pk": 1097
@@ -778,7 +546,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "very shallow (0-20 cm)"}}}
+        "data": {"technologies":{"label":{"en": "Soil depth on average"}}}
     },
     "model": "configuration.translation",
     "pk": 1098
@@ -786,39 +554,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "shallow (20-50 cm)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1099
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "moderately deep (50-80 cm)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1100
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "deep (80-120 cm)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1101
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "very deep (>120 cm)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1102
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "coarse / light (sandy)"}}}
+        "data": {"technologies":{"label":{"en": "Soil texture (topsoil)"}}}
     },
     "model": "configuration.translation",
     "pk": 1103
@@ -826,23 +562,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "medium (loam)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1104
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "fine / heavy (clay)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1105
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "high (>3%)"}}}
+        "data": {"technologies":{"label":{"en": "Soil texture (> 20 cm below surface)"}}}
     },
     "model": "configuration.translation",
     "pk": 1106
@@ -850,7 +570,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "medium (1-3%)"}}}
+        "data": {"technologies":{"label":{"en": "Topsoil organic matter"}}}
     },
     "model": "configuration.translation",
     "pk": 1107
@@ -858,15 +578,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "low (<1%)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1108
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Comments and further specifications on soils (eg. soil type, soil PH, salinity, etc.)"}}}
+        "data": {"technologies":{"label":{"en": "Comments and further specifications on soils"},"helptext":{"en":"If available, attach full soil description or specify the available information, e.g. soil type, soil PH/acidity, CEC, nitrogen, salinity etc.)"}}}
     },
     "model": "configuration.translation",
     "pk": 1109
@@ -874,7 +586,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "on surface"}}}
+        "data": {"technologies":{"label":{"en": "Ground water table"}}}
     },
     "model": "configuration.translation",
     "pk": 1110
@@ -882,31 +594,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "> 5 m"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1111
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "5 - 50 m"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1112
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "> 50 m"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1113
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "excess (eg. flood)"}}}
+        "data": {"technologies":{"label":{"en": "Availability of surface water"}}}
     },
     "model": "configuration.translation",
     "pk": 1114
@@ -914,31 +602,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "good"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1115
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "medium"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1116
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "poor / none"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1117
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "good drinking water"}}}
+        "data": {"technologies":{"label":{"en": "Water quality (untreated)"}}}
     },
     "model": "configuration.translation",
     "pk": 1118
@@ -946,7 +610,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "poor drinking water"}}}
+        "data": {"technologies":{"label":{"en": "Is flooding of the area occurring"}}}
     },
     "model": "configuration.translation",
     "pk": 1119
@@ -954,7 +618,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "for agricultural use only"}}}
+        "data": {"technologies":{"label":{"en": "Regularity"}}}
     },
     "model": "configuration.translation",
     "pk": 1120
@@ -962,15 +626,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "unusable"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1121
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Is salinization a problem regarding water quality"}}}
+        "data": {"technologies":{"label":{"en": "Is water salinity a problem?"}}}
     },
     "model": "configuration.translation",
     "pk": 1122
@@ -994,7 +650,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "high"}}}
+        "data": {"technologies":{"label":{"en": "Species diversity"},"helptext":{"en":"a measure of the diversity within an ecological community that incorporates both species richness (the number of species in a community) and the evenness of species' abundance. It includes all fauna and flora above ground and in the soil (modified after eoearth.org)"}}}
     },
     "model": "configuration.translation",
     "pk": 1125
@@ -1002,18 +658,10 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "medium"}}}
+        "data": {"technologies":{"label":{"en": "Habitat diversity"},"helptext":{"en":"refers to the variety or range of habitats in a given region, landscape or ecosystem (modified after oecd.org)"}}}
     },
     "model": "configuration.translation",
     "pk": 1126
-},
-{
-    "fields": {
-        "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "low"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 1127
 },
 {
     "fields": {
@@ -2149,7 +1797,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "convex"}}}
+        "data": {"technologies":{"label":{"en": "convex"},"helptext":{"en":"swell (diversion of water flow)"}}}
     },
     "model": "configuration.translation",
     "pk": 1581
@@ -2157,7 +1805,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "concave"}}}
+        "data": {"technologies":{"label":{"en": "concave"},"helptext":{"en":"depression (conversion of water flow)"}}}
     },
     "model": "configuration.translation",
     "pk": 1582
@@ -2682,6 +2330,486 @@
     "model": "configuration.translation",
     "pk": 1647
 },
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "< 250 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1648
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "251-500 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1649
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "501-750 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1650
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "751-1000 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1651
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1001-1500 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1652
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1501-2000 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1653
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "2001-3000 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1654
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "3001-4000 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1655
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "> 4000 mm"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1656
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "humid"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1657
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "sub-humid"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1658
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "semi-arid"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1659
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "arid"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1660
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "flat (0-2%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1661
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "gentle (3-5%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1662
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "moderate (6-10%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1663
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "rolling (11-15%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1664
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "hilly (16-30%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1665
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "steep (31-60%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1666
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "very steep (>60%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1667
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "plateau / plains"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1668
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "ridges"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1669
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "mountain slopes"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1670
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "hill slopes"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1671
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "footslopes"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1672
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "valley floors"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1673
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "0-100 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1674
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "100-500 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1675
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "500-1000 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1676
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1000-1500 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1677
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "1500-2000 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1678
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "2000-2500 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1679
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "2500-3000 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1680
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "3000-4000 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1681
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "> 4000 m a.s.l."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1682
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "very shallow (0-20 cm)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1683
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "shallow (21-50 cm)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1684
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "moderately deep (51-80 cm)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1685
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "deep (81-120 cm)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1686
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "very deep (> 120 cm)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1687
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "coarse / light (sandy)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1688
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "medium (loamy, silty)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1689
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "fine / heavy (clay)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1690
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "high (>3%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1691
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "medium (1-3%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1692
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "low (<1%)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1693
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "on surface"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1694
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "< 5 m"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1695
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "5 - 50 m"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1696
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "> 50 m"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1697
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "excess (e.g. frequent waterlogging, high runoff rates)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1698
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "good (e.g. available year-round)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1699
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "medium (e.g. not available year-round)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1700
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "poor / none"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1701
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "good drinking water"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1702
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "poor drinking water (treatment required)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1703
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "for agricultural use only (irrigation)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1704
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "unusable"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1705
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "frequently"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1706
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "episodically"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1707
+},
 
 
 
@@ -2768,82 +2896,10 @@
 {
     "fields": {
         "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Agro-climatic zone"},"helptext":{"en":"<strong>Agro-climatic zone</strong><ul><li>Humid: length of growing period (LGP) > 270 days</li><li>Subhumid: LGP 180 - 269 days</li><li>Semi-arid: LGP 75 - 179 days</li><li>Arid: LGP 0 - 74 days</li></ul>The length of growing period (LGP) is defined as the period when precipitation > 0.5 PET (potential evapotranspiration) and the temperature > 6.5°C"}}}
+        "data": {"technologies":{"label":{"en":"Agro-climatic zone"},"helptext":{"en":"<strong>Agro-climatic zone</strong><ul><li>Humid: length of growing period (LGP) > 270 days</li><li>Subhumid: LGP 180 - 269 days</li><li>Semi-arid: LGP 75 - 179 days</li><li>Arid: LGP 0 - 74 days</li></ul>The length of growing period (LGP) is defined as the period when precipitation is more than half of the potential evapotranspiration (PET) and the temperature is higher than 6.5° C."}}}
     },
     "model": "configuration.translation",
     "pk": 2219
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Slopes on average"},"helptext":{"en":"<strong>Slope gradient conversion table</strong><table><thead><tr><th>Slope in degrees</th><th>Slope in percent</th></tr></thead><tbody><tr><th>1°</th><th>2%</th></tr><tr><th>3°</th><th>5%</th></tr><tr><th>5°</th><th>8%</th></tr><tr><th>9°</th><th>16%</th></tr><tr><th>17°</th><th>30%</th></tr><tr><th>31°</th><th>60%</th></tr><tr><th>45°</th><th>100%</th></tr></tbody></table>"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2220
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Landforms"},"helptext":{"en":"<strong>Landforms</strong> (modified after ISRIC 1993):<ul><li><strong>Plateau / plains</strong>: extended level land (slopes less than 8 %).</li><li><strong>Ridges</strong>: narrow elongated area rising above the surrounding area, often hilltops or mountain-tops.</li><li><strong>Mountain slopes (including major escarpments)</strong>: extended area with altitude differences of more than 600 m per 2 km and slopes greater than 15 %.</li><li><strong>Hill slopes (including valley and minor escarpment slopes)</strong>: altitude difference of less than 600 m per 2 km and slopes greater than 8 %.</li><li><strong>Footslopes</strong>: zone bordering steeper mountain / hill slopes on one side and valley floors / plains / plateaus on the other side.</li><li><strong>Valley floors</strong>: elongated strips of level land (less than 8 % slope), flanked by sloping or steep land on both sides.</li></ul>"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2221
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Altitudinal zonation"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2222
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Soil depth on average"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2223
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Soil texture"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2224
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Topsoil organic matter"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2225
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Ground water table"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2226
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Availability of surface water"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2227
-},
-{
-    "fields": {
-        "translation_type": "questiongroup",
-        "data": {"technologies":{"label":{"en":"Water quality (untreated)"}}}
-    },
-    "model": "configuration.translation",
-    "pk": 2228
 },
 {
     "fields": {
@@ -3084,7 +3140,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "Climate"},"helptext":{"en":"Rank according to areal extent (max. 2 measures per question)"},"numbering":"6.1"}}
+        "data": {"technologies":{"label":{"en": "Climate"},"numbering":"6.1"}}
     },
     "model": "configuration.translation",
     "pk": 2716
@@ -3092,7 +3148,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "Topography"},"helptext":{"en":"Rank according to areal extent (max. 2 measures per question)"},"numbering":"6.2"}}
+        "data": {"technologies":{"label":{"en": "Topography"},"numbering":"6.2"}}
     },
     "model": "configuration.translation",
     "pk": 2717
@@ -3100,7 +3156,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "Soils"},"helptext":{"en":"Some of the following \"environmental\" conditoins may change as a result of the SLM technology! However, <strong>describe the conditions without any impact of land conservation!</strong><br>Rank according to areal extent (max. 2 measures per question)"},"numbering":"6.3"}}
+        "data": {"technologies":{"label":{"en": "Soils"},"numbering":"6.3"}}
     },
     "model": "configuration.translation",
     "pk": 2718
@@ -3108,7 +3164,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "Water availability and quality"},"helptext":{"en":"Rank according to areal extent (max. 2 measures per question)"},"numbering":"6.4"}}
+        "data": {"technologies":{"label":{"en": "Water availability and quality"},"numbering":"6.4"}}
     },
     "model": "configuration.translation",
     "pk": 2719
@@ -3116,7 +3172,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "Biodiversity"},"helptext":{"en":"Indicate the state of biodiversity relative to your region / country. Species richness includes all fauna and flora above ground and in the soil.<br>Rank according to areal extent (max. 2 measures per question)"},"numbering":"6.5"}}
+        "data": {"technologies":{"label":{"en": "Biodiversity"},"helptext":{"en":"<p>Indicate the state of biodiversity on the analysed sites relative to your region/country standards.</p>"},"numbering":"6.5"}}
     },
     "model": "configuration.translation",
     "pk": 2720
@@ -3231,7 +3287,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "Natural environment"},"helptext":{"en":"Give details of the natural (bio-physical) conditions where the SLM technology is applied."},"numbering":"6."}}
+        "data": {"technologies":{"label":{"en": "Natural environment"},"helptext":{"en":"<p>Give details of the natural (bio-physical) conditions where the SLM Technology is applied. Make specific reference to the sites where the documented SLM technology has been assessed and analysed. Tick one box per question only, except for slope and soil parameters (see indications below). Use comment sections to specify and provide additional information.</p><p><strong>Note</strong>: Some of the environmental conditions (e.g. slope angle, soil characteristics, water quality/availability, etc.) may change as a result of the SLM Technology! However, <strong>describe the conditions without any impact of sustainable land management!</strong></p>"},"numbering":"6."}}
     },
     "model": "configuration.translation",
     "pk": 2906
@@ -4137,90 +4193,19 @@
 },
 {
     "fields": {
-        "keyword": "tech_rainfall_less_250",
+        "keyword": "tech_rainfall",
         "translation": 1059,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155, 1156]
     },
     "model": "configuration.key",
     "pk": 1098
 },
 {
     "fields": {
-        "keyword": "tech_rainfall_250_500",
-        "translation": 1060,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1099
-},
-{
-    "fields": {
-        "keyword": "tech_rainfall_500_750",
-        "translation": 1061,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1100
-},
-{
-    "fields": {
-        "keyword": "tech_rainfall_750_1000",
-        "translation": 1062,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1101
-},
-{
-    "fields": {
-        "keyword": "tech_rainfall_1000_1500",
-        "translation": 1063,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1102
-},
-{
-    "fields": {
-        "keyword": "tech_rainfall_1500_2000",
-        "translation": 1064,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1103
-},
-{
-    "fields": {
-        "keyword": "tech_rainfall_2000_3000",
-        "translation": 1065,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1104
-},
-{
-    "fields": {
-        "keyword": "tech_rainfall_3000_4000",
-        "translation": 1066,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1105
-},
-{
-    "fields": {
-        "keyword": "tech_rainfall_4000_plus",
+        "keyword": "tech_rainfall_meteostation",
         "translation": 1067,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "configuration": {"type": "char"}
     },
     "model": "configuration.key",
     "pk": 1106
@@ -4236,47 +4221,17 @@
 },
 {
     "fields": {
-        "keyword": "tech_zone_humid",
+        "keyword": "tech_agroclimatic_zone",
         "translation": 1069,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1157, 1158, 1159, 1160]
     },
     "model": "configuration.key",
     "pk": 1108
 },
 {
     "fields": {
-        "keyword": "tech_zone_subhumid",
-        "translation": 1070,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1109
-},
-{
-    "fields": {
-        "keyword": "tech_zone_semiarid",
-        "translation": 1071,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1110
-},
-{
-    "fields": {
-        "keyword": "tech_zone_arid",
-        "translation": 1072,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1111
-},
-{
-    "fields": {
-        "keyword": "tech_zone_specifications",
+        "keyword": "tech_agroclimatic_zone_specifications",
         "translation": 1073,
         "configuration": {"type": "text"}
     },
@@ -4285,227 +4240,37 @@
 },
 {
     "fields": {
-        "keyword": "tech_slopes_flat",
+        "keyword": "tech_slopes",
         "translation": 1074,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1161, 1162, 1163, 1164, 1165, 1166, 1167]
     },
     "model": "configuration.key",
     "pk": 1113
 },
 {
     "fields": {
-        "keyword": "tech_slopes_gentle",
-        "translation": 1075,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1114
-},
-{
-    "fields": {
-        "keyword": "tech_slopes_moderate",
-        "translation": 1076,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1115
-},
-{
-    "fields": {
-        "keyword": "tech_slopes_rolling",
-        "translation": 1077,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1116
-},
-{
-    "fields": {
-        "keyword": "tech_slopes_hilly",
-        "translation": 1078,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1117
-},
-{
-    "fields": {
-        "keyword": "tech_slopes_steep",
-        "translation": 1079,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1118
-},
-{
-    "fields": {
-        "keyword": "tech_slopes_verysteep",
-        "translation": 1080,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1119
-},
-{
-    "fields": {
-        "keyword": "tech_landforms_plateau",
+        "keyword": "tech_landforms",
         "translation": 1081,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1168, 1169, 1170, 1171, 1172, 1173]
     },
     "model": "configuration.key",
     "pk": 1120
 },
 {
     "fields": {
-        "keyword": "tech_landforms_ridges",
-        "translation": 1082,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1121
-},
-{
-    "fields": {
-        "keyword": "tech_landforms_mountainslopes",
-        "translation": 1083,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1122
-},
-{
-    "fields": {
-        "keyword": "tech_landforms_hillslopes",
-        "translation": 1084,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1123
-},
-{
-    "fields": {
-        "keyword": "tech_landforms_footslopes",
-        "translation": 1085,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1124
-},
-{
-    "fields": {
-        "keyword": "tech_landforms_valleyfloors",
-        "translation": 1086,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1125
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_0_100",
+        "keyword": "tech_altitudinalzone",
         "translation": 1087,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182]
     },
     "model": "configuration.key",
     "pk": 1126
 },
 {
     "fields": {
-        "keyword": "tech_zonation_100_500",
-        "translation": 1088,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1127
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_500_1000",
-        "translation": 1089,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1128
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_1000_1500",
-        "translation": 1090,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1129
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_1500_2000",
-        "translation": 1091,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1130
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_2000_2500",
-        "translation": 1092,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1131
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_2500_3000",
-        "translation": 1093,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1132
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_3000_4000",
-        "translation": 1094,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1133
-},
-{
-    "fields": {
-        "keyword": "tech_zonation_4000_plus",
-        "translation": 1095,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1134
-},
-{
-    "fields": {
-        "keyword": "tech_topography_specifications",
+        "keyword": "tech_topography_comments",
         "translation": 1096,
         "configuration": {"type": "text"}
     },
@@ -4524,117 +4289,47 @@
 },
 {
     "fields": {
-        "keyword": "tech_soildepth_veryshallow",
+        "keyword": "tech_soil_depth",
         "translation": 1098,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "configuration": {"type": "checkbox"},
+        "values": [1183, 1184, 1185, 1186, 1187]
     },
     "model": "configuration.key",
     "pk": 1137
 },
 {
     "fields": {
-        "keyword": "tech_soildepth_shallow",
-        "translation": 1099,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1138
-},
-{
-    "fields": {
-        "keyword": "tech_soildepth_moderately",
-        "translation": 1100,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1139
-},
-{
-    "fields": {
-        "keyword": "tech_soildepth_deep",
-        "translation": 1101,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1140
-},
-{
-    "fields": {
-        "keyword": "tech_soildepth_verydeep",
-        "translation": 1102,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1141
-},
-{
-    "fields": {
-        "keyword": "tech_texture_coarse",
+        "keyword": "tech_soil_texture_topsoil",
         "translation": 1103,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "configuration": {"type": "checkbox"},
+        "values": [1188, 1189, 1190]
     },
     "model": "configuration.key",
     "pk": 1142
 },
 {
     "fields": {
-        "keyword": "tech_texture_medium",
-        "translation": 1104,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1143
-},
-{
-    "fields": {
-        "keyword": "tech_texture_fine",
-        "translation": 1105,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1144
-},
-{
-    "fields": {
-        "keyword": "tech_topsoil_high",
+        "keyword": "tech_soil_texture_20cm",
         "translation": 1106,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "configuration": {"type": "checkbox"},
+        "values": [1188, 1189, 1190]
     },
     "model": "configuration.key",
     "pk": 1145
 },
 {
     "fields": {
-        "keyword": "tech_topsoil_medium",
+        "keyword": "tech_topsoil_organic",
         "translation": 1107,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "configuration": {"type": "checkbox"},
+        "values": [1191, 1192, 1193]
     },
     "model": "configuration.key",
     "pk": 1146
 },
 {
     "fields": {
-        "keyword": "tech_topsoil_low",
-        "translation": 1108,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1147
-},
-{
-    "fields": {
-        "keyword": "tech_soil_specifications",
+        "keyword": "tech_soil_comments",
         "translation": 1109,
         "configuration": {"type": "text"}
     },
@@ -4643,123 +4338,52 @@
 },
 {
     "fields": {
-        "keyword": "tech_groundwater_onsurface",
+        "keyword": "tech_groundwater",
         "translation": 1110,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1194, 1195, 1196, 1197]
     },
     "model": "configuration.key",
     "pk": 1149
 },
 {
     "fields": {
-        "keyword": "tech_groundwater_0_5",
-        "translation": 1111,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1150
-},
-{
-    "fields": {
-        "keyword": "tech_groundwater_5_50",
-        "translation": 1112,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1151
-},
-{
-    "fields": {
-        "keyword": "tech_groundwater_50_plus",
-        "translation": 1113,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1152
-},
-{
-    "fields": {
-        "keyword": "tech_surfacewater_excess",
+        "keyword": "tech_surfacewater",
         "translation": 1114,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1198, 1199, 1200, 1201]
     },
     "model": "configuration.key",
     "pk": 1153
 },
 {
     "fields": {
-        "keyword": "tech_surfacewater_good",
-        "translation": 1115,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1154
-},
-{
-    "fields": {
-        "keyword": "tech_surfacewater_medium",
-        "translation": 1116,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1155
-},
-{
-    "fields": {
-        "keyword": "tech_surfacewater_poor",
-        "translation": 1117,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1156
-},
-{
-    "fields": {
-        "keyword": "tech_waterquality_good",
+        "keyword": "tech_waterquality",
         "translation": 1118,
         "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "values": [1202, 1203, 1204, 1205]
     },
     "model": "configuration.key",
     "pk": 1157
 },
 {
     "fields": {
-        "keyword": "tech_waterquality_poor",
+        "keyword": "tech_flooding",
         "translation": 1119,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "configuration": {"type": "bool"}
     },
     "model": "configuration.key",
     "pk": 1158
 },
 {
     "fields": {
-        "keyword": "tech_waterquality_agricultural",
+        "keyword": "tech_flooding_regularity",
         "translation": 1120,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
+        "configuration": {"type": "select"},
+        "values": [1206, 1207]
     },
     "model": "configuration.key",
     "pk": 1159
-},
-{
-    "fields": {
-        "keyword": "tech_waterquality_unusable",
-        "translation": 1121,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1160
 },
 {
     "fields": {
@@ -4772,7 +4396,7 @@
 },
 {
     "fields": {
-        "keyword": "tech_salinization_specify",
+        "keyword": "tech_salinization_specification",
         "translation": 1123,
         "configuration": {"type": "char"}
     },
@@ -4781,7 +4405,7 @@
 },
 {
     "fields": {
-        "keyword": "tech_water_specifications",
+        "keyword": "tech_water_comments",
         "translation": 1124,
         "configuration": {"type": "text"}
     },
@@ -4790,7 +4414,7 @@
 },
 {
     "fields": {
-        "keyword": "tech_biodivspecies_high",
+        "keyword": "tech_speciesdiversity",
         "translation": 1125,
         "configuration": {"type": "measure"},
         "values": [250, 251, 252]
@@ -4800,28 +4424,8 @@
 },
 {
     "fields": {
-        "keyword": "tech_biodivspecies_medium",
+        "keyword": "tech_habitatdiversity",
         "translation": 1126,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1165
-},
-{
-    "fields": {
-        "keyword": "tech_biodivspecies_low",
-        "translation": 1127,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1166
-},
-{
-    "fields": {
-        "keyword": "tech_biodivhabitat_high",
-        "translation": 1125,
         "configuration": {"type": "measure"},
         "values": [250, 251, 252]
     },
@@ -4830,27 +4434,7 @@
 },
 {
     "fields": {
-        "keyword": "tech_biodivhabitat_medium",
-        "translation": 1126,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1168
-},
-{
-    "fields": {
-        "keyword": "tech_biodivhabitat_low",
-        "translation": 1127,
-        "configuration": {"type": "measure"},
-        "values": [250, 251, 252]
-    },
-    "model": "configuration.key",
-    "pk": 1169
-},
-{
-    "fields": {
-        "keyword": "tech_biodiversity_specifications",
+        "keyword": "tech_biodiversity_comments",
         "translation": 1128,
         "configuration": {"type": "text"}
     },
@@ -6893,6 +6477,546 @@
     "model": "configuration.value",
     "pk": 1147
 },
+{
+    "fields": {
+        "keyword": "tech_rainfall_less_250",
+        "translation": 1648,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1148
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_251_500",
+        "translation": 1649,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1149
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_501_750",
+        "translation": 1650,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1150
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_751_1000",
+        "translation": 1651,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1151
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_1001_1500",
+        "translation": 1652,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 1152
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_1501_2000",
+        "translation": 1653,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 1153
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_2001_3000",
+        "translation": 1654,
+        "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 1154
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_3001_4000",
+        "translation": 1655,
+        "order_value": 8
+    },
+    "model": "configuration.value",
+    "pk": 1155
+},
+{
+    "fields": {
+        "keyword": "tech_rainfall_4001_plus",
+        "translation": 1656,
+        "order_value": 9
+    },
+    "model": "configuration.value",
+    "pk": 1156
+},
+{
+    "fields": {
+        "keyword": "tech_agroclimatic_zone_humid",
+        "translation": 1657,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1157
+},
+{
+    "fields": {
+        "keyword": "tech_agroclimatic_zone_subhumid",
+        "translation": 1658,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1158
+},
+{
+    "fields": {
+        "keyword": "tech_agroclimatic_zone_semiarid",
+        "translation": 1659,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1159
+},
+{
+    "fields": {
+        "keyword": "tech_agroclimatic_zone_arid",
+        "translation": 1660,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1160
+},
+{
+    "fields": {
+        "keyword": "tech_slopes_flat",
+        "translation": 1661,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1161
+},
+{
+    "fields": {
+        "keyword": "tech_slopes_gentle",
+        "translation": 1662,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1162
+},
+{
+    "fields": {
+        "keyword": "tech_slopes_moderate",
+        "translation": 1663,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1163
+},
+{
+    "fields": {
+        "keyword": "tech_slopes_rolling",
+        "translation": 1664,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1164
+},
+{
+    "fields": {
+        "keyword": "tech_slopes_hilly",
+        "translation": 1665,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 1165
+},
+{
+    "fields": {
+        "keyword": "tech_slopes_steep",
+        "translation": 1666,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 1166
+},
+{
+    "fields": {
+        "keyword": "tech_slopes_verysteep",
+        "translation": 1667,
+        "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 1167
+},
+{
+    "fields": {
+        "keyword": "tech_landforms_plateau",
+        "translation": 1668,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1168
+},
+{
+    "fields": {
+        "keyword": "tech_landforms_ridges",
+        "translation": 1669,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1169
+},
+{
+    "fields": {
+        "keyword": "tech_landforms_mountainslopes",
+        "translation": 1670,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1170
+},
+{
+    "fields": {
+        "keyword": "tech_landforms_hillslopes",
+        "translation": 1671,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1171
+},
+{
+    "fields": {
+        "keyword": "tech_landforms_footslopes",
+        "translation": 1672,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 1172
+},
+{
+    "fields": {
+        "keyword": "tech_landforms_valleyfloors",
+        "translation": 1673,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 1173
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_0_100",
+        "translation": 1674,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1174
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_100_500",
+        "translation": 1675,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1175
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_500_1000",
+        "translation": 1676,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1176
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_1000_1500",
+        "translation": 1677,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1177
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_1500_2000",
+        "translation": 1678,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 1178
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_2000_2500",
+        "translation": 1679,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 1179
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_2500_3000",
+        "translation": 1680,
+        "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 1180
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_3000_4000",
+        "translation": 1681,
+        "order_value": 8
+    },
+    "model": "configuration.value",
+    "pk": 1181
+},
+{
+    "fields": {
+        "keyword": "tech_altitudinalzone_4000_plus",
+        "translation": 1682,
+        "order_value": 9
+    },
+    "model": "configuration.value",
+    "pk": 1182
+},
+{
+    "fields": {
+        "keyword": "tech_soil_depth_veryshallow",
+        "translation": 1683,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1183
+},
+{
+    "fields": {
+        "keyword": "tech_soil_depth_shallow",
+        "translation": 1684,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1184
+},
+{
+    "fields": {
+        "keyword": "tech_soil_depth_moderatelydeep",
+        "translation": 1685,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1185
+},
+{
+    "fields": {
+        "keyword": "tech_soil_depth_deep",
+        "translation": 1686,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1186
+},
+{
+    "fields": {
+        "keyword": "tech_soil_depth_verydeep",
+        "translation": 1687,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 1187
+},
+{
+    "fields": {
+        "keyword": "tech_soil_texture_coarse",
+        "translation": 1688,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1188
+},
+{
+    "fields": {
+        "keyword": "tech_soil_texture_medium",
+        "translation": 1689,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1189
+},
+{
+    "fields": {
+        "keyword": "tech_soil_texture_fine",
+        "translation": 1690,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1190
+},
+{
+    "fields": {
+        "keyword": "tech_topsoil_organic_high",
+        "translation": 1691,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1191
+},
+{
+    "fields": {
+        "keyword": "tech_topsoil_organic_medium",
+        "translation": 1692,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1192
+},
+{
+    "fields": {
+        "keyword": "tech_topsoil_organic_low",
+        "translation": 1693,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1193
+},
+{
+    "fields": {
+        "keyword": "tech_groundwater_onsurface",
+        "translation": 1694,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1194
+},
+{
+    "fields": {
+        "keyword": "tech_groundwater_less_5m",
+        "translation": 1695,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1195
+},
+{
+    "fields": {
+        "keyword": "tech_groundwater_5_50m",
+        "translation": 1696,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1196
+},
+{
+    "fields": {
+        "keyword": "tech_groundwater_50m_plus",
+        "translation": 1697,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1197
+},
+{
+    "fields": {
+        "keyword": "tech_surfacewater_excess",
+        "translation": 1698,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1198
+},
+{
+    "fields": {
+        "keyword": "tech_surfacewater_good",
+        "translation": 1699,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1199
+},
+{
+    "fields": {
+        "keyword": "tech_surfacewater_medium",
+        "translation": 1700,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1200
+},
+{
+    "fields": {
+        "keyword": "tech_surfacewater_poor",
+        "translation": 1701,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1201
+},
+{
+    "fields": {
+        "keyword": "tech_waterquality_good",
+        "translation": 1702,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1202
+},
+{
+    "fields": {
+        "keyword": "tech_waterquality_poor",
+        "translation": 1703,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1203
+},
+{
+    "fields": {
+        "keyword": "tech_waterquality_agriculturaluse",
+        "translation": 1704,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1204
+},
+{
+    "fields": {
+        "keyword": "tech_waterquality_unusable",
+        "translation": 1705,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1205
+},
+{
+    "fields": {
+        "keyword": "tech_flooding_frequently",
+        "translation": 1706,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1206
+},
+{
+    "fields": {
+        "keyword": "tech_flooding_episodically",
+        "translation": 1707,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1207
+},
 
 
 
@@ -7403,7 +7527,7 @@
 {
     "fields": {
         "keyword": "tech_qg_56",
-        "translation": 2220,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7412,7 +7536,7 @@
 {
     "fields": {
         "keyword": "tech_qg_57",
-        "translation": 2221,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7421,7 +7545,7 @@
 {
     "fields": {
         "keyword": "tech_qg_58",
-        "translation": 2222,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7439,7 +7563,7 @@
 {
     "fields": {
         "keyword": "tech_qg_60",
-        "translation": 2223,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7448,7 +7572,7 @@
 {
     "fields": {
         "keyword": "tech_qg_61",
-        "translation": 2224,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7457,7 +7581,7 @@
 {
     "fields": {
         "keyword": "tech_qg_62",
-        "translation": 2225,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7475,7 +7599,7 @@
 {
     "fields": {
         "keyword": "tech_qg_64",
-        "translation": 2226,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7484,7 +7608,7 @@
 {
     "fields": {
         "keyword": "tech_qg_65",
-        "translation": 2227,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7493,7 +7617,7 @@
 {
     "fields": {
         "keyword": "tech_qg_66",
-        "translation": 2228,
+        "translation": null,
         "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -8063,7 +8187,7 @@
         "description": "Description of WOCAT Technology Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": {"sections":[{"keyword":"section_general_information","view_options":{"template":"empty"},"categories":[{"keyword":"tech__1","view_options":{"template":"technologies_header","use_raw_data":true,"with_metadata":true,"additional_data":{"tech_qg_3":["country"]}},"subcategories":[{"keyword":"tech__1__1","questiongroups":[{"keyword":"qg_image","questions":[{"keyword":"image","view_options":{"in_list":true}},{"keyword":"image_caption"},{"keyword":"image_date_location"},{"keyword":"image_photographer"}]}]},{"keyword":"tech__1__2","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","view_options":{"in_list":true,"is_name":true}},{"keyword":"name_local"}]},{"keyword":"tech_qg_4","questions":[{"keyword":"tech_funding_project"},{"keyword":"tech_accept_conditions","form_options":{"num_rows":3}}]}]}]}]},{"keyword":"section_specifications","view_options":{"template":"empty","review_panel":true,"media_gallery":true},"categories":[{"keyword":"tech__2","view_options":{"include_toc":true},"subcategories":[{"keyword":"tech__2__1","questiongroups":[{"keyword":"tech_qg_1","questions":[{"keyword":"tech_definition","form_options":{"template":"no_label","max_length":500},"view_options":{"label":"none","in_list":true}}]}]},{"keyword":"tech__2__2","questiongroups":[{"keyword":"tech_qg_2","questions":[{"keyword":"tech_description_layout","view_options":{"header":"small"},"form_options":{"num_rows":5}},{"keyword":"tech_description_purpose","view_options":{"header":"small"},"form_options":{"num_rows":3}},{"keyword":"tech_description_establishment","view_options":{"header":"small"},"form_options":{"num_rows":5}},{"keyword":"tech_description_environment","view_options":{"header":"small"},"form_options":{"num_rows":5}}]}]},{"keyword":"tech__2__3","view_options":{"template":"none"},"questiongroups":[{"keyword":"tech_qg_photos","form_options":{"max_num":3},"questions":[{"keyword":"image"},{"keyword":"image_caption"},{"keyword":"image_date_location"},{"keyword":"image_photographer"}]}]},{"keyword":"tech__2__4","questiongroups":[{"keyword":"tech_qg_3","questions":[{"keyword":"country","view_options":{"template":"inline","in_list":true}},{"keyword":"state_province","view_options":{"template":"inline"}},{"keyword":"further_location","view_options":{"template":"inline"}},{"keyword":"tech_sites_considered","view_options":{"template":"inline"}},{"keyword":"tech_location_map"},{"keyword":"location_comments","form_options":{"num_rows":3},"view_options":{"template":"inline"}}]}]}]},{"keyword":"tech__3","subcategories":[{"keyword":"tech__3__1","form_options":{"template":"table_3"},"view_options":{"template":"table_3","table_grouping":[["tech_qg_5","tech_qg_6","tech_qg_7","tech_qg_8"]]},"questiongroups":[{"keyword":"tech_qg_5","questions":[{"keyword":"tech_who_introduced_initiative"},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_6","questions":[{"keyword":"tech_who_introduced_research"},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_7","questions":[{"keyword":"tech_who_introduced_externally"},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_8","questions":[{"keyword":"tech_who_introduced_other","form_options":{"label":"placeholder","template":"no_label"}},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_9","questions":[{"keyword":"tech_when_comments","form_options":{"num_rows":5},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__2","form_options":{"template":"todo"}},{"keyword":"tech__3__3","questiongroups":[{"keyword":"tech_qg_10","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_cropland","view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_cropland_sub","view_options":{"label":"none"}}]},{"keyword":"tech_qg_11","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_grazingland","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_grazingland_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_12","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_forests","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_forests_sub","view_options":{"label":"none"}}]},{"keyword":"tech_qg_13","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_mixed","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_mixed_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_14","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_settlements","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_15","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_waterways","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_16","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_mines","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_17","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_unproductive","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_18","view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_other","form_options":{"template":"image_checkbox_other","label":"placeholder"},"view_options":{"template":"image_checkbox_other","label":"none"}}]},{"keyword":"tech_qg_89","questions":[{"keyword":"tech_lu_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}},{"keyword":"tech_lu_change","form_options":{"num_rows":2},"view_options":{"header":"small"}}]},{"keyword":"tech_qg_19","questions":[{"keyword":"tech_watersupply","view_options":{"header":"small"}},{"keyword":"tech_watersupply_other","form_options":{"helptext":"tooltip"},"view_options":{"template":"text_checkbox","label":"none"}},{"keyword":"tech_watersupply_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__4","questiongroups":[{"keyword":"tech_qg_20","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_agronomic","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_agronomic_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_21","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_vegetative","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_vegetative_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_22","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_structural","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_structural_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_23","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_management","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_management_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_24","questions":[{"keyword":"tech_measures_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__5","questiongroups":[{"keyword":"tech_qg_25","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_erosion_water","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_erosion_water_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_26","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_erosion_wind","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_erosion_wind_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_27","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_chemical","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_chemical_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_28","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_physical","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_physical_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_29","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_biological","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_biological_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_30","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_water","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_water_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_31","questions":[{"keyword":"degradation_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__6","questiongroups":[{"keyword":"tech_qg_32","questions":[{"keyword":"intervention_stage","view_options":{"header":"small"}},{"keyword":"purpose_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]}]},{"keyword":"tech__4","subcategories":[{"keyword":"tech__4__1","form_options":{"template":"todo"}},{"keyword":"tech__4__2","questiongroups":[{"keyword":"tech_qg_33","questions":[{"keyword":"tech_tech_specifications","form_options":{"template":"no_label"},"view_options":{"label":"none"}},{"keyword":"tech_tech_specifications_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]}]},{"keyword":"tech__5","subcategories":[{"keyword":"tech__5__1","questiongroups":[{"keyword":"tech_qg_41","questions":[{"keyword":"tech_input_area","view_options":{"template":"inline_6"}},{"keyword":"tech_input_area_unit","view_options":{"template":"inline_6"}},{"keyword":"tech_input_cost_unit","view_options":{"template":"inline_6"}},{"keyword":"tech_input_date","view_options":{"template":"inline_6"}},{"keyword":"tech_input_national_currency","view_options":{"template":"inline_6"}},{"keyword":"tech_input_average_wage","view_options":{"template":"inline_6"}}]}]},{"keyword":"tech__5__2","form_options":{"template":"table_2"},"view_options":{"template":"table_2","table_grouping":[["tech_qg_34"]]},"questiongroups":[{"keyword":"tech_qg_34","form_options":{"min_num":10},"questions":[{"keyword":"tech_est_activity"},{"keyword":"tech_est_type"},{"keyword":"tech_est_timing"}]},{"keyword":"tech_qg_35","questions":[{"keyword":"tech_est_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__5__3","form_options":{"template":"table_4"},"view_options":{"template":"table_4","table_grouping":[["tech_qg_36","tech_qg_37","tech_qg_38","tech_qg_39","tech_qg_40"]]},"questiongroups":[{"keyword":"tech_qg_42","view_options":{"extra":"before_table"},"questions":[{"keyword":"tech_input_est_total_costs","view_options":{"header":"small"}},{"keyword":"tech_input_est_labour_involved_body","view_options":{"header":"small"}}]},{"keyword":"tech_qg_36","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_37","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_38","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_39","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_40","view_options":{"extra":"no_label_row"},"questions":[{"keyword":"tech_input_est_other","form_options":{"label":"placeholder","template":"no_label"}},{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_92","questions":[{"keyword":"tech_input_est_percentage_landuser","form_options":{"questiongroup_conditions":["!=6|tech_qg_93"]},"view_options":{"template":"textinput"}}]},{"keyword":"tech_qg_93","form_options":{"questiongroup_condition":"tech_qg_93"},"questions":[{"keyword":"tech_input_est_percentage_landuser_indicate","view_options":{"header":"small"}}]},{"keyword":"tech_qg_94","questions":[{"keyword":"tech_input_est_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__5__4","form_options":{"template":"table_2"},"view_options":{"template":"table_2","table_grouping":[["tech_qg_43"]]},"questiongroups":[{"keyword":"tech_qg_43","form_options":{"min_num":10},"questions":[{"keyword":"tech_maint_activity"},{"keyword":"tech_maint_type"},{"keyword":"tech_maint_timing"}]},{"keyword":"tech_qg_44","questions":[{"keyword":"tech_maint_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__5__5","form_options":{"template":"table_4"},"view_options":{"template":"table_4","table_grouping":[["tech_qg_45","tech_qg_46","tech_qg_47","tech_qg_48","tech_qg_49"]]},"questiongroups":[{"keyword":"tech_qg_50","view_options":{"extra":"before_table"},"questions":[{"keyword":"tech_input_maint_total_costs","view_options":{"header":"small"}},{"keyword":"tech_input_maint_labour_involved_body","view_options":{"header":"small"}}]},{"keyword":"tech_qg_45","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_46","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_47","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_48","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_49","view_options":{"extra":"no_label_row"},"questions":[{"keyword":"tech_input_maint_other","form_options":{"label":"placeholder","template":"no_label"}},{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_51","questions":[{"keyword":"tech_input_maint_percentage_landuser","form_options":{"questiongroup_conditions":["!=6|tech_qg_52"]},"view_options":{"template":"textinput"}}]},{"keyword":"tech_qg_52","form_options":{"questiongroup_condition":"tech_qg_52"},"questions":[{"keyword":"tech_input_maint_percentage_landuser_indicate"}]},{"keyword":"tech_qg_96","questions":[{"keyword":"tech_input_maint_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]},{"keyword":"tech_qg_95","questions":[{"keyword":"tech_input_determinate_factors","form_options":{"num_rows":5}}]}]}]},{"keyword":"tech__6","subcategories":[{"keyword":"tech__6__1","questiongroups":[{"keyword":"tech_qg_54","questions":[{"keyword":"tech_rainfall_less_250"},{"keyword":"tech_rainfall_250_500"},{"keyword":"tech_rainfall_500_750"},{"keyword":"tech_rainfall_750_1000"},{"keyword":"tech_rainfall_1000_1500"},{"keyword":"tech_rainfall_1500_2000"},{"keyword":"tech_rainfall_2000_3000"},{"keyword":"tech_rainfall_3000_4000"},{"keyword":"tech_rainfall_4000_plus"},{"keyword":"tech_rainfall_specifications","form_options":{"num_rows":5}}]},{"keyword":"tech_qg_55","questions":[{"keyword":"tech_zone_humid"},{"keyword":"tech_zone_subhumid"},{"keyword":"tech_zone_semiarid"},{"keyword":"tech_zone_arid"},{"keyword":"tech_zone_specifications"}]}]},{"keyword":"tech__6__2","questiongroups":[{"keyword":"tech_qg_56","questions":[{"keyword":"tech_slopes_flat"},{"keyword":"tech_slopes_gentle"},{"keyword":"tech_slopes_moderate"},{"keyword":"tech_slopes_rolling"},{"keyword":"tech_slopes_hilly"},{"keyword":"tech_slopes_steep"},{"keyword":"tech_slopes_verysteep"}]},{"keyword":"tech_qg_57","questions":[{"keyword":"tech_landforms_plateau"},{"keyword":"tech_landforms_ridges"},{"keyword":"tech_landforms_mountainslopes"},{"keyword":"tech_landforms_hillslopes"},{"keyword":"tech_landforms_footslopes"},{"keyword":"tech_landforms_valleyfloors"}]},{"keyword":"tech_qg_58","questions":[{"keyword":"tech_zonation_0_100"},{"keyword":"tech_zonation_100_500"},{"keyword":"tech_zonation_500_1000"},{"keyword":"tech_zonation_1000_1500"},{"keyword":"tech_zonation_1500_2000"},{"keyword":"tech_zonation_2000_2500"},{"keyword":"tech_zonation_2500_3000"},{"keyword":"tech_zonation_3000_4000"},{"keyword":"tech_zonation_4000_plus"}]},{"keyword":"tech_qg_59","questions":[{"keyword":"tech_topography_specifications","form_options":{"num_rows":5}},{"keyword":"tech_convex_concave"}]}]},{"keyword":"tech__6__3","questiongroups":[{"keyword":"tech_qg_60","questions":[{"keyword":"tech_soildepth_veryshallow"},{"keyword":"tech_soildepth_shallow"},{"keyword":"tech_soildepth_moderately"},{"keyword":"tech_soildepth_deep"},{"keyword":"tech_soildepth_verydeep"}]},{"keyword":"tech_qg_61","questions":[{"keyword":"tech_texture_coarse"},{"keyword":"tech_texture_medium"},{"keyword":"tech_texture_fine"}]},{"keyword":"tech_qg_62","questions":[{"keyword":"tech_topsoil_high"},{"keyword":"tech_topsoil_medium"},{"keyword":"tech_topsoil_low"}]},{"keyword":"tech_qg_63","questions":[{"keyword":"tech_soil_specifications","form_options":{"num_rows":5}}]}]},{"keyword":"tech__6__4","questiongroups":[{"keyword":"tech_qg_64","questions":[{"keyword":"tech_groundwater_onsurface"},{"keyword":"tech_groundwater_0_5"},{"keyword":"tech_groundwater_5_50"},{"keyword":"tech_groundwater_50_plus"}]},{"keyword":"tech_qg_65","questions":[{"keyword":"tech_surfacewater_excess"},{"keyword":"tech_surfacewater_good"},{"keyword":"tech_surfacewater_medium"},{"keyword":"tech_surfacewater_poor"}]},{"keyword":"tech_qg_66","questions":[{"keyword":"tech_waterquality_good"},{"keyword":"tech_waterquality_poor"},{"keyword":"tech_waterquality_agricultural"},{"keyword":"tech_waterquality_unusable"}]},{"keyword":"tech_qg_67","questions":[{"keyword":"tech_salinization"},{"keyword":"tech_salinization_specify"},{"keyword":"tech_water_specifications"}]}]},{"keyword":"tech__6__5","questiongroups":[{"keyword":"tech_qg_68","questions":[{"keyword":"tech_biodivspecies_high"},{"keyword":"tech_biodivspecies_medium"},{"keyword":"tech_biodivspecies_low"}]},{"keyword":"tech_qg_69","questions":[{"keyword":"tech_biodivhabitat_high"},{"keyword":"tech_biodivhabitat_medium"},{"keyword":"tech_biodivhabitat_low"}]},{"keyword":"tech_qg_70","questions":[{"keyword":"tech_biodiversity_specifications"}]}]}]},{"keyword":"tech__7","subcategories":[{"keyword":"tech__7__1","questiongroups":[{"keyword":"tech_qg_71","questions":[{"keyword":"tech_landuser_scale"}]},{"keyword":"tech_qg_72","questions":[{"keyword":"tech_market_subsistence"},{"keyword":"tech_market_mixed"},{"keyword":"tech_market_commercial"}]},{"keyword":"tech_qg_73","questions":[{"keyword":"tech_wealth_verypoor"},{"keyword":"tech_wealth_poor"},{"keyword":"tech_wealth_average"},{"keyword":"tech_wealth_rich"},{"keyword":"tech_wealth_veryrich"}]},{"keyword":"tech_qg_74","questions":[{"keyword":"tech_offfarm_income"},{"keyword":"tech_individuals"},{"keyword":"tech_mechanisation"},{"keyword":"tech_gender"},{"keyword":"tech_status_society"},{"keyword":"tech_landuser_comments","form_options":{"num_rows":5}}]}]},{"keyword":"tech__7__2","questiongroups":[{"keyword":"tech_qg_75","questions":[{"keyword":"tech_land_0_05"},{"keyword":"tech_land_05_1"},{"keyword":"tech_land_1_2"},{"keyword":"tech_land_2_5"},{"keyword":"tech_land_5_15"},{"keyword":"tech_land_15_50"},{"keyword":"tech_land_50_100"},{"keyword":"tech_land_100_500"},{"keyword":"tech_land_500_1000"},{"keyword":"tech_land_1000_10000"},{"keyword":"tech_land_10000_plus"},{"keyword":"tech_land_comments"}]}]},{"keyword":"tech__7__3","questiongroups":[{"keyword":"tech_qg_76","questions":[{"keyword":"tech_ownership_state"},{"keyword":"tech_ownership_company"},{"keyword":"tech_ownership_communal"},{"keyword":"tech_ownership_group"},{"keyword":"tech_ownership_individualnottitled"},{"keyword":"tech_ownership_individualtitled"}]},{"keyword":"tech_qg_77","questions":[{"keyword":"tech_ownership_other_specify"},{"keyword":"tech_ownership_other_measure","form_options":{"template":"no_label"}}]},{"keyword":"tech_qg_78","questions":[{"keyword":"tech_landrights_openaccess"},{"keyword":"tech_landrights_communal"},{"keyword":"tech_landrights_leased"},{"keyword":"tech_landrights_individual"}]},{"keyword":"tech_qg_79","questions":[{"keyword":"tech_landrights_other_specify"},{"keyword":"tech_landrights_other_measure","form_options":{"template":"no_label"}}]},{"keyword":"tech_qg_80","questions":[{"keyword":"tech_waterrights_openaccess"},{"keyword":"tech_waterrights_communal"},{"keyword":"tech_waterrights_leased"},{"keyword":"tech_waterrights_individual"}]},{"keyword":"tech_qg_81","questions":[{"keyword":"tech_waterrights_other_specify"},{"keyword":"tech_waterrights_other_measure","form_options":{"template":"no_label"}}]},{"keyword":"tech_qg_82","questions":[{"keyword":"tech_ownership_comments"}]}]},{"keyword":"tech__7__4","questiongroups":[{"keyword":"tech_qg_83","questions":[{"keyword":"tech_major_crops"},{"keyword":"tech_grazing_residues"}]},{"keyword":"tech_qg_84","questions":[{"keyword":"tech_extensive_grazing"},{"keyword":"tech_intensive_grazing"},{"keyword":"tech_livestock_species"}]},{"keyword":"tech_qg_85","questions":[{"keyword":"tech_trees_removal"},{"keyword":"tech_trees_removal_specify"}]},{"keyword":"tech_qg_86","questions":[{"keyword":"tech_forests_timber"},{"keyword":"tech_forests_fuelwood"},{"keyword":"tech_forests_fruitsnuts"},{"keyword":"tech_forests_grazing"},{"keyword":"tech_forests_otherproducts"},{"keyword":"tech_forests_conservation"},{"keyword":"tech_forests_recreation"},{"keyword":"tech_forests_protection"}]},{"keyword":"tech_qg_87","questions":[{"keyword":"tech_forests_other_specify"},{"keyword":"tech_forests_other_measure"}]},{"keyword":"tech_qg_88","questions":[{"keyword":"tech_forests_otherlandusetypes","form_options":{"num_rows":5}}]},{"keyword":"tech_qg_91","questions":[{"keyword":"tech_landusesystem_comments"}]}]}]}]}],"links":[{"keyword":"approaches"}]},
+        "data": {"sections":[{"keyword":"section_general_information","view_options":{"template":"empty"},"categories":[{"keyword":"tech__1","view_options":{"template":"technologies_header","use_raw_data":true,"with_metadata":true,"additional_data":{"tech_qg_3":["country"]}},"subcategories":[{"keyword":"tech__1__1","questiongroups":[{"keyword":"qg_image","questions":[{"keyword":"image","view_options":{"in_list":true}},{"keyword":"image_caption"},{"keyword":"image_date_location"},{"keyword":"image_photographer"}]}]},{"keyword":"tech__1__2","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","view_options":{"in_list":true,"is_name":true}},{"keyword":"name_local"}]},{"keyword":"tech_qg_4","questions":[{"keyword":"tech_funding_project"},{"keyword":"tech_accept_conditions","form_options":{"num_rows":3}}]}]}]}]},{"keyword":"section_specifications","view_options":{"template":"empty","review_panel":true,"media_gallery":true},"categories":[{"keyword":"tech__2","view_options":{"include_toc":true},"subcategories":[{"keyword":"tech__2__1","questiongroups":[{"keyword":"tech_qg_1","questions":[{"keyword":"tech_definition","form_options":{"template":"no_label","max_length":500},"view_options":{"label":"none","in_list":true}}]}]},{"keyword":"tech__2__2","questiongroups":[{"keyword":"tech_qg_2","questions":[{"keyword":"tech_description_layout","view_options":{"header":"small"},"form_options":{"num_rows":5}},{"keyword":"tech_description_purpose","view_options":{"header":"small"},"form_options":{"num_rows":3}},{"keyword":"tech_description_establishment","view_options":{"header":"small"},"form_options":{"num_rows":5}},{"keyword":"tech_description_environment","view_options":{"header":"small"},"form_options":{"num_rows":5}}]}]},{"keyword":"tech__2__3","view_options":{"template":"none"},"questiongroups":[{"keyword":"tech_qg_photos","form_options":{"max_num":3},"questions":[{"keyword":"image"},{"keyword":"image_caption"},{"keyword":"image_date_location"},{"keyword":"image_photographer"}]}]},{"keyword":"tech__2__4","questiongroups":[{"keyword":"tech_qg_3","questions":[{"keyword":"country","view_options":{"template":"inline","in_list":true}},{"keyword":"state_province","view_options":{"template":"inline"}},{"keyword":"further_location","view_options":{"template":"inline"}},{"keyword":"tech_sites_considered","view_options":{"template":"inline"}},{"keyword":"tech_location_map"},{"keyword":"location_comments","form_options":{"num_rows":3},"view_options":{"template":"inline"}}]}]}]},{"keyword":"tech__3","subcategories":[{"keyword":"tech__3__1","form_options":{"template":"table_3"},"view_options":{"template":"table_3","table_grouping":[["tech_qg_5","tech_qg_6","tech_qg_7","tech_qg_8"]]},"questiongroups":[{"keyword":"tech_qg_5","questions":[{"keyword":"tech_who_introduced_initiative"},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_6","questions":[{"keyword":"tech_who_introduced_research"},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_7","questions":[{"keyword":"tech_who_introduced_externally"},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_8","questions":[{"keyword":"tech_who_introduced_other","form_options":{"label":"placeholder","template":"no_label"}},{"keyword":"tech_when_introduced"}]},{"keyword":"tech_qg_9","questions":[{"keyword":"tech_when_comments","form_options":{"num_rows":5},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__2","form_options":{"template":"todo"}},{"keyword":"tech__3__3","questiongroups":[{"keyword":"tech_qg_10","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_cropland","view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_cropland_sub","view_options":{"label":"none"}}]},{"keyword":"tech_qg_11","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_grazingland","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_grazingland_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_12","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_forests","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_forests_sub","view_options":{"label":"none"}}]},{"keyword":"tech_qg_13","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_mixed","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_lu_mixed_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_14","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_settlements","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_15","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_waterways","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_16","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_mines","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_17","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_unproductive","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}}]},{"keyword":"tech_qg_18","view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_lu_other","form_options":{"template":"image_checkbox_other","label":"placeholder"},"view_options":{"template":"image_checkbox_other","label":"none"}}]},{"keyword":"tech_qg_89","questions":[{"keyword":"tech_lu_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}},{"keyword":"tech_lu_change","form_options":{"num_rows":2},"view_options":{"header":"small"}}]},{"keyword":"tech_qg_19","questions":[{"keyword":"tech_watersupply","view_options":{"header":"small"}},{"keyword":"tech_watersupply_other","form_options":{"helptext":"tooltip"},"view_options":{"template":"text_checkbox","label":"none"}},{"keyword":"tech_watersupply_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__4","questiongroups":[{"keyword":"tech_qg_20","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_agronomic","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_agronomic_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_21","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_vegetative","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_vegetative_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_22","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_structural","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_structural_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_23","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"tech_measures_management","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"tech_measures_management_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_24","questions":[{"keyword":"tech_measures_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__5","questiongroups":[{"keyword":"tech_qg_25","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_erosion_water","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_erosion_water_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_26","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_erosion_wind","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_erosion_wind_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_27","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_chemical","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_chemical_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_28","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_physical","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_physical_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_29","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_biological","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_biological_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_30","form_options":{"template":"columns_2"},"view_options":{"template":"image_checkbox"},"questions":[{"keyword":"degradation_water","form_options":{"label":"none"},"view_options":{"label":"none","extra":"text_values"}},{"keyword":"degradation_water_sub","form_options":{"template":"no_label"},"view_options":{"label":"none"}}]},{"keyword":"tech_qg_31","questions":[{"keyword":"degradation_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__3__6","questiongroups":[{"keyword":"tech_qg_32","questions":[{"keyword":"intervention_stage","view_options":{"header":"small"}},{"keyword":"purpose_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]}]},{"keyword":"tech__4","subcategories":[{"keyword":"tech__4__1","form_options":{"template":"todo"}},{"keyword":"tech__4__2","questiongroups":[{"keyword":"tech_qg_33","questions":[{"keyword":"tech_tech_specifications","form_options":{"template":"no_label"},"view_options":{"label":"none"}},{"keyword":"tech_tech_specifications_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]}]},{"keyword":"tech__5","subcategories":[{"keyword":"tech__5__1","questiongroups":[{"keyword":"tech_qg_41","questions":[{"keyword":"tech_input_area","view_options":{"template":"inline_6"}},{"keyword":"tech_input_area_unit","view_options":{"template":"inline_6"}},{"keyword":"tech_input_cost_unit","view_options":{"template":"inline_6"}},{"keyword":"tech_input_date","view_options":{"template":"inline_6"}},{"keyword":"tech_input_national_currency","view_options":{"template":"inline_6"}},{"keyword":"tech_input_average_wage","view_options":{"template":"inline_6"}}]}]},{"keyword":"tech__5__2","form_options":{"template":"table_2"},"view_options":{"template":"table_2","table_grouping":[["tech_qg_34"]]},"questiongroups":[{"keyword":"tech_qg_34","form_options":{"min_num":10},"questions":[{"keyword":"tech_est_activity"},{"keyword":"tech_est_type"},{"keyword":"tech_est_timing"}]},{"keyword":"tech_qg_35","questions":[{"keyword":"tech_est_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__5__3","form_options":{"template":"table_4"},"view_options":{"template":"table_4","table_grouping":[["tech_qg_36","tech_qg_37","tech_qg_38","tech_qg_39","tech_qg_40"]]},"questiongroups":[{"keyword":"tech_qg_42","view_options":{"extra":"before_table"},"questions":[{"keyword":"tech_input_est_total_costs","view_options":{"header":"small"}},{"keyword":"tech_input_est_labour_involved_body","view_options":{"header":"small"}}]},{"keyword":"tech_qg_36","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_37","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_38","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_39","questions":[{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_40","view_options":{"extra":"no_label_row"},"questions":[{"keyword":"tech_input_est_other","form_options":{"label":"placeholder","template":"no_label"}},{"keyword":"tech_input_est_specify"},{"keyword":"tech_input_est_costs"},{"keyword":"tech_input_est_percentage_costs"}]},{"keyword":"tech_qg_92","questions":[{"keyword":"tech_input_est_percentage_landuser","form_options":{"questiongroup_conditions":["!=6|tech_qg_93"]},"view_options":{"template":"textinput"}}]},{"keyword":"tech_qg_93","form_options":{"questiongroup_condition":"tech_qg_93"},"questions":[{"keyword":"tech_input_est_percentage_landuser_indicate","view_options":{"header":"small"}}]},{"keyword":"tech_qg_94","questions":[{"keyword":"tech_input_est_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__5__4","form_options":{"template":"table_2"},"view_options":{"template":"table_2","table_grouping":[["tech_qg_43"]]},"questiongroups":[{"keyword":"tech_qg_43","form_options":{"min_num":10},"questions":[{"keyword":"tech_maint_activity"},{"keyword":"tech_maint_type"},{"keyword":"tech_maint_timing"}]},{"keyword":"tech_qg_44","questions":[{"keyword":"tech_maint_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]}]},{"keyword":"tech__5__5","form_options":{"template":"table_4"},"view_options":{"template":"table_4","table_grouping":[["tech_qg_45","tech_qg_46","tech_qg_47","tech_qg_48","tech_qg_49"]]},"questiongroups":[{"keyword":"tech_qg_50","view_options":{"extra":"before_table"},"questions":[{"keyword":"tech_input_maint_total_costs","view_options":{"header":"small"}},{"keyword":"tech_input_maint_labour_involved_body","view_options":{"header":"small"}}]},{"keyword":"tech_qg_45","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_46","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_47","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_48","questions":[{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_49","view_options":{"extra":"no_label_row"},"questions":[{"keyword":"tech_input_maint_other","form_options":{"label":"placeholder","template":"no_label"}},{"keyword":"tech_input_maint_specify"},{"keyword":"tech_input_maint_costs"},{"keyword":"tech_input_maint_percentage_costs"}]},{"keyword":"tech_qg_51","questions":[{"keyword":"tech_input_maint_percentage_landuser","form_options":{"questiongroup_conditions":["!=6|tech_qg_52"]},"view_options":{"template":"textinput"}}]},{"keyword":"tech_qg_52","form_options":{"questiongroup_condition":"tech_qg_52"},"questions":[{"keyword":"tech_input_maint_percentage_landuser_indicate"}]},{"keyword":"tech_qg_96","questions":[{"keyword":"tech_input_maint_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}}]},{"keyword":"tech_qg_95","questions":[{"keyword":"tech_input_determinate_factors","form_options":{"num_rows":5}}]}]}]},{"keyword":"tech__6","subcategories":[{"keyword":"tech__6__1","questiongroups":[{"keyword":"tech_qg_54","view_options":{"template":"columns_4_8"},"questions":[{"keyword":"tech_rainfall","form_options":{"template":"measure_stacked","extra":"stacked"},"view_options":{"template":"measure_stacked","label":"none"}},{"keyword":"tech_rainfall_specifications","form_options":{"num_rows":3,"helptext":"tooltip"},"view_options":{"header":"small"}},{"keyword":"tech_rainfall_meteostation","view_options":{"header":"small"}}]},{"keyword":"tech_qg_55","view_options":{"template":"columns_4_8"},"questions":[{"keyword":"tech_agroclimatic_zone","form_options":{"template":"measure_stacked","extra":"stacked"},"view_options":{"template":"measure_stacked","label":"none"}},{"keyword":"tech_agroclimatic_zone_specifications","form_options":{"num_rows":3,"helptext":"tooltip"},"view_options":{"header":"small"}}]}]},{"keyword":"tech__6__2","questiongroups":[{"keyword":"tech_qg_56","form_options":{"template":"columns_3"},"view_options":{"template":"columns_3"},"questions":[{"keyword":"tech_slopes","form_options":{"template":"default","extra":"stacked","helptext":"tooltip"},"view_options":{"template":"measure_stacked"}},{"keyword":"tech_landforms","form_options":{"template":"default","extra":"stacked","helptext":"tooltip"},"view_options":{"template":"measure_stacked"}},{"keyword":"tech_altitudinalzone","form_options":{"template":"default","extra":"stacked","helptext":"tooltip"},"view_options":{"template":"measure_stacked"}}]},{"keyword":"tech_qg_57","questions":[{"keyword":"tech_topography_comments","form_options":{"num_rows":3},"view_options":{"header":"small"}},{"keyword":"tech_convex_concave","view_options":{"header":"small"}}]}]},{"keyword":"tech__6__3","questiongroups":[{"keyword":"tech_qg_58","form_options":{"template":"columns_3"},"questions":[{"keyword":"tech_soil_depth"},{"keyword":"tech_soil_texture_topsoil"},{"keyword":"tech_soil_texture_20cm"},{"keyword":"tech_topsoil_organic"}]},{"keyword":"tech_qg_59","questions":[{"keyword":"tech_soil_comments","form_options":{"num_rows":3}}]}]},{"keyword":"tech__6__4","questiongroups":[{"keyword":"tech_qg_60","questions":[{"keyword":"tech_groundwater"},{"keyword":"tech_surfacewater"},{"keyword":"tech_waterquality"}]},{"keyword":"tech_qg_61","questions":[{"keyword":"tech_salinization","form_options":{"questiongroup_conditions":["==1|tech_qg_62"]}}]},{"keyword":"tech_qg_62","form_options":{"questiongroup_condition":"tech_qg_62"},"questions":[{"keyword":"tech_salinization_specification"}]},{"keyword":"tech_qg_63","questions":[{"keyword":"tech_flooding","form_options":{"questiongroup_conditions":["==1|tech_qg_64"]}}]},{"keyword":"tech_qg_64","form_options":{"questiongroup_condition":"tech_qg_64"},"questions":[{"keyword":"tech_flooding_regularity","form_options":{"template":"no_label"}}]},{"keyword":"tech_qg_65","questions":[{"keyword":"tech_water_comments","form_options":{"num_rows":3}}]}]},{"keyword":"tech__6__5","questiongroups":[{"keyword":"tech_qg_66","questions":[{"keyword":"tech_speciesdiversity","form_options":{"helptext":"tooltip"}},{"keyword":"tech_habitatdiversity","form_options":{"helptext":"tooltip"}},{"keyword":"tech_biodiversity_comments"}]}]}]},{"keyword":"tech__7","subcategories":[{"keyword":"tech__7__1","questiongroups":[{"keyword":"tech_qg_71","questions":[{"keyword":"tech_landuser_scale"}]},{"keyword":"tech_qg_72","questions":[{"keyword":"tech_market_subsistence"},{"keyword":"tech_market_mixed"},{"keyword":"tech_market_commercial"}]},{"keyword":"tech_qg_73","questions":[{"keyword":"tech_wealth_verypoor"},{"keyword":"tech_wealth_poor"},{"keyword":"tech_wealth_average"},{"keyword":"tech_wealth_rich"},{"keyword":"tech_wealth_veryrich"}]},{"keyword":"tech_qg_74","questions":[{"keyword":"tech_offfarm_income"},{"keyword":"tech_individuals"},{"keyword":"tech_mechanisation"},{"keyword":"tech_gender"},{"keyword":"tech_status_society"},{"keyword":"tech_landuser_comments","form_options":{"num_rows":5}}]}]},{"keyword":"tech__7__2","questiongroups":[{"keyword":"tech_qg_75","questions":[{"keyword":"tech_land_0_05"},{"keyword":"tech_land_05_1"},{"keyword":"tech_land_1_2"},{"keyword":"tech_land_2_5"},{"keyword":"tech_land_5_15"},{"keyword":"tech_land_15_50"},{"keyword":"tech_land_50_100"},{"keyword":"tech_land_100_500"},{"keyword":"tech_land_500_1000"},{"keyword":"tech_land_1000_10000"},{"keyword":"tech_land_10000_plus"},{"keyword":"tech_land_comments"}]}]},{"keyword":"tech__7__3","questiongroups":[{"keyword":"tech_qg_76","questions":[{"keyword":"tech_ownership_state"},{"keyword":"tech_ownership_company"},{"keyword":"tech_ownership_communal"},{"keyword":"tech_ownership_group"},{"keyword":"tech_ownership_individualnottitled"},{"keyword":"tech_ownership_individualtitled"}]},{"keyword":"tech_qg_77","questions":[{"keyword":"tech_ownership_other_specify"},{"keyword":"tech_ownership_other_measure","form_options":{"template":"no_label"}}]},{"keyword":"tech_qg_78","questions":[{"keyword":"tech_landrights_openaccess"},{"keyword":"tech_landrights_communal"},{"keyword":"tech_landrights_leased"},{"keyword":"tech_landrights_individual"}]},{"keyword":"tech_qg_79","questions":[{"keyword":"tech_landrights_other_specify"},{"keyword":"tech_landrights_other_measure","form_options":{"template":"no_label"}}]},{"keyword":"tech_qg_80","questions":[{"keyword":"tech_waterrights_openaccess"},{"keyword":"tech_waterrights_communal"},{"keyword":"tech_waterrights_leased"},{"keyword":"tech_waterrights_individual"}]},{"keyword":"tech_qg_81","questions":[{"keyword":"tech_waterrights_other_specify"},{"keyword":"tech_waterrights_other_measure","form_options":{"template":"no_label"}}]},{"keyword":"tech_qg_82","questions":[{"keyword":"tech_ownership_comments"}]}]},{"keyword":"tech__7__4","questiongroups":[{"keyword":"tech_qg_83","questions":[{"keyword":"tech_major_crops"},{"keyword":"tech_grazing_residues"}]},{"keyword":"tech_qg_84","questions":[{"keyword":"tech_extensive_grazing"},{"keyword":"tech_intensive_grazing"},{"keyword":"tech_livestock_species"}]},{"keyword":"tech_qg_85","questions":[{"keyword":"tech_trees_removal"},{"keyword":"tech_trees_removal_specify"}]},{"keyword":"tech_qg_86","questions":[{"keyword":"tech_forests_timber"},{"keyword":"tech_forests_fuelwood"},{"keyword":"tech_forests_fruitsnuts"},{"keyword":"tech_forests_grazing"},{"keyword":"tech_forests_otherproducts"},{"keyword":"tech_forests_conservation"},{"keyword":"tech_forests_recreation"},{"keyword":"tech_forests_protection"}]},{"keyword":"tech_qg_87","questions":[{"keyword":"tech_forests_other_specify"},{"keyword":"tech_forests_other_measure"}]},{"keyword":"tech_qg_88","questions":[{"keyword":"tech_forests_otherlandusetypes","form_options":{"num_rows":5}}]},{"keyword":"tech_qg_91","questions":[{"keyword":"tech_landusesystem_comments"}]}]}]}]}],"links":[{"keyword":"approaches"}]},
         "created": "2015-07-09T10:12:59.337Z",
         "base_code": "",
         "name": "WOCAT Technology Configuration"

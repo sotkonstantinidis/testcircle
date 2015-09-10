@@ -527,6 +527,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 required=self.required)
         elif self.field_type == 'measure':
             widget = MeasureSelect()
+            if self.form_options.get('extra', '') == 'stacked':
+                widget = MeasureSelectStacked()
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
                 required=self.required, initial=self.choices[0][0])
@@ -640,21 +642,34 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': values[0],
             })
         elif self.field_type in ['measure']:
+            MAX_MEASURE_LEVEL = 5
             template_name = 'measure_bar'
             level = None
             try:
                 pos = [c[1] for c in self.choices].index(values[0])
-                level = round(pos / len(self.choices) * 5)
+                level = round(pos / len(self.choices) * MAX_MEASURE_LEVEL)
             except ValueError:
                 pass
             if measure_label is None:
                 key = self.label_view
             else:
                 key = measure_label
+            all_values = []
+            if self.form_options.get('extra', '') == 'stacked':
+                if self.view_options.get('label', '') == 'none':
+                    key = None
+                # Add the other values as well
+                all_values = []
+                for choice in self.choices[1:]:
+                    current_level = 1
+                    if values[0] == choice[1]:
+                        current_level = MAX_MEASURE_LEVEL
+                    all_values.append((current_level, choice[1]))
             template_values.update({
                 'key': key,
                 'value': values[0],
                 'level': level,
+                'all_values': all_values,
             })
         elif self.field_type in ['checkbox', 'cb_bool']:
             template_name = 'checkbox'
@@ -924,6 +939,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'columns': self.view_options.get('columns'),
             'extra': self.view_options.get('extra'),
             'colclass': self.view_options.get('colclass'),
+            'label': self.label,
         }
         rendered = render_to_string(
             view_template, {
@@ -1974,6 +1990,21 @@ class MeasureSelect(forms.RadioSelect):
         available within the template of the widget.
         """
         ctx = super(MeasureSelect, self).get_context_data()
+        ctx.update({
+            'questiongroup_conditions': self.questiongroup_conditions,
+        })
+        return ctx
+
+
+class MeasureSelectStacked(forms.RadioSelect):
+    template_name = 'form/field/measure_stacked.html'
+
+    def get_context_data(self):
+        """
+        Add the questiongroup conditions to the context data so they are
+        available within the template of the widget.
+        """
+        ctx = super(MeasureSelectStacked, self).get_context_data()
         ctx.update({
             'questiongroup_conditions': self.questiongroup_conditions,
         })

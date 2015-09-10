@@ -123,6 +123,30 @@ button,
     border-color: $color-brown-dark transparent transparent transparent;
   }
 }
+.button-switch-stacked {
+  & > li {
+    float: none;
+    display: block;
+    margin-left: 0;
+    margin-bottom: 1px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  & > li > label {
+    display: block;
+  }
+  &.radius > li:first-child > .button{
+    border-top-left-radius: $global-radius;
+    border-top-right-radius: $global-radius;
+    border-bottom-left-radius: 0;
+  }
+  &.radius > li:last-child > .button {
+    border-bottom-right-radius: $global-radius;
+    border-bottom-left-radius: $global-radius;
+    border-top-right-radius: 0;
+  }
+}
 .button-icon {
   padding: 0.6rem 0 0.45rem;
 }

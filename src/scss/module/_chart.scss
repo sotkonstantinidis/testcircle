@@ -2,6 +2,9 @@
 .chart-pyramidal-bars {
   @include reset-list;
 }
+.chart-horizontal-bars, .chart-horizontal-bars:first-child {
+  margin-top: rem-calc(8);
+}
 .chart-horizontal-bars .chart-bar,
 .chart-pyramidal-bars .chart-bar {
   display: block;
