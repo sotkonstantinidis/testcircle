@@ -34,7 +34,7 @@
             <th>
               {% with helptext=config.table_helptexts|get_by_index:forloop.counter0 %}
                 {% if helptext %}
-                  <span class="has-tip" title="{{ helptext }}" aria-haspopup="true" data-tooltip="">{{ header }}</span>
+                  <span class="has-tip left" title="{{ helptext }}" aria-haspopup="true" data-tooltip="">{{ header }}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
                 {% else %}
                   {{ header }}
                 {% endif %}

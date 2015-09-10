@@ -9,11 +9,10 @@
         {% endblock %}
         <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
           {% if options.helptext and options.helptext_position == 'tooltip' %}
-            <label for="{{ field|id }}" class="has-tip" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">
+            <label for="{{ field|id }}" class="has-tip left" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></label>
           {% else %}
-            <label for="{{ field|id }}">
+            <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
           {% endif %}
-            {{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
         </div>
         <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
           {% formfield field %}
@@ -23,9 +22,6 @@
             {% include "form/helptext.html" with helptext=options.helptext %}
           </div>
         {% endif %}
-        {% block hidden_fields %}
-          {% for field in hidden_fields %}{{ field.as_hidden }}{% endfor %}
-        {% endblock %}
       {% endblock %}
     {% endwith %}
   {% endfor %}
