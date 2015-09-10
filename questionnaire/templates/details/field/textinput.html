@@ -1,4 +1,4 @@
 {% if value %}
 {% if view_label != 'none' %}<h5>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h5>{% endif %}
-<p>{{ value|safe }}</p>
+<p>{{ value }}</p>
 {% endif %}
