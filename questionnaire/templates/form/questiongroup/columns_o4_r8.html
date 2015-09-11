@@ -1,5 +1,5 @@
 {% comment %}
-  The template to render a questiongroup.
+  Two columns (4 / 8). The first question is rendered in the first column, all others in the second column.
 
   Adds buttons to add or remove additional questiongroups
 
@@ -40,8 +40,13 @@
         <div class="questiongroup-numbered-right">
     {% endif %}
 
-    <div class="list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+    <div class="list-item row{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+      <div class="medium-4 columns">
       {% for field in qg_form.visible_fields %}
+        {% if forloop.counter == 2 %}
+          </div>
+          <div class="medium-8 columns">
+        {% endif %}
         {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
           {% if template %}
             {% formrow field using template %}
@@ -50,6 +55,7 @@
           {% endif %}
         {% endwith %}
       {% endfor %}
+      </div>
       <div class="columns right">
         <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
         style="display: none;"{% endif %}>{% trans "Remove" %}</a>
@@ -57,8 +63,8 @@
     </div>
 
     {% if config.numbered == 'prefix' %}
-        </div>
       </div>
+    </div>
     {% endif %}
 
   {% endfor %}

@@ -1,5 +1,5 @@
 {% comment %}
-  The template to render a questiongroup.
+  Three columns (4 / 4 / 4). One question per column (new lines created if necessary).
 
   Adds buttons to add or remove additional questiongroups
 
@@ -40,15 +40,21 @@
         <div class="questiongroup-numbered-right">
     {% endif %}
 
-    <div class="list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+    <div class="list-item row{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
       {% for field in qg_form.visible_fields %}
-        {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
-          {% if template %}
-            {% formrow field using template %}
-          {% else %}
-            {% formrow field using "form/question/default.html" %}
-          {% endif %}
-        {% endwith %}
+        <div class="medium-4 columns">
+          {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+            {% if template %}
+              {% formrow field using template %}
+            {% else %}
+              {% formrow field using "form/question/default.html" %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+          </div>
+          <div class="list-item row{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+        {% endif %}
       {% endfor %}
       <div class="columns right">
         <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
@@ -57,8 +63,8 @@
     </div>
 
     {% if config.numbered == 'prefix' %}
-        </div>
       </div>
+    </div>
     {% endif %}
 
   {% endfor %}

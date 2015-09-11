@@ -18,6 +18,9 @@
       background: $color-wocat;
     }
   }
+  &.row:not(:first-of-type) {
+    margin-top: rem-calc(16);
+  }
 }
 .list-item-label,
 .list-item-action {

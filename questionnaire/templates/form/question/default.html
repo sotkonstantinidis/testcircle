@@ -1,28 +1,27 @@
+{% comment %}
+  field: The field.
+  options: The field options.
+{% endcomment %}
+
 {% load floppyforms %}
 
-{% block row %}
-  {% for field in fields %}
-    {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
-      {% block field %}
-        {% block errors %}
-          {% include "form/errors.html" with errors=field.errors %}
-        {% endblock %}
-        <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
-          {% if options.helptext and options.helptext_position == 'tooltip' %}
-            <label for="{{ field|id }}" class="has-tip left" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></label>
-          {% else %}
-            <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
-          {% endif %}
-        </div>
-        <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
-          {% formfield field %}
-        </div>
-        {% if options.helptext and options.helptext_position != 'tooltip' %}
-          <div class="small-12 columns help-bloc-question">
-            {% include "form/helptext.html" with helptext=options.helptext %}
-          </div>
-        {% endif %}
-      {% endblock %}
-    {% endwith %}
-  {% endfor %}
-{% endblock %}
+{% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
+  {% block errors %}
+    {% include "form/errors.html" with errors=field.errors %}
+  {% endblock %}
+  <div class="row single-item">
+    <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
+      {% if options.helptext and options.helptext_position == 'tooltip' %}
+        <label for="{{ field|id }}" class="has-tip left" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></label>
+      {% else %}
+        <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
+      {% endif %}
+    </div>
+    <div class="small-12 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
+      {% if options.helptext and options.helptext_position != 'tooltip' %}
+        {% include "form/helptext.html" with helptext=options.helptext %}
+      {% endif %}
+      {% formfield field %}
+    </div>
+  </div>
+{% endwith %}

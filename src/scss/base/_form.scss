@@ -92,8 +92,8 @@ select,
   border-right: 1px solid $color-beige;
 }
 
-fieldset > div.questiongroup:not(:first-of-type) {
-  margin-top: 1rem;
+fieldset .questiongroup:not(:first-of-type) h4 {
+  margin-top: rem-calc(32);
 }
 
 .questiongroup-numbered-left {
