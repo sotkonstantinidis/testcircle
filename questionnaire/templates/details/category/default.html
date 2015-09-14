@@ -4,9 +4,9 @@
   {% include "details/toc.html" with toc_keyword=keyword %}
 {% endif %}
 
-<section id="{{ keyword }}" class="tech-section is-rhythmed-2" data-magellan-destination="{{ keyword }}">
-  <a name="{{ keyword }}"></a>
-  <div class="row">
+{% if subcategories or editable %}
+  <section id="{{ keyword }}" class="tech-section is-rhythmed-2 row" data-magellan-destination="{{ keyword }}">
+    <a name="{{ keyword }}"></a>
     {% if editable %}
       <div class="medium-9 columns">
         <h2>{{ numbering|default:'' }} {{ label }}</h2>
@@ -28,5 +28,5 @@
         {{ subcategory }}
       {% endfor %}
     </div>
-  </div>
-</section>
+  </section>
+{% endif %}
