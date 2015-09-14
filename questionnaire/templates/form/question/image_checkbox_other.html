@@ -1,38 +1,27 @@
 {% load floppyforms %}
 {% load staticfiles %}
 
-{% block row %}
-  {% for field in fields %}
-    {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
-      {% block field %}
-        {% block errors %}
-          {% include "form/errors.html" with errors=field.errors %}
-        {% endblock %}
-        <div class="medium-12 columns">
-          <div class="small-12 columns">
-            <ul class="list-gallery small-block-grid-1">
-              <li>
-                <div class="list-gallery-item without-label">
-                  {% formfield field %}
-                  <label for="foo">
-                    <figure class="list-gallery-icon">
-                      <img src="{% static 'assets/img/landuse_empty.png' %}">
-                    </figure>
-                  </label>
-                </div>
-              </li>
-            </ul>
+{% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
+  {% block errors %}
+    {% include "form/errors.html" with errors=field.errors %}
+  {% endblock %}
+  <div class="row single-item">
+    <div class="small-12 columns">
+      <ul class="list-gallery small-block-grid-1">
+        <li>
+          <div class="list-gallery-item without-label">
+            {% formfield field %}
+            <label for="{{ field|id }}">
+              <figure class="list-gallery-icon">
+                <img src="{% static 'assets/img/landuse_empty.png' %}">
+              </figure>
+            </label>
           </div>
-        </div>
-        {% if options.helptext %}
-          <div class="small-12 columns help-bloc-question">
-            {% include "form/helptext.html" with helptext=options.helptext %}
-          </div>
-        {% endif %}
-        {% block hidden_fields %}
-          {% for field in hidden_fields %}{{ field.as_hidden }}{% endfor %}
-        {% endblock %}
-      {% endblock %}
-    {% endwith %}
-  {% endfor %}
-{% endblock %}
+        </li>
+      </ul>
+    </div>
+  </div>
+  {% if options.helptext %}
+    {% include "form/helptext.html" with helptext=options.helptext %}
+  {% endif %}
+{% endwith %}
