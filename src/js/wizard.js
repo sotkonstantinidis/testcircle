@@ -12,21 +12,21 @@
 function hasContent(element) {
   var content = false;
   // Textfields and Textareas
-  $(element).find('div.row.list-item input:text, div.row.list-item textarea').each(function() {
+  $(element).find('div.row.single-item input:text, div.row.single-item textarea').each(function() {
     if ($(this).is(":visible") && $(this).val() != '') {
       content = true;
       return;
     }
   });
   // Radio
-  $(element).find('div.row.list-item input:radio').each(function() {
+  $(element).find('div.row.single-item input:radio').each(function() {
     if ($(this).is(':checked') && $(this).val() != '') {
       content = true;
       return;
     }
   });
   // Checkbox
-  $(element).find('div.row.list-item input:checkbox').each(function() {
+  $(element).find('div.row.single-item input:checkbox').each(function() {
     if ($(this).is(':checked')) {
       content = true;
       return;
@@ -40,7 +40,7 @@ function hasContent(element) {
     }
   });
   // Select
-  $(element).find('div.row.list-item select').each(function() {
+  $(element).find('div.row.single-item select').each(function() {
     if ($(this).find(':selected').val()) {
       content = true;
       return;
@@ -67,6 +67,11 @@ function watchFormProgress() {
   var total = stepsElement.next('.progress-total').html();
   var progress = completed / total * 100;
   $('header.wizard-header').find('.meter').width(progress + '%');
+
+  // While we're at it, also check if "other" checkboxes are to be ticked
+  $('input.checkbox-other').each(function() {
+    $(this).prop('checked', $(this).parent('label').find('input:text').val() != '');
+  });
 }
 
 /**
@@ -299,7 +304,7 @@ $(function() {
   checkAdditionalQuestiongroups();
 
   // Form progress upon input
-  $('fieldset.row div.row.list-item').on('change', function() {
+  $('fieldset.row div.row.single-item').on('change', function() {
     watchFormProgress();
   });
 

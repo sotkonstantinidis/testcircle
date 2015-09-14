@@ -70,6 +70,12 @@ select,
   height: rem-calc(36);
 }
 
+input[type="checkbox"].checkbox-other {
+  position: absolute;
+  left: 0;
+  top: rem-calc(12);
+}
+
 .postfix.light,
 .prefix.light {
   background: white;

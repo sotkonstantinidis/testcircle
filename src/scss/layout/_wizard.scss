@@ -123,3 +123,6 @@ fieldset.row table {
 form .single-item:not(:first-child) {
   margin-top: 0.5rem;
 }
+form .single-item.single-item-checkbox-other {
+  margin-top: 0;
+}

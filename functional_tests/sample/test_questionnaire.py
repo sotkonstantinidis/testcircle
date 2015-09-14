@@ -530,7 +530,7 @@ class QuestionnaireTest(FunctionalTest):
         # Alice tries to submit the questionnaire but it is empty and
         # she sees an error message
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "info")]')
+        self.findBy('xpath', '//div[contains(@class, "secondary")]')
 
     def test_textarea_maximum_length(self):
 
