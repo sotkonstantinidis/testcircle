@@ -361,8 +361,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     self, '[values of key {}]'.format(self.keyword))
             if self.field_type in ['select_type', 'select']:
                 choices = [('', '-', '')]
-            elif self.field_type in ['measure']:
-                choices = [('', '&times;', '')]
             else:
                 choices = []
             ordered_values = False
@@ -531,13 +529,13 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 widget = MeasureSelectStacked()
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
-                required=self.required, initial=self.choices[0][0])
+                required=self.required)
         elif self.field_type == 'select':
             widget = Select()
             widget.searchable = False
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
-                required=self.required, initial=self.choices[0][0])
+                required=self.required)
         elif self.field_type in ['checkbox', 'cb_bool']:
             widget = Checkbox()
             field = forms.MultipleChoiceField(
@@ -660,7 +658,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     key = None
                 # Add the other values as well
                 all_values = []
-                for choice in self.choices[1:]:
+                for choice in self.choices:
                     current_level = 1
                     if values[0] == choice[1]:
                         current_level = MAX_MEASURE_LEVEL

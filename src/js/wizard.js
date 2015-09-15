@@ -191,6 +191,21 @@ function clearQuestiongroup(questiongroup) {
 
 $(function() {
 
+  // Deselectable button switches
+  $('.button-switch input').click(function() {
+    var previousValue = $(this).attr('previousValue');
+    var name = $(this).attr('name');
+    var initiallyChecked = $(this).attr('checked');
+
+    if (previousValue == 'checked' || initiallyChecked == 'checked') {
+      $(this).removeAttr('checked');
+      $(this).attr('previousValue', false);
+    } else {
+      $("input[name="+name+"]:radio").attr('previousValue', false);
+      $(this).attr('previousValue', 'checked');
+    }
+  });
+
   $('body')
   // LIST ITEM
   // -----------------
@@ -653,7 +668,7 @@ function showUploadErrorMessage(message) {
 function toggleButtonBarSelected() {
   var selectedValue = $(this).find('input[type="radio"]:checked').val();
   var item = $(this).closest('.list-item');
-  if(selectedValue != 'none' && selectedValue != '') {
+  if (selectedValue && selectedValue != 'none' && selectedValue != '') {
     item.addClass('is-selected');
   } else {
     item.removeClass('is-selected');
