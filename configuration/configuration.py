@@ -227,6 +227,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'image',
         'select_type',
         'select',
+        'radio',
         'todo',
         'cb_bool',
     ]
@@ -354,7 +355,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.choices = ((1, self.label),)
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type',
-                'select']:
+                'select', 'radio']:
             self.value_objects = self.configuration_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
@@ -536,6 +537,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
                 required=self.required)
+        elif self.field_type == 'radio':
+            widget = RadioSelect(choices=self.choices)
+            field = forms.ChoiceField(
+                label=self.label, choices=self.choices, widget=widget,
+                required=self.required)
         elif self.field_type in ['checkbox', 'cb_bool']:
             widget = Checkbox()
             field = forms.MultipleChoiceField(
@@ -616,7 +622,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         value = data.get(self.keyword)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
-                'select_type', 'select', 'cb_bool']:
+                'select_type', 'select', 'cb_bool', 'radio']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
@@ -669,7 +675,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'level': level,
                 'all_values': all_values,
             })
-        elif self.field_type in ['checkbox', 'cb_bool']:
+        elif self.field_type in ['checkbox', 'cb_bool', 'radio']:
             template_name = 'checkbox'
             template_values.update({
                 'key': self.label_view,

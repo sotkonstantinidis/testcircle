@@ -191,21 +191,6 @@ function clearQuestiongroup(questiongroup) {
 
 $(function() {
 
-  // Deselectable button switches
-  $('.button-switch input').click(function() {
-    var previousValue = $(this).attr('previousValue');
-    var name = $(this).attr('name');
-    var initiallyChecked = $(this).attr('checked');
-
-    if (previousValue == 'checked' || initiallyChecked == 'checked') {
-      $(this).removeAttr('checked');
-      $(this).attr('previousValue', false);
-    } else {
-      $("input[name="+name+"]:radio").attr('previousValue', false);
-      $(this).attr('previousValue', 'checked');
-    }
-  });
-
   $('body')
   // LIST ITEM
   // -----------------
@@ -296,7 +281,24 @@ $(function() {
   // BUTTON BAR
   // -----------------
   // Button bar select line
-  .on('click', '.button-bar', toggleButtonBarSelected);
+  .on('click', '.button-bar', toggleButtonBarSelected)
+
+  // RADIO BUTTONS
+  // Deselectable radio buttons
+  .on('click', 'input:radio', function() {
+    var previousValue = $(this).attr('previousValue');
+    var name = $(this).attr('name');
+    var initiallyChecked = $(this).attr('checked');
+
+    if (previousValue == 'checked' || initiallyChecked == 'checked') {
+      $(this).removeAttr('checked');
+      $(this).attr('previousValue', false);
+      watchFormProgress();
+    } else {
+      $("input[name="+name+"]:radio").attr('previousValue', false);
+      $(this).attr('previousValue', 'checked');
+    }
+  });
 
   // Initial form progress
   watchFormProgress();
