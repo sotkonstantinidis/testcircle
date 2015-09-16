@@ -614,6 +614,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         return formfields, templates, options
 
     def get_details(self, data={}, measure_label=None):
+        MAX_MEASURE_LEVEL = 5
         template_values = {
             'view_label': self.view_options.get('label'),
             'header': self.view_options.get('header'),
@@ -646,7 +647,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': values[0],
             })
         elif self.field_type in ['measure']:
-            MAX_MEASURE_LEVEL = 5
             template_name = 'measure_bar'
             level = None
             try:
@@ -658,22 +658,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 key = self.label_view
             else:
                 key = measure_label
-            all_values = []
-            if self.form_options.get('extra', '') == 'stacked':
-                if self.view_options.get('label', '') == 'none':
-                    key = None
-                # Add the other values as well
-                all_values = []
-                for choice in self.choices:
-                    current_level = 1
-                    if values[0] == choice[1]:
-                        current_level = MAX_MEASURE_LEVEL
-                    all_values.append((current_level, choice[1]))
             template_values.update({
                 'key': key,
                 'value': values[0],
                 'level': level,
-                'all_values': all_values,
             })
         elif self.field_type in ['checkbox', 'cb_bool', 'radio']:
             template_name = 'checkbox'
@@ -716,6 +704,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
+
+        if (self.form_options.get('extra', '') == 'stacked'
+                or self.view_options.get('extra', '') == 'stacked'):
+            if self.view_options.get('label', '') == 'none':
+                key = None
+            # Add all values and their measure value.
+            all_values = []
+            for choice in self.choices:
+                current_level = 1
+                for v in values:
+                    if v == choice[1]:
+                        current_level = MAX_MEASURE_LEVEL
+                all_values.append((current_level, choice[1]))
+            template_values.update({'all_values': all_values})
 
         template_name = self.view_options.get('template', template_name)
         template = 'details/field/{}.html'.format(template_name)
