@@ -23,7 +23,7 @@
   <div class="small-12 medium-4 columns">
     <label class="input-multiline"><input type="checkbox" id="production_crop_production" class="cb-toggle-questiongroup" data-container="{{ config.keyword }}"><span>{{ config.label }}</span></label>
   </div>
-  <div id="{{ config.keyword }}" class="small-12 medium-8 columns hide cb-toggle-questiongroup-content">
+  <div id="{{ config.keyword }}" class="small-12 medium-8 columns cb-toggle-questiongroup-content" style="display:none;">
     {% include "form/helptext.html" with helptext=config.helptext %}
 
     {{ formset.management_form }}

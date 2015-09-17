@@ -33,6 +33,34 @@ class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
 
+    def test_translation(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to the form and sees the categories in English
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        self.checkOnPage('English')
+        self.findBy('xpath', '//h2[contains(text(), "Category 1")]')
+
+        # She sees the categories do not have any progress
+        self.findBy(
+            'xpath', '//div[@class="tech-section-progress progress"]/'
+            'span[@class="meter" and @style="width:0%"]')
+
+        # She changes the language to Spanish and sees the translated
+        # categories
+        self.changeLanguage('es')
+        self.checkOnPage('Inglés')
+        self.findBy('xpath', '//h2[contains(text(), "Categoría 1")]')
+
+        # She changes the language to French and sees there is no
+        # translation but the original English categories are displayed
+        self.changeLanguage('fr')
+        self.checkOnPage('Anglais')
+        self.findBy('xpath', '//h2[contains(text(), "Category 1")]')
+
     def test_navigate_questionnaire(self):
 
         # Alice logs in
@@ -470,7 +498,7 @@ class QuestionnaireTest(FunctionalTest):
         for x in buttons:
             self.assertIn('0/', x.text)
         progress_bars = self.findManyBy(
-            'xpath', '//span[@class="meter" and @style="width:0.0%"]')
+            'xpath', '//span[@class="meter" and @style="width:0%"]')
         self.assertEqual(len(progress_bars), len(progress_indicators))
 
         # She goes to the first category and sees another progress bar
@@ -496,10 +524,10 @@ class QuestionnaireTest(FunctionalTest):
         # overview page has changed
         self.findBy('id', 'button-submit').click()
         progress_bars = self.findManyBy(
-            'xpath', '//span[@class="meter" and @style="width:0.0%"]')
+            'xpath', '//span[@class="meter" and @style="width:0%"]')
         self.assertEqual(len(progress_bars), get_category_count() - 1)
         progress_bars = self.findBy(
-            'xpath', '//span[@class="meter" and @style="width:50.0%"]')
+            'xpath', '//span[@class="meter" and @style="width:50%"]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_1_position))
@@ -524,7 +552,7 @@ class QuestionnaireTest(FunctionalTest):
         for x in buttons:
             self.assertIn('0/', x.text)
         progress_bars = self.findManyBy(
-            'xpath', '//span[@class="meter" and @style="width:0.0%"]')
+            'xpath', '//span[@class="meter" and @style="width:0%"]')
         self.assertEqual(len(progress_bars), len(progress_indicators))
 
         # Alice tries to submit the questionnaire but it is empty and

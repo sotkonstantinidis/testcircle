@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.test.utils import override_settings
 from unittest.mock import patch
 
 from configuration.models import (
@@ -317,9 +318,19 @@ class TranslationModelTest(TestCase):
             self.translation.get_translation('keyword', locale='locale'),
             'foo')
 
-    def test_get_translation_returns_None_if_locale_not_found(self):
-        self.assertIsNone(self.translation.get_translation(
-            'keyword', locale='foo'))
+    @override_settings(LANGUAGES=(('locale', 'Locale'),))
+    def test_get_translation_returns_default_locale_if_locale_not_found(self):
+        self.translation.data = {"wocat": {"keyword": {"locale": "foo"}}}
+        translation = self.translation.get_translation(
+            'keyword', locale='non-existent')
+        self.assertEqual(translation, 'foo')
+
+    def test_get_translation_returns_wocat_translation_if_locale_not_found(
+            self):
+        self.translation.data = {"wocat": {"keyword": {"locale": "foo"}}}
+        translation = self.translation.get_translation(
+            'keyword', configuration='foo', locale='locale')
+        self.assertEqual(translation, 'foo')
 
     def test_get_translation_returns_None_if_configuration_not_found(self):
         self.assertIsNone(self.translation.get_translation(

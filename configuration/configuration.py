@@ -630,6 +630,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             'view_label': self.view_options.get('label'),
             'header': self.view_options.get('header'),
             'extra': self.view_options.get('extra'),
+            'additional_translations': self.additional_translations,
         }
         value = data.get(self.keyword)
         if self.field_type in [
@@ -1413,7 +1414,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'editable': editable,
                 'complete': with_content,
                 'total': len(self.subcategories),
-                'progress': with_content / len(self.subcategories) * 100,
+                'progress': int(with_content / len(self.subcategories) * 100),
                 'edit_step_route': edit_step_route,
                 'configuration_name': self.configuration_keyword,
                 'toc_content': tuple(toc_content),
