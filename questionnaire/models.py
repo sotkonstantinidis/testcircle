@@ -40,8 +40,8 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
-    created = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField()
+    updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
     blocked = models.BooleanField(default=False)
@@ -68,7 +68,7 @@ class Questionnaire(models.Model):
     @staticmethod
     def create_new(
             configuration_code, data, user, previous_version=None, status=1,
-            created=None, updated=None):
+            created=timezone.now(), updated=timezone.now()):
         """
         Create and return a new Questionnaire.
 
@@ -125,11 +125,8 @@ class Questionnaire(models.Model):
                 'No active configuration found for code "{}"'.format(
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
-            data=data, code=code, version=version, status=status)
-        if created is not None:
-            questionnaire.created = created
-        if updated is not None:
-            questionnaire.updated = updated
+            data=data, code=code, version=version, status=status,
+            created=created, updated=updated)
 
         # TODO: Not all configurations should be the original ones!
         QuestionnaireConfiguration.objects.create(

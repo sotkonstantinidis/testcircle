@@ -18,7 +18,7 @@
         <label for="switch-approaches" class="button small light{% if current == 'approaches' %} is-approaches{% endif %}"><span>{% trans "Approaches" %}</span></label>
       </li>
       <li>
-      <input id="switch-wocat" type="radio" data-url="{% url 'wocat:home' %}" value="" name="search"{% if current == 'wocat' %} checked="checked"{% endif %}>
+      <input id="switch-wocat" type="radio" data-url="{% url 'wocat:questionnaire_list' %}" value="" name="search"{% if current == 'wocat' %} checked="checked"{% endif %}>
         <label for="switch-wocat" class="button small light"><span>{% trans "All SLM practices" %}</span></label>
       </li>
     </ul>
