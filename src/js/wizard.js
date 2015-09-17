@@ -84,6 +84,18 @@ function checkAdditionalQuestiongroups() {
   });
 }
 
+/**
+ * Check for questiongroups which are expanded only if a checkbox is
+ * selected. Show them if they have some content.
+ */
+function checkCheckboxQuestiongroups() {
+  $('.cb-toggle-questiongroup-content').each(function() {
+    var qg = $(this).closest('.questiongroup');
+    if (hasContent(qg)) {
+      qg.find('.cb-toggle-questiongroup').click();
+    }
+  });
+}
 
 /**
  * Checks conditional questiongroups and shows or hides questiongroups
@@ -298,6 +310,17 @@ $(function() {
       $("input[name="+name+"]:radio").attr('previousValue', false);
       $(this).attr('previousValue', 'checked');
     }
+  })
+
+  .on('click', '.cb-toggle-questiongroup', function() {
+    var container = $(this).data('container');
+    if ($(this).prop('checked')) {
+      $('#' + container).slideDown();
+    } else {
+      $('#' + container).slideUp();
+      // Clear the questiongroup
+      clearQuestiongroup($(this).closest('.questiongroup'));
+    }
   });
 
   // Initial form progress
@@ -317,6 +340,9 @@ $(function() {
     .on('input', function() {
       checkConditionalQuestiongroups(this);
     });
+
+  // Initial cb questiongroups
+  checkCheckboxQuestiongroups();
 
   checkAdditionalQuestiongroups();
 

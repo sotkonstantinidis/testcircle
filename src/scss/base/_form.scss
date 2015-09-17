@@ -135,3 +135,28 @@ table.output-table thead tr th {
   width: 100%;
   padding: rem-calc(8) rem-calc(10);
 }
+
+.measure-label {
+  float: left;
+  padding-top: rem-calc(6);
+  padding-bottom: rem-calc(7);
+  font-size: rem-calc(14);
+}
+.measure-label-left {
+  padding-right: rem-calc(12);
+}
+.measure-label-right {
+  padding-left: rem-calc(12);
+}
+.measure-bar-labelled {
+  float: left;
+}
+h4.form-subcategory {
+  margin-top: rem-calc(16);
+}
+fieldset div h3.form-subcategory {
+  margin-top: rem-calc(24);
+}
+fieldset div:first-of-type h3.form-subcategory {
+  margin-top: 0;
+}

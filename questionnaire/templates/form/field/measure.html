@@ -6,7 +6,10 @@
 
 {% endcomment %}
 
-<div class="button-bar">
+{% if options.additional_translations.label_left %}
+  <span class="measure-label measure-label-left">{{ options.additional_translations.label_left }}</span>
+{% endif %}
+<div class="button-bar{% if options.additional_translations.label_right %} measure-bar-labelled{% endif %}">
   <ul class="button-switch radius">
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
@@ -18,3 +21,6 @@
     {% endfor %}
   </ul>
 </div>
+{% if options.additional_translations.label_right %}
+  <span class="measure-label measure-label-right">{{ options.additional_translations.label_right }}</span>
+{% endif %}

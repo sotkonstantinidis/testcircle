@@ -161,3 +161,17 @@ a:hover .tech-icon {
 .output ul.checkbox-other-output {
   margin-top: 0;
 }
+
+h4.output-subcategory {
+  margin-top: rem-calc(16);
+}
+h5.output-subcategory {
+  margin-top: rem-calc(12);
+  margin-bottom: rem-calc(8);
+}
+.output-impacts {
+  margin-bottom: rem-calc(20);
+}
+.output-impacts .tech-item-inline:first-of-type {
+  margin-top: rem-calc(8);
+}

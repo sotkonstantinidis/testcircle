@@ -322,12 +322,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', 'Key')
 
-        view_options = self.configuration.get('view_options', {})
+        view_options = self.key_config.get('view_options', {})
         if configuration.get('view_options'):
             view_options.update(configuration.get('view_options'))
         self.view_options = view_options
 
-        form_options = self.configuration.get('form_options', {})
+        form_options = self.key_config.get('form_options', {})
         if configuration.get('form_options'):
             form_options.update(configuration.get('form_options'))
         self.form_options = form_options
@@ -389,6 +389,16 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     pass
             self.choices = tuple([c[:2] for c in choices])
             self.choices_helptexts = [c[2] for c in choices]
+
+        self.additional_translations = {}
+        if self.field_type in ['measure']:
+            translation = self.configuration_object.translation
+            label_left = translation.get_translation(
+                'label_left', self.configuration_keyword)
+            label_right = translation.get_translation(
+                'label_right', self.configuration_keyword)
+            self.additional_translations.update(
+                {'label_left': label_left, 'label_right': label_right})
 
         self.conditional = self.form_options.get('conditional', False)
 
@@ -495,6 +505,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             'helptext': self.helptext,
             'helptext_position': self.form_options.get('helptext'),
             'helptext_choices': self.choices_helptexts,
+            'additional_translations': self.additional_translations,
         }
 
         if self.field_type == 'char':
