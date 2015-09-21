@@ -48,6 +48,7 @@
             {% endif %}
           {% endwith %}
         {% endfor %}
+        {% for field in qg_form.hidden_fields %}{% formfield field %}{% endfor %}
         <div class="columns right">
           <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
           style="display: none;"{% endif %}>{% trans "Remove" %}</a>
