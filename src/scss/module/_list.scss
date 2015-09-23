@@ -124,3 +124,10 @@
 ul.pagination li.unavailable a {
   pointer-events: none;
 }
+.pagination-centered p {
+  margin-top: 0.75rem;
+  color: #999999;
+}
+#questionnaire-list>.questionnaire-list-empty {
+  margin-top: rem-calc(24);
+}

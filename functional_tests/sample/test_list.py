@@ -449,6 +449,7 @@ class ListTest(FunctionalTest):
         info = self.findBy('xpath', '//ul[@class="tech-output-infos"]')
         self.assertIn('Foo Bar, Faz Taz', info.text)
 
+    @attr('foo')
     def test_filter_checkbox(self):
 
         # Alice goes to the list view
@@ -459,6 +460,11 @@ class ListTest(FunctionalTest):
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 4)
+
+        # The number of Questionnaires is also indicated in the title
+        count = self.findBy(
+            'xpath', '//h2/span[@id="questionnaire-count"]')
+        self.assertEqual(count.text, '4')
 
         # There is no active filter set
         active_filter_panel = self.findBy(
@@ -499,6 +505,11 @@ class ListTest(FunctionalTest):
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
             'contains(text(), "Foo 2")]')
+
+        # The number of Questionnaires in the title is updated
+        count = self.findBy(
+            'xpath', '//h2/span[@id="questionnaire-count"]')
+        self.assertEqual(count.text, '1')
 
         # The filter was added to the list of active filters
         active_filter_panel = self.findBy(
@@ -545,6 +556,11 @@ class ListTest(FunctionalTest):
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
             'contains(text(), "Foo 1")]')
+
+        # The number of Questionnaires in the title is updated
+        count = self.findBy(
+            'xpath', '//h2/span[@id="questionnaire-count"]')
+        self.assertEqual(count.text, '2')
 
         # The filter was added to the list of active filters
         active_filter_panel = self.findBy(

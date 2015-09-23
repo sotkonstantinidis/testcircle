@@ -12,12 +12,12 @@
     {% endif %}
     <section class="tech-list small-12 columns">
       <div class="tech-group">
-        <h2 class="is-group">{% trans "All technologies" %}</h2>
+        <h2 class="is-group">{% trans "SLM Technologies" %} (<span id="questionnaire-count">{{ count }}</span>)</h2>
         <div id="questionnaire-list">
           {% include "technologies/questionnaire/partial/list.html" %}
         </div>
       </div>
-      <div id="pagination" class="is-rhythmed">
+      <div id="pagination" class="is-rhythmed-2">
         {% include "pagination.html" %}
       </div>
     </section>

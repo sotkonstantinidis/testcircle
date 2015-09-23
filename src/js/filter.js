@@ -297,6 +297,7 @@ function updateList(queryParam) {
     type: 'GET',
     success: function(data) {
       $('#questionnaire-list').html(data.list);
+      $('#questionnaire-count').html(data.count);
       $('#active-filters').html(data.active_filters);
       $('#pagination').html(data.pagination);
       $('.loading-indicator').hide();

@@ -128,6 +128,7 @@ def get_pagination_parameters(request, paginator, paginated):
         'pages_outside_leading_range': pages_outside_leading_range,
         'pages_outside_trailing_range': pages_outside_trailing_range,
         'get_params': get_params,
+        'count': paginator.count,
     }
 
 

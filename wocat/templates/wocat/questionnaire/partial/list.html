@@ -16,5 +16,5 @@
     {% include configuration with item=list_entry %}
   {% endwith %}
 {% empty %}
-  <p>{% trans "No WOCAT questionnaires found." %}</p>
+  <p class="questionnaire-list-empty">{% trans "No WOCAT and UNCCD SLM practices found." %}</p>
 {% endfor %}
