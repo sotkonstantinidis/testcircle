@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block bodyclass %}layout-wocat{% endblock %}
+{% block navclass %}is-wocat{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>{% trans "User Details" %}</h1>
+      <div class="row">
+        <div class="small-4 medium-3 large-2 columns"><p>{% trans "First name:" %}</p></div>
+        <div class="small-8 medium-9 large-10 columns"><p>{{ detail_user.firstname }}</p></div>
+      </div>
+      <div class="row">
+        <div class="small-4 medium-3 large-2 columns"><p>{% trans "Last name:" %}</p></div>
+        <div class="small-8 medium-9 large-10 columns"><p>{{ detail_user.lastname }}</p></div>
+      </div>
+      {% if user == detail_user %}
+        <div class="row">
+          <div class="small-4 medium-3 large-2 columns"><p>{% trans "Email:" %}</p></div>
+          <div class="small-8 medium-9 large-10 columns"><p>{{ detail_user.email }}</p></div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

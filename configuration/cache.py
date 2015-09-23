@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.core.cache import cache
 
-from .configuration import QuestionnaireConfiguration
-
 
 def get_configuration(configuration_code):
     """
@@ -18,6 +16,7 @@ def get_configuration(configuration_code):
         ``QuestionnaireConfiguration``. The Questionnaire configuration,
         either returned from cache or newly created.
     """
+    from .configuration import QuestionnaireConfiguration
     try:
         use_caching = settings.USE_CACHING is True
     except AttributeError:

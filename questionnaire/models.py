@@ -9,6 +9,8 @@ from django.utils import timezone
 from django_pgjson.fields import JsonBField
 from itertools import chain
 
+from accounts.models import User
+from configuration.cache import get_configuration
 from configuration.models import Configuration
 
 
@@ -30,6 +32,7 @@ STATUSES_CODES = (
 QUESTIONNAIRE_ROLES = (
     ('author', _('Author')),
     ('editor', _('Editor')),
+    ('landuser', _('Land User')),
 )
 
 
@@ -108,6 +111,11 @@ class Questionnaire(models.Model):
                 # Draft: Only update the data
                 previous_version.data = data
                 previous_version.save()
+
+                # Update the users attached to the questionnaire
+                previous_version.update_users_from_data(
+                    configuration_code, user)
+
                 return previous_version
             else:
                 # Public: Create new version with the same code
@@ -141,13 +149,139 @@ class Questionnaire(models.Model):
             questionnaire=questionnaire, language=get_language(),
             original_language=True)
 
-        QuestionnaireMembership.objects.create(
-            questionnaire=questionnaire, user=user, role='author')
+        # Update the users attached to the questionnaire
+        questionnaire.update_users_from_data(configuration_code, user)
 
         return questionnaire
 
     def get_id(self):
         return self.id
+
+    def get_users(self):
+        """
+        Helper function to return the users of a questionnaire along
+        with their role in this membership.
+
+        Returns:
+            ``list``. A list of tuples where each entry contains the
+            following elements:
+
+            - [0]: ``string``. The role of the membership.
+
+            - [1]: ``accounts.models.User``. The user object.
+        """
+        users = []
+        for membership in self.questionnairemembership_set.all():
+            users.append((membership.role, membership.user))
+        return users
+
+    def add_user(self, user, role):
+        """
+        Add a user.
+
+        Args:
+            ``user`` (User): The user.
+
+            ``role`` (str): The role of the user.
+        """
+        QuestionnaireMembership.objects.create(
+            questionnaire=self, user=user, role=role)
+
+    def remove_user(self, user, role):
+        """
+        Remove a user.
+
+        Args:
+            ``user`` (User): The user.
+
+            ``role`` (str): The role of the user.
+        """
+        self.questionnairemembership_set.filter(user=user, role=role).delete()
+
+    def update_users_from_data(self, configuration_code, author):
+        """
+        Based on the data dictionary, update the user links in the
+        database. This usually happens after the form of the
+        questionnaire was submitted.
+
+        Args:
+            ``configuration_code`` (str): The code of the configuration
+              of the questionnaire which triggered the update.
+
+            ``author`` (accounts.models.User): A user figuring as the
+            author of the questionnaire.
+        """
+        questionnaire_configuration = get_configuration(configuration_code)
+        user_fields = questionnaire_configuration.get_user_fields()
+
+        submitted_users = [('author', author.id)]
+
+        # Collect the users appearing in the data dictionary.
+        for user_questiongroup in user_fields:
+            for user_data in self.data.get(user_questiongroup[0], []):
+                user_id = user_data.get(user_questiongroup[1])
+                if user_id is None:
+                    continue
+                submitted_users.append((user_questiongroup[3], user_id))
+
+        # Get the users which were attached before modifying the
+        # questionnaire.
+        previous_users = self.get_users()
+
+        # Check which users are new (in submitted_users but not in
+        # previous_users) and add them to the questionnaire.
+        previous_users_found = []
+        for submitted_user in submitted_users:
+            user_found = False
+            for previous_user in previous_users:
+                if submitted_user[0] != previous_user[0]:
+                    continue
+                if str(submitted_user[1]) != str(previous_user[1].id):
+                    continue
+
+                user_found = True
+                previous_users_found.append(previous_user)
+
+            if user_found is False:
+                user = User.objects.get(pk=submitted_user[1])
+                self.add_user(user, submitted_user[0])
+
+        # Check for users which were removed (in previous_users but not
+        # found when looking through submitted_users) and remove them
+        # from the questionnaire
+        for removed_user in list(
+                set(previous_users) - set(previous_users_found)):
+            self.remove_user(removed_user[1], removed_user[0])
+
+    def update_users_in_data(self, user):
+        """
+        Based on the links in the database, update the data dictionary
+        of the questionnaire. This usually happens after a user's
+        information (display name) changed.
+
+        Args:
+            ``user`` (accounts.models.User): The user to be updated in
+            the data dictionary.
+        """
+        configurations = self.configurations.all()
+
+        # Collect all the user fields of all configurations of the
+        # questionnaire
+        user_fields = []
+        for config in configurations:
+            questionnaire_configuration = get_configuration(config.code)
+            user_fields.extend(questionnaire_configuration.get_user_fields())
+
+        for user_field in user_fields:
+            user_data_list = self.data.get(user_field[0], [])
+            for user_data in user_data_list:
+                user_id = user_data.get(user_field[1])
+                if user_id and str(user_id) == str(user.id):
+                    updated_user_data = {}
+                    updated_user_data[user_field[2]] = user.get_display_name()
+                    user_data.update(updated_user_data)
+
+        self.save()
 
     def get_metadata(self):
         """

@@ -255,6 +255,12 @@ $(function() {
     if (doNumberingUpdate) {
       updateNumbering();
     }
+
+    // Update the autocomplete fields
+    $('.user-search-field').autocomplete(userSearchAutocompleteOptions);
+    $('.ui-autocomplete').addClass('medium f-dropdown');
+    $(document).foundation();
+    removeUserField(newElement);
   })
 
   // Helptext: Toggle buttons (Show More / Show Less)
@@ -271,6 +277,34 @@ $(function() {
       more.slideToggle();
       first.toggle();
     }
+  })
+
+  // ADD USERS
+  // -----------------
+  // Tabs to search registered or capture non-registered person.
+  .on('click', '.form-user-tabs>li>a', function(e) {
+    e.preventDefault();
+
+    var hrefs = $(this).attr('href').split('#');
+    if (hrefs.length != 2) return;
+
+    // Tab titles
+    $(this).closest('.tabs').find('.tab-title').removeClass('active');
+    $(this).closest('.tab-title').addClass('active');
+
+    // Tab content
+    var tabs = $(this).closest('.list-item').find('.tabs-content');
+    tabs.find('.content').removeClass('active');
+    tabs.find('.' + hrefs[1]).addClass('active');
+  })
+  // Button to remove a selected user
+  .on('click', '.form-user-selected a.close', function(e) {
+    e.preventDefault();
+    removeUserField($(this).closest('.list-item'));
+  })
+  // Remove selected users if new personas are entered
+  .on('keyup', '.form-user-tab-create', function(e) {
+    removeUserField($(this).closest('.list-item'), false);
   })
 
   // BUTTON BAR
@@ -389,7 +423,150 @@ $(function() {
       },
       minLength: 3
     });
-    $('.ui-autocomplete').addClass('f-dropdown');
+
+    /**
+     * Options used when creating a new autocomplete to search and select
+     * existing users.
+     */
+    var userSearchAutocompleteOptions = {
+      source: function(request, response) {
+        var translationNoResults = $(this.element).data('translation-no-results');
+        var translationTooManyResults = $(this.element).data('translation-too-many-results');
+        var qg = $(this).closest('.list-item');
+        qg.find('.form-user-search-error').hide();
+        // AJAX call to the user search view
+        $.ajax({
+          url: $(this.element).data('search-url'),
+          dataType: 'json',
+          data: {
+            name: request.term
+          },
+          success: function(data) {
+            if (data.success !== true) {
+              // Error
+              var result = [
+                {
+                  name: data.message,
+                  username: ''
+                }
+              ];
+              return response(result);
+            }
+            if (!data.users.length) {
+              // No results
+              var result = [
+                {
+                  name: translationNoResults,
+                  username: ''
+                }
+              ];
+              return response(result);
+            }
+            var res = data.users;
+            if (data.count > 10) {
+              // Too many results
+              res = res.slice(0, 10);
+              res.push({
+                name: translationTooManyResults,
+                username: ''
+              });
+            }
+            return response(res);
+          }
+        });
+      },
+      create: function () {
+        // Prepare the entries to display the name and email address.
+        $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+          if (!item.name) {
+            item.name = item.first_name + ' ' + item.last_name;
+          }
+          return $('<li>')
+            .append('<a><strong>' + item.name + '</strong><br><i>' + item.username + '</i></a>')
+            .appendTo(ul);
+        };
+      },
+      select: function( event, ui ) {
+        if (!ui.item.uid) {
+          // No value (eg. when clicking "No results"), do nothing
+          return false;
+        }
+        var qg = $(this).closest('.list-item');
+
+        qg.find('.form-user-search').hide();
+        qg.find('.form-user-search-loading').show();
+
+        clearQuestiongroup(qg);
+
+        // Copy the user to the local QCAT database if not yet there.
+        $.ajax({
+          url: $(this).data('update-url'),
+          type: "POST",
+          data: {
+            uid: ui.item.uid
+          },
+          beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+          },
+          success: function(data) {
+            if (data.success !== true) {
+              qg.find('.form-user-search-error').html('Error: ' + data.message).show();
+              return;
+            }
+            var userDisplayname = data.name;
+
+            // Add the uid to the hidden input field
+            qg.find('.select-user-id').val(ui.item.uid);
+            qg.find('.select-user-display').val(userDisplayname);
+
+            // Add user display field
+            addUserField(qg, userDisplayname);
+
+            qg.find('.form-user-search').hide();
+          },
+          error: function(response) {
+            qg.find('.form-user-search-error').html('Error: ' + response.statusText).show();
+          }
+        });
+
+        // Hide empty message
+        $(this).parent('fieldset').find('.empty').hide();
+
+        $(this).val('');
+        return false;
+      },
+      minLength: 3
+    };
+
+    $('.user-search-field').autocomplete(userSearchAutocompleteOptions);
+    $('.ui-autocomplete').addClass('medium f-dropdown');
+
+    // Initial user links
+    $('.select-user-id').each(function() {
+      $t = $(this);
+      var qg = $t.closest('.list-item');
+      if ($t.val()) {
+        // A user is already selected, show it
+        addUserField(qg, qg.find('.select-user-display').val());
+      } else {
+        // No users linked but check if the form has content (new person)
+        var initial_content = false;
+        var input_fields = qg.find('.form-user-tab-create').find('input:text');
+        input_fields.each(function() {
+          if ($(this).val() != '') {
+            initial_content = true;
+          }
+        });
+        if (initial_content) {
+          qg.find('a.show-tab-create').click();
+        } else {
+          // Default: Show the search
+          qg.find('.form-user-search-loading').hide();
+          qg.find('.form-user-select').show();
+          qg.find('.form-user-search').show();
+        }
+      }
+    });
   }
 
   // Remove linked questionnaires
@@ -442,8 +619,32 @@ $(function() {
     // })
 
   updateDropzones();
-
 });
+
+
+/**
+ * Add a display field for a selected user found through the search.
+ */
+function addUserField(qg, user_name) {
+  qg.find('.form-user-search-loading').hide();
+  var user = '<div class="alert-box secondary">' + user_name + '<a href="" class="close">&times;</a></div>';
+  qg.find('.form-user-selected').html(user).show();
+  qg.find('a.show-tab-select').click();
+}
+
+
+/**
+ * Remove a display field for a selected user.
+ */
+function removeUserField(qg, focus) {
+  qg.find('.form-user-selected').html('').hide();
+  if (focus !== false) {
+    qg.find('a.show-tab-select').click();
+  }
+  qg.find('.form-user-search').show();
+  qg.find('.select-user-id').val('');
+  qg.find('.select-user-display').val('');
+}
 
 
 /**
@@ -698,9 +899,11 @@ function updateFieldsetElement(element, prefix, index, reset) {
       }
       row.find('.remove-image').attr({'data-dropzone-id': new_dz_id});
     } else {
-      var name = $(this).attr('name').replace(id_regex, replacement);
-      var id = $(this).attr('id').replace(id_regex, replacement);
-      $(this).attr({'name': name, 'id': id});
+      if ($(this).attr('name') && $(this).attr('id')) {
+        var name = $(this).attr('name').replace(id_regex, replacement);
+        var id = $(this).attr('id').replace(id_regex, replacement);
+        $(this).attr({'name': name, 'id': id});
+      }
     }
   });
   element.find('label').each(function() {

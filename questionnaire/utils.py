@@ -18,7 +18,7 @@ from questionnaire.models import Questionnaire
 from search.index import put_questionnaire_data
 
 
-def clean_questionnaire_data(data, configuration):
+def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
     """
     Clean a questionnaire data dictionary so it can be saved to the
     database. This namely removes all empty values and parses measured
@@ -164,7 +164,9 @@ def clean_questionnaire_data(data, configuration):
                     value = translations
                 elif question.field_type in ['todo']:
                     value = None
-                elif question.field_type in ['image']:
+                elif question.field_type in ['image', 'user_display']:
+                    pass
+                elif question.field_type in ['user_id']:
                     pass
                 else:
                     raise NotImplementedError(

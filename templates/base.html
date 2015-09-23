@@ -67,6 +67,7 @@
               <li class="has-dropdown">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
+                  <li><a href="{% url 'user_details' user.id %}">{% trans "User Details" %}</a></li>
                   {% if user.is_staff %}
                     <li>
                       <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>

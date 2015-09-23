@@ -127,3 +127,17 @@ form .single-item:not(:first-child) {
 .questiongroup h4 {
   margin-top: 2rem;
 }
+
+
+/* USER SEARCH */
+.form-user-tabs-content {
+  padding: 1rem;
+  background-color: $tabs-navigation-active-bg-color;
+  margin-bottom: 0;
+}
+.form-user-tabs .tab-title>a, .form-user-tabs-content span {
+  font-size: 0.875rem;
+}
+.form-user-selected .alert-box {
+  margin-bottom: 0;
+}

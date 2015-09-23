@@ -229,6 +229,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'select',
         'todo',
         'cb_bool',
+        'user_id',
+        'user_display',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -510,6 +512,14 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             translation_field = forms.CharField(
                 label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
                 required=self.required, max_length=max_length)
+        elif self.field_type in ['user_id', 'user_display']:
+            widget = HiddenInput()
+            if self.field_type == 'user_id':
+                widget.css_class = 'select-user-id'
+            elif self.field_type == 'user_display':
+                widget.css_class = 'select-user-display'
+            field = forms.CharField(
+                label=None, widget=widget, required=self.required)
         elif self.field_type == 'text':
             max_length = self.max_length
             if max_length is None:
@@ -622,13 +632,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'todo']:
-            template_name = 'textarea'
-            template_values.update({
-                'key': self.label_view,
-                'value': value,
-            })
-        elif self.field_type in ['text']:
+        if self.field_type in ['char', 'text', 'todo', 'user_display']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -695,6 +699,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'key': self.label_view,
                 'value': value,
             })
+        elif self.field_type in ['user_id']:
+            return
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -917,7 +923,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
                     if question.conditional:
                         continue
 
-                    rendered_questions.append(question.get_details(d))
+                    question_details = question.get_details(d)
+                    if question_details:
+                        rendered_questions.append(question_details)
             questiongroups.append(rendered_questions)
         config = {
             'numbered': self.numbered,
@@ -1844,6 +1852,26 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 return x.get(question_keyword)
         return {'en': _('Unknown name')}
 
+    def get_user_fields(self):
+        """
+        [0]: questiongroup keyword
+        [1]: key keyword (id)
+        [2]: key keyword (displayname)
+        [3]: user role
+        """
+        user_fields = []
+        for questiongroup in self.get_questiongroups():
+            user_role = questiongroup.form_options.get('user_role')
+            if user_role is None:
+                continue
+            for question in questiongroup.questions:
+                if question.field_type != 'user_id':
+                    continue
+                user_fields.append(
+                    (questiongroup.keyword, question.keyword,
+                        question.form_options.get('display_field'), user_role))
+        return user_fields
+
     def read_configuration(self):
         """
         This function reads an active configuration of a Questionnaire.
@@ -1922,6 +1950,17 @@ def validate_type(obj, type_, conf_name, type_name, parent_conf_name):
 
 class TextInput(forms.TextInput):
     template_name = 'form/field/textinput.html'
+
+
+class HiddenInput(forms.TextInput):
+    template_name = 'form/field/hidden.html'
+
+    def get_context_data(self):
+        ctx = super(HiddenInput, self).get_context_data()
+        ctx.update({
+            'css_class': self.css_class
+        })
+        return ctx
 
 
 class RadioSelect(forms.RadioSelect):

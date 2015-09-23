@@ -83,6 +83,34 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         return self.email
 
+    def get_display_name(self):
+        """
+        A representation of the user for display purposes.
+
+        Returns:
+            ``str``. The display name of the user.
+        """
+        return '{} {}'.format(self.firstname, self.lastname)
+
+    def get_questionnaires(self):
+        """
+        Helper function to return the questionnaires of a user along
+        with his role in this membership.
+
+        Returns:
+            ``list``. A list of tuples where each entry contains the
+            following elements:
+
+            - [0]: ``string``. The role of the membership.
+
+            - [1]: ``questionnaire.models.Questionnaire``. The
+              questionnaire object.
+        """
+        questionnaires = []
+        for membership in self.questionnairemembership_set.all():
+            questionnaires.append((membership.role, membership.questionnaire))
+        return questionnaires
+
     def __str__(self):
         return '{} {}'.format(self.firstname, self.lastname)
 
@@ -103,10 +131,13 @@ class User(AbstractBaseUser, PermissionsMixin):
             id=id, email=email, lastname=lastname, firstname=firstname)
         return user
 
-    def update(self, lastname='', firstname='', privileges=[]):
+    def update(self, email=None, lastname='', firstname='', privileges=[]):
         """
         Handles the one-way synchronization of the user database by
         updating the values.
+
+        If the user information changed, a call to
+        :func:`update_related_questionnaires` is made.
 
         Args:
             ``name`` (str): The name of the user.
@@ -116,9 +147,26 @@ class User(AbstractBaseUser, PermissionsMixin):
             .. todo::
                 Actually handle privileges.
         """
+        if (email is None and lastname == self.lastname and
+                firstname == self.firstname):
+            return
+
+        if email is not None:
+            self.email = email
         self.lastname = lastname
         self.firstname = firstname
         self.save()
+
+        self.update_related_questionnaires()
+
+    def update_related_questionnaires(self):
+        """
+        Updates the data dictionnaires of all the related questionnaires
+        of a user to update the display name of a user in the
+        questionnaire data.
+        """
+        for role, questionnaire in self.get_questionnaires():
+            questionnaire.update_users_in_data(self)
 
     # def is_authenticated(self):
     #     """
