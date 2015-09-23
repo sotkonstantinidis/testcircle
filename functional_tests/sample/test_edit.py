@@ -31,6 +31,85 @@ class EditTest(FunctionalTest):
     id: 7   code: sample_6   version: 1   status: 1   user: 103
     """
 
+    def test_creation_date_does_not_change(self):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to the details of an existing questionnaire and takes
+        # note of the creation and update dates
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        creation_date = dates[0].text
+        update_date = dates[1].text
+
+        # She edits the questionnaire
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/sample_3/cat")]')[
+                cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+
+        # She submits the questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the changes were submitted
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+
+        # She notices that the creation date did not change while the
+        # update date changed.
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        self.assertEqual(creation_date, dates[0].text)
+        self.assertTrue(update_date != dates[1].text)
+
+        # Alice logs in as a different user
+        user = User.objects.get(pk=101)
+        self.doLogin(user=user)
+
+        # She also opens a draft version of a questionnaire and takes
+        # note of the creation and update dates
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        creation_date = dates[0].text
+        update_date = dates[1].text
+
+        # She makes an edit
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/sample_1/cat")]')[
+                cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+
+        # She submits the questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the changes were submitted
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+
+        # She notices that the creation date did not change while the
+        # update date changed.
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        self.assertEqual(creation_date, dates[0].text)
+        self.assertTrue(update_date != dates[1].text)
+
     def test_edit_draft(self):
 
         code = 'sample_1'
