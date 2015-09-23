@@ -79,7 +79,7 @@ class LoginTest(TestCase):
         self.request.user.is_authenticated = mock_is_authenticated
         login(self.request)
         mock_render.assert_called_once_with(self.request, 'login.html', {
-            'redirect_url': 'http://testserver/en/accounts/welcome?next=/',
+            'redirect_url': 'http://testserver/en/accounts/welcome?next=/en/',
             'login_url': mock_get_login_url.return_value,
             'show_notice': False,
         })

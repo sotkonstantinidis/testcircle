@@ -390,7 +390,7 @@ class PutQuestionnaireDataTest(TestCase):
                 'configurations': ['configuration'],
                 'translations': ['en'],
                 'authors': ['author'],
-                'links': {'es': [], 'en': []},
+                'links': {'es': [], 'en': [], 'fr': []},
             }
         }]
         mock_bulk.assert_called_once_with(mock_es, data)

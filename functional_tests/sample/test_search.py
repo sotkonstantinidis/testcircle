@@ -176,7 +176,7 @@ class SearchTestAdmin(FunctionalTest):
             '2 / 2')
 
         # She decides to delete all indices
-        self.findBy('xpath', '//a[contains(@href, "/search/delete/")]').click()
+        self.findBy('xpath', '//a[@href="/en/search/delete/"]').click()
 
         # She sees that all indices were deleted
         self.findBy('xpath', '//div[contains(@class, "success")]')

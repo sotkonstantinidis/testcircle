@@ -302,10 +302,11 @@ $(function() {
     var name = $(this).attr('name');
     var initiallyChecked = $(this).attr('checked');
 
-    if (previousValue == 'checked' || initiallyChecked == 'checked') {
+    if (previousValue == 'checked' || (!previousValue && initiallyChecked == 'checked')) {
       $(this).removeAttr('checked');
       $(this).attr('previousValue', false);
       watchFormProgress();
+      checkConditionalQuestiongroups(this);
     } else {
       $("input[name="+name+"]:radio").attr('previousValue', false);
       $(this).attr('previousValue', 'checked');

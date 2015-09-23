@@ -24,6 +24,7 @@ def get_valid_pagination_parameters():
         'pages_outside_leading_range': range(0, 0),
         'pages_outside_trailing_range': range(0, 0),
         'get_params': '',
+        'count': 0,
     }
 
 
