@@ -186,6 +186,28 @@ def get_user_information(user_id):
     return user_data
 
 
+def update_user(user, user_information):
+    """
+    Update a user. This function serves to bundle and eventually
+    preprocess the user information from the WOCAT Authentication
+    backend and pass it to the update function of the user.
+
+    Args:
+        ``user`` (accounts.models.User): The User object.
+
+        ``user_information` (dict): The user dictionary as retrieved
+          from :func:`get_user_information`
+    """
+    if user_information:
+        usergroups = [
+            g.get('name') for g in user_information.get('usergroup', [])]
+        user.update(
+            email=user_information.get('username'),
+            lastname=user_information.get('last_name'),
+            firstname=user_information.get('first_name'),
+            usergroups=usergroups)
+
+
 def search_users(name=''):
     """
     Search for users through the Typo3 REST API of WOCAT.

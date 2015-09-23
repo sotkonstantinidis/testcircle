@@ -14,6 +14,7 @@ from accounts.authentication import (
     get_session_cookie_name,
     get_user_information,
     search_users,
+    update_user,
 )
 from accounts.models import User
 
@@ -42,10 +43,7 @@ def welcome(request):
     # Update the user information
     user = request.user
     user_info = get_user_information(user.id)
-    if user_info:
-        user.update(
-            lastname=user_info.get('last_name'),
-            firstname=user_info.get('first_name'))
+    update_user(user, user_info)
 
     messages.info(
         request, 'Welcome {}'.format(user_info.get('first_name')))
@@ -176,9 +174,7 @@ def user_update(request):
 
     # Update (or insert) the user details in the local database
     user, created = User.objects.get_or_create(pk=user_uid)
-    user.update(
-        email=user_info.get('username'), lastname=user_info.get('last_name'),
-        firstname=user_info.get('first_name'))
+    update_user(user, user_info)
 
     ret = {
         'name': user.get_display_name(),
@@ -204,10 +200,7 @@ def details(request, id):
 
     # Update the user details
     user_info = get_user_information(user.id)
-    if user_info:
-        user.update(
-            lastname=user_info.get('last_name'),
-            firstname=user_info.get('first_name'))
+    update_user(user, user_info)
 
     return render(request, 'details.html', {
         'detail_user': user,
