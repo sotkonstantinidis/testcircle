@@ -18,7 +18,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "The editor and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"},"helptext":{"en":"<p><strong>Conditions regarding the use of data documented through the WOCAT</strong></p><ul><li>Data captured with WOCAT questionnaires will be entered and stored in the WOCAT online database by the editor or a data entry person assigned by the editor. Yet, the editor is responsible for compilation and the data quality. The editor, the resource persons and the data entry person will be recorded and will be given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data is made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\">Creative Commons AttributionNonCommercial-ShareAlike 3.0 Unported License</a>.</li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the samelicense as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others fromdoing anything the license permits.</li></ul><p>Full license terms: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"}}}
+        "data": {"technologies":{"label":{"en": "The editor and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"},"helptext":{"en":"<p><strong>Conditions regarding the use of data documented through the WOCAT</strong></p><ul><li>Data captured with WOCAT questionnaires will be entered and stored in the WOCAT online database by the editor or adata entry person assigned by the editor. Yet, the editor is responsible for compilation and the data quality. The editor,the resource persons and the data entry person will be recorded and will be given credit for the data in the database aswell as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data is made available for users under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 UnportedLicense (<a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/3.0/</a>)</li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the samelicense as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others fromdoing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"}}}
     },
     "model": "configuration.translation",
     "pk": 1003
@@ -106,7 +106,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Intensive grazing"},"helptext":{"en":"<strong>Gi: Intensive grazing/fodder production:</strong> improved or planted pastures for grazing/production of fodder (for cutting and carrying: hay, leguminous species, silage etc) not including fodder crops such as maize, cereals. These are classified as annual crops (see above)."}}}
+        "data": {"technologies":{"label":{"en": "Intensive grazing/fodder production"},"helptext":{"en":"<strong>Gi: Intensive grazing/fodder production:</strong> improved or planted pastures for grazing/production of fodder (for cutting and carrying: hay, leguminous species, silage etc.) not including fodder crops such as maize, cereals. These are classified as annual crops (see above)."}}}
     },
     "model": "configuration.translation",
     "pk": 1014
@@ -1069,7 +1069,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Establishment / maintenance activities and input"}}}
+        "data": {"technologies":{"label":{"en": "Establishment/maintenance activities and input"}}}
     },
     "model": "configuration.translation",
     "pk": 1185
@@ -1085,7 +1085,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Number of sites considered / analysed in the documentation of this technology"},"helptext":{"en":"<p><strong>Site:</strong> A site can be a single plot or a larger area managed by individuals or by a community, or a place where a specific infrastructure hast been implemened (e.g. dam).</p>"}}}
+        "data": {"technologies":{"label":{"en": "Number of sites considered / analysed in the documentation of this technology"},"helptext":{"en":"<p><strong>Site:</strong> A site can be a single plot or a larger area managed by individuals or by a community, or a place where a specific infrastructure hast been implemented (e.g. dam).</p>"}}}
     },
     "model": "configuration.translation",
     "pk": 1187
@@ -1530,7 +1530,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Extensive grazing"},"helptext":{"en":"<strong>Ge: Extensive grazing land:</strong> grazing on natural or semi-natural grasslands, grasslands with trees/shrubs (savannah vegetation) or open woodlands for livestock and wildlife."}}}
+        "data": {"technologies":{"label":{"en": "Extensive grazing land"},"helptext":{"en":"<strong>Ge: Extensive grazing land</strong>: grazing on natural or semi-natural grasslands, grasslands with trees/shrubs (savannah vegetation) or open woodlands for livestock and wildlife."}}}
 
     },
     "model": "configuration.translation",
@@ -1539,7 +1539,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "(Semi-)natural forests"},"helptext":{"en":"forests mainly composed of indigenous trees, not planted by man"}}}
+        "data": {"technologies":{"label":{"en": "(Semi-)natural forests"},"helptext":{"en":"<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of indigenous trees, not planted by man"}}}
     },
     "model": "configuration.translation",
     "pk": 1239
@@ -1547,7 +1547,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Tree plantation, afforestation"},"helptext":{"en":"forest stands established by planting or/and seeding in the process of afforestation or reforestation"}}}
+        "data": {"technologies":{"label":{"en": "Tree plantation, afforestation"},"helptext":{"en":"<strong>Fp: Plantations, afforestations:</strong>: forest stands established by planting or/and seeding in the process of afforestation or reforestation"}}}
     },
     "model": "configuration.translation",
     "pk": 1240
@@ -1622,7 +1622,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Annual cropping"},"helptext":{"en": "<strong>Ca: Annual cropping</strong>: Land under temporary / annual crops usually harvested within one, maximally within two years (eg maize, paddy rice, wheat, vegetables, fodder crops)"}}}
+        "data": {"technologies":{"label":{"en": "Annual cropping"},"helptext":{"en": "<strong>Ca: Annual cropping</strong>: Land under temporary/annual crops usually harvested within one, maximally within two years (e.g. maize, paddy rice, wheat, vegetables, fodder crops)"}}}
     },
     "model": "configuration.translation",
     "pk": 1504
@@ -1630,7 +1630,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Perennial (non-woody) cropping"},"helptext":{"en":"<strong>Cp: Perennial (non-woody) cropping</strong>: Land under permanent (non-woody) crops that may be harvested after 2 or more years, or only part of the plants are harvested (eg sugar cane, banana, sisal, pineapple)"}}}
+        "data": {"technologies":{"label":{"en": "Perennial (non-woody) cropping"},"helptext":{"en":"<strong>Cp: Perennial (non-woody) cropping</strong>: Land under permanent (not woody) crops that may be harvested after 2 or more years, or only part of the plants are harvested (e.g. sugar cane, banana, sisal, pineapple)"}}}
     },
     "model": "configuration.translation",
     "pk": 1505
@@ -1638,7 +1638,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Tree and shrub cropping"},"helptext":{"en":"<strong>Ct: Tree and shrub cropping</strong>: permanent woody plants with crops harvested more than once after planting, and usually lasting for more than 5 years (eg orchards / fruit trees, coffee, tea, grapevines, oil palm, cacao, coconut, fodder trees)"}}}
+        "data": {"technologies":{"label":{"en": "Tree and shrub cropping"},"helptext":{"en":"<strong>Ct: Tree and shrub cropping</strong>: permanent woody plants with crops harvested more than once after planting, and usually lasting for more than 5 years (e.g. orchard/fruit trees, coffee, tea, grapevines, oil palm, cacao, coconut, fodder trees)"}}}
     },
     "model": "configuration.translation",
     "pk": 1506
@@ -1774,7 +1774,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "V3: Clearing of vegetation"},"helptext":{"en":"Eg. fire breaks/reduced fuel"}}}
+        "data": {"technologies":{"label":{"en": "V3: Clearing of vegetation"},"helptext":{"en":"E.g. fire breaks/reduced fuel"}}}
     },
     "model": "configuration.translation",
     "pk": 1524
@@ -1782,7 +1782,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "V4: Others"}}}
+        "data": {"technologies":{"label":{"en": "V5: Others"}}}
     },
     "model": "configuration.translation",
     "pk": 1525
@@ -1806,7 +1806,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S3: Bunds / banks"}}}
+        "data": {"technologies":{"label":{"en": "S3: Bunds, banks"}}}
     },
     "model": "configuration.translation",
     "pk": 1528
@@ -1814,7 +1814,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S4: Graded ditches / waterways"},"helptext":{"en":"to drain and convey water"}}}
+        "data": {"technologies":{"label":{"en": "S4: Graded ditches, waterways"},"helptext":{"en":"to drain and convey water"}}}
     },
     "model": "configuration.translation",
     "pk": 1529
@@ -1822,7 +1822,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S5: Level ditches / pits"}}}
+        "data": {"technologies":{"label":{"en": "S5: Level ditches, pits"}}}
     },
     "model": "configuration.translation",
     "pk": 1530
@@ -1830,7 +1830,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S6: Dams / pans: store excessive water"}}}
+        "data": {"technologies":{"label":{"en": "S6: Dams, pans, ponds"}}}
     },
     "model": "configuration.translation",
     "pk": 1531
@@ -1846,7 +1846,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S8: Walls / barriers / palisades"}}}
+        "data": {"technologies":{"label":{"en": "S8: Walls, barriers, palisades, fences"}}}
     },
     "model": "configuration.translation",
     "pk": 1533
@@ -1854,7 +1854,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "S9: Others"}}}
+        "data": {"technologies":{"label":{"en": "S9: Water harvesting infrastructure"},"helptext":{"en":"E.g. rooftop"}}}
     },
     "model": "configuration.translation",
     "pk": 1534
@@ -1870,7 +1870,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "M2: Change of management / intensity level"}}}
+        "data": {"technologies":{"label":{"en": "M2: Change of management/intensity level"},"helptext":{"en":"Incl. greenhouses, irrigation, area closure, etc."}}}
     },
     "model": "configuration.translation",
     "pk": 1536
@@ -1894,7 +1894,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "M5: Control / change of species composition"},"helptext":{"en":"if annually or in a rotational sequence as done eg on cropland -> A1"}}}
+        "data": {"technologies":{"label":{"en": "M5: Control/change of species composition"},"helptext":{"en":"if annually or in a rotational sequence as done e.g. on cropland &rarr; A1"}}}
     },
     "model": "configuration.translation",
     "pk": 1539
@@ -1902,7 +1902,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "M6: Waste Management"},"helptext":{"en":"includes recycling, re-use or reduce: includes both artificial and natural methods for waste management"}}}
+        "data": {"technologies":{"label":{"en": "M6: Waste management"},"helptext":{"en":"includes recycling, re-use or reduce: includes both artificial and natural methods for waste management"}}}
     },
     "model": "configuration.translation",
     "pk": 1540
@@ -1918,7 +1918,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Wt: loss of topsoil / surface erosion"},"helptext":{"en":"even removal of top soil, sheet and interrill erosion"}}}
+        "data": {"technologies":{"label":{"en": "Wt: loss of topsoil/surface erosion"},"helptext":{"en":"<strong>Loss of topsoil/surface erosion:</strong> even removal of top soil, sheet and interrill erosion"}}}
     },
     "model": "configuration.translation",
     "pk": 1542
@@ -1926,7 +1926,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Wg: gully erosion / gullying"}}}
+        "data": {"technologies":{"label":{"en": "Wg: gully erosion/gullying"}}}
     },
     "model": "configuration.translation",
     "pk": 1543
@@ -1934,7 +1934,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Wm: mass movements / landslides"}}}
+        "data": {"technologies":{"label":{"en": "Wm: mass movements/landslides"}}}
     },
     "model": "configuration.translation",
     "pk": 1544
@@ -1958,7 +1958,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Wo: offsite degradation effects"},"helptext":{"en":"deposition of sediments, downstream flooding, siltation of reservoirs and waterways, and pollution of water bodies with eroded sediments"}}}
+        "data": {"technologies":{"label":{"en": "Wo: offsite degradation effects"},"helptext":{"en":"<strong>Offsite degradation effects:</strong> deposition of sediments, downstream flooding, siltation of reservoirs and waterways, and pollution of water bodies with eroded sediments"}}}
     },
     "model": "configuration.translation",
     "pk": 1547
@@ -1966,7 +1966,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Et: loss of topsoil"},"helptext":{"en":"uniform displacement"}}}
+        "data": {"technologies":{"label":{"en": "Et: loss of topsoil"},"helptext":{"en":"<strong>Loss of topsoil:</strong> uniform displacement"}}}
     },
     "model": "configuration.translation",
     "pk": 1548
@@ -1974,7 +1974,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Ed: deflation and deposition"},"helptext":{"en":"uneven removal of soil material"}}}
+        "data": {"technologies":{"label":{"en": "Ed: deflation and deposition"},"helptext":{"en":"<strong>Deflation and deposition:</strong> uneven removal of soil material"}}}
     },
     "model": "configuration.translation",
     "pk": 1549
@@ -1982,7 +1982,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Eo: offsite degradation effects"},"helptext":{"en":"covering of the terrain with windborne sand particles from distant sources (\"overblowing\")"}}}
+        "data": {"technologies":{"label":{"en": "Eo: offsite degradation effects"},"helptext":{"en":"<strong>Offsite degradation effects:</strong> covering of the terrain with windborne sand particles from distant sources (\"overblowing\")"}}}
     },
     "model": "configuration.translation",
     "pk": 1550
@@ -1990,7 +1990,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Cn: fertility decline and reduced organic matter content (not caused by erosion)"},"helptext":{"en":"eg leaching, soil fertility mining, nutrient oxidation and volatisation (N)"}}}
+        "data": {"technologies":{"label":{"en": "Cn: fertility decline and reduced organic matter content (not caused by erosion)"},"helptext":{"en":"e.g. leaching, soil fertility mining, nutrient oxidation and volatisation (N)"}}}
     },
     "model": "configuration.translation",
     "pk": 1551
@@ -1998,7 +1998,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Ca: acidification"},"helptext":{"en":"lowering of the soil pH"}}}
+        "data": {"technologies":{"label":{"en": "Ca: acidification"},"helptext":{"en":"<strong>Acidification</strong>: lowering of the soil pH"}}}
     },
     "model": "configuration.translation",
     "pk": 1552
@@ -2006,7 +2006,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Cp: soil pollution"},"helptext":{"en":"contamination of the soil with toxic materials"}}}
+        "data": {"technologies":{"label":{"en": "Cp: soil pollution"},"helptext":{"en":"<strong>Soil pollution</strong>: contamination of the soil with toxic materials"}}}
     },
     "model": "configuration.translation",
     "pk": 1553
@@ -2014,7 +2014,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Cs: salinisation / alkalinisation"},"helptext":{"en":"a net increase of the salt content of the (top) soil leading to a productivity decline"}}}
+        "data": {"technologies":{"label":{"en": "Cs: salinization/alkalinisation"},"helptext":{"en":"<strong>salinization/alkalinisation</strong>: a net increase of the salt content of the (top) soil leading to a productivity decline"}}}
     },
     "model": "configuration.translation",
     "pk": 1554
@@ -2022,7 +2022,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pc: compaction"},"helptext":{"en":"deterioration of soil structure by trampling or the weight and/or frequent use of machinery"}}}
+        "data": {"technologies":{"label":{"en": "Pc: compaction"},"helptext":{"en":"<strong>Compaction</strong>: deterioration of soil structure by trampling or the weight and/or frequent use of machinery"}}}
     },
     "model": "configuration.translation",
     "pk": 1555
@@ -2030,7 +2030,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pk: sealing and crusting"},"helptext":{"en":"clogging of pores with fine soil material and development of a thin impervious layer at the soil surface obstructing the infiltration of rainwater"}}}
+        "data": {"technologies":{"label":{"en": "Pk: slaking and crusting"},"helptext":{"en":"<strong>Slaking and crusting</strong>: clogging of pores with fine soil material and development of a thin impervious layer at the soil surface obstructing the infiltration of rainwater"}}}
     },
     "model": "configuration.translation",
     "pk": 1556
@@ -2038,7 +2038,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pw: waterlogging"},"helptext":{"en":"effects of human induced water saturation of soils (excluding paddy fields)"}}}
+        "data": {"technologies":{"label":{"en": "Pw: waterlogging"},"helptext":{"en":"<strong>Waterlogging</strong>: effects of human induced water saturation of soils (excluding paddy fields)"}}}
     },
     "model": "configuration.translation",
     "pk": 1557
@@ -2054,7 +2054,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Pu: loss of bio-productive function due to other activities"},"helptext":{"en":"eg construction, mining, roads, etc"}}}
+        "data": {"technologies":{"label":{"en": "Pu: loss of bio-productive function due to other activities"}}}
     },
     "model": "configuration.translation",
     "pk": 1559
@@ -2062,7 +2062,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bc: reduction of vegetation cover"},"helptext":{"en":"increase of bare / unprotected soil"}}}
+        "data": {"technologies":{"label":{"en": "Bc: reduction of vegetation cover"},"helptext":{"en":"<strong>Reduction of vegetation cover</strong>: increase of bare/unprotected soil"}}}
     },
     "model": "configuration.translation",
     "pk": 1560
@@ -2070,7 +2070,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bh: loss of habitats"},"helptext":{"en":"decreasing vegetation diversity (fallow land, mixed systems, field borders), increased fragmentation of habitats"}}}
+        "data": {"technologies":{"label":{"en": "Bh: loss of habitats"},"helptext":{"en":"<strong>Loss of habitats</strong>: decreasing vegetation diversity (fallow land, mixed systems, field borders), increased fragmentation of habitats"}}}
     },
     "model": "configuration.translation",
     "pk": 1561
@@ -2078,7 +2078,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bq: quantity / biomass decline"},"helptext":{"en":"reduced vegetative production for different land use"}}}
+        "data": {"technologies":{"label":{"en": "Bq: quantity/biomass decline"},"helptext":{"en":"<strong>Quantity/biomass decline</strong>: reduced vegetative production for different land use"}}}
     },
     "model": "configuration.translation",
     "pk": 1562
@@ -2086,7 +2086,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bf: detrimental effects of fires (includes low / high severity of fires)"},"helptext":{"en":"on forest (eg slash and burn), bush, grazing and cropland (burning of residues)"}}}
+        "data": {"technologies":{"label":{"en": "Bf: detrimental effects of fires"},"helptext":{"en":"<strong>detrimental effects of fires (includes low / high severity of fires)</strong>: on forest (eg slash and burn), bush, grazing and cropland (burning of residues)"}}}
     },
     "model": "configuration.translation",
     "pk": 1563
@@ -2094,7 +2094,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bs: quality and species composition /diversity decline"},"helptext":{"en":"loss of natural species, land races, palatable perennial grasses; spreading of invasive, salt-tolerant, unpalatable, species / weeds"}}}
+        "data": {"technologies":{"label":{"en": "Bs: quality and species composition/diversity decline"},"helptext":{"en":"<strong>Quality and species composition/diversity decline</strong>: loss of natural species, land races, palatable perennial grasses; spreading of invasive, salt-tolerant, unpalatable, species/weeds"}}}
     },
     "model": "configuration.translation",
     "pk": 1564
@@ -2102,7 +2102,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bl: loss of soil life"},"helptext":{"en":"decline of soil macro-organisms and micro-organisms in quantity and quality"}}}
+        "data": {"technologies":{"label":{"en": "Bl: loss of soil life"},"helptext":{"en":"<strong>Loss of soil life</strong>: decline of soil macro-organisms and micro-organisms in quantity and quality"}}}
     },
     "model": "configuration.translation",
     "pk": 1565
@@ -2110,7 +2110,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Bp: increase of pests / diseases, loss of predators"},"helptext":{"en":"reduction of biological control"}}}
+        "data": {"technologies":{"label":{"en": "Bp: increase of pests/diseases, loss of predators"},"helptext":{"en":"<strong>Increase of pests/diseases, loss of predators</strong>: reduction of biological control"}}}
     },
     "model": "configuration.translation",
     "pk": 1566
@@ -2118,7 +2118,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Ha: aridification"},"helptext":{"en":"decrease of average soil moisture content"}}}
+        "data": {"technologies":{"label":{"en": "Ha: aridification"},"helptext":{"en":"<strong>Aridification</strong>: decrease of average soil moisture content"}}}
     },
     "model": "configuration.translation",
     "pk": 1567
@@ -2126,7 +2126,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hs: change in quantity of surface water"},"helptext":{"en":"change of the flow regime (flood, /peak flow, low flow, drying up of rivers and lakes)"}}}
+        "data": {"technologies":{"label":{"en": "Hs: change in quantity of surface water"},"helptext":{"en":"<strong>Change in quantity of surface water</strong>: change of the flow regime (flood, peak flow, low flow, drying up of rivers and lakes)"}}}
     },
     "model": "configuration.translation",
     "pk": 1568
@@ -2134,7 +2134,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hg: change in groundwater / aquifer level"},"helptext":{"en":"lowering of groundwater table due to over-exploitation or reduced recharge of groundwater; or increase of groundwater table resulting in waterlogging and/or salinisation"}}}
+        "data": {"technologies":{"label":{"en": "Hg: change in groundwater/aquifer level"},"helptext":{"en":"<strong>Change in groundwater/aquifer level</strong>: lowering of groundwater table due to over-exploitation or reduced recharge of groundwater; or increase of groundwater table resulting in waterlogging and/or salinization"}}}
     },
     "model": "configuration.translation",
     "pk": 1569
@@ -2142,7 +2142,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hp: decline of surface water quality"},"helptext":{"en":"increased sediments and pollutants in fresh water bodies due to point pollution and land-based pollution"}}}
+        "data": {"technologies":{"label":{"en": "Hp: decline of surface water quality"},"helptext":{"en":"<strong>Decline of surface water quality</strong>: increased sediments and pollutants in fresh water bodies due to point pollution and land-based pollution"}}}
     },
     "model": "configuration.translation",
     "pk": 1570
@@ -2150,7 +2150,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hq: decline of groundwater quality"},"helptext":{"en":"due to pollutants infiltrating into the aquifers"}}}
+        "data": {"technologies":{"label":{"en": "Hq: decline of groundwater quality"},"helptext":{"en":"<strong>Decline of groundwater quality</strong>: due to pollutants infiltrating into the aquifers"}}}
     },
     "model": "configuration.translation",
     "pk": 1571
@@ -2158,7 +2158,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Hw: reduction of the buffering capacity of wetland areas"},"helptext":{"en":"to cope with flooding and pollution"}}}
+        "data": {"technologies":{"label":{"en": "Hw: reduction of the buffering capacity of wetland areas"},"helptext":{"en":"<strong>Reduction of the buffering capacity of wetland areas</strong>: to cope with flooding and pollution"}}}
     },
     "model": "configuration.translation",
     "pk": 1572
@@ -2454,7 +2454,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Forest/woodlands"},"helptext":{"en":"Land used mainly for wood production, other forest products, recreation, protection"}}}
+        "data": {"technologies":{"label":{"en": "Forests/woodlands"},"helptext":{"en":"Land used mainly for wood production, other forest products, recreation, protection."}}}
     },
     "model": "configuration.translation",
     "pk": 1621
@@ -2526,7 +2526,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Agronomic measures"},"helptext":{"en":"<strong>Agronomic measures</strong> such as conservation agriculture, manuring / composting, mixed cropping, contour cultivation, mulching, etc.<ul><li>are usually associated with annual crops</li><li>are repeated routinely each season or in a rotational sequence</li><li>are of short duration and not permanent</li><li>do not lead to changes in slope profile</li><li>are normally independent of slope</li></ul>"}}}
+        "data": {"technologies":{"label":{"en": "Agronomic measures"},"helptext":{"en":"<strong>Agronomic measures</strong> such as conservation agriculture, application of manure/compost, crop rotation, mixed cropping, contour cultivation, mulching, etc.<ul><li>are usually associated with annual crops</li><li>are repeated routinely each season or in a rotational sequence</li><li>are of short duration and not permanent</li><li>do not lead to changes in slope profile</li><li>are normally independent of slope</li></ul>"}}}
     },
     "model": "configuration.translation",
     "pk": 1630
@@ -2534,7 +2534,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Vegetative measures"},"helptext":{"en":"<strong>Vegetative measures</strong> such as grass strips, hedge barriers, windbreaks, agroforestry etc.<ul><li>involve the use of perennial grasses, shrubs or trees</li><li>are of long duration</li><li>often lead to a change in slope profile</li><li>are often aligned along the contour or against the prevailing wind direction</li><li>are often spaced according to slope</li></ul>"}}}
+        "data": {"technologies":{"label":{"en": "Vegetative measures"},"helptext":{"en":"<strong>Vegetative measures</strong> such as grass strips, hedges, windbreaks, agroforestry etc.<ul><li>involve the use of perennial grasses, shrubs or trees</li><li>are of long duration</li><li>often lead to a change in slope profile</li><li>are often aligned along the contour or against the prevailing wind direction</li><li>are often spaced according to slope</li></ul>"}}}
     },
     "model": "configuration.translation",
     "pk": 1631
@@ -2542,7 +2542,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Structural measures"},"helptext":{"en":"<strong>Structural measures</strong> such as terraces, banks, bunds, constructions, palisades, etc.<ul><li>often lead to a change in slope profile</li><li>are of long duration or permanent</li><li>are carried out primarily to control runoff, wind velocity and erosion and to harvest rainwater</li><li>often require substantial inputs of labour or money when first installed</li><li>are often aligned along the contour / against prevailing wind direction</li><li>are often spaced according to slope</li><li>involve major earth movements and / or construction with wood, stone, concrete etc.</li></ul>"}}}
+        "data": {"technologies":{"label":{"en": "Structural measures"},"helptext":{"en":"<strong>Structural measures</strong> such as terraces, banks, bunds, constructions, palisades, dams, etc.<ul><li>often lead to a change in slope profile</li><li>are of long duration or permanent</li><li>are carried out primarily to control runoff, erosion and wind velocity and to harvest rainwater</li><li>often require substantial inputs of labour or money when first installed</li><li>are often aligned along the contour/against prevailing wind direction</li><li>are often spaced according to slope</li><li>involve major earth movements and/or construction with wood, stone, concrete, etc.</li></ul>"}}}
     },
     "model": "configuration.translation",
     "pk": 1632
@@ -2550,7 +2550,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Management measures"},"helptext":{"en":"<strong>Management measures</strong> such as land use change, area closure, rotational grazing etc.<ul><li>involve a fundamental change in land use</li><li>involve no agronomic and structural measures</li><li>often result in improved vegetative cover</li><li>often reduce the intensity of use</li></ul>"}}}
+        "data": {"technologies":{"label":{"en": "Management measures"},"helptext":{"en":"<strong>Management measures</strong> such as land use change, area closure, rotational grazing, introduction of irrigation systems, etc.<ul><li>involve a fundamental change in land use</li><li>usually involve no agronomic and structural measures</li><li>often result in improved vegetative cover</li><li>often reduce the intensity of use</li></ul>"}}}
     },
     "model": "configuration.translation",
     "pk": 1633
@@ -3510,7 +3510,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "reduce risk of natural disasters"},"helptext":{"en":"e.g. droughts, floods, land slides, etc."}}}
+        "data": {"technologies":{"label":{"en": "reduce risk of natural disasters"},"helptext":{"en":"e.g. droughts, floods, landslides, etc."}}}
     },
     "model": "configuration.translation",
     "pk": 1753
@@ -3550,7 +3550,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Nomadism"},"helptext":{"en":"People move with animals"}}}
+        "data": {"technologies":{"label":{"en": "Nomadism"},"helptext":{"en":"<strong>Nomadism</strong>: People move with animals"}}}
     },
     "model": "configuration.translation",
     "pk": 1758
@@ -3558,7 +3558,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Semi-nomadism/pastoralism"},"helptext":{"en":"animal owners have a permanent place of residence where supplementary cultivation is practiced. Herds are moved to distant grazing grounds."}}}
+        "data": {"technologies":{"label":{"en": "Semi-nomadism/pastoralism"},"helptext":{"en":"<strong>Semi-nomadism/pastoralism</strong>: animal owners have a permanent place of residence where supplementary cultivation is practiced. Herds are moved to distant grazing grounds."}}}
     },
     "model": "configuration.translation",
     "pk": 1759
@@ -3566,7 +3566,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Ranching"},"helptext":{"en":"Grazing within well-defined boundaries, movements cover smaller distances and management inputs are higher compared to semi-nomadism."}}}
+        "data": {"technologies":{"label":{"en": "Ranching"},"helptext":{"en":"<strong>Ranching</strong>: grazing within well-defined boundaries, movements cover smaller distances and management inputs are higher compared to semi-nomadism."}}}
     },
     "model": "configuration.translation",
     "pk": 1760
@@ -3574,7 +3574,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Cut-and-carry/zero grazing"},"helptext":{"en":"Carrying fodder to animals confined to a stall/shed or another restricted area; in zero grazing systems the livestock are not permitted to graze at any time"}}}
+        "data": {"technologies":{"label":{"en": "Cut-and-carry/zero grazing"},"helptext":{"en":"<strong>Cut-and-carry/zero grazing</strong>: Carrying fodder to animals confined to a stall/shed or another restricted area; in zero grazing systems the livestock are not permitted to graze at any time"}}}
     },
     "model": "configuration.translation",
     "pk": 1761
@@ -3582,7 +3582,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Improved pastures"},"helptext":{"en":"pasture that is sown with a mixture of introduced grasses and legumes (can be fertilized and/or inoculated with rhizobia to fix nitrogen)."}}}
+        "data": {"technologies":{"label":{"en": "Improved pastures"},"helptext":{"en":"<strong>Improved pastures</strong>: pasture that is sown with a mixture of introduced grasses and legumes (can be fertilized and/or inoculated with rhizobia to fix nitrogen)."}}}
     },
     "model": "configuration.translation",
     "pk": 1762
@@ -3710,7 +3710,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Other"}}}
+        "data": {"technologies":{"label":{"en": "Other"},"helptext":{"en":"Recreation areas, etc."}}}
     },
     "model": "configuration.translation",
     "pk": 1778
@@ -3854,7 +3854,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Surface water management (spring, river, lakes)"},"helptext":{"en":"<strong>Surface water management (spring, river, lakes):</strong> involves the protection of springs, rivers and lakes from pollution, from high water flows(floods) or overabstraction of water"}}}
+        "data": {"technologies":{"label":{"en": "Surface water management (spring, river, lakes)"},"helptext":{"en":"<strong>Surface water management (spring, river, lakes):</strong> involves the protection of springs, rivers and lakes from pollution, from high water flows(floods) or over abstraction of water"}}}
     },
     "model": "configuration.translation",
     "pk": 1796
@@ -3910,7 +3910,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "Indirect measures"},"helptext":{"en":"<strong>Indirect SLM measures</strong> are mostly applied within homesteads or settlements, or in specific locations and reduce pressure on the land resources and its negative impacts."}}}
+        "data": {"technologies":{"label":{"en": "Indirect SLM measures"},"helptext":{"en":"<strong>Indirect SLM measures</strong> are mostly applied within homesteads or settlements, or in specific locations and reduce pressure on the land resources and its negative impacts."}}}
     },
     "model": "configuration.translation",
     "pk": 1803
@@ -3918,7 +3918,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "I1: Energy saving measures"},"helptext":{"en":"E.g. wood-saving stoves, insulation of buildings) and alternative energy sources (e.g. solar energy, biogas, wind energy, hydropower"}}}
+        "data": {"technologies":{"label":{"en": "I1: Energy saving measures and alternate energy sources"},"helptext":{"en":"Energy saving measures (e.g. wood-saving stoves, insulation of buildings) and alternative energy sources (e.g. solar energy, biogas, wind energy, hydropower"}}}
     },
     "model": "configuration.translation",
     "pk": 1804
@@ -3934,7 +3934,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "I3: Compost production (incl. vermiculture)"}}}
+        "data": {"technologies":{"label":{"en": "I3: Compost production"},"helptext":{"en":"Incl. vermiculture"}}}
     },
     "model": "configuration.translation",
     "pk": 1806
@@ -3950,7 +3950,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "I5: Food storage and processing (incl. post harvest loss reduction)"}}}
+        "data": {"technologies":{"label":{"en": "I5: Food storage and processing"},"helptext":{"en":"Incl. post-harvest loss reduction"}}}
     },
     "model": "configuration.translation",
     "pk": 1808
@@ -3966,10 +3966,74 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"technologies":{"label":{"en": "adapt to land degradation"},"helptext":{"en":"<strong>Adapatation:</strong> is applied when rehabilitation/restoration of the original state of the land is no longer possible or requires resource beyond the means of land users. This means the state of land degradation is ‘accepted’, but land management is adapted to suit land degradation (e.g. adapt to soil salinity by introducing salt-tolerant plants)."}}}
+        "data": {"technologies":{"label":{"en": "adapt to land degradation"},"helptext":{"en":"<strong>Adaptation:</strong> is applied when rehabilitation/restoration of the original state of the land is no longer possible or requires resource beyond the means of land users. This means the state of land degradation is ‘accepted’, but land management is adapted to suit land degradation (e.g. adapt to soil salinity by introducing salt-tolerant plants)."}}}
     },
     "model": "configuration.translation",
     "pk": 1810
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "V4: Replacement or removal of alien/invasive species"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1811
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "S10: Water supply and irrigation infrastructure"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1812
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "S11: Sanitation and waste water management infrastructure"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1813
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "S12: Shelters for plants and animals"},"helptext":{"en":"Greenhouses, plant nurseries, stables, beehives, etc."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1814
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "S13: Infrastructure for compost production"},"helptext":{"en":"Incl. manure, vermiculture"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1815
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "S14: Energy saving infrastructure"},"helptext":{"en":"Solar panels, energy saving stoves, insulation, etc."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1816
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "S15: Others"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1817
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"technologies":{"label":{"en": "Pi: soil sealing"},"helptext":{"en":"<strong>Soil sealing</strong>: covering of the ground by an impermeable material (e.g. construction, mining, roads, etc.)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 1818
 },
 
 
@@ -4878,7 +4942,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "Provide photos showing an overview and details of the SLM technology (minimum two photos)"},"numbering":"2.3","helptext":{"en":"<ul><li>Provide at least two digital files (jpeg, raw, pdf, ...), i.e. scans from prints or negative/positive films or digital photos.</li><li>Photos should be of high quality/high resolution and not manipulated or distorted.</li><li>Explanation (description) is required for each photo submitted!</li><li>Photos should match the description given in 2.2 and help illustrate the technical drawing in 2.4.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the technology.</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\">Overview: Fanya juu terraces in a semi-arid area which have developed over time into benches: note well established grass strips along the bunds. (Photo: Hanspeter Liniger)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\">Detail: Fanya juu bund in maize field after harvest: napier grass strip on upper part of bund, and maize trash in ditch below. (Photo: Hanspeter Liniger)</p></div></div>"}}}
+        "data": {"technologies":{"label":{"en": "Provide photos showing an overview and details of the SLM technology"},"numbering":"2.3","helptext":{"en":"<ul><li>Provide at least two digital files (jpeg, raw, pdf ...), i.e. scans from prints or negative/positive films or digital photos.</li><li>Photos should be of high quality/high resolution and not manipulated or distorted.</li><li>Explanation (description) is required for each photo submitted!</li><li>Photos should match the description given in 2.2 and help illustrate the technical drawing in 2.4.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the technology.</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\">Overview: Fanya juu terraces in a semi-arid area which have developed over time into benches: note well established grass strips along the bunds. (Photo: Hanspeter Liniger)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\">Detail: Fanya juu bund in maize field after harvest: napier grass strip on upper part of bund, and maize trash in ditch below. (Photo: Hanspeter Liniger)</p></div></div>"}}}
     },
     "model": "configuration.translation",
     "pk": 2725
@@ -5057,7 +5121,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"technologies":{"label":{"en": "General Information"},"numbering":"1."}}
+        "data": {"technologies":{"label":{"en": "General information"},"numbering":"1."}}
     },
     "model": "configuration.translation",
     "pk": 2901
@@ -5410,7 +5474,7 @@
         "keyword": "tech_measures_vegetative_sub",
         "translation": 1011,
         "configuration": {"type": "checkbox"},
-        "values": [1022, 1023, 1024, 1025]
+        "values": [1022, 1023, 1024, 1311, 1025]
     },
     "model": "configuration.key",
     "pk": 1032
@@ -5420,7 +5484,7 @@
         "keyword": "tech_measures_structural_sub",
         "translation": 1011,
         "configuration": {"type": "checkbox"},
-        "values": [1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034]
+        "values": [1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034, 1312, 1313, 1314, 1315, 1316, 1317]
     },
     "model": "configuration.key",
     "pk": 1034
@@ -5479,7 +5543,7 @@
         "keyword": "degradation_physical_sub",
         "translation": 1011,
         "configuration": {"type": "checkbox"},
-        "values": [1055, 1056, 1057, 1058, 1059]
+        "values": [1055, 1056, 1318, 1057, 1058, 1059]
     },
     "model": "configuration.key",
     "pk": 1045
@@ -7538,9 +7602,9 @@
 },
 {
     "fields": {
-        "keyword": "measures_vegetative_v4",
+        "keyword": "measures_vegetative_v5",
         "translation": 1525,
-        "order_value": 4
+        "order_value": 5
     },
     "model": "configuration.value",
     "pk": 1025
@@ -7828,7 +7892,7 @@
     "fields": {
         "keyword": "degradation_pw",
         "translation": 1557,
-        "order_value": 3
+        "order_value": 4
     },
     "model": "configuration.value",
     "pk": 1057
@@ -7837,7 +7901,7 @@
     "fields": {
         "keyword": "degradation_ps",
         "translation": 1558,
-        "order_value": 4
+        "order_value": 5
     },
     "model": "configuration.value",
     "pk": 1058
@@ -7846,7 +7910,7 @@
     "fields": {
         "keyword": "degradation_pu",
         "translation": 1559,
-        "order_value": 5
+        "order_value": 6
     },
     "model": "configuration.value",
     "pk": 1059
@@ -10009,6 +10073,79 @@
     "model": "configuration.value",
     "pk": 1310
 },
+{
+    "fields": {
+        "keyword": "measures_vegetative_v4",
+        "translation": 1811,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1311
+},
+{
+    "fields": {
+        "keyword": "measures_structural_s10",
+        "translation": 1812,
+        "order_value": 10
+    },
+    "model": "configuration.value",
+    "pk": 1312
+},
+{
+    "fields": {
+        "keyword": "measures_structural_s11",
+        "translation": 1813,
+        "order_value": 11
+    },
+    "model": "configuration.value",
+    "pk": 1313
+},
+{
+    "fields": {
+        "keyword": "measures_structural_s12",
+        "translation": 1814,
+        "order_value": 12
+    },
+    "model": "configuration.value",
+    "pk": 1314
+},
+{
+    "fields": {
+        "keyword": "measures_structural_s13",
+        "translation": 1815,
+        "order_value": 13
+    },
+    "model": "configuration.value",
+    "pk": 1315
+},
+{
+    "fields": {
+        "keyword": "measures_structural_s14",
+        "translation": 1816,
+        "order_value": 14
+    },
+    "model": "configuration.value",
+    "pk": 1316
+},
+{
+    "fields": {
+        "keyword": "measures_structural_s15",
+        "translation": 1817,
+        "order_value": 15
+    },
+    "model": "configuration.value",
+    "pk": 1317
+},
+{
+    "fields": {
+        "keyword": "degradation_pi",
+        "translation": 1818,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1318
+},
+
 
 
 
