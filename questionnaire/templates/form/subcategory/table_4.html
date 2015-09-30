@@ -54,9 +54,7 @@
                 {% endif %}
                 {% for field in f.visible_fields %}
                   <td>
-                    {% with options=questiongroup_config.options|get_by_keyword:field.name %}
-                      {% formrow field using "form/question/no_label.html" %}
-                    {% endwith %}
+                    {% formrow field using "form/question/no_label.html" %}
                   </td>
                 {% endfor %}
               </tr>

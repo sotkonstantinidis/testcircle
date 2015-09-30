@@ -15,36 +15,38 @@
       {{ qg_rendered }}
     {% endif %}
   {% endfor %}
-  <table class="columns small-12 output-table">
-    <thead>
-      <tr>
-        <th></th>
-        {% for header in table_headers %}
-          <th>{{ header }}</th>
-        {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for questiongroup in raw_questiongroups %}
-        {% if questiongroup.qg_keyword in table_grouping.0 %}
-          {% for qg in questiongroup.data %}
-            <tr>
-              {% if questiongroup.extra != 'no_label_row' %}
-                <td>{{ questiongroup.label }}</td>
-              {% endif %}
-              {% for k, v in qg %}
-              <td>
-                {% if v %}
-                  {{ v }}
-                {% endif %}
-              </td>
-              {% endfor %}
-            </tr>
+  {% if raw_questiongroups %}
+    <table class="columns small-12 output-table">
+      <thead>
+        <tr>
+          <th></th>
+          {% for header in table_headers %}
+            <th>{{ header }}</th>
           {% endfor %}
-        {% endif %}
-      {% endfor %}
-    </tbody>
-  </table>
+        </tr>
+      </thead>
+      <tbody>
+        {% for questiongroup in raw_questiongroups %}
+          {% if questiongroup.qg_keyword in table_grouping.0 %}
+            {% for qg in questiongroup.data %}
+              <tr>
+                {% if questiongroup.extra != 'no_label_row' %}
+                  <td>{{ questiongroup.label }}</td>
+                {% endif %}
+                {% for k, v in qg %}
+                <td>
+                  {% if v %}
+                    {{ v }}
+                  {% endif %}
+                </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
   {% for qg_config, qg_rendered in questiongroups %}
     {% if qg_config.extra != 'before_table' %}
       {{ qg_rendered }}

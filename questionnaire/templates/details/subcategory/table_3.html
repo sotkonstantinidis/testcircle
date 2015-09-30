@@ -10,39 +10,40 @@
     {{ subcategory }}
   {% endfor %}
 {% else %}
-
-  <table class="columns small-12 output-table">
-    <thead>
-      <tr>
-        {% for header in table_headers %}
-          {% if forloop.counter == 1 %}
-            <th>{{ helptext }}</th>
-          {% else %}
-            <th>{{ header }}</th>
+  {% if raw_questiongroups %}
+    <table class="columns small-12 output-table">
+      <thead>
+        <tr>
+          {% for header in table_headers %}
+            {% if forloop.counter == 1 %}
+              <th>{{ helptext }}</th>
+            {% else %}
+              <th>{{ header }}</th>
+            {% endif %}
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for questiongroup in raw_questiongroups %}
+          {% if questiongroup.qg_keyword in table_grouping.0 %}
+            {% for qg in questiongroup.data_labelled %}
+              <tr>
+                {% for k, values in qg %}
+                <td>
+                  <ul>
+                    {% for v in values %}
+                      <li>{{ v }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
           {% endif %}
         {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for questiongroup in raw_questiongroups %}
-        {% if questiongroup.qg_keyword in table_grouping.0 %}
-          {% for qg in questiongroup.data_labelled %}
-            <tr>
-              {% for k, values in qg %}
-              <td>
-                <ul>
-                  {% for v in values %}
-                    <li>{{ v }}</li>
-                  {% endfor %}
-                </ul>
-              </td>
-              {% endfor %}
-            </tr>
-          {% endfor %}
-        {% endif %}
-      {% endfor %}
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  {% endif %}
   {% for qg_config, qg_rendered in questiongroups %}
     {{ qg_rendered }}
   {% endfor %}
