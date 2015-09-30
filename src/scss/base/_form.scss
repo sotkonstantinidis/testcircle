@@ -160,3 +160,27 @@ fieldset div h3.form-subcategory {
 fieldset div:first-of-type h3.form-subcategory {
   margin-top: 0;
 }
+img.output-image-cb {
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-bottom: rem-calc(24);
+}
+img.output-image-cb-sub {
+  width: 75px;
+  height: 75px;
+  margin-top: rem-calc(16);
+  margin-right: rem-calc(16);
+}
+img.output-image-cb-sub+span {
+  font-size: rem-calc(14);
+}
+.aside-questiongroup {
+  margin-left: 125px;
+  h5, p, ul {
+    margin-top: rem-calc(12);
+  }
+  h5:not(:first-of-type) {
+    margin-top: rem-calc(16);
+  }
+}

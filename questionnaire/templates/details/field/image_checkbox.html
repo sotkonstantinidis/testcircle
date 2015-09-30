@@ -1,10 +1,9 @@
 {% load staticfiles %}
-{% if values|length > 0 %}
-  {% if view_label != 'none' %}
-    {{ key }}:<br/>
-  {% endif %}
+{% load list_to_columns %}
+
+{% if not values|is_empty %}
   {% for value in values %}
-    <img src="{% static value.1 %}" alt="{{ value.0 }}">
+    <img class="output-image-cb" src="{% static value.1 %}" alt="{{ value.0 }}">
     {% if extra == 'text_values' %}
       </div>
       <div class="medium-10 columns">

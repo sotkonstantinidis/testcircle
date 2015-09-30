@@ -1,1 +1,1 @@
-<input type="text" name="{{ name }}" {% if value %} value="{{ value }}"{% endif %}{% include "floppyforms/attrs.html" %}{% if options.label == 'placeholder' %} placeholder="{{ label }}"{% endif %}>
+<input type="text" name="{{ name }}" {% if value %} value="{{ value }}"{% endif %}{% include "floppyforms/attrs.html" %}{% if options.label != 'placeholder' %} placeholder=""{% endif %}>

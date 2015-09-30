@@ -18,7 +18,7 @@
 
 {% if not conditional %}
   {% if options.label != 'none' %}
-    <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
+    <label for="{{ field.id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
   {% endif %}
   <ul class="list-gallery small-block-grid-1">
     {% for group_name, choices in optgroups %}

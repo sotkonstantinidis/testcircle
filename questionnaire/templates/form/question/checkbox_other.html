@@ -5,12 +5,19 @@
   {% block errors %}
     {% include "form/errors.html" with errors=field.errors %}
   {% endblock %}
+  {% if options.label == 'default' %}
+  <div class="row single-item">
+    <div class="small-12 columns">
+      <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
+    </div>
+  </div>
+  {% endif %}
   <div class="row single-item single-item-checkbox-other">
     <div class="small-12 columns">
       <label class="input-multiline" for="{{ field|id }}">
         <input class="checkbox-other" type="checkbox" disabled="disabled">
         <span>
-          {% formfield field %}
+          {{ field }}
         </span>
       </label>
     </div>

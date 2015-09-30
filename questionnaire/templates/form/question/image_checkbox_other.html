@@ -10,7 +10,7 @@
       <ul class="list-gallery small-block-grid-1">
         <li>
           <div class="list-gallery-item without-label">
-            {% formfield field %}
+            {{ field }}
             <label for="{{ field|id }}">
               <figure class="list-gallery-icon">
                 <img src="{% static 'assets/img/landuse_empty.png' %}">

@@ -497,7 +497,8 @@ def generic_questionnaire_new(
         edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
         questionnaire_object=questionnaire_object)
 
-    images = questionnaire_configuration.get_image_data(data)
+    images = questionnaire_configuration.get_image_data(
+        data).get('content', [])
 
     link_ids = []
     for __, linked_questionnaires in session_links.items():
@@ -594,7 +595,8 @@ def generic_questionnaire_details(
         data=data, review_config=review_config,
         questionnaire_object=questionnaire_object)
 
-    images = questionnaire_configuration.get_image_data(data)
+    images = questionnaire_configuration.get_image_data(
+        data).get('content', [])
 
     links_by_configuration = {}
     for linked in questionnaire_object.links.all():

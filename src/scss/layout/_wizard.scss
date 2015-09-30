@@ -126,3 +126,7 @@ form .single-item:not(:first-child) {
 form .single-item.single-item-checkbox-other {
   margin-top: 0;
 }
+.image-cb-has-condition .list-item {
+  padding-top: 0;
+  padding-bottom: rem-calc(16);
+}

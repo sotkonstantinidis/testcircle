@@ -169,9 +169,29 @@ h5.output-subcategory {
   margin-top: rem-calc(12);
   margin-bottom: rem-calc(8);
 }
+.output>h5 {
+  margin-top: rem-calc(24);
+}
+.output>h5, .output>h3 {
+  + p, + ul {
+    margin-top: rem-calc(8);
+  }
+}
+.output>h3 + h5 {
+  margin-top: rem-calc(6);
+}
+
 .output-impacts {
   margin-bottom: rem-calc(20);
 }
 .output-impacts .tech-item-inline:first-of-type {
   margin-top: rem-calc(8);
+}
+.output-has-images {
+  clear: left;
+  margin-top: rem-calc(24);
+
+  + h5 {
+    clear: left;
+  }
 }

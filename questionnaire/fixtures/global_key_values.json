@@ -42,7 +42,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"approaches":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"}},"technologies":{"label":{"en": "Further specification of location (e.g. district / commune) - if relevant"},"label_view":{"en": "Further specification of location"}}}
+        "data": {"approaches":{"label":{"en": "Further specification of location (e.g. district / commune)"}},"technologies":{"label":{"en": "Further specification of location (e.g. district / commune)"},"label_view":{"en": "Further specification of location"}}}
     },
     "model": "configuration.translation",
     "pk": 5006
@@ -58,7 +58,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Caption"}}}
+        "data": {"technologies":{"label":{"en": "Caption, explanation of photo"}}}
     },
     "model": "configuration.translation",
     "pk": 5008
@@ -66,7 +66,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"technologies":{"label":{"en": "Date and Location"}}}
+        "data": {"technologies":{"label":{"en": "Date and location"}}}
     },
     "model": "configuration.translation",
     "pk": 5009
@@ -78,6 +78,15 @@
     },
     "model": "configuration.translation",
     "pk": 5010
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"technologies":{"label":{"en": "General remarks regarding photos"}}}
+
+    },
+    "model": "configuration.translation",
+    "pk": 5011
 },
 
 
@@ -2264,6 +2273,15 @@
     "model": "configuration.key",
     "pk": 10
 },
+{
+    "fields": {
+        "keyword": "image_remarks",
+        "translation": 5011,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 11
+},
 
 
 {
@@ -4367,6 +4385,15 @@
     },
     "model": "configuration.questiongroup",
     "pk": 3
+},
+{
+    "fields": {
+        "keyword": "qg_image_remarks",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 4
 },
 
 

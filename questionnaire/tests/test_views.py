@@ -594,12 +594,13 @@ class GenericQuestionnaireDetailsTest(TestCase):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mfc = mock_conf.return_value.get_filter_configuration.return_value
+        img = mock_conf.return_value.get_image_data.return_value
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
                 'sections': mock_conf.return_value.get_details.return_value,
                 'questionnaire_identifier': 'foo',
                 'mode': 'view',
-                'images': mock_conf.return_value.get_image_data.return_value,
+                'images': img.get.return_value,
                 'links': {},
                 'filter_configuration': mfc,
             })

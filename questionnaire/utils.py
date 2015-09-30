@@ -218,6 +218,9 @@ def clean_questionnaire_data(data, configuration):
                             try:
                                 evaluated = evaluated and eval('{}{}'.format(
                                     condition_value, c))
+                            except NameError:
+                                evaluated = evaluated and eval(
+                                    '"{}"{}'.format(condition_value, c))
                             except:
                                 evaluated = False
                                 continue

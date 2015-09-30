@@ -54,7 +54,7 @@ The basic format of the configuration is as follows::
       # Default: None
       "max_length": 500,
 
-      # Default: Relative to max_length, default: 10
+      # Default: 3
       "num_rows": 5,
 
       # Default: ""
@@ -144,8 +144,7 @@ form representation of the question.
 
   * ``num_rows``: An optional integer to define the number of rows to be
     shown for textarea fields. This is only meaningful for key type
-    ``text``. The default is relative to ``max_length`` if set, else the
-    default is 10.
+    ``text``. The default is 3.
 
   * ``colclass``: An optional name of a CSS class to be passed to the
     column of the Questiongroup in the template.
