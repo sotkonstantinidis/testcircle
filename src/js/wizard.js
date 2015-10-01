@@ -108,7 +108,8 @@ function checkConditionalQuestiongroups(element) {
 
   // Collect all the conditions for a questiongroup as they must all be
   // fulfilled and group them by questiongroup identifier.
-  var all_conditions = $(element).data('questiongroup-condition').split(',');
+  var condition_string = $(element).data('questiongroup-condition');
+  var all_conditions = condition_string ? condition_string.split(',') : [];
   var conditionsByQuestiongroup = {};
   for (var i = all_conditions.length - 1; i >= 0; i--) {
     condition = all_conditions[i].split('|');

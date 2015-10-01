@@ -4280,7 +4280,7 @@
     "fields": {
         "keyword": "measure_low",
         "translation": 5750,
-        "order_value": 1
+        "order_value": 3
     },
     "model": "configuration.value",
     "pk": 250
@@ -4298,7 +4298,7 @@
     "fields": {
         "keyword": "measure_high",
         "translation": 5752,
-        "order_value": 3
+        "order_value": 1
     },
     "model": "configuration.value",
     "pk": 252

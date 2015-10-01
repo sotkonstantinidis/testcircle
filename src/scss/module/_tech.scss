@@ -172,7 +172,7 @@ h5.output-subcategory {
 .output>h5 {
   margin-top: rem-calc(24);
 }
-.output>h5, .output>h3 {
+.output>h5, .output>h3, .output .tech-output-columns .columns>h5 {
   + p, + ul {
     margin-top: rem-calc(8);
   }
