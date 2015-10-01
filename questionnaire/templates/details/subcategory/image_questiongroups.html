@@ -30,7 +30,7 @@
           {% endfor %}
         {% endfor %}
       {% endfor %}
-    {% elif forloop.last %}
+    {% elif forloop.last and questiongroup.extra == None %}
       {% for qg_questions in questiongroup.questions %}
         {% for question in qg_questions %}
           {{ question }}

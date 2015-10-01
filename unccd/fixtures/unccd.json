@@ -2682,5 +2682,21 @@
     },
     "model": "configuration.configuration",
     "pk": 2001
+},
+
+{
+    "pk": 3009,
+    "model": "accounts.user",
+    "fields": {
+        "groups": [],
+        "date_joined": "2015-10-01T08:24:26.031Z",
+        "is_superuser": false,
+        "last_login": "2015-10-01T08:24:26.047Z",
+        "user_permissions": [],
+        "password": "",
+        "email": "unccd-import@cde.unibe.ch",
+        "firstname": "unccd",
+        "lastname": "import"
+    }
 }
 ]
