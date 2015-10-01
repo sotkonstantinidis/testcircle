@@ -5592,6 +5592,16 @@
 },
 {
     "fields": {
+        "keyword": "degradation_erosion_wind_sub",
+        "translation": 1011,
+        "configuration": {"type": "checkbox"},
+        "values": [1048, 1049, 1050]
+    },
+    "model": "configuration.key",
+    "pk": 1041
+},
+{
+    "fields": {
         "keyword": "degradation_chemical_sub",
         "translation": 1011,
         "configuration": {"type": "checkbox"},
