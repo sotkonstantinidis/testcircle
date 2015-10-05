@@ -50,11 +50,16 @@
   }
 }
 
+ul.title-area li.name h1 a {
+  float: left;
+  margin-right: 1rem;
+}
+
 /**
  * Temporary flag to mark the demo version
  */
 div.demo-flag {
-  border: 1px solid black;
+  border: 1px solid #a94442;
   position: absolute;
   top: 0px;
   right: 0;
@@ -67,7 +72,13 @@ div.demo-flag {
   border-radius: 5px;
   padding: 0.75rem;
   margin: 0.5rem;
-  background-color: #55BFE3;
+  background-color: #f2dede;
+  color: #a94442;
+
+  a {
+    color: #a94442;
+    text-decoration: underline;
+  }
 
   p, ul {
     margin-top: 0;
