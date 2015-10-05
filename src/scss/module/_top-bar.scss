@@ -49,3 +49,42 @@
     }
   }
 }
+
+/**
+ * Temporary flag to mark the demo version
+ */
+div.demo-flag {
+  border: 1px solid black;
+  position: absolute;
+  top: 0px;
+  right: 0;
+  z-index: 1000;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0.75rem;
+  margin: 0.5rem;
+  background-color: #55BFE3;
+
+  p, ul {
+    margin-top: 0;
+  }
+
+  .level-1 {
+    font-weight: bold;
+    font-size: rem-calc(24);
+  }
+  .level-3 {
+    margin-top: 0.5rem;
+  }
+  .level-1, .level-2 {
+    text-align: center;
+  }
+}
+
+div.demo-flag-container {
+  position: relative;
+}

@@ -107,6 +107,7 @@
       {% block hero %}
       {% endblock %}
 
+
     </header>
 
     {% block filter %}
@@ -118,15 +119,26 @@
       {% endfor %}
     {% endif %}
 
-    {% block content %}
-    {% endblock %}
+    <div class="demo-flag-container">
+      <div class="demo-flag">
+        <p class="level-1">Test version</p>
+        <p class="level-2">for UNCCD COP12</p>
+        <p class="level-3">Feedback:</p>
+        <ul>
+          <li><a href="#">Fill out the survey</a></li>
+          <li><a href="mailto:wocat-support@cde.unibe.ch">wocat-support@cde.unibe.ch</a></li>
+        </ul>
+      </div>
+      {% block content %}
+      {% endblock %}
+    </div>
 
     <footer class="row page-footer large-collapse" role="contentinfo">
       <nav class="sub-nav-footer medium-6 columns">
-        <a href="" class="link">About</a> | <a href="" class="link">FAQ </a> | <a href="" class="link">Contact</a>
+        <a href="" class="link">{% trans "About" %}</a> | <a href="" class="link">{% trans "FAQ" %}</a> | <a href="" class="link">{% trans "Contact" %}</a>
       </nav>
       <div class="page-footer-copy medium-6 columns">
-        © 2015 - CDE - Designed with love by <a href="http://www.wearecube.ch/" target="_blank" class="link">We Are Cube.³</a>
+        © 2015 - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
       </div>
     </footer>
 

@@ -112,3 +112,12 @@
     min-height: rem-calc(500);
   }
 }
+
+.hero-big {
+  h2.is-unccd {
+    display: inline;
+  }
+  span.aside {
+    font-size: rem-calc(14);
+  }
+}
