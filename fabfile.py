@@ -25,7 +25,7 @@ def deploy():
     _clean_static_folder(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
-    _reload_apache()
+    _reload_apache(site_folder)
     print(green("Everything OK"))
 
 
@@ -80,5 +80,5 @@ def _update_database(source_folder):
         % (source_folder))
 
 
-def _reload_apache():
-    sudo('service apache2 reload')
+def _reload_apache(site_folder):
+    run('cd %s && touch wsgi/wsgi.py' % site_folder)

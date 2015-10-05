@@ -1385,7 +1385,11 @@ class QuestionnaireCategory(BaseConfigurationObject):
         for subcategory in self.subcategories:
             rendered_subcategory, has_content = subcategory.get_details(data)
             if has_content:
-                rendered_subcategories.append(rendered_subcategory)
+                category_config = {
+                    'keyword': subcategory.keyword
+                }
+                rendered_subcategories.append(
+                    (rendered_subcategory, category_config))
                 with_content += 1
 
         if (self.view_options.get('with_metadata', False) is True

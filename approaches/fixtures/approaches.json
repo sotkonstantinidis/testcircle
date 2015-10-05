@@ -2,7 +2,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"approaches":{"label":{"en": "First Approaches Key"}}}
+        "data": {"approaches":{"label":{"en": "Definition of the SLM Approach"}}}
     },
     "model": "configuration.translation",
     "pk": 7001
@@ -10,16 +10,117 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"approaches":{"label":{"en": "Second Approaches Key"}}}
+        "data": {"approaches":{"label":{"en": "Provide an extended summary of the Approach with its main characteristics"}}}
     },
     "model": "configuration.translation",
     "pk": 7002
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en": "What stakeholders / implementing bodies were involved in the Approach?"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7003
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en": "Other (specify)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7004
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"approaches":{"label":{"en": "Specify stakeholders and describe their roles. If relevant, also specify gender, age, status, ethnicity, etc.)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7005
+},
+
+
+
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "Local land users / community"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7501
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "CSOs"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7502
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "SLM specialists / agricultural advisors"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7503
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "Teachers / school children / students"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7504
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "NGO"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7505
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "Private sector"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7506
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "Local government"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7507
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "National government (planners, decision-makers)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7508
+},
+{
+    "fields": {
+        "translation_type": "value",
+        "data": {"approaches":{"label":{"en": "International organization"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 7509
+},
+
+
 
 {
     "fields": {
         "translation_type": "category",
-        "data": {"approaches":{"label":{"en": "First Approaches Subcategory"}}}
+        "data": {"approaches":{"label":{"en": "Name of the SLM Approach"},"numbering":"1.1","helptext":{"en":"Do not use exactly same name as used for the corresponding Technology (QT), try to name the main characteristic of the Approach (name of project/programme/initiative, name of implementation / extension / promotion method used, etc.)"}}}
     },
     "model": "configuration.translation",
     "pk": 8701
@@ -28,16 +129,66 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"approaches":{"label":{"en": "Second Approaches Subcategory"}}}
+        "data": {"approaches":{"label":{"en": "Definition of the SLM Approach"},"numbering":"2.1","helptext":{"en":"<p>Definition of Approach is very important as it determines whether anyone searching the database will read further. It contains key characteristics (key words) of the Approach.</p><p>A <strong>SLM Approach</strong> defines the ways and means used to promote and implement a SLM Technology and to support it in achieving more sustainable soil and water use. A 'SLM Approach' - as defined by WOCAT - refers to a particular land conservation activity, be it an official project/programme, an indigenous system, or changes in a farming system towards more sustainable soil and water use. A SLM Approach consists of the following elements:</p><ul><li>all <strong>stakeholders/participants</strong> (policy-makers, administrators, experts, technicians, land users, i.e. actors at all levels)</li><li><strong>inputs and means</strong> (financial, material, legislative, etc.), and</li><li><strong>know-how</strong> (technical, scientific, practical and to whom the know-how belongs to)</li></ul><p>An Approach may include different <strong>levels of intervention</strong>, from the individual farm, through the community level, the extension / advisory system, the regional or national administration, or the policy level, to the international framework. Besides land conservation activities introduced through projects or programmes, WOCAT includes indigenous conservation measures and spontaneous adoptions or adaptations of SLM Technologies. In the case of a project, we restrict ourselves to those elements within the project that are directly or indirectly relevant to land conservation.</p>"}}}
     },
     "model": "configuration.translation",
     "pk": 8702
 },
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "Image"},"helptext":{"en":"Please provide a first image of the SLM Approach. You can add more images later."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 8703
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "Contact details of author / institution"},"numbering":"1.2"}}
+    },
+    "model": "configuration.translation",
+    "pk": 8704
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "Link approach to SLM technologies"},"numbering":"1.3"}}
+    },
+    "model": "configuration.translation",
+    "pk": 8705
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "Define the area in which the SLM Approach has been applied"},"numbering":"1.4"}}
+    },
+    "model": "configuration.translation",
+    "pk": 8706
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "Provide an extended summary of the Approach with its main characteristics"},"numbering":"2.2","helptext":{"en":"Make sure that the description contains the key characteristic / distinct features of the Approach, its <strong>aims / objectives, methods used, stages of implementation, role of participants</strong>. This summary has to provide a comprehensive / concise picture of the Approach to outsiders. After having gone through the whole questionnaire come back and revise / complement this section."}}}
+    },
+    "model": "configuration.translation",
+    "pk": 8707
+},
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "Stakeholders and implementing bodies"},"numbering":"3.1"}}
+    },
+    "model": "configuration.translation",
+    "pk": 8708
+},
+
+
 
 {
     "fields": {
         "translation_type": "category",
-        "data": {"approaches":{"label":{"en": "First Approaches Section"}}}
+        "data": {"approaches":{"label":{"en": "General Information"},"numbering":"1."}}
     },
     "model": "configuration.translation",
     "pk": 8901
@@ -45,31 +196,155 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"approaches":{"label":{"en": "Second Approaches Section"}}}
+        "data": {"approaches":{"label":{"en": "Specification of the SLM approach"},"numbering":"2.","helptext":{"en":"As not all land conservation is achieved by means of formal projects or programmes, you may also use the following sections to describe an informal Approach, e.g. the implementation of traditional/indigenous technologies. Questions are in the past tense since WOCAT is evaluating what has been already achieved."}}}
     },
     "model": "configuration.translation",
     "pk": 8902
 },
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"approaches":{"label":{"en": "Participation and roles of stakeholders involved"},"numbering":"3."}}
+    },
+    "model": "configuration.translation",
+    "pk": 8903
+},
+
 
 
 {
     "fields": {
-        "keyword": "app_first",
+        "keyword": "app_definition",
         "translation": 7001,
-        "configuration": {"type": "char"}
+        "configuration": {"type": "text"}
     },
     "model": "configuration.key",
     "pk": 3002
 },
 {
     "fields": {
-        "keyword": "app_second",
+        "keyword": "app_summary",
         "translation": 7002,
-        "configuration": {"type": "char"}
+        "configuration": {"type": "text"}
     },
     "model": "configuration.key",
     "pk": 3003
 },
+{
+    "fields": {
+        "keyword": "app_stakeholders",
+        "translation": 7003,
+        "configuration": {"type": "checkbox"},
+        "values": [3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009]
+    },
+    "model": "configuration.key",
+    "pk": 3004
+},
+{
+    "fields": {
+        "keyword": "app_stakeholders_other",
+        "translation": 7004,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 3005
+},
+{
+    "fields": {
+        "keyword": "app_stakeholders_comments",
+        "translation": 7005,
+        "configuration": {"type": "text"}
+    },
+    "model": "configuration.key",
+    "pk": 3006
+},
+
+
+
+
+{
+    "fields": {
+        "keyword": "stakeholder_community",
+        "translation": 7501,
+        "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3001
+},
+{
+    "fields": {
+        "keyword": "stakeholder_cso",
+        "translation": 7502,
+        "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 3002
+},
+{
+    "fields": {
+        "keyword": "stakeholder_specialist",
+        "translation": 7503,
+        "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 3003
+},
+{
+    "fields": {
+        "keyword": "stakeholder_teachers",
+        "translation": 7504,
+        "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 3004
+},
+{
+    "fields": {
+        "keyword": "stakeholder_ngo",
+        "translation": 7505,
+        "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 3005
+},
+{
+    "fields": {
+        "keyword": "stakeholder_private",
+        "translation": 7506,
+        "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 3006
+},
+{
+    "fields": {
+        "keyword": "stakeholder_localgov",
+        "translation": 7507,
+        "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 3007
+},
+{
+    "fields": {
+        "keyword": "stakeholder_natgov",
+        "translation": 7508,
+        "order_value": 8
+    },
+    "model": "configuration.value",
+    "pk": 3008
+},
+{
+    "fields": {
+        "keyword": "stakeholder_intorganization",
+        "translation": 7509,
+        "order_value": 9
+    },
+    "model": "configuration.value",
+    "pk": 3009
+},
+
+
 
 
 {
@@ -90,6 +365,16 @@
     "model": "configuration.questiongroup",
     "pk": 3002
 },
+{
+    "fields": {
+        "keyword": "app_qg_3",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3003
+},
+
 
 
 {
@@ -108,6 +393,56 @@
     "model": "configuration.category",
     "pk": 3002
 },
+{
+    "fields": {
+        "keyword": "app__0__1",
+        "translation": 8703
+    },
+    "model": "configuration.category",
+    "pk": 3003
+},
+{
+    "fields": {
+        "keyword": "app__1__2",
+        "translation": 8704
+    },
+    "model": "configuration.category",
+    "pk": 3004
+},
+{
+    "fields": {
+        "keyword": "app__1__3",
+        "translation": 8705
+    },
+    "model": "configuration.category",
+    "pk": 3005
+},
+{
+    "fields": {
+        "keyword": "app__1__4",
+        "translation": 8706
+    },
+    "model": "configuration.category",
+    "pk": 3006
+},
+{
+    "fields": {
+        "keyword": "app__2__2",
+        "translation": 8707
+    },
+    "model": "configuration.category",
+    "pk": 3007
+},
+{
+    "fields": {
+        "keyword": "app__3__1",
+        "translation": 8708
+    },
+    "model": "configuration.category",
+    "pk": 3008
+},
+
+
 
 {
     "fields": {
@@ -125,6 +460,15 @@
     "model": "configuration.category",
     "pk": 3702
 },
+{
+    "fields": {
+        "keyword": "app__3",
+        "translation": 8903
+    },
+    "model": "configuration.category",
+    "pk": 3703
+},
+
 
 
 {
@@ -133,7 +477,7 @@
         "description": "Description of WOCAT Approach Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": {"sections":[{"keyword":"section_general_information","view_options":{"template":"empty"},"categories":[{"keyword":"app__1","view_options":{"template":"approaches_header","use_raw_data":true,"with_metadata":true},"subcategories":[{"keyword":"app__1__1","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","view_options":{"in_list":true,"is_name":true}}]},{"keyword":"app_qg_1","questions":[{"keyword":"app_first","view_options":{"in_list":true}}]}]}]}]},{"keyword":"section_specifications","view_options":{"review_panel":true,"include_toc":true},"categories":[{"keyword":"app__2","subcategories":[{"keyword":"app__2__1","questiongroups":[{"keyword":"app_qg_2","questions":[{"keyword":"app_second"}]}]}]}]}],"links":[{"keyword":"technologies"}]},
+        "data": {"sections":[{"keyword":"section_general_information","view_options":{"template":"empty"},"categories":[{"keyword":"app__1","view_options":{"template":"approaches_header","use_raw_data":true,"with_metadata":true},"subcategories":[{"keyword":"app__0__1","questiongroups":[{"keyword":"qg_image","questions":[{"keyword":"image","view_options":{"in_list":true}},{"keyword":"image_caption"},{"keyword":"image_date_location"},{"keyword":"image_photographer"}]}]},{"keyword":"app__1__1","questiongroups":[{"keyword":"qg_name","questions":[{"keyword":"name","view_options":{"in_list":true,"is_name":true}},{"keyword":"name_local"}]}]},{"keyword":"app__1__2","questiongroups":[{"keyword":"qg_funding_project","questions":[{"keyword":"funding_project"}]},{"keyword":"qg_accept_conditions","questions":[{"keyword":"accept_conditions"}]}]},{"keyword":"app__1__3","form_options":{"template":"todo"}},{"keyword":"app__1__4","questiongroups":[{"keyword":"qg_location","questions":[{"keyword":"country","view_options":{"template":"inline_6","in_list":true}},{"keyword":"state_province","view_options":{"template":"inline_6"}},{"keyword":"further_location","view_options":{"template":"inline_6"}},{"keyword":"location_comments","view_options":{"template":"inline_6"}}]}]}]}]},{"keyword":"section_specifications","view_options":{"template":"empty","review_panel":true,"media_gallery":true},"categories":[{"keyword":"app__2","subcategories":[{"keyword":"app__2__1","questiongroups":[{"keyword":"app_qg_1","questions":[{"keyword":"app_definition","form_options":{"template":"no_label"},"view_options":{"in_list":true,"label":"none"}}]}]},{"keyword":"app__2__2","questiongroups":[{"keyword":"app_qg_2","questions":[{"keyword":"app_summary","form_options":{"num_rows":5,"template":"no_label"},"view_options":{"label":"none"}}]}]}]},{"keyword":"app__3","subcategories":[{"keyword":"app__3__1","questiongroups":[{"keyword":"app_qg_3","questions":[{"keyword":"app_stakeholders","view_options":{"header":"small"}},{"keyword":"app_stakeholders_other","form_options":{"template":"checkbox_other","label":"placeholder"},"view_options":{"template":"checkbox_other"}},{"keyword":"app_stakeholders_comments","view_options":{"header":"small"}}]}]}]}]}],"links":[{"keyword":"technologies"}]},
         "created": "2015-07-09T10:12:59.337Z",
         "base_code": "",
         "name": "WOCAT Approach Configuration"

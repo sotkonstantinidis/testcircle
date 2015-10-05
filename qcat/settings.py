@@ -119,7 +119,7 @@ UPLOAD_VALID_FILES = {
         ('application/pdf', 'pdf'),
     )
 }
-UPLOAD_MAX_FILE_SIZE = 1000000
+UPLOAD_MAX_FILE_SIZE = 3145728  # 3 MB
 UPLOAD_IMAGE_THUMBNAIL_FORMATS = (
     ('default', (640, 480)),
     ('small', (1024, 768)),
