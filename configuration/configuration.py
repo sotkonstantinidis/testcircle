@@ -534,6 +534,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         elif self.field_type == 'bool':
             widget = RadioSelect(choices=self.choices)
             widget.options = field_options
+            if self.form_options.get('extra') == 'inline':
+                widget.template_name = 'form/field/radio_inline.html'
             field = forms.IntegerField(
                 label=self.label, widget=widget,
                 required=self.required)
@@ -1267,6 +1269,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'label': self.label_view,
             'numbering': self.numbering,
             'helptext': self.helptext,
+            'header': self.view_options.get('header'),
         }
         if self.table_grouping:
             template_values.update({

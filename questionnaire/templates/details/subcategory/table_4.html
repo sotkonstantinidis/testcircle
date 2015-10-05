@@ -4,7 +4,11 @@
   Further questions are rendered either before the table (questiongroup_config.extra == 'before_table') or after the table.
 {% endcomment %}
 
-<h3>{{ numbering|default:'' }} {{ label }}</h3>
+{% if header == 'small' %}
+  <h5>{{ numbering|default:'' }} {{ label }}</h5>
+{% else %}
+  <h3>{{ numbering|default:'' }} {{ label }}</h3>
+{% endif %}
 {% if subcategories %}
   {% for subcategory in subcategories %}
     {{ subcategory }}
@@ -28,16 +32,16 @@
       <tbody>
         {% for questiongroup in raw_questiongroups %}
           {% if questiongroup.qg_keyword in table_grouping.0 %}
-            {% for qg in questiongroup.data %}
+            {% for qg in questiongroup.data_labelled %}
               <tr>
                 {% if questiongroup.extra != 'no_label_row' %}
                   <td>{{ questiongroup.label }}</td>
                 {% endif %}
-                {% for k, v in qg %}
+                {% for k, values in qg %}
                 <td>
-                  {% if v %}
+                  {% for v in values %}
                     {{ v }}
-                  {% endif %}
+                  {% endfor %}
                 </td>
                 {% endfor %}
               </tr>
