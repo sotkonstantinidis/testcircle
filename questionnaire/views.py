@@ -38,6 +38,7 @@ from questionnaire.utils import (
     get_active_filters,
     get_link_data,
     get_list_values,
+    get_query_status_filter,
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
@@ -599,14 +600,23 @@ def generic_questionnaire_details(
         data).get('content', [])
 
     links_by_configuration = {}
-    for linked in questionnaire_object.links.all():
+    status_filter = get_query_status_filter(request)
+    for linked in questionnaire_object.links.filter(status_filter):
         configuration = linked.configurations.first()
         if configuration is None:
             continue
         if configuration.code not in links_by_configuration:
             links_by_configuration[configuration.code] = [linked]
         else:
-            links_by_configuration[configuration.code].append(linked)
+            # Add each questionnaire (by code) only once to avoid having
+            # multiple (pending) versions of the same questionnaire
+            # shown.
+            found = False
+            for link in links_by_configuration[configuration.code]:
+                if link.code == linked.code:
+                    found = True
+            if found is False:
+                links_by_configuration[configuration.code].append(linked)
 
     link_display = {}
     for configuration, links in links_by_configuration.items():
@@ -702,9 +712,10 @@ def generic_questionnaire_list(
         questionnaires, paginator = get_paginator(
             questionnaire_objects, page, limit)
 
+        status_filter = get_query_status_filter(request)
         list_values = get_list_values(
             configuration_code=configuration_code,
-            questionnaire_objects=questionnaires)
+            questionnaire_objects=questionnaires, status_filter=status_filter)
 
     else:
         search_configuration_codes = get_configuration_index_filter(

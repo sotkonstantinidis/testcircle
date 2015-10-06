@@ -836,7 +836,7 @@ def query_questionnaires_for_link(configuration, q, limit=10):
 
 def get_list_values(
         configuration_code=None, es_hits=[], questionnaire_objects=[],
-        with_links=True):
+        with_links=True, status_filter=None):
     """
     Retrieves and prepares data to be used in a list representation.
     Either handles a list of questionnaires retrieved from the database
@@ -865,6 +865,13 @@ def get_list_values(
         database. If you do not want to query and display this
         information (eg. when displaying the links of a single
         questionnaire in the details page), set this to ``False``.
+
+        ``status_filter`` (``django.db.models.Q``). A status filter for
+        a given request. This needs to be specified if you
+        ``questionnaire_objects`` are provided and ``with_links`` is
+        ``True``.
+
+        .. seealso:: :func:`get_query_status_filter`
 
     Returns:
         ``list``. A list of dictionaries containing the values needed
@@ -965,10 +972,14 @@ def get_list_values(
                     get_language(), value.get(original_lang))
 
         links = []
+        link_codes = []
         if with_links is True:
-            link_data = get_link_data(obj.links.all())
+            link_data = get_link_data(obj.links.filter(status_filter))
             for configuration, link_dicts in link_data.items():
-                links.extend([link.get('link') for link in link_dicts])
+                for link in link_dicts:
+                    if link.get('code') not in link_codes:
+                        link_codes.append(link.get('code'))
+                        links.append(link.get('link'))
 
         template_value.update({
             'links': links,

@@ -794,7 +794,8 @@ class GetListValuesTest(TestCase):
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
-    def test_returns_values_from_database(self):
+    @patch('questionnaire.utils.get_link_data')
+    def test_returns_values_from_database(self, mock_get_link_data):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
@@ -817,7 +818,8 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('authors'), ['author'])
         self.assertEqual(ret_1.get('links'), [])
 
-    def test_db_uses_provided_configuration(self):
+    @patch('questionnaire.utils.get_link_data')
+    def test_db_uses_provided_configuration(self, mock_get_link_data):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
@@ -832,7 +834,8 @@ class GetListValuesTest(TestCase):
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
-    def test_db_wocat_uses_default_configuration(self):
+    @patch('questionnaire.utils.get_link_data')
+    def test_db_wocat_uses_default_configuration(self, mock_get_link_data):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None

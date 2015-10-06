@@ -577,7 +577,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
         q = Mock()
         q.data = {}
         link = Mock()
-        q.links.all.return_value = [link]
+        q.links.filter.return_value = [link]
+        q.members.all.return_value = []
         mock_query_questionnaire.return_value.first.return_value = q
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -603,6 +604,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'images': img.get.return_value,
                 'links': {},
                 'filter_configuration': mfc,
+                'permissions': [],
             })
 
     @patch('questionnaire.views.get_configuration')
@@ -621,6 +623,7 @@ class GenericQuestionnaireListTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.request = self.factory.get(reverse(route_questionnaire_list))
+        self.request.user = Mock()
 
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(

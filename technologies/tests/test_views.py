@@ -63,7 +63,7 @@ def get_categories():
         ('tech__5', 'Implementation, inputs and costs'),
         ('tech__6', 'Natural environment'),
         ('tech__7', 'Human environment and land use'),
-        ('tech__8', 'Impacts: Beneficts and disadvantages'),
+        ('tech__8', 'Impacts: benefits and disadvantages'),
     )
 
 

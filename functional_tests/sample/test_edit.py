@@ -37,7 +37,8 @@ class EditTest(FunctionalTest):
     def test_creation_date_does_not_change(self):
 
         # Alice logs in
-        self.doLogin()
+        user = User.objects.get(pk=102)
+        self.doLogin(user=user)
 
         # She goes to the details of an existing questionnaire and takes
         # note of the creation and update dates
@@ -166,7 +167,6 @@ class EditTest(FunctionalTest):
         # Also there was no additional version created in the database
         self.assertEqual(Questionnaire.objects.count(), 7)
 
-    # @attr('foo')
     def test_edit_public(self):
 
         code = 'sample_3'
