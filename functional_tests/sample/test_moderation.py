@@ -2,6 +2,9 @@ import time
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group
 from django.test.utils import override_settings
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
@@ -35,6 +38,109 @@ class ModerationTest(FunctionalTest):
     def tearDown(self):
         super(ModerationTest, self).tearDown()
         delete_all_indices()
+
+    def test_questionnaire_permissions(self):
+
+        cat_1_position = get_position_of_category('cat_1', start0=True)
+
+        user_alice = create_new_user()
+        user_bob = create_new_user(id=2, email='bob@bar.com')
+        user_moderator = create_new_user(id=3, email='foo@bar.com')
+        user_moderator.groups = [Group.objects.get(pk=3)]
+        user_moderator.save()
+
+        # Alice logs in
+        self.doLogin(user=user_alice)
+
+        # She creates a questionnaire and saves it
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        edit_buttons = self.findManyBy(
+            'xpath', '//a[contains(@href, "edit/new/cat")]')
+        edit_buttons[cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        url = self.browser.current_url
+
+        # She refreshes the page and sees the questionnaire
+        self.browser.get(url)
+        self.checkOnPage('Foo')
+
+        # She logs out and cannot see the questionnaire
+        self.doLogout()
+        self.browser.get(url)
+        self.checkOnPage('404')
+
+        # Bob logs in and cannot see the questionnaire
+        self.doLogin(user=user_bob)
+        self.browser.get(url)
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "//span[contains(text(), '404')]")))
+        # self.checkOnPage('404')
+
+        # The moderator logs in and cannot see the questionnaire
+        self.doLogin(user=user_moderator)
+        self.browser.get(url)
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "//span[contains(text(), '404')]")))
+
+        # Alice submits the questionnaire
+        self.doLogin(user=user_alice)
+        self.browser.get(url)
+        self.findBy('xpath', '//input[@name="submit"]').click()
+
+        # She logs out and cannot see the questionnaire
+        self.doLogout()
+        self.browser.get(url)
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "//span[contains(text(), '404')]")))
+
+        # Bob logs in and cannot see the questionnaire
+        self.doLogin(user=user_bob)
+        self.browser.get(url)
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "//span[contains(text(), '404')]")))
+
+        # The moderator logs in and sees the questionnaire
+        self.doLogin(user=user_moderator)
+        self.browser.get(url)
+        time.sleep(1)
+        self.checkOnPage('Foo')
+
+        # He publishes the questionnaire
+        self.findBy('xpath', '//input[@name="publish"]').click()
+
+        # The moderator cannot edit the questionnaire
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+        # Logged out users can see the questionnaire
+        self.doLogout()
+        self.browser.get(url)
+        time.sleep(1)
+        self.checkOnPage('Foo')
+
+        # Logged out users cannot edit the questionnaire
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+        # Bob cannot edit the questionnaire
+        self.doLogin(user=user_bob)
+        self.browser.get(url)
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+        # Alice can edit the questionnaire
+        self.doLogin(user=user_alice)
+        self.browser.get(url)
+        time.sleep(1)
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
 
     def test_enter_questionnaire_review_panel(self):
 

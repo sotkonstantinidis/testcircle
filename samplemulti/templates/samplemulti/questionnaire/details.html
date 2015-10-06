@@ -64,7 +64,9 @@
               <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}">
             </form>
           {% else %}
-            <a href="{% url 'samplemulti:questionnaire_edit' questionnaire_identifier %}" class="button">{% trans "Edit" %}</a>
+            {% if 'edit' in permissions %}
+              <a href="{% url 'samplemulti:questionnaire_edit' questionnaire_identifier %}" class="button">{% trans "Edit" %}</a>
+            {% endif %}
           {% endif %}
         </div>
       </section>

@@ -449,7 +449,6 @@ class ListTest(FunctionalTest):
         info = self.findBy('xpath', '//ul[@class="tech-output-infos"]')
         self.assertIn('Foo Bar, Faz Taz', info.text)
 
-    @attr('foo')
     def test_filter_checkbox(self):
 
         # Alice goes to the list view

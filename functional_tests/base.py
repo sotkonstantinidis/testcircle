@@ -132,6 +132,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
         self.browser.get(self.live_server_url + reverse(loginRouteName))
 
+    def doLogout(self):
+        self.browser.delete_cookie('fe_typo_user')
+        self.browser.get(self.live_server_url + '/404_no_such_url/')
+
     def dropImage(self, dropzone_id):
         self.browser.execute_script(
             "function base64toBlob(b64Data, contentType, sliceSize) "

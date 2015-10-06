@@ -618,6 +618,11 @@ def generic_questionnaire_details(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
+    # TODO: Improve this!
+    permissions = []
+    if request.user in questionnaire_object.members.all():
+        permissions.append('edit')
+
     return render(request, template, {
         'images': images,
         'sections': sections,
@@ -625,6 +630,7 @@ def generic_questionnaire_details(
         'mode': 'view',
         'links': link_display,
         'filter_configuration': filter_configuration,
+        'permissions': permissions,
     })
 
 
