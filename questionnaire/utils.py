@@ -733,7 +733,7 @@ def query_questionnaires(
 
 def get_query_status_filter(request):
     """
-    Creates a filter object based on the statii of the Questionnaires,
+    Creates a filter object based on the statuses of the Questionnaires,
     to be used for database queries.
 
     The following status filters are applied:
@@ -771,13 +771,53 @@ def get_query_status_filter(request):
     return status_filter
 
 
-def query_questionnaires_for_link(configuration, q, limit=10):
+def get_raw_link_status_filter(request):
+    """
+    Create a raw SQL filter to be used for database queries when
+    searching for links.
+
+    The following filters are applied:
+
+    * Not logged in users always only see "public" Questionnaires.
+      However, normally, users must be logged in to search for links so
+      this may never occur.
+
+    * Logged in users see all "public" Questionnaires, along with their
+      own "draft" and "pending" versions.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``str``. A raw SQL filter string.
+    """
+    # Public always only sees "public"
+    status_filter = 'questionnaire_questionnaire.status = 3'
+
+    # Logged in users see all "public", along with their own "draft" and
+    # "pending".
+    if request.user.is_authenticated():
+        status_filter = """
+            questionnaire_questionnaire.status = 3 OR (
+                questionnaire_questionnaire.status IN (1, 2) AND
+                questionnaire_questionnairemembership.user_id = %s)
+        """ % request.user.id
+
+    return status_filter
+
+
+def query_questionnaires_for_link(request, configuration, q, limit=10):
     """
     Do a raw SQL search in the JSON data field of questionnaires. Only
     questionnaires of the configuration's keyword are returned. The
     search happens in the name field as defined by the parameter
     ``is_name`` in the configuration, searched in any language. The same
     term can also be used to search by code of the questionnaire.
+
+    The links are filtered by a status query.
+
+    .. seealso::
+        :func:`get_raw_link_status_filter`
 
     Args:
         ``configuration``
@@ -802,8 +842,11 @@ def query_questionnaires_for_link(configuration, q, limit=10):
         return 0, []
 
     query = """
-        select questionnaire_questionnaire.id
-        from questionnaire_questionnaire
+        SELECT MAX(questionnaire_questionnaire.id) AS id
+        FROM questionnaire_questionnaire
+            JOIN questionnaire_questionnairemembership ON
+                questionnaire_questionnaire.id =
+                questionnaire_questionnairemembership.questionnaire_id
             JOIN questionnaire_questionnaireconfiguration ON
                 questionnaire_questionnaire.id =
                 questionnaire_questionnaireconfiguration.questionnaire_id
@@ -813,8 +856,10 @@ def query_questionnaires_for_link(configuration, q, limit=10):
                 AND configuration_configuration.code = %s,
         lateral jsonb_array_elements(
             questionnaire_questionnaire.data -> %s) questiongroup
-        where """
+        WHERE ("""
     args = [configuration.keyword, questiongroup_keyword]
+
+    query += get_raw_link_status_filter(request) + ') AND ('
 
     languages = [l[0] for l in settings.LANGUAGES]
     for lang in languages:
@@ -824,7 +869,8 @@ def query_questionnaires_for_link(configuration, q, limit=10):
         args.extend([question_keyword, '%{}%'.format(q)])
 
     query += """
-        questionnaire_questionnaire.code LIKE %s;
+        questionnaire_questionnaire.code LIKE %s)
+        GROUP BY questionnaire_questionnaire.code;
     """
     args.extend(['%{}%'.format(q)])
 

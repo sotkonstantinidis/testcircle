@@ -139,7 +139,7 @@ class GenericQuestionnaireLinkSearchTest(TestCase):
         mock_request = Mock()
         generic_questionnaire_link_search(mock_request, 'sample')
         mock_query.assert_called_once_with(
-            mock_get_configuration(), mock_request.GET.get())
+            mock_request, mock_get_configuration(), mock_request.GET.get())
 
     def test_returns_empty_if_no_q(self):
         req = RequestFactory().get(reverse(route_questionnaire_link_search))
@@ -150,6 +150,9 @@ class GenericQuestionnaireLinkSearchTest(TestCase):
     def test_returns_empty_if_no_results(self):
         req = RequestFactory().get(reverse(route_questionnaire_link_search))
         req.GET = {'q': 'foo'}
+        user = Mock()
+        user.is_authenticated.return_value = False
+        req.user = user
         ret = generic_questionnaire_link_search(req, 'sample')
         j = json.loads(ret.content.decode('utf-8'))
         self.assertEqual(j, {"total": 0, "data": []})
@@ -157,6 +160,9 @@ class GenericQuestionnaireLinkSearchTest(TestCase):
     def test_returns_results(self):
         req = RequestFactory().get(reverse(route_questionnaire_link_search))
         req.GET = {'q': 'key'}
+        user = Mock()
+        user.is_authenticated.return_value = False
+        req.user = user
         ret = generic_questionnaire_link_search(req, 'sample')
         j = json.loads(ret.content.decode('utf-8'))
         self.assertEqual(j.get('total'), 2)

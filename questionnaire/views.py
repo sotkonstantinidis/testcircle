@@ -196,7 +196,8 @@ def generic_questionnaire_link_search(request, configuration_code):
 
     configuration = get_configuration(configuration_code)
 
-    total, questionnaires = query_questionnaires_for_link(configuration, q)
+    total, questionnaires = query_questionnaires_for_link(
+        request, configuration, q)
 
     link_template = '{}/questionnaire/partial/link.html'.format(
         configuration_code)
