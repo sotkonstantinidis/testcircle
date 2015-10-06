@@ -6,6 +6,15 @@
 
 {% block content %}
 
+{% comment %}
+  TODO: COP12
+{% endcomment %}
+{% if mode == 'edit' %}
+  <div class="notice alert-box demo-version text-center">
+    <strong>Data entered in this test version will not be stored.</strong>
+  </div>
+{% endif %}
+
   {% if images|length %}
     <figure class="tech-figure">
       <div class="tech-figure-container">

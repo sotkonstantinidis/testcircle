@@ -137,7 +137,7 @@
 {
     "fields": {
         "translation_type": "category",
-        "data": {"approaches":{"label":{"en": "Image"},"helptext":{"en":"Please provide a first image of the SLM Approach. You can add more images later."}}}
+        "data": {"approaches":{"label":{"en": "Image"},"helptext":{"en":"<p>Please provide a first image of the SLM Approach. You can add more images later.</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, GIF.</p>"}}}
     },
     "model": "configuration.translation",
     "pk": 8703

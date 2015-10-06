@@ -7,9 +7,7 @@
 {% block content %}
 
   <main class="row large-collapse" role="main">
-    {% if user.is_authenticated %}
-      <p class="help-bloc">{% trans "Only public questionnaires are visible in this list view." %}</p>
-    {% endif %}
+    <p class="help-bloc">{% trans "Only data declared as public are visible." %}</p>
     <section class="tech-list small-12 columns">
       <div class="tech-group">
         <h2 class="is-group">{% trans "SLM best practices" %} (<span id="questionnaire-count">{{ count }}</span>)</h2>

@@ -51,6 +51,15 @@
 
     {% include "svg.html" %}
 
+    {% comment %}
+      TODO: COP12
+    {% endcomment %}
+    {% block temporary %}
+      <div class="notice alert-box demo-version text-center">
+        <span class="large">Test version for UNCCD COP12</span>Optimized for <a href="https://www.google.com/chrome/" target="_blank">Chrome</a> and <a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a>&nbsp; &ndash; &nbsp;<strong>Feedback</strong>: <a href="#" target="_blank">Fill out the survey</a> or <a href="mailto:wocat-support@cde.unibe.ch">wocat-support@cde.unibe.ch</a>.
+      </div>
+    {% endblock %}
+
     <header class="page-header inner-wrap" role="banner">
       <nav class="top-bar {% block navclass %}is-wocat{% endblock %}" role="navigation" data-topbar="" data-options="is_hover: false">
         <ul class="title-area">
@@ -113,25 +122,16 @@
     {% block filter %}
     {% endblock %}
 
-    {% if messages %}
-      {% for message in messages %}
-      <div class="notice alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
-      {% endfor %}
-    {% endif %}
+    {% block messages %}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="notice alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
+        {% endfor %}
+      {% endif %}
+    {% endblock %}
 
-    <div class="demo-flag-container">
-      <div class="demo-flag">
-        <p class="level-1">Test version</p>
-        <p class="level-2">for UNCCD COP12</p>
-        <p class="level-3">Feedback:</p>
-        <ul>
-          <li><a href="#">Fill out the survey</a></li>
-          <li><a href="mailto:wocat-support@cde.unibe.ch">wocat-support@cde.unibe.ch</a></li>
-        </ul>
-      </div>
-      {% block content %}
-      {% endblock %}
-    </div>
+    {% block content %}
+    {% endblock %}
 
     <footer class="row page-footer large-collapse" role="contentinfo">
       <nav class="sub-nav-footer medium-6 columns">

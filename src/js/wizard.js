@@ -589,11 +589,6 @@ function updateDropzones(emptyNew) {
       },
       error: function(file, response) {
         this.removeFile(file);
-        if (previewContainer) {
-          dropzoneContainer.toggle();
-          previewContainer.toggle();
-          previewContainer.find('.image-preview').empty();
-        }
         watchFormProgress();
         showUploadErrorMessage(response['msg']);
       },

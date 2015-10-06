@@ -17,6 +17,8 @@
   </section>
 {% endblock %}
 
+{% block messages %}{% endblock %}
+
 {% block content %}
 
   <section class="home-search">
@@ -38,6 +40,12 @@
       </div>
     </div>
   </section>
+
+  {% if messages %}
+    {% for message in messages %}
+    <div class="notice alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
+    {% endfor %}
+  {% endif %}
 
   <main class="row" role="main" data-equalizer>
     <div class="hero-big medium-6 large-6 columns">

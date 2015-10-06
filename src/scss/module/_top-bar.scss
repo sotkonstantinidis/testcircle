@@ -56,23 +56,12 @@ ul.title-area li.name h1 a {
 }
 
 /**
+ * TODO: COP12
  * Temporary flag to mark the demo version
  */
-div.demo-flag {
-  border: 1px solid #a94442;
-  position: absolute;
-  top: 0px;
-  right: 0;
-  z-index: 1000;
-  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 0.75rem;
-  margin: 0.5rem;
+div.notice.demo-version {
   background-color: #f2dede;
+  border: 1px solid #a94442;
   color: #a94442;
 
   a {
@@ -80,22 +69,9 @@ div.demo-flag {
     text-decoration: underline;
   }
 
-  p, ul {
-    margin-top: 0;
+  .large {
+    font-size: 1.25rem;
+    line-height: 0.8125rem;
+    margin-right: 0.75rem;
   }
-
-  .level-1 {
-    font-weight: bold;
-    font-size: rem-calc(24);
-  }
-  .level-3 {
-    margin-top: 0.5rem;
-  }
-  .level-1, .level-2 {
-    text-align: center;
-  }
-}
-
-div.demo-flag-container {
-  position: relative;
 }
