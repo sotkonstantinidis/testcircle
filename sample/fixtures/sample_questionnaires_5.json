@@ -68,7 +68,7 @@
     "pk": 1,
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
-        "data": {"qg_19":[{"key_5":{"en":"Faz 1"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 1"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1"]}],"qg_country":[{"country":"country_CHE"}]},
+        "data": {"qg_19":[{"key_5":{"en":"Faz 1"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 1"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1"]}],"qg_location":[{"country":"country_CHE"}]},
         "code": "sample_1",
         "status": 3,
         "version": 1,
@@ -99,7 +99,7 @@
     "pk": 2,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "data": {"qg_19":[{"key_5":{"en":"Faz 2"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 2"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_2"]}],"qg_country":[{"country":"country_CHE"}]},
+        "data": {"qg_19":[{"key_5":{"en":"Faz 2"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 2"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_2"]}],"qg_location":[{"country":"country_CHE"}]},
         "code": "sample_2",
         "status": 3,
         "version": 1,
@@ -130,7 +130,7 @@
     "pk": 3,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "data": {"qg_19":[{"key_5":{"en":"Faz 3"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 3"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_3"]}],"qg_country":[{"country":"country_AFG"}]},
+        "data": {"qg_19":[{"key_5":{"en":"Faz 3"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 3"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_3"]}],"qg_location":[{"country":"country_AFG"}]},
         "code": "sample_3",
         "status": 3,
         "version": 1,
@@ -170,7 +170,7 @@
     "pk": 4,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "data": {"qg_19":[{"key_5":{"en":"Faz 4"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 4"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}],"qg_country":[{"country":"country_CHE"}]},
+        "data": {"qg_19":[{"key_5":{"en":"Faz 4"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 4"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}],"qg_location":[{"country":"country_CHE"}]},
         "code": "sample_4",
         "status": 3,
         "version": 1,
@@ -219,7 +219,7 @@
     "pk": 5,
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "data": {"qg_name": [{"name": {"en": "UNCCD practice 1"}}], "unccd_qg_10": [{"unccd_description": {"en": "This is the description of the first UNCCD practice."}}],"qg_country":[{"country":"country_LAO"}]},
+        "data": {"qg_name": [{"name": {"en": "UNCCD practice 1"}}], "unccd_qg_10": [{"unccd_description": {"en": "This is the description of the first UNCCD practice."}}],"qg_location":[{"country":"country_LAO"}]},
         "code": "unccd_1",
         "status": 3,
         "version": 1,

@@ -1634,6 +1634,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         try:
             self.read_configuration()
         except Exception as e:
+            print("***************************")
+            print(e)
+            print("***************************")
             if isinstance(e, ConfigurationError):
                 self.configuration_error = e
             else:
@@ -1828,7 +1831,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         countries = []
         country_question = self.get_question_by_keyword(
-            'qg_country', 'country')
+            'qg_location', 'country')
         if country_question:
             countries = country_question.choices[1:]
 
