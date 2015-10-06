@@ -620,7 +620,7 @@ def generic_questionnaire_details(
 
     # TODO: Improve this!
     permissions = []
-    if request.user in questionnaire_object.members.all():
+    if request.user in questionnaire_object.members.all() and obj_status != 2:
         permissions.append('edit')
 
     return render(request, template, {
