@@ -7,8 +7,11 @@ from sample.tests.test_views import (
     get_position_of_category,
     route_home,
     route_questionnaire_details,
+    route_questionnaire_new,
 )
 
+from django.contrib.auth.models import Group
+from accounts.tests.test_models import create_new_user
 from nose.plugins.attrib import attr
 # @attr('foo')
 
@@ -163,6 +166,7 @@ class EditTest(FunctionalTest):
         # Also there was no additional version created in the database
         self.assertEqual(Questionnaire.objects.count(), 7)
 
+    # @attr('foo')
     def test_edit_public(self):
 
         code = 'sample_3'
@@ -243,3 +247,65 @@ class EditTest(FunctionalTest):
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
             'contains(text(), "asdf")]').click()
         self.checkOnPage('asdf')
+
+    def test_edit_questionnaire(self):
+
+        user = create_new_user(id=6, email='mod@bar.com')
+        user.groups = [Group.objects.get(pk=3)]
+        user.save()
+
+        # Alice logs in
+        self.doLogin(user=user)
+
+        # She enters a Questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        edit_buttons = self.findManyBy(
+            'xpath', '//a[contains(@href, "edit/new/cat")]')
+        edit_buttons[cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She saves it as draft
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She submits it for review
+        self.findBy('xpath', '//input[@name="submit"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She publishes it
+        self.findBy('xpath', '//input[@name="publish"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees it is public and visible
+        self.findBy('xpath', '//p[text()="Foo"]')
+        self.findBy('xpath', '//p[text()="Bar"]')
+
+        url = self.browser.current_url
+
+        # She edits it
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.findBy(
+            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+
+        # She changes some values
+        self.findBy('name', 'qg_1-0-original_key_1').clear()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She saves it as draft
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She is taken to the overview page where she sees the latest
+        # (pending) changes of the draft
+
+        self.assertEqual(url, self.browser.current_url)
+
+        self.findBy('xpath', '//p[text()="Bar"]')
+        self.findByNot('xpath', '//p[text()="Foo"]')
+        self.findBy('xpath', '//p[text()="asdf"]')

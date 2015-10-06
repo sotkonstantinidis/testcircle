@@ -68,7 +68,7 @@ class Questionnaire(models.Model):
     @staticmethod
     def create_new(
             configuration_code, data, user, previous_version=None, status=1,
-            created=timezone.now(), updated=timezone.now()):
+            created=None, updated=None):
         """
         Create and return a new Questionnaire.
 
@@ -99,6 +99,11 @@ class Questionnaire(models.Model):
         Raises:
             ``ValidationError``
         """
+        if updated is None:
+            updated = timezone.now()
+        if created is None:
+            created = timezone.now()
+
         if previous_version:
             created = previous_version.created
             if previous_version.status not in [1, 3]:

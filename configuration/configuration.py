@@ -1634,9 +1634,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         try:
             self.read_configuration()
         except Exception as e:
-            print("***************************")
-            print(e)
-            print("***************************")
             if isinstance(e, ConfigurationError):
                 self.configuration_error = e
             else:

@@ -49,7 +49,7 @@
       </div>
     {% endif %}
     <div class="small-12 columns output is-rhythmed-2">
-      {% for subcategory in subcategories %}
+      {% for subcategory, subcategory_config in subcategories %}
         {{ subcategory }}
       {% endfor %}
     </div>

@@ -60,12 +60,12 @@ ul.title-area li.name h1 a {
  * Temporary flag to mark the demo version
  */
 div.notice.demo-version {
-  background-color: #f2dede;
-  border: 1px solid #a94442;
-  color: #a94442;
+  background-color: #a94442;
+  border: 1px solid $body-font-color;
+  color: $body-font-color;
 
   a {
-    color: #a94442;
+    color: $body-font-color;
     text-decoration: underline;
   }
 
