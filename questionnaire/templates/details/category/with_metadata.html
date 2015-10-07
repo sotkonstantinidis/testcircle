@@ -32,7 +32,7 @@
       </ul>
     </aside>
 
-    {% if editable %}
+    {% if 'can_edit_steps' in permissions %}
       <div class="medium-9 columns">
         <h2>{{ label }}</h2>
         <div class="tech-section-progress progress">

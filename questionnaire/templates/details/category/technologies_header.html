@@ -48,9 +48,17 @@
           {% endfor %}
         </li>
       </ul>
+      {% if 'can_save_questionnaire' in permissions %}
+        <form action="" method="POST">
+          <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/></div>
+          <input class="button large is-technologies q-action-button-top" type="submit" value="{% trans "Save SLM Technology" %}">
+        </form>
+      {% elif 'can_edit_questionnaire' in permissions %}
+        <a href="{% url 'technologies:questionnaire_edit' questionnaire_identifier %}" class="button large is-technologies q-action-button-top">{% trans "Edit SLM Technology" %}</a>
+      {% endif %}
     </aside>
 
-    {% if editable %}
+    {% if 'can_edit_steps' in permissions %}
       <div class="medium-9 columns is-rhythmed-2">
         <h2>{{ numbering|default:'' }} {{ label }}</h2>
         <div class="tech-section-progress progress">

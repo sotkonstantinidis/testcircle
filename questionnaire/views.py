@@ -494,10 +494,15 @@ def generic_questionnaire_new(
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
+    permissions = ['can_save_questionnaire', 'can_edit_steps']
+    csrf_token = None
+    if 'can_save_questionnaire' in permissions:
+        csrf_token = get_token(request)
+
     sections = questionnaire_configuration.get_details(
-        data, editable=True,
+        data, permissions=permissions,
         edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
-        questionnaire_object=questionnaire_object)
+        questionnaire_object=questionnaire_object, csrf_token=csrf_token)
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
@@ -530,9 +535,9 @@ def generic_questionnaire_new(
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'mode': 'edit',
         'links': link_display,
         'filter_configuration': filter_configuration,
+        'permissions': permissions,
     })
 
 
@@ -593,8 +598,13 @@ def generic_questionnaire_details(
             'reviewable': reviewable,
         })
 
+    # TODO: Improve this!
+    permissions = []
+    if request.user in questionnaire_object.members.all() and obj_status != 2:
+        permissions.append('can_edit_questionnaire')
+
     sections = questionnaire_configuration.get_details(
-        data=data, review_config=review_config,
+        data=data, permissions=permissions, review_config=review_config,
         questionnaire_object=questionnaire_object)
 
     images = questionnaire_configuration.get_image_data(
@@ -629,16 +639,10 @@ def generic_questionnaire_details(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
-    # TODO: Improve this!
-    permissions = []
-    if request.user in questionnaire_object.members.all() and obj_status != 2:
-        permissions.append('edit')
-
     return render(request, template, {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'mode': 'view',
         'links': link_display,
         'filter_configuration': filter_configuration,
         'permissions': permissions,
