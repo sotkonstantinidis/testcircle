@@ -396,8 +396,9 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with(
-            {}, editable=True, edit_step_route='sample:questionnaire_new_step',
-            questionnaire_object=None)
+            {}, permissions=['can_save_questionnaire', 'can_edit_steps'],
+            edit_step_route='sample:questionnaire_new_step',
+            questionnaire_object=None, csrf_token=None)
 
     @patch('questionnaire.views.get_list_values')
     @patch('questionnaire.views.Questionnaire')
@@ -426,9 +427,9 @@ class GenericQuestionnaireNewTest(TestCase):
                 'questionnaire_identifier': 'new',
                 'sections': ["foo"]*get_section_count(),
                 'images': [],
-                'mode': 'edit',
                 'links': {},
                 'filter_configuration': mock_filter_configuration.return_value,
+                'permissions': ['can_save_questionnaire', 'can_edit_steps']
             })
 
     def test_returns_rendered_response(self):
@@ -438,6 +439,7 @@ class GenericQuestionnaireNewTest(TestCase):
         self.assertIsInstance(ret, HttpResponse)
 
 
+@patch('questionnaire.views.render')
 class GenericQuestionnaireDetailsTest(TestCase):
 
     def setUp(self):
@@ -448,7 +450,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
         self.request.user.is_authenticated.return_value = False
 
     @patch('questionnaire.views.query_questionnaire')
-    def test_calls_query_questionnaire(self, mock_query_questionnaire):
+    def test_calls_query_questionnaire(
+            self, mock_query_questionnaire, mock_render):
         mock_query_questionnaire.return_value.first.return_value = None
         with self.assertRaises(Http404):
             generic_questionnaire_details(
@@ -458,7 +461,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
     @patch('questionnaire.views.query_questionnaire')
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(
-            self, mock_get_configuration, mock_query_questionnaire):
+            self, mock_get_configuration, mock_query_questionnaire,
+            mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -469,7 +473,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_questionnaire_data_in_single_language(
             self, mock_conf, mock_query_questionnaire,
-            mock_get_q_data_in_single_lang):
+            mock_get_q_data_in_single_lang, mock_render):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_get_q_data_in_single_lang.assert_called_once_with(
@@ -484,7 +488,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
     def test_calls_handle_review_actions_if_post_values(
             self, mock_conf, mock_query_questionnaire,
             mock_get_q_data_in_single_lang, mock_redirect,
-            mock_handle_review_actions):
+            mock_handle_review_actions, mock_render):
         self.request.method = 'POST'
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -498,7 +502,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
     @patch('questionnaire.views.get_configuration')
     def test_calls_redirect_if_post_values(
             self, mock_conf, mock_query_questionnaire,
-            mock_get_q_data_in_single_lang, mock_redirect):
+            mock_get_q_data_in_single_lang, mock_redirect, mock_render):
         self.request.method = 'POST'
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -509,7 +513,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
     def test_reviewable_false_if_no_moderate_permissions(
-            self, mock_query_questionnaire, mock_get_details):
+            self, mock_query_questionnaire, mock_get_details, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         mock_query_questionnaire.return_value.first.return_value.status = 2
         user = Mock()
@@ -525,12 +529,13 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'review_status':
                     mock_query_questionnaire.return_value
                                             .first.return_value.status,
-                'csrf_token_value': None, 'reviewable': False})
+                'csrf_token_value': None, 'reviewable': False},
+            permissions=[])
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
     def test_reviewable_true_if_no_moderate_permissions(
-            self, mock_query_questionnaire, mock_get_details):
+            self, mock_query_questionnaire, mock_get_details, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         mock_query_questionnaire.return_value.first.return_value.status = 2
         user = Mock()
@@ -546,12 +551,13 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'review_status': mock_query_questionnaire.return_value
                                                          .first.return_value
                                                          .status,
-                'csrf_token_value': None, 'reviewable': True})
+                'csrf_token_value': None, 'reviewable': True},
+            permissions=[])
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_details(
-            self, mock_query_questionnaire, mock_get_details):
+            self, mock_query_questionnaire, mock_get_details, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -563,13 +569,13 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'review_status':
                     mock_query_questionnaire.return_value.first
                                             .return_value.status,
-                'csrf_token_value': None})
+                'csrf_token_value': None}, permissions=[])
 
     @patch('questionnaire.views.get_configuration')
     # @patch.object(QuestionnaireConfiguration, 'get_image_data')
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_image_data(
-            self, mock_query_questionnaire, mock_conf):
+            self, mock_query_questionnaire, mock_conf, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -579,7 +585,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
     @patch('questionnaire.views.get_list_values')
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_list_values(
-            self, mock_query_questionnaire, mock_get_list_values, mock_conf):
+            self, mock_query_questionnaire, mock_get_list_values, mock_conf,
+            mock_render):
         q = Mock()
         q.data = {}
         link = Mock()
@@ -594,9 +601,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.query_questionnaire')
-    @patch('questionnaire.views.render')
     def test_calls_render(
-            self, mock_render, mock_query_questionnaire, mock_conf):
+            self, mock_query_questionnaire, mock_conf, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -606,23 +612,14 @@ class GenericQuestionnaireDetailsTest(TestCase):
             self.request, 'sample/questionnaire/details.html', {
                 'sections': mock_conf.return_value.get_details.return_value,
                 'questionnaire_identifier': 'foo',
-                'mode': 'view',
                 'images': img.get.return_value,
                 'links': {},
                 'filter_configuration': mfc,
                 'permissions': [],
             })
 
-    @patch('questionnaire.views.get_configuration')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_returns_rendered_response(
-            self, mock_query_questionnaire, mock_get_configuration):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        ret = generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        self.assertIsInstance(ret, HttpResponse)
 
-
+@patch('questionnaire.views.render')
 @patch('questionnaire.views.advanced_search')
 class GenericQuestionnaireListTest(TestCase):
 
@@ -633,33 +630,35 @@ class GenericQuestionnaireListTest(TestCase):
 
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(
-            self, mock_get_configuration, mock_advanced_search):
+            self, mock_get_configuration, mock_advanced_search, mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_configuration.assert_called_once_with('sample')
 
     @patch('questionnaire.views.get_active_filters')
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_active_filters(
-            self, mock_conf, mock_get_active_filters, mock_advanced_search):
+            self, mock_conf, mock_get_active_filters, mock_advanced_search,
+            mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_active_filters.assert_called_once_with(
             mock_conf.return_value, self.request.GET)
 
     @patch('questionnaire.views.get_limit_parameter')
     def test_calls_get_limit_parameter(
-            self, mock_get_limit_parameter, mock_advanced_search):
+            self, mock_get_limit_parameter, mock_advanced_search, mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_limit_parameter.assert_called_once_with(self.request)
 
     @patch('questionnaire.views.get_page_parameter')
     def test_calls_get_page_parameter(
-            self, mock_get_page_parameter, mock_advanced_search):
+            self, mock_get_page_parameter, mock_advanced_search, mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_page_parameter.assert_called_once_with(self.request)
 
     @patch('questionnaire.views.query_questionnaires')
     def test_db_query_calls_query_questionnaires(
-            self, mock_query_questionnaires, mock_advanced_search):
+            self, mock_query_questionnaires, mock_advanced_search,
+            mock_render):
         mock_query_questionnaires.return_value = []
         generic_questionnaire_list(self.request, 'sample', db_query=True)
         mock_query_questionnaires.assert_called_once_with(
@@ -672,7 +671,7 @@ class GenericQuestionnaireListTest(TestCase):
     def test_db_query_calls_get_paginator(
             self, mock_get_paginator, mock_query_questionnaires,
             mock_get_list_values, mock_get_pagination_parameters,
-            mock_advanced_search):
+            mock_advanced_search, mock_render):
         mock_query_questionnaires.return_value = []
         mock_get_paginator.return_value = None, None
         generic_questionnaire_list(self.request, 'sample', db_query=True)
@@ -680,7 +679,7 @@ class GenericQuestionnaireListTest(TestCase):
 
     @patch('questionnaire.views.get_list_values')
     def test_db_query_calls_get_list_values(
-            self, mock_get_list_values, mock_advanced_search):
+            self, mock_get_list_values, mock_advanced_search, mock_render):
         self.request.user = Mock()
         self.request.user.is_authenticated.return_value = False
         generic_questionnaire_list(self.request, 'sample', db_query=True)
@@ -688,12 +687,13 @@ class GenericQuestionnaireListTest(TestCase):
 
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_es_calls_get_configuration_index_filter(
-            self, mock_get_configuration_index_filter, mock_advanced_search):
+            self, mock_get_configuration_index_filter, mock_advanced_search,
+            mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_configuration_index_filter.assert_called_once_with(
             'sample', only_current=False)
 
-    def test_es_calls_advanced_search(self, mock_advanced_search):
+    def test_es_calls_advanced_search(self, mock_advanced_search, mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_advanced_search.assert_called_once_with(
             filter_params=[], query_string='', configuration_codes=['sample'],
@@ -705,20 +705,21 @@ class GenericQuestionnaireListTest(TestCase):
     @patch('questionnaire.views.ESPagination')
     def test_es_creates_esPagination(
             self, mock_ESPagination, mock_get_paginator, mock_get_list_values,
-            mock_get_pagination_parameters, mock_advanced_search):
+            mock_get_pagination_parameters, mock_advanced_search, mock_render):
         mock_get_paginator.return_value = None, None
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_ESPagination.call_count, 1)
 
     @patch('questionnaire.views.get_list_values')
     def test_es_calls_get_list_values(
-            self, mock_get_list_values, mock_advanced_search):
+            self, mock_get_list_values, mock_advanced_search, mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     def test_calls_get_filter_configuration(
-            self, mock_get_filter_configuration, mock_advanced_search):
+            self, mock_get_filter_configuration, mock_advanced_search,
+            mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_filter_configuration.assert_called_once_with()
 
@@ -727,16 +728,15 @@ class GenericQuestionnaireListTest(TestCase):
     @patch('questionnaire.views.get_pagination_parameters')
     def test_calls_get_pagination_parameters(
             self, mock_get_pagination_parameters, mock_get_paginator,
-            mock_get_list_values, mock_advanced_search):
+            mock_get_list_values, mock_advanced_search, mock_render):
         mock_get_paginator.return_value = None, None
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_pagination_parameters.assert_called_once_with(
             self.request, None, None)
 
     @patch('questionnaire.views.get_configuration')
-    @patch('questionnaire.views.render')
     def test_calls_render(
-            self, mock_render, mock_conf, mock_advanced_search):
+            self, mock_conf, mock_advanced_search, mock_render):
         mock_advanced_search.return_value = {}
         generic_questionnaire_list(self.request, *get_valid_list_values())
         ret = {
@@ -751,13 +751,8 @@ class GenericQuestionnaireListTest(TestCase):
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/list.html', ret)
 
-    def test_returns_rendered_response(self, mock_advanced_search):
-        ret = generic_questionnaire_list(
-            self.request, *get_valid_list_values())
-        self.assertIsInstance(ret, HttpResponse)
-
     def test_returns_only_template_values_if_no_template(
-            self, mock_advanced_search):
+            self, mock_advanced_search, mock_render):
         ret = generic_questionnaire_list(self.request, 'sample', template=None)
         self.assertIsInstance(ret, dict)
 

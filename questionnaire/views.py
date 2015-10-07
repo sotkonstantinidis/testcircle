@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import (
     Http404,
     HttpResponse,
@@ -649,11 +650,87 @@ def generic_questionnaire_details(
     })
 
 
+def generic_questionnaire_list_no_config(request, user=None, moderation=False):
+    """
+    A generic view to show a list of Questionnaires. Similar to
+    :func:`generic_questionnaire_list` but with the following
+    differences:
+
+    * No configuration is used, meaning that questionnaires from all
+      configurations are queried.
+
+    * No (attribute) filter configuration is created and provided.
+
+    * Special status filters are used: In moderation mode
+      (``moderation=True``), only pending versions are returned. Users
+      see their own versions (all statuses). Else the default status
+      filter is used.
+
+    * Always return the template values as a dictionary.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Kwargs:
+        ``user`` (``accounts.models.User``): If provided, show only
+        Questionnaires in which the user is a member of.
+
+        ``moderation`` (bool): If ``True``, always only show ``pending``
+         Questionnaires if the current user has moderation
+        permission.
+
+    Returns:
+        ``dict``. A dictionary with template values to be used in a list
+        template.
+    """
+    limit = get_limit_parameter(request)
+    page = get_page_parameter(request)
+    is_current_user = request.user is not None and request.user == user
+
+    # Determine the status filter
+    if moderation is True:
+        # Moderators always have a special moderation status filter
+        status_filter = get_query_status_filter(request, moderation=True)
+    elif is_current_user is True:
+        # The current user has no status filter (sees all statuses)
+        status_filter = Q()
+    else:
+        # Else use the default status filter (will be applied in
+        # :func:`query_questionnaires`)
+        status_filter = None
+
+    questionnaire_objects = query_questionnaires(
+        request, 'all', only_current=False,
+        limit=None, user=user, status_filter=status_filter)
+
+    questionnaires, paginator = get_paginator(
+        questionnaire_objects, page, limit)
+
+    status_filter = get_query_status_filter(request)
+    list_values = get_list_values(
+        configuration_code='wocat',
+        questionnaire_objects=questionnaires, status_filter=status_filter)
+
+    template_values = {
+        'list_values': list_values,
+        'is_current_user': is_current_user,
+        'list_user': user,
+        'is_moderation': moderation,
+    }
+
+    # Add the pagination parameters
+    pagination_params = get_pagination_parameters(
+        request, paginator, questionnaires)
+    template_values.update(pagination_params)
+
+    return template_values
+
+
 def generic_questionnaire_list(
         request, configuration_code, template=None, filter_url='', limit=None,
         only_current=False, db_query=False):
     """
-    A generic view to show a list of questionnaires.
+    A generic view to show a list of Questionnaires.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.

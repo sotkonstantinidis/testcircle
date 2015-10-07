@@ -688,7 +688,8 @@ def query_questionnaire(request, identifier):
 
 
 def query_questionnaires(
-        request, configuration_code, only_current=False, limit=10, offset=0):
+        request, configuration_code, only_current=False, limit=10, offset=0,
+        user=None, status_filter=None):
     """
     Query and return many Questionnaires.
 
@@ -709,10 +710,20 @@ def query_questionnaires(
 
         ``offset`` (int): The offset of the results of the query.
 
+        ``user`` (accounts.models.User): If provided, add an additional
+        filter to return only Questionnaires where the user is a member
+        of.
+
+        ``status_filter`` (django.db.models.Q): A Django filter object.
+        If provided (not ``None``), this filter is used instead of the
+        default ``status_filter`` (as provided by
+        :func:`get_query_status_filter`).
+
     Returns:
         ``django.db.models.query.QuerySet``. The queried Questionnaires.
     """
-    status_filter = get_query_status_filter(request)
+    if status_filter is None:
+        status_filter = get_query_status_filter(request)
 
     # Find the IDs of the Questionnaires which are visible to the
     # current user. If multiple versions exist for a Questionnaire, only
@@ -725,13 +736,16 @@ def query_questionnaires(
 
     query = Questionnaire.objects.filter(id__in=ids)
 
+    if user is not None:
+        query = query.filter(members=user)
+
     if limit is not None:
         return query[offset:offset+limit]
 
     return query
 
 
-def get_query_status_filter(request):
+def get_query_status_filter(request, moderation=False):
     """
     Creates a filter object based on the statuses of the Questionnaires,
     to be used for database queries.
@@ -748,6 +762,12 @@ def get_query_status_filter(request):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+    Kwargs:
+        ``moderation`` (bool): If ``True``, always return a status
+        filter needed by moderators (eg. showing only pending
+        Questionnaires). This is only returned if the user actually
+        has permissions to moderate (``can_moderate``).
+
     Returns:
         ``django.db.models.Q``. A Django filter object.
     """
@@ -760,6 +780,11 @@ def get_query_status_filter(request):
         # ... see all "pending" and "public" if they are moderators,
         # along with their own "draft"
         if request.user.has_perm('questionnaire.can_moderate'):
+
+            # In moderation mode, only "pending" versions are visible
+            if moderation is True:
+                return Q(status=2)
+
             status_filter = (
                 Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
 

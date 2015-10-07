@@ -1,10 +1,12 @@
 from django.contrib.auth import (
     logout as django_logout,
 )
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from qcat.utils import url_with_querystring
 from accounts.authentication import (
     get_login_url,
@@ -12,6 +14,8 @@ from accounts.authentication import (
     get_session_cookie_name,
     get_user_information,
 )
+from accounts.models import User
+from questionnaire.views import generic_questionnaire_list_no_config
 
 
 def welcome(request):
@@ -114,3 +118,42 @@ def logout(request):
             get_logout_url(request.build_absolute_uri(redirect)))
 
     return HttpResponseRedirect(redirect)
+
+
+def questionnaires(request, user_id):
+    """
+    View to show the Questionnaires of a user.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    user = get_object_or_404(User, pk=user_id)
+
+    list_template_values = generic_questionnaire_list_no_config(
+        request, user=user)
+
+    return render(request, 'questionnaires.html', list_template_values)
+
+
+@login_required
+def moderation(request):
+    """
+    View to show only pending Questionnaires to a moderator. Moderation
+    permission (``can_moderate``) is needed for this view.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    if request.user.has_perm('questionnaire.can_moderate') is False:
+        raise PermissionDenied()
+
+    list_template_values = generic_questionnaire_list_no_config(
+        request, moderation=True)
+
+    return render(request, 'questionnaires.html', list_template_values)

@@ -40,7 +40,7 @@
         {{ section }}
       {% endfor %}
       {% if links or 'can_edit_steps' in permissions %}
-        <section id="links" class="tech-section row is-rhythmed-2" data-magellan-destination="links">
+        <section id="links" class="tech-section row is-rhythmed" data-magellan-destination="links">
           <a name="links"></a>
           {% if 'can_edit_steps' in permissions %}
             <div class="medium-9 columns">
@@ -65,7 +65,7 @@
           </div>
         </section>
       {% endif %}
-      <section class="row is-rhythmed-2">
+      <section class="row is-rhythmed">
         <div class="small-12 columns">
           {% if 'can_save_questionnaire' in permissions %}
             <form action="" method="POST">

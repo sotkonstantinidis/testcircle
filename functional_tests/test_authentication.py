@@ -1,8 +1,14 @@
-from functional_tests.base import FunctionalTest
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group
-from accounts.tests.test_models import create_new_user
 from unittest.mock import patch
 
+from functional_tests.base import FunctionalTest
+from accounts.models import User
+from accounts.tests.test_models import create_new_user
+from accounts.tests.test_views import accounts_route_moderation
+
+from nose.plugins.attrib import attr
+# @attr('foo')
 
 @patch('accounts.authentication.auth_authenticate')
 class LoginTest(FunctionalTest):
@@ -149,3 +155,52 @@ class UserTest(FunctionalTest):
 #         self.assertEqual(self.browser.current_url, self.live_server_url + '/')
 #         navbar = self.findBy('class_name', 'top-bar')
 #         navbar.find_element_by_link_text('Login')
+
+
+class ModerationTest(FunctionalTest):
+
+    fixtures = [
+        'groups_permissions.json', 'global_key_values.json', 'sample.json',
+        'sample_questionnaire_status.json', 'sample_user.json']
+
+    """
+    id: 1   code: sample_1   version: 1   status: 1   user: 101
+    id: 2   code: sample_2   version: 1   status: 2   user: 102
+    id: 3   code: sample_3   version: 1   status: 3   user: 101, 102
+    id: 4   code: sample_4   version: 1   status: 4   user: 101
+    id: 5   code: sample_5   version: 1   status: 5   user: 101
+    id: 6   code: sample_5   version: 2   status: 3   user: 101
+    id: 7   code: sample_6   version: 1   status: 1   user: 103
+    """
+
+    def test_user_questionnaires(self):
+
+        user_alice = User.objects.get(pk=101)
+        user_moderator = User.objects.get(pk=2365)
+
+        # Alice logs in
+        self.doLogin(user=user_alice)
+
+        # She tries to access the moderation view but permission is denied
+        self.browser.get(self.live_server_url + reverse(
+            accounts_route_moderation))
+        self.checkOnPage('403 Forbidden')
+
+        # She logs in as moderator and sees that she can access the view
+        self.doLogin(user=user_moderator)
+        self.browser.get(self.live_server_url + reverse(
+            accounts_route_moderation))
+
+        # She sees all the Questionnaires which are pending.
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 2")]')
+
+        # She also sees a customized title of the list
+        self.findByNot(
+            'xpath', '//h2[contains(text(), "Questionnaires by")]')
+        self.findBy(
+            'xpath', '//h2[contains(text(), "Pending Questionnaires")]')
