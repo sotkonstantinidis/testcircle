@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.cache import cache
+from django.utils.translation import to_locale, get_language
 
 from .configuration import QuestionnaireConfiguration
 
@@ -23,15 +24,17 @@ def get_configuration(configuration_code):
     except AttributeError:
         use_caching = False
 
+    cache_key = get_cache_key(configuration_code)
+
     if use_caching is True:
-        configuration = cache.get(configuration_code)
+        configuration = cache.get(cache_key)
         if configuration is not None:
             return configuration
 
     configuration = QuestionnaireConfiguration(configuration_code)
 
     if use_caching is True:
-        cache.set(configuration_code, configuration)
+        cache.set(cache_key, configuration)
 
     return configuration
 
@@ -49,5 +52,22 @@ def delete_configuration_cache(configuration_object):
     except AttributeError:
         use_caching = False
 
+    cache_key = get_cache_key(configuration_object.code)
+
     if use_caching is True:
-        cache.delete_many([configuration_object.code])
+        cache.delete_many([cache_key])
+
+
+def get_cache_key(configuration_code):
+    """
+    Return the key under which a given configuration is stored in the
+    cache. Currently, the key is composed as:
+    ``[configuration_code]_[locale]``, for example ``technologies_en``.
+
+    Args:
+        ``configuration_code`` (str): The code of the configuration
+
+    Returns:
+        ``str``. The key for the cache.
+    """
+    return '{}_{}'.format(configuration_code, to_locale(get_language()))

@@ -869,7 +869,7 @@ def query_questionnaires_for_link(request, configuration, q, limit=10):
     query = """
         SELECT MAX(questionnaire_questionnaire.id) AS id
         FROM questionnaire_questionnaire
-            JOIN questionnaire_questionnairemembership ON
+            LEFT OUTER JOIN questionnaire_questionnairemembership ON
                 questionnaire_questionnaire.id =
                 questionnaire_questionnairemembership.questionnaire_id
             JOIN questionnaire_questionnaireconfiguration ON
