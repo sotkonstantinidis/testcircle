@@ -5,7 +5,7 @@
 {% endif %}
 
 {% if subcategories or 'can_edit_steps' in permissions %}
-  <section id="{{ keyword }}" class="tech-section is-rhythmed-2 row" data-magellan-destination="{{ keyword }}">
+  <section id="{{ keyword }}" class="tech-section is-rhythmed row" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
     {% if 'can_edit_steps' in permissions %}
       <div class="medium-9 columns">
@@ -23,7 +23,7 @@
         <h2>{{ numbering|default:'' }} {{ label }}</h2>
       </div>
     {% endif %}
-    <div class="small-12 columns output is-rhythmed-2">
+    <div class="small-12 columns output">
       {% for subcategory, subcategory_config in subcategories %}
         {{ subcategory }}
       {% endfor %}

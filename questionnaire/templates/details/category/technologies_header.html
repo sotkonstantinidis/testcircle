@@ -15,19 +15,24 @@
       <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
       <p class="is-large subheader">{{ raw_data.name_local|default:""|linebreaksbr }}</p>
       <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
-      {% if raw_data.funding_project %}
-        <p><strong>{{ raw_data.label_funding_project }}{% if raw_data.label_funding_project|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.funding_project }}</p>
-      {% endif %}
-      {% if raw_data.accept_conditions %}
-        <p><strong>{{ raw_data.label_accept_conditions }}{% if raw_data.label_accept_conditions|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.accept_conditions.0 }}</p>
-      {% endif %}
-      {% if raw_data.tech_sustainability %}
-        <p><strong>{{ raw_data.label_tech_sustainability }}{% if raw_data.label_accept_conditions|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.tech_sustainability.0 }}{% if raw_data.tech_sustainability_indicate %} ({{ raw_data.tech_sustainability_indicate }}){% endif %}</p>
-      {% endif %}
-      {% if raw_data.tech_sustainability_compare %}
-        <p><strong>{{ raw_data.label_tech_sustainability_compare }}{% if raw_data.label_funding_project|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.tech_sustainability_compare }}</p>
-      {% endif %}
-
+      <div class="output">
+        {% if raw_data.funding_project %}
+          <h5>{{ raw_data.label_funding_project }}{% if raw_data.label_funding_project|last not in ".:!?" %}: {% endif %}</h5>
+          <p>{{ raw_data.funding_project }}</p>
+        {% endif %}
+        {% if raw_data.accept_conditions %}
+          <h5>{{ raw_data.label_accept_conditions }}{% if raw_data.label_accept_conditions|last not in ".:!?" %}: {% endif %}</h5>
+          <p>{{ raw_data.accept_conditions.0 }}</p>
+        {% endif %}
+        {% if raw_data.tech_sustainability %}
+          <h5>{{ raw_data.label_tech_sustainability }}{% if raw_data.label_accept_conditions|last not in ".:!?" %}: {% endif %}</h5>
+          <p>{{ raw_data.tech_sustainability.0 }}{% if raw_data.tech_sustainability_indicate %} ({{ raw_data.tech_sustainability_indicate }}){% endif %}</p>
+        {% endif %}
+        {% if raw_data.tech_sustainability_compare %}
+          <h5>{{ raw_data.label_tech_sustainability_compare }}{% if raw_data.label_funding_project|last not in ".:!?" %}: {% endif %}</h5>
+          <p>{{ raw_data.tech_sustainability_compare }}</p>
+        {% endif %}
+      </div>
     </header>
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
       <ul class="tech-output-infos">
