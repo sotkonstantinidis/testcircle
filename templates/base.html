@@ -76,13 +76,13 @@
               <li class="has-dropdown">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
-                  <li><a href="{% url 'account_questionnaires' user.id %}">{% trans "My Questionnaires" %}</a></li>
+                  <li><a href="{% url 'account_questionnaires' user.id %}">{% trans "My SLM practices" %}</a></li>
+                  {% if perms.questionnaire.can_moderate %}
+                    <li>
+                      <a href="{% url 'account_moderation' %}">{% trans "Pending SLM practices" %}</a>
+                    </li>
+                  {% endif %}
                   {% if user.is_staff %}
-                    {% if perms.questionnaire.can_moderate %}
-                      <li>
-                        <a href="{% url 'account_moderation' %}">{% trans "Pending Questionnaires" %}</a>
-                      </li>
-                    {% endif %}
                     <li>
                       <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
                     </li>
