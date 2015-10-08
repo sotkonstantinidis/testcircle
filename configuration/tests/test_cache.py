@@ -2,6 +2,7 @@ from django.test.utils import override_settings
 from unittest.mock import patch, Mock
 
 from configuration.cache import (
+    get_cache_key,
     delete_configuration_cache,
     get_configuration,
 )
@@ -46,7 +47,7 @@ class GetConfigurationQueryFilterTest(TestCase):
         mock_cache.get.return_value = None
         get_configuration('foo')
         mock_cache.set.assert_called_once_with(
-            'foo', mock_QuestionnaireConfiguration.return_value)
+            get_cache_key('foo'), mock_QuestionnaireConfiguration.return_value)
 
 
 @patch('configuration.cache.cache')
@@ -56,7 +57,8 @@ class DeleteConfigurationCacheTest(TestCase):
     def test_calls_delete_many(self, mock_cache):
         conf = Mock()
         delete_configuration_cache(conf)
-        mock_cache.delete_many.assert_called_once_with([conf.code])
+        mock_cache.delete_many.assert_called_once_with(
+            [get_cache_key(conf.code)])
 
     @override_settings(USE_CACHING=False)
     def test_does_not_call_delete_many_if_use_caching_settings_false(

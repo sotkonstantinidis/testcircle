@@ -201,6 +201,6 @@ class ModerationTest(FunctionalTest):
 
         # She also sees a customized title of the list
         self.findByNot(
-            'xpath', '//h2[contains(text(), "Questionnaires by")]')
+            'xpath', '//h2[contains(text(), "SLM practices by")]')
         self.findBy(
-            'xpath', '//h2[contains(text(), "Pending Questionnaires")]')
+            'xpath', '//h2[contains(text(), "Pending SLM practices")]')

@@ -63,18 +63,12 @@ class GenericQuestionnaireLinkFormTest(TestCase):
         res = self.client.post(self.url, follow=True)
         self.assertTemplateUsed(res, 'login.html')
 
-    @patch.object(QuestionnaireConfiguration, 'get_links_configuration')
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(
-            self, mock_QuestionnaireConfiguration,
-            mock_QuestionnaireConfiguration_get_links_configuration):
-        mock_QuestionnaireConfiguration.return_value = None
-        mock_QuestionnaireConfiguration_get_links_configuration.return_value \
-            = []
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_get_configuration(self, mock_get_configuration):
         generic_questionnaire_link_form(
             self.request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
-        mock_QuestionnaireConfiguration.assert_called_once_with('sample')
+        mock_get_configuration.assert_called_once_with('sample')
 
     @patch.object(QuestionnaireConfiguration, 'get_links_configuration')
     @patch.object(QuestionnaireConfiguration, '__init__')
@@ -124,11 +118,13 @@ class GenericQuestionnaireLinkSearchTest(TestCase):
         'sample_global_key_values.json', 'sample.json',
         'sample_questionnaires.json']
 
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_creates_questionnaire_configuration(self, mock_Conf):
-        mock_Conf.return_value = None
+    @patch('questionnaire.views.get_configuration')
+    def test_calls_get_configuration(self, mock_get_configuration):
+        mock = Mock()
+        mock.get_name_keywords.return_value = None, None
+        mock_get_configuration.return_value = mock
         generic_questionnaire_link_search(Mock(), 'sample')
-        mock_Conf.assert_called_once_with('sample')
+        mock_get_configuration.assert_called_once_with('sample')
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.query_questionnaires_for_link')
@@ -197,7 +193,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(self, mock_get_configuration):
         mock_get_configuration.return_value.get_category.return_value.\
-            get_form.return_value = None, []
+            get_form.return_value = {}, []
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_get_configuration.assert_called_once_with('sample')
@@ -227,7 +223,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
 
     @patch.object(QuestionnaireCategory, 'get_form')
     def test_calls_category_get_form(self, mock_get_form):
-        mock_get_form.return_value = None, None
+        mock_get_form.return_value = {}, None
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_get_form.assert_called_once_with(
@@ -250,13 +246,13 @@ class GenericQuestionnaireNewStepTest(TestCase):
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
     def test_calls_render(self, mock_render, mock_get_form):
-        mock_get_form.return_value = "foo", "bar"
+        mock_get_form.return_value = {}, "bar"
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_render.assert_called_once_with(
             self.request, 'form/category.html', {
                 'category_formsets': "bar",
-                'category_config': "foo",
+                'category_config': {},
                 'title': 'QCAT Form',
                 'overview_url': '/en/sample/edit/new/#cat_0',
                 'valid': True,

@@ -42,7 +42,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Contribution to the strategic objectives"}}}
+        "data": {"unccd":{"label":{"en": "Contribution to the strategic objectives"}},"technologies":{"label":{"en":"To which strategic objectives of The Strategy does the technology contribute?"}}}
     },
     "model": "configuration.translation",
     "pk": 3006
@@ -58,7 +58,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "Linkages with the other best practice themes"}}}
+        "data": {"unccd":{"label":{"en": "Linkages with the other best practice themes"}},"technologies":{"label":{"en":"Specify if the technology relates to one or more of the other UNCCD themes"}}}
     },
     "model": "configuration.translation",
     "pk": 3008
@@ -130,7 +130,7 @@
 {
     "fields": {
         "translation_type": "key",
-        "data": {"unccd":{"label":{"en": "On the basis of which criteria and/or indicator(s) (not related to The Strategy) the proposed practice and corresponding technology has been considered as ‘best’?"}}}
+        "data": {"unccd":{"label":{"en": "On the basis of which criteria and/or indicator(s) (not related to The Strategy) the proposed practice and corresponding technology has been considered as ‘best’?"}},"technologies":{"label":{"en":"On the basis of which criteria and/or indicator(s) has the described technology been considered as 'best'?"}}}
     },
     "model": "configuration.translation",
     "pk": 3017
@@ -492,7 +492,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "To improve the living conditions of affected populations"}}}
+        "data": {"unccd":{"label":{"en": "To improve the living conditions of affected populations"}},"technologies":{"label":{"en": "To improve the living conditions of affected populations"}}}
     },
     "model": "configuration.translation",
     "pk": 3511
@@ -500,7 +500,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "To improve the conditions of affected ecosystems"}}}
+        "data": {"unccd":{"label":{"en": "To improve the conditions of affected ecosystems"}},"technologies":{"label":{"en": "To improve the conditions of affected ecosystems"}}}
     },
     "model": "configuration.translation",
     "pk": 3512
@@ -508,7 +508,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "To generate global benefits through effective implementation of the Convention"}}}
+        "data": {"unccd":{"label":{"en": "To generate global benefits through effective implementation of the Convention"}},"technologies":{"label":{"en": "To generate global benefits through effective implementation of the Convention"}}}
     },
     "model": "configuration.translation",
     "pk": 3513
@@ -556,7 +556,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "Capacity-building and awareness-raising"}}}
+        "data": {"unccd":{"label":{"en": "Capacity-building and awareness-raising"}},"technologies":{"label":{"en": "Capacity-building and awareness-raising"}}}
     },
     "model": "configuration.translation",
     "pk": 3519
@@ -564,7 +564,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "DLDD and SLM monitoring and assessment/research"}}}
+        "data": {"unccd":{"label":{"en": "DLDD and SLM monitoring and assessment/research"}},"technologies":{"label":{"en": "DLDD and SLM monitoring and assessment/research"}}}
     },
     "model": "configuration.translation",
     "pk": 3520
@@ -572,7 +572,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "Knowledge management and decision support"}}}
+        "data": {"unccd":{"label":{"en": "Knowledge management and decision support"}},"technologies":{"label":{"en": "Knowledge management and decision support"}}}
     },
     "model": "configuration.translation",
     "pk": 3521
@@ -580,7 +580,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "Policy, legislative and institutional framework"}}}
+        "data": {"unccd":{"label":{"en": "Policy, legislative and institutional framework"}},"technologies":{"label":{"en": "Policy, legislative and institutional framework"}}}
     },
     "model": "configuration.translation",
     "pk": 3522
@@ -588,7 +588,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "Funding and resource mobilization"}}}
+        "data": {"unccd":{"label":{"en": "Funding and resource mobilization"}},"technologies":{"label":{"en": "Funding and resource mobilization"}}}
     },
     "model": "configuration.translation",
     "pk": 3523
@@ -596,7 +596,7 @@
 {
     "fields": {
         "translation_type": "value",
-        "data": {"unccd":{"label":{"en": "Participation, collaboration and networking"}}}
+        "data": {"unccd":{"label":{"en": "Participation, collaboration and networking"}},"technologies":{"label":{"en": "Participation, collaboration and networking"}}}
     },
     "model": "configuration.translation",
     "pk": 3524

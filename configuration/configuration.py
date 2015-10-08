@@ -1371,6 +1371,9 @@ class QuestionnaireCategory(BaseConfigurationObject):
             'numbering': self.numbering,
             'helptext': self.helptext,
         }
+        configuration = self.view_options.get('configuration')
+        if configuration:
+            config.update({'configuration': configuration})
         return config, subcategory_formsets
 
     def get_details(
@@ -1435,6 +1438,9 @@ class QuestionnaireCategory(BaseConfigurationObject):
         if self.view_options.get('include_toc', False) is True:
             toc_content = self.parent_object.parent_object.get_toc_data()
 
+        configuration = self.view_options.get(
+            'configuration', self.configuration_keyword)
+
         return render_to_string(
             view_template, {
                 'subcategories': rendered_subcategories,
@@ -1450,7 +1456,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'total': len(self.subcategories),
                 'progress': int(with_content / len(self.subcategories) * 100),
                 'edit_step_route': edit_step_route,
-                'configuration_name': self.configuration_keyword,
+                'configuration_name': configuration,
                 'toc_content': tuple(toc_content),
                 'questionnaire_identifier': questionnaire_identifier,
             })

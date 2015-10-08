@@ -8,6 +8,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
+from qcat.tests import TEST_CACHES
 from unittest.mock import patch
 from accounts.tests.test_models import create_new_user
 from qcat.utils import clear_session_questionnaire
@@ -35,6 +36,7 @@ def check_firefox_path():
 
 @skipUnless(check_firefox_path(), "Firefox path not specified")
 @override_settings(DEBUG=True)
+@override_settings(CACHES=TEST_CACHES)
 @attr('functional')
 class FunctionalTest(StaticLiveServerTestCase):
 

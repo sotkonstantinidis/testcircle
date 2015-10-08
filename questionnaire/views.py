@@ -388,13 +388,15 @@ def generic_questionnaire_new_step(
                     request, _('Data successfully stored to Session.'))
                 return redirect(overview_url)
 
+    configuration_name = category_config.get('configuration', url_namespace)
+
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
         'category_config': category_config,
         'title': page_title,
         'overview_url': overview_url,
         'valid': valid,
-        'configuration_name': url_namespace,
+        'configuration_name': configuration_name,
     })
 
 

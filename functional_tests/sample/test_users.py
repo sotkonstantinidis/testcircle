@@ -57,9 +57,9 @@ class UserTest(FunctionalTest):
             'contains(text(), "Foo 1")]')
 
         # She sees a customized title of the list
-        self.findBy('xpath', '//h2[contains(text(), "Your Questionnaires")]')
+        self.findBy('xpath', '//h2[contains(text(), "Your SLM practices")]')
         self.findByNot(
-            'xpath', '//h2[contains(text(), "Questionnaires by Foo Bar")]')
+            'xpath', '//h2[contains(text(), "SLM practices by Foo Bar")]')
 
         # She goes to the questionnaire page of Bob and sees the
         # Questionnaires of Bob but only the "public" ones.
@@ -123,9 +123,9 @@ class UserTest(FunctionalTest):
 
         # He sees that the customized title of the list now changed.
         self.findByNot(
-            'xpath', '//h2[contains(text(), "Your Questionnaires")]')
+            'xpath', '//h2[contains(text(), "Your SLM practices")]')
         self.findBy(
-            'xpath', '//h2[contains(text(), "Questionnaires by Foo Bar")]')
+            'xpath', '//h2[contains(text(), "SLM practices by Foo Bar")]')
 
         # He goes to the Questionnaire page of Chris and sees no
         # "public" Questionnaires with an appropriate message.

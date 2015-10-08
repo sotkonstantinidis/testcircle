@@ -56,6 +56,20 @@ $(function() {
     return false;
   });
 
+  // Top search bar
+  $('.top-bar-search').submit(function(e) {
+    e.preventDefault();
+
+    // Update the search term in the filter parameters
+    var search_term = $(this).find('input[name="q"]').val();
+    var p = parseQueryString();
+    p['q'] = search_term;
+
+    var s = ['?', $.param(p, traditional=true)].join('');
+    changeUrl(s);
+    updateList(s);
+  });
+
   // Button to submit the filter
   $('#submit-filter').click(function() {
     var p = parseQueryString();

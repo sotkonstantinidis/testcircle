@@ -946,7 +946,7 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the form empty and sees that no value was submitted,
         # progress of Category 4 is still 0
         self.findBy('id', 'button-submit').click()
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 14")]]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 14")]]')
         progress_indicator = self.findBy(
             'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
                 cat_4_position))
@@ -2380,14 +2380,19 @@ class QuestionnaireTestIndex(FunctionalTest):
 
         # She sees the categories but without content, keys and
         # subcategories are hidden if they are empty.
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 1")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_1")]')
+        self.findByNot(
+            'xpath', '//article//article//*[contains(text(), "Key 1")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Foo")]]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Bar")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_2")]')
+        self.findByNot(
+            'xpath', '//article//*[text()[contains(.,"Key 4")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 5")]]')
 
         # She tries to submit the form empty and sees an error message
         self.findBy('id', 'button-submit').click()
@@ -2422,14 +2427,17 @@ class QuestionnaireTestIndex(FunctionalTest):
         # She sees that she was redirected to the overview page and is
         # shown a success message
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findBy(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_1")]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Key 1")]]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Bar")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_2")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 4")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 5")]]')
 
         # She submits the entire questionnaire
         self.findBy('id', 'button-submit').click()
@@ -2437,14 +2445,17 @@ class QuestionnaireTestIndex(FunctionalTest):
         # She is being redirected to the details page and sees a success
         # message.
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findBy(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_1")]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Key 1")]]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Foo")]]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Bar")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_2")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 4")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 5")]]')
 
         # She sees that the # was removed from the URL
         self.assertIn('#top', self.browser.current_url)
@@ -2465,14 +2476,17 @@ class QuestionnaireTestIndex(FunctionalTest):
         # that the session values are not there anymore.
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new))
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 1")]]')
-        self.findByNot('xpath', '//*[contains(text(), "Foo")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 1_2")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 4")]]')
-        self.findByNot('xpath', '//h3[contains(text(), "Subcategory 2_1")]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 5")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_1")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 1")]]')
+        self.findByNot('xpath', '//article//*[contains(text(), "Foo")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Bar")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 1_2")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 4")]]')
+        self.findByNot(
+            'xpath', '//article//h3[contains(text(), "Subcategory 2_1")]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Key 5")]]')
 
 
 class QuestionnaireLinkTest(FunctionalTest):
