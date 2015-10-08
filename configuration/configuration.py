@@ -1484,6 +1484,20 @@ class QuestionnaireCategory(BaseConfigurationObject):
                     questiongroups_data))
         return raw_category_data
 
+    def get_questiongroups(self):
+        def unnest_questiongroups(nested):
+            ret = []
+            try:
+                for child in nested.children:
+                    if not isinstance(child, QuestionnaireQuestiongroup):
+                        ret.extend(unnest_questiongroups(child))
+                    else:
+                        ret.append(child)
+            except AttributeError:
+                pass
+            return ret
+        return unnest_questiongroups(self)
+
 
 class QuestionnaireSection(BaseConfigurationObject):
     """
@@ -1804,30 +1818,31 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         filter_configuration = []
 
         for section in self.sections:
-            for questiongroup in section.get_questiongroups():
-                for question in questiongroup.questions:
-                    if question.filterable is True:
+            for cat in section.categories:
+                for questiongroup in cat.get_questiongroups():
+                    for question in questiongroup.questions:
+                        if question.filterable is True:
 
-                        s = next((
-                            item for item in filter_configuration if
-                            item["keyword"] == section.keyword), None)
+                            s = next((
+                                item for item in filter_configuration if
+                                item["keyword"] == cat.keyword), None)
 
-                        if not s:
-                            s = {
-                                'keyword': section.keyword,
-                                'label': section.label,
-                                'filters': [],
-                            }
-                            filter_configuration.append(s)
+                            if not s:
+                                s = {
+                                    'keyword': cat.keyword,
+                                    'label': cat.label,
+                                    'filters': [],
+                                }
+                                filter_configuration.append(s)
 
-                        s['filters'].append({
-                            'keyword': question.keyword,
-                            'label': question.label,
-                            'values': question.choices,
-                            'type': question.field_type,
-                            'images': question.images,
-                            'questiongroup': questiongroup.keyword,
-                        })
+                            s['filters'].append({
+                                'keyword': question.keyword,
+                                'label': question.label,
+                                'values': question.choices,
+                                'type': question.field_type,
+                                'images': question.images,
+                                'questiongroup': questiongroup.keyword,
+                            })
 
         countries = []
         country_question = self.get_question_by_keyword(

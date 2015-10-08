@@ -33,7 +33,7 @@
       </div>
       <div class="medium-4 columns">
         <label for="language">Language</label>
-        <select id="language">
+        <select id="language" disabled="disabled">
           <option value="en">English</option>
           <option value="fr">Français</option>
           <option value="de">Deutsch</option>
@@ -41,7 +41,7 @@
       </div>
       <div class="medium-4 columns">
         <label for="author">Author</label>
-        <input type="text" placeholder="Select or type the name of the author" list="authors" id="author">
+        <input type="text" placeholder="Select or type the name of the author" list="authors" id="author" disabled="disabled">
         <datalist id="authors">
           <option value="Georges R.R.Martin"></option>
           <option value="Philipp K. Dick"></option>
@@ -99,6 +99,7 @@
                   {% for filter in section.filters %}
 
                     {% if filter.type == 'image_checkbox' %}
+                      <h5>{{ filter.label }}</h5>
                       <ul class="list-gallery small-block-grid-1 large-block-grid-2">
                         {% for value in filter.values %}
                           <li>
@@ -115,12 +116,13 @@
                         {% endfor %}
                       </ul>
                     {% elif filter.type == 'checkbox' %}
+                      <h5>{{ filter.label }}</h5>
                       <ul class="list-gallery small-block-grid-1 large-block-grid-2">
                         {% for value in filter.values %}
                           <li>
-                            <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
-                            <label for="{{ filter.keyword }}_{{ value.0 }}">
-                              {{ value.1 }}
+                            <label class="input-multiline" for="{{ filter.keyword }}_{{ value.0 }}">
+                              <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                              <span>{{ value.1 }}</span>
                             </label>
                           </li>
                         {% endfor %}
