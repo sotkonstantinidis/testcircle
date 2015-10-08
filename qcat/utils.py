@@ -60,7 +60,7 @@ def is_empty_list_of_dicts(list_):
     return True
 
 
-def get_session_questionnaire(configuration_code, questionnaire_code):
+def get_session_questionnaire(configuration_code, questionnaire_code, user):
     """
     Return the data for a questionnaire from the session. The
     questionnaire(s) are stored in the session dictionary under the key
@@ -83,7 +83,8 @@ def get_session_questionnaire(configuration_code, questionnaire_code):
         ``questionnaire`` and ``links``) or an empty dictionary (``{}``)
         if not found.
     """
-    session_questionnaires = session_store.get('session_questionnaires')
+    session_questionnaires = session_store.get(
+        user.id, {}).get('session_questionnaires')
     if not isinstance(session_questionnaires, dict):
         return {}
 
@@ -100,7 +101,7 @@ def get_session_questionnaire(configuration_code, questionnaire_code):
 
 def save_session_questionnaire(
         configuration_code, questionnaire_code, questionnaire_data,
-        questionnaire_links):
+        questionnaire_links, user):
     """
     Save the data of a questionnaire to the session, using the key
     ``session_questionnaires``.
@@ -138,7 +139,7 @@ def save_session_questionnaire(
     if questionnaire_code is None:
         questionnaire_code = 'new'
 
-    session_questionnaires = session_store.get(
+    session_questionnaires = session_store.get(user.id, {}).get(
         'session_questionnaires', {}).get(configuration_code, [])
 
     session_questionnaire = next((q for q in session_questionnaires if q.get(
@@ -156,16 +157,16 @@ def save_session_questionnaire(
         'modified': str(datetime.now()),
     })
 
-    if 'session_questionnaires' not in session_store:
-        session_store['session_questionnaires'] = {}
+    if user.id not in session_store:
+        session_store[user.id] = {'session_questionnaires': {}}
 
-    session_store['session_questionnaires'][
+    session_store[user.id]['session_questionnaires'][
         configuration_code] = session_questionnaires
     session_store.save()
 
 
 def clear_session_questionnaire(
-        configuration_code=None, questionnaire_code=None):
+        configuration_code=None, questionnaire_code=None, user=None):
     """
     Clear the data of a questionnaire from the session key
     ``session_questionnaires``.
@@ -181,10 +182,12 @@ def clear_session_questionnaire(
         clear all new questionnaires (without a code), you need to pass
         ``questionnaire_code=new`` explicitely.
     """
+    if user.id not in session_store:
+        return
     if configuration_code is None:
-        session_store['session_questionnaires'] = {}
+        session_store[user.id]['session_questionnaires'] = {}
     else:
-        session_questionnaires = session_store.get(
+        session_questionnaires = session_store.get(user.id, {}).get(
             'session_questionnaires', {})
         if questionnaire_code is None:
             if configuration_code in session_questionnaires:
