@@ -90,7 +90,8 @@ class GenericQuestionnaireLinkFormTest(TestCase):
         generic_questionnaire_link_form(
             self.request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
-        mock_get_session_questionnaire.assert_called_once_with('sample', 'foo')
+        mock_get_session_questionnaire.assert_called_once_with(
+            self.request.user, 'sample', 'foo')
 
     @patch('questionnaire.views.render')
     def test_calls_render(self, mock_render):
@@ -212,7 +213,8 @@ class GenericQuestionnaireNewStepTest(TestCase):
         mock_get_session_questionnaire.return_value = {}
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
-        mock_get_session_questionnaire.assert_called_once_with('sample', None)
+        mock_get_session_questionnaire.assert_called_once_with(
+            self.request.user, 'sample', None)
 
     @patch('questionnaire.views.get_questionnaire_data_for_translation_form')
     def test_calls_get_questionnaire_data_for_translation_form(
@@ -241,7 +243,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         generic_questionnaire_new_step(
             r, *get_valid_new_step_values()[0])
         mock_save_session_questionnaire.assert_called_once_with(
-            'sample', None, {}, {})
+            self.request.user, 'sample', None, {}, {})
 
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
@@ -290,7 +292,8 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
-        mock_get_session_questionnaire.assert_called_once_with('sample', 'new')
+        mock_get_session_questionnaire.assert_called_once_with(
+            self.request.user, 'sample', 'new')
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -348,7 +351,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_clear_session_questionnaire.assert_called_once_with(
-            configuration_code='sample')
+            user=self.request.user, configuration_code='sample')
 
     @patch.object(messages, 'success')
     @patch('questionnaire.views.clean_questionnaire_data')

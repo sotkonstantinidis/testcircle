@@ -104,14 +104,14 @@ class SessionTest(FunctionalTest):
         # in the session is still there
         self.browser.get(self.live_server_url + reverse(
             sample_route_questionnaire_new))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Foo")]]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Bar")]]')
 
         # She submits the questionnaire
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
+        self.findBy('xpath', '//article//*[text()[contains(.,"Foo")]]')
+        self.findByNot('xpath', '//article//*[text()[contains(.,"Bar")]]')
 
 
 class SessionTest2(FunctionalTest):

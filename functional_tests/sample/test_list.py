@@ -900,6 +900,7 @@ class ListTest(FunctionalTest):
             self.browser.current_url, '{}?'.format(
                 self.live_server_url + reverse(route_questionnaire_list)))
 
+    # @attr('foo')
     def test_filter_search(self):
 
         # Alice goes to the list view
@@ -1035,6 +1036,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         # The results are filtered
         list_entries = self.findManyBy(
@@ -1065,6 +1067,7 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
+        time.sleep(1)
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
@@ -1237,7 +1240,7 @@ class ListTest(FunctionalTest):
         country_filter = self.findBy('id', 'filter-country')
         country_filter.send_keys('Bar Country')
         filter_button.click()
-        time.sleep(1)
+        time.sleep(2)
         url = self.browser.current_url
         self.browser.get(url)
 

@@ -221,6 +221,7 @@ class ModerationTest(FunctionalTest):
         self.findBy('xpath', '//input[@name="publish"]').click()
 
         # There is no review panel anymore.
+        time.sleep(2)
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findByNot('xpath', '//ol[@class="process"]')
 
