@@ -49,3 +49,29 @@
     }
   }
 }
+
+ul.title-area li.name h1 a {
+  float: left;
+  margin-right: 1rem;
+}
+
+/**
+ * TODO: COP12
+ * Temporary flag to mark the demo version
+ */
+div.notice.demo-version {
+  background-color: #a94442;
+  border: 1px solid $body-font-color;
+  color: $body-font-color;
+
+  a {
+    color: $body-font-color;
+    text-decoration: underline;
+  }
+
+  .large {
+    font-size: 1.25rem;
+    line-height: 0.8125rem;
+    margin-right: 0.75rem;
+  }
+}

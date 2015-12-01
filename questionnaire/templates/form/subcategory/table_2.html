@@ -16,15 +16,31 @@
 {% else %}
   <fieldset class="row">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
+
+    {% include "form/helptext.html" with helptext=config.helptext %}
+
     {% for questiongroup_config, questiongroup_formset in formsets %}
       {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+    {% endfor %}
+    {% for questiongroup_config, questiongroup_formset in formsets %}
+      {% if questiongroup_config.label %}
+        <h4>{{ questiongroup_config.label }}</h4>
+      {% endif %}
     {% endfor %}
     <table>
       <thead>
         <tr>
           <th></th>
           {% for header in config.table_headers %}
-            <th>{{ header }}</th>
+            <th>
+              {% with helptext=config.table_helptexts|get_by_index:forloop.counter0 %}
+                {% if helptext %}
+                  <span class="has-tip left" title="{{ helptext }}" aria-haspopup="true" data-tooltip="">{{ header }}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
+                {% else %}
+                  {{ header }}
+                {% endif %}
+              {% endwith %}
+            </th>
           {% endfor %}
         </tr>
       </thead>

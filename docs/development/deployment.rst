@@ -62,3 +62,42 @@ To deploy the latest code to the server, use the following command::
 If needed, add and enable the site in Apache.
 
 .. _Fabric: http://www.fabfile.org/
+
+
+Update recipes
+--------------
+
+Update server and reset database
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. Delete the database tables.
+
+#. Run the update script::
+
+    [local] (env)$ fab deploy -H user@server
+
+#. In Search Index Administration panel, delete all caches.
+
+#. On the server, load the fixtures::
+
+    [server] (env)$ python3 manage.py loaddata wocat.json
+
+#. In Search Index Aministration panel: delete and recreate indices.
+
+#. Eventually load data from Search Index Administration panel.
+
+
+Update server
+^^^^^^^^^^^^^
+
+#. Run the update script::
+
+    [local] (env)$ fab deploy -H user@server
+
+#. In Search Index Administration panel, delete all caches.
+
+#. On the server, load the fixtures::
+
+    [server] (env)$ python3 manage.py loaddata wocat.json
+
+#. In Search Index Aministration panel: delete, recreate and **update** indices.

@@ -1,4 +1,6 @@
-{% if values|length > 0 %}
+{% load list_to_columns %}
+
+{% if not values|is_empty %}
   {% if view_label != 'none' %}
     {% if header == 'small' %}
       <h5>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h5>

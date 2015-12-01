@@ -1,0 +1,28 @@
+{% load floppyforms %}
+{% load staticfiles %}
+
+{% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
+  {% block errors %}
+    {% include "form/errors.html" with errors=field.errors %}
+  {% endblock %}
+  {% if options.label == 'default' %}
+  <div class="row single-item">
+    <div class="small-12 columns">
+      <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row single-item single-item-checkbox-other">
+    <div class="small-12 columns">
+      <label class="input-multiline" for="{{ field|id }}">
+        <input class="checkbox-other" type="checkbox" disabled="disabled">
+        <span>
+          {{ field }}
+        </span>
+      </label>
+    </div>
+  </div>
+  {% if options.helptext %}
+    {% include "form/helptext.html" with helptext=options.helptext %}
+  {% endif %}
+{% endwith %}

@@ -5,10 +5,8 @@
 {% block content %}
 
 <section>
-  <div class="row">
-    <div class="small-12 columns">
-      <h1>Search Index Administration</h1>
-    </div>
+  <div class="row is-rhythmed-2">
+    <h1>Search Index Administration</h1>
   </div>
 
   <div class="row">
@@ -71,6 +69,18 @@
       <p>No active configurations found</p>
     {% endif %}
   </div>
+
+  <div class="row is-rhythmed-2">
+    <h1>Cache Administration</h1>
+  </div>
+  <div class="row">
+    <p>
+      <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>Delete the caches.</strong></p><p>Delete all the cached configurations as they never expire.</p>">
+        <a href="{% url 'search:delete_caches' %}" class="small button alert" style="margin-top: 0;">Delete caches</a>
+      </span>
+    </p>
+  </div>
+
 </section>
 
 {% endblock %}

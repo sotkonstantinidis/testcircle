@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.core.urlresolvers import reverse
+from django.http import Http404
 from django.test.client import RequestFactory
 from unittest.mock import patch, Mock
 
@@ -14,6 +15,7 @@ from accounts.tests.test_models import (
 from accounts.views import (
     login,
     welcome,
+    questionnaires,
 )
 from django.http import HttpResponseRedirect
 
@@ -21,6 +23,8 @@ from django.http import HttpResponseRedirect
 accounts_route_login = 'login'
 accounts_route_logout = 'logout'
 accounts_route_welcome = 'welcome'
+accounts_route_questionnaires = 'account_questionnaires'
+accounts_route_moderation = 'account_moderation'
 
 
 class WelcomeTest(TestCase):
@@ -79,7 +83,41 @@ class LoginTest(TestCase):
         self.request.user.is_authenticated = mock_is_authenticated
         login(self.request)
         mock_render.assert_called_once_with(self.request, 'login.html', {
-            'redirect_url': 'http://testserver/en/accounts/welcome?next=/',
+            'redirect_url': 'http://testserver/en/accounts/welcome?next=/en/',
             'login_url': mock_get_login_url.return_value,
             'show_notice': False,
         })
+
+
+class QuestionnairesTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = create_new_user()
+        self.url = reverse(
+            accounts_route_questionnaires, kwargs={'user_id': 1})
+        self.request = self.factory.get(self.url)
+
+    def test_renders_correct_template(self):
+        res = self.client.get(self.url)
+        self.assertTemplateUsed(res, 'questionnaires.html')
+
+    def test_returns_404_if_user_not_existing(self):
+        with self.assertRaises(Http404):
+            questionnaires(self.request, -1)
+
+    @patch('accounts.views.generic_questionnaire_list_no_config')
+    @patch('accounts.views.get_object_or_404')
+    def test_calls_generic_function(
+            self, mock_object_or_404, mock_generic_list):
+        questionnaires(self.request, 1)
+        mock_generic_list.assert_called_once_with(
+            self.request, user=mock_object_or_404.return_value)
+
+    @patch('accounts.views.render')
+    @patch('accounts.views.generic_questionnaire_list_no_config')
+    def test_calls_render(self, mock_generic_list, mock_render):
+        questionnaires(self.request, 1)
+        mock_render.assert_called_once_with(
+            self.request, 'questionnaires.html',
+            mock_generic_list.return_value)

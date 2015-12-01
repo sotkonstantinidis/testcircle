@@ -20,6 +20,7 @@ urlpatterns = patterns(
 # en/questionnaire
 urlpatterns += i18n_patterns(
     '',
+    url(r'^$', 'qcat.views.home', name='home'),
     url(r'^questionnaire/', include('questionnaire.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^wocat/', include('wocat.urls', namespace='wocat')),

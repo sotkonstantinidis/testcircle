@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import (
     Http404,
     HttpResponse,
@@ -38,6 +39,7 @@ from questionnaire.utils import (
     get_active_filters,
     get_link_data,
     get_list_values,
+    get_query_status_filter,
     get_questiongroup_data_from_translation_form,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
@@ -90,7 +92,8 @@ def generic_questionnaire_link_form(
     questionnaire_configuration = get_configuration(configuration_code)
     links_configuration = questionnaire_configuration.get_links_configuration()
 
-    session_data = get_session_questionnaire(configuration_code, identifier)
+    session_data = get_session_questionnaire(
+        request.user, configuration_code, identifier)
 
     link_forms = []
     for links_config in links_configuration:
@@ -143,7 +146,7 @@ def generic_questionnaire_link_form(
 
         if valid is True:
             save_session_questionnaire(
-                configuration_code, identifier,
+                request.user, configuration_code, identifier,
                 session_data.get('questionnaire', {}), link_data)
             messages.success(
                 request, _('Data successfully stored to Session.'))
@@ -195,7 +198,8 @@ def generic_questionnaire_link_search(request, configuration_code):
 
     configuration = get_configuration(configuration_code)
 
-    total, questionnaires = query_questionnaires_for_link(configuration, q)
+    total, questionnaires = query_questionnaires_for_link(
+        request, configuration, q)
 
     link_template = '{}/questionnaire/partial/link.html'.format(
         configuration_code)
@@ -333,7 +337,7 @@ def generic_questionnaire_new_step(
     session_questionnaire = {}
     if request.method != 'POST':
         session_data = get_session_questionnaire(
-            configuration_code, identifier)
+            request.user, configuration_code, identifier)
         session_questionnaire = session_data.get('questionnaire', {})
 
     # TODO: Make this more dynamic
@@ -364,7 +368,7 @@ def generic_questionnaire_new_step(
 
         if valid is True:
             session_data = get_session_questionnaire(
-                configuration_code, identifier)
+                request.user, configuration_code, identifier)
             session_questionnaire = session_data.get('questionnaire', {})
             session_questionnaire.update(data)
 
@@ -378,12 +382,14 @@ def generic_questionnaire_new_step(
                         '<br/>'.join(errors)), extra_tags='safe')
             else:
                 save_session_questionnaire(
-                    configuration_code, identifier, questionnaire_data,
-                    session_data.get('links', {}))
+                    request.user, configuration_code, identifier,
+                    questionnaire_data, session_data.get('links', {}))
 
                 messages.success(
                     request, _('Data successfully stored to Session.'))
                 return redirect(overview_url)
+
+    configuration_name = category_config.get('configuration', url_namespace)
 
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
@@ -391,7 +397,7 @@ def generic_questionnaire_new_step(
         'title': page_title,
         'overview_url': overview_url,
         'valid': valid,
-        'configuration_name': url_namespace,
+        'configuration_name': configuration_name,
     })
 
 
@@ -437,19 +443,19 @@ def generic_questionnaire_new(
         if questionnaire_object is None:
             raise Http404()
         session_data = get_session_questionnaire(
-            configuration_code, identifier)
+            request.user, configuration_code, identifier)
         if session_data.get('questionnaire') is None:
             questionnaire_links = get_link_data(
                 questionnaire_object.links.all())
             save_session_questionnaire(
-                configuration_code, identifier,
-                questionnaire_data=questionnaire_object.data,
-                questionnaire_links=questionnaire_links)
+                request.user, configuration_code, identifier,
+                questionnaire_object.data, questionnaire_links)
     else:
         questionnaire_object = None
         identifier = 'new'
 
-    session_data = get_session_questionnaire(configuration_code, identifier)
+    session_data = get_session_questionnaire(
+        request.user, configuration_code, identifier)
     session_questionnaire = session_data.get('questionnaire', {})
     session_links = session_data.get('links', {})
 
@@ -470,7 +476,8 @@ def generic_questionnaire_new(
             questionnaire = Questionnaire.create_new(
                 configuration_code, session_questionnaire, request.user,
                 previous_version=questionnaire_object)
-            clear_session_questionnaire(configuration_code=configuration_code)
+            clear_session_questionnaire(
+                user=request.user, configuration_code=configuration_code)
 
             for __, linked_questionnaires in session_links.items():
                 for linked in linked_questionnaires:
@@ -492,12 +499,18 @@ def generic_questionnaire_new(
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
-    sections = questionnaire_configuration.get_details(
-        data, editable=True,
-        edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
-        questionnaire_object=questionnaire_object)
+    permissions = ['can_save_questionnaire', 'can_edit_steps']
+    csrf_token = None
+    if 'can_save_questionnaire' in permissions:
+        csrf_token = get_token(request)
 
-    images = questionnaire_configuration.get_image_data(data)
+    sections = questionnaire_configuration.get_details(
+        data, permissions=permissions,
+        edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
+        questionnaire_object=questionnaire_object, csrf_token=csrf_token)
+
+    images = questionnaire_configuration.get_image_data(
+        data).get('content', [])
 
     link_ids = []
     for __, linked_questionnaires in session_links.items():
@@ -527,9 +540,9 @@ def generic_questionnaire_new(
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'mode': 'edit',
         'links': link_display,
         'filter_configuration': filter_configuration,
+        'permissions': permissions,
     })
 
 
@@ -590,21 +603,36 @@ def generic_questionnaire_details(
             'reviewable': reviewable,
         })
 
+    # TODO: Improve this!
+    permissions = []
+    if request.user in questionnaire_object.members.all() and obj_status != 2:
+        permissions.append('can_edit_questionnaire')
+
     sections = questionnaire_configuration.get_details(
-        data=data, review_config=review_config,
+        data=data, permissions=permissions, review_config=review_config,
         questionnaire_object=questionnaire_object)
 
-    images = questionnaire_configuration.get_image_data(data)
+    images = questionnaire_configuration.get_image_data(
+        data).get('content', [])
 
     links_by_configuration = {}
-    for linked in questionnaire_object.links.all():
+    status_filter = get_query_status_filter(request)
+    for linked in questionnaire_object.links.filter(status_filter):
         configuration = linked.configurations.first()
         if configuration is None:
             continue
         if configuration.code not in links_by_configuration:
             links_by_configuration[configuration.code] = [linked]
         else:
-            links_by_configuration[configuration.code].append(linked)
+            # Add each questionnaire (by code) only once to avoid having
+            # multiple (pending) versions of the same questionnaire
+            # shown.
+            found = False
+            for link in links_by_configuration[configuration.code]:
+                if link.code == linked.code:
+                    found = True
+            if found is False:
+                links_by_configuration[configuration.code].append(linked)
 
     link_display = {}
     for configuration, links in links_by_configuration.items():
@@ -620,17 +648,93 @@ def generic_questionnaire_details(
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'mode': 'view',
         'links': link_display,
         'filter_configuration': filter_configuration,
+        'permissions': permissions,
     })
+
+
+def generic_questionnaire_list_no_config(request, user=None, moderation=False):
+    """
+    A generic view to show a list of Questionnaires. Similar to
+    :func:`generic_questionnaire_list` but with the following
+    differences:
+
+    * No configuration is used, meaning that questionnaires from all
+      configurations are queried.
+
+    * No (attribute) filter configuration is created and provided.
+
+    * Special status filters are used: In moderation mode
+      (``moderation=True``), only pending versions are returned. Users
+      see their own versions (all statuses). Else the default status
+      filter is used.
+
+    * Always return the template values as a dictionary.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Kwargs:
+        ``user`` (``accounts.models.User``): If provided, show only
+        Questionnaires in which the user is a member of.
+
+        ``moderation`` (bool): If ``True``, always only show ``pending``
+         Questionnaires if the current user has moderation
+        permission.
+
+    Returns:
+        ``dict``. A dictionary with template values to be used in a list
+        template.
+    """
+    limit = get_limit_parameter(request)
+    page = get_page_parameter(request)
+    is_current_user = request.user is not None and request.user == user
+
+    # Determine the status filter
+    if moderation is True:
+        # Moderators always have a special moderation status filter
+        status_filter = get_query_status_filter(request, moderation=True)
+    elif is_current_user is True:
+        # The current user has no status filter (sees all statuses)
+        status_filter = Q()
+    else:
+        # Else use the default status filter (will be applied in
+        # :func:`query_questionnaires`)
+        status_filter = None
+
+    questionnaire_objects = query_questionnaires(
+        request, 'all', only_current=False,
+        limit=None, user=user, status_filter=status_filter)
+
+    questionnaires, paginator = get_paginator(
+        questionnaire_objects, page, limit)
+
+    status_filter = get_query_status_filter(request)
+    list_values = get_list_values(
+        configuration_code='wocat',
+        questionnaire_objects=questionnaires, status_filter=status_filter)
+
+    template_values = {
+        'list_values': list_values,
+        'is_current_user': is_current_user,
+        'list_user': user,
+        'is_moderation': moderation,
+    }
+
+    # Add the pagination parameters
+    pagination_params = get_pagination_parameters(
+        request, paginator, questionnaires)
+    template_values.update(pagination_params)
+
+    return template_values
 
 
 def generic_questionnaire_list(
         request, configuration_code, template=None, filter_url='', limit=None,
         only_current=False, db_query=False):
     """
-    A generic view to show a list of questionnaires.
+    A generic view to show a list of Questionnaires.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -694,9 +798,10 @@ def generic_questionnaire_list(
         questionnaires, paginator = get_paginator(
             questionnaire_objects, page, limit)
 
+        status_filter = get_query_status_filter(request)
         list_values = get_list_values(
             configuration_code=configuration_code,
-            questionnaire_objects=questionnaires)
+            questionnaire_objects=questionnaires, status_filter=status_filter)
 
     else:
         search_configuration_codes = get_configuration_index_filter(

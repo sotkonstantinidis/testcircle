@@ -51,11 +51,20 @@
 
     {% include "svg.html" %}
 
+    {% comment %}
+      TODO: COP12
+    {% endcomment %}
+    {% block temporary %}
+      <div class="notice alert-box demo-version text-center">
+        <span class="large">Test version for UNCCD COP12</span>Optimized for <a href="https://www.google.com/chrome/" target="_blank">Chrome</a> and <a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a>&nbsp; &ndash; &nbsp;<strong>Feedback</strong>: <a href="https://www.wocat.net/survey" target="_blank">Fill out the survey</a> or <a href="mailto:wocat-support@cde.unibe.ch">wocat-support@cde.unibe.ch</a>.
+      </div>
+    {% endblock %}
+
     <header class="page-header inner-wrap" role="banner">
       <nav class="top-bar {% block navclass %}is-wocat{% endblock %}" role="navigation" data-topbar="" data-options="is_hover: false">
         <ul class="title-area">
           <li class="name">
-            {% block logo %}<h1><a href="{% url 'home' %}"><img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}"></a></h1>{% endblock %}
+            {% block logo %}<h1><a href="{% url 'home' %}"><img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}"></a><a href="{% url 'home' %}"><img src="{% static 'assets/img/unccd_mono_logo.png' %}" alt="{% trans "UNCCD" %}"></a></h1>{% endblock %}
           </li>
 
           <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
@@ -67,6 +76,12 @@
               <li class="has-dropdown">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
+                  <li><a href="{% url 'account_questionnaires' user.id %}">{% trans "My SLM practices" %}</a></li>
+                  {% if perms.questionnaire.can_moderate %}
+                    <li>
+                      <a href="{% url 'account_moderation' %}">{% trans "Pending SLM practices" %}</a>
+                    </li>
+                  {% endif %}
                   {% if user.is_staff %}
                     <li>
                       <a href="{% url 'admin:index' %}">{% trans "Administration" %}</a>
@@ -112,21 +127,23 @@
     {% block filter %}
     {% endblock %}
 
-    {% if messages %}
-      {% for message in messages %}
-      <div class="notice alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
-      {% endfor %}
-    {% endif %}
+    {% block messages %}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="notice alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
+        {% endfor %}
+      {% endif %}
+    {% endblock %}
 
     {% block content %}
     {% endblock %}
 
     <footer class="row page-footer large-collapse" role="contentinfo">
       <nav class="sub-nav-footer medium-6 columns">
-        <a href="" class="link">About</a> | <a href="" class="link">FAQ </a> | <a href="" class="link">Contact</a>
+        <a href="" class="link">{% trans "About" %}</a> | <a href="" class="link">{% trans "FAQ" %}</a> | <a href="" class="link">{% trans "Contact" %}</a>
       </nav>
       <div class="page-footer-copy medium-6 columns">
-        © 2015 - CDE - Designed with love by <a href="http://www.wearecube.ch/" target="_blank" class="link">We Are Cube.³</a>
+        © 2015 - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
       </div>
     </footer>
 
@@ -137,6 +154,6 @@
 
     {% block bottom %}
     {% endblock %}
-
+    {% include 'parts/tracking.html' %}
   </body>
 </html>

@@ -179,7 +179,16 @@ class Translation(models.Model):
         """
         Return the translation of the instance by looking it up in the
         ``data`` JSON field. If no ``locale`` is provided, the currently
-        active locale is used.
+        active locale is used. If no configuration is provided, the
+        wocat configuration is used. If no translation is found for a
+        given locale, the default locale (the first language of the
+        settings) is used.
+
+        The translations are searched in the following order:
+            * configuration > locale
+            * configuration > default_locale
+            * wocat > locale
+            * wocat > default_locale
 
         Args:
             ``keyword`` (str): The keyword of the translation.
@@ -194,13 +203,20 @@ class Translation(models.Model):
             ``str`` or ``None``. The translation or ``None`` if no entry
             for the given locale was not found.
         """
+        default_locale = settings.LANGUAGES[0][0]
         if locale is None:
             locale = to_locale(get_language())
-        translation = self.data.get(configuration, {}).get(keyword, {}).get(
-            locale)
-        if translation is None and configuration != 'wocat':
-            translation = self.data.get('wocat', {}).get(keyword, {}).get(
-                locale)
+        translation = self.data.get(
+            configuration, {}).get(keyword, {}).get(locale)
+        if translation is None:
+            translation = self.data.get(
+                configuration, {}).get(keyword, {}).get(default_locale)
+        if translation is None:
+            translation = self.data.get(
+                'wocat', {}).get(keyword, {}).get(locale)
+        if translation is None:
+            translation = self.data.get(
+                'wocat', {}).get(keyword, {}).get(default_locale)
         return translation
 
     def get_numbering(self, configuration):

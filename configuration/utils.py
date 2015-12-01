@@ -20,6 +20,8 @@ def get_configuration_query_filter(configuration, only_current=False):
     * By default, only questionnaires of the provided configuration are
       visible.
 
+    * Use ``all`` to not filter Questionnaires by configurations at all.
+
     * For ``wocat``, additionally configuration ``unccd`` is visible (
       combined through an ``OR`` statement)
 
@@ -36,6 +38,9 @@ def get_configuration_query_filter(configuration, only_current=False):
     """
     if only_current is True:
         return Q(configurations__code=configuration)
+
+    if configuration == 'all':
+        return Q()
 
     if configuration == 'wocat':
         return (

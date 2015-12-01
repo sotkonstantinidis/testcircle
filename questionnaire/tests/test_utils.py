@@ -693,23 +693,30 @@ class QueryQuestionnairesForLinkTest(TestCase):
         'sample_global_key_values.json', 'sample.json',
         'sample_questionnaires.json']
 
+    def setUp(self):
+        req = Mock()
+        req.user.is_authenticated.return_value = False
+        self.request = req
+
     def test_calls_get_name_keywords(self):
         configuration = Mock()
         configuration.get_name_keywords.return_value = None, None
-        query_questionnaires_for_link(configuration, '')
+        query_questionnaires_for_link(self.request, configuration, '')
         configuration.get_name_keywords.assert_called_once_with()
 
     def test_returns_empty_if_no_name(self):
         configuration = Mock()
         configuration.get_name_keywords.return_value = None, None
-        total, data = query_questionnaires_for_link(configuration, '')
+        total, data = query_questionnaires_for_link(
+            self.request, configuration, '')
         self.assertEqual(total, 0)
         self.assertEqual(data, [])
 
     def test_returns_by_q(self):
         configuration = QuestionnaireConfiguration('sample')
         q = 'key'
-        total, data = query_questionnaires_for_link(configuration, q)
+        total, data = query_questionnaires_for_link(
+            self.request, configuration, q)
         self.assertEqual(total, 2)
         self.assertTrue(len(data), 2)
         self.assertEqual(data[0].id, 1)
@@ -718,7 +725,8 @@ class QueryQuestionnairesForLinkTest(TestCase):
     def test_returns_by_q_case_insensitive(self):
         configuration = QuestionnaireConfiguration('sample')
         q = 'KEY'
-        total, data = query_questionnaires_for_link(configuration, q)
+        total, data = query_questionnaires_for_link(
+            self.request, configuration, q)
         self.assertEqual(total, 2)
         self.assertTrue(len(data), 2)
         self.assertEqual(data[0].id, 1)
@@ -727,7 +735,8 @@ class QueryQuestionnairesForLinkTest(TestCase):
     def test_returns_single_result(self):
         configuration = QuestionnaireConfiguration('sample')
         q = 'key 1b'
-        total, data = query_questionnaires_for_link(configuration, q)
+        total, data = query_questionnaires_for_link(
+            self.request, configuration, q)
         self.assertEqual(total, 1)
         self.assertTrue(len(data), 1)
         self.assertEqual(data[0].id, 2)
@@ -735,7 +744,8 @@ class QueryQuestionnairesForLinkTest(TestCase):
     def test_applies_limit(self):
         configuration = QuestionnaireConfiguration('sample')
         q = 'key'
-        total, data = query_questionnaires_for_link(configuration, q, limit=1)
+        total, data = query_questionnaires_for_link(
+            self.request, configuration, q, limit=1)
         self.assertEqual(total, 2)
         self.assertTrue(len(data), 1)
         self.assertEqual(data[0].id, 1)
@@ -743,7 +753,8 @@ class QueryQuestionnairesForLinkTest(TestCase):
     def test_finds_by_code(self):
         configuration = QuestionnaireConfiguration('sample')
         q = 'sample_1'
-        total, data = query_questionnaires_for_link(configuration, q)
+        total, data = query_questionnaires_for_link(
+            self.request, configuration, q)
         self.assertEqual(total, 1)
         self.assertTrue(len(data), 1)
         self.assertEqual(data[0].id, 1)
@@ -751,7 +762,8 @@ class QueryQuestionnairesForLinkTest(TestCase):
     def test_find_by_other_langauge(self):
         configuration = QuestionnaireConfiguration('sample')
         q = 'clave'
-        total, data = query_questionnaires_for_link(configuration, q)
+        total, data = query_questionnaires_for_link(
+            self.request, configuration, q)
         self.assertEqual(total, 1)
         self.assertTrue(len(data), 1)
         self.assertEqual(data[0].id, 2)
@@ -794,7 +806,8 @@ class GetListValuesTest(TestCase):
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
 
-    def test_returns_values_from_database(self):
+    @patch('questionnaire.utils.get_link_data')
+    def test_returns_values_from_database(self, mock_get_link_data):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
@@ -817,7 +830,8 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('authors'), ['author'])
         self.assertEqual(ret_1.get('links'), [])
 
-    def test_db_uses_provided_configuration(self):
+    @patch('questionnaire.utils.get_link_data')
+    def test_db_uses_provided_configuration(self, mock_get_link_data):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None
@@ -832,7 +846,8 @@ class GetListValuesTest(TestCase):
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'foo')
 
-    def test_db_wocat_uses_default_configuration(self):
+    @patch('questionnaire.utils.get_link_data')
+    def test_db_wocat_uses_default_configuration(self, mock_get_link_data):
         obj = Mock()
         obj.configurations.all.return_value = []
         obj.configurations.first.return_value = None

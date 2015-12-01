@@ -4,10 +4,10 @@
   {% include "details/toc.html" with toc_keyword=keyword %}
 {% endif %}
 
-<section id="{{ keyword }}" class="tech-section is-rhythmed-2" data-magellan-destination="{{ keyword }}">
-  <a name="{{ keyword }}"></a>
-  <div class="row">
-    {% if editable %}
+{% if subcategories or 'can_edit_steps' in permissions %}
+  <section id="{{ keyword }}" class="tech-section is-rhythmed row" data-magellan-destination="{{ keyword }}">
+    <a name="{{ keyword }}"></a>
+    {% if 'can_edit_steps' in permissions %}
       <div class="medium-9 columns">
         <h2>{{ numbering|default:'' }} {{ label }}</h2>
         <div class="tech-section-progress progress">
@@ -23,10 +23,10 @@
         <h2>{{ numbering|default:'' }} {{ label }}</h2>
       </div>
     {% endif %}
-    <div class="small-12 columns output is-rhythmed-2">
-      {% for subcategory in subcategories %}
+    <div class="small-12 columns output">
+      {% for subcategory, subcategory_config in subcategories %}
         {{ subcategory }}
       {% endfor %}
     </div>
-  </div>
-</section>
+  </section>
+{% endif %}

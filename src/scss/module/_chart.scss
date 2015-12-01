@@ -2,6 +2,9 @@
 .chart-pyramidal-bars {
   @include reset-list;
 }
+.chart-horizontal-bars, .chart-horizontal-bars:first-child {
+  margin-top: rem-calc(8);
+}
 .chart-horizontal-bars .chart-bar,
 .chart-pyramidal-bars .chart-bar {
   display: block;
@@ -87,4 +90,41 @@ $bars-factor: 4;
   text-align: right;
   min-width: 15%;
   margin-left: 1rem;
+}
+
+.chart-measure-labelled {
+  list-style: none;
+  padding: 0;
+  float: left;
+  margin-left: 0;
+  margin-top: 0;
+}
+.chart-measure-labelled .step {
+  background-color: rgba($color-brown, 0.2 * 1 );
+  display: inline-block;
+  color: white;
+  padding: rem-calc(12);
+  margin: 0 0 0 1px;
+  float: left;
+  border-radius: rem-calc(2);
+  @for $i from 1 through 5 {
+    &.is-level-#{$i} {
+      background-color: rgba($color-brown, 0.2 * $i );
+    }
+  }
+}
+.chart-measure-label-left {
+  margin-right: rem-calc(8);
+  font-size: rem-calc(14);
+  float: right;
+}
+.chart-measure-label-right {
+  margin-left: rem-calc(8);
+  font-size: rem-calc(14);
+}
+.chart-measure-col-left {
+  padding-right: 0;
+}
+.chart-measure-col-content {
+  padding-left: 0;
 }

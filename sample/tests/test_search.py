@@ -2,6 +2,7 @@
 import logging
 logging.disable(logging.CRITICAL)
 
+from django.db.models import Q
 from django.test.utils import override_settings
 
 from qcat.tests import TestCase
@@ -110,7 +111,8 @@ class GetListValuesTest(TestCase):
         ids = [q.get('id') for q in res_1]
         res_2 = get_list_values(
             configuration_code='sample',
-            questionnaire_objects=Questionnaire.objects.filter(pk__in=ids))
+            questionnaire_objects=Questionnaire.objects.filter(pk__in=ids),
+            status_filter=Q())
 
         for res in [res_1, res_2]:
             for r in res:

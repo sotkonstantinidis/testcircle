@@ -30,10 +30,10 @@
       {% for section in sections %}
         {{ section }}
       {% endfor %}
-      {% if links or mode == 'edit' %}
+      {% if links or 'can_edit_steps' in permissions %}
         <section id="links" class="tech-section row is-rhythmed-2" data-magellan-destination="links">
           <a name="links"></a>
-          {% if mode == 'edit' %}
+          {% if 'can_edit_steps' in permissions %}
             <div class="medium-9 columns">
               <h2>{% trans "Linked Questionnaires" %}</h2>
             </div>
@@ -58,13 +58,13 @@
       {% endif %}
       <section class="row is-rhythmed-2">
         <div class="small-12 columns">
-          {% if mode == 'edit' %}
+          {% if 'can_save_questionnaire' in permissions %}
             <form action="" method="POST">
               {% csrf_token %}
-              <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}">
+              <input id="button-submit" class="button large is-samplemulti" type="submit" value="{% trans "Save SAMPLEMULTI" %}">
             </form>
-          {% else %}
-            <a href="{% url 'samplemulti:questionnaire_edit' questionnaire_identifier %}" class="button">{% trans "Edit" %}</a>
+          {% elif 'can_edit_questionnaire' in permissions %}
+            <a href="{% url 'samplemulti:questionnaire_edit' questionnaire_identifier %}" class="button large is-samplemulti">{% trans "Edit SAMPLEMULTI" %}</a>
           {% endif %}
         </div>
       </section>

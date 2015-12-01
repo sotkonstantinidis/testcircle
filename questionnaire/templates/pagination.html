@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% if pages > 1 %}
   <div class="pagination-centered">
     <ul class="pagination">
@@ -19,5 +21,6 @@
       {% endif %}
       <li class="arrow{% if not has_next %} unavailable{% endif %}"><a href="{% if has_next %}{% if get_params %}?{{ get_params }}&{% else %}?{% endif %}page={{ next }}{% endif %}">&raquo;</a></li>
     </ul>
+    <p>{% trans "Total:"%} {{ count }}</p>
   </div>
 {% endif %}

@@ -6,6 +6,15 @@
 
 {% block content %}
 
+{% comment %}
+  TODO: COP12
+{% endcomment %}
+{% if 'can_edit_steps' in permissions %}
+  <div class="notice alert-box demo-version text-center">
+    <strong>Data entered in this test version will not be stored.</strong>
+  </div>
+{% endif %}
+
   {% if images|length %}
     <figure class="tech-figure">
       <div class="tech-figure-container">
@@ -30,10 +39,10 @@
       {% for section in sections %}
         {{ section }}
       {% endfor %}
-      {% if links or mode == 'edit' %}
-        <section id="links" class="tech-section row is-rhythmed-2" data-magellan-destination="links">
+      {% if links or 'can_edit_steps' in permissions %}
+        <section id="links" class="tech-section row is-rhythmed" data-magellan-destination="links">
           <a name="links"></a>
-          {% if mode == 'edit' %}
+          {% if 'can_edit_steps' in permissions %}
             <div class="medium-9 columns">
               <h2>{% trans "Linked Questionnaires" %}</h2>
             </div>
@@ -56,15 +65,15 @@
           </div>
         </section>
       {% endif %}
-      <section class="row is-rhythmed-2">
+      <section class="row is-rhythmed">
         <div class="small-12 columns">
-          {% if mode == 'edit' %}
+          {% if 'can_save_questionnaire' in permissions %}
             <form action="" method="POST">
               {% csrf_token %}
-              <input id="button-submit" class="button" type="submit" value="{% trans "Save" %}">
+              <input id="button-submit" class="button large is-approaches" type="submit" value="{% trans "Save SLM Approach" %}">
             </form>
-          {% else %}
-            <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button">{% trans "Edit" %}</a>
+          {% elif 'can_edit_questionnaire' in permissions %}
+            <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button large is-approaches">{% trans "Edit SLM Approach" %}</a>
           {% endif %}
         </div>
       </section>

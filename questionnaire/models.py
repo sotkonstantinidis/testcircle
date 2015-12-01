@@ -40,8 +40,8 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
-    created = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField()
+    updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
     blocked = models.BooleanField(default=False)
@@ -99,7 +99,13 @@ class Questionnaire(models.Model):
         Raises:
             ``ValidationError``
         """
+        if updated is None:
+            updated = timezone.now()
+        if created is None:
+            created = timezone.now()
+
         if previous_version:
+            created = previous_version.created
             if previous_version.status not in [1, 3]:
                 raise ValidationError(
                     'The questionnaire cannot be updated because of its status'
@@ -107,6 +113,7 @@ class Questionnaire(models.Model):
             elif previous_version.status == 1:
                 # Draft: Only update the data
                 previous_version.data = data
+                previous_version.updated = updated
                 previous_version.save()
                 return previous_version
             else:
@@ -125,11 +132,8 @@ class Questionnaire(models.Model):
                 'No active configuration found for code "{}"'.format(
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
-            data=data, code=code, version=version, status=status)
-        if created is not None:
-            questionnaire.created = created
-        if updated is not None:
-            questionnaire.updated = updated
+            data=data, code=code, version=version, status=status,
+            created=created, updated=updated)
 
         # TODO: Not all configurations should be the original ones!
         QuestionnaireConfiguration.objects.create(

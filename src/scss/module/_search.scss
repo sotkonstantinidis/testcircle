@@ -87,6 +87,26 @@
       background-image: linear-gradient(to bottom, transparent 50%, white 50%);
     }
   }
+
+  ul.list-gallery li {
+    padding-bottom: 0;
+  }
+
+  div.list-gallery-item {
+    margin-top: 0;
+    margin-bottom: rem-calc(8);
+  }
+  .input-multiline {
+    margin-top: 0;
+  }
+
+  h5 {
+    margin-top: rem-calc(12);
+    margin-bottom: rem-calc(8);
+  }
+  h5:first-of-type {
+    margin-top: 0;
+  }
 }
 .search-close {
   position: absolute;

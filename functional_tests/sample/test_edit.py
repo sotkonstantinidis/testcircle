@@ -7,8 +7,11 @@ from sample.tests.test_views import (
     get_position_of_category,
     route_home,
     route_questionnaire_details,
+    route_questionnaire_new,
 )
 
+from django.contrib.auth.models import Group
+from accounts.tests.test_models import create_new_user
 from nose.plugins.attrib import attr
 # @attr('foo')
 
@@ -30,6 +33,162 @@ class EditTest(FunctionalTest):
     id: 6   code: sample_5   version: 2   status: 3   user: 101
     id: 7   code: sample_6   version: 1   status: 1   user: 103
     """
+
+    def test_concurrent_edits(self):
+
+        user_alice = User.objects.get(pk=101)
+        user_bob = User.objects.get(pk=102)
+
+        # Alice logs in
+        self.doLogin(user=user_alice)
+
+        # She starts editing a new questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        self.findBy(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
+                cat_1_position+1)).click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the changes saved in the session
+        self.findBy('xpath', '//article//*[text()="Foo"]')
+
+        # Bob logs in
+        self.doLogin(user=user_bob)
+
+        # He also starts editing a new questionnaire.
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+
+        # He does not see the changes saved by Alice
+        self.findByNot('xpath', '//article//*[text()="Foo"]')
+
+        # He enters his own data
+        self.findBy(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
+                cat_1_position+1)).click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Faz')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Taz')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # He sees the changes saved in the session
+        self.findByNot('xpath', '//article//*[text()="Foo"]')
+        self.findBy('xpath', '//article//*[text()="Faz"]')
+
+        # Again, Alice logs in
+        self.doLogin(user=user_alice)
+
+        # She goes to the questionnaire form and sees her edits from before
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        self.findBy('xpath', '//article//*[text()="Foo"]')
+        self.findByNot('xpath', '//article//*[text()="Faz"]')
+
+        # She saves the questionnaire and sees the values were stored
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//article//*[text()="Foo"]')
+        self.findByNot('xpath', '//article//*[text()="Faz"]')
+
+        # She starts a new form and sees no values are there
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        self.findByNot('xpath', '//article//*[text()="Foo"]')
+        self.findByNot('xpath', '//article//*[text()="Faz"]')
+
+        # Bob logs in again
+        self.doLogin(user=user_bob)
+
+        # He goes to the questionnaire form and sees his edits from before
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        self.findByNot('xpath', '//article//*[text()="Foo"]')
+        self.findBy('xpath', '//article//*[text()="Faz"]')
+
+    def test_creation_date_does_not_change(self):
+
+        # Alice logs in
+        user = User.objects.get(pk=102)
+        self.doLogin(user=user)
+
+        # She goes to the details of an existing questionnaire and takes
+        # note of the creation and update dates
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        creation_date = dates[0].text
+        update_date = dates[1].text
+
+        # She edits the questionnaire
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/sample_3/cat")]')[
+                cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+
+        # She submits the questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the changes were submitted
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+
+        # She notices that the creation date did not change while the
+        # update date changed.
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        self.assertEqual(creation_date, dates[0].text)
+        self.assertTrue(update_date != dates[1].text)
+
+        # Alice logs in as a different user
+        user = User.objects.get(pk=101)
+        self.doLogin(user=user)
+
+        # She also opens a draft version of a questionnaire and takes
+        # note of the creation and update dates
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        creation_date = dates[0].text
+        update_date = dates[1].text
+
+        # She makes an edit
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/sample_1/cat")]')[
+                cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+
+        # She submits the questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the changes were submitted
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+
+        # She notices that the creation date did not change while the
+        # update date changed.
+        dates = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+        self.assertEqual(len(dates), 2)
+        self.assertEqual(creation_date, dates[0].text)
+        self.assertTrue(update_date != dates[1].text)
 
     def test_edit_draft(self):
 
@@ -164,3 +323,65 @@ class EditTest(FunctionalTest):
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
             'contains(text(), "asdf")]').click()
         self.checkOnPage('asdf')
+
+    def test_edit_questionnaire(self):
+
+        user = create_new_user(id=6, email='mod@bar.com')
+        user.groups = [Group.objects.get(pk=3)]
+        user.save()
+
+        # Alice logs in
+        self.doLogin(user=user)
+
+        # She enters a Questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        edit_buttons = self.findManyBy(
+            'xpath', '//a[contains(@href, "edit/new/cat")]')
+        edit_buttons[cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She saves it as draft
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She submits it for review
+        self.findBy('xpath', '//input[@name="submit"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She publishes it
+        self.findBy('xpath', '//input[@name="publish"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees it is public and visible
+        self.findBy('xpath', '//p[text()="Foo"]')
+        self.findBy('xpath', '//p[text()="Bar"]')
+
+        url = self.browser.current_url
+
+        # She edits it
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.findBy(
+            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+
+        # She changes some values
+        self.findBy('name', 'qg_1-0-original_key_1').clear()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She saves it as draft
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She is taken to the overview page where she sees the latest
+        # (pending) changes of the draft
+
+        self.assertEqual(url, self.browser.current_url)
+
+        self.findBy('xpath', '//p[text()="Bar"]')
+        self.findByNot('xpath', '//p[text()="Foo"]')
+        self.findBy('xpath', '//p[text()="asdf"]')

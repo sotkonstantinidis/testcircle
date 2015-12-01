@@ -13,9 +13,7 @@
         {% endif %}
       </div>
       <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
-        <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ raw_data.country.0|default:"" }}</span></p>
-
-      <p class="is-large">{{ raw_data.app_first|default:""|linebreaksbr }}</p>
+      <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ raw_data.country.0|default:"" }}</span></p>
     </header>
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
       <ul class="tech-output-infos">
@@ -28,7 +26,7 @@
           <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
         </li>
         <li>
-          <span class="is-muted">{% if metadata.authors|length > 1 %}{% trans "Authors:" %}{% else %}{% trans "Author:" %}{% endif %}</span>
+          <span class="is-muted">{% if metadata.authors|length > 1 %}{% trans "Editors:" %}{% else %}{% trans "Editor:" %}{% endif %}</span>
           {% for author in metadata.authors %}
             <a rel="author" href="#" class="link">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
           {% empty %}
@@ -36,11 +34,23 @@
           {% endfor %}
         </li>
       </ul>
+      {% if 'can_save_questionnaire' in permissions %}
+        <form action="" method="POST">
+          <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/></div>
+          <input class="button large is-approaches q-action-button-top" type="submit" value="{% trans "Save SLM Approach" %}">
+        </form>
+      {% elif 'can_edit_questionnaire' in permissions %}
+        <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button large is-approaches q-action-button-top">{% trans "Edit SLM Approach" %}</a>
+      {% endif %}
     </aside>
 
-    {% if editable %}
+    <div class="medium-12 columns">
+      {% include "details/toc.html" with toc_keyword=keyword %}
+    </div>
+
+    {% if 'can_edit_steps' in permissions %}
       <div class="medium-9 columns">
-        <h2>&nbsp;</h2>
+        <h2>{{ numbering|default:'' }} {{ label }}</h2>
         <div class="tech-section-progress progress">
           <span class="progress-steps"></span>
           <span class="meter" style="width:{{ progress }}%"></span>
@@ -50,4 +60,21 @@
         <a class="button is-approaches right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
       </div>
     {% endif %}
+
+    <div class="medium-12 columns output">
+      {% if raw_data.funding_project %}
+        <h5>{{ raw_data.label_funding_project }}{% if raw_data.label_funding_project|last not in ".:!?" %}: {% endif %}</h5>
+        <p>{{ raw_data.funding_project }}</p>
+      {% endif %}
+      {% if raw_data.accept_conditions %}
+        <h5>{{ raw_data.label_accept_conditions }}{% if raw_data.label_accept_conditions|last not in ".:!?" %}: {% endif %}</h5>
+        <p>{{ raw_data.accept_conditions.0 }}</p>
+      {% endif %}
+
+      {% for subcategory, subcategory_config in subcategories %}
+        {% if subcategory_config.keyword == 'app__1__4' %}
+          {{ subcategory }}
+        {% endif %}
+      {% endfor %}
+    </div>
   </section>

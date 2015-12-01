@@ -58,13 +58,14 @@ function updateNumbering() {
 $(function() {
 
   // Language switcher
-  $('.top-bar-lang .dropdown a').click(function() {
-    var lang = $(this).data('language');
-    var form = $(this).closest('form');
-    if (form && lang) {
-      form.find('#language_field').val(lang);
-      form.submit();
-    }
+  $('.top-bar-lang .dropdown a').click(function(e) {
+    e.preventDefault();
+    // var lang = $(this).data('language');
+    // var form = $(this).closest('form');
+    // if (form && lang) {
+    //   form.find('#language_field').val(lang);
+    //   form.submit();
+    // }
   });
 
   $('#submit-search').click(function() {

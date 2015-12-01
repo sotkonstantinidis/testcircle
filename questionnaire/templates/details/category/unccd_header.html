@@ -12,19 +12,19 @@
           <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
         {% endif %}
       </div>
-      <h1 class="tech-output-title">{{ raw_data.name|safe|default:'' }}</h1>
+      <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
         <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ raw_data.country.0|default:"" }}</span></p>
 
       {% if raw_data.country %}
         <p class="is-large"><strong>{{ raw_data.label_country }}{% if raw_data.label_country|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.country.0 }}</p>
       {% endif %}
       <p class="is-large"><strong>{{ raw_data.label_unccd_reporting_entity }}{% if raw_data.label_unccd_reporting_entity|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.unccd_reporting_entity }}</p>
-      <p class="is-large">{{ raw_data.unccd_description|safe|default:"" }}</p>
+      <p class="is-large">{{ raw_data.unccd_description|default:"" }}</p>
         {% if raw_data.unccd_property_rights %}
           <p><strong>{{ raw_data.label_unccd_property_rights }}{% if raw_data.label_unccd_property_rights|last not in ".:!?" %}: {% endif %}</strong>{{ raw_data.unccd_property_rights.0 }}</p>
         {% endif %}
         {% if raw_data.unccd_property_rights_description %}
-          <p>{% trans "Comments" %}: {{ raw_data.unccd_property_rights_description|safe }}</p>
+          <p>{% trans "Comments" %}: {{ raw_data.unccd_property_rights_description }}</p>
         {% endif %}
     </header>
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
@@ -38,7 +38,7 @@
           <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
         </li>
         <li>
-          <span class="is-muted">{% if metadata.authors|length > 1 %}{% trans "Authors:" %}{% else %}{% trans "Author:" %}{% endif %}</span>
+          <span class="is-muted">{% if metadata.authors|length > 1 %}{% trans "Data sources:" %}{% else %}{% trans "Data source:" %}{% endif %}</span>
           {% for author in metadata.authors %}
             <a rel="author" href="#" class="link">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
           {% empty %}
@@ -48,7 +48,7 @@
       </ul>
     </aside>
 
-    {% if editable %}
+    {% if 'can_edit_steps' in permissions %}
       <div class="medium-9 columns">
         <h2>&nbsp;</h2>
         <div class="tech-section-progress progress">

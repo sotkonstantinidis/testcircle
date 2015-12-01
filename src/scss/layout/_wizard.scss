@@ -123,7 +123,10 @@ fieldset.row table {
 form .single-item:not(:first-child) {
   margin-top: 0.5rem;
 }
-
-.questiongroup h4 {
-  margin-top: 2rem;
+form .single-item.single-item-checkbox-other {
+  margin-top: 0;
+}
+.image-cb-has-condition .list-item {
+  padding-top: 0;
+  padding-bottom: rem-calc(16);
 }

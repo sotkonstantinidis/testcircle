@@ -195,7 +195,9 @@ class QuestionnaireListPartialTest(TestCase):
     @patch('approaches.views.generic_questionnaire_list')
     def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
-        questionnaire_list_partial(request)
+        mock_questionnaire_list.return_value = {}
+        with self.assertRaises(KeyError):
+            questionnaire_list_partial(request)
         mock_questionnaire_list.assert_called_once_with(
             request, 'approaches', template=None)
 
@@ -205,7 +207,8 @@ class QuestionnaireListPartialTest(TestCase):
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
             'list_values': 'foo',
-            'active_filters': 'bar'
+            'active_filters': 'bar',
+            'count': 0,
         }
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
@@ -219,7 +222,8 @@ class QuestionnaireListPartialTest(TestCase):
             self, mock_questionnaire_list, mock_render_to_string):
         mock_questionnaire_list.return_value = {
             'list_values': 'foo',
-            'active_filters': 'bar'
+            'active_filters': 'bar',
+            'count': 0,
         }
         mock_render_to_string.return_value = ''
         self.client.get(self.url)
@@ -231,6 +235,11 @@ class QuestionnaireListPartialTest(TestCase):
     def test_calls_render_to_string_with_pagination(
             self, mock_questionnaire_list, mock_render_to_string):
         mock_render_to_string.return_value = ''
+        mock_questionnaire_list.return_value = {
+            'list_values': 'foo',
+            'active_filters': 'bar',
+            'count': 0,
+        }
         self.client.get(self.url)
         mock_render_to_string.assert_any_call(
             'pagination.html', mock_questionnaire_list.return_value)

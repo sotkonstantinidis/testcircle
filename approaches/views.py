@@ -174,6 +174,7 @@ def questionnaire_list_partial(request):
         'list': list_,
         'active_filters': active_filters,
         'pagination': pagination,
+        'count': list_values['count'],
     }
 
     return JsonResponse(ret)

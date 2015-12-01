@@ -11,4 +11,7 @@ urlpatterns = patterns(
         name='index'),
     url(r'^update/(?P<configuration>\w+)/$', 'search.views.update',
         name='update'),
+    # This does not necessarily belong here
+    url(r'^cache/delete/$', 'configuration.views.delete_caches',
+        name='delete_caches'),
 )

@@ -5,6 +5,25 @@ register = template.Library()
 
 
 @register.filter
+def is_empty(items):
+    """
+    Iterate over a list to check if its element contains values or not.
+    '' or None are regarded as non-values.
+
+    Args:
+        ``items`` (list): A list of items.
+
+    Returns:
+        ``bool``. Returns ``True`` if the list only contains empty
+        values, else returns ``False``.
+    """
+    for item in items:
+        if item and item != '':
+            return False
+    return True
+
+
+@register.filter
 def columnize(items, columns):
     """
     Return a list containing lists of the elements which are contained

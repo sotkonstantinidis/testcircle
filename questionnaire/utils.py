@@ -117,7 +117,7 @@ def clean_questionnaire_data(data, configuration):
                                 value, key, qg_keyword))
                         continue
                 if question.field_type in [
-                        'bool', 'measure', 'select_type', 'select']:
+                        'bool', 'measure', 'select_type', 'select', 'radio']:
                     if value not in [c[0] for c in question.choices]:
                         errors.append(
                             'Value "{}" is not valid for key "{}" ('
@@ -218,6 +218,9 @@ def clean_questionnaire_data(data, configuration):
                             try:
                                 evaluated = evaluated and eval('{}{}'.format(
                                     condition_value, c))
+                            except NameError:
+                                evaluated = evaluated and eval(
+                                    '"{}"{}'.format(condition_value, c))
                             except:
                                 evaluated = False
                                 continue
@@ -685,7 +688,8 @@ def query_questionnaire(request, identifier):
 
 
 def query_questionnaires(
-        request, configuration_code, only_current=False, limit=10, offset=0):
+        request, configuration_code, only_current=False, limit=10, offset=0,
+        user=None, status_filter=None):
     """
     Query and return many Questionnaires.
 
@@ -706,10 +710,20 @@ def query_questionnaires(
 
         ``offset`` (int): The offset of the results of the query.
 
+        ``user`` (accounts.models.User): If provided, add an additional
+        filter to return only Questionnaires where the user is a member
+        of.
+
+        ``status_filter`` (django.db.models.Q): A Django filter object.
+        If provided (not ``None``), this filter is used instead of the
+        default ``status_filter`` (as provided by
+        :func:`get_query_status_filter`).
+
     Returns:
         ``django.db.models.query.QuerySet``. The queried Questionnaires.
     """
-    status_filter = get_query_status_filter(request)
+    if status_filter is None:
+        status_filter = get_query_status_filter(request)
 
     # Find the IDs of the Questionnaires which are visible to the
     # current user. If multiple versions exist for a Questionnaire, only
@@ -722,15 +736,18 @@ def query_questionnaires(
 
     query = Questionnaire.objects.filter(id__in=ids)
 
+    if user is not None:
+        query = query.filter(members=user)
+
     if limit is not None:
         return query[offset:offset+limit]
 
     return query
 
 
-def get_query_status_filter(request):
+def get_query_status_filter(request, moderation=False):
     """
-    Creates a filter object based on the statii of the Questionnaires,
+    Creates a filter object based on the statuses of the Questionnaires,
     to be used for database queries.
 
     The following status filters are applied:
@@ -745,6 +762,12 @@ def get_query_status_filter(request):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
+    Kwargs:
+        ``moderation`` (bool): If ``True``, always return a status
+        filter needed by moderators (eg. showing only pending
+        Questionnaires). This is only returned if the user actually
+        has permissions to moderate (``can_moderate``).
+
     Returns:
         ``django.db.models.Q``. A Django filter object.
     """
@@ -757,6 +780,11 @@ def get_query_status_filter(request):
         # ... see all "pending" and "public" if they are moderators,
         # along with their own "draft"
         if request.user.has_perm('questionnaire.can_moderate'):
+
+            # In moderation mode, only "pending" versions are visible
+            if moderation is True:
+                return Q(status=2)
+
             status_filter = (
                 Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
 
@@ -768,13 +796,53 @@ def get_query_status_filter(request):
     return status_filter
 
 
-def query_questionnaires_for_link(configuration, q, limit=10):
+def get_raw_link_status_filter(request):
+    """
+    Create a raw SQL filter to be used for database queries when
+    searching for links.
+
+    The following filters are applied:
+
+    * Not logged in users always only see "public" Questionnaires.
+      However, normally, users must be logged in to search for links so
+      this may never occur.
+
+    * Logged in users see all "public" Questionnaires, along with their
+      own "draft" and "pending" versions.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``str``. A raw SQL filter string.
+    """
+    # Public always only sees "public"
+    status_filter = 'questionnaire_questionnaire.status = 3'
+
+    # Logged in users see all "public", along with their own "draft" and
+    # "pending".
+    if request.user.is_authenticated():
+        status_filter = """
+            questionnaire_questionnaire.status = 3 OR (
+                questionnaire_questionnaire.status IN (1, 2) AND
+                questionnaire_questionnairemembership.user_id = %s)
+        """ % request.user.id
+
+    return status_filter
+
+
+def query_questionnaires_for_link(request, configuration, q, limit=10):
     """
     Do a raw SQL search in the JSON data field of questionnaires. Only
     questionnaires of the configuration's keyword are returned. The
     search happens in the name field as defined by the parameter
     ``is_name`` in the configuration, searched in any language. The same
     term can also be used to search by code of the questionnaire.
+
+    The links are filtered by a status query.
+
+    .. seealso::
+        :func:`get_raw_link_status_filter`
 
     Args:
         ``configuration``
@@ -799,8 +867,11 @@ def query_questionnaires_for_link(configuration, q, limit=10):
         return 0, []
 
     query = """
-        select questionnaire_questionnaire.id
-        from questionnaire_questionnaire
+        SELECT MAX(questionnaire_questionnaire.id) AS id
+        FROM questionnaire_questionnaire
+            LEFT OUTER JOIN questionnaire_questionnairemembership ON
+                questionnaire_questionnaire.id =
+                questionnaire_questionnairemembership.questionnaire_id
             JOIN questionnaire_questionnaireconfiguration ON
                 questionnaire_questionnaire.id =
                 questionnaire_questionnaireconfiguration.questionnaire_id
@@ -810,8 +881,10 @@ def query_questionnaires_for_link(configuration, q, limit=10):
                 AND configuration_configuration.code = %s,
         lateral jsonb_array_elements(
             questionnaire_questionnaire.data -> %s) questiongroup
-        where """
+        WHERE ("""
     args = [configuration.keyword, questiongroup_keyword]
+
+    query += get_raw_link_status_filter(request) + ') AND ('
 
     languages = [l[0] for l in settings.LANGUAGES]
     for lang in languages:
@@ -821,7 +894,8 @@ def query_questionnaires_for_link(configuration, q, limit=10):
         args.extend([question_keyword, '%{}%'.format(q)])
 
     query += """
-        questionnaire_questionnaire.code LIKE %s;
+        questionnaire_questionnaire.code LIKE %s)
+        GROUP BY questionnaire_questionnaire.code;
     """
     args.extend(['%{}%'.format(q)])
 
@@ -833,7 +907,7 @@ def query_questionnaires_for_link(configuration, q, limit=10):
 
 def get_list_values(
         configuration_code=None, es_hits=[], questionnaire_objects=[],
-        with_links=True):
+        with_links=True, status_filter=None):
     """
     Retrieves and prepares data to be used in a list representation.
     Either handles a list of questionnaires retrieved from the database
@@ -862,6 +936,13 @@ def get_list_values(
         database. If you do not want to query and display this
         information (eg. when displaying the links of a single
         questionnaire in the details page), set this to ``False``.
+
+        ``status_filter`` (``django.db.models.Q``). A status filter for
+        a given request. This needs to be specified if you
+        ``questionnaire_objects`` are provided and ``with_links`` is
+        ``True``.
+
+        .. seealso:: :func:`get_query_status_filter`
 
     Returns:
         ``list``. A list of dictionaries containing the values needed
@@ -962,10 +1043,14 @@ def get_list_values(
                     get_language(), value.get(original_lang))
 
         links = []
+        link_codes = []
         if with_links is True:
-            link_data = get_link_data(obj.links.all())
+            link_data = get_link_data(obj.links.filter(status_filter))
             for configuration, link_dicts in link_data.items():
-                links.extend([link.get('link') for link in link_dicts])
+                for link in link_dicts:
+                    if link.get('code') not in link_codes:
+                        link_codes.append(link.get('code'))
+                        links.append(link.get('link'))
 
         template_value.update({
             'links': links,

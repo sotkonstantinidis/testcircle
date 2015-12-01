@@ -12,21 +12,21 @@
 function hasContent(element) {
   var content = false;
   // Textfields and Textareas
-  $(element).find('div.row.list-item input:text, div.row.list-item textarea').each(function() {
+  $(element).find('div.row.single-item input:text, div.row.single-item textarea').each(function() {
     if ($(this).is(":visible") && $(this).val() != '') {
       content = true;
       return;
     }
   });
   // Radio
-  $(element).find('div.row.list-item input:radio').each(function() {
+  $(element).find('div.row.single-item input:radio').each(function() {
     if ($(this).is(':checked') && $(this).val() != '') {
       content = true;
       return;
     }
   });
   // Checkbox
-  $(element).find('div.row.list-item input:checkbox').each(function() {
+  $(element).find('div.row.single-item input:checkbox').each(function() {
     if ($(this).is(':checked')) {
       content = true;
       return;
@@ -40,7 +40,7 @@ function hasContent(element) {
     }
   });
   // Select
-  $(element).find('div.row.list-item select').each(function() {
+  $(element).find('div.row.single-item select').each(function() {
     if ($(this).find(':selected').val()) {
       content = true;
       return;
@@ -67,6 +67,11 @@ function watchFormProgress() {
   var total = stepsElement.next('.progress-total').html();
   var progress = completed / total * 100;
   $('header.wizard-header').find('.meter').width(progress + '%');
+
+  // While we're at it, also check if "other" checkboxes are to be ticked
+  $('input.checkbox-other').each(function() {
+    $(this).prop('checked', $(this).parent('label').find('input:text').val() != '');
+  });
 }
 
 /**
@@ -79,6 +84,18 @@ function checkAdditionalQuestiongroups() {
   });
 }
 
+/**
+ * Check for questiongroups which are expanded only if a checkbox is
+ * selected. Show them if they have some content.
+ */
+function checkCheckboxQuestiongroups() {
+  $('.cb-toggle-questiongroup-content').each(function() {
+    var qg = $(this).closest('.questiongroup');
+    if (hasContent(qg)) {
+      qg.find('.cb-toggle-questiongroup').click();
+    }
+  });
+}
 
 /**
  * Checks conditional questiongroups and shows or hides questiongroups
@@ -91,7 +108,8 @@ function checkConditionalQuestiongroups(element) {
 
   // Collect all the conditions for a questiongroup as they must all be
   // fulfilled and group them by questiongroup identifier.
-  var all_conditions = $(element).data('questiongroup-condition').split(',');
+  var condition_string = $(element).data('questiongroup-condition');
+  var all_conditions = condition_string ? condition_string.split(',') : [];
   var conditionsByQuestiongroup = {};
   for (var i = all_conditions.length - 1; i >= 0; i--) {
     condition = all_conditions[i].split('|');
@@ -276,7 +294,36 @@ $(function() {
   // BUTTON BAR
   // -----------------
   // Button bar select line
-  .on('click', '.button-bar', toggleButtonBarSelected);
+  .on('click', '.button-bar', toggleButtonBarSelected)
+
+  // RADIO BUTTONS
+  // Deselectable radio buttons
+  .on('click', 'input:radio', function() {
+    var previousValue = $(this).attr('previousValue');
+    var name = $(this).attr('name');
+    var initiallyChecked = $(this).attr('checked');
+
+    if (previousValue == 'checked' || (!previousValue && initiallyChecked == 'checked')) {
+      $(this).removeAttr('checked');
+      $(this).attr('previousValue', false);
+      watchFormProgress();
+      checkConditionalQuestiongroups(this);
+    } else {
+      $("input[name="+name+"]:radio").attr('previousValue', false);
+      $(this).attr('previousValue', 'checked');
+    }
+  })
+
+  .on('click', '.cb-toggle-questiongroup', function() {
+    var container = $(this).data('container');
+    if ($(this).prop('checked')) {
+      $('#' + container).slideDown();
+    } else {
+      $('#' + container).slideUp();
+      // Clear the questiongroup
+      clearQuestiongroup($(this).closest('.questiongroup'));
+    }
+  });
 
   // Initial form progress
   watchFormProgress();
@@ -296,10 +343,13 @@ $(function() {
       checkConditionalQuestiongroups(this);
     });
 
+  // Initial cb questiongroups
+  checkCheckboxQuestiongroups();
+
   checkAdditionalQuestiongroups();
 
   // Form progress upon input
-  $('fieldset.row div.row.list-item').on('change', function() {
+  $('fieldset.row div.row.single-item').on('change', function() {
     watchFormProgress();
   });
 
@@ -539,11 +589,6 @@ function updateDropzones(emptyNew) {
       },
       error: function(file, response) {
         this.removeFile(file);
-        if (previewContainer) {
-          dropzoneContainer.toggle();
-          previewContainer.toggle();
-          previewContainer.find('.image-preview').empty();
-        }
         watchFormProgress();
         showUploadErrorMessage(response['msg']);
       },
@@ -648,7 +693,7 @@ function showUploadErrorMessage(message) {
 function toggleButtonBarSelected() {
   var selectedValue = $(this).find('input[type="radio"]:checked').val();
   var item = $(this).closest('.list-item');
-  if(selectedValue != 'none' && selectedValue != '') {
+  if (selectedValue && selectedValue != 'none' && selectedValue != '') {
     item.addClass('is-selected');
   } else {
     item.removeClass('is-selected');

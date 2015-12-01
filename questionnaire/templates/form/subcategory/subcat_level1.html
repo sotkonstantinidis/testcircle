@@ -1,0 +1,20 @@
+{% comment %}
+  Show the label of the subcategory and render further subcategories.
+{% endcomment %}
+
+{% load floppyforms %}
+
+<div class="small-12 columns">
+  <h3 class="form-subcategory">{{ config.label }}</h3>
+</div>
+
+{% if config.next_level == 'subcategories' %}
+  {% for sub_config, sub_formsets in formsets %}
+    {% form form using sub_config.form_template with config=sub_config formsets=sub_formsets %}
+  {% endfor %}
+{% else %}
+  {% include "form/helptext.html" with helptext=config.helptext %}
+  {% for questiongroup_config, questiongroup_formset in formsets %}
+    {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
+  {% endfor %}
+{% endif %}

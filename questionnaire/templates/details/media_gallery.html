@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="row is-rhythmed-2">
+<div class="row is-rhythmed">
   <div class="small-12 columns gallery">
     <h2 class="is-unvisible">{% trans "Media Gallery" %}</h2>
     <ul class="small-block-grid-3 medium-block-grid-6 clearing-thumbs" data-clearing="">
@@ -13,4 +13,12 @@
       {% endfor %}
     </ul>
   </div>
+  {% if media_additional %}
+    <div class="small-12 columns output">
+      {% if media_additional.image_remarks %}
+        <h5>{{ media_additional.label_image_remarks }}{% if media_additional.label_image_remarks|last not in ".:!?" %}: {% endif %}</h5>
+        <p>{{ media_additional.image_remarks }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
 </div>
