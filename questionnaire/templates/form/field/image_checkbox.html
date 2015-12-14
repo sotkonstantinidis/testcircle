@@ -25,7 +25,7 @@
       {% for choice in choices %}
         <li>
           <div class="list-gallery-item without-label">
-            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub">
+            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub" {% include "floppyforms/attrs.html" %}>
             {% if options.helptext_choices %}
               {% with ttip=options.helptext_choices|get_by_index:forloop.counter0 %}
                 {% if ttip %}

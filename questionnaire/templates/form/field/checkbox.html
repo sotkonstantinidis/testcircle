@@ -11,7 +11,7 @@
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
         <label class="input-multiline" for="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
-          <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}"{% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %}>
+          <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}"{% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %} {% include "floppyforms/attrs.html" %}>
           {% if options.helptext_choices %}
             {% with ttip=options.helptext_choices|get_by_index:forloop.counter0 %}
               {% if ttip %}

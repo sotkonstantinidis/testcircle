@@ -328,6 +328,9 @@ def generic_questionnaire_new_step(
 
         return data, True
 
+    # Edit mode for the form.
+    edit_mode = 'edit'
+
     questionnaire_configuration = get_configuration(configuration_code)
     category = questionnaire_configuration.get_category(step)
 
@@ -351,7 +354,7 @@ def generic_questionnaire_new_step(
 
     category_config, category_formsets = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
-        show_translation=show_translation)
+        show_translation=show_translation, edit_mode=edit_mode)
 
     if identifier is None:
         overview_url = '{}#{}'.format(
@@ -398,6 +401,7 @@ def generic_questionnaire_new_step(
         'overview_url': overview_url,
         'valid': valid,
         'configuration_name': configuration_name,
+        'edit_mode': edit_mode,
     })
 
 
