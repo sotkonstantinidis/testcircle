@@ -903,7 +903,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
     def get_form(
             self, post_data=None, initial_data=None, show_translation=False,
-            edit_mode='edit'):
+            edit_mode='edit', edited_questiongroups=[]):
         """
         Returns:
             ``forms.formset_factory``. A formset consisting of one or
@@ -946,6 +946,10 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         if initial_data and len(initial_data) == 1 and initial_data[0] == {}:
             initial_data = None
 
+        has_changes = False
+        if self.keyword in edited_questiongroups:
+            has_changes = True
+
         config = {
             'keyword': self.keyword,
             'helptext': self.helptext,
@@ -957,6 +961,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'detail_level': self.detail_level,
             'template': form_template,
             'extra': self.view_options.get('extra'),
+            'has_changes': has_changes,
         }
 
         return config, FormSet(
@@ -1153,7 +1158,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit'):
+            edit_mode='edit', edited_questiongroups=[]):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -1170,19 +1175,26 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'form_template': form_template,
             'extra': self.form_options.get('extra'),
         }
+        has_changes = False
         for questiongroup in self.questiongroups:
             questionset_initial_data = initial_data.get(questiongroup.keyword)
             formsets.append(
                 questiongroup.get_form(
                     post_data=post_data, initial_data=questionset_initial_data,
-                    show_translation=show_translation, edit_mode=edit_mode))
+                    show_translation=show_translation, edit_mode=edit_mode,
+                    edited_questiongroups=edited_questiongroups))
             config['next_level'] = 'questiongroups'
+            if questiongroup.keyword in edited_questiongroups:
+                has_changes = True
         for subcategory in self.subcategories:
             formsets.append(
                 subcategory.get_form(
                     post_data=post_data, initial_data=initial_data,
-                    show_translation=show_translation, edit_mode=edit_mode))
+                    show_translation=show_translation, edit_mode=edit_mode,
+                    edited_questiongroups=edited_questiongroups))
             config['next_level'] = 'subcategories'
+
+        config.update({'has_changes': has_changes})
 
         if self.table_grouping:
             config.update({
@@ -1375,7 +1387,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit'):
+            edit_mode='edit', edited_questiongroups=[]):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -1386,7 +1398,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
             subcategory_formsets.append(
                 subcategory.get_form(
                     post_data=post_data, initial_data=initial_data,
-                    show_translation=show_translation, edit_mode=edit_mode))
+                    show_translation=show_translation, edit_mode=edit_mode,
+                    edited_questiongroups=edited_questiongroups))
         config = {
             'label': self.label,
             'numbering': self.numbering,

@@ -7,7 +7,6 @@ from qcat.utils import (
     is_empty_list_of_dicts,
     get_session_questionnaire,
     save_session_questionnaire,
-    session_store,
 )
 
 
@@ -90,428 +89,192 @@ class FindDictInListTest(TestCase):
 class GetSessionQuestionnaireTest(TestCase):
 
     def setUp(self):
-        self.session_store = session_store
-        self.session_store.clear()
-        self.user = Mock()
-        self.user.id = 1
+        self.request = Mock()
+        self.request.session = {}
 
     def test_returns_empty_dict_if_no_session_questionnaire(self):
-        ret = get_session_questionnaire(self.user, 'sample', 'code')
+        ret = get_session_questionnaire(self.request, 'sample', 'code')
         self.assertEqual(ret, {})
 
     def test_returns_empty_dict_if_session_questionnaires_not_dict(self):
-        self.session_store['session_questionnaires'] = "foo"
-        ret = get_session_questionnaire(self.user, 'sample', 'code')
+        self.request.session['questionnaires'] = 'foo'
+        ret = get_session_questionnaire(self.request, 'sample', 'code')
         self.assertEqual(ret, {})
 
     def test_returns_empty_dict_if_session_questionnaire_empty(self):
-        self.session_store['session_questionnaires'] = {}
-        ret = get_session_questionnaire(self.user, 'sample', 'code')
+        self.request.session['questionnaires'] = []
+        ret = get_session_questionnaire(self.request, 'sample', 'code')
         self.assertEqual(ret, {})
 
     def test_returns_correct_session_questionnaire(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'foo': 'bar'},
-                    }, {
-                        'code': 'code_2',
-                        'questionnaire': {'asdf': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
+        self.request.session['questionnaires'] = [
+            {
+                'configuration_code': 'conf',
+                'questionnaire_code': 'quest',
+                'questionnaire': {'foo': 'bar'}
+            },
+            {
+                'configuration_code': 'conf_foo',
+                'questionnaire_code': 'quest_foo',
+                'questionnaire': {'faz': 'taz'}
             }
-        }
-        ret = get_session_questionnaire(self.user, 'sample', 'code_1')
+        ]
+        ret = get_session_questionnaire(self.request, 'conf', 'quest')
         self.assertEqual(
-            ret, {'code': 'code_1', 'questionnaire': {'faz': 'bar'}})
+            ret, {
+                'configuration_code': 'conf',
+                'questionnaire_code': 'quest',
+                'questionnaire': {'foo': 'bar'}
+            })
 
-    def test_returns_new_if_no_questionnaire_code(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'foo': 'bar'},
-                    }, {
-                        'code': 'new',
-                        'questionnaire': {'asdf': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
+    def test_returns_empty_if_not_found(self):
+        self.request.session['questionnaires'] = [
+            {
+                'configuration_code': 'conf',
+                'questionnaire_code': 'quest',
+                'questionnaire': {'foo': 'bar'}
+            },
+            {
+                'configuration_code': 'conf_foo',
+                'questionnaire_code': 'quest_foo',
+                'questionnaire': {'faz': 'taz'}
             }
-        }
-        ret = get_session_questionnaire(self.user, 'foo', None)
-        self.assertEqual(
-            ret, {'code': 'new', 'questionnaire': {'asdf': 'bar'}})
+        ]
+        ret = get_session_questionnaire(self.request, 'foo', 'bar')
+        self.assertEqual(ret, {})
 
     def test_returns_first_occurence_if_multiple_questionnaires(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'foo': 'bar'},
-                    }, {
-                        'code': 'code_1',
-                        'questionnaire': {'asdf': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
+        self.request.session['questionnaires'] = [
+            {
+                'configuration_code': 'conf',
+                'questionnaire_code': 'quest',
+                'questionnaire': {'foo': 'bar'}
+            },
+            {
+                'configuration_code': 'conf',
+                'questionnaire_code': 'quest',
+                'questionnaire': {'faz': 'taz'}
             }
-        }
-        ret = get_session_questionnaire(self.user, 'foo', 'code_1')
+        ]
+        ret = get_session_questionnaire(self.request, 'conf', 'quest')
         self.assertEqual(
-            ret, {'code': 'code_1', 'questionnaire': {'foo': 'bar'}})
-
-    def test_returns_empty_dict_if_configuration_not_found(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'foo': 'bar'},
-                    }, {
-                        'code': 'code_2',
-                        'questionnaire': {'asdf': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
-            }
-        }
-        ret = get_session_questionnaire(self.user, 'faz', 'code_1')
-        self.assertEqual(ret, {})
-
-    def test_returns_empty_dict_if_questionnaire_not_found(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'foo': 'bar'},
-                    }, {
-                        'code': 'code_2',
-                        'questionnaire': {'asdf': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
-            }
-        }
-        ret = get_session_questionnaire(self.user, 'foo', 'code')
-        self.assertEqual(ret, {})
+            ret, {
+                'configuration_code': 'conf',
+                'questionnaire_code': 'quest',
+                'questionnaire': {'foo': 'bar'}
+            })
 
 
 class SaveSessionQuestionnaireTest(TestCase):
 
     def setUp(self):
-        self.session_store = session_store
-        self.session_store.clear()
-        self.user = Mock()
-        self.user.id = 1
+        self.request = Mock()
+        self.request.session = {}
 
     def test_saves_questionnaire(self):
-        self.assertIsNone(self.session_store.get('session_questionnaires'))
+        self.assertIsNone(self.request.session.get('questionnaires'))
         save_session_questionnaire(
-            self.user, 'sample', 'code', {'data': 'bar'}, {'links': 'bar'})
-        q = self.session_store.get('session_questionnaires')
-        self.assertIsInstance(q, dict)
-        self.assertEqual(len(q), 1)
-        self.assertIn(str(self.user.id), q)
-        q = q[str(self.user.id)]
-        self.assertIn('sample', q)
-        q = q['sample']
+            self.request, 'sample', 'code', questionnaire_data={'data': 'bar'},
+            questionnaire_links={'links': 'bar'})
+        q = self.request.session.get('questionnaires')
         self.assertIsInstance(q, list)
         self.assertEqual(len(q), 1)
         q = q[0]
-        self.assertEqual(len(q), 4)
+        self.assertEqual(len(q), 5)
+        self.assertEqual(q['configuration_code'], 'sample')
+        self.assertEqual(q['questionnaire_code'], 'code')
         self.assertEqual(q['questionnaire'], {'data': 'bar'})
         self.assertEqual(q['links'], {'links': 'bar'})
-        self.assertEqual(q['code'], 'code')
         self.assertIn('modified', q)
 
-    def test_save_questionnaire_with_no_questionnaire_code(self):
-        self.assertIsNone(self.session_store.get('session_questionnaires'))
+    def test_save_questionnaire_can_update_only_links(self):
         save_session_questionnaire(
-            self.user, 'sample', None, {'data': 'bar'}, {'links': 'bar'})
-        q = self.session_store.get('session_questionnaires')
-        self.assertIsInstance(q, dict)
-        self.assertEqual(len(q), 1)
-        self.assertIn(str(self.user.id), q)
-        q = q[str(self.user.id)]
-        self.assertEqual(len(q), 1)
-        self.assertIn('sample', q)
-        q = q['sample']
+            self.request, 'sample', 'code', questionnaire_data={'data': 'bar'},
+            questionnaire_links={'links': 'bar'})
+        save_session_questionnaire(
+            self.request, 'sample', 'code',
+            questionnaire_links={'links': 'foo'})
+        q = self.request.session.get('questionnaires')
         self.assertIsInstance(q, list)
         self.assertEqual(len(q), 1)
         q = q[0]
-        self.assertEqual(len(q), 4)
+        self.assertEqual(len(q), 5)
+        self.assertEqual(q['configuration_code'], 'sample')
+        self.assertEqual(q['questionnaire_code'], 'code')
         self.assertEqual(q['questionnaire'], {'data': 'bar'})
-        self.assertEqual(q['links'], {'links': 'bar'})
-        self.assertEqual(q['code'], 'new')
+        self.assertEqual(q['links'], {'links': 'foo'})
+        self.assertIn('modified', q)
+
+    def test_save_questionnaire_saves_default_empty_dicts(self):
+        save_session_questionnaire(self.request, 'sample', 'code')
+        q = self.request.session.get('questionnaires')
+        self.assertIsInstance(q, list)
+        self.assertEqual(len(q), 1)
+        q = q[0]
+        self.assertEqual(len(q), 5)
+        self.assertEqual(q['configuration_code'], 'sample')
+        self.assertEqual(q['questionnaire_code'], 'code')
+        self.assertEqual(q['questionnaire'], {})
+        self.assertEqual(q['links'], {})
         self.assertIn('modified', q)
 
     def test_save_overwrites_existing_questionnaire(self):
         save_session_questionnaire(
-            self.user, 'sample', 'code', {'data': 'foo'}, {'links': 'foo'})
+            self.request, 'sample', 'code', {'data': 'foo'}, {'links': 'foo'})
         save_session_questionnaire(
-            self.user, 'sample', 'code', {'data': 'bar'}, {'links': 'bar'})
-        q = self.session_store.get('session_questionnaires')
-        self.assertIsInstance(q, dict)
-        self.assertEqual(len(q), 1)
-        self.assertIn(str(self.user.id), q)
-        q = q[str(self.user.id)]
-        self.assertEqual(len(q), 1)
-        self.assertIn('sample', q)
-        q = q['sample']
+            self.request, 'sample', 'code', {'data': 'bar'}, {'links': 'bar'})
+        q = self.request.session.get('questionnaires')
         self.assertIsInstance(q, list)
         self.assertEqual(len(q), 1)
         q = q[0]
-        self.assertEqual(len(q), 4)
+        self.assertEqual(len(q), 5)
+        self.assertEqual(q['configuration_code'], 'sample')
+        self.assertEqual(q['questionnaire_code'], 'code')
         self.assertEqual(q['questionnaire'], {'data': 'bar'})
         self.assertEqual(q['links'], {'links': 'bar'})
-        self.assertEqual(q['code'], 'code')
         self.assertIn('modified', q)
-
-    def test_save_adds_same_configuration_questionnaire(self):
-        save_session_questionnaire(
-            self.user, 'sample', 'code_1', {'data': 'foo'}, {'links': 'foo'})
-        save_session_questionnaire(
-            self.user, 'sample', 'code_2', {'data': 'bar'}, {'links': 'bar'})
-        q = self.session_store.get('session_questionnaires')
-        self.assertIsInstance(q, dict)
-        self.assertEqual(len(q), 1)
-        self.assertIn(str(self.user.id), q)
-        q = q[str(self.user.id)]
-        self.assertEqual(len(q), 1)
-        self.assertIn('sample', q)
-        q = q['sample']
-        self.assertIsInstance(q, list)
-        self.assertEqual(len(q), 2)
-        q_1 = q[0]
-        self.assertEqual(len(q_1), 4)
-        self.assertEqual(q_1['questionnaire'], {'data': 'foo'})
-        self.assertEqual(q_1['links'], {'links': 'foo'})
-        self.assertEqual(q_1['code'], 'code_1')
-        self.assertIn('modified', q_1)
-        q_2 = q[1]
-        self.assertEqual(len(q_2), 4)
-        self.assertEqual(q_2['questionnaire'], {'data': 'bar'})
-        self.assertEqual(q_2['links'], {'links': 'bar'})
-        self.assertEqual(q_2['code'], 'code_2')
-        self.assertIn('modified', q_2)
-
-    def test_save_adds_other_configuration_questionnaire(self):
-        save_session_questionnaire(
-            self.user, 'sample', 'code', {'data': 'foo'}, {'links': 'foo'})
-        save_session_questionnaire(
-            self.user, 'foo', 'code', {'data': 'bar'}, {'links': 'bar'})
-        q = self.session_store.get('session_questionnaires')
-        self.assertIsInstance(q, dict)
-        self.assertEqual(len(q), 1)
-        self.assertIn(str(self.user.id), q)
-        q = q[str(self.user.id)]
-        self.assertEqual(len(q), 2)
-        self.assertIn('sample', q)
-        self.assertIn('foo', q)
-        q_sample = q['sample']
-        self.assertIsInstance(q_sample, list)
-        self.assertEqual(len(q_sample), 1)
-        q_1 = q_sample[0]
-        self.assertEqual(len(q_1), 4)
-        self.assertEqual(q_1['questionnaire'], {'data': 'foo'})
-        self.assertEqual(q_1['links'], {'links': 'foo'})
-        self.assertEqual(q_1['code'], 'code')
-        q_foo = q['foo']
-        self.assertIsInstance(q_foo, list)
-        self.assertEqual(len(q_foo), 1)
-        q_2 = q_foo[0]
-        self.assertEqual(len(q_2), 4)
-        self.assertEqual(q_2['questionnaire'], {'data': 'bar'})
-        self.assertEqual(q_2['links'], {'links': 'bar'})
-        self.assertEqual(q_2['code'], 'code')
 
 
 class ClearSessionQuestionnaireTest(TestCase):
 
     def setUp(self):
-        self.session_store = session_store
-        self.session_store.clear()
-        self.user = Mock()
-        self.user.id = 1
-
-    def test_clears_questionnaire(self):
-        self.session_store['session_questionnaires'] = 'foo'
-        clear_session_questionnaire()
-        self.assertEqual(self.session_store['session_questionnaires'], {})
-
-    def test_only_clears_questionnaire(self):
-        self.session_store['foo'] = 'bar'
-        clear_session_questionnaire()
-        self.assertEqual(self.session_store['foo'], 'bar')
-
-    def test_passes_if_user_id_not_found(self):
-        self.session_store['session_questionnaires'] = {
-            '2': {
-                'foo': 'bar'
-            }
+        self.request = Mock()
+        self.request.session = {
+            'questionnaires': [
+                {
+                    'configuration_code': 'conf',
+                    'questionnaire_code': 'quest',
+                    'questionnaire': {'foo': 'bar'}
+                },
+                {
+                    'configuration_code': 'conf_foo',
+                    'questionnaire_code': 'quest_foo',
+                    'questionnaire': {'faz': 'taz'}
+                }
+            ]
         }
-        clear_session_questionnaire(user=self.user)  # Should not raise
 
-    def test_clears_questionnaire_by_user_id(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'questionnaire': {'foo': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
-            },
-            '2': {
-                'foo': 'bar'
-            }
-        }
-        clear_session_questionnaire(user=self.user)
-        q = self.session_store['session_questionnaires']
-        self.assertEqual(len(q), 1)
-        q = q['2']
-        self.assertEqual(q, {'foo': 'bar'})
-
-    def test_clears_questionnaire_by_configuration_code(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'questionnaire': {'foo': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
-            }
-        }
-        clear_session_questionnaire(
-            user=self.user, configuration_code='sample')
-        q = self.session_store['session_questionnaires']
-        self.assertEqual(len(q), 1)
-        q = q[str(self.user.id)]
-        self.assertEqual(len(q), 1)
-        self.assertNotIn('sample', q)
-        self.assertIn('foo', q)
-        q = q['foo']
+    def test_clears_questionnaire_if_found(self):
+        clear_session_questionnaire(self.request, 'conf', 'quest')
+        q = self.request.session.get('questionnaires')
         self.assertIsInstance(q, list)
         self.assertEqual(len(q), 1)
         q = q[0]
-        self.assertEqual(q['questionnaire'], {'foo': 'bar'})
+        self.assertEqual(q['configuration_code'], 'conf_foo')
+        self.assertEqual(q['questionnaire_code'], 'quest_foo')
+        self.assertEqual(q['questionnaire'], {'faz': 'taz'})
 
-    def test_clears_questionnaire_by_questionnaire_code(self):
-        self.session_store['session_questionnaires'] = {
-            '1': {
-                'foo': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'foo': 'bar'},
-                    }, {
-                        'code': 'code_2',
-                        'questionnaire': {'asdf': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
-            }
+    def test_clears_nothing_if_not_found(self):
+        clear_session_questionnaire(self.request, 'foo', 'bar')
+        q = self.request.session.get('questionnaires')
+        self.assertIsInstance(q, list)
+        self.assertEqual(len(q), 2)
+
+    def test_passes_if_session_empty(self):
+        self.request.session = {
+            'questionnaires': []
         }
-        clear_session_questionnaire(
-            user=self.user, configuration_code='foo',
-            questionnaire_code='code_1')
-        q = self.session_store['session_questionnaires']
-        self.assertEqual(len(q), 1)
-        q_user = q[str(self.user.id)]
-        self.assertEqual(len(q_user), 2)
-        q_foo = q_user['foo']
-        self.assertIsInstance(q_foo, list)
-        self.assertEqual(len(q_foo), 1)
-        self.assertEqual(q_foo[0]['questionnaire'], {'asdf': 'bar'})
-        self.assertEqual(q_foo[0]['code'], 'code_2')
-        q_sample = q_user['sample']
-        self.assertIsInstance(q_sample, list)
-        self.assertEqual(len(q_sample), 1)
-        self.assertEqual(q_sample[0]['questionnaire'], {'faz': 'bar'})
-        self.assertEqual(q_sample[0]['code'], 'code_1')
-
-    def test_passes_if_questionnaire_by_code_not_found(self):
-        initial = {
-            '1': {
-                'foo': [
-                    {
-                        'questionnaire': {'foo': 'bar'},
-                    }
-                ],
-                'sample': [
-                    {
-                        'questionnaire': {'faz': 'bar'},
-                    }
-                ]
-            }
-        }
-        self.session_store['session_questionnaires'] = initial
-        clear_session_questionnaire(user=self.user, configuration_code='faz')
-        q = self.session_store['session_questionnaires']
-        self.assertEqual(q, initial)
-
-    def test_passes_if_questionnaire_code_not_found(self):
-        initial = {
-            '1': {
-                'foo': [
-                    {
-                        'code': 'code_1',
-                        'questionnaire': {'foo': 'bar'},
-                    }
-                ]
-            }
-        }
-        self.session_store['session_questionnaires'] = initial
-        clear_session_questionnaire(
-            user=self.user, configuration_code='foo',
-            questionnaire_code='code_2')
-        q = self.session_store['session_questionnaires']
-        self.assertEqual(q, initial)
-
-    def test_passes_if_session_store_empty(self):
-        clear_session_questionnaire(configuration_code='')  # Should not raise
+        clear_session_questionnaire(self.request, 'foo', 'bar')
+        q = self.request.session.get('questionnaires')
+        self.assertIsInstance(q, list)
+        self.assertEqual(len(q), 0)

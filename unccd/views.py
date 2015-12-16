@@ -12,6 +12,7 @@ from questionnaire.views import (
     generic_questionnaire_list,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
+    generic_questionnaire_view_step,
 )
 
 
@@ -61,6 +62,17 @@ def unccd_data_import(request):
             request, 'The following error(s) occured: {}'.format(objects))
 
     return redirect(redirect_route)
+
+
+@login_required
+def questionnaire_view_step(request, questionnaire_id, step):
+    """
+    View rendering the form of a single step of a new UNCCD
+    questionnaire in read-only mode.
+    """
+    return generic_questionnaire_view_step(
+        request, questionnaire_id, step, 'unccd',
+        page_title=_('UNCCD'))
 
 
 @login_required

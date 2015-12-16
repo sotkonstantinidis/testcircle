@@ -11,6 +11,7 @@ from questionnaire.views import (
     generic_questionnaire_list,
     generic_questionnaire_new_step,
     generic_questionnaire_new,
+    generic_questionnaire_view_step,
 )
 
 
@@ -72,6 +73,17 @@ def questionnaire_link_search(request):
         ``JsonResponse``. A rendered JSON Response.
     """
     return generic_questionnaire_link_search(request, 'samplemulti')
+
+
+@login_required
+def questionnaire_view_step(request, questionnaire_id, step):
+    """
+    View rendering the form of a single step of a new SAMPLEMULTI
+    questionnaire in read-only mode.
+    """
+    return generic_questionnaire_view_step(
+        request, questionnaire_id, step, 'samplemulti',
+        page_title='SAMPLEMULTI')
 
 
 @login_required

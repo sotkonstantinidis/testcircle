@@ -1,3 +1,4 @@
+import copy
 from unittest.mock import patch, Mock, call
 from django.http import QueryDict
 from django.test.utils import override_settings
@@ -8,6 +9,7 @@ from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.utils import (
     clean_questionnaire_data,
+    compare_questionnaire_data,
     get_active_filters,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
@@ -1040,3 +1042,72 @@ class HandleReviewActionsTest(TestCase):
         mock_messages.success.assert_called_once_with(
             self.request,
             'The questionnaire was successfully set public.')
+
+
+class CompareQuestionnaireDataTest(TestCase):
+
+    def setUp(self):
+        self.data_1 = {
+            'qg_1': [
+                {
+                    'key_1': {
+                        'en': 'foo',
+                        'fr': 'bar'
+                    },
+                    'key_2': 'asdf'
+                }
+            ],
+            'qg_2': [
+                {
+                    'key_3': 1,
+                    'key_4': ['faz', 'taz']
+                }
+            ],
+            'qg_3': [
+                {
+                    'key_5': {
+                        'en': 'foo'
+                    }
+                },
+                {
+                    'key_5': {
+                        'en': 'bar'
+                    }
+                }
+            ]
+        }
+        self.data_2 = copy.deepcopy(self.data_1)
+
+    def test_no_difference(self):
+        diff = compare_questionnaire_data(self.data_1, self.data_2)
+        self.assertEqual(diff, [])
+
+    def test_missing_qg_in_first(self):
+        self.data_2.update({'qg_add': []})
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_add'])
+
+    def test_missing_qg_in_second(self):
+        self.data_2.update({'qg_add': []})
+        diff = compare_questionnaire_data(self.data_1, self.data_2)
+        self.assertEqual(diff, ['qg_add'])
+
+    def test_single_value_changed_in_first(self):
+        self.data_2['qg_1'][0]['key_2'] = 'foo'
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_1'])
+
+    def test_single_value_changed_in_second(self):
+        self.data_2['qg_1'][0]['key_2'] = 'foo'
+        diff = compare_questionnaire_data(self.data_1, self.data_2)
+        self.assertEqual(diff, ['qg_1'])
+
+    def test_key_changed_in_first(self):
+        self.data_2['qg_1'][0].update({'add': 'foo'})
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_1'])
+
+    def test_value_added(self):
+        self.data_2['qg_2'][0]['key_4'].append('asdf')
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_2'])

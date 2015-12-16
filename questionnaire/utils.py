@@ -1156,3 +1156,34 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully set public.'))
+
+
+def compare_questionnaire_data(data_1, data_2):
+    """
+    Compare two questionnaire data dictionaires and return the keywords
+    of the questiongroups which are not identical.
+
+    Args:
+        ``data_1`` (dict): The first data dictionary.
+
+        ``data_2`` (dict): The second data dictionary.
+
+    Returns:
+        ``list``. A list with the keywords of the questiongroups which
+        are not identical.
+    """
+    # Check which questiongroups are only in one of the dicts.
+    qg_keywords_1 = list(data_1.keys())
+    qg_keywords_2 = list(data_2.keys())
+    different_qg_keywords = list(set(qg_keywords_1).symmetric_difference(
+        qg_keywords_2))
+
+    # Compare the questiongroups appearing in both
+    for qg_keyword, qg_data_1 in data_1.items():
+        if qg_keyword in different_qg_keywords:
+            continue
+        pairs = zip(qg_data_1, data_2[qg_keyword])
+        if any(x != y for x, y in pairs):
+            different_qg_keywords.append(qg_keyword)
+
+    return different_qg_keywords

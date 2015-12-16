@@ -116,6 +116,10 @@
   margin-top: 0;
 }
 
+fieldset.row.has-changes {
+  border-color: $primary-color;
+}
+
 fieldset.row table {
   width: 100%;
 }

@@ -40,6 +40,7 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
+    data_edited = JsonBField(null=True)
     created = models.DateTimeField()
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
