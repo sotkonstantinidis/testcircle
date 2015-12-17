@@ -97,7 +97,7 @@
   }
 }
 #wocat-hero-image {
-  background: image-url('wocat_hero.jpg') $color-brown no-repeat top center;
+  background: url("/static/assets/img/wocat_hero.jpg") $color-brown no-repeat top center;
   background-size: cover;
 
   @media #{$medium-up} {
@@ -105,7 +105,7 @@
   }
 }
 #unccd-hero-image {
-  background: image-url('unccd_hero.jpg') $color-brown no-repeat top center;
+  background: url("/static/assets/img/unccd_hero.jpg") $color-brown no-repeat top center;
   background-size: cover;
 
   @media #{$medium-up} {

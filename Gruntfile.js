@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src/assets/img',
-          src: ['**/*.{png,jpg,gif}'],
+          src: ['**/*.{png,jpg}'], // GIFs are copied manually
           dest: 'static/assets/img'
         }]
       },
@@ -170,6 +170,13 @@ module.exports = function(grunt) {
           cwd: 'bower_components/foundation/js/foundation/',
           src: ['**/*'],
           dest: 'static/js/foundation/'
+        }
+        // Manually copy GIFs
+        ,{
+          expand: true,
+          cwd: 'src/assets/img/',
+          src: ['*.gif'],
+          dest: 'static/assets/img/'
         }
         ]
       },
