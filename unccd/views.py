@@ -65,13 +65,13 @@ def unccd_data_import(request):
 
 
 @login_required
-def questionnaire_view_step(request, questionnaire_id, step):
+def questionnaire_view_step(request, identifier, step):
     """
     View rendering the form of a single step of a new UNCCD
     questionnaire in read-only mode.
     """
     return generic_questionnaire_view_step(
-        request, questionnaire_id, step, 'unccd',
+        request, identifier, step, 'unccd',
         page_title=_('UNCCD'))
 
 

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='questionnaire',
-            name='data_edited',
+            name='data_old',
             field=django_pgjson.fields.JsonBField(null=True),
             preserve_default=True,
         ),

@@ -229,7 +229,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
             self.request, *get_valid_new_step_values()[0])
         mock_get_form.assert_called_once_with(
             post_data=None, show_translation=False, initial_data={},
-            edit_mode='edit')
+            edit_mode='edit', edited_questiongroups=[])
 
     @patch.object(messages, 'success')
     @patch.object(QuestionnaireCategory, 'get_form')
@@ -244,7 +244,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
             r, *get_valid_new_step_values()[0])
         mock_save_session_questionnaire.assert_called_once_with(
             self.request, 'sample', None, questionnaire_data={},
-            questionnaire_links={})
+            questionnaire_links={}, edited_questiongroups=[])
 
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
@@ -261,6 +261,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'valid': True,
                 'configuration_name': 'sample',
                 'edit_mode': 'edit',
+                'view_url': '',
             })
 
     def test_returns_rendered_response(self):
@@ -400,7 +401,8 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_get_details.assert_called_once_with(
             {}, permissions=['can_save_questionnaire', 'can_edit_steps'],
             edit_step_route='sample:questionnaire_new_step',
-            questionnaire_object=None, csrf_token=None)
+            questionnaire_object=None, csrf_token=None,
+            edited_questiongroups=[])
 
     @patch('questionnaire.views.get_list_values')
     @patch('questionnaire.views.Questionnaire')
@@ -431,7 +433,8 @@ class GenericQuestionnaireNewTest(TestCase):
                 'images': [],
                 'links': {},
                 'filter_configuration': mock_filter_configuration.return_value,
-                'permissions': ['can_save_questionnaire', 'can_edit_steps']
+                'permissions': ['can_save_questionnaire', 'can_edit_steps'],
+                'edited_questiongroups': [],
             })
 
     def test_returns_rendered_response(self):

@@ -57,7 +57,9 @@
         </div>
       </div>
       <div class="medium-3 columns">
-        <a class="button is-unccd right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">{% trans "Edit this section" %} <strong>({{ complete }}/{{ total }})</strong></a>
+        <a class="button is-unccd right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">
+          {% trans "Edit this section" %} <strong>({{ complete }}/{{ total }}){% if has_changes %}<span class="button-has-changes">*</span>{% endif %}</strong>
+        </a>
       </div>
     {% endif %}
   </section>

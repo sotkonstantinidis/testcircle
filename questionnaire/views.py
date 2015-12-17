@@ -238,7 +238,7 @@ def generic_questionnaire_link_search(request, configuration_code):
 
 
 def generic_questionnaire_view_step(
-        request, questionnaire_id, step, configuration_code, page_title=''):
+        request, identifier, step, configuration_code, page_title=''):
     """
     A generic view to show the form of a single step of a new or edited
     questionnaire.
@@ -249,6 +249,8 @@ def generic_questionnaire_view_step(
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
+
+        ``identifier`` (str): The identifier of a questionnaire.
 
         ``step`` (str): The code of the questionnaire category.
 
@@ -262,8 +264,9 @@ def generic_questionnaire_view_step(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_object = get_object_or_404(
-        Questionnaire, pk=questionnaire_id)
+    questionnaire_object = query_questionnaire(request, identifier).first()
+    if questionnaire_object is None:
+        raise Http404
 
     data = questionnaire_object.data
 
@@ -291,6 +294,7 @@ def generic_questionnaire_view_step(
         'title': page_title,
         'valid': valid,
         'edit_mode': edit_mode,
+        'configuration_name': configuration_code,
     })
 
 
@@ -449,10 +453,10 @@ def generic_questionnaire_new_step(
                 diff_qgs = []
                 # Recalculate difference between the two diffs
                 if identifier and identifier != 'new':
-                    questionnaire_object = query_questionnaire(
+                    q_obj = query_questionnaire(
                         request, identifier).first()
                     diff_qgs = compare_questionnaire_data(
-                        questionnaire_object.data, questionnaire_data)
+                        q_obj.data_old, questionnaire_data)
 
                 save_session_questionnaire(
                     request, configuration_code, identifier,
@@ -466,6 +470,12 @@ def generic_questionnaire_new_step(
 
     configuration_name = category_config.get('configuration', url_namespace)
 
+    view_url = ''
+    if identifier:
+        view_url = reverse(
+            '{}:questionnaire_view_step'.format(url_namespace),
+            args=[identifier, step])
+
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
         'category_config': category_config,
@@ -474,6 +484,7 @@ def generic_questionnaire_new_step(
         'valid': valid,
         'configuration_name': configuration_name,
         'edit_mode': edit_mode,
+        'view_url': view_url,
     })
 
 
@@ -512,6 +523,7 @@ def generic_questionnaire_new(
         ``HttpResponse``. A rendered Http Response.
     """
     questionnaire_configuration = get_configuration(configuration_code)
+    edited_questiongroups = []
     if identifier is not None:
         # For edits, copy the data to the session first (if it was
         # edited for the first time only).
@@ -519,12 +531,20 @@ def generic_questionnaire_new(
         if questionnaire_object is None:
             raise Http404()
         questionnaire_data = questionnaire_object.data
-        # TODO!!
-        if questionnaire_object.data_edited:
-            questionnaire_data = questionnaire_object.data_edited['data']
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
+        edited_questiongroups = session_data.get('edited_questiongroups')
         if session_data.get('questionnaire') is None:
+
+            # When the questionnaire data is stored in the session for
+            # the first time, also store its old data.
+            if questionnaire_object.data_old is None:
+                questionnaire_object.data_old = questionnaire_object.data
+                questionnaire_object.save()
+
+            edited_questiongroups = compare_questionnaire_data(
+                questionnaire_object.data, questionnaire_object.data_old)
+
             questionnaire_links = get_link_data(
                 questionnaire_object.links.all())
             save_session_questionnaire(
@@ -588,7 +608,8 @@ def generic_questionnaire_new(
     sections = questionnaire_configuration.get_details(
         data, permissions=permissions,
         edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
-        questionnaire_object=questionnaire_object, csrf_token=csrf_token)
+        questionnaire_object=questionnaire_object, csrf_token=csrf_token,
+        edited_questiongroups=edited_questiongroups)
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
@@ -624,6 +645,7 @@ def generic_questionnaire_new(
         'links': link_display,
         'filter_configuration': filter_configuration,
         'permissions': permissions,
+        'edited_questiongroups': edited_questiongroups,
     })
 
 

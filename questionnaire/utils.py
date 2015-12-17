@@ -1102,6 +1102,10 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             return
 
         questionnaire_object.status = 2
+
+        # Delete the old data
+        questionnaire_object.data_old = None
+
         questionnaire_object.save()
 
         messages.success(
@@ -1173,6 +1177,10 @@ def compare_questionnaire_data(data_1, data_2):
         are not identical.
     """
     # Check which questiongroups are only in one of the dicts.
+    if data_1 is None:
+        data_1 = {}
+    if data_2 is None:
+        data_2 = {}
     qg_keywords_1 = list(data_1.keys())
     qg_keywords_2 = list(data_2.keys())
     different_qg_keywords = list(set(qg_keywords_1).symmetric_difference(

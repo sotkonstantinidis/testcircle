@@ -6,6 +6,12 @@
 
 {% block content %}
 
+  {% if edited_questiongroups %}
+    <div class="notice alert-box text-center">
+      <p>{% trans "There is an old version which is different than the current one." %}</p>
+    </div>
+  {% endif %}
+
   {% if images|length %}
     <figure class="tech-figure">
       <div class="tech-figure-container">

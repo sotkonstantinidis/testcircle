@@ -11,7 +11,11 @@
     <header class="wizard-header" role="banner">
       <div class="row">
         <div class="columns small-12 medium-9">
-          <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back without saving" %}</a>
+          {% if edit_mode == 'edit' %}
+            <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back without saving" %}</a>
+          {% elif edit_mode == 'view' %}
+            <a class="wizard-header-back">&nbsp;</a>
+          {% endif %}
           <h2 class="wizard-header-title">{{ category_config.numbering|default:'' }} {{ category_config.label }}</h2>
           <div class="progress">
             <span class="meter" style="width:0%"></span>
@@ -25,6 +29,8 @@
           </a>
           {% if edit_mode == 'edit' %}
             <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ category_formsets|length }}</span>)</strong></a>
+          {% elif edit_mode == 'view' %}
+            <a id="" class="button expand is-{{ configuration_name }}" onclick="window.close()"><strong>{% trans "Close" %}</strong></a>
           {% endif %}
         </div>
       </div>
@@ -39,13 +45,18 @@
       </div>
     </header>
 
-    {% if not valid %}
-      <div data-alert class="alert-box alert">
-        <p>{% trans "There was a problem with your submission. Errors have been highlighted below." %}</p>
-      </div>
-    {% endif %}
-
     <main class="main inner-wrap">
+
+      {% if not valid %}
+        <div data-alert class="alert-box alert row">
+          <p>{% trans "There was a problem with your submission. Errors have been highlighted below." %}</p>
+        </div>
+      {% endif %}
+      {% if category_config.has_changes %}
+        <div class="alert-box text-center row">
+          <p>{% trans "There is an old version with changes in this section." %} <a href="{{ view_url }}" target="_blank">{% trans "View old version" %}</a></p>
+        </div>
+      {% endif %}
 
       <div class="row">
         {% include "form/helptext.html" with helptext=category_config.helptext %}

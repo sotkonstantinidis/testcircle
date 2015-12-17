@@ -5,7 +5,7 @@ urlpatterns = patterns(
     url(r'^$', 'unccd.views.home', name='home'),
     url(r'^view/(?P<identifier>\w+)/$', 'unccd.views.questionnaire_details',
         name='questionnaire_details'),
-    url(r'^view/(?P<questionnaire_id>[0-9]+)/(?P<step>\w+)/$',
+    url(r'^view/(?P<identifier>\w+)/(?P<step>\w+)/$',
         'unccd.views.questionnaire_view_step',
         name='questionnaire_view_step'),
     url(r'^edit/new/$', 'unccd.views.questionnaire_new',

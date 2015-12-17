@@ -1400,10 +1400,16 @@ class QuestionnaireCategory(BaseConfigurationObject):
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups))
+        has_changes = False
+        for qg in self.get_questiongroups():
+            if qg.keyword in edited_questiongroups:
+                has_changes = True
+                break
         config = {
             'label': self.label,
             'numbering': self.numbering,
             'helptext': self.helptext,
+            'has_changes': has_changes,
         }
         configuration = self.view_options.get('configuration')
         if configuration:
@@ -1412,7 +1418,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
     def get_details(
             self, data={}, permissions=[], edit_step_route='',
-            questionnaire_object=None, csrf_token=None):
+            questionnaire_object=None, csrf_token=None,
+            edited_questiongroups=[]):
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1475,6 +1482,12 @@ class QuestionnaireCategory(BaseConfigurationObject):
         configuration = self.view_options.get(
             'configuration', self.configuration_keyword)
 
+        has_changes = False
+        for qg in self.get_questiongroups():
+            if qg.keyword in edited_questiongroups:
+                has_changes = True
+                break
+
         return render_to_string(
             view_template, {
                 'subcategories': rendered_subcategories,
@@ -1493,6 +1506,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'configuration_name': configuration,
                 'toc_content': tuple(toc_content),
                 'questionnaire_identifier': questionnaire_identifier,
+                'has_changes': has_changes,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -1608,7 +1622,8 @@ class QuestionnaireSection(BaseConfigurationObject):
 
     def get_details(
             self, data={}, permissions=[], review_config={},
-            edit_step_route='', questionnaire_object=None, csrf_token=None):
+            edit_step_route='', questionnaire_object=None, csrf_token=None,
+            edited_questiongroups=[]):
 
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
@@ -1621,7 +1636,8 @@ class QuestionnaireSection(BaseConfigurationObject):
             rendered_categories.append(category.get_details(
                 data, permissions=permissions, edit_step_route=edit_step_route,
                 questionnaire_object=questionnaire_object,
-                csrf_token=csrf_token))
+                csrf_token=csrf_token,
+                edited_questiongroups=edited_questiongroups))
 
         toc_content = []
         if self.view_options.get('include_toc', False) is True:
@@ -1737,14 +1753,16 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
     def get_details(
             self, data={}, permissions=[], review_config={},
-            edit_step_route='', questionnaire_object=None, csrf_token=None):
+            edit_step_route='', questionnaire_object=None, csrf_token=None,
+            edited_questiongroups=[]):
         rendered_sections = []
         for section in self.sections:
             rendered_sections.append(section.get_details(
                 data, permissions=permissions, review_config=review_config,
                 edit_step_route=edit_step_route,
                 questionnaire_object=questionnaire_object,
-                csrf_token=csrf_token))
+                csrf_token=csrf_token,
+                edited_questiongroups=edited_questiongroups))
         return rendered_sections
 
     def get_toc_data(self):

@@ -64,13 +64,13 @@ def questionnaire_link_search(request):
 
 
 @login_required
-def questionnaire_view_step(request, questionnaire_id, step):
+def questionnaire_view_step(request, identifier, step):
     """
     View rendering the form of a single step of a new SAMPLE
     questionnaire in read-only mode.
     """
     return generic_questionnaire_view_step(
-        request, questionnaire_id, step, 'approaches',
+        request, identifier, step, 'approaches',
         page_title=_('Approaches'))
 
 
