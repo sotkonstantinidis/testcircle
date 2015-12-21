@@ -399,10 +399,10 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with(
-            {}, permissions=['can_save_questionnaire', 'can_edit_steps'],
+            {}, permissions=['edit_questionnaire'],
             edit_step_route='sample:questionnaire_new_step',
             questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[])
+            edited_questiongroups=[], view_mode='edit')
 
     @patch('questionnaire.views.get_list_values')
     @patch('questionnaire.views.Questionnaire')
@@ -433,8 +433,9 @@ class GenericQuestionnaireNewTest(TestCase):
                 'images': [],
                 'links': {},
                 'filter_configuration': mock_filter_configuration.return_value,
-                'permissions': ['can_save_questionnaire', 'can_edit_steps'],
+                'permissions': ['edit_questionnaire'],
                 'edited_questiongroups': [],
+                'view_mode': 'edit',
             })
 
     def test_returns_rendered_response(self):
@@ -526,16 +527,14 @@ class GenericQuestionnaireDetailsTest(TestCase):
         self.request.user = user
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
+        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
         mock_get_details.assert_called_once_with(
             data={},
-            questionnaire_object=mock_query_questionnaire.return_value
-                                                         .first.return_value,
+            questionnaire_object=mock_q_obj,
             review_config={
-                'review_status':
-                    mock_query_questionnaire.return_value
-                                            .first.return_value.status,
+                'review_status': mock_q_obj.status,
                 'csrf_token_value': None, 'reviewable': False},
-            permissions=[])
+            permissions=mock_q_obj.get_permissions.return_value)
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
@@ -548,16 +547,14 @@ class GenericQuestionnaireDetailsTest(TestCase):
         self.request.user = user
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
+        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
         mock_get_details.assert_called_once_with(
             data={},
-            questionnaire_object=mock_query_questionnaire.return_value
-                                                         .first.return_value,
+            questionnaire_object=mock_q_obj,
             review_config={
-                'review_status': mock_query_questionnaire.return_value
-                                                         .first.return_value
-                                                         .status,
+                'review_status': mock_q_obj.status,
                 'csrf_token_value': None, 'reviewable': True},
-            permissions=[])
+            permissions=mock_q_obj.get_permissions.return_value)
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
@@ -566,15 +563,14 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_query_questionnaire.return_value.first.return_value.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
+        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
         mock_get_details.assert_called_once_with(
             data={},
-            questionnaire_object=mock_query_questionnaire.return_value
-                                                         .first.return_value,
+            questionnaire_object=mock_q_obj,
             review_config={
-                'review_status':
-                    mock_query_questionnaire.return_value.first
-                                            .return_value.status,
-                'csrf_token_value': None}, permissions=[])
+                'review_status': mock_q_obj.status,
+                'csrf_token_value': None},
+            permissions=mock_q_obj.get_permissions.return_value)
 
     @patch('questionnaire.views.get_configuration')
     # @patch.object(QuestionnaireConfiguration, 'get_image_data')
@@ -608,7 +604,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_render(
             self, mock_query_questionnaire, mock_conf, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
+        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
+        mock_q_obj.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mfc = mock_conf.return_value.get_filter_configuration.return_value
@@ -620,7 +617,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'images': img.get.return_value,
                 'links': {},
                 'filter_configuration': mfc,
-                'permissions': [],
+                'permissions': mock_q_obj.get_permissions.return_value,
+                'view_mode': 'view',
             })
 
 

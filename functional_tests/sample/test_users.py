@@ -293,7 +293,7 @@ class UserTest2(FunctionalTest):
         questionnaire_users = questionnaire.get_users()
         self.assertEqual(len(questionnaire_users), 2)
         for user_tuple in questionnaire_users:
-            self.assertIn(user_tuple[0], ['author', 'landuser'])
+            self.assertIn(user_tuple[0], ['compiler', 'landuser'])
             self.assertIn(user_tuple[1].id, [1, 2365])
 
     def test_add_new_person(self):
@@ -431,7 +431,7 @@ class UserTest2(FunctionalTest):
         questionnaire = Questionnaire.objects.first()
         questionnaire_users = questionnaire.get_users()
         self.assertEqual(len(questionnaire_users), 1)
-        self.assertEqual(questionnaire_users[0][0], 'author')
+        self.assertEqual(questionnaire_users[0][0], 'compiler')
         self.assertEqual(questionnaire_users[0][1].id, 1)
 
     def test_add_multiple_users_persons(self):
@@ -608,7 +608,7 @@ class UserTest2(FunctionalTest):
         questionnaire_users = questionnaire.get_users()
         self.assertEqual(len(questionnaire_users), 3)
         for user_tuple in questionnaire_users:
-            self.assertIn(user_tuple[0], ['author', 'landuser'])
+            self.assertIn(user_tuple[0], ['compiler', 'landuser'])
             self.assertIn(user_tuple[1].id, [1, 1055, 2365])
 
     def test_remove_user(self):
@@ -688,7 +688,7 @@ class UserTest2(FunctionalTest):
 
         self.assertEqual(len(questionnaire_users), 1)
         for user_tuple in questionnaire_users:
-            self.assertIn(user_tuple[0], ['author'])
+            self.assertIn(user_tuple[0], ['compiler'])
             self.assertIn(user_tuple[1].id, [1])
 
 

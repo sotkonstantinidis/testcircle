@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
+# from guardian.shortcuts import assign_perm
 from itertools import chain
 
 from accounts.models import User
@@ -30,8 +31,12 @@ STATUSES_CODES = (
 )
 
 QUESTIONNAIRE_ROLES = (
-    ('author', _('Author')),
+    # Functional roles
+    ('compiler', _('Compiler')),
     ('editor', _('Editor')),
+    ('reviewer', _('Reviewer')),
+    ('publisher', _('Publisher')),
+    # Content roles only, no privileges attached
     ('landuser', _('Land User')),
 )
 
@@ -62,7 +67,10 @@ class Questionnaire(models.Model):
     class Meta:
         ordering = ['-updated']
         permissions = (
-            ("can_moderate", "Can moderate"),
+            ("review_questionnaire", "Can review questionnaire"),
+            ("publish_questionnaire", "Can publish questionnaire"),
+            # ("moderate_questionnaire", "Can moderate Questionnaire"),
+            # ("edit_questionnaire", "Can edit Questionnaire"),
         )
 
     def get_absolute_url(self):
@@ -162,6 +170,31 @@ class Questionnaire(models.Model):
     def get_id(self):
         return self.id
 
+    def get_permissions(self, current_user):
+        """
+        Return the permissions of a given user for the current
+        questionnaire.
+
+        The following rules apply:
+            * Compilers and editors can edit questionnaires.
+
+        Permissions to be returned are:
+            * ``edit_questionnaire``
+
+        Args:
+            ``current_user`` (User): The user.
+
+        Returns:
+            ``list``. A list with the permissions of the user for this
+            questionnaire object.
+        """
+        permissions = []
+        users = self.get_users()
+        for role, user in users:
+            if current_user == user and role in ['compiler', 'editor']:
+                permissions.append('edit_questionnaire')
+        return permissions
+
     def get_users(self):
         """
         Helper function to return the users of a questionnaire along
@@ -203,7 +236,7 @@ class Questionnaire(models.Model):
         """
         self.questionnairemembership_set.filter(user=user, role=role).delete()
 
-    def update_users_from_data(self, configuration_code, author):
+    def update_users_from_data(self, configuration_code, compiler):
         """
         Based on the data dictionary, update the user links in the
         database. This usually happens after the form of the
@@ -213,13 +246,13 @@ class Questionnaire(models.Model):
             ``configuration_code`` (str): The code of the configuration
               of the questionnaire which triggered the update.
 
-            ``author`` (accounts.models.User): A user figuring as the
-            author of the questionnaire.
+            ``compiler`` (accounts.models.User): A user figuring as the
+            compiler of the questionnaire.
         """
         questionnaire_configuration = get_configuration(configuration_code)
         user_fields = questionnaire_configuration.get_user_fields()
 
-        submitted_users = [('author', author.id)]
+        submitted_users = [('compiler', compiler.id)]
 
         # Collect the users appearing in the data dictionary.
         for user_questiongroup in user_fields:
@@ -316,7 +349,7 @@ class Questionnaire(models.Model):
         authors = []
         # Make sure the author is first
         for author in list(chain(
-                self.members.filter(questionnairemembership__role='author'),
+                self.members.filter(questionnairemembership__role='compiler'),
                 self.members.filter(questionnairemembership__role='editor'))):
             authors.append({
                 'id': author.id,

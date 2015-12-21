@@ -176,11 +176,33 @@ class QuestionnaireModelTest(TestCase):
         get_valid_questionnaire(self.user)
         mock_foo.assert_called_once_with('sample', self.user)
 
+    def test_get_permissions_returns_edit_for_compilers(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertIsInstance(permissions, list)
+        self.assertEqual(permissions, ['edit_questionnaire'])
+
+    def test_get_permissions_returns_edit_for_editors(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'editor'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(permissions, ['edit_questionnaire'])
+
+    def test_get_permissions_returns_empty(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'foo'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(permissions, [])
+
     def test_get_users_returns_tuples(self):
         questionnaire = get_valid_questionnaire(self.user)
         users = questionnaire.get_users()
         self.assertEqual(len(users), 1)
-        self.assertEqual(users[0][0], 'author')
+        self.assertEqual(users[0][0], 'compiler')
         self.assertEqual(users[0][1], self.user)
 
     def test_add_user_adds_user(self):
@@ -189,22 +211,22 @@ class QuestionnaireModelTest(TestCase):
         users = questionnaire.get_users()
         self.assertEqual(len(users), 2)
         for role, user in users:
-            self.assertIn(role, ['author', 'landuser'])
+            self.assertIn(role, ['compiler', 'landuser'])
             self.assertIn(user, [self.user])
 
     def test_remove_user_removes_user(self):
         questionnaire = get_valid_questionnaire(self.user)
-        questionnaire.remove_user(self.user, 'author')
+        questionnaire.remove_user(self.user, 'compiler')
         users = questionnaire.get_users()
         self.assertEqual(len(users), 0)
 
     def test_update_users_from_data_adds_author(self):
         questionnaire = get_valid_questionnaire(self.user)
-        questionnaire.remove_user(self.user, 'author')
+        questionnaire.remove_user(self.user, 'compiler')
         questionnaire.update_users_from_data('sample', self.user)
         users = questionnaire.get_users()
         self.assertEqual(len(users), 1)
-        self.assertEqual(users[0][0], 'author')
+        self.assertEqual(users[0][0], 'compiler')
         self.assertEqual(users[0][1], self.user)
 
     def test_update_users_from_data_adds_user_from_data(self):
@@ -215,7 +237,7 @@ class QuestionnaireModelTest(TestCase):
         users = questionnaire.get_users()
         self.assertEqual(len(users), 2)
         for role, user in users:
-            self.assertIn(role, ['author', 'landuser'])
+            self.assertIn(role, ['compiler', 'landuser'])
             self.assertIn(user, [self.user, user_2])
 
     def test_update_users_from_data_removes_user_from_data(self):
@@ -225,7 +247,7 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.update_users_from_data('sample', self.user)
         users = questionnaire.get_users()
         self.assertEqual(len(users), 1)
-        self.assertEqual(users[0][0], 'author')
+        self.assertEqual(users[0][0], 'compiler')
         self.assertEqual(users[0][1], self.user)
 
     def test_update_users_in_data_updates_name(self):

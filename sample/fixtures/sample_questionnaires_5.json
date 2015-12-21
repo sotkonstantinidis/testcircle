@@ -90,7 +90,7 @@
     "fields": {
         "questionnaire": 1,
         "user": 101,
-        "role": "author"
+        "role": "compiler"
     },
     "model": "questionnaire.questionnairemembership"
 },
@@ -121,7 +121,7 @@
     "fields": {
         "questionnaire": 2,
         "user": 101,
-        "role": "author"
+        "role": "compiler"
     },
     "model": "questionnaire.questionnairemembership"
 },
@@ -161,7 +161,7 @@
     "fields": {
         "questionnaire": 3,
         "user": 101,
-        "role": "author"
+        "role": "compiler"
     },
     "model": "questionnaire.questionnairemembership"
 },
@@ -210,7 +210,7 @@
     "fields": {
         "questionnaire": 4,
         "user": 101,
-        "role": "author"
+        "role": "compiler"
     },
     "model": "questionnaire.questionnairemembership"
 },
@@ -241,7 +241,7 @@
     "fields": {
         "questionnaire": 5,
         "user": 101,
-        "role": "author"
+        "role": "compiler"
     },
     "model": "questionnaire.questionnairemembership"
 }

@@ -42,7 +42,6 @@ def has_no_old_version_overview(browser):
         'different than the current one.")]')
 
 
-
 class EditTest(FunctionalTest):
 
     fixtures = [

@@ -142,7 +142,7 @@ def questionnaires(request, user_id):
 def moderation(request):
     """
     View to show only pending Questionnaires to a moderator. Moderation
-    permission (``can_moderate``) is needed for this view.
+    permission (``review_questionnaire``) is needed for this view.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -150,7 +150,7 @@ def moderation(request):
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    if request.user.has_perm('questionnaire.can_moderate') is False:
+    if request.user.has_perm('questionnaire.review_questionnaire') is False:
         raise PermissionDenied()
 
     list_template_values = generic_questionnaire_list_no_config(

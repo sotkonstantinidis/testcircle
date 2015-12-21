@@ -1427,7 +1427,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], edit_step_route='',
             questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[]):
+            edited_questiongroups=[], view_mode='view'):
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1507,6 +1507,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'keyword': self.keyword,
                 'csrf_token': csrf_token,
                 'permissions': permissions,
+                'view_mode': view_mode,
                 'complete': with_content,
                 'total': len(self.subcategories),
                 'progress': int(with_content / len(self.subcategories) * 100),
@@ -1631,7 +1632,7 @@ class QuestionnaireSection(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[]):
+            edited_questiongroups=[], view_mode='view'):
 
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
@@ -1645,7 +1646,8 @@ class QuestionnaireSection(BaseConfigurationObject):
                 data, permissions=permissions, edit_step_route=edit_step_route,
                 questionnaire_object=questionnaire_object,
                 csrf_token=csrf_token,
-                edited_questiongroups=edited_questiongroups))
+                edited_questiongroups=edited_questiongroups,
+                view_mode=view_mode))
 
         toc_content = []
         if self.view_options.get('include_toc', False) is True:
@@ -1762,7 +1764,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[]):
+            edited_questiongroups=[], view_mode='view'):
         rendered_sections = []
         for section in self.sections:
             rendered_sections.append(section.get_details(
@@ -1770,7 +1772,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 edit_step_route=edit_step_route,
                 questionnaire_object=questionnaire_object,
                 csrf_token=csrf_token,
-                edited_questiongroups=edited_questiongroups))
+                edited_questiongroups=edited_questiongroups,
+                view_mode=view_mode))
         return rendered_sections
 
     def get_toc_data(self):

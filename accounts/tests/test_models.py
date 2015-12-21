@@ -102,5 +102,5 @@ class UserModelTestFixtures(TestCase):
         ret = user.get_questionnaires()
         self.assertEqual(len(ret), 2)
         for role, questionnaire in ret:
-            self.assertIn(role, ['author', 'landuser'])
+            self.assertIn(role, ['compiler', 'landuser'])
             self.assertIn(questionnaire, [questionnaire_1, questionnaire_2])

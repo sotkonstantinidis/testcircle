@@ -4,10 +4,10 @@
   {% include "details/toc.html" with toc_keyword=keyword %}
 {% endif %}
 
-{% if subcategories or 'can_edit_steps' in permissions %}
+{% if subcategories or 'edit_questionnaire' in permissions %}
   <section id="{{ keyword }}" class="tech-section is-rhythmed row" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
-    {% if 'can_edit_steps' in permissions %}
+    {% if 'edit_questionnaire' in permissions and edit_step_route %}
       <div class="medium-9 columns">
         <h2>{{ numbering|default:'' }} {{ label }}</h2>
         <div class="tech-section-progress progress">

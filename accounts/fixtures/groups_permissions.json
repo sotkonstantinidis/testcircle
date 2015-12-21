@@ -208,7 +208,12 @@
                 "questionnaire"
             ],
             [
-                "can_moderate",
+                "review_questionnaire",
+                "questionnaire",
+                "questionnaire"
+            ],
+            [
+                "publish_questionnaire",
                 "questionnaire",
                 "questionnaire"
             ],
@@ -312,7 +317,7 @@
         "name": "Moderators",
         "permissions": [
             [
-                "can_moderate",
+                "review_questionnaire",
                 "questionnaire",
                 "questionnaire"
             ]

@@ -768,7 +768,7 @@ def get_query_status_filter(request, moderation=False):
         ``moderation`` (bool): If ``True``, always return a status
         filter needed by moderators (eg. showing only pending
         Questionnaires). This is only returned if the user actually
-        has permissions to moderate (``can_moderate``).
+        has permissions to moderate (``review_questionnaire``).
 
     Returns:
         ``django.db.models.Q``. A Django filter object.
@@ -781,7 +781,7 @@ def get_query_status_filter(request, moderation=False):
 
         # ... see all "pending" and "public" if they are moderators,
         # along with their own "draft"
-        if request.user.has_perm('questionnaire.can_moderate'):
+        if request.user.has_perm('questionnaire.review_questionnaire'):
 
             # In moderation mode, only "pending" versions are visible
             if moderation is True:
@@ -1097,7 +1097,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Current user must be the author of the questionnaire
         if request.user not in questionnaire_object.members.filter(
-                questionnairemembership__role='author'):
+                questionnairemembership__role='compiler'):
             messages.error(
                 request, 'The questionnaire could not be submitted because you'
                 ' do not have permission to do so.')
@@ -1123,7 +1123,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             return
 
         # Current user must be a moderator
-        if not request.user.has_perm('questionnaire.can_moderate'):
+        if not request.user.has_perm('questionnaire.review_questionnaire'):
             messages.error(
                 request, 'The questionnaire could not be set public because '
                 'you do not have permission to do so.')

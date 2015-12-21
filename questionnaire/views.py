@@ -16,6 +16,7 @@ from django.shortcuts import (
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
+# from guardian.shortcuts import get_perms
 
 from configuration.cache import get_configuration
 from configuration.utils import (
@@ -600,16 +601,20 @@ def generic_questionnaire_new(
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
-    permissions = ['can_save_questionnaire', 'can_edit_steps']
+    if questionnaire_object is None:
+        permissions = ['edit_questionnaire']
+    else:
+        permissions = questionnaire_object.get_permissions(request.user)
+
     csrf_token = None
-    if 'can_save_questionnaire' in permissions:
+    if 'edit_questionnaire' in permissions:
         csrf_token = get_token(request)
 
     sections = questionnaire_configuration.get_details(
         data, permissions=permissions,
         edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
         questionnaire_object=questionnaire_object, csrf_token=csrf_token,
-        edited_questiongroups=edited_questiongroups)
+        edited_questiongroups=edited_questiongroups, view_mode='edit')
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
@@ -646,6 +651,7 @@ def generic_questionnaire_new(
         'filter_configuration': filter_configuration,
         'permissions': permissions,
         'edited_questiongroups': edited_questiongroups,
+        'view_mode': 'edit',
     })
 
 
@@ -701,15 +707,12 @@ def generic_questionnaire_details(
     if obj_status == 2:
         # Pending: Can the version be reviewed?
         reviewable = questionnaire_object.status == 2 and \
-            request.user.has_perm('questionnaire.can_moderate')
+            request.user.has_perm('questionnaire.review_questionnaire')
         review_config.update({
             'reviewable': reviewable,
         })
 
-    # TODO: Improve this!
-    permissions = []
-    if request.user in questionnaire_object.members.all() and obj_status != 2:
-        permissions.append('can_edit_questionnaire')
+    permissions = questionnaire_object.get_permissions(request.user)
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,
@@ -754,6 +757,7 @@ def generic_questionnaire_details(
         'links': link_display,
         'filter_configuration': filter_configuration,
         'permissions': permissions,
+        'view_mode': 'view',
     })
 
 
