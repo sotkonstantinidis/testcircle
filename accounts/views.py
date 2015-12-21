@@ -1,18 +1,21 @@
+from django.contrib import messages
 from django.contrib.auth import (
     logout as django_logout,
 )
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_POST
 from qcat.utils import url_with_querystring
 from accounts.authentication import (
     get_login_url,
     get_logout_url,
     get_session_cookie_name,
     get_user_information,
+    search_users,
+    update_user,
 )
 from accounts.models import User
 from questionnaire.views import generic_questionnaire_list_no_config
@@ -41,11 +44,8 @@ def welcome(request):
 
     # Update the user information
     user = request.user
-    user_info = get_user_information(session_id, user.id)
-    if user_info:
-        user.update(
-            lastname=user_info.get('last_name'),
-            firstname=user_info.get('first_name'))
+    user_info = get_user_information(user.id)
+    update_user(user, user_info)
 
     messages.info(
         request, 'Welcome {}'.format(user_info.get('first_name')))
@@ -157,3 +157,92 @@ def moderation(request):
         request, moderation=True)
 
     return render(request, 'questionnaires.html', list_template_values)
+
+
+def user_search(request):
+    """
+    JSON view to search for users. The search is handled by the
+    authentication backend as specified in the settings
+    (``settings.AUTH_LOGIN_FORM``).
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object with
+        optional GET parameter ``name``.
+
+    Returns:
+        ``JsonResponse``. A rendered JSON response.
+    """
+    search = search_users(name=request.GET.get('name', ''))
+    if not search:
+        search = {
+            'success': False,
+            'message': 'Error: The user database cannot be queried right now.'
+        }
+
+    return JsonResponse(search)
+
+
+@require_POST
+@login_required
+def user_update(request):
+    """
+    JSON view to create or update a user. The user is queried through
+    the authentication backend as specified in the settings
+    (``settings.AUTH_LOGIN_FORM``).
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object with
+        POST parameter ``uid`` (the user ID).
+
+    Returns:
+        ``JsonResponse``. A rendered JSON response.
+    """
+    ret = {
+        'success': False,
+    }
+
+    user_uid = request.POST.get('uid')
+    if user_uid is None:
+        ret['message'] = 'No user ID (uid) provided.'
+        return JsonResponse(ret)
+
+    # Try to find the user in the authentication DB
+    user_info = get_user_information(user_uid)
+    if not user_info:
+        ret['message'] = 'No user with ID {} found in the authentication '
+        'database.'.format(user_uid)
+        return JsonResponse(ret)
+
+    # Update (or insert) the user details in the local database
+    user, created = User.objects.get_or_create(pk=user_uid)
+    update_user(user, user_info)
+
+    ret = {
+        'name': user.get_display_name(),
+        'success': True,
+    }
+    return JsonResponse(ret)
+
+
+def details(request, id):
+    """
+    View for the details of a user. Also does an update of the user
+    information against the authentication backend.
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``id`` (int): The ID of the user.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    user = get_object_or_404(User, pk=id)
+
+    # Update the user details
+    user_info = get_user_information(user.id)
+    update_user(user, user_info)
+
+    return render(request, 'details.html', {
+        'detail_user': user,
+    })

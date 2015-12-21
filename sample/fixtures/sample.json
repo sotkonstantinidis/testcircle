@@ -295,6 +295,30 @@
     "model": "configuration.translation",
     "pk": 11038
 },
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"sample":{"label":{"en":"Key 39 (User ID)","es":"Clave 39 (User ID)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 11039
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"sample":{"label":{"en":"Key 40 (Display Name)","es":"Clave 40 (Display Name)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 11040
+},
+{
+    "fields": {
+        "translation_type": "key",
+        "data": {"sample":{"label":{"en":"Key 41 (Name)","es":"Clave 41 (Name)"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 11041
+},
 
 
 {
@@ -661,6 +685,15 @@
     "model": "configuration.translation",
     "pk": 12720
 },
+{
+    "fields": {
+        "translation_type": "category",
+        "data": {"sample":{"label":{"en":"Subcategory 0_2","es":"Subcategoría 0_2"}}}
+    },
+    "model": "configuration.translation",
+    "pk": 12721
+},
+
 
 
 {
@@ -1086,6 +1119,34 @@
     "model": "configuration.key",
     "pk": 11038
 },
+{
+    "fields": {
+        "keyword": "key_39",
+        "translation": 11039,
+        "configuration": {"type": "user_id"}
+    },
+    "model": "configuration.key",
+    "pk": 11039
+},
+{
+    "fields": {
+        "keyword": "key_40",
+        "translation": 11040,
+        "configuration": {"type": "user_display"}
+    },
+    "model": "configuration.key",
+    "pk": 11040
+},
+{
+    "fields": {
+        "keyword": "key_41",
+        "translation": 11041,
+        "configuration": {"type": "char"}
+    },
+    "model": "configuration.key",
+    "pk": 11041
+},
+
 
 
 {
@@ -1564,6 +1625,15 @@
     "model": "configuration.questiongroup",
     "pk": 11030
 },
+{
+    "fields": {
+        "keyword": "qg_31",
+        "translation": null,
+        "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11031
+},
 
 
 
@@ -1727,6 +1797,14 @@
     "model": "configuration.category",
     "pk": 11030
 },
+{
+    "fields": {
+        "keyword": "subcat_0_2",
+        "translation": 12721
+    },
+    "model": "configuration.category",
+    "pk": 11031
+},
 
 
 {
@@ -1804,7 +1882,7 @@
         "description": "Description of Sample Core Configuration",
         "active": true,
         "activated": "2015-01-08T10:12:59.337Z",
-        "data": {"sections":[{"keyword":"section_1","view_options":{"review_panel":true},"categories":[{"keyword":"cat_0","view_options":{"template":"with_metadata","with_metadata":true},"subcategories":[{"keyword":"subcat_0_1","questiongroups":[{"keyword":"qg_14","questions":[{"keyword":"key_19","view_options":{"in_list":true}}]},{"keyword":"qg_15","questions":[{"keyword":"key_20"}]},{"keyword":"qg_location","questions":[{"keyword":"country"}]}]}]},{"keyword":"cat_1","view_options":{"include_toc":true},"subcategories":[{"keyword":"subcat_1_1","questiongroups":[{"questions":[{"keyword":"key_1","view_options":{"in_list":true,"is_name":true}},{"keyword":"key_3","form_options":{"template":"inline_2","max_length":50}}],"keyword":"qg_1"},{"questions":[{"keyword":"key_2","form_options":{"num_rows":2,"max_length":50}},{"keyword":"key_3"}],"keyword":"qg_2"}]},{"keyword":"subcat_1_2","questiongroups":[{"questions":[{"keyword":"key_4"},{"keyword":"key_11","form_options":{"questiongroup_conditions":[">0|sample_qg_22"]}}],"keyword":"qg_3"},{"keyword":"qg_22","form_options":{"questiongroup_condition":"sample_qg_22"},"questions":[{"keyword":"key_27","form_options":{"questiongroup_conditions":["=='value_27_3'|sample_qg_23"]}}]},{"keyword":"qg_23","form_options":{"questiongroup_condition":"sample_qg_23"},"questions":[{"keyword":"key_28"}]},{"keyword":"qg_29","form_options":{"detail_level":"sample_plus"},"questions":[{"keyword":"key_37"},{"keyword":"key_38"}]}]}]},{"keyword":"cat_2","subcategories":[{"keyword":"subcat_2_1","questiongroups":[{"questions":[{"keyword":"key_13","form_options":{"questiongroup_conditions":["=='value_13_5'|sample_qg_18"]}}],"keyword":"qg_10"},{"keyword":"qg_18","form_options":{"questiongroup_condition":"sample_qg_18"},"questions":[{"keyword":"key_24"}]}]},{"keyword":"subcat_2_2a","subcategories":[{"keyword":"subcat_2_2b","questiongroups":[{"questions":[{"keyword":"key_12","form_options":{"template":"no_label"},"view_options":{"template":"measure_bar"}}],"keyword":"qg_9","form_options":{"max_num":3}}]}]},{"keyword":"subcat_2_3a","subcategories":[{"keyword":"subcat_2_3b","subcategories":[{"keyword":"subcat_2_3c","questiongroups":[{"keyword":"qg_19","questions":[{"keyword":"key_5","view_options":{"in_list":true}}]}]}]}]},{"keyword":"subcat_2_4","subcategories":[{"keyword":"subcat_2_4a","questiongroups":[{"keyword":"qg_20","questions":[{"keyword":"key_25"}]}]},{"keyword":"subcat_2_4b","subcategories":[{"keyword":"subcat_2_4b1","subcategories":[{"keyword":"subcat_2_4b2","questiongroups":[{"keyword":"qg_21","questions":[{"keyword":"key_26"}]}]}]}]}]}]},{"keyword":"cat_3","subcategories":[{"keyword":"subcat_3_1","questiongroups":[{"questions":[{"keyword":"key_7"}],"keyword":"qg_5"},{"questions":[{"keyword":"key_8"}],"keyword":"qg_6"},{"keyword":"qg_13","form_options":{"numbered":"prefix"},"questions":[{"keyword":"key_17"},{"keyword":"key_18"}]}]},{"keyword":"subcat_3_2","questiongroups":[{"keyword":"qg_7","form_options":{"numbered":"prefix"},"questions":[{"keyword":"key_9"}]},{"questions":[{"keyword":"key_10"}],"form_options":{"max_num":3,"min_num":2},"keyword":"qg_8"},{"keyword":"qg_30","form_options":{"max_num":3},"questions":[{"keyword":"key_19","view_options":{"in_list":true}}]}]}]}]},{"keyword":"section_2","categories":[{"keyword":"cat_4","subcategories":[{"keyword":"subcat_4_1","questiongroups":[{"questions":[{"keyword":"key_14","view_options":{"filter":true}}],"keyword":"qg_11"},{"questions":[{"keyword":"key_16","form_options":{"conditional":true}},{"keyword":"key_15","form_options":{"conditions":["value_15_1|True|key_16"]}}],"keyword":"qg_12"}]},{"keyword":"subcat_4_2","questiongroups":[{"keyword":"qg_16","questions":[{"keyword":"key_21","view_options":{"template":"textinput"},"form_options":{"questiongroup_conditions":[">1|questiongroup_17","<3|questiongroup_17"]}}]},{"keyword":"qg_17","form_options":{"questiongroup_condition":"questiongroup_17"},"questions":[{"keyword":"key_22"},{"keyword":"key_23"}]}]},{"keyword":"subcat_4_3","questiongroups":[{"keyword":"qg_24","view_options":{"template":"bars"},"questions":[{"keyword":"key_29"},{"keyword":"key_30"},{"keyword":"key_31"},{"keyword":"key_32"}]}]}]},{"keyword":"cat_5","subcategories":[{"keyword":"subcat_5_1","form_options":{"template":"table_1"},"view_options":{"template":"table_1","table_grouping":[["qg_25","qg_27"],["qg_26","qg_28"]]},"questiongroups":[{"keyword":"qg_25","questions":[{"keyword":"key_33"},{"keyword":"key_34"}]},{"keyword":"qg_26","form_options":{"min_num":3},"questions":[{"keyword":"key_35"},{"keyword":"key_36"}]},{"keyword":"qg_27","questions":[{"keyword":"key_33"},{"keyword":"key_34"}]},{"keyword":"qg_28","form_options":{"min_num":3},"questions":[{"keyword":"key_35"},{"keyword":"key_36"}]}]}]}]}],"links":[{"keyword":"samplemulti"}]},
+        "data": {"sections":[{"keyword":"section_1","view_options":{"review_panel":true},"categories":[{"keyword":"cat_0","view_options":{"template":"with_metadata","with_metadata":true},"subcategories":[{"keyword":"subcat_0_1","questiongroups":[{"keyword":"qg_14","questions":[{"keyword":"key_19","view_options":{"in_list":true}}]},{"keyword":"qg_15","questions":[{"keyword":"key_20"}]},{"keyword":"qg_location","questions":[{"keyword":"country"}]}]},{"keyword":"subcat_0_2","questiongroups":[{"keyword":"qg_31","form_options":{"template":"select_user","user_role":"landuser","max_num":3},"questions":[{"keyword":"key_39","form_options":{"template":"no_label","display_field":"key_40"}},{"keyword":"key_40","form_options":{"template":"no_label"}},{"keyword":"key_41"}]}]}]},{"keyword":"cat_1","view_options":{"include_toc":true},"subcategories":[{"keyword":"subcat_1_1","questiongroups":[{"questions":[{"keyword":"key_1","view_options":{"in_list":true,"is_name":true}},{"keyword":"key_3","form_options":{"template":"inline_2","max_length":50}}],"keyword":"qg_1"},{"questions":[{"keyword":"key_2","form_options":{"num_rows":2,"max_length":50}},{"keyword":"key_3"}],"keyword":"qg_2"}]},{"keyword":"subcat_1_2","questiongroups":[{"questions":[{"keyword":"key_4"},{"keyword":"key_11","form_options":{"questiongroup_conditions":[">0|sample_qg_22"]}}],"keyword":"qg_3"},{"keyword":"qg_22","form_options":{"questiongroup_condition":"sample_qg_22"},"questions":[{"keyword":"key_27","form_options":{"questiongroup_conditions":["=='value_27_3'|sample_qg_23"]}}]},{"keyword":"qg_23","form_options":{"questiongroup_condition":"sample_qg_23"},"questions":[{"keyword":"key_28"}]},{"keyword":"qg_29","form_options":{"detail_level":"sample_plus"},"questions":[{"keyword":"key_37"},{"keyword":"key_38"}]}]}]},{"keyword":"cat_2","subcategories":[{"keyword":"subcat_2_1","questiongroups":[{"questions":[{"keyword":"key_13","form_options":{"questiongroup_conditions":["=='value_13_5'|sample_qg_18"]}}],"keyword":"qg_10"},{"keyword":"qg_18","form_options":{"questiongroup_condition":"sample_qg_18"},"questions":[{"keyword":"key_24"}]}]},{"keyword":"subcat_2_2a","subcategories":[{"keyword":"subcat_2_2b","questiongroups":[{"questions":[{"keyword":"key_12","form_options":{"template":"no_label"},"view_options":{"template":"measure_bar"}}],"keyword":"qg_9","form_options":{"max_num":3}}]}]},{"keyword":"subcat_2_3a","subcategories":[{"keyword":"subcat_2_3b","subcategories":[{"keyword":"subcat_2_3c","questiongroups":[{"keyword":"qg_19","questions":[{"keyword":"key_5","view_options":{"in_list":true}}]}]}]}]},{"keyword":"subcat_2_4","subcategories":[{"keyword":"subcat_2_4a","questiongroups":[{"keyword":"qg_20","questions":[{"keyword":"key_25"}]}]},{"keyword":"subcat_2_4b","subcategories":[{"keyword":"subcat_2_4b1","subcategories":[{"keyword":"subcat_2_4b2","questiongroups":[{"keyword":"qg_21","questions":[{"keyword":"key_26"}]}]}]}]}]}]},{"keyword":"cat_3","subcategories":[{"keyword":"subcat_3_1","questiongroups":[{"questions":[{"keyword":"key_7"}],"keyword":"qg_5"},{"questions":[{"keyword":"key_8"}],"keyword":"qg_6"},{"keyword":"qg_13","form_options":{"numbered":"prefix"},"questions":[{"keyword":"key_17"},{"keyword":"key_18"}]}]},{"keyword":"subcat_3_2","questiongroups":[{"keyword":"qg_7","form_options":{"numbered":"prefix"},"questions":[{"keyword":"key_9"}]},{"questions":[{"keyword":"key_10"}],"form_options":{"max_num":3,"min_num":2},"keyword":"qg_8"},{"keyword":"qg_30","form_options":{"max_num":3},"questions":[{"keyword":"key_19","view_options":{"in_list":true}}]}]}]}]},{"keyword":"section_2","categories":[{"keyword":"cat_4","subcategories":[{"keyword":"subcat_4_1","questiongroups":[{"questions":[{"keyword":"key_14","view_options":{"filter":true}}],"keyword":"qg_11"},{"questions":[{"keyword":"key_16","form_options":{"conditional":true}},{"keyword":"key_15","form_options":{"conditions":["value_15_1|True|key_16"]}}],"keyword":"qg_12"}]},{"keyword":"subcat_4_2","questiongroups":[{"keyword":"qg_16","questions":[{"keyword":"key_21","view_options":{"template":"textinput"},"form_options":{"questiongroup_conditions":[">1|questiongroup_17","<3|questiongroup_17"]}}]},{"keyword":"qg_17","form_options":{"questiongroup_condition":"questiongroup_17"},"questions":[{"keyword":"key_22"},{"keyword":"key_23"}]}]},{"keyword":"subcat_4_3","questiongroups":[{"keyword":"qg_24","view_options":{"template":"bars"},"questions":[{"keyword":"key_29"},{"keyword":"key_30"},{"keyword":"key_31"},{"keyword":"key_32"}]}]}]},{"keyword":"cat_5","subcategories":[{"keyword":"subcat_5_1","form_options":{"template":"table_1"},"view_options":{"template":"table_1","table_grouping":[["qg_25","qg_27"],["qg_26","qg_28"]]},"questiongroups":[{"keyword":"qg_25","questions":[{"keyword":"key_33"},{"keyword":"key_34"}]},{"keyword":"qg_26","form_options":{"min_num":3},"questions":[{"keyword":"key_35"},{"keyword":"key_36"}]},{"keyword":"qg_27","questions":[{"keyword":"key_33"},{"keyword":"key_34"}]},{"keyword":"qg_28","form_options":{"min_num":3},"questions":[{"keyword":"key_35"},{"keyword":"key_36"}]}]}]}]}],"links":[{"keyword":"samplemulti"}]},
         "created": "2015-01-08T10:12:59.337Z",
         "base_code": "",
         "name": "Sample Core Configuration"

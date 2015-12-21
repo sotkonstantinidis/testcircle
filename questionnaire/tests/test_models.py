@@ -9,7 +9,6 @@ from configuration.models import Configuration
 from qcat.tests import TestCase
 from questionnaire.models import (
     Questionnaire,
-    QuestionnaireConfiguration,
     QuestionnaireLink,
     QuestionnaireMembership,
     File,
@@ -46,7 +45,7 @@ def get_valid_metadata():
 
 class QuestionnaireModelTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['sample.json', 'sample_global_key_values.json']
 
     def setUp(self):
         self.user = create_new_user()
@@ -135,14 +134,6 @@ class QuestionnaireModelTest(TestCase):
         questionnaire = get_valid_questionnaire(self.user)
         self.assertEqual(questionnaire.version, 1)
 
-    @patch.object(Configuration, 'get_active_by_code')
-    @patch.object(QuestionnaireConfiguration.objects, 'create')
-    def test_create_new_calls_configuration_get_active_by_code(
-            self, mock_create, mock_Configuration_get_active_by_code):
-        Questionnaire.create_new(
-            configuration_code='sample', data={}, user=self.user)
-        mock_Configuration_get_active_by_code.assert_called_once_with('sample')
-
     def test_create_new_raises_error_if_no_active_configuration(self):
         with self.assertRaises(ValidationError):
             Questionnaire.create_new(
@@ -180,12 +171,75 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(ret_languages[0].language, language)
         activate('en')
 
-    def test_create_new_adds_membership(self):
+    @patch.object(Questionnaire, 'update_users_from_data')
+    def test_create_new_calls_update_users_from_data(self, mock_foo):
+        get_valid_questionnaire(self.user)
+        mock_foo.assert_called_once_with('sample', self.user)
+
+    def test_get_users_returns_tuples(self):
         questionnaire = get_valid_questionnaire(self.user)
-        memberships = questionnaire.members.filter(
-            questionnairemembership__role='author')
-        self.assertEqual(len(memberships), 1)
-        self.assertEqual(memberships[0], self.user)
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0][0], 'author')
+        self.assertEqual(users[0][1], self.user)
+
+    def test_add_user_adds_user(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.add_user(self.user, 'landuser')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        for role, user in users:
+            self.assertIn(role, ['author', 'landuser'])
+            self.assertIn(user, [self.user])
+
+    def test_remove_user_removes_user(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.remove_user(self.user, 'author')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 0)
+
+    def test_update_users_from_data_adds_author(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.remove_user(self.user, 'author')
+        questionnaire.update_users_from_data('sample', self.user)
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0][0], 'author')
+        self.assertEqual(users[0][1], self.user)
+
+    def test_update_users_from_data_adds_user_from_data(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        user_2 = create_new_user(id=2, email='foo@bar.com')
+        questionnaire.data = {'qg_31': [{'key_39': '2', 'key_40': 'Foo Bar'}]}
+        questionnaire.update_users_from_data('sample', self.user)
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        for role, user in users:
+            self.assertIn(role, ['author', 'landuser'])
+            self.assertIn(user, [self.user, user_2])
+
+    def test_update_users_from_data_removes_user_from_data(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        user_2 = create_new_user(id=2, email='foo@bar.com')
+        questionnaire.add_user(user_2, 'landuser')
+        questionnaire.update_users_from_data('sample', self.user)
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0][0], 'author')
+        self.assertEqual(users[0][1], self.user)
+
+    def test_update_users_in_data_updates_name(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        user_2 = create_new_user(
+            id=2, email='foo@bar.com', firstname='Faz', lastname='Taz')
+        questionnaire.data = {'qg_31': [{'key_39': '2', 'key_40': 'Foo Bar'}]}
+        questionnaire.update_users_from_data('sample', self.user)
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        questionnaire.update_users_in_data(user_2)
+        self.assertEqual(
+            questionnaire.data,
+            {'qg_31': [{'key_39': '2', 'key_40': 'Faz Taz'}]})
 
     def test_get_metadata(self):
         questionnaire = Questionnaire.create_new(

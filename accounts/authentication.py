@@ -79,7 +79,7 @@ class WocatAuthenticationBackend(ModelBackend):
             user = User.objects.get(pk=user_id)
         except User.DoesNotExist:
             # Create a user in the local database
-            user_info = get_user_information(token, user_id)
+            user_info = get_user_information(user_id)
             user = User.create_new(
                 id=user_id, email=user_info.get('username'),
                 lastname=user_info.get('last_name'),
@@ -154,13 +154,11 @@ def validate_session(session_id):
     return session_data.get('userid')
 
 
-def get_user_information(session_id, user_id):
+def get_user_information(user_id):
     """
     Get the information of a user through the Typo3 REST API of WOCAT.
 
     Args:
-        ``session_id`` (str): The session ID as found in the cookie.
-
         ``user_id`` (int): The id of the user to query.
 
     Returns:
@@ -172,7 +170,6 @@ def get_user_information(session_id, user_id):
         return None
 
     data = {
-        'session_id': session_id,
         'id': user_id,
     }
     user_request = requests.post(
@@ -187,6 +184,61 @@ def get_user_information(session_id, user_id):
         return {}
 
     return user_data
+
+
+def update_user(user, user_information):
+    """
+    Update a user. This function serves to bundle and eventually
+    preprocess the user information from the WOCAT Authentication
+    backend and pass it to the update function of the user.
+
+    Args:
+        ``user`` (accounts.models.User): The User object.
+
+        ``user_information` (dict): The user dictionary as retrieved
+          from :func:`get_user_information`
+    """
+    if user_information:
+        usergroups = [
+            g.get('name') for g in user_information.get('usergroup', [])]
+        user.update(
+            email=user_information.get('username'),
+            lastname=user_information.get('last_name'),
+            firstname=user_information.get('first_name'),
+            usergroups=usergroups)
+
+
+def search_users(name=''):
+    """
+    Search for users through the Typo3 REST API of WOCAT.
+
+    Kwargs:
+        ``name`` (str): The name of the User to search.
+
+    Returns:
+        ``dict``. A dict with the search results retrieved from the API.
+        If the query was not successful, an empty dictionary is
+        returned.
+    """
+    api_login_request = api_login()
+    if api_login_request is None:
+        return {}
+
+    data = {
+        'name': name,
+    }
+    search_request = requests.post(
+        '{}get_users'.format(settings.AUTH_API_URL), data=data,
+        cookies=api_login_request.cookies)
+
+    if search_request.status_code != 200:
+        return {}
+
+    search_data = search_request.json()
+    if not search_data.get('success'):
+        return {}
+
+    return search_data
 
 
 def get_login_url():

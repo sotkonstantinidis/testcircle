@@ -87,3 +87,20 @@ class UserModelTest(TestCase):
         user = User.create_new(id=1, email='a@b.com', lastname='Foo')
         user.update(lastname='Bar')
         self.assertEqual(user.lastname, 'Bar')
+
+
+class UserModelTestFixtures(TestCase):
+
+    fixtures = ['sample.json']
+
+    def test_get_questionnaires_returns_tuples(self):
+        from questionnaire.tests.test_models import get_valid_questionnaire
+        user = create_new_user(id=2, email='foo@bar.com')
+        questionnaire_1 = get_valid_questionnaire(user=user)
+        questionnaire_2 = get_valid_questionnaire()
+        questionnaire_2.add_user(user, 'landuser')
+        ret = user.get_questionnaires()
+        self.assertEqual(len(ret), 2)
+        for role, questionnaire in ret:
+            self.assertIn(role, ['author', 'landuser'])
+            self.assertIn(questionnaire, [questionnaire_1, questionnaire_2])

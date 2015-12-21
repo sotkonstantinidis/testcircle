@@ -1990,7 +1990,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that the progress was updated.
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She removes the file
         self.findBy(
@@ -2023,7 +2023,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that the progress was updated.
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She submits the form
         self.findBy('id', 'button-submit').click()

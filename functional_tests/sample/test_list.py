@@ -900,7 +900,6 @@ class ListTest(FunctionalTest):
             self.browser.current_url, '{}?'.format(
                 self.live_server_url + reverse(route_questionnaire_list)))
 
-    # @attr('foo')
     def test_filter_search(self):
 
         # Alice goes to the list view
@@ -968,6 +967,7 @@ class ListTest(FunctionalTest):
         active_filter_panel = self.findBy(
             'xpath', '//div[@id="active-filters"]/div')
         self.assertTrue(active_filter_panel.is_displayed())
+        time.sleep(1)
         active_filters = self.findManyBy(
             'xpath', '//div[@id="active-filters"]//li')
         self.assertEqual(len(active_filters), 2)
