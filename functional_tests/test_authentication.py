@@ -10,6 +10,7 @@ from accounts.tests.test_views import accounts_route_moderation
 from nose.plugins.attrib import attr
 # @attr('foo')
 
+
 @patch('accounts.authentication.auth_authenticate')
 class LoginTest(FunctionalTest):
 
@@ -163,16 +164,6 @@ class ModerationTest(FunctionalTest):
         'groups_permissions.json', 'global_key_values.json', 'sample.json',
         'sample_questionnaire_status.json', 'sample_user.json']
 
-    """
-    id: 1   code: sample_1   version: 1   status: 1   user: 101
-    id: 2   code: sample_2   version: 1   status: 2   user: 102
-    id: 3   code: sample_3   version: 1   status: 3   user: 101, 102
-    id: 4   code: sample_4   version: 1   status: 4   user: 101
-    id: 5   code: sample_5   version: 1   status: 5   user: 101
-    id: 6   code: sample_5   version: 2   status: 3   user: 101
-    id: 7   code: sample_6   version: 1   status: 1   user: 103
-    """
-
     def test_user_questionnaires(self):
 
         user_alice = User.objects.get(pk=101)
@@ -194,10 +185,13 @@ class ModerationTest(FunctionalTest):
         # She sees all the Questionnaires which are pending.
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 1)
+        self.assertEqual(len(list_entries), 2)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
             'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 9")]')
 
         # She also sees a customized title of the list
         self.findByNot(

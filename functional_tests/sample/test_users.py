@@ -30,13 +30,51 @@ class UserTest(FunctionalTest):
         'sample_questionnaire_status.json']
 
     """
+    status:
+    1: draft
+    2: submitted
+    3: reviewed
+    4: public
+    5: rejected
+    6: inactive
+
+    user:
+    101: user
+    102: user
+    103: reviewer
+    104: publisher
+    105: reviewer, publisher
+    106: user
+
     id: 1   code: sample_1   version: 1   status: 1   user: 101
+        (draft by user 101)
+
     id: 2   code: sample_2   version: 1   status: 2   user: 102
-    id: 3   code: sample_3   version: 1   status: 3   user: 101, 102
-    id: 4   code: sample_4   version: 1   status: 4   user: 101
-    id: 5   code: sample_5   version: 1   status: 5   user: 101
-    id: 6   code: sample_5   version: 2   status: 3   user: 101
+        (submitted by user 102)
+
+    id: 3   code: sample_3   version: 1   status: 4   user: 101, 102
+        (public by user 101 and 102)
+
+    id: 4   code: sample_4   version: 1   status: 5   user: 101
+        (rejected)
+
+    id: 5   code: sample_5   version: 1   status: 6   user: 101
+        (inactive version of 6)
+
+    id: 6   code: sample_5   version: 2   status: 4   user: 101
+        (public version of 5 by user 101)
+
     id: 7   code: sample_6   version: 1   status: 1   user: 103
+        (draft by user 103)
+
+    id: 8   code: sample_7   version: 1   status: 3   user: 101
+        (reviewed by user 101)
+
+    id: 9   code: sample_8   version: 1   status: 2   user: 101, (102)
+        (submitted by user 101, assigned to user 102)
+
+    id: 10  code: sample_9   version: 1   status: 3   user: 101, (106)
+        (reviewed by user 101, assigned to user 106)
     """
 
     def test_user_questionnaires(self):
@@ -54,22 +92,31 @@ class UserTest(FunctionalTest):
             'contains(@href, "accounts/101/questionnaires")]').click()
 
         # She sees here Questionnaires are listed, even those with
-        # status draft or pending
+        # status draft or submitted
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 4)
+        self.assertEqual(len(list_entries), 7)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 6")]')
+            'contains(text(), "Foo 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
             'contains(text(), "Foo 3")]')
         self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 4")]')
+        self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
-            'contains(text(), "Foo 1")]')
+            'contains(text(), "Foo 6")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[5]//h1/a['
+            'contains(text(), "Foo 8")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[6]//h1/a['
+            'contains(text(), "Foo 9")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[7]//h1/a['
+            'contains(text(), "Foo 10")]')
 
         # She sees a customized title of the list
         self.findBy('xpath', '//h2[contains(text(), "Your SLM practices")]')
@@ -82,10 +129,13 @@ class UserTest(FunctionalTest):
             accounts_route_questionnaires, kwargs={'user_id': 102}))
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 1)
+        self.assertEqual(len(list_entries), 2)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
             'contains(text(), "Foo 3")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'contains(text(), "Foo 9")]')
 
         # She logs out and sees the link in the menu is no longer visible.
         self.doLogout()
@@ -102,10 +152,10 @@ class UserTest(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 6")]')
+            'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 3")]')
+            'contains(text(), "Foo 6")]')
 
         # Bob logs in and goes to his Questionnaire page. He sees all
         # versions of his Questionnaires.
@@ -114,13 +164,16 @@ class UserTest(FunctionalTest):
             accounts_route_questionnaires, kwargs={'user_id': 102}))
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+        self.assertEqual(len(list_entries), 3)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 3")]')
+            'contains(text(), "Foo 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 2")]')
+            'contains(text(), "Foo 3")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 9")]')
 
         # He goes to the Questionnaire page of Alice and only sees the
         # "public" Questionnaires.
@@ -128,13 +181,16 @@ class UserTest(FunctionalTest):
             accounts_route_questionnaires, kwargs={'user_id': 101}))
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+        self.assertEqual(len(list_entries), 3)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 6")]')
+            'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 3")]')
+            'contains(text(), "Foo 6")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'contains(text(), "Foo 9")]')
 
         # He sees that the customized title of the list now changed.
         self.findByNot(

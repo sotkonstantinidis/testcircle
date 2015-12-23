@@ -747,7 +747,7 @@ def query_questionnaires(
     return query
 
 
-def get_query_status_filter(request, moderation=False):
+def get_query_status_filter(request, moderation_mode=''):
     """
     Creates a filter object based on the statuses of the Questionnaires,
     to be used for database queries.
@@ -756,44 +756,79 @@ def get_query_status_filter(request, moderation=False):
 
     * Not logged in users always only see "public" Questionnaires.
 
-    * Moderators see all "pending" and "public" Questionnaires.
+    * Reviewers see all "submitted" and "public" Questionnaires.
 
-    * Logged in users see all "public", as well as their own "draft"
-    and "pending" Questionnaires.
+    * Publishers see all "reviewed" and "public" Questionnaires.
+
+    * Logged in users see all "public", as well as their own "draft",
+      "submitted" and "reviewed" Questionnaires.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
     Kwargs:
-        ``moderation`` (bool): If ``True``, always return a status
-        filter needed by moderators (eg. showing only pending
-        Questionnaires). This is only returned if the user actually
-        has permissions to moderate (``review_questionnaire``).
+        ``moderation_mode`` (string): Can be used for special status
+        filters needed by moderators. Possible values can be:
+
+          * ``review``: Showing only submitted questionnaires
+
+          * ``publish``: Showing only reviewed questionnaires.
+
+        This is only meaningful if the user actually has the correct
+        permissions (``questionnaire.review_questionnaire`` or
+        ``questionnaire.publish_questionnaire``).
 
     Returns:
         ``django.db.models.Q``. A Django filter object.
     """
-    # Public always only sees "public"
-    status_filter = Q(status=3)
+    status_filter = Q()
 
-    # Logged in users ...
     if request.user.is_authenticated():
 
-        # ... see all "pending" and "public" if they are moderators,
-        # along with their own "draft"
-        if request.user.has_perm('questionnaire.review_questionnaire'):
+        permissions = request.user.get_all_permissions()
 
-            # In moderation mode, only "pending" versions are visible
-            if moderation is True:
-                return Q(status=2)
+        # Reviewers see all Questionnaires with status "submitted".
+        if 'questionnaire.review_questionnaire' in permissions:
 
-            status_filter = (
-                Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
+            if moderation_mode == '' or not moderation_mode != 'review':
+                status_filter |= Q(status__in=[2])
 
-        # ... see "public" and their own "draft" and "pending".
-        else:
-            status_filter = (
-                Q(status=3) | (Q(members=request.user) & Q(status__in=[1, 2])))
+            if moderation_mode == 'review':
+                return status_filter
+
+        # Publishers see all Questionnaires with status "reviewed".
+        if 'questionnaire.publish_questionnaire' in permissions:
+
+            if moderation_mode == '' or not moderation_mode != 'publish':
+                status_filter |= Q(status__in=[3])
+
+            if moderation_mode == 'publish':
+                return status_filter
+
+        # Users see Questionnaires with status "draft", "submitted" and
+        # "reviewed" if they are "compiler" or "editor".
+        status_filter |= (
+            Q(members=request.user) &
+            Q(questionnairemembership__role__in=['compiler', 'editor'])
+            & Q(status__in=[1, 2, 3])
+        )
+
+        # Users see Questionnaires with status "submitted" if they are
+        # assigned as "reviewer" for this Questionnaire.
+        status_filter |= (
+            Q(members=request.user) &
+            Q(questionnairemembership__role__in=['reviewer'])
+            & Q(status__in=[2]))
+
+        # Users see Questionnaires with status "reviewed" if they are
+        # assigned as "publisher" for this Questionnaire.
+        status_filter |= (
+            Q(members=request.user) &
+            Q(questionnairemembership__role__in=['publisher'])
+            & Q(status__in=[3]))
+
+    # Everybody sees Questionnaires with status "public".
+    status_filter |= Q(status=4)
 
     return status_filter
 
@@ -819,14 +854,14 @@ def get_raw_link_status_filter(request):
         ``str``. A raw SQL filter string.
     """
     # Public always only sees "public"
-    status_filter = 'questionnaire_questionnaire.status = 3'
+    status_filter = 'questionnaire_questionnaire.status = 4'
 
     # Logged in users see all "public", along with their own "draft" and
     # "pending".
     if request.user.is_authenticated():
         status_filter = """
-            questionnaire_questionnaire.status = 3 OR (
-                questionnaire_questionnaire.status IN (1, 2) AND
+            questionnaire_questionnaire.status = 4 OR (
+                questionnaire_questionnaire.status IN (1, 2, 3) AND
                 questionnaire_questionnairemembership.user_id = %s)
         """ % request.user.id
 
@@ -1113,6 +1148,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         messages.success(
             request, _('The questionnaire was successfully submitted.'))
 
+    # TODO: There should be another step in between (publisher)!!!
+
     elif request.POST.get('publish'):
 
         # Previous status must be "pending"
@@ -1132,14 +1169,14 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Set the previously "public" Questionnaire to "inactive".
         # Also remove it from ES.
         previously_public = Questionnaire.objects.filter(
-            code=questionnaire_object.code, status=3)
+            code=questionnaire_object.code, status=4)
         for previous_object in previously_public:
-            previous_object.status = 5
+            previous_object.status = 6
             previous_object.save()
             delete_questionnaires_from_es(
                 configuration_code, [previous_object])
 
-        questionnaire_object.status = 3
+        questionnaire_object.status = 4
         questionnaire_object.save()
 
         added, errors = put_questionnaire_data(

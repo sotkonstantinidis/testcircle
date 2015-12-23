@@ -111,7 +111,7 @@ class QuestionnaireModelTest(TestCase):
 
     def test_previous_version_public_keeps_same_code(self):
         previous = get_valid_questionnaire(self.user)
-        previous.status = 3
+        previous.status = 4
         q = Questionnaire.create_new(
             configuration_code='sample', data={'faz': 'taz'}, user=self.user,
             previous_version=previous)

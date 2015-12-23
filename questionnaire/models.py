@@ -17,17 +17,19 @@ from configuration.models import Configuration
 
 STATUSES = (
     (1, _('Draft')),
-    (2, _('Pending')),
-    (3, _('Public')),
-    (4, _('Rejected')),
-    (5, _('Inactive')),
+    (2, _('Submitted')),
+    (3, _('Reviewed')),
+    (4, _('Public')),
+    (5, _('Rejected')),
+    (6, _('Inactive')),
 )
 STATUSES_CODES = (
     (1, 'draft'),
-    (2, 'pending'),
-    (3, 'public'),
-    (4, 'rejected'),
-    (5, 'inactive'),
+    (2, 'submitted'),
+    (3, 'reviewed'),
+    (4, 'public'),
+    (5, 'rejected'),
+    (6, 'inactive'),
 )
 
 QUESTIONNAIRE_ROLES = (
@@ -69,8 +71,6 @@ class Questionnaire(models.Model):
         permissions = (
             ("review_questionnaire", "Can review questionnaire"),
             ("publish_questionnaire", "Can publish questionnaire"),
-            # ("moderate_questionnaire", "Can moderate Questionnaire"),
-            # ("edit_questionnaire", "Can edit Questionnaire"),
         )
 
     def get_absolute_url(self):
@@ -118,7 +118,7 @@ class Questionnaire(models.Model):
 
         if previous_version:
             created = previous_version.created
-            if previous_version.status not in [1, 3]:
+            if previous_version.status not in [1, 4]:
                 raise ValidationError(
                     'The questionnaire cannot be updated because of its status'
                     ' "{}"'.format(previous_version.status))

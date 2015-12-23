@@ -154,7 +154,7 @@ def moderation(request):
         raise PermissionDenied()
 
     list_template_values = generic_questionnaire_list_no_config(
-        request, moderation=True)
+        request, moderation_mode='review')
 
     return render(request, 'questionnaires.html', list_template_values)
 

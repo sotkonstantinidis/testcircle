@@ -122,8 +122,11 @@ fieldset.row.has-changes {
 }
 
 span.button-has-changes {
-  color: $primary-color;
+  color: $color-approach;
   margin-left: rem-calc(4);
+}
+a.is-approaches span.button-has-changes {
+  color: $color-tech;
 }
 
 fieldset.row table {

@@ -265,7 +265,7 @@ class EditTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
 
         # Also there was no additional version created in the database
-        self.assertEqual(Questionnaire.objects.count(), 7)
+        self.assertEqual(Questionnaire.objects.count(), 10)
 
     def test_edit_public(self):
 
@@ -318,7 +318,7 @@ class EditTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
 
         # Also there was an additional version created in the database
-        self.assertEqual(Questionnaire.objects.count(), 8)
+        self.assertEqual(Questionnaire.objects.count(), 11)
 
         # The newly created version has the same code
         self.assertEqual(Questionnaire.objects.filter(code=code).count(), 2)

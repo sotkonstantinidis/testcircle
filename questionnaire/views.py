@@ -761,7 +761,8 @@ def generic_questionnaire_details(
     })
 
 
-def generic_questionnaire_list_no_config(request, user=None, moderation=False):
+def generic_questionnaire_list_no_config(
+        request, user=None, moderation_mode=None):
     """
     A generic view to show a list of Questionnaires. Similar to
     :func:`generic_questionnaire_list` but with the following
@@ -799,9 +800,10 @@ def generic_questionnaire_list_no_config(request, user=None, moderation=False):
     is_current_user = request.user is not None and request.user == user
 
     # Determine the status filter
-    if moderation is True:
+    if moderation_mode is not None:
         # Moderators always have a special moderation status filter
-        status_filter = get_query_status_filter(request, moderation=True)
+        status_filter = get_query_status_filter(
+            request, moderation_mode=moderation_mode)
     elif is_current_user is True:
         # The current user has no status filter (sees all statuses)
         status_filter = Q()
@@ -826,7 +828,7 @@ def generic_questionnaire_list_no_config(request, user=None, moderation=False):
         'list_values': list_values,
         'is_current_user': is_current_user,
         'list_user': user,
-        'is_moderation': moderation,
+        'is_moderation': moderation_mode,
     }
 
     # Add the pagination parameters

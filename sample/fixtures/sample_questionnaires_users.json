@@ -38,7 +38,7 @@
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
         "data": {"qg_19":[{"key_5":{"en":"Faz 1"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 1"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1"]}],"qg_country":[{"country":"country_CHE"}],"qg_31":[{"key_39":"102","key_40":"Faz Taz"},{"key_41":{"en":"Some other person"}}]},
         "code": "sample_1",
-        "status": 3,
+        "status": 4,
         "version": 1,
         "blocked": false,
         "created": "2011-02-10T16:07:20.847Z",

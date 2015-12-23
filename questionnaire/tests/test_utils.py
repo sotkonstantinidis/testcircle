@@ -611,6 +611,12 @@ class QueryQuestionnaireTest(TestCase):
         mock_get_query_status_filter.assert_called_once_with(request)
 
 
+class GetQueryStatusFilter(TestCase):
+
+    # This is tested implicitely through QueryQuestionnairesTest
+    pass
+
+
 class QueryQuestionnairesTest(TestCase):
 
     fixtures = [
@@ -630,63 +636,115 @@ class QueryQuestionnairesTest(TestCase):
         request.user.is_authenticated.return_value = False
         ret = query_questionnaires(request, 'sample')
         self.assertEqual(len(ret), 2)
-        self.assertEqual(ret[0].id, 6)
-        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[1].id, 6)
 
-    def test_user_sees_his_own_draft_and_pending(self):
+    def test_user_sees_his_own_draft_submitted_reviewed_user_101(self):
         request = Mock()
         request.user = User.objects.get(pk=101)
         ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 3)
-        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(len(ret), 6)
+        self.assertEqual(ret[0].id, 1)
         self.assertEqual(ret[1].id, 3)
-        self.assertEqual(ret[2].id, 1)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 8)
+        self.assertEqual(ret[4].id, 9)
+        self.assertEqual(ret[5].id, 10)
 
-    def test_user_sees_his_own_draft_and_pending_2(self):
+    def test_user_sees_his_own_draft_submitted_reviewed_user_102(self):
         request = Mock()
         request.user = User.objects.get(pk=102)
         ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 3)
-        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 2)
         self.assertEqual(ret[1].id, 3)
-        self.assertEqual(ret[2].id, 2)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 9)
+
+    def test_reviewer_sees_submitted_and_own_drafts_103(self):
+        # User 103 is reviewer, he sees all submitted
+        request = Mock()
+        request.user = User.objects.get(pk=103)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 5)
+        self.assertEqual(ret[0].id, 2)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 7)
+        self.assertEqual(ret[4].id, 9)
+
+    def test_reviewer_sees_submitted_and_own_drafts_102(self):
+        # User 102 is only reviewer for 9
+        request = Mock()
+        request.user = User.objects.get(pk=102)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 2)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 9)
+
+    def test_publisher_sees_reviewed_and_own_drafts_104(self):
+        # User 104 is publisher, sees all reviewed
+        request = Mock()
+        request.user = User.objects.get(pk=104)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[1].id, 6)
+        self.assertEqual(ret[2].id, 8)
+        self.assertEqual(ret[3].id, 10)
+
+    def test_publisher_sees_reviewed_and_own_drafts_106(self):
+        request = Mock()
+        request.user = User.objects.get(pk=106)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[1].id, 6)
+        self.assertEqual(ret[2].id, 10)
+
+    def test_reviewer_publishes_sees_almost_everything(self):
+        request = Mock()
+        request.user = User.objects.get(pk=105)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 6)
+        self.assertEqual(ret[0].id, 2)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 8)
+        self.assertEqual(ret[4].id, 9)
+        self.assertEqual(ret[5].id, 10)
 
     def test_only_one_version_is_visible(self):
-        user = User.objects.get(pk=102)
+        user = User.objects.get(pk=101)
         prev_version = Questionnaire.objects.get(pk=3)
         Questionnaire.create_new(
             'sample', {}, user, previous_version=prev_version, status=3)
         request = Mock()
         request.user = user
         ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 3)
-        self.assertEqual(ret[0].id, 8)
-        self.assertEqual(ret[1].id, 6)
-        self.assertEqual(ret[2].id, 2)
-
-    def test_moderator_sees_pending_and_own_drafts(self):
-        request = Mock()
-        request.user = User.objects.get(pk=103)
-        ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 4)
-        self.assertEqual(ret[0].id, 7)
-        self.assertEqual(ret[1].id, 6)
-        self.assertEqual(ret[2].id, 3)
-        self.assertEqual(ret[3].id, 2)
+        self.assertEqual(len(ret), 6)
+        self.assertEqual(ret[0].id, 11)
+        self.assertEqual(ret[1].id, 1)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 8)
+        self.assertEqual(ret[4].id, 9)
+        self.assertEqual(ret[5].id, 10)
 
     def test_applies_limit(self):
         request = Mock()
         request.user.is_authenticated.return_value = False
         ret = query_questionnaires(request, 'sample', limit=1)
         self.assertEqual(len(ret), 1)
-        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[0].id, 3)
 
     def test_applies_offset(self):
         request = Mock()
         request.user.is_authenticated.return_value = False
         ret = query_questionnaires(request, 'sample', offset=1)
         self.assertEqual(len(ret), 1)
-        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[0].id, 6)
 
 
 class QueryQuestionnairesForLinkTest(TestCase):
@@ -974,7 +1032,7 @@ class HandleReviewActionsTest(TestCase):
         prev = Mock()
         mock_Questionnaire.objects.filter.return_value = [prev]
         handle_review_actions(self.request, self.obj, 'sample')
-        self.assertEqual(prev.status, 5)
+        self.assertEqual(prev.status, 6)
         prev.save.assert_called_once_with()
 
     @patch('questionnaire.utils.Questionnaire')
@@ -1001,7 +1059,7 @@ class HandleReviewActionsTest(TestCase):
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
-        self.assertEqual(self.obj.status, 3)
+        self.assertEqual(self.obj.status, 4)
 
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_calls_put_questionnaire_data(

@@ -43,11 +43,64 @@
         "last_login": "2015-01-13T08:24:26.047Z",
         "user_permissions": [],
         "password": "",
+        "email": "reviewer@asdf.com",
+        "firstname": "Reviewer",
+        "lastname": "Reviewer"
+    }
+},
+{
+    "pk": 104,
+    "model": "accounts.user",
+    "fields": {
+        "groups": [
+            4
+        ],
+        "date_joined": "2015-01-13T08:24:26.031Z",
+        "is_superuser": false,
+        "last_login": "2015-01-13T08:24:26.047Z",
+        "user_permissions": [],
+        "password": "",
+        "email": "publisher@asdf.com",
+        "firstname": "Publisher",
+        "lastname": "Publisher"
+    }
+},
+{
+    "pk": 105,
+    "model": "accounts.user",
+    "fields": {
+        "groups": [
+            3,
+            4
+        ],
+        "date_joined": "2015-01-13T08:24:26.031Z",
+        "is_superuser": false,
+        "last_login": "2015-01-13T08:24:26.047Z",
+        "user_permissions": [],
+        "password": "",
         "email": "mod@asdf.com",
         "firstname": "Mod",
         "lastname": "Mod"
     }
 },
+{
+    "pk": 106,
+    "model": "accounts.user",
+    "fields": {
+        "groups": [
+        ],
+        "date_joined": "2015-01-13T08:24:26.031Z",
+        "is_superuser": false,
+        "last_login": "2015-01-13T08:24:26.047Z",
+        "user_permissions": [],
+        "password": "",
+        "email": "taz@asdf.com",
+        "firstname": "Taz",
+        "lastname": "Taz"
+    }
+},
+
+
 {
     "model": "questionnaire.questionnaire",
     "pk": 1,
@@ -58,8 +111,8 @@
         "status": 1,
         "version": 1,
         "blocked": false,
-        "created": "2015-02-10T16:07:20.847Z",
-        "updated": "2015-02-10T16:07:20.847Z"
+        "created": "2014-12-31T23:59:59.000Z",
+        "updated": "2014-12-31T23:59:59.000Z"
     }
 },
 {
@@ -79,6 +132,8 @@
     },
     "model": "questionnaire.questionnairemembership"
 },
+
+
 {
     "model": "questionnaire.questionnaire",
     "pk": 2,
@@ -89,8 +144,8 @@
         "status": 2,
         "version": 1,
         "blocked": false,
-        "created": "2015-02-11T16:08:20.904Z",
-        "updated": "2015-02-11T16:08:20.904Z"
+        "created": "2014-12-31T23:59:00.000Z",
+        "updated": "2014-12-31T23:59:00.000Z"
     }
 },
 {
@@ -110,6 +165,8 @@
     },
     "model": "questionnaire.questionnairemembership"
 },
+
+
 {
     "model": "questionnaire.questionnaire",
     "pk": 3,
@@ -117,11 +174,11 @@
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b03",
         "data": {"qg_19":[{"key_5":{"en":"Faz 3"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 3"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_3"]}]},
         "code": "sample_3",
-        "status": 3,
+        "status": 4,
         "version": 1,
         "blocked": false,
-        "created": "2015-02-12T16:08:20.904Z",
-        "updated": "2015-02-12T16:08:20.904Z"
+        "created": "2014-12-31T23:58:00.000Z",
+        "updated": "2014-12-31T23:58:00.000Z"
     }
 },
 {
@@ -150,6 +207,8 @@
     },
     "model": "questionnaire.questionnairemembership"
 },
+
+
 {
     "model": "questionnaire.questionnaire",
     "pk": 4,
@@ -157,11 +216,11 @@
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b04",
         "data": {"qg_19":[{"key_5":{"en":"Faz 4"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 4"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}]},
         "code": "sample_4",
-        "status": 4,
+        "status": 5,
         "version": 1,
         "blocked": false,
-        "created": "2015-02-13T16:08:20.904Z",
-        "updated": "2015-02-13T16:08:20.904Z"
+        "created": "2014-12-31T23:57:00.000Z",
+        "updated": "2014-12-31T23:57:00.000Z"
     }
 },
 {
@@ -199,6 +258,8 @@
     },
     "model": "questionnaire.questionnairemembership"
 },
+
+
 {
     "model": "questionnaire.questionnaire",
     "pk": 5,
@@ -206,11 +267,11 @@
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
         "data": {"qg_19":[{"key_5":{"en":"Faz 5"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 5"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}]},
         "code": "sample_5",
-        "status": 5,
+        "status": 6,
         "version": 1,
         "blocked": false,
-        "created": "2015-02-14T16:08:20.904Z",
-        "updated": "2015-03-14T16:08:20.904Z"
+        "created": "2014-12-31T23:56:00.000Z",
+        "updated": "2014-12-31T23:56:00.000Z"
     }
 },
 {
@@ -230,6 +291,8 @@
     },
     "model": "questionnaire.questionnairemembership"
 },
+
+
 {
     "model": "questionnaire.questionnaire",
     "pk": 6,
@@ -237,11 +300,11 @@
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
         "data": {"qg_19":[{"key_5":{"en":"Faz 6"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 6"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}]},
         "code": "sample_5",
-        "status": 3,
+        "status": 4,
         "version": 2,
         "blocked": false,
-        "created": "2015-02-15T16:08:20.904Z",
-        "updated": "2015-03-15T16:08:20.904Z"
+        "created": "2014-12-31T23:56:30.000Z",
+        "updated": "2014-12-31T23:56:30.000Z"
     }
 },
 {
@@ -261,6 +324,8 @@
     },
     "model": "questionnaire.questionnairemembership"
 },
+
+
 {
     "model": "questionnaire.questionnaire",
     "pk": 7,
@@ -271,8 +336,8 @@
         "status": 1,
         "version": 1,
         "blocked": false,
-        "created": "2015-02-16T16:08:20.904Z",
-        "updated": "2015-03-16T16:08:20.904Z"
+        "created": "2014-12-31T23:54:00.000Z",
+        "updated": "2014-12-31T23:54:00.000Z"
     }
 },
 {
@@ -284,11 +349,121 @@
     }
 },
 {
-    "pk": 1062,
     "fields": {
         "questionnaire": 7,
         "user": 103,
         "role": "compiler"
+    },
+    "model": "questionnaire.questionnairemembership"
+},
+
+
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 8,
+    "fields": {
+        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
+        "data": {"qg_19":[{"key_5":{"en":"Faz 8"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 8"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}]},
+        "code": "sample_7",
+        "status": 3,
+        "version": 1,
+        "blocked": false,
+        "created": "2014-12-31T23:53:00.000Z",
+        "updated": "2014-12-31T23:53:00.000Z"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 8,
+        "original_configuration": true
+    }
+},
+{
+    "fields": {
+        "questionnaire": 8,
+        "user": 101,
+        "role": "compiler"
+    },
+    "model": "questionnaire.questionnairemembership"
+},
+
+
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 9,
+    "fields": {
+        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
+        "data": {"qg_19":[{"key_5":{"en":"Faz 9"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 9"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}]},
+        "code": "sample_8",
+        "status": 2,
+        "version": 1,
+        "blocked": false,
+        "created": "2014-12-31T23:52:00.000Z",
+        "updated": "2014-12-31T23:52:00.000Z"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 9,
+        "original_configuration": true
+    }
+},
+{
+    "fields": {
+        "questionnaire": 9,
+        "user": 101,
+        "role": "compiler"
+    },
+    "model": "questionnaire.questionnairemembership"
+},
+{
+    "fields": {
+        "questionnaire": 9,
+        "user": 102,
+        "role": "reviewer"
+    },
+    "model": "questionnaire.questionnairemembership"
+},
+
+{
+    "model": "questionnaire.questionnaire",
+    "pk": 10,
+    "fields": {
+        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
+        "data": {"qg_19":[{"key_5":{"en":"Faz 10"}}],"qg_3":[{}],"qg_1":[{"key_3":{"en":"Bar"},"key_1":{"en":"Foo 10"}}],"qg_2":[{}],"qg_11":[{"key_14":["value_14_1","value_14_3"]}]},
+        "code": "sample_9",
+        "status": 3,
+        "version": 1,
+        "blocked": false,
+        "created": "2014-12-31T23:51:00.000Z",
+        "updated": "2014-12-31T23:51:00.000Z"
+    }
+},
+{
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+        "configuration": 11002,
+        "questionnaire": 10,
+        "original_configuration": true
+    }
+},
+{
+    "fields": {
+        "questionnaire": 10,
+        "user": 101,
+        "role": "compiler"
+    },
+    "model": "questionnaire.questionnairemembership"
+},
+{
+    "fields": {
+        "questionnaire": 10,
+        "user": 106,
+        "role": "publisher"
     },
     "model": "questionnaire.questionnairemembership"
 }

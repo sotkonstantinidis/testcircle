@@ -37,7 +37,7 @@
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
         "data": {"qg_3":[{"key_6":{"en":"... and I am Key 6"}}],"qg_1":[{"key_3":{"en":"And this cannot be empty."},"key_1":{"en":"This is the first key.","es":"Esto es la clave 1"}}]},
-        "status": 3,
+        "status": 4,
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:07:20.847Z",
@@ -68,7 +68,7 @@
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
         "data": {"qg_4": [{"key_5": {"en": "Faz"}}], "qg_3": [{}], "qg_1": [{"key_3": {"en": "Bar"}, "key_1": {"en": "Foo"}}]},
-        "status": 3,
+        "status": 4,
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:08:20.904Z",
@@ -90,7 +90,7 @@
     "fields": {
         "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1d",
         "data": {"mqg_01": [{"mkey_01": {"en": "This is key 1a","es":"Esto es clave 1a"}}]},
-        "status": 3,
+        "status": 4,
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:07:20.847Z",
@@ -121,7 +121,7 @@
     "fields": {
         "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b06",
         "data": {"mqg_01":[{"mkey_01":{"en":"This is key 1b"}}]},
-        "status": 3,
+        "status": 4,
         "version": 1,
         "blocked": false,
         "created": "2015-02-10T16:08:20.904Z",
@@ -142,9 +142,9 @@
     "pk": 1,
     "fields": {
         "from_questionnaire": 1,
-        "from_status": 3,
+        "from_status": 4,
         "to_questionnaire": 3,
-        "to_status": 3
+        "to_status": 4
     }
 },
 {
@@ -152,9 +152,9 @@
     "pk": 2,
     "fields": {
         "from_questionnaire": 3,
-        "from_status": 3,
+        "from_status": 4,
         "to_questionnaire": 1,
-        "to_status": 3
+        "to_status": 4
     }
 },
 {

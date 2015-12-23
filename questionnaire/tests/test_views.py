@@ -524,6 +524,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_query_questionnaire.return_value.first.return_value.status = 2
         user = Mock()
         user.has_perm.return_value = False
+        user.get_all_permissions.return_value = []
         self.request.user = user
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -544,6 +545,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_query_questionnaire.return_value.first.return_value.status = 2
         user = Mock()
         user.has_perm.return_value = True
+        user.get_all_permissions.return_value = []
         self.request.user = user
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
@@ -573,7 +575,6 @@ class GenericQuestionnaireDetailsTest(TestCase):
             permissions=mock_q_obj.get_permissions.return_value)
 
     @patch('questionnaire.views.get_configuration')
-    # @patch.object(QuestionnaireConfiguration, 'get_image_data')
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_image_data(
             self, mock_query_questionnaire, mock_conf, mock_render):
@@ -630,6 +631,7 @@ class GenericQuestionnaireListTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get(reverse(route_questionnaire_list))
         self.request.user = Mock()
+        self.request.user.get_all_permissions.return_value = []
 
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(

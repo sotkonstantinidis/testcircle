@@ -314,7 +314,7 @@
 },
 {
     "fields": {
-        "name": "Moderators",
+        "name": "Reviewers",
         "permissions": [
             [
                 "review_questionnaire",
@@ -324,6 +324,20 @@
         ]
     },
     "pk": 3,
+    "model": "auth.group"
+},
+{
+    "fields": {
+        "name": "Publishers",
+        "permissions": [
+            [
+                "publish_questionnaire",
+                "questionnaire",
+                "questionnaire"
+            ]
+        ]
+    },
+    "pk": 4,
     "model": "auth.group"
 }
 ]
