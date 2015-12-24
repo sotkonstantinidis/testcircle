@@ -49,13 +49,51 @@ class EditTest(FunctionalTest):
         'sample_questionnaire_status.json']
 
     """
+    status:
+    1: draft
+    2: submitted
+    3: reviewed
+    4: public
+    5: rejected
+    6: inactive
+
+    user:
+    101: user
+    102: user
+    103: reviewer
+    104: publisher
+    105: reviewer, publisher
+    106: user
+
     id: 1   code: sample_1   version: 1   status: 1   user: 101
+        (draft by user 101)
+
     id: 2   code: sample_2   version: 1   status: 2   user: 102
-    id: 3   code: sample_3   version: 1   status: 3   user: 101, 102
-    id: 4   code: sample_4   version: 1   status: 4   user: 101
-    id: 5   code: sample_5   version: 1   status: 5   user: 101
-    id: 6   code: sample_5   version: 2   status: 3   user: 101
+        (submitted by user 102)
+
+    id: 3   code: sample_3   version: 1   status: 4   user: 101, 102
+        (public by user 101 [compiler] and 102 [editor])
+
+    id: 4   code: sample_4   version: 1   status: 5   user: 101
+        (rejected)
+
+    id: 5   code: sample_5   version: 1   status: 6   user: 101
+        (inactive version of 6)
+
+    id: 6   code: sample_5   version: 2   status: 4   user: 101
+        (public version of 5 by user 101)
+
     id: 7   code: sample_6   version: 1   status: 1   user: 103
+        (draft by user 103)
+
+    id: 8   code: sample_7   version: 1   status: 3   user: 101
+        (reviewed by user 101)
+
+    id: 9   code: sample_8   version: 1   status: 2   user: 101, (102)
+        (submitted by user 101, assigned to user 102)
+
+    id: 10  code: sample_9   version: 1   status: 3   user: 101, (106)
+        (reviewed by user 101, assigned to user 106)
     """
 
     # def test_concurrent_edits(self):
@@ -332,14 +370,11 @@ class EditTest(FunctionalTest):
         self.assertEqual(len(list_entries), 3)
 
         self.findBy(
-            'xpath', '//a[contains(text(), "asdf")]',
-            base=list_entries[0])
+            'xpath', '//a[contains(text(), "asdf")]', base=list_entries[0])
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 6")]',
-            base=list_entries[1])
+            'xpath', '//a[contains(text(), "Foo 1")]', base=list_entries[1])
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 1")]',
-            base=list_entries[2])
+            'xpath', '//a[contains(text(), "Foo 5")]', base=list_entries[2])
 
         # She clicks the first entry and sees that she is taken to the
         # details page of the latest (pending) version.
@@ -351,7 +386,7 @@ class EditTest(FunctionalTest):
     def test_edit_questionnaire(self):
 
         user = create_new_user(id=6, email='mod@bar.com')
-        user.groups = [Group.objects.get(pk=3)]
+        user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
         user.save()
 
         # Alice logs in
@@ -374,6 +409,10 @@ class EditTest(FunctionalTest):
 
         # She submits it for review
         self.findBy('xpath', '//input[@name="submit"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She reviews it
+        self.findBy('xpath', '//input[@name="review"]').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She publishes it
@@ -413,7 +452,7 @@ class EditTest(FunctionalTest):
     def test_show_message_of_changed_versions(self):
 
         user = create_new_user(id=6, email='mod@bar.com')
-        user.groups = [Group.objects.get(pk=3)]
+        user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
         user.save()
 
         # Alice logs in
@@ -516,6 +555,8 @@ class EditTest(FunctionalTest):
 
         # She is moderator and sets the questionnaire public, there is
         # no message about changes
+        self.findBy('id', 'button-review').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('id', 'button-publish').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
         has_no_old_version_overview(self)

@@ -191,7 +191,7 @@ class ModerationTest(FunctionalTest):
             'contains(text(), "Foo 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 9")]')
+            'contains(text(), "Foo 8")]')
 
         # She also sees a customized title of the list
         self.findByNot(

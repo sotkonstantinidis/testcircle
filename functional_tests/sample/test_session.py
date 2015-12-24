@@ -125,7 +125,8 @@ class SessionTest2(FunctionalTest):
         cat_1_position = get_position_of_category('cat_1')
 
         user_moderator = create_new_user(id=2, email='foo@bar.com')
-        user_moderator.groups = [Group.objects.get(pk=3)]
+        user_moderator.groups = [
+            Group.objects.get(pk=3), Group.objects.get(pk=4)]
         user_moderator.save()
 
         # Alice logs in
@@ -148,6 +149,8 @@ class SessionTest2(FunctionalTest):
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She publishes the Questionnaire
+        self.findBy('id', 'button-review').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('id', 'button-publish').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 

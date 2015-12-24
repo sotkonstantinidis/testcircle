@@ -107,16 +107,16 @@ class UserTest(FunctionalTest):
             'contains(text(), "Foo 4")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
-            'contains(text(), "Foo 6")]')
+            'contains(text(), "Foo 5")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[5]//h1/a['
-            'contains(text(), "Foo 8")]')
+            'contains(text(), "Foo 7")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[6]//h1/a['
-            'contains(text(), "Foo 9")]')
+            'contains(text(), "Foo 8")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[7]//h1/a['
-            'contains(text(), "Foo 10")]')
+            'contains(text(), "Foo 9")]')
 
         # She sees a customized title of the list
         self.findBy('xpath', '//h2[contains(text(), "Your SLM practices")]')
@@ -135,7 +135,7 @@ class UserTest(FunctionalTest):
             'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 9")]')
+            'contains(text(), "Foo 8")]')
 
         # She logs out and sees the link in the menu is no longer visible.
         self.doLogout()
@@ -155,7 +155,7 @@ class UserTest(FunctionalTest):
             'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 6")]')
+            'contains(text(), "Foo 5")]')
 
         # Bob logs in and goes to his Questionnaire page. He sees all
         # versions of his Questionnaires.
@@ -173,7 +173,7 @@ class UserTest(FunctionalTest):
             'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
-            'contains(text(), "Foo 9")]')
+            'contains(text(), "Foo 8")]')
 
         # He goes to the Questionnaire page of Alice and only sees the
         # "public" Questionnaires.
@@ -187,10 +187,10 @@ class UserTest(FunctionalTest):
             'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 6")]')
+            'contains(text(), "Foo 5")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
-            'contains(text(), "Foo 9")]')
+            'contains(text(), "Foo 8")]')
 
         # He sees that the customized title of the list now changed.
         self.findByNot(

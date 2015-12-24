@@ -1811,11 +1811,9 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 6")]',
-            base=list_entries[0])
+            'xpath', '//a[contains(text(), "Foo 3")]', base=list_entries[0])
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 3")]',
-            base=list_entries[1])
+            'xpath', '//a[contains(text(), "Foo 5")]', base=list_entries[1])
 
         # She goes to the detail page of the questionnaire and sees the
         # draft version.
@@ -1828,7 +1826,7 @@ class ListTestStatus(FunctionalTest):
         url = self.browser.current_url
 
         # Bob (the moderator) logs in
-        user_moderator = User.objects.get(pk=103)
+        user_moderator = User.objects.get(pk=105)
         self.doLogin(user=user_moderator)
 
         # In the DB, there is one active version (id: 3)
@@ -1838,7 +1836,10 @@ class ListTestStatus(FunctionalTest):
 
         # The moderator publishes the questionnaire
         self.browser.get(url)
+        self.findBy('xpath', '//input[@name="review"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//input[@name="publish"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # In the DB, there is still only one active version (now id: 8)
         db_q = Questionnaire.objects.filter(code=code, status=4)
@@ -1857,5 +1858,5 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//a[contains(text(), "asdf")]',
             base=list_entries[0])
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 6")]',
+            'xpath', '//a[contains(text(), "Foo 5")]',
             base=list_entries[1])

@@ -516,62 +516,25 @@ class GenericQuestionnaireDetailsTest(TestCase):
             'sample:questionnaire_details',
             mock_query_questionnaire.return_value.first.return_value.code)
 
-    @patch.object(QuestionnaireConfiguration, 'get_details')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_reviewable_false_if_no_moderate_permissions(
-            self, mock_query_questionnaire, mock_get_details, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        mock_query_questionnaire.return_value.first.return_value.status = 2
-        user = Mock()
-        user.has_perm.return_value = False
-        user.get_all_permissions.return_value = []
-        self.request.user = user
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
-        mock_get_details.assert_called_once_with(
-            data={},
-            questionnaire_object=mock_q_obj,
-            review_config={
-                'review_status': mock_q_obj.status,
-                'csrf_token_value': None, 'reviewable': False},
-            permissions=mock_q_obj.get_permissions.return_value)
-
-    @patch.object(QuestionnaireConfiguration, 'get_details')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_reviewable_true_if_no_moderate_permissions(
-            self, mock_query_questionnaire, mock_get_details, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        mock_query_questionnaire.return_value.first.return_value.status = 2
-        user = Mock()
-        user.has_perm.return_value = True
-        user.get_all_permissions.return_value = []
-        self.request.user = user
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
-        mock_get_details.assert_called_once_with(
-            data={},
-            questionnaire_object=mock_q_obj,
-            review_config={
-                'review_status': mock_q_obj.status,
-                'csrf_token_value': None, 'reviewable': True},
-            permissions=mock_q_obj.get_permissions.return_value)
-
+    @patch('questionnaire.views.get_query_status_filter')
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_details(
-            self, mock_query_questionnaire, mock_get_details, mock_render):
+            self, mock_query_questionnaire, mock_get_details,
+            mock_get_query_status_filter, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
+        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
+        self.request.user.is_authenticated.return_value = True
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
         mock_get_details.assert_called_once_with(
             data={},
             questionnaire_object=mock_q_obj,
             review_config={
                 'review_status': mock_q_obj.status,
-                'csrf_token_value': None},
+                'csrf_token_value': None,
+                'permissions': mock_q_obj.get_permissions.return_value,
+            },
             permissions=mock_q_obj.get_permissions.return_value)
 
     @patch('questionnaire.views.get_configuration')

@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
-# from guardian.shortcuts import assign_perm
 from itertools import chain
 
 from accounts.models import User
@@ -129,8 +128,7 @@ class Questionnaire(models.Model):
                 previous_version.save()
 
                 # Update the users attached to the questionnaire
-                previous_version.update_users_from_data(
-                    configuration_code, user)
+                previous_version.update_users_from_data(configuration_code)
 
                 return previous_version
             else:
@@ -162,8 +160,16 @@ class Questionnaire(models.Model):
             questionnaire=questionnaire, language=get_language(),
             original_language=True)
 
-        # Update the users attached to the questionnaire
-        questionnaire.update_users_from_data(configuration_code, user)
+        if previous_version:
+            # Copy all the functional user roles from the old version
+            user_roles = ['compiler', 'editor', 'reviewer', 'publisher']
+            for role in user_roles:
+                for old_user in previous_version.get_users_by_role(role):
+                    questionnaire.add_user(old_user, role)
+        else:
+            questionnaire.add_user(user, 'compiler')
+        questionnaire.update_users_from_data(
+            configuration_code)
 
         return questionnaire
 
@@ -180,6 +186,9 @@ class Questionnaire(models.Model):
 
         Permissions to be returned are:
             * ``edit_questionnaire``
+            * ``submit_questionnaire``
+            * ``review_questionnaire``
+            * ``publish_questionnaire``
 
         Args:
             ``current_user`` (User): The user.
@@ -189,11 +198,28 @@ class Questionnaire(models.Model):
             questionnaire object.
         """
         permissions = []
-        users = self.get_users()
-        for role, user in users:
-            if current_user == user and role in ['compiler', 'editor']:
-                permissions.append('edit_questionnaire')
-        return permissions
+        for role, user in self.get_users():
+            if current_user == user:
+                if role in ['compiler', 'editor'] and self.status in [1, 4]:
+                    permissions.append('edit_questionnaire')
+                if role in ['compiler'] and self.status in [1]:
+                    permissions.append('submit_questionnaire')
+                if role in ['reviewer'] and self.status in [2]:
+                    permissions.extend(
+                        ['edit_questionnaire', 'review_questionnaire'])
+                if role in ['publisher'] and self.status in [3]:
+                    permissions.extend(
+                        ['edit_questionnaire', 'publish_questionnaire'])
+
+        user_permissions = current_user.get_all_permissions()
+        if ('questionnaire.review_questionnaire' in user_permissions
+                and self.status in [2]):
+            permissions.extend(['review_questionnaire', 'edit_questionnaire'])
+        if ('questionnaire.publish_questionnaire' in user_permissions
+                and self.status in [3]):
+            permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
+
+        return list(set(permissions))
 
     def get_users(self):
         """
@@ -211,6 +237,23 @@ class Questionnaire(models.Model):
         users = []
         for membership in self.questionnairemembership_set.all():
             users.append((membership.role, membership.user))
+        return users
+
+    def get_users_by_role(self, role):
+        """
+        Return all users of a questionnaire based on their role in the
+        membership.
+
+        Args:
+            ``role`` (str): The role of the membership used as a filter.
+
+        Returns:
+            ``list``. A list of users.
+        """
+        users = []
+        for user_role, user in self.get_users():
+            if user_role == role:
+                users.append(user)
         return users
 
     def add_user(self, user, role):
@@ -236,7 +279,7 @@ class Questionnaire(models.Model):
         """
         self.questionnairemembership_set.filter(user=user, role=role).delete()
 
-    def update_users_from_data(self, configuration_code, compiler):
+    def update_users_from_data(self, configuration_code):
         """
         Based on the data dictionary, update the user links in the
         database. This usually happens after the form of the
@@ -252,9 +295,8 @@ class Questionnaire(models.Model):
         questionnaire_configuration = get_configuration(configuration_code)
         user_fields = questionnaire_configuration.get_user_fields()
 
-        submitted_users = [('compiler', compiler.id)]
-
         # Collect the users appearing in the data dictionary.
+        submitted_users = []
         for user_questiongroup in user_fields:
             for user_data in self.data.get(user_questiongroup[0], []):
                 user_id = user_data.get(user_questiongroup[1])
@@ -263,8 +305,13 @@ class Questionnaire(models.Model):
                 submitted_users.append((user_questiongroup[3], user_id))
 
         # Get the users which were attached before modifying the
-        # questionnaire.
-        previous_users = self.get_users()
+        # questionnaire. Collect only those which can be changed through
+        # the data dictionary (no functional user roles)
+        previous_users = []
+        for user_role, user in self.get_users():
+            if user_role not in [
+                    'compiler', 'editor', 'reviewer', 'publisher']:
+                previous_users.append((user_role, user))
 
         # Check which users are new (in submitted_users but not in
         # previous_users) and add them to the questionnaire.

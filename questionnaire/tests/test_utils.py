@@ -930,93 +930,88 @@ class HandleReviewActionsTest(TestCase):
         self.request = Mock()
         self.request.user = Mock()
         self.obj = Mock(spec=Questionnaire)
-        self.obj.members.filter.return_value = [self.request.user]
+        self.obj.get_permissions.return_value = []
         self.obj.links.all.return_value = []
 
-    def test_submit_does_not_update_if_previous_status_not_draft(
-            self, mock_messages):
+    def test_submit_error_if_previous_status_wrong(self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'submit': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 3)
-
-    def test_submit_previous_status_not_correct_adds_message(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be submitted because it does not have'
             ' to correct status.')
 
-    def test_submit_needs_current_user_as_member(self, mock_messages):
+    def test_submit_needs_permissions(self, mock_messages):
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
-        self.request.user = Mock()
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 1)
-
-    def test_submit_needs_current_user_as_member_adds_error_msg(
-            self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        self.request.user = Mock()
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be submitted because you do not have '
             'permission to do so.')
 
     def test_submit_updates_status(self, mock_messages):
+        self.obj.get_permissions.return_value = ['submit_questionnaire']
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 2)
-
-    def test_submit_adds_message(self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.success.assert_called_once_with(
             self.request,
             'The questionnaire was successfully submitted.')
 
-    def test_publish_does_not_update_if_previous_status_not_draft(
-            self, mock_messages):
+    def test_review_error_if_previous_status_wrong(self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'review': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 3)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be reviewed because it does not have '
+            'to correct status.')
+
+    def test_review_needs_permissions(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'review': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 2)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be reviewed because you do not have '
+            'permission to do so.')
+
+    def test_review_updates_status(self, mock_messages):
+        self.obj.get_permissions.return_value = ['review_questionnaire']
+        self.obj.status = 2
+        self.request.POST = {'review': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 3)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully reviewed.')
+
+    def test_publish_error_if_previous_status_wrong(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 1)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because it does not '
+            'have to correct status.')
+
+    def test_publish_needs_permissions(self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 3)
-
-    def test_publish_previous_status_not_correct_adds_message(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
-            'The questionnaire could not be set public because it does not '
-            'have to correct status.')
-
-    def test_publish_needs_moderator(self, mock_messages):
-        self.obj.status = 2
-        self.request.POST = {'publish': 'foo'}
-        self.request.user = Mock()
-        self.request.user.has_perm.return_value = False
-        handle_review_actions(self.request, self.obj, 'sample')
-        self.assertEqual(self.obj.status, 2)
-
-    def test_publish_needs_moderator_adds_error_msg(self, mock_messages):
-        self.obj.status = 2
-        self.request.POST = {'publish': 'foo'}
-        self.request.user = Mock()
-        self.request.user.has_perm.return_value = False
-        handle_review_actions(self.request, self.obj, 'sample')
-        mock_messages.error.assert_called_once_with(
-            self.request,
-            'The questionnaire could not be set public because you do not '
-            'have permission to do so.')
+            'The questionnaire could not be published because you do not have '
+            'permission to do so.')
 
     @patch('questionnaire.utils.Questionnaire')
     @patch('questionnaire.utils.delete_questionnaires_from_es')
@@ -1025,7 +1020,8 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_delete_data, mock_Questionnaire,
             mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
@@ -1042,7 +1038,8 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_delete_data, mock_Questionnaire,
             mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
@@ -1054,18 +1051,23 @@ class HandleReviewActionsTest(TestCase):
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_updates_status(self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 4)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully set public.')
 
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_calls_put_questionnaire_data(
             self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
@@ -1077,8 +1079,9 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         mock_link = Mock()
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
         self.obj.links.all.return_value = [mock_link]
-        self.obj.status = 2
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
@@ -1088,18 +1091,6 @@ class HandleReviewActionsTest(TestCase):
         call_2 = call(
             mock_link.configurations.first.return_value.code, [mock_link])
         mock_put_data.assert_has_calls([call_1, call_2])
-
-    @patch('questionnaire.utils.put_questionnaire_data')
-    def test_publish_adds_message(self, mock_put_data, mock_messages):
-        mock_put_data.return_value = None, []
-        self.obj.status = 2
-        self.obj.code = 'code'
-        self.request.user = Mock()
-        self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
-        mock_messages.success.assert_called_once_with(
-            self.request,
-            'The questionnaire was successfully set public.')
 
 
 class CompareQuestionnaireDataTest(TestCase):

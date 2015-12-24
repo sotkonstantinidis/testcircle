@@ -692,27 +692,17 @@ def generic_questionnaire_details(
             '{}:questionnaire_details'.format(url_namespace),
             questionnaire_object.code)
 
-    # Show the review panel only if the user is logged in and if the
-    # version to be shown is not active.
-    obj_status = questionnaire_object.status
-    if obj_status != 3:
-        review_config = {
-            'review_status': obj_status,
-            'csrf_token_value': get_token(request),
-        }
-    else:
-        review_config = {}
-
-    # Collect additional values needed for the review process
-    if obj_status == 2:
-        # Pending: Can the version be reviewed?
-        reviewable = questionnaire_object.status == 2 and \
-            request.user.has_perm('questionnaire.review_questionnaire')
-        review_config.update({
-            'reviewable': reviewable,
-        })
-
     permissions = questionnaire_object.get_permissions(request.user)
+
+    review_config = {}
+    if request.user.is_authenticated() and questionnaire_object.status != 4:
+        # Show the review panel only if the user is logged in and if the
+        # version shown is not active.
+        review_config = {
+            'review_status': questionnaire_object.status,
+            'csrf_token_value': get_token(request),
+            'permissions': permissions,
+        }
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,

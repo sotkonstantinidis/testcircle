@@ -814,11 +814,12 @@ def get_query_status_filter(request, moderation_mode=''):
         )
 
         # Users see Questionnaires with status "submitted" if they are
-        # assigned as "reviewer" for this Questionnaire.
+        # assigned as "reviewer" for this Questionnaire. Reviewers also
+        # see the "reviewed" Questionnaires they approved.
         status_filter |= (
             Q(members=request.user) &
             Q(questionnairemembership__role__in=['reviewer'])
-            & Q(status__in=[2]))
+            & Q(status__in=[2, 3]))
 
         # Users see Questionnaires with status "reviewed" if they are
         # assigned as "publisher" for this Questionnaire.
@@ -1107,9 +1108,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     Handle review and form submission actions. Updates the Questionnaire
     object and adds a message.
 
-    * "draft" Questionnaires can be submitted, sets them "pending".
+    * "draft" Questionnaires can be submitted, sets them "submitted".
 
-    * "pending" Questionnaires can be set public, sets them "public".
+    * "submitted" Questionnaires can be reviewed, sets them "reviewed".
+
+    * "reviewed" Questionnaires can be published, sets them "published".
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -1121,6 +1124,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         configuration. This is used when publishing a Questionnaire, in
         order to add it to Elasticsearch.
     """
+    permissions = questionnaire_object.get_permissions(request.user)
     if request.POST.get('submit'):
 
         # Previous status must be "draft"
@@ -1130,39 +1134,59 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 'does not have to correct status.')
             return
 
-        # Current user must be the author of the questionnaire
-        if request.user not in questionnaire_object.members.filter(
-                questionnairemembership__role='compiler'):
+        if 'submit_questionnaire' not in permissions:
             messages.error(
                 request, 'The questionnaire could not be submitted because you'
                 ' do not have permission to do so.')
             return
 
+        # Delete the old data and update the status
         questionnaire_object.status = 2
-
-        # Delete the old data
         questionnaire_object.data_old = None
-
         questionnaire_object.save()
 
         messages.success(
             request, _('The questionnaire was successfully submitted.'))
 
-    # TODO: There should be another step in between (publisher)!!!
+    elif request.POST.get('review'):
 
-    elif request.POST.get('publish'):
-
-        # Previous status must be "pending"
+        # Previous status must be "submitted"
         if questionnaire_object.status != 2:
             messages.error(
-                request, 'The questionnaire could not be set public because '
+                request, 'The questionnaire could not be reviewed because '
                 'it does not have to correct status.')
             return
 
-        # Current user must be a moderator
-        if not request.user.has_perm('questionnaire.review_questionnaire'):
+        # Current user must be a reviewer
+        if 'review_questionnaire' not in permissions:
             messages.error(
-                request, 'The questionnaire could not be set public because '
+                request, 'The questionnaire could not be reviewed because '
+                'you do not have permission to do so.')
+            return
+
+        # Attach the reviewer to the questionnaire if he is not already
+        questionnaire_object.add_user(request.user, 'reviewer')
+
+        # Update the status
+        questionnaire_object.status = 3
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully reviewed.'))
+
+    elif request.POST.get('publish'):
+
+        # Previous status must be "reviewed"
+        if questionnaire_object.status != 3:
+            messages.error(
+                request, 'The questionnaire could not be published because '
+                'it does not have to correct status.')
+            return
+
+        # Current user must be a publisher
+        if 'publish_questionnaire' not in permissions:
+            messages.error(
+                request, 'The questionnaire could not be published because '
                 'you do not have permission to do so.')
             return
 
