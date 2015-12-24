@@ -95,6 +95,7 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_test_renders_correct_template(self):
         request = self.factory.get(self.url)
         request.user = create_new_user()
+        request.session = Mock()
         res = questionnaire_new(request)
         self.assertTemplateUsed(res, 'unccd/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
@@ -126,6 +127,7 @@ class QuestionnaireNewStepTest(TestCase):
     def test_renders_correct_template(self):
         request = self.factory.get(self.url)
         request.user = create_new_user()
+        request.session = Mock()
         res = questionnaire_new_step(
             request, identifier='new', step=get_categories()[0][0])
         self.assertTemplateUsed(res, 'form/category.html')

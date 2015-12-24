@@ -21,7 +21,7 @@ from search.index import (
 )
 
 
-def clean_questionnaire_data(data, configuration):
+def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
     """
     Clean a questionnaire data dictionary so it can be saved to the
     database. This namely removes all empty values and parses measured
@@ -167,7 +167,9 @@ def clean_questionnaire_data(data, configuration):
                     value = translations
                 elif question.field_type in ['todo']:
                     value = None
-                elif question.field_type in ['image']:
+                elif question.field_type in ['image', 'user_display']:
+                    pass
+                elif question.field_type in ['user_id']:
                     pass
                 else:
                     raise NotImplementedError(
@@ -745,7 +747,7 @@ def query_questionnaires(
     return query
 
 
-def get_query_status_filter(request, moderation=False):
+def get_query_status_filter(request, moderation_mode=''):
     """
     Creates a filter object based on the statuses of the Questionnaires,
     to be used for database queries.
@@ -754,44 +756,80 @@ def get_query_status_filter(request, moderation=False):
 
     * Not logged in users always only see "public" Questionnaires.
 
-    * Moderators see all "pending" and "public" Questionnaires.
+    * Reviewers see all "submitted" and "public" Questionnaires.
 
-    * Logged in users see all "public", as well as their own "draft"
-    and "pending" Questionnaires.
+    * Publishers see all "reviewed" and "public" Questionnaires.
+
+    * Logged in users see all "public", as well as their own "draft",
+      "submitted" and "reviewed" Questionnaires.
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
     Kwargs:
-        ``moderation`` (bool): If ``True``, always return a status
-        filter needed by moderators (eg. showing only pending
-        Questionnaires). This is only returned if the user actually
-        has permissions to moderate (``can_moderate``).
+        ``moderation_mode`` (string): Can be used for special status
+        filters needed by moderators. Possible values can be:
+
+          * ``review``: Showing only submitted questionnaires
+
+          * ``publish``: Showing only reviewed questionnaires.
+
+        This is only meaningful if the user actually has the correct
+        permissions (``questionnaire.review_questionnaire`` or
+        ``questionnaire.publish_questionnaire``).
 
     Returns:
         ``django.db.models.Q``. A Django filter object.
     """
-    # Public always only sees "public"
-    status_filter = Q(status=3)
+    status_filter = Q()
 
-    # Logged in users ...
     if request.user.is_authenticated():
 
-        # ... see all "pending" and "public" if they are moderators,
-        # along with their own "draft"
-        if request.user.has_perm('questionnaire.can_moderate'):
+        permissions = request.user.get_all_permissions()
 
-            # In moderation mode, only "pending" versions are visible
-            if moderation is True:
-                return Q(status=2)
+        # Reviewers see all Questionnaires with status "submitted".
+        if 'questionnaire.review_questionnaire' in permissions:
 
-            status_filter = (
-                Q(status__in=[2, 3]) | (Q(members=request.user) & Q(status=1)))
+            if moderation_mode == '' or not moderation_mode != 'review':
+                status_filter |= Q(status__in=[2])
 
-        # ... see "public" and their own "draft" and "pending".
-        else:
-            status_filter = (
-                Q(status=3) | (Q(members=request.user) & Q(status__in=[1, 2])))
+            if moderation_mode == 'review':
+                return status_filter
+
+        # Publishers see all Questionnaires with status "reviewed".
+        if 'questionnaire.publish_questionnaire' in permissions:
+
+            if moderation_mode == '' or not moderation_mode != 'publish':
+                status_filter |= Q(status__in=[3])
+
+            if moderation_mode == 'publish':
+                return status_filter
+
+        # Users see Questionnaires with status "draft", "submitted" and
+        # "reviewed" if they are "compiler" or "editor".
+        status_filter |= (
+            Q(members=request.user) &
+            Q(questionnairemembership__role__in=['compiler', 'editor'])
+            & Q(status__in=[1, 2, 3])
+        )
+
+        # Users see Questionnaires with status "submitted" if they are
+        # assigned as "reviewer" for this Questionnaire. Reviewers also
+        # see the "reviewed" Questionnaires they approved.
+        status_filter |= (
+            Q(members=request.user) &
+            Q(questionnairemembership__role__in=['reviewer'])
+            & Q(status__in=[2, 3]))
+
+        # Users see Questionnaires with status "reviewed" if they are
+        # assigned as "publisher" for this Questionnaire.
+        status_filter |= (
+            Q(members=request.user) &
+            Q(questionnairemembership__role__in=['publisher'])
+            & Q(status__in=[3]))
+
+    # Everybody sees Questionnaires with status "public".
+    status_filter |= Q(status=4)
 
     return status_filter
 
@@ -817,14 +855,14 @@ def get_raw_link_status_filter(request):
         ``str``. A raw SQL filter string.
     """
     # Public always only sees "public"
-    status_filter = 'questionnaire_questionnaire.status = 3'
+    status_filter = 'questionnaire_questionnaire.status = 4'
 
     # Logged in users see all "public", along with their own "draft" and
     # "pending".
     if request.user.is_authenticated():
         status_filter = """
-            questionnaire_questionnaire.status = 3 OR (
-                questionnaire_questionnaire.status IN (1, 2) AND
+            questionnaire_questionnaire.status = 4 OR (
+                questionnaire_questionnaire.status IN (1, 2, 3) AND
                 questionnaire_questionnairemembership.user_id = %s)
         """ % request.user.id
 
@@ -1070,9 +1108,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     Handle review and form submission actions. Updates the Questionnaire
     object and adds a message.
 
-    * "draft" Questionnaires can be submitted, sets them "pending".
+    * "draft" Questionnaires can be submitted, sets them "submitted".
 
-    * "pending" Questionnaires can be set public, sets them "public".
+    * "submitted" Questionnaires can be reviewed, sets them "reviewed".
+
+    * "reviewed" Questionnaires can be published, sets them "published".
 
     Args:
         ``request`` (django.http.HttpRequest): The request object.
@@ -1084,6 +1124,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         configuration. This is used when publishing a Questionnaire, in
         order to add it to Elasticsearch.
     """
+    permissions = questionnaire_object.get_permissions(request.user)
     if request.POST.get('submit'):
 
         # Previous status must be "draft"
@@ -1093,47 +1134,73 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 'does not have to correct status.')
             return
 
-        # Current user must be the author of the questionnaire
-        if request.user not in questionnaire_object.members.filter(
-                questionnairemembership__role='author'):
+        if 'submit_questionnaire' not in permissions:
             messages.error(
                 request, 'The questionnaire could not be submitted because you'
                 ' do not have permission to do so.')
             return
 
+        # Delete the old data and update the status
         questionnaire_object.status = 2
+        questionnaire_object.data_old = None
         questionnaire_object.save()
 
         messages.success(
             request, _('The questionnaire was successfully submitted.'))
 
-    elif request.POST.get('publish'):
+    elif request.POST.get('review'):
 
-        # Previous status must be "pending"
+        # Previous status must be "submitted"
         if questionnaire_object.status != 2:
             messages.error(
-                request, 'The questionnaire could not be set public because '
+                request, 'The questionnaire could not be reviewed because '
                 'it does not have to correct status.')
             return
 
-        # Current user must be a moderator
-        if not request.user.has_perm('questionnaire.can_moderate'):
+        # Current user must be a reviewer
+        if 'review_questionnaire' not in permissions:
             messages.error(
-                request, 'The questionnaire could not be set public because '
+                request, 'The questionnaire could not be reviewed because '
+                'you do not have permission to do so.')
+            return
+
+        # Attach the reviewer to the questionnaire if he is not already
+        questionnaire_object.add_user(request.user, 'reviewer')
+
+        # Update the status
+        questionnaire_object.status = 3
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully reviewed.'))
+
+    elif request.POST.get('publish'):
+
+        # Previous status must be "reviewed"
+        if questionnaire_object.status != 3:
+            messages.error(
+                request, 'The questionnaire could not be published because '
+                'it does not have to correct status.')
+            return
+
+        # Current user must be a publisher
+        if 'publish_questionnaire' not in permissions:
+            messages.error(
+                request, 'The questionnaire could not be published because '
                 'you do not have permission to do so.')
             return
 
         # Set the previously "public" Questionnaire to "inactive".
         # Also remove it from ES.
         previously_public = Questionnaire.objects.filter(
-            code=questionnaire_object.code, status=3)
+            code=questionnaire_object.code, status=4)
         for previous_object in previously_public:
-            previous_object.status = 5
+            previous_object.status = 6
             previous_object.save()
             delete_questionnaires_from_es(
                 configuration_code, [previous_object])
 
-        questionnaire_object.status = 3
+        questionnaire_object.status = 4
         questionnaire_object.save()
 
         added, errors = put_questionnaire_data(
@@ -1156,3 +1223,38 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully set public.'))
+
+
+def compare_questionnaire_data(data_1, data_2):
+    """
+    Compare two questionnaire data dictionaires and return the keywords
+    of the questiongroups which are not identical.
+
+    Args:
+        ``data_1`` (dict): The first data dictionary.
+
+        ``data_2`` (dict): The second data dictionary.
+
+    Returns:
+        ``list``. A list with the keywords of the questiongroups which
+        are not identical.
+    """
+    # Check which questiongroups are only in one of the dicts.
+    if data_1 is None:
+        data_1 = {}
+    if data_2 is None:
+        data_2 = {}
+    qg_keywords_1 = list(data_1.keys())
+    qg_keywords_2 = list(data_2.keys())
+    different_qg_keywords = list(set(qg_keywords_1).symmetric_difference(
+        qg_keywords_2))
+
+    # Compare the questiongroups appearing in both
+    for qg_keyword, qg_data_1 in data_1.items():
+        if qg_keyword in different_qg_keywords:
+            continue
+        pairs = zip(qg_data_1, data_2[qg_keyword])
+        if any(x != y for x, y in pairs):
+            different_qg_keywords.append(qg_keyword)
+
+    return different_qg_keywords

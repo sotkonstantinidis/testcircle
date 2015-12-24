@@ -4,28 +4,40 @@
   <div class="small-12 columns">
     <h2 class="is-unvisible">{% trans "Status of review process" %}</h2>
     <ol class="process">
-      <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Drafted" %}</li>
-      <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Submitted" %}</li>
-      <li>{% trans "Public" %}</li>
+      <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
+      <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
+      <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
     </ol>
     <div class="process-status">
       <div class="row collapse">
         <form action="" method="POST">
           <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
           {% if review_config.review_status == 1 %}
-            <div class="medium-8 columns">
-              <h3>{% trans "Draft" %}</h3>
-              <p>{% trans "The version is saved as a draft. You can invite users to help you work on the draft or submit it for review." %}</p>
+            <div class="{% if 'submit_questionnaire' in review_config.permissions %}medium-8{% else %}medium-12{% endif %} columns">
+              <h3>{% trans "Edit" %}</h3>
+              <p>{% trans "The version is saved as a draft. Editors can work on the draft. The compiler can submit it for review." %}</p>
             </div>
             <div class="medium-4 columns text-right">
-              <input id="button-submit" name="submit" class="button small is-wocat" type="submit" value="{% trans "Submit" %}">
+              {% if 'submit_questionnaire' in review_config.permissions %}
+                <input id="button-submit" name="submit" class="button small is-wocat" type="submit" value="{% trans "Submit" %}">
+              {% endif %}
             </div>
           {% elif review_config.review_status == 2 %}
-            <div class="{% if review_config.reviewable %}medium-8{% else %}medium-12{% endif %} columns">
-              <h3>{% trans "Pending review" %}</h3>
-              <p>{% trans "This questionnaire is currently waiting to be reviewed. It will be publicly visible once it was reviewed and set public." %}</p>
+            <div class="{% if 'review_questionnaire' in review_config.permissions %}medium-8{% else %}medium-12{% endif %} columns">
+              <h3>{% trans "Pending for review" %}</h3>
+              <p>{% trans "This questionnaire is currently waiting to be reviewed before it can be published." %}</p>
             </div>
-            {% if review_config.reviewable %}
+            {% if 'review_questionnaire' in review_config.permissions %}
+              <div class="medium-4 columns text-right">
+                <input id="button-review" name="review" class="button small is-wocat" type="submit" value="{% trans "Reviewed" %}">
+              </div>
+            {% endif %}
+          {% elif review_config.review_status == 3 %}
+            <div class="{% if 'publish_questionnaire' in review_config.permissions %}medium-8{% else %}medium-12{% endif %} columns">
+              <h3>{% trans "Pending for publishing" %}</h3>
+              <p>{% trans "This questionnaire is currently waiting to be published. Once it is published, it will be publicly visible." %}</p>
+            </div>
+            {% if 'publish_questionnaire' in review_config.permissions %}
               <div class="medium-4 columns text-right">
                 <input id="button-publish" name="publish" class="button small is-wocat" type="submit" value="{% trans "Publish" %}">
               </div>

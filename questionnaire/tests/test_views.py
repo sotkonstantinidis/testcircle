@@ -15,7 +15,6 @@ from configuration.configuration import (
     QuestionnaireSection,
 )
 from qcat.tests import TestCase
-from qcat.utils import session_store
 from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
     generic_file_upload,
@@ -56,7 +55,7 @@ class GenericQuestionnaireLinkFormTest(TestCase):
         self.url = '/sample/edit/links'
         self.request = self.factory.get(self.url)
         self.request.user = create_new_user()
-        session_store.clear()
+        self.request.session = Mock()
 
     def test_requires_login(self):
         self.client.logout()
@@ -91,7 +90,7 @@ class GenericQuestionnaireLinkFormTest(TestCase):
             self.request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
         mock_get_session_questionnaire.assert_called_once_with(
-            self.request.user, 'sample', 'foo')
+            self.request, 'sample', 'foo')
 
     @patch('questionnaire.views.render')
     def test_calls_render(self, mock_render):
@@ -189,7 +188,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get('/sample/new/cat_1')
         self.request.user = create_new_user()
-        session_store.clear()
+        self.request.session = Mock()
 
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(self, mock_get_configuration):
@@ -214,7 +213,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_get_session_questionnaire.assert_called_once_with(
-            self.request.user, 'sample', None)
+            self.request, 'sample', None)
 
     @patch('questionnaire.views.get_questionnaire_data_for_translation_form')
     def test_calls_get_questionnaire_data_for_translation_form(
@@ -229,7 +228,8 @@ class GenericQuestionnaireNewStepTest(TestCase):
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_get_form.assert_called_once_with(
-            post_data=None, show_translation=False, initial_data={})
+            post_data=None, show_translation=False, initial_data={},
+            edit_mode='edit', edited_questiongroups=[])
 
     @patch.object(messages, 'success')
     @patch.object(QuestionnaireCategory, 'get_form')
@@ -243,7 +243,8 @@ class GenericQuestionnaireNewStepTest(TestCase):
         generic_questionnaire_new_step(
             r, *get_valid_new_step_values()[0])
         mock_save_session_questionnaire.assert_called_once_with(
-            self.request.user, 'sample', None, {}, {})
+            self.request, 'sample', None, questionnaire_data={},
+            questionnaire_links={}, edited_questiongroups=[])
 
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
@@ -259,6 +260,8 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'overview_url': '/en/sample/edit/new/#cat_0',
                 'valid': True,
                 'configuration_name': 'sample',
+                'edit_mode': 'edit',
+                'view_url': '',
             })
 
     def test_returns_rendered_response(self):
@@ -277,6 +280,7 @@ class GenericQuestionnaireNewTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get('/sample/new')
         self.request.user = create_new_user()
+        self.request.session = Mock()
 
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(self, mock_get_configuration):
@@ -293,7 +297,7 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_session_questionnaire.assert_called_once_with(
-            self.request.user, 'sample', 'new')
+            self.request, 'sample', 'new')
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -351,7 +355,7 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_clear_session_questionnaire.assert_called_once_with(
-            user=self.request.user, configuration_code='sample')
+            self.request, 'sample', 'new')
 
     @patch.object(messages, 'success')
     @patch('questionnaire.views.clean_questionnaire_data')
@@ -395,9 +399,10 @@ class GenericQuestionnaireNewTest(TestCase):
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
         mock_get_details.assert_called_once_with(
-            {}, permissions=['can_save_questionnaire', 'can_edit_steps'],
+            {}, permissions=['edit_questionnaire'],
             edit_step_route='sample:questionnaire_new_step',
-            questionnaire_object=None, csrf_token=None)
+            questionnaire_object=None, csrf_token=None,
+            edited_questiongroups=[], view_mode='edit')
 
     @patch('questionnaire.views.get_list_values')
     @patch('questionnaire.views.Questionnaire')
@@ -428,7 +433,9 @@ class GenericQuestionnaireNewTest(TestCase):
                 'images': [],
                 'links': {},
                 'filter_configuration': mock_filter_configuration.return_value,
-                'permissions': ['can_save_questionnaire', 'can_edit_steps']
+                'permissions': ['edit_questionnaire'],
+                'edited_questiongroups': [],
+                'view_mode': 'edit',
             })
 
     def test_returns_rendered_response(self):
@@ -509,69 +516,28 @@ class GenericQuestionnaireDetailsTest(TestCase):
             'sample:questionnaire_details',
             mock_query_questionnaire.return_value.first.return_value.code)
 
-    @patch.object(QuestionnaireConfiguration, 'get_details')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_reviewable_false_if_no_moderate_permissions(
-            self, mock_query_questionnaire, mock_get_details, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        mock_query_questionnaire.return_value.first.return_value.status = 2
-        user = Mock()
-        user.has_perm.return_value = False
-        self.request.user = user
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_get_details.assert_called_once_with(
-            data={},
-            questionnaire_object=mock_query_questionnaire.return_value
-                                                         .first.return_value,
-            review_config={
-                'review_status':
-                    mock_query_questionnaire.return_value
-                                            .first.return_value.status,
-                'csrf_token_value': None, 'reviewable': False},
-            permissions=[])
-
-    @patch.object(QuestionnaireConfiguration, 'get_details')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_reviewable_true_if_no_moderate_permissions(
-            self, mock_query_questionnaire, mock_get_details, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        mock_query_questionnaire.return_value.first.return_value.status = 2
-        user = Mock()
-        user.has_perm.return_value = True
-        self.request.user = user
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_get_details.assert_called_once_with(
-            data={},
-            questionnaire_object=mock_query_questionnaire.return_value
-                                                         .first.return_value,
-            review_config={
-                'review_status': mock_query_questionnaire.return_value
-                                                         .first.return_value
-                                                         .status,
-                'csrf_token_value': None, 'reviewable': True},
-            permissions=[])
-
+    @patch('questionnaire.views.get_query_status_filter')
     @patch.object(QuestionnaireConfiguration, 'get_details')
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_details(
-            self, mock_query_questionnaire, mock_get_details, mock_render):
+            self, mock_query_questionnaire, mock_get_details,
+            mock_get_query_status_filter, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
+        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
+        self.request.user.is_authenticated.return_value = True
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mock_get_details.assert_called_once_with(
             data={},
-            questionnaire_object=mock_query_questionnaire.return_value
-                                                         .first.return_value,
+            questionnaire_object=mock_q_obj,
             review_config={
-                'review_status':
-                    mock_query_questionnaire.return_value.first
-                                            .return_value.status,
-                'csrf_token_value': None}, permissions=[])
+                'review_status': mock_q_obj.status,
+                'csrf_token_value': None,
+                'permissions': mock_q_obj.get_permissions.return_value,
+            },
+            permissions=mock_q_obj.get_permissions.return_value)
 
     @patch('questionnaire.views.get_configuration')
-    # @patch.object(QuestionnaireConfiguration, 'get_image_data')
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_get_image_data(
             self, mock_query_questionnaire, mock_conf, mock_render):
@@ -602,7 +568,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
     @patch('questionnaire.views.query_questionnaire')
     def test_calls_render(
             self, mock_query_questionnaire, mock_conf, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
+        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
+        mock_q_obj.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
         mfc = mock_conf.return_value.get_filter_configuration.return_value
@@ -614,7 +581,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'images': img.get.return_value,
                 'links': {},
                 'filter_configuration': mfc,
-                'permissions': [],
+                'permissions': mock_q_obj.get_permissions.return_value,
+                'view_mode': 'view',
             })
 
 
@@ -626,6 +594,7 @@ class GenericQuestionnaireListTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get(reverse(route_questionnaire_list))
         self.request.user = Mock()
+        self.request.user.get_all_permissions.return_value = []
 
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(

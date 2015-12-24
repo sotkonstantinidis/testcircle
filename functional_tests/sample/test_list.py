@@ -899,8 +899,8 @@ class ListTest(FunctionalTest):
         self.assertEqual(
             self.browser.current_url, '{}?'.format(
                 self.live_server_url + reverse(route_questionnaire_list)))
+        time.sleep(0.5)
 
-    # @attr('foo')
     def test_filter_search(self):
 
         # Alice goes to the list view
@@ -968,6 +968,7 @@ class ListTest(FunctionalTest):
         active_filter_panel = self.findBy(
             'xpath', '//div[@id="active-filters"]/div')
         self.assertTrue(active_filter_panel.is_displayed())
+        time.sleep(1)
         active_filters = self.findManyBy(
             'xpath', '//div[@id="active-filters"]//li')
         self.assertEqual(len(active_filters), 2)
@@ -1403,6 +1404,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(active_filters), 1)
         filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
         self.assertEqual(filter_1.text, 'Country: Switzerland')
+        time.sleep(0.5)
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -1619,9 +1621,9 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees the same questionnaires
@@ -1632,9 +1634,9 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # Since she is not logged in, she does not see a note about
@@ -1655,12 +1657,12 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 3)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 1"]')
+        self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 1"]')
-        self.findBy('xpath', '//article[3]//figcaption[text()="Draft"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
         # questionnaires
@@ -1671,9 +1673,9 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # She also sees a note saying that only public questionnaires
@@ -1693,12 +1695,12 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 3)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
+        self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 2"]')
-        self.findBy('xpath', '//article[3]//figcaption[text()="Pending"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 6"]')
+        self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
         # questionnaires
@@ -1709,8 +1711,8 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
 
         # She also sees a note saying that only public questionnaires
         # are visible
@@ -1730,11 +1732,11 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 3)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 7"]')
-        self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
+        self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 6"]')
         self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
@@ -1746,9 +1748,9 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # She also sees a note saying that only public questionnaires
@@ -1795,7 +1797,7 @@ class ListTestStatus(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
 
         # Also there was an additional version created in the database
-        self.assertEqual(Questionnaire.objects.count(), 8)
+        self.assertEqual(Questionnaire.objects.count(), 11)
 
         # The newly created version has the same code
         self.assertEqual(Questionnaire.objects.filter(code=code).count(), 2)
@@ -1809,11 +1811,9 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 6")]',
-            base=list_entries[0])
+            'xpath', '//a[contains(text(), "Foo 3")]', base=list_entries[0])
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 3")]',
-            base=list_entries[1])
+            'xpath', '//a[contains(text(), "Foo 5")]', base=list_entries[1])
 
         # She goes to the detail page of the questionnaire and sees the
         # draft version.
@@ -1826,22 +1826,25 @@ class ListTestStatus(FunctionalTest):
         url = self.browser.current_url
 
         # Bob (the moderator) logs in
-        user_moderator = User.objects.get(pk=103)
+        user_moderator = User.objects.get(pk=105)
         self.doLogin(user=user_moderator)
 
         # In the DB, there is one active version (id: 3)
-        db_q = Questionnaire.objects.filter(code=code, status=3)
+        db_q = Questionnaire.objects.filter(code=code, status=4)
         self.assertEqual(len(db_q), 1)
         self.assertEqual(db_q[0].id, 3)
 
         # The moderator publishes the questionnaire
         self.browser.get(url)
+        self.findBy('xpath', '//input[@name="review"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//input[@name="publish"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # In the DB, there is still only one active version (now id: 8)
-        db_q = Questionnaire.objects.filter(code=code, status=3)
+        db_q = Questionnaire.objects.filter(code=code, status=4)
         self.assertEqual(len(db_q), 1)
-        self.assertEqual(db_q[0].id, 8)
+        self.assertEqual(db_q[0].id, 11)
 
         # He goes to the list view and sees only two entries: asdf and Foo 6.
         self.browser.get(
@@ -1855,5 +1858,5 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//a[contains(text(), "asdf")]',
             base=list_entries[0])
         self.findBy(
-            'xpath', '//a[contains(text(), "Foo 6")]',
+            'xpath', '//a[contains(text(), "Foo 5")]',
             base=list_entries[1])

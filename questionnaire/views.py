@@ -16,6 +16,7 @@ from django.shortcuts import (
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
+# from guardian.shortcuts import get_perms
 
 from configuration.cache import get_configuration
 from configuration.utils import (
@@ -36,6 +37,7 @@ from questionnaire.upload import (
 )
 from questionnaire.utils import (
     clean_questionnaire_data,
+    compare_questionnaire_data,
     get_active_filters,
     get_link_data,
     get_list_values,
@@ -93,7 +95,7 @@ def generic_questionnaire_link_form(
     links_configuration = questionnaire_configuration.get_links_configuration()
 
     session_data = get_session_questionnaire(
-        request.user, configuration_code, identifier)
+        request, configuration_code, identifier)
 
     link_forms = []
     for links_config in links_configuration:
@@ -146,8 +148,9 @@ def generic_questionnaire_link_form(
 
         if valid is True:
             save_session_questionnaire(
-                request.user, configuration_code, identifier,
-                session_data.get('questionnaire', {}), link_data)
+                request, configuration_code, identifier,
+                questionnaire_data=session_data.get('questionnaire', {}),
+                questionnaire_links=link_data)
             messages.success(
                 request, _('Data successfully stored to Session.'))
             return redirect(overview_url)
@@ -233,6 +236,67 @@ def generic_questionnaire_link_search(request, configuration_code):
         'data': data,
     }
     return JsonResponse(ret)
+
+
+def generic_questionnaire_view_step(
+        request, identifier, step, configuration_code, page_title=''):
+    """
+    A generic view to show the form of a single step of a new or edited
+    questionnaire.
+
+    .. important::
+        This view renders the form but has no submit logic implemented.
+        It is to be used for display purposes (read-only) only!
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+        ``identifier`` (str): The identifier of a questionnaire.
+
+        ``step`` (str): The code of the questionnaire category.
+
+        ``configuration_code`` (str): The code of the questionnaire
+        configuration.
+
+    Kwargs:
+        ``page_title`` (str): The page title to be used in the HTML
+        template. Defaults to ``QCAT Form``.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    questionnaire_object = query_questionnaire(request, identifier).first()
+    if questionnaire_object is None:
+        raise Http404
+
+    data = questionnaire_object.data
+
+    questionnaire_configuration = get_configuration(configuration_code)
+    category = questionnaire_configuration.get_category(step)
+
+    if category is None:
+        raise Http404
+
+    valid = True
+    show_translation = False
+    edit_mode = 'view'
+    original_locale = None
+    current_locale = get_language()
+    initial_data = get_questionnaire_data_for_translation_form(
+        data, current_locale, original_locale)
+
+    category_config, category_formsets = category.get_form(
+        post_data=request.POST or None, initial_data=initial_data,
+        show_translation=show_translation, edit_mode=edit_mode)
+
+    return render(request, 'form/category.html', {
+        'category_formsets': category_formsets,
+        'category_config': category_config,
+        'title': page_title,
+        'valid': valid,
+        'edit_mode': edit_mode,
+        'configuration_name': configuration_code,
+    })
 
 
 @login_required
@@ -328,6 +392,9 @@ def generic_questionnaire_new_step(
 
         return data, True
 
+    # Edit mode for the form.
+    edit_mode = 'edit'
+
     questionnaire_configuration = get_configuration(configuration_code)
     category = questionnaire_configuration.get_category(step)
 
@@ -335,10 +402,12 @@ def generic_questionnaire_new_step(
         raise Http404
 
     session_questionnaire = {}
+    edited_questiongroups = []
     if request.method != 'POST':
         session_data = get_session_questionnaire(
-            request.user, configuration_code, identifier)
+            request, configuration_code, identifier)
         session_questionnaire = session_data.get('questionnaire', {})
+        edited_questiongroups = session_data.get('edited_questiongroups', [])
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -351,7 +420,8 @@ def generic_questionnaire_new_step(
 
     category_config, category_formsets = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
-        show_translation=show_translation)
+        show_translation=show_translation, edit_mode=edit_mode,
+        edited_questiongroups=edited_questiongroups)
 
     if identifier is None:
         overview_url = '{}#{}'.format(
@@ -368,7 +438,7 @@ def generic_questionnaire_new_step(
 
         if valid is True:
             session_data = get_session_questionnaire(
-                request.user, configuration_code, identifier)
+                request, configuration_code, identifier)
             session_questionnaire = session_data.get('questionnaire', {})
             session_questionnaire.update(data)
 
@@ -381,15 +451,31 @@ def generic_questionnaire_new_step(
                     'because of the following errors: <br/>{}'.format(
                         '<br/>'.join(errors)), extra_tags='safe')
             else:
+                diff_qgs = []
+                # Recalculate difference between the two diffs
+                if identifier and identifier != 'new':
+                    q_obj = query_questionnaire(
+                        request, identifier).first()
+                    diff_qgs = compare_questionnaire_data(
+                        q_obj.data_old, questionnaire_data)
+
                 save_session_questionnaire(
-                    request.user, configuration_code, identifier,
-                    questionnaire_data, session_data.get('links', {}))
+                    request, configuration_code, identifier,
+                    questionnaire_data=questionnaire_data,
+                    questionnaire_links=session_data.get('links', {}),
+                    edited_questiongroups=diff_qgs)
 
                 messages.success(
                     request, _('Data successfully stored to Session.'))
                 return redirect(overview_url)
 
     configuration_name = category_config.get('configuration', url_namespace)
+
+    view_url = ''
+    if identifier:
+        view_url = reverse(
+            '{}:questionnaire_view_step'.format(url_namespace),
+            args=[identifier, step])
 
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
@@ -398,6 +484,8 @@ def generic_questionnaire_new_step(
         'overview_url': overview_url,
         'valid': valid,
         'configuration_name': configuration_name,
+        'edit_mode': edit_mode,
+        'view_url': view_url,
     })
 
 
@@ -436,26 +524,40 @@ def generic_questionnaire_new(
         ``HttpResponse``. A rendered Http Response.
     """
     questionnaire_configuration = get_configuration(configuration_code)
+    edited_questiongroups = []
     if identifier is not None:
         # For edits, copy the data to the session first (if it was
         # edited for the first time only).
         questionnaire_object = query_questionnaire(request, identifier).first()
         if questionnaire_object is None:
             raise Http404()
+        questionnaire_data = questionnaire_object.data
         session_data = get_session_questionnaire(
-            request.user, configuration_code, identifier)
+            request, configuration_code, identifier)
+        edited_questiongroups = session_data.get('edited_questiongroups')
         if session_data.get('questionnaire') is None:
+
+            # When the questionnaire data is stored in the session for
+            # the first time, also store its old data.
+            if questionnaire_object.data_old is None:
+                questionnaire_object.data_old = questionnaire_object.data
+                questionnaire_object.save()
+
+            edited_questiongroups = compare_questionnaire_data(
+                questionnaire_object.data, questionnaire_object.data_old)
+
             questionnaire_links = get_link_data(
                 questionnaire_object.links.all())
             save_session_questionnaire(
-                request.user, configuration_code, identifier,
-                questionnaire_object.data, questionnaire_links)
+                request, configuration_code, identifier,
+                questionnaire_data=questionnaire_data,
+                questionnaire_links=questionnaire_links)
     else:
         questionnaire_object = None
         identifier = 'new'
 
     session_data = get_session_questionnaire(
-        request.user, configuration_code, identifier)
+        request, configuration_code, identifier)
     session_questionnaire = session_data.get('questionnaire', {})
     session_links = session_data.get('links', {})
 
@@ -477,7 +579,7 @@ def generic_questionnaire_new(
                 configuration_code, session_questionnaire, request.user,
                 previous_version=questionnaire_object)
             clear_session_questionnaire(
-                user=request.user, configuration_code=configuration_code)
+                request, configuration_code, identifier)
 
             for __, linked_questionnaires in session_links.items():
                 for linked in linked_questionnaires:
@@ -499,15 +601,20 @@ def generic_questionnaire_new(
     data = get_questionnaire_data_in_single_language(
         session_questionnaire, get_language())
 
-    permissions = ['can_save_questionnaire', 'can_edit_steps']
+    if questionnaire_object is None:
+        permissions = ['edit_questionnaire']
+    else:
+        permissions = questionnaire_object.get_permissions(request.user)
+
     csrf_token = None
-    if 'can_save_questionnaire' in permissions:
+    if 'edit_questionnaire' in permissions:
         csrf_token = get_token(request)
 
     sections = questionnaire_configuration.get_details(
         data, permissions=permissions,
         edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
-        questionnaire_object=questionnaire_object, csrf_token=csrf_token)
+        questionnaire_object=questionnaire_object, csrf_token=csrf_token,
+        edited_questiongroups=edited_questiongroups, view_mode='edit')
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
@@ -543,6 +650,8 @@ def generic_questionnaire_new(
         'links': link_display,
         'filter_configuration': filter_configuration,
         'permissions': permissions,
+        'edited_questiongroups': edited_questiongroups,
+        'view_mode': 'edit',
     })
 
 
@@ -583,30 +692,17 @@ def generic_questionnaire_details(
             '{}:questionnaire_details'.format(url_namespace),
             questionnaire_object.code)
 
-    # Show the review panel only if the user is logged in and if the
-    # version to be shown is not active.
-    obj_status = questionnaire_object.status
-    if obj_status != 3:
+    permissions = questionnaire_object.get_permissions(request.user)
+
+    review_config = {}
+    if request.user.is_authenticated() and questionnaire_object.status != 4:
+        # Show the review panel only if the user is logged in and if the
+        # version shown is not active.
         review_config = {
-            'review_status': obj_status,
+            'review_status': questionnaire_object.status,
             'csrf_token_value': get_token(request),
+            'permissions': permissions,
         }
-    else:
-        review_config = {}
-
-    # Collect additional values needed for the review process
-    if obj_status == 2:
-        # Pending: Can the version be reviewed?
-        reviewable = questionnaire_object.status == 2 and \
-            request.user.has_perm('questionnaire.can_moderate')
-        review_config.update({
-            'reviewable': reviewable,
-        })
-
-    # TODO: Improve this!
-    permissions = []
-    if request.user in questionnaire_object.members.all() and obj_status != 2:
-        permissions.append('can_edit_questionnaire')
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,
@@ -651,10 +747,12 @@ def generic_questionnaire_details(
         'links': link_display,
         'filter_configuration': filter_configuration,
         'permissions': permissions,
+        'view_mode': 'view',
     })
 
 
-def generic_questionnaire_list_no_config(request, user=None, moderation=False):
+def generic_questionnaire_list_no_config(
+        request, user=None, moderation_mode=None):
     """
     A generic view to show a list of Questionnaires. Similar to
     :func:`generic_questionnaire_list` but with the following
@@ -692,9 +790,10 @@ def generic_questionnaire_list_no_config(request, user=None, moderation=False):
     is_current_user = request.user is not None and request.user == user
 
     # Determine the status filter
-    if moderation is True:
+    if moderation_mode is not None:
         # Moderators always have a special moderation status filter
-        status_filter = get_query_status_filter(request, moderation=True)
+        status_filter = get_query_status_filter(
+            request, moderation_mode=moderation_mode)
     elif is_current_user is True:
         # The current user has no status filter (sees all statuses)
         status_filter = Q()
@@ -719,7 +818,7 @@ def generic_questionnaire_list_no_config(request, user=None, moderation=False):
         'list_values': list_values,
         'is_current_user': is_current_user,
         'list_user': user,
-        'is_moderation': moderation,
+        'is_moderation': moderation_mode,
     }
 
     # Add the pagination parameters

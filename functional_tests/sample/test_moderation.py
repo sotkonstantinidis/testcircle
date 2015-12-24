@@ -6,10 +6,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
     route_questionnaire_new,
+    route_questionnaire_details,
     route_questionnaire_list,
     get_position_of_category,
 )
@@ -46,7 +48,8 @@ class ModerationTest(FunctionalTest):
         user_alice = create_new_user()
         user_bob = create_new_user(id=2, email='bob@bar.com')
         user_moderator = create_new_user(id=3, email='foo@bar.com')
-        user_moderator.groups = [Group.objects.get(pk=3)]
+        user_moderator.groups = [
+            Group.objects.get(pk=3), Group.objects.get(pk=4)]
         user_moderator.save()
 
         # Alice logs in
@@ -95,6 +98,8 @@ class ModerationTest(FunctionalTest):
         self.doLogin(user=user_alice)
         self.browser.get(url)
         self.findBy('xpath', '//input[@name="submit"]').click()
+        time.sleep(1)
+        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She logs out and cannot see the questionnaire
         self.doLogout()
@@ -117,7 +122,10 @@ class ModerationTest(FunctionalTest):
         self.checkOnPage('Foo')
 
         # He publishes the questionnaire
+        self.findBy('xpath', '//input[@name="review"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//input[@name="publish"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # The moderator cannot edit the questionnaire
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
@@ -134,6 +142,7 @@ class ModerationTest(FunctionalTest):
         # Bob cannot edit the questionnaire
         self.doLogin(user=user_bob)
         self.browser.get(url)
+        time.sleep(1)
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
         # Alice can edit the questionnaire
@@ -142,90 +151,173 @@ class ModerationTest(FunctionalTest):
         time.sleep(1)
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
 
-    def test_enter_questionnaire_review_panel(self):
 
-        # Alice logs in
-        user = create_new_user()
-        user_moderator = create_new_user(id=2, email='foo@bar.com')
-        user_moderator.groups = [Group.objects.get(pk=3)]
-        user_moderator.save()
+class ModerationTestFixture(FunctionalTest):
 
-        self.doLogin(user=user)
+    fixtures = [
+        'groups_permissions.json', 'sample_global_key_values.json',
+        'sample.json', 'sample_questionnaire_status.json']
 
-        cat_1_position = get_position_of_category('cat_1', start0=True)
+    def setUp(self):
+        super(ModerationTestFixture, self).setUp()
+        delete_all_indices()
+        create_temp_indices(['sample'])
 
-        # She goes directly to the Sample questionnaire
+    def tearDown(self):
+        super(ModerationTestFixture, self).tearDown()
+        delete_all_indices()
+
+    def test_review_panel(self):
+
+        user_compiler = User.objects.get(pk=101)
+        user_editor = User.objects.get(pk=102)
+        user_reviewer = User.objects.get(pk=103)
+        user_publisher = User.objects.get(pk=104)
+
+        # Editor logs in
+        self.doLogin(user=user_editor)
+
+        # He goes to the details of a questionnaire which he did not enter.
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new))
+            route_questionnaire_details, kwargs={'identifier': 'sample_5'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
 
-        # She does not see the review panel
+        # He does not see the review panel.
         self.findByNot('xpath', '//ol[@class="process"]')
 
-        # She enters some values
-        edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(@href, "edit/new/cat")]')
-        edit_buttons[cat_1_position].click()
-        # She enters Key 1
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
-        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
-        self.findBy('id', 'button-submit').click()
+        # He sees that there is no edit button for him.
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
-        # She sees that she was redirected to the overview page and is
-        # shown a success message
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//h3[contains(text(), "Subcategory 1_1")]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 1")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Bar")]]')
+        # He goes to the details of a questionnaire where he is editor.
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
 
-        # She still does not see the review panel
+        # He does not see the review panel.
         self.findByNot('xpath', '//ol[@class="process"]')
 
-        # She submits the form and now sees the review panel
+        # He sees a button to edit the questionnaire and clicks on it.
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # He makes some changes and saves the questionnaire
+        self.findBy(
+            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (by Editor)')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # He sees a review panel but he does not see the button to
+        # submit the questionnaire for review
         self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'button-publish')
 
-        overview_url = self.browser.current_url
+        url_details = self.browser.current_url
 
-        # She does not see the "publish" button
-        self.findByNot('xpath', '//input[@name="publish"]')
+        # Compiler logs in
+        self.doLogin(user=user_compiler)
 
-        # Instead, she sees a button to submit the draft. She clicks the
-        # button.
-        self.findBy('xpath', '//input[@name="submit"]').click()
+        # She also goes to the details page of the questionnaire and
+        # she does see the button to submit the questionnaire for
+        # review. She clicks it.
+        self.browser.get(url_details)
+        self.browser.implicitly_wait(3)
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findBy('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'button-publish')
 
-        # She sees that she is still back on the overview page but this
-        # time, there is no "submit" button. There is no "Publish"
-        # button either.
+        self.browser.implicitly_wait(3)
+        self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.assertIn(self.browser.current_url, overview_url)
-        self.findByNot('xpath', '//input[@name="publish"]')
-        self.findByNot('xpath', '//input[@name="submit"]')
 
-        # MODERATOR
-        # Bob logs in
-        self.doLogin(user=user_moderator)
+        # The questionnaire is now pending for review. The review panel
+        # is visible but Compiler cannot do any actions.
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'button-publish')
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
-        # He goes to the list view and sees that the questionnaire is
-        # not there yet because it is not "public".
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_list))
-        self.findByNot('xpath', '//article[1]//h1/a[text()="Foo"]')
+        # Editor logs in
+        self.doLogin(user=user_editor)
+        self.browser.get(url_details)
+        self.browser.implicitly_wait(3)
 
-        # He goes to the newly created questionnaire
-        self.browser.get(overview_url)
-        time.sleep(1)
+        # He goes to the page and he also sees the review panel but no
+        # actions can be taken.
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'button-publish')
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
-        # The moderator sees the "publish" button and clicks it
-        self.findBy('xpath', '//input[@name="publish"]').click()
+        # Reviewer logs in.
+        self.doLogin(user=user_reviewer)
+        self.browser.get(url_details)
+        self.browser.implicitly_wait(3)
 
-        # There is no review panel anymore.
-        time.sleep(2)
+        # He goes to the page and sees the review panel. There is a
+        # button to do the review.
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findBy('id', 'button-review')
+        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+
+        # He clicks the button to do the review
+        self.browser.implicitly_wait(3)
+        self.findBy('id', 'button-review').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # He sees the review panel but no action is possible.
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'button-publish')
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+        # Compiler logs in and goes to the page, sees the review panel
+        # but no actions possible
+        self.doLogin(user=user_compiler)
+        self.browser.get(url_details)
+        self.browser.implicitly_wait(3)
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'button-publish')
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+        # Editor logs in and goes to the page, sees the review panel but
+        # no actions possible.
+        self.doLogin(user=user_editor)
+        self.browser.get(url_details)
+        self.browser.implicitly_wait(3)
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'button-publish')
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+        # Publisher logs in and goes to the page. He sees the review
+        # panel with a button to publish.
+        self.doLogin(user=user_publisher)
+        self.browser.get(url_details)
+        self.browser.implicitly_wait(3)
+        self.findBy('xpath', '//ol[@class="process"]')
+        self.findByNot('id', 'button-submit')
+        self.findByNot('id', 'button-review')
+        self.findBy('id', 'button-publish')
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+
+        # He clicks the button to publish the questionnaire.
+        self.findBy('id', 'button-publish').click()
+        self.browser.implicitly_wait(3)
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # There is no more review panel and no edit button.
         self.findByNot('xpath', '//ol[@class="process"]')
-
-        # He goes to the list view and sees that the questionnaire is now there
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_list))
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo"]')
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')

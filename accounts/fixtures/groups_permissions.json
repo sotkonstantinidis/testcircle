@@ -208,7 +208,12 @@
                 "questionnaire"
             ],
             [
-                "can_moderate",
+                "review_questionnaire",
+                "questionnaire",
+                "questionnaire"
+            ],
+            [
+                "publish_questionnaire",
                 "questionnaire",
                 "questionnaire"
             ],
@@ -309,16 +314,30 @@
 },
 {
     "fields": {
-        "name": "Moderators",
+        "name": "Reviewers",
         "permissions": [
             [
-                "can_moderate",
+                "review_questionnaire",
                 "questionnaire",
                 "questionnaire"
             ]
         ]
     },
     "pk": 3,
+    "model": "auth.group"
+},
+{
+    "fields": {
+        "name": "Publishers",
+        "permissions": [
+            [
+                "publish_questionnaire",
+                "questionnaire",
+                "questionnaire"
+            ]
+        ]
+    },
+    "pk": 4,
     "model": "auth.group"
 }
 ]

@@ -19,7 +19,7 @@
       {% for choice in choices %}
         <li>
           <div class="list-gallery-item">
-            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}">
+            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" {% include "floppyforms/attrs.html" %}>
             <label for="{{ attrs.id }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">{{ choice.1 }}<br>
               <figure class="list-gallery-icon">
                 <img src="{% static images|get_by_index:forloop.counter0 %}" alt="{{ choice.1 }}">

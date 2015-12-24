@@ -5,7 +5,7 @@ from functional_tests.base import FunctionalTest
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 from approaches.tests.test_views import route_questionnaire_list as \
-    route_tech_list
+    route_approaches_list
 from wocat.tests.test_views import route_questionnaire_list as route_wocat_list
 
 
@@ -73,7 +73,7 @@ class ListTest(FunctionalTest):
 
         # Alice goes to the Technologies list and sees that only the
         # Technologies are listed.
-        self.browser.get(self.live_server_url + reverse(route_tech_list))
+        self.browser.get(self.live_server_url + reverse(route_approaches_list))
 
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
@@ -96,7 +96,7 @@ class ListTest(FunctionalTest):
     def test_list_is_multilingual(self):
 
         # Alice goes to the list view and sees the questionnaires
-        self.browser.get(self.live_server_url + reverse(route_tech_list))
+        self.browser.get(self.live_server_url + reverse(route_approaches_list))
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')

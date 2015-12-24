@@ -4,8 +4,9 @@ from unittest.mock import patch
 
 from accounts.authentication import (
     get_user_information,
-    WocatAuthenticationBackend,
+    search_users,
     validate_session,
+    WocatAuthenticationBackend,
 )
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
@@ -79,7 +80,7 @@ class AuthenticateTest(TestCase):
         mock_validate_session.return_value = get_mock_validate_session_values()
         self.backend.authenticate(token='foo')
         mock_get_user_information.assert_called_once_with(
-            'foo', mock_validate_session.return_value)
+            mock_validate_session.return_value)
 
 
 @patch('accounts.authentication.api_login')
@@ -99,10 +100,24 @@ class ValidateSessionTest(TestCase):
 class GetUserInformationTest(TestCase):
 
     def test_calls_api_login(self, mock_api_login):
-        get_user_information('foo', 1)
+        get_user_information(1)
         mock_api_login.assert_called_once_with()
 
     def test_returns_None_if_api_login_is_not_valid(self, mock_api_login):
         mock_api_login.return_value = None
-        user_info = get_user_information('foo', 1)
+        user_info = get_user_information(1)
         self.assertIsNone(user_info)
+
+
+@patch('accounts.authentication.api_login')
+class SearchUsersTest(TestCase):
+
+    def test_calls_api_login(self, mock_api_login):
+        search_users(name='foo')
+        mock_api_login.assert_called_once_with()
+
+    def test_returns_empty_dict_if_api_login_is_not_valid(
+            self, mock_api_login):
+        mock_api_login.return_value = None
+        search_results = search_users(name='foo')
+        self.assertEqual(search_results, {})

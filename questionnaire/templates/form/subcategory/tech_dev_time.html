@@ -1,7 +1,7 @@
 {% load floppyforms %}
 {% load list_to_columns %}
 
-<fieldset class="row">
+<fieldset class="row{% if config.has_changes %} has-changes{% endif %}">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
     {% for questiongroup_config, questiongroup_formset in formsets %}
       <div class="questiongroup">

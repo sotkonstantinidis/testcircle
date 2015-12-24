@@ -1990,7 +1990,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that the progress was updated.
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She removes the file
         self.findBy(
@@ -2023,7 +2023,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that the progress was updated.
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 100%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 50%;"]')
 
         # She submits the form
         self.findBy('id', 'button-submit').click()
@@ -2394,6 +2394,11 @@ class QuestionnaireTestIndex(FunctionalTest):
             'xpath', '//article//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//article//*[text()[contains(.,"Key 5")]]')
 
+        # She sees the author is not filled out
+        self.findByNot(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/a['
+            'contains(text(), "bar foo")]')
+
         # She tries to submit the form empty and sees an error message
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "secondary")]')
@@ -2439,6 +2444,11 @@ class QuestionnaireTestIndex(FunctionalTest):
             'xpath', '//article//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//article//*[text()[contains(.,"Key 5")]]')
 
+        # She sees the author is still not filled out
+        self.findByNot(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/a['
+            'contains(text(), "bar foo")]')
+
         # She submits the entire questionnaire
         self.findBy('id', 'button-submit').click()
 
@@ -2456,6 +2466,11 @@ class QuestionnaireTestIndex(FunctionalTest):
         self.findByNot(
             'xpath', '//article//h3[contains(text(), "Subcategory 2_1")]')
         self.findByNot('xpath', '//article//*[text()[contains(.,"Key 5")]]')
+
+        # She sees the author is now filled out
+        self.findBy(
+            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/a['
+            'contains(text(), "bar foo")]')
 
         # She sees that the # was removed from the URL
         self.assertIn('#top', self.browser.current_url)

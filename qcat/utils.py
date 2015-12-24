@@ -1,8 +1,5 @@
 import urllib
 from datetime import datetime
-from django.conf import settings
-from importlib import import_module
-session_store = import_module(settings.SESSION_ENGINE).SessionStore()
 
 
 def find_dict_in_list(list_, key, value, not_found={}):
@@ -60,70 +57,61 @@ def is_empty_list_of_dicts(list_):
     return True
 
 
-def get_session_questionnaire(user, configuration_code, questionnaire_code):
+def get_session_questionnaire(request, configuration_code, questionnaire_code):
     """
     Return the data for a questionnaire from the session. The
-    questionnaire(s) are stored in the session dictionary under the key
-    ``session_questionnaires``.
+    questionnaire(s) are stored as a list in the session dictionary
+    under the key ``questionnaires``.
 
     .. seealso::
         :func:`save_session_questionnaire` for the format of session
         data.
 
     Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
         ``configuration_code`` (str): The code of the configuration of
         the questionnaire to retrieve.
 
         ``questionnaire_code`` (str): The code of the questionnaire to
-        retrieve. If ``questionnaire_code`` is ``None``, the code is set
-        to ``new``.
+        retrieve.
 
     Returns:
         ``dict``. The dictionary of the session data if found (with
         ``questionnaire`` and ``links``) or an empty dictionary (``{}``)
         if not found.
     """
-    if questionnaire_code is None:
-        questionnaire_code = 'new'
-
-    session_questionnaires = session_store.get('session_questionnaires')
-    if not isinstance(session_questionnaires, dict):
+    session_questionnaires = request.session.get('questionnaires', [])
+    if not isinstance(session_questionnaires, list):
         return {}
 
-    user_questionnaires = session_questionnaires.get(str(user.id))
-    if not isinstance(user_questionnaires, dict):
-        return {}
+    session_questionnaire = next((q for q in session_questionnaires if q.get(
+        'configuration_code') == configuration_code and q.get(
+        'questionnaire_code') == questionnaire_code), {})
 
-    questionnaires = user_questionnaires.get(configuration_code, [])
-    for q in questionnaires:
-        if q.get('code') == questionnaire_code:
-            return q
-
-    return {}
+    return session_questionnaire
 
 
 def save_session_questionnaire(
-        user, configuration_code, questionnaire_code, questionnaire_data,
-        questionnaire_links):
+        request, configuration_code, questionnaire_code,
+        questionnaire_data=None, questionnaire_links=None,
+        edited_questiongroups=None):
     """
     Save the data of a questionnaire to the session, using the key
-    ``session_questionnaires``.
+    ``questionnaires``.
 
-    The questionnaires are stored in the session
-    (``session['session_questionnaires']``) in the following format::
+    The questionnaires are stored as a list in the session
+    (``session['questionnaires']``) in the following format::
 
-        {
-          USER_ID: {
-            "CONFIGURATION_CODE": [
-              {
-                "code": "QUESTIONNAIRE_CODE",  # if available, else "new"
+        [
+            {
+                "configuration_code": "CONFIGURATION_CODE",
+                "questionnaire_code": "QUESTIONNAIRE_CODE",  # or "new"
                 "modified": "DATETIME_OF_LAST_MODIFICATION",
                 "questionnaire": {},  # data of the questionnaire
                 "links": {},  # data of the links
-              }
-            ]
-          }
-        }
+            }
+        ]
 
     Args:
         ``configuration_code`` (str): The code of the configuration of
@@ -133,7 +121,8 @@ def save_session_questionnaire(
         store. If ``questionnaire_code`` is ``None``, the code is set to
         ``new``.
 
-        ``session_questionnaire`` (dict): The data dictionary of the
+    Kwargs:
+        ``questionnaire_data`` (dict): The data dictionary of the
         questionnaire to be stored.
 
         ``questionnaire_links`` (dict): The dictionary containing the
@@ -141,89 +130,69 @@ def save_session_questionnaire(
         corresponds to the format used by the link forms to populate
         its fields.
     """
-    if questionnaire_code is None:
-        questionnaire_code = 'new'
+    session_questionnaires = request.session.get('questionnaires', [])
+    if not isinstance(session_questionnaires, list):
+        return
 
-    user_id = str(user.id)
+    session_questionnaire = {}
+    for sq in session_questionnaires:
+        if sq.get('configuration_code') == configuration_code and sq.get(
+                'questionnaire_code') == questionnaire_code:
+            session_questionnaire = sq
+            if questionnaire_data is None:
+                questionnaire_data = session_questionnaire.get(
+                    'questionnaire', {})
+            if questionnaire_links is None:
+                questionnaire_links = session_questionnaire.get('links', {})
+            if edited_questiongroups is None:
+                edited_questiongroups = session_questionnaire.get(
+                    'edited_questiongroups', [])
+            session_questionnaires.remove(sq)
 
-    session_questionnaires = session_store.get(
-        'session_questionnaires', {}).get(user_id, {}).get(
-        configuration_code, [])
+    if questionnaire_data is None:
+        questionnaire_data = {}
+    if questionnaire_links is None:
+        questionnaire_links = {}
+    if edited_questiongroups is None:
+        edited_questiongroups = []
 
-    session_questionnaire = next((q for q in session_questionnaires if q.get(
-        'code') == questionnaire_code), None)
-
-    if session_questionnaire is None:
-        # The questionnaire is not yet in the session
-        session_questionnaire = {'code': questionnaire_code}
-        session_questionnaires.append(session_questionnaire)
-
-    # Update the session data
     session_questionnaire.update({
+        'configuration_code': configuration_code,
+        'questionnaire_code': questionnaire_code,
         'questionnaire': questionnaire_data,
+        'edited_questiongroups': edited_questiongroups,
         'links': questionnaire_links,
         'modified': str(datetime.now()),
     })
 
-    if 'session_questionnaires' not in session_store:
-        session_store['session_questionnaires'] = {}
+    session_questionnaires.append(session_questionnaire)
 
-    if user_id not in session_store['session_questionnaires']:
-        session_store['session_questionnaires'][user_id] = {}
-
-    session_store['session_questionnaires'][user_id][
-        configuration_code] = session_questionnaires
-    session_store.save()
+    request.session['questionnaires'] = session_questionnaires
 
 
 def clear_session_questionnaire(
-        user=None, configuration_code=None, questionnaire_code=None):
+        request, configuration_code, questionnaire_code):
     """
     Clear the data of a questionnaire from the session key
-    ``session_questionnaires``.
+    ``questionnaires``.
 
     Kwargs:
         ``configuration_code`` (str): The code of the configuration of
-        the questionnaire to clear. If not provided, all the session
-        questionnaires will be cleared!
+        the questionnaire to clear.
 
         ``questionnaire_code`` (str): The code of the questionnaire to
-        clear. If not provided, all the session questionnaires with the
-        provided ``configuration_code`` will be cleared! If you want to
-        clear all new questionnaires (without a code), you need to pass
-        ``questionnaire_code=new`` explicitely.
+        clear.
     """
-    if user is None:
-        session_store['session_questionnaires'] = {}
-        session_store.save()
+    session_questionnaires = request.session.get('questionnaires', [])
+    if not isinstance(session_questionnaires, list):
         return
 
-    if 'session_questionnaires' not in session_store:
-        return
+    for sq in session_questionnaires:
+        if sq.get('configuration_code') == configuration_code and sq.get(
+                'questionnaire_code') == questionnaire_code:
+            session_questionnaires.remove(sq)
 
-    session_questionnaires = session_store['session_questionnaires']
-    user_id = str(user.id)
-
-    if user_id not in session_questionnaires:
-        return
-
-    if configuration_code is None:
-        del(session_questionnaires[user_id])
-        session_store.save()
-        return
-
-    user_questionnaires = session_questionnaires[user_id]
-    if questionnaire_code is None:
-        if configuration_code in user_questionnaires:
-            del(user_questionnaires[configuration_code])
-    else:
-        q_list = user_questionnaires.get(configuration_code, [])
-        for q in q_list:
-            if q.get('code') == questionnaire_code:
-                q_list.remove(q)
-        user_questionnaires[configuration_code] = q_list
-
-    session_store.save()
+    request.session['questionnaires'] = session_questionnaires
 
 
 def url_with_querystring(path, **kwargs):

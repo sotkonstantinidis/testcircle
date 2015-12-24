@@ -4,12 +4,12 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import activate
 from unittest.mock import patch
 
+from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from configuration.models import Configuration
 from qcat.tests import TestCase
 from questionnaire.models import (
     Questionnaire,
-    QuestionnaireConfiguration,
     QuestionnaireLink,
     QuestionnaireMembership,
     File,
@@ -46,7 +46,7 @@ def get_valid_metadata():
 
 class QuestionnaireModelTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['sample.json', 'sample_global_key_values.json']
 
     def setUp(self):
         self.user = create_new_user()
@@ -112,7 +112,7 @@ class QuestionnaireModelTest(TestCase):
 
     def test_previous_version_public_keeps_same_code(self):
         previous = get_valid_questionnaire(self.user)
-        previous.status = 3
+        previous.status = 4
         q = Questionnaire.create_new(
             configuration_code='sample', data={'faz': 'taz'}, user=self.user,
             previous_version=previous)
@@ -134,14 +134,6 @@ class QuestionnaireModelTest(TestCase):
     def test_create_new_sets_default_version(self):
         questionnaire = get_valid_questionnaire(self.user)
         self.assertEqual(questionnaire.version, 1)
-
-    @patch.object(Configuration, 'get_active_by_code')
-    @patch.object(QuestionnaireConfiguration.objects, 'create')
-    def test_create_new_calls_configuration_get_active_by_code(
-            self, mock_create, mock_Configuration_get_active_by_code):
-        Questionnaire.create_new(
-            configuration_code='sample', data={}, user=self.user)
-        mock_Configuration_get_active_by_code.assert_called_once_with('sample')
 
     def test_create_new_raises_error_if_no_active_configuration(self):
         with self.assertRaises(ValidationError):
@@ -180,12 +172,181 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(ret_languages[0].language, language)
         activate('en')
 
-    def test_create_new_adds_membership(self):
+    @patch.object(Questionnaire, 'update_users_from_data')
+    def test_create_new_calls_update_users_from_data(self, mock_foo):
+        get_valid_questionnaire(self.user)
+        mock_foo.assert_called_once_with('sample')
+
+    def test_create_new_adds_compiler(self):
         questionnaire = get_valid_questionnaire(self.user)
-        memberships = questionnaire.members.filter(
-            questionnairemembership__role='author')
-        self.assertEqual(len(memberships), 1)
-        self.assertEqual(memberships[0], self.user)
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0], ('compiler', self.user))
+
+    def test_create_new_copies_compilers(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        user_2 = create_new_user(id=2, email='foo@bar.com')
+        user_3 = create_new_user(id=3, email='faz@bar.com')
+        questionnaire.add_user(user_2, 'compiler')
+        questionnaire.add_user(user_3, 'editor')
+        questionnaire.status = 4
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 3)
+        questionnaire_2 = Questionnaire.create_new(
+            configuration_code='sample', data=questionnaire.data,
+            user=self.user, previous_version=questionnaire)
+        self.assertEqual(users, questionnaire_2.get_users())
+
+    def test_get_permissions_returns_empty(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'foo'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(permissions, [])
+
+    def test_get_permissions_compilers(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertIsInstance(permissions, list)
+        self.assertEqual(len(permissions), 2)
+        self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('submit_questionnaire', permissions)
+
+    def test_get_permissions_editors(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'editor'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(permissions, ['edit_questionnaire'])
+
+    def test_get_permissions_reviewers_not_status(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'reviewer'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(permissions, [])
+
+    def test_get_permissions_reviewers(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 2
+        questionnaire.save()
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'reviewer'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(len(permissions), 2)
+        self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('review_questionnaire', permissions)
+
+    def test_get_permissions_publishers_not_status(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'publisher'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(permissions, [])
+
+    def test_get_permissions_publishers(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 3
+        questionnaire.save()
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'publisher'
+        membership.save()
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(len(permissions), 2)
+        self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('publish_questionnaire', permissions)
+
+    @patch.object(User, 'get_all_permissions')
+    def test_get_permissions_reviewers_general(self, mock_get_all_permissions):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 2
+        questionnaire.save()
+        mock_get_all_permissions.return_value = [
+            'questionnaire.review_questionnaire']
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(len(permissions), 2)
+        self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('review_questionnaire', permissions)
+
+    @patch.object(User, 'get_all_permissions')
+    def test_get_permissions_publishers_general(
+            self, mock_get_all_permissions):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 3
+        questionnaire.save()
+        mock_get_all_permissions.return_value = [
+            'questionnaire.publish_questionnaire']
+        permissions = questionnaire.get_permissions(self.user)
+        self.assertEqual(len(permissions), 2)
+        self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('publish_questionnaire', permissions)
+
+    def test_get_users_returns_tuples(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0][0], 'compiler')
+        self.assertEqual(users[0][1], self.user)
+
+    def test_add_user_adds_user(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.add_user(self.user, 'landuser')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        for role, user in users:
+            self.assertIn(role, ['compiler', 'landuser'])
+            self.assertIn(user, [self.user])
+
+    def test_remove_user_removes_user(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.remove_user(self.user, 'compiler')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 0)
+
+    def test_update_users_from_data_does_not_affect_compilers(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        users = questionnaire.get_users()
+        questionnaire.update_users_from_data('sample')
+        self.assertEqual(users, questionnaire.get_users())
+
+    def test_update_users_from_data_adds_user_from_data(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        user_2 = create_new_user(id=2, email='foo@bar.com')
+        questionnaire.data = {'qg_31': [{'key_39': '2', 'key_40': 'Foo Bar'}]}
+        questionnaire.update_users_from_data('sample')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        for role, user in users:
+            self.assertIn(role, ['compiler', 'landuser'])
+            self.assertIn(user, [self.user, user_2])
+
+    def test_update_users_from_data_removes_user_from_data(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        user_2 = create_new_user(id=2, email='foo@bar.com')
+        questionnaire.add_user(user_2, 'landuser')
+        questionnaire.update_users_from_data('sample')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0][0], 'compiler')
+        self.assertEqual(users[0][1], self.user)
+
+    def test_update_users_in_data_updates_name(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        user_2 = create_new_user(
+            id=2, email='foo@bar.com', firstname='Faz', lastname='Taz')
+        questionnaire.data = {'qg_31': [{'key_39': '2', 'key_40': 'Foo Bar'}]}
+        questionnaire.update_users_from_data('sample')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        questionnaire.update_users_in_data(user_2)
+        self.assertEqual(
+            questionnaire.data,
+            {'qg_31': [{'key_39': '2', 'key_40': 'Faz Taz'}]})
 
     def test_get_metadata(self):
         questionnaire = Questionnaire.create_new(

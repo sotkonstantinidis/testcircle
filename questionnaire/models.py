@@ -9,27 +9,36 @@ from django.utils import timezone
 from django_pgjson.fields import JsonBField
 from itertools import chain
 
+from accounts.models import User
+from configuration.cache import get_configuration
 from configuration.models import Configuration
 
 
 STATUSES = (
     (1, _('Draft')),
-    (2, _('Pending')),
-    (3, _('Public')),
-    (4, _('Rejected')),
-    (5, _('Inactive')),
+    (2, _('Submitted')),
+    (3, _('Reviewed')),
+    (4, _('Public')),
+    (5, _('Rejected')),
+    (6, _('Inactive')),
 )
 STATUSES_CODES = (
     (1, 'draft'),
-    (2, 'pending'),
-    (3, 'public'),
-    (4, 'rejected'),
-    (5, 'inactive'),
+    (2, 'submitted'),
+    (3, 'reviewed'),
+    (4, 'public'),
+    (5, 'rejected'),
+    (6, 'inactive'),
 )
 
 QUESTIONNAIRE_ROLES = (
-    ('author', _('Author')),
+    # Functional roles
+    ('compiler', _('Compiler')),
     ('editor', _('Editor')),
+    ('reviewer', _('Reviewer')),
+    ('publisher', _('Publisher')),
+    # Content roles only, no privileges attached
+    ('landuser', _('Land User')),
 )
 
 
@@ -40,6 +49,7 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
+    data_old = JsonBField(null=True)
     created = models.DateTimeField()
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
@@ -58,7 +68,8 @@ class Questionnaire(models.Model):
     class Meta:
         ordering = ['-updated']
         permissions = (
-            ("can_moderate", "Can moderate"),
+            ("review_questionnaire", "Can review questionnaire"),
+            ("publish_questionnaire", "Can publish questionnaire"),
         )
 
     def get_absolute_url(self):
@@ -106,7 +117,7 @@ class Questionnaire(models.Model):
 
         if previous_version:
             created = previous_version.created
-            if previous_version.status not in [1, 3]:
+            if previous_version.status not in [1, 4]:
                 raise ValidationError(
                     'The questionnaire cannot be updated because of its status'
                     ' "{}"'.format(previous_version.status))
@@ -115,6 +126,10 @@ class Questionnaire(models.Model):
                 previous_version.data = data
                 previous_version.updated = updated
                 previous_version.save()
+
+                # Update the users attached to the questionnaire
+                previous_version.update_users_from_data(configuration_code)
+
                 return previous_version
             else:
                 # Public: Create new version with the same code
@@ -145,13 +160,213 @@ class Questionnaire(models.Model):
             questionnaire=questionnaire, language=get_language(),
             original_language=True)
 
-        QuestionnaireMembership.objects.create(
-            questionnaire=questionnaire, user=user, role='author')
+        if previous_version:
+            # Copy all the functional user roles from the old version
+            user_roles = ['compiler', 'editor', 'reviewer', 'publisher']
+            for role in user_roles:
+                for old_user in previous_version.get_users_by_role(role):
+                    questionnaire.add_user(old_user, role)
+        else:
+            questionnaire.add_user(user, 'compiler')
+        questionnaire.update_users_from_data(
+            configuration_code)
 
         return questionnaire
 
     def get_id(self):
         return self.id
+
+    def get_permissions(self, current_user):
+        """
+        Return the permissions of a given user for the current
+        questionnaire.
+
+        The following rules apply:
+            * Compilers and editors can edit questionnaires.
+
+        Permissions to be returned are:
+            * ``edit_questionnaire``
+            * ``submit_questionnaire``
+            * ``review_questionnaire``
+            * ``publish_questionnaire``
+
+        Args:
+            ``current_user`` (User): The user.
+
+        Returns:
+            ``list``. A list with the permissions of the user for this
+            questionnaire object.
+        """
+        permissions = []
+        for role, user in self.get_users():
+            if current_user == user:
+                if role in ['compiler', 'editor'] and self.status in [1, 4]:
+                    permissions.append('edit_questionnaire')
+                if role in ['compiler'] and self.status in [1]:
+                    permissions.append('submit_questionnaire')
+                if role in ['reviewer'] and self.status in [2]:
+                    permissions.extend(
+                        ['edit_questionnaire', 'review_questionnaire'])
+                if role in ['publisher'] and self.status in [3]:
+                    permissions.extend(
+                        ['edit_questionnaire', 'publish_questionnaire'])
+
+        user_permissions = current_user.get_all_permissions()
+        if ('questionnaire.review_questionnaire' in user_permissions
+                and self.status in [2]):
+            permissions.extend(['review_questionnaire', 'edit_questionnaire'])
+        if ('questionnaire.publish_questionnaire' in user_permissions
+                and self.status in [3]):
+            permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
+
+        return list(set(permissions))
+
+    def get_users(self):
+        """
+        Helper function to return the users of a questionnaire along
+        with their role in this membership.
+
+        Returns:
+            ``list``. A list of tuples where each entry contains the
+            following elements:
+
+            - [0]: ``string``. The role of the membership.
+
+            - [1]: ``accounts.models.User``. The user object.
+        """
+        users = []
+        for membership in self.questionnairemembership_set.all():
+            users.append((membership.role, membership.user))
+        return users
+
+    def get_users_by_role(self, role):
+        """
+        Return all users of a questionnaire based on their role in the
+        membership.
+
+        Args:
+            ``role`` (str): The role of the membership used as a filter.
+
+        Returns:
+            ``list``. A list of users.
+        """
+        users = []
+        for user_role, user in self.get_users():
+            if user_role == role:
+                users.append(user)
+        return users
+
+    def add_user(self, user, role):
+        """
+        Add a user.
+
+        Args:
+            ``user`` (User): The user.
+
+            ``role`` (str): The role of the user.
+        """
+        QuestionnaireMembership.objects.create(
+            questionnaire=self, user=user, role=role)
+
+    def remove_user(self, user, role):
+        """
+        Remove a user.
+
+        Args:
+            ``user`` (User): The user.
+
+            ``role`` (str): The role of the user.
+        """
+        self.questionnairemembership_set.filter(user=user, role=role).delete()
+
+    def update_users_from_data(self, configuration_code):
+        """
+        Based on the data dictionary, update the user links in the
+        database. This usually happens after the form of the
+        questionnaire was submitted.
+
+        Args:
+            ``configuration_code`` (str): The code of the configuration
+              of the questionnaire which triggered the update.
+
+            ``compiler`` (accounts.models.User): A user figuring as the
+            compiler of the questionnaire.
+        """
+        questionnaire_configuration = get_configuration(configuration_code)
+        user_fields = questionnaire_configuration.get_user_fields()
+
+        # Collect the users appearing in the data dictionary.
+        submitted_users = []
+        for user_questiongroup in user_fields:
+            for user_data in self.data.get(user_questiongroup[0], []):
+                user_id = user_data.get(user_questiongroup[1])
+                if user_id is None:
+                    continue
+                submitted_users.append((user_questiongroup[3], user_id))
+
+        # Get the users which were attached before modifying the
+        # questionnaire. Collect only those which can be changed through
+        # the data dictionary (no functional user roles)
+        previous_users = []
+        for user_role, user in self.get_users():
+            if user_role not in [
+                    'compiler', 'editor', 'reviewer', 'publisher']:
+                previous_users.append((user_role, user))
+
+        # Check which users are new (in submitted_users but not in
+        # previous_users) and add them to the questionnaire.
+        previous_users_found = []
+        for submitted_user in submitted_users:
+            user_found = False
+            for previous_user in previous_users:
+                if submitted_user[0] != previous_user[0]:
+                    continue
+                if str(submitted_user[1]) != str(previous_user[1].id):
+                    continue
+
+                user_found = True
+                previous_users_found.append(previous_user)
+
+            if user_found is False:
+                user = User.objects.get(pk=submitted_user[1])
+                self.add_user(user, submitted_user[0])
+
+        # Check for users which were removed (in previous_users but not
+        # found when looking through submitted_users) and remove them
+        # from the questionnaire
+        for removed_user in list(
+                set(previous_users) - set(previous_users_found)):
+            self.remove_user(removed_user[1], removed_user[0])
+
+    def update_users_in_data(self, user):
+        """
+        Based on the links in the database, update the data dictionary
+        of the questionnaire. This usually happens after a user's
+        information (display name) changed.
+
+        Args:
+            ``user`` (accounts.models.User): The user to be updated in
+            the data dictionary.
+        """
+        configurations = self.configurations.all()
+
+        # Collect all the user fields of all configurations of the
+        # questionnaire
+        user_fields = []
+        for config in configurations:
+            questionnaire_configuration = get_configuration(config.code)
+            user_fields.extend(questionnaire_configuration.get_user_fields())
+
+        for user_field in user_fields:
+            user_data_list = self.data.get(user_field[0], [])
+            for user_data in user_data_list:
+                user_id = user_data.get(user_field[1])
+                if user_id and str(user_id) == str(user.id):
+                    updated_user_data = {}
+                    updated_user_data[user_field[2]] = user.get_display_name()
+                    user_data.update(updated_user_data)
+
+        self.save()
 
     def get_metadata(self):
         """
@@ -181,7 +396,7 @@ class Questionnaire(models.Model):
         authors = []
         # Make sure the author is first
         for author in list(chain(
-                self.members.filter(questionnairemembership__role='author'),
+                self.members.filter(questionnairemembership__role='compiler'),
                 self.members.filter(questionnairemembership__role='editor'))):
             authors.append({
                 'id': author.id,

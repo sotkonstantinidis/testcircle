@@ -1,3 +1,4 @@
+import copy
 from unittest.mock import patch, Mock, call
 from django.http import QueryDict
 from django.test.utils import override_settings
@@ -8,6 +9,7 @@ from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.utils import (
     clean_questionnaire_data,
+    compare_questionnaire_data,
     get_active_filters,
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
@@ -609,6 +611,12 @@ class QueryQuestionnaireTest(TestCase):
         mock_get_query_status_filter.assert_called_once_with(request)
 
 
+class GetQueryStatusFilter(TestCase):
+
+    # This is tested implicitely through QueryQuestionnairesTest
+    pass
+
+
 class QueryQuestionnairesTest(TestCase):
 
     fixtures = [
@@ -628,63 +636,115 @@ class QueryQuestionnairesTest(TestCase):
         request.user.is_authenticated.return_value = False
         ret = query_questionnaires(request, 'sample')
         self.assertEqual(len(ret), 2)
-        self.assertEqual(ret[0].id, 6)
-        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[1].id, 6)
 
-    def test_user_sees_his_own_draft_and_pending(self):
+    def test_user_sees_his_own_draft_submitted_reviewed_user_101(self):
         request = Mock()
         request.user = User.objects.get(pk=101)
         ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 3)
-        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(len(ret), 6)
+        self.assertEqual(ret[0].id, 1)
         self.assertEqual(ret[1].id, 3)
-        self.assertEqual(ret[2].id, 1)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 8)
+        self.assertEqual(ret[4].id, 9)
+        self.assertEqual(ret[5].id, 10)
 
-    def test_user_sees_his_own_draft_and_pending_2(self):
+    def test_user_sees_his_own_draft_submitted_reviewed_user_102(self):
         request = Mock()
         request.user = User.objects.get(pk=102)
         ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 3)
-        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 2)
         self.assertEqual(ret[1].id, 3)
-        self.assertEqual(ret[2].id, 2)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 9)
+
+    def test_reviewer_sees_submitted_and_own_drafts_103(self):
+        # User 103 is reviewer, he sees all submitted
+        request = Mock()
+        request.user = User.objects.get(pk=103)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 5)
+        self.assertEqual(ret[0].id, 2)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 7)
+        self.assertEqual(ret[4].id, 9)
+
+    def test_reviewer_sees_submitted_and_own_drafts_102(self):
+        # User 102 is only reviewer for 9
+        request = Mock()
+        request.user = User.objects.get(pk=102)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 2)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 9)
+
+    def test_publisher_sees_reviewed_and_own_drafts_104(self):
+        # User 104 is publisher, sees all reviewed
+        request = Mock()
+        request.user = User.objects.get(pk=104)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 4)
+        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[1].id, 6)
+        self.assertEqual(ret[2].id, 8)
+        self.assertEqual(ret[3].id, 10)
+
+    def test_publisher_sees_reviewed_and_own_drafts_106(self):
+        request = Mock()
+        request.user = User.objects.get(pk=106)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 3)
+        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[1].id, 6)
+        self.assertEqual(ret[2].id, 10)
+
+    def test_reviewer_publishes_sees_almost_everything(self):
+        request = Mock()
+        request.user = User.objects.get(pk=105)
+        ret = query_questionnaires(request, 'sample')
+        self.assertEqual(len(ret), 6)
+        self.assertEqual(ret[0].id, 2)
+        self.assertEqual(ret[1].id, 3)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 8)
+        self.assertEqual(ret[4].id, 9)
+        self.assertEqual(ret[5].id, 10)
 
     def test_only_one_version_is_visible(self):
-        user = User.objects.get(pk=102)
+        user = User.objects.get(pk=101)
         prev_version = Questionnaire.objects.get(pk=3)
         Questionnaire.create_new(
             'sample', {}, user, previous_version=prev_version, status=3)
         request = Mock()
         request.user = user
         ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 3)
-        self.assertEqual(ret[0].id, 8)
-        self.assertEqual(ret[1].id, 6)
-        self.assertEqual(ret[2].id, 2)
-
-    def test_moderator_sees_pending_and_own_drafts(self):
-        request = Mock()
-        request.user = User.objects.get(pk=103)
-        ret = query_questionnaires(request, 'sample')
-        self.assertEqual(len(ret), 4)
-        self.assertEqual(ret[0].id, 7)
-        self.assertEqual(ret[1].id, 6)
-        self.assertEqual(ret[2].id, 3)
-        self.assertEqual(ret[3].id, 2)
+        self.assertEqual(len(ret), 6)
+        self.assertEqual(ret[0].id, 11)
+        self.assertEqual(ret[1].id, 1)
+        self.assertEqual(ret[2].id, 6)
+        self.assertEqual(ret[3].id, 8)
+        self.assertEqual(ret[4].id, 9)
+        self.assertEqual(ret[5].id, 10)
 
     def test_applies_limit(self):
         request = Mock()
         request.user.is_authenticated.return_value = False
         ret = query_questionnaires(request, 'sample', limit=1)
         self.assertEqual(len(ret), 1)
-        self.assertEqual(ret[0].id, 6)
+        self.assertEqual(ret[0].id, 3)
 
     def test_applies_offset(self):
         request = Mock()
         request.user.is_authenticated.return_value = False
         ret = query_questionnaires(request, 'sample', offset=1)
         self.assertEqual(len(ret), 1)
-        self.assertEqual(ret[0].id, 3)
+        self.assertEqual(ret[0].id, 6)
 
 
 class QueryQuestionnairesForLinkTest(TestCase):
@@ -870,93 +930,88 @@ class HandleReviewActionsTest(TestCase):
         self.request = Mock()
         self.request.user = Mock()
         self.obj = Mock(spec=Questionnaire)
-        self.obj.members.filter.return_value = [self.request.user]
+        self.obj.get_permissions.return_value = []
         self.obj.links.all.return_value = []
 
-    def test_submit_does_not_update_if_previous_status_not_draft(
-            self, mock_messages):
+    def test_submit_error_if_previous_status_wrong(self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'submit': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 3)
-
-    def test_submit_previous_status_not_correct_adds_message(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be submitted because it does not have'
             ' to correct status.')
 
-    def test_submit_needs_current_user_as_member(self, mock_messages):
+    def test_submit_needs_permissions(self, mock_messages):
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
-        self.request.user = Mock()
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 1)
-
-    def test_submit_needs_current_user_as_member_adds_error_msg(
-            self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        self.request.user = Mock()
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
             'The questionnaire could not be submitted because you do not have '
             'permission to do so.')
 
     def test_submit_updates_status(self, mock_messages):
+        self.obj.get_permissions.return_value = ['submit_questionnaire']
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 2)
-
-    def test_submit_adds_message(self, mock_messages):
-        self.obj.status = 1
-        self.request.POST = {'submit': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.success.assert_called_once_with(
             self.request,
             'The questionnaire was successfully submitted.')
 
-    def test_publish_does_not_update_if_previous_status_not_draft(
-            self, mock_messages):
+    def test_review_error_if_previous_status_wrong(self, mock_messages):
+        self.obj.status = 3
+        self.request.POST = {'review': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 3)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be reviewed because it does not have '
+            'to correct status.')
+
+    def test_review_needs_permissions(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'review': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 2)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be reviewed because you do not have '
+            'permission to do so.')
+
+    def test_review_updates_status(self, mock_messages):
+        self.obj.get_permissions.return_value = ['review_questionnaire']
+        self.obj.status = 2
+        self.request.POST = {'review': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 3)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully reviewed.')
+
+    def test_publish_error_if_previous_status_wrong(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'publish': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.assertEqual(self.obj.status, 1)
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The questionnaire could not be published because it does not '
+            'have to correct status.')
+
+    def test_publish_needs_permissions(self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(self.obj.status, 3)
-
-    def test_publish_previous_status_not_correct_adds_message(
-            self, mock_messages):
-        self.obj.status = 3
-        self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request,
-            'The questionnaire could not be set public because it does not '
-            'have to correct status.')
-
-    def test_publish_needs_moderator(self, mock_messages):
-        self.obj.status = 2
-        self.request.POST = {'publish': 'foo'}
-        self.request.user = Mock()
-        self.request.user.has_perm.return_value = False
-        handle_review_actions(self.request, self.obj, 'sample')
-        self.assertEqual(self.obj.status, 2)
-
-    def test_publish_needs_moderator_adds_error_msg(self, mock_messages):
-        self.obj.status = 2
-        self.request.POST = {'publish': 'foo'}
-        self.request.user = Mock()
-        self.request.user.has_perm.return_value = False
-        handle_review_actions(self.request, self.obj, 'sample')
-        mock_messages.error.assert_called_once_with(
-            self.request,
-            'The questionnaire could not be set public because you do not '
-            'have permission to do so.')
+            'The questionnaire could not be published because you do not have '
+            'permission to do so.')
 
     @patch('questionnaire.utils.Questionnaire')
     @patch('questionnaire.utils.delete_questionnaires_from_es')
@@ -965,14 +1020,15 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_delete_data, mock_Questionnaire,
             mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         prev = Mock()
         mock_Questionnaire.objects.filter.return_value = [prev]
         handle_review_actions(self.request, self.obj, 'sample')
-        self.assertEqual(prev.status, 5)
+        self.assertEqual(prev.status, 6)
         prev.save.assert_called_once_with()
 
     @patch('questionnaire.utils.Questionnaire')
@@ -982,7 +1038,8 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_delete_data, mock_Questionnaire,
             mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
@@ -994,18 +1051,23 @@ class HandleReviewActionsTest(TestCase):
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_updates_status(self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
-        self.assertEqual(self.obj.status, 3)
+        self.assertEqual(self.obj.status, 4)
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The questionnaire was successfully set public.')
 
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_calls_put_questionnaire_data(
             self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.status = 2
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
@@ -1017,8 +1079,9 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         mock_link = Mock()
+        self.obj.get_permissions.return_value = ['publish_questionnaire']
         self.obj.links.all.return_value = [mock_link]
-        self.obj.status = 2
+        self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
@@ -1029,14 +1092,71 @@ class HandleReviewActionsTest(TestCase):
             mock_link.configurations.first.return_value.code, [mock_link])
         mock_put_data.assert_has_calls([call_1, call_2])
 
-    @patch('questionnaire.utils.put_questionnaire_data')
-    def test_publish_adds_message(self, mock_put_data, mock_messages):
-        mock_put_data.return_value = None, []
-        self.obj.status = 2
-        self.obj.code = 'code'
-        self.request.user = Mock()
-        self.request.POST = {'publish': 'foo'}
-        handle_review_actions(self.request, self.obj, 'sample')
-        mock_messages.success.assert_called_once_with(
-            self.request,
-            'The questionnaire was successfully set public.')
+
+class CompareQuestionnaireDataTest(TestCase):
+
+    def setUp(self):
+        self.data_1 = {
+            'qg_1': [
+                {
+                    'key_1': {
+                        'en': 'foo',
+                        'fr': 'bar'
+                    },
+                    'key_2': 'asdf'
+                }
+            ],
+            'qg_2': [
+                {
+                    'key_3': 1,
+                    'key_4': ['faz', 'taz']
+                }
+            ],
+            'qg_3': [
+                {
+                    'key_5': {
+                        'en': 'foo'
+                    }
+                },
+                {
+                    'key_5': {
+                        'en': 'bar'
+                    }
+                }
+            ]
+        }
+        self.data_2 = copy.deepcopy(self.data_1)
+
+    def test_no_difference(self):
+        diff = compare_questionnaire_data(self.data_1, self.data_2)
+        self.assertEqual(diff, [])
+
+    def test_missing_qg_in_first(self):
+        self.data_2.update({'qg_add': []})
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_add'])
+
+    def test_missing_qg_in_second(self):
+        self.data_2.update({'qg_add': []})
+        diff = compare_questionnaire_data(self.data_1, self.data_2)
+        self.assertEqual(diff, ['qg_add'])
+
+    def test_single_value_changed_in_first(self):
+        self.data_2['qg_1'][0]['key_2'] = 'foo'
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_1'])
+
+    def test_single_value_changed_in_second(self):
+        self.data_2['qg_1'][0]['key_2'] = 'foo'
+        diff = compare_questionnaire_data(self.data_1, self.data_2)
+        self.assertEqual(diff, ['qg_1'])
+
+    def test_key_changed_in_first(self):
+        self.data_2['qg_1'][0].update({'add': 'foo'})
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_1'])
+
+    def test_value_added(self):
+        self.data_2['qg_2'][0]['key_4'].append('asdf')
+        diff = compare_questionnaire_data(self.data_2, self.data_1)
+        self.assertEqual(diff, ['qg_2'])

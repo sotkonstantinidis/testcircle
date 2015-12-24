@@ -12,11 +12,14 @@
     background-color: rgba($color-unccd, 0.8);
     color: #ffffff;
   }
-  &.is-pending {
-    background-color: rgba($alert-color, 0.8);
-  }
   &.is-draft {
-    background-color: rgba($info-color, 0.8);
+    background-color: rgba($draft-color, 0.8);
+  }
+  &.is-submitted {
+    background-color: rgba($submitted-color, 0.8);
+  }
+  &.is-reviewed {
+    background-color: rgba($reviewed-color, 0.8);
   }
 }
 

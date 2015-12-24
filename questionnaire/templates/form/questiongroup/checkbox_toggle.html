@@ -21,7 +21,7 @@
   {% endif %}
 
   <div class="small-12 medium-4 columns">
-    <label class="input-multiline"><input type="checkbox" id="production_crop_production" class="cb-toggle-questiongroup" data-container="{{ config.keyword }}"><span{% if config.helptext %} class="has-tip" title="{{ config.helptext }}" aria-haspopup="true" data-tooltip=""{% endif %}>{{ config.label }}</span></label>
+    <label class="input-multiline"><input type="checkbox" class="cb-toggle-questiongroup" data-container="{{ config.keyword }}"{% if edit_mode != "edit" %} disabled="disabled"{% endif %}><span{% if config.helptext %} class="has-tip" title="{{ config.helptext }}" aria-haspopup="true" data-tooltip=""{% endif %}>{{ config.label }}</span></label>
   </div>
   <div id="{{ config.keyword }}" class="small-12 medium-8 columns cb-toggle-questiongroup-content" style="display:none;">
 
@@ -63,7 +63,7 @@
     {% if formset.max_num > formset.min_num %}
       <div class="row list-action">
         <div class="small-12 columns">
-          <p><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="link is-{{ configuration_name }}" {% if formset.total_form_count >= formset.max_num %} style="display:none;"{% endif %}>{% trans 'Add More' %}</a></p>
+          <p><a data-add-item="" data-questiongroup-keyword="{{ config.keyword }}" class="link is-{{ configuration_name }}" {% if formset.total_form_count >= formset.max_num or edit_mode != 'edit' %} style="display:none;"{% endif %}>{% trans 'Add More' %}</a></p>
         </div>
       </div>
     {% endif %}

@@ -20,6 +20,7 @@ qcat/settings_local.py
 # Ignore coverage files
 .coverage
 coverage_html
+.noseids
 
 # Ignore bower components, node modules and static files
 bower_components

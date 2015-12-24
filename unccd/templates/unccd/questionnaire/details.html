@@ -32,13 +32,15 @@
       {% endfor %}
       <section class="row">
         <div class="small-12 columns">
-          {% if 'can_save_questionnaire' in permissions %}
-            <form action="" method="POST">
-              {% csrf_token %}
-              <input id="button-submit" class="button large is-unccd" type="submit" value="{% trans "Save UNCCD questionnaire" %}">
-            </form>
-          {% elif 'can_edit_questionnaire' in permissions %}
-            <a href="{% url 'unccd:questionnaire_edit' questionnaire_identifier %}" class="button large is-unccd">{% trans "Edit UNCCD questionnaire" %}</a>
+          {% if 'edit_questionnaire' in permissions %}
+            {% if view_mode == 'edit' %}
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input id="button-submit" class="button large is-unccd" type="submit" value="{% trans "Save UNCCD questionnaire" %}">
+              </form>
+            {% else %}
+              <a href="{% url 'unccd:questionnaire_edit' questionnaire_identifier %}" class="button large is-unccd">{% trans "Edit UNCCD questionnaire" %}</a>
+            {% endif %}
           {% endif %}
         </div>
       </section>
