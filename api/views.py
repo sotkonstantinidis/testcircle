@@ -33,6 +33,7 @@ class QuestionnaireViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = QuestionnaireSerializer
     # Discuss: enable filter globally with setting?
     filter_backends = (filters.DjangoFilterBackend, )
+    filter_fields = ('version', )
 
     def get_queryset(self):
         """
