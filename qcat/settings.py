@@ -43,8 +43,10 @@ INSTALLED_APPS = (
     'django_extensions',
     'imagekit',
     'rest_framework',
+    # Custom apps
     'questionnaire',
     'accounts',
+    'api',
     'configuration',
     'wocat',
     'technologies',
