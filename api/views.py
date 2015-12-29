@@ -1,4 +1,5 @@
-from rest_framework.generics import ListAPIView
+from rest_framework import filters
+from rest_framework import viewsets
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -23,13 +24,15 @@ class APIRoot(APIView):
         return Response(urls)
 
 
-class QuestionnairesAPIListView(ListAPIView):
+class QuestionnaireViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    List all questionnaires; can be filtered.
+    List and detail view for questionnaires; can be filtered.
 
     To be defined: Move this view into the questionnaire-app? This would ensure loose coupling.
     """
     serializer_class = QuestionnaireSerializer
+    # Discuss: enable filter globally with setting?
+    filter_backends = (filters.DjangoFilterBackend, )
 
     def get_queryset(self):
         """
