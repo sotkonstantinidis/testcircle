@@ -1,0 +1,15 @@
+{% extends "rest_framework/base.html" %}
+
+{% load i18n %}
+
+
+{% block title %}
+    {% trans "WOCAT API" %}
+{% endblock %}
+
+
+{% block branding %}
+    <a class='navbar-brand' rel="nofollow" href='http://www.wocat.net'>
+        {% trans "WOCAT API" %} <span class="version">1</span>
+    </a>
+{% endblock %}
