@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'floppyforms',
     'django_extensions',
     'imagekit',
+    'rest_framework',
     'questionnaire',
     'accounts',
     'configuration',
