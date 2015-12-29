@@ -26,7 +26,12 @@ class APIRoot(APIView):
 
 class QuestionnaireViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    List and detail view for questionnaires; can be filtered.
+    List and detail view for questionnaires.
+
+    Filters can be passed in the url, e.g. /en/api/v1/questionnaire/?version=1
+
+    Following fields can be filtered for:
+    - version
 
     To be defined: Move this view into the questionnaire-app? This would ensure loose coupling.
     """
