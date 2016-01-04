@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.cache import cache
-from django.utils.translation import to_locale, get_language
+from django.utils.translation import get_language
 
 
 def get_configuration(configuration_code):
@@ -69,4 +69,4 @@ def get_cache_key(configuration_code):
     Returns:
         ``str``. The key for the cache.
     """
-    return '{}_{}'.format(configuration_code, to_locale(get_language()))
+    return '{}_{}'.format(configuration_code, get_language())

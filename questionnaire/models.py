@@ -63,7 +63,7 @@ class Questionnaire(models.Model):
         'configuration.Configuration', through='QuestionnaireConfiguration')
     links = models.ManyToManyField(
         'self', through='QuestionnaireLink', symmetrical=False,
-        related_name='linked_to+', null=True)
+        related_name='linked_to+')
 
     class Meta:
         ordering = ['-updated']

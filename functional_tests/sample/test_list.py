@@ -1623,7 +1623,7 @@ class ListTestStatus(FunctionalTest):
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees the same questionnaires
@@ -1636,7 +1636,7 @@ class ListTestStatus(FunctionalTest):
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # Since she is not logged in, she does not see a note about
@@ -1661,7 +1661,7 @@ class ListTestStatus(FunctionalTest):
         self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
@@ -1675,7 +1675,7 @@ class ListTestStatus(FunctionalTest):
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # She also sees a note saying that only public questionnaires
@@ -1699,7 +1699,7 @@ class ListTestStatus(FunctionalTest):
         self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
@@ -1712,7 +1712,7 @@ class ListTestStatus(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
 
         # She also sees a note saying that only public questionnaires
         # are visible
@@ -1736,7 +1736,7 @@ class ListTestStatus(FunctionalTest):
         self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
         self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
@@ -1750,7 +1750,7 @@ class ListTestStatus(FunctionalTest):
 
         self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
         self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 6"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
 
         # She also sees a note saying that only public questionnaires

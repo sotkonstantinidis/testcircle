@@ -172,7 +172,7 @@ class Translation(models.Model):
         """
         translation_types = []
         for related in Translation._meta.get_all_related_objects():
-            translation_types.append(related.model.translation_type)
+            translation_types.append(related.related_model.translation_type)
         return translation_types
 
     def get_translation(self, keyword, configuration='wocat', locale=None):
