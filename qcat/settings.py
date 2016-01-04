@@ -127,20 +127,29 @@ UPLOAD_IMAGE_THUMBNAIL_FORMATS = (
     # 'large' is the original uploaded image.
 )
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    'django.core.context_processors.request',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                "django.contrib.auth.context_processors.auth",
+                "django.core.context_processors.debug",
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.media",
+                "django.core.context_processors.static",
+                "django.core.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+                'django.core.context_processors.request',
+            ],
+        },
+    },
+]
 
 AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
