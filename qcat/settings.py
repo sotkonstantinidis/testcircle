@@ -181,6 +181,19 @@ MESSAGE_TAGS = {
     messages.INFO: 'secondary',
 }
 
+# Allow various formats to communicate with the API.
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework_xml.parsers.XMLParser',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework_xml.renderers.XMLRenderer',
+    ),
+}
+
 
 try:
     from qcat.settings_local import *
