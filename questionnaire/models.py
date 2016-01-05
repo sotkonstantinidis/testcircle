@@ -76,6 +76,30 @@ class Questionnaire(models.Model):
         return reverse(
             'questionnaire_view_details', kwargs={'identifier': self.code})
 
+    def update_data(self, data, updated, configuration_code):
+        """
+        Helper function to just update the data of the questionnaire
+        without creating a new instance.
+
+        Args:
+            ``data`` (dict): The data dictionary
+
+            ``updated`` (timestamp): The timestamp of the update
+
+            ``configuration_code`` (str): The configuration code.
+
+        Returns:
+            ``Questionnaire``
+        """
+        self.data = data
+        self.updated = updated
+        self.save()
+
+        # Update the users attached to the questionnaire
+        self.update_users_from_data(configuration_code)
+
+        return self
+
     @staticmethod
     def create_new(
             configuration_code, data, user, previous_version=None, status=1,
@@ -117,24 +141,51 @@ class Questionnaire(models.Model):
 
         if previous_version:
             created = previous_version.created
-            if previous_version.status not in [1, 4]:
+            permissions = previous_version.get_permissions(user)
+            code = previous_version.code
+            version = previous_version.version
+
+            if 'edit_questionnaire' not in permissions:
+                raise ValidationError(
+                    'You do not have permission to edit the questionnaire.')
+
+            if previous_version.status == 4:
+                # Edit of a public questionnaire: Create new version
+                # with the same code
+                version = previous_version.version + 1
+
+            elif previous_version.status == 1:
+                # Edit of a draft questionnaire: Only update the data
+                previous_version.update_data(
+                    data, updated, configuration_code)
+                return previous_version
+
+            elif previous_version.status == 2:
+                # Edit of a submitted questionnaire: Only update the data
+                # User must be reviewer!
+                if 'review_questionnaire' not in permissions:
+                    raise ValidationError(
+                        'You do not have permission to edit the '
+                        'questionnaire.')
+                previous_version.update_data(
+                    data, updated, configuration_code)
+                return previous_version
+
+            elif previous_version.status == 3:
+                # Edit of a reviewed questionnaire: Only update the data
+                # User must be publisher!
+                if 'publish_questionnaire' not in permissions:
+                    raise ValidationError(
+                        'You do not have permission to edit the '
+                        'questionnaire.')
+                previous_version.update_data(
+                    data, updated, configuration_code)
+                return previous_version
+
+            else:
                 raise ValidationError(
                     'The questionnaire cannot be updated because of its status'
                     ' "{}"'.format(previous_version.status))
-            elif previous_version.status == 1:
-                # Draft: Only update the data
-                previous_version.data = data
-                previous_version.updated = updated
-                previous_version.save()
-
-                # Update the users attached to the questionnaire
-                previous_version.update_users_from_data(configuration_code)
-
-                return previous_version
-            else:
-                # Public: Create new version with the same code
-                code = previous_version.code
-                version = previous_version.version + 1
         else:
             from configuration.utils import create_new_code
             code = create_new_code(configuration_code, data)

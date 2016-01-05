@@ -551,7 +551,8 @@ def generic_questionnaire_new(
             save_session_questionnaire(
                 request, configuration_code, identifier,
                 questionnaire_data=questionnaire_data,
-                questionnaire_links=questionnaire_links)
+                questionnaire_links=questionnaire_links,
+                edited_questiongroups=edited_questiongroups)
     else:
         questionnaire_object = None
         identifier = 'new'
