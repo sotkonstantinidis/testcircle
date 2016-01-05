@@ -42,8 +42,12 @@ INSTALLED_APPS = (
     'floppyforms',
     'django_extensions',
     'imagekit',
+    'rest_framework',
+    'django_filters',
+    # Custom apps
     'questionnaire',
     'accounts',
+    'api',
     'configuration',
     'wocat',
     'technologies',
@@ -184,6 +188,20 @@ ES_ANALYZERS = (
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.INFO: 'secondary',
+}
+
+# Allow various formats to communicate with the API.
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework_xml.parsers.XMLParser',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework_xml.renderers.XMLRenderer',
+        'rest_framework_csv.renderers.CSVRenderer',
+    ),
 }
 
 
