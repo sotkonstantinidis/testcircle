@@ -1,7 +1,10 @@
 from django.conf.urls import patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import APIRoot, QuestionnaireViewSet
+from questionnaire.api.views import QuestionnaireViewSet
+
+from .views import APIRoot
+
 
 questionnaire_list = QuestionnaireViewSet.as_view({
     'get': 'list'
