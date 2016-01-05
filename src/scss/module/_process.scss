@@ -85,4 +85,12 @@
   p {
     margin-top: rem-calc(6);
   }
+
+  input.is-dangerous {
+    background-color: $warning-color;
+  }
+
+  input.is-ok {
+    background-color: $success-color;
+  }
 }

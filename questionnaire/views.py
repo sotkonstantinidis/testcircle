@@ -16,7 +16,6 @@ from django.shortcuts import (
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
-# from guardian.shortcuts import get_perms
 
 from configuration.cache import get_configuration
 from configuration.utils import (
@@ -687,8 +686,10 @@ def generic_questionnaire_details(
         questionnaire_object.data, get_language())
 
     if request.method == 'POST':
-        handle_review_actions(
+        review = handle_review_actions(
             request, questionnaire_object, configuration_code)
+        if isinstance(review, HttpResponse):
+            return review
         return redirect(
             '{}:questionnaire_details'.format(url_namespace),
             questionnaire_object.code)
