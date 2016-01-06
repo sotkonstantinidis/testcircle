@@ -16,7 +16,7 @@ class BaseSettings(Configuration):
     """
 
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-    BASE_DIR = join(dirname(dirname(dirname(__file__))))
+    BASE_DIR = join(dirname(dirname(dirname(dirname(__file__)))))
 
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -54,6 +54,7 @@ class BaseSettings(Configuration):
 
     MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.security.SecurityMiddleware',
         'django.middleware.locale.LocaleMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
