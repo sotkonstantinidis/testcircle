@@ -1,3 +1,5 @@
+from os.path import join
+
 from fabric.contrib.files import exists
 from fabric.api import local, run, sudo
 from fabric.colors import green, yellow
@@ -20,12 +22,13 @@ def deploy():
     project_name = 'qcat'
     site_folder = '/srv/webapps/%s' % (project_name)
     source_folder = site_folder + '/source'
+    _set_maintenance_mode(True, source_folder)
     _get_latest_source(source_folder)
     _update_virtualenv(source_folder)
     _clean_static_folder(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
-    _reload_apache(site_folder)
+    _set_maintenance_mode(False, source_folder)
     print(green("Everything OK"))
 
 
@@ -82,3 +85,12 @@ def _update_database(source_folder):
 
 def _reload_apache(site_folder):
     run('cd %s && touch wsgi/wsgi.py' % site_folder)
+
+
+def _set_maintenance_mode(value, source_folder):
+    # Toggle maintenance mode on or off. This will reload apache!
+    run('echo {bool_value} > {envs_file}'.format(
+        bool_value=str(value),
+        envs_file=join(source_folder, 'envs', 'MAINTENANCE_MODE')
+        )
+    )
