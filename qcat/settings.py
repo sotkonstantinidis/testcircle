@@ -1,15 +1,11 @@
 from os.path import normpath, join
 from qcat.config.common import BaseSettings
-from qcat.config.mixins import DevMixin, ProdMixin
+from qcat.config.mixins import DevMixin, ProdMixin, OpBeatMixin
 
 
 class DevDefaultSite(DevMixin, BaseSettings):
     pass
 
 
-class ProdDefaultSite(ProdMixin, BaseSettings):
-    pass
-
-
-class StageDefaultSite(ProdDefaultSite):
+class ProdDefaultSite(ProdMixin, OpBeatMixin, BaseSettings):
     pass
