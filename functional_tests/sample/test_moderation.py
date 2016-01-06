@@ -9,10 +9,14 @@ from selenium.webdriver.common.by import By
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
+from functional_tests.sample.test_edit import (
+    has_old_version_overview,
+    has_old_version_step,
+)
 from sample.tests.test_views import (
+    route_home,
     route_questionnaire_new,
     route_questionnaire_details,
-    route_questionnaire_list,
     get_position_of_category,
 )
 from search.index import delete_all_indices
@@ -163,19 +167,19 @@ class ModerationTestFixture(FunctionalTest):
         delete_all_indices()
         create_temp_indices(['sample'])
 
+        self.user_compiler = User.objects.get(pk=101)
+        self.user_editor = User.objects.get(pk=102)
+        self.user_reviewer = User.objects.get(pk=103)
+        self.user_publisher = User.objects.get(pk=104)
+
     def tearDown(self):
         super(ModerationTestFixture, self).tearDown()
         delete_all_indices()
 
     def test_review_panel(self):
 
-        user_compiler = User.objects.get(pk=101)
-        user_editor = User.objects.get(pk=102)
-        user_reviewer = User.objects.get(pk=103)
-        user_publisher = User.objects.get(pk=104)
-
         # Editor logs in
-        self.doLogin(user=user_editor)
+        self.doLogin(user=self.user_editor)
 
         # He goes to the details of a questionnaire which he did not enter.
         self.browser.get(self.live_server_url + reverse(
@@ -218,7 +222,7 @@ class ModerationTestFixture(FunctionalTest):
         url_details = self.browser.current_url
 
         # Compiler logs in
-        self.doLogin(user=user_compiler)
+        self.doLogin(user=self.user_compiler)
 
         # She also goes to the details page of the questionnaire and
         # she does see the button to submit the questionnaire for
@@ -243,7 +247,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
         # Editor logs in
-        self.doLogin(user=user_editor)
+        self.doLogin(user=self.user_editor)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
 
@@ -256,7 +260,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
         # Reviewer logs in.
-        self.doLogin(user=user_reviewer)
+        self.doLogin(user=self.user_reviewer)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
 
@@ -282,7 +286,7 @@ class ModerationTestFixture(FunctionalTest):
 
         # Compiler logs in and goes to the page, sees the review panel
         # but no actions possible
-        self.doLogin(user=user_compiler)
+        self.doLogin(user=self.user_compiler)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
         self.findBy('xpath', '//ol[@class="process"]')
@@ -293,7 +297,7 @@ class ModerationTestFixture(FunctionalTest):
 
         # Editor logs in and goes to the page, sees the review panel but
         # no actions possible.
-        self.doLogin(user=user_editor)
+        self.doLogin(user=self.user_editor)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
         self.findBy('xpath', '//ol[@class="process"]')
@@ -304,7 +308,7 @@ class ModerationTestFixture(FunctionalTest):
 
         # Publisher logs in and goes to the page. He sees the review
         # panel with a button to publish.
-        self.doLogin(user=user_publisher)
+        self.doLogin(user=self.user_publisher)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
         self.findBy('xpath', '//ol[@class="process"]')
@@ -321,3 +325,176 @@ class ModerationTestFixture(FunctionalTest):
         # There is no more review panel and no edit button.
         self.findByNot('xpath', '//ol[@class="process"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+    def test_reviewer_can_edit_questionnaire(self):
+
+        cat_1_position = get_position_of_category('cat_1', start0=True)
+        identifier = 'sample_2'
+
+        # The moderator logs in
+        self.doLogin(user=self.user_reviewer)
+
+        # He goes to a submitted questionnaire and sees that he can edit
+        # the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # He changes the name and submits the step
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
+                cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # He sees the changes in the overview and submits the questionnaire
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+
+        # He starts editing again
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # He sees there is a message of an old version
+        has_old_version_overview(self)
+
+        # He edits the step again and sees there is now a message of changes
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
+                cat_1_position].click()
+        has_old_version_step(self)
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # He goes back to the overview and reviews the questionnaire
+        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+        self.findBy('id', 'button-review').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
+
+    def test_reviewer_can_reject_questionnaire(self):
+
+        identifier = 'sample_2'
+
+        # The reviewer logs in
+        self.doLogin(user=self.user_reviewer)
+
+        # He goes to a submitted questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+
+        # He sees a button to edit the questionnaire
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+
+        # He sees that he can reject the questionnaire and so he does
+        self.findBy('id', 'button-reject').click()
+
+        # He sees the reject was successful
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # The reviewer has been taken "home" because he has no
+        # permission to view or edit the draft questionnaire
+        # route_home
+        home_url = self.live_server_url + reverse(route_home)
+        self.assertEqual(self.browser.current_url, home_url)
+
+        # User 102 (the compiler of the questionnaire) logs in
+        self.doLogin(user=self.user_editor)
+
+        # He sees the questionnaire and sees it is draft.
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//span[contains(@class, "is-draft")]')
+
+    def test_publishers_can_edit_questionnaire(self):
+
+        cat_1_position = get_position_of_category('cat_1', start0=True)
+        identifier = 'sample_7'
+
+        # The moderator logs in
+        self.doLogin(user=self.user_publisher)
+
+        # He goes to a submitted questionnaire and sees that he can edit
+        # the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # He changes the name and submits the step
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
+                cat_1_position].click()
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # He sees the changes in the overview and submits the questionnaire
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+
+        # He starts editing again
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # He sees there is a message of an old version
+        has_old_version_overview(self)
+
+        # He edits the step again and sees there is now a message of changes
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
+                cat_1_position].click()
+        has_old_version_step(self)
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # He goes back to the overview and reviews the questionnaire
+        self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
+        self.findBy('id', 'button-publish').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+    def test_publisher_can_reject_questionnaire(self):
+
+        identifier = 'sample_7'
+
+        # The reviewer logs in
+        self.doLogin(user=self.user_publisher)
+
+        # He goes to a reviewed questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
+
+        # He sees a button to edit the questionnaire
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+
+        # He sees that he can reject the questionnaire and so he does
+        self.findBy('id', 'button-reject').click()
+
+        # He sees the reject was successful
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # The reviewer has been taken "home" because he has no
+        # permission to view or edit the draft questionnaire
+        # route_home
+        home_url = self.live_server_url + reverse(route_home)
+        self.assertEqual(self.browser.current_url, home_url)
+
+        # User 102 (the compiler of the questionnaire) logs in
+        self.doLogin(user=self.user_compiler)
+
+        # He sees the questionnaire and sees it is draft.
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//span[contains(@class, "is-draft")]')

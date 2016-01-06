@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
+from django.shortcuts import redirect
 from django.utils.translation import ugettext as _, get_language
 from django.utils.dateparse import parse_datetime
 
@@ -1123,6 +1124,10 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         ``configuration_code`` (string): The code of the current
         configuration. This is used when publishing a Questionnaire, in
         order to add it to Elasticsearch.
+
+    Returns:
+        ``None`` or ``HttpResponse``. Returns either a HttpResponse
+        (typically a redirect) or None.
     """
     permissions = questionnaire_object.get_permissions(request.user)
     if request.POST.get('submit'):
@@ -1223,6 +1228,44 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully set public.'))
+
+    elif request.POST.get('reject'):
+
+        if questionnaire_object.status not in [2, 3]:
+            messages.error(
+                request, 'The questionnaire could not be rejected because it '
+                'does not have to correct status.')
+            return
+
+        if (questionnaire_object.status == 2
+                and 'review_questionnaire' not in permissions):
+            messages.error(
+                request, 'The questionnaire could not be rejected because '
+                'you do not have permission to do so.')
+            return
+
+        if (questionnaire_object.status == 3
+                and 'publish_questionnaire' not in permissions):
+            messages.error(
+                request, 'The questionnaire could not be rejected because '
+                'you do not have permission to do so.')
+            return
+
+        # Attach the reviewer to the questionnaire if he is not already
+        questionnaire_object.add_user(request.user, 'reviewer')
+
+        questionnaire_object.status = 1
+        questionnaire_object.save()
+
+        messages.success(
+            request, _('The questionnaire was successfully rejected.'))
+
+        # Query the permissions again, if the user does not have
+        # edit rights on the now draft questionnaire, then route him
+        # back to home in order to prevent a 404 page.
+        permissions = questionnaire_object.get_permissions(request.user)
+        if 'edit_questionnaire' not in permissions:
+            return redirect('{}:home'.format(configuration_code))
 
 
 def compare_questionnaire_data(data_1, data_2):

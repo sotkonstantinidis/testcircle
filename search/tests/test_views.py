@@ -42,7 +42,6 @@ class AdminTest(TestCase):
         request.user = create_new_user()
         request.user.is_superuser = True
         res = admin(request)
-        self.assertTemplateUsed(res, 'search/admin.html')
         self.assertEqual(res.status_code, 200)
 
 
@@ -120,7 +119,6 @@ class IndexTest(TestCase):
         mock_messages.error.assert_called_once_with(
             self.request, 'The following error(s) occured: error_msg')
         self.assertEqual(res.status_code, 302)
-        self.assertTemplateUsed(res, 'search/admin.html')
 
     @patch('search.views.get_mappings')
     @patch('search.views.create_or_update_index')
@@ -136,7 +134,6 @@ class IndexTest(TestCase):
         mock_messages.success.assert_called_once_with(
             self.request, 'Index "foo" was created or updated.')
         self.assertEqual(res.status_code, 302)
-        self.assertTemplateUsed(res, 'search/admin.html')
 
 
 @patch('search.views.messages')
@@ -198,7 +195,6 @@ class UpdateTest(TestCase):
         mock_messages.error.assert_called_once_with(
             self.request, 'The following error(s) occured: error_msg')
         self.assertEqual(res.status_code, 302)
-        self.assertTemplateUsed(res, 'search/admin.html')
 
     @patch('search.views.put_questionnaire_data')
     @patch.object(QuestionnaireConfiguration, '__init__')
@@ -214,7 +210,6 @@ class UpdateTest(TestCase):
             self.request,
             '0 Questionnaires of configuration "foo" successfully indexed.')
         self.assertEqual(res.status_code, 302)
-        self.assertTemplateUsed(res, 'search/admin.html')
 
 
 @patch('search.views.messages')
@@ -253,7 +248,6 @@ class DeleteTest(TestCase):
         mock_messages.error.assert_called_once_with(
             self.request, 'The following error(s) occured: foo')
         self.assertEqual(res.status_code, 302)
-        self.assertTemplateUsed(res, 'search/admin.html')
 
     @patch('search.views.delete_all_indices')
     def test_adds_message_and_redirects_if_successful(
@@ -263,7 +257,6 @@ class DeleteTest(TestCase):
         mock_messages.success.assert_called_once_with(
             self.request, 'All indices successfully deleted.')
         self.assertEqual(res.status_code, 302)
-        self.assertTemplateUsed(res, 'search/admin.html')
 
 
 class SearchTest(TestCase):

@@ -154,7 +154,6 @@ class QuestionnaireNewTest(TestCase):
         request.user = create_new_user()
         request.session = Mock()
         res = questionnaire_new(request)
-        self.assertTemplateUsed(res, 'sample/questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('sample.views.generic_questionnaire_new')
@@ -187,7 +186,6 @@ class QuestionnaireNewStepTest(TestCase):
         request.session = Mock()
         res = questionnaire_new_step(
             request, identifier='new', step=get_categories()[0][0])
-        self.assertTemplateUsed(res, 'form/category.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('sample.views.generic_questionnaire_new_step')

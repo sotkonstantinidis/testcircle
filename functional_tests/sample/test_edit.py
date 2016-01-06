@@ -455,6 +455,8 @@ class EditTest(FunctionalTest):
         user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
         user.save()
 
+        initial_db_count = Questionnaire.objects.count()
+
         # Alice logs in
         self.doLogin(user=user)
 
@@ -481,6 +483,9 @@ class EditTest(FunctionalTest):
         # She saves it as draft
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # In the database, there is only one Questionnaire
+        self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
 
         # She sees there is no message of an old version
         has_no_old_version_overview(self)
@@ -537,12 +542,23 @@ class EditTest(FunctionalTest):
         # She saves it as draft
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # In the database, there is only one Questionnaire
+        self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
+
         # She sees there is no message of an old version
         has_no_old_version_overview(self)
 
         # She edits it again and sees there is a message about the changes
         self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
         has_old_version_overview(self)
+
+        # She edits a step and sees the message about changes there as well
+        self.findBy(
+            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+        has_old_version_step(self)
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She saves it as draft and submits it for review
         self.findBy('id', 'button-submit').click()
@@ -560,6 +576,9 @@ class EditTest(FunctionalTest):
         self.findBy('id', 'button-publish').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
         has_no_old_version_overview(self)
+
+        # In the database, there is only one Questionnaire
+        self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
 
         # She edits it again and sees there is no change message
         self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
