@@ -191,7 +191,7 @@ class BaseSettings(Configuration):
 
     ALLOWED_HOSTS = values.ListValue(default=['localhost', '127.0.0.1'])
 
-    SECRET_KEY = values.Value()
+    SECRET_KEY = values.SecretValue()
 
     # The base URL of the Typo3 REST API used for authentication
     AUTH_API_URL = values.Value(environ_prefix='',
