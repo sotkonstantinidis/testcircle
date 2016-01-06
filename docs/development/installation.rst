@@ -84,11 +84,11 @@ Installation: Application
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Switch to the source folder, activate the virtual environment and
-install the dependencies::
+install the dependencies for the development environment::
 
     $ cd qcat
     $ source ../env/bin/activate
-    (env)$ pip3 install -r requirements.txt
+    (env)$ pip3 install -r requirements/development.txt
 
 .. hint::
     If the installation of the requirements produces errors concerning
