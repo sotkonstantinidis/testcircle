@@ -29,5 +29,5 @@ class OpBeatMixin:
     @property
     def MIDDLEWARE_CLASSES(self):
         return super().MIDDLEWARE_CLASSES + (
-        'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
-    )
+            'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
+        )

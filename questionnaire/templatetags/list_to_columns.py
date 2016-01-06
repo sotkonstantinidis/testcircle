@@ -62,7 +62,7 @@ def columnize(items, columns):
     el_index = 0
     for col in range(columns):
         col_size = int(math.ceil(float(len_items) / columns))
-        el_columns.append(items[el_index:el_index+col_size])
+        el_columns.append(items[el_index:el_index + col_size])
         el_index += col_size
         len_items -= col_size
         columns -= 1

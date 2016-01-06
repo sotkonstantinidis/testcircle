@@ -429,7 +429,7 @@ class GenericQuestionnaireNewTest(TestCase):
         mock_render.assert_called_once_with(
             self.request, 'sample/questionnaire/details.html', {
                 'questionnaire_identifier': 'new',
-                'sections': ["foo"]*get_section_count(),
+                'sections': ["foo"] * get_section_count(),
                 'images': [],
                 'links': {},
                 'filter_configuration': mock_filter_configuration.return_value,

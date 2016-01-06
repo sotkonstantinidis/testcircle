@@ -17,8 +17,14 @@ questionnaire_detail = QuestionnaireViewSet.as_view({
 urlpatterns = patterns(
     '',
     url(r'^$', APIRoot.as_view(), name='api-root'),
-    url(r'^questionnaire/$', questionnaire_list, name='questionnaires-api-list'),
-    url(r'^questionnaire/(?P<pk>[0-9]+)/$', questionnaire_detail, name='questionnaires-api-detail'),
+    url(r'^questionnaire/$',
+        questionnaire_list,
+        name='questionnaires-api-list'
+        ),
+    url(r'^questionnaire/(?P<pk>[0-9]+)/$',
+        questionnaire_detail,
+        name='questionnaires-api-detail'
+        ),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

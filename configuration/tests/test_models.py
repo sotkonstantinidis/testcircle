@@ -451,7 +451,6 @@ class ConfigurationModelTest(TestCase):
         mock_update_configuration_cache.assert_called_once_with(conf_1)
 
 
-
 class ConfigurationModelTestFixtures(TestCase):
 
     def test_active_can_only_be_set_once_per_code(self):

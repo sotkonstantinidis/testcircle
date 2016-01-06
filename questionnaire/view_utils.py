@@ -113,12 +113,12 @@ def get_pagination_parameters(request, paginator, paginated):
     if 'page' in params:
         del(params['page'])
     get_params = params.urlencode()
+    prev = paginated.previous_page_number() if paginated.has_previous() else ""
 
     return {
         'pages': pages,
         'page': page,
-        'previous': paginated.previous_page_number() if paginated.has_previous(
-            ) else "",
+        'previous': prev,
         'next': paginated.next_page_number() if paginated.has_next() else "",
         'has_previous': paginated.has_previous(),
         'has_next': paginated.has_next(),

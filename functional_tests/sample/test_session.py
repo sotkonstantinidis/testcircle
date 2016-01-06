@@ -4,7 +4,6 @@ from django.test.utils import override_settings
 
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
-from qcat.utils import get_session_questionnaire
 from sample.tests.test_views import (
     get_position_of_category,
     route_questionnaire_new_step as sample_route_questionnaire_new_step,
@@ -16,7 +15,7 @@ from unccd.tests.test_views import (
 )
 
 
-from nose.plugins.attrib import attr
+from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'

@@ -1,5 +1,4 @@
-import os
-
+from os.path import join, dirname
 from django.contrib.messages import constants as messages
 from django.utils.translation import ugettext_lazy as _
 from configurations import Configuration, values
@@ -17,9 +16,8 @@ class BaseSettings(Configuration):
     """
 
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-    BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+    BASE_DIR = join(dirname(dirname(dirname(__file__))))
 
-    SOURCE_ROOT = os.path.join(BASE_DIR, 'apps')
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
@@ -37,8 +35,12 @@ class BaseSettings(Configuration):
         'floppyforms',
         'django_extensions',
         'imagekit',
+        'rest_framework',
+        'django_filters',
+        # Custom apps
         'questionnaire',
         'accounts',
+        'api',
         'configuration',
         'wocat',
         'technologies',
@@ -70,7 +72,7 @@ class BaseSettings(Configuration):
     LANGUAGE_CODE = 'en'
 
     LOCALE_PATHS = (
-        os.path.join(BASE_DIR, '../qcat/locale'),
+        join(BASE_DIR, '../qcat/locale'),
     )
 
     # The first language is the default language.
@@ -88,13 +90,13 @@ class BaseSettings(Configuration):
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/dev/howto/static-files/
     STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
+    STATIC_ROOT = join(BASE_DIR, '..', 'static')
     STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
+        join(BASE_DIR, 'static'),
     )
 
     MEDIA_URL = '/upload/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'upload')
+    MEDIA_ROOT = join(BASE_DIR, '..', 'upload')
 
     UPLOAD_VALID_FILES = {
         'image': (
@@ -115,7 +117,7 @@ class BaseSettings(Configuration):
     )
 
     TEMPLATE_DIRS = (
-        os.path.join(BASE_DIR, 'templates'),
+        join(BASE_DIR, 'templates'),
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = (
@@ -153,7 +155,7 @@ class BaseSettings(Configuration):
     # For each language (as set in the setting ``LANGUAGES``), a language
     # analyzer can be specified. This helps to analyze the text in the
     # corresponding language for better search results.
-    # https://www.elastic.co/guide/en/elasticsearch/reference/1.6/analysis-lang-analyzer.html
+    # https://www.elastic.co/guide/en/elasticsearch/reference/1.6/analysis-lang-analyzer.html  # noqa
     ES_ANALYZERS = (
         ('en', 'english'),
         ('es', 'spanish'),
@@ -161,6 +163,20 @@ class BaseSettings(Configuration):
 
     MESSAGE_TAGS = {
         messages.INFO: 'secondary',
+    }
+
+    # Allow various formats to communicate with the API.
+    REST_FRAMEWORK = {
+        'DEFAULT_PARSER_CLASSES': (
+            'rest_framework.parsers.JSONParser',
+            'rest_framework_xml.parsers.XMLParser',
+        ),
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.BrowsableAPIRenderer',
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework_xml.renderers.XMLRenderer',
+            'rest_framework_csv.renderers.CSVRenderer',
+        ),
     }
 
     DATABASES = values.DatabaseURLValue()
@@ -175,7 +191,8 @@ class BaseSettings(Configuration):
     SECRET_KEY = values.Value()
 
     # The base URL of the Typo3 REST API used for authentication
-    AUTH_API_URL = values.Value(environ_prefix='', default='https://dev.wocat.net/rest/')
+    AUTH_API_URL = values.Value(environ_prefix='',
+                                default='https://dev.wocat.net/rest/')
 
     # The username used for API login
     AUTH_API_USER = values.Value(environ_prefix='')
@@ -185,9 +202,12 @@ class BaseSettings(Configuration):
 
     # The URL of the WOCAT authentication form. Used to handle both login
     # and logout
-    AUTH_LOGIN_FORM = values.Value(environ_prefix='', default='https://dev.wocat.net/en/sitefunctions/login.html')
+    AUTH_LOGIN_FORM = values.Value(
+        environ_prefix='',
+        default='https://dev.wocat.net/en/sitefunctions/login.html'
+    )
 
-    # See https://raw.githubusercontent.com/SeleniumHQ/selenium/master/py/CHANGES
+    # https://raw.githubusercontent.com/SeleniumHQ/selenium/master/py/CHANGES
     # for the latest supported firefox version.
     TESTING_FIREFOX_PATH = values.Value(environ_prefix='')
 

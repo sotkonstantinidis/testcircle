@@ -390,5 +390,5 @@ def get_current_and_next_index(alias):
         found_version = int(found_version[1])
     except:
         found_version = 1
-    next_index = '{}_{}'.format(alias, found_version+1)
+    next_index = '{}_{}'.format(alias, found_version + 1)
     return found_index, next_index

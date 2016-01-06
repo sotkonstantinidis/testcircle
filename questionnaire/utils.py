@@ -743,7 +743,7 @@ def query_questionnaires(
         query = query.filter(members=user)
 
     if limit is not None:
-        return query[offset:offset+limit]
+        return query[offset:offset + limit]
 
     return query
 

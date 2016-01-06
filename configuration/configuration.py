@@ -368,7 +368,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 if v.order_value:
                     ordered_values = True
                 if self.field_type in ['measure']:
-                    choices.append((i+1, v.get_translation(
+                    choices.append((i + 1, v.get_translation(
                         'label', self.configuration_keyword),
                         v.get_translation(
                             'helptext', self.configuration_keyword)))

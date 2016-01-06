@@ -47,7 +47,9 @@ class GetConfigurationQueryFilterTest(TestCase):
     #     mock_cache.get.return_value = None
     #     get_configuration('foo')
     #     mock_cache.set.assert_called_once_with(
-    #         get_cache_key('foo'), mock_QuestionnaireConfiguration.return_value)
+    #         get_cache_key('foo'),
+    #         mock_QuestionnaireConfiguration.return_value
+    #     )
 
 
 @patch('configuration.cache.cache')
