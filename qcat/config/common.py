@@ -37,6 +37,7 @@ class BaseSettings(Configuration):
         'imagekit',
         'rest_framework',
         'django_filters',
+        'maintenancemode',
         # Custom apps
         'questionnaire',
         'accounts',
@@ -61,6 +62,7 @@ class BaseSettings(Configuration):
         'accounts.authentication.WocatAuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'maintenancemode.middleware.MaintenanceModeMiddleware',
     )
 
     ROOT_URLCONF = 'qcat.urls'
@@ -213,3 +215,5 @@ class BaseSettings(Configuration):
 
     USE_CACHING = values.Value(default=False)
     CACHES = values.CacheURLValue(default='locmem://')
+
+    MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
