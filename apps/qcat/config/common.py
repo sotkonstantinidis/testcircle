@@ -151,9 +151,9 @@ class BaseSettings(Configuration):
     GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
 
     # Elasticsearch settings
-    ES_HOST = 'localhost'
-    ES_PORT = 9200
-    ES_INDEX_PREFIX = 'qcat_'
+    ES_HOST = values.Value(default='localhost', environ_prefix='')
+    ES_PORT = values.IntegerValue(default=9200, environ_prefix='')
+    ES_INDEX_PREFIX = values.Value(default='qcat_', environ_prefix='')
 
     # For each language (as set in the setting ``LANGUAGES``), a language
     # analyzer can be specified. This helps to analyze the text in the
