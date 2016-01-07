@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import logout, login
 from .client import typo3_client
 
+
 class WocatAuthenticationMiddleware(object):
     """
     Middleware checking the (remote) authentication for each request.

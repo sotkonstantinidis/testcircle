@@ -137,7 +137,7 @@ class Typo3Client:
 
         """
         user, created = get_user_model().objects.get_or_create(
-                pk=user_id, defaults={'last_login': now()}
+            pk=user_id, defaults={'last_login': now()}
         )
 
         # Update and save the django user with the latest info. This could
