@@ -1,100 +1,67 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
     logout as django_logout,
+    login as django_login,
 )
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, resolve_url
+from django.utils.decorators import method_decorator
+from django.utils.http import is_safe_url
+from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
-from qcat.utils import url_with_querystring
-from accounts.authentication import (
-    get_login_url,
+from django.views.generic import FormView
+
+from questionnaire.views import generic_questionnaire_list_no_config
+from .authentication import (
     get_logout_url,
-    get_session_cookie_name,
-    get_user_information,
     search_users,
     update_user,
-)
-from accounts.models import User
-from questionnaire.views import generic_questionnaire_list_no_config
+    get_user_information)
+from .models import User
 
 
-def welcome(request):
+class LoginView(FormView):
     """
-    The landing page of a user after he logged in. Update the user
-    details and redirect to the page provided or "home".
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response (through redirect)
+    This view handles the login form and authenticates users.
     """
-    home = reverse('home')
-    redirect = request.GET.get('next', home)
+    form_class = AuthenticationForm
+    template_name = 'login.html'
+    success_url = 'home'
 
-    # In case the user was not logged in properly route him to "home"
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('home'))
-    session_id = request.COOKIES.get(get_session_cookie_name())
-    if session_id is None:
-        return HttpResponseRedirect(reverse('home'))
+    @method_decorator(sensitive_post_parameters('password'))
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            return redirect(self.get_success_url())
+        return super(LoginView, self).dispatch(*args, **kwargs)
 
-    # Update the user information
-    user = request.user
-    user_info = get_user_information(user.id)
-    update_user(user, user_info)
+    def form_valid(self, form):
+        # Put the user on the request, and add a welcome message.
+        user = form.get_user()
+        django_login(self.request, user)
+        messages.info(self.request, 'Welcome {}'.format(user.firstname))
 
-    messages.info(
-        request, 'Welcome {}'.format(user_info.get('first_name')))
+        # Get the response, add a cookie and return it.
+        response = HttpResponseRedirect(reverse(self.get_success_url()))
+        # We really should set a signed cookie - but the same cookie is used
+        # on wocat.net.
+        response.set_cookie(
+            key=settings.AUTH_COOKIE_NAME,
+            value=user.typo3_session_id
+        )
+        return response
 
-    return HttpResponseRedirect(redirect)
-
-
-def login(request):
-    """
-    Show the login form or log in and redirect if the user is already
-    authenticated. The actual authentication is handled by the
-    authentication backend as specified in the settings (
-    ``settings.AUTH_LOGIN_FORM``).
-
-    .. seealso::
-        :func:`accounts.authentication.get_login_url`
-
-    After login, the user is sent to the welcome page where he is logged
-    in in Django. Afterwards, he is redirected to the provided page
-    (``next``) or to "home".
-
-    * If the user is already logged in by Django: Redirect to the
-      provided URL or to "home".
-
-    * If the user is not logged in by Django and has no Session ID set,
-      the login form is shown.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    redirect = request.GET.get('next', reverse('home'))
-
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(redirect)
-
-    # Prevent that the URL is already encoded by inserting it afterwards
-    welcome_url = url_with_querystring(
-        reverse('welcome'), next='REDIRECT_URL')
-    welcome_url = welcome_url.replace('REDIRECT_URL', redirect)
-
-    return render(
-        request, 'login.html', {
-            'redirect_url': request.build_absolute_uri(welcome_url),
-            'login_url': get_login_url(),
-            'show_notice': redirect != reverse('home')
-        })
+    def get_success_url(self):
+        # Explicitly passed ?next= url takes precedence.
+        redirect_to = self.request.GET.get('next') or self.success_url
+        # Prevent redirecting to other/invalid hosts - i.e. prevent xsrf
+        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+            redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+        return redirect_to
 
 
 def logout(request):
@@ -112,7 +79,7 @@ def logout(request):
 
     django_logout(request)
 
-    ses_id = request.COOKIES.get(get_session_cookie_name())
+    ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
     if ses_id is not None:
         return HttpResponseRedirect(
             get_logout_url(request.build_absolute_uri(redirect)))

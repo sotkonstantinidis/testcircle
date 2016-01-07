@@ -12,15 +12,11 @@
         <div class="alert-box info">{% trans "Please log in to access" %} {{ redirect_url }}</div>
       {% endif %}
       <h3>{% trans "Login" %}</h3>
-      <form action="{{ login_url }}" method="post">
-        <input type='hidden' name='csrfmiddlewaretoken' value='t40MEbP2o8C1q8xSj9oqWrqr3Uam8yqz' />
-        <tr><th><label for="id_email">{% trans "Email" %}:</label></th><td><input id="id_email" name="user" type="email" required="required"/></td></tr>
-        <tr><th><label for="id_password">{% trans "Password" %}:</label></th><td><input id="id_password" name="pass" type="password" required="required"/></td></tr>
-        <input id="button_login" type="submit" name="submit" class="button" value="{% trans "Login" %}" />
-        <input type="hidden" name="logintype" value="login">
-        <input type="hidden" name="pid" value="3">
-        <input type="hidden" name="redirect_url" value="{{ redirect_url }}">
-      </form>
+        <form action="{{ login_url }}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input id="button_login" type="submit" name="submit" class="button" value="{% trans "Login" %}" />
+        </form>
     </div>
   </div>
   <div class="row is-rhythmed-2">
