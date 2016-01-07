@@ -59,18 +59,21 @@ Installation on a UNIX system
 
 These instructions will take you through the process of installing QCAT
 on your computer, assuming that you are running a UNIX system (for
-example Ubuntu).
+example Ubuntu). The package `virtualenvwrapper`_ is highly recommended.
+
+
+.. _virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/
 
 Preparation
 ^^^^^^^^^^^
 
 Create a folder for the project and create a virtual environment in it::
 
-    $ virtualenv --python=python3 env
+    $ mkproject qcat
 
 Get the code::
 
-    $ git clone https://github.com/CDE-UNIBE/qcat.git
+    $ git clone https://github.com/CDE-UNIBE/qcat.git .
 
 The custom packages for this application are in the folder ```apps```. This
 directory must be added to your virtualenv::
