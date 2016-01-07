@@ -9,3 +9,4 @@ class AccountConf(AppConf):
     """
     PID = 3
     LOGIN_TYPE = 'login'
+    LOGIN_SUCCESS_URL = 'home'

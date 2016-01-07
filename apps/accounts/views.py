@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
     logout as django_logout,
@@ -18,6 +17,7 @@ from django.views.generic import FormView
 
 from questionnaire.views import generic_questionnaire_list_no_config
 from .client import typo3_client
+from .conf import settings
 from .models import User
 
 
@@ -27,7 +27,7 @@ class LoginView(FormView):
     """
     form_class = AuthenticationForm
     template_name = 'login.html'
-    success_url = 'home'
+    success_url = settings.ACCOUNTS_LOGIN_SUCCESS_URL
 
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, *args, **kwargs):

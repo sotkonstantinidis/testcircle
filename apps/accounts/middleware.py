@@ -14,7 +14,8 @@ class WocatAuthenticationMiddleware(object):
     def process_request(self, request):
         """
         Function being called for each request. Check if a session ID is
-        present and if so, check if it is valid.
+        present and if so, check if it is valid. If it's valid, login the user.
+        If an invalid session_id is present, logout the current user.
         """
         session_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
 
