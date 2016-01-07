@@ -60,7 +60,7 @@ class BaseSettings(Configuration):
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'accounts.authentication.WocatAuthenticationMiddleware',
+        'accounts.middleware.WocatAuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'maintenancemode.middleware.MaintenanceModeMiddleware',
@@ -209,6 +209,7 @@ class BaseSettings(Configuration):
         environ_prefix='',
         default='https://dev.wocat.net/en/sitefunctions/login.html'
     )
+    AUTH_COOKIE_NAME = values.Value(default='fe_typo_user', environ_prefix='')
 
     # https://raw.githubusercontent.com/SeleniumHQ/selenium/master/py/CHANGES
     # for the latest supported firefox version.
