@@ -17,11 +17,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import FormView
 
 from questionnaire.views import generic_questionnaire_list_no_config
-from .authentication import (
-    get_logout_url,
-    search_users,
-    update_user,
-    get_user_information)
+from .client import typo3_client
 from .models import User
 
 
@@ -82,7 +78,7 @@ def logout(request):
     ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
     if ses_id is not None:
         return HttpResponseRedirect(
-            get_logout_url(request.build_absolute_uri(redirect)))
+            typo3_client.get_logout_url(request.build_absolute_uri(redirect)))
 
     return HttpResponseRedirect(redirect)
 
@@ -139,7 +135,7 @@ def user_search(request):
     Returns:
         ``JsonResponse``. A rendered JSON response.
     """
-    search = search_users(name=request.GET.get('name', ''))
+    search = typo3_client.search_users(name=request.GET.get('name', ''))
     if not search:
         search = {
             'success': False,
@@ -174,7 +170,7 @@ def user_update(request):
         return JsonResponse(ret)
 
     # Try to find the user in the authentication DB
-    user_info = get_user_information(user_uid)
+    user_info = typo3_client.get_user_information(user_uid)
     if not user_info:
         ret['message'] = 'No user with ID {} found in the authentication '
         'database.'.format(user_uid)
@@ -182,7 +178,7 @@ def user_update(request):
 
     # Update (or insert) the user details in the local database
     user, created = User.objects.get_or_create(pk=user_uid)
-    update_user(user, user_info)
+    typo3_client.update_user(user, user_info)
 
     ret = {
         'name': user.get_display_name(),
@@ -207,8 +203,8 @@ def details(request, id):
     user = get_object_or_404(User, pk=id)
 
     # Update the user details
-    user_info = get_user_information(user.id)
-    update_user(user, user_info)
+    user_info = typo3_client.get_user_information(user.id)
+    typo3_client.update_user(user, user_info)
 
     return render(request, 'details.html', {
         'detail_user': user,

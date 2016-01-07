@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.contrib.auth import logout, login, authenticate
-
+from django.contrib.auth import logout, login
+from .client import typo3_client
 
 class WocatAuthenticationMiddleware(object):
     """
@@ -15,24 +15,19 @@ class WocatAuthenticationMiddleware(object):
         Function being called for each request. Check if a session ID is
         present and if so, check if it is valid.
         """
-        try:
-            current_user = request.user
-        except AttributeError:
-            current_user = None
-
         session_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
-        if session_id is not None:
-            # There is a session ID, make sure it is valid
-            user = authenticate(
-                token=session_id, current_user=current_user)
-            if user is not None:
-                login(request, user)
-            else:
-                self.delete_auth_cookie = True
-        else:
-            # There is no session ID (anymore), log the user out to make sure
-            if request.user.is_authenticated():
+
+        if request.user.is_authenticated():
+            if not session_id or not typo3_client.get_user_id(session_id):
+                # There is an invalid session ID, mark it for removal.
                 logout(request)
+                self.delete_auth_cookie = True
+
+        elif session_id:
+            user_id = typo3_client.get_user_id(session_id)
+            user = typo3_client.get_and_update_django_user(user_id, session_id)
+            if user_id and user:
+                login(request, user)
 
     def process_response(self, request, response):
         """
