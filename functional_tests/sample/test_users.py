@@ -17,7 +17,7 @@ from sample.tests.test_views import (
 from accounts.tests.test_views import accounts_route_user
 
 
-from nose.plugins.attrib import attr
+from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'

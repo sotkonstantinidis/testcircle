@@ -1,15 +1,40 @@
 Application settings
 ====================
 
-This chapter covers the configuration of the QCAT application. Most of
-the settings are specified in ``qcat/settings.py``. Further settings can
-be specified in ``qcat/settings_local.py``, where for example the
-database passwords are stored.
+This chapter covers the configuration of the QCAT application. The pattern
+```config``` from the 12 factor app is widely followed, so many variables are
+stored in the environment.
 
-.. important::
-    Do not modify ``qcat/settings.py``! If you want do adjust
-    some of the settings, use ``qcat/settings_local.py`` which will
-    overwrite existing settings in ``qcat/settings.py``.
+For easy management of environment variables, the package `envdir`_ is used.
+The variables are stored in the folder ```/envs```; your folder should look as
+follows ::
+
+    envs/
+    ├── AUTH_API_KEY
+    ├── AUTH_API_URL
+    ├── AUTH_API_USER
+    ├── AUTH_LOGIN_FORM
+    ├── CACHE_URL
+    ├── DATABASE_URL
+    ├── DJANGO_ALLOWED_HOSTS
+    ├── DJANGO_CONFIGURATION
+    ├── DJANGO_DEBUG
+    ├── DJANGO_SECRET_KEY
+    ├── DJANGO_SETTINGS_MODULE
+    ├── DJANGO_TEMPLATE_DEBUG
+    ├── DJANGO_USE_CACHING
+    ├── MAINTENANCE_MODE
+    └── TESTING_FIREFOX_PATH
+
+
+.. seealso::
+    `dj-database-url`_ for the format of ```DATABASE_URL```
+.. seealso::
+    `django-cache-url`_ for the format of ```CACHE_URL```
+
+.. _envdir: https://pypi.python.org/pypi/envdir
+.. _dj-database-url: https://github.com/kennethreitz/dj-database-url
+.. _django-cache-url: https://github.com/ghickman/django-cache-url
 
 
 Django settings
@@ -19,6 +44,13 @@ Most of the settings are identical to the Django settings. Please refer
 to the `Django documentation`_ for further information.
 
 .. _Django documentation: https://docs.djangoproject.com/en/1.7/ref/settings/
+
+Following environment variables must be set in order for django to run:
+
+    * ```DJANGO_CONFIGURATION``` (for development: 'DevDefaultSite')
+    * ```DJANGO_SETTINGS_MODULE``` (for develpment: 'apps.qcat.settings')
+    * ```DATABASE_URL```
+    * ```DJANGO_SECRET_KEY```
 
 
 QCAT settings

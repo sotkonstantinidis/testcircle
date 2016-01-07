@@ -23,7 +23,7 @@ from samplemulti.tests.test_views import route_questionnaire_details as \
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
-from nose.plugins.attrib import attr
+from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
@@ -754,7 +754,7 @@ class QuestionnaireTest(FunctionalTest):
             self.findBy(
                 'xpath',
                 '//select[@name="qg_3-0-key_4"]/option[{}][contains(text(),'
-                ' "{}")]'.format(i+2, v))
+                ' "{}")]'.format(i + 2, v))
 
         # She sees that the form progress is at 0
         self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
@@ -1328,9 +1328,6 @@ class QuestionnaireTest(FunctionalTest):
     #     self.findByNot(
     #         'xpath', '//input[@name="qg_12-0-key_15" and @checked="checked"]')
 
-
-
-
     #     # She also sees that Key 16 is not visible
     #     subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
     #     self.findBy(
@@ -1376,7 +1373,9 @@ class QuestionnaireTest(FunctionalTest):
     #     self.findBy(
     #         'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
     #     self.browser.implicitly_wait(5)
-    #     self.assertNotIn('display: none;', subcat_val_1.get_attribute('style'))
+    #     self.assertNotIn(
+    #         'display: none;', subcat_val_1.get_attribute('style')
+    #     )
     #     self.findByNot(
     #         'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
@@ -1402,7 +1401,9 @@ class QuestionnaireTest(FunctionalTest):
     #     subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
     #     self.findBy(
     #         'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-    #     self.assertNotIn('display: none;', subcat_val_1.get_attribute('style'))
+    #     self.assertNotIn(
+    #         'display: none;', subcat_val_1.get_attribute('style')
+    #     )
     #     self.findByNot(
     #         'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
@@ -1434,7 +1435,8 @@ class QuestionnaireTest(FunctionalTest):
     #     subcat_val_1 = self.findBy('id', 'id_qg_12-0-key_15_1_sub')
     #     self.findBy(
     #         'xpath', '//input[@name="qg_12-0-key_16"]', base=subcat_val_1)
-    #     self.assertNotIn('display: none;', subcat_val_1.get_attribute('style'))
+    #     self.assertNotIn(
+    #         'display: none;', subcat_val_1.get_attribute('style'))
     #     self.findBy(
     #         'xpath', '//input[@name="qg_12-0-key_16" and @checked="checked"]')
 
@@ -1938,7 +1940,7 @@ class QuestionnaireTest(FunctionalTest):
     #     self.findBy('name', 'pass').send_keys('foo')
     #     self.findBy('id', 'button_login').click()
 
-    #     # # She sees that she is logged in and was redirected back to the form.
+    #     # She sees that she is logged in and was redirected back to the form.
     #     # self.checkOnPage('Category 1')
 
     def test_header_image(self):
@@ -1995,7 +1997,7 @@ class QuestionnaireTest(FunctionalTest):
         # She removes the file
         self.findBy(
             'xpath', '//div[@id="preview-id_qg_14-0-file_key_19"]/div/button'
-            ).click()
+        ).click()
 
         # She sees the image was removed and the preview container is not
         # visible anymore
@@ -2766,7 +2768,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy(
             'xpath',
             '//li[@class="ui-menu-item"]//strong[text()="No results found"]'
-            ).click()
+        ).click()
         self.findByNot(
             'xpath',
             '//div[contains(@class, "alert-box")]')
@@ -2782,7 +2784,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         mock_link_search.return_value = JsonResponse({
             'total': 15,
             'data': data
-            })
+        })
 
         search_field.send_keys('foo')
         time.sleep(1)
@@ -2797,7 +2799,7 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath',
             '//li[@class="ui-menu-item"]//strong[contains(text(), "Too many '
             'results")]'
-            ).click()
+        ).click()
         self.findByNot(
             'xpath',
             '//div[contains(@class, "alert-box")]')

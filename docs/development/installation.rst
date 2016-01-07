@@ -59,28 +59,39 @@ Installation on a UNIX system
 
 These instructions will take you through the process of installing QCAT
 on your computer, assuming that you are running a UNIX system (for
-example Ubuntu).
+example Ubuntu). The package `virtualenvwrapper`_ is highly recommended.
+
+
+.. _virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/
 
 Preparation
 ^^^^^^^^^^^
 
 Create a folder for the project and create a virtual environment in it::
 
-    $ virtualenv --python=python3 env
+    $ mkproject qcat
 
 Get the code::
 
-    $ git clone https://github.com/CDE-UNIBE/qcat.git
+    $ git clone https://github.com/CDE-UNIBE/qcat.git .
+
+The custom packages for this application are in the folder ```apps```. This
+directory must be added to your virtualenv::
+
+    $ add2virtualenv apps/
+
+This command must be executed in the root directory of your activated virtual
+environment.
 
 Installation: Application
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Switch to the source folder, activate the virtual environment and
-install the dependencies::
+install the dependencies for the development environment::
 
     $ cd qcat
     $ source ../env/bin/activate
-    (env)$ pip3 install -r requirements.txt
+    (env)$ pip3 install -r requirements/development.txt
 
 .. hint::
     If the installation of the requirements produces errors concerning
@@ -90,11 +101,8 @@ install the dependencies::
 
 Create and set up a database (with PostGIS extension).
 
-Copy the sample local settings file and adapt it. Especially specify the
-database connection! ::
-
-    $ cp qcat/settings_local.py.sample qcat/settings_local.py
-    $ vim qcat/settings_local.py
+Make sure that all required environment variables are set as described in
+:doc:`/configuration/settings`
 
 .. hint::
     Authentication happens against the WOCAT user database, an API key

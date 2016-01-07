@@ -1,10 +1,14 @@
 #!/usr/bin/env python
-import os
 import sys
+from os.path import join, dirname
+
+import envdir as envdir
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "qcat.settings")
+    # Load the environment variables in the folder ``./envs/`` with *envdir*.
+    envdir.read(join(dirname(__file__), 'envs'))
 
-    from django.core.management import execute_from_command_line
+    # Please note that this is *django-configurations* and not *Django*.
+    from configurations.management import execute_from_command_line
 
     execute_from_command_line(sys.argv)

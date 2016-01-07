@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans "QCAT" %}{% endblock %}
+
+{% block bodyclass %}layout-home{% endblock %}
+{% block navclass %}is-home{% endblock %}
+
+
+{% block messages %}{% endblock %}
+
+{% block hero %}
+  <section class="hero-home">
+    <div class="row">
+        <h1>{% trans "Maintenance mode" %}</h1>
+        <div>{% trans "Please try again later." %}</div>    </div>
+  </section>
+{% endblock %}

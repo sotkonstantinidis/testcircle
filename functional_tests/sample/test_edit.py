@@ -12,7 +12,7 @@ from sample.tests.test_views import (
 
 from django.contrib.auth.models import Group
 from accounts.tests.test_models import create_new_user
-from nose.plugins.attrib import attr
+from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
 
 cat_1_position = get_position_of_category('cat_1', start0=True)

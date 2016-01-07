@@ -8,7 +8,7 @@ from technologies.tests.test_views import (
 )
 from wocat.tests.test_views import route_home
 
-from nose.plugins.attrib import attr
+from nose.plugins.attrib import attr  # noqa
 
 
 class QuestionnaireTest(FunctionalTest):

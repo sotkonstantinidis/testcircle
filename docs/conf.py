@@ -16,6 +16,7 @@
 import sys
 import os
 import re
+import envdir
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -25,8 +26,10 @@ sys.path.insert(0, os.path.abspath('..'))
 # # sys.path.insert(0, here)
 # sys.path.insert(0, os.path.join(here, '..'))
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'qcat.settings'
-import qcat
+# Load the environment variables in the folder ``./envs/`` with *envdir*.
+envdir.read(os.path.join(os.path.dirname(__file__), '..', 'envs'))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'apps.qcat.settings')
+os.environ.setdefault('DJANGO_CONFIGURATION', 'DevDefaultSite')
 
 # -- General configuration ------------------------------------------------
 
@@ -40,6 +43,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
+    'configurations',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -71,7 +75,7 @@ def get_version(package):
 # built documents.
 #
 # The short X.Y version.
-version = get_version(os.path.join("..", "qcat"))
+version = get_version(os.path.join("..", "apps", "qcat"))
 # The full version, including alpha/beta/rc tags.
 release = version
 

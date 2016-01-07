@@ -15,7 +15,7 @@ from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
-from nose.plugins.attrib import attr
+from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'

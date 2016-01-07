@@ -1,12 +1,7 @@
 from django.core.urlresolvers import reverse
 from functional_tests.base import FunctionalTest
 
-from unccd.tests.test_views import (
-    route_home,
-    route_questionnaire_new_step,
-    get_category_count,
-    get_categories,
-)
+from unccd.tests.test_views import route_home
 
 
 class QuestionnaireTest(FunctionalTest):
