@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
+from django.utils.timezone import now
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
 from django.views.generic import FormView
@@ -48,6 +49,11 @@ class LoginView(FormView):
         response.set_cookie(
             key=settings.AUTH_COOKIE_NAME,
             value=user.typo3_session_id
+        )
+        response.set_signed_cookie(
+            key=settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME,
+            value=now(),
+            salt=settings.ACCOUNTS_ENFORCE_LOGIN_SALT
         )
         return response
 

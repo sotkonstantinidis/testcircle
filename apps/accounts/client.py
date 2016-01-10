@@ -33,8 +33,8 @@ class Typo3Client:
                 data={
                     'user': username,
                     'pass': password,
-                    'logintype': settings.ACCOUNT_LOGIN_TYPE,
-                    'pid': settings.ACCOUNT_PID
+                    'logintype': settings.ACCOUNTS_LOGIN_TYPE,
+                    'pid': settings.ACCOUNTS_PID
                 }
             )
         # Catch all exceptions from the request.

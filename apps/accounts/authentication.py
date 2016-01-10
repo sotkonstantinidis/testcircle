@@ -37,7 +37,7 @@ class WocatAuthenticationBackend(ModelBackend):
             return None
 
         # Get django user and update data from the api.
-        user = typo3_client.get_and_update_django_user(user_id)
+        user = typo3_client.get_and_update_django_user(user_id, session_id)
 
         # TODO: Handle privileges and permissions
         return user
