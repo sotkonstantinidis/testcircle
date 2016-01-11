@@ -77,16 +77,22 @@ def logout(request):
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    redirect = reverse('home')
+    url = reverse('home')
 
     django_logout(request)
 
     ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
     if ses_id is not None:
-        return HttpResponseRedirect(
-            typo3_client.get_logout_url(request.build_absolute_uri(redirect)))
+        response = HttpResponseRedirect(
+            typo3_client.get_logout_url(request.build_absolute_uri(url))
+        )
+        # The cookie is not always removed on woacat.net
+        response.delete_cookie(settings.AUTH_COOKIE_NAME)
+    else:
+        response = HttpResponseRedirect(url)
 
-    return HttpResponseRedirect(redirect)
+    response.delete_cookie(settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME)
+    return response
 
 
 def questionnaires(request, user_id):
