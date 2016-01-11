@@ -4,7 +4,6 @@ from django.contrib.auth import (
     login as django_login,
 )
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, JsonResponse
@@ -19,6 +18,7 @@ from django.views.generic import FormView
 from questionnaire.views import generic_questionnaire_list_no_config
 from .client import typo3_client
 from .conf import settings
+from .forms import WocatAuthenticationForm
 from .models import User
 
 
@@ -26,7 +26,7 @@ class LoginView(FormView):
     """
     This view handles the login form and authenticates users.
     """
-    form_class = AuthenticationForm
+    form_class = WocatAuthenticationForm
     template_name = 'login.html'
     success_url = settings.ACCOUNTS_LOGIN_SUCCESS_URL
 
