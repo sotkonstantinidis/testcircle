@@ -81,6 +81,11 @@
     border-width: rem-calc(2);
   }
 }
+.list-item-no-gallery {
+  padding-left: 0;
+  min-height: 0;
+  margin-top: 0;
+}
 
 .list-gallery-item.without-label {
   margin-top: rem-calc(6);

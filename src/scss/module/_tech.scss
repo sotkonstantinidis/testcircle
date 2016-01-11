@@ -220,6 +220,22 @@ h4.output-subcategory {
   h5:not(:first-of-type) {
     margin-top: rem-calc(8);
   }
+
+  + h3, + h5 {
+    clear: left;
+  }
+}
+
+.has-aside-questiongroup {
+  float: left;
+  margin-top: 0;
+}
+
+/* Do not show empty table rows: Hide cells if row contains only 3 td.is-empty elements */
+/* http://stackoverflow.com/a/12198561/841644 */
+td.is-empty:first-child:nth-last-child(3),
+td.is-empty:first-child:nth-last-child(3) ~ td.is-empty {
+    display: none;
 }
 
 .button.q-action-button-top {

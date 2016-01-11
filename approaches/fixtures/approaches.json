@@ -605,6 +605,253 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Indicate the annual budget for the SLM component of the Approach (including training and extension, research, implementation of the Technology) in US$"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7042
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If precise budget is not known, indicate range"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7043
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Were contributions made per area, per unit or per product provided to land users?"
+          },
+          "helptext": {
+            "en": "E.g. tax exemptions, compensation payments, subsidies, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7044
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If yes, specify (type, conditions and provider of contributions)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7045
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify which inputs were subsidised"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7046
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "To which extent"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7047
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify subsidies"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7048
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify Inputs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7049
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Other (specify)"
+          },
+          "label_view": {
+            "en": "Specify Inputs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7050
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Other (specify)"
+          },
+          "label_view": {
+            "en": "Specify which inputs were subsidised"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7051
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If labour by land users was a substantial input, was it"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7052
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Was credit provided under the Approach for sustainable land management activities?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7053
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If yes, specify conditions (interest rate, pay-back, etc.)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7054
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify credit provider"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7055
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify credit receiver"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7056
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Were other incentives or instrument used to promote implementation of SLM Technologies?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7057
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If yes, specify"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7058
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "approaches": {
@@ -1193,6 +1440,356 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "< 2,000"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7543
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "2,000-10,000"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7544
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "10,000-100,000"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7545
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "100,000-1,000,000"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7546
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "> 1,000,000"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7547
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "None"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7548
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Labour"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7549
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Equipment"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7550
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Agricultural"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7551
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Construction"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7552
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Infrastructure"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7553
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "partly financed"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7554
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "fully financed"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7555
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "machinery"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7556
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "tools"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7557
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "seeds"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7558
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "fertilizers"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7559
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "stone"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7560
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "wood"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7561
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "roads"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7562
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "schools"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7563
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "voluntary"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7564
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "food-for-work"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7565
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "paid in cash"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7566
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "rewarded with other material support"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7567
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "approaches": {
@@ -1344,6 +1941,48 @@
     },
     "model": "configuration.translation",
     "pk": 8211
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "helptext": {
+            "en": "Note: Some projects / programmes include many activities other than SLM. Please calculate / estimate only the amount that was used for the Approach as described here. Refer to project documents."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8212
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "helptext": {
+            "en": "Note: Includes all forms of credits, loans, micro-finance mechanisms"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8213
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "helptext": {
+            "en": "E.g. supporting policies, regulations, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8214
   },
   {
     "fields": {
@@ -1641,6 +2280,81 @@
       "data": {
         "approaches": {
           "label": {
+            "en": "Annual budget for the SLM component of the Approach"
+          },
+          "numbering": "5.1"
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8719
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Contributions per area, per unit or per product"
+          },
+          "numbering": "5.2"
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8720
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Subsidies for specific inputs (including labour)"
+          },
+          "numbering": "5.3"
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8721
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Credit"
+          },
+          "numbering": "5.4"
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8722
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Other incentives or instruments"
+          },
+          "numbering": "5.5"
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8723
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
             "en": "General Information"
           },
           "numbering": "1."
@@ -1697,6 +2411,24 @@
     },
     "model": "configuration.translation",
     "pk": 8904
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Financing and external material support"
+          },
+          "helptext": {
+            "en": "<strong>External material support</strong>: includes in-kind and financial support or incentives from government or private organisations. Questions regarding financing consider all costs of the Approach including the implementation of the Technology."
+          },
+          "numbering": "5."
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8905
   },
   {
     "fields": {
@@ -2244,6 +2976,701 @@
   },
   {
     "fields": {
+      "keyword": "app_annual_budget",
+      "translation": 7042,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3045
+  },
+  {
+    "fields": {
+      "keyword": "app_annual_budget_range",
+      "translation": 7043,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3043,
+        3044,
+        3045,
+        3046,
+        3047
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3046
+  },
+  {
+    "fields": {
+      "keyword": "app_contributions",
+      "translation": 7044,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3047
+  },
+  {
+    "fields": {
+      "keyword": "app_contributions_specify",
+      "translation": 7045,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3048
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs",
+      "translation": 7046,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3048,
+        3049,
+        3050,
+        3051,
+        3052,
+        3053
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3049
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3050
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3051
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_machinery",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3056
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3052
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_machinery_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3053
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_machinery_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3054
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_tools",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3057
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3055
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_tools_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3056
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_tools_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3057
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_other",
+      "translation": 7050,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3058
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_other_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3059
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_other_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3060
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_seeds",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3058
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3061
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_seeds_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3062
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_seeds_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3063
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_fertilizers",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3059
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3064
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_fertilizers_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3065
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_fertilizers_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3066
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_other",
+      "translation": 7050,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3067
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_other_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3068
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_other_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3069
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_stone",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3060
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3070
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_stone_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3071
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_stone_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3072
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_wood",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3061
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3073
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_wood_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3074
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_wood_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3075
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_other",
+      "translation": 7050,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3076
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_other_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3077
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_other_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3078
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_roads",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3062
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3079
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_roads_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3080
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_roads_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3081
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_schools",
+      "translation": 7049,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3063
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3082
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_schools_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3083
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_schools_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3084
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_other",
+      "translation": 7050,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3085
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_other_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3086
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_other_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3087
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs_other",
+      "translation": 7051,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3088
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_other_extent",
+      "translation": 7047,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3054,
+        3055
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3090
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_other_specify",
+      "translation": 7048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3091
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_comments",
+      "translation": 5004,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3092
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_labour_type",
+      "translation": 7052,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3064,
+        3065,
+        3066,
+        3067
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3093
+  },
+  {
+    "fields": {
+      "keyword": "app_credit_provided",
+      "translation": 7053,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3094
+  },
+  {
+    "fields": {
+      "keyword": "app_credit_conditions",
+      "translation": 7054,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3095
+  },
+  {
+    "fields": {
+      "keyword": "app_credit_provider",
+      "translation": 7055,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3096
+  },
+  {
+    "fields": {
+      "keyword": "app_credit_receiver",
+      "translation": 7056,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3097
+  },
+  {
+    "fields": {
+      "keyword": "app_incentives_other",
+      "translation": 7057,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3098
+  },
+  {
+    "fields": {
+      "keyword": "app_incentives_other_specify",
+      "translation": 7058,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3099
+  },
+  {
+    "fields": {
       "keyword": "stakeholder_community",
       "translation": 7501,
       "order_value": 1
@@ -2622,6 +4049,231 @@
   },
   {
     "fields": {
+      "keyword": "app_budget_less_2000",
+      "translation": 7543,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3043
+  },
+  {
+    "fields": {
+      "keyword": "app_budget_2000_10000",
+      "translation": 7544,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 3044
+  },
+  {
+    "fields": {
+      "keyword": "app_budget_10000_100000",
+      "translation": 7545,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 3045
+  },
+  {
+    "fields": {
+      "keyword": "app_budget_100000_1000000",
+      "translation": 7546,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 3046
+  },
+  {
+    "fields": {
+      "keyword": "app_budget_1000000_plus",
+      "translation": 7547,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 3047
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs_none",
+      "translation": 7548,
+      "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 3048
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs_labour",
+      "translation": 7549,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 3049
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs_equipment",
+      "translation": 7550,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 3050
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs_agricultural",
+      "translation": 7551,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 3051
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs_construction",
+      "translation": 7552,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 3052
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_inputs_infrastructure",
+      "translation": 7553,
+      "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 3053
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_extent_partly",
+      "translation": 7554,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3054
+  },
+  {
+    "fields": {
+      "keyword": "app_subsidies_extent_fully",
+      "translation": 7555,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 3055
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_machinery",
+      "translation": 7556,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3056
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_eq_tools",
+      "translation": 7557,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3057
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_seeds",
+      "translation": 7558,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3058
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_ag_fertilizers",
+      "translation": 7559,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3059
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_stone",
+      "translation": 7560,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3060
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_const_wood",
+      "translation": 7561,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3061
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_roads",
+      "translation": 7562,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3062
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_infr_schools",
+      "translation": 7563,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3063
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_labour_voluntary",
+      "translation": 7564,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3064
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_labour_foodforwork",
+      "translation": 7565,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 3065
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_labour_paid",
+      "translation": 7566,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 3066
+  },
+  {
+    "fields": {
+      "keyword": "app_subs_labour_reward",
+      "translation": 7567,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 3067
+  },
+  {
+    "fields": {
       "keyword": "app_qg_1",
       "translation": null,
       "configuration": {}
@@ -2829,6 +4481,141 @@
   },
   {
     "fields": {
+      "keyword": "app_qg_24",
+      "translation": 8212,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3024
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_25",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3025
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_26",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3026
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_27",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3027
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_28",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3028
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_29",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3029
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_30",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3030
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_31",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3031
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_32",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3032
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_33",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3033
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_34",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3034
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_35",
+      "translation": 8213,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3035
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_36",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3036
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_37",
+      "translation": 8214,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3037
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_38",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3038
+  },
+  {
+    "fields": {
       "keyword": "app__1__1",
       "translation": 8701
     },
@@ -2973,6 +4760,46 @@
   },
   {
     "fields": {
+      "keyword": "app__5__1",
+      "translation": 8719
+    },
+    "model": "configuration.category",
+    "pk": 3019
+  },
+  {
+    "fields": {
+      "keyword": "app__5__2",
+      "translation": 8720
+    },
+    "model": "configuration.category",
+    "pk": 3020
+  },
+  {
+    "fields": {
+      "keyword": "app__5__3",
+      "translation": 8721
+    },
+    "model": "configuration.category",
+    "pk": 3021
+  },
+  {
+    "fields": {
+      "keyword": "app__5__4",
+      "translation": 8722
+    },
+    "model": "configuration.category",
+    "pk": 3022
+  },
+  {
+    "fields": {
+      "keyword": "app__5__5",
+      "translation": 8723
+    },
+    "model": "configuration.category",
+    "pk": 3023
+  },
+  {
+    "fields": {
       "keyword": "app__1",
       "translation": 8901
     },
@@ -3002,6 +4829,14 @@
     },
     "model": "configuration.category",
     "pk": 3704
+  },
+  {
+    "fields": {
+      "keyword": "app__5",
+      "translation": 8905
+    },
+    "model": "configuration.category",
+    "pk": 3705
   },
   {
     "fields": {
@@ -4056,6 +5891,434 @@
                     "form_options": {
                       "template": "todo"
                     }
+                  }
+                ]
+              },
+              {
+                "keyword": "app__5",
+                "subcategories": [
+                  {
+                    "keyword": "app__5__1",
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_24",
+                        "questions": [
+                          {
+                            "keyword": "app_annual_budget"
+                          },
+                          {
+                            "keyword": "app_annual_budget_range"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__5__2",
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_25",
+                        "questions": [
+                          {
+                            "keyword": "app_contributions",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|app_qg_26"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_26",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_26"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_contributions_specify"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__5__3",
+                    "form_options": {
+                      "template": "checkbox_questiongroups",
+                      "extra": [
+                        "=='app_subsidies_inputs_labour'|app_qg_28",
+                        "=='app_subsidies_inputs_equipment'|app_qg_29",
+                        "=='app_subsidies_inputs_agricultural'|app_qg_30",
+                        "=='app_subsidies_inputs_construction'|app_qg_31",
+                        "=='app_subsidies_inputs_infrastructure'|app_qg_32"
+                      ]
+                    },
+                    "view_options": {
+                      "template": "table_app_subsidies",
+                      "table_grouping": [
+                        [
+                          "app_qg_27"
+                        ],
+                        [
+                          "app_qg_28",
+                          "app_qg_29",
+                          "app_qg_30",
+                          "app_qg_31",
+                          "app_qg_32",
+                          "app_qg_33"
+                        ]
+                      ]
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_27",
+                        "questions": [
+                          {
+                            "keyword": "app_subsidies_inputs",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "=='app_subsidies_inputs_labour'|app_qg_28",
+                                "=='app_subsidies_inputs_equipment'|app_qg_29",
+                                "=='app_subsidies_inputs_agricultural'|app_qg_30",
+                                "=='app_subsidies_inputs_construction'|app_qg_31",
+                                "=='app_subsidies_inputs_infrastructure'|app_qg_32"
+                              ]
+                            },
+                            "view_options": {
+                              "template": "raw",
+                              "extra": "conditional_checkboxes"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_28",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_28",
+                          "template": "columns_o4_o8"
+                        },
+                        "view_options": {
+                          "extra": "app_subsidies_inputs_labour"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_subsidies_extent",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "app_subsidies_specify",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_29",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_29",
+                          "template": "table_3_columns"
+                        },
+                        "view_options": {
+                          "extra": "app_subsidies_inputs_equipment"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_subs_eq_machinery"
+                          },
+                          {
+                            "keyword": "app_subs_eq_machinery_extent"
+                          },
+                          {
+                            "keyword": "app_subs_eq_machinery_specify"
+                          },
+                          {
+                            "keyword": "app_subs_eq_tools"
+                          },
+                          {
+                            "keyword": "app_subs_eq_tools_extent"
+                          },
+                          {
+                            "keyword": "app_subs_eq_tools_specify"
+                          },
+                          {
+                            "keyword": "app_subs_eq_other",
+                            "form_options": {
+                              "label": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other",
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_subs_eq_other_extent"
+                          },
+                          {
+                            "keyword": "app_subs_eq_other_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_30",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_30",
+                          "template": "table_3_columns"
+                        },
+                        "view_options": {
+                          "extra": "app_subsidies_inputs_agricultural"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_subs_ag_seeds"
+                          },
+                          {
+                            "keyword": "app_subs_ag_seeds_extent"
+                          },
+                          {
+                            "keyword": "app_subs_ag_seeds_specify"
+                          },
+                          {
+                            "keyword": "app_subs_ag_fertilizers"
+                          },
+                          {
+                            "keyword": "app_subs_ag_fertilizers_extent"
+                          },
+                          {
+                            "keyword": "app_subs_ag_fertilizers_specify"
+                          },
+                          {
+                            "keyword": "app_subs_ag_other",
+                            "form_options": {
+                              "label": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other",
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_subs_ag_other_extent"
+                          },
+                          {
+                            "keyword": "app_subs_ag_other_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_31",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_31",
+                          "template": "table_3_columns"
+                        },
+                        "view_options": {
+                          "extra": "app_subsidies_inputs_construction"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_subs_const_stone"
+                          },
+                          {
+                            "keyword": "app_subs_const_stone_extent"
+                          },
+                          {
+                            "keyword": "app_subs_const_stone_specify"
+                          },
+                          {
+                            "keyword": "app_subs_const_wood"
+                          },
+                          {
+                            "keyword": "app_subs_const_wood_extent"
+                          },
+                          {
+                            "keyword": "app_subs_const_wood_specify"
+                          },
+                          {
+                            "keyword": "app_subs_const_other",
+                            "form_options": {
+                              "label": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other",
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_subs_const_other_extent"
+                          },
+                          {
+                            "keyword": "app_subs_const_other_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_32",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_32",
+                          "template": "table_3_columns"
+                        },
+                        "view_options": {
+                          "extra": "app_subsidies_inputs_infrastructure"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_subs_infr_roads"
+                          },
+                          {
+                            "keyword": "app_subs_infr_roads_extent"
+                          },
+                          {
+                            "keyword": "app_subs_infr_roads_specify"
+                          },
+                          {
+                            "keyword": "app_subs_infr_schools"
+                          },
+                          {
+                            "keyword": "app_subs_infr_schools_extent"
+                          },
+                          {
+                            "keyword": "app_subs_infr_schools_specify"
+                          },
+                          {
+                            "keyword": "app_subs_infr_other",
+                            "form_options": {
+                              "label": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other",
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_subs_infr_other_extent"
+                          },
+                          {
+                            "keyword": "app_subs_infr_other_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_33",
+                        "form_options": {
+                          "template": "columns_e4_e4_e4"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_subsidies_inputs_other",
+                            "form_options": {
+                              "label": "placeholder",
+                              "template": "checkbox_other"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other",
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_subs_other_extent"
+                          },
+                          {
+                            "keyword": "app_subs_other_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_34",
+                        "questions": [
+                          {
+                            "keyword": "app_subsidies_labour_type",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "app_subs_comments",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__5__4",
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_35",
+                        "questions": [
+                          {
+                            "keyword": "app_credit_provided",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|app_qg_36"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_36",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_36"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_credit_conditions",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "app_credit_provider",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "app_credit_receiver",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__5__5",
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_37",
+                        "questions": [
+                          {
+                            "keyword": "app_incentives_other",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|app_qg_38"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_38",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_38"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_incentives_other_specify",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
