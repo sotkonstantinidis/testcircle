@@ -205,7 +205,7 @@ class Typo3Client:
 
         return search_data
 
-    def get_logout_url(redirect):
+    def get_logout_url(self, redirect):
         """
         Return the logout URL of WOCAT as specified in the settings.
 

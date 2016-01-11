@@ -48,7 +48,10 @@ class WocatAuthenticationMiddleware(object):
         elif session_id:
             user_id = typo3_client.get_user_id(session_id)
             user = typo3_client.get_and_update_django_user(user_id, session_id)
+
             if user_id and user:
+                user.backend = 'accounts.authentication.' \
+                               'WocatAuthenticationBackend'
                 login(request, user)
                 self.refresh_login_timeout = True
 
@@ -75,7 +78,6 @@ class WocatAuthenticationMiddleware(object):
         # There is an invalid session ID, mark it for removal.
         logout(request)
         self.delete_auth_cookie = True
-
 
     def process_response(self, request, response):
         """
