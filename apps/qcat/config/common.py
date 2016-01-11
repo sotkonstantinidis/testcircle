@@ -219,3 +219,4 @@ class BaseSettings(Configuration):
     CACHES = values.CacheURLValue(default='locmem://')
 
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
+    MAINTENANCE_LOCKFILE_PATH = join(BASE_DIR, 'maintenance.lock')

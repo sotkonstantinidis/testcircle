@@ -27,7 +27,8 @@ class WocatAuthenticationMiddleware(object):
         session_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
         login_timeout = request.get_signed_cookie(
             key=settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME,
-            salt=settings.ACCOUNTS_ENFORCE_LOGIN_SALT
+            salt=settings.ACCOUNTS_ENFORCE_LOGIN_SALT,
+            default=None
         )
         force_login = request.session.get(settings.ACCOUNTS_ENFORCE_LOGIN_NAME)
 
@@ -58,7 +59,7 @@ class WocatAuthenticationMiddleware(object):
         if force_login:
             del request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME]
 
-    def login_timeout_expired(self, login_timeout):
+    def login_timeout_expired(self, login_timeout=None):
         """
         Check if login must be refreshed; this interval can be set in the
         accounts settings.
@@ -69,7 +70,8 @@ class WocatAuthenticationMiddleware(object):
             login_timeout: datetime
 
         """
-
+        if not login_timeout:
+            return False
         expiry = dateparse.parse_datetime(login_timeout).replace(tzinfo=utc) + \
             timedelta(seconds=settings.ACCOUNTS_ENFORCE_LOGIN_TIMEOUT)
         return True if now() > expiry else False
