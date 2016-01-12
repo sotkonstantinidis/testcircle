@@ -32,7 +32,8 @@ class LoginView(FormView):
 
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, *args, **kwargs):
-        if self.request.user.is_authenticated():
+        if hasattr(self.request, 'user') and \
+                self.request.user.is_authenticated():
             return redirect(self.get_success_url())
         return super(LoginView, self).dispatch(*args, **kwargs)
 

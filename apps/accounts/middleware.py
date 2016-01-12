@@ -23,6 +23,9 @@ class WocatAuthenticationMiddleware(object):
         wocat.net.
 
         Re-authentication of the cookie is forced every n seconds (see conf).
+
+        Args:
+            request: A http request
         """
         session_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
         login_timeout = request.get_signed_cookie(
@@ -49,6 +52,9 @@ class WocatAuthenticationMiddleware(object):
         elif session_id:
             user_id = typo3_client.get_user_id(session_id)
             user = typo3_client.get_and_update_django_user(user_id, session_id)
+            print(user)
+
+            print(user_id)
 
             if user_id and user:
                 user.backend = 'accounts.authentication.' \
@@ -77,6 +83,14 @@ class WocatAuthenticationMiddleware(object):
         return True if now() > expiry else False
 
     def logout(self, request):
+        """
+
+        Args:
+            request: A http request
+
+        Returns:
+
+        """
         # There is an invalid session ID, mark it for removal.
         logout(request)
         self.delete_auth_cookie = True
@@ -85,6 +99,10 @@ class WocatAuthenticationMiddleware(object):
         """
         Function being called for each response. Used to delete a
         cookie.
+
+        Args:
+            response:
+            request:
         """
         if self.delete_auth_cookie:
             response.delete_cookie(settings.AUTH_COOKIE_NAME)

@@ -1,9 +1,8 @@
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
-User = get_user_model()
 from django.core.exceptions import ValidationError
-
 from qcat.tests import TestCase
+User = get_user_model()
 
 
 def create_new_user(id=2, email='a@b.com', lastname='foo', firstname='bar'):

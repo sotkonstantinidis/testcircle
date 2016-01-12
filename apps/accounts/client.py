@@ -1,7 +1,6 @@
 import requests
 from django.contrib.auth import get_user_model
 from django.utils.timezone import now
-from requests.exceptions import BaseHTTPError
 from .conf import settings
 
 
@@ -39,7 +38,7 @@ class Typo3Client:
             )
         # Catch all exceptions from the request.
         # This could be more granular, if required.
-        except BaseHTTPError:
+        except Exception:
             return None
 
         return response.cookies.get_dict().get(settings.AUTH_COOKIE_NAME)
@@ -59,16 +58,16 @@ class Typo3Client:
         if api_login_request is None:
             return None
 
-        session_request = requests.post(
+        response = requests.post(
             url='{}get_session'.format(settings.AUTH_API_URL),
             data={'id': session_id},
             cookies=api_login_request.cookies
         )
 
-        if session_request.status_code != requests.codes.ok:
+        if response.status_code != requests.codes.ok:
             return None
 
-        session_data = session_request.json()
+        session_data = response.json()
 
         if not session_data.get('success') or not session_data.get('login'):
             return None
@@ -144,7 +143,7 @@ class Typo3Client:
         # probably be done asynchronously, if such a system is in place.
         user.typo3_session_id = session_id
         user_data = self.get_user_information(user_id)
-        typo3_client.update_user(user, user_data)
+        self.update_user(user, user_data)
 
         # Finally, return the django user.
         return user

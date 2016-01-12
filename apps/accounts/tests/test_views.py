@@ -1,18 +1,17 @@
 import json
+from unittest.mock import patch, MagicMock
 from django.contrib.auth import get_user_model
+from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test.client import RequestFactory
-from unittest.mock import patch, Mock
-
 from qcat.tests import TestCase
-from accounts.tests.test_models import (
-    create_new_user,
-)
+
+from ..forms import WocatAuthenticationForm
+from ..tests.test_models import create_new_user
 from accounts.views import (
     details,
     questionnaires,
-    user_search,
     user_update,
     LoginView)
 
@@ -25,38 +24,74 @@ accounts_route_moderation = 'account_moderation'
 accounts_route_user = 'user_details'
 
 
-def setup_view(view, request, *args, **kwargs):
-    """Mimic as_view() returned callable, but returns view instance.
+class LoginViewTest(TestCase):
 
-    args and kwargs are the same you would pass to ``reverse()``
-
-    """
-    view.request = request
-    view.args = args
-    view.kwargs = kwargs
-    return view
-
-
-class LoginTest(TestCase):
     def setUp(self):
+        self.invalid_login_credentials = {'username': 'foo', 'password': 'bar'}
         self.factory = RequestFactory()
-        self.request = self.factory.get('/unccd/new/cat_1')
-        self.request.user = create_new_user()
-        self.view = setup_view(LoginView(), self.request)
-        self.form = Mock()
+        self.user = create_new_user()
 
-    def test_renders_correct_template(self):
-        res = self.client.get(reverse(accounts_route_login))
-        self.assertTemplateUsed(res, 'login.html')
+    def test_form_invalid_credentials(self):
+        """Invalid data must return a form with errors"""
+        response = self.client.post(
+            path=reverse('login'),
+            data=self.invalid_login_credentials
+        )
+        self.assertTrue(hasattr(response.context_data['form'], 'errors'))
+        self.assertTemplateUsed(response, 'login.html')
 
-    def test_redirects_to_redirect_if_already_logged_in(self):
-        mock_is_authenticated = Mock()
-        mock_is_authenticated.return_value = True
-        self.request.user.is_authenticated = mock_is_authenticated
-        self.request.GET = {'next': 'foo'}
-        # form_valid = self.view.form_valid(self.form)
-        # self.assertIsInstance(form_valid, HttpResponseRedirect)
-        # self.assertEqual(form_valid.url, 'foo')
+    def test_dispatch(self):
+        request = self.factory.get(reverse('login'))
+        setattr(request, 'user', self.user)
+        request.user.is_authenticated = MagicMock(return_value=True)
+        view = self.setup_view(LoginView(), request)
+        response = view.dispatch(view.request, *view.args, **view.kwargs)
+        self.assertEqual(response.status_code, 302)
+
+    @patch('accounts.forms.WocatAuthenticationForm.get_user')
+    @patch('accounts.authentication.WocatAuthenticationBackend.authenticate')
+    @patch('accounts.client.typo3_client.remote_login')
+    @patch('accounts.client.typo3_client.get_user_id')
+    @patch('accounts.client.typo3_client.get_and_update_django_user')
+    def test_form_valid(self, mock_get_auth_user, mock_auth, mock_remote_login,
+                        mock_get_user_id, mock_get_and_update_user):
+        # Fake user and required attributes
+        user = self.user
+        user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        mock_get_auth_user.return_value = user
+        mock_auth.return_value = user
+
+        mock_remote_login.return_value = 1
+        mock_get_user_id.return_value = 1
+        mock_get_and_update_user.return_value = self.user
+
+        form = WocatAuthenticationForm
+        # Add message store
+        request = RequestFactory().post(
+            reverse('login'),
+            data={'form': form(initial=self.invalid_login_credentials)}
+        )
+        request.user = user
+        request.session = MagicMock()
+        request._messages = FallbackStorage
+
+        view = self.setup_view(LoginView(), request)
+
+        response = view.form_valid(form(initial=self.invalid_login_credentials))
+
+        self.assertEqual(request.user, self.user)
+        self.assertEqual(response.url, reverse('home'))
+
+    def setup_view(self, view, request, *args, **kwargs):
+        """
+        Mimic as_view() returned callable, but returns view instance.
+
+        args and kwargs are the same you would pass to ``reverse()``
+        """
+        view.request = request
+        view.args = args
+        view.kwargs = kwargs
+        return view
 
 
 class QuestionnairesTest(TestCase):
@@ -65,7 +100,7 @@ class QuestionnairesTest(TestCase):
         self.factory = RequestFactory()
         self.user = create_new_user()
         self.url = reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 1})
+            accounts_route_questionnaires, kwargs={'user_id': 2})
         self.request = self.factory.get(self.url)
 
     def test_renders_correct_template(self):
@@ -87,45 +122,10 @@ class QuestionnairesTest(TestCase):
     @patch('accounts.views.render')
     @patch('accounts.views.generic_questionnaire_list_no_config')
     def test_calls_render(self, mock_generic_list, mock_render):
-        questionnaires(self.request, 1)
+        questionnaires(self.request, 2)
         mock_render.assert_called_once_with(
             self.request, 'questionnaires.html',
             mock_generic_list.return_value)
-
-
-class UserSearchTest(TestCase):
-
-    def setUp(self):
-        self.request = RequestFactory().get('/accounts/search')
-
-    @patch('accounts.views.user_search')
-    def test_calls_search_users(self, mock_search_users):
-        mock_search_users.return_value = {}
-        user_search(self.request)
-        mock_search_users.assert_called_once_with(name='')
-
-    @patch('accounts.views.user_search')
-    def test_calls_search_users_with_GET_name(self, mock_search_users):
-        mock_search_users.return_value = {}
-        self.request.GET = {'name': 'foo'}
-        user_search(self.request)
-        mock_search_users.assert_called_once_with(name='foo')
-
-    @patch('accounts.views.user_search')
-    def test_returns_success_false_if_search_users_returns_empty(
-            self, mock_search_users):
-        mock_search_users.return_value = {}
-        ret = user_search(self.request)
-        json_ret = json.loads(str(ret.content, encoding='utf8'))
-        self.assertFalse(json_ret['success'])
-        self.assertIn('message', json_ret)
-
-    @patch('accounts.views.user_search')
-    def test_returns_search_result(self, mock_search_users):
-        mock_search_users.return_value = {"foo": "bar"}
-        ret = user_search(self.request)
-        json_ret = json.loads(str(ret.content, encoding='utf8'))
-        self.assertEqual(json_ret, mock_search_users.return_value)
 
 
 class UserUpdateTest(TestCase):
@@ -164,8 +164,8 @@ class UserUpdateTest(TestCase):
         mock_get_user_information.return_value = {'username': 'foo@bar.com'}
         user_update(self.request)
         users = User.objects.all()
-        self.assertEqual(len(users), 2)
-        self.assertEqual(users[1].email, 'foo@bar.com')
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0].email, 'foo@bar.com')
 
     @patch('accounts.client.typo3_client.get_user_information')
     def test_updates_user(self, mock_get_user_information):
@@ -177,10 +177,10 @@ class UserUpdateTest(TestCase):
         self.request.POST = {'uid': 1}
         user_update(self.request)
         users = User.objects.all()
-        self.assertEqual(len(users), 1)
-        self.assertEqual(users[0].email, 'foo@bar.com')
-        self.assertEqual(users[0].firstname, 'Faz')
-        self.assertEqual(users[0].lastname, 'Taz')
+        self.assertEqual(len(users), 2)
+        self.assertEqual(users[1].email, 'foo@bar.com')
+        self.assertEqual(users[1].firstname, 'Faz')
+        self.assertEqual(users[1].lastname, 'Taz')
 
     @patch('accounts.client.typo3_client.get_user_information')
     def test_returns_user_name(self, mock_get_user_information):
