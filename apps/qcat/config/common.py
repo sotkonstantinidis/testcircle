@@ -214,7 +214,7 @@ class BaseSettings(Configuration):
     # for the latest supported firefox version.
     TESTING_FIREFOX_PATH = values.Value(environ_prefix='')
 
-    USE_CACHING = values.Value(default=False)
+    USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
 
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)

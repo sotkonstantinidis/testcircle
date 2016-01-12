@@ -18,6 +18,7 @@ from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
 
 from configuration.cache import get_configuration
+from configuration.models import Configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
@@ -99,13 +100,17 @@ def generic_questionnaire_link_form(
     link_forms = []
     for links_config in links_configuration:
         config_code = links_config.get('keyword')
+        config_label = ''
+        config_object = Configuration.get_active_by_code(config_code)
+        if config_object is not None:
+            config_label = config_object.name
         initial_data = session_data.get('links', {}).get(config_code, [])
         link_forms.append(
             ({
                 'search_url': reverse(
                     '{}:questionnaire_link_search'.format(config_code)),
                 'keyword': config_code,
-                'label': config_code,  # TODO
+                'label': config_label,
             }, initial_data))
 
     if identifier is None:
