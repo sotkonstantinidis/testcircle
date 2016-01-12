@@ -1,0 +1,7 @@
+{% if value %}
+  {% if header == 'small' %}
+    <h5>{{ value }}{% if value|last not in ".:!?" %}:{% endif %}</h5>
+  {% else %}
+    <h3>{{ value }}{% if value|last not in ".:!?" %}:{% endif %}</h3>
+  {% endif %}
+{% endif %}

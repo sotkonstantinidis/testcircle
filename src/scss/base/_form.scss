@@ -102,12 +102,16 @@ fieldset .questiongroup:not(:first-of-type) h4 {
   margin-top: rem-calc(32);
 }
 
+.questiongroup-numbered-prefix {
+  padding-top: 0.1rem;
+}
+
 .questiongroup-numbered-left {
   float: left;
 }
 
 .questiongroup-numbered-left p {
-  padding: 0.5rem 0;
+  padding: 0.7rem 0;
 }
 
 .questiongroup-numbered-right {

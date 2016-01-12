@@ -708,6 +708,14 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             })
         elif self.field_type in ['checkbox', 'cb_bool', 'radio']:
             template_name = 'checkbox'
+            if self.view_options.get('extra') == 'raw_values':
+                # Also add the raw keywords of the values.
+                value_keywords = []
+                for v in value:
+                    if v is not None:
+                        i = [y[0] for y in list(self.choices)].index(v)
+                        value_keywords.append(self.choices[i][0])
+                values = list(zip(values, value_keywords))
             template_values.update({
                 'key': self.label_view,
                 'values': values,
@@ -1284,7 +1292,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         'qg': questiongroup.keyword,
                         'extra': questiongroup.view_options.get('extra'),
                         'questions': questiongroup.get_rendered_questions(
-                            questiongroup_data)
+                            questiongroup_data),
                     })
                 else:
                     questiongroup_config = {
