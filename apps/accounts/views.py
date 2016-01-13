@@ -18,6 +18,7 @@ from django.views.generic import FormView
 from questionnaire.views import generic_questionnaire_list_no_config
 from .client import typo3_client
 from .conf import settings
+from .decorators import force_login_check
 from .forms import WocatAuthenticationForm
 from .models import User
 
@@ -87,7 +88,7 @@ def logout(request):
         response = HttpResponseRedirect(
             typo3_client.get_logout_url(request.build_absolute_uri(url))
         )
-        # The cookie is not always removed on woacat.net
+        # The cookie is not always removed on wocat.net
         response.delete_cookie(settings.AUTH_COOKIE_NAME)
     else:
         response = HttpResponseRedirect(url)
@@ -115,6 +116,7 @@ def questionnaires(request, user_id):
 
 
 @login_required
+@force_login_check
 def moderation(request):
     """
     View to show only pending Questionnaires to a moderator. Moderation
