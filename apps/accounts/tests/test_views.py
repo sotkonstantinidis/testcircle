@@ -66,6 +66,7 @@ class LoginViewTest(TestCase):
         mock_get_and_update_user.return_value = self.user
 
         form = WocatAuthenticationForm
+        form.get_user = lambda x: user
         # Add message store
         request = RequestFactory().post(
             reverse('login'),
