@@ -390,20 +390,20 @@ class ListTest(FunctionalTest):
             'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
                 entry_xpath))
         self.assertEqual(update.text, '02/13/2014 5:08 p.m.')
-        author = self.findBy(
-            'xpath', '{}//dl/dt[text()="Author:"]/following::dd[1]'.format(
+        compiler = self.findBy(
+            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(author.text, 'Foo Bar')
+        self.assertEqual(compiler.text, 'Foo Bar')
 
         html_1 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
 
-        # She also sees that the second entry has two authors (1 author, 1
-        # editor)
+        # She also sees that the second entry has one compiler and one editor
+        # but only the compiler is shown
         entry_xpath = '//article[contains(@class, "tech-item")][2]'
-        author = self.findBy(
-            'xpath', '{}//dl/dt[text()="Authors:"]/following::dd[1]'.format(
+        compiler = self.findBy(
+            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(author.text, 'Foo Bar, Faz Taz')
+        self.assertEqual(compiler.text, 'Foo Bar')
 
         # # She goes to the WOCAT list and sees the list (retrieved from
         # # elasticsearch) also contains metadata information and is
@@ -424,20 +424,20 @@ class ListTest(FunctionalTest):
             'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
                 entry_xpath))
         self.assertEqual(update.text, '02/13/2014 5:08 p.m.')
-        author = self.findBy(
-            'xpath', '{}//dl/dt[text()="Author:"]/following::dd[1]'.format(
+        compiler = self.findBy(
+            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(author.text, 'Foo Bar')
+        self.assertEqual(compiler.text, 'Foo Bar')
 
         html_2 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
 
-        # She also sees that the second entry has two authors (1 author, 1
-        # editor)
+        # She also sees that the second entry has one compiler and one editor
+        # but only the compiler is shown
         entry_xpath = '//article[contains(@class, "tech-item")][2]'
-        author = self.findBy(
-            'xpath', '{}//dl/dt[text()="Authors:"]/following::dd[1]'.format(
+        compiler = self.findBy(
+            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
                 entry_xpath))
-        self.assertEqual(author.text, 'Foo Bar, Faz Taz')
+        self.assertEqual(compiler.text, 'Foo Bar')
 
         # She sees that both list entries are exactly the same
         self.assertEqual(html_1, html_2)
@@ -447,7 +447,8 @@ class ListTest(FunctionalTest):
             'contains(text(), "Foo 3")]').click()
 
         info = self.findBy('xpath', '//ul[@class="tech-output-infos"]')
-        self.assertIn('Foo Bar, Faz Taz', info.text)
+        self.assertIn('Foo Bar', info.text)
+        self.assertIn('Faz Taz', info.text)
 
     def test_filter_checkbox(self):
 
