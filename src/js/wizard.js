@@ -72,6 +72,12 @@ function watchFormProgress() {
   $('input.checkbox-other').each(function() {
     $(this).prop('checked', $(this).parent('label').find('input:text').val() != '');
   });
+  $('input.radio-other').each(function() {
+    var otherSelected = $(this).closest('.single-item').prev().find('input:radio:checked:not(.radio-other)').first();
+    if (otherSelected.length) {
+      $(this).parent('label').find('input:text').val('');
+    }
+  });
 }
 
 /**
@@ -346,6 +352,10 @@ $(function() {
       $("input[name="+name+"]:radio").attr('previousValue', false);
       $(this).attr('previousValue', 'checked');
     }
+  })
+
+  .on('change', '.radio-other-field input:text', function() {
+    $(this).closest('label').find('input:radio').prop('checked', $(this).val());
   })
 
   .on('click', '.cb-toggle-questiongroup', function() {

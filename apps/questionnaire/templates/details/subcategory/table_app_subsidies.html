@@ -1,0 +1,61 @@
+{% load list_to_columns %}
+
+<h3>{{ numbering|default:'' }} {{ label }}</h3>
+
+{% for qg_config, qg_rendered in questiongroups %}
+  {% if qg_config.extra == 'before_table' %}
+    {{ qg_rendered }}
+  {% endif %}
+{% endfor %}
+{% for questiongroup in raw_questiongroups %}
+  {% if questiongroup.qg_keyword == 'app_qg_27' %}
+    {% for key, values in questiongroup.data_labelled.0 %}
+      {% for value in values %}
+        <ul class="has-aside-questiongroup">
+          <li><strong>{{ value }}</strong></li>
+        </ul>
+        <div class="aside-questiongroup">
+          {% with curr_value=questiongroup.data.0.0.1|get_by_index:forloop.counter0 curr_qg=raw_questiongroups|get_by_index:forloop.counter %}
+            {% if curr_value != 'app_subsidies_inputs_none' %}
+              <table>
+                <thead>
+                  {% for header in table_headers %}
+                    <th>{{ header }}</th>
+                  {% endfor %}
+                </thead>
+                <tbody>
+                  {% if curr_value == 'app_subsidies_inputs_labour' %}
+                    <td></td>
+                    {% for key, values in curr_qg.data_labelled.0 %}
+                      <td>{{ values|join:", " }}</td>
+                    {% endfor %}
+                  {% else %}
+                    {% for key, values in curr_qg.data_labelled.0 %}
+                      {% if forloop.first %}
+                        <tr>
+                      {% endif %}
+                      <td{% if not values %} class="is-empty"{% endif %}>
+                        {{ values|join:", " }}
+                      </td>
+                      {% if forloop.counter|divisibleby:3 %}
+                        </tr><tr>
+                      {% endif %}
+                      {% if forloop.last %}
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>
+            {% endif %}
+          {% endwith %}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+  {% for qg_config, qg_rendered in questiongroups %}
+    {% if qg_config.extra != 'before_table' %}
+      {{ qg_rendered }}
+    {% endif %}
+  {% endfor %}

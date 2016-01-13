@@ -70,7 +70,7 @@ select,
   height: rem-calc(36);
 }
 
-input[type="checkbox"].checkbox-other {
+input[type="checkbox"].checkbox-other, input[type="radio"].radio-other {
   position: absolute;
   left: 0;
   top: rem-calc(12);
@@ -102,12 +102,16 @@ fieldset .questiongroup:not(:first-of-type) h4 {
   margin-top: rem-calc(32);
 }
 
+.questiongroup-numbered-prefix {
+  padding-top: 0.1rem;
+}
+
 .questiongroup-numbered-left {
   float: left;
 }
 
 .questiongroup-numbered-left p {
-  padding: 0.5rem 0;
+  padding: 0.7rem 0;
 }
 
 .questiongroup-numbered-right {
