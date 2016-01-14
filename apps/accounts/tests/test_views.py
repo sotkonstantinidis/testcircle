@@ -101,7 +101,7 @@ class QuestionnairesTest(TestCase):
         self.factory = RequestFactory()
         self.user = create_new_user()
         self.url = reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 2})
+            accounts_route_questionnaires, kwargs={'user_id': 1})
         self.request = self.factory.get(self.url)
 
     def test_renders_correct_template(self):
@@ -123,7 +123,7 @@ class QuestionnairesTest(TestCase):
     @patch('accounts.views.render')
     @patch('accounts.views.generic_questionnaire_list_no_config')
     def test_calls_render(self, mock_generic_list, mock_render):
-        questionnaires(self.request, 2)
+        questionnaires(self.request, 1)
         mock_render.assert_called_once_with(
             self.request, 'questionnaires.html',
             mock_generic_list.return_value)
@@ -134,7 +134,7 @@ class UserUpdateTest(TestCase):
     def setUp(self):
         self.request = RequestFactory().get('/accounts/update')
         self.request.method = 'POST'
-        self.request.POST = {'uid': 2}
+        self.request.POST = {'uid': 1}
         self.request.user = create_new_user()
 
     def test_returns_error_if_no_uid(self):
@@ -148,7 +148,7 @@ class UserUpdateTest(TestCase):
     def test_calls_get_user_information(self, mock_get_user_information):
         mock_get_user_information.return_value = {}
         user_update(self.request)
-        mock_get_user_information.assert_called_once_with(2)
+        mock_get_user_information.assert_called_once_with(1)
 
     @patch('accounts.client.typo3_client.get_user_information')
     def test_returns_error_if_no_user_info_found(
@@ -175,7 +175,7 @@ class UserUpdateTest(TestCase):
             'first_name': 'Faz',
             'last_name': 'Taz',
         }
-        self.request.POST = {'uid': 1}
+        self.request.POST = {'uid': 2}
         user_update(self.request)
         users = User.objects.all()
         self.assertEqual(len(users), 2)
@@ -192,7 +192,7 @@ class UserUpdateTest(TestCase):
         }
         ret = user_update(self.request)
         json_ret = json.loads(str(ret.content, encoding='utf8'))
-        user = User.objects.get(pk=2)
+        user = User.objects.get(pk=1)
         self.assertTrue(json_ret['success'])
         self.assertEqual(json_ret['name'], user.get_display_name())
 

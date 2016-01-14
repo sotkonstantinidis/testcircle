@@ -5,7 +5,7 @@ from qcat.tests import TestCase
 User = get_user_model()
 
 
-def create_new_user(id=2, email='a@b.com', lastname='foo', firstname='bar'):
+def create_new_user(id=1, email='a@b.com', lastname='foo', firstname='bar'):
     user, created = User.objects.get_or_create(
         id=id, email=email,
         defaults={'lastname': lastname, 'firstname': firstname}
