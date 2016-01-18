@@ -102,7 +102,7 @@ class GenericQuestionnaireLinkFormTest(TestCase):
             'overview_url': '/en/sample/edit/foo/#links',
             'link_forms': [(
                 {
-                    'label': 'samplemulti',
+                    'label': '',
                     'keyword': 'samplemulti',
                     'search_url': '/en/samplemulti/search/links/',
                 }, []

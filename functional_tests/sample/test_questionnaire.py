@@ -1573,14 +1573,14 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # The overview now shows medium and she submits the form
-        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//span[contains(text(), "medium")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
 
         # She submits the form and sees that the radio value is stored
         # correctly
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//span[contains(text(), "medium")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
 
     def test_measure_selects_repeating(self):
 
@@ -1614,9 +1614,9 @@ class QuestionnaireTest(FunctionalTest):
         # She submits the step and sees the values were submitted
         # correctly
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//span[contains(text(), "high")]')
-        self.findBy('xpath', '//span[contains(text(), "medium")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"high")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
 
         # She goes back to the form and sees the values were populated
         self.browser.get(self.live_server_url + reverse(
@@ -1637,16 +1637,16 @@ class QuestionnaireTest(FunctionalTest):
 
         # She submits the step and sees the values were submitted
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//span[contains(text(), "medium")]')
-        self.findBy('xpath', '//span[contains(text(), "low")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"low")]]')
 
         # She submits the questionnaire and sees the values were submitted
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//span[contains(text(), "Key 12")]')
-        self.findBy('xpath', '//span[contains(text(), "medium")]')
-        self.findBy('xpath', '//span[contains(text(), "low")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"low")]]')
 
     def test_radio_selects(self):
 
