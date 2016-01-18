@@ -218,3 +218,5 @@ class BaseSettings(Configuration):
     CACHES = values.CacheURLValue(default='locmem://')
 
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
+
+    HOST_STRING = values.Value(environ_prefix='')
