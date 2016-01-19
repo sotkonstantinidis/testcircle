@@ -2,10 +2,11 @@ from os.path import join, dirname
 
 import envdir
 import configurations
+from fabric.context_managers import lcd
 from fabric.contrib.files import exists
 from fabric.api import local, run, sudo, env
 from fabric.colors import green, yellow
-from fabric.decorators import task
+from fabric.decorators import task, runs_once
 from fabric.operations import require
 from fabric.contrib import django
 from django.conf import settings
@@ -20,11 +21,9 @@ django.settings_module('qcat.settings')
 ENVIRONMENTS = {
     'develop': {
         'branch': 'develop',
-        'identifier': 'dev',
     },
     'master': {
         'branch': 'master',
-        'identifier': 'live',
     },
     'common': {
         'project_name': 'qcat',
@@ -50,10 +49,10 @@ def set_environment(environment_name):
             setattr(env, option, value)
 
     # Set attributes that are combined based on the configuration.
-    site_folder = '{base_path}/{project_name}-{identifier}'.format(
+    site_folder = '{base_path}/{project_name}-{branch}'.format(
         base_path=env.base_path,
         project_name=env.project_name,
-        identifier=env.identifier,
+        branch=env.branch,
     )
     setattr(env, 'site_folder', site_folder)
     setattr(env, 'source_folder', '{}/source'.format(site_folder))
@@ -77,7 +76,6 @@ def deploy():
     """
     require('environment', provided_by=(develop, master))
 
-    import pdb; pdb.set_trace()
     _set_maintenance_mode(True, env.source_folder)
     _get_latest_source(env.source_folder)
     _update_virtualenv(env.source_folder)
@@ -160,3 +158,26 @@ def _set_maintenance_mode(value, source_folder):
         envs_file=join(source_folder, 'envs', 'MAINTENANCE_MODE')
         )
     )
+
+
+@task
+@runs_once
+def register_deployment(git_path):
+    """
+    Call register_deployment with a local path that contains a .git directory
+    after a release has been deployed.
+
+    Args:
+        git_path:
+
+    """
+    with(lcd(git_path)):
+        revision = local('git log -n 1 --pretty="format:%H"', capture=True)
+        branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
+        local('curl https://intake.opbeat.com/api/v1/organizations/{}'
+              ' -H "Authorization: Bearer {}"'
+              ' -d rev="{}"'
+              ' -d branch="{}"'
+              ' -d status=completed'.format(
+                    settings.OPBEAT_ORGANIZATION_URL, settings.OPBEAT_BEARER,
+                    revision, branch))

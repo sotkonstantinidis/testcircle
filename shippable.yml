@@ -5,11 +5,12 @@ python: 3.4
 
 branches:
   only:
-    - develop
+    # - develop
     # - master
+    feature/shippable-ci
 
 env:
-  secure: <host_string>  # http://shippable-docs-20.readthedocs.org/en/latest/config.html#configuration
+  - secure: k412pgPHDWVvi2I0y6ZufivZ5h7TDxDNyaDwAUsUYQ1iBtDDI92cZdiqdo+OHAtR4JfAtfrj7xG37QdLvnES7ZuswTs9urXrW1lTLfSYzCW52o+SwO4ZIZlqVdW+5OS8U4T8+afamlOmnCYlM+pH2dbIXLM32lrPJkc03rA89dW0p5RbU607Sj2hSfB4/k9lj4nBORCamU2SLR/3DVFheN3owFW5jf2F9Xm/UTHuurAWQHLpsYHGGrVxX/7c9IR32wnLPyXFyizQ6nFbRHN0vcWGfMAV/AhvLseayg9p1NTvAfdIc6ngtsEDfiuIqgKk7MQwS6hjRIYaquiUr4w2vw==
 
 addons:
   - postgresql: 9.4
@@ -29,7 +30,7 @@ install:
 before_script:
   - "export DISPLAY=:99.0"
   - fab $BRANCH <set_envs>
-  - fab $BRANCH <load_fixtures>
+  - fab $BRANCH load_qcat_data
   - fab $BRANCH <create_elasticsearch_index>
   - /etc/init.d/xvfb start
 script:

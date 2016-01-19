@@ -220,3 +220,6 @@ class BaseSettings(Configuration):
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
 
     HOST_STRING = values.Value(environ_prefix='')
+
+    OPBEAT_ORGANIZATION_URL = values.Value(environ_prefix='')
+    OPBEAT_BEARER = values.Value(environ_prefix='')
