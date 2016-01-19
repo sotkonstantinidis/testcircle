@@ -7,37 +7,73 @@ branches:
   only:
     # - develop
     # - master
-    feature/shippable-ci
+    - feature/shippable-ci
 
 env:
-  - secure: k412pgPHDWVvi2I0y6ZufivZ5h7TDxDNyaDwAUsUYQ1iBtDDI92cZdiqdo+OHAtR4JfAtfrj7xG37QdLvnES7ZuswTs9urXrW1lTLfSYzCW52o+SwO4ZIZlqVdW+5OS8U4T8+afamlOmnCYlM+pH2dbIXLM32lrPJkc03rA89dW0p5RbU607Sj2hSfB4/k9lj4nBORCamU2SLR/3DVFheN3owFW5jf2F9Xm/UTHuurAWQHLpsYHGGrVxX/7c9IR32wnLPyXFyizQ6nFbRHN0vcWGfMAV/AhvLseayg9p1NTvAfdIc6ngtsEDfiuIqgKk7MQwS6hjRIYaquiUr4w2vw==
+  global:
+    - secure: PtEbzL2/rOsC1NRN6maZYmy4YFNus06evkoyny8/rqwEIqfSi5shmr5mo0irt5xiFHUYR6YE42YQjXX0+WMC7n9PHmUGjabf00HPvopJf7x9XBU8XLhnBYsT1eUNULncc2liaZlGGnr+ocAyWsivid/sAuNAqkt7t5emKTWre8in+fuZBbNZNf8NJ76zPIvqWN3rLGcQZm1hU50VElnFEXS+zOFKRhgb1MC8VIWIENL8DHtmg9NCwDInAME0TjarJ+Ry85hHZQOPnJbsrfZ/9PVnx1aC4oJQ8o0S+F4nYeK4scSDKY6FZsDrPP9pnOpBEF5D/Ro2m72YOQdrN8ldSl+OZbzMwHa2ZK60LcoeR+sEP85y9eOY1sUvS1kggCvvn3sdbzsbzJb1XgFEKwljcMuA7G7w1qxZfvg1s/iDARHMdoOGCnxpyN50CZshc6pa+hYm2r91F3rA/nZ/ExjazmXbsv0bQhEh8SoPMEZ7QrPG7MMqtY32TQ9TRYlHkvBWr0HlbmkTn0SUK5A0RyrnaTFMQUN4BZHFklFFzs2LYGQP06YOct3lCm3VfYQFk92DCbrHZSlmDD9aKiWl1yNj4byHH5BmY5pmblr1bE/qthAZ5NPzpGRpP+mZDsaGJ6Ura6SRcIT+NXOyQshBJxE04QtqwukKg7WQlBe/4huFKVM=
+
+#cache: true
 
 addons:
-  - postgresql: 9.4
-  - firefox: 48.0
+  - firefox: "48.0"
+  - postgresql: "9.4"
+
 services:
   - selenium
   - elasticsearch
 
 before_install:
-  - source ~/.rvm/scripts/rvm && rvm use 2.0.0
+  - sudo service postgresql stop
+  - sudo apt-get remove --purge postgresql-9.1 postgresql-9.2 postgresql-9.3
+  - shippable_retry sudo apt-get update -y -q
+  - shippable_retry sudo apt-get install -y -q postgresql-9.4-postgis-2.1 postgresql-client-9.4 postgresql-contrib-9.4 postgresql-plperl-9.4 --fix-missing
+  - echo 'host all all localhost trust' | sudo tee /etc/postgresql/9.4/main/pg_hba.conf > /dev/null
+  - echo 'local all all trust' | sudo tee --append /etc/postgresql/9.4/main/pg_hba.conf > /dev/null
+  - sudo service postgresql start 9.4
+  - sudo env
+  - shippable_retry sudo apt-get update && install -y python-psycopg2 nodejs npm
+
 install:
-  - bundler install
+  - sudo npm install --global npm@1.4.21
+  - sudo npm install -g grunt-cli
   - npm install
-  - bower install
-  - pip install -r requirements/development.txt
+  - bower install --allow-root
+  - grunt build
+  - pip3 install -r requirements/development.txt
+  - pip3 install -r requirements/production.txt
 
 before_script:
+  - "/etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
-  - fab $BRANCH <set_envs>
-  - fab $BRANCH load_qcat_data
-  - fab $BRANCH <create_elasticsearch_index>
-  - /etc/init.d/xvfb start
+  # postgres for tests
+  - psql -c 'CREATE ROLE qcat_test LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
+  - psql -c 'CREATE DATABASE "qcat_test";' -U postgres
+  - psql -c "ALTER USER qcat_test WITH PASSWORD '123456';" -U postgres
+  # postgres for the application
+  - psql -c 'CREATE ROLE qcat LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
+  - psql -c 'CREATE DATABASE "qcat";' -U postgres
+  - psql -c "ALTER USER qcat WITH PASSWORD '123456';" -U postgres
+  # Put our application directory to the sys.path so it can be loaded.
+  - echo "`pwd`/apps" > /home/shippable/build_ve/python/3.4/lib/python3.4/site-packages/_qcat_path.pth
+  - echo "ProdDefaultSite" > envs/DJANGO_CONFIGURATION
+  - echo "qcat.settings" > envs/DJANGO_SETTINGS_MODULE
+  - echo "postgis://qcat:123456@localhost:5432/qcat" > envs/DATABASE_URL
+  - echo "123" > envs/DJANGO_SECRET_KEY
+  # Prepare application: load initial data and create static assets.
+  - python manage.py migrate --noinput
+  - python load_qcat_data
+#  - python create_es_indexes
+  - python manage.py collectstatic --noinput
+  # For selenium
+  - "export DISPLAY=:99.0"
+
 script:
   - flake8
-  - coverage run --source='src/' src/manage.py test
+  - coverage run --source='.' manage.py test
+
 after_script:
-  - /etc/init.d/xvfb stop
+  - "/etc/init.d/xvfb stop"
 
 after_success:
   - mv coverage.xml shippable/codecoverage/
@@ -47,5 +83,5 @@ after_success:
 
 notifications:
   email:
-    on_success: always
-    on_failure: always
+    on_success: never
+    on_failure: never
