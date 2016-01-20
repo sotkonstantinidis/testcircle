@@ -1,45 +1,45 @@
 import json
 from uuid import uuid4
-from django.conf import settings
+
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
-from itertools import chain
 
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+from .conf import settings
 
 
 STATUSES = (
-    (1, _('Draft')),
-    (2, _('Submitted')),
-    (3, _('Reviewed')),
-    (4, _('Public')),
-    (5, _('Rejected')),
-    (6, _('Inactive')),
+    (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
+    (settings.QUESTIONNAIRE_SUBMITTED, _('Submitted')),
+    (settings.QUESTIONNAIRE_REVIEWED, _('Reviewed')),
+    (settings.QUESTIONNAIRE_PUBLIC, _('Public')),
+    (settings.QUESTIONNAIRE_REJECTED, _('Rejected')),
+    (settings.QUESTIONNAIRE_INACTIVE, _('Inactive')),
 )
 STATUSES_CODES = (
-    (1, 'draft'),
-    (2, 'submitted'),
-    (3, 'reviewed'),
-    (4, 'public'),
-    (5, 'rejected'),
-    (6, 'inactive'),
+    (settings.QUESTIONNAIRE_DRAFT, 'draft'),
+    (settings.QUESTIONNAIRE_SUBMITTED, 'submitted'),
+    (settings.QUESTIONNAIRE_REVIEWED, 'reviewed'),
+    (settings.QUESTIONNAIRE_PUBLIC, 'public'),
+    (settings.QUESTIONNAIRE_REJECTED, 'rejected'),
+    (settings.QUESTIONNAIRE_INACTIVE, 'inactive'),
 )
 
 QUESTIONNAIRE_ROLES = (
     # Functional roles
-    ('compiler', _('Compiler')),
-    ('editor', _('Editor')),
-    ('reviewer', _('Reviewer')),
-    ('publisher', _('Publisher')),
+    (settings.QUESTIONNAIRE_COMPILER, _('Compiler')),
+    (settings.QUESTIONNAIRE_EDITOR, _('Editor')),
+    (settings.QUESTIONNAIRE_REVIEWER, _('Reviewer')),
+    (settings.QUESTIONNAIRE_PUBLISHER, _('Publisher')),
     # Content roles only, no privileges attached
-    ('landuser', _('Land User')),
-    ('resourceperson', _('Key resource person')),
+    (settings.QUESTIONNAIRE_LANDUSER, _('Land User')),
+    (settings.QUESTIONNAIRE_RESOURCEPERSON, _('Key resource person')),
 )
 
 
