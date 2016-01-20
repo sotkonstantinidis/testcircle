@@ -218,5 +218,11 @@ class BaseSettings(Configuration):
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
 
+    # If set to true, the template 503.html is displayed.
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
     MAINTENANCE_LOCKFILE_PATH = join(BASE_DIR, 'maintenance.lock')
+
+    # Settings for opbeat.
+    OPBEAT_ORGANIZATION_ID = values.Value(environ_prefix='')
+    OPBEAT_APP_ID = values.Value(environ_prefix='')
+    OPBEAT_SECRET_TOKEN = values.Value(environ_prefix='')
