@@ -29,17 +29,22 @@ class SecurityMixin:
 
 
 class OpBeatMixin:
+    """
+    Configure the settings required for opbeat.
+    """
     @property
     def INSTALLED_APPS(self):
         return super().INSTALLED_APPS + (
             'opbeat.contrib.django',
         )
 
-    OPBEAT = {
-        'ORGANIZATION_ID': values.Value(environ_name='OPBEAT_ORGANIZATION_ID'),
-        'APP_ID': values.Value(environ_name='OPBEAT_APP_ID'),
-        'SECRET_TOKEN': values.Value(environ_name='OPBEAT_SECRET_TOKEN')
-    }
+    @property
+    def OPBEAT(self):
+        return {
+            'ORGANIZATION_ID': super().OPBEAT_ORGANIZATION_ID,
+            'APP_ID': super().OPBEAT_APP_ID,
+            'SECRET_TOKEN': super().OPBEAT_SECRET_TOKEN,
+        }
 
     @property
     def MIDDLEWARE_CLASSES(self):
