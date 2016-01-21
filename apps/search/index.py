@@ -1,7 +1,6 @@
 from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
-from itertools import chain
 
 from .utils import (
     get_analyzer,

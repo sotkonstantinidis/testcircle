@@ -8,12 +8,7 @@ from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from configuration.models import Configuration
 from qcat.tests import TestCase
-from questionnaire.models import (
-    Questionnaire,
-    QuestionnaireLink,
-    QuestionnaireMembership,
-    File,
-)
+from questionnaire.models import Questionnaire, QuestionnaireLink, File
 
 
 def get_valid_file():

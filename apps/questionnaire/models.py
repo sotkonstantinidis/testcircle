@@ -259,14 +259,16 @@ class Questionnaire(models.Model):
         permissions = []
         permission_groups = {
             settings.QUESTIONNAIRE_COMPILER: [{
-                'status': [settings.QUESTIONNAIRE_DRAFT, settings.QUESTIONNAIRE_PUBLIC],
+                'status': [settings.QUESTIONNAIRE_DRAFT,
+                           settings.QUESTIONNAIRE_PUBLIC],
                 'permissions': ['edit_questionnaire']
             }, {
                 'status': [settings.QUESTIONNAIRE_DRAFT],
                 'permissions': ['submit_questionnaire']
             }],
             settings.QUESTIONNAIRE_EDITOR: [{
-                'status': [settings.QUESTIONNAIRE_DRAFT, settings.QUESTIONNAIRE_PUBLIC],
+                'status': [settings.QUESTIONNAIRE_DRAFT,
+                           settings.QUESTIONNAIRE_PUBLIC],
                 'permissions': ['edit_questionnaire']
             }],
             settings.QUESTIONNAIRE_REVIEWER: [{
