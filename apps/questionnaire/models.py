@@ -56,7 +56,10 @@ class Questionnaire(models.Model):
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
-    blocked = models.BooleanField(default=False)
+    blocked = models.ForeignKey(
+        settings.AUTH_USER_MODEL,blank=True, null=True,
+        related_name='blocks_questionnaire'
+    )
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
     members = models.ManyToManyField(
