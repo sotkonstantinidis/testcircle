@@ -12,6 +12,7 @@ from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
 from .conf import settings
+from .querysets import StatusQuerySet
 
 
 STATUSES = (
@@ -65,6 +66,9 @@ class Questionnaire(models.Model):
     links = models.ManyToManyField(
         'self', through='QuestionnaireLink', symmetrical=False,
         related_name='linked_to+')
+
+    objects = models.Manager()
+    with_status = StatusQuerySet.as_manager()
 
     class Meta:
         ordering = ['-updated']
@@ -150,18 +154,18 @@ class Questionnaire(models.Model):
                 raise ValidationError(
                     'You do not have permission to edit the questionnaire.')
 
-            if previous_version.status == 4:
+            if previous_version.status == settings.QUESTIONNAIRE_PUBLIC:
                 # Edit of a public questionnaire: Create new version
                 # with the same code
                 version = previous_version.version + 1
 
-            elif previous_version.status == 1:
+            elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
                 previous_version.update_data(
                     data, updated, configuration_code)
                 return previous_version
 
-            elif previous_version.status == 2:
+            elif previous_version.status == settings.QUESTIONNAIRE_SUBMITTED:
                 # Edit of a submitted questionnaire: Only update the data
                 # User must be reviewer!
                 if 'review_questionnaire' not in permissions:
@@ -172,7 +176,7 @@ class Questionnaire(models.Model):
                     data, updated, configuration_code)
                 return previous_version
 
-            elif previous_version.status == 3:
+            elif previous_version.status == settings.QUESTIONNAIRE_REVIEWED:
                 # Edit of a reviewed questionnaire: Only update the data
                 # User must be publisher!
                 if 'publish_questionnaire' not in permissions:
@@ -214,12 +218,15 @@ class Questionnaire(models.Model):
 
         if previous_version:
             # Copy all the functional user roles from the old version
-            user_roles = ['compiler', 'editor', 'reviewer', 'publisher']
+            user_roles = [settings.QUESTIONNAIRE_COMPILER,
+                          settings.QUESTIONNAIRE_EDITOR,
+                          settings.QUESTIONNAIRE_REVIEWER,
+                          settings.QUESTIONNAIRE_PUBLISHER]
             for role in user_roles:
                 for old_user in previous_version.get_users_by_role(role):
                     questionnaire.add_user(old_user, role)
         else:
-            questionnaire.add_user(user, 'compiler')
+            questionnaire.add_user(user, settings.QUESTIONNAIRE_COMPILER)
         questionnaire.update_users_from_data(
             configuration_code)
 
@@ -250,30 +257,49 @@ class Questionnaire(models.Model):
             questionnaire object.
         """
         permissions = []
-        for role, user in self.get_users():
-            if current_user == user:
-                if role in ['compiler', 'editor'] and self.status in [1, 4]:
-                    permissions.append('edit_questionnaire')
-                if role in ['compiler'] and self.status in [1]:
-                    permissions.append('submit_questionnaire')
-                if role in ['reviewer'] and self.status in [2]:
-                    permissions.extend(
-                        ['edit_questionnaire', 'review_questionnaire'])
-                if role in ['publisher'] and self.status in [3]:
-                    permissions.extend(
-                        ['edit_questionnaire', 'publish_questionnaire'])
+        permission_groups = {
+            settings.QUESTIONNAIRE_COMPILER: [{
+                'status': [settings.QUESTIONNAIRE_DRAFT, settings.QUESTIONNAIRE_PUBLIC],
+                'permissions': ['edit_questionnaire']
+            }, {
+                'status': [settings.QUESTIONNAIRE_DRAFT],
+                'permissions': ['submit_questionnaire']
+            }],
+            settings.QUESTIONNAIRE_EDITOR: [{
+                'status': [settings.QUESTIONNAIRE_DRAFT, settings.QUESTIONNAIRE_PUBLIC],
+                'permissions': ['edit_questionnaire']
+            }],
+            settings.QUESTIONNAIRE_REVIEWER: [{
+                'status': [settings.QUESTIONNAIRE_SUBMITTED],
+                'permissions': ['edit_questionnaire', 'review_questionnaire']
+            }],
+            settings.QUESTIONNAIRE_PUBLISHER: [{
+                'status': [settings.QUESTIONNAIRE_REVIEWED],
+                'permissions': ['edit_questionnaire', 'publish_questionnaire']
+            }]
+        }
+        # Check if defined rules apply to user and set a list with all
+        # permissions
+        for member_role, user in self.get_users(user=current_user):
+            permission_group = permission_groups.get(member_role)
+            if not permission_group:
+                continue
+
+            for access_level in permission_group:
+                if self.status in access_level['status']:
+                    permissions.extend(access_level['permissions'])
 
         user_permissions = current_user.get_all_permissions()
         if ('questionnaire.review_questionnaire' in user_permissions
-                and self.status in [2]):
+                and self.status in [settings.QUESTIONNAIRE_SUBMITTED]):
             permissions.extend(['review_questionnaire', 'edit_questionnaire'])
         if ('questionnaire.publish_questionnaire' in user_permissions
-                and self.status in [3]):
+                and self.status in [settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
 
         return list(set(permissions))
 
-    def get_users(self):
+    def get_users(self, **kwargs):
         """
         Helper function to return the users of a questionnaire along
         with their role in this membership.
@@ -287,7 +313,7 @@ class Questionnaire(models.Model):
             - [1]: ``accounts.models.User``. The user object.
         """
         users = []
-        for membership in self.questionnairemembership_set.all():
+        for membership in self.questionnairemembership_set.filter(**kwargs):
             users.append((membership.role, membership.user))
         return users
 
@@ -361,8 +387,10 @@ class Questionnaire(models.Model):
         # the data dictionary (no functional user roles)
         previous_users = []
         for user_role, user in self.get_users():
-            if user_role not in [
-                    'compiler', 'editor', 'reviewer', 'publisher']:
+            if user_role not in [settings.QUESTIONNAIRE_COMPILER,
+                                 settings.QUESTIONNAIRE_EDITOR,
+                                 settings.QUESTIONNAIRE_REVIEWER,
+                                 settings.QUESTIONNAIRE_PUBLISHER]:
                 previous_users.append((user_role, user))
 
         # Check which users are new (in submitted_users but not in
@@ -414,9 +442,7 @@ class Questionnaire(models.Model):
             for user_data in user_data_list:
                 user_id = user_data.get(user_field[1])
                 if user_id and str(user_id) == str(user.id):
-                    updated_user_data = {}
-                    updated_user_data[user_field[2]] = user.get_display_name()
-                    user_data.update(updated_user_data)
+                    user_data.update({user_field[2]: user.get_display_name()})
 
         self.save()
 
@@ -450,12 +476,16 @@ class Questionnaire(models.Model):
         """
         compilers = []
         editors = []
-        for compiler in self.members.filter(questionnairemembership__role='compiler'):
+        for compiler in self.members.filter(
+                questionnairemembership__role=settings.QUESTIONNAIRE_COMPILER
+        ):
             compilers.append({
                 'id': compiler.id,
                 'name': str(compiler),
             })
-        for editor in self.members.filter(questionnairemembership__role='editor'):
+        for editor in self.members.filter(
+            questionnairemembership__role=settings.QUESTIONNAIRE_EDITOR
+        ):
             editors.append({
                 'id': editor.id,
                 'name': str(editor),

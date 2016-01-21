@@ -27,15 +27,9 @@ from qcat.utils import (
     get_session_questionnaire,
     save_session_questionnaire,
 )
-from questionnaire.models import (
-    Questionnaire,
-    File,
-)
-from questionnaire.upload import (
-    handle_upload,
-    retrieve_file,
-)
-from questionnaire.utils import (
+from .models import Questionnaire, File
+from .upload import handle_upload, retrieve_file
+from .utils import (
     clean_questionnaire_data,
     compare_questionnaire_data,
     get_active_filters,
@@ -50,7 +44,7 @@ from questionnaire.utils import (
     query_questionnaire,
     query_questionnaires,
 )
-from questionnaire.view_utils import (
+from .view_utils import (
     ESPagination,
     get_page_parameter,
     get_pagination_parameters,
@@ -58,6 +52,7 @@ from questionnaire.view_utils import (
     get_limit_parameter,
 )
 from search.search import advanced_search
+from .conf import settings
 
 
 @login_required
@@ -702,7 +697,8 @@ def generic_questionnaire_details(
     permissions = questionnaire_object.get_permissions(request.user)
 
     review_config = {}
-    if request.user.is_authenticated() and questionnaire_object.status != 4:
+    if request.user.is_authenticated() \
+            and questionnaire_object.status != settings.QUESTIONNAIRE_SUBMITTED:
         # Show the review panel only if the user is logged in and if the
         # version shown is not active.
         review_config = {

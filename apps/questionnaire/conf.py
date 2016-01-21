@@ -15,7 +15,7 @@ class QuestionnaireConf(AppConf):
     INACTIVE = 6
     # Roles
     COMPILER = 'compiler'
-    EDITOR = ' editor'
+    EDITOR = 'editor'
     REVIEWER = 'reviewer'
     PUBLISHER = 'publisher'
     LANDUSER = 'landuser'
