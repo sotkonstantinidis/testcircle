@@ -17,22 +17,12 @@ env:
 
 addons:
   - firefox: "48.0"
-  - postgresql: "9.4"
 
 services:
   - selenium
   - elasticsearch
 
-before_install:
-  - sudo service postgresql stop
-  - sudo apt-get remove --purge postgresql-9.1 postgresql-9.2 postgresql-9.3
-  - shippable_retry sudo apt-get update -y -q
-  - shippable_retry sudo apt-get install -y -q postgresql-9.4-postgis-2.1 postgresql-client-9.4 postgresql-contrib-9.4 postgresql-plperl-9.4 --fix-missing
-  - echo 'host all all localhost trust' | sudo tee /etc/postgresql/9.4/main/pg_hba.conf > /dev/null
-  - echo 'local all all trust' | sudo tee --append /etc/postgresql/9.4/main/pg_hba.conf > /dev/null
-  - sudo service postgresql start 9.4
-  - sudo env
-  - shippable_retry sudo apt-get update && install -y python-psycopg2 nodejs npm
+# before_install:
 
 install:
   - sudo npm install --global npm@1.4.21
@@ -54,7 +44,7 @@ before_script:
   - psql -c 'CREATE ROLE qcat LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
   - psql -c 'CREATE DATABASE "qcat";' -U postgres
   - psql -c "ALTER USER qcat WITH PASSWORD '123456';" -U postgres
-  # Put our application directory to the sys.path so it can be loaded.
+  # Put our 'apps' directory to the sys.path so our apps can be loaded..
   - echo "`pwd`/apps" > /home/shippable/build_ve/python/3.4/lib/python3.4/site-packages/_qcat_path.pth
   - echo "ProdDefaultSite" > envs/DJANGO_CONFIGURATION
   - echo "qcat.settings" > envs/DJANGO_SETTINGS_MODULE
@@ -63,7 +53,7 @@ before_script:
   # Prepare application: load initial data and create static assets.
   - python manage.py migrate --noinput
   - python load_qcat_data
-#  - python create_es_indexes
+  - python create_es_indexes
   - python manage.py collectstatic --noinput
   # For selenium
   - "export DISPLAY=:99.0"
