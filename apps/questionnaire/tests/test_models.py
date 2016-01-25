@@ -390,6 +390,22 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire_2.links.count(), 0)
         self.assertEqual(QuestionnaireLink.objects.count(), 0)
 
+    def test_protect_published_item(self):
+        questionnaire = Questionnaire.create_new(
+            configuration_code='sample', data={}, user=self.user, status=4
+        )
+        self.assertEqual(questionnaire.status, 4)
+        questionnaire.data = {'foo': 'bar'}
+        self.assertRaises(ValidationError, lambda: questionnaire.save())
+
+    def test_allow_changes_unpublished_item(self):
+        questionnaire = Questionnaire.create_new(
+            configuration_code='sample', data={}, user=self.user, status=1
+        )
+        questionnaire.data = {'foo': 'bar'}
+        questionnaire.save()
+        self.assertEqual(questionnaire.data, {'foo': 'bar'})
+
 
 class FileModelTest(TestCase):
 
