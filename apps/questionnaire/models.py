@@ -2,6 +2,7 @@ import json
 from uuid import uuid4
 
 from django.contrib.gis.db import models
+from django.contrib.messages import WARNING, SUCCESS
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _, get_language
@@ -12,6 +13,7 @@ from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
 from .conf import settings
+from .errors import QuestionnaireLockedException
 from .querysets import StatusQuerySet
 
 
@@ -57,8 +59,9 @@ class Questionnaire(models.Model):
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
     blocked = models.ForeignKey(
-        settings.AUTH_USER_MODEL,blank=True, null=True,
-        related_name='blocks_questionnaire'
+        settings.AUTH_USER_MODEL, blank=True, null=True,
+        related_name='blocks_questionnaire',
+        help_text=_(u"Set with the method: lock_questionnaire.")
     )
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
@@ -101,6 +104,7 @@ class Questionnaire(models.Model):
         """
         self.data = data
         self.updated = updated
+        self.blocked = None
         self.save()
 
         # Update the users attached to the questionnaire
@@ -564,6 +568,45 @@ class Questionnaire(models.Model):
 
     def __str__(self):
         return json.dumps(self.data)
+
+    def lock_questionnaire(self, user):
+        """
+        If the questionnaire is not locked, or locked by given user: lock the
+        questionnaire for this user - else raise an error.
+
+        Args:
+            user: accounts.models.User
+        """
+        if self.blocked and self.blocked != user:
+            raise QuestionnaireLockedException(self.blocked)
+        self.blocked = user
+        self.save()
+
+    def is_editable_by_user(self, user):
+        """
+
+        Args:
+            user: accounts.models.User
+
+        Returns:
+            boolean
+
+        """
+        return not self.blocked or self.blocked is user
+
+    def get_blocked_message(self, user):
+        """
+        The user that is locking the draft of the questionnaire.
+
+        Args:
+            user: accounts.models.User
+        """
+        if self.is_editable_by_user(user):
+            return SUCCESS, _(u"This questionnaire is blocked, "
+                              u"only you can edit it.")
+        else:
+            return WARNING, _(u"This questionnaire is "
+                              u"locked by {}".format(self.blocked))
 
 
 class QuestionnaireConfiguration(models.Model):
