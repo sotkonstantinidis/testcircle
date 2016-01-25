@@ -51,5 +51,5 @@ RUN service postgresql restart
 # RUN sudo -u postgres psql -c "CREATE EXTENSION postgis;"
 
 # Elasticsearch: load configuration and start service.
-ADD elasticsearch.yml /etc/elasticsearch/
+ADD serverconfig/elasticsearch.yml /etc/elasticsearch/
 RUN service elasticsearch restart
