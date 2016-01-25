@@ -45,8 +45,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq -y --force-yes install \
     --fix-missing
 
 # Configure postgres and enable postgis.
-ADD postgresql.conf /etc/postgresql/$POSTGRES/main/postgresql.conf
-ADD pg_hba.conf /etc/postgresql/$POSTGRES/main/pg_hba.conf
+ADD serverconfig/postgresql.conf /etc/postgresql/$POSTGRES/main/postgresql.conf
+ADD serverconfig/pg_hba.conf /etc/postgresql/$POSTGRES/main/pg_hba.conf
 RUN service postgresql restart
 # RUN sudo -u postgres psql -c "CREATE EXTENSION postgis;"
 
