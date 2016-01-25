@@ -20,9 +20,6 @@ addons:
 
 services:
   - selenium
-  - elasticsearch
-
-# before_install:
 
 install:
   - sudo npm install --global npm@1.4.21
@@ -39,10 +36,12 @@ before_script:
   # postgres for tests
   - psql -c 'CREATE ROLE qcat_test LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
   - psql -c 'CREATE DATABASE "qcat_test";' -U postgres
+  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d qcat_test
   - psql -c "ALTER USER qcat_test WITH PASSWORD '123456';" -U postgres
   # postgres for the application
   - psql -c 'CREATE ROLE qcat LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
   - psql -c 'CREATE DATABASE "qcat";' -U postgres
+  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d qcat
   - psql -c "ALTER USER qcat WITH PASSWORD '123456';" -U postgres
   # Put our 'apps' directory to the sys.path so our apps can be loaded..
   - echo "`pwd`/apps" > /home/shippable/build_ve/python/3.4/lib/python3.4/site-packages/_qcat_path.pth
