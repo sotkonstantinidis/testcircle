@@ -42,6 +42,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq -y --force-yes install \
     postgresql-contrib-$POSTGRES \
     elasticsearch \
     python-psycopg2 \
+    xvfb \
     --fix-missing
 
 # Configure postgres and enable postgis.
