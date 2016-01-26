@@ -30,26 +30,30 @@ class BaseSettings(Configuration):
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
+        'django.contrib.sitemaps',
         'django.contrib.staticfiles',
+        'compressor',
         'django_nose',
-        'floppyforms',
         'django_extensions',
-        'imagekit',
-        'rest_framework',
         'django_filters',
+        'floppyforms',
+        'imagekit',
         'maintenancemode',
+        'rest_framework',
+        'sekizai',
         # Custom apps
-        'questionnaire',
         'accounts',
         'api',
-        'configuration',
-        'wocat',
-        'technologies',
         'approaches',
-        'unccd',
-        'search',
+        'configuration',
+        'qcat',
+        'questionnaire',
         'sample',
         'samplemulti',
+        'search',
+        'technologies',
+        'unccd',
+        'wocat',
     )
 
     MIDDLEWARE_CLASSES = (
@@ -97,6 +101,11 @@ class BaseSettings(Configuration):
     STATICFILES_DIRS = (
         join(BASE_DIR, 'static'),
     )
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'compressor.finders.CompressorFinder',
+    )
 
     MEDIA_URL = '/upload/'
     MEDIA_ROOT = join(BASE_DIR, '..', 'upload')
@@ -132,6 +141,7 @@ class BaseSettings(Configuration):
         "django.core.context_processors.tz",
         "django.contrib.messages.context_processors.messages",
         'django.core.context_processors.request',
+        'sekizai.context_processors.sekizai',
     )
 
     AUTH_USER_MODEL = 'accounts.User'
@@ -226,3 +236,6 @@ class BaseSettings(Configuration):
     OPBEAT_ORGANIZATION_ID = values.Value(environ_prefix='')
     OPBEAT_APP_ID = values.Value(environ_prefix='')
     OPBEAT_SECRET_TOKEN = values.Value(environ_prefix='')
+    OPBEAT_ORGANIZATION_URL = values.Value(environ_prefix='')
+
+    HOST_STRING_DEV = values.Value(environ_prefix='')
