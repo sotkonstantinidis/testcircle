@@ -209,6 +209,7 @@ class BaseSettings(Configuration):
         environ_prefix='',
         default='https://dev.wocat.net/en/sitefunctions/login.html'
     )
+    AUTH_COOKIE_NAME = values.Value(default='fe_typo_user', environ_prefix='')
 
     # https://raw.githubusercontent.com/SeleniumHQ/selenium/master/py/CHANGES
     # for the latest supported firefox version.
@@ -217,9 +218,14 @@ class BaseSettings(Configuration):
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
 
+    # If set to true, the template 503.html is displayed.
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
+    MAINTENANCE_LOCKFILE_PATH = join(BASE_DIR, 'maintenance.lock')
+
+    # Settings for opbeat.
+    OPBEAT_ORGANIZATION_ID = values.Value(environ_prefix='')
+    OPBEAT_APP_ID = values.Value(environ_prefix='')
+    OPBEAT_SECRET_TOKEN = values.Value(environ_prefix='')
+    OPBEAT_ORGANIZATION_URL = values.Value(environ_prefix='')
 
     HOST_STRING_DEV = values.Value(environ_prefix='')
-
-    OPBEAT_ORGANIZATION_URL = values.Value(environ_prefix='')
-    OPBEAT_BEARER = values.Value(environ_prefix='')
