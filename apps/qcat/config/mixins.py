@@ -11,6 +11,7 @@ class DevMixin:
 class ProdMixin:
     DEBUG = values.BooleanValue(False)
     TEMPLATE_DEBUG = values.BooleanValue(False)
+    COMPRESS_ENABLED = True
 
 
 class SecurityMixin:

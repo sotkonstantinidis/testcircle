@@ -100,6 +100,11 @@ class BaseSettings(Configuration):
     STATICFILES_DIRS = (
         join(BASE_DIR, 'static'),
     )
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'compressor.finders.CompressorFinder',
+    )
 
     MEDIA_URL = '/upload/'
     MEDIA_ROOT = join(BASE_DIR, '..', 'upload')
