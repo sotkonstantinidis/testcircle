@@ -11,7 +11,6 @@ class DevMixin:
 class ProdMixin:
     DEBUG = values.BooleanValue(False)
     TEMPLATE_DEBUG = values.BooleanValue(False)
-    COMPRESS_ENABLED = True
 
 
 class SecurityMixin:
@@ -27,6 +26,12 @@ class SecurityMixin:
     # SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_HTTPONLY = True
+
+
+class CompressMixin:
+    """Settings for the django-compressor"""
+    COMPRESS_ENABLED = True
+    # maybe: use different (faster) filters for css and js.
 
 
 class OpBeatMixin:
