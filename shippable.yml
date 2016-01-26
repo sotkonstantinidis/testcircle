@@ -21,14 +21,14 @@ cache: true
 #services:
 #  - selenium
 
-#install:
+install:
 #  - sudo npm install --global npm@1.4.21
 #  - sudo npm install -g grunt-cli
 #  - npm install
 #  - bower install --allow-root
 #  - grunt build
-#  - pip3 install -r requirements/development.txt
-#  - pip3 install -r requirements/production.txt
+  - pip3 install -r requirements/development.txt
+  - pip3 install -r requirements/production.txt
 
 #before_script:
 #  - "/etc/init.d/xvfb start"
