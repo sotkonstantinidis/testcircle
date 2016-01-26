@@ -21,6 +21,7 @@ django.settings_module('qcat.settings')
 ENVIRONMENTS = {
     'develop': {
         'branch': 'develop',
+        'host_string': settings.HOST_STRING_DEV
     },
     'master': {
         'branch': 'master',
@@ -29,7 +30,6 @@ ENVIRONMENTS = {
         'project_name': 'qcat',
         'repo_url': 'https://github.com/CDE-UNIBE/qcat.git',
         'base_path': '/srv/webapps',
-        'host_string': settings.HOST_STRING
     }
 }
 

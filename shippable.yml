@@ -11,66 +11,66 @@ branches:
 
 env:
   global:
-    - secure: PtEbzL2/rOsC1NRN6maZYmy4YFNus06evkoyny8/rqwEIqfSi5shmr5mo0irt5xiFHUYR6YE42YQjXX0+WMC7n9PHmUGjabf00HPvopJf7x9XBU8XLhnBYsT1eUNULncc2liaZlGGnr+ocAyWsivid/sAuNAqkt7t5emKTWre8in+fuZBbNZNf8NJ76zPIvqWN3rLGcQZm1hU50VElnFEXS+zOFKRhgb1MC8VIWIENL8DHtmg9NCwDInAME0TjarJ+Ry85hHZQOPnJbsrfZ/9PVnx1aC4oJQ8o0S+F4nYeK4scSDKY6FZsDrPP9pnOpBEF5D/Ro2m72YOQdrN8ldSl+OZbzMwHa2ZK60LcoeR+sEP85y9eOY1sUvS1kggCvvn3sdbzsbzJb1XgFEKwljcMuA7G7w1qxZfvg1s/iDARHMdoOGCnxpyN50CZshc6pa+hYm2r91F3rA/nZ/ExjazmXbsv0bQhEh8SoPMEZ7QrPG7MMqtY32TQ9TRYlHkvBWr0HlbmkTn0SUK5A0RyrnaTFMQUN4BZHFklFFzs2LYGQP06YOct3lCm3VfYQFk92DCbrHZSlmDD9aKiWl1yNj4byHH5BmY5pmblr1bE/qthAZ5NPzpGRpP+mZDsaGJ6Ura6SRcIT+NXOyQshBJxE04QtqwukKg7WQlBe/4huFKVM=
+    - secure: IkOKpxhcP3xe6ugJPvk4kDMAPhGoORnPPAmjlZuaOmDqMcsOVC859AHaUiHBK9yZUP38of06wCv5YN3w3R+ckcRYK7XFAapsvH7ZwrhPfZB85qO+2u3q8F8i6ePa8ltEsNaM8Ci3JRtgstOMB539J0WexkmqhjPouCfB/FNFCHfuFrXhAplJ1hGBot7QWxaSsMInJ6Z7sp839l7eO6MqAO3rzb/d2pR3TnrlQBk0SAU7ClkQ41fiz0cUuq75cenwPLs1um99XikVKL390iscyUgwnUxT0DrecfiFunVMGOlQVnVqdxKQwItmdlkUUyoWS+UlCy6xrWX+eoPVIvHzEihIjPf06+NEWbSENY/U1DhK8T+tJ7cTdvh9jvF8DOiJ7lE9I5Twf1y4FaGBE0Q0+nYNJfoOJVjw41/JuYHPCLtLaqy9HEmaPAuPrf5x9mwfLPOWMtfp9iYS7o/QNItXGBHDdcvw9psC95QgzTo275841sJwkx0kSCn1Fdq2jnWylMi/8tycTTZlWabo80MqmYSh9KERAviF76nG1ptI5cnqJYCtPRG/TVXywB0C0cTcQu32nG/h8+GGmIkQftjnapw2l2KRTMJt3KRhCzQ7xGMGnMy7AFSQhb6h3LKQH9h/QZJWs8qBsfo0mISwMHoI01dFoLj6nsICKwfrcIjDubk=
 
-#cache: true
+cache: true
 
-addons:
-  - firefox: "48.0"
+#addons:
+#  - firefox: "48.0"
 
-services:
-  - selenium
+#services:
+#  - selenium
 
-install:
-  - sudo npm install --global npm@1.4.21
-  - sudo npm install -g grunt-cli
-  - npm install
-  - bower install --allow-root
-  - grunt build
-  - pip3 install -r requirements/development.txt
-  - pip3 install -r requirements/production.txt
+#install:
+#  - sudo npm install --global npm@1.4.21
+#  - sudo npm install -g grunt-cli
+#  - npm install
+#  - bower install --allow-root
+#  - grunt build
+#  - pip3 install -r requirements/development.txt
+#  - pip3 install -r requirements/production.txt
 
-before_script:
-  - "/etc/init.d/xvfb start"
-  - "export DISPLAY=:99.0"
-  # postgres for tests
-  - psql -c 'CREATE ROLE qcat_test LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
-  - psql -c 'CREATE DATABASE "qcat_test";' -U postgres
-  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d qcat_test
-  - psql -c "ALTER USER qcat_test WITH PASSWORD '123456';" -U postgres
-  # postgres for the application
-  - psql -c 'CREATE ROLE qcat LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
-  - psql -c 'CREATE DATABASE "qcat";' -U postgres
-  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d qcat
-  - psql -c "ALTER USER qcat WITH PASSWORD '123456';" -U postgres
-  # Put our 'apps' directory to the sys.path so our apps can be loaded..
-  - echo "`pwd`/apps" > /home/shippable/build_ve/python/3.4/lib/python3.4/site-packages/_qcat_path.pth
-  - echo "ProdDefaultSite" > envs/DJANGO_CONFIGURATION
-  - echo "qcat.settings" > envs/DJANGO_SETTINGS_MODULE
-  - echo "postgis://qcat:123456@localhost:5432/qcat" > envs/DATABASE_URL
-  - echo "123" > envs/DJANGO_SECRET_KEY
-  # Prepare application: load initial data and create static assets.
-  - python manage.py migrate --noinput
-  - python load_qcat_data
-  - python create_es_indexes
-  - python manage.py collectstatic --noinput
-  # For selenium
-  - "export DISPLAY=:99.0"
+#before_script:
+#  - "/etc/init.d/xvfb start"
+#  - "export DISPLAY=:99.0"
+#  # postgres for tests
+#  - psql -c 'CREATE ROLE qcat_test LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
+#  - psql -c 'CREATE DATABASE "qcat_test";' -U postgres
+#  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d qcat_test
+#  - psql -c "ALTER USER qcat_test WITH PASSWORD '123456';" -U postgres
+#  # postgres for the application
+#  - psql -c 'CREATE ROLE qcat LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;' -U postgres
+#  - psql -c 'CREATE DATABASE "qcat";' -U postgres
+#  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d qcat
+#  - psql -c "ALTER USER qcat WITH PASSWORD '123456';" -U postgres
+#  # Put our 'apps' directory to the sys.path so our apps can be loaded..
+#  - echo "`pwd`/apps" > /home/shippable/build_ve/python/3.4/lib/python3.4/site-packages/_qcat_path.pth
+#  - echo "ProdDefaultSite" > envs/DJANGO_CONFIGURATION
+#  - echo "qcat.settings" > envs/DJANGO_SETTINGS_MODULE
+#  - echo "postgis://qcat:123456@localhost:5432/qcat" > envs/DATABASE_URL
+#  - echo "123" > envs/DJANGO_SECRET_KEY
+#  # Prepare application: load initial data and create static assets.
+#  - python manage.py migrate --noinput
+#  - python load_qcat_data
+#  - python create_es_indexes
+#  - python manage.py collectstatic --noinput
+#  # For selenium
+#  - "export DISPLAY=:99.0"
 
-script:
-  - flake8
-  - coverage run --source='.' manage.py test
+#script:
+#  - flake8
+#  - coverage run --source='.' manage.py test
 
-after_script:
-  - "/etc/init.d/xvfb stop"
+#after_script:
+#  - "/etc/init.d/xvfb stop"
 
 after_success:
-  - mv coverage.xml shippable/codecoverage/
-  - mv unittests.xml shippable/testresults/
-  - mv reports/*.xml shippable/testresults/ && rmdir reports
+#  - mv coverage.xml shippable/codecoverage/
+#  - mv unittests.xml shippable/testresults/
+#  - mv reports/*.xml shippable/testresults/ && rmdir reports
   - fab $BRANCH deploy
 
 notifications:
   email:
-    on_success: never
-    on_failure: never
+    on_success: always
+    on_failure: always
