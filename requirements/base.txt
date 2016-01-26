@@ -25,3 +25,5 @@ django-cache-url==1.0.0
 django-maintenancemode==0.11.2
 dj-database-url==0.3.0
 django-appconf==1.0.1
+django-compressor==2.0
+django-sekizai==0.9.0

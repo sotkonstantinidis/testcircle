@@ -31,25 +31,28 @@ class BaseSettings(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'compressor',
         'django_nose',
-        'floppyforms',
         'django_extensions',
-        'imagekit',
-        'rest_framework',
         'django_filters',
+        'floppyforms',
+        'imagekit',
         'maintenancemode',
+        'rest_framework',
+        'sekizai',
         # Custom apps
-        'questionnaire',
         'accounts',
         'api',
-        'configuration',
-        'wocat',
-        'technologies',
         'approaches',
-        'unccd',
-        'search',
+        'configuration',
+        'qcat',
+        'questionnaire',
         'sample',
         'samplemulti',
+        'search',
+        'technologies',
+        'unccd',
+        'wocat',
     )
 
     MIDDLEWARE_CLASSES = (
@@ -132,6 +135,7 @@ class BaseSettings(Configuration):
         "django.core.context_processors.tz",
         "django.contrib.messages.context_processors.messages",
         'django.core.context_processors.request',
+        'sekizai.context_processors.sekizai',
     )
 
     AUTH_USER_MODEL = 'accounts.User'
