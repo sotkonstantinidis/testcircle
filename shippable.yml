@@ -10,6 +10,15 @@ branches:
     - feature/shippable-ci
 
 env:
+  # secure keys must include:
+  # HOST_STRING_DEV
+  # OPBEAT_APP_ID
+  # OPBEAT_ORGANIZATION_URL
+  # AUTH_API_USER
+  # AUTH_API_KEY
+  # these values are used for testing / deployment only, so the must not
+  # necessarily match the proper values from develop / production.
+
   global:
     - secure: IkOKpxhcP3xe6ugJPvk4kDMAPhGoORnPPAmjlZuaOmDqMcsOVC859AHaUiHBK9yZUP38of06wCv5YN3w3R+ckcRYK7XFAapsvH7ZwrhPfZB85qO+2u3q8F8i6ePa8ltEsNaM8Ci3JRtgstOMB539J0WexkmqhjPouCfB/FNFCHfuFrXhAplJ1hGBot7QWxaSsMInJ6Z7sp839l7eO6MqAO3rzb/d2pR3TnrlQBk0SAU7ClkQ41fiz0cUuq75cenwPLs1um99XikVKL390iscyUgwnUxT0DrecfiFunVMGOlQVnVqdxKQwItmdlkUUyoWS+UlCy6xrWX+eoPVIvHzEihIjPf06+NEWbSENY/U1DhK8T+tJ7cTdvh9jvF8DOiJ7lE9I5Twf1y4FaGBE0Q0+nYNJfoOJVjw41/JuYHPCLtLaqy9HEmaPAuPrf5x9mwfLPOWMtfp9iYS7o/QNItXGBHDdcvw9psC95QgzTo275841sJwkx0kSCn1Fdq2jnWylMi/8tycTTZlWabo80MqmYSh9KERAviF76nG1ptI5cnqJYCtPRG/TVXywB0C0cTcQu32nG/h8+GGmIkQftjnapw2l2KRTMJt3KRhCzQ7xGMGnMy7AFSQhb6h3LKQH9h/QZJWs8qBsfo0mISwMHoI01dFoLj6nsICKwfrcIjDubk=
 
@@ -30,7 +39,7 @@ install:
   - pip3 install -r requirements/development.txt
   - pip3 install -r requirements/production.txt
 
-#before_script:
+before_script:
 #  - "/etc/init.d/xvfb start"
 #  - "export DISPLAY=:99.0"
 #  # postgres for tests
@@ -45,10 +54,10 @@ install:
 #  - psql -c "ALTER USER qcat WITH PASSWORD '123456';" -U postgres
 #  # Put our 'apps' directory to the sys.path so our apps can be loaded..
 #  - echo "`pwd`/apps" > /home/shippable/build_ve/python/3.4/lib/python3.4/site-packages/_qcat_path.pth
-#  - echo "ProdDefaultSite" > envs/DJANGO_CONFIGURATION
-#  - echo "qcat.settings" > envs/DJANGO_SETTINGS_MODULE
-#  - echo "postgis://qcat:123456@localhost:5432/qcat" > envs/DATABASE_URL
-#  - echo "123" > envs/DJANGO_SECRET_KEY
+  - echo "ProdDefaultSite" > envs/DJANGO_CONFIGURATION
+  - echo "qcat.settings" > envs/DJANGO_SETTINGS_MODULE
+  - echo "postgis://qcat:123456@localhost:5432/qcat" > envs/DATABASE_URL
+  - echo "123" > envs/DJANGO_SECRET_KEY
 #  # Prepare application: load initial data and create static assets.
 #  - python manage.py migrate --noinput
 #  - python load_qcat_data
@@ -69,8 +78,9 @@ after_success:
 #  - mv unittests.xml shippable/testresults/
 #  - mv reports/*.xml shippable/testresults/ && rmdir reports
   - fab $BRANCH deploy
+  - fab $BRANCH register_deployment /home/shippable/workspace/src/github.com/CDE-UNIBE/qcat
 
 notifications:
   email:
     on_success: always
-    on_failure: always
+    on_failure: never

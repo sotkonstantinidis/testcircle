@@ -26,6 +26,10 @@ ENVIRONMENTS = {
     'master': {
         'branch': 'master',
     },
+    'feature/shippable-ci': {
+        'branch': 'develop',
+        'host_string': settings.HOST_STRING_DEV
+    },
     'common': {
         'project_name': 'qcat',
         'repo_url': 'https://github.com/CDE-UNIBE/qcat.git',
@@ -179,5 +183,5 @@ def register_deployment(git_path):
               ' -d rev="{}"'
               ' -d branch="{}"'
               ' -d status=completed'.format(
-                    settings.OPBEAT_ORGANIZATION_URL, settings.OPBEAT_BEARER,
+                    settings.OPBEAT_ORGANIZATION_URL, settings.OPBEAT_APP_ID,
                     revision, branch))
