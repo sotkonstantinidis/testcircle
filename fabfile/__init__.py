@@ -28,10 +28,6 @@ ENVIRONMENTS = {
         'branch': 'master',
         'label': 'live',
     },
-    'feature/shippable-ci': {
-        'branch': 'develop',
-        'host_string': settings.HOST_STRING_DEV
-    },
     'common': {
         'project_name': 'qcat',
         'repo_url': 'https://github.com/CDE-UNIBE/qcat.git',
@@ -58,7 +54,7 @@ def set_environment(environment_name):
     site_folder = '{base_path}/{project_name}-{label}'.format(
         base_path=env.base_path,
         project_name=env.project_name,
-        branch=env.label,
+        label=env.label,
     )
     setattr(env, 'site_folder', site_folder)
     setattr(env, 'source_folder', '{}/source'.format(site_folder))
