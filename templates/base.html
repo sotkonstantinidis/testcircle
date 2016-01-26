@@ -44,6 +44,7 @@
     {% endcompress %}
 
     {% compress js %}
+      <!-- todo: measure if cdns are benefitial for rural areas -->
       <script src="{% static 'js/modernizr.js' %}"></script>
       <script src="{% static 'js/jquery.min.js' %}"></script>
       <script src="{% static 'js/foundation.min.js' %}"></script>
@@ -54,7 +55,13 @@
     {% render_block "css" %}
     {% render_block "js_head" %}
 
-  <!-- todo: add markup for sharing etc. -->
+    {% block social_meta_tags %}
+      <meta property="og:image" content="{{ request.scheme }}://{% static '' %}"/>
+      <meta property="og:title" content="wocat.net"/>
+      <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+      <meta property="og:site_name" content="wocat.net"/>
+      <meta property="og:description" content="WOCAT is an established global network which supports innovation and decision-making processes in Sustainable Land Management."/>
+    {% endblock %}
 
   </head>
   <body class="{% block bodyclass %}layout-wocat{% endblock %}">
