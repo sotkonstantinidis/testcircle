@@ -77,7 +77,7 @@ after_success:
 #  - mv unittests.xml shippable/testresults/
 #  - mv reports/*.xml shippable/testresults/ && rmdir reports
   - fab $BRANCH deploy
-  - fab $BRANCH register_deployment /home/shippable/workspace/src/github.com/CDE-UNIBE/qcat
+  - fab register_deployment
 
 notifications:
   email:
