@@ -180,16 +180,13 @@ def _set_maintenance_mode(value, source_folder):
 
 @task
 @runs_once
-def register_deployment(git_path):
+def register_deployment():
     """
     Call register_deployment with a local path that contains a .git directory
     after a release has been deployed.
-
-    Args:
-        git_path:
-
     """
-    with(lcd(git_path)):
+    local_project_folder = dirname(dirname(__file__))
+    with(lcd(local_project_folder)):
         revision = local('git log -n 1 --pretty="format:%H"', capture=True)
         branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
         local('curl https://intake.opbeat.com/api/v1/organizations/{}'
