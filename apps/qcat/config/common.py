@@ -60,7 +60,7 @@ class BaseSettings(Configuration):
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'accounts.authentication.WocatAuthenticationMiddleware',
+        'accounts.middleware.WocatAuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'maintenancemode.middleware.MaintenanceModeMiddleware',

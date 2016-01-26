@@ -5,9 +5,8 @@ python: 3.4
 
 branches:
   only:
-    # - develop
+    - develop
     # - master
-    - feature/shippable-ci
 
 env:
   # secure keys must include:
