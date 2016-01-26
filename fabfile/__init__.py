@@ -21,10 +21,12 @@ django.settings_module('qcat.settings')
 ENVIRONMENTS = {
     'develop': {
         'branch': 'develop',
-        'host_string': settings.HOST_STRING_DEV
+        'host_string': settings.HOST_STRING_DEV,
+        'label': 'dev',
     },
     'master': {
         'branch': 'master',
+        'label': 'live',
     },
     'feature/shippable-ci': {
         'branch': 'develop',
@@ -53,10 +55,10 @@ def set_environment(environment_name):
             setattr(env, option, value)
 
     # Set attributes that are combined based on the configuration.
-    site_folder = '{base_path}/{project_name}-{branch}'.format(
+    site_folder = '{base_path}/{project_name}-{label}'.format(
         base_path=env.base_path,
         project_name=env.project_name,
-        branch=env.branch,
+        branch=env.label,
     )
     setattr(env, 'site_folder', site_folder)
     setattr(env, 'source_folder', '{}/source'.format(site_folder))
@@ -64,11 +66,17 @@ def set_environment(environment_name):
 
 @task
 def develop():
+    """
+    Set develop as current environment
+    """
     set_environment('develop')
 
 
 @task
 def master():
+    """
+    Set maste as current environment
+    """
     set_environment('master')
 
 
@@ -97,6 +105,11 @@ def provision():
     _get_latest_source(env.source_folder)
     print(yellow("Provisioning completed. You may now create "
                  "the local settings file!"))
+
+
+@task
+def load_qcat_data():
+    run('cd {} && python manage.py load_qcat_data'.format(env.source_folder))
 
 
 def _install_prerequirements():
@@ -160,8 +173,7 @@ def _set_maintenance_mode(value, source_folder):
     run('echo {bool_value} > {envs_file}'.format(
         bool_value=str(value),
         envs_file=join(source_folder, 'envs', 'MAINTENANCE_MODE')
-        )
-    )
+        ))
 
 
 @task
