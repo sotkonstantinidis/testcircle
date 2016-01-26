@@ -87,13 +87,13 @@ def deploy():
     Execute with "fab <branch> deploy".
     """
     require('environment', provided_by=(develop, master))
-
     _set_maintenance_mode(True, env.source_folder)
     _get_latest_source(env.source_folder)
     _update_virtualenv(env.source_folder)
     _clean_static_folder(env.source_folder)
     _update_static_files(env.source_folder)
     _update_database(env.source_folder)
+    _reload_uwsgi()
     _set_maintenance_mode(False, env.source_folder)
     print(green("Everything OK"))
 
@@ -166,6 +166,12 @@ def _update_database(source_folder):
 
 def _reload_apache(site_folder):
     run('cd %s && touch wsgi/wsgi.py' % site_folder)
+
+
+def _reload_uwsgi():
+    """Touch the uwsgi-conf to restart the server"""
+    run('touch {}/serverconfig/uwsgi_{}.ini'.format(
+        env.source_folder, env.label))
 
 
 def _set_maintenance_mode(value, source_folder):
