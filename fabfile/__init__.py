@@ -137,7 +137,7 @@ def _update_virtualenv(source_folder):
     if not exists(virtualenv_folder + '/bin/pip'):
         # Virtualenv does not yet exist
         run('virtualenv --python=python3 %s' % virtualenv_folder)
-    run('%s/bin/pip3 install -r %s/requirements.txt'
+    run('%s/bin/pip3 install -r %s/requirements/production.txt'
         % (virtualenv_folder, source_folder))
 
 
