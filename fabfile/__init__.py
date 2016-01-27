@@ -150,7 +150,9 @@ def _update_static_files(source_folder):
     run('cd %s && bower install | xargs echo' % source_folder)
     run('cd %s && grunt build:deploy --force' % source_folder)
     run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput'
-        % (source_folder))
+        % source_folder)
+    run('cd %s && ../virtualenv/bin/python3 manage.py compress --force ' %
+        source_folder)
 
 
 def _update_database(source_folder):
