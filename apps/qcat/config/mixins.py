@@ -28,6 +28,12 @@ class SecurityMixin:
     CSRF_COOKIE_HTTPONLY = True
 
 
+class CompressMixin:
+    """Settings for the django-compressor"""
+    COMPRESS_ENABLED = True
+    # maybe: use different (faster) filters for css and js.
+
+
 class OpBeatMixin:
     """
     Configure the settings required for opbeat.
