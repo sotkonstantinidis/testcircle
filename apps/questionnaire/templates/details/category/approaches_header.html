@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load questionnaire_tags %}
+
 
   <section id="{{ keyword }}" class="row" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
@@ -46,10 +48,10 @@
         {% if view_mode == 'edit' %}
           <form action="" method="POST">
             <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/></div>
-            <input class="button large is-approaches q-action-button-top" type="submit" value="{% trans "Save SLM Approach" %}">
+            <input class="button large is-approaches q-action-button-top {% editable_css_class questionnaire_object request.user %}" type="submit" value="{% trans "Save SLM Approach" %}">
           </form>
         {% else %}
-          <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button large is-approaches q-action-button-top">{% trans "Edit SLM Approach" %}</a>
+          <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button large is-approaches q-action-button-top {% editable_css_class questionnaire_object request.user %}">{% trans "Edit SLM Approach" %}</a>
         {% endif %}
       {% endif %}
     </aside>

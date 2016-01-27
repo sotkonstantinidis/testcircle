@@ -10,3 +10,6 @@ class StatusQuerySet(models.QuerySet):
 
     def public(self):
         return self.filter(status=settings.QUESTIONNAIRE_PUBLIC)
+
+    def draft(self):
+        return self.filter(status=settings.QUESTIONNAIRE_DRAFT)

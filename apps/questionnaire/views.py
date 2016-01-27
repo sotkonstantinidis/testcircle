@@ -28,6 +28,7 @@ from qcat.utils import (
     get_session_questionnaire,
     save_session_questionnaire,
 )
+from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File
 from .upload import handle_upload, retrieve_file
 from .utils import (
@@ -446,6 +447,13 @@ def generic_questionnaire_new_step(
 
             questionnaire_data, errors = clean_questionnaire_data(
                 session_questionnaire, questionnaire_configuration)
+
+            # Try to lock questionnaire, raise an error if it is locked already.
+            try:
+                Questionnaire().lock_questionnaire(identifier, request.user)
+            except QuestionnaireLockedException as e:
+                errors.append(e)
+
             if errors:
                 valid = False
                 messages.error(
@@ -568,11 +576,19 @@ def generic_questionnaire_new(
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
             session_questionnaire, questionnaire_configuration)
+
+        if questionnaire_object and \
+                not questionnaire_object.can_edit(request.user):
+            lvl, msg = questionnaire_object.get_blocked_message(request.user)
+            errors.append(msg)
+
         if errors:
             messages.error(
                 request, 'Something went wrong. The questionnaire cannot be '
                 'submitted because of the following errors: <br/>{}'.format(
                     '<br/>'.join(errors)), extra_tags='safe')
+            return redirect(request.path)
+
         if not cleaned_questionnaire_data:
             messages.info(
                 request, _('You cannot submit an empty questionnaire'),
@@ -647,6 +663,19 @@ def generic_questionnaire_new(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
+    is_blocked = False
+    # Display a message regarding the state for editing (locked / available)
+    if questionnaire_object:
+        is_blocked = questionnaire_object.can_edit(request.user)
+        # Display a hint about the 'blocked' status for GET requests only. For
+        # post requests, this is done in the form validation.
+        if request.method == 'GET':
+            questionnaire_object
+            level, message = questionnaire_object.get_blocked_message(
+                request.user
+            )
+            messages.add_message(request, level, message)
+
     return render(request, template, {
         'images': images,
         'sections': sections,
@@ -656,6 +685,7 @@ def generic_questionnaire_new(
         'permissions': permissions,
         'edited_questiongroups': edited_questiongroups,
         'view_mode': 'edit',
+        'is_blocked': is_blocked
     })
 
 

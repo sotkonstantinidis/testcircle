@@ -5,6 +5,7 @@ from django.contrib.gis.db import models
 from django.contrib.messages import WARNING, SUCCESS
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
@@ -569,30 +570,58 @@ class Questionnaire(models.Model):
     def __str__(self):
         return json.dumps(self.data)
 
-    def lock_questionnaire(self, user):
+    @classmethod
+    def get_editable_questionnaires(cls, code, user=None):
+        """
+        After internal discussion: 'blocking' of questionnaires should happen
+        for all items with the same code, not specific questionnaires only.
+
+        Args:
+            code: string
+            user: accounts.models.User
+
+        Returns:
+            queryset
+
+        """
+        qs = cls.objects.filter(code=code)
+        if user:
+            return qs.filter(Q(blocked__isnull=True) | Q(blocked=user))
+        else:
+            return qs.filter(blocked__isnull=True)
+
+    @classmethod
+    def lock_questionnaire(cls, code, user):
         """
         If the questionnaire is not locked, or locked by given user: lock the
         questionnaire for this user - else raise an error.
 
         Args:
+            code: string
             user: accounts.models.User
         """
-        if self.blocked and self.blocked != user:
-            raise QuestionnaireLockedException(self.blocked)
-        self.blocked = user
-        self.save()
+        editable_questionnaires = cls.get_editable_questionnaires(
+            code, user
+        )
+        if editable_questionnaires.exists():
+            raise QuestionnaireLockedException(
+                editable_questionnaires.first().blocked
+            )
+        editable_questionnaires.update(blocked=user)
 
-    def is_editable_by_user(self, user):
+    def can_edit(self, user):
+        return self.get_editable_questionnaires(self.code, user).exists()
+
+    def edit_css_class(self, user):
         """
-
         Args:
             user: accounts.models.User
 
         Returns:
-            boolean
+            string: 'readonly' to use as css class.
 
         """
-        return not self.blocked or self.blocked is user
+        return '' if self.can_edit(user) else 'readonly'
 
     def get_blocked_message(self, user):
         """
@@ -601,12 +630,14 @@ class Questionnaire(models.Model):
         Args:
             user: accounts.models.User
         """
-        if self.is_editable_by_user(user):
-            return SUCCESS, _(u"This questionnaire is blocked, "
-                              u"only you can edit it.")
+        editable_questionnaire = self.get_editable_questionnaires(
+            self.code, user
+        )
+        if editable_questionnaire.exists():
+            return SUCCESS, _(u"This questionnaire can be edited.")
         else:
             return WARNING, _(u"This questionnaire is "
-                              u"locked by {}".format(self.blocked))
+                              u"locked for editing by {}".format(self.blocked))
 
 
 class QuestionnaireConfiguration(models.Model):
