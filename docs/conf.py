@@ -16,7 +16,6 @@
 import sys
 import os
 import re
-from os.path import join, dirname, abspath
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -25,17 +24,6 @@ sys.path.insert(0, os.path.abspath('..'))
 # here = os.path.abspath(os.path.dirname(__file__))
 # # sys.path.insert(0, here)
 # sys.path.insert(0, os.path.join(here, '..'))
-
-# Root directory for this project
-QCAT_DIR = dirname(dirname(abspath(__file__)))
-
-# Add the apps folder to the path and read the env-vars.
-sys.path.append(join(QCAT_DIR, 'apps'))
-
-# Load the environment variables in the folder ``./envs/`` with *envdir*.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'apps.qcat.settings')
-os.environ.setdefault('DJANGO_CONFIGURATION', 'DevDefaultSite')
-os.environ.setdefault('DJANGO_SECRET_KEY', '123')
 
 # -- General configuration ------------------------------------------------
 
