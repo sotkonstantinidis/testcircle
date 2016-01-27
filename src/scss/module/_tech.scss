@@ -256,3 +256,48 @@ td.is-empty:first-child:nth-last-child(3) ~ td.is-empty {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+
+.file-preview-container {
+  position: relative;
+  cursor: pointer;
+
+  img {
+    @media #{$small-only} {
+      max-width: 15rem;
+      max-height: 20rem;
+    }
+  }
+
+  &:hover span.text-content {
+    opacity: 1;
+    border: 1px solid $color-beige-dark;
+  }
+
+  span.text-content {
+    opacity: 0;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    @media #{$small-only} {
+      max-width: 15rem;
+      max-height: 20rem;
+    }
+
+    span {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $color-beige;
+
+      svg.icon {
+        height: 5rem;
+        width: 5rem;
+      }
+    }
+  }
+}

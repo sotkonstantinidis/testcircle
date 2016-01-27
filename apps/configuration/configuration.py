@@ -22,10 +22,7 @@ from qcat.utils import (
     find_dict_in_list,
     is_empty_list_of_dicts,
 )
-from questionnaire.upload import (
-    get_interchange_urls_by_identifier,
-    get_url_by_identifier,
-)
+from questionnaire.models import File
 
 
 class BaseConfigurationObject(object):
@@ -225,6 +222,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'checkbox',
         'image_checkbox',
         'image',
+        'file',
         'select_type',
         'select',
         'radio',
@@ -600,7 +598,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
-        elif self.field_type == 'image':
+        elif self.field_type in ['image', 'file']:
             widget = ImageUpload(attrs=attrs)
             formfields['file_{}'.format(self.keyword)] = forms.FileField(
                 widget=widget, required=self.required, label=self.label)
@@ -749,11 +747,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     values, images, conditional_outputs, value_keywords)),
             })
         elif self.field_type in ['image']:
-            value = get_url_by_identifier(value)
+            file_data = File.get_data(uid=value)
             template_name = 'image'
             template_values.update({
                 'key': self.label_view,
-                'value': value,
+                'value': file_data.get('url'),
+            })
+        elif self.field_type in ['file']:
+            file_data = File.get_data(uid=value)
+            template_name = 'file'
+            template_values.update({
+                'content_type': file_data.get('content_type'),
+                'interchange': file_data.get('interchange'),
+                'key': self.label_view,
+                'value': file_data.get('url'),
             })
         elif self.field_type in ['user_id']:
             return
@@ -1673,8 +1680,7 @@ class QuestionnaireSection(BaseConfigurationObject):
         media_content = []
         media_additional = {}
         if self.view_options.get('media_gallery', False) is True:
-            media_data = self.parent_object.get_image_data(
-                data, interchange_as_list=True)
+            media_data = self.parent_object.get_image_data(data)
             media_content = media_data.get('content', [])
             media_additional = media_data.get('additional', {})
 
@@ -1803,7 +1809,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 (section.keyword, section.label, tuple(categories)))
         return tuple(sections)
 
-    def get_image_data(self, data, interchange_as_list=False):
+    def get_image_data(self, data):
         """
         Return image data from outside the category. Loops through all
         the fields to find the questiongroups containing images. For all
@@ -1812,11 +1818,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         Args:
             ``data`` (dict): A questionnaire data dictionary.
-
-        Kwargs:
-            ``interchange_as_list`` (bool): An boolean passed as
-            ``as_list`` to :func:`get_interchange_urls_by_identifier`
-            to return the interchange URLs as list instead of string.
 
         Returns:
             ``list``. A list of dictionaries for each image. Each
@@ -1851,10 +1852,11 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         images = []
         for image in image_questiongroups:
+            image_data = File.get_data(uid=image.get('image'))
             images.append({
-                'image': get_url_by_identifier(image.get('image')),
-                'interchange': get_interchange_urls_by_identifier(
-                    image.get('image'), as_list=interchange_as_list),
+                'image': image_data.get('url'),
+                'interchange': image_data.get('interchange'),
+                'interchange_list': image_data.get('interchange_list'),
                 'caption': image.get('image_caption'),
                 'date_location': image.get('image_date_location'),
                 'photographer': image.get('image_photographer')
@@ -1974,7 +1976,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     value = question_data.get(list_entry[1])
                     if list_entry[2] == 'image':
                         key = 'image'
-                        value = get_url_by_identifier(value, 'default')
+                        image_data = File.get_data(uid=value)
+                        interchange_list = image_data.get('interchange_list')
+                        if interchange_list:
+                            value = interchange_list[0][0]
                     if list_entry[2] in [
                             'bool', 'measure', 'checkbox', 'image_checkbox',
                             'select_type']:

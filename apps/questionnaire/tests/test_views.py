@@ -733,6 +733,11 @@ class GenericFileUploadTest(TestCase):
         self.request = self.factory.post(self.url)
         self.request.user = create_new_user()
         self.request.session = {}
+        self.mock_request = Mock()
+        self.mock_request.method = 'POST'
+        self.mock_request.session = {}
+        self.mock_request.user = self.request.user
+        self.mock_request.FILES.getlist.return_value = [Mock()]
 
     def test_upload_login_required(self):
         self.client.logout()
@@ -749,12 +754,11 @@ class GenericFileUploadTest(TestCase):
         content = json.loads(res.content.decode('utf-8'))
         self.assertFalse(content.get('success'))
 
-    @patch('questionnaire.views.handle_upload')
-    def test_calls_handle_upload(self, mock_handle_upload):
-        m = Mock()
-        m.get_url.return_value = 'foo'
-        mock_handle_upload.return_value = m
-        generic_file_upload(self.request)
+    @patch.object(File, 'get_data')
+    @patch.object(File, 'handle_upload')
+    def test_calls_handle_upload(self, mock_handle_upload, mock_get_data):
+        mock_get_data.return_value = {}
+        generic_file_upload(self.mock_request)
         mock_handle_upload.assert_called_once()
 
     def test_handles_exception_by_handle_upload(self):
@@ -762,6 +766,14 @@ class GenericFileUploadTest(TestCase):
         self.assertEqual(res.status_code, 400)
         content = json.loads(res.content.decode('utf-8'))
         self.assertFalse(content.get('success'))
+
+    @patch.object(File, 'get_data')
+    @patch.object(File, 'handle_upload')
+    def test_calls_get_data(self, mock_handle_upload, mock_get_data):
+        mock_get_data.return_value = {}
+        generic_file_upload(self.mock_request)
+        mock_get_data.assert_called_once_with(
+            file_object=mock_handle_upload.return_value)
 
 
 class GenericFileServeTest(TestCase):
@@ -782,6 +794,11 @@ class GenericFileServeTest(TestCase):
         url = reverse(file_display_route, args=('display', 'uid'))
         res = self.client.get(url)
         self.assertEqual(res.status_code, 404)
+
+    @patch.object(File, 'get_data')
+    def test_calls_get_data(self, mock_get_data):
+        self.client.get(self.url)
+        mock_get_data.assert_called_once_with(file_object=self.file)
 
     @patch('questionnaire.views.retrieve_file')
     def test_calls_retrieve_file(self, mock_retrieve_file):
