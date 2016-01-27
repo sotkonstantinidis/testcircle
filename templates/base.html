@@ -47,10 +47,6 @@
     {% compress js %}
       <!-- todo: measure if cdns are benefitial for rural areas -->
       <script src="{% static 'js/modernizr.js' %}"></script>
-      <script src="{% static 'js/jquery.min.js' %}"></script>
-      <script src="{% static 'js/foundation.min.js' %}"></script>
-      <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
-      <script src="{% static 'js/main.min.js' %}"></script>
     {% endcompress %}
 
     {% render_block "css" %}
@@ -172,6 +168,12 @@
 
     <!-- Block for js within specific templates. Add compress in the template.  -->
     {% render_block "js" %}
+    {% compress js %}
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/foundation.min.js' %}"></script>
+      <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
+      <script src="{% static 'js/main.min.js' %}"></script>
+    {% endcompress %}
 
     <footer class="row page-footer large-collapse" role="contentinfo">
       <nav class="sub-nav-footer medium-6 columns">
