@@ -16,6 +16,7 @@
             <div class="{% if 'submit_questionnaire' in review_config.permissions %}medium-8{% else %}medium-12{% endif %} columns">
               <h3>{% trans "Edit" %}</h3>
               <p>{% trans "The version is saved as a draft. Editors can work on the draft. The compiler can submit it for review." %}</p>
+              {% if review_config.blocked_by %}<p>{{ review_config.blocked_by }}</p>{% endif %}
             </div>
             <div class="medium-4 columns text-right">
               {% if 'submit_questionnaire' in review_config.permissions %}

@@ -740,6 +740,9 @@ def generic_questionnaire_details(
             'csrf_token_value': get_token(request),
             'permissions': permissions,
         }
+        if not questionnaire_object.can_edit(request.user):
+            lvl, msg = questionnaire_object.get_blocked_message(request.user)
+            review_config['blocked_by'] = msg
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,
