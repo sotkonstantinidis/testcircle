@@ -84,20 +84,4 @@
       </section>
     </main>
   </article>
-    {% addtoblock 'js' %}
-        {% compress js %}
-            <script>
-                /**
-                 * Disable clicking on elements with .readonly.
-                 * Diego approves!
-                 */
-                document.addEventListener('DOMContentLoaded', function () {
-                  var readOnlyElems = document.querySelectorAll('.readonly');
-                  var values = [].map.call(readOnlyElems, function(obj) {
-                    return obj.onclick = function () {return false};
-                  });
-                });
-            </script>
-        {% endcompress %}
-    {% endaddtoblock %}
 {% endblock %}
