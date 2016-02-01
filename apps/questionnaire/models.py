@@ -612,17 +612,6 @@ class Questionnaire(models.Model):
     def can_edit(self, user):
         return self.get_editable_questionnaires(self.code, user).exists()
 
-    def edit_css_class(self, user):
-        """
-        Args:
-            user: accounts.models.User
-
-        Returns:
-            string: 'readonly' to use as css class.
-
-        """
-        return '' if self.can_edit(user) else 'readonly'
-
     def get_blocked_message(self, user):
         """
         The user that is locking the draft of the questionnaire.
