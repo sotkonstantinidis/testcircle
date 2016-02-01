@@ -45,13 +45,23 @@
         </li>
       </ul>
       {% if 'edit_questionnaire' in permissions %}
+        {% call_model_method 'can_edit' questionnaire_object request.user as can_edit %}
+        {% call_model_method 'get_blocked_message' questionnaire_object request.user as error_message %}
         {% if view_mode == 'edit' %}
           <form action="" method="POST">
+          {% if not questionnaire_object or can_edit %}
             <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/></div>
-            <input class="button large is-approaches q-action-button-top {% editable_css_class questionnaire_object request.user %}" type="submit" value="{% trans "Save SLM Approach" %}">
-          </form>
+              <input class="button large is-approaches q-action-button-top" type="submit" value="{% trans "Save SLM Approach" %}">
+            </form>
+          {% else %}
+            {{ error_message }}
+          {% endif %}
         {% else %}
-          <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button large is-approaches q-action-button-top {% editable_css_class questionnaire_object request.user %}">{% trans "Edit SLM Approach" %}</a>
+          {% if not questionnaire_object or can_edit %}
+            <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button large is-approaches q-action-button-top">{% trans "Edit SLM Approach" %}</a>
+          {% else %}
+            {{ error_message }}
+          {% endif %}
         {% endif %}
       {% endif %}
     </aside>
