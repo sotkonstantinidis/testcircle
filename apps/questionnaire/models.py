@@ -265,6 +265,11 @@ class Questionnaire(models.Model):
             questionnaire object.
         """
         permissions = []
+
+        # If questionnaire is blocked, return zero permissions.
+        if not self.can_edit(current_user):
+            return permissions
+
         permission_groups = {
             settings.QUESTIONNAIRE_COMPILER: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
