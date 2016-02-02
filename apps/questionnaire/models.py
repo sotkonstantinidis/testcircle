@@ -265,11 +265,6 @@ class Questionnaire(models.Model):
             questionnaire object.
         """
         permissions = []
-
-        # If questionnaire is blocked, return zero permissions.
-        if not self.can_edit(current_user):
-            return permissions
-
         permission_groups = {
             settings.QUESTIONNAIRE_COMPILER: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
@@ -312,7 +307,14 @@ class Questionnaire(models.Model):
                 and self.status in [settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
 
-        return list(set(permissions))
+        permissions = list(set(permissions))
+
+        # If questionnaire is blocked, remove 'edit' permissions.
+        if 'edit_questionnaire' in permissions and \
+                not self.can_edit(current_user):
+            permissions.remove('edit_questionnaire')
+
+        return permissions
 
     def get_users(self, **kwargs):
         """
@@ -631,7 +633,7 @@ class Questionnaire(models.Model):
             return SUCCESS, _(u"This questionnaire can be edited.")
         else:
             return WARNING, _(u"This questionnaire is "
-                              u"locked for editing by {}".format(self.blocked))
+                              u"locked for editing by {}.".format(self.blocked))
 
 
 class QuestionnaireConfiguration(models.Model):
