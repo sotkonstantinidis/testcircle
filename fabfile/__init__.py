@@ -176,8 +176,7 @@ def _set_maintenance_mode(value, source_folder):
     # Toggle maintenance mode on or off. This will reload apache!
     run('echo {bool_value} > {envs_file}'.format(
         bool_value=str(value),
-        envs_file=join(source_folder, 'envs', 'MAINTENANCE_MODE')
-        ))
+        envs_file=join(source_folder, 'envs', 'MAINTENANCE_MODE')))
 
 
 @task
@@ -195,6 +194,6 @@ def register_deployment():
               ' -H "Authorization: Bearer {}"'
               ' -d rev="{}"'
               ' -d branch="{}"'
-              ' -d status=completed'.format(
-                    settings.OPBEAT_ORGANIZATION_URL, settings.OPBEAT_APP_ID,
-                    revision, branch))
+              ' -d status=completed'.format(settings.OPBEAT_ORGANIZATION_URL,
+                                            settings.OPBEAT_APP_ID,
+                                            revision, branch))
