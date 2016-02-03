@@ -11,6 +11,7 @@ from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.timezone import now
+from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
 from django.views.generic import FormView
@@ -31,6 +32,7 @@ class LoginView(FormView):
     template_name = 'login.html'
     success_url = settings.ACCOUNTS_LOGIN_SUCCESS_URL
 
+    @method_decorator(never_cache)
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, *args, **kwargs):
         if hasattr(self.request, 'user') and \
@@ -45,7 +47,7 @@ class LoginView(FormView):
         messages.info(self.request, 'Welcome {}'.format(user.firstname))
 
         # Get the response, add a cookie and return it.
-        response = HttpResponseRedirect(reverse(self.get_success_url()))
+        response = HttpResponseRedirect(self.get_success_url())
         # We really should set a signed cookie - but the same cookie is used
         # on wocat.net.
         response.set_cookie(
@@ -61,7 +63,7 @@ class LoginView(FormView):
 
     def get_success_url(self):
         # Explicitly passed ?next= url takes precedence.
-        redirect_to = self.request.GET.get('next') or self.success_url
+        redirect_to = self.request.GET.get('next') or reverse(self.success_url)
         # Prevent redirecting to other/invalid hosts - i.e. prevent xsrf
         if not is_safe_url(url=redirect_to, host=self.request.get_host()):
             redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)

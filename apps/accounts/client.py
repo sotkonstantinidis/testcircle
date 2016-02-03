@@ -1,5 +1,6 @@
 import requests
 from django.contrib.auth import get_user_model
+from django.db import IntegrityError
 from django.utils.timezone import now
 from .conf import settings
 
@@ -135,14 +136,23 @@ class Typo3Client:
         Returns: the django user
 
         """
-        user, created = get_user_model().objects.get_or_create(
-            pk=user_id, defaults={'last_login': now()}
-        )
-
         # Update and save the django user with the latest info. This could
         # probably be done asynchronously, if such a system is in place.
-        user.typo3_session_id = session_id
         user_data = self.get_user_information(user_id)
+
+        # if something goes wrong, log the full exception, including user-data.
+        try:
+            user, created = get_user_model().objects.get_or_create(
+                pk=user_id, email=user_data['username'], defaults={
+                    'last_login': now(),
+                }
+            )
+        except IntegrityError as e:
+            raise IntegrityError('{e}With data: {data}'.format(
+                e=e, data=user_data
+            ))
+        user.typo3_session_id = session_id
+
         self.update_user(user, user_data)
 
         # Finally, return the django user.
