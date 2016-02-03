@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load compress %}
 
 <section class="row is-rhythmed">
   <div class="small-12 columns">
@@ -22,7 +23,7 @@
             </div>
             <div class="medium-4 columns text-right">
               {% if 'submit_questionnaire' in review_config.permissions %}
-                <input id="button-submit" name="submit" class="button small is-ok" type="submit" value="{% trans "Submit" %}" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}" data-reveal-id="myModal">
+                <input id="button-submit" name="submit" class="button small is-ok" type="submit" value="{% trans "Submit" %}" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">
               {% endif %}
             </div>
           {% elif review_config.review_status == 2 %}
@@ -54,25 +55,21 @@
   </div>
 </section>
 
-{# This should be added to 'js' with sekizai. However, this needs refactoring of the config, as a context_instance would be required #}
-{# Todo: discuss with lukas and use modal (which one? foundation or jquery ui?) #}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var isBlocked = document.getElementById('is-blocked');
-        if (isBlocked !== null) {
-            btnSubmit = document.getElementById('button-submit');
-            btnSubmit["data-reveal-id"] = "myModal"
-            btnSubmit.addEventListener('click', function() {
-                event.preventDefault();
-                var choice = confirm(isBlocked.getAttribute('data-confirm'));
-                if (choice) {
-                    window.location.href = this.getAttribute('href');
-                }
-            })
-        }
-    });
-    document.onreadystatechange = function () {
-
-    }
-
-</script>
+{# This should be added to 'js' with sekizai. However, this needs refactoring of the config, and the template structure as a context_instance and template blocks would be required #}
+{% compress js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var isBlocked = document.getElementById('is-blocked');
+            if (isBlocked !== null) {
+                btnSubmit = document.getElementById('button-submit');
+                btnSubmit.addEventListener('click', function() {
+                    event.preventDefault();
+                    var choice = confirm(isBlocked.getAttribute('data-confirm'));
+                    if (choice) {
+                        window.location.href = this.getAttribute('href');
+                    }
+                })
+            }
+        });
+    </script>
+{% endcompress %}
