@@ -34,7 +34,7 @@ class SuperUserCommandTest(TestCase):
         make_superuser = ['foo@bar.com', 'bar@baz.com']
 
         for index, email in enumerate(make_superuser):
-            create_new_user(id=index+5, email=email)
+            create_new_user(id=index + 5, email=email)
 
         call_command('set_superuser', *make_superuser)
 
