@@ -79,7 +79,7 @@ class BaseSettings(Configuration):
     LANGUAGE_CODE = 'en'
 
     LOCALE_PATHS = (
-        join(BASE_DIR, '../qcat/locale'),
+        join(BASE_DIR, 'locale'),
     )
 
     # The first language is the default language.
