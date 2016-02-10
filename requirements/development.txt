@@ -9,3 +9,4 @@ coverage==3.7.1
 flake8==2.5.1
 # Fabric 1.10.2 -- Fabric has no Python3 support yet.
 Fabric3==1.10.2.post1
+transifex-client==0.11
