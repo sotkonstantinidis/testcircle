@@ -1,4 +1,5 @@
 import collections
+import contextlib
 import re
 import subprocess
 from os.path import join
@@ -20,6 +21,10 @@ class Command(NoArgsCommand):
     filename = 'extract'
     languages = collections.defaultdict(list)
     line = collections.namedtuple('Line', 'text comment')
+
+    @property
+    def settings_languages(self):
+        return dict(settings.LANGUAGES).keys()
 
     def handle_noargs(self, **options):
         """
@@ -78,8 +83,6 @@ class Command(NoArgsCommand):
         'en': ['translateme', 'meetoo'],
         'es' ['foo']
 
-        Returns: dict
-
         """
         translations = Translation.objects.all()
         for translation in translations:
@@ -108,10 +111,24 @@ class Command(NoArgsCommand):
 
         """
         for key, item in translation.items():
-            if isinstance(item, dict):
-                path += '{}.'.format(key)
+            # Special case: keys for 'numbering'. Ignore them, they don't need
+            # translation.
+            if key == 'numbering':
+                continue
+
+            path += '{}.'.format(key)
+            # If this is not the innermost element, continue
+            if any([isinstance(value, dict) for value in item.values()]):
                 self.walk(item, pk, path)
             else:
-                if key in dict(settings.LANGUAGES).keys():
-                    comment = '# {}.{}{}'.format(pk, path, key)
-                    self.languages[key].append(self.line(item, comment))
+                # This is the innermost level of the dict.
+                # Copy the value to the dict and make sure it's set for all
+                # languages, even if it may not exist on the db.
+                for lang in self.settings_languages:
+                    comment = '# {}.{}{}'.format(pk, path, lang)
+                    # There are entries as {'iso_3166_1': 'AFG'} which don't
+                    # need to be translated. Simply ignore them.
+                    with contextlib.suppress(KeyError):
+                        self.languages[lang].append(
+                            self.line(item.get(lang, item['en']), comment)
+                        )
