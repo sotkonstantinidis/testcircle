@@ -1,0 +1,6798 @@
+# English translations for PACKAGE package.
+# Copyright (C) 2016 ORGANIZATION
+# Automatically generated, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2016-02-10 14:52+CET\n"
+"PO-Revision-Date: 2016-02-10 14:52+CET\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# 5002.approaches.label.en
+# 5002.unccd.label.en
+# 5002.wocat.label.en
+# 5002.technologies.label.en
+msgid "Country"
+msgstr "Country"
+
+# 5003.unccd.label.en
+msgid "Local name"
+msgstr "Local name"
+
+# 5003.approaches.label.en
+# 5003.technologies.label.en
+msgid "Local name (with language)"
+msgstr "Local name (with language)"
+
+# 5004.unccd.label.en
+# 5004.approaches.label.en
+# 5004.technologies.label.en
+# 1127.technologies.helptext.label.en
+msgid "Comments"
+msgstr "Comments"
+
+# 5005.approaches.label.en
+# 5005.technologies.label.en
+msgid "Region / State / Province"
+msgstr "Region / State / Province"
+
+# 5006.approaches.label.en
+# 5006.technologies.label_view.label.en
+msgid "Further specification of location (e.g. district / commune)"
+msgstr "Further specification of location (e.g. district / commune)"
+
+# 5006.technologies.label_view.en
+msgid "Further specification of location"
+msgstr "Further specification of location"
+
+# 5007.approaches.label.en
+# 5007.technologies.label.en
+# 2701.technologies.helptext.label.en
+# 8703.approaches.helptext.label.en
+msgid "Image"
+msgstr "Image"
+
+# 5008.approaches.label.en
+# 5008.technologies.label.en
+msgid "Caption, explanation of photo"
+msgstr "Caption, explanation of photo"
+
+# 5009.approaches.label.en
+# 5009.technologies.label.en
+msgid "Date and location"
+msgstr "Date and location"
+
+# 5010.approaches.label.en
+# 5010.technologies.label.en
+msgid "Name of photographer"
+msgstr "Name of photographer"
+
+# 5011.technologies.label.en
+msgid "General remarks regarding photos"
+msgstr "General remarks regarding photos"
+
+# 5012.approaches.label.en
+msgid ""
+"Name of project/institution which funded the documentation/evaluation of the "
+"SLM approach (if relevant)"
+msgstr ""
+"Name of project/institution which funded the documentation/evaluation of the "
+"SLM approach (if relevant)"
+
+# 5012.technologies.label.en
+msgid ""
+"Name of project/institution which funded the documentation/evaluation of the "
+"SLM technology (if relevant)"
+msgstr ""
+"Name of project/institution which funded the documentation/evaluation of the "
+"SLM technology (if relevant)"
+
+# 5013.approaches.helptext.label.en
+# 5013.technologies.helptext.label.en
+msgid ""
+"The editor and key resource person(s) accept the conditions regarding the "
+"use of data documented through WOCAT"
+msgstr ""
+"The editor and key resource person(s) accept the conditions regarding the "
+"use of data documented through WOCAT"
+
+# 5014.approaches.label.en
+# 5014.technologies.label.en
+msgid "User ID"
+msgstr "User ID"
+
+# 5015.approaches.label.en
+# 5015.technologies.label.en
+msgid "Registered user"
+msgstr "Registered user"
+
+# 5016.approaches.label.en
+# 5016.technologies.label.en
+msgid "Lastname / surname"
+msgstr "Lastname / surname"
+
+# 5017.approaches.label.en
+# 5017.technologies.label.en
+msgid "First name(s)"
+msgstr "First name(s)"
+
+# 5018.approaches.label.en
+# 5018.technologies.label.en
+# 1141.technologies.helptext.label.en
+msgid "Gender"
+msgstr "Gender"
+
+# 5019.approaches.label.en
+# 5019.technologies.label.en
+msgid "Name of institution"
+msgstr "Name of institution"
+
+# 5020.approaches.label.en
+# 5020.technologies.label.en
+msgid "Address of institution"
+msgstr "Address of institution"
+
+# 5021.approaches.label.en
+# 5021.technologies.label.en
+msgid "Postal Code"
+msgstr "Postal Code"
+
+# 5022.approaches.label.en
+# 5022.technologies.label.en
+msgid "City"
+msgstr "City"
+
+# 5023.approaches.label.en
+# 5023.technologies.label.en
+msgid "State or District"
+msgstr "State or District"
+
+# 5024.approaches.label.en
+# 5024.technologies.label.en
+msgid "Phone no. 1"
+msgstr "Phone no. 1"
+
+# 5025.approaches.label.en
+# 5025.technologies.label.en
+msgid "Phone no. 2 (mobile)"
+msgstr "Phone no. 2 (mobile)"
+
+# 5026.approaches.label.en
+# 5026.technologies.label.en
+msgid "E-mail 1"
+msgstr "E-mail 1"
+
+# 5027.approaches.label.en
+# 5027.technologies.label.en
+msgid "E-mail 2"
+msgstr "E-mail 2"
+
+# 5501.wocat.label.en
+# 11518.sample.label.en
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+# 5502.wocat.label.en
+msgid "Albania"
+msgstr "Albania"
+
+# 5503.wocat.label.en
+msgid "Algeria"
+msgstr "Algeria"
+
+# 5504.wocat.label.en
+msgid "American Samoa"
+msgstr "American Samoa"
+
+# 5505.wocat.label.en
+msgid "Andorra"
+msgstr "Andorra"
+
+# 5506.wocat.label.en
+msgid "Angola"
+msgstr "Angola"
+
+# 5507.wocat.label.en
+msgid "Anguilla"
+msgstr "Anguilla"
+
+# 5508.wocat.label.en
+msgid "Antarctica"
+msgstr "Antarctica"
+
+# 5509.wocat.label.en
+msgid "Antigua and Barbuda"
+msgstr "Antigua and Barbuda"
+
+# 5510.wocat.label.en
+msgid "Argentina"
+msgstr "Argentina"
+
+# 5511.wocat.label.en
+msgid "Armenia"
+msgstr "Armenia"
+
+# 5512.wocat.label.en
+msgid "Aruba"
+msgstr "Aruba"
+
+# 5513.wocat.label.en
+msgid "Australia"
+msgstr "Australia"
+
+# 5514.wocat.label.en
+msgid "Austria"
+msgstr "Austria"
+
+# 5515.wocat.label.en
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+# 5516.wocat.label.en
+msgid "Bahamas"
+msgstr "Bahamas"
+
+# 5517.wocat.label.en
+msgid "Bahrain"
+msgstr "Bahrain"
+
+# 5518.wocat.label.en
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+# 5519.wocat.label.en
+msgid "Barbados"
+msgstr "Barbados"
+
+# 5520.wocat.label.en
+msgid "Belarus"
+msgstr "Belarus"
+
+# 5521.wocat.label.en
+msgid "Belgium"
+msgstr "Belgium"
+
+# 5522.wocat.label.en
+msgid "Belize"
+msgstr "Belize"
+
+# 5523.wocat.label.en
+msgid "Benin"
+msgstr "Benin"
+
+# 5524.wocat.label.en
+msgid "Bermuda"
+msgstr "Bermuda"
+
+# 5525.wocat.label.en
+msgid "Bhutan"
+msgstr "Bhutan"
+
+# 5526.wocat.label.en
+msgid "Bolivia, Plurinational State of"
+msgstr "Bolivia, Plurinational State of"
+
+# 5527.wocat.label.en
+msgid "Bonaire, Sint Eustatius and Saba"
+msgstr "Bonaire, Sint Eustatius and Saba"
+
+# 5528.wocat.label.en
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia and Herzegovina"
+
+# 5529.wocat.label.en
+msgid "Botswana"
+msgstr "Botswana"
+
+# 5530.wocat.label.en
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+# 5531.wocat.label.en
+msgid "Brazil"
+msgstr "Brazil"
+
+# 5532.wocat.label.en
+msgid "British Indian Ocean Territory"
+msgstr "British Indian Ocean Territory"
+
+# 5533.wocat.label.en
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+# 5534.wocat.label.en
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+# 5535.wocat.label.en
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+# 5536.wocat.label.en
+msgid "Burundi"
+msgstr "Burundi"
+
+# 5537.wocat.label.en
+# 11520.sample.label.en
+msgid "Cambodia"
+msgstr "Cambodia"
+
+# 5538.wocat.label.en
+msgid "Cameroon"
+msgstr "Cameroon"
+
+# 5539.wocat.label.en
+msgid "Canada"
+msgstr "Canada"
+
+# 5540.wocat.label.en
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+# 5541.wocat.label.en
+msgid "Cayman Islands"
+msgstr "Cayman Islands"
+
+# 5542.wocat.label.en
+msgid "Central African Republic"
+msgstr "Central African Republic"
+
+# 5543.wocat.label.en
+msgid "Chad"
+msgstr "Chad"
+
+# 5544.wocat.label.en
+msgid "Chile"
+msgstr "Chile"
+
+# 5545.wocat.label.en
+msgid "China"
+msgstr "China"
+
+# 5546.wocat.label.en
+msgid "Christmas Island"
+msgstr "Christmas Island"
+
+# 5547.wocat.label.en
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos (Keeling) Islands"
+
+# 5548.wocat.label.en
+msgid "Colombia"
+msgstr "Colombia"
+
+# 5549.wocat.label.en
+msgid "Comoros"
+msgstr "Comoros"
+
+# 5550.wocat.label.en
+msgid "Congo"
+msgstr "Congo"
+
+# 5551.wocat.label.en
+msgid "Congo, the Democratic Republic of the"
+msgstr "Congo, the Democratic Republic of the"
+
+# 5552.wocat.label.en
+msgid "Cook Islands"
+msgstr "Cook Islands"
+
+# 5553.wocat.label.en
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+# 5554.wocat.label.en
+msgid "Croatia"
+msgstr "Croatia"
+
+# 5555.wocat.label.en
+msgid "Cuba"
+msgstr "Cuba"
+
+# 5556.wocat.label.en
+msgid "Curaao"
+msgstr "Curaao"
+
+# 5557.wocat.label.en
+msgid "Cyprus"
+msgstr "Cyprus"
+
+# 5558.wocat.label.en
+msgid "Czech Republic"
+msgstr "Czech Republic"
+
+# 5559.wocat.label.en
+msgid "Cte d'Ivoire"
+msgstr "Cte d'Ivoire"
+
+# 5560.wocat.label.en
+msgid "Denmark"
+msgstr "Denmark"
+
+# 5561.wocat.label.en
+msgid "Djibouti"
+msgstr "Djibouti"
+
+# 5562.wocat.label.en
+msgid "Dominica"
+msgstr "Dominica"
+
+# 5563.wocat.label.en
+msgid "Dominican Republic"
+msgstr "Dominican Republic"
+
+# 5564.wocat.label.en
+msgid "Ecuador"
+msgstr "Ecuador"
+
+# 5565.wocat.label.en
+msgid "Egypt"
+msgstr "Egypt"
+
+# 5566.wocat.label.en
+msgid "El Salvador"
+msgstr "El Salvador"
+
+# 5567.wocat.label.en
+msgid "Equatorial Guinea"
+msgstr "Equatorial Guinea"
+
+# 5568.wocat.label.en
+msgid "Eritrea"
+msgstr "Eritrea"
+
+# 5569.wocat.label.en
+msgid "Estonia"
+msgstr "Estonia"
+
+# 5570.wocat.label.en
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+# 5571.wocat.label.en
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falkland Islands (Malvinas)"
+
+# 5572.wocat.label.en
+msgid "Faroe Islands"
+msgstr "Faroe Islands"
+
+# 5573.wocat.label.en
+msgid "Fiji"
+msgstr "Fiji"
+
+# 5574.wocat.label.en
+msgid "Finland"
+msgstr "Finland"
+
+# 5575.wocat.label.en
+msgid "France"
+msgstr "France"
+
+# 5576.wocat.label.en
+msgid "French Guiana"
+msgstr "French Guiana"
+
+# 5577.wocat.label.en
+msgid "French Polynesia"
+msgstr "French Polynesia"
+
+# 5578.wocat.label.en
+msgid "French Southern Territories"
+msgstr "French Southern Territories"
+
+# 5579.wocat.label.en
+msgid "Gabon"
+msgstr "Gabon"
+
+# 5580.wocat.label.en
+msgid "Gambia"
+msgstr "Gambia"
+
+# 5581.wocat.label.en
+msgid "Georgia"
+msgstr "Georgia"
+
+# 5582.wocat.label.en
+# 11519.sample.label.en
+msgid "Germany"
+msgstr "Germany"
+
+# 5583.wocat.label.en
+msgid "Ghana"
+msgstr "Ghana"
+
+# 5584.wocat.label.en
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+# 5585.wocat.label.en
+msgid "Greece"
+msgstr "Greece"
+
+# 5586.wocat.label.en
+msgid "Greenland"
+msgstr "Greenland"
+
+# 5587.wocat.label.en
+msgid "Grenada"
+msgstr "Grenada"
+
+# 5588.wocat.label.en
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+# 5589.wocat.label.en
+msgid "Guam"
+msgstr "Guam"
+
+# 5590.wocat.label.en
+msgid "Guatemala"
+msgstr "Guatemala"
+
+# 5591.wocat.label.en
+msgid "Guernsey"
+msgstr "Guernsey"
+
+# 5592.wocat.label.en
+msgid "Guinea"
+msgstr "Guinea"
+
+# 5593.wocat.label.en
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+# 5594.wocat.label.en
+msgid "Guyana"
+msgstr "Guyana"
+
+# 5595.wocat.label.en
+msgid "Haiti"
+msgstr "Haiti"
+
+# 5596.wocat.label.en
+msgid "Heard Island and McDonald Mcdonald Islands"
+msgstr "Heard Island and McDonald Mcdonald Islands"
+
+# 5597.wocat.label.en
+msgid "Holy See (Vatican City State)"
+msgstr "Holy See (Vatican City State)"
+
+# 5598.wocat.label.en
+msgid "Honduras"
+msgstr "Honduras"
+
+# 5599.wocat.label.en
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+# 5600.wocat.label.en
+msgid "Hungary"
+msgstr "Hungary"
+
+# 5601.wocat.label.en
+msgid "Iceland"
+msgstr "Iceland"
+
+# 5602.wocat.label.en
+msgid "India"
+msgstr "India"
+
+# 5603.wocat.label.en
+msgid "Indonesia"
+msgstr "Indonesia"
+
+# 5604.wocat.label.en
+msgid "Iran, Islamic Republic of"
+msgstr "Iran, Islamic Republic of"
+
+# 5605.wocat.label.en
+msgid "Iraq"
+msgstr "Iraq"
+
+# 5606.wocat.label.en
+msgid "Ireland"
+msgstr "Ireland"
+
+# 5607.wocat.label.en
+msgid "Isle of Man"
+msgstr "Isle of Man"
+
+# 5608.wocat.label.en
+msgid "Israel"
+msgstr "Israel"
+
+# 5609.wocat.label.en
+msgid "Italy"
+msgstr "Italy"
+
+# 5610.wocat.label.en
+msgid "Jamaica"
+msgstr "Jamaica"
+
+# 5611.wocat.label.en
+msgid "Japan"
+msgstr "Japan"
+
+# 5612.wocat.label.en
+msgid "Jersey"
+msgstr "Jersey"
+
+# 5613.wocat.label.en
+msgid "Jordan"
+msgstr "Jordan"
+
+# 5614.wocat.label.en
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+# 5615.wocat.label.en
+msgid "Kenya"
+msgstr "Kenya"
+
+# 5616.wocat.label.en
+msgid "Kiribati"
+msgstr "Kiribati"
+
+# 5617.wocat.label.en
+msgid "Korea, Democratic People's Republic of"
+msgstr "Korea, Democratic People's Republic of"
+
+# 5618.wocat.label.en
+msgid "Korea, Republic of"
+msgstr "Korea, Republic of"
+
+# 5619.wocat.label.en
+msgid "Kuwait"
+msgstr "Kuwait"
+
+# 5620.wocat.label.en
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+# 5621.wocat.label.en
+msgid "Lao People's Democratic Republic"
+msgstr "Lao People's Democratic Republic"
+
+# 5622.wocat.label.en
+msgid "Latvia"
+msgstr "Latvia"
+
+# 5623.wocat.label.en
+msgid "Lebanon"
+msgstr "Lebanon"
+
+# 5624.wocat.label.en
+msgid "Lesotho"
+msgstr "Lesotho"
+
+# 5625.wocat.label.en
+msgid "Liberia"
+msgstr "Liberia"
+
+# 5626.wocat.label.en
+msgid "Libya"
+msgstr "Libya"
+
+# 5627.wocat.label.en
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+# 5628.wocat.label.en
+msgid "Lithuania"
+msgstr "Lithuania"
+
+# 5629.wocat.label.en
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+# 5630.wocat.label.en
+msgid "Macao"
+msgstr "Macao"
+
+# 5631.wocat.label.en
+msgid "Macedonia, the Former Yugoslav Republic of"
+msgstr "Macedonia, the Former Yugoslav Republic of"
+
+# 5632.wocat.label.en
+msgid "Madagascar"
+msgstr "Madagascar"
+
+# 5633.wocat.label.en
+msgid "Malawi"
+msgstr "Malawi"
+
+# 5634.wocat.label.en
+msgid "Malaysia"
+msgstr "Malaysia"
+
+# 5635.wocat.label.en
+msgid "Maldives"
+msgstr "Maldives"
+
+# 5636.wocat.label.en
+msgid "Mali"
+msgstr "Mali"
+
+# 5637.wocat.label.en
+msgid "Malta"
+msgstr "Malta"
+
+# 5638.wocat.label.en
+msgid "Marshall Islands"
+msgstr "Marshall Islands"
+
+# 5639.wocat.label.en
+msgid "Martinique"
+msgstr "Martinique"
+
+# 5640.wocat.label.en
+msgid "Mauritania"
+msgstr "Mauritania"
+
+# 5641.wocat.label.en
+msgid "Mauritius"
+msgstr "Mauritius"
+
+# 5642.wocat.label.en
+msgid "Mayotte"
+msgstr "Mayotte"
+
+# 5643.wocat.label.en
+msgid "Mexico"
+msgstr "Mexico"
+
+# 5644.wocat.label.en
+msgid "Micronesia, Federated States of"
+msgstr "Micronesia, Federated States of"
+
+# 5645.wocat.label.en
+msgid "Moldova, Republic of"
+msgstr "Moldova, Republic of"
+
+# 5646.wocat.label.en
+msgid "Monaco"
+msgstr "Monaco"
+
+# 5647.wocat.label.en
+msgid "Mongolia"
+msgstr "Mongolia"
+
+# 5648.wocat.label.en
+msgid "Montenegro"
+msgstr "Montenegro"
+
+# 5649.wocat.label.en
+msgid "Montserrat"
+msgstr "Montserrat"
+
+# 5650.wocat.label.en
+msgid "Morocco"
+msgstr "Morocco"
+
+# 5651.wocat.label.en
+msgid "Mozambique"
+msgstr "Mozambique"
+
+# 5652.wocat.label.en
+msgid "Myanmar"
+msgstr "Myanmar"
+
+# 5653.wocat.label.en
+msgid "Namibia"
+msgstr "Namibia"
+
+# 5654.wocat.label.en
+msgid "Nauru"
+msgstr "Nauru"
+
+# 5655.wocat.label.en
+msgid "Nepal"
+msgstr "Nepal"
+
+# 5656.wocat.label.en
+msgid "Netherlands"
+msgstr "Netherlands"
+
+# 5657.wocat.label.en
+msgid "New Caledonia"
+msgstr "New Caledonia"
+
+# 5658.wocat.label.en
+msgid "New Zealand"
+msgstr "New Zealand"
+
+# 5659.wocat.label.en
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+# 5660.wocat.label.en
+msgid "Niger"
+msgstr "Niger"
+
+# 5661.wocat.label.en
+msgid "Nigeria"
+msgstr "Nigeria"
+
+# 5662.wocat.label.en
+msgid "Niue"
+msgstr "Niue"
+
+# 5663.wocat.label.en
+msgid "Norfolk Island"
+msgstr "Norfolk Island"
+
+# 5664.wocat.label.en
+msgid "Northern Mariana Islands"
+msgstr "Northern Mariana Islands"
+
+# 5665.wocat.label.en
+msgid "Norway"
+msgstr "Norway"
+
+# 5666.wocat.label.en
+msgid "Oman"
+msgstr "Oman"
+
+# 5667.wocat.label.en
+msgid "Pakistan"
+msgstr "Pakistan"
+
+# 5668.wocat.label.en
+msgid "Palau"
+msgstr "Palau"
+
+# 5669.wocat.label.en
+msgid "Palestine, State of"
+msgstr "Palestine, State of"
+
+# 5670.wocat.label.en
+msgid "Panama"
+msgstr "Panama"
+
+# 5671.wocat.label.en
+msgid "Papua New Guinea"
+msgstr "Papua New Guinea"
+
+# 5672.wocat.label.en
+msgid "Paraguay"
+msgstr "Paraguay"
+
+# 5673.wocat.label.en
+msgid "Peru"
+msgstr "Peru"
+
+# 5674.wocat.label.en
+msgid "Philippines"
+msgstr "Philippines"
+
+# 5675.wocat.label.en
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+# 5676.wocat.label.en
+msgid "Poland"
+msgstr "Poland"
+
+# 5677.wocat.label.en
+msgid "Portugal"
+msgstr "Portugal"
+
+# 3503.unccd.label.en
+msgid "Woodland"
+msgstr "Woodland"
+
+# 5678.wocat.label.en
+msgid "Puerto"
+msgstr "Puerto"
+
+# 5679.wocat.label.en
+msgid "Qatar"
+msgstr "Qatar"
+
+# 5680.wocat.label.en
+msgid "Romania"
+msgstr "Romania"
+
+# 5681.wocat.label.en
+msgid "Russian Federation"
+msgstr "Russian Federation"
+
+# 5682.wocat.label.en
+msgid "Rwanda"
+msgstr "Rwanda"
+
+# 5683.wocat.label.en
+msgid "Runion"
+msgstr "Runion"
+
+# 5684.wocat.label.en
+msgid "Saint Barthlemy"
+msgstr "Saint Barthlemy"
+
+# 5685.wocat.label.en
+msgid "Saint Helena, Ascension and Tristan da Cunha"
+msgstr "Saint Helena, Ascension and Tristan da Cunha"
+
+# 5686.wocat.label.en
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts and Nevis"
+
+# 5687.wocat.label.en
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+# 5688.wocat.label.en
+msgid "Saint Martin (French part)"
+msgstr "Saint Martin (French part)"
+
+# 5689.wocat.label.en
+msgid "Saint Pierre and Miquelon"
+msgstr "Saint Pierre and Miquelon"
+
+# 5690.wocat.label.en
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent and the Grenadines"
+
+# 5691.wocat.label.en
+msgid "Samoa"
+msgstr "Samoa"
+
+# 5692.wocat.label.en
+msgid "San Marino"
+msgstr "San Marino"
+
+# 5693.wocat.label.en
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome and Principe"
+
+# 5694.wocat.label.en
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+# 5695.wocat.label.en
+msgid "Senegal"
+msgstr "Senegal"
+
+# 5696.wocat.label.en
+msgid "Serbia"
+msgstr "Serbia"
+
+# 5697.wocat.label.en
+msgid "Seychelles"
+msgstr "Seychelles"
+
+# 5698.wocat.label.en
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+# 5699.wocat.label.en
+msgid "Singapore"
+msgstr "Singapore"
+
+# 5700.wocat.label.en
+msgid "Sint Maarten (Dutch part)"
+msgstr "Sint Maarten (Dutch part)"
+
+# 5701.wocat.label.en
+msgid "Slovakia"
+msgstr "Slovakia"
+
+# 5702.wocat.label.en
+msgid "Slovenia"
+msgstr "Slovenia"
+
+# 5703.wocat.label.en
+msgid "Solomon Islands"
+msgstr "Solomon Islands"
+
+# 5704.wocat.label.en
+msgid "Somalia"
+msgstr "Somalia"
+
+# 5705.wocat.label.en
+msgid "South Africa"
+msgstr "South Africa"
+
+# 5706.wocat.label.en
+msgid "South Georgia and the South Sandwich Islands"
+msgstr "South Georgia and the South Sandwich Islands"
+
+# 5707.wocat.label.en
+msgid "South Sudan"
+msgstr "South Sudan"
+
+# 5708.wocat.label.en
+msgid "Spain"
+msgstr "Spain"
+
+# 5709.wocat.label.en
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+# 5710.wocat.label.en
+msgid "Sudan"
+msgstr "Sudan"
+
+# 5711.wocat.label.en
+msgid "Suriname"
+msgstr "Suriname"
+
+# 5712.wocat.label.en
+msgid "Svalbard and Jan Mayen"
+msgstr "Svalbard and Jan Mayen"
+
+# 5713.wocat.label.en
+msgid "Swaziland"
+msgstr "Swaziland"
+
+# 5714.wocat.label.en
+msgid "Sweden"
+msgstr "Sweden"
+
+# 5715.wocat.label.en
+# 11521.sample.label.en
+msgid "Switzerland"
+msgstr "Switzerland"
+
+# 11001.sample.label.en
+msgid "Key 1"
+msgstr "Key 1"
+
+# 11002.sample.label.en
+msgid "Key 2"
+msgstr "Key 2"
+
+# 11003.sample.label.en
+msgid "Key 3"
+msgstr "Key 3"
+
+# 11004.sample.label.en
+msgid "Key 4"
+msgstr "Key 4"
+
+# 11005.sample.label.en
+msgid "Key 5"
+msgstr "Key 5"
+
+# 11006.sample.label.en
+msgid "Key 6"
+msgstr "Key 6"
+
+# 11007.sample.label.en
+msgid "Key 7"
+msgstr "Key 7"
+
+# 11008.sample.label.en
+msgid "Key 8"
+msgstr "Key 8"
+
+# 11009.sample.label.en
+msgid "Key 9"
+msgstr "Key 9"
+
+# 11010.sample.label.en
+msgid "Key 10"
+msgstr "Key 10"
+
+# 11011.sample.label.en
+msgid "Key 11"
+msgstr "Key 11"
+
+# 11012.sample.label.en
+msgid "Key 12"
+msgstr "Key 12"
+
+# 11013.sample.label.en
+msgid "Key 13"
+msgstr "Key 13"
+
+# 11014.sample.label.en
+msgid "Key 14"
+msgstr "Key 14"
+
+# 11015.sample.label.en
+msgid "Key 15"
+msgstr "Key 15"
+
+# 11016.sample.label.en
+msgid "Key 16"
+msgstr "Key 16"
+
+# 11017.sample.label.en
+msgid "Key 17"
+msgstr "Key 17"
+
+# 11018.sample.label.en
+msgid "Key 18"
+msgstr "Key 18"
+
+# 11019.sample.label.en
+msgid "Key 19"
+msgstr "Key 19"
+
+# 11021.sample.label.en
+msgid "Key 21"
+msgstr "Key 21"
+
+# 11022.sample.label.en
+msgid "Key 22"
+msgstr "Key 22"
+
+# 5716.wocat.label.en
+msgid "Syrian Arab Republic"
+msgstr "Syrian Arab Republic"
+
+# 5717.wocat.label.en
+msgid "Taiwan, Province of China"
+msgstr "Taiwan, Province of China"
+
+# 5718.wocat.label.en
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+# 5719.wocat.label.en
+msgid "Tanzania, United Republic of"
+msgstr "Tanzania, United Republic of"
+
+# 5720.wocat.label.en
+msgid "Thailand"
+msgstr "Thailand"
+
+# 5721.wocat.label.en
+msgid "Timor-Leste"
+msgstr "Timor-Leste"
+
+# 5722.wocat.label.en
+msgid "Togo"
+msgstr "Togo"
+
+# 5723.wocat.label.en
+msgid "Tokelau"
+msgstr "Tokelau"
+
+# 5724.wocat.label.en
+msgid "Tonga"
+msgstr "Tonga"
+
+# 5725.wocat.label.en
+msgid "Trinidad and Tobago"
+msgstr "Trinidad and Tobago"
+
+# 5726.wocat.label.en
+msgid "Tunisia"
+msgstr "Tunisia"
+
+# 5727.wocat.label.en
+msgid "Turkey"
+msgstr "Turkey"
+
+# 5728.wocat.label.en
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+# 5729.wocat.label.en
+msgid "Turks and Caicos Islands"
+msgstr "Turks and Caicos Islands"
+
+# 5730.wocat.label.en
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+# 5731.wocat.label.en
+msgid "Uganda"
+msgstr "Uganda"
+
+# 5732.wocat.label.en
+msgid "Ukraine"
+msgstr "Ukraine"
+
+# 5733.wocat.label.en
+msgid "United Arab Emirates"
+msgstr "United Arab Emirates"
+
+# 5734.wocat.label.en
+msgid "United Kingdom"
+msgstr "United Kingdom"
+
+# 5735.wocat.label.en
+msgid "United States"
+msgstr "United States"
+
+# 5736.wocat.label.en
+msgid "United States Minor Outlying Islands"
+msgstr "United States Minor Outlying Islands"
+
+# 5737.wocat.label.en
+msgid "Uruguay"
+msgstr "Uruguay"
+
+# 5738.wocat.label.en
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+# 5739.wocat.label.en
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+# 5740.wocat.label.en
+msgid "Venezuela, Bolivarian Republic of"
+msgstr "Venezuela, Bolivarian Republic of"
+
+# 5741.wocat.label.en
+msgid "Viet Nam"
+msgstr "Viet Nam"
+
+# 5742.wocat.label.en
+msgid "Virgin Islands, British"
+msgstr "Virgin Islands, British"
+
+# 5743.wocat.label.en
+msgid "Virgin Islands, U.S."
+msgstr "Virgin Islands, U.S."
+
+# 5744.wocat.label.en
+msgid "Wallis and Futuna"
+msgstr "Wallis and Futuna"
+
+# 5745.wocat.label.en
+msgid "Western Sahara"
+msgstr "Western Sahara"
+
+# 5746.wocat.label.en
+msgid "Yemen"
+msgstr "Yemen"
+
+# 5747.wocat.label.en
+msgid "Zambia"
+msgstr "Zambia"
+
+# 5748.wocat.label.en
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+# 5749.wocat.label.en
+msgid "land Islands"
+msgstr "land Islands"
+
+# 5750.technologies.label.en
+# 11501.sample.label.en
+msgid "low"
+msgstr "low"
+
+# 5751.technologies.label.en
+# 1700.technologies.helptext.label.en
+# 11502.sample.label.en
+msgid "medium"
+msgstr "medium"
+
+# 5752.technologies.label.en
+# 11503.sample.label.en
+msgid "high"
+msgstr "high"
+
+# 5753.technologies.label.en
+msgid "0%"
+msgstr "0%"
+
+# 5754.technologies.label.en
+msgid "1-25%"
+msgstr "1-25%"
+
+# 5755.technologies.label.en
+msgid "26-50%"
+msgstr "26-50%"
+
+# 5756.technologies.label.en
+msgid "51-75%"
+msgstr "51-75%"
+
+# 5757.technologies.label.en
+msgid "76-99%"
+msgstr "76-99%"
+
+# 5758.technologies.label.en
+msgid "100%"
+msgstr "100%"
+
+# 5759.approaches.label.en
+# 5759.technologies.label.en
+msgid "more than 50 years ago (traditional)"
+msgstr "more than 50 years ago (traditional)"
+
+# 5760.approaches.label.en
+# 5760.technologies.label.en
+msgid "10-50 years ago"
+msgstr "10-50 years ago"
+
+# 5761.approaches.label.en
+# 5761.technologies.label.en
+msgid "less than 10 years ago (recently)"
+msgstr "less than 10 years ago (recently)"
+
+# 5762.approaches.label.en
+# 5762.technologies.label.en
+msgid "female"
+msgstr "female"
+
+# 5763.approaches.label.en
+# 5763.technologies.label.en
+msgid "male"
+msgstr "male"
+
+# 5981.unccd.label.en
+# 5981.approaches.label.en
+# 5981.technologies.label.en
+# 4901.unccd.label.en
+msgid "General Information"
+msgstr "General Information"
+
+# 5982.unccd.label.en
+# 5982.approaches.label.en
+# 5982.technologies.label.en
+msgid "Specifications"
+msgstr "Specifications"
+
+# 5983.unccd.label.en
+# 5983.technologies.label.en
+msgid "Analysis"
+msgstr "Analysis"
+
+# 11023.sample.label.en
+msgid "Key 23"
+msgstr "Key 23"
+
+# 3001.unccd.label.en
+msgid ""
+"Clarify if the technology described in the template, or a part of it, is "
+"covered by property rights"
+msgstr ""
+"Clarify if the technology described in the template, or a part of it, is "
+"covered by property rights"
+
+# 3002.unccd.label.en
+msgid "Please provide relevant information on the holder of the rights"
+msgstr "Please provide relevant information on the holder of the rights"
+
+# 3003.unccd.label.en
+# 4703.unccd.label.en
+msgid "Prevailing land use in the specified location"
+msgstr "Prevailing land use in the specified location"
+
+# 3004.unccd.label.en
+# 3012.unccd.label.en
+# 3013.unccd.label.en
+# 3015.unccd.label.en
+# 1018.technologies.label.en
+# 1123.technologies.label.en
+# 7017.approaches.label.en
+# 7041.approaches.label.en
+msgid "Specify"
+msgstr "Specify"
+
+# 3005.unccd.label.en
+# 4704.unccd.label.en
+msgid ""
+"Contribution to Desertification, land degradation and drought (DLDD) measures"
+msgstr ""
+"Contribution to Desertification, land degradation and drought (DLDD) measures"
+
+# 3006.unccd.label.en
+# 4705.unccd.label.en
+msgid "Contribution to the strategic objectives"
+msgstr "Contribution to the strategic objectives"
+
+# 3006.technologies.label.en
+# 2751.technologies.label.en
+msgid ""
+"To which strategic objectives of The Strategy does the technology contribute?"
+msgstr ""
+"To which strategic objectives of The Strategy does the technology contribute?"
+
+# 3007.unccd.label.en
+# 4706.unccd.label.en
+msgid "Type of impact"
+msgstr "Type of impact"
+
+# 3008.unccd.label.en
+# 4707.unccd.label.en
+msgid "Linkages with the other best practice themes"
+msgstr "Linkages with the other best practice themes"
+
+# 3008.technologies.label.en
+# 2752.technologies.label.en
+msgid ""
+"Specify if the technology relates to one or more of the other UNCCD themes"
+msgstr ""
+"Specify if the technology relates to one or more of the other UNCCD themes"
+
+# 3009.unccd.label.en
+# 4708.unccd.label.en
+msgid "Location"
+msgstr "Location"
+
+# 3010.unccd.label.en
+# 4734.unccd.label.en
+msgid "Short description of the best practice"
+msgstr "Short description of the best practice"
+
+# 3011.unccd.label.en
+# 4709.unccd.label.en
+msgid ""
+"Brief description of the natural environment within the specified location."
+msgstr ""
+"Brief description of the natural environment within the specified location."
+
+# 3014.unccd.label.en
+# 4710.unccd.label.en
+msgid ""
+"Prevailing socio-economic conditions of those living in the location and/or "
+"nearby"
+msgstr ""
+"Prevailing socio-economic conditions of those living in the location and/or "
+"nearby"
+
+# 3016.unccd.label.en
+# 4735.unccd.label.en
+msgid "Additional questions of Leg 1"
+msgstr "Additional questions of Leg 1"
+
+# 3017.unccd.label.en
+msgid ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as best?"
+msgstr ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as best?"
+
+# 3017.technologies.label.en
+# 2750.technologies.label.en
+msgid ""
+"On the basis of which criteria and/or indicator(s) has the described "
+"technology been considered as 'best'?"
+msgstr ""
+"On the basis of which criteria and/or indicator(s) has the described "
+"technology been considered as 'best'?"
+
+# 3018.unccd.label.en
+# 4712.unccd.label.en
+msgid "Main problems addressed by the best practice"
+msgstr "Main problems addressed by the best practice"
+
+# 3019.unccd.label.en
+# 4713.unccd.label.en
+msgid ""
+"Outline specific land degradation problems addressed by the best practice"
+msgstr ""
+"Outline specific land degradation problems addressed by the best practice"
+
+# 3020.unccd.label.en
+# 4714.unccd.label.en
+msgid "Specify the objectives of the best practice"
+msgstr "Specify the objectives of the best practice"
+
+# 3021.unccd.label.en
+# 4715.unccd.label.en
+msgid "Brief description of main activities, by objective"
+msgstr "Brief description of main activities, by objective"
+
+# 3022.unccd.label.en
+msgid "Reporting Entity"
+msgstr "Reporting Entity"
+
+# 3025.unccd.label.en
+# 4716.unccd.label.en
+msgid "Short description and technical specifications of the technology"
+msgstr "Short description and technical specifications of the technology"
+
+# 3026.unccd.label.en
+# 4717.unccd.label.en
+msgid "Name and address of the institution developing the technology"
+msgstr "Name and address of the institution developing the technology"
+
+# 3028.unccd.label.en
+# 4718.unccd.label.en
+msgid "Was the technology developed in partnership?"
+msgstr "Was the technology developed in partnership?"
+
+# 3029.unccd.label.en
+msgid "List the partners"
+msgstr "List the partners"
+
+# 3030.unccd.label.en
+# 4719.unccd.label.en
+msgid "Specify the framework within which the technology was promoted"
+msgstr "Specify the framework within which the technology was promoted"
+
+# 3031.unccd.label.en
+# 4720.unccd.label.en
+msgid ""
+"Was the participation of local stakeholders, including CSOs, fostered in the "
+"development of the technology?"
+msgstr ""
+"Was the participation of local stakeholders, including CSOs, fostered in the "
+"development of the technology?"
+
+# 3032.unccd.label.en
+msgid "List local stakeholders involved"
+msgstr "List local stakeholders involved"
+
+# 3033.unccd.label.en
+# 4721.unccd.label.en
+msgid ""
+"For the stakeholders listed above, specify their role in the design, "
+"introduction, use and maintenance of the technology, if any."
+msgstr ""
+"For the stakeholders listed above, specify their role in the design, "
+"introduction, use and maintenance of the technology, if any."
+
+# 3034.unccd.label.en
+# 4722.unccd.label.en
+msgid ""
+"Was the population living in the location and/or nearby involved in the "
+"development of the technology?"
+msgstr ""
+"Was the population living in the location and/or nearby involved in the "
+"development of the technology?"
+
+# 3035.unccd.label.en
+msgid "By means of what?"
+msgstr "By means of what?"
+
+# 3036.unccd.label.en
+# 4723.unccd.label.en
+msgid "Describe on-site impacts (the major two impacts by category)"
+msgstr "Describe on-site impacts (the major two impacts by category)"
+
+# 3040.unccd.label.en
+# 4724.unccd.label.en
+msgid ""
+"Describe the major two off-site (i.e. not occurring in the location but in "
+"the surrounding areas) impacts"
+msgstr ""
+"Describe the major two off-site (i.e. not occurring in the location but in "
+"the surrounding areas) impacts"
+
+# 3041.unccd.label.en
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on biodiversity conservation?"
+msgstr ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on biodiversity conservation?"
+
+# 3042.unccd.label.en
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change mitigation?"
+msgstr ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change mitigation?"
+
+# 3043.unccd.label.en
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change adaptation?"
+msgstr ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change adaptation?"
+
+# 3044.unccd.label.en
+msgid "Explain the reasons:"
+msgstr "Explain the reasons:"
+
+# 3045.unccd.label.en
+# 4726.unccd.label.en
+msgid "Has a cost-benefit analysis been carried out?"
+msgstr "Has a cost-benefit analysis been carried out?"
+
+# 3046.unccd.label.en
+# 4727.unccd.label.en
+msgid "Was the technology disseminated/introduced to other locations?"
+msgstr "Was the technology disseminated/introduced to other locations?"
+
+# 3047.unccd.label.en
+msgid "Where?"
+msgstr "Where?"
+
+# 3048.unccd.label.en
+# 4728.unccd.label.en
+msgid "Were incentives to facilitate the take up of the technology provided?"
+msgstr "Were incentives to facilitate the take up of the technology provided?"
+
+# 3049.unccd.label.en
+msgid "Specify which type of incentives"
+msgstr "Specify which type of incentives"
+
+# 3050.unccd.label.en
+# 4729.unccd.label.en
+msgid ""
+"Can you identify the three main conditions that led to the success of the "
+"presented best practice/technology?"
+msgstr ""
+"Can you identify the three main conditions that led to the success of the "
+"presented best practice/technology?"
+
+# 3051.unccd.label.en
+msgid ""
+"In your opinion, the best practice/technology you have proposed can be "
+"replicated, although with some level of adaptation, elsewhere?"
+msgstr ""
+"In your opinion, the best practice/technology you have proposed can be "
+"replicated, although with some level of adaptation, elsewhere?"
+
+# 3052.unccd.label.en
+msgid "At which level?"
+msgstr "At which level?"
+
+# 3053.unccd.label.en
+# 4731.unccd.label.en
+msgid "Related to human resources"
+msgstr "Related to human resources"
+
+# 3054.unccd.label.en
+# 4732.unccd.label.en
+msgid "Related to financial aspects"
+msgstr "Related to financial aspects"
+
+# 3055.unccd.label.en
+# 4733.unccd.label.en
+msgid "Related to technical aspects"
+msgstr "Related to technical aspects"
+
+# 3056.unccd.label.en
+msgid ""
+"If the location has well defined boundaries, specify its extension in "
+"hectares"
+msgstr ""
+"If the location has well defined boundaries, specify its extension in "
+"hectares"
+
+# 3057.unccd.label.en
+msgid "Estimated population living in the location"
+msgstr "Estimated population living in the location"
+
+# 3501.unccd.label.en
+# 1619.technologies.helptext.label.en
+msgid "Cropland"
+msgstr "Cropland"
+
+# 3502.unccd.label.en
+# 1013.technologies.label.en
+# 1620.technologies.helptext.label.en
+msgid "Grazing land"
+msgstr "Grazing land"
+
+# 3504.unccd.label.en
+msgid "Uproductive land"
+msgstr "Uproductive land"
+
+# 3505.unccd.label.en
+msgid "Human settlement"
+msgstr "Human settlement"
+
+# 3506.unccd.label.en
+# 3530.unccd.label.en
+# 3533.unccd.label.en
+msgid "Other (please specify)"
+msgstr "Other (please specify)"
+
+# 3507.unccd.label.en
+msgid "Prevention"
+msgstr "Prevention"
+
+# 3508.unccd.label.en
+msgid "Mitigation"
+msgstr "Mitigation"
+
+# 3509.unccd.label.en
+msgid "Adaptation"
+msgstr "Adaptation"
+
+# 3510.unccd.label.en
+msgid "Rehabilitation"
+msgstr "Rehabilitation"
+
+# 3511.unccd.label.en
+# 3511.technologies.label.en
+msgid "To improve the living conditions of affected populations"
+msgstr "To improve the living conditions of affected populations"
+
+# 3512.unccd.label.en
+# 3512.technologies.label.en
+msgid "To improve the conditions of affected ecosystems"
+msgstr "To improve the conditions of affected ecosystems"
+
+# 3513.unccd.label.en
+# 3513.technologies.label.en
+msgid ""
+"To generate global benefits through effective implementation of the "
+"Convention"
+msgstr ""
+"To generate global benefits through effective implementation of the "
+"Convention"
+
+# 3514.unccd.label.en
+msgid "On-site impacts on production or productivity"
+msgstr "On-site impacts on production or productivity"
+
+# 3515.unccd.label.en
+msgid "On-site socio-economic and cultural impacts"
+msgstr "On-site socio-economic and cultural impacts"
+
+# 3516.unccd.label.en
+msgid "On-site environmental impacts"
+msgstr "On-site environmental impacts"
+
+# 3517.unccd.label.en
+msgid "Other on-site impacts"
+msgstr "Other on-site impacts"
+
+# 3518.unccd.label.en
+# 2741.technologies.label.en
+msgid "Off-site impacts"
+msgstr "Off-site impacts"
+
+# 3519.unccd.label.en
+# 3519.technologies.label.en
+msgid "Capacity-building and awareness-raising"
+msgstr "Capacity-building and awareness-raising"
+
+# 3520.unccd.label.en
+# 3520.technologies.label.en
+msgid "DLDD and SLM monitoring and assessment/research"
+msgstr "DLDD and SLM monitoring and assessment/research"
+
+# 3521.unccd.label.en
+# 3521.technologies.label.en
+msgid "Knowledge management and decision support"
+msgstr "Knowledge management and decision support"
+
+# 3522.unccd.label.en
+# 3522.technologies.label.en
+msgid "Policy, legislative and institutional framework"
+msgstr "Policy, legislative and institutional framework"
+
+# 3523.unccd.label.en
+# 3523.technologies.label.en
+msgid "Funding and resource mobilization"
+msgstr "Funding and resource mobilization"
+
+# 3524.unccd.label.en
+# 3524.technologies.label.en
+msgid "Participation, collaboration and networking"
+msgstr "Participation, collaboration and networking"
+
+# 3525.unccd.label.en
+msgid "Local initiative"
+msgstr "Local initiative"
+
+# 3526.unccd.label.en
+msgid "National initiative  government-led"
+msgstr "National initiative  government-led"
+
+# 3527.unccd.label.en
+msgid "National initiative  non-government-led"
+msgstr "National initiative  non-government-led"
+
+# 3528.unccd.label.en
+msgid "International initiative"
+msgstr "International initiative"
+
+# 3529.unccd.label.en
+msgid "Programme/project-based initiative"
+msgstr "Programme/project-based initiative"
+
+# 3531.unccd.label.en
+msgid "Consultation"
+msgstr "Consultation"
+
+# 3532.unccd.label.en
+msgid "Participatory approaches"
+msgstr "Participatory approaches"
+
+# 3534.unccd.label.en
+msgid ""
+"Policy or regulatory incentives (for example, related to market requirements "
+"and regulations, import/export, foreign investment, research & development "
+"support, etc) "
+msgstr ""
+"Policy or regulatory incentives (for example, related to market requirements "
+"and regulations, import/export, foreign investment, research & development "
+"support, etc) "
+
+# 3535.unccd.label.en
+msgid ""
+"Financial incentives (for example, preferential rates, State aid, subsidies, "
+"cash grants, loan guarantees, etc)"
+msgstr ""
+"Financial incentives (for example, preferential rates, State aid, subsidies, "
+"cash grants, loan guarantees, etc)"
+
+# 3536.unccd.label.en
+msgid ""
+"Fiscal incentives (for example, exemption from or reduction of taxes, "
+"duties, fees, etc)"
+msgstr ""
+"Fiscal incentives (for example, exemption from or reduction of taxes, "
+"duties, fees, etc)"
+
+# 3537.unccd.label.en
+msgid "Local"
+msgstr "Local"
+
+# 3538.unccd.label.en
+msgid "Sub-national"
+msgstr "Sub-national"
+
+# 3539.unccd.label.en
+msgid "National"
+msgstr "National"
+
+# 3540.unccd.label.en
+msgid "Subregional"
+msgstr "Subregional"
+
+# 3541.unccd.label.en
+msgid "Regional"
+msgstr "Regional"
+
+# 3542.unccd.label.en
+msgid "International"
+msgstr "International"
+
+# 4201.unccd.helptext.en
+msgid ""
+"Examples of conditions leading to success may include: highly motivated "
+"local governments, farmers organized into well structured cooperatives, "
+"extremely favourable weather conditions, etc. For each condition of success "
+"you are able to identify, specify whether in your opinion such condition is: "
+"<ul><li>(a) linked to the local context and thus cannot be replicated "
+"elsewhere;</li><li>(b) replicable elsewhere with some level of adaptation;</"
+"li><li>(c) replicable elsewhere with major adaptation.</li></ul>"
+msgstr ""
+"Examples of conditions leading to success may include: highly motivated "
+"local governments, farmers organized into well structured cooperatives, "
+"extremely favourable weather conditions, etc. For each condition of success "
+"you are able to identify, specify whether in your opinion such condition is: "
+"<ul><li>(a) linked to the local context and thus cannot be replicated "
+"elsewhere;</li><li>(b) replicable elsewhere with some level of adaptation;</"
+"li><li>(c) replicable elsewhere with major adaptation.</li></ul>"
+
+# 4202.unccd.helptext.en
+msgid ""
+"Additional questions of Leg 1 which are not in Leg 2 are:<ul><li>Amount "
+"committed</li><li>Beneficiaries</li><li>Civil Society Organizations (CSOs) "
+"and Science & Technology Institutions (STIs)</li><li>Commitment date</"
+"li><li>Funding organization</li><li>Name of activity funded</"
+"li><li>Operational objectives</li><li>Recipient country(ies) or "
+"(sub)region(s)</li><li>Recipient organization(s)</li><li>Relevant Activity "
+"Codes (RACs)</li><li>Reporting Entity</li><li>Reporting entity(ies)</"
+"li><li>Rio Marker for desertification</li><li>Role of the Organization(s) in "
+"the Programme/Project</li><li>Status</li><li>Target area size/administrative "
+"unit</li><li>Target Group</li><li>Title</li><li>United Nations Conventions "
+"Rio Markers</li></ul>"
+msgstr ""
+"Additional questions of Leg 1 which are not in Leg 2 are:<ul><li>Amount "
+"committed</li><li>Beneficiaries</li><li>Civil Society Organizations (CSOs) "
+"and Science & Technology Institutions (STIs)</li><li>Commitment date</"
+"li><li>Funding organization</li><li>Name of activity funded</"
+"li><li>Operational objectives</li><li>Recipient country(ies) or "
+"(sub)region(s)</li><li>Recipient organization(s)</li><li>Relevant Activity "
+"Codes (RACs)</li><li>Reporting Entity</li><li>Reporting entity(ies)</"
+"li><li>Rio Marker for desertification</li><li>Role of the Organization(s) in "
+"the Programme/Project</li><li>Status</li><li>Target area size/administrative "
+"unit</li><li>Target Group</li><li>Title</li><li>United Nations Conventions "
+"Rio Markers</li></ul>"
+
+# 4702.unccd.label.en
+msgid "Property Rights"
+msgstr "Property Rights"
+
+# 4711.unccd.label.en
+msgid ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as 'best'?"
+msgstr ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as 'best'?"
+
+# 4725.unccd.label.en
+msgid "Impact on biodiversity and climate change"
+msgstr "Impact on biodiversity and climate change"
+
+# 4730.unccd.label.en
+msgid "Replicability"
+msgstr "Replicability"
+
+# 4902.unccd.label.en
+msgid "Classification"
+msgstr "Classification"
+
+# 4903.unccd.label.en
+msgid ""
+"Section 1. Context of the best practice: frame conditions (natural and human "
+"environment)"
+msgstr ""
+"Section 1. Context of the best practice: frame conditions (natural and human "
+"environment)"
+
+# 4904.unccd.label.en
+msgid ""
+"Section 2. Problems addressed (direct and indirect causes) and objectives of "
+"the best practice"
+msgstr ""
+"Section 2. Problems addressed (direct and indirect causes) and objectives of "
+"the best practice"
+
+# 4905.unccd.label.en
+msgid "Section 3. Activities"
+msgstr "Section 3. Activities"
+
+# 1056.technologies.label.en
+# 1049.technologies.label.en
+# 2202.technologies.label.en
+msgid "Describe the most determinate factors affecting the costs"
+msgstr "Describe the most determinate factors affecting the costs"
+
+# 4906.unccd.label.en
+msgid ""
+"Section 4. Institutions/actors involved (collaboration, participation, role "
+"of stakeholders)"
+msgstr ""
+"Section 4. Institutions/actors involved (collaboration, participation, role "
+"of stakeholders)"
+
+# 4907.unccd.label.en
+msgid "Section 5. Contribution to impact"
+msgstr "Section 5. Contribution to impact"
+
+# 4908.unccd.label.en
+msgid "Section 6. Adoption and replicability"
+msgstr "Section 6. Adoption and replicability"
+
+# 4909.unccd.label.en
+msgid "Section 7. Lessons learned"
+msgstr "Section 7. Lessons learned"
+
+# 4910.unccd.label.en
+msgid "Section 8. Additional questions of Leg 1"
+msgstr "Section 8. Additional questions of Leg 1"
+
+# 1001.technologies.label.en
+msgid "Definition of the SLM technology"
+msgstr "Definition of the SLM technology"
+
+# 1002.technologies.label.en
+msgid "Description/layout"
+msgstr "Description/layout"
+
+# 1004.technologies.label.en
+msgid "By whom was the technology implemented"
+msgstr "By whom was the technology implemented"
+
+# 1005.technologies.label.en
+msgid "When?"
+msgstr "When?"
+
+# 1006.technologies.label.en
+msgid "Comments (type of project, etc.)"
+msgstr "Comments (type of project, etc.)"
+
+# 1007.technologies.label.en
+msgid ""
+"Indicate the main purpose(s) of the SLM technology (land users perspective)"
+msgstr ""
+"Indicate the main purpose(s) of the SLM technology (land users perspective)"
+
+# 1008.technologies.label.en
+msgid "other (specify)"
+msgstr "other (specify)"
+
+# 1009.technologies.label.en
+msgid "Comments (eg precise years, type of project, etc.)"
+msgstr "Comments (eg precise years, type of project, etc.)"
+
+# 1010.technologies.label.en
+msgid "Select land use type"
+msgstr "Select land use type"
+
+# 1011.technologies.label.en
+msgid "Select category(ies) / code(s)"
+msgstr "Select category(ies) / code(s)"
+
+# 1012.technologies.label.en
+msgid "Specify water supply for the land where the SLM technology is applied"
+msgstr "Specify water supply for the land where the SLM technology is applied"
+
+# 1014.technologies.helptext.en
+msgid ""
+"<strong>Gi: Intensive grazing/fodder production:</strong> improved or "
+"planted pastures for grazing/production of fodder (for cutting and carrying: "
+"hay, leguminous species, silage etc.) not including fodder crops such as "
+"maize, cereals. These are classified as annual crops (see above)."
+msgstr ""
+"<strong>Gi: Intensive grazing/fodder production:</strong> improved or "
+"planted pastures for grazing/production of fodder (for cutting and carrying: "
+"hay, leguminous species, silage etc.) not including fodder crops such as "
+"maize, cereals. These are classified as annual crops (see above)."
+
+# 1014.technologies.helptext.label.en
+msgid "Intensive grazing/fodder production"
+msgstr "Intensive grazing/fodder production"
+
+# 1015.technologies.label.en
+# 1243.technologies.label.en
+msgid "Main products/services"
+msgstr "Main products/services"
+
+# 1017.technologies.label.en
+msgid "Main products"
+msgstr "Main products"
+
+# 1019.technologies.label.en
+msgid "Remarks"
+msgstr "Remarks"
+
+# 1020.technologies.label.en
+msgid ""
+"If land use has changed due to the implementation of the SLM technology, "
+"indicate land use before implementation of SLM technology"
+msgstr ""
+"If land use has changed due to the implementation of the SLM technology, "
+"indicate land use before implementation of SLM technology"
+
+# 1022.technologies.label.en
+msgid "Which SLM measures does the technology consist of?"
+msgstr "Which SLM measures does the technology consist of?"
+
+# 1026.technologies.label.en
+msgid "Select degradation type"
+msgstr "Select degradation type"
+
+# 1032.technologies.label.en
+msgid "Has the technology been implemented to:"
+msgstr "Has the technology been implemented to:"
+
+# 1033.technologies.label.en
+msgid ""
+"If using a local area unit (other than hectare) indicate conversion factor "
+"to square meters or hectares"
+msgstr ""
+"If using a local area unit (other than hectare) indicate conversion factor "
+"to square meters or hectares"
+
+# 1034.technologies.label.en
+msgid ""
+"If costs are not calculated per area, specify unit (e.g. dam, meter of stone "
+"terrace, etc.)"
+msgstr ""
+"If costs are not calculated per area, specify unit (e.g. dam, meter of stone "
+"terrace, etc.)"
+
+# 1035.technologies.label.en
+# 1251.technologies.label.en
+msgid "Specify the date for which you indicate the costs"
+msgstr "Specify the date for which you indicate the costs"
+
+# 1036.technologies.label.en
+msgid "Technical specifications (related to technical drawing)"
+msgstr "Technical specifications (related to technical drawing)"
+
+# 1037.technologies.label.en
+msgid "Activity"
+msgstr "Activity"
+
+# 1038.technologies.helptext.en
+msgid "Type of measure: refer to 3.5"
+msgstr "Type of measure: refer to 3.5"
+
+# 1038.technologies.helptext.label.en
+msgid "Type of measure"
+msgstr "Type of measure"
+
+# 1039.technologies.helptext.label.en
+msgid "Timing"
+msgstr "Timing"
+
+# 1040.technologies.helptext.en
+msgid ""
+"<ul><li><strong>Labour costs</strong> indicate total person days, either "
+"paid or voluntary.</li><li><strong>Equipment</strong> includes tools, "
+"machine hours, animal traction, etc. Cost calculation for machine hours "
+"should be based on hiring costs  even if the machinery is owned by the land "
+"user.</li><li><strong>Agricultural inputs</strong> include seeds, seedling, "
+"fertilizer, biocides, compost/manure, etc. and indicate quantities needed</"
+"li><li><strong>Construction material</strong> includes stones, wood, earth, "
+"sand, etc. and indicate quantities needed</li></ul>"
+msgstr ""
+"<ul><li><strong>Labour costs</strong> indicate total person days, either "
+"paid or voluntary.</li><li><strong>Equipment</strong> includes tools, "
+"machine hours, animal traction, etc. Cost calculation for machine hours "
+"should be based on hiring costs  even if the machinery is owned by the land "
+"user.</li><li><strong>Agricultural inputs</strong> include seeds, seedling, "
+"fertilizer, biocides, compost/manure, etc. and indicate quantities needed</"
+"li><li><strong>Construction material</strong> includes stones, wood, earth, "
+"sand, etc. and indicate quantities needed</li></ul>"
+
+# 1040.technologies.helptext.label.en
+msgid "Specify inputs"
+msgstr "Specify inputs"
+
+# 1041.technologies.label.en
+msgid "Costs per input"
+msgstr "Costs per input"
+
+# 1042.technologies.label.en
+msgid "Percentage of total costs"
+msgstr "Percentage of total costs"
+
+# 1043.technologies.label.en
+msgid ""
+"Indicate whether the total establishment costs given above involves labour "
+"provided by the implementing body (household, family, etc.)"
+msgstr ""
+"Indicate whether the total establishment costs given above involves labour "
+"provided by the implementing body (household, family, etc.)"
+
+# 1044.technologies.label.en
+msgid "Indicate total costs for establishment of the technology"
+msgstr "Indicate total costs for establishment of the technology"
+
+# 1045.technologies.label.en
+# 2308.technologies.label.en
+msgid "If using national currency, indicate name"
+msgstr "If using national currency, indicate name"
+
+# 1046.technologies.label.en
+msgid "Indicate avarage wage cost of hired labour per day"
+msgstr "Indicate avarage wage cost of hired labour per day"
+
+# 1047.technologies.label.en
+msgid ""
+"Indicate whether the total maintenance costs given above involves labour "
+"provided by the implementing body (household, family, etc.)"
+msgstr ""
+"Indicate whether the total maintenance costs given above involves labour "
+"provided by the implementing body (household, family, etc.)"
+
+# 1048.technologies.label.en
+msgid ""
+"Percentage of total establishment costs (including labour and inputs) borne "
+"by land users"
+msgstr ""
+"Percentage of total establishment costs (including labour and inputs) borne "
+"by land users"
+
+# 1050.technologies.label.en
+msgid ""
+"Percentage of total maintenance costs (including labour and inputs) borne by "
+"land users"
+msgstr ""
+"Percentage of total maintenance costs (including labour and inputs) borne by "
+"land users"
+
+# 1051.technologies.label.en
+msgid "Indicate exchange rate used: 1 US$ equals"
+msgstr "Indicate exchange rate used: 1 US$ equals"
+
+# 1052.technologies.label.en
+msgid "Name of local currency"
+msgstr "Name of local currency"
+
+# 1053.technologies.label.en
+msgid ""
+"Indicate daily wage cost of hired labour to implement conservation measures "
+"(US$ per person day)"
+msgstr ""
+"Indicate daily wage cost of hired labour to implement conservation measures "
+"(US$ per person day)"
+
+# 1054.technologies.label.en
+msgid "Indicate the date for which the costs apply"
+msgstr "Indicate the date for which the costs apply"
+
+# 1057.technologies.label.en
+msgid ""
+"Total establishment costs for this technology are (compared to the local "
+"context)"
+msgstr ""
+"Total establishment costs for this technology are (compared to the local "
+"context)"
+
+# 1058.technologies.label.en
+msgid ""
+"Total maintenance costs for this technology are (compared to the local "
+"context)"
+msgstr ""
+"Total maintenance costs for this technology are (compared to the local "
+"context)"
+
+# 1059.technologies.label.en
+# 2218.technologies.label.en
+msgid "Average annual rainfall"
+msgstr "Average annual rainfall"
+
+# 1060.technologies.label_right.en
+# 1064.technologies.label_right.en
+# 1065.technologies.label_right.en
+# 1066.technologies.label_right.en
+# 1070.technologies.label_right.en
+# 1071.technologies.label_right.en
+# 1072.technologies.label_right.en
+# 1075.technologies.label_right.en
+# 1076.technologies.label_right.label_left.en
+# 1077.technologies.label_right.en
+# 1078.technologies.label_right.en
+# 1080.technologies.label_right.en
+# 1082.technologies.label_right.en
+# 1083.technologies.label_right.en
+# 1084.technologies.label_right.en
+# 1085.technologies.label_right.en
+# 1086.technologies.label_right.en
+# 1088.technologies.label_right.en
+# 1089.technologies.label_right.label_left.en
+# 1090.technologies.label_right.label_left.en
+# 1091.technologies.label_right.en
+# 1092.technologies.label_right.en
+# 1093.technologies.label_right.label_left.en
+# 1094.technologies.label_right.label_left.en
+# 1192.technologies.label_right.en
+# 1193.technologies.label_right.en
+# 1195.technologies.label_right.label_left.en
+# 1198.technologies.label_right.label_left.en
+# 1199.technologies.label_right.en
+# 1201.technologies.label_right.label_left.en
+# 1202.technologies.label_right.en
+# 1203.technologies.label_right.label_left.en
+# 1204.technologies.label_right.label_left.en
+# 1205.technologies.label_right.en
+# 1206.technologies.label_right.label_left.en
+# 1207.technologies.label_right.en
+# 1208.technologies.label_right.label_left.en
+# 1209.technologies.label_right.en
+# 1210.technologies.label_right.en
+# 1211.technologies.label_right.label_left.en
+# 1212.technologies.label_right.en
+# 1213.technologies.label_right.en
+# 1214.technologies.label_right.en
+# 1215.technologies.label_right.label_left.en
+# 1216.technologies.label_right.label_left.en
+# 1217.technologies.label_right.label_left.en
+# 1218.technologies.label_right.label_left.en
+# 1219.technologies.label_right.en
+# 1220.technologies.label_right.en
+# 1221.technologies.label_right.label_left.en
+# 1222.technologies.label_right.en
+# 1223.technologies.label_right.label_left.en
+# 1224.technologies.label_right.label_left.en
+# 1226.technologies.label_right.label_left.en
+# 1227.technologies.label_right.label_left.en
+# 1228.technologies.label_right.label_left.en
+# 1229.technologies.label_right.label_left.en
+# 1252.technologies.label_right.en
+msgid "increased"
+msgstr "increased"
+
+# 1060.technologies.label_right.label_left.en
+# 1064.technologies.label_right.label_left.en
+# 1065.technologies.label_right.label_left.en
+# 1066.technologies.label_right.label_left.en
+# 1070.technologies.label_right.label_left.en
+# 1071.technologies.label_right.label_left.en
+# 1072.technologies.label_right.label_left.en
+# 1075.technologies.label_right.label_left.en
+# 1076.technologies.label_right.en
+# 1077.technologies.label_right.label_left.en
+# 1078.technologies.label_right.label_left.en
+# 1080.technologies.label_right.label_left.en
+# 1082.technologies.label_right.label_left.en
+# 1083.technologies.label_right.label_left.en
+# 1084.technologies.label_right.label_left.en
+# 1085.technologies.label_right.label_left.en
+# 1086.technologies.label_right.label_left.en
+# 1088.technologies.label_right.label_left.en
+# 1089.technologies.label_right.en
+# 1090.technologies.label_right.en
+# 1091.technologies.label_right.label_left.en
+# 1092.technologies.label_right.label_left.en
+# 1093.technologies.label_right.en
+# 1094.technologies.label_right.en
+# 1192.technologies.label_right.label_left.en
+# 1193.technologies.label_right.label_left.en
+# 1195.technologies.label_right.en
+# 1198.technologies.label_right.en
+# 1199.technologies.label_right.label_left.en
+# 1201.technologies.label_right.en
+# 1202.technologies.label_right.label_left.en
+# 1205.technologies.label_right.label_left.en
+# 1206.technologies.label_right.en
+# 1207.technologies.label_right.label_left.en
+# 1209.technologies.label_right.label_left.en
+# 1210.technologies.label_right.label_left.en
+# 1212.technologies.label_right.label_left.en
+# 1213.technologies.label_right.label_left.en
+# 1214.technologies.label_right.label_left.en
+# 1215.technologies.label_right.en
+# 1216.technologies.label_right.en
+# 1217.technologies.label_right.en
+# 1218.technologies.label_right.en
+# 1219.technologies.label_right.label_left.en
+# 1220.technologies.label_right.label_left.en
+# 1223.technologies.label_right.en
+# 1252.technologies.label_right.label_left.en
+msgid "decreased"
+msgstr "decreased"
+
+# 1060.technologies.label_right.label_left.label.en
+# 2233.technologies.label.en
+msgid "Crop production"
+msgstr "Crop production"
+
+# 1061.technologies.label.en
+msgid "Quantity before SLM"
+msgstr "Quantity before SLM"
+
+# 1062.technologies.label.en
+msgid "Quantity after SLM"
+msgstr "Quantity after SLM"
+
+# 1063.technologies.label.en
+msgid "Comments/specify"
+msgstr "Comments/specify"
+
+# 1064.technologies.label_right.label_left.label.en
+# 2234.technologies.label.en
+msgid "Crop quality"
+msgstr "Crop quality"
+
+# 1065.technologies.label_right.label_left.label.en
+# 2235.technologies.label.en
+msgid "Fodder production"
+msgstr "Fodder production"
+
+# 1066.technologies.label_right.label_left.label.en
+# 2237.technologies.label.en
+msgid "Fodder quality"
+msgstr "Fodder quality"
+
+# 1067.technologies.label.en
+msgid "Indicate the name of the reference meteorological station considered"
+msgstr "Indicate the name of the reference meteorological station considered"
+
+# 1068.technologies.helptext.en
+msgid ""
+"E.g. specify annual rainfall (if known) and seasonality (e.g. monsoon, "
+"winter-/summer rains), number/length/months of rainy seasons, occurrence of "
+"heavy rains, length of dry periods"
+msgstr ""
+"E.g. specify annual rainfall (if known) and seasonality (e.g. monsoon, "
+"winter-/summer rains), number/length/months of rainy seasons, occurrence of "
+"heavy rains, length of dry periods"
+
+# 1068.technologies.helptext.label.en
+msgid "Specifications/comments on rainfall"
+msgstr "Specifications/comments on rainfall"
+
+# 1069.technologies.label.en
+# 2219.technologies.helptext.label.en
+msgid "Agro-climatic zone"
+msgstr "Agro-climatic zone"
+
+# 1070.technologies.label_right.label_left.label.en
+# 2238.technologies.label.en
+msgid "Animal production"
+msgstr "Animal production"
+
+# 1071.technologies.label_right.label_left.label.en
+# 2239.technologies.label.en
+msgid "Wood production"
+msgstr "Wood production"
+
+# 1072.technologies.label_right.label_left.label.en
+# 2240.technologies.label.en
+msgid "Forest/woodland quality"
+msgstr "Forest/woodland quality"
+
+# 1073.technologies.helptext.en
+msgid "E.g. local climate classification, information about temperature, etc."
+msgstr "E.g. local climate classification, information about temperature, etc."
+
+# 1073.technologies.helptext.label.en
+msgid "Specifications/comments on climate"
+msgstr "Specifications/comments on climate"
+
+# 1074.technologies.helptext.en
+msgid ""
+"<p>Maximum 2 answers possible.</p><p>Slope gradient conversion table</"
+"p><table><thead><tr><th>Slope in degrees</th><th>Slope in percent</th></tr></"
+"thead><tbody><tr><th>1</th><th>2%</th></tr><tr><th>3</th><th>5%</th></"
+"tr><tr><th>5</th><th>8%</th></tr><tr><th>9</th><th>16%</th></tr><tr><th>17</"
+"th><th>30%</th></tr><tr><th>31</th><th>60%</th></tr><tr><th>45</th><th>100%</"
+"th></tr></tbody></table>"
+msgstr ""
+"<p>Maximum 2 answers possible.</p><p>Slope gradient conversion table</"
+"p><table><thead><tr><th>Slope in degrees</th><th>Slope in percent</th></tr></"
+"thead><tbody><tr><th>1</th><th>2%</th></tr><tr><th>3</th><th>5%</th></"
+"tr><tr><th>5</th><th>8%</th></tr><tr><th>9</th><th>16%</th></tr><tr><th>17</"
+"th><th>30%</th></tr><tr><th>31</th><th>60%</th></tr><tr><th>45</th><th>100%</"
+"th></tr></tbody></table>"
+
+# 1074.technologies.helptext.label.en
+msgid "Slopes on average"
+msgstr "Slopes on average"
+
+# 1075.technologies.label_right.label_left.label.en
+# 2241.technologies.label.en
+msgid "Non-wood forest production"
+msgstr "Non-wood forest production"
+
+# 1076.technologies.label_right.label_left.label.en
+# 2242.technologies.label.en
+msgid "Risk of production failure"
+msgstr "Risk of production failure"
+
+# 1077.technologies.label_right.label_left.label.en
+# 2243.technologies.label.en
+msgid "Product diversity"
+msgstr "Product diversity"
+
+# 1078.technologies.label_right.label_left.label.en
+msgid "Production area (new land under cultivation/use)"
+msgstr "Production area (new land under cultivation/use)"
+
+# 1079.technologies.label_right.en
+msgid "simplified"
+msgstr "simplified"
+
+# 1079.technologies.label_right.label_left.en
+msgid "hindered"
+msgstr "hindered"
+
+# 1079.technologies.label_right.label_left.label.en
+# 2245.technologies.label.en
+msgid "Land management"
+msgstr "Land management"
+
+# 1080.technologies.label_right.label_left.label.en
+msgid "Energy generation (e.g. hydro, bio)"
+msgstr "Energy generation (e.g. hydro, bio)"
+
+# 1081.technologies.helptext.en
+msgid ""
+"<strong>Landforms</strong> (modified after ISRIC 1993):"
+"<ul><li><strong>Plateau/plains</strong>: extended level land (slopes less "
+"than 8 %).</li><li><strong>Ridges</strong>: narrow elongated area rising "
+"above the surrounding area, often hilltops or mountain-tops.</"
+"li><li><strong>Mountain slopes (including major escarpments)</strong>: "
+"extended area with altitude differences of more than 600 m per 2 km and "
+"slopes greater than 15 %.</li><li><strong>Hill slopes (including valley and "
+"minor escarpment slopes)</strong>: altitude difference of less than 600 m "
+"per 2 km and slopes greater than 8 %.</li><li><strong>Footslopes</strong>: "
+"zone bordering steeper mountain / hill slopes on one side and valley floors/"
+"plains/plateaus on the other side.</li><li><strong>Valley floors</strong>: "
+"elongated strips of level land (less than 8 % slope), flanked by sloping or "
+"steep land on both sides.</li></ul>"
+msgstr ""
+"<strong>Landforms</strong> (modified after ISRIC 1993):"
+"<ul><li><strong>Plateau/plains</strong>: extended level land (slopes less "
+"than 8 %).</li><li><strong>Ridges</strong>: narrow elongated area rising "
+"above the surrounding area, often hilltops or mountain-tops.</"
+"li><li><strong>Mountain slopes (including major escarpments)</strong>: "
+"extended area with altitude differences of more than 600 m per 2 km and "
+"slopes greater than 15 %.</li><li><strong>Hill slopes (including valley and "
+"minor escarpment slopes)</strong>: altitude difference of less than 600 m "
+"per 2 km and slopes greater than 8 %.</li><li><strong>Footslopes</strong>: "
+"zone bordering steeper mountain / hill slopes on one side and valley floors/"
+"plains/plateaus on the other side.</li><li><strong>Valley floors</strong>: "
+"elongated strips of level land (less than 8 % slope), flanked by sloping or "
+"steep land on both sides.</li></ul>"
+
+# 1081.technologies.helptext.label.en
+msgid "Landforms"
+msgstr "Landforms"
+
+# 1082.technologies.label_right.label_left.label.en
+# 2247.technologies.label.en
+msgid "Drinking water availability"
+msgstr "Drinking water availability"
+
+# 1083.technologies.label_right.label_left.label.en
+# 2248.technologies.label.en
+msgid "Drinking water quality"
+msgstr "Drinking water quality"
+
+# 1084.technologies.label_right.label_left.label.en
+# 2249.technologies.label.en
+msgid "Water availability for livestock"
+msgstr "Water availability for livestock"
+
+# 1085.technologies.label_right.label_left.label.en
+# 2250.technologies.label.en
+msgid "Water quality for livestock"
+msgstr "Water quality for livestock"
+
+# 1086.technologies.label_right.label_left.label.en
+# 2251.technologies.label.en
+msgid "Irrigation water availability"
+msgstr "Irrigation water availability"
+
+# 1087.technologies.label.en
+msgid "Altitudinal zone"
+msgstr "Altitudinal zone"
+
+# 1088.technologies.label_right.label_left.label.en
+# 2252.technologies.label.en
+msgid "Irrigation water quality"
+msgstr "Irrigation water quality"
+
+# 1089.technologies.label_right.label_left.label.en
+# 2253.technologies.label.en
+msgid "Demand for irrigation water"
+msgstr "Demand for irrigation water"
+
+# 1090.technologies.label_right.label_left.label.en
+# 2254.technologies.label.en
+msgid "Expenses on agricultural inputs"
+msgstr "Expenses on agricultural inputs"
+
+# 1091.technologies.label_right.label_left.label.en
+# 2255.technologies.label.en
+msgid "Farm income"
+msgstr "Farm income"
+
+# 1591.technologies.label.en
+msgid "10-50% of all income"
+msgstr "10-50% of all income"
+
+# 1092.technologies.label_right.label_left.label.en
+# 2256.technologies.label.en
+msgid "Diversity of income sources"
+msgstr "Diversity of income sources"
+
+# 1093.technologies.label_right.label_left.label.en
+# 2257.technologies.label.en
+msgid "Economic disparities"
+msgstr "Economic disparities"
+
+# 1094.technologies.label_right.label_left.label.en
+# 2258.technologies.label.en
+msgid "Workload"
+msgstr "Workload"
+
+# 1095.technologies.label_right.en
+# 1099.technologies.label_right.en
+# 1100.technologies.label_right.en
+# 1101.technologies.label_right.en
+# 1102.technologies.label_right.en
+# 1134.technologies.label_right.en
+# 1135.technologies.label_right.en
+# 1136.technologies.label_right.en
+# 1194.technologies.label_right.en
+# 1196.technologies.label_right.en
+# 1200.technologies.label_right.en
+# 1225.technologies.label_right.en
+msgid "improved"
+msgstr "improved"
+
+# 1095.technologies.label_right.label_left.en
+# 1101.technologies.label_right.label_left.en
+# 1102.technologies.label_right.label_left.en
+# 1134.technologies.label_right.label_left.en
+# 1194.technologies.label_right.label_left.en
+# 1196.technologies.label_right.label_left.en
+# 1200.technologies.label_right.label_left.en
+# 1203.technologies.label_right.en
+# 1204.technologies.label_right.en
+# 1208.technologies.label_right.en
+# 1211.technologies.label_right.en
+# 1221.technologies.label_right.en
+# 1222.technologies.label_right.label_left.en
+# 1224.technologies.label_right.en
+# 1225.technologies.label_right.label_left.en
+# 1226.technologies.label_right.en
+# 1227.technologies.label_right.en
+# 1228.technologies.label_right.en
+# 1229.technologies.label_right.en
+msgid "reduced"
+msgstr "reduced"
+
+# 1095.technologies.label_right.label_left.label.en
+# 2259.technologies.label.en
+msgid "Food security/self-sufficiency"
+msgstr "Food security/self-sufficiency"
+
+# 1096.technologies.helptext.en
+msgid "E.g. exact altitude and slope angles of the evaluated sites"
+msgstr "E.g. exact altitude and slope angles of the evaluated sites"
+
+# 1096.technologies.helptext.label.en
+msgid "Comments and further specifications on topography"
+msgstr "Comments and further specifications on topography"
+
+# 1097.technologies.label.en
+msgid ""
+"Indicate if SLM technology is specifically applied in convex or concave "
+"situations"
+msgstr ""
+"Indicate if SLM technology is specifically applied in convex or concave "
+"situations"
+
+# 1098.technologies.label.en
+msgid "Soil depth on average"
+msgstr "Soil depth on average"
+
+# 1099.technologies.label_right.label_left.en
+# 1100.technologies.label_right.label_left.en
+# 1135.technologies.label_right.label_left.en
+# 1136.technologies.label_right.label_left.en
+msgid "worsened"
+msgstr "worsened"
+
+# 1099.technologies.label_right.label_left.label.en
+# 2260.technologies.label.en
+msgid "Health situation"
+msgstr "Health situation"
+
+# 1100.technologies.label_right.label_left.label.en
+# 2261.technologies.label.en
+msgid "Land use/water rights"
+msgstr "Land use/water rights"
+
+# 1101.technologies.label_right.label_left.label.en
+msgid "Cultural opportunities (eg spiritual, aesthetic, others)"
+msgstr "Cultural opportunities (eg spiritual, aesthetic, others)"
+
+# 1102.technologies.label_right.label_left.label.en
+# 2263.technologies.label.en
+msgid "Recreational opportunities"
+msgstr "Recreational opportunities"
+
+# 1103.technologies.label.en
+msgid "Soil texture (topsoil)"
+msgstr "Soil texture (topsoil)"
+
+# 1104.technologies.label_right.en
+# 1105.technologies.label_right.en
+msgid "strengthened"
+msgstr "strengthened"
+
+# 1104.technologies.label_right.label_left.en
+# 1105.technologies.label_right.label_left.en
+msgid "weakened"
+msgstr "weakened"
+
+# 1104.technologies.label_right.label_left.label.en
+# 2264.technologies.label.en
+msgid "Community institutions"
+msgstr "Community institutions"
+
+# 1105.technologies.label_right.label_left.label.en
+# 2265.technologies.label.en
+msgid "National institutions"
+msgstr "National institutions"
+
+# 1106.technologies.label.en
+msgid "Soil texture (> 20 cm below surface)"
+msgstr "Soil texture (> 20 cm below surface)"
+
+# 1107.technologies.label.en
+msgid "Topsoil organic matter"
+msgstr "Topsoil organic matter"
+
+# 1109.technologies.helptext.en
+msgid ""
+"If available, attach full soil description or specify the available "
+"information, e.g. soil type, soil PH/acidity, CEC, nitrogen, salinity etc.)"
+msgstr ""
+"If available, attach full soil description or specify the available "
+"information, e.g. soil type, soil PH/acidity, CEC, nitrogen, salinity etc.)"
+
+# 1109.technologies.helptext.label.en
+msgid "Comments and further specifications on soils"
+msgstr "Comments and further specifications on soils"
+
+# 1110.technologies.label.en
+msgid "Ground water table"
+msgstr "Ground water table"
+
+# 1114.technologies.label.en
+msgid "Availability of surface water"
+msgstr "Availability of surface water"
+
+# 1118.technologies.label.en
+msgid "Water quality (untreated)"
+msgstr "Water quality (untreated)"
+
+# 1119.technologies.label.en
+msgid "Is flooding of the area occurring"
+msgstr "Is flooding of the area occurring"
+
+# 1120.technologies.label.en
+msgid "Regularity"
+msgstr "Regularity"
+
+# 1122.technologies.label.en
+msgid "Is water salinity a problem?"
+msgstr "Is water salinity a problem?"
+
+# 1124.technologies.helptext.en
+msgid "E.g. seasonal fluctuations, source of pollution"
+msgstr "E.g. seasonal fluctuations, source of pollution"
+
+# 1124.technologies.helptext.label.en
+msgid "Comments and further specifications on water quality and quantity"
+msgstr "Comments and further specifications on water quality and quantity"
+
+# 1125.technologies.helptext.en
+msgid ""
+"<strong>Species diversity</strong>: a measure of the diversity within an "
+"ecological community that incorporates both species richness (the number of "
+"species in a community) and the evenness of species' abundance. It includes "
+"all fauna and flora above ground and in the soil (modified after eoearth.org)"
+msgstr ""
+"<strong>Species diversity</strong>: a measure of the diversity within an "
+"ecological community that incorporates both species richness (the number of "
+"species in a community) and the evenness of species' abundance. It includes "
+"all fauna and flora above ground and in the soil (modified after eoearth.org)"
+
+# 1125.technologies.helptext.label.en
+msgid "Species diversity"
+msgstr "Species diversity"
+
+# 1126.technologies.helptext.en
+msgid ""
+"<strong>Habitat diversity</strong>: refers to the variety or range of "
+"habitats in a given region, landscape or ecosystem (modified after oecd.org)"
+msgstr ""
+"<strong>Habitat diversity</strong>: refers to the variety or range of "
+"habitats in a given region, landscape or ecosystem (modified after oecd.org)"
+
+# 1126.technologies.helptext.label.en
+# 1213.technologies.label_right.label_left.label.en
+# 2290.technologies.label.en
+msgid "Habitat diversity"
+msgstr "Habitat diversity"
+
+# 1127.technologies.helptext.en
+msgid "E.g. ethnicity, etc."
+msgstr "E.g. ethnicity, etc."
+
+# 1128.technologies.label.en
+msgid "Comments and further specifications on biodiversity"
+msgstr "Comments and further specifications on biodiversity"
+
+# 1129.technologies.label.en
+msgid "Small or large scale"
+msgstr "Small or large scale"
+
+# 1130.technologies.label.en
+msgid "Market orientation of production system"
+msgstr "Market orientation of production system"
+
+# 1133.technologies.helptext.en
+msgid "Use local instead of international standards."
+msgstr "Use local instead of international standards."
+
+# 1133.technologies.helptext.label.en
+msgid "Relative level of wealth"
+msgstr "Relative level of wealth"
+
+# 1134.technologies.label_right.label_left.label.en
+# 2266.technologies.label.en
+msgid "SLM/land degradation knowledge"
+msgstr "SLM/land degradation knowledge"
+
+# 1135.technologies.label_right.label_left.label.en
+# 2267.technologies.label.en
+msgid "Conflict mitigation"
+msgstr "Conflict mitigation"
+
+# 1136.technologies.label_right.label_left.label.en
+msgid ""
+"Situation of socially and economically disadvantaged groups (gender, age, "
+"status, ehtnicity etc.)"
+msgstr ""
+"Situation of socially and economically disadvantaged groups (gender, age, "
+"status, ehtnicity etc.)"
+
+# 1138.technologies.helptext.en
+msgid ""
+"Income other than from the use of cropland, grazing land, forest and mixed "
+"land (e.g. business, trade, manufacturing, industry, pension, remittances)"
+msgstr ""
+"Income other than from the use of cropland, grazing land, forest and mixed "
+"land (e.g. business, trade, manufacturing, industry, pension, remittances)"
+
+# 1138.technologies.helptext.label.en
+msgid "Off-farm income"
+msgstr "Off-farm income"
+
+# 1139.technologies.label.en
+msgid "Individuals or groups"
+msgstr "Individuals or groups"
+
+# 1140.technologies.label.en
+msgid "Level of mechanisation"
+msgstr "Level of mechanisation"
+
+# 1141.technologies.helptext.en
+msgid "Indicate gender of persons using the land"
+msgstr "Indicate gender of persons using the land"
+
+# 1142.technologies.label.en
+msgid "Status in society"
+msgstr "Status in society"
+
+# 1143.technologies.label.en
+msgid "Land size per household/farm unit applying the technology"
+msgstr "Land size per household/farm unit applying the technology"
+
+# 1154.technologies.label.en
+msgid "Land ownership"
+msgstr "Land ownership"
+
+# 1160.technologies.label.en
+msgid "Land use rights"
+msgstr "Land use rights"
+
+# 1161.technologies.label.en
+msgid "Water use rights"
+msgstr "Water use rights"
+
+# 1592.technologies.label.en
+msgid "> 50% of all income"
+msgstr "> 50% of all income"
+
+# 1182.technologies.helptext.en
+msgid ""
+"<strong>Post-flooding</strong>: after rainwater has naturally flooded the "
+"field (eg in Wadis, river banks), the water infiltrated into the soil is "
+"used intentionally as a water reserve for crop cultivation. The crop(s) "
+"use(s) this water reserve for establishment."
+msgstr ""
+"<strong>Post-flooding</strong>: after rainwater has naturally flooded the "
+"field (eg in Wadis, river banks), the water infiltrated into the soil is "
+"used intentionally as a water reserve for crop cultivation. The crop(s) "
+"use(s) this water reserve for establishment."
+
+# 1182.technologies.helptext.label.en
+msgid "other (e.g. post-flooding)"
+msgstr "other (e.g. post-flooding)"
+
+# 1184.technologies.label.en
+msgid "Purpose"
+msgstr "Purpose"
+
+# 1185.technologies.label.en
+msgid "Establishment/maintenance activities and input"
+msgstr "Establishment/maintenance activities and input"
+
+# 1186.technologies.label.en
+msgid "Natural/human environment"
+msgstr "Natural/human environment"
+
+# 1187.technologies.helptext.en
+msgid ""
+"<p><strong>Site:</strong> A site can be a single plot or a larger area "
+"managed by individuals or by a community, or a place where a specific "
+"infrastructure hast been implemented (e.g. dam).</p>"
+msgstr ""
+"<p><strong>Site:</strong> A site can be a single plot or a larger area "
+"managed by individuals or by a community, or a place where a specific "
+"infrastructure hast been implemented (e.g. dam).</p>"
+
+# 1187.technologies.helptext.label.en
+msgid ""
+"Number of sites considered/analysed in the documentation of this technology"
+msgstr ""
+"Number of sites considered/analysed in the documentation of this technology"
+
+# 1188.technologies.label.en
+msgid ""
+"Geo-referenced information (coordinates) of the sites where the technology "
+"was documented (reference sites)."
+msgstr ""
+"Geo-referenced information (coordinates) of the sites where the technology "
+"was documented (reference sites)."
+
+# 1189.technologies.label.en
+msgid "If not 100% borne by land user, indicate who funded the remaining costs"
+msgstr ""
+"If not 100% borne by land user, indicate who funded the remaining costs"
+
+# 1190.technologies.helptext.label.en
+msgid "Timing / frequency"
+msgstr "Timing / frequency"
+
+# 1191.technologies.label.en
+msgid ""
+"Indicate total costs for maintenance/recurrent of the technology per year"
+msgstr ""
+"Indicate total costs for maintenance/recurrent of the technology per year"
+
+# 1518.technologies.label.en
+msgid "A2: Organic matter/soil fertility"
+msgstr "A2: Organic matter/soil fertility"
+
+# 1192.technologies.label_right.label_left.label.en
+# 2269.technologies.label.en
+msgid "Water quantity"
+msgstr "Water quantity"
+
+# 1193.technologies.label_right.label_left.label.en
+# 2270.technologies.label.en
+msgid "Water quality"
+msgstr "Water quality"
+
+# 1194.technologies.label_right.label_left.label.en
+msgid "Harvesting/collection of water (runoff, dew, snow, etc)"
+msgstr "Harvesting/collection of water (runoff, dew, snow, etc)"
+
+# 1195.technologies.label_right.label_left.label.en
+# 2272.technologies.label.en
+msgid "Surface runoff"
+msgstr "Surface runoff"
+
+# 1196.technologies.label_right.label_left.label.en
+# 2273.technologies.label.en
+msgid "Excess water drainage"
+msgstr "Excess water drainage"
+
+# 1197.technologies.label_right.en
+msgid "recharge"
+msgstr "recharge"
+
+# 1197.technologies.label_right.label_left.en
+msgid "lowered"
+msgstr "lowered"
+
+# 1197.technologies.label_right.label_left.label.en
+# 2274.technologies.label.en
+msgid "Groundwater table/aquifer"
+msgstr "Groundwater table/aquifer"
+
+# 1198.technologies.label_right.label_left.label.en
+# 2275.technologies.label.en
+msgid "Evaporation"
+msgstr "Evaporation"
+
+# 1199.technologies.label_right.label_left.label.en
+# 2276.technologies.label.en
+msgid "Soil moisture"
+msgstr "Soil moisture"
+
+# 1200.technologies.label_right.label_left.label.en
+# 2277.technologies.label.en
+msgid "Soil cover"
+msgstr "Soil cover"
+
+# 1201.technologies.label_right.label_left.label.en
+# 2278.technologies.label.en
+msgid "Soil loss"
+msgstr "Soil loss"
+
+# 1202.technologies.label_right.label_left.label.en
+# 2279.technologies.label.en
+msgid "Soil accumulation"
+msgstr "Soil accumulation"
+
+# 1203.technologies.label_right.label_left.label.en
+# 2280.technologies.label.en
+msgid "Soil crusting/sealing"
+msgstr "Soil crusting/sealing"
+
+# 1204.technologies.label_right.label_left.label.en
+# 2281.technologies.label.en
+msgid "Soil compaction"
+msgstr "Soil compaction"
+
+# 1205.technologies.label_right.label_left.label.en
+# 2282.technologies.label.en
+msgid "Nutrient cycling/recharge"
+msgstr "Nutrient cycling/recharge"
+
+# 1206.technologies.label_right.label_left.label.en
+# 2283.technologies.label.en
+msgid "Salinity"
+msgstr "Salinity"
+
+# 1207.technologies.label_right.label_left.label.en
+# 2284.technologies.label.en
+msgid "Soil organic matter/below ground C"
+msgstr "Soil organic matter/below ground C"
+
+# 1208.technologies.label_right.label_left.label.en
+# 2285.technologies.label.en
+msgid "Acidity"
+msgstr "Acidity"
+
+# 1209.technologies.label_right.label_left.label.en
+# 2286.technologies.label.en
+msgid "Animal diversity"
+msgstr "Animal diversity"
+
+# 1210.technologies.label_right.label_left.label.en
+# 2287.technologies.label.en
+msgid "Plant diversity"
+msgstr "Plant diversity"
+
+# 1211.technologies.label_right.label_left.label.en
+# 2288.technologies.label.en
+msgid "Invasive alien species"
+msgstr "Invasive alien species"
+
+# 1212.technologies.label_right.label_left.label.en
+msgid "Beneficial species (predators, earthworms, pollinators)"
+msgstr "Beneficial species (predators, earthworms, pollinators)"
+
+# 1214.technologies.label_right.label_left.label.en
+# 2291.technologies.label.en
+msgid "Biomass/above ground C"
+msgstr "Biomass/above ground C"
+
+# 1215.technologies.label_right.label_left.label.en
+# 2292.technologies.label.en
+msgid "Emission of carbon and greenhouse gases"
+msgstr "Emission of carbon and greenhouse gases"
+
+# 1216.technologies.label_right.label_left.label.en
+msgid "Disaster risk (drought, floods, storms, etc.)"
+msgstr "Disaster risk (drought, floods, storms, etc.)"
+
+# 1217.technologies.label_right.label_left.label.en
+# 2294.technologies.label.en
+msgid "Fire risk"
+msgstr "Fire risk"
+
+# 1218.technologies.label_right.label_left.label.en
+# 2295.technologies.label.en
+msgid "Wind velocity"
+msgstr "Wind velocity"
+
+# 1219.technologies.label_right.label_left.label.en
+# 2296.technologies.label.en
+msgid "Pest/disease control"
+msgstr "Pest/disease control"
+
+# 1220.technologies.label_right.label_left.label.en
+msgid "Water availability (groundwater, springs)"
+msgstr "Water availability (groundwater, springs)"
+
+# 1221.technologies.label_right.label_left.label.en
+msgid "Downstream flooding (undesired)"
+msgstr "Downstream flooding (undesired)"
+
+# 1222.technologies.label_right.label_left.label.en
+msgid "Reliable and stable stream flows in dry season (incl. low flows)"
+msgstr "Reliable and stable stream flows in dry season (incl. low flows)"
+
+# 1223.technologies.label_right.label_left.label.en
+# 2300.technologies.label.en
+msgid "Downstream siltation"
+msgstr "Downstream siltation"
+
+# 1224.technologies.label_right.label_left.label.en
+# 2301.technologies.label.en
+msgid "Groundwater/river pollution"
+msgstr "Groundwater/river pollution"
+
+# 1225.technologies.label_right.label_left.label.en
+msgid "Buffering/filtering capacity (by soil, vegetation, wetlands)"
+msgstr "Buffering/filtering capacity (by soil, vegetation, wetlands)"
+
+# 1226.technologies.label_right.label_left.label.en
+# 2303.technologies.label.en
+msgid "Wind transported sediments"
+msgstr "Wind transported sediments"
+
+# 1227.technologies.label_right.label_left.label.en
+# 2304.technologies.label.en
+msgid "Damage on neighbours' fields"
+msgstr "Damage on neighbours' fields"
+
+# 1228.technologies.label_right.label_left.label.en
+# 2305.technologies.label.en
+msgid "Damage on public/private infrastructure"
+msgstr "Damage on public/private infrastructure"
+
+# 1229.technologies.label_right.label_left.label.en
+msgid "Impact of grenhouse gases"
+msgstr "Impact of grenhouse gases"
+
+# 1230.technologies.label.en
+msgid "Indicate whether the described practice is considered"
+msgstr "Indicate whether the described practice is considered"
+
+# 1231.technologies.label.en
+msgid "If 'partly' or 'non-sustainable', indicate why"
+msgstr "If 'partly' or 'non-sustainable', indicate why"
+
+# 1232.technologies.label.en
+msgid ""
+"If you are comparing this land management practice with a (more) sustainable "
+"practice, provide the name of the technology and the editor"
+msgstr ""
+"If you are comparing this land management practice with a (more) sustainable "
+"practice, provide the name of the technology and the editor"
+
+# 1234.technologies.label.en
+msgid "Indicate year of implementation"
+msgstr "Indicate year of implementation"
+
+# 1235.technologies.label.en
+msgid "If precise year is not known, was the technology implemented"
+msgstr "If precise year is not known, was the technology implemented"
+
+# 1236.technologies.label.en
+msgid "Main crops (cash and food crops)"
+msgstr "Main crops (cash and food crops)"
+
+# 1237.technologies.label.en
+msgid "Main animal species (livestock/wildlife)"
+msgstr "Main animal species (livestock/wildlife)"
+
+# 1238.technologies.helptext.en
+msgid ""
+"<strong>Ge: Extensive grazing land</strong>: grazing on natural or semi-"
+"natural grasslands, grasslands with trees/shrubs (savannah vegetation) or "
+"open woodlands for livestock and wildlife."
+msgstr ""
+"<strong>Ge: Extensive grazing land</strong>: grazing on natural or semi-"
+"natural grasslands, grasslands with trees/shrubs (savannah vegetation) or "
+"open woodlands for livestock and wildlife."
+
+# 1238.technologies.helptext.label.en
+msgid "Extensive grazing land"
+msgstr "Extensive grazing land"
+
+# 1239.technologies.helptext.en
+msgid ""
+"<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of "
+"indigenous trees, not planted by man"
+msgstr ""
+"<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of "
+"indigenous trees, not planted by man"
+
+# 1239.technologies.helptext.label.en
+msgid "(Semi-)natural forests"
+msgstr "(Semi-)natural forests"
+
+# 1240.technologies.helptext.en
+msgid ""
+"<strong>Fp: Plantations, afforestations:</strong>: forest stands established "
+"by planting or/and seeding in the process of afforestation or reforestation"
+msgstr ""
+"<strong>Fp: Plantations, afforestations:</strong>: forest stands established "
+"by planting or/and seeding in the process of afforestation or reforestation"
+
+# 1240.technologies.helptext.label.en
+# 1763.technologies.label.en
+msgid "Tree plantation, afforestation"
+msgstr "Tree plantation, afforestation"
+
+# 1241.technologies.label.en
+msgid "Products and services"
+msgstr "Products and services"
+
+# 1242.technologies.label.en
+msgid "Main services"
+msgstr "Main services"
+
+# 1244.technologies.label.en
+msgid "Which SLM group does the technology belong to?"
+msgstr "Which SLM group does the technology belong to?"
+
+# 1245.technologies.helptext.en
+msgid ""
+"<strong>Examples:</strong><ul><li><strong>unit</strong>: hectare, "
+"<strong>size</strong>: 2.5</li><li><strong>unit</strong>: acre, "
+"<strong>size</strong>: 50</li></ul>"
+msgstr ""
+"<strong>Examples:</strong><ul><li><strong>unit</strong>: hectare, "
+"<strong>size</strong>: 2.5</li><li><strong>unit</strong>: acre, "
+"<strong>size</strong>: 50</li></ul>"
+
+# 1245.technologies.helptext.label.en
+msgid "If costs are calculated per area, indicate unit"
+msgstr "If costs are calculated per area, indicate unit"
+
+# 1246.technologies.label.en
+msgid "If costs are calculated per area, indicate size"
+msgstr "If costs are calculated per area, indicate size"
+
+# 1247.technologies.label.en
+msgid "If using a local area unit, indicate conversion factor to one hectare"
+msgstr "If using a local area unit, indicate conversion factor to one hectare"
+
+# 1248.technologies.helptext.en
+msgid ""
+"<strong>Examples:</strong><ul><li><strong>unit</strong>: dam, terrace wall, "
+"grass strip, drainage ditch, etc.</li><li><strong>size</strong>: volume of "
+"dam 30000 m3, length of terrace wall 250 m etc.</li></ul>"
+msgstr ""
+"<strong>Examples:</strong><ul><li><strong>unit</strong>: dam, terrace wall, "
+"grass strip, drainage ditch, etc.</li><li><strong>size</strong>: volume of "
+"dam 30000 m3, length of terrace wall 250 m etc.</li></ul>"
+
+# 1248.technologies.helptext.label.en
+msgid "If costs are NOT calculated per area, indicate unit"
+msgstr "If costs are NOT calculated per area, indicate unit"
+
+# 1249.technologies.label.en
+msgid "If costs are NOT calculated per area, indicate size"
+msgstr "If costs are NOT calculated per area, indicate size"
+
+# 1250.technologies.label.en
+msgid "Currency"
+msgstr "Currency"
+
+# 1252.technologies.label_right.label_left.label.en
+# 2310.technologies.label.en
+msgid "Vegetation cover"
+msgstr "Vegetation cover"
+
+# 1253.technologies.helptext.en
+msgid "Is the SLM technology exposed to these extremes/changes?"
+msgstr "Is the SLM technology exposed to these extremes/changes?"
+
+# 1253.technologies.helptext.label.en
+msgid "Exposure"
+msgstr "Exposure"
+
+# 1254.technologies.helptext.en
+msgid ""
+"If yes, is the SLM technology tolerant or sensitive to these extremes/"
+"changes?"
+msgstr ""
+"If yes, is the SLM technology tolerant or sensitive to these extremes/"
+"changes?"
+
+# 1254.technologies.helptext.label.en
+msgid "Sensitivity"
+msgstr "Sensitivity"
+
+# 1255.technologies.label.en
+msgid "Short-term returns"
+msgstr "Short-term returns"
+
+# 1256.technologies.label.en
+msgid "Long-term returns"
+msgstr "Long-term returns"
+
+# 1500.technologies.label.en
+msgid "land user's innovation"
+msgstr "land user's innovation"
+
+# 1501.technologies.label.en
+msgid "traditional system (>50 years)"
+msgstr "traditional system (>50 years)"
+
+# 1502.technologies.label.en
+msgid "experiments/research"
+msgstr "experiments/research"
+
+# 1503.technologies.label.en
+msgid "externally/introduced through project"
+msgstr "externally/introduced through project"
+
+# 1504.technologies.helptext.en
+msgid ""
+"<strong>Ca: Annual cropping</strong>: Land under temporary/annual crops "
+"usually harvested within one, maximally within two years (e.g. maize, paddy "
+"rice, wheat, vegetables, fodder crops)"
+msgstr ""
+"<strong>Ca: Annual cropping</strong>: Land under temporary/annual crops "
+"usually harvested within one, maximally within two years (e.g. maize, paddy "
+"rice, wheat, vegetables, fodder crops)"
+
+# 1504.technologies.helptext.label.en
+msgid "Annual cropping"
+msgstr "Annual cropping"
+
+# 1505.technologies.helptext.en
+msgid ""
+"<strong>Cp: Perennial (non-woody) cropping</strong>: Land under permanent "
+"(not woody) crops that may be harvested after 2 or more years, or only part "
+"of the plants are harvested (e.g. sugar cane, banana, sisal, pineapple)"
+msgstr ""
+"<strong>Cp: Perennial (non-woody) cropping</strong>: Land under permanent "
+"(not woody) crops that may be harvested after 2 or more years, or only part "
+"of the plants are harvested (e.g. sugar cane, banana, sisal, pineapple)"
+
+# 1505.technologies.helptext.label.en
+msgid "Perennial (non-woody) cropping"
+msgstr "Perennial (non-woody) cropping"
+
+# 1506.technologies.helptext.en
+msgid ""
+"<strong>Ct: Tree and shrub cropping</strong>: permanent woody plants with "
+"crops harvested more than once after planting, and usually lasting for more "
+"than 5 years (e.g. orchard/fruit trees, coffee, tea, grapevines, oil palm, "
+"cacao, coconut, fodder trees)"
+msgstr ""
+"<strong>Ct: Tree and shrub cropping</strong>: permanent woody plants with "
+"crops harvested more than once after planting, and usually lasting for more "
+"than 5 years (e.g. orchard/fruit trees, coffee, tea, grapevines, oil palm, "
+"cacao, coconut, fodder trees)"
+
+# 1506.technologies.helptext.label.en
+msgid "Tree and shrub cropping"
+msgstr "Tree and shrub cropping"
+
+# 1507.technologies.label.en
+msgid "Selective felling"
+msgstr "Selective felling"
+
+# 1508.technologies.label.en
+msgid "Clear felling"
+msgstr "Clear felling"
+
+# 1509.technologies.label.en
+msgid "Shifting cultivation"
+msgstr "Shifting cultivation"
+
+# 1510.technologies.label.en
+msgid "Dead wood/pruning"
+msgstr "Dead wood/pruning"
+
+# 1511.technologies.label.en
+msgid "Non-wood forest use"
+msgstr "Non-wood forest use"
+
+# 1512.technologies.helptext.en
+msgid "<strong>Mf: Agroforestry</strong>: cropland and trees"
+msgstr "<strong>Mf: Agroforestry</strong>: cropland and trees"
+
+# 1512.technologies.helptext.label.en
+# 1781.technologies.helptext.label.en
+msgid "Agroforestry"
+msgstr "Agroforestry"
+
+# 1513.technologies.helptext.en
+msgid ""
+"<strong>Mp: Agro-pastoralism</strong>: cropland and grazing land (including "
+"seasonal change between crops and livestock)"
+msgstr ""
+"<strong>Mp: Agro-pastoralism</strong>: cropland and grazing land (including "
+"seasonal change between crops and livestock)"
+
+# 1513.technologies.helptext.label.en
+msgid "Agro-pastoralism"
+msgstr "Agro-pastoralism"
+
+# 1514.technologies.helptext.en
+msgid ""
+"<strong>Ma: Agro-silvopastoralism</strong>: cropland, grazing land and trees "
+"(including seasonal change between crops and livestock)"
+msgstr ""
+"<strong>Ma: Agro-silvopastoralism</strong>: cropland, grazing land and trees "
+"(including seasonal change between crops and livestock)"
+
+# 1514.technologies.helptext.label.en
+msgid "Agro-silvopastoralism"
+msgstr "Agro-silvopastoralism"
+
+# 1515.technologies.helptext.en
+msgid "<strong>Ms: Silvo-pastoralism</strong>: forest and grazing land"
+msgstr "<strong>Ms: Silvo-pastoralism</strong>: forest and grazing land"
+
+# 1515.technologies.helptext.label.en
+msgid "Silvo-pastoralism"
+msgstr "Silvo-pastoralism"
+
+# 1517.technologies.label.en
+msgid "A1: Vegetation/soil cover"
+msgstr "A1: Vegetation/soil cover"
+
+# 1519.technologies.label.en
+msgid "A3: Soil surface treatment"
+msgstr "A3: Soil surface treatment"
+
+# 1520.technologies.label.en
+msgid "A4: Subsurface treatment"
+msgstr "A4: Subsurface treatment"
+
+# 1521.technologies.label.en
+msgid "A5: Others"
+msgstr "A5: Others"
+
+# 1522.technologies.label.en
+msgid "V1: Tree and shrub cover"
+msgstr "V1: Tree and shrub cover"
+
+# 1523.technologies.label.en
+msgid "V2: Grasses and perennial herbaceous plants"
+msgstr "V2: Grasses and perennial herbaceous plants"
+
+# 1524.technologies.helptext.en
+msgid "E.g. fire breaks/reduced fuel"
+msgstr "E.g. fire breaks/reduced fuel"
+
+# 1524.technologies.helptext.label.en
+msgid "V3: Clearing of vegetation"
+msgstr "V3: Clearing of vegetation"
+
+# 1525.technologies.label.en
+msgid "V5: Others"
+msgstr "V5: Others"
+
+# 1526.technologies.helptext.en
+msgid "slope of terrace bed <6%"
+msgstr "slope of terrace bed <6%"
+
+# 1526.technologies.helptext.label.en
+msgid "S1: Bench terraces"
+msgstr "S1: Bench terraces"
+
+# 1527.technologies.helptext.en
+msgid "slope of terrace bed >6%"
+msgstr "slope of terrace bed >6%"
+
+# 1527.technologies.helptext.label.en
+msgid "S2: Forward sloping terraces"
+msgstr "S2: Forward sloping terraces"
+
+# 1528.technologies.label.en
+msgid "S3: Bunds, banks"
+msgstr "S3: Bunds, banks"
+
+# 1529.technologies.helptext.en
+msgid "to drain and convey water"
+msgstr "to drain and convey water"
+
+# 1529.technologies.helptext.label.en
+msgid "S4: Graded ditches, waterways"
+msgstr "S4: Graded ditches, waterways"
+
+# 1530.technologies.label.en
+msgid "S5: Level ditches, pits"
+msgstr "S5: Level ditches, pits"
+
+# 1531.technologies.label.en
+msgid "S6: Dams, pans, ponds"
+msgstr "S6: Dams, pans, ponds"
+
+# 1532.technologies.helptext.en
+msgid "reducing slope"
+msgstr "reducing slope"
+
+# 1532.technologies.helptext.label.en
+msgid "S7: Reshaping surface"
+msgstr "S7: Reshaping surface"
+
+# 1533.technologies.label.en
+msgid "S8: Walls, barriers, palisades, fences"
+msgstr "S8: Walls, barriers, palisades, fences"
+
+# 1534.technologies.helptext.en
+msgid "E.g. rooftop"
+msgstr "E.g. rooftop"
+
+# 1534.technologies.helptext.label.en
+msgid "S9: Water harvesting infrastructure"
+msgstr "S9: Water harvesting infrastructure"
+
+# 1535.technologies.label.en
+msgid "M1: Change of land use type"
+msgstr "M1: Change of land use type"
+
+# 1536.technologies.helptext.en
+msgid "Incl. greenhouses, irrigation, area closure, etc."
+msgstr "Incl. greenhouses, irrigation, area closure, etc."
+
+# 1536.technologies.helptext.label.en
+msgid "M2: Change of management/intensity level"
+msgstr "M2: Change of management/intensity level"
+
+# 1537.technologies.label.en
+msgid "M3: Layout according to natural and human environment"
+msgstr "M3: Layout according to natural and human environment"
+
+# 1538.technologies.label.en
+msgid "M4: Major change in timing of activities"
+msgstr "M4: Major change in timing of activities"
+
+# 1539.technologies.helptext.en
+msgid ""
+"if annually or in a rotational sequence as done e.g. on cropland &rarr; A1"
+msgstr ""
+"if annually or in a rotational sequence as done e.g. on cropland &rarr; A1"
+
+# 1539.technologies.helptext.label.en
+msgid "M5: Control/change of species composition"
+msgstr "M5: Control/change of species composition"
+
+# 1540.technologies.helptext.en
+msgid ""
+"includes recycling, re-use or reduce: includes both artificial and natural "
+"methods for waste management"
+msgstr ""
+"includes recycling, re-use or reduce: includes both artificial and natural "
+"methods for waste management"
+
+# 1540.technologies.helptext.label.en
+msgid "M6: Waste management"
+msgstr "M6: Waste management"
+
+# 1541.technologies.label.en
+msgid "M7: Others"
+msgstr "M7: Others"
+
+# 1542.technologies.helptext.en
+msgid ""
+"<strong>Loss of topsoil/surface erosion:</strong> even removal of top soil, "
+"sheet and interrill erosion"
+msgstr ""
+"<strong>Loss of topsoil/surface erosion:</strong> even removal of top soil, "
+"sheet and interrill erosion"
+
+# 1542.technologies.helptext.label.en
+msgid "Wt: loss of topsoil/surface erosion"
+msgstr "Wt: loss of topsoil/surface erosion"
+
+# 1543.technologies.label.en
+msgid "Wg: gully erosion/gullying"
+msgstr "Wg: gully erosion/gullying"
+
+# 1544.technologies.label.en
+msgid "Wm: mass movements/landslides"
+msgstr "Wm: mass movements/landslides"
+
+# 1545.technologies.label.en
+msgid "Wr: riverbank erosion"
+msgstr "Wr: riverbank erosion"
+
+# 1546.technologies.label.en
+msgid "Wc: coastal erosion"
+msgstr "Wc: coastal erosion"
+
+# 1547.technologies.helptext.en
+msgid ""
+"<strong>Offsite degradation effects:</strong> deposition of sediments, "
+"downstream flooding, siltation of reservoirs and waterways, and pollution of "
+"water bodies with eroded sediments"
+msgstr ""
+"<strong>Offsite degradation effects:</strong> deposition of sediments, "
+"downstream flooding, siltation of reservoirs and waterways, and pollution of "
+"water bodies with eroded sediments"
+
+# 1547.technologies.helptext.label.en
+msgid "Wo: offsite degradation effects"
+msgstr "Wo: offsite degradation effects"
+
+# 1548.technologies.helptext.en
+msgid "<strong>Loss of topsoil:</strong> uniform displacement"
+msgstr "<strong>Loss of topsoil:</strong> uniform displacement"
+
+# 1548.technologies.helptext.label.en
+msgid "Et: loss of topsoil"
+msgstr "Et: loss of topsoil"
+
+# 1549.technologies.helptext.en
+msgid ""
+"<strong>Deflation and deposition:</strong> uneven removal of soil material"
+msgstr ""
+"<strong>Deflation and deposition:</strong> uneven removal of soil material"
+
+# 1549.technologies.helptext.label.en
+msgid "Ed: deflation and deposition"
+msgstr "Ed: deflation and deposition"
+
+# 1550.technologies.helptext.label.en
+msgid "Eo: offsite degradation effects"
+msgstr "Eo: offsite degradation effects"
+
+# 1551.technologies.helptext.en
+msgid ""
+"e.g. leaching, soil fertility mining, nutrient oxidation and volatisation (N)"
+msgstr ""
+"e.g. leaching, soil fertility mining, nutrient oxidation and volatisation (N)"
+
+# 1551.technologies.helptext.label.en
+msgid ""
+"Cn: fertility decline and reduced organic matter content (not caused by "
+"erosion)"
+msgstr ""
+"Cn: fertility decline and reduced organic matter content (not caused by "
+"erosion)"
+
+# 1593.technologies.label.en
+msgid "Manual work"
+msgstr "Manual work"
+
+# 1552.technologies.helptext.en
+msgid "<strong>Acidification</strong>: lowering of the soil pH"
+msgstr "<strong>Acidification</strong>: lowering of the soil pH"
+
+# 1552.technologies.helptext.label.en
+msgid "Ca: acidification"
+msgstr "Ca: acidification"
+
+# 1553.technologies.helptext.en
+msgid ""
+"<strong>Soil pollution</strong>: contamination of the soil with toxic "
+"materials"
+msgstr ""
+"<strong>Soil pollution</strong>: contamination of the soil with toxic "
+"materials"
+
+# 1553.technologies.helptext.label.en
+msgid "Cp: soil pollution"
+msgstr "Cp: soil pollution"
+
+# 1554.technologies.helptext.en
+msgid ""
+"<strong>salinization/alkalinisation</strong>: a net increase of the salt "
+"content of the (top) soil leading to a productivity decline"
+msgstr ""
+"<strong>salinization/alkalinisation</strong>: a net increase of the salt "
+"content of the (top) soil leading to a productivity decline"
+
+# 1554.technologies.helptext.label.en
+msgid "Cs: salinization/alkalinisation"
+msgstr "Cs: salinization/alkalinisation"
+
+# 1555.technologies.helptext.en
+msgid ""
+"<strong>Compaction</strong>: deterioration of soil structure by trampling or "
+"the weight and/or frequent use of machinery"
+msgstr ""
+"<strong>Compaction</strong>: deterioration of soil structure by trampling or "
+"the weight and/or frequent use of machinery"
+
+# 1555.technologies.helptext.label.en
+msgid "Pc: compaction"
+msgstr "Pc: compaction"
+
+# 1556.technologies.helptext.en
+msgid ""
+"<strong>Slaking and crusting</strong>: clogging of pores with fine soil "
+"material and development of a thin impervious layer at the soil surface "
+"obstructing the infiltration of rainwater"
+msgstr ""
+"<strong>Slaking and crusting</strong>: clogging of pores with fine soil "
+"material and development of a thin impervious layer at the soil surface "
+"obstructing the infiltration of rainwater"
+
+# 1556.technologies.helptext.label.en
+msgid "Pk: slaking and crusting"
+msgstr "Pk: slaking and crusting"
+
+# 1557.technologies.helptext.en
+msgid ""
+"<strong>Waterlogging</strong>: effects of human induced water saturation of "
+"soils (excluding paddy fields)"
+msgstr ""
+"<strong>Waterlogging</strong>: effects of human induced water saturation of "
+"soils (excluding paddy fields)"
+
+# 1557.technologies.helptext.label.en
+msgid "Pw: waterlogging"
+msgstr "Pw: waterlogging"
+
+# 1558.technologies.label.en
+msgid "Ps: subsidence of organic soils, settling of soil"
+msgstr "Ps: subsidence of organic soils, settling of soil"
+
+# 1559.technologies.label.en
+msgid "Pu: loss of bio-productive function due to other activities"
+msgstr "Pu: loss of bio-productive function due to other activities"
+
+# 1560.technologies.helptext.en
+msgid ""
+"<strong>Reduction of vegetation cover</strong>: increase of bare/unprotected "
+"soil"
+msgstr ""
+"<strong>Reduction of vegetation cover</strong>: increase of bare/unprotected "
+"soil"
+
+# 1560.technologies.helptext.label.en
+msgid "Bc: reduction of vegetation cover"
+msgstr "Bc: reduction of vegetation cover"
+
+# 1561.technologies.helptext.en
+msgid ""
+"<strong>Loss of habitats</strong>: decreasing vegetation diversity (fallow "
+"land, mixed systems, field borders), increased fragmentation of habitats"
+msgstr ""
+"<strong>Loss of habitats</strong>: decreasing vegetation diversity (fallow "
+"land, mixed systems, field borders), increased fragmentation of habitats"
+
+# 1561.technologies.helptext.label.en
+msgid "Bh: loss of habitats"
+msgstr "Bh: loss of habitats"
+
+# 1562.technologies.helptext.en
+msgid ""
+"<strong>Quantity/biomass decline</strong>: reduced vegetative production for "
+"different land use"
+msgstr ""
+"<strong>Quantity/biomass decline</strong>: reduced vegetative production for "
+"different land use"
+
+# 1562.technologies.helptext.label.en
+msgid "Bq: quantity/biomass decline"
+msgstr "Bq: quantity/biomass decline"
+
+# 1563.technologies.helptext.en
+msgid ""
+"<strong>detrimental effects of fires (includes low/high severity of fires)</"
+"strong>: on forest (eg slash and burn), bush, grazing and cropland (burning "
+"of residues)"
+msgstr ""
+"<strong>detrimental effects of fires (includes low/high severity of fires)</"
+"strong>: on forest (eg slash and burn), bush, grazing and cropland (burning "
+"of residues)"
+
+# 1563.technologies.helptext.label.en
+msgid "Bf: detrimental effects of fires"
+msgstr "Bf: detrimental effects of fires"
+
+# 1564.technologies.helptext.en
+msgid ""
+"<strong>Quality and species composition/diversity decline</strong>: loss of "
+"natural species, land races, palatable perennial grasses; spreading of "
+"invasive, salt-tolerant, unpalatable, species/weeds"
+msgstr ""
+"<strong>Quality and species composition/diversity decline</strong>: loss of "
+"natural species, land races, palatable perennial grasses; spreading of "
+"invasive, salt-tolerant, unpalatable, species/weeds"
+
+# 1564.technologies.helptext.label.en
+msgid "Bs: quality and species composition/diversity decline"
+msgstr "Bs: quality and species composition/diversity decline"
+
+# 1565.technologies.helptext.en
+msgid ""
+"<strong>Loss of soil life</strong>: decline of soil macro-organisms and "
+"micro-organisms in quantity and quality"
+msgstr ""
+"<strong>Loss of soil life</strong>: decline of soil macro-organisms and "
+"micro-organisms in quantity and quality"
+
+# 1565.technologies.helptext.label.en
+msgid "Bl: loss of soil life"
+msgstr "Bl: loss of soil life"
+
+# 1566.technologies.helptext.en
+msgid ""
+"<strong>Increase of pests/diseases, loss of predators</strong>: reduction of "
+"biological control"
+msgstr ""
+"<strong>Increase of pests/diseases, loss of predators</strong>: reduction of "
+"biological control"
+
+# 1566.technologies.helptext.label.en
+msgid "Bp: increase of pests/diseases, loss of predators"
+msgstr "Bp: increase of pests/diseases, loss of predators"
+
+# 1567.technologies.helptext.en
+msgid ""
+"<strong>Aridification</strong>: decrease of average soil moisture content"
+msgstr ""
+"<strong>Aridification</strong>: decrease of average soil moisture content"
+
+# 1567.technologies.helptext.label.en
+msgid "Ha: aridification"
+msgstr "Ha: aridification"
+
+# 1568.technologies.helptext.en
+msgid ""
+"<strong>Change in quantity of surface water</strong>: change of the flow "
+"regime (flood, peak flow, low flow, drying up of rivers and lakes)"
+msgstr ""
+"<strong>Change in quantity of surface water</strong>: change of the flow "
+"regime (flood, peak flow, low flow, drying up of rivers and lakes)"
+
+# 1568.technologies.helptext.label.en
+msgid "Hs: change in quantity of surface water"
+msgstr "Hs: change in quantity of surface water"
+
+# 1569.technologies.helptext.en
+msgid ""
+"<strong>Change in groundwater/aquifer level</strong>: lowering of "
+"groundwater table due to over-exploitation or reduced recharge of "
+"groundwater; or increase of groundwater table resulting in waterlogging and/"
+"or salinization"
+msgstr ""
+"<strong>Change in groundwater/aquifer level</strong>: lowering of "
+"groundwater table due to over-exploitation or reduced recharge of "
+"groundwater; or increase of groundwater table resulting in waterlogging and/"
+"or salinization"
+
+# 1569.technologies.helptext.label.en
+msgid "Hg: change in groundwater/aquifer level"
+msgstr "Hg: change in groundwater/aquifer level"
+
+# 1570.technologies.helptext.en
+msgid ""
+"<strong>Decline of surface water quality</strong>: increased sediments and "
+"pollutants in fresh water bodies due to point pollution and land-based "
+"pollution"
+msgstr ""
+"<strong>Decline of surface water quality</strong>: increased sediments and "
+"pollutants in fresh water bodies due to point pollution and land-based "
+"pollution"
+
+# 1570.technologies.helptext.label.en
+msgid "Hp: decline of surface water quality"
+msgstr "Hp: decline of surface water quality"
+
+# 1571.technologies.helptext.en
+msgid ""
+"<strong>Decline of groundwater quality</strong>: due to pollutants "
+"infiltrating into the aquifers"
+msgstr ""
+"<strong>Decline of groundwater quality</strong>: due to pollutants "
+"infiltrating into the aquifers"
+
+# 1571.technologies.helptext.label.en
+msgid "Hq: decline of groundwater quality"
+msgstr "Hq: decline of groundwater quality"
+
+# 1572.technologies.helptext.en
+msgid ""
+"<strong>Reduction of the buffering capacity of wetland areas</strong>: to "
+"cope with flooding and pollution"
+msgstr ""
+"<strong>Reduction of the buffering capacity of wetland areas</strong>: to "
+"cope with flooding and pollution"
+
+# 1572.technologies.helptext.label.en
+msgid "Hw: reduction of the buffering capacity of wetland areas"
+msgstr "Hw: reduction of the buffering capacity of wetland areas"
+
+# 1573.technologies.label.en
+# 1740.technologies.label.en
+msgid "0"
+msgstr "0"
+
+# 1574.technologies.label.en
+msgid "1-10"
+msgstr "1-10"
+
+# 1575.technologies.label.en
+msgid "11-50"
+msgstr "11-50"
+
+# 1576.technologies.label.en
+msgid "51-100"
+msgstr "51-100"
+
+# 1577.technologies.label.en
+msgid "101-250"
+msgstr "101-250"
+
+# 1578.technologies.label.en
+msgid "251-500"
+msgstr "251-500"
+
+# 1579.technologies.label.en
+msgid "501-1000"
+msgstr "501-1000"
+
+# 1580.technologies.label.en
+msgid ">1000"
+msgstr ">1000"
+
+# 1581.technologies.helptext.en
+msgid "<strong>Convex</strong>: swell (diversion of water flow)"
+msgstr "<strong>Convex</strong>: swell (diversion of water flow)"
+
+# 1581.technologies.helptext.label.en
+msgid "convex"
+msgstr "convex"
+
+# 1582.technologies.helptext.en
+msgid "<strong>Concave</strong>: depression (conversion of water flow)"
+msgstr "<strong>Concave</strong>: depression (conversion of water flow)"
+
+# 1582.technologies.helptext.label.en
+msgid "concave"
+msgstr "concave"
+
+# 1583.technologies.label.en
+msgid "Small scale land users"
+msgstr "Small scale land users"
+
+# 1584.technologies.label.en
+msgid "Medium scale land users"
+msgstr "Medium scale land users"
+
+# 1585.technologies.label.en
+msgid "Large scale land users"
+msgstr "Large scale land users"
+
+# 1586.technologies.label.en
+msgid "Individual/household"
+msgstr "Individual/household"
+
+# 1587.technologies.label.en
+msgid "Groups/community"
+msgstr "Groups/community"
+
+# 1588.technologies.label.en
+msgid "Cooperative"
+msgstr "Cooperative"
+
+# 1589.technologies.label.en
+msgid "Employee (company, government)"
+msgstr "Employee (company, government)"
+
+# 1590.technologies.label.en
+msgid "less than 10% of all income"
+msgstr "less than 10% of all income"
+
+# 1594.technologies.label.en
+msgid "Animal traction"
+msgstr "Animal traction"
+
+# 1595.technologies.label.en
+msgid "Mechanised/motorised"
+msgstr "Mechanised/motorised"
+
+# 1596.technologies.label.en
+msgid "Mainly women"
+msgstr "Mainly women"
+
+# 1597.technologies.label.en
+msgid "Mainly men"
+msgstr "Mainly men"
+
+# 1598.technologies.label.en
+msgid "Mixed"
+msgstr "Mixed"
+
+# 1599.technologies.helptext.en
+msgid "E.g. ethnic, religious"
+msgstr "E.g. ethnic, religious"
+
+# 1599.technologies.helptext.label.en
+msgid "Land users belonging to a disadvanteged group"
+msgstr "Land users belonging to a disadvanteged group"
+
+# 1600.technologies.label.en
+msgid "Common/average land users"
+msgstr "Common/average land users"
+
+# 1601.technologies.label.en
+msgid "Leaders/privileged"
+msgstr "Leaders/privileged"
+
+# 1614.technologies.label.en
+msgid "Single site"
+msgstr "Single site"
+
+# 1615.technologies.label.en
+msgid "2-10 sites"
+msgstr "2-10 sites"
+
+# 1616.technologies.label.en
+msgid "10-100 sites"
+msgstr "10-100 sites"
+
+# 1617.technologies.label.en
+msgid "100-1000 sites"
+msgstr "100-1000 sites"
+
+# 1618.technologies.label.en
+msgid "> 1000 sites"
+msgstr "> 1000 sites"
+
+# 1619.technologies.helptext.en
+msgid "Land used for cultivation of crops (field crops, orchards)"
+msgstr "Land used for cultivation of crops (field crops, orchards)"
+
+# 1620.technologies.helptext.en
+msgid "Land used for animal production"
+msgstr "Land used for animal production"
+
+# 1621.technologies.helptext.en
+msgid ""
+"Land used mainly for wood production, other forest products, recreation, "
+"protection."
+msgstr ""
+"Land used mainly for wood production, other forest products, recreation, "
+"protection."
+
+# 1621.technologies.helptext.label.en
+msgid "Forests/woodlands"
+msgstr "Forests/woodlands"
+
+# 1622.technologies.helptext.en
+msgid ""
+"Mixture of land use types within the same land unit (includes agroforestry)"
+msgstr ""
+"Mixture of land use types within the same land unit (includes agroforestry)"
+
+# 1622.technologies.helptext.label.en
+msgid "Mixed (crops/grazing/trees), incl. agroforestry"
+msgstr "Mixed (crops/grazing/trees), incl. agroforestry"
+
+# 1623.technologies.label.en
+msgid "Settlements, infrastructure"
+msgstr "Settlements, infrastructure"
+
+# 1624.technologies.label.en
+msgid "Waterways, waterbodies, wetlands"
+msgstr "Waterways, waterbodies, wetlands"
+
+# 1625.technologies.label.en
+msgid "Mines, extractive industries"
+msgstr "Mines, extractive industries"
+
+# 1626.technologies.label.en
+msgid "Unproductive land"
+msgstr "Unproductive land"
+
+# 1627.technologies.helptext.en
+msgid ""
+"crop(s) establishment and development is completely determined by rainfall."
+msgstr ""
+"crop(s) establishment and development is completely determined by rainfall."
+
+# 1627.technologies.helptext.label.en
+msgid "rainfed"
+msgstr "rainfed"
+
+# 1628.technologies.helptext.en
+msgid ""
+"the application of a limited amount of water to the crop when rainfall fails "
+"to provide sufficient water for plant growth, to increase and stabilise "
+"yield; the additional water alone is inadequate for crop production."
+msgstr ""
+"the application of a limited amount of water to the crop when rainfall fails "
+"to provide sufficient water for plant growth, to increase and stabilise "
+"yield; the additional water alone is inadequate for crop production."
+
+# 1628.technologies.helptext.label.en
+msgid "mixed rainfed-irrigation"
+msgstr "mixed rainfed-irrigation"
+
+# 1629.technologies.helptext.en
+msgid ""
+"any of several means of an artificial regular supply of water, in addition "
+"to rain, to the crop(s)."
+msgstr ""
+"any of several means of an artificial regular supply of water, in addition "
+"to rain, to the crop(s)."
+
+# 1629.technologies.helptext.label.en
+msgid "full irrigation"
+msgstr "full irrigation"
+
+# 1630.technologies.helptext.en
+msgid ""
+"<strong>Agronomic measures</strong> such as conservation agriculture, "
+"application of manure/compost, crop rotation, mixed cropping, contour "
+"cultivation, mulching, etc.<ul><li>are usually associated with annual crops</"
+"li><li>are repeated routinely each season or in a rotational sequence</"
+"li><li>are of short duration and not permanent</li><li>do not lead to "
+"changes in slope profile</li><li>are normally independent of slope</li></ul>"
+msgstr ""
+"<strong>Agronomic measures</strong> such as conservation agriculture, "
+"application of manure/compost, crop rotation, mixed cropping, contour "
+"cultivation, mulching, etc.<ul><li>are usually associated with annual crops</"
+"li><li>are repeated routinely each season or in a rotational sequence</"
+"li><li>are of short duration and not permanent</li><li>do not lead to "
+"changes in slope profile</li><li>are normally independent of slope</li></ul>"
+
+# 1630.technologies.helptext.label.en
+msgid "Agronomic measures"
+msgstr "Agronomic measures"
+
+# 1631.technologies.helptext.en
+msgid ""
+"<strong>Vegetative measures</strong> such as grass strips, hedges, "
+"windbreaks, agroforestry etc.<ul><li>involve the use of perennial grasses, "
+"shrubs or trees</li><li>are of long duration</li><li>often lead to a change "
+"in slope profile</li><li>are often aligned along the contour or against the "
+"prevailing wind direction</li><li>are often spaced according to slope</li></"
+"ul>"
+msgstr ""
+"<strong>Vegetative measures</strong> such as grass strips, hedges, "
+"windbreaks, agroforestry etc.<ul><li>involve the use of perennial grasses, "
+"shrubs or trees</li><li>are of long duration</li><li>often lead to a change "
+"in slope profile</li><li>are often aligned along the contour or against the "
+"prevailing wind direction</li><li>are often spaced according to slope</li></"
+"ul>"
+
+# 1631.technologies.helptext.label.en
+msgid "Vegetative measures"
+msgstr "Vegetative measures"
+
+# 1632.technologies.helptext.en
+msgid ""
+"<strong>Structural measures</strong> such as terraces, banks, bunds, "
+"constructions, palisades, dams, etc.<ul><li>often lead to a change in slope "
+"profile</li><li>are of long duration or permanent</li><li>are carried out "
+"primarily to control runoff, erosion and wind velocity and to harvest "
+"rainwater</li><li>often require substantial inputs of labour or money when "
+"first installed</li><li>are often aligned along the contour/against "
+"prevailing wind direction</li><li>are often spaced according to slope</"
+"li><li>involve major earth movements and/or construction with wood, stone, "
+"concrete, etc.</li></ul>"
+msgstr ""
+"<strong>Structural measures</strong> such as terraces, banks, bunds, "
+"constructions, palisades, dams, etc.<ul><li>often lead to a change in slope "
+"profile</li><li>are of long duration or permanent</li><li>are carried out "
+"primarily to control runoff, erosion and wind velocity and to harvest "
+"rainwater</li><li>often require substantial inputs of labour or money when "
+"first installed</li><li>are often aligned along the contour/against "
+"prevailing wind direction</li><li>are often spaced according to slope</"
+"li><li>involve major earth movements and/or construction with wood, stone, "
+"concrete, etc.</li></ul>"
+
+# 1632.technologies.helptext.label.en
+msgid "Structural measures"
+msgstr "Structural measures"
+
+# 1633.technologies.helptext.en
+msgid ""
+"<strong>Management measures</strong> such as land use change, area closure, "
+"rotational grazing, introduction of irrigation systems, etc.<ul><li>involve "
+"a fundamental change in land use</li><li>usually involve no agronomic and "
+"structural measures</li><li>often result in improved vegetative cover</"
+"li><li>often reduce the intensity of use</li></ul>"
+msgstr ""
+"<strong>Management measures</strong> such as land use change, area closure, "
+"rotational grazing, introduction of irrigation systems, etc.<ul><li>involve "
+"a fundamental change in land use</li><li>usually involve no agronomic and "
+"structural measures</li><li>often result in improved vegetative cover</"
+"li><li>often reduce the intensity of use</li></ul>"
+
+# 1633.technologies.helptext.label.en
+msgid "Management measures"
+msgstr "Management measures"
+
+# 1634.technologies.label.en
+msgid "Soil erosion by water"
+msgstr "Soil erosion by water"
+
+# 1635.technologies.label.en
+msgid "Soil erosion by wind"
+msgstr "Soil erosion by wind"
+
+# 1636.technologies.label.en
+msgid "Chemical soil deterioration"
+msgstr "Chemical soil deterioration"
+
+# 1637.technologies.label.en
+msgid "Physical soil deterioration"
+msgstr "Physical soil deterioration"
+
+# 1638.technologies.label.en
+msgid "Biological degradation"
+msgstr "Biological degradation"
+
+# 1639.technologies.label.en
+msgid "Water degradation"
+msgstr "Water degradation"
+
+# 1640.technologies.helptext.en
+msgid ""
+"<strong>Prevention:</strong> good land management practices are already in "
+"place on land that may be prone to land degradation. They maintain natural "
+"resources and their environmental and productive functions."
+msgstr ""
+"<strong>Prevention:</strong> good land management practices are already in "
+"place on land that may be prone to land degradation. They maintain natural "
+"resources and their environmental and productive functions."
+
+# 1640.technologies.helptext.label.en
+msgid "prevent land degradation"
+msgstr "prevent land degradation"
+
+# 1641.technologies.helptext.en
+msgid ""
+"<strong>Reduction:</strong> interventions intended to reduce ongoing "
+"degradation and/or halt further degradation. They start improving natural "
+"resources and their functions. Impacts tend to be noticeable in the short to "
+"medium term."
+msgstr ""
+"<strong>Reduction:</strong> interventions intended to reduce ongoing "
+"degradation and/or halt further degradation. They start improving natural "
+"resources and their functions. Impacts tend to be noticeable in the short to "
+"medium term."
+
+# 1641.technologies.helptext.label.en
+# 1751.technologies.helptext.label.en
+msgid "reduce land degradation"
+msgstr "reduce land degradation"
+
+# 1642.technologies.helptext.en
+msgid ""
+"<strong>Rehabilitation/restoration</strong> is required when the land is "
+"already degraded to such an extent that the original use is no longer "
+"possible, and land has become practically unproductive. Here longer-term and "
+"more costly investments are needed to show any impact"
+msgstr ""
+"<strong>Rehabilitation/restoration</strong> is required when the land is "
+"already degraded to such an extent that the original use is no longer "
+"possible, and land has become practically unproductive. Here longer-term and "
+"more costly investments are needed to show any impact"
+
+# 1642.technologies.helptext.label.en
+msgid "restore/rehabilitate severely degraded land"
+msgstr "restore/rehabilitate severely degraded land"
+
+# 1643.technologies.label.en
+msgid "Agronomic"
+msgstr "Agronomic"
+
+# 1644.technologies.label.en
+msgid "Vegetative"
+msgstr "Vegetative"
+
+# 1645.technologies.label.en
+msgid "Structural"
+msgstr "Structural"
+
+# 1646.technologies.label.en
+msgid "Management"
+msgstr "Management"
+
+# 1647.technologies.label.en
+msgid "Indirect measures"
+msgstr "Indirect measures"
+
+# 1648.technologies.label.en
+msgid "< 250 mm"
+msgstr "< 250 mm"
+
+# 1649.technologies.label.en
+msgid "251-500 mm"
+msgstr "251-500 mm"
+
+# 1650.technologies.label.en
+msgid "501-750 mm"
+msgstr "501-750 mm"
+
+# 1651.technologies.label.en
+msgid "751-1000 mm"
+msgstr "751-1000 mm"
+
+# 1652.technologies.label.en
+msgid "1001-1500 mm"
+msgstr "1001-1500 mm"
+
+# 1653.technologies.label.en
+msgid "1501-2000 mm"
+msgstr "1501-2000 mm"
+
+# 1654.technologies.label.en
+msgid "2001-3000 mm"
+msgstr "2001-3000 mm"
+
+# 1655.technologies.label.en
+msgid "3001-4000 mm"
+msgstr "3001-4000 mm"
+
+# 1656.technologies.label.en
+msgid "> 4000 mm"
+msgstr "> 4000 mm"
+
+# 1657.technologies.helptext.en
+msgid "<strong>Humid</strong>: Length of growing period (LGP) > 270 days"
+msgstr "<strong>Humid</strong>: Length of growing period (LGP) > 270 days"
+
+# 1657.technologies.helptext.label.en
+msgid "humid"
+msgstr "humid"
+
+# 1658.technologies.helptext.en
+msgid ""
+"<strong>Sub-humid</strong>: Length of growing period (LGP) 180 - 269 days"
+msgstr ""
+"<strong>Sub-humid</strong>: Length of growing period (LGP) 180 - 269 days"
+
+# 1658.technologies.helptext.label.en
+msgid "sub-humid"
+msgstr "sub-humid"
+
+# 1659.technologies.helptext.en
+msgid ""
+"<strong>Semi-arid</strong>: Length of growing period (LGP) 75 - 179 days"
+msgstr ""
+"<strong>Semi-arid</strong>: Length of growing period (LGP) 75 - 179 days"
+
+# 1659.technologies.helptext.label.en
+msgid "semi-arid"
+msgstr "semi-arid"
+
+# 1660.technologies.helptext.en
+msgid "<strong>Arid</strong>: Length of growing period (LGP) 0 - 74 days"
+msgstr "<strong>Arid</strong>: Length of growing period (LGP) 0 - 74 days"
+
+# 1660.technologies.helptext.label.en
+msgid "arid"
+msgstr "arid"
+
+# 1661.technologies.label.en
+msgid "flat (0-2%)"
+msgstr "flat (0-2%)"
+
+# 1662.technologies.label.en
+msgid "gentle (3-5%)"
+msgstr "gentle (3-5%)"
+
+# 1663.technologies.label.en
+msgid "moderate (6-10%)"
+msgstr "moderate (6-10%)"
+
+# 1664.technologies.label.en
+msgid "rolling (11-15%)"
+msgstr "rolling (11-15%)"
+
+# 1665.technologies.label.en
+msgid "hilly (16-30%)"
+msgstr "hilly (16-30%)"
+
+# 1666.technologies.label.en
+msgid "steep (31-60%)"
+msgstr "steep (31-60%)"
+
+# 1667.technologies.label.en
+msgid "very steep (>60%)"
+msgstr "very steep (>60%)"
+
+# 1668.technologies.label.en
+msgid "plateau/plains"
+msgstr "plateau/plains"
+
+# 1669.technologies.label.en
+msgid "ridges"
+msgstr "ridges"
+
+# 1670.technologies.label.en
+msgid "mountain slopes"
+msgstr "mountain slopes"
+
+# 1671.technologies.label.en
+msgid "hill slopes"
+msgstr "hill slopes"
+
+# 1672.technologies.label.en
+msgid "footslopes"
+msgstr "footslopes"
+
+# 1673.technologies.label.en
+msgid "valley floors"
+msgstr "valley floors"
+
+# 1674.technologies.label.en
+msgid "0-100 m a.s.l."
+msgstr "0-100 m a.s.l."
+
+# 1675.technologies.label.en
+msgid "100-500 m a.s.l."
+msgstr "100-500 m a.s.l."
+
+# 1676.technologies.label.en
+msgid "500-1000 m a.s.l."
+msgstr "500-1000 m a.s.l."
+
+# 1677.technologies.label.en
+msgid "1000-1500 m a.s.l."
+msgstr "1000-1500 m a.s.l."
+
+# 1678.technologies.label.en
+msgid "1500-2000 m a.s.l."
+msgstr "1500-2000 m a.s.l."
+
+# 1679.technologies.label.en
+msgid "2000-2500 m a.s.l."
+msgstr "2000-2500 m a.s.l."
+
+# 1680.technologies.label.en
+msgid "2500-3000 m a.s.l."
+msgstr "2500-3000 m a.s.l."
+
+# 1681.technologies.label.en
+msgid "3000-4000 m a.s.l."
+msgstr "3000-4000 m a.s.l."
+
+# 1682.technologies.label.en
+msgid "> 4000 m a.s.l."
+msgstr "> 4000 m a.s.l."
+
+# 1683.technologies.label.en
+msgid "very shallow (0-20 cm)"
+msgstr "very shallow (0-20 cm)"
+
+# 1684.technologies.label.en
+msgid "shallow (21-50 cm)"
+msgstr "shallow (21-50 cm)"
+
+# 1685.technologies.label.en
+msgid "moderately deep (51-80 cm)"
+msgstr "moderately deep (51-80 cm)"
+
+# 1686.technologies.label.en
+msgid "deep (81-120 cm)"
+msgstr "deep (81-120 cm)"
+
+# 1687.technologies.label.en
+msgid "very deep (> 120 cm)"
+msgstr "very deep (> 120 cm)"
+
+# 1688.technologies.label.en
+msgid "coarse/light (sandy)"
+msgstr "coarse/light (sandy)"
+
+# 1689.technologies.label.en
+msgid "medium (loamy, silty)"
+msgstr "medium (loamy, silty)"
+
+# 1690.technologies.label.en
+msgid "fine/heavy (clay)"
+msgstr "fine/heavy (clay)"
+
+# 1691.technologies.label.en
+msgid "high (>3%)"
+msgstr "high (>3%)"
+
+# 1692.technologies.label.en
+msgid "medium (1-3%)"
+msgstr "medium (1-3%)"
+
+# 1693.technologies.label.en
+msgid "low (<1%)"
+msgstr "low (<1%)"
+
+# 1694.technologies.label.en
+msgid "on surface"
+msgstr "on surface"
+
+# 1695.technologies.label.en
+msgid "< 5 m"
+msgstr "< 5 m"
+
+# 1696.technologies.label.en
+msgid "5 - 50 m"
+msgstr "5 - 50 m"
+
+# 1697.technologies.label.en
+msgid "> 50 m"
+msgstr "> 50 m"
+
+# 1698.technologies.helptext.en
+msgid "E.g. frequent waterlogging, high runoff rates"
+msgstr "E.g. frequent waterlogging, high runoff rates"
+
+# 1698.technologies.helptext.label.en
+msgid "excess"
+msgstr "excess"
+
+# 1699.technologies.helptext.en
+msgid "E.g. available year-round"
+msgstr "E.g. available year-round"
+
+# 1699.technologies.helptext.label.en
+msgid "good"
+msgstr "good"
+
+# 1700.technologies.helptext.en
+msgid "E.g. not available year-round"
+msgstr "E.g. not available year-round"
+
+# 1701.technologies.label.en
+msgid "poor/none"
+msgstr "poor/none"
+
+# 1702.technologies.label.en
+msgid "good drinking water"
+msgstr "good drinking water"
+
+# 1703.technologies.label.en
+msgid "poor drinking water (treatment required)"
+msgstr "poor drinking water (treatment required)"
+
+# 1704.technologies.label.en
+msgid "for agricultural use only (irrigation)"
+msgstr "for agricultural use only (irrigation)"
+
+# 1705.technologies.label.en
+msgid "unusable"
+msgstr "unusable"
+
+# 1706.technologies.label.en
+msgid "frequently"
+msgstr "frequently"
+
+# 1707.technologies.label.en
+msgid "episodically"
+msgstr "episodically"
+
+# 1708.technologies.label.en
+msgid "Subsistence (self-supply)"
+msgstr "Subsistence (self-supply)"
+
+# 1709.technologies.label.en
+msgid "Mixed (subsistence/commercial"
+msgstr "Mixed (subsistence/commercial"
+
+# 1710.technologies.label.en
+msgid "Commercial/market"
+msgstr "Commercial/market"
+
+# 1711.technologies.label.en
+msgid "Very poor"
+msgstr "Very poor"
+
+# 1712.technologies.label.en
+msgid "Poor"
+msgstr "Poor"
+
+# 1713.technologies.label.en
+msgid "Average"
+msgstr "Average"
+
+# 1714.technologies.label.en
+msgid "Rich"
+msgstr "Rich"
+
+# 1715.technologies.label.en
+msgid "Very rich"
+msgstr "Very rich"
+
+# 1716.technologies.label.en
+msgid "< 0.5 ha"
+msgstr "< 0.5 ha"
+
+# 1717.technologies.label.en
+msgid "0.5-1 ha"
+msgstr "0.5-1 ha"
+
+# 1718.technologies.label.en
+msgid "1-2 ha"
+msgstr "1-2 ha"
+
+# 1719.technologies.label.en
+msgid "2-5 ha"
+msgstr "2-5 ha"
+
+# 1720.technologies.label.en
+msgid "5-15 ha"
+msgstr "5-15 ha"
+
+# 1721.technologies.label.en
+msgid "15-50 ha"
+msgstr "15-50 ha"
+
+# 1722.technologies.label.en
+msgid "50-100 ha"
+msgstr "50-100 ha"
+
+# 1723.technologies.label.en
+msgid "100-500 ha"
+msgstr "100-500 ha"
+
+# 1724.technologies.label.en
+msgid "500-1,000 ha"
+msgstr "500-1,000 ha"
+
+# 1725.technologies.label.en
+msgid "1,000-10,000 ha"
+msgstr "1,000-10,000 ha"
+
+# 1726.technologies.label.en
+msgid "> 10,0000 ha"
+msgstr "> 10,0000 ha"
+
+# 1727.technologies.label.en
+msgid "State"
+msgstr "State"
+
+# 1728.technologies.label.en
+msgid "Company"
+msgstr "Company"
+
+# 1729.technologies.label.en
+msgid "Communal/village"
+msgstr "Communal/village"
+
+# 1730.technologies.label.en
+msgid "Group"
+msgstr "Group"
+
+# 1731.technologies.label.en
+msgid "Individual, not titled"
+msgstr "Individual, not titled"
+
+# 1732.technologies.label.en
+msgid "Individual, titled"
+msgstr "Individual, titled"
+
+# 1733.technologies.label.en
+msgid "Open access (unorganised)"
+msgstr "Open access (unorganised)"
+
+# 1734.technologies.label.en
+msgid "Communal (organised)"
+msgstr "Communal (organised)"
+
+# 1735.technologies.label.en
+msgid "Leased"
+msgstr "Leased"
+
+# 1736.technologies.label.en
+msgid "Individual"
+msgstr "Individual"
+
+# 1737.technologies.label.en
+msgid "-3"
+msgstr "-3"
+
+# 1738.technologies.label.en
+msgid "-2"
+msgstr "-2"
+
+# 1739.technologies.label.en
+msgid "-1"
+msgstr "-1"
+
+# 1741.technologies.label.en
+msgid "1"
+msgstr "1"
+
+# 1742.technologies.label.en
+msgid "2"
+msgstr "2"
+
+# 1743.technologies.label.en
+msgid "3"
+msgstr "3"
+
+# 1744.technologies.label.en
+msgid "a SLM technology"
+msgstr "a SLM technology"
+
+# 1745.technologies.label.en
+msgid "a 'partly sustainable' technology (not sure)"
+msgstr "a 'partly sustainable' technology (not sure)"
+
+# 1746.technologies.label.en
+msgid "a 'non-sustainable' technology"
+msgstr "a 'non-sustainable' technology"
+
+# 1750.technologies.helptext.en
+msgid "crop, fodder, wood/fibre, water, energy"
+msgstr "crop, fodder, wood/fibre, water, energy"
+
+# 1750.technologies.helptext.label.en
+msgid "improve production"
+msgstr "improve production"
+
+# 1751.technologies.helptext.en
+msgid "soil, water, vegetation"
+msgstr "soil, water, vegetation"
+
+# 1752.technologies.label.en
+msgid "preserve/improve biodiversity"
+msgstr "preserve/improve biodiversity"
+
+# 1753.technologies.helptext.en
+msgid "e.g. droughts, floods, landslides, etc."
+msgstr "e.g. droughts, floods, landslides, etc."
+
+# 1753.technologies.helptext.label.en
+msgid "reduce risk of natural disasters"
+msgstr "reduce risk of natural disasters"
+
+# 1754.technologies.helptext.en
+msgid "e.g. resilience to droughts, storms, etc."
+msgstr "e.g. resilience to droughts, storms, etc."
+
+# 1754.technologies.helptext.label.en
+msgid "adapt to climate change/extremes and its impacts"
+msgstr "adapt to climate change/extremes and its impacts"
+
+# 1755.technologies.helptext.en
+msgid "e.g. through carbon sequestration"
+msgstr "e.g. through carbon sequestration"
+
+# 1755.technologies.helptext.label.en
+msgid "mitigate climate change and its impacts"
+msgstr "mitigate climate change and its impacts"
+
+# 1756.technologies.helptext.en
+msgid "e.g. increase income/employment opportunities"
+msgstr "e.g. increase income/employment opportunities"
+
+# 1756.technologies.helptext.label.en
+msgid "economic impact"
+msgstr "economic impact"
+
+# 1757.technologies.helptext.en
+msgid "e.g. reduce conflicts on natural resources, support marginalized groups"
+msgstr ""
+"e.g. reduce conflicts on natural resources, support marginalized groups"
+
+# 1757.technologies.helptext.label.en
+msgid "social impact"
+msgstr "social impact"
+
+# 1758.technologies.helptext.en
+msgid "<strong>Nomadism</strong>: People move with animals"
+msgstr "<strong>Nomadism</strong>: People move with animals"
+
+# 1758.technologies.helptext.label.en
+msgid "Nomadism"
+msgstr "Nomadism"
+
+# 1759.technologies.helptext.en
+msgid ""
+"<strong>Semi-nomadism/pastoralism</strong>: animal owners have a permanent "
+"place of residence where supplementary cultivation is practiced. Herds are "
+"moved to distant grazing grounds."
+msgstr ""
+"<strong>Semi-nomadism/pastoralism</strong>: animal owners have a permanent "
+"place of residence where supplementary cultivation is practiced. Herds are "
+"moved to distant grazing grounds."
+
+# 1759.technologies.helptext.label.en
+msgid "Semi-nomadism/pastoralism"
+msgstr "Semi-nomadism/pastoralism"
+
+# 1760.technologies.helptext.en
+msgid ""
+"<strong>Ranching</strong>: grazing within well-defined boundaries, movements "
+"cover smaller distances and management inputs are higher compared to semi-"
+"nomadism."
+msgstr ""
+"<strong>Ranching</strong>: grazing within well-defined boundaries, movements "
+"cover smaller distances and management inputs are higher compared to semi-"
+"nomadism."
+
+# 1760.technologies.helptext.label.en
+msgid "Ranching"
+msgstr "Ranching"
+
+# 1761.technologies.helptext.en
+msgid ""
+"<strong>Cut-and-carry/zero grazing</strong>: Carrying fodder to animals "
+"confined to a stall/shed or another restricted area; in zero grazing systems "
+"the livestock are not permitted to graze at any time"
+msgstr ""
+"<strong>Cut-and-carry/zero grazing</strong>: Carrying fodder to animals "
+"confined to a stall/shed or another restricted area; in zero grazing systems "
+"the livestock are not permitted to graze at any time"
+
+# 1761.technologies.helptext.label.en
+msgid "Cut-and-carry/zero grazing"
+msgstr "Cut-and-carry/zero grazing"
+
+# 1762.technologies.helptext.en
+msgid ""
+"<strong>Improved pastures</strong>: pasture that is sown with a mixture of "
+"introduced grasses and legumes (can be fertilized and/or inoculated with "
+"rhizobia to fix nitrogen)."
+msgstr ""
+"<strong>Improved pastures</strong>: pasture that is sown with a mixture of "
+"introduced grasses and legumes (can be fertilized and/or inoculated with "
+"rhizobia to fix nitrogen)."
+
+# 1762.technologies.helptext.label.en
+msgid "Improved pastures"
+msgstr "Improved pastures"
+
+# 1764.technologies.label.en
+msgid "Timber"
+msgstr "Timber"
+
+# 1765.technologies.label.en
+msgid "Fuelwood"
+msgstr "Fuelwood"
+
+# 1766.technologies.label.en
+msgid "Fruits and nuts"
+msgstr "Fruits and nuts"
+
+# 1767.technologies.label.en
+msgid "Other forest products (honey, medical, etc.)"
+msgstr "Other forest products (honey, medical, etc.)"
+
+# 1768.technologies.label.en
+msgid "Grazing/browsing"
+msgstr "Grazing/browsing"
+
+# 1769.technologies.label.en
+msgid "Nature conservation/protection"
+msgstr "Nature conservation/protection"
+
+# 1770.technologies.label.en
+msgid "Recreation/tourism"
+msgstr "Recreation/tourism"
+
+# 1771.technologies.label.en
+msgid "Protection against natural hazards"
+msgstr "Protection against natural hazards"
+
+# 1772.technologies.label.en
+msgid "Settlements"
+msgstr "Settlements"
+
+# 1773.technologies.label.en
+msgid "Traffic: roads, railways"
+msgstr "Traffic: roads, railways"
+
+# 1774.technologies.label.en
+msgid "Energy: pipelines, power lines"
+msgstr "Energy: pipelines, power lines"
+
+# 1775.technologies.label.en
+msgid "Drainage lines waterways"
+msgstr "Drainage lines waterways"
+
+# 1776.technologies.label.en
+msgid "Ponds, dams"
+msgstr "Ponds, dams"
+
+# 1777.technologies.label.en
+msgid "Swamps, wetlands"
+msgstr "Swamps, wetlands"
+
+# 1778.technologies.helptext.en
+msgid "Recreation areas, etc."
+msgstr "Recreation areas, etc."
+
+# 1778.technologies.helptext.label.en
+# 1802.technologies.label.en
+msgid "Other"
+msgstr "Other"
+
+# 1779.technologies.helptext.en
+msgid ""
+"<strong>Natural and semi-natural forest management:</strong> encompasses "
+"administrative, legal, technical, economic, social and environmental aspects "
+"of the conservation and use of forests."
+msgstr ""
+"<strong>Natural and semi-natural forest management:</strong> encompasses "
+"administrative, legal, technical, economic, social and environmental aspects "
+"of the conservation and use of forests."
+
+# 1779.technologies.helptext.label.en
+msgid "Natural and semi-natural forest management"
+msgstr "Natural and semi-natural forest management"
+
+# 1780.technologies.helptext.en
+msgid ""
+"<strong>Plantation management:</strong> plantation forests comprise even-"
+"aged monocultures and are established primarily for wood and fibre "
+"production. They are usually intensively managed and have relatively high "
+"growth rates and productivity."
+msgstr ""
+"<strong>Plantation management:</strong> plantation forests comprise even-"
+"aged monocultures and are established primarily for wood and fibre "
+"production. They are usually intensively managed and have relatively high "
+"growth rates and productivity."
+
+# 1780.technologies.helptext.label.en
+msgid "Plantation management"
+msgstr "Plantation management"
+
+# 1781.technologies.helptext.en
+msgid ""
+"<strong>Agroforestry:</strong> integrates the use of woody perennials with "
+"agricultural crops and / or animals for a variety of benefits and services "
+"including better use of soil and water resources, multiple fuel, fodder and "
+"food products, and habitat for associated species."
+msgstr ""
+"<strong>Agroforestry:</strong> integrates the use of woody perennials with "
+"agricultural crops and / or animals for a variety of benefits and services "
+"including better use of soil and water resources, multiple fuel, fodder and "
+"food products, and habitat for associated species."
+
+# 1782.technologies.helptext.en
+msgid ""
+"<strong>Windbreak:</strong> or shelterbelt is a plantation usually made up "
+"of one or more rows of trees or shrubs planted in such a manner as to "
+"provide shelter from the wind and to protect soil from erosion. They are "
+"commonly planted around the edges of fields on farms."
+msgstr ""
+"<strong>Windbreak:</strong> or shelterbelt is a plantation usually made up "
+"of one or more rows of trees or shrubs planted in such a manner as to "
+"provide shelter from the wind and to protect soil from erosion. They are "
+"commonly planted around the edges of fields on farms."
+
+# 1782.technologies.helptext.label.en
+msgid "Windbreak/shelterbelt"
+msgstr "Windbreak/shelterbelt"
+
+# 1783.technologies.helptext.en
+msgid ""
+"<strong>Area closure (stop use, support restoration):</strong> enclosing and "
+"protecting an area of degraded land from human use and animal interference, "
+"to permit natural rehabilitation, enhanced by additional vegetative and "
+"structural conservation measures."
+msgstr ""
+"<strong>Area closure (stop use, support restoration):</strong> enclosing and "
+"protecting an area of degraded land from human use and animal interference, "
+"to permit natural rehabilitation, enhanced by additional vegetative and "
+"structural conservation measures."
+
+# 1783.technologies.helptext.label.en
+msgid "Area closure (stop use, support restoration)"
+msgstr "Area closure (stop use, support restoration)"
+
+# 1784.technologies.helptext.en
+msgid ""
+"<strong>Rotational systems (crop rotation, fallows, shifting cultivation):</"
+"strong> is the practice of growing a series of dissimilar/different types of "
+"crops/plants in the same area in sequenced season, letting it fallow for a "
+"period of time, shifting cultivation is an agricultural system in which "
+"plots of land are cultivated temporarily, then abandoned and allowed to "
+"revert to their natural vegetation while the cultivator moves on to another "
+"plot."
+msgstr ""
+"<strong>Rotational systems (crop rotation, fallows, shifting cultivation):</"
+"strong> is the practice of growing a series of dissimilar/different types of "
+"crops/plants in the same area in sequenced season, letting it fallow for a "
+"period of time, shifting cultivation is an agricultural system in which "
+"plots of land are cultivated temporarily, then abandoned and allowed to "
+"revert to their natural vegetation while the cultivator moves on to another "
+"plot."
+
+# 1784.technologies.helptext.label.en
+msgid "Rotational system (crop rotation, fallows, shifting cultivation)"
+msgstr "Rotational system (crop rotation, fallows, shifting cultivation)"
+
+# 1785.technologies.helptext.en
+msgid ""
+"<strong>Pastoralism and grazing land management:</strong> is the grazing of "
+"animals on natural or semi-natural grassland, grassland with trees and / or "
+"open woodlands. Animal owners may have a permanent residence while livestock "
+"is moved to distant grazing areas, according to the availability of resources"
+msgstr ""
+"<strong>Pastoralism and grazing land management:</strong> is the grazing of "
+"animals on natural or semi-natural grassland, grassland with trees and / or "
+"open woodlands. Animal owners may have a permanent residence while livestock "
+"is moved to distant grazing areas, according to the availability of resources"
+
+# 1785.technologies.helptext.label.en
+msgid "Pastoralism and grazing land management"
+msgstr "Pastoralism and grazing land management"
+
+# 1786.technologies.helptext.en
+msgid ""
+"<strong>Integrated crop-livestock management:</strong> optimizes the uses of "
+"crop and livestock resources through interaction and the creation of "
+"synergies."
+msgstr ""
+"<strong>Integrated crop-livestock management:</strong> optimizes the uses of "
+"crop and livestock resources through interaction and the creation of "
+"synergies."
+
+# 1786.technologies.helptext.label.en
+msgid "Integrated crop-livestock management"
+msgstr "Integrated crop-livestock management"
+
+# 1787.technologies.helptext.en
+msgid ""
+"<strong>Improved ground/vegetation cover:</strong> any measures that aim to "
+"improve the ground cover by it by dead material/mulch or vegetation"
+msgstr ""
+"<strong>Improved ground/vegetation cover:</strong> any measures that aim to "
+"improve the ground cover by it by dead material/mulch or vegetation"
+
+# 1787.technologies.helptext.label.en
+msgid "Improved ground/vegetation cover"
+msgstr "Improved ground/vegetation cover"
+
+# 1788.technologies.helptext.en
+msgid ""
+"<strong>Minimal soil disturbance</strong> refers to no-tillage or low soil "
+"disturbance only in small strips and /or shallow depth and direct seeding."
+msgstr ""
+"<strong>Minimal soil disturbance</strong> refers to no-tillage or low soil "
+"disturbance only in small strips and /or shallow depth and direct seeding."
+
+# 1788.technologies.helptext.label.en
+msgid "Minimal soil disturbance"
+msgstr "Minimal soil disturbance"
+
+# 1789.technologies.helptext.en
+msgid ""
+"<strong>Integrated soil fertility management</strong> benefits from positive "
+"interaction and complementarities of a combined use of organic and inorganic "
+"plant nutrients in crop production."
+msgstr ""
+"<strong>Integrated soil fertility management</strong> benefits from positive "
+"interaction and complementarities of a combined use of organic and inorganic "
+"plant nutrients in crop production."
+
+# 1789.technologies.helptext.label.en
+msgid "Integrated soil fertility management"
+msgstr "Integrated soil fertility management"
+
+# 1790.technologies.helptext.en
+msgid ""
+"<strong>Cross-slope measures:</strong> are constructed on sloping lands in "
+"the form of earth or soil bunds, stone lines, or vegetative strips, etc. for "
+"reducing runoff velocity and soil erosion"
+msgstr ""
+"<strong>Cross-slope measures:</strong> are constructed on sloping lands in "
+"the form of earth or soil bunds, stone lines, or vegetative strips, etc. for "
+"reducing runoff velocity and soil erosion"
+
+# 1790.technologies.helptext.label.en
+msgid "Cross-slope measure"
+msgstr "Cross-slope measure"
+
+# 1791.technologies.helptext.en
+msgid ""
+"<strong>Integrated pest and disease management (incl. organic agriculture):</"
+"strong> Integrated pest and disease management is a process to solve pest "
+"and disease problems while minimizing risks to people and the environment."
+msgstr ""
+"<strong>Integrated pest and disease management (incl. organic agriculture):</"
+"strong> Integrated pest and disease management is a process to solve pest "
+"and disease problems while minimizing risks to people and the environment."
+
+# 1791.technologies.helptext.label.en
+msgid "Integrated pest and disease management (incl. organic agriculture)"
+msgstr "Integrated pest and disease management (incl. organic agriculture)"
+
+# 1792.technologies.label.en
+msgid "Improved plant varieties, animal breeds"
+msgstr "Improved plant varieties, animal breeds"
+
+# 1793.technologies.helptext.en
+msgid ""
+"<strong>Water harvesting:</strong> is the collection and management of "
+"floodwater or rainwater runoff to increase water availability for domestic "
+"and agricultural use as well as ecosystem sustenance."
+msgstr ""
+"<strong>Water harvesting:</strong> is the collection and management of "
+"floodwater or rainwater runoff to increase water availability for domestic "
+"and agricultural use as well as ecosystem sustenance."
+
+# 1793.technologies.helptext.label.en
+msgid "Water harvesting"
+msgstr "Water harvesting"
+
+# 1794.technologies.helptext.en
+msgid ""
+"<strong>Irrigation management (incl. water supply, greenhouses)</strong> "
+"aims to achieve higher water use efficiency through more efficient water "
+"collection and abstraction, water storage, distribution and water "
+"application."
+msgstr ""
+"<strong>Irrigation management (incl. water supply, greenhouses)</strong> "
+"aims to achieve higher water use efficiency through more efficient water "
+"collection and abstraction, water storage, distribution and water "
+"application."
+
+# 1794.technologies.helptext.label.en
+msgid "Irrigation management (incl. water supply, greenhouses)"
+msgstr "Irrigation management (incl. water supply, greenhouses)"
+
+# 1795.technologies.helptext.en
+msgid ""
+"<strong>Water diversion and drainage:</strong> is the natural or artificial "
+"diversion or removal of surface and sub-surface water from an area"
+msgstr ""
+"<strong>Water diversion and drainage:</strong> is the natural or artificial "
+"diversion or removal of surface and sub-surface water from an area"
+
+# 1795.technologies.helptext.label.en
+msgid "Water diversion and drainage"
+msgstr "Water diversion and drainage"
+
+# 1796.technologies.helptext.en
+msgid ""
+"<strong>Surface water management (spring, river, lakes):</strong> involves "
+"the protection of springs, rivers and lakes from pollution, from high water "
+"flows(floods) or over abstraction of water"
+msgstr ""
+"<strong>Surface water management (spring, river, lakes):</strong> involves "
+"the protection of springs, rivers and lakes from pollution, from high water "
+"flows(floods) or over abstraction of water"
+
+# 1796.technologies.helptext.label.en
+msgid "Surface water management (spring, river, lakes)"
+msgstr "Surface water management (spring, river, lakes)"
+
+# 1797.technologies.helptext.en
+msgid ""
+"<strong>Ground water management:</strong> involves securing the recharge and "
+"the protection from pollution and overexploitation /overuse of the "
+"groundwater."
+msgstr ""
+"<strong>Ground water management:</strong> involves securing the recharge and "
+"the protection from pollution and overexploitation /overuse of the "
+"groundwater."
+
+# 1797.technologies.helptext.label.en
+msgid "Ground water management"
+msgstr "Ground water management"
+
+# 1798.technologies.helptext.en
+msgid ""
+"<strong>Wetland protection / management:</strong> managing wetland typically "
+"involves manipulating water levels and vegetation in the wetland, and "
+"providing an upland buffer."
+msgstr ""
+"<strong>Wetland protection / management:</strong> managing wetland typically "
+"involves manipulating water levels and vegetation in the wetland, and "
+"providing an upland buffer."
+
+# 1798.technologies.helptext.label.en
+msgid "Wetland protection/management"
+msgstr "Wetland protection/management"
+
+# 1799.technologies.helptext.en
+msgid ""
+"<strong>Waste management / waste water management:</strong> is a set of "
+"activities that include collection, transport, treatment and disposal of "
+"waste, prevention of waste production and modification and reuse/recycling "
+"of waste."
+msgstr ""
+"<strong>Waste management / waste water management:</strong> is a set of "
+"activities that include collection, transport, treatment and disposal of "
+"waste, prevention of waste production and modification and reuse/recycling "
+"of waste."
+
+# 1799.technologies.helptext.label.en
+msgid "Waste management/waste water management"
+msgstr "Waste management/waste water management"
+
+# 1800.technologies.helptext.en
+msgid ""
+"<strong>Energy efficiency technologies:</strong> reduce the amount of energy "
+"required to provide products and services, e.g. for cooking, heating "
+"reducing the demand on fuel (fossil, wood)"
+msgstr ""
+"<strong>Energy efficiency technologies:</strong> reduce the amount of energy "
+"required to provide products and services, e.g. for cooking, heating "
+"reducing the demand on fuel (fossil, wood)"
+
+# 1800.technologies.helptext.label.en
+msgid "Energy efficiency technologies"
+msgstr "Energy efficiency technologies"
+
+# 1801.technologies.helptext.en
+msgid ""
+"<strong>Beekeeping, aquaculture, poultry, rabbit farming, silkworm farming, "
+"etc.:</strong> allow food production and agricultural products requiring "
+"small surfaces of the land."
+msgstr ""
+"<strong>Beekeeping, aquaculture, poultry, rabbit farming, silkworm farming, "
+"etc.:</strong> allow food production and agricultural products requiring "
+"small surfaces of the land."
+
+# 1801.technologies.helptext.label.en
+msgid ""
+"Beekeeping, aquaculture, poultry, rabbit farming, silkworm farming, etc."
+msgstr ""
+"Beekeeping, aquaculture, poultry, rabbit farming, silkworm farming, etc."
+
+# 1803.technologies.helptext.en
+msgid ""
+"<strong>Indirect SLM measures</strong> are mostly applied within homesteads "
+"or settlements, or in specific locations and reduce pressure on the land "
+"resources and its negative impacts."
+msgstr ""
+"<strong>Indirect SLM measures</strong> are mostly applied within homesteads "
+"or settlements, or in specific locations and reduce pressure on the land "
+"resources and its negative impacts."
+
+# 1803.technologies.helptext.label.en
+msgid "Indirect SLM measures"
+msgstr "Indirect SLM measures"
+
+# 1804.technologies.helptext.en
+msgid ""
+"Energy saving measures (e.g. wood-saving stoves, insulation of buildings) "
+"and alternative energy sources (e.g. solar energy, biogas, wind energy, "
+"hydropower"
+msgstr ""
+"Energy saving measures (e.g. wood-saving stoves, insulation of buildings) "
+"and alternative energy sources (e.g. solar energy, biogas, wind energy, "
+"hydropower"
+
+# 1804.technologies.helptext.label.en
+msgid "I1: Energy saving measures and alternate energy sources"
+msgstr "I1: Energy saving measures and alternate energy sources"
+
+# 1805.technologies.helptext.en
+msgid "E.g. tree nurseries, seed banks, etc."
+msgstr "E.g. tree nurseries, seed banks, etc."
+
+# 1805.technologies.helptext.label.en
+msgid ""
+"I2: Production of seeds and seedlings, seed selection, production of "
+"improved varieties"
+msgstr ""
+"I2: Production of seeds and seedlings, seed selection, production of "
+"improved varieties"
+
+# 1806.technologies.helptext.en
+msgid "Incl. vermiculture"
+msgstr "Incl. vermiculture"
+
+# 1806.technologies.helptext.label.en
+msgid "I3: Compost production"
+msgstr "I3: Compost production"
+
+# 1807.technologies.label.en
+msgid ""
+"I4: Bee keeping; smallstock farming (e.g. poultry, rabbits); fish ponds, etc."
+msgstr ""
+"I4: Bee keeping; smallstock farming (e.g. poultry, rabbits); fish ponds, etc."
+
+# 1808.technologies.helptext.en
+msgid "Incl. post-harvest loss reduction"
+msgstr "Incl. post-harvest loss reduction"
+
+# 1808.technologies.helptext.label.en
+msgid "I5: Food storage and processing"
+msgstr "I5: Food storage and processing"
+
+# 1809.technologies.label.en
+msgid "I6: Others"
+msgstr "I6: Others"
+
+# 1810.technologies.helptext.en
+msgid ""
+"<strong>Adaptation:</strong> is applied when rehabilitation/restoration of "
+"the original state of the land is no longer possible or requires resource "
+"beyond the means of land users. This means the state of land degradation is "
+"accepted, but land management is adapted to suit land degradation (e.g. "
+"adapt to soil salinity by introducing salt-tolerant plants)."
+msgstr ""
+"<strong>Adaptation:</strong> is applied when rehabilitation/restoration of "
+"the original state of the land is no longer possible or requires resource "
+"beyond the means of land users. This means the state of land degradation is "
+"accepted, but land management is adapted to suit land degradation (e.g. "
+"adapt to soil salinity by introducing salt-tolerant plants)."
+
+# 1810.technologies.helptext.label.en
+msgid "adapt to land degradation"
+msgstr "adapt to land degradation"
+
+# 1811.technologies.label.en
+msgid "V4: Replacement or removal of alien/invasive species"
+msgstr "V4: Replacement or removal of alien/invasive species"
+
+# 1812.technologies.label.en
+msgid "S10: Water supply and irrigation infrastructure"
+msgstr "S10: Water supply and irrigation infrastructure"
+
+# 1813.technologies.label.en
+msgid "S11: Sanitation and waste water management infrastructure"
+msgstr "S11: Sanitation and waste water management infrastructure"
+
+# 1814.technologies.helptext.en
+msgid "Greenhouses, plant nurseries, stables, beehives, etc."
+msgstr "Greenhouses, plant nurseries, stables, beehives, etc."
+
+# 1814.technologies.helptext.label.en
+msgid "S12: Shelters for plants and animals"
+msgstr "S12: Shelters for plants and animals"
+
+# 1815.technologies.helptext.en
+msgid "Incl. manure, vermiculture"
+msgstr "Incl. manure, vermiculture"
+
+# 1815.technologies.helptext.label.en
+msgid "S13: Infrastructure for compost production"
+msgstr "S13: Infrastructure for compost production"
+
+# 1816.technologies.helptext.en
+msgid "Solar panels, energy saving stoves, insulation, etc."
+msgstr "Solar panels, energy saving stoves, insulation, etc."
+
+# 1816.technologies.helptext.label.en
+msgid "S14: Energy saving infrastructure"
+msgstr "S14: Energy saving infrastructure"
+
+# 1817.technologies.label.en
+msgid "S15: Others"
+msgstr "S15: Others"
+
+# 1818.technologies.helptext.en
+msgid ""
+"<strong>Soil sealing</strong>: covering of the ground by an impermeable "
+"material (e.g. construction, mining, roads, etc.)"
+msgstr ""
+"<strong>Soil sealing</strong>: covering of the ground by an impermeable "
+"material (e.g. construction, mining, roads, etc.)"
+
+# 1818.technologies.helptext.label.en
+msgid "Pi: soil sealing"
+msgstr "Pi: soil sealing"
+
+# 1819.technologies.label.en
+msgid "tolerant"
+msgstr "tolerant"
+
+# 1820.technologies.label.en
+msgid "sensitive"
+msgstr "sensitive"
+
+# 1821.technologies.label.en
+msgid "not known"
+msgstr "not known"
+
+# 1822.technologies.label.en
+msgid "very negative"
+msgstr "very negative"
+
+# 1823.technologies.label.en
+msgid "negative"
+msgstr "negative"
+
+# 1824.technologies.label.en
+msgid "slightly negative"
+msgstr "slightly negative"
+
+# 1825.technologies.label.en
+msgid "neutral/balanced"
+msgstr "neutral/balanced"
+
+# 1826.technologies.label.en
+msgid "slightly positive"
+msgstr "slightly positive"
+
+# 1827.technologies.label.en
+msgid "positive"
+msgstr "positive"
+
+# 1828.technologies.label.en
+msgid "very positive"
+msgstr "very positive"
+
+# 2201.technologies.helptext.en
+msgid ""
+"<p>The terms <strong>traditional / indigenous / local</strong> refer to the "
+"farmer's own technologies. They cover technologies in use ever since as well "
+"as the ones developed more recently by innovative farmers in response to "
+"changing circumstances. Use 'other' when the Technology does not fit any of "
+"the given categories and specify which and why it does not fit.</p>"
+msgstr ""
+"<p>The terms <strong>traditional / indigenous / local</strong> refer to the "
+"farmer's own technologies. They cover technologies in use ever since as well "
+"as the ones developed more recently by innovative farmers in response to "
+"changing circumstances. Use 'other' when the Technology does not fit any of "
+"the given categories and specify which and why it does not fit.</p>"
+
+# 2203.technologies.helptext.en
+msgid ""
+"<p>If possible, break down the total costs for establishment, specify inputs "
+"and costs per input, otherwise estimate percentage of total costs.</p>"
+msgstr ""
+"<p>If possible, break down the total costs for establishment, specify inputs "
+"and costs per input, otherwise estimate percentage of total costs.</p>"
+
+# 2203.technologies.helptext.label.en
+# 2208.technologies.helptext.label.en
+# 7549.approaches.label.en
+msgid "Labour"
+msgstr "Labour"
+
+# 2204.technologies.label.en
+# 7550.approaches.label.en
+msgid "Equipment"
+msgstr "Equipment"
+
+# 2205.technologies.label.en
+# 7551.approaches.label.en
+msgid "Agricultural"
+msgstr "Agricultural"
+
+# 2206.technologies.label.en
+msgid "Construction material"
+msgstr "Construction material"
+
+# 2208.technologies.helptext.en
+msgid ""
+"If possible, break down the total costs for maintenance, specify inputs and "
+"costs per input, otherwise estimate percentage of total costs."
+msgstr ""
+"If possible, break down the total costs for maintenance, specify inputs and "
+"costs per input, otherwise estimate percentage of total costs."
+
+# 2217.technologies.label.en
+msgid "Rating of costs considering the local context"
+msgstr "Rating of costs considering the local context"
+
+# 2219.technologies.helptext.en
+msgid ""
+"The length of growing period (LGP) is defined as the period when "
+"precipitation is more than half of the potential evapotranspiration (PET) "
+"and the temperature is higher than 6.5 C."
+msgstr ""
+"The length of growing period (LGP) is defined as the period when "
+"precipitation is more than half of the potential evapotranspiration (PET) "
+"and the temperature is higher than 6.5 C."
+
+# 2229.technologies.label.en
+msgid "Species richness"
+msgstr "Species richness"
+
+# 2230.technologies.label.en
+msgid "Habitat richness"
+msgstr "Habitat richness"
+
+# 2231.technologies.helptext.en
+msgid ""
+"<p>Land ownership is the type of land possession, while land use rights "
+"refer to the access to land.</p><p>Maximum two answers per question.</p>"
+msgstr ""
+"<p>Land ownership is the type of land possession, while land use rights "
+"refer to the access to land.</p><p>Maximum two answers per question.</p>"
+
+# 2232.technologies.helptext.en
+msgid ""
+"<strong>Land use rights / water use rights</strong>:<ul><li>Open access: "
+"means free for all.</li><li>Communal (organised): means subject to community-"
+"agreed management rules.</li><li>Leased: right to use land for a limited "
+"period of time against payment (contract)</li><li>Individual: right of use "
+"by single user.</li></ul>"
+msgstr ""
+"<strong>Land use rights / water use rights</strong>:<ul><li>Open access: "
+"means free for all.</li><li>Communal (organised): means subject to community-"
+"agreed management rules.</li><li>Leased: right to use land for a limited "
+"period of time against payment (contract)</li><li>Individual: right of use "
+"by single user.</li></ul>"
+
+# 2236.technologies.helptext.en
+msgid ""
+"<strong>Land use rights / water use rights</strong>:<ul><li>Open access: "
+"means free for all.</li><li>Communal (organized): means subject to community-"
+"agreed management rules.</li><li>Leased: right to use land for a limited "
+"period of time against payment (contract)</li><li>Individual: right of use "
+"by single user.</li></ul>"
+msgstr ""
+"<strong>Land use rights / water use rights</strong>:<ul><li>Open access: "
+"means free for all.</li><li>Communal (organized): means subject to community-"
+"agreed management rules.</li><li>Leased: right to use land for a limited "
+"period of time against payment (contract)</li><li>Individual: right of use "
+"by single user.</li></ul>"
+
+# 2236.technologies.helptext.label.en
+msgid "Water use rights (if relevant)"
+msgstr "Water use rights (if relevant)"
+
+# 2244.technologies.helptext.en
+msgid "New land under cultivation/use"
+msgstr "New land under cultivation/use"
+
+# 2244.technologies.helptext.label.en
+msgid "Production area"
+msgstr "Production area"
+
+# 2246.technologies.helptext.en
+msgid "E.g. hydro, bio"
+msgstr "E.g. hydro, bio"
+
+# 2246.technologies.helptext.label.en
+msgid "Energy generation"
+msgstr "Energy generation"
+
+# 2262.technologies.helptext.en
+msgid "E.g. spiritual aesthetic, others"
+msgstr "E.g. spiritual aesthetic, others"
+
+# 2262.technologies.helptext.label.en
+msgid "Cultural opportunities"
+msgstr "Cultural opportunities"
+
+# 2268.technologies.helptext.en
+msgid "Gender, age, status, ethnicity etc."
+msgstr "Gender, age, status, ethnicity etc."
+
+# 2268.technologies.helptext.label.en
+msgid "Situation of socially and economically disadvantaged groups"
+msgstr "Situation of socially and economically disadvantaged groups"
+
+# 2271.technologies.helptext.en
+msgid "Runoff, dew, snow, etc"
+msgstr "Runoff, dew, snow, etc"
+
+# 2271.technologies.helptext.label.en
+msgid "Harvesting/collection of water"
+msgstr "Harvesting/collection of water"
+
+# 2289.technologies.helptext.en
+msgid "Predators, earthworms, pollinators"
+msgstr "Predators, earthworms, pollinators"
+
+# 2289.technologies.helptext.label.en
+msgid "Beneficial species"
+msgstr "Beneficial species"
+
+# 2293.technologies.helptext.en
+msgid "Drought, flood, storms etc."
+msgstr "Drought, flood, storms etc."
+
+# 2293.technologies.helptext.label.en
+msgid "Disaster risk"
+msgstr "Disaster risk"
+
+# 2297.technologies.helptext.en
+msgid "groundwater, springs"
+msgstr "groundwater, springs"
+
+# 2297.technologies.helptext.label.en
+msgid "Water availability"
+msgstr "Water availability"
+
+# 2298.technologies.helptext.en
+msgid "Undesired"
+msgstr "Undesired"
+
+# 2298.technologies.helptext.label.en
+msgid "Downstream flooding"
+msgstr "Downstream flooding"
+
+# 2299.technologies.helptext.en
+msgid "Incl. low flows"
+msgstr "Incl. low flows"
+
+# 2299.technologies.helptext.label.en
+msgid "Reliable and stable stream flows in dry season"
+msgstr "Reliable and stable stream flows in dry season"
+
+# 2302.technologies.helptext.en
+msgid "By soil, vegetation, wetlands"
+msgstr "By soil, vegetation, wetlands"
+
+# 2302.technologies.helptext.label.en
+msgid "Buffering/filtering capacity"
+msgstr "Buffering/filtering capacity"
+
+# 2306.technologies.label.en
+msgid "Impact of greenhouse gases"
+msgstr "Impact of greenhouse gases"
+
+# 2307.technologies.label.en
+msgid "Define a specific area/unit for which you will specify costs and inputs"
+msgstr ""
+"Define a specific area/unit for which you will specify costs and inputs"
+
+# 2309.technologies.label.en
+msgid "Indicate average wage cost of hired labour per day"
+msgstr "Indicate average wage cost of hired labour per day"
+
+# 2311.technologies.label.en
+msgid "Gradual temperature increase"
+msgstr "Gradual temperature increase"
+
+# 2312.technologies.label.en
+msgid "Seasonal rainfall increase"
+msgstr "Seasonal rainfall increase"
+
+# 2313.technologies.label.en
+msgid "Seasonal rainfall decrease"
+msgstr "Seasonal rainfall decrease"
+
+# 2314.technologies.label.en
+msgid "Heavy rainfall events (intensities and amount), incl. hail"
+msgstr "Heavy rainfall events (intensities and amount), incl. hail"
+
+# 2315.technologies.label.en
+msgid "Cyclones, hurricanes, typhoons heavy windstorms/dust storms"
+msgstr "Cyclones, hurricanes, typhoons heavy windstorms/dust storms"
+
+# 2316.technologies.label.en
+msgid "Droughts/dry spells"
+msgstr "Droughts/dry spells"
+
+# 2317.technologies.label.en
+msgid "Heat waves/warm spells"
+msgstr "Heat waves/warm spells"
+
+# 2318.technologies.label.en
+msgid "Cold waves/cold spells"
+msgstr "Cold waves/cold spells"
+
+# 2319.technologies.label.en
+msgid "Decreasing length of growing period"
+msgstr "Decreasing length of growing period"
+
+# 2320.technologies.label.en
+msgid "Floods"
+msgstr "Floods"
+
+# 2321.technologies.label.en
+msgid "Landslides"
+msgstr "Landslides"
+
+# 2322.technologies.label.en
+msgid "Sea level rise"
+msgstr "Sea level rise"
+
+# 2323.technologies.label.en
+msgid ""
+"How do the benefits compare with the establishment costs (from land users "
+"perspective)?"
+msgstr ""
+"How do the benefits compare with the establishment costs (from land users "
+"perspective)?"
+
+# 2324.technologies.label.en
+msgid ""
+"How do the benefits compare with the maintenance/recurrent costs (from land "
+"users' perspective)?"
+msgstr ""
+"How do the benefits compare with the maintenance/recurrent costs (from land "
+"users' perspective)?"
+
+# 2325.technologies.label.en
+msgid "Local/regional expert (key resource person)"
+msgstr "Local/regional expert (key resource person)"
+
+# 2701.technologies.helptext.en
+msgid ""
+"<p>Please provide a first image of the SLM technology. You can add more "
+"images later.</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, "
+"GIF.</p>"
+msgstr ""
+"<p>Please provide a first image of the SLM technology. You can add more "
+"images later.</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, "
+"GIF.</p>"
+
+# 7028.approaches.label_view.en
+# 7013.approaches.label.en
+msgid "Type of Approach"
+msgstr "Type of Approach"
+
+# 7028.approaches.label_view.label.en
+# 7029.approaches.label_view.label.en
+# 7030.approaches.label_view.label.en
+# 7033.approaches.label_view.label.en
+# 7050.approaches.label_view.label.en
+# 7004.approaches.label.en
+# 7014.approaches.label.en
+# 7026.approaches.label_view.label.en
+# 7027.approaches.label_view.label.en
+# 7037.approaches.label_view.label.en
+# 7040.approaches.label_view.label.en
+# 7051.approaches.label_view.label.en
+msgid "Other (specify)"
+msgstr "Other (specify)"
+
+# 7567.approaches.label.en
+msgid "rewarded with other material support"
+msgstr "rewarded with other material support"
+
+# 7029.approaches.label_view.en
+# 7018.approaches.label.en
+msgid "Were decisions on the selection of the Technology(ies) made"
+msgstr "Were decisions on the selection of the Technology(ies) made"
+
+# 7030.approaches.label_view.en
+msgid "Is decision making based on"
+msgstr "Is decision making based on"
+
+# 7031.approaches.label.en
+msgid "Do land users have access to advisory service?"
+msgstr "Do land users have access to advisory service?"
+
+# 7032.approaches.label.en
+# 7033.approaches.label_view.en
+msgid "If yes, is the service provided"
+msgstr "If yes, is the service provided"
+
+# 7034.approaches.label.en
+msgid "Describe / comment"
+msgstr "Describe / comment"
+
+# 7035.approaches.label.en
+msgid ""
+"Have institutions been established or strengthened through the Approach?"
+msgstr ""
+"Have institutions been established or strengthened through the Approach?"
+
+# 7036.approaches.label.en
+msgid "If yes, at what level"
+msgstr "If yes, at what level"
+
+# 7049.approaches.label.en
+# 7050.approaches.label_view.en
+msgid "Specify Inputs"
+msgstr "Specify Inputs"
+
+# 2730.technologies.label.en
+msgid "Socio-economic impacts"
+msgstr "Socio-economic impacts"
+
+# 2731.technologies.label.en
+msgid "Production"
+msgstr "Production"
+
+# 2732.technologies.label.en
+msgid "Water availability and quality"
+msgstr "Water availability and quality"
+
+# 2733.technologies.label.en
+msgid "Income and costs"
+msgstr "Income and costs"
+
+# 2734.technologies.label.en
+msgid "Socio-cultural impacts"
+msgstr "Socio-cultural impacts"
+
+# 2735.technologies.label.en
+msgid "Ecological impacts"
+msgstr "Ecological impacts"
+
+# 2736.technologies.label.en
+msgid "Water cycle/runoff"
+msgstr "Water cycle/runoff"
+
+# 2737.technologies.label.en
+msgid "Soil"
+msgstr "Soil"
+
+# 2738.technologies.label.en
+msgid "Biodiversity: vegetation, animals"
+msgstr "Biodiversity: vegetation, animals"
+
+# 2740.technologies.label.en
+msgid "Other ecological impacts"
+msgstr "Other ecological impacts"
+
+# 2747.technologies.label.en
+msgid "Climatic extremes or change"
+msgstr "Climatic extremes or change"
+
+# 2748.technologies.label.en
+msgid "Impacts of climate change/extremes"
+msgstr "Impacts of climate change/extremes"
+
+# 2909.technologies.label.en
+msgid "Specific UNCCD questions"
+msgstr "Specific UNCCD questions"
+
+# 7001.approaches.label.en
+msgid "Definition of the SLM Approach"
+msgstr "Definition of the SLM Approach"
+
+# 7002.approaches.label.en
+msgid "Aims/objectives"
+msgstr "Aims/objectives"
+
+# 7003.approaches.label.en
+msgid "What stakeholders / implementing bodies were involved in the Approach?"
+msgstr "What stakeholders / implementing bodies were involved in the Approach?"
+
+# 7005.approaches.helptext.en
+msgid "If relevant, also specify gender, age, status, ethnicity, etc.)"
+msgstr "If relevant, also specify gender, age, status, ethnicity, etc.)"
+
+# 7005.approaches.helptext.label.en
+msgid "Specify stakeholders and describe their roles."
+msgstr "Specify stakeholders and describe their roles."
+
+# 7006.approaches.label.en
+msgid "Methods used"
+msgstr "Methods used"
+
+# 7007.approaches.label.en
+msgid "Stages of implementation"
+msgstr "Stages of implementation"
+
+# 7008.approaches.helptext.en
+msgid ""
+"If relevant, indicate gender, status and ethnicity and mention who accepted /"
+"resisted, who benefited / was excluded and if equity was advanced."
+msgstr ""
+"If relevant, indicate gender, status and ethnicity and mention who accepted /"
+"resisted, who benefited / was excluded and if equity was advanced."
+
+# 7008.approaches.helptext.label.en
+msgid "Roles of involved stakeholders"
+msgstr "Roles of involved stakeholders"
+
+# 7009.approaches.label.en
+msgid "Conclusions/lessons learnt (major strengths and weaknesses)"
+msgstr "Conclusions/lessons learnt (major strengths and weaknesses)"
+
+# 7010.approaches.label.en
+msgid "Indicate year of initiation"
+msgstr "Indicate year of initiation"
+
+# 7011.approaches.label.en
+msgid "If precise year is not known, was the Approach initiated"
+msgstr "If precise year is not known, was the Approach initiated"
+
+# 7012.approaches.label.en
+msgid "Indicate year of termination (if not continued to date)"
+msgstr "Indicate year of termination (if not continued to date)"
+
+# 7015.approaches.label.en
+# 7513.approaches.label.en
+msgid "Enabling"
+msgstr "Enabling"
+
+# 7016.approaches.label.en
+# 7514.approaches.label.en
+msgid "Hindering"
+msgstr "Hindering"
+
+# 7019.approaches.label.en
+msgid "Explain"
+msgstr "Explain"
+
+# 7020.approaches.label.en
+msgid "Is decision based on"
+msgstr "Is decision based on"
+
+# 7021.approaches.helptext.en
+msgid ""
+"<p>If <strong>no</strong>, go to question 5.2</p><p>If <strong>yes</strong>, "
+"please answer the following sub-questions</p>"
+msgstr ""
+"<p>If <strong>no</strong>, go to question 5.2</p><p>If <strong>yes</strong>, "
+"please answer the following sub-questions</p>"
+
+# 7021.approaches.helptext.label.en
+msgid "Was training provided to land users / other stakeholders?"
+msgstr "Was training provided to land users / other stakeholders?"
+
+# 7022.approaches.label.en
+# 7026.approaches.label_view.en
+msgid "Who was trained"
+msgstr "Who was trained"
+
+# 7023.approaches.label.en
+msgid "If relevant specify gender, age, status, ethnicity etc"
+msgstr "If relevant specify gender, age, status, ethnicity etc"
+
+# 7024.approaches.label.en
+# 7027.approaches.label_view.en
+msgid "Form of training"
+msgstr "Form of training"
+
+# 7025.approaches.label.en
+msgid "Subjects covered"
+msgstr "Subjects covered"
+
+# 7037.approaches.label_view.en
+msgid "If yes, at what level:"
+msgstr "If yes, at what level:"
+
+# 7038.approaches.label.en
+msgid "Describe institution, roles and responsibilities, members, etc."
+msgstr "Describe institution, roles and responsibilities, members, etc."
+
+# 7039.approaches.label.en
+msgid "If yes, specify support"
+msgstr "If yes, specify support"
+
+# 7040.approaches.label_view.en
+msgid "If yes, specify support:"
+msgstr "If yes, specify support:"
+
+# 7042.approaches.label.en
+msgid ""
+"Indicate the annual budget for the SLM component of the Approach (including "
+"training and extension, research, implementation of the Technology) in US$"
+msgstr ""
+"Indicate the annual budget for the SLM component of the Approach (including "
+"training and extension, research, implementation of the Technology) in US$"
+
+# 7043.approaches.label.en
+msgid "If precise budget is not known, indicate range"
+msgstr "If precise budget is not known, indicate range"
+
+# 7044.approaches.helptext.en
+msgid "E.g. tax exemptions, compensation payments, subsidies, etc."
+msgstr "E.g. tax exemptions, compensation payments, subsidies, etc."
+
+# 7044.approaches.helptext.label.en
+msgid ""
+"Were contributions made per area, per unit or per product provided to land "
+"users?"
+msgstr ""
+"Were contributions made per area, per unit or per product provided to land "
+"users?"
+
+# 7045.approaches.label.en
+msgid "If yes, specify (type, conditions and provider of contributions)"
+msgstr "If yes, specify (type, conditions and provider of contributions)"
+
+# 7046.approaches.label.en
+# 7051.approaches.label_view.en
+msgid "Specify which inputs were subsidised"
+msgstr "Specify which inputs were subsidised"
+
+# 7047.approaches.label.en
+msgid "To which extent"
+msgstr "To which extent"
+
+# 7048.approaches.label.en
+msgid "Specify subsidies"
+msgstr "Specify subsidies"
+
+# 7052.approaches.label.en
+msgid "If labour by land users was a substantial input, was it"
+msgstr "If labour by land users was a substantial input, was it"
+
+# 7053.approaches.label.en
+msgid ""
+"Was credit provided under the Approach for sustainable land management "
+"activities?"
+msgstr ""
+"Was credit provided under the Approach for sustainable land management "
+"activities?"
+
+# 7054.approaches.label.en
+msgid "If yes, specify conditions (interest rate, pay-back, etc.)"
+msgstr "If yes, specify conditions (interest rate, pay-back, etc.)"
+
+# 7055.approaches.label.en
+msgid "Specify credit provider"
+msgstr "Specify credit provider"
+
+# 7056.approaches.label.en
+msgid "Specify credit receiver"
+msgstr "Specify credit receiver"
+
+# 7057.approaches.label.en
+msgid ""
+"Were other incentives or instrument used to promote implementation of SLM "
+"Technologies?"
+msgstr ""
+"Were other incentives or instrument used to promote implementation of SLM "
+"Technologies?"
+
+# 7058.approaches.label.en
+msgid "If yes, specify"
+msgstr "If yes, specify"
+
+# 7059.approaches.label.en
+msgid ""
+"Did the Approach empower local land users, improve stakeholder involvement?"
+msgstr ""
+"Did the Approach empower local land users, improve stakeholder involvement?"
+
+# 7060.approaches.label.en
+msgid "If yes, specify improvements. If no, give reasons."
+msgstr "If yes, specify improvements. If no, give reasons."
+
+# 7061.approaches.label.en
+msgid "Did the Approach enable evidence-based decision making?"
+msgstr "Did the Approach enable evidence-based decision making?"
+
+# 7062.approaches.label.en
+msgid ""
+"Did the Approach help land users to implement and maintain SLM technologies?"
+msgstr ""
+"Did the Approach help land users to implement and maintain SLM technologies?"
+
+# 7063.approaches.label.en
+msgid ""
+"Did the Approach improve coordination and cost-effective implementation of "
+"SLM?"
+msgstr ""
+"Did the Approach improve coordination and cost-effective implementation of "
+"SLM?"
+
+# 7064.approaches.label.en
+msgid ""
+"Did the Approach mobilize / improve access to financial resources for SLM "
+"implementation?"
+msgstr ""
+"Did the Approach mobilize / improve access to financial resources for SLM "
+"implementation?"
+
+# 7065.approaches.label.en
+msgid ""
+"Did the Approach improve knowledge and capacities of land users to implement "
+"SLM?"
+msgstr ""
+"Did the Approach improve knowledge and capacities of land users to implement "
+"SLM?"
+
+# 7066.approaches.label.en
+msgid ""
+"Did the Approach improve knowledge and capacities of other stakeholders?"
+msgstr ""
+"Did the Approach improve knowledge and capacities of other stakeholders?"
+
+# 7067.approaches.label.en
+msgid ""
+"Did the Approach build / strengthen institutions, collaboration between "
+"stakeholders?"
+msgstr ""
+"Did the Approach build / strengthen institutions, collaboration between "
+"stakeholders?"
+
+# 7068.approaches.label.en
+msgid "Did the Approach mitigate conflicts?"
+msgstr "Did the Approach mitigate conflicts?"
+
+# 7069.approaches.label.en
+msgid ""
+"Did the Approach empower socially and economically disadvantaged groups "
+"(gender, ethnic, etc.)?"
+msgstr ""
+"Did the Approach empower socially and economically disadvantaged groups "
+"(gender, ethnic, etc.)?"
+
+# 7070.approaches.label.en
+msgid ""
+"Did the Approach improve land tenure issues / user rights that hindered the "
+"implementation of the Technology?"
+msgstr ""
+"Did the Approach improve land tenure issues / user rights that hindered the "
+"implementation of the Technology?"
+
+# 7071.approaches.label.en
+msgid "Did the Approach lead to improved food security/improved nutrition?"
+msgstr "Did the Approach lead to improved food security/improved nutrition?"
+
+# 7072.approaches.label.en
+msgid "Did the Approach lead to improved access to water and sanitation?"
+msgstr "Did the Approach lead to improved access to water and sanitation?"
+
+# 7073.approaches.label.en
+msgid "Did the Approach lead to more sustainable use / sources of energy?"
+msgstr "Did the Approach lead to more sustainable use / sources of energy?"
+
+# 7074.approaches.label.en
+msgid "Did the Approach lead to employment, income opportunities?"
+msgstr "Did the Approach lead to employment, income opportunities?"
+
+# 7075.approaches.label.en
+msgid "Specify main motivating factors"
+msgstr "Specify main motivating factors"
+
+# 7076.approaches.label.en
+msgid ""
+"Can the land users sustain what has been implemented through the Approach "
+"(without external support)?"
+msgstr ""
+"Can the land users sustain what has been implemented through the Approach "
+"(without external support)?"
+
+# 7077.approaches.label.en
+msgid "If no or uncertain, specify and comment"
+msgstr "If no or uncertain, specify and comment"
+
+# 7078.approaches.label.en
+msgid "If yes, describe how"
+msgstr "If yes, describe how"
+
+# 7079.approaches.helptext.en
+# 7081.approaches.helptext.en
+msgid ""
+"<strong>Land user</strong>: the person / entity who implements / maintains "
+"land conservation, including individual small/large scale farmers, groups "
+"(gender, age, status, interest), cooperatives, industrial companies (e.g. "
+"mining), government institutions (e.g. state forest), etc"
+msgstr ""
+"<strong>Land user</strong>: the person / entity who implements / maintains "
+"land conservation, including individual small/large scale farmers, groups "
+"(gender, age, status, interest), cooperatives, industrial companies (e.g. "
+"mining), government institutions (e.g. state forest), etc"
+
+# 7079.approaches.helptext.label.en
+msgid "Strengths / advantages in the land users' view"
+msgstr "Strengths / advantages in the land users' view"
+
+# 7080.approaches.label.en
+msgid ""
+"Strengths / advantages in the compilers or other key resource persons view"
+msgstr ""
+"Strengths / advantages in the compilers or other key resource persons view"
+
+# 7081.approaches.helptext.label.en
+msgid "Weaknesses / disadvantages in the land users' view"
+msgstr "Weaknesses / disadvantages in the land users' view"
+
+# 7082.approaches.label.en
+msgid "How can they be overcome?"
+msgstr "How can they be overcome?"
+
+# 7568.approaches.label.en
+msgid "No"
+msgstr "No"
+
+# 7083.approaches.label.en
+msgid ""
+"Weaknesses / disadvantages in the compilers or other key resource persons "
+"view"
+msgstr ""
+"Weaknesses / disadvantages in the compilers or other key resource persons "
+"view"
+
+# 7501.approaches.label.en
+msgid "Local land users / community"
+msgstr "Local land users / community"
+
+# 7502.approaches.label.en
+msgid "Community based organisations"
+msgstr "Community based organisations"
+
+# 7503.approaches.label.en
+msgid "SLM specialists / agricultural advisors"
+msgstr "SLM specialists / agricultural advisors"
+
+# 7504.approaches.label.en
+msgid "Teachers / school children / students"
+msgstr "Teachers / school children / students"
+
+# 7505.approaches.label.en
+msgid "NGO"
+msgstr "NGO"
+
+# 7506.approaches.label.en
+msgid "Private sector"
+msgstr "Private sector"
+
+# 7507.approaches.label.en
+msgid "Local government"
+msgstr "Local government"
+
+# 7508.approaches.label.en
+msgid "National government (planners, decision-makers)"
+msgstr "National government (planners, decision-makers)"
+
+# 7509.approaches.label.en
+msgid "International organization"
+msgstr "International organization"
+
+# 7510.approaches.label.en
+msgid "traditional/indigenous"
+msgstr "traditional/indigenous"
+
+# 7511.approaches.label.en
+msgid "recent local initiative / innovative"
+msgstr "recent local initiative / innovative"
+
+# 7512.approaches.label.en
+msgid "project/programme based"
+msgstr "project/programme based"
+
+# 7515.approaches.label.en
+msgid "by land users alone (self-initiative / bottom-up)?"
+msgstr "by land users alone (self-initiative / bottom-up)?"
+
+# 7516.approaches.label.en
+msgid "mainly by land users supported by SLM specialists?"
+msgstr "mainly by land users supported by SLM specialists?"
+
+# 7517.approaches.label.en
+msgid "through a participatory approach involving all relevant actors?"
+msgstr "through a participatory approach involving all relevant actors?"
+
+# 7518.approaches.label.en
+msgid "mainly by SLM specialists with consultation of land users?"
+msgstr "mainly by SLM specialists with consultation of land users?"
+
+# 7519.approaches.label.en
+msgid "by SLM specialists alone (top-down)?"
+msgstr "by SLM specialists alone (top-down)?"
+
+# 7520.approaches.label.en
+msgid "by politicians / leaders?"
+msgstr "by politicians / leaders?"
+
+# 7521.approaches.label.en
+msgid ""
+"evaluation of well documented SLM knowledge (evidence based decision making)"
+msgstr ""
+"evaluation of well documented SLM knowledge (evidence based decision making)"
+
+# 7522.approaches.label.en
+msgid "research findings"
+msgstr "research findings"
+
+# 7523.approaches.label.en
+msgid "personal experience and opinions (not documented)"
+msgstr "personal experience and opinions (not documented)"
+
+# 7524.approaches.label.en
+msgid "land users"
+msgstr "land users"
+
+# 7525.approaches.label.en
+msgid "field staff / advisors"
+msgstr "field staff / advisors"
+
+# 7526.approaches.label.en
+msgid "on-the-job"
+msgstr "on-the-job"
+
+# 7527.approaches.label.en
+msgid "site visits / farmer to farmer"
+msgstr "site visits / farmer to farmer"
+
+# 7528.approaches.label.en
+msgid "demonstration areas"
+msgstr "demonstration areas"
+
+# 7529.approaches.label.en
+msgid "public meetings"
+msgstr "public meetings"
+
+# 7530.approaches.label.en
+msgid "courses"
+msgstr "courses"
+
+# 7531.approaches.label.en
+msgid "on land users fields"
+msgstr "on land users fields"
+
+# 7532.approaches.label.en
+msgid "permanent centres"
+msgstr "permanent centres"
+
+# 7533.approaches.label.en
+# 7584.approaches.label.en
+msgid "no"
+msgstr "no"
+
+# 7534.approaches.label.en
+msgid "yes, little"
+msgstr "yes, little"
+
+# 7535.approaches.label.en
+msgid "yes, moderate"
+msgstr "yes, moderate"
+
+# 7536.approaches.label.en
+msgid "yes, great"
+msgstr "yes, great"
+
+# 7537.approaches.label.en
+msgid "community"
+msgstr "community"
+
+# 7538.approaches.label.en
+msgid "regional"
+msgstr "regional"
+
+# 7539.approaches.label.en
+msgid "national"
+msgstr "national"
+
+# 7540.approaches.label.en
+msgid "financial"
+msgstr "financial"
+
+# 7541.approaches.label.en
+msgid "training"
+msgstr "training"
+
+# 7542.approaches.label.en
+msgid "equipment"
+msgstr "equipment"
+
+# 7543.approaches.label.en
+msgid "< 2,000"
+msgstr "< 2,000"
+
+# 7544.approaches.label.en
+msgid "2,000-10,000"
+msgstr "2,000-10,000"
+
+# 7545.approaches.label.en
+msgid "10,000-100,000"
+msgstr "10,000-100,000"
+
+# 7546.approaches.label.en
+msgid "100,000-1,000,000"
+msgstr "100,000-1,000,000"
+
+# 7547.approaches.label.en
+msgid "> 1,000,000"
+msgstr "> 1,000,000"
+
+# 7548.approaches.label.en
+msgid "None"
+msgstr "None"
+
+# 7552.approaches.label.en
+msgid "Construction"
+msgstr "Construction"
+
+# 7553.approaches.label.en
+msgid "Infrastructure"
+msgstr "Infrastructure"
+
+# 7554.approaches.label.en
+msgid "partly financed"
+msgstr "partly financed"
+
+# 7555.approaches.label.en
+msgid "fully financed"
+msgstr "fully financed"
+
+# 7556.approaches.label.en
+msgid "machinery"
+msgstr "machinery"
+
+# 7557.approaches.label.en
+msgid "tools"
+msgstr "tools"
+
+# 7558.approaches.label.en
+msgid "seeds"
+msgstr "seeds"
+
+# 7559.approaches.label.en
+msgid "fertilizers"
+msgstr "fertilizers"
+
+# 7560.approaches.label.en
+msgid "stone"
+msgstr "stone"
+
+# 7561.approaches.label.en
+msgid "wood"
+msgstr "wood"
+
+# 7562.approaches.label.en
+msgid "roads"
+msgstr "roads"
+
+# 7563.approaches.label.en
+msgid "schools"
+msgstr "schools"
+
+# 7564.approaches.label.en
+msgid "voluntary"
+msgstr "voluntary"
+
+# 7565.approaches.label.en
+msgid "food-for-work"
+msgstr "food-for-work"
+
+# 7566.approaches.label.en
+msgid "paid in cash"
+msgstr "paid in cash"
+
+# 7569.approaches.label.en
+msgid "Yes, little"
+msgstr "Yes, little"
+
+# 7570.approaches.label.en
+msgid "Yes, moderately"
+msgstr "Yes, moderately"
+
+# 7571.approaches.label.en
+msgid "Yes, greatly"
+msgstr "Yes, greatly"
+
+# 7572.approaches.label.en
+msgid "increased production"
+msgstr "increased production"
+
+# 7573.approaches.label.en
+msgid "increased profit(ability), improved cost-benefit-ratio"
+msgstr "increased profit(ability), improved cost-benefit-ratio"
+
+# 7574.approaches.label.en
+msgid "reduced workload"
+msgstr "reduced workload"
+
+# 7575.approaches.label.en
+msgid "payments / subsidies"
+msgstr "payments / subsidies"
+
+# 7576.approaches.label.en
+msgid "rules and regulations (fines) / enforcement"
+msgstr "rules and regulations (fines) / enforcement"
+
+# 7577.approaches.label.en
+msgid "prestige, social pressure / social cohesion"
+msgstr "prestige, social pressure / social cohesion"
+
+# 7578.approaches.label.en
+msgid "affiliation to movement / project / group / networks"
+msgstr "affiliation to movement / project / group / networks"
+
+# 7579.approaches.label.en
+msgid "environmental consciousness"
+msgstr "environmental consciousness"
+
+# 7580.approaches.label.en
+msgid "customs and beliefs, moral"
+msgstr "customs and beliefs, moral"
+
+# 7581.approaches.label.en
+msgid "enhanced SLM knowledge and skills"
+msgstr "enhanced SLM knowledge and skills"
+
+# 7582.approaches.label.en
+msgid "aesthetic"
+msgstr "aesthetic"
+
+# 7583.approaches.label.en
+msgid "conflict mitigation"
+msgstr "conflict mitigation"
+
+# 7585.approaches.label.en
+msgid "yes"
+msgstr "yes"
+
+# 7586.approaches.label.en
+msgid "uncertain"
+msgstr "uncertain"
+
+# 7587.approaches.label.en
+msgid "Researchers"
+msgstr "Researchers"
+
+# 8201.approaches.label.en
+msgid "social / cultural / religious norms and values"
+msgstr "social / cultural / religious norms and values"
+
+# 8202.approaches.label.en
+msgid "availability / access to financial resources and services"
+msgstr "availability / access to financial resources and services"
+
+# 8203.approaches.label.en
+msgid "institutional setting"
+msgstr "institutional setting"
+
+# 8204.approaches.label.en
+msgid "collaboration / coordination of actors"
+msgstr "collaboration / coordination of actors"
+
+# 8205.approaches.label.en
+msgid "legal framework (land tenure, land and water use rights)"
+msgstr "legal framework (land tenure, land and water use rights)"
+
+# 8206.approaches.label.en
+msgid "policies"
+msgstr "policies"
+
+# 8207.approaches.label.en
+msgid "land governance (decision making, implementation and enforcement)"
+msgstr "land governance (decision making, implementation and enforcement)"
+
+# 8208.approaches.label.en
+msgid "knowledge on SLM, access to technical support"
+msgstr "knowledge on SLM, access to technical support"
+
+# 8209.approaches.label.en
+msgid "markets (to purchase inputs, sell products) and prices"
+msgstr "markets (to purchase inputs, sell products) and prices"
+
+# 8210.approaches.label.en
+msgid "workload, availability of manpower"
+msgstr "workload, availability of manpower"
+
+# 8211.approaches.label.en
+msgid "other"
+msgstr "other"
+
+# 8212.approaches.helptext.en
+msgid ""
+"Note: Some projects / programmes include many activities other than SLM. "
+"Please calculate / estimate only the amount that was used for the Approach "
+"as described here. Refer to project documents."
+msgstr ""
+"Note: Some projects / programmes include many activities other than SLM. "
+"Please calculate / estimate only the amount that was used for the Approach "
+"as described here. Refer to project documents."
+
+# 8213.approaches.helptext.en
+msgid "Note: Includes all forms of credits, loans, micro-finance mechanisms"
+msgstr "Note: Includes all forms of credits, loans, micro-finance mechanisms"
+
+# 8214.approaches.helptext.en
+msgid "E.g. supporting policies, regulations, etc."
+msgstr "E.g. supporting policies, regulations, etc."
+
+# 8215.approaches.label.en
+msgid "Key resource person(s)"
+msgstr "Key resource person(s)"
+
+# 8703.approaches.helptext.en
+msgid ""
+"<p>Please provide a first image of the SLM Approach. You can add more images "
+"later.</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, GIF.</p>"
+msgstr ""
+"<p>Please provide a first image of the SLM Approach. You can add more images "
+"later.</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, GIF.</p>"
+
+# 11513.sample.label.en
+msgid "Value 15_2"
+msgstr "Value 15_2"
+
+# 5001.unccd.label.en
+msgid "Title of best practice"
+msgstr "Title of best practice"
+
+# 5001.approaches.label.en
+# 5001.technologies.label.en
+msgid "Common name"
+msgstr "Common name"
+
+# 11024.sample.label.en
+msgid "Key 24 (Remark)"
+msgstr "Key 24 (Remark)"
+
+# 11025.sample.label.en
+msgid "Key 25"
+msgstr "Key 25"
+
+# 11026.sample.label.en
+msgid "Key 26"
+msgstr "Key 26"
+
+# 11027.sample.label.en
+msgid "Key 27"
+msgstr "Key 27"
+
+# 11028.sample.label.en
+msgid "Key 28"
+msgstr "Key 28"
+
+# 11029.sample.label.en
+msgid "Key 29"
+msgstr "Key 29"
+
+# 11030.sample.label.en
+msgid "Key 30"
+msgstr "Key 30"
+
+# 11031.sample.label.en
+msgid "Key 31"
+msgstr "Key 31"
+
+# 11032.sample.label.en
+msgid "Key 32"
+msgstr "Key 32"
+
+# 11033.sample.label.en
+msgid "Key 33"
+msgstr "Key 33"
+
+# 11034.sample.label.en
+msgid "Key 34"
+msgstr "Key 34"
+
+# 11035.sample.label.en
+msgid "Key 35"
+msgstr "Key 35"
+
+# 11036.sample.label.en
+msgid "Key 36"
+msgstr "Key 36"
+
+# 11037.sample.label.en
+msgid "Key 37 (*)"
+msgstr "Key 37 (*)"
+
+# 11038.sample.label.en
+msgid "Key 38 (*)"
+msgstr "Key 38 (*)"
+
+# 11039.sample.label.en
+msgid "Key 39 (User ID)"
+msgstr "Key 39 (User ID)"
+
+# 11040.sample.label.en
+msgid "Key 40 (Display Name)"
+msgstr "Key 40 (Display Name)"
+
+# 11041.sample.label.en
+msgid "Key 41 (Name)"
+msgstr "Key 41 (Name)"
+
+# 11504.sample.label.en
+msgid "Value 13_1"
+msgstr "Value 13_1"
+
+# 11505.sample.label.en
+msgid "Value 13_2"
+msgstr "Value 13_2"
+
+# 11506.sample.label.en
+msgid "Value 13_3"
+msgstr "Value 13_3"
+
+# 11507.sample.label.en
+msgid "Value 13_4"
+msgstr "Value 13_4"
+
+# 11508.sample.label.en
+msgid "Value 13_5"
+msgstr "Value 13_5"
+
+# 11509.sample.label.en
+msgid "Value 14_1"
+msgstr "Value 14_1"
+
+# 11510.sample.label.en
+msgid "Value 14_2"
+msgstr "Value 14_2"
+
+# 11511.sample.label.en
+msgid "Value 14_3"
+msgstr "Value 14_3"
+
+# 11512.sample.label.en
+msgid "Value 15_1"
+msgstr "Value 15_1"
+
+# 11514.sample.label.en
+msgid "Value 15_3"
+msgstr "Value 15_3"
+
+# 11515.sample.label.en
+msgid "Value 16_1"
+msgstr "Value 16_1"
+
+# 11516.sample.label.en
+msgid "Value 16_2"
+msgstr "Value 16_2"
+
+# 11517.sample.label.en
+msgid "Value 16_3"
+msgstr "Value 16_3"
+
+# 11522.sample.label.en
+msgid "Value 27 A"
+msgstr "Value 27 A"
+
+# 11523.sample.label.en
+msgid "Value 27 B"
+msgstr "Value 27 B"
+
+# 11524.sample.label.en
+msgid "Value 27 C"
+msgstr "Value 27 C"
+
+# 12201.sample.helptext.en
+msgid ""
+"Helptext 1: This is a helptext. Helptexts can be really long and go on "
+"seemingly forever. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
+"sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam "
+"erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea "
+"rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum "
+"dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed "
+"diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
+"sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+"Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit "
+"amet."
+msgstr ""
+"Helptext 1: This is a helptext. Helptexts can be really long and go on "
+"seemingly forever. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, "
+"sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam "
+"erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea "
+"rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum "
+"dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed "
+"diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
+"sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+"Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit "
+"amet."
+
+# 12701.sample.label.en
+msgid "Subcategory 1_1"
+msgstr "Subcategory 1_1"
+
+# 12702.sample.label.en
+msgid "Subcategory 1_2"
+msgstr "Subcategory 1_2"
+
+# 12703.sample.label.en
+msgid "Subcategory 2_1"
+msgstr "Subcategory 2_1"
+
+# 12704.sample.label.en
+msgid "Subcategory 2_2a"
+msgstr "Subcategory 2_2a"
+
+# 12705.sample.label.en
+msgid "Subcategory 3_1"
+msgstr "Subcategory 3_1"
+
+# 12706.sample.label.en
+msgid "Subcategory 3_2"
+msgstr "Subcategory 3_2"
+
+# 12707.sample.label.en
+msgid "Subcategory 4_1"
+msgstr "Subcategory 4_1"
+
+# 12708.sample.label.en
+msgid "Subcategory 4_2"
+msgstr "Subcategory 4_2"
+
+# 12709.sample.label.en
+msgid "Subcategory 0_1"
+msgstr "Subcategory 0_1"
+
+# 12710.sample.label.en
+msgid "Subcategory 2_2b"
+msgstr "Subcategory 2_2b"
+
+# 12711.sample.label.en
+msgid "Subcategory 2_3a"
+msgstr "Subcategory 2_3a"
+
+# 12712.sample.label.en
+msgid "Subcategory 2_3b"
+msgstr "Subcategory 2_3b"
+
+# 12713.sample.label.en
+msgid "Subcategory 2_3c"
+msgstr "Subcategory 2_3c"
+
+# 12714.sample.label.en
+msgid "Subcategory 2_4a"
+msgstr "Subcategory 2_4a"
+
+# 12715.sample.label.en
+msgid "Subcategory 2_4b1"
+msgstr "Subcategory 2_4b1"
+
+# 12716.sample.label.en
+msgid "Subcategory 2_4b2"
+msgstr "Subcategory 2_4b2"
+
+# 12717.sample.label.en
+msgid "Subcategory 2_4"
+msgstr "Subcategory 2_4"
+
+# 12718.sample.label.en
+msgid "Subcategory 2_4b"
+msgstr "Subcategory 2_4b"
+
+# 12719.sample.label.en
+msgid "Subcategory 4_3"
+msgstr "Subcategory 4_3"
+
+# 12720.sample.label.en
+msgid "Subcategory 5_1"
+msgstr "Subcategory 5_1"
+
+# 12721.sample.label.en
+msgid "Subcategory 0_2"
+msgstr "Subcategory 0_2"
+
+# 12901.sample.label.en
+msgid "Category 1"
+msgstr "Category 1"
+
+# 12902.sample.label.en
+msgid "Category 2"
+msgstr "Category 2"
+
+# 12903.sample.label.en
+msgid "Category 3"
+msgstr "Category 3"
+
+# 12904.sample.label.en
+msgid "Category 4"
+msgstr "Category 4"
+
+# 12905.sample.label.en
+msgid "Category 0"
+msgstr "Category 0"
+
+# 12906.sample.label.en
+msgid "Category 5"
+msgstr "Category 5"
+
+# 12990.sample.label.en
+msgid "Section 1"
+msgstr "Section 1"
+
+# 12991.sample.label.en
+msgid "Section 2"
+msgstr "Section 2"
