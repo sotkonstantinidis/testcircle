@@ -15,7 +15,7 @@ class Command(NoArgsCommand):
     po-file so the translators can work with that.
 
     After translating, the po-files can be imported with the command:
-    <tbd>
+    gettext_to_translation
     """
     # intermediary file name.
     filename = 'extract'
@@ -78,15 +78,12 @@ class Command(NoArgsCommand):
 
     def make_language_dict(self):
         """
-        Create a dict with all translation strings per language. The language
-        serves as key, all strings are in its dict. I.e.:
-        'en': ['translateme', 'meetoo'],
-        'es' ['foo']
-
+        Create a dict with all translation strings per language.
         """
         translations = Translation.objects.all()
         for translation in translations:
-            self.walk(translation.data, translation.id)
+            for key, items in translation.data.items():
+                self.walk(items, translation.id, key)
 
     def get_pot_command(self, path):
         return 'pygettext -d extract -p {path} {path}{filename}.py'.format(
@@ -97,7 +94,7 @@ class Command(NoArgsCommand):
                '--no-translator -l {lang}'.format(
                 path=path, lang=lang, filename=self.filename)
 
-    def walk(self, translation, pk, path=''):
+    def walk(self, data, pk, path=''):
         """
         Recursively walk through the array.
 
@@ -105,30 +102,28 @@ class Command(NoArgsCommand):
         valid language onto the dict.
 
         Args:
-            translation: configuration.models.Translation
+            data: configuration.models.Translation
             pk: id
             path: string
 
         """
-        for key, item in translation.items():
-            # Special case: keys for 'numbering'. Ignore them, they don't need
-            # translation.
-            if key == 'numbering':
-                continue
+        for key, item in data.items():
+            # Special case: keys for 'iso_3166' and such. Ignore them, they
+            # don't need translation.
+            if not isinstance(item, dict):
+                return
 
-            path += '{}.'.format(key)
+            path += '.{}'.format(key)
             # If this is not the innermost element, continue
             if any([isinstance(value, dict) for value in item.values()]):
+                path += '{}.'.format(key)
                 self.walk(item, pk, path)
             else:
                 # This is the innermost level of the dict.
                 # Copy the value to the dict and make sure it's set for all
                 # languages, even if it may not exist on the db.
                 for lang in self.settings_languages:
-                    comment = '# {}.{}{}'.format(pk, path, lang)
-                    # There are entries as {'iso_3166_1': 'AFG'} which don't
-                    # need to be translated. Simply ignore them.
-                    with contextlib.suppress(KeyError):
-                        self.languages[lang].append(
-                            self.line(item.get(lang, item['en']), comment)
-                        )
+                    comment = '# {}.{}.{}'.format(pk, path, lang)
+                    self.languages[lang].append(
+                        self.line(item.get(lang, item['en']), comment)
+                    )

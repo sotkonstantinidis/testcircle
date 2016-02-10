@@ -29,11 +29,9 @@ class Command(NoArgsCommand):
             )
             with contextlib.suppress(FileNotFoundError):
                 with open(join(path, '{}.po'.format(self.filename))) as f:
-                    self.get_translations(f.readlines())
+                    self.set_translations(f.readlines())
 
-        self.restore_to_orm()
-
-    def get_translations(self, lines):
+    def set_translations(self, lines):
         """
         Parse the lines: extract information about models that is stored in the
         comments and the translated text. The result is written to
@@ -42,34 +40,47 @@ class Command(NoArgsCommand):
         Args:
             lines: list of strings
         """
-        pk = None
-        bfr = []
+        buffer = {}
         for line in lines:
             # For all lines that are a comment: extract information to a buffer.
             if re.match('# (\d+)', line):
                 comment = line[2:].rstrip('\n').split('.')
-                bfr.append(comment[1:])
-                pk = comment[0]
+                buffer.setdefault(comment[0], []).append(comment[1:])
 
             # If the msgstr is emtpy, take the value from the msgid.
-            elif line.startswith('msgid') and pk:
+            elif line.startswith('msgid') and buffer:
                 msgid = line
 
-            # After comments, the actual text is found. Copy the text and buffer
-            # to the global dict and empty the buffer.
-            # When appending the buffer to the global dict, manage the structure
-            # so that inserting into the orm is easy.
-            elif line.startswith('msgstr') and pk:
+            # After comments, the actual text is found.
+            # Directly write the buffer to the model.
+            elif line.startswith('msgstr') and buffer:
                 text = self.extract_text(line) or self.extract_text(msgid)
-                for item in bfr:
-                    # The innermost element must contain the text, all other
-                    # keys are just dict keys wrapping the text.
-                    pointer = self.translations[pk]
-                    for key in item[:-1]:
-                        pointer = pointer.setdefault(key, {})
-                    pointer.update({item[-1]: text})
-                pk = None
-                bfr = []
+                for pk, dict_keys in buffer.items():
+                    for element in dict_keys:
+                        self.create_dict_from_list(pk, element, text)
+                # Reset the buffer after it was written to the orm.
+                buffer = {}
+
+    def create_dict_from_list(self, pk, keys, value):
+        """
+        Make a multidimensional array from the list (keys) and copy/overwrite
+        the value to the model-instance.
+        Not optimal regarding performance, but rather solid. And the feature
+        was requested for yesterday.
+
+        Args:
+            pk: id
+            keys: list
+            value: string
+
+        """
+        obj = self.get_translation(pk)
+        current_element = obj.data
+        for key in keys[:-1]:
+            current_element = current_element.setdefault(key, {})
+        # The last element on the list is the language.
+        current_element[keys[-1]] = value
+        obj.save()
 
     @staticmethod
     def extract_text(line):
@@ -81,12 +92,9 @@ class Command(NoArgsCommand):
         """
         return line[line.find('"')+1:line.rfind('"')]
 
-    def restore_to_orm(self):
-        """
-        Write data from self.translations back into the model.
-
-        """
-        for pk, data in self.translations.items():
-            translation = Translation.objects.get(pk=pk)
-            translation.data = data
-            translation.save()
+    def get_translation(self, pk):
+        try:
+            return Translation.objects.get(pk=pk)
+        except Translation.DoesNotExist as e:
+            # maybe: add logging here.
+            raise e
