@@ -75,7 +75,7 @@ def get_mappings(questionnaire_configuration):
         q = {'type': 'string'}
         analyzer = get_analyzer(language_code)
         if analyzer:
-            q.update({'analyer': analyzer})
+            q.update({'analyzer': analyzer})
             name_properties[language_code] = q
 
     link_properties = {}
