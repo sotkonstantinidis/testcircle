@@ -53,6 +53,7 @@ Development
     development/elasticsearch
     development/usergroups
     development/testing
+    development/translations
     development/deployment
     development/django
     development/grunt
