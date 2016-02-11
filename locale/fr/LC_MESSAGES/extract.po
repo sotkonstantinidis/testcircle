@@ -21,7 +21,7 @@ msgstr ""
 # 5002.wocat.label.fr
 # 5002.technologies.label.fr
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 # 5003.unccd.label.fr
 msgid "Local name"

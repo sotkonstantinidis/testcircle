@@ -21,7 +21,7 @@ msgstr ""
 # 5002.wocat.label.es
 # 5002.technologies.label.es
 msgid "Country"
-msgstr ""
+msgstr "Pais"
 
 # 5003.unccd.label.es
 msgid "Local name"
@@ -1322,7 +1322,7 @@ msgstr ""
 # 5981.technologies.label.es
 # 4901.unccd.label.es
 msgid "General Information"
-msgstr "General Informationes"
+msgstr ""
 
 # 5982.unccd.label.es
 # 5982.approaches.label.es

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-04 14:58+0100\n"
+"POT-Creation-Date: 2016-02-11 10:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,857 +18,932 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: accounts/forms.py:11
+#: apps/accounts/forms.py:11
 msgid "E-mail address"
 msgstr ""
 
-#: accounts/forms.py:12
+#: apps/accounts/forms.py:12
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
-#: accounts/templates/details.html:11
+#: apps/accounts/templates/details.html:11 templates/base.html:114
 msgid "User Details"
 msgstr ""
 
-#: accounts/templates/details.html:13
+#: apps/accounts/templates/details.html:13
 msgid "First name:"
 msgstr ""
 
-#: accounts/templates/details.html:17
+#: apps/accounts/templates/details.html:17
 msgid "Last name:"
 msgstr ""
 
-#: accounts/templates/details.html:22
+#: apps/accounts/templates/details.html:22
 msgid "Email:"
 msgstr ""
 
-#: accounts/templates/login.html:13
+#: apps/accounts/templates/login.html:13
 msgid "Please log in to access"
 msgstr ""
 
-#: accounts/templates/login.html:15 accounts/templates/login.html.py:24
+#: apps/accounts/templates/login.html:15 apps/accounts/templates/login.html:24
+#: templates/base.html:130
 msgid "Login"
 msgstr ""
 
-#: accounts/templates/login.html:31
+#: apps/accounts/templates/login.html:31
 msgid "No login?"
 msgstr ""
 
-#: accounts/templates/login.html:32
+#: apps/accounts/templates/login.html:32
 msgid "If you do not yet have a login, please visit "
 msgstr ""
 
-#: accounts/templates/login.html:34 accounts/templates/login.html.py:38
-#: approaches/templates/approaches/base.html:14
-#: technologies/templates/technologies/base.html:14
-#: unccd/templates/unccd/base.html:17 wocat/templates/wocat/base.html:6
-#: wocat/templates/wocat/base.html.py:14
+#: apps/accounts/templates/login.html:34 apps/accounts/templates/login.html:38
+#: apps/approaches/templates/approaches/base.html:14
+#: apps/technologies/templates/technologies/base.html:14
+#: apps/unccd/templates/unccd/base.html:17
+#: apps/wocat/templates/wocat/base.html:6
+#: apps/wocat/templates/wocat/base.html:14 templates/base.html:90
+#: templates/base.html.py:185
 msgid "WOCAT"
 msgstr ""
 
-#: accounts/templates/login.html:34
+#: apps/accounts/templates/login.html:34
 msgid " and register for a free account."
 msgstr ""
 
-#: accounts/templates/login.html:36
+#: apps/accounts/templates/login.html:36
 msgid "Forgot your password?"
 msgstr ""
 
-#: accounts/templates/login.html:37
+#: apps/accounts/templates/login.html:37
 msgid "Please visit "
 msgstr ""
 
-#: accounts/templates/login.html:38
+#: apps/accounts/templates/login.html:38
 msgid " and reset your password."
 msgstr ""
 
-#: accounts/templates/questionnaires.html:16
+#: apps/accounts/templates/questionnaires.html:16 templates/base.html:111
 msgid "Pending SLM practices"
 msgstr ""
 
-#: accounts/templates/questionnaires.html:16
+#: apps/accounts/templates/questionnaires.html:16
 msgid "Your SLM practices"
 msgstr ""
 
-#: accounts/templates/questionnaires.html:16
+#: apps/accounts/templates/questionnaires.html:16
 msgid "SLM practices by"
 msgstr ""
 
-#: approaches/templates/approaches/base.html:6
+#: apps/approaches/templates/approaches/base.html:6
 msgid "WOCAT SLM Approaches"
 msgstr ""
 
-#: approaches/templates/approaches/base.html:17
-#: technologies/templates/technologies/base.html:17
-#: unccd/templates/unccd/base.html:14 unccd/views.py:78
-#: wocat/templates/wocat/base.html:17
+#: apps/approaches/templates/approaches/base.html:17
+#: apps/technologies/templates/technologies/base.html:17
+#: apps/unccd/templates/unccd/base.html:14 apps/unccd/views.py:78
+#: apps/wocat/templates/wocat/base.html:17 templates/base.html:93
 msgid "UNCCD"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/details.html:28
-#: sample/templates/sample/questionnaire/details.html:25
-#: samplemulti/templates/samplemulti/questionnaire/details.html:25
-#: technologies/templates/technologies/questionnaire/details.html:28
-#: unccd/templates/unccd/questionnaire/details.html:19
-#: wocat/templates/wocat/questionnaire/details.html:19
+#: apps/approaches/templates/approaches/questionnaire/details.html:28
+#: apps/sample/templates/sample/questionnaire/details.html:25
+#: apps/samplemulti/templates/samplemulti/questionnaire/details.html:25
+#: apps/technologies/templates/technologies/questionnaire/details.html:28
+#: apps/unccd/templates/unccd/questionnaire/details.html:19
+#: apps/wocat/templates/wocat/questionnaire/details.html:19
 msgid "Photo"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/details.html:47
-#: approaches/templates/approaches/questionnaire/details.html:54
-#: questionnaire/templates/form/links.html:14
-#: sample/templates/sample/questionnaire/details.html:44
-#: sample/templates/sample/questionnaire/details.html:51
-#: samplemulti/templates/samplemulti/questionnaire/details.html:44
-#: samplemulti/templates/samplemulti/questionnaire/details.html:51
-#: technologies/templates/technologies/questionnaire/details.html:47
-#: technologies/templates/technologies/questionnaire/details.html:54
-#: wocat/templates/wocat/questionnaire/details.html:38
-#: wocat/templates/wocat/questionnaire/details.html:45
+#: apps/approaches/templates/approaches/questionnaire/details.html:47
+#: apps/approaches/templates/approaches/questionnaire/details.html:54
+#: apps/questionnaire/templates/form/links.html:14
+#: apps/sample/templates/sample/questionnaire/details.html:44
+#: apps/sample/templates/sample/questionnaire/details.html:51
+#: apps/samplemulti/templates/samplemulti/questionnaire/details.html:44
+#: apps/samplemulti/templates/samplemulti/questionnaire/details.html:51
+#: apps/technologies/templates/technologies/questionnaire/details.html:47
+#: apps/technologies/templates/technologies/questionnaire/details.html:54
+#: apps/wocat/templates/wocat/questionnaire/details.html:38
+#: apps/wocat/templates/wocat/questionnaire/details.html:45
 msgid "Linked Questionnaires"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/details.html:50
-#: sample/templates/sample/questionnaire/details.html:47
-#: samplemulti/templates/samplemulti/questionnaire/details.html:47
-#: technologies/templates/technologies/questionnaire/details.html:50
-#: wocat/templates/wocat/questionnaire/details.html:41
+#: apps/approaches/templates/approaches/questionnaire/details.html:50
+#: apps/sample/templates/sample/questionnaire/details.html:47
+#: apps/samplemulti/templates/samplemulti/questionnaire/details.html:47
+#: apps/technologies/templates/technologies/questionnaire/details.html:50
+#: apps/wocat/templates/wocat/questionnaire/details.html:41
 msgid "Edit links"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/details.html:74
-#: questionnaire/templates/details/category/approaches_header.html:49
+#: apps/approaches/templates/approaches/questionnaire/details.html:74
+#: apps/questionnaire/templates/details/category/approaches_header.html:49
 msgid "Save SLM Approach"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/details.html:77
-#: questionnaire/templates/details/category/approaches_header.html:52
+#: apps/approaches/templates/approaches/questionnaire/details.html:77
+#: apps/questionnaire/templates/details/category/approaches_header.html:52
 msgid "Edit SLM Approach"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/list.html:14
-#: technologies/templates/technologies/questionnaire/list.html:14
-#: wocat/templates/wocat/questionnaire/list.html:14
+#: apps/approaches/templates/approaches/questionnaire/list.html:14
+#: apps/technologies/templates/technologies/questionnaire/list.html:14
+#: apps/wocat/templates/wocat/questionnaire/list.html:14
 msgid ""
 "Only data declared as public are visible. Please note that the WOCAT "
 "datasets have not been migrated to this test version yet. Only a few "
 "examples are available for illustration of the new database."
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/list.html:17
+#: apps/approaches/templates/approaches/questionnaire/list.html:17
 msgid "SLM Approaches"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/link.html:16
+#: apps/approaches/templates/approaches/questionnaire/partial/link.html:16
 msgid "Approach"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list.html:19
+#: apps/approaches/templates/approaches/questionnaire/partial/list.html:19
 msgid "No SLM Approaches found."
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:23
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:23
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:18
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:23
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:23
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:18
 msgid "PDF"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:31
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:31
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:26
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:31
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:31
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:26
 msgid "Video"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:43
-#: sample/templates/sample/questionnaire/partial/list_item.html:38
-#: samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:38
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:43
-#: unccd/templates/unccd/questionnaire/partial/list_item.html:12
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:38
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:43
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:38
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:38
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:43
+#: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:12
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:38
 msgid "ID:"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:47
-#: questionnaire/templates/details/category/approaches_header.html:21
-#: questionnaire/templates/details/category/technologies_header.html:22
-#: questionnaire/templates/details/category/unccd_header.html:33
-#: questionnaire/templates/details/category/with_metadata.html:17
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:47
-#: unccd/templates/unccd/questionnaire/partial/list_item.html:16
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:42
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:47
+#: apps/questionnaire/templates/details/category/approaches_header.html:21
+#: apps/questionnaire/templates/details/category/technologies_header.html:22
+#: apps/questionnaire/templates/details/category/unccd_header.html:33
+#: apps/questionnaire/templates/details/category/with_metadata.html:17
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:47
+#: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:16
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:42
 msgid "Creation:"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:51
-#: questionnaire/templates/details/category/approaches_header.html:25
-#: questionnaire/templates/details/category/technologies_header.html:26
-#: questionnaire/templates/details/category/unccd_header.html:37
-#: questionnaire/templates/details/category/with_metadata.html:21
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:51
-#: unccd/templates/unccd/questionnaire/partial/list_item.html:20
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:46
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:51
+#: apps/questionnaire/templates/details/category/approaches_header.html:25
+#: apps/questionnaire/templates/details/category/technologies_header.html:26
+#: apps/questionnaire/templates/details/category/unccd_header.html:37
+#: apps/questionnaire/templates/details/category/with_metadata.html:21
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:51
+#: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:20
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:46
 msgid "Update:"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:55
-#: questionnaire/templates/details/category/approaches_header.html:29
-#: questionnaire/templates/details/category/technologies_header.html:30
-#: questionnaire/templates/details/category/unccd_header.html:41
-#: questionnaire/templates/details/category/with_metadata.html:25
-#: sample/templates/sample/questionnaire/partial/list_item.html:50
-#: samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:50
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:55
-#: unccd/templates/unccd/questionnaire/partial/list_item.html:24
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:50
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:55
+#: apps/questionnaire/templates/details/category/approaches_header.html:29
+#: apps/questionnaire/templates/details/category/technologies_header.html:30
+#: apps/questionnaire/templates/details/category/unccd_header.html:41
+#: apps/questionnaire/templates/details/category/with_metadata.html:25
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:50
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:50
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:55
+#: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:24
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:50
 msgid "Compilers:"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:55
-#: questionnaire/templates/details/category/approaches_header.html:29
-#: questionnaire/templates/details/category/technologies_header.html:30
-#: questionnaire/templates/details/category/unccd_header.html:41
-#: questionnaire/templates/details/category/with_metadata.html:25
-#: sample/templates/sample/questionnaire/partial/list_item.html:50
-#: samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:50
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:55
-#: unccd/templates/unccd/questionnaire/partial/list_item.html:24
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:50
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:55
+#: apps/questionnaire/templates/details/category/approaches_header.html:29
+#: apps/questionnaire/templates/details/category/technologies_header.html:30
+#: apps/questionnaire/templates/details/category/unccd_header.html:41
+#: apps/questionnaire/templates/details/category/with_metadata.html:25
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:50
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:50
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:55
+#: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:24
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:50
 msgid "Compiler:"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:66
-#: sample/templates/sample/questionnaire/partial/list_item.html:61
-#: samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:61
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:66
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:61
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:66
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:61
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:61
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:66
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:61
 msgid "Linked Questionnaires:"
 msgstr ""
 
-#: approaches/templates/approaches/questionnaire/partial/list_item.html:73
-#: sample/templates/sample/questionnaire/partial/list_item.html:68
-#: samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:68
-#: technologies/templates/technologies/questionnaire/partial/list_item.html:73
-#: unccd/templates/unccd/questionnaire/partial/list_item.html:33
-#: wocat/templates/wocat/questionnaire/partial/list_item.html:68
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:73
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:68
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:68
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:73
+#: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:33
+#: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:68
 msgid "This article is also available in:"
 msgstr ""
 
-#: approaches/views.py:77 wocat/templates/wocat/partial/top.html:18
+#: apps/approaches/views.py:77 apps/wocat/templates/wocat/partial/top.html:18
 msgid "Approaches"
 msgstr ""
 
-#: approaches/views.py:106
+#: apps/approaches/views.py:106
 msgid "Approaches Form"
 msgstr ""
 
-#: configuration/configuration.py:352
+#: apps/configuration/configuration.py:352
 msgid "Yes"
 msgstr ""
 
-#: configuration/configuration.py:352
+#: apps/configuration/configuration.py:352
 msgid "No"
 msgstr ""
 
-#: configuration/configuration.py:2035
+#: apps/configuration/configuration.py:2035
 msgid "Unknown name"
 msgstr ""
 
-#: qcat/config/common.py:87
+#: apps/qcat/config/common.py:87
 msgid "English"
 msgstr ""
 
-#: qcat/config/common.py:88
+#: apps/qcat/config/common.py:88
 msgid "Spanish"
 msgstr ""
 
-#: qcat/config/common.py:89
+#: apps/qcat/config/common.py:89
 msgid "French"
 msgstr ""
 
-#: questionnaire/models.py:18
+#: apps/questionnaire/models.py:18
 msgid "Draft"
 msgstr ""
 
-#: questionnaire/models.py:19
+#: apps/questionnaire/models.py:19
 msgid "Submitted"
 msgstr ""
 
-#: questionnaire/models.py:20
+#: apps/questionnaire/models.py:20
 msgid "Reviewed"
 msgstr ""
 
-#: questionnaire/models.py:21
+#: apps/questionnaire/models.py:21
 msgid "Public"
 msgstr ""
 
-#: questionnaire/models.py:22
+#: apps/questionnaire/models.py:22
 msgid "Rejected"
 msgstr ""
 
-#: questionnaire/models.py:23
+#: apps/questionnaire/models.py:23
 msgid "Inactive"
 msgstr ""
 
-#: questionnaire/models.py:36
+#: apps/questionnaire/models.py:36
 msgid "Compiler"
 msgstr ""
 
-#: questionnaire/models.py:37
+#: apps/questionnaire/models.py:37
 msgid "Editor"
 msgstr ""
 
-#: questionnaire/models.py:38
+#: apps/questionnaire/models.py:38
 msgid "Reviewer"
 msgstr ""
 
-#: questionnaire/models.py:39
+#: apps/questionnaire/models.py:39
 msgid "Publisher"
 msgstr ""
 
-#: questionnaire/models.py:41
+#: apps/questionnaire/models.py:41
 msgid "Land User"
 msgstr ""
 
-#: questionnaire/models.py:42
+#: apps/questionnaire/models.py:42
 msgid "Key resource person"
 msgstr ""
 
-#: questionnaire/receivers.py:16
+#: apps/questionnaire/receivers.py:16
 msgid "Published questionnaires must not be updated."
 msgstr ""
 
-#: questionnaire/templates/active_filters.html:28
+#: apps/questionnaire/templates/active_filters.html:28
 msgid "Reset all"
 msgstr ""
 
-#: questionnaire/templates/details/category/approaches_header.html:37
-#: questionnaire/templates/details/category/technologies_header.html:38
-#: questionnaire/templates/details/category/unccd_header.html:49
-#: questionnaire/templates/details/category/with_metadata.html:33
+#: apps/questionnaire/templates/details/category/approaches_header.html:37
+#: apps/questionnaire/templates/details/category/technologies_header.html:38
+#: apps/questionnaire/templates/details/category/unccd_header.html:49
+#: apps/questionnaire/templates/details/category/with_metadata.html:33
 msgid "Editors:"
 msgstr ""
 
-#: questionnaire/templates/details/category/approaches_header.html:37
-#: questionnaire/templates/details/category/technologies_header.html:38
-#: questionnaire/templates/details/category/unccd_header.html:49
-#: questionnaire/templates/details/category/with_metadata.html:33
+#: apps/questionnaire/templates/details/category/approaches_header.html:37
+#: apps/questionnaire/templates/details/category/technologies_header.html:38
+#: apps/questionnaire/templates/details/category/unccd_header.html:49
+#: apps/questionnaire/templates/details/category/with_metadata.html:33
 msgid "Editor:"
 msgstr ""
 
-#: questionnaire/templates/details/category/approaches_header.html:71
-#: questionnaire/templates/details/category/default.html:20
-#: questionnaire/templates/details/category/technologies_header.html:72
-#: questionnaire/templates/details/category/unccd_header.html:69
-#: questionnaire/templates/details/category/with_metadata.html:53
+#: apps/questionnaire/templates/details/category/approaches_header.html:71
+#: apps/questionnaire/templates/details/category/default.html:20
+#: apps/questionnaire/templates/details/category/technologies_header.html:72
+#: apps/questionnaire/templates/details/category/unccd_header.html:69
+#: apps/questionnaire/templates/details/category/with_metadata.html:53
 msgid "Edit this section"
 msgstr ""
 
-#: questionnaire/templates/details/category/technologies_header.html:50
-#: technologies/templates/technologies/questionnaire/details.html:74
+#: apps/questionnaire/templates/details/category/technologies_header.html:50
+#: apps/technologies/templates/technologies/questionnaire/details.html:74
 msgid "Save SLM Technology"
 msgstr ""
 
-#: questionnaire/templates/details/category/technologies_header.html:53
-#: technologies/templates/technologies/questionnaire/details.html:77
+#: apps/questionnaire/templates/details/category/technologies_header.html:53
+#: apps/technologies/templates/technologies/questionnaire/details.html:77
 msgid "Edit SLM Technology"
 msgstr ""
 
-#: questionnaire/templates/details/category/unccd_header.html:27
+#: apps/questionnaire/templates/details/category/unccd_header.html:27
 msgid "Comments"
 msgstr ""
 
-#: questionnaire/templates/details/media_gallery.html:5
+#: apps/questionnaire/templates/details/media_gallery.html:5
 msgid "Media Gallery"
 msgstr ""
 
-#: questionnaire/templates/details/questiongroup/user_details.html:14
+#: apps/questionnaire/templates/details/questiongroup/user_details.html:14
 msgid "Address"
 msgstr ""
 
-#: questionnaire/templates/details/questiongroup/user_details.html:34
+#: apps/questionnaire/templates/details/questiongroup/user_details.html:34
 msgid "Institution"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:5
+#: apps/questionnaire/templates/details/review_panel.html:5
 msgid "Status of review process"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:7
-#: questionnaire/templates/details/review_panel.html:17
+#: apps/questionnaire/templates/details/review_panel.html:7
+#: apps/questionnaire/templates/details/review_panel.html:17
 msgid "Edit"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:8
+#: apps/questionnaire/templates/details/review_panel.html:8
 msgid "Review"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:9
-#: questionnaire/templates/details/review_panel.html:43
+#: apps/questionnaire/templates/details/review_panel.html:9
+#: apps/questionnaire/templates/details/review_panel.html:43
 msgid "Publish"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:18
+#: apps/questionnaire/templates/details/review_panel.html:18
 msgid ""
 "The version is saved as a draft. Editors can work on the draft. The compiler "
 "can submit it for review."
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:22
+#: apps/questionnaire/templates/details/review_panel.html:22
 msgid "Submit"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:22
+#: apps/questionnaire/templates/details/review_panel.html:22
 msgid "The questionnaire will be submitted for review. Next status will be "
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:27
+#: apps/questionnaire/templates/details/review_panel.html:27
 msgid "Pending for review"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:28
+#: apps/questionnaire/templates/details/review_panel.html:28
 msgid ""
 "This questionnaire is currently waiting to be reviewed before it can be "
 "published."
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:32
+#: apps/questionnaire/templates/details/review_panel.html:32
 msgid "Approve"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:32
+#: apps/questionnaire/templates/details/review_panel.html:32
 msgid ""
 "The questionnaire is ready to be checked for publishing. Next status will be "
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:33
-#: questionnaire/templates/details/review_panel.html:44
+#: apps/questionnaire/templates/details/review_panel.html:33
+#: apps/questionnaire/templates/details/review_panel.html:44
 msgid "Reject"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:33
-#: questionnaire/templates/details/review_panel.html:44
+#: apps/questionnaire/templates/details/review_panel.html:33
+#: apps/questionnaire/templates/details/review_panel.html:44
 msgid ""
 "The questionnaire is not acceptable and it needs to be edited again. Next "
 "status will be "
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:38
+#: apps/questionnaire/templates/details/review_panel.html:38
 msgid "Pending for publishing"
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:39
+#: apps/questionnaire/templates/details/review_panel.html:39
 msgid ""
 "This questionnaire is currently waiting to be published. Once it is "
 "published, it will be publicly visible."
 msgstr ""
 
-#: questionnaire/templates/details/review_panel.html:43
+#: apps/questionnaire/templates/details/review_panel.html:43
 msgid "The questionnaire will be published. Next status will be "
 msgstr ""
 
-#: questionnaire/templates/details/toc.html:23
+#: apps/questionnaire/templates/details/toc.html:23
 msgid "Table of Content"
 msgstr ""
 
-#: questionnaire/templates/filter.html:25
+#: apps/questionnaire/templates/filter.html:25
 msgid "Country"
 msgstr ""
 
-#: questionnaire/templates/filter.html:26
+#: apps/questionnaire/templates/filter.html:26
 msgid "Select or type a Country name"
 msgstr ""
 
-#: questionnaire/templates/filter.html:56
+#: apps/questionnaire/templates/filter.html:56
 msgid "Creation Date"
 msgstr ""
 
-#: questionnaire/templates/filter.html:70
+#: apps/questionnaire/templates/filter.html:70
 msgid "Update Date"
 msgstr ""
 
-#: questionnaire/templates/filter.html:147
+#: apps/questionnaire/templates/filter.html:147
 msgid "Filter"
 msgstr ""
 
-#: questionnaire/templates/form/category.html:15
+#: apps/questionnaire/templates/form/category.html:15
 msgid "Go Back without saving"
 msgstr ""
 
-#: questionnaire/templates/form/category.html:31
-#: questionnaire/templates/form/links.html:22
-#: wocat/templates/wocat/questionnaire/details.html:64
+#: apps/questionnaire/templates/form/category.html:31
+#: apps/questionnaire/templates/form/links.html:22
+#: apps/wocat/templates/wocat/questionnaire/details.html:64
 msgid "Save"
 msgstr ""
 
-#: questionnaire/templates/form/category.html:33
+#: apps/questionnaire/templates/form/category.html:33
 msgid "Close"
 msgstr ""
 
-#: questionnaire/templates/form/category.html:52
-#: questionnaire/templates/form/links.html:38
+#: apps/questionnaire/templates/form/category.html:52
+#: apps/questionnaire/templates/form/links.html:38
 msgid ""
 "There was a problem with your submission. Errors have been highlighted below."
 msgstr ""
 
-#: questionnaire/templates/form/category.html:57
+#: apps/questionnaire/templates/form/category.html:57
 msgid "There is an old version with changes in this section."
 msgstr ""
 
-#: questionnaire/templates/form/category.html:57
+#: apps/questionnaire/templates/form/category.html:57
 msgid "View old version"
 msgstr ""
 
-#: questionnaire/templates/form/field/image_upload.html:18
-#: questionnaire/templates/form/questiongroup/checkbox_toggle.html:53
-#: questionnaire/templates/form/questiongroup/columns_26_r6.html:62
-#: questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:62
-#: questionnaire/templates/form/questiongroup/columns_e6_e6.html:62
-#: questionnaire/templates/form/questiongroup/columns_o4_o8.html:71
-#: questionnaire/templates/form/questiongroup/columns_o4_r8.html:62
-#: questionnaire/templates/form/questiongroup/default.html:56
-#: questionnaire/templates/form/questiongroup/measure_other.html:61
-#: questionnaire/templates/form/questiongroup/select_user.html:106
+#: apps/questionnaire/templates/form/field/image_upload.html:18
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:53
+#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:62
+#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:62
+#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:62
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:71
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:62
+#: apps/questionnaire/templates/form/questiongroup/default.html:56
+#: apps/questionnaire/templates/form/questiongroup/measure_other.html:61
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:106
 msgid "Remove"
 msgstr ""
 
-#: questionnaire/templates/form/helptext.html:11
+#: apps/questionnaire/templates/form/helptext.html:11
 msgid "See More"
 msgstr ""
 
-#: questionnaire/templates/form/helptext.html:11
+#: apps/questionnaire/templates/form/helptext.html:11
 msgid "See Less"
 msgstr ""
 
-#: questionnaire/templates/form/links.html:13
+#: apps/questionnaire/templates/form/links.html:13
 msgid "Go Back"
 msgstr ""
 
-#: questionnaire/templates/form/links.html:48
+#: apps/questionnaire/templates/form/links.html:48
 msgid "Only existing Questionnaires can be linked."
 msgstr ""
 
-#: questionnaire/templates/form/links.html:58
+#: apps/questionnaire/templates/form/links.html:58
 msgid "No linked Questionnaires"
 msgstr ""
 
-#: questionnaire/templates/form/links.html:61
-#: questionnaire/templates/form/questiongroup/select_user.html:56
+#: apps/questionnaire/templates/form/links.html:61
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:56
 msgid "Search"
 msgstr ""
 
-#: questionnaire/templates/form/links.html:61
-#: questionnaire/templates/form/questiongroup/select_user.html:56
+#: apps/questionnaire/templates/form/links.html:61
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:56
 msgid "No results found"
 msgstr ""
 
-#: questionnaire/templates/form/links.html:61
-#: questionnaire/templates/form/questiongroup/select_user.html:56
+#: apps/questionnaire/templates/form/links.html:61
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:56
 msgid "Too many results found, please narrow the search"
 msgstr ""
 
-#: questionnaire/templates/form/questiongroup/checkbox_toggle.html:19
-#: questionnaire/templates/form/questiongroup/columns_26_r6.html:21
-#: questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:21
-#: questionnaire/templates/form/questiongroup/columns_e6_e6.html:22
-#: questionnaire/templates/form/questiongroup/columns_o4_o8.html:21
-#: questionnaire/templates/form/questiongroup/columns_o4_r8.html:21
-#: questionnaire/templates/form/questiongroup/default.html:21
-#: questionnaire/templates/form/questiongroup/measure_other.html:22
-#: questionnaire/templates/form/questiongroup/select_user.html:22
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:19
+#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:21
+#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:21
+#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:22
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:21
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:21
+#: apps/questionnaire/templates/form/questiongroup/default.html:21
+#: apps/questionnaire/templates/form/questiongroup/measure_other.html:22
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:22
 msgid "+ [TODO] Advanced Questions"
 msgstr ""
 
-#: questionnaire/templates/form/questiongroup/checkbox_toggle.html:35
-#: questionnaire/templates/form/questiongroup/columns_26_r6.html:38
-#: questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:38
-#: questionnaire/templates/form/questiongroup/columns_e6_e6.html:39
-#: questionnaire/templates/form/questiongroup/columns_o4_o8.html:38
-#: questionnaire/templates/form/questiongroup/columns_o4_r8.html:38
-#: questionnaire/templates/form/questiongroup/default.html:38
-#: questionnaire/templates/form/questiongroup/select_user.html:41
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:35
+#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:38
+#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:38
+#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:39
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:38
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:38
+#: apps/questionnaire/templates/form/questiongroup/default.html:38
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:41
 msgid "Drag and drop the number to order the list"
 msgstr ""
 
-#: questionnaire/templates/form/questiongroup/checkbox_toggle.html:66
-#: questionnaire/templates/form/questiongroup/columns_26_r6.html:75
-#: questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:75
-#: questionnaire/templates/form/questiongroup/columns_e6_e6.html:75
-#: questionnaire/templates/form/questiongroup/columns_o4_o8.html:84
-#: questionnaire/templates/form/questiongroup/columns_o4_r8.html:75
-#: questionnaire/templates/form/questiongroup/default.html:69
-#: questionnaire/templates/form/questiongroup/measure_other.html:70
-#: questionnaire/templates/form/questiongroup/select_user.html:119
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:66
+#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:75
+#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:75
+#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:75
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:84
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:75
+#: apps/questionnaire/templates/form/questiongroup/default.html:69
+#: apps/questionnaire/templates/form/questiongroup/measure_other.html:70
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:119
 msgid "Add More"
 msgstr ""
 
-#: questionnaire/templates/form/questiongroup/select_user.html:48
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:48
 msgid "Registered User"
 msgstr ""
 
-#: questionnaire/templates/form/questiongroup/select_user.html:49
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:49
 msgid "Non-registered Person"
 msgstr ""
 
-#: questionnaire/templates/form/questiongroup/select_user.html:53
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:53
 msgid "Loading ..."
 msgstr ""
 
-#: questionnaire/templates/form/questiongroup/select_user.html:55
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:55
 msgid "Search a registered WOCAT user"
 msgstr ""
 
-#: questionnaire/templates/pagination.html:24
+#: apps/questionnaire/templates/pagination.html:24
 msgid "Total:"
 msgstr ""
 
-#: questionnaire/upload.py:67
+#: apps/questionnaire/upload.py:67
 msgid "Unsupported file type"
 msgstr ""
 
-#: questionnaire/upload.py:70
+#: apps/questionnaire/upload.py:70
 msgid "File is too big"
 msgstr ""
 
-#: questionnaire/utils.py:520
+#: apps/questionnaire/utils.py:520
 msgid "Search Terms"
 msgstr ""
 
-#: questionnaire/utils.py:540
+#: apps/questionnaire/utils.py:540
 msgid "Created"
 msgstr ""
 
-#: questionnaire/utils.py:542
+#: apps/questionnaire/utils.py:542
 msgid "Updated"
 msgstr ""
 
-#: questionnaire/utils.py:1155
+#: apps/questionnaire/utils.py:1155
 msgid "The questionnaire was successfully submitted."
 msgstr ""
 
-#: questionnaire/utils.py:1181
+#: apps/questionnaire/utils.py:1181
 msgid "The questionnaire was successfully reviewed."
 msgstr ""
 
-#: questionnaire/utils.py:1231
+#: apps/questionnaire/utils.py:1231
 msgid "The questionnaire was successfully set public."
 msgstr ""
 
-#: questionnaire/utils.py:1262
+#: apps/questionnaire/utils.py:1262
 msgid "The questionnaire was successfully rejected."
 msgstr ""
 
-#: questionnaire/views.py:161 questionnaire/views.py:476
+#: apps/questionnaire/views.py:161 apps/questionnaire/views.py:476
 msgid "Data successfully stored to Session."
 msgstr ""
 
-#: questionnaire/views.py:583
+#: apps/questionnaire/views.py:583
 msgid "You cannot submit an empty questionnaire"
 msgstr ""
 
-#: questionnaire/views.py:603
+#: apps/questionnaire/views.py:603
 msgid "The questionnaire was successfully created."
 msgstr ""
 
-#: questionnaire/views.py:995
+#: apps/questionnaire/views.py:995
 msgid "No or multiple files provided."
 msgstr ""
 
-#: sample/templates/sample/base.html:12
-#: sample/templates/sample/questionnaire/partial/link.html:15
+#: apps/sample/templates/sample/base.html:12
+#: apps/sample/templates/sample/questionnaire/partial/link.html:15
 msgid "SAMPLE"
 msgstr ""
 
-#: sample/templates/sample/base.html:19
-#: samplemulti/templates/samplemulti/base.html:19
-#: wocat/templates/wocat/partial/top.html:26
+#: apps/sample/templates/sample/base.html:19
+#: apps/samplemulti/templates/samplemulti/base.html:19
+#: apps/wocat/templates/wocat/partial/top.html:26
 msgid "Search technology: e.g Soil degradation..."
 msgstr ""
 
-#: sample/templates/sample/base.html:26
-#: samplemulti/templates/samplemulti/base.html:26
-#: unccd/templates/unccd/base.html:33
-#: wocat/templates/wocat/partial/top.html:33
+#: apps/sample/templates/sample/base.html:26
+#: apps/samplemulti/templates/samplemulti/base.html:26
+#: apps/unccd/templates/unccd/base.html:33
+#: apps/wocat/templates/wocat/partial/top.html:33
 msgid "Advanced filter"
 msgstr ""
 
-#: sample/templates/sample/base.html:26
-#: samplemulti/templates/samplemulti/base.html:26
-#: wocat/templates/wocat/partial/top.html:33
+#: apps/sample/templates/sample/base.html:26
+#: apps/samplemulti/templates/samplemulti/base.html:26
+#: apps/wocat/templates/wocat/partial/top.html:33
 msgid "Show all Technologies"
 msgstr ""
 
-#: sample/templates/sample/questionnaire/details.html:11
-#: samplemulti/templates/samplemulti/questionnaire/details.html:11
+#: apps/sample/templates/sample/questionnaire/details.html:11
+#: apps/samplemulti/templates/samplemulti/questionnaire/details.html:11
 msgid "There is an old version which is different than the current one."
 msgstr ""
 
-#: sample/templates/sample/questionnaire/details.html:71
+#: apps/sample/templates/sample/questionnaire/details.html:71
 msgid "Save SAMPLE"
 msgstr ""
 
-#: sample/templates/sample/questionnaire/details.html:74
+#: apps/sample/templates/sample/questionnaire/details.html:74
 msgid "Edit SAMPLE"
 msgstr ""
 
-#: sample/templates/sample/questionnaire/list.html:11
-#: samplemulti/templates/samplemulti/questionnaire/list.html:11
+#: apps/sample/templates/sample/questionnaire/list.html:11
+#: apps/samplemulti/templates/samplemulti/questionnaire/list.html:11
 msgid "Only public questionnaires are visible in this list view."
 msgstr ""
 
-#: sample/templates/sample/questionnaire/list.html:15
+#: apps/sample/templates/sample/questionnaire/list.html:15
 msgid "[SAMPLE] All technologies"
 msgstr ""
 
-#: samplemulti/templates/samplemulti/base.html:12
-#: samplemulti/templates/samplemulti/questionnaire/partial/link.html:15
+#: apps/samplemulti/templates/samplemulti/base.html:12
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/link.html:15
 msgid "SAMPLEMULTI"
 msgstr ""
 
-#: samplemulti/templates/samplemulti/questionnaire/details.html:71
+#: apps/samplemulti/templates/samplemulti/questionnaire/details.html:71
 msgid "Save SAMPLEMULTI"
 msgstr ""
 
-#: samplemulti/templates/samplemulti/questionnaire/details.html:74
+#: apps/samplemulti/templates/samplemulti/questionnaire/details.html:74
 msgid "Edit SAMPLEMULTI"
 msgstr ""
 
-#: samplemulti/templates/samplemulti/questionnaire/list.html:15
+#: apps/samplemulti/templates/samplemulti/questionnaire/list.html:15
 msgid "[SAMPLEMULTI] All technologies"
 msgstr ""
 
-#: technologies/templates/technologies/base.html:6
+#: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
 msgstr ""
 
-#: technologies/templates/technologies/questionnaire/list.html:17
+#: apps/technologies/templates/technologies/questionnaire/list.html:17
 msgid "SLM Technologies"
 msgstr ""
 
-#: technologies/templates/technologies/questionnaire/partial/link.html:16
+#: apps/technologies/templates/technologies/questionnaire/partial/link.html:16
 msgid "Technology"
 msgstr ""
 
-#: technologies/templates/technologies/questionnaire/partial/list.html:19
+#: apps/technologies/templates/technologies/questionnaire/partial/list.html:19
 msgid "No SLM Technologies found."
 msgstr ""
 
-#: technologies/views.py:77 wocat/templates/wocat/partial/top.html:14
+#: apps/technologies/views.py:77
+#: apps/wocat/templates/wocat/partial/top.html:14
 msgid "Technologies"
 msgstr ""
 
-#: technologies/views.py:106
+#: apps/technologies/views.py:106
 msgid "Technologies Form"
 msgstr ""
 
-#: unccd/templates/unccd/base.html:26
+#: apps/unccd/templates/unccd/base.html:26
 msgid "Search SLM best practice: e.g Soil degradation..."
 msgstr ""
 
-#: unccd/templates/unccd/base.html:33
+#: apps/unccd/templates/unccd/base.html:33
 msgid "Show all SLM best practices"
 msgstr ""
 
-#: unccd/templates/unccd/home.html:11
+#: apps/unccd/templates/unccd/home.html:11 templates/home.html:59
 msgid "UNCCD SLM portal"
 msgstr ""
 
-#: unccd/templates/unccd/home.html:12
+#: apps/unccd/templates/unccd/home.html:12 templates/home.html:61
 msgid ""
 "The UNCCD database on SLM practices comprises of SLM best practices from "
 "UNCCD Member States that were included in the UNCCD PRAIS system and newly "
 "reported SLM practices based on WOCAT."
 msgstr ""
 
-#: unccd/templates/unccd/home.html:15
+#: apps/unccd/templates/unccd/home.html:15
 msgid "View UNCCD SLM practices"
 msgstr ""
 
-#: unccd/templates/unccd/home.html:20
+#: apps/unccd/templates/unccd/home.html:20
 msgid "Add new UNCCD SLM practice"
 msgstr ""
 
-#: unccd/templates/unccd/home.html:32 wocat/templates/wocat/home.html:43
+#: apps/unccd/templates/unccd/home.html:32
+#: apps/wocat/templates/wocat/home.html:43
 msgid "Last updates"
 msgstr ""
 
-#: unccd/templates/unccd/questionnaire/details.html:39
+#: apps/unccd/templates/unccd/questionnaire/details.html:39
 msgid "Save UNCCD questionnaire"
 msgstr ""
 
-#: unccd/templates/unccd/questionnaire/details.html:42
+#: apps/unccd/templates/unccd/questionnaire/details.html:42
 msgid "Edit UNCCD questionnaire"
 msgstr ""
 
-#: unccd/templates/unccd/questionnaire/list.html:10
+#: apps/unccd/templates/unccd/questionnaire/list.html:10
 msgid "Only data declared as public are visible."
 msgstr ""
 
-#: unccd/templates/unccd/questionnaire/list.html:13
+#: apps/unccd/templates/unccd/questionnaire/list.html:13
 msgid "SLM best practices"
 msgstr ""
 
-#: unccd/templates/unccd/questionnaire/partial/list.html:19
+#: apps/unccd/templates/unccd/questionnaire/partial/list.html:19
 msgid "No SLM best practices found."
 msgstr ""
 
-#: unccd/views.py:106
+#: apps/unccd/views.py:106
 msgid "UNCCD Form"
 msgstr ""
 
-#: wocat/templates/wocat/home.html:11
+#: apps/wocat/templates/wocat/home.html:11 templates/home.html:53
 msgid "WOCAT SLM portal"
 msgstr ""
 
-#: wocat/templates/wocat/home.html:12
+#: apps/wocat/templates/wocat/home.html:12 templates/home.html:54
 msgid ""
 "The WOCAT database on SLM practices (Technologies and Approaches) contains a "
 "vast range of good practices from all over the world."
 msgstr ""
 
-#: wocat/templates/wocat/home.html:15
+#: apps/wocat/templates/wocat/home.html:15
 msgid "View SLM Technologies"
 msgstr ""
 
-#: wocat/templates/wocat/home.html:18
+#: apps/wocat/templates/wocat/home.html:18
 msgid "View SLM Approaches"
 msgstr ""
 
-#: wocat/templates/wocat/home.html:23
+#: apps/wocat/templates/wocat/home.html:23
 msgid "View WOCAT and UNCCD SLM practices"
 msgstr ""
 
-#: wocat/templates/wocat/home.html:28
+#: apps/wocat/templates/wocat/home.html:28
 msgid "Add new SLM Technology"
 msgstr ""
 
-#: wocat/templates/wocat/home.html:31
+#: apps/wocat/templates/wocat/home.html:31
 msgid "Add new SLM Approach"
 msgstr ""
 
-#: wocat/templates/wocat/partial/top.html:22
+#: apps/wocat/templates/wocat/partial/top.html:22
 msgid "All SLM practices"
 msgstr ""
 
-#: wocat/templates/wocat/partial/top.html:26
+#: apps/wocat/templates/wocat/partial/top.html:26
 msgid "Search approach: e.g Triple bottom line..."
 msgstr ""
 
-#: wocat/templates/wocat/partial/top.html:26
+#: apps/wocat/templates/wocat/partial/top.html:26
 msgid "Search SLM practice: e.g Soil degradation..."
 msgstr ""
 
-#: wocat/templates/wocat/partial/top.html:33
+#: apps/wocat/templates/wocat/partial/top.html:33
 msgid "Show all Approaches"
 msgstr ""
 
-#: wocat/templates/wocat/partial/top.html:33
+#: apps/wocat/templates/wocat/partial/top.html:33
 msgid "Show all SLM practices"
 msgstr ""
 
-#: wocat/templates/wocat/questionnaire/list.html:17
+#: apps/wocat/templates/wocat/questionnaire/list.html:17
 msgid "WOCAT and UNCCD SLM practices"
 msgstr ""
 
-#: wocat/templates/wocat/questionnaire/partial/list.html:19
+#: apps/wocat/templates/wocat/questionnaire/partial/list.html:19
 msgid "No WOCAT and UNCCD SLM practices found."
+msgstr ""
+
+#: templates/404.html:11
+msgid "404 - Not found"
+msgstr ""
+
+#: templates/404.html:12
+msgid ""
+"Sorry, the page you are looking for does not exist. Maybe you are looking "
+"for one of the following:"
+msgstr ""
+
+#: templates/404.html:15 templates/home.html:55
+msgid "WOCAT SLM practices"
+msgstr ""
+
+#: templates/404.html:20 templates/home.html:62
+msgid "UNCCD SLM practices"
+msgstr ""
+
+#: templates/404.html:25
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:99
+msgid "Menu"
+msgstr ""
+
+#: templates/base.html:108
+msgid "My SLM practices"
+msgstr ""
+
+#: templates/base.html:117
+msgid "Administration"
+msgstr ""
+
+#: templates/base.html:125
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:182
+msgid "About"
+msgstr ""
+
+#: templates/base.html:182
+msgid "FAQ"
+msgstr ""
+
+#: templates/base.html:182
+msgid "Contact"
+msgstr ""
+
+#: templates/home.html:5
+msgid "QCAT"
+msgstr ""
+
+#: templates/home.html:14
+msgid "global SLM practices database"
+msgstr ""
+
+#: templates/home.html:29
+msgid "Search practice: e.g Soil degradation..."
+msgstr ""
+
+#: templates/home.html:60
+msgid "hosted by WOCAT"
+msgstr ""
+
+#: templates/rest_framework/api.html:7 templates/rest_framework/api.html:13
+msgid "WOCAT API"
 msgstr ""
