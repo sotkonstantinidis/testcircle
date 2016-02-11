@@ -40,6 +40,15 @@ Workflow
 * This could be integrated in the deployment, but manual control is desired.
 
 
+Todo
+----
+
+* Define the timing of translations with regard to git branches. Should
+  translating be included when developing a new feature, or does translation
+  'follow' after a feature is merged back to develop?
+* Check if `txgh`_ would be helpful.
+
+
 .. _django docs: https://docs.djangoproject.com/en/1.8/topics/i18n/translation/
 .. _Transifex: https://www.transifex.com/university-of-bern-cde/qcat/
-
+.. _txgh: https://github.com/transifex/txgh
