@@ -124,6 +124,7 @@ class Command(NoArgsCommand):
                 # languages, even if it may not exist on the db.
                 for lang in self.settings_languages:
                     comment = '# {}.{}.{}'.format(pk, path, lang)
-                    self.languages[lang].append(
-                        self.line(item.get(lang, item['en']), comment)
-                    )
+                    # If language is not available, use english as fallback.
+                    text = item.get(lang, item['en'])
+                    if text:
+                        self.languages[lang].append(self.line(text, comment))

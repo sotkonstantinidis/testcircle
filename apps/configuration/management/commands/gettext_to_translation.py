@@ -17,6 +17,7 @@ class Command(NoArgsCommand):
     """
     filename = 'extract'
     translations = collections.defaultdict(dict)
+    lines = []
 
     def handle_noargs(self, **options):
         """
@@ -29,9 +30,10 @@ class Command(NoArgsCommand):
             )
             with contextlib.suppress(FileNotFoundError):
                 with open(join(path, '{}.po'.format(self.filename))) as f:
-                    self.set_translations(f.readlines())
+                    self.lines = f.readlines()
+                    self.set_translations()
 
-    def set_translations(self, lines):
+    def set_translations(self):
         """
         Parse the lines: extract information about models that is stored in the
         comments and the translated text. The result is written to
@@ -41,25 +43,46 @@ class Command(NoArgsCommand):
             lines: list of strings
         """
         buffer = {}
-        for line in lines:
+
+        for index, line in enumerate(self.lines):
             # For all lines that are a comment: extract information to a buffer.
             if re.match('# (\d+)', line):
                 comment = line[2:].rstrip('\n').split('.')
                 buffer.setdefault(comment[0], []).append(comment[1:])
 
-            # If the msgstr is emtpy, take the value from the msgid.
+            # The content from 'msgid' is copied in case the 'msgstr' is empty.
+            # This can be a multiline-string.
             elif line.startswith('msgid') and buffer:
-                msgid = line
+                msgid = self.get_multiline_string(line, index)
 
-            # After comments, the actual text is found.
-            # Directly write the buffer to the model.
+            # After comments, the actual text is found. Directly write the
+            # buffer to the model.
             elif line.startswith('msgstr') and buffer:
-                text = self.extract_text(line) or self.extract_text(msgid)
+                text = self.get_multiline_string(line, index) or msgid
                 for pk, dict_keys in buffer.items():
                     for element in dict_keys:
                         self.create_dict_from_list(pk, element, text)
                 # Reset the buffer after it was written to the orm.
                 buffer = {}
+
+    def get_multiline_string(self, line, index):
+        """
+        A string can span multiple lines. Get all of them for the translation.
+
+        Args:
+            line: string Text of the current line
+            index: int Current position in self.lines
+
+        Returns:
+            string: text of translation.
+
+        """
+        text = self.extract_text(line)
+        index += 1
+        while len(self.lines) > index and self.lines[index].startswith('"'):
+            text += self.extract_text(self.lines[index])
+            index += 1
+        return text
 
     def create_dict_from_list(self, pk, keys, value):
         """
