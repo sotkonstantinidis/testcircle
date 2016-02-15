@@ -77,6 +77,9 @@ class Questionnaire(models.Model):
         """
         Try to resolve the proper code for the object, using it as namespace.
 
+        If some day, the configurations code is not the exact same string as
+        the application name, a 'mapping' dict is required.
+
         Returns:
             string: detail url of the questionnaire.
         """
