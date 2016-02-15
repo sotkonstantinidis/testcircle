@@ -23,5 +23,5 @@ class QuestionnaireViewSet(viewsets.ReadOnlyModelViewSet):
         Filter valid questionnaires; Status "3" is public.
         """
         return Questionnaire.objects.filter(
-            blocked=False, status=STATUSES[3][0]
+            status=STATUSES[3][0]
         )
