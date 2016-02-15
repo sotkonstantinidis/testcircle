@@ -1,9 +1,11 @@
 import contextlib
 
+from django.conf import settings
 from django.core.urlresolvers import NoReverseMatch
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
+from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire
 
 
@@ -31,6 +33,21 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'excerpt', 'created', 'updated', 'api_url',
                   'public_url', )
 
+    def _get_json_values_for_keys(self, obj, keys):
+        """
+        The values hold lists of dictionaries. The searched keys are in these
+        dictionaries. Return these values, concatenated as string.
+
+        Args:
+            obj: questionnaire.models.Questionnaire
+            keys: list
+
+        Returns:
+            string: Values of keys in data.
+        """
+        configuration = get_configuration(obj.code)
+        pass
+
     def get_title(self, obj):
         """
         Get the name of given object.
@@ -40,7 +57,20 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         Returns:
             string
         """
-        return 'foo'
+        configuration = get_configuration(obj.code)
+        # A dict with mutliple languages is returned.
+        names = configuration.get_questionnaire_name(obj.data)
+
+        # Try to get language in following order:
+        # - explicitly passed argument in the querystring
+        # - request language
+        # - default language from django.
+        request = self.context.get('request')
+        default_language = settings.LANGUAGES[0][0]
+        if not request:
+            return names[default_language]
+        language = request.query_params.get('lang') or request.LANGUAGE_CODE
+        return names.get(language, names.get(default_language))
 
     def get_excerpt(self, obj):
         """
@@ -49,7 +79,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
         Returns: string
         """
-        return 'bar'
+        return self._get_json_values_for_keys(obj, self.excerpt_fields)
 
     def get_api_url(self, obj):
         """

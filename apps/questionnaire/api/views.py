@@ -13,6 +13,11 @@ class QuestionnaireViewSet(viewsets.ReadOnlyModelViewSet):
 
     Following fields can be filtered for:
     - version
+
+    The results are displayed in the same language as the request. The language
+    of the results can alternatively be set by setting the query string 'lang',
+    e.g. ?lang=fr
+
     """
     serializer_class = QuestionnaireSerializer
     filter_backends = (filters.DjangoFilterBackend, )
