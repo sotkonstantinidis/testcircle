@@ -72,5 +72,8 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
             string: URL of object on qcat.wocat.net,
                     empty string if lookup fails.
         """
-        with contextlib.suppress(NoReverseMatch):
-            return obj.get_absolute_url()
+        request = self.context.get('request')
+        # We need the request and its build_absolute_uri method.
+        if request:
+            with contextlib.suppress(NoReverseMatch):
+                return request.build_absolute_uri(obj.get_absolute_url())

@@ -1,13 +1,13 @@
+import contextlib
 import json
 from uuid import uuid4
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
-from itertools import chain
 
 from accounts.models import User
 from configuration.cache import get_configuration
@@ -74,8 +74,25 @@ class Questionnaire(models.Model):
         )
 
     def get_absolute_url(self):
-        return reverse(
-            'questionnaire_view_details', kwargs={'identifier': self.code})
+        """
+        Try to resolve the proper code for the object, using it as namespace.
+
+        Returns:
+            string: detail url of the questionnaire.
+        """
+        conf = self.configurations.filter(
+            active=True
+        ).exclude(
+            code=''
+        ).only(
+            'code'
+        )
+        if conf.exists() and conf.count() == 1:
+            with contextlib.suppress(NoReverseMatch):
+                return reverse('{app_name}:questionnaire_details'.format(
+                    app_name=conf.first().code
+                ), kwargs={'identifier': self.code})
+        return None
 
     def update_data(self, data, updated, configuration_code):
         """
