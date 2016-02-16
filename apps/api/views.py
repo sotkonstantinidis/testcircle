@@ -16,5 +16,7 @@ class APIRoot(APIView):
         urls = {
             'questionnaires': reverse('questionnaires-api-list',
                                       request=request, format=format),
+            'obtain-token': reverse('obtain-api-token', request=request,
+                                    format=format),
         }
         return Response(urls)

@@ -1,5 +1,7 @@
 from rest_framework import filters
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import QuestionnaireSerializer
 from ..models import Questionnaire, STATUSES
@@ -19,6 +21,8 @@ class QuestionnaireViewSet(viewsets.ReadOnlyModelViewSet):
     e.g. ?lang=fr
 
     """
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = QuestionnaireSerializer
     filter_backends = (filters.DjangoFilterBackend, )
     filter_fields = ('version', )

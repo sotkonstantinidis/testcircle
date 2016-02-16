@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from questionnaire.api.views import QuestionnaireViewSet
@@ -25,6 +26,7 @@ urlpatterns = patterns(
         questionnaire_detail,
         name='questionnaires-api-detail'
         ),
+    url(r'^obtain-token/', obtain_auth_token, name='obtain-api-token')
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

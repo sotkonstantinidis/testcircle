@@ -40,6 +40,7 @@ class BaseSettings(Configuration):
         'imagekit',
         'maintenancemode',
         'rest_framework',
+        'rest_framework.authtoken',
         'sekizai',
         # Custom apps
         'accounts',
