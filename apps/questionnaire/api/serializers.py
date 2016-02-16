@@ -58,7 +58,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
             string
         """
         configuration = get_configuration(obj.code)
-        # A dict with mutliple languages is returned.
+        # A dict with multiple languages is returned.
         names = configuration.get_questionnaire_name(obj.data)
 
         # Try to get language in following order:
