@@ -2015,6 +2015,21 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     questiongroup_keyword = questiongroup.keyword
         return question_keyword, questiongroup_keyword
 
+    def get_description_keywords(self, keys):
+        """
+        Return the keywords of the question and questiongroup which
+        contain the name of the questionnaire as defined in the
+        configuration by the ``is_name`` parameter.
+        """
+        question_keyword = None
+        questiongroup_keyword = None
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.get('keyword') in keys:
+                    question_keyword = question.keyword
+                    questiongroup_keyword = questiongroup.keyword
+        return question_keyword, questiongroup_keyword
+
     def get_questionnaire_name(self, questionnaire_data):
         """
         Return the value of the key flagged with ``is_name`` of a
@@ -2029,6 +2044,18 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             key was not found in the data dictionary.
         """
         question_keyword, questiongroup_keyword = self.get_name_keywords()
+        if question_keyword:
+            for x in questionnaire_data.get(questiongroup_keyword, []):
+                return x.get(question_keyword)
+        return {'en': _('Unknown name')}
+
+    def get_questionnaire_description(self, questionnaire_data, keys):
+        """
+        todo: this is completely untested! fix it after configurations are fine
+        on local machine.
+        """
+        question_keyword, questiongroup_keyword = \
+            self.get_description_keywords(keys)
         if question_keyword:
             for x in questionnaire_data.get(questiongroup_keyword, []):
                 return x.get(question_keyword)

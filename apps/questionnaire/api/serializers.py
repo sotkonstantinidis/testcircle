@@ -14,13 +14,10 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     Basic serializer for the questionnaire model.
     """
 
-    # Field name in the configuration for the 'title' of a questionnaire. The
-    # first matching field will be used. This value is cached.
-    title_fields = ['name']
     # Field name in the configuration for the 'excerpt' of a questionnaire.
     # All matching fields will be used and concatenated to a single string.
     # This value is cached.
-    excerpt_fields = ['foo']
+    excerpt_fields = ['app_definition']
 
     # Non-model fields that are used for the serializer.
     title = serializers.SerializerMethodField()
@@ -33,33 +30,10 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'excerpt', 'created', 'updated', 'api_url',
                   'public_url', )
 
-    def _get_json_values_for_keys(self, obj, keys):
-        """
-        The values hold lists of dictionaries. The searched keys are in these
-        dictionaries. Return these values, concatenated as string.
-
-        Args:
-            obj: questionnaire.models.Questionnaire
-            keys: list
-
-        Returns:
-            string: Values of keys in data.
-        """
-        configuration = get_configuration(obj.code)
-        pass
-
-    def get_title(self, obj):
-        """
-        Get the name of given object.
-        Args:
-            obj: questionnaire.models.Questionnaire
-
-        Returns:
-            string
-        """
+    def _get_values_from_configuration(self, obj, method, **method_kwargs):
         configuration = get_configuration(obj.code)
         # A dict with multiple languages is returned.
-        names = configuration.get_questionnaire_name(obj.data)
+        names = getattr(configuration, method)(**method_kwargs)
 
         # Try to get language in following order:
         # - explicitly passed argument in the querystring
@@ -72,6 +46,19 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         language = request.query_params.get('lang') or request.LANGUAGE_CODE
         return names.get(language, names.get(default_language))
 
+    def get_title(self, obj):
+        """
+        Get the name of given object.
+        Args:
+            obj: questionnaire.models.Questionnaire
+
+        Returns:
+            string
+        """
+        return self._get_values_from_configuration(
+            obj, 'get_questionnaire_name', questionnaire_data=obj.data
+        )
+
     def get_excerpt(self, obj):
         """
         Args:
@@ -79,7 +66,10 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
         Returns: string
         """
-        return self._get_json_values_for_keys(obj, self.excerpt_fields)
+        return self._get_values_from_configuration(
+            obj, 'get_questionnaire_description', questionnaire_data=obj.data,
+            keys=self.excerpt_fields
+        )
 
     def get_api_url(self, obj):
         """
