@@ -3,11 +3,12 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from api.views import LogUserMixin
 from .serializers import QuestionnaireSerializer
 from ..models import Questionnaire, STATUSES
 
 
-class QuestionnaireViewSet(viewsets.ReadOnlyModelViewSet):
+class QuestionnaireViewSet(LogUserMixin, viewsets.ReadOnlyModelViewSet):
     """
     List and detail view for questionnaires.
 

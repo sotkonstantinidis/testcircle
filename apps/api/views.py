@@ -1,6 +1,12 @@
+import logging
+
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from .models import RequestLog
+
+logger = logging.getLogger(__name__)
 
 
 class APIRoot(APIView):
@@ -20,3 +26,22 @@ class APIRoot(APIView):
                                     format=format),
         }
         return Response(urls)
+
+
+class LogUserMixin:
+    """
+    Log requests that access the API to the database, so usage statistics can
+    be created.
+
+    """
+    def finalize_response(self, request, response, *args, **kwargs):
+        try:
+            RequestLog(
+                user=request.user,
+                resource=request.build_absolute_uri()
+            ).save()
+        # Catch any exception. Logging errors must not result in application
+        # errors.
+        except Exception as e:
+            logger.error(e)
+        return super().finalize_response(request, response, *args, **kwargs)
