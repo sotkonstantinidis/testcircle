@@ -622,8 +622,8 @@ class Questionnaire(models.Model):
             editable_questionnaires.update(blocked=user)
 
     def can_edit(self, user):
-        return self.has_questionnaires_for_code(self.code) and \
-               self.get_editable_questionnaires(self.code, user)
+        return self.has_questionnaires_for_code(
+            self.code) and self.get_editable_questionnaires(self.code, user)
 
     def get_blocked_message(self, user):
         """
