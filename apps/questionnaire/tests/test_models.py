@@ -404,27 +404,27 @@ class QuestionnaireModelTest(TestCase):
 
     def test_block_for_for_user(self):
         questionnaire = get_valid_questionnaire()
-        questionnaire.blocked = None
-        questionnaire.lock_questionnaire(self.user)
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
+        questionnaire.refresh_from_db()
         self.assertEqual(questionnaire.blocked, self.user)
 
     def test_blocked_questionnaire_raises_exception(self):
         questionnaire = get_valid_questionnaire()
-        questionnaire.lock_questionnaire(self.user)
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
         user_2 = create_new_user(id=2, email='foo@bar.com')
         with self.assertRaises(QuestionnaireLockedException):
-            questionnaire.lock_questionnaire(user_2)
+            questionnaire.lock_questionnaire(questionnaire.code, user_2)
 
     def test_blocked_allow_editing_for_same_user(self):
         questionnaire = get_valid_questionnaire()
-        questionnaire.lock_questionnaire(self.user)
-        self.assertTrue(questionnaire.is_editable_by_user(self.user))
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
+        self.assertTrue(questionnaire.can_edit(self.user))
 
     def test_blocked_for_other_user(self):
         questionnaire = get_valid_questionnaire()
-        questionnaire.lock_questionnaire(self.user)
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
         user_2 = create_new_user(id=2, email='foo@bar.com')
-        self.assertFalse(questionnaire.is_editable_by_user(user_2))
+        self.assertFalse(questionnaire.can_edit(user_2))
 
 
 class FileModelTest(TestCase):

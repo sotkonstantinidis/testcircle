@@ -578,6 +578,10 @@ class Questionnaire(models.Model):
         return json.dumps(self.data)
 
     @classmethod
+    def has_questionnaires_for_code(cls, code):
+        return cls.objects.filter(code=code).exists()
+
+    @classmethod
     def get_editable_questionnaires(cls, code, user=None):
         """
         After internal discussion: 'blocking' of questionnaires should happen
@@ -610,14 +614,16 @@ class Questionnaire(models.Model):
         editable_questionnaires = cls.get_editable_questionnaires(
             code, user
         )
-        if editable_questionnaires.exists():
-            raise QuestionnaireLockedException(
-                editable_questionnaires.first().blocked
-            )
-        editable_questionnaires.update(blocked=user)
+        if cls.has_questionnaires_for_code(code):
+            if not editable_questionnaires.exists():
+                raise QuestionnaireLockedException(
+                    cls.objects.filter(code=code).first().blocked
+                )
+            editable_questionnaires.update(blocked=user)
 
     def can_edit(self, user):
-        return self.get_editable_questionnaires(self.code, user).exists()
+        return self.has_questionnaires_for_code(self.code) and \
+               self.get_editable_questionnaires(self.code, user)
 
     def get_blocked_message(self, user):
         """
@@ -629,7 +635,8 @@ class Questionnaire(models.Model):
         editable_questionnaire = self.get_editable_questionnaires(
             self.code, user
         )
-        if editable_questionnaire.exists():
+        if self.has_questionnaires_for_code(self.code) and \
+                editable_questionnaire.exists():
             return SUCCESS, _(u"This questionnaire can be edited.")
         else:
             return WARNING, _(u"This questionnaire is "
