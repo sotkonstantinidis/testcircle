@@ -540,6 +540,9 @@ def generic_questionnaire_new(
         # For edits, copy the data to the session first (if it was
         # edited for the first time only).
         questionnaire_object = query_questionnaire(request, identifier).first()
+        questionnaire_object.lock_questionnaire(
+            questionnaire_object.code, request.user
+        )
         if questionnaire_object is None:
             raise Http404()
         questionnaire_data = questionnaire_object.data
@@ -663,7 +666,7 @@ def generic_questionnaire_new(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
-    is_blocked = False
+    is_blocked = None
     # Display a message regarding the state for editing (locked / available)
     if questionnaire_object:
         is_blocked = questionnaire_object.can_edit(request.user)
