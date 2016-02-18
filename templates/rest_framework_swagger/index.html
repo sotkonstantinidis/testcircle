@@ -28,12 +28,12 @@
             <p>
                 Requests to any resource requires an authentication token in the header of the request.
                 The token can be obtained with this API (see: auth-token), a wocat user account is
-                required to obtain a token.
-                Pass the token in the request header as follows:
-                <pre>Authorization: Token &#60;your token here&#62;</pre>
+                required to obtain a token. Example request:
+                <pre>curl -X POST http://qcat.wocat.net/en/api/v1/auth-token/ --data "username=name@example.com&password=MySecurePassword"</pre>
                 <br>
-                Example request:
-                <pre>curl -H "Authentication: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60" http://qcat.wocat.net/en/api/v1/questionnaires/</pre>
+                Pass the token in the request header as follows: 'Authorization: Token &#60;your token here&#62;'. Example request:
+                <br>
+                <pre>curl -X GET https://qcat.wocat.net/en/api/v1/questionnaires/303/ -H 'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60'</pre>
             </p>
             <p>
                 The current version of the API is: 1.0. Docs for the older versions will be listed here as well.

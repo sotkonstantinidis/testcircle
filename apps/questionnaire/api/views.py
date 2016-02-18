@@ -6,7 +6,7 @@ from .serializers import QuestionnaireSerializer
 from ..models import Questionnaire
 
 
-class QuestionnaireViewSet(LogUserMixin, PermissionMixin, ReadOnlyModelViewSet):
+class QuestionnaireViewSet(PermissionMixin, LogUserMixin, ReadOnlyModelViewSet):
     """
     List and detail view for questionnaires.
 

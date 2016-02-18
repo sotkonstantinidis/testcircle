@@ -29,7 +29,7 @@ class APIRoot(APIView):
             'questionnaires': reverse('questionnaires-api-list',
                                       request=request, format=format),
             'auth token': reverse('obtain-api-token', request=request,
-                                    format=format),
+                                  format=format),
             'documentation': reverse('django.swagger.base.view',
                                      request=request, format=format),
         }
