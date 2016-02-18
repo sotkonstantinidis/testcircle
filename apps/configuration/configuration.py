@@ -1,3 +1,4 @@
+import collections
 import floppyforms as forms
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string
@@ -2018,18 +2019,23 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
     def get_description_keywords(self, keys):
         """
-        Return the keywords of the question and questiongroup which
-        contain the name of the questionnaire as defined in the
-        configuration by the ``is_name`` parameter.
+        Get a list of tuples in the form of 'questiongroup': 'keyword' for
+        given keys.
+
+        Args:
+            keys: list
+        Returns:
+            list of namedtuples
         """
-        question_keyword = None
-        questiongroup_keyword = None
+        question_keywords = []
+        keyword = collections.namedtuple('Keyword', 'questiongroup question')
         for questiongroup in self.get_questiongroups():
             for question in questiongroup.questions:
-                if question.get('keyword') in keys:
-                    question_keyword = question.keyword
-                    questiongroup_keyword = questiongroup.keyword
-        return question_keyword, questiongroup_keyword
+                if question.keyword in keys:
+                    question_keywords.append(
+                        keyword(questiongroup.keyword, question.keyword)
+                    )
+        return question_keywords
 
     def get_questionnaire_name(self, questionnaire_data):
         """
@@ -2052,15 +2058,24 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
     def get_questionnaire_description(self, questionnaire_data, keys):
         """
-        todo: this is completely untested! fix it after configurations are fine
-        on local machine.
+        Get the contents of given strings
+
+        Args:
+            keys: list
+            questionnaire_data: dict
+
+        Returns:
+            dict: language as key, concatenated content as value.
         """
-        question_keyword, questiongroup_keyword = \
-            self.get_description_keywords(keys)
-        if question_keyword:
-            for x in questionnaire_data.get(questiongroup_keyword, []):
-                return x.get(question_keyword)
-        return {'en': _('Unknown name')}
+        keywords = self.get_description_keywords(keys)
+        excerpt_data = collections.defaultdict(str)
+
+        for keyword in keywords:
+            for x in questionnaire_data.get(keyword.questiongroup, []):
+                if x.get(keyword.question):
+                    for language, text in x[keyword.question].items():
+                        excerpt_data[language] += '{} '.format(text)
+        return excerpt_data
 
     def get_user_fields(self):
         """

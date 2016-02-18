@@ -17,7 +17,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     # Field name in the configuration for the 'excerpt' of a questionnaire.
     # All matching fields will be used and concatenated to a single string.
     # This value is cached.
-    excerpt_fields = ['app_definition']
+    excerpt_fields = ['app_definition', 'app_desc_methods']
 
     # Non-model fields that are used for the serializer.
     title = serializers.SerializerMethodField()
@@ -31,7 +31,23 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
                   'public_url', )
 
     def _get_values_from_configuration(self, obj, method, **method_kwargs):
-        configuration = get_configuration(obj.code)
+        """
+        Call a method on the configuration object.
+
+        Args:
+            obj: questionnaire.models.Questionnaire
+            method: string method to call
+            **method_kwargs: method kwargs
+
+        Returns:
+            string Result of the method
+
+        """
+        # Todo: check if this is correct (content-wise).
+        default_configuration = obj.configurations.filter(
+            active=True
+        ).first()
+        configuration = get_configuration(default_configuration.code)
         # A dict with multiple languages is returned.
         names = getattr(configuration, method)(**method_kwargs)
 
