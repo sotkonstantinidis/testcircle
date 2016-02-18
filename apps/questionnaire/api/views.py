@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from api.views import LogUserMixin
 from .serializers import QuestionnaireSerializer
-from ..models import Questionnaire, STATUSES
+from ..models import Questionnaire
 
 
 class QuestionnaireViewSet(LogUserMixin, viewsets.ReadOnlyModelViewSet):
@@ -32,6 +32,4 @@ class QuestionnaireViewSet(LogUserMixin, viewsets.ReadOnlyModelViewSet):
         """
         Filter valid questionnaires; Status "3" is public.
         """
-        return Questionnaire.objects.filter(
-            status=STATUSES[3][0]
-        )
+        return Questionnaire.with_status.public()
