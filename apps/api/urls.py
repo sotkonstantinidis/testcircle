@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.conf.urls import patterns, url
+from django.views.decorators.cache import cache_page
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.urlpatterns import format_suffix_patterns
 
@@ -19,11 +21,11 @@ urlpatterns = patterns(
     '',
     url(r'^$', APIRoot.as_view(), name='api-root'),
     url(r'^questionnaire/$',
-        questionnaire_list,
+        cache_page(settings.CACHE_TIMEOUT)(questionnaire_list),
         name='questionnaires-api-list'
         ),
     url(r'^questionnaire/(?P<pk>[0-9]+)/$',
-        questionnaire_detail,
+        cache_page(settings.CACHE_TIMEOUT)(questionnaire_detail),
         name='questionnaires-api-detail'
         ),
     url(r'^obtain-token/', obtain_auth_token, name='obtain-api-token')

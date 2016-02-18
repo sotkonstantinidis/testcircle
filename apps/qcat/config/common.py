@@ -228,6 +228,7 @@ class BaseSettings(Configuration):
 
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
+    CACHE_TIMEOUT = values.IntegerValue(environ_prefix='', default=3600)
 
     # If set to true, the template 503.html is displayed.
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
