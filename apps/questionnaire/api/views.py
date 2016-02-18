@@ -1,7 +1,9 @@
+from django.conf import settings
 from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.settings import api_settings
 
 from api.views import LogUserMixin
 from .serializers import QuestionnaireSerializer
@@ -33,3 +35,11 @@ class QuestionnaireViewSet(LogUserMixin, viewsets.ReadOnlyModelViewSet):
         Filter valid questionnaires; Status "3" is public.
         """
         return Questionnaire.with_status.public()
+
+    def get_permissions(self):
+        """
+        Don't force permissions for development.
+        """
+        if settings.DEBUG:
+            self.permission_classes = api_settings.DEFAULT_PERMISSION_CLASSES
+        return super().get_permissions()
