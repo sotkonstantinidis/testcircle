@@ -8,6 +8,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     replication of the user database of :term:`WOCAT` which handles the
     authentication. Therefore, no password is stored.
 
+    No local users can be created, as this would lead to potential conflicts
+    of the id between the WOCAT user model and this user model.
+
     The user model has the following fields:
         * email (varchar, acts as username)
         * name (varchar)
