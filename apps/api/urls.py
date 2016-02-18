@@ -15,22 +15,29 @@ questionnaire_list = QuestionnaireViewSet.as_view({
 questionnaire_detail = QuestionnaireViewSet.as_view({
     'get': 'retrieve'
 })
-
+api_root_patterns = [
+    url(r'^$', APIRoot.as_view(), name='api-root'),
+]
 
 urlpatterns = patterns(
     '',
-    url(r'^$', APIRoot.as_view(), name='api-root'),
-    url(r'^questionnaire/$',
+    url(r'^questionnaires/$',
         cache_page(settings.CACHE_TIMEOUT)(questionnaire_list),
         name='questionnaires-api-list'
         ),
-    url(r'^questionnaire/(?P<pk>[0-9]+)/$',
+    url(r'^questionnaires/(?P<pk>[0-9]+)/$',
         cache_page(settings.CACHE_TIMEOUT)(questionnaire_detail),
         name='questionnaires-api-detail'
         ),
-    url(r'^obtain-token/$', obtain_auth_token, name='obtain-api-token'),
+    url(r'^auth-token/$', obtain_auth_token, name='obtain-api-token'),
     url(r'^docs/', include('rest_framework_swagger.urls')),
+)
 
+# Workaround: the api root must not be in the API docs. Only namespaces can
+# be excluded - so a namespace is created for this single view.
+urlpatterns = urlpatterns + patterns(
+    '',
+    url(r'^$', include((api_root_patterns, 'api', 'api-root'))),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

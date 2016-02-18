@@ -187,11 +187,15 @@ class BaseSettings(Configuration):
             'rest_framework_xml.parsers.XMLParser',
         ),
         'DEFAULT_RENDERER_CLASSES': (
-            'rest_framework.renderers.BrowsableAPIRenderer',
             'rest_framework.renderers.JSONRenderer',
             'rest_framework_xml.renderers.XMLRenderer',
             'rest_framework_csv.renderers.CSVRenderer',
         ),
+    }
+    SWAGGER_SETTINGS = {
+        'api_version': '0.1',
+        'doc_expansion': 'list',
+        'exclude_namespaces': ['api-root'],
     }
 
     DATABASES = values.DatabaseURLValue()

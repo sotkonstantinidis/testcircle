@@ -12,12 +12,11 @@ class QuestionnaireViewSet(LogUserMixin, PermissionMixin, ReadOnlyModelViewSet):
 
     Filters can be passed in the url, e.g. /en/api/v1/questionnaire/?version=1
 
-    Following fields can be filtered for:
-    - version
+    No filters are available yet.
 
     The results are displayed in the same language as the request. The language
-    of the results can alternatively be set by setting the query string 'lang',
-    e.g. ?lang=fr
+    of the results can alternatively be defined with the query string param
+    'lang', e.g. ?lang=es
 
     """
     serializer_class = QuestionnaireSerializer
@@ -26,6 +25,6 @@ class QuestionnaireViewSet(LogUserMixin, PermissionMixin, ReadOnlyModelViewSet):
 
     def get_queryset(self):
         """
-        Filter valid questionnaires; Status "3" is public.
+        Display public questionnaires only.
         """
         return Questionnaire.with_status.public()

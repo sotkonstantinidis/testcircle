@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 import contextlib
 
 from django.conf import settings
 from django.core.urlresolvers import NoReverseMatch
+from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
@@ -29,6 +31,11 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         model = Questionnaire
         fields = ('id', 'title', 'excerpt', 'created', 'updated', 'api_url',
                   'public_url', )
+        date_helptext = _(u'Datetime with timezone, as specified in ISO 8601')
+        extra_kwargs = {
+            'created': {'help_text': date_helptext},
+            'updated': {'help_text': date_helptext},
+        }
 
     def _get_values_from_configuration(self, obj, method, **method_kwargs):
         """

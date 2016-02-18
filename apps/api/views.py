@@ -3,6 +3,7 @@ import logging
 from django.conf import settings
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -21,6 +22,7 @@ class APIRoot(APIView):
     This API is intended to be consumed by partners.
     """
     http_method_names = ('get', )
+    renderer_classes = (BrowsableAPIRenderer, JSONRenderer, )
 
     def get(self, request, format=None):
         urls = {
@@ -28,8 +30,8 @@ class APIRoot(APIView):
                                       request=request, format=format),
             'auth token': reverse('obtain-api-token', request=request,
                                     format=format),
-            'documentation': reverse('django.swagger.base.view', request=request,
-                                format=format),
+            'documentation': reverse('django.swagger.base.view',
+                                     request=request, format=format),
         }
         return Response(urls)
 
