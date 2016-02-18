@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from django.views.decorators.cache import cache_page
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -28,7 +28,9 @@ urlpatterns = patterns(
         cache_page(settings.CACHE_TIMEOUT)(questionnaire_detail),
         name='questionnaires-api-detail'
         ),
-    url(r'^obtain-token/', obtain_auth_token, name='obtain-api-token')
+    url(r'^obtain-token/$', obtain_auth_token, name='obtain-api-token'),
+    url(r'^docs/', include('rest_framework_swagger.urls')),
+
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

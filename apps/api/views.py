@@ -26,8 +26,10 @@ class APIRoot(APIView):
         urls = {
             'questionnaires': reverse('questionnaires-api-list',
                                       request=request, format=format),
-            'obtain-token': reverse('obtain-api-token', request=request,
+            'auth token': reverse('obtain-api-token', request=request,
                                     format=format),
+            'documentation': reverse('django.swagger.base.view', request=request,
+                                format=format),
         }
         return Response(urls)
 
