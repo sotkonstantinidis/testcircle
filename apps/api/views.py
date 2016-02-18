@@ -1,7 +1,11 @@
 import logging
 
+from django.conf import settings
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
+from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
 from .models import RequestLog
@@ -45,3 +49,20 @@ class LogUserMixin:
         except Exception as e:
             logger.error(e)
         return super().finalize_response(request, response, *args, **kwargs)
+
+
+class PermissionMixin:
+    """
+    Default permissions for all API views.
+
+    """
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def get_permissions(self):
+        """
+        Don't force permissions for development.
+        """
+        if settings.DEBUG:
+            self.permission_classes = api_settings.DEFAULT_PERMISSION_CLASSES
+        return super().get_permissions()
