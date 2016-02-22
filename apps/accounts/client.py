@@ -1,7 +1,14 @@
+# -*- coding: utf-8 -*-
+import logging
 import requests
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 from .conf import settings
+
+logger = logging.getLogger(__name__)
 
 
 class Typo3Client:
@@ -135,15 +142,31 @@ class Typo3Client:
         Returns: the django user
 
         """
-        user, created = get_user_model().objects.get_or_create(
-            pk=user_id, defaults={'last_login': now()}
-        )
-
         # Update and save the django user with the latest info. This could
         # probably be done asynchronously, if such a system is in place.
-        user.typo3_session_id = session_id
         user_data = self.get_user_information(user_id)
-        self.update_user(user, user_data)
+
+        # if something goes wrong, log the full exception, including user-data.
+        try:
+            user, created = get_user_model().objects.get_or_create(
+                pk=user_id, email=user_data['username'], defaults={
+                    'last_login': now(),
+                }
+            )
+        except IntegrityError as e:
+            raise IntegrityError('{e}With data: {data}'.format(
+                e=e, data=user_data
+            ))
+        user.typo3_session_id = session_id
+
+        # Related questionnaires are saved here as well. Befar an invalid
+        # questionnaire is saved an exception is raised - and the user not
+        # returned. Prevent this, but inform the admins about it.
+        try:
+            self.update_user(user, user_data)
+        except ValidationError as e:
+            logger.error(_(u"Error when logging in and "
+                           u"updating the user {}: {}").format(user_id, e))
 
         # Finally, return the django user.
         return user
