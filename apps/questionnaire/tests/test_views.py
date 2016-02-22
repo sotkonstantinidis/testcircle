@@ -434,6 +434,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'permissions': ['edit_questionnaire'],
                 'edited_questiongroups': [],
                 'view_mode': 'edit',
+                'is_blocked': None,
             })
 
     def test_returns_rendered_response(self):
