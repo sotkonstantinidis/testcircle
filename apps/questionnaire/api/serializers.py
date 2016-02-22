@@ -18,7 +18,6 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     # Field name in the configuration for the 'excerpt' of a questionnaire.
     # All matching fields will be used and concatenated to a single string.
-    # This value is cached.
     excerpt_fields = ['app_definition', 'app_desc_methods']
 
     # Non-model fields that are used for the serializer.
@@ -50,9 +49,9 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
             string Result of the method
 
         """
-        # Todo: check if this is correct (content-wise).
+        # Todo: check if 'original_configuration' is correct (content-wise).
         default_configuration = obj.configurations.filter(
-            active=True
+            questionnaireconfiguration__original_configuration=True
         ).first()
         configuration = get_configuration(default_configuration.code)
         # A dict with multiple languages is returned.
