@@ -599,7 +599,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
         elif self.field_type in ['image', 'file']:
-            widget = ImageUpload(attrs=attrs)
+            if self.field_type == 'file':
+                attrs.update({'css_class': 'upload-file'})
+            widget = FileUpload(attrs=attrs)
             formfields['file_{}'.format(self.keyword)] = forms.FileField(
                 widget=widget, required=self.required, label=self.label)
             field = forms.CharField(
@@ -2259,8 +2261,8 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
         return ctx
 
 
-class ImageUpload(forms.FileInput):
-    template_name = 'form/field/image_upload.html'
+class FileUpload(forms.FileInput):
+    template_name = 'form/field/file_upload.html'
 
 
 class RequiredFormSet(BaseFormSet):

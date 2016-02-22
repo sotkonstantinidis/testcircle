@@ -2058,7 +2058,6 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
 
-    @attr('foo')
     def test_upload_multiple_images(self, mock_get_user_id):
 
         # Alice logs in
