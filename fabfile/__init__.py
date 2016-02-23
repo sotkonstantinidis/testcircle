@@ -94,7 +94,6 @@ def deploy():
     _clean_static_folder(env.source_folder)
     _update_static_files(env.source_folder)
     _update_database(env.source_folder)
-    _reload_uwsgi()
     _set_maintenance_mode(False, env.source_folder)
     print(green("Everything OK"))
 
@@ -186,6 +185,7 @@ def _set_maintenance_mode(value, source_folder):
     # Prevent this from happening again.
     if exists(settings.MAINTENANCE_LOCKFILE_PATH):
         run('rm {}'.format(settings.MAINTENANCE_LOCKFILE_PATH))
+    _reload_uwsgi()
 
 
 @task
