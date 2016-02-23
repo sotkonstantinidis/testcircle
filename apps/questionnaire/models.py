@@ -112,8 +112,14 @@ class Questionnaire(models.Model):
         """
         self.data = data
         self.updated = updated
-        self.blocked = None
         self.save()
+        # Unblock all questionnaires with this code, as all questionnaires with
+        # this code are blocked for editing.
+        self._meta.model.objects.filter(
+            code=self.code
+        ).update(
+            blocked=None
+        )
 
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
