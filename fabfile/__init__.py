@@ -182,11 +182,9 @@ def _set_maintenance_mode(value, source_folder):
     run('echo {bool_value} > {envs_file}'.format(
         bool_value=str(value),
         envs_file=join(source_folder, 'envs', 'MAINTENANCE_MODE')))
-    # There were issues with permissions, so force the maintenance mode with a
-    # lockfile.
-    if value:
-        run('touch {}'.format(settings.MAINTENANCE_LOCKFILE_PATH))
-    else:
+    # There were issues with permissions, so the lock-file remained in place.
+    # Prevent this from happening again.
+    if exists(settings.MAINTENANCE_LOCKFILE_PATH):
         run('rm {}'.format(settings.MAINTENANCE_LOCKFILE_PATH))
 
 
