@@ -413,7 +413,9 @@ def generic_questionnaire_new_step(
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
         session_questionnaire = session_data.get('questionnaire', {})
-        edited_questiongroups = session_data.get('edited_questiongroups', [])
+        edited_questiongroups = compare_questionnaire_data(
+            session_questionnaire,
+            session_data.get('old_questionnaire', session_questionnaire))
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -551,17 +553,7 @@ def generic_questionnaire_new(
         questionnaire_data = questionnaire_object.data
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
-        edited_questiongroups = session_data.get('edited_questiongroups')
         if session_data.get('questionnaire') is None:
-
-            # When the questionnaire data is stored in the session for
-            # the first time, also store its old data.
-            if questionnaire_object.data_old is None:
-                questionnaire_object.data_old = questionnaire_object.data
-                questionnaire_object.save()
-
-            edited_questiongroups = compare_questionnaire_data(
-                questionnaire_object.data, questionnaire_object.data_old)
 
             questionnaire_links = get_link_data(
                 questionnaire_object.links.all())
@@ -569,7 +561,15 @@ def generic_questionnaire_new(
                 request, configuration_code, identifier,
                 questionnaire_data=questionnaire_data,
                 questionnaire_links=questionnaire_links,
-                edited_questiongroups=edited_questiongroups)
+                old_questionnaire_data=questionnaire_object.data,
+            )
+
+        else:
+            session_questionnaire = session_data.get('questionnaire', {})
+            edited_questiongroups = compare_questionnaire_data(
+                session_questionnaire,
+                session_data.get('old_questionnaire', session_questionnaire))
+
     else:
         questionnaire_object = None
         identifier = 'new'
@@ -738,9 +738,9 @@ def generic_questionnaire_details(
 
     review_config = {}
     if request.user.is_authenticated() \
-            and questionnaire_object.status != settings.QUESTIONNAIRE_SUBMITTED:
+            and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
         # Show the review panel only if the user is logged in and if the
-        # version shown is not active.
+        # version shown is not active (public).
         review_config = {
             'review_status': questionnaire_object.status,
             'csrf_token_value': get_token(request),
