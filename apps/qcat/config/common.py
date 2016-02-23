@@ -243,6 +243,13 @@ class BaseSettings(Configuration):
     OPBEAT_ORGANIZATION_ID = values.Value(environ_prefix='')
     OPBEAT_APP_ID = values.Value(environ_prefix='')
     OPBEAT_SECRET_TOKEN = values.Value(environ_prefix='')
-    OPBEAT_ORGANIZATION_URL = values.Value(environ_prefix='')
+
+    # Settings for automated deploy with fabric.
+    OPBEAT_BEARER_DEV = values.Value(environ_prefix='')
+    OPBEAT_BEARER_LIVE = values.Value(environ_prefix='')
+
+    OPBEAT_URL_DEV = values.Value(environ_prefix='')
+    OPBEAT_URL_LIVE = values.Value(environ_prefix='')
 
     HOST_STRING_DEV = values.Value(environ_prefix='')
+    HOST_STRING_LIVE = values.Value(environ_prefix='')

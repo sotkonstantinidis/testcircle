@@ -2,6 +2,7 @@ import contextlib
 import json
 from uuid import uuid4
 
+from django.contrib.auth import get_user_model
 from django.contrib.gis.db import models
 from django.contrib.messages import WARNING, SUCCESS
 from django.core.exceptions import ValidationError
@@ -286,6 +287,9 @@ class Questionnaire(models.Model):
             questionnaire object.
         """
         permissions = []
+        if not isinstance(current_user, get_user_model()):
+            return permissions
+
         permission_groups = {
             settings.QUESTIONNAIRE_COMPILER: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
