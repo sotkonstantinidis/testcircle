@@ -1,30 +1,77 @@
-from rest_framework import filters
-from rest_framework.viewsets import ReadOnlyModelViewSet
+"""
+All questionnaire data is on the elasticsearch-index. As of now, the database
+is still touched. Efforts to refactor the following are in progress:
+
+- Create new serializer (see stub: questionnaire.serializers)
+- Use serializer when putting objects to the index
+  (search.index.put_questionnaire_data)
+- Put logic of 'get_list_values' to serializer.
+- Put logic of new required fields for external API to serializer.
+"""
+import contextlib
+
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
 
 from api.views import LogUserMixin, PermissionMixin
-from .serializers import QuestionnaireSerializer
-from ..models import Questionnaire
+from questionnaire.models import Questionnaire
+from search.search import advanced_search
+from ..utils import get_list_values
 
 
-class QuestionnaireViewSet(PermissionMixin, LogUserMixin, ReadOnlyModelViewSet):
+class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
     """
-    List and detail view for questionnaires.
+    List view for questionnaires.
 
-    Filters can be passed in the url, e.g. /en/api/v1/questionnaire/?version=1
-
-    No filters are available yet.
-
-    The results are displayed in the same language as the request. The language
-    of the results can alternatively be defined with the query string param
-    'lang', e.g. ?lang=es
+    Todo:
+    - Refactor serializing / deserializing of indexed questionnaires
+    - Add pagination
+    - Add detail view
+    - Improve docstrings
 
     """
-    serializer_class = QuestionnaireSerializer
-    filter_backends = (filters.DjangoFilterBackend, )
-    filter_fields = ('version', )
+    url_cache = {}
 
-    def get_queryset(self):
+    def get_elasticsearch_items(self):
         """
-        Display public questionnaires only.
+        Don't touch the database, but fetch everything from elasticsearch.
+
+        Args:
+            page: int For pagination: start at this position
+            code: string Code of the questionnaire
+
+        Returns:
+            list of questionnaires
         """
-        return Questionnaire.with_status.public()
+        # Blank search returns all items within all indexes.
+        es_search_results = advanced_search()
+        questionnaires = self.format_es_search_results(es_search_results)
+        list_values = get_list_values(
+            questionnaire_objects=questionnaires, with_links=False
+        )
+        for index, questionnaire in enumerate(list_values):
+            list_values[index]['url'] = self.request.build_absolute_uri(
+                self.url_cache[questionnaire['id']]
+            )
+        return list_values
+
+    def get(self, request, *args, **kwargs):
+        items = self.get_elasticsearch_items()
+        return Response(items)
+
+    def format_es_search_results(self, results):
+        """
+        @todo: refactor!
+        This is nasty, as it hits the db for each questionnaire. This is
+        required beause the method `get_list_values` expects Questionnaire
+        objects.
+        As the API must be made available for a beta right now, hit the db until
+        the refactor is finished.
+        """
+        results = results.get('hits', {}).get('hits')
+        for result in results:
+            with contextlib.suppress(ObjectDoesNotExist):
+                obj = Questionnaire.objects.get(id=result['_id'])
+                self.url_cache[obj.id] = obj.get_absolute_url()
+                yield obj

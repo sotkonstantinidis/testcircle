@@ -40,7 +40,6 @@ class BaseSettings(Configuration):
         'imagekit',
         'maintenancemode',
         'rest_framework',
-        'rest_framework.authtoken',
         'rest_framework_swagger',
         'sekizai',
         # Custom apps
@@ -233,7 +232,6 @@ class BaseSettings(Configuration):
 
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
-    CACHE_TIMEOUT = values.IntegerValue(environ_prefix='', default=3600)
 
     # If set to true, the template 503.html is displayed.
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)

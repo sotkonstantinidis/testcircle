@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 
+from rest_framework.authtoken.models import Token
+
 
 class RequestLog(models.Model):
     """
@@ -15,3 +17,16 @@ class RequestLog(models.Model):
 
     def __str__(self):
         return u"{}: {}".format(self.user, self.resource)
+
+
+class NoteToken(Token):
+    """
+    Provide info about usage of a token. This is required for statistics of the
+    API and its usage.
+    """
+    notes = models.TextField()
+
+
+    @property
+    def requests_from_user(self):
+        return self._meta.model.objects.filter(user=self.user).count()

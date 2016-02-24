@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.reverse import reverse
@@ -9,7 +9,9 @@ from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
-from .models import RequestLog
+from .authentication import NoteTokenAuthentication
+from .models import RequestLog, NoteToken
+from .serializers import NoteAuthTokenSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +38,26 @@ class APIRoot(APIView):
         return Response(urls)
 
 
+class ObtainNoteAuthTokenView(ObtainAuthToken):
+    """
+    Create a token for given user. Also saves a 'note' that is passed to the
+    serializer.
+    """
+    serializer_class = NoteAuthTokenSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = NoteToken.objects.get_or_create(
+            user=user, defaults={'notes': serializer.validated_data['notes']}
+        )
+        if not created:
+            token.notes = serializer.validated_data['notes']
+            token.save()
+        return Response({'token': token.key})
+
+
 class LogUserMixin:
     """
     Log requests that access the API to the database, so usage statistics can
@@ -60,7 +82,7 @@ class PermissionMixin:
     Default permissions for all API views.
 
     """
-    authentication_classes = (TokenAuthentication, )
+    authentication_classes = (NoteTokenAuthentication, )
     permission_classes = (IsAuthenticated, )
 
     def get_permissions(self):
