@@ -1211,6 +1211,48 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Flow chart"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7084
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Description"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7085
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Author"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7086
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "approaches": {
@@ -2844,6 +2886,9 @@
         "approaches": {
           "label": {
             "en": "Flow chart (if available)"
+          },
+          "helptext": {
+            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
           },
           "numbering": "3.2"
         }
@@ -5049,6 +5094,39 @@
   },
   {
     "fields": {
+      "keyword": "app_flowchart",
+      "translation": 7084,
+      "configuration": {
+        "type": "file"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3145
+  },
+  {
+    "fields": {
+      "keyword": "app_flowchart_description",
+      "translation": 7085,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3146
+  },
+  {
+    "fields": {
+      "keyword": "app_flowchart_author",
+      "translation": 7086,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3147
+  },
+  {
+    "fields": {
       "keyword": "stakeholder_local",
       "translation": 7501,
       "order_value": 1
@@ -6750,6 +6828,15 @@
   },
   {
     "fields": {
+      "keyword": "app_qg_103",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3103
+  },
+  {
+    "fields": {
       "keyword": "app__1__1",
       "translation": 8701
     },
@@ -8172,9 +8259,31 @@
                   },
                   {
                     "keyword": "app__3__2",
-                    "form_options": {
-                      "template": "todo"
-                    }
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_103",
+                        "view_options": {
+                          "template": "columns_o4_r8"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_flowchart"
+                          },
+                          {
+                            "keyword": "app_flowchart_description",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "app_flowchart_author",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     "keyword": "app__3__3",
