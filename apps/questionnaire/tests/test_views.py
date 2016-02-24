@@ -340,7 +340,8 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             r, *get_valid_new_values()[0], **get_valid_new_values()[1])
         mock_create_new.assert_called_once_with(
-            'sample', {}, self.request.user, previous_version=None)
+            'sample', {}, self.request.user, previous_version=None,
+            old_data=None)
 
     @patch('questionnaire.views.clear_session_questionnaire')
     @patch('questionnaire.views.clean_questionnaire_data')

@@ -95,7 +95,7 @@ class Questionnaire(models.Model):
         return reverse(
             'questionnaire_view_details', kwargs={'identifier': self.code})
 
-    def update_data(self, data, updated, configuration_code):
+    def update_data(self, data, updated, configuration_code, old_data=None):
         """
         Helper function to just update the data of the questionnaire
         without creating a new instance.
@@ -107,11 +107,15 @@ class Questionnaire(models.Model):
 
             ``configuration_code`` (str): The configuration code.
 
+            ``old_data`` (dict): The data dictionary containing the old data of
+            the questionnaire.
+
         Returns:
             ``Questionnaire``
         """
         self.data = data
         self.updated = updated
+        self.data_old = old_data
         self.save()
         # Unblock all questionnaires with this code, as all questionnaires with
         # this code are blocked for editing.
@@ -129,7 +133,7 @@ class Questionnaire(models.Model):
     @staticmethod
     def create_new(
             configuration_code, data, user, previous_version=None, status=1,
-            created=None, updated=None):
+            created=None, updated=None, old_data=None):
         """
         Create and return a new Questionnaire.
 
@@ -152,6 +156,9 @@ class Questionnaire(models.Model):
 
             ``updated`` (datetime): A specific datetime object to be set
             as updated timestamp. Defaults to ``now`` if not set.
+
+            ``old_data`` (dict): The data dictionary containing the old data of
+            the questionnaire.
 
         Returns:
             ``questionnaire.models.Questionnaire``. The created
@@ -183,7 +190,7 @@ class Questionnaire(models.Model):
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_SUBMITTED:
@@ -194,7 +201,7 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_REVIEWED:
@@ -205,7 +212,7 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
             else:

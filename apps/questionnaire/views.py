@@ -413,9 +413,10 @@ def generic_questionnaire_new_step(
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
         session_questionnaire = session_data.get('questionnaire', {})
-        edited_questiongroups = compare_questionnaire_data(
-            session_questionnaire,
-            session_data.get('old_questionnaire', session_questionnaire))
+        old_data = session_data.get('old_questionnaire')
+        if old_data:
+            edited_questiongroups = compare_questionnaire_data(
+                session_questionnaire, old_data)
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -555,14 +556,21 @@ def generic_questionnaire_new(
             request, configuration_code, identifier)
         if session_data.get('questionnaire') is None:
 
+            old_data = questionnaire_object.data_old
+            if old_data is None:
+                old_data = questionnaire_data
+
             questionnaire_links = get_link_data(
                 questionnaire_object.links.all())
             save_session_questionnaire(
                 request, configuration_code, identifier,
                 questionnaire_data=questionnaire_data,
                 questionnaire_links=questionnaire_links,
-                old_questionnaire_data=questionnaire_object.data,
+                old_questionnaire_data=old_data,
             )
+
+            edited_questiongroups = compare_questionnaire_data(
+                questionnaire_data, old_data)
 
         else:
             session_questionnaire = session_data.get('questionnaire', {})
@@ -603,7 +611,7 @@ def generic_questionnaire_new(
         else:
             questionnaire = Questionnaire.create_new(
                 configuration_code, session_questionnaire, request.user,
-                previous_version=questionnaire_object)
+                previous_version=questionnaire_object, old_data=session_data.get('old_questionnaire'))
             clear_session_questionnaire(
                 request, configuration_code, identifier)
 
