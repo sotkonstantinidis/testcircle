@@ -48,9 +48,9 @@ def create_thumbnails(file_path, content_type):
             params = '-strip -interlace Plane -sampling-factor 4:2:0'
 
         cmd = 'convert -quality {quality} -resize {size} {params} ' \
-              '{input}[0] {output}'.format(
-                quality=quality, size=resize_format, params=params,
-                input=file_path, output=thumbnail_path)
+              '{input}[0] {output}'.format(quality=quality, size=resize_format,
+                                           params=params, input=file_path,
+                                           output=thumbnail_path)
         subprocess.call(cmd, shell=True)
 
         thumbnails[format_name] = uid
