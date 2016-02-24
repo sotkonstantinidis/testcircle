@@ -19,6 +19,12 @@ from .conf import settings
 from .errors import QuestionnaireLockedException
 from .querysets import StatusQuerySet
 
+from questionnaire.upload import (
+    create_thumbnails,
+    get_url_by_file_name,
+    get_file_path,
+    store_file,
+)
 
 STATUSES = (
     (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
@@ -110,7 +116,7 @@ class Questionnaire(models.Model):
                 ), kwargs={'identifier': self.code})
         return None
 
-    def update_data(self, data, updated, configuration_code):
+    def update_data(self, data, updated, configuration_code, old_data=None):
         """
         Helper function to just update the data of the questionnaire
         without creating a new instance.
@@ -122,13 +128,23 @@ class Questionnaire(models.Model):
 
             ``configuration_code`` (str): The configuration code.
 
+            ``old_data`` (dict): The data dictionary containing the old data of
+            the questionnaire.
+
         Returns:
             ``Questionnaire``
         """
         self.data = data
         self.updated = updated
-        self.blocked = None
+        self.data_old = old_data
         self.save()
+        # Unblock all questionnaires with this code, as all questionnaires with
+        # this code are blocked for editing.
+        self._meta.model.objects.filter(
+            code=self.code
+        ).update(
+            blocked=None
+        )
 
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
@@ -138,7 +154,7 @@ class Questionnaire(models.Model):
     @staticmethod
     def create_new(
             configuration_code, data, user, previous_version=None, status=1,
-            created=None, updated=None):
+            created=None, updated=None, old_data=None):
         """
         Create and return a new Questionnaire.
 
@@ -161,6 +177,9 @@ class Questionnaire(models.Model):
 
             ``updated`` (datetime): A specific datetime object to be set
             as updated timestamp. Defaults to ``now`` if not set.
+
+            ``old_data`` (dict): The data dictionary containing the old data of
+            the questionnaire.
 
         Returns:
             ``questionnaire.models.Questionnaire``. The created
@@ -192,7 +211,7 @@ class Questionnaire(models.Model):
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_SUBMITTED:
@@ -203,7 +222,7 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_REVIEWED:
@@ -214,7 +233,7 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
             else:
@@ -644,7 +663,9 @@ class Questionnaire(models.Model):
                 raise QuestionnaireLockedException(
                     cls.objects.filter(code=code).first().blocked
                 )
-            editable_questionnaires.update(blocked=user)
+            editable_questionnaires.exclude(
+                status=settings.QUESTIONNAIRE_PUBLIC
+            ).update(blocked=user)
 
     def can_edit(self, user):
         return self.has_questionnaires_for_code(
@@ -735,18 +756,91 @@ class File(models.Model):
     thumbnails = JsonBField()
 
     @staticmethod
-    def create_new(content_type, size=None, thumbnails={}, uuid=None):
+    def handle_upload(uploaded_file):
+        """
+        Handle the upload of a file by storing it, create thumbnails for it and
+        create a database entry for it.
+
+        The storage of the file is handled by :func:`store_file`.
+
+        Args:
+            uploaded_file (django.core.files.uploadedfile.UploadedFile):
+            An uploaded file.
+
+        Returns:
+            The newly created File model instance.
+        """
+        file_uid, file_destination = store_file(uploaded_file)
+        thumbnails = create_thumbnails(
+            file_destination, uploaded_file.content_type)
+        file_object = File.create_new(
+            content_type=uploaded_file.content_type, size=uploaded_file.size,
+            thumbnails=thumbnails, uuid=file_uid)
+        return file_object
+
+    @staticmethod
+    def get_data(file_object=None, uid=None):
+        """
+        Get relevant data of a file.
+
+        Args:
+            file_object (questionnaire.models.File): A file model instance or
+            None. If provided, no UID is necessary.
+
+            uid (str): The UID of a file. If no file object is provided, the UID
+            is required.
+
+        Returns:
+            dict. A dictionary with information about the file, namely:
+
+            * content_type: The content type of the file.
+            * interchange: The interchange URLs of the thumbnails, as string.
+            * interchange_list: The interchange URLs of the thumbnails, as a
+              list of tuples (URL, format).
+            * size: The size of the file.
+            * uid: The UID of the file.
+            * url: The URL of the original file.
+        """
+        if file_object is None:
+            try:
+                file_object = File.objects.get(uuid=uid)
+            except File.DoesNotExist:
+                return {}
+
+        interchange_list = []
+        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
+            interchange_list.append(
+                (file_object.get_url(thumbnail=thumbnail_format[0]),
+                 thumbnail_format[0]))
+        if file_object.content_type.split('/')[0] == 'image':
+            # Only add large (pointing to the original file) if it is an image
+            interchange_list.append((file_object.get_url(), 'large'))
+
+        interchange_text = []
+        for i_url, i_format in interchange_list:
+            interchange_text.append('[{}, ({})]'.format(i_url, i_format))
+
+        file_data = {
+            'content_type': file_object.content_type,
+            'interchange': interchange_text,
+            'interchange_list': interchange_list,
+            'size': file_object.size,
+            'uid': str(file_object.uuid),
+            'url': file_object.get_url(),
+        }
+        return file_data
+
+    @staticmethod
+    def create_new(content_type, size=None, thumbnails=None, uuid=None):
         """
         Create and return a new file.
 
         Args:
-            ``content_type`` (str): The mime type (e.g. ``image/png``) of
-            the file.
+            content_type (str): The mime type (e.g. ``image/png``) of the file.
 
-        Kwargs:
-            ``size`` (int): The size of the file.
+            size (int): The size of the file.
 
-            ``thumbnails`` (dict): A dictionary pointing to the
+            thumbnails (dict): A dictionary pointing to the
             thumbnails based on their predefined dimensions. Example::
 
               {
@@ -754,7 +848,7 @@ class File(models.Model):
                 "header_small": "23592f37-cd5b-43db-9376-04c5d805429d"
               }
 
-            ``uuid`` (str): The UUID for the file. If not provided, a
+            uuid (str): The UUID for the file. If not provided, a
             random UUID will be generated.
 
         Returns:
@@ -762,6 +856,8 @@ class File(models.Model):
         """
         if uuid is None:
             uuid = uuid4()
+        if thumbnails is None:
+            thumbnails = {}
         return File.objects.create(
             uuid=uuid, content_type=content_type, size=size,
             thumbnails=thumbnails)
@@ -772,7 +868,7 @@ class File(models.Model):
         return the respective URL.
 
         Args:
-            ``thumbnail`` (str or None). The name of the thumbnail for
+            thumbnail (str or None). The name of the thumbnail for
             which the URL shall be returned. If not specified, the
             original file will be returned.
 
@@ -780,58 +876,7 @@ class File(models.Model):
             ``str`` or ``None``. The relative URL of the file object or
             ``None`` if the thumbnail was not found.
         """
-        from questionnaire.upload import (
-            get_url_by_filename,
-            get_file_extension_by_content_type,
-        )
-        uid = self.uuid
-        if thumbnail is not None:
-            uid = self.thumbnails.get(thumbnail)
-            if uid is None:
-                return None
-        if thumbnail is not None:
-            file_extension = 'jpg'
-        else:
-            file_extension = get_file_extension_by_content_type(
-                self.content_type)
-        if file_extension is None:
+        __, file_name = get_file_path(self, thumbnail=thumbnail)
+        if file_name is None:
             return None
-        filename = '{}.{}'.format(uid, file_extension)
-        return get_url_by_filename(filename)
-
-    def get_interchange_urls(self):
-        """
-        Return the URLs for all the thumbnail sizes of the file. This
-        value can be used by foundation as the ``data-interchange``
-        value to allow interchange of images.
-
-        Also adds ``large`` as last thumbnail size. This size contains
-        the original image as it was uploaded.
-
-        Returns:
-            ``str``. A string with the interchange files. Can be used as
-            such in ``<img data-interchange="">``.
-        """
-        ret = []
-        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
-            ret.append('[{}, ({})]'.format(self.get_url(
-                thumbnail=thumbnail_format[0]), thumbnail_format[0]))
-        ret.append('[{}, ({})]'.format(self.get_url(), 'large'))
-        return ''.join(ret)
-
-    def get_interchange_urls_as_list(self):
-        """
-        Return the URLs for all the thumbnail sizes of the file. Similar
-        to :func:`get_interchange_urls` but returns list of tuples
-        instead of text.
-
-        Returns:
-            ``list``. A list of tuples with the interchange URLs and the
-            sizes.
-        """
-        ret = []
-        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
-            ret.append((self.get_url(
-                thumbnail=thumbnail_format[0]), thumbnail_format[0]))
-        ret.append((self.get_url(), 'large'))
-        return ret
+        return get_url_by_file_name(file_name)
