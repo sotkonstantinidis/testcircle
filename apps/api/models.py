@@ -26,7 +26,6 @@ class NoteToken(Token):
     """
     notes = models.TextField()
 
-
     @property
     def requests_from_user(self):
         return self._meta.model.objects.filter(user=self.user).count()

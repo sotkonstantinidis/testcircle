@@ -611,7 +611,8 @@ def generic_questionnaire_new(
         else:
             questionnaire = Questionnaire.create_new(
                 configuration_code, session_questionnaire, request.user,
-                previous_version=questionnaire_object, old_data=session_data.get('old_questionnaire'))
+                previous_version=questionnaire_object,
+                old_data=session_data.get('old_questionnaire'))
             clear_session_questionnaire(
                 request, configuration_code, identifier)
 
