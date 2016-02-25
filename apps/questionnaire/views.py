@@ -160,7 +160,11 @@ def generic_questionnaire_link_form(
                 request, _('Data successfully stored to Session.'))
             return redirect(overview_url)
 
-    return render(request, 'form/links.html', {
+    # Use a specific templates for the link or the default fallback template.
+    templates = [
+        'form/links/{}.html'.format(t) for t in [configuration_code, 'default']]
+
+    return render(request, templates, {
         'valid': valid,
         'overview_url': overview_url,
         'link_forms': link_forms,
