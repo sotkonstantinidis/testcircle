@@ -143,6 +143,7 @@ class BaseSettings(Configuration):
         "django.contrib.messages.context_processors.messages",
         'django.core.context_processors.request',
         'sekizai.context_processors.sekizai',
+        'qcat.context_processors.warn_header'
     )
 
     AUTH_USER_MODEL = 'accounts.User'
@@ -254,3 +255,5 @@ class BaseSettings(Configuration):
 
     HOST_STRING_DEV = values.Value(environ_prefix='')
     HOST_STRING_LIVE = values.Value(environ_prefix='')
+
+    WARN_HEADER = values.Value(environ_prefix='')
