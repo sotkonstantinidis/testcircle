@@ -12,7 +12,7 @@ import contextlib
 
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import GenericAPIView
-from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from api.views import LogUserMixin, PermissionMixin
 from questionnaire.models import Questionnaire
@@ -20,7 +20,8 @@ from search.search import advanced_search
 from ..utils import get_list_values
 
 
-class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
+class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView,
+                            PageNumberPagination):
     """
     List view for questionnaires.
 
@@ -57,8 +58,14 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
         return list_values
 
     def get(self, request, *args, **kwargs):
+        """
+        Returns:
+            Response: paginated objects.
+
+        """
         items = self.get_elasticsearch_items()
-        return Response(items)
+        paginated = self.paginate_queryset(items)
+        return self.get_paginated_response(paginated)
 
     def format_es_search_results(self, results):
         """

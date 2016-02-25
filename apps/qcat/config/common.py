@@ -194,6 +194,7 @@ class BaseSettings(Configuration):
         'DEFAULT_THROTTLE_RATES': {
             'anon': '10/day',
         },
+        'PAGE_SIZE': 25,
     }
     SWAGGER_SETTINGS = {
         'api_version': '0.1',
