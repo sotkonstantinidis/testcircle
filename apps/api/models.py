@@ -28,4 +28,4 @@ class NoteToken(Token):
 
     @property
     def requests_from_user(self):
-        return self._meta.model.objects.filter(user=self.user).count()
+        return self.user.requestlog_set.count()
