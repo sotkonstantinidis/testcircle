@@ -201,6 +201,7 @@ class BaseSettings(Configuration):
         'doc_expansion': 'list',
         'exclude_namespaces': ['api-root'],
     }
+    API_PAGE_SIZE = values.IntegerValue(default=25, environ_prefix='')
 
     DATABASES = values.DatabaseURLValue()
 
