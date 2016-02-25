@@ -7,6 +7,7 @@ from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
+from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
 
 from .authentication import NoteTokenAuthentication
@@ -44,6 +45,7 @@ class ObtainNoteAuthTokenView(ObtainAuthToken):
     serializer.
     """
     serializer_class = NoteAuthTokenSerializer
+    throttle_classes = (AnonRateThrottle, )
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)

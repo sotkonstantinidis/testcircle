@@ -190,6 +190,9 @@ class BaseSettings(Configuration):
             'rest_framework_xml.renderers.XMLRenderer',
             'rest_framework_csv.renderers.CSVRenderer',
         ),
+        'DEFAULT_THROTTLE_RATES': {
+            'anon': '10/day',
+        },
     }
     SWAGGER_SETTINGS = {
         'api_version': '0.1',
