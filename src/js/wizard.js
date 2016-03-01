@@ -659,6 +659,7 @@ $(function() {
 function updateUser(qg, user_id) {
   // Copy the user to the local QCAT database if not yet there.
 
+  var csrf = $('input[name="csrfmiddlewaretoken"]').val();
   $.ajax({
     url: qg.find('.user-search-field').data('update-url'),
     type: "POST",
@@ -666,7 +667,7 @@ function updateUser(qg, user_id) {
       uid: user_id
     },
     beforeSend: function(xhr, settings) {
-      xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      xhr.setRequestHeader("X-CSRFToken", csrf);
     },
     success: function(data) {
       if (data.success !== true) {
