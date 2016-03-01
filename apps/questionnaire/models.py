@@ -458,34 +458,6 @@ class Questionnaire(models.Model):
                 set(previous_users) - set(previous_users_found)):
             self.remove_user(removed_user[1], removed_user[0])
 
-    def update_users_in_data(self, user):
-        """
-        Based on the links in the database, update the data dictionary
-        of the questionnaire. This usually happens after a user's
-        information (display name) changed.
-
-        Args:
-            ``user`` (accounts.models.User): The user to be updated in
-            the data dictionary.
-        """
-        configurations = self.configurations.all()
-
-        # Collect all the user fields of all configurations of the
-        # questionnaire
-        user_fields = []
-        for config in configurations:
-            questionnaire_configuration = get_configuration(config.code)
-            user_fields.extend(questionnaire_configuration.get_user_fields())
-
-        for user_field in user_fields:
-            user_data_list = self.data.get(user_field[0], [])
-            for user_data in user_data_list:
-                user_id = user_data.get(user_field[1])
-                if user_id and str(user_id) == str(user.id):
-                    user_data.update({user_field[2]: user.get_display_name()})
-
-        self.save()
-
     def get_metadata(self):
         """
         Return some metadata about the Questionnaire.

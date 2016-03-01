@@ -7352,9 +7352,134 @@
                   },
                   {
                     "keyword": "app__1__2",
-                    "form_options": {
-                      "template": "todo"
-                    }
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_102",
+                        "form_options": {
+                          "template": "select_user",
+                          "user_role": "resourceperson",
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "select_user"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "user_resourceperson_type",
+                            "form_options": {
+                              "template": "no_label"
+                            },
+                            "view_options": {
+                              "template": "values_as_header",
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "user_resourceperson_other",
+                            "form_options": {
+                              "template": "radio_other",
+                              "label": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "as_header",
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "user_id",
+                            "form_options": {
+                              "template": "no_label"
+                            }
+                          },
+                          {
+                            "keyword": "person_lastname",
+                            "view_options": {
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "person_firstname",
+                            "view_options": {
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "person_gender",
+                            "view_options": {
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "person_institution_name",
+                            "view_options": {
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "person_institution_address",
+                            "view_options": {
+                              "label": "none"
+                            }
+                          },
+                          {
+                            "keyword": "person_postal_code",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "person_city",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "person_state",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "person_phone_1",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "person_phone_2",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "person_email_1",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "person_email_2",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     "keyword": "app__1__3",

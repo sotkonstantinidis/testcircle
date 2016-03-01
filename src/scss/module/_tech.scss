@@ -212,6 +212,18 @@ h4.output-subcategory {
   }
 }
 
+.row:last-child .user-details {
+  margin-bottom: 0;
+}
+
+.user-details {
+  margin-bottom: 1rem;
+
+  p, ul {
+    margin-top: 0;
+  }
+}
+
 .user_container {
   border: 1px solid $color-beige;
   padding: 0 rem-calc(12) rem-calc(12);

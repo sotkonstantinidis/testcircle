@@ -646,6 +646,36 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 45",
+            "es": "Clave 45"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11045
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 46",
+            "es": "Clave 46"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11046
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "sample": {
@@ -2024,6 +2054,28 @@
   },
   {
     "fields": {
+      "keyword": "key_45",
+      "translation": 11045,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11045
+  },
+  {
+    "fields": {
+      "keyword": "key_46",
+      "translation": 11046,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11046
+  },
+  {
+    "fields": {
       "keyword": "value_1",
       "translation": 11501,
       "order_value": 1
@@ -2853,16 +2905,18 @@
                           "user_role": "landuser",
                           "max_num": 3
                         },
+                        "view_options": {
+                          "template": "select_user"
+                        },
                         "questions": [
                           {
-                            "keyword": "key_39",
-                            "form_options": {
-                              "template": "no_label",
-                              "display_field": "key_40"
-                            }
+                            "keyword": "key_45"
                           },
                           {
-                            "keyword": "key_40",
+                            "keyword": "key_46"
+                          },
+                          {
+                            "keyword": "key_39",
                             "form_options": {
                               "template": "no_label"
                             }

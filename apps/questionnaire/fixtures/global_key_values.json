@@ -297,25 +297,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Registered user"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Registered user"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5015
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Last name"
           }
         },
@@ -556,6 +537,25 @@
     },
     "model": "configuration.translation",
     "pk": 5028
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Other (specify)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Other (specify)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5029
   },
   {
     "fields": {
@@ -5537,17 +5537,6 @@
   },
   {
     "fields": {
-      "keyword": "user_display",
-      "translation": 5015,
-      "configuration": {
-        "type": "user_display"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 15
-  },
-  {
-    "fields": {
       "keyword": "person_lastname",
       "translation": 5016,
       "configuration": {
@@ -5696,6 +5685,17 @@
     },
     "model": "configuration.key",
     "pk": 28
+  },
+  {
+    "fields": {
+      "keyword": "user_resourceperson_other",
+      "translation": 5029,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 29
   },
   {
     "fields": {

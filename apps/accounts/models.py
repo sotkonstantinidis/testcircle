@@ -159,25 +159,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.lastname = lastname
         self.firstname = firstname
         self.save()
-
-        self.update_related_questionnaires()
-
-    def update_related_questionnaires(self):
-        """
-        Updates the data dictionnaires of all the related questionnaires
-        of a user to update the display name of a user in the
-        questionnaire data.
-        """
-        for role, questionnaire in self.get_questionnaires():
-            questionnaire.update_users_in_data(self)
-
-    # def is_authenticated(self):
-    #     """
-    #     Indicates if a user is authenticated. This is a way to tell if
-    #     the user has been authenticated in templates and therefore
-    #     always returns True.
-
-    #     Returns:
-    #         ``bool``. Always returns ``True``.
-    #     """
-    #     return True
