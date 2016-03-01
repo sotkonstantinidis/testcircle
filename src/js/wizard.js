@@ -772,6 +772,7 @@ function updateDropzones(emptyNew) {
     }
 
     var url = dropzoneContainer.data('upload-url');
+    var csrf = $('input[name="csrfmiddlewaretoken"]').val();
 
     if (!url) {
       return;
@@ -798,7 +799,7 @@ function updateDropzones(emptyNew) {
         }
       },
       sending: function(file, xhr, formData) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        xhr.setRequestHeader("X-CSRFToken", csrf);
       },
       success: function(file, response) {
         if (previewContainer && response['interchange']) {
