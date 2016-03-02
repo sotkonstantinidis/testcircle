@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -38,12 +38,14 @@ def delete_caches(request):
     return redirect('search:admin')
 
 
-class BuildAllCachesView(RedirectView):
+class BuildAllCachesView(LoginRequiredMixin, SuperuserRequiredMixin,
+                         RedirectView):
     """
     Build cache for all questionnaires.
     """
     url = reverse_lazy('search:admin')
     permanent = False
+    login_url = reverse_lazy('login')
 
     def get(self, request, *args, **kwargs):
         self.build_caches(request)
