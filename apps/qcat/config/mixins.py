@@ -8,6 +8,18 @@ class DevMixin:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
+class DebugToolbarMixin:
+    """
+    Not used by default, as it slows down request massively. Use this when
+    debugging questionnaires.
+    """
+    @property
+    def INSTALLED_APPS(self):
+        return super().INSTALLED_APPS + (
+            'debug_toolbar',
+        )
+
+
 class ProdMixin:
     DEBUG = values.BooleanValue(False)
     TEMPLATE_DEBUG = values.BooleanValue(False)
