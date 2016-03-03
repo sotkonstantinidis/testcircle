@@ -1,12 +1,12 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
-from api.models import RequestLog
 from qcat.tests import TestCase
 from accounts.tests.test_models import create_new_user
-from questionnaire.api.views import QuestionnaireViewSet
+from questionnaire.api.views import QuestionnaireListView
+
+from api.models import RequestLog, NoteToken
 
 
 class ApiViewTest(TestCase):
@@ -15,7 +15,7 @@ class ApiViewTest(TestCase):
     """
     def setUp(self):
         self.user = create_new_user()
-        token, created = Token.objects.get_or_create(user=self.user)
+        token, created = NoteToken.objects.get_or_create(user=self.user)
         self.token = token
 
     def test_logging(self):
@@ -30,5 +30,5 @@ class ApiViewTest(TestCase):
     def test_permission_required(self):
         # Ensure required authentication.
         settings.DEBUG = False
-        permissions = QuestionnaireViewSet().get_permissions()
+        permissions = QuestionnaireListView().get_permissions()
         self.assertIsInstance(permissions[0], IsAuthenticated)

@@ -1,17 +1,18 @@
-# Prevent logging of Elasticsearch queries
-import logging
-logging.disable(logging.CRITICAL)
-
 import uuid
+import logging
+
 from django.test.utils import override_settings
+from django.utils.timezone import now
 from elasticsearch import TransportError
 from unittest.mock import patch, Mock
 
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
-from questionnaire.tests.test_models import get_valid_metadata
-from search.index import (
+from questionnaire.serializers import QuestionnaireSerializer
+from questionnaire.tests.test_models import get_valid_metadata, \
+    get_valid_questionnaire
+from ..index import (
     create_or_update_index,
     delete_all_indices,
     delete_questionnaires_from_es,
@@ -21,9 +22,10 @@ from search.index import (
     get_mappings,
     put_questionnaire_data,
 )
-from search.search import (
-    simple_search,
-)
+from ..search import simple_search
+
+# Prevent logging of Elasticsearch queries
+logging.disable(logging.CRITICAL)
 
 
 es = get_elasticsearch()
@@ -52,7 +54,6 @@ def create_temp_indices(indices):
 
 
 class GetMappingsTest(TestCase):
-
     def test_calls_get_questiongroups(self):
         mock_Conf = Mock()
         mock_Conf.get_questiongroups.return_value = []
@@ -141,6 +142,8 @@ class GetMappingsTest(TestCase):
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class CreateOrUpdateIndexTest(TestCase):
+
+    fixtures = ['sample.json', 'sample_global_key_values.json']
 
     def setUp(self):
         """
@@ -319,11 +322,12 @@ class CreateOrUpdateIndexTest(TestCase):
         m.questionnairetranslation_set.all.return_value = []
         m.id = 1
         m.data = [{"foo": "bar"}]
-        m.created = ''
-        m.updated = ''
+        m.created = now()
+        m.updated = now()
         m.code = ''
         m.members.filter.return_value = []
         m.get_metadata.return_value = {}
+        m.get_absolute_url.return_value = ''
         put_questionnaire_data(TEST_ALIAS, [m])
         search = simple_search('bar', configuration_codes=[TEST_ALIAS])
         hits = search.get('hits', {}).get('hits', [])
@@ -345,6 +349,8 @@ class CreateOrUpdateIndexTest(TestCase):
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class PutQuestionnaireDataTest(TestCase):
 
+    fixtures = ['sample.json', 'sample_global_key_values.json']
+
     @patch('search.index.es')
     @patch('search.index.ConfigurationList')
     def test_creates_configuration_list(self, mock_ConfList, mock_es):
@@ -361,43 +367,22 @@ class PutQuestionnaireDataTest(TestCase):
     @patch('search.index.bulk')
     def test_calls_get_metadata(self, mock_bulk, mock_es):
         mock_bulk.return_value = 0, []
-        m = Mock()
-        m.configurations.all.return_value = []
-        m.links.all.return_value = []
-        m.questionnairetranslation_set.all.return_value = []
-        m.members.filter.return_value = []
-        m.get_metadata.return_value = get_valid_metadata()
-        put_questionnaire_data('foo', [m])
-        m.get_metadata.assert_called_once_with()
+        with patch.object(Questionnaire, 'get_metadata') as get_metadata:
+            m = get_valid_questionnaire()
+            put_questionnaire_data('foo', [m])
+            get_metadata.assert_called_once_with()
 
     @patch('search.index.es')
     @patch('search.index.bulk')
     def test_calls_bulk(self, mock_bulk, mock_es):
         mock_bulk.return_value = 0, []
-        m = Mock()
-        m.configurations.all.return_value = []
-        m.links.all.return_value = []
-        m.questionnairetranslation_set.all.return_value = []
-        m.members.filter.return_value = []
-        m.get_metadata.return_value = get_valid_metadata()
-        put_questionnaire_data('foo', [m])
+        questionnaire = get_valid_questionnaire()
+        put_questionnaire_data('foo', [questionnaire])
         data = [{
             '_index': '{}foo'.format(TEST_INDEX_PREFIX),
             '_type': 'questionnaire',
-            '_id': m.id,
-            '_source': {
-                'data': m.data,
-                'list_data': {},
-                'created': 'created',
-                'updated': 'updated',
-                'code': 'code',
-                'name': {'en': 'Unknown name'},
-                'configurations': ['configuration'],
-                'translations': ['en'],
-                'compilers': ['compiler'],
-                'editors': ['editor'],
-                'links': {'es': [], 'en': [], 'fr': []},
-            }
+            '_id': questionnaire.id,
+            '_source': dict(QuestionnaireSerializer(questionnaire).data)
         }]
         mock_bulk.assert_called_once_with(mock_es, data)
 
@@ -418,7 +403,6 @@ class PutQuestionnaireDataTest(TestCase):
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class DeleteQuestionnairesFromEsTest(TestCase):
-
     def setUp(self):
         self.objects = [Mock()]
 
@@ -435,7 +419,6 @@ class DeleteQuestionnairesFromEsTest(TestCase):
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class DeleteAllIndicesTest(TestCase):
-
     @patch('search.index.es')
     def test_calls_indices_delete(self, mock_es):
         delete_all_indices()
@@ -459,7 +442,6 @@ class DeleteAllIndicesTest(TestCase):
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class DeleteSingleIndexTest(TestCase):
-
     @patch('search.index.es')
     def test_calls_indices_delete(self, mock_es):
         delete_single_index('index')

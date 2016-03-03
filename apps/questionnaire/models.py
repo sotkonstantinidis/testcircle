@@ -8,6 +8,7 @@ from django.contrib.messages import WARNING, SUCCESS
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Q
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
@@ -17,6 +18,7 @@ from configuration.cache import get_configuration
 from configuration.models import Configuration
 from .conf import settings
 from .errors import QuestionnaireLockedException
+from .helpers import key_properties
 from .querysets import StatusQuerySet
 
 from questionnaire.upload import (
@@ -507,37 +509,7 @@ class Questionnaire(models.Model):
 
             * ``translations`` (list)
         """
-        compilers = []
-        editors = []
-        for compiler in self.members.filter(
-                questionnairemembership__role=settings.QUESTIONNAIRE_COMPILER
-        ):
-            compilers.append({
-                'id': compiler.id,
-                'name': str(compiler),
-            })
-        for editor in self.members.filter(
-            questionnairemembership__role=settings.QUESTIONNAIRE_EDITOR
-        ):
-            editors.append({
-                'id': editor.id,
-                'name': str(editor),
-            })
-        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
-        status_code = next(
-            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
-        return {
-            'created': self.created,
-            'updated': self.updated,
-            'compilers': compilers,
-            'editors': editors,
-            'code': self.code,
-            'configurations': [
-                conf.code for conf in self.configurations.all()],
-            'translations': [
-                t.language for t in self.questionnairetranslation_set.all()],
-            'status': (status_code[1], status[1])
-        }
+        return dict(key_properties(self))
 
     def add_link(self, questionnaire, symm=True):
         """
@@ -659,6 +631,42 @@ class Questionnaire(models.Model):
         else:
             return WARNING, _(u"This questionnaire is "
                               u"locked for editing by {}.".format(self.blocked))
+
+    # Properties for the get_metadata function.
+
+    def _get_role_list(self, role):
+        members = []
+        for member in self.members.filter(questionnairemembership__role=role):
+            members.append({
+                'id': member.id,
+                'name': str(member),
+            })
+        return members
+
+    @cached_property
+    def editors(self):
+        return self._get_role_list(settings.QUESTIONNAIRE_EDITOR)
+
+    @cached_property
+    def compilers(self):
+        return self._get_role_list(settings.QUESTIONNAIRE_COMPILER)
+
+    @cached_property
+    def status_property(self):
+        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
+        status_code = next(
+            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
+        return status_code[1], status[1]
+
+    @cached_property
+    def configurations_property(self):
+        return self.configurations.values_list('code', flat=True)
+
+    @cached_property
+    def translations(self):
+        return self.questionnairetranslation_set.values_list(
+            'language', flat=True
+        )
 
 
 class QuestionnaireConfiguration(models.Model):
