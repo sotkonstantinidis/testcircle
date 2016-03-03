@@ -18,7 +18,6 @@ from configuration.cache import get_configuration
 from configuration.models import Configuration
 from .conf import settings
 from .errors import QuestionnaireLockedException
-from .helpers import key_properties
 from .querysets import StatusQuerySet
 
 from questionnaire.upload import (
@@ -509,7 +508,13 @@ class Questionnaire(models.Model):
 
             * ``translations`` (list)
         """
-        return dict(key_properties(self))
+        return dict(self._get_metadata())
+
+    def _get_metadata(self):
+        # Access the property first, then the model field.
+        for key in settings.QUESTIONNAIRE_METADATA_KEYS:
+            yield key, getattr(self, '{}_property'.format(key),
+                               getattr(self, key))
 
     def add_link(self, questionnaire, symm=True):
         """

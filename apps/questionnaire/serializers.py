@@ -12,38 +12,6 @@ from configuration.utils import ConfigurationList
 from .models import Questionnaire
 
 
-class RestoreMethodField(serializers.SerializerMethodField):
-    """
-    SerializerMethodField is read_only, but deserialization is required as well.
-
-    """
-    def __init__(self, method_name=None, attribute=None, **kwargs):
-        self.method_name = method_name
-        self.attribute = attribute
-        kwargs['source'] = '*'
-        kwargs['read_only'] = False
-        super(serializers.SerializerMethodField, self).__init__(**kwargs)
-
-    def get_attribute(self, instance):
-        """
-        For some methods, 'data' is required as parameter, even if the
-        attribute is 'name' or such.
-        """
-        if not(isinstance(instance, Questionnaire)) and self.attribute:
-            return instance.get(self.attribute)
-        return super().get_attribute(instance)
-
-    def to_internal_value(self, data):
-        return data
-
-    def to_representation(self, value):
-        """
-        When restoring to an object, call the method with 'is_attribute'=False
-        """
-        method = getattr(self.parent, self.method_name)
-        return method(value, is_attribute=isinstance(value, Questionnaire))
-
-
 class OutgoingMethodIncomingRawField(serializers.SerializerMethodField):
     """
     Call serializer method when serializing, return raw element from dict when
@@ -84,12 +52,12 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     data = serializers.DictField()
     editors = serializers.ListField()
     links = OutgoingMethodIncomingRawField()
-    list_data = RestoreMethodField(attribute='data')
-    name = RestoreMethodField(attribute='data')
+    list_data = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
     serializer_config = serializers.SerializerMethodField()
     status = serializers.ReadOnlyField(source='status_property')
     translations = serializers.ListField()
-    url = OutgoingMethodIncomingRawField(read_only=False)
+    url = OutgoingMethodIncomingRawField(read_only=False, allow_null=True)
 
     class Meta:
         model = Questionnaire
@@ -199,8 +167,21 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         return obj.get_absolute_url()
 
     def to_internal_value(self, data):
-        serializer_config = data.pop('serializer_config')
-        internal_value = super(QuestionnaireSerializer, self).to_internal_value(data)
-        # Add fields to rep that are defined, but not yet set.
-        internal_value['serializer_config'] = serializer_config
+        internal_value = super().to_internal_value(data)
+        # Add fields to rep that are defined, but not yet set and require the
+        # configuration.
+        internal_value['serializer_config'] = self.get_serializer_config(None)
+        internal_value['list_data'] = self.get_list_data(data['data'], False)
+        internal_value['name'] = self.get_name(data['data'], False)
         return internal_value
+
+    def to_list_values(self, **kwargs):
+        """
+        Prepare validated_data to work with get_list_values.
+        """
+        if self.validated_data:
+            # Prevent circular import
+            from questionnaire.utils import prepare_list_values
+            return prepare_list_values(
+                data=self.validated_data, config=self.config, **kwargs
+            )

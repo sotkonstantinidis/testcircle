@@ -16,7 +16,7 @@ class CacheTest(TestCase):
 
     fixtures = ['sample.json']
     locmem = {'default': {'BACKEND': 'django.core.cache.backends.locmem.'
-                                           'LocMemCache'}}
+                                     'LocMemCache'}}
 
     def setUp(self):
         self.factory = RequestFactory()

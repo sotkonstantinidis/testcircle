@@ -39,7 +39,7 @@ class SerializerTest(TestCase):
         self.questionnaire.add_link(linked_questionnaire)
         self.questionnaire.save()
         with patch('questionnaire.utils.get_link_display') as get_link_display:
-            serializer = QuestionnaireSerializer(self.questionnaire).data
+            QuestionnaireSerializer(self.questionnaire).data  # noqa
             get_link_display.assert_called_with(
                 'sample', 'Unknown name', 'sample_1'
             )

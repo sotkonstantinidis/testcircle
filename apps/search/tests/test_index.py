@@ -10,8 +10,7 @@ from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
-from questionnaire.tests.test_models import get_valid_metadata, \
-    get_valid_questionnaire
+from questionnaire.tests.test_models import get_valid_questionnaire
 from ..index import (
     create_or_update_index,
     delete_all_indices,

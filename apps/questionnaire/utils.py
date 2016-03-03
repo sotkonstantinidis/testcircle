@@ -1,10 +1,11 @@
 import ast
+import contextlib
+
 from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _, get_language
-from django.utils.dateparse import parse_datetime
 
 from configuration.configuration import (
     QuestionnaireQuestion,
@@ -14,6 +15,7 @@ from configuration.utils import (
     get_configuration_query_filter,
 )
 from qcat.errors import QuestionnaireFormatError
+from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
@@ -1005,53 +1007,11 @@ def get_list_values(
 
     for result in es_hits:
         # Results from Elasticsearch. List values are already available.
-
-        # Fall back to the original configuration if viewed from "wocat"
-        # or no configuration selected
-        if configuration_code is None or configuration_code == 'wocat':
-            current_configuration_code = result.get('_source', {}).get(
-                'configurations', ['technologies'])[0]
-        else:
-            current_configuration_code = configuration_code
-
-        template_value = result.get('_source', {}).get('list_data', {})
-
-        translations = result.get('_source', {}).get('translations')
-        if not isinstance(translations, list) or len(translations) == 0:
-            translations = ['en']
-        original_lang = translations[0]
-        try:
-            translations.remove(get_language())
-        except ValueError:
-            pass
-        translations = [
-            lang for lang in settings.LANGUAGES if lang[0] in translations]
-
-        for key, value in template_value.items():
-            if isinstance(value, dict):
-                template_value[key] = value.get(
-                    get_language(), value.get(original_lang))
-
-        source = result.get('_source', {})
-        configurations = source.get('configurations', [])
-
-        template_value.update({
-            'links': source.get('links', {}).get(get_language(), []),
-            'configuration': current_configuration_code,  # Used for rendering
-            'id': result.get('_id'),
-            'configurations': configurations,
-            'native_configuration': current_configuration_code in
-            configurations,
-            'created': parse_datetime(
-                source.get('created', '')),
-            'updated': parse_datetime(
-                source.get('updated', '')),
-            'translations': translations,
-            'code': source.get('code', ''),
-            'compilers': source.get('compilers', []),
-            'editors': source.get('editors', []),
-        })
-        list_entries.append(template_value)
+        if result.get('_source'):
+            serializer = QuestionnaireSerializer(data=result['_source'])
+            if serializer.is_valid():
+                serializer.to_list_values(lang=get_language())
+                list_entries.append(serializer.validated_data)
 
     configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
@@ -1072,30 +1032,18 @@ def get_list_values(
         questionnaire_configuration = configuration_list.get(
             current_configuration_code)
 
-        template_value = questionnaire_configuration.get_list_data(
-            [obj.data])[0]
+        template_value = {
+            'list_data':
+                questionnaire_configuration.get_list_data([obj.data])[0]
+        }
 
         metadata = obj.get_metadata()
         template_value.update(metadata)
 
-        translations = metadata.get('translations', [])
-        if len(translations) == 0:
-            translations = ['en']
-        original_lang = translations[0]
-        try:
-            translations.remove(get_language())
-        except ValueError:
-            pass
-
-        # Return the language name as string, not as lazy translation. This
-        # is useful when returning the object to the API.
-        translations = [(lang[0], str(lang[1])) for lang in
-                        settings.LANGUAGES if lang[0] in translations]
-
-        for key, value in template_value.items():
-            if isinstance(value, dict):
-                template_value[key] = value.get(
-                    get_language(), value.get(original_lang))
+        template_value = prepare_list_values(
+            data=template_value, config=questionnaire_configuration,
+            lang=get_language()
+        )
 
         links = []
         link_codes = []
@@ -1109,11 +1057,7 @@ def get_list_values(
 
         template_value.update({
             'links': links,
-            'configuration': current_configuration_code,  # Used for rendering
             'id': obj.id,
-            'native_configuration': current_configuration_code in
-            metadata.get('configurations', []),
-            'translations': translations,
         })
         list_entries.append(template_value)
 
@@ -1321,3 +1265,55 @@ def compare_questionnaire_data(data_1, data_2):
             different_qg_keywords.append(qg_keyword)
 
     return different_qg_keywords
+
+
+def prepare_list_values(data, config, **kwargs):
+    """
+    Helper for the function: questionnaire.utils.get_list_values.
+    This maps the 'new' serialized data as required by this 'old' function.
+    Mapping is easier than to update all related templates.
+
+    Args:
+        data: dict
+        config: configuration.QuestionnaireConfiguration
+        **kwargs:
+
+    Returns:
+        dict
+
+    """
+    language = kwargs.get('lang')
+    languages = dict(settings.LANGUAGES)
+
+    # 'list_data' are set in the configuration. Make them directly
+    # accessible. Use the language from the request - or the first
+    # language from 'translations', which should be the original one.
+    original_language = 'en'
+    with contextlib.suppress(IndexError):
+        original_language = data['translations'][0]
+
+    for key, items in data['list_data'].items():
+        # Items can either contain a dict with the language as key - or
+        # a raw string (e.g. 'country')
+        if isinstance(items, dict):
+            data[key] = items.get(language, items.get(original_language))
+        if isinstance(items, str):
+            data[key] = items
+
+    del data['list_data']
+
+    # 'translations' must not list the currently active language
+    if data['translations']:
+        data['translations'] = [
+            [lang, str(languages[lang])] for lang in
+            data['translations'] if lang != language
+        ]
+
+    data['configuration'] = config.keyword
+    # dict key is suffixed with _property when called from the serializer.
+    data['native_configuration'] = (
+        config.keyword in data.get('configurations_property',
+                                   data.get('configurations'))
+    )
+
+    return data

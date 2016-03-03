@@ -252,8 +252,6 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
 
         ``list``. A list of errors occurred.
     """
-    from questionnaire.utils import get_link_display
-
     config_list = ConfigurationList()
     questionnaire_configuration = config_list.get(configuration_code)
     alias = get_alias([configuration_code])
