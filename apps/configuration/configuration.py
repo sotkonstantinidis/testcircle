@@ -1534,6 +1534,10 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 has_changes = True
                 break
 
+        categories_with_content = [
+            c for c in self.subcategories
+                if c.questiongroups or c.subcategories]
+
         return render_to_string(
             view_template, {
                 'subcategories': rendered_subcategories,
@@ -1547,8 +1551,9 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'permissions': permissions,
                 'view_mode': view_mode,
                 'complete': with_content,
-                'total': len(self.subcategories),
-                'progress': int(with_content / len(self.subcategories) * 100),
+                'total': len(categories_with_content),
+                'progress': int(
+                    with_content / len(categories_with_content) * 100),
                 'edit_step_route': edit_step_route,
                 'configuration_name': configuration,
                 'toc_content': tuple(toc_content),

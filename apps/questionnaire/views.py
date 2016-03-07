@@ -500,6 +500,7 @@ def generic_questionnaire_new_step(
     return render(request, 'form/category.html', {
         'category_formsets': category_formsets,
         'category_config': category_config,
+        'content_categories': [c for c in category_formsets if c[1] != []],
         'title': page_title,
         'overview_url': overview_url,
         'valid': valid,

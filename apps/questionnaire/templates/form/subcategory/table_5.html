@@ -4,6 +4,8 @@
 
   Table where each questiongroup occupies one row. The first column is filled with the label of the questiongroup.
 
+  If there are more than XY questions, the first two are rendered in the first td
+
   Further questions are rendered either before the table (questiongroup_config.extra == 'before_table') or after the table.
 {% endcomment %}
 
@@ -55,7 +57,12 @@
           {% for f in questiongroup_formset.forms %}
             <tr>
               {% if questiongroup_config.extra != 'no_label_row' %}
-                <td>{{ questiongroup_config.label }}</td>
+                <td>
+                  {{ questiongroup_config.label }}
+                  {% if f.visible_fields|length == 3 %}
+                    </td><td>
+                  {% endif %}
+                </td>
               {% endif %}
               {% for field in f.visible_fields %}
                 <td>

@@ -1385,6 +1385,21 @@
       "data": {
         "sample": {
           "label": {
+            "en": "Subcategory 0_3",
+            "es": "Subcategoría 0_3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12723
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
             "en": "Category 1",
             "es": "Categoría 1"
           }
@@ -2779,6 +2794,14 @@
   },
   {
     "fields": {
+      "keyword": "subcat_0_3",
+      "translation": 12723
+    },
+    "model": "configuration.category",
+    "pk": 11033
+  },
+  {
+    "fields": {
       "keyword": "cat_1",
       "translation": 12901
     },
@@ -2933,6 +2956,12 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "subcat_0_3",
+                    "form_options": {
+                      "template": "links_approaches"
+                    }
                   }
                 ]
               },

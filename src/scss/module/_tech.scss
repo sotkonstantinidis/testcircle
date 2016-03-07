@@ -313,3 +313,11 @@ td.is-empty:first-child:nth-last-child(3) ~ td.is-empty {
     }
   }
 }
+
+table th.table-numbered {
+  width: 0.1rem;
+}
+
+table th span.has-tip {
+  font-weight: $table-head-font-weight;
+}

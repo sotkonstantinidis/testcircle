@@ -1142,82 +1142,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Strengths/ advantages in the land users' view"
-          },
-          "helptext": {
-            "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains land conservation, including individual small-/ large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7079
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Strengths/ advantages in the compiler’s or other key resource person’s view"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7080
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Weaknesses/ disadvantages in the land users' view"
-          },
-          "helptext": {
-            "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains land conservation, including individual small-/ large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7081
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "How can they be overcome?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7082
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Weaknesses / disadvantages in the compiler’s or other key resource person’s view"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7083
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Flow chart"
           }
         }
@@ -2734,6 +2658,9 @@
         "approaches": {
           "label": {
             "en": "Key resource person(s)"
+          },
+          "helptext": {
+            "en": "Person(s) who provided most of the information documented in this questionnaire. These can be land users, or local or regional experts/ SLM specialists."
           }
         }
       }
@@ -2887,7 +2814,7 @@
             "en": "Photos showing impressions of the Approach"
           },
           "helptext": {
-            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing/ in training, etc.</p><p>Provide at least two digital files (jpeg, raw, pdf ...), i.e. scans from prints, scans from negative/ positive films or digital photos.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2</p>"
+            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing/ in training, etc.</p><p>Provide at least two digital files, i.e. scans from prints, scans from negative/ positive films or digital photos.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, GIF.</p>"
           },
           "numbering": "2.3"
         }
@@ -5114,72 +5041,6 @@
   },
   {
     "fields": {
-      "keyword": "app_strengths_landuser",
-      "translation": 7079,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3139
-  },
-  {
-    "fields": {
-      "keyword": "app_strengths_compilor",
-      "translation": 7080,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3140
-  },
-  {
-    "fields": {
-      "keyword": "app_weaknesses_landuser",
-      "translation": 7081,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3141
-  },
-  {
-    "fields": {
-      "keyword": "app_weaknesses_overcome",
-      "translation": 7082,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3142
-  },
-  {
-    "fields": {
-      "keyword": "app_weaknesses_compilor",
-      "translation": 7083,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3143
-  },
-  {
-    "fields": {
-      "keyword": "app_weaknesses_compilor_overcome",
-      "translation": 7082,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3144
-  },
-  {
-    "fields": {
       "keyword": "app_flowchart",
       "translation": 7084,
       "configuration": {
@@ -6825,42 +6686,6 @@
   },
   {
     "fields": {
-      "keyword": "app_qg_87",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 3087
-  },
-  {
-    "fields": {
-      "keyword": "app_qg_88",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 3088
-  },
-  {
-    "fields": {
-      "keyword": "app_qg_89",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 3089
-  },
-  {
-    "fields": {
-      "keyword": "app_qg_90",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 3090
-  },
-  {
-    "fields": {
       "keyword": "app_qg_91",
       "translation": null,
       "configuration": {}
@@ -7302,7 +7127,12 @@
                   "template": "approaches_header",
                   "include_toc": true,
                   "use_raw_data": true,
-                  "with_metadata": true
+                  "with_metadata": true,
+                  "additional_data": {
+                    "qg_location": [
+                      "country"
+                    ]
+                  }
                 },
                 "subcategories": [
                   {
@@ -10142,37 +9972,30 @@
                     "keyword": "app__7__3",
                     "questiongroups": [
                       {
-                        "keyword": "app_qg_87",
+                        "keyword": "qg_strengths_landusers",
                         "form_options": {
                           "min_num": 4,
                           "max_num": 4,
-                          "numbered": "prefix"
+                          "template": "table",
+                          "numbered": "display"
                         },
                         "questions": [
                           {
-                            "keyword": "app_strengths_landuser",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "strengths_landuser"
                           }
                         ]
                       },
                       {
-                        "keyword": "app_qg_88",
+                        "keyword": "qg_strengths_compiler",
                         "form_options": {
                           "min_num": 4,
                           "max_num": 4,
-                          "numbered": "prefix"
+                          "template": "table",
+                          "numbered": "display"
                         },
                         "questions": [
                           {
-                            "keyword": "app_strengths_compilor",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "strengths_compiler"
                           }
                         ]
                       }
@@ -10182,49 +10005,36 @@
                     "keyword": "app__7__4",
                     "questiongroups": [
                       {
-                        "keyword": "app_qg_89",
+                        "keyword": "qg_weaknesses_landusers",
                         "form_options": {
                           "min_num": 4,
                           "max_num": 4,
-                          "numbered": "prefix"
+                          "template": "table",
+                          "numbered": "display"
                         },
                         "questions": [
                           {
-                            "keyword": "app_weaknesses_landuser",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "weaknesses_landuser"
                           },
                           {
-                            "keyword": "app_weaknesses_overcome",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "weaknesses_overcome"
                           }
                         ]
                       },
                       {
-                        "keyword": "app_qg_90",
+                        "keyword": "qg_weaknesses_compiler",
                         "form_options": {
                           "min_num": 4,
                           "max_num": 4,
-                          "numbered": "prefix"
+                          "template": "table",
+                          "numbered": "display"
                         },
                         "questions": [
                           {
-                            "keyword": "app_weaknesses_compilor",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "weaknesses_compiler"
                           },
                           {
-                            "keyword": "app_weaknesses_overcome",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "weaknesses_overcome"
                           }
                         ]
                       }

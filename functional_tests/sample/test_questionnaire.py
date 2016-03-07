@@ -562,6 +562,31 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "secondary")]')
 
+        # She sees that step 0 has only 2 categories listed, although it
+        # contains 3 (a subcategory which has no content)
+        btn = self.findBy('xpath', '//a[contains(@href, "edit/new/cat_0")]')
+        self.assertIn('0/2', btn.text)
+
+        # She finally goes to step 0 of the questionnaire and also there, sees a
+        # subcategory with no content and she notices it is not counted for the
+        # progress
+        self.findBy(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
+                cat_1_position - 1)).click()
+        self.findBy('xpath', '//legend[contains(text(), "Subcategory 0_1")]')
+        self.findBy('xpath', '//legend[contains(text(), "Subcategory 0_2")]')
+        self.findBy('xpath', '//legend[contains(text(), "Subcategory 0_3")]')
+        completed_steps = self.findBy('class_name', 'progress-completed')
+        self.assertEqual(completed_steps.text, '0')
+        total_steps = self.findBy('class_name', 'progress-total')
+        self.assertEqual(total_steps.text, '2')
+        self.findBy('name', 'qg_31-0-original_key_45').send_keys('foo')
+        self.findBy('name', 'qg_31-0-original_key_46').send_keys('bar')
+        completed_steps = self.findBy('class_name', 'progress-completed')
+        self.assertEqual(completed_steps.text, '1')
+        total_steps = self.findBy('class_name', 'progress-total')
+        self.assertEqual(total_steps.text, '2')
+
     def test_textarea_maximum_length(self, mock_get_user_id):
 
         # Alice logs in

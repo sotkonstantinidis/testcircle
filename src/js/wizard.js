@@ -556,7 +556,9 @@ $(function() {
         qg.find('.form-user-search').hide();
         qg.find('.form-user-search-loading').show();
 
-        clearQuestiongroup(qg);
+        // Important: Clear only the content inside the tab, not the fields
+        // above or below the tab.
+        clearQuestiongroup(qg.find('.tabs-content'));
         updateUser(qg, ui.item.uid);
 
         // Hide empty message

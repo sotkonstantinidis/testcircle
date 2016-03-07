@@ -29,6 +29,7 @@
       </span>
     </label>
   </div>
+
   <div id="{{ config.keyword }}" class="small-12 medium-8 columns cb-toggle-questiongroup-content" style="display:none;">
 
     {{ formset.management_form }}
@@ -45,6 +46,17 @@
 
       <div class="list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
         {% for field in qg_form.visible_fields %}
+
+          {% if forloop.counter == 2 %}
+            <div class="row">
+          {% endif %}
+
+          {% if forloop.counter == 2 or forloop.counter == 4 %}
+            <div class="medium-3 columns">
+          {% elif forloop.counter == 3 %}
+            <div class="medium-6 columns">
+          {% endif %}
+
           {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
             {% if template %}
               {% formrow field using template %}
@@ -52,10 +64,19 @@
               {% formrow field using "form/question/default.html" %}
             {% endif %}
           {% endwith %}
+
+          {% if forloop.counter >= 2 and forloop.counter <= 4 %}
+            </div>
+          {% endif %}
+
+          {% if forloop.counter == 4 %}
+            </div>
+          {% endif %}
+
         {% endfor %}
         {% for field in qg_form.hidden_fields %}{% formfield field %}{% endfor %}
         <div class="columns right">
-          <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
+          <a class="right list-item-action link is-{{ configuration_name }} bottom-margin" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
           style="display: none;"{% endif %}>{% trans "Remove" %}</a>
         </div>
       </div>

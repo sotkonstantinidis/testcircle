@@ -117,6 +117,10 @@
   margin-top: 0;
 }
 
+.bottom-margin, a.bottom-margin {
+  margin-bottom: 1rem;
+}
+
 fieldset.row.has-changes {
   border-color: $primary-color;
 }
