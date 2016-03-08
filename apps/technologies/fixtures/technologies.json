@@ -19473,25 +19473,34 @@
                           "max_num": 3
                         },
                         "view_options": {
-                          "template": "user_details",
-                          "extra": "label",
-                          "raw_questions": true
+                          "template": "select_user"
                         },
                         "questions": [
                           {
-                            "keyword": "user_id",
-                            "form_options": {
-                              "template": "no_label",
-                              "display_field": "user_display"
-                            }
-                          },
-                          {
-                            "keyword": "user_display",
+                            "keyword": "user_resourceperson_type",
                             "form_options": {
                               "template": "no_label"
                             },
                             "view_options": {
+                              "template": "values_as_header",
                               "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "user_resourceperson_other",
+                            "form_options": {
+                              "template": "radio_other",
+                              "label": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "as_header",
+                              "header": "small"
+                            }
+                          },
+                          {
+                            "keyword": "user_id",
+                            "form_options": {
+                              "template": "no_label"
                             }
                           },
                           {

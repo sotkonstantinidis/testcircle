@@ -341,19 +341,6 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(users[0][0], 'compiler')
         self.assertEqual(users[0][1], self.user)
 
-    def test_update_users_in_data_updates_name(self):
-        questionnaire = get_valid_questionnaire(self.user)
-        user_2 = create_new_user(
-            id=2, email='foo@bar.com', firstname='Faz', lastname='Taz')
-        questionnaire.data = {'qg_31': [{'key_39': '2', 'key_40': 'Foo Bar'}]}
-        questionnaire.update_users_from_data('sample')
-        users = questionnaire.get_users()
-        self.assertEqual(len(users), 2)
-        questionnaire.update_users_in_data(user_2)
-        self.assertEqual(
-            questionnaire.data,
-            {'qg_31': [{'key_39': '2', 'key_40': 'Faz Taz'}]})
-
     def test_get_metadata(self):
         questionnaire = Questionnaire.create_new(
             configuration_code='sample', data={}, user=self.user)

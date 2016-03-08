@@ -1,5 +1,6 @@
 import collections
 import floppyforms as forms
+from django.contrib.auth import get_user_model
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
@@ -24,6 +25,7 @@ from qcat.utils import (
     is_empty_list_of_dicts,
 )
 from questionnaire.models import File
+User = get_user_model()
 
 
 class BaseConfigurationObject(object):
@@ -230,7 +232,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'todo',
         'cb_bool',
         'user_id',
-        'user_display',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -536,12 +537,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             translation_field = forms.CharField(
                 label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
                 required=self.required, max_length=max_length)
-        elif self.field_type in ['user_id', 'user_display']:
+        elif self.field_type in ['user_id']:
             widget = HiddenInput()
-            if self.field_type == 'user_id':
-                widget.css_class = 'select-user-id'
-            elif self.field_type == 'user_display':
-                widget.css_class = 'select-user-display'
+            widget.css_class = 'select-user-id'
             field = forms.CharField(
                 label=None, widget=widget, required=self.required)
         elif self.field_type == 'text':
@@ -678,7 +676,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo', 'user_display']:
+        if self.field_type in ['char', 'text', 'todo']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -766,7 +764,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': file_data.get('url'),
             })
         elif self.field_type in ['user_id']:
-            return
+            template_name = 'user_display'
+            if value is not None:
+                unknown_user = False
+                try:
+                    user = User.objects.get(pk=value)
+                    user_display = user.get_display_name()
+                except User.DoesNotExist:
+                    unknown_user = True
+                    user_display = 'Unknown User'
+                template_values.update({
+                    'value': user_display,
+                    'user_id': value,
+                    'unknown_user': unknown_user,
+                })
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)

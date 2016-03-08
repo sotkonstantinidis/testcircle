@@ -95,19 +95,26 @@ class GenericQuestionnaireLinkFormTest(TestCase):
         generic_questionnaire_link_form(
             self.request, *get_valid_link_form_values()[0],
             **get_valid_link_form_values()[1])
-        mock_render.assert_called_once_with(self.request, 'form/links.html', {
-            'valid': True,
-            'overview_url': '/en/sample/edit/foo/#links',
-            'link_forms': [(
-                {
-                    'label': '',
-                    'keyword': 'samplemulti',
-                    'search_url': '/en/samplemulti/search/links/',
-                }, []
-            )],
-            'configuration_name': 'sample',
-            'title': 'SAMPLE Links'
-        })
+        mock_render.assert_called_once_with(
+            self.request,
+            [
+                'form/links/sample.html',
+                'form/links/default.html',
+            ],
+            {
+                'valid': True,
+                'overview_url': '/en/sample/edit/foo/#links',
+                'link_forms': [(
+                    {
+                        'label': '',
+                        'keyword': 'samplemulti',
+                        'search_url': '/en/samplemulti/search/links/',
+                    }, []
+                )],
+                'configuration_name': 'sample',
+                'title': 'SAMPLE Links'
+            }
+        )
 
 
 class GenericQuestionnaireLinkSearchTest(TestCase):
