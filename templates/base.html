@@ -80,6 +80,7 @@
         {% endif %}
     {% endblock %}
 
+    {% block banner %}
     <header class="page-header inner-wrap" role="banner">
       <nav class="top-bar {% block navclass %}is-wocat{% endblock %}" role="navigation" data-topbar="" data-options="is_hover: false">
         <ul class="title-area">
@@ -153,6 +154,7 @@
       {% endblock %}
 
     </header>
+    {% endblock %}
 
     {% block filter %}
     {% endblock %}
