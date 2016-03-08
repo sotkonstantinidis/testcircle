@@ -676,6 +676,21 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 47",
+            "es": "Clave 47"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11047
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "sample": {
@@ -2091,6 +2106,17 @@
   },
   {
     "fields": {
+      "keyword": "key_47",
+      "translation": 11047,
+      "configuration": {
+        "type": "date"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11047
+  },
+  {
+    "fields": {
       "keyword": "value_1",
       "translation": 11501,
       "order_value": 1
@@ -3004,6 +3030,9 @@
                           },
                           {
                             "keyword": "key_3"
+                          },
+                          {
+                            "keyword": "key_47"
                           }
                         ],
                         "keyword": "qg_2"

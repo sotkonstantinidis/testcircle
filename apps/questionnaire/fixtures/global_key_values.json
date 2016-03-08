@@ -666,6 +666,25 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Date of documentation"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Date of documentation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5035
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "wocat": {
@@ -5907,6 +5926,17 @@
     },
     "model": "configuration.key",
     "pk": 34
+  },
+  {
+    "fields": {
+      "keyword": "date_documentation",
+      "translation": 5035,
+      "configuration": {
+        "type": "date"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 35
   },
   {
     "fields": {

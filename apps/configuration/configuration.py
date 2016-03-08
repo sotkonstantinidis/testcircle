@@ -232,6 +232,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'todo',
         'cb_bool',
         'user_id',
+        'date',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -537,6 +538,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             translation_field = forms.CharField(
                 label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
                 required=self.required, max_length=max_length)
+        elif self.field_type in ['date']:
+            widget = DateInput(attrs)
+            widget.options = field_options
+            field = forms.CharField(
+                label=self.label, widget=widget, required=self.required)
         elif self.field_type in ['user_id']:
             widget = HiddenInput()
             widget.css_class = 'select-user-id'
@@ -676,7 +682,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo']:
+        if self.field_type in ['char', 'text', 'todo', 'date']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -2194,6 +2200,18 @@ def validate_type(obj, type_, conf_name, type_name, parent_conf_name):
     if not isinstance(obj, type_):
         raise ConfigurationErrorInvalidConfiguration(
             conf_name, type_name, parent_conf_name)
+
+
+class DateInput(forms.DateInput):
+    template_name = 'form/field/dateinput.html'
+
+    def get_context_data(self):
+        ctx = super(DateInput, self).get_context_data()
+        ctx.update({
+            'options': self.options,
+            'date_format': 'dd/mm/yy',
+        })
+        return ctx
 
 
 class TextInput(forms.TextInput):

@@ -168,7 +168,7 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                     value = translations
                 elif question.field_type in ['todo']:
                     value = None
-                elif question.field_type in ['image', 'file', 'user_display']:
+                elif question.field_type in ['image', 'file', 'date']:
                     pass
                 elif question.field_type in ['user_id']:
                     pass

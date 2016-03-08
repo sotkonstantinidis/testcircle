@@ -20762,6 +20762,12 @@
                         "keyword": "qg_accept_conditions",
                         "questions": [
                           {
+                            "keyword": "date_documentation",
+                            "view_options": {
+                              "header": "small"
+                            }
+                          },
+                          {
                             "keyword": "accept_conditions"
                           }
                         ]

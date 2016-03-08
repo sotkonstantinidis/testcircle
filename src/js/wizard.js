@@ -400,6 +400,10 @@ $(function() {
   // Select inputs with chosen
   $(".chosen-select").chosen({width: '100%'});
 
+  $('.date-input').each(function() {
+    $(this).datepicker({dateFormat: $(this).data('date-format')});
+  });
+
   $('.sortable').sortable({
     handle: '.questiongroup-numbered-number',
     placeholder: 'sortable-placeholder',

@@ -1,0 +1,9 @@
+{% load i18n %}
+{#{% load staticfiles %}#}
+{#{% load sekizai_tags %}#}
+
+<input type="text" name="{{ name }}" class="date-input" data-date-format="{{ date_format }}" {% if value %} value="{{ value }}"{% endif %}{% include "floppyforms/attrs.html" %}{% if options.label != 'placeholder' %} placeholder="{% trans 'Pick a date' %}"{% endif %}>
+
+{#{% addtoblock 'css' %}#}
+{#  <link rel="stylesheet" href="{% static 'css/datepicker.css' %}" />#}
+{#{% endaddtoblock %}#}
