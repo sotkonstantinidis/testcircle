@@ -8,6 +8,23 @@
 
 {% endcomment %}
 
+{% load sekizai_tags %}
+{% load staticfiles %}
+{% load compress %}
+
+{% addtoblock 'css' %}
+  {% compress css %}
+    <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
+  {% endcompress %}
+{% endaddtoblock %}
+
+{% addtoblock 'js' %}
+  {% compress js %}
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+  {% endcompress %}
+{% endaddtoblock %}
+
 <select name="{{ name }}" data-placeholder=""{% if searchable %} class="chosen-select"{% endif %} {% include "floppyforms/attrs.html" %}>
   {% for group_name, choices in optgroups %}
     {% for choice in choices %}

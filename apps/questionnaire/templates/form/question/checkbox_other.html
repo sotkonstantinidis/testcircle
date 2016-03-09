@@ -17,7 +17,7 @@
       <label class="input-multiline" for="{{ field|id }}">
         <input class="checkbox-other {{ cb_css_classes }}" type="checkbox" disabled="disabled"{% if cb_data_container %} data-container="{{ cb_data_container }}"{% endif %}>
         <span>
-          {{ field }}
+          {% widget field %}
         </span>
       </label>
     </div>

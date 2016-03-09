@@ -644,9 +644,10 @@ class UserTest2(FunctionalTest):
         qg_3_xpath = (
             '//fieldset[contains(@class, "row")][2]//div[contains(@class, '
             '"list-item")][3]')
-        self.findBy(
-            'xpath', '{}//div[contains(@class, "form-user-selected")]/div['
-            'contains(@class, "secondary")]'.format(qg_3_xpath))
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((
+                By.XPATH, '{}//div[contains(@class, "form-user-selected")]/div['
+                'contains(@class, "secondary")]'.format(qg_3_xpath))))
         self.assertEqual(
             self.findBy('id', 'id_qg_31-2-key_39').get_attribute(
                 'value'), '2365')

@@ -16,6 +16,6 @@
       {% if options.helptext and options.helptext_position != 'tooltip' %}
         {% include "form/helptext.html" with helptext=options.helptext %}
       {% endif %}
-      {{ field }}
+      {% widget field %}
     </div>
 {% endwith %}
