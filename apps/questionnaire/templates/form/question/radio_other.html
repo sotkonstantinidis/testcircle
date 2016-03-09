@@ -17,7 +17,7 @@
       <label class="input-multiline" for="{{ field|id }}">
         <input class="radio-other" type="radio"{% if field.value %} checked="checked"{% endif %}>
         <span class="radio-other-field">
-          {{ field }}
+          {% widget field %}
         </span>
       </label>
     </div>

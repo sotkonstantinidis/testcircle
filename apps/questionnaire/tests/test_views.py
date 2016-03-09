@@ -229,7 +229,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
 
     @patch.object(QuestionnaireCategory, 'get_form')
     def test_calls_category_get_form(self, mock_get_form):
-        mock_get_form.return_value = {}, None
+        mock_get_form.return_value = {}, []
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_get_form.assert_called_once_with(
@@ -254,12 +254,12 @@ class GenericQuestionnaireNewStepTest(TestCase):
     @patch.object(QuestionnaireCategory, 'get_form')
     @patch('questionnaire.views.render')
     def test_calls_render(self, mock_render, mock_get_form):
-        mock_get_form.return_value = {}, "bar"
+        mock_get_form.return_value = {}, []
         generic_questionnaire_new_step(
             self.request, *get_valid_new_step_values()[0])
         mock_render.assert_called_once_with(
             self.request, 'form/category.html', {
-                'category_formsets': "bar",
+                'category_formsets': [],
                 'category_config': {},
                 'title': 'QCAT Form',
                 'overview_url': '/en/sample/edit/new/#cat_0',
@@ -267,6 +267,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'configuration_name': 'sample',
                 'edit_mode': 'edit',
                 'view_url': '',
+                'content_categories': [],
             })
 
     def test_returns_rendered_response(self):

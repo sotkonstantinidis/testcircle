@@ -14,7 +14,7 @@
         {% endblock %}
         {% block widget %}
           <div class="small-6 columns{% if options.colclass %} {{ options.colclass }}{% endif %}">
-            {{ field }}
+            {% widget field %}
           </div>
         {% endblock %}
         {% block help_text %}

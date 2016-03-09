@@ -2,6 +2,8 @@
 
 {% load i18n %}
 {% load staticfiles %}
+{% load sekizai_tags %}
+{% load compress %}
 
 {% block content %}
   <form id="wizard-form" class="wizard" action="" method="POST">
@@ -64,13 +66,17 @@
     </main>
   </form>
 
-{% endblock %}
+  {% addtoblock 'css' %}
+    {% compress css %}
+      <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
+    {% endcompress %}
+  {% endaddtoblock %}
 
-{% block head %}
-  <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
-{% endblock %}
+  {% addtoblock 'js' %}
+    {% compress js %}
+      <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+      <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    {% endcompress %}
+  {% endaddtoblock %}
 
-{% block bottom %}
-  <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
-  <script src="{% static 'js/jquery-ui.min.js' %}"></script>
 {% endblock %}
