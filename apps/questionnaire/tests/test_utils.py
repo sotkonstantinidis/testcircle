@@ -837,7 +837,7 @@ class GetListValuesTest(TestCase):
     fixtures = ['sample.json']
 
     def setUp(self):
-        self.values_length = 11
+        self.values_length = 14
         self.es_hits = [{'_id': 1}]
 
     def test_serializer_uses_provided_configuration(self):
@@ -923,6 +923,26 @@ class GetListValuesTest(TestCase):
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'technologies')
+
+    @patch.object(QuestionnaireSerializer, 'to_list_values')
+    def test_to_value_calls_prepare_data(self, mock_to_list_values):
+        obj = get_valid_questionnaire()
+        serialized = QuestionnaireSerializer(obj).data
+        get_list_values(es_hits=[{'_source': serialized}])
+        mock_to_list_values.assert_called_with(lang='en')
+
+    def test_prepare_list_values(self):
+        obj = get_valid_questionnaire()
+        serializer = QuestionnaireSerializer(obj).data
+        object_data = get_list_values(
+            questionnaire_objects=[obj], with_links=False
+        )[0]
+        serializer_data = get_list_values(
+            es_hits=[{'_source': serializer}]
+        )[0]
+        keys = ['name', 'url', 'compilers', 'data']
+        for key in keys:
+            self.assertEqual(serializer_data[key], object_data[key])
 
 
 @patch('questionnaire.utils.messages')

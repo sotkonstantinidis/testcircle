@@ -1039,19 +1039,18 @@ def get_list_values(
         else:
             current_configuration_code = configuration_code
 
-        questionnaire_configuration = configuration_list.get(
+        questionnaire_config = configuration_list.get(
             current_configuration_code)
 
         template_value = {
-            'list_data':
-                questionnaire_configuration.get_list_data([obj.data])[0]
+            'list_data': questionnaire_config.get_list_data([obj.data])[0]
         }
 
         metadata = obj.get_metadata()
         template_value.update(metadata)
 
         template_value = prepare_list_values(
-            data=template_value, config=questionnaire_configuration,
+            data=template_value, config=questionnaire_config,
             lang=get_language()
         )
 
@@ -1068,6 +1067,9 @@ def get_list_values(
         template_value.update({
             'links': links,
             'id': obj.id,
+            'name': questionnaire_config.get_questionnaire_name(obj.data),
+            'url': obj.get_absolute_url(),
+            'data': obj.data
         })
         list_entries.append(template_value)
 
