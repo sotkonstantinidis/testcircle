@@ -7325,6 +7325,12 @@
                           },
                           {
                             "keyword": "image_photographer"
+                          },
+                          {
+                            "keyword": "image_target",
+                            "form_options": {
+                              "template": "no_label"
+                            }
                           }
                         ]
                       }

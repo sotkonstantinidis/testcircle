@@ -218,19 +218,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'form_options',
     ]
     valid_field_types = [
-        'char',
-        'text',
         'bool',
-        'measure',
-        'checkbox',
-        'image_checkbox',
-        'image',
-        'file',
-        'select_type',
-        'select',
-        'radio',
-        'todo',
         'cb_bool',
+        'char',
+        'checkbox',
+        'file',
+        'hidden',
+        'image',
+        'image_checkbox',
+        'measure',
+        'radio',
+        'select',
+        'select_type',
+        'text',
+        'todo',
         'user_id',
     ]
     translation_original_prefix = 'original_'
@@ -537,9 +538,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             translation_field = forms.CharField(
                 label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
                 required=self.required, max_length=max_length)
-        elif self.field_type in ['user_id']:
+        elif self.field_type in ['user_id', 'hidden']:
             widget = HiddenInput()
-            widget.css_class = 'select-user-id'
+            if self.field_type == 'user_id':
+                widget.css_class = 'select-user-id'
             field = forms.CharField(
                 label=None, widget=widget, required=self.required)
         elif self.field_type == 'text':
@@ -778,6 +780,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     'user_id': value,
                     'unknown_user': unknown_user,
                 })
+        elif self.field_type in ['hidden']:
+            template_name = 'hidden'
+            template_values.update({
+                'key': self.label_view,
+                'value': value,
+            })
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -1874,7 +1882,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 'interchange_list': image_data.get('interchange_list'),
                 'caption': image.get('image_caption'),
                 'date_location': image.get('image_date_location'),
-                'photographer': image.get('image_photographer')
+                'photographer': image.get('image_photographer'),
+                'absolute_path': image_data.get('absolute_path'),
+                'relative_path': image_data.get('relative_path'),
+                'target': image.get('image_target'),
             })
         return {
             'content': images,
@@ -2207,9 +2218,10 @@ class HiddenInput(forms.TextInput):
 
     def get_context_data(self):
         ctx = super(HiddenInput, self).get_context_data()
-        ctx.update({
-            'css_class': self.css_class
-        })
+        if hasattr(self, 'css_class'):
+            ctx.update({
+                'css_class': self.css_class
+            })
         return ctx
 
 
