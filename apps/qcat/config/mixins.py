@@ -6,6 +6,7 @@ class DevMixin:
     TEMPLATE_DEBUG = values.BooleanValue(True)
     CACHES = values.CacheURLValue('dummy://')
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    THUMBNAIL_DEBUG = True
 
 
 class DebugToolbarMixin:
@@ -23,6 +24,13 @@ class DebugToolbarMixin:
 class ProdMixin:
     DEBUG = values.BooleanValue(False)
     TEMPLATE_DEBUG = values.BooleanValue(False)
+
+    # Image postprocessors for uploaded images; optimize images.
+    THUMBNAIL_OPTIMIZE_COMMAND = {
+        'png': '/usr/bin/optipng {filename}',
+        'gif': '/usr/bin/optipng {filename}',
+        'jpeg': '/usr/bin/jpegoptim {filename}'
+    }
 
 
 class SecurityMixin:

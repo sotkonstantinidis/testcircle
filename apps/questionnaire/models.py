@@ -1,5 +1,6 @@
 import contextlib
 import json
+from os.path import join
 from uuid import uuid4
 
 from django.contrib.auth import get_user_model
@@ -25,7 +26,7 @@ from questionnaire.upload import (
     get_url_by_file_name,
     get_file_path,
     store_file,
-)
+    get_upload_folder_structure)
 
 STATUSES = (
     (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
@@ -665,13 +666,13 @@ class Questionnaire(models.Model):
 
     @cached_property
     def configurations_property(self):
-        return self.configurations.values_list('code', flat=True)
+        return list(self.configurations.values_list('code', flat=True))
 
     @cached_property
     def translations(self):
-        return self.questionnairetranslation_set.values_list(
+        return list(self.questionnairetranslation_set.values_list(
             'language', flat=True
-        )
+        ))
 
 
 class QuestionnaireConfiguration(models.Model):
@@ -813,6 +814,14 @@ class File(models.Model):
             'uid': str(file_object.uuid),
             'url': file_object.get_url(),
         }
+        file_path, file_name = get_file_path(file_object)
+        folder_structure = get_upload_folder_structure(file_object.uuid)
+        if folder_structure:
+            relative_path = join(*folder_structure)
+            file_data.update({
+                'absolute_path': file_path,
+                'relative_path': join(relative_path, file_name),
+            })
         return file_data
 
     @staticmethod

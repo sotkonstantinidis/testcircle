@@ -3,9 +3,9 @@ from unittest.mock import patch
 from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
+from questionnaire.serializers import QuestionnaireSerializer
 
 from .test_models import get_valid_questionnaire
-from ..serializers import QuestionnaireSerializer
 
 
 class SerializerTest(TestCase):
@@ -53,12 +53,15 @@ class SerializerTest(TestCase):
             'list_data': {},
             'translations': ['en'],
             'name': {'en': 'Unknown name'},
-            'data': '{"foo": "bar"}', 'editors': [],
+            'data': {"foo": "bar"},
+            'editors': [],
             'links': {'en': [], 'es': [], 'fr': []},
             'configurations': ['sample'],
-            'status': ('draft', 'Draft')
+            'status': ('draft', 'Draft'),
+            'serializer_config': 'sample'
         }
         # datetimes are not relevant to the structure.
         del data['created']
         del data['updated']
-        self.assertEqual(data, expected)
+
+        self.assertDictEqual(data, expected)

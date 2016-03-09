@@ -5493,6 +5493,17 @@
   },
   {
     "fields": {
+      "keyword": "image_target",
+      "translation": 5010,
+      "configuration": {
+        "type": "hidden"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 30
+  },
+  {
+    "fields": {
       "keyword": "image_remarks",
       "translation": 5011,
       "configuration": {

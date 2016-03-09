@@ -36,6 +36,8 @@ class BaseSettings(Configuration):
         'django_nose',
         'django_extensions',
         'django_filters',
+        'easy_thumbnails',
+        'easy_thumbnails.optimize',
         'floppyforms',
         'imagekit',
         'maintenancemode',

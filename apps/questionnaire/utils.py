@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _, get_language
 
+from configuration.cache import get_configuration
 from configuration.configuration import (
     QuestionnaireQuestion,
 )
@@ -172,7 +173,7 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                     value = None
                 elif question.field_type in ['image', 'file', 'user_display']:
                     pass
-                elif question.field_type in ['user_id']:
+                elif question.field_type in ['user_id', 'hidden']:
                     pass
                 else:
                     raise NotImplementedError(
@@ -1008,7 +1009,16 @@ def get_list_values(
     for result in es_hits:
         # Results from Elasticsearch. List values are already available.
         if result.get('_source'):
-            serializer = QuestionnaireSerializer(data=result['_source'])
+
+            if configuration_code and configuration_code != 'wocat':
+                config = get_configuration(configuration_code)
+            else:
+                config = None
+
+            serializer = QuestionnaireSerializer(
+                data=result['_source'], config=config
+            )
+
             if serializer.is_valid():
                 serializer.to_list_values(lang=get_language())
                 list_entries.append(serializer.validated_data)

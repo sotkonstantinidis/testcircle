@@ -7,8 +7,8 @@ from django.test import RequestFactory, override_settings
 from django.utils.translation import get_language
 
 from qcat.tests import TestCase
+from configuration.models import Configuration
 from ..cache import get_configuration
-from ..models import Configuration
 from ..views import BuildAllCachesView, delete_caches
 
 

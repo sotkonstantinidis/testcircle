@@ -7,6 +7,7 @@ from accounts.models import User
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
+from questionnaire.serializers import QuestionnaireSerializer
 from questionnaire.utils import (
     clean_questionnaire_data,
     compare_questionnaire_data,
@@ -23,7 +24,8 @@ from questionnaire.utils import (
     query_questionnaires,
     query_questionnaires_for_link,
 )
-from questionnaire.tests.test_models import get_valid_metadata
+from questionnaire.tests.test_models import get_valid_metadata, \
+    get_valid_questionnaire
 from qcat.errors import QuestionnaireFormatError
 
 
@@ -832,40 +834,38 @@ class QueryQuestionnairesForLinkTest(TestCase):
 @override_settings(USE_CACHING=False)
 class GetListValuesTest(TestCase):
 
+    fixtures = ['sample.json']
+
     def setUp(self):
         self.values_length = 11
         self.es_hits = [{'_id': 1}]
 
-    def test_returns_values_from_es_search(self):
-        ret = get_list_values(es_hits=self.es_hits)
+    def test_serializer_uses_provided_configuration(self):
+        # get_valid_questionnaire uses the config 'sample' by default.
+        serialized = QuestionnaireSerializer(
+            get_valid_questionnaire(),
+            config=QuestionnaireConfiguration('sample_core')
+        )
+        ret = get_list_values(
+            es_hits=[{'_source': serialized.data}],
+            configuration_code='sample_core'
+        )
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), self.values_length)
-        self.assertEqual(ret_1.get('configuration'), 'technologies')
-        self.assertEqual(ret_1.get('configurations'), [])
-        self.assertEqual(ret_1.get('created', ''), None)
-        self.assertEqual(ret_1.get('updated', ''), None)
-        self.assertEqual(ret_1.get('native_configuration'), False)
-        self.assertEqual(ret_1.get('id'), 1)
-        self.assertEqual(ret_1.get('translations'), [])
-        self.assertEqual(ret_1.get('code'), '')
-        self.assertEqual(ret_1.get('compilers'), [])
-        self.assertEqual(ret_1.get('editors'), [])
-        self.assertEqual(ret_1.get('links'), [])
-
-    def test_es_uses_provided_configuration(self):
-        ret = get_list_values(es_hits=self.es_hits, configuration_code='foo')
-        self.assertEqual(len(ret), 1)
-        ret_1 = ret[0]
-        self.assertEqual(len(ret_1), self.values_length)
-        self.assertEqual(ret_1.get('configuration'), 'foo')
+        self.assertEqual(len(ret_1), len(serialized.fields))
+        self.assertEqual(ret_1.get('configuration'), 'sample_core')
 
     def test_es_wocat_uses_default_configuration(self):
-        ret = get_list_values(es_hits=self.es_hits, configuration_code='wocat')
+        serialized = QuestionnaireSerializer(
+            get_valid_questionnaire()
+        )
+        ret = get_list_values(
+            es_hits=[{'_source': serialized.data}], configuration_code='wocat'
+        )
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), self.values_length)
-        self.assertEqual(ret_1.get('configuration'), 'technologies')
+        self.assertEqual(len(ret_1), len(serialized.fields))
+        self.assertEqual(ret_1.get('configuration'), 'sample')
 
     @patch('questionnaire.utils.get_link_data')
     def test_returns_values_from_database(self, mock_get_link_data):

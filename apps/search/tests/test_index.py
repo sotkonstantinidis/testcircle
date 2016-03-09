@@ -2,16 +2,16 @@ import uuid
 import logging
 
 from django.test.utils import override_settings
-from django.utils.timezone import now
 from elasticsearch import TransportError
 from unittest.mock import patch, Mock
 
+from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
 from questionnaire.tests.test_models import get_valid_questionnaire
-from ..index import (
+from search.index import (
     create_or_update_index,
     delete_all_indices,
     delete_questionnaires_from_es,
@@ -315,18 +315,7 @@ class CreateOrUpdateIndexTest(TestCase):
             es.indices.exists(index=next_index))
 
     def test_keeps_data(self):
-        m = Mock()
-        m.configurations.all.return_value = []
-        m.links.all.return_value = []
-        m.questionnairetranslation_set.all.return_value = []
-        m.id = 1
-        m.data = [{"foo": "bar"}]
-        m.created = now()
-        m.updated = now()
-        m.code = ''
-        m.members.filter.return_value = []
-        m.get_metadata.return_value = {}
-        m.get_absolute_url.return_value = ''
+        m = get_valid_questionnaire()
         put_questionnaire_data(TEST_ALIAS, [m])
         search = simple_search('bar', configuration_codes=[TEST_ALIAS])
         hits = search.get('hits', {}).get('hits', [])
@@ -364,24 +353,19 @@ class PutQuestionnaireDataTest(TestCase):
 
     @patch('search.index.es')
     @patch('search.index.bulk')
-    def test_calls_get_metadata(self, mock_bulk, mock_es):
-        mock_bulk.return_value = 0, []
-        with patch.object(Questionnaire, 'get_metadata') as get_metadata:
-            m = get_valid_questionnaire()
-            put_questionnaire_data('foo', [m])
-            get_metadata.assert_called_once_with()
-
-    @patch('search.index.es')
-    @patch('search.index.bulk')
     def test_calls_bulk(self, mock_bulk, mock_es):
         mock_bulk.return_value = 0, []
         questionnaire = get_valid_questionnaire()
         put_questionnaire_data('foo', [questionnaire])
+        source = dict(QuestionnaireSerializer(
+            questionnaire,
+            config=get_configuration('foo')
+        ).data)
         data = [{
             '_index': '{}foo'.format(TEST_INDEX_PREFIX),
             '_type': 'questionnaire',
             '_id': questionnaire.id,
-            '_source': dict(QuestionnaireSerializer(questionnaire).data)
+            '_source': source
         }]
         mock_bulk.assert_called_once_with(mock_es, data)
 

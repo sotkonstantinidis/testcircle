@@ -95,7 +95,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
                 raise ValueError(_(u"Couldn't load configuration for "
                                    u"questionnaire."))
 
-        elif data.get('serializer_config'):
+        elif data != empty and data.get('serializer_config'):
             # Restore object from json data. Make sure the serializer_config
             # is valid / exists in the db.
             config = Configuration.get_active_by_code(data['serializer_config'])
