@@ -3,6 +3,9 @@
 {% load i18n %}
 {% load floppyforms %}
 {% load staticfiles %}
+{% load sekizai_tags %}
+{% load compress %}
+
 
 {% block content %}
   <form id="wizard-form" class="wizard" action="" method="POST">
@@ -80,6 +83,9 @@
 {% endblock %}
 
 {% block bottom %}
-  <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
-  <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+  {% compress js %}
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/focusPoint.js' %}"></script>
+  {% endcompress %}
 {% endblock %}

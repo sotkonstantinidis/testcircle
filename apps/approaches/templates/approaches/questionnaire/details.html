@@ -3,6 +3,7 @@
 {% load compress %}
 {% load i18n %}
 {% load sekizai_tags %}
+{% load questionnaire_tags %}
 
 
 {% block bodyclass %}layout-tech{% endblock %}
@@ -21,7 +22,8 @@
   {% if images|length %}
     <figure class="tech-figure">
       <div class="tech-figure-container">
-        <img alt="{{ images.0.caption }}" data-interchange="{{ images.0.interchange }}">
+        {% prepare_image images.0 as prepared_image %}
+        <img alt="{{ images.0.caption }}" data-interchange="{{ prepared_image.interchange }}" src="{{ prepared_image.src }}">
       </div>
       {% if images.0.caption or images.0.photographer %}
         <div class="row hide-for-small-only">
