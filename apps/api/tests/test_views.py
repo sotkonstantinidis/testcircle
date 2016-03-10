@@ -1,11 +1,8 @@
-import contextlib
-from unittest.mock import MagicMock, patch
-
 from django.conf import settings
 from rest_framework.permissions import IsAuthenticated
 
 from accounts.tests.test_models import create_new_user
-from api.models import RequestLog, NoteToken
+from api.models import NoteToken
 from qcat.tests import TestCase
 from questionnaire.api.views import QuestionnaireListView
 

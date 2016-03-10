@@ -1,6 +1,4 @@
-from PIL import Image
 from django import template
-from django.conf import settings
 from easy_thumbnails.files import get_thumbnailer
 
 from ..models import Questionnaire
@@ -81,6 +79,6 @@ def prepare_image(image):
         url = image.get('image')
 
     return {
-            'interchange': interchange,
-            'src': url
-        }
+        'interchange': interchange,
+        'src': url
+    }
