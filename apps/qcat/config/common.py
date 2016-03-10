@@ -145,7 +145,7 @@ class BaseSettings(Configuration):
         "django.contrib.messages.context_processors.messages",
         'django.core.context_processors.request',
         'sekizai.context_processors.sekizai',
-        'qcat.context_processors.warn_header'
+        'qcat.context_processors.template_settings'
     )
 
     AUTH_USER_MODEL = 'accounts.User'
@@ -261,3 +261,5 @@ class BaseSettings(Configuration):
     HOST_STRING_LIVE = values.Value(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
+
+    PIWIK_SITE_ID = values.IntegerValue(environ_prefix='', default=None)
