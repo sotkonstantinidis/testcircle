@@ -1,6 +1,7 @@
 {% comment %}
-  This subcategory assumes that the first questiongroup contains a checkbox question where each conditionally opens a new questiongroup.
-  The last questiongroup is rendered normally.
+  This subcategory assumes that the first questiongroup contains a checkbox
+  question where each conditionally opens a new questiongroup.
+  The questiongroups not appearing part of the conditions are rendered normally.
 {% endcomment %}
 
 {% load floppyforms %}
@@ -27,14 +28,14 @@
               {% for field in qg_form.visible_fields %}
                 <div class="small-12 columns">
                   <ul class="list-gallery small-block-grid-1">
-                    {% formfield field using "form/field/checkbox_with_questiongroup.html" with options=questiongroup_config.options|get_by_keyword:field.name additional_qg=formsets questiongroup_conditions=config.extra|join:',' %}
+                    {% formfield field using config.questiongroup_conditions_template with options=questiongroup_config.options|get_by_keyword:field.name additional_qg=formsets questiongroup_conditions=config.questiongroup_conditions|join:',' %}
                   </ul>
                 </div>
               {% endfor %}
             </div>
           {% endfor %}
         </div>
-      {% elif forloop.counter0 > config.extra|length %}
+      {% elif forloop.counter0 > config.questiongroup_conditions|length %}
         {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}

@@ -56,7 +56,7 @@
           {{ questiongroup_formset.management_form }}
           {% for f in questiongroup_formset.forms %}
             <tr>
-              {% if questiongroup_config.extra != 'no_label_row' %}
+              {% if questiongroup_config.layout != 'no_label_row' %}
                 <td>
                   {{ questiongroup_config.label }}
                   {% if f.visible_fields|length == 3 %}

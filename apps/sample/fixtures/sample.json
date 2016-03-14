@@ -3137,9 +3137,16 @@
                   },
                   {
                     "keyword": "subcat_2_2a",
+                    "form_options": {
+                      "template": "has_subcategories"
+                    },
                     "subcategories": [
                       {
                         "keyword": "subcat_2_2b",
+                        "form_options": {
+                          "template": "has_subcategories",
+                          "label_tag": "h4"
+                        },
                         "questiongroups": [
                           {
                             "questions": [
@@ -3165,12 +3172,23 @@
                   },
                   {
                     "keyword": "subcat_2_3a",
+                    "form_options": {
+                      "template": "has_subcategories"
+                    },
                     "subcategories": [
                       {
                         "keyword": "subcat_2_3b",
+                        "form_options": {
+                          "template": "has_subcategories",
+                          "label_tag": "h3"
+                        },
                         "subcategories": [
                           {
                             "keyword": "subcat_2_3c",
+                            "form_options": {
+                              "template": "has_subcategories",
+                              "label_tag": "h4"
+                            },
                             "questiongroups": [
                               {
                                 "keyword": "qg_19",
@@ -3191,9 +3209,16 @@
                   },
                   {
                     "keyword": "subcat_2_4",
+                    "form_options": {
+                      "template": "has_subcategories"
+                    },
                     "subcategories": [
                       {
                         "keyword": "subcat_2_4a",
+                        "form_options": {
+                          "template": "has_subcategories",
+                          "label_tag": "h4"
+                        },
                         "questiongroups": [
                           {
                             "keyword": "qg_20",
@@ -3207,12 +3232,24 @@
                       },
                       {
                         "keyword": "subcat_2_4b",
+                        "form_options": {
+                          "template": "has_subcategories",
+                          "label_tag": "h3"
+                        },
                         "subcategories": [
                           {
                             "keyword": "subcat_2_4b1",
+                            "form_options": {
+                              "template": "has_subcategories",
+                              "label_tag": "h4"
+                            },
                             "subcategories": [
                               {
                                 "keyword": "subcat_2_4b2",
+                                "form_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h5"
+                                },
                                 "questiongroups": [
                                   {
                                     "keyword": "qg_21",

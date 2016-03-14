@@ -34,7 +34,7 @@
           {% if questiongroup.qg_keyword in table_grouping.0 %}
             {% for qg in questiongroup.data_labelled %}
               <tr>
-                {% if questiongroup.extra != 'no_label_row' %}
+                {% if questiongroup.layout != 'no_label_row' %}
                   <td>{{ questiongroup.label }}</td>
                 {% endif %}
                 {% for k, values in qg %}

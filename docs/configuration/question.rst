@@ -146,14 +146,17 @@ form representation of the question.
     shown for textarea fields. This is only meaningful for key type
     ``text``. The default is 3.
 
-  * ``colclass``: An optional name of a CSS class to be passed to the
-    column of the Questiongroup in the template.
+  * ``label_columns_class`` (str): CSS class name added to the
+    ``<div class="columns">`` element containing the label.
 
-  * ``helptext``: An optional name for the placement of helptext related
-    to the question. Possible values are ``tooltip`` (showing the
+  * ``field_columns_class`` (str). CSS class name added to the
+    ``<div class="columns">`` element containing the field.
+
+  * ``helptext_position``: An optional name for the placement of helptext
+    related to the question. Possible values are ``tooltip`` (showing the
     helptext as a tooltip on the question label)
 
-  * ``label``: An optional name for the display and positioning of the
+  * ``label_position``: An optional name for the display and positioning of the
     label. Possible values are: ``placeholder`` (showing the label as a
     placeholder inside the input field)
 

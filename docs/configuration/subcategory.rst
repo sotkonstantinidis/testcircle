@@ -101,13 +101,30 @@ view representation of the question.
 (Optional). An optional object containing configuration options for the
 form representation of the question.
 
-  * ``form_template``: An optional name of a template to be used for the
+  * ``template``: An optional name of a template to be used for the
     rendering of the subcategory form. The name of the template needs to
     match a file with the ending ``.html`` inside
     ``questionnaire/templates/form/subcategory/``. If not specified, the
     default layout (``default.html``) is used.
 
     Please note that some templates require additional options to be set.
+
+  * ``label_tag`` (str): Specifies the tag used for the label (eg. ``h3``). Used
+    only for template ``has_subcategories``.
+
+  * ``label_class`` (str): Specifies an (additional) class name for the label
+    tag. Currently only used for template ``has_subcategories``.
+
+  * ``questiongroup_conditions`` (list): A list of questiongroup conditions to
+    be passed to the subcategory template in case of special rendering. Must
+    correspond to the list of ``questiongroup_conditions`` set in the
+    ``form_options`` of the first key of the first questiongroup.
+
+  * ``questiongroup_conditions_template`` (str): Indicate a field template to be
+    used for the rendering of the question which renders the conditional
+    question (eg. ``checkbox_with_questiongroup``). Must be used in combination
+    with ``questiongroup_conditions``. Template must exist in
+    ``form/fields/{}.html``.
 
 
 ``questiongroups``
@@ -128,3 +145,45 @@ A list of :doc:`/configuration/subcategory`.
 .. important::
     The options ``questiongroups`` and ``subcategories`` are exclusive,
     they should not be set both at the same time.
+
+
+Templates
+---------
+
+Every subcategory should render a ``<fieldset>`` and its label as ``<legend>``.
+Inside the fieldset, the questiongroups are to be rendered.
+
+For nested subcategories, use template ``has_subcategories``.
+
+Templates for subcategories are situated in the folder
+``templates/form/subcategory/``. They have access to the following variables:
+
+  * ``formsets`` (list): A list of tuples containing the configuration and the
+    Django FormFormSet objects of the questiongroups (``[({}, <FormFormSet>)]``).
+
+  * ``config`` (dict): A dictionary containing the configuration of the
+    subcategory. All of the ``form_options`` specified in the configuration
+    are available, as well as the following keys:
+
+    * ``form_template`` (str): The name of the template to be rendered next.
+
+    * ``has_changes`` (bool): A boolean indicating whether there are changes in
+      this subcategory compared the older version of the questionnaire.
+
+    * ``helptext`` (str): The helptext for the subcategory.
+
+    * ``label`` (str): The label of the subcategory.
+
+    * ``next_level`` (str): Indicates whether the next child to be rendered is
+      another subcategory or a questiongroup. Possible values are
+      ``subcategories`` or ``questiongroups``.
+
+    * ``numbering`` (str): The numbering of the subcategory.
+
+    * ``table_grouping`` (from view_options)
+
+    * ``table_headers`` (from view_options)
+
+    * ``table_helptexts`` (from view_options)
+
+    * ``template`` (str): The name of the current subcategory template.

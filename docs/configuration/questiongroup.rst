@@ -110,7 +110,8 @@ view representation of the questiongroup.
 form representation of the question.
 
   * ``template``: An optional template name. Must be a valid file name
-    with ``.html`` ending in folder ``templates/form/questiongroup/``.
+    with ``.html`` ending in folder ``templates/form/questiongroup/``. If not
+    specified, the default layout (``default.html``) is used.
 
   * ``min_num``: The minimum for repeating questiongroups to appear.
     Defaults to 1.
@@ -120,11 +121,13 @@ form representation of the question.
     will be rendered in the form. Defaults to ``min_num``.
 
   * ``numbered``: An optional parameter if the questiongroup is to be
-    numbered. Possible values are ``inline`` (numbering inside field
+    numbered. Currently, mainly the value ``display`` is used.
+
+  .. Possible values are ``inline`` (numbering inside field
     label) or ``prefix`` (numbering indented before fields). If not
     specified, no numbering is used.
 
-    .. hint::
+    .. .. hint::
         If possible, ``prefix`` should be used.
 
   * ``detail_level``: An optional parameter if the questiongroup
@@ -139,8 +142,50 @@ form representation of the question.
     .. seealso::
         :doc:`/configuration/question`
 
+  * ``layout`` (str): General layout indications for the layout of the
+    questiongroup inside the subcategory. This depends a lot on the subcategory
+    template. Known values are for example "before_table" used in template
+    "questionnaire/templates/form/subcategory/table_input.html" or
+    "no_label_row" for tables.
+
+  * ``user_role`` (str): A specific configuration used only for template
+    ``select_user``.
+
 
 ``questions``
 ^^^^^^^^^^^^^
 
 A list of :doc:`/configuration/question`.
+
+
+Templates
+---------
+
+Templates for questiongroups are situated in the folder
+``templates/form/questiongroup/``. They have access to the following variables:
+
+  * ``formset``: A Django FormFormSet object, containing the (repeating) forms
+    (``formset.forms``) as well as the management form
+    (``formset.management_form``) which needs to be rendered in order for the
+    form to be submitted correctly.
+
+  * ``config`` (dict): A dictionary containing the configuration of the
+    questiongroup. All of the ``form_options`` specified in the configuration
+    are available, as well as the following keys:
+
+    * ``has_changes`` (bool): A boolean indicating whether there are changes in
+      this questiongroup compared the older version of the questionnaire.
+
+    * ``helptext`` (str): The helptext for the questiongroup.
+
+    * ``keyword`` (str): The keyword of the questiongroup.
+
+    * ``label`` (str): The label of the questiongroup (if available).
+
+    * ``options`` (dict): The options of the keys, (``{"key_1": {}}``), to be
+      passed to the template of the question.
+
+    * ``template`` (str): The name of the current questiongroup template.
+
+    * ``templates`` (dict): A dictionary of the templates of the questions
+      (``{"key_1": {}}``), to be passed to their templates

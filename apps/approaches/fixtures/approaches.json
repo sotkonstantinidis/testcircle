@@ -3316,7 +3316,10 @@
       "keyword": "app_stakeholders_comments",
       "translation": 7005,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
       }
     },
     "model": "configuration.key",
@@ -7208,7 +7211,7 @@
                             "keyword": "user_resourceperson_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "as_header",
@@ -7518,7 +7521,7 @@
                             "keyword": "app_type_specify",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other",
@@ -7994,8 +7997,8 @@
                   {
                     "keyword": "app__3__1",
                     "form_options": {
-                      "template": "checkbox_questiongroups_2",
-                      "extra": [
+                      "template": "checkbox_questiongroups",
+                      "questiongroup_conditions": [
                         "=='stakeholder_local'|app_qg_92",
                         "=='stakeholder_community'|app_qg_93",
                         "=='stakeholder_specialist'|app_qg_94",
@@ -8006,7 +8009,8 @@
                         "=='stakeholder_localgov'|app_qg_99",
                         "=='stakeholder_natgov'|app_qg_100",
                         "=='stakeholder_intorganization'|app_qg_101"
-                      ]
+                      ],
+                      "questiongroup_conditions_template": "checkbox_with_questiongroup_2"
                     },
                     "view_options": {
                       "template": "checkbox_questiongroups_appsh",
@@ -8050,9 +8054,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8070,9 +8071,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8090,9 +8088,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8110,9 +8105,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8130,9 +8122,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8150,9 +8139,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8170,9 +8156,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8190,9 +8173,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8210,9 +8190,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8230,9 +8207,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8249,7 +8223,7 @@
                             "keyword": "app_stakeholders_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other"
@@ -8257,9 +8231,6 @@
                           },
                           {
                             "keyword": "app_stakeholders_comments",
-                            "form_options": {
-                              "helptext": "tooltip"
-                            },
                             "view_options": {
                               "label": "none"
                             }
@@ -8329,7 +8300,7 @@
                             "keyword": "app_decisions_by_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8351,7 +8322,7 @@
                             "keyword": "app_decisions_based_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8398,7 +8369,7 @@
                             "keyword": "app_training_who_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8423,7 +8394,7 @@
                             "keyword": "app_training_form_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8477,7 +8448,7 @@
                             "keyword": "app_advisory_service_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8528,7 +8499,7 @@
                             "keyword": "app_institutions_level_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8550,7 +8521,7 @@
                             "keyword": "app_institutions_support_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8642,13 +8613,14 @@
                     "keyword": "app__5__3",
                     "form_options": {
                       "template": "checkbox_questiongroups",
-                      "extra": [
+                      "questiongroup_conditions": [
                         "=='app_subsidies_inputs_labour'|app_qg_28",
                         "=='app_subsidies_inputs_equipment'|app_qg_29",
                         "=='app_subsidies_inputs_agricultural'|app_qg_30",
                         "=='app_subsidies_inputs_construction'|app_qg_31",
                         "=='app_subsidies_inputs_infrastructure'|app_qg_32"
-                      ]
+                      ],
+                      "questiongroup_conditions_template": "checkbox_with_questiongroup"
                     },
                     "view_options": {
                       "template": "table_app_subsidies",
@@ -8743,7 +8715,7 @@
                           {
                             "keyword": "app_subs_eq_other",
                             "form_options": {
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other",
@@ -8789,7 +8761,7 @@
                           {
                             "keyword": "app_subs_ag_other",
                             "form_options": {
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other",
@@ -8835,7 +8807,7 @@
                           {
                             "keyword": "app_subs_const_other",
                             "form_options": {
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other",
@@ -8881,7 +8853,7 @@
                           {
                             "keyword": "app_subs_infr_other",
                             "form_options": {
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other",
@@ -8905,7 +8877,7 @@
                           {
                             "keyword": "app_subsidies_inputs_other",
                             "form_options": {
-                              "label": "placeholder",
+                              "label_position": "placeholder",
                               "template": "checkbox_other"
                             },
                             "view_options": {
@@ -9068,7 +9040,6 @@
                             "keyword": "app_impacts_decisionmaking",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_42"
                               ]
@@ -9106,7 +9077,6 @@
                             "keyword": "app_impacts_implement",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_44"
                               ]
@@ -9144,7 +9114,6 @@
                             "keyword": "app_impacts_coordination",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_46"
                               ]
@@ -9182,7 +9151,6 @@
                             "keyword": "app_impacts_accessresources",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_48"
                               ]
@@ -9220,7 +9188,6 @@
                             "keyword": "app_impacts_knowledgelandusers",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_50"
                               ]
@@ -9258,7 +9225,6 @@
                             "keyword": "app_impacts_knowledgeothers",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_52"
                               ]
@@ -9296,7 +9262,6 @@
                             "keyword": "app_impacts_strengtheninstitutions",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_54"
                               ]
@@ -9334,7 +9299,6 @@
                             "keyword": "app_impacts_mitigateconflicts",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_56"
                               ]
@@ -9372,7 +9336,6 @@
                             "keyword": "app_impacts_empowergroups",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_58"
                               ]
@@ -9410,7 +9373,6 @@
                             "keyword": "app_impacts_landtenure",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_60"
                               ]
@@ -9448,7 +9410,6 @@
                             "keyword": "app_impacts_foodsecurity",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_62"
                               ]
@@ -9486,7 +9447,6 @@
                             "keyword": "app_impacts_accesswater",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_64"
                               ]
@@ -9524,7 +9484,6 @@
                             "keyword": "app_impacts_sustainableenergy",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_66"
                               ]
@@ -9562,7 +9521,6 @@
                             "keyword": "app_impacts_employment",
                             "form_options": {
                               "template": "inline_6",
-                              "colclass": "top-margin",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_68"
                               ]
@@ -9607,7 +9565,7 @@
                             "keyword": "app_impacts_other",
                             "form_options": {
                               "template": "no_label",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "as_header",
@@ -9644,8 +9602,8 @@
                   {
                     "keyword": "app__7__1",
                     "form_options": {
-                      "template": "checkbox_questiongroups_2",
-                      "extra": [
+                      "template": "checkbox_questiongroups",
+                      "questiongroup_conditions": [
                         "=='app_motivation_production'|app_qg_71",
                         "=='app_motivation_profit'|app_qg_72",
                         "=='app_motivation_workload'|app_qg_73",
@@ -9658,7 +9616,8 @@
                         "=='app_motivation_knowledge'|app_qg_80",
                         "=='app_motivation_aesthetic'|app_qg_81",
                         "=='app_motivation_conflict'|app_qg_82"
-                      ]
+                      ],
+                      "questiongroup_conditions_template": "checkbox_with_questiongroup_2"
                     },
                     "view_options": {
                       "template": "checkbox_questiongroups_2",
@@ -9908,7 +9867,7 @@
                             "keyword": "app_motivation_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label": "placeholder"
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other"

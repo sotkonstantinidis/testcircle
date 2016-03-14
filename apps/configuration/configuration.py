@@ -510,26 +510,26 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         field = None
         translation_field = None
         widget = None
-        field_options = {
-            'label': self.form_options.get('label'),
-            'colclass': self.form_options.get('colclass'),
+
+        field_options = self.form_options
+        field_options.update({
             'helptext': self.helptext,
-            'helptext_position': self.form_options.get('helptext'),
             'helptext_choices': self.choices_helptexts,
             'additional_translations': self.additional_translations,
-        }
+        })
 
         attrs = {}
         if edit_mode == 'view':
             # Read-only mode, disable all input fields.
             attrs.update({'disabled': 'disabled'})
 
+        if field_options.get('label_position') == 'placeholder':
+            attrs.update({'placeholder': self.label})
+
         if self.field_type == 'char':
             max_length = self.max_length
             if max_length is None:
                 max_length = 2000
-            if self.form_options.get('label') == 'placeholder':
-                attrs.update({'placeholder': self.label})
             widget = TextInput(attrs)
             widget.options = field_options
             field = forms.CharField(
@@ -991,7 +991,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         if self.keyword in edited_questiongroups:
             has_changes = True
 
-        config = {
+        config = self.form_options
+        config.update({
             'keyword': self.keyword,
             'helptext': self.helptext,
             'label': self.label,
@@ -1001,9 +1002,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'numbered': self.numbered,
             'detail_level': self.detail_level,
             'template': form_template,
-            'extra': self.view_options.get('extra'),
             'has_changes': has_changes,
-        }
+        })
 
         return config, FormSet(
             post_data, prefix=self.keyword, initial=initial_data)
@@ -1220,13 +1220,18 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         form_template = 'form/subcategory/{}.html'.format(
             self.form_options.get('template', 'default'))
         formsets = []
-        config = {
+        config = self.form_options
+
+        if config.get('questiongroup_conditions_template'):
+            config['questiongroup_conditions_template'] = 'form/field/{}.html'.\
+                format(config.get('questiongroup_conditions_template'))
+
+        config.update({
             'label': self.label,
             'helptext': self.helptext,
             'numbering': self.numbering,
             'form_template': form_template,
-            'extra': self.form_options.get('extra'),
-        }
+        })
         has_changes = False
         for questiongroup in self.questiongroups:
             questionset_initial_data = initial_data.get(questiongroup.keyword)

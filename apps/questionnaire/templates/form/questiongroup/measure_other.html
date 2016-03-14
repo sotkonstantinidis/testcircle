@@ -33,11 +33,11 @@
 
   {% for qg_form in formset.forms %}
 
-    <div class="list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+    <div class="list-item row{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
       {% for field in qg_form.visible_fields %}
 
         {% if forloop.counter <= 2 %}
-          <div class="medium-6 columns top-margin">
+          <div class="medium-6 columns">
         {% else %}
           <div class="medium-12 columns">
         {% endif %}

@@ -294,13 +294,13 @@ def generic_questionnaire_view_step(
     initial_data = get_questionnaire_data_for_translation_form(
         data, current_locale, original_locale)
 
-    category_config, category_formsets = category.get_form(
+    category_config, subcategories = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode)
 
     return render(request, 'form/category.html', {
-        'category_formsets': category_formsets,
-        'category_config': category_config,
+        'subcategories': subcategories,
+        'config': category_config,
         'title': page_title,
         'valid': valid,
         'edit_mode': edit_mode,
@@ -431,7 +431,7 @@ def generic_questionnaire_new_step(
     initial_data = get_questionnaire_data_for_translation_form(
         session_questionnaire, current_locale, original_locale)
 
-    category_config, category_formsets = category.get_form(
+    category_config, subcategories = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode,
         edited_questiongroups=edited_questiongroups)
@@ -447,7 +447,7 @@ def generic_questionnaire_new_step(
     if request.method == 'POST':
 
         data, valid = _validate_formsets(
-            category_formsets, current_locale, original_locale)
+            subcategories, current_locale, original_locale)
 
         if valid is True:
             session_data = get_session_questionnaire(
@@ -498,9 +498,10 @@ def generic_questionnaire_new_step(
             args=[identifier, step])
 
     return render(request, 'form/category.html', {
-        'category_formsets': category_formsets,
-        'category_config': category_config,
-        'content_categories': [c for c in category_formsets if c[1] != []],
+        'subcategories': subcategories,
+        'config': category_config,
+        'content_subcategories_count': len(
+            [c for c in subcategories if c[1] != []]),
         'title': page_title,
         'overview_url': overview_url,
         'valid': valid,
