@@ -32,10 +32,10 @@ The basic format of the configuration is as follows::
       "template": "TEMPLATE_NAME",
 
       # Default: ""
-      "extra": "measure_other",
+      "conditional_question": "KEY_KEYWORD",
 
       # Default: ""
-      "colclass": "top-margin"
+      "layout": "before_table"
     },
 
     # (optional)
@@ -57,6 +57,9 @@ The basic format of the configuration is as follows::
 
       # Default: ""
       "questiongroup_condition": "CONDITION_NAME",
+
+      # Default: ""
+      "layout": "before_table"
     },
 
     # A list of questions.
@@ -94,14 +97,14 @@ The keyword of the questiongroup.
 view representation of the questiongroup.
 
   * ``template``: An optional template name. Must be a valid file name
-    with ``.html`` ending in folder
-    ``templates/details/questiongroup/``.
+    with ``.html`` ending in folder ``templates/details/questiongroup/``.
 
-  * ``extra``: TODO
+  * ``conditional_question`` (str): For conditional questiongroups, the name of
+    the key for which the questiongroup will be rendered next to. Works for
+    example with subcategory template "image_questiongroups"
 
-  * ``colclass``: An optional name of a CSS class to be passed to the
-    column of the Questiongroup in the template.
-
+  * ``layout`` (str): Additional indications used for the layout. These depend
+    largely on the template used. Known values are "before_table" or "label".
 
 ``form_options``
 ^^^^^^^^^^^^^^^^
@@ -158,8 +161,8 @@ form representation of the question.
 A list of :doc:`/configuration/question`.
 
 
-Templates
----------
+Form templates
+--------------
 
 Templates for questiongroups are situated in the folder
 ``templates/form/questiongroup/``. They have access to the following variables:

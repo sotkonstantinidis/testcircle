@@ -1,13 +1,5 @@
 {% load list_to_columns %}
 
 {% if not values|is_empty %}
-  {% if header == 'small' %}
-    <h5>
-      {% for value in values %}{{ value }}{% endfor %}
-    </h5>
-  {% else %}
-    <h3>
-      {% for value in values %}{{ value }}{% endfor %}
-    </h3>
-  {% endif %}
+  <{{ label_tag|default:"h5" }}>{% for value in values %}{{ value }}{% if forloop.last and value|last not in ".:!?" %}:{% endif %}{% endfor %}</{{ label_tag|default:"h5" }}>
 {% endif %}

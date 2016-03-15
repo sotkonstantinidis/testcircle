@@ -259,10 +259,16 @@ class QuestionnaireQuestion(BaseConfigurationObject):
               "template": "TEMPLATE_NAME",
 
               # Default: ""
-              "label": "none",
+              "label_position": "",
+
+              # Default: "h5"
+              "label_tag": "h5",
 
               # Default: ""
-              "header": "small",
+              "layout": "stacked",
+
+              # Default: false
+              "with_raw_values": true,
 
               # Default: false
               "in_list": true,
@@ -286,13 +292,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
               "num_rows": 5,
 
               # Default: ""
-              "colclass": "top-margin",
+              "helptext_position": "tooltip",
 
               # Default: ""
-              "helptext": "tooltip",
-
-              # Default: ""
-              "label": "placeholder",
+              "label_position": "placeholder",
 
               # Default: []
               "conditions": [],
@@ -571,7 +574,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         elif self.field_type == 'measure':
             widget = MeasureSelect(attrs=attrs)
             widget.options = field_options
-            if self.form_options.get('extra', '') == 'stacked':
+            if self.form_options.get('layout', '') == 'stacked':
                 widget = MeasureSelectStacked()
             field = forms.ChoiceField(
                 label=self.label, choices=self.choices, widget=widget,
@@ -668,12 +671,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
     def get_details(self, data={}, measure_label=None):
         MAX_MEASURE_LEVEL = 5
-        template_values = {
-            'view_label': self.view_options.get('label'),
-            'header': self.view_options.get('header'),
-            'extra': self.view_options.get('extra'),
+        template_values = self.view_options
+        template_values.update({
             'additional_translations': self.additional_translations,
-        }
+        })
         value = data.get(self.keyword)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
@@ -713,7 +714,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             })
         elif self.field_type in ['checkbox', 'cb_bool', 'radio']:
             template_name = 'checkbox'
-            if self.view_options.get('extra') == 'raw_values':
+            if self.view_options.get('with_raw_values') is True:
                 # Also add the raw keywords of the values.
                 value_keywords = []
                 for v in value:
@@ -788,9 +789,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
 
-        if (self.form_options.get('extra', '') == 'stacked'
-                or self.view_options.get('extra', '') == 'stacked'):
-            if self.view_options.get('label', '') == 'none':
+        if (self.form_options.get('layout') == 'stacked'
+                or self.view_options.get('layout') == 'stacked'):
+            if self.view_options.get('label_position') == 'none':
                 key = None
             # Add all values and their measure value.
             all_values = []
@@ -863,10 +864,10 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
               "template": "TEMPLATE_NAME",
 
               # Default: ""
-              "extra": "measure_other",
+              "conditional_question": "KEY_KEYWORD",
 
               # Default: ""
-              "colclass": "top-margin"
+              "layout": "before_table"
             },
 
             # (optional)
@@ -888,6 +889,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
               # Default: ""
               "questiongroup_condition": "CONDITION_NAME",
+
+              # Default: ""
+              "layout": "before_table"
             },
 
             # A list of questions.
@@ -1037,13 +1041,11 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         view_template = 'details/questiongroup/{}.html'.format(
             self.view_options.get('template', 'default'))
         questiongroups = self.get_rendered_questions(data)
-        config = {
+        config = self.view_options
+        config.update({
             'numbered': self.numbered,
-            'columns': self.view_options.get('columns'),
-            'extra': self.view_options.get('extra'),
-            'colclass': self.view_options.get('colclass'),
             'label': self.label,
-        }
+        })
         if self.view_options.get('raw_questions', False) is True:
             raw_questions = []
             for d in data:
@@ -1134,6 +1136,9 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
               # Default: "default"
               "template": "TEMPLATE_NAME",
 
+              # Default: false
+              "raw_questions": true,
+
               # Default: None
               "table_grouping": []
             },
@@ -1141,7 +1146,19 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             # (optional)
             "form_options": {
               # Default: "default"
-              "template": "TEMPLATE_NAME"
+              "template": "TEMPLATE_NAME",
+
+              # Default: ""
+              "label_tag": "h3",
+
+              # Default: ""
+              "label_class": "top-margin",
+
+              # Default: []
+              "questiongroup_conditions": [],
+
+              # Default: ""
+              "questiongroup_conditions_template": ""
             },
 
             # A list of questiongroups.
@@ -1321,26 +1338,28 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                                     values.append(v)
                             qg_labelled.append((q_obj.label, values))
                         data_labelled.append(qg_labelled)
-                    raw_questiongroups.append({
+                    config = questiongroup.view_options
+                    config.update({
                         'qg_keyword': questiongroup.keyword,
                         'data': sorted_questiongroup_data,
                         'data_labelled': data_labelled,
                         'label': questiongroup.label,
-                        'extra': questiongroup.view_options.get('extra'),
                     })
+                    raw_questiongroups.append(config)
                 elif self.view_options.get('raw_questions', False) is True:
-                    rendered_questions.append({
+                    config = questiongroup.view_options
+                    config.update({
                         'qg': questiongroup.keyword,
-                        'extra': questiongroup.view_options.get('extra'),
                         'questions': questiongroup.get_rendered_questions(
                             questiongroup_data),
                     })
+                    rendered_questions.append(config)
                 else:
-                    questiongroup_config = {
+                    questiongroup_config = questiongroup.view_options
+                    questiongroup_config.update({
                         'keyword': questiongroup.keyword,
                         'label': questiongroup.label,
-                        'extra': questiongroup.view_options.get('extra'),
-                    }
+                    })
                     rendered_questiongroups.append((
                         questiongroup_config,
                         questiongroup.get_details(questiongroup_data)))
@@ -1351,15 +1370,15 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 subcategories.append(sub_rendered)
                 has_content = True
 
-        template_values = {
+        template_values = self.view_options
+        template_values.update({
             'questiongroups': rendered_questiongroups,
             'questions': rendered_questions,
             'subcategories': subcategories,
             'label': self.label_view,
             'numbering': self.numbering,
             'helptext': self.helptext,
-            'header': self.view_options.get('header'),
-        }
+        })
         if self.table_grouping:
             template_values.update({
                 'table_grouping': self.table_grouping,
@@ -1569,7 +1588,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'configuration_name': configuration,
                 'toc_content': tuple(toc_content),
                 'questionnaire_identifier': questionnaire_identifier,
-                'questionnaire_object': questionnaire_object,
                 'has_changes': has_changes,
             })
 

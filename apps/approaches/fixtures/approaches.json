@@ -7203,8 +7203,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "template": "values_as_header",
-                              "header": "small"
+                              "template": "values_as_header"
                             }
                           },
                           {
@@ -7214,8 +7213,7 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "as_header",
-                              "header": "small"
+                              "template": "as_header"
                             }
                           },
                           {
@@ -7227,80 +7225,56 @@
                           {
                             "keyword": "person_lastname",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_firstname",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_gender",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_institution_name",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_institution_address",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
-                            "keyword": "person_postal_code",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "person_postal_code"
                           },
                           {
-                            "keyword": "person_city",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "person_city"
                           },
                           {
-                            "keyword": "person_state",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "person_state"
                           },
                           {
-                            "keyword": "country",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "country"
                           },
                           {
-                            "keyword": "person_phone_1",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "person_phone_1"
                           },
                           {
-                            "keyword": "person_phone_2",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "person_phone_2"
                           },
                           {
-                            "keyword": "person_email_1",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "person_email_1"
                           },
                           {
-                            "keyword": "person_email_2",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "person_email_2"
                           }
                         ]
                       },
@@ -7321,10 +7295,7 @@
                         "keyword": "qg_accept_conditions",
                         "questions": [
                           {
-                            "keyword": "date_documentation",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "date_documentation"
                           },
                           {
                             "keyword": "accept_conditions"
@@ -7367,7 +7338,7 @@
                             },
                             "view_options": {
                               "in_list": true,
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -7514,7 +7485,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7525,7 +7496,7 @@
                             },
                             "view_options": {
                               "template": "radio_other",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -7550,7 +7521,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7565,7 +7536,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7591,7 +7562,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7606,7 +7577,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7632,7 +7603,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7647,7 +7618,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7673,7 +7644,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7688,7 +7659,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7714,7 +7685,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7729,7 +7700,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7755,7 +7726,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7770,7 +7741,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7796,7 +7767,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7811,7 +7782,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7837,7 +7808,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7852,7 +7823,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7878,7 +7849,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7893,7 +7864,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7919,7 +7890,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7934,7 +7905,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7961,7 +7932,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -7976,7 +7947,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -8038,7 +8009,7 @@
                             },
                             "view_options": {
                               "template": "raw",
-                              "extra": "raw_values"
+                              "with_raw_values": true
                             }
                           }
                         ]
@@ -8049,13 +8020,13 @@
                           "questiongroup_condition": "app_qg_92"
                         },
                         "view_options": {
-                          "extra": "stakeholder_local"
+                          "conditional_question": "stakeholder_local"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8066,13 +8037,13 @@
                           "questiongroup_condition": "app_qg_93"
                         },
                         "view_options": {
-                          "extra": "stakeholder_community"
+                          "conditional_question": "stakeholder_community"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8083,13 +8054,13 @@
                           "questiongroup_condition": "app_qg_94"
                         },
                         "view_options": {
-                          "extra": "stakeholder_specialist"
+                          "conditional_question": "stakeholder_specialist"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8100,13 +8071,13 @@
                           "questiongroup_condition": "app_qg_95"
                         },
                         "view_options": {
-                          "extra": "stakeholder_researchers"
+                          "conditional_question": "stakeholder_researchers"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8117,13 +8088,13 @@
                           "questiongroup_condition": "app_qg_96"
                         },
                         "view_options": {
-                          "extra": "stakeholder_teachers"
+                          "conditional_question": "stakeholder_teachers"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8134,13 +8105,13 @@
                           "questiongroup_condition": "app_qg_97"
                         },
                         "view_options": {
-                          "extra": "stakeholder_ngo"
+                          "conditional_question": "stakeholder_ngo"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8151,13 +8122,13 @@
                           "questiongroup_condition": "app_qg_98"
                         },
                         "view_options": {
-                          "extra": "stakeholder_private"
+                          "conditional_question": "stakeholder_private"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8168,13 +8139,13 @@
                           "questiongroup_condition": "app_qg_99"
                         },
                         "view_options": {
-                          "extra": "stakeholder_localgov"
+                          "conditional_question": "stakeholder_localgov"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8185,13 +8156,13 @@
                           "questiongroup_condition": "app_qg_100"
                         },
                         "view_options": {
-                          "extra": "stakeholder_natgov"
+                          "conditional_question": "stakeholder_natgov"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8202,13 +8173,13 @@
                           "questiongroup_condition": "app_qg_101"
                         },
                         "view_options": {
-                          "extra": "stakeholder_intorganization"
+                          "conditional_question": "stakeholder_intorganization"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8232,7 +8203,7 @@
                           {
                             "keyword": "app_stakeholders_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -8241,16 +8212,10 @@
                         "keyword": "app_qg_104",
                         "questions": [
                           {
-                            "keyword": "app_stakeholders_lead_agency",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_stakeholders_lead_agency"
                           },
                           {
-                            "keyword": "app_stakeholders_project",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_stakeholders_project"
                           }
                         ]
                       }
@@ -8269,16 +8234,10 @@
                             "keyword": "app_flowchart"
                           },
                           {
-                            "keyword": "app_flowchart_description",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_flowchart_description"
                           },
                           {
-                            "keyword": "app_flowchart_author",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_flowchart_author"
                           }
                         ]
                       }
@@ -8291,10 +8250,7 @@
                         "keyword": "app_qg_17",
                         "questions": [
                           {
-                            "keyword": "app_decisions_by",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_decisions_by"
                           },
                           {
                             "keyword": "app_decisions_by_other",
@@ -8307,16 +8263,10 @@
                             }
                           },
                           {
-                            "keyword": "app_decisions_explain",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_decisions_explain"
                           },
                           {
-                            "keyword": "app_decisions_based",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_decisions_based"
                           },
                           {
                             "keyword": "app_decisions_based_other",
@@ -8360,10 +8310,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_training_who",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_training_who"
                           },
                           {
                             "keyword": "app_training_who_other",
@@ -8379,16 +8326,10 @@
                             "keyword": "app_training_who_specify",
                             "form_options": {
                               "num_rows": 2
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           },
                           {
-                            "keyword": "app_training_form",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_training_form"
                           },
                           {
                             "keyword": "app_training_form_other",
@@ -8401,16 +8342,10 @@
                             }
                           },
                           {
-                            "keyword": "app_training_subjects",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_training_subjects"
                           },
                           {
-                            "keyword": "app_training_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_training_comments"
                           }
                         ]
                       }
@@ -8439,10 +8374,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_advisory_service",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_advisory_service"
                           },
                           {
                             "keyword": "app_advisory_service_other",
@@ -8455,10 +8387,7 @@
                             }
                           },
                           {
-                            "keyword": "app_advisory_describe",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_advisory_describe"
                           }
                         ]
                       }
@@ -8476,9 +8405,6 @@
                               "questiongroup_conditions": [
                                 "!='app_institutions_no'|app_qg_23"
                               ]
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           }
                         ]
@@ -8490,10 +8416,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_institutions_level",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_institutions_level"
                           },
                           {
                             "keyword": "app_institutions_level_other",
@@ -8506,16 +8429,10 @@
                             }
                           },
                           {
-                            "keyword": "app_institutions_describe",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_institutions_describe"
                           },
                           {
-                            "keyword": "app_institutions_support",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_institutions_support"
                           },
                           {
                             "keyword": "app_institutions_support_other",
@@ -8528,10 +8445,7 @@
                             }
                           },
                           {
-                            "keyword": "app_institutions_support_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_institutions_support_specify"
                           }
                         ]
                       }
@@ -8547,10 +8461,7 @@
                             "keyword": "app_monitoring"
                           },
                           {
-                            "keyword": "app_monitoring_comment",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_monitoring_comment"
                           },
                           {
                             "keyword": "app_documentation_systematic"
@@ -8654,8 +8565,7 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "extra": "conditional_checkboxes"
+                              "template": "raw"
                             }
                           }
                         ]
@@ -8667,20 +8577,14 @@
                           "template": "columns_o4_o8"
                         },
                         "view_options": {
-                          "extra": "app_subsidies_inputs_labour"
+                          "conditional_question": "app_subsidies_inputs_labour"
                         },
                         "questions": [
                           {
-                            "keyword": "app_subsidies_extent",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_subsidies_extent"
                           },
                           {
-                            "keyword": "app_subsidies_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_subsidies_specify"
                           }
                         ]
                       },
@@ -8691,7 +8595,7 @@
                           "template": "table_3_columns"
                         },
                         "view_options": {
-                          "extra": "app_subsidies_inputs_equipment"
+                          "conditional_question": "app_subsidies_inputs_equipment"
                         },
                         "questions": [
                           {
@@ -8719,7 +8623,7 @@
                             },
                             "view_options": {
                               "template": "checkbox_other",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -8737,7 +8641,7 @@
                           "template": "table_3_columns"
                         },
                         "view_options": {
-                          "extra": "app_subsidies_inputs_agricultural"
+                          "conditional_question": "app_subsidies_inputs_agricultural"
                         },
                         "questions": [
                           {
@@ -8765,7 +8669,7 @@
                             },
                             "view_options": {
                               "template": "checkbox_other",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -8783,7 +8687,7 @@
                           "template": "table_3_columns"
                         },
                         "view_options": {
-                          "extra": "app_subsidies_inputs_construction"
+                          "conditional_question": "app_subsidies_inputs_construction"
                         },
                         "questions": [
                           {
@@ -8811,7 +8715,7 @@
                             },
                             "view_options": {
                               "template": "checkbox_other",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -8829,7 +8733,7 @@
                           "template": "table_3_columns"
                         },
                         "view_options": {
-                          "extra": "app_subsidies_inputs_infrastructure"
+                          "conditional_question": "app_subsidies_inputs_infrastructure"
                         },
                         "questions": [
                           {
@@ -8857,7 +8761,7 @@
                             },
                             "view_options": {
                               "template": "checkbox_other",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -8882,7 +8786,7 @@
                             },
                             "view_options": {
                               "template": "checkbox_other",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -8897,16 +8801,10 @@
                         "keyword": "app_qg_34",
                         "questions": [
                           {
-                            "keyword": "app_subsidies_labour_type",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_subsidies_labour_type"
                           },
                           {
-                            "keyword": "app_subs_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_subs_comments"
                           }
                         ]
                       }
@@ -8935,22 +8833,13 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_credit_conditions",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_credit_conditions"
                           },
                           {
-                            "keyword": "app_credit_provider",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_credit_provider"
                           },
                           {
-                            "keyword": "app_credit_receiver",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_credit_receiver"
                           }
                         ]
                       }
@@ -8979,10 +8868,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_incentives_other_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_incentives_other_specify"
                           }
                         ]
                       }
@@ -9009,8 +8895,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9028,7 +8914,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9046,8 +8932,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9065,7 +8951,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9083,8 +8969,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9102,7 +8988,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9120,8 +9006,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9139,7 +9025,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9157,8 +9043,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9176,7 +9062,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9194,8 +9080,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9213,7 +9099,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9231,8 +9117,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9250,7 +9136,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9268,8 +9154,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9287,7 +9173,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9305,8 +9191,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9324,7 +9210,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9342,8 +9228,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9361,7 +9247,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9379,8 +9265,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9398,7 +9284,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9416,8 +9302,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9435,7 +9321,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9453,8 +9339,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9472,7 +9358,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9490,8 +9376,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9509,7 +9395,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9527,8 +9413,8 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           }
                         ]
@@ -9546,7 +9432,7 @@
                             },
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9568,8 +9454,7 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "as_header",
-                              "header": "small"
+                              "template": "as_header"
                             }
                           },
                           {
@@ -9579,15 +9464,15 @@
                             },
                             "view_options": {
                               "template": "measure_bar_nolabel",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none",
+                              "layout": "stacked"
                             }
                           },
                           {
                             "keyword": "app_impacts_other_specify",
                             "view_options": {
                               "template": "inline_6",
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9647,7 +9532,7 @@
                             },
                             "view_options": {
                               "template": "raw",
-                              "extra": "raw_values"
+                              "with_raw_values": true
                             }
                           }
                         ]
@@ -9658,13 +9543,13 @@
                           "questiongroup_condition": "app_qg_71"
                         },
                         "view_options": {
-                          "extra": "app_motivation_production"
+                          "conditional_question": "app_motivation_production"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9675,13 +9560,13 @@
                           "questiongroup_condition": "app_qg_72"
                         },
                         "view_options": {
-                          "extra": "app_motivation_profit"
+                          "conditional_question": "app_motivation_profit"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9692,13 +9577,13 @@
                           "questiongroup_condition": "app_qg_73"
                         },
                         "view_options": {
-                          "extra": "app_motivation_workload"
+                          "conditional_question": "app_motivation_workload"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9709,13 +9594,13 @@
                           "questiongroup_condition": "app_qg_74"
                         },
                         "view_options": {
-                          "extra": "app_motivation_payments"
+                          "conditional_question": "app_motivation_payments"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9726,13 +9611,13 @@
                           "questiongroup_condition": "app_qg_75"
                         },
                         "view_options": {
-                          "extra": "app_motivation_rules"
+                          "conditional_question": "app_motivation_rules"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9743,13 +9628,13 @@
                           "questiongroup_condition": "app_qg_76"
                         },
                         "view_options": {
-                          "extra": "app_motivation_prestige"
+                          "conditional_question": "app_motivation_prestige"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9760,13 +9645,13 @@
                           "questiongroup_condition": "app_qg_77"
                         },
                         "view_options": {
-                          "extra": "app_motivation_affiliation"
+                          "conditional_question": "app_motivation_affiliation"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9777,13 +9662,13 @@
                           "questiongroup_condition": "app_qg_78"
                         },
                         "view_options": {
-                          "extra": "app_motivation_consciousness"
+                          "conditional_question": "app_motivation_consciousness"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9794,13 +9679,13 @@
                           "questiongroup_condition": "app_qg_79"
                         },
                         "view_options": {
-                          "extra": "app_motivation_customs"
+                          "conditional_question": "app_motivation_customs"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9811,13 +9696,13 @@
                           "questiongroup_condition": "app_qg_80"
                         },
                         "view_options": {
-                          "extra": "app_motivation_knowledge"
+                          "conditional_question": "app_motivation_knowledge"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9828,13 +9713,13 @@
                           "questiongroup_condition": "app_qg_81"
                         },
                         "view_options": {
-                          "extra": "app_motivation_aesthetic"
+                          "conditional_question": "app_motivation_aesthetic"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9845,13 +9730,13 @@
                           "questiongroup_condition": "app_qg_82"
                         },
                         "view_options": {
-                          "extra": "app_motivation_conflict"
+                          "conditional_question": "app_motivation_conflict"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9876,7 +9761,7 @@
                           {
                             "keyword": "app_motivation_comments",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -9896,9 +9781,6 @@
                                 "!='app_sustainability_yes'|app_qg_85",
                                 "=='app_sustainability_yes'|app_qg_86"
                               ]
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           }
                         ]
@@ -9910,10 +9792,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_can_lu_sustain_no_comment",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_can_lu_sustain_no_comment"
                           }
                         ]
                       },
@@ -9924,10 +9803,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_can_lu_sustain_yes_comment",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "app_can_lu_sustain_yes_comment"
                           }
                         ]
                       }

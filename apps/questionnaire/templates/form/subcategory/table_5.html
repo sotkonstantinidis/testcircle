@@ -6,7 +6,7 @@
 
   If there are more than XY questions, the first two are rendered in the first td
 
-  Further questions are rendered either before the table (questiongroup_config.extra == 'before_table') or after the table.
+  Further questions are rendered either before the table (questiongroup_config.layout == 'before_table') or after the table.
 {% endcomment %}
 
 {% load floppyforms %}
@@ -23,7 +23,7 @@
   </div>
 
   {% for questiongroup_config, questiongroup_formset in formsets %}
-    {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.extra == 'before_table' %}
+    {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout == 'before_table' %}
       {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
       {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
     {% endif %}
@@ -76,7 +76,7 @@
     </tbody>
   </table>
   {% for questiongroup_config, questiongroup_formset in formsets %}
-    {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.extra != 'before_table' %}
+    {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout != 'before_table' %}
       {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
       {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
     {% endif %}

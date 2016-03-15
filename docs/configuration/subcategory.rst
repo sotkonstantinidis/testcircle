@@ -30,6 +30,9 @@ The basic format of the configuration is as follows::
       # Default: "default"
       "template": "TEMPLATE_NAME",
 
+      # Default: false
+      "raw_questions": true,
+
       # Default: None
       "table_grouping": []
     },
@@ -37,7 +40,19 @@ The basic format of the configuration is as follows::
     # (optional)
     "form_options": {
       # Default: "default"
-      "template": "TEMPLATE_NAME"
+      "template": "TEMPLATE_NAME",
+
+      # Default: ""
+      "label_tag": "h3",
+
+      # Default: ""
+      "label_class": "top-margin",
+
+      # Default: []
+      "questiongroup_conditions": [],
+
+      # Default: ""
+      "questiongroup_conditions_template": ""
     },
 
     # A list of questiongroups.
@@ -75,6 +90,9 @@ view representation of the question.
 
   * ``template``: An optional template name. Must be a valid file name
     with ``.html`` ending in folder ``templates/details/subcategory/``.
+
+  * ``raw_questions`` (bool): An optional boolean indicating whether to
+    (additionally) render the questions in their raw format.
 
   * ``table_grouping``: A nested array to define the layout of the table
     based on the keywords of the questiongroups of the subcategory.
@@ -147,8 +165,8 @@ A list of :doc:`/configuration/subcategory`.
     they should not be set both at the same time.
 
 
-Templates
----------
+Form templates
+--------------
 
 Every subcategory should render a ``<fieldset>`` and its label as ``<legend>``.
 Inside the fieldset, the questiongroups are to be rendered.

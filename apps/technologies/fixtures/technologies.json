@@ -14901,7 +14901,7 @@
       "configuration": {
         "type": "bool",
         "form_options": {
-          "extra": "inline"
+          "layout": "inline"
         }
       }
     },
@@ -15152,7 +15152,7 @@
         },
         "view_options": {
           "template": "measure_other",
-          "extra": "stacked"
+          "layout": "stacked"
         }
       },
       "values": [
@@ -20643,8 +20643,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "template": "values_as_header",
-                              "header": "small"
+                              "template": "values_as_header"
                             }
                           },
                           {
@@ -20654,8 +20653,7 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "as_header",
-                              "header": "small"
+                              "template": "as_header"
                             }
                           },
                           {
@@ -20667,79 +20665,79 @@
                           {
                             "keyword": "person_lastname",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_firstname",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_gender",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_institution_name",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_institution_address",
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_postal_code",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_city",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_state",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "country",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_phone_1",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_phone_2",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_email_1",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "person_email_2",
                             "view_options": {
-                              "header": "small"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -20761,10 +20759,7 @@
                         "keyword": "qg_accept_conditions",
                         "questions": [
                           {
-                            "keyword": "date_documentation",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "date_documentation"
                           },
                           {
                             "keyword": "accept_conditions"
@@ -20835,7 +20830,6 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none",
                               "in_list": true
                             }
                           }
@@ -20851,42 +20845,27 @@
                         "questions": [
                           {
                             "keyword": "tech_description_layout",
-                            "view_options": {
-                              "header": "small"
-                            },
                             "form_options": {
                               "num_rows": 5
                             }
                           },
                           {
-                            "keyword": "tech_description_purpose",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_description_purpose"
                           },
                           {
                             "keyword": "tech_description_establishment",
-                            "view_options": {
-                              "header": "small"
-                            },
                             "form_options": {
                               "num_rows": 5
                             }
                           },
                           {
                             "keyword": "tech_description_environment",
-                            "view_options": {
-                              "header": "small"
-                            },
                             "form_options": {
                               "num_rows": 5
                             }
                           },
                           {
                             "keyword": "tech_description_conclusions",
-                            "view_options": {
-                              "header": "small"
-                            },
                             "form_options": {
                               "num_rows": 3
                             }
@@ -20987,16 +20966,10 @@
                         "keyword": "tech_qg_160",
                         "questions": [
                           {
-                            "keyword": "tech_implementation_year",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_implementation_year"
                           },
                           {
-                            "keyword": "tech_implementation_decades",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_implementation_decades"
                           }
                         ]
                       }
@@ -21009,10 +20982,7 @@
                         "keyword": "tech_qg_5",
                         "questions": [
                           {
-                            "keyword": "tech_who_implemented",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_who_implemented"
                           },
                           {
                             "keyword": "tech_who_implemented_other",
@@ -21025,10 +20995,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_who_implemented_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_who_implemented_comments"
                           }
                         ]
                       }
@@ -21051,7 +21018,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -21120,7 +21087,7 @@
                           "questiongroup_condition": "tech_qg_10"
                         },
                         "view_options": {
-                          "extra": "tech_lu_cropland"
+                          "conditional_question": "tech_lu_cropland"
                         },
                         "questions": [
                           {
@@ -21129,7 +21096,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -21143,10 +21110,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_lu_cropland_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_cropland_specify"
                           }
                         ]
                       },
@@ -21156,20 +21120,14 @@
                           "questiongroup_condition": "tech_qg_11"
                         },
                         "view_options": {
-                          "extra": "tech_lu_grazingland"
+                          "conditional_question": "tech_lu_grazingland"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_grazingland_extensive",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_grazingland_extensive"
                           },
                           {
-                            "keyword": "tech_lu_grazingland_intensive",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_grazingland_intensive"
                           },
                           {
                             "keyword": "tech_lu_sub_other",
@@ -21181,10 +21139,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_lu_grazingland_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_grazingland_specify"
                           }
                         ]
                       },
@@ -21194,20 +21149,14 @@
                           "questiongroup_condition": "tech_qg_12"
                         },
                         "view_options": {
-                          "extra": "tech_lu_forest"
+                          "conditional_question": "tech_lu_forest"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_forest_natural",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_forest_natural"
                           },
                           {
-                            "keyword": "tech_lu_forest_plantation",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_forest_plantation"
                           },
                           {
                             "keyword": "tech_lu_sub_other",
@@ -21219,10 +21168,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_lu_forest_products",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_forest_products"
                           },
                           {
                             "keyword": "tech_lu_forest_other",
@@ -21242,7 +21188,7 @@
                           "questiongroup_condition": "tech_qg_13"
                         },
                         "view_options": {
-                          "extra": "tech_lu_mixed"
+                          "conditional_question": "tech_lu_mixed"
                         },
                         "questions": [
                           {
@@ -21251,7 +21197,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -21265,10 +21211,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_lu_mixed_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_mixed_specify"
                           }
                         ]
                       },
@@ -21278,7 +21221,7 @@
                           "questiongroup_condition": "tech_qg_14"
                         },
                         "view_options": {
-                          "extra": "tech_lu_settlements"
+                          "conditional_question": "tech_lu_settlements"
                         },
                         "questions": [
                           {
@@ -21287,7 +21230,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -21301,10 +21244,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_lu_settlements_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_settlements_specify"
                           }
                         ]
                       },
@@ -21314,7 +21254,7 @@
                           "questiongroup_condition": "tech_qg_15"
                         },
                         "view_options": {
-                          "extra": "tech_lu_waterways"
+                          "conditional_question": "tech_lu_waterways"
                         },
                         "questions": [
                           {
@@ -21323,7 +21263,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -21337,10 +21277,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_lu_waterways_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_waterways_specify"
                           }
                         ]
                       },
@@ -21350,20 +21287,14 @@
                           "questiongroup_condition": "tech_qg_16"
                         },
                         "view_options": {
-                          "extra": "tech_lu_mines"
+                          "conditional_question": "tech_lu_mines"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_specify"
                           },
                           {
-                            "keyword": "tech_lu_mines_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_mines_specify"
                           }
                         ]
                       },
@@ -21373,20 +21304,14 @@
                           "questiongroup_condition": "tech_qg_17"
                         },
                         "view_options": {
-                          "extra": "tech_lu_unproductive"
+                          "conditional_question": "tech_lu_unproductive"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_specify"
                           },
                           {
-                            "keyword": "tech_lu_unproductive_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_unproductive_specify"
                           }
                         ]
                       },
@@ -21396,20 +21321,14 @@
                           "questiongroup_condition": "tech_qg_18"
                         },
                         "view_options": {
-                          "extra": "tech_lu_other"
+                          "conditional_question": "tech_lu_other"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_specify"
                           },
                           {
-                            "keyword": "tech_lu_other_specify",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_other_specify"
                           }
                         ]
                       },
@@ -21417,16 +21336,10 @@
                         "keyword": "tech_qg_7",
                         "questions": [
                           {
-                            "keyword": "tech_lu_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_comments"
                           },
                           {
-                            "keyword": "tech_lu_change",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_lu_change"
                           }
                         ]
                       }
@@ -21444,7 +21357,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
@@ -21459,10 +21372,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_watersupply_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_watersupply_comments"
                           }
                         ]
                       }
@@ -21480,7 +21390,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21499,14 +21409,11 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
-                            "keyword": "tech_spread_tech_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_spread_tech_comments"
                           }
                         ]
                       }
@@ -21554,7 +21461,7 @@
                           "questiongroup_condition": "tech_qg_21"
                         },
                         "view_options": {
-                          "extra": "tech_measures_agronomic"
+                          "conditional_question": "tech_measures_agronomic"
                         },
                         "questions": [
                           {
@@ -21563,7 +21470,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21574,7 +21481,7 @@
                           "questiongroup_condition": "tech_qg_22"
                         },
                         "view_options": {
-                          "extra": "tech_measures_vegetative"
+                          "conditional_question": "tech_measures_vegetative"
                         },
                         "questions": [
                           {
@@ -21583,7 +21490,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21594,7 +21501,7 @@
                           "questiongroup_condition": "tech_qg_23"
                         },
                         "view_options": {
-                          "extra": "tech_measures_structural"
+                          "conditional_question": "tech_measures_structural"
                         },
                         "questions": [
                           {
@@ -21603,7 +21510,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21614,7 +21521,7 @@
                           "questiongroup_condition": "tech_qg_24"
                         },
                         "view_options": {
-                          "extra": "tech_measures_management"
+                          "conditional_question": "tech_measures_management"
                         },
                         "questions": [
                           {
@@ -21623,7 +21530,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21643,10 +21550,7 @@
                         "keyword": "tech_qg_26",
                         "questions": [
                           {
-                            "keyword": "tech_measures_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_measures_comments"
                           }
                         ]
                       }
@@ -21697,7 +21601,7 @@
                           "questiongroup_condition": "tech_qg_28"
                         },
                         "view_options": {
-                          "extra": "degradation_erosion_water"
+                          "conditional_question": "degradation_erosion_water"
                         },
                         "questions": [
                           {
@@ -21706,7 +21610,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21717,7 +21621,7 @@
                           "questiongroup_condition": "tech_qg_29"
                         },
                         "view_options": {
-                          "extra": "degradation_erosion_wind"
+                          "conditional_question": "degradation_erosion_wind"
                         },
                         "questions": [
                           {
@@ -21726,7 +21630,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21737,7 +21641,7 @@
                           "questiongroup_condition": "tech_qg_30"
                         },
                         "view_options": {
-                          "extra": "degradation_chemical"
+                          "conditional_question": "degradation_chemical"
                         },
                         "questions": [
                           {
@@ -21746,7 +21650,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21757,7 +21661,7 @@
                           "questiongroup_condition": "tech_qg_31"
                         },
                         "view_options": {
-                          "extra": "degradation_physical"
+                          "conditional_question": "degradation_physical"
                         },
                         "questions": [
                           {
@@ -21766,7 +21670,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21777,7 +21681,7 @@
                           "questiongroup_condition": "tech_qg_32"
                         },
                         "view_options": {
-                          "extra": "degradation_biological"
+                          "conditional_question": "degradation_biological"
                         },
                         "questions": [
                           {
@@ -21786,7 +21690,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21797,7 +21701,7 @@
                           "questiongroup_condition": "tech_qg_33"
                         },
                         "view_options": {
-                          "extra": "degradation_water"
+                          "conditional_question": "degradation_water"
                         },
                         "questions": [
                           {
@@ -21806,7 +21710,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -21815,10 +21719,7 @@
                         "keyword": "tech_qg_34",
                         "questions": [
                           {
-                            "keyword": "degradation_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "degradation_comments"
                           }
                         ]
                       }
@@ -21831,16 +21732,10 @@
                         "keyword": "tech_qg_35",
                         "questions": [
                           {
-                            "keyword": "tech_prevention",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_prevention"
                           },
                           {
-                            "keyword": "tech_prevention_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_prevention_comments"
                           }
                         ]
                       }
@@ -21864,16 +21759,10 @@
                             "keyword": "tech_drawing"
                           },
                           {
-                            "keyword": "tech_drawing_author",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_drawing_author"
                           },
                           {
-                            "keyword": "tech_drawing_date",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_drawing_date"
                           }
                         ]
                       }
@@ -21892,7 +21781,7 @@
                               "num_rows": 10
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -22010,10 +21899,7 @@
                         "keyword": "tech_qg_166",
                         "questions": [
                           {
-                            "keyword": "tech_est_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_est_comments"
                           }
                         ]
                       }
@@ -22043,7 +21929,7 @@
                           "layout": "before_table"
                         },
                         "view_options": {
-                          "extra": "before_table"
+                          "layout": "before_table"
                         },
                         "questions": [
                           {
@@ -22211,16 +22097,10 @@
                         "keyword": "tech_qg_93",
                         "questions": [
                           {
-                            "keyword": "tech_input_est_remaining_costs",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_input_est_remaining_costs"
                           },
                           {
-                            "keyword": "tech_input_est_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_input_est_comments"
                           }
                         ]
                       }
@@ -22261,10 +22141,7 @@
                         "keyword": "tech_qg_44",
                         "questions": [
                           {
-                            "keyword": "tech_maint_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_maint_comments"
                           }
                         ]
                       }
@@ -22294,7 +22171,7 @@
                           "layout": "before_table"
                         },
                         "view_options": {
-                          "extra": "before_table"
+                          "layout": "before_table"
                         },
                         "questions": [
                           {
@@ -22459,16 +22336,10 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_input_maint_remaining_costs",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_input_maint_remaining_costs"
                           },
                           {
-                            "keyword": "tech_input_maint_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_input_maint_comments"
                           }
                         ]
                       }
@@ -22515,31 +22386,22 @@
                             },
                             "view_options": {
                               "template": "measure_stacked",
-                              "label": "none",
-                              "extra": "stacked",
+                              "label_position": "none",
+                              "layout": "stacked",
                               "filter": true
                             }
                           },
                           {
-                            "keyword": "tech_rainfall_annual",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_rainfall_annual"
                           },
                           {
                             "keyword": "tech_rainfall_specifications",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           },
                           {
-                            "keyword": "tech_rainfall_meteostation",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_rainfall_meteostation"
                           }
                         ]
                       },
@@ -22558,16 +22420,13 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {
                             "keyword": "tech_agroclimatic_zone_specifications",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           }
                         ]
@@ -22593,31 +22452,31 @@
                             },
                             "view_options": {
                               "template": "measure_stacked",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
                             "keyword": "tech_landforms",
                             "form_options": {
                               "template": "default",
-                              "extra": "stacked",
+                              "layout": "stacked",
                               "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "template": "measure_stacked",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
                             "keyword": "tech_altitudinalzone",
                             "form_options": {
                               "template": "default",
-                              "extra": "stacked",
+                              "layout": "stacked",
                               "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "template": "measure_stacked",
-                              "extra": "stacked",
+                              "layout": "stacked",
                               "filter": true
                             }
                           }
@@ -22630,16 +22489,10 @@
                             "keyword": "tech_topography_comments",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           },
                           {
-                            "keyword": "tech_convex_concave",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_convex_concave"
                           }
                         ]
                       }
@@ -22660,28 +22513,18 @@
                           {
                             "keyword": "tech_soil_depth",
                             "view_options": {
-                              "header": "small",
                               "template": "measure_stacked",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
-                            "keyword": "tech_soil_texture_topsoil",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_soil_texture_topsoil"
                           },
                           {
-                            "keyword": "tech_soil_texture_20cm",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_soil_texture_20cm"
                           },
                           {
-                            "keyword": "tech_topsoil_organic",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_topsoil_organic"
                           }
                         ]
                       },
@@ -22692,9 +22535,6 @@
                             "keyword": "tech_soil_comments",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           }
                         ]
@@ -22750,10 +22590,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_salinization_specification",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_salinization_specification"
                           }
                         ]
                       },
@@ -22791,9 +22628,6 @@
                             "keyword": "tech_water_comments",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           }
                         ]
@@ -22816,18 +22650,12 @@
                             "keyword": "tech_speciesdiversity",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           },
                           {
                             "keyword": "tech_habitatdiversity",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           }
                         ]
@@ -22836,10 +22664,7 @@
                         "keyword": "tech_qg_67",
                         "questions": [
                           {
-                            "keyword": "tech_biodiversity_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_biodiversity_comments"
                           }
                         ]
                       }
@@ -22863,61 +22688,37 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_landuser_scale",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_landuser_scale"
                           },
                           {
-                            "keyword": "tech_market_orientation",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_market_orientation"
                           },
                           {
                             "keyword": "tech_offfarm_income",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           },
                           {
                             "keyword": "tech_wealth",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           },
                           {
-                            "keyword": "tech_individuals",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_individuals"
                           },
                           {
-                            "keyword": "tech_mechanisation",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_mechanisation"
                           },
                           {
                             "keyword": "tech_gender",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           },
                           {
-                            "keyword": "tech_status_society",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_status_society"
                           }
                         ]
                       },
@@ -22928,9 +22729,6 @@
                             "keyword": "tech_landuser_comments",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "header": "small"
                             }
                           }
                         ]
@@ -22956,15 +22754,11 @@
                             },
                             "view_options": {
                               "template": "measure_stacked",
-                              "label": "none",
-                              "extra": "stacked"
+                              "label_position": "none"
                             }
                           },
                           {
-                            "keyword": "tech_land_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_land_comments"
                           }
                         ]
                       }
@@ -22980,10 +22774,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_ownership",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_ownership"
                           },
                           {
                             "keyword": "tech_ownership_other",
@@ -22996,10 +22787,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_landuserights",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_landuserights"
                           },
                           {
                             "keyword": "tech_landrights_other",
@@ -23012,10 +22800,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_wateruserights",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_wateruserights"
                           },
                           {
                             "keyword": "tech_waterrights_other",
@@ -23033,10 +22818,7 @@
                         "keyword": "tech_qg_75",
                         "questions": [
                           {
-                            "keyword": "tech_ownership_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_ownership_comments"
                           }
                         ]
                       }
@@ -23060,7 +22842,8 @@
                           "label_tag": "h3"
                         },
                         "view_options": {
-                          "template": "subcat_level1"
+                          "template": "has_subcategories",
+                          "label_tag": "h4"
                         },
                         "subcategories": [
                           {
@@ -23070,7 +22853,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -23089,7 +22873,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23119,7 +22903,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23149,7 +22933,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23179,7 +22963,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23209,7 +22993,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23239,7 +23023,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23269,7 +23053,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23299,7 +23083,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23329,7 +23113,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23359,7 +23143,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23389,7 +23173,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23419,7 +23203,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23449,7 +23233,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23472,7 +23256,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -23491,7 +23276,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23521,7 +23306,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23551,7 +23336,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23581,7 +23366,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23611,7 +23396,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23641,7 +23426,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23671,7 +23456,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23694,7 +23479,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -23713,7 +23499,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23743,7 +23529,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23773,7 +23559,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23803,7 +23589,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23833,7 +23619,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -23856,7 +23642,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -23904,7 +23691,8 @@
                           "label_tag": "h3"
                         },
                         "view_options": {
-                          "template": "subcat_level1"
+                          "template": "has_subcategories",
+                          "label_tag": "h4"
                         },
                         "questiongroups": [
                           {
@@ -23923,7 +23711,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -23953,7 +23741,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -23983,7 +23771,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24013,7 +23801,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24043,7 +23831,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24073,7 +23861,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24103,7 +23891,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24133,7 +23921,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24163,7 +23951,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24193,7 +23981,7 @@
                                 },
                                 "view_options": {
                                   "template": "measure_labelled",
-                                  "extra": "stacked"
+                                  "layout": "stacked"
                                 }
                               },
                               {
@@ -24250,7 +24038,8 @@
                           "label_tag": "h3"
                         },
                         "view_options": {
-                          "template": "subcat_level1"
+                          "template": "has_subcategories",
+                          "label_tag": "h4"
                         },
                         "subcategories": [
                           {
@@ -24260,7 +24049,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -24279,7 +24069,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24309,7 +24099,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24339,7 +24129,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24369,7 +24159,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24399,7 +24189,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24429,7 +24219,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24459,7 +24249,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24482,7 +24272,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -24501,7 +24292,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24531,7 +24322,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24561,7 +24352,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24591,7 +24382,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24621,7 +24412,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24651,7 +24442,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24681,7 +24472,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24711,7 +24502,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24741,7 +24532,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24771,7 +24562,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24794,7 +24585,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -24813,7 +24605,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24843,7 +24635,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24873,7 +24665,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24903,7 +24695,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24933,7 +24725,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24963,7 +24755,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -24993,7 +24785,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -25023,7 +24815,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -25046,7 +24838,8 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "subcat_level2"
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -25065,7 +24858,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -25095,7 +24888,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -25125,7 +24918,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -25155,7 +24948,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -25185,7 +24978,7 @@
                                     },
                                     "view_options": {
                                       "template": "measure_labelled",
-                                      "extra": "stacked"
+                                      "layout": "stacked"
                                     }
                                   },
                                   {
@@ -25258,7 +25051,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25288,7 +25081,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25318,7 +25111,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25348,7 +25141,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25378,7 +25171,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25408,7 +25201,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25438,7 +25231,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25468,7 +25261,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25498,7 +25291,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25528,7 +25321,7 @@
                             },
                             "view_options": {
                               "template": "measure_labelled",
-                              "extra": "stacked"
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -25593,7 +25386,7 @@
                           "template": "columns_e4_e4_e4"
                         },
                         "view_options": {
-                          "extra": "label"
+                          "layout": "label"
                         },
                         "questions": [
                           {
@@ -25622,7 +25415,7 @@
                           "template": "columns_e4_e4_e4"
                         },
                         "view_options": {
-                          "extra": "label"
+                          "layout": "label"
                         },
                         "questions": [
                           {
@@ -25649,10 +25442,7 @@
                         "keyword": "tech_qg_183",
                         "questions": [
                           {
-                            "keyword": "tech_costbenefit_comments",
-                            "view_options": {
-                              "header": "small"
-                            }
+                            "keyword": "tech_costbenefit_comments"
                           }
                         ]
                       }
@@ -25675,7 +25465,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label": "none"
+                              "label_position": "none"
                             }
                           },
                           {

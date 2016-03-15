@@ -3,7 +3,7 @@
 <h3>{{ numbering|default:'' }} {{ label }}</h3>
 
 {% for qg_config, qg_rendered in questiongroups %}
-  {% if qg_config.extra == 'before_table' %}
+  {% if qg_config.layout == 'before_table' %}
     {{ qg_rendered }}
   {% endif %}
 {% endfor %}
@@ -55,7 +55,7 @@
   {% endif %}
 {% endfor %}
   {% for qg_config, qg_rendered in questiongroups %}
-    {% if qg_config.extra != 'before_table' %}
+    {% if qg_config.layout != 'before_table' %}
       {{ qg_rendered }}
     {% endif %}
   {% endfor %}
