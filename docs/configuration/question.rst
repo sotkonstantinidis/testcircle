@@ -165,6 +165,9 @@ form representation of the question.
     related to the question. Possible values are ``tooltip`` (showing the
     helptext as a tooltip on the question label)
 
+  * ``helptext_length`` (int): Overwrite the default length (number of words) of
+    the helptext shown initially (without the "See more" button).
+
   * ``label_position``: An optional name for the display and positioning of the
     label. Possible values are: ``placeholder`` (showing the label as a
     placeholder inside the input field)

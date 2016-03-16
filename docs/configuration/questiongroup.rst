@@ -58,8 +58,20 @@ The basic format of the configuration is as follows::
       # Default: ""
       "questiongroup_condition": "CONDITION_NAME",
 
+      # Default: "" - can also be a list!
+      "layout": "before_table",
+
       # Default: ""
-      "layout": "before_table"
+      "row_class": "no-top-margin".
+
+      # Default: "h4"
+      "label_tag": "h5",
+
+      # Default: ""
+      "label_class": "",
+
+      # Default: ""
+      "table_columns": 2
     },
 
     # A list of questions.
@@ -106,6 +118,13 @@ view representation of the questiongroup.
   * ``layout`` (str): Additional indications used for the layout. These depend
     largely on the template used. Known values are "before_table" or "label".
 
+  * ``raw_questions`` (bool): If set to ``true``, raw questions are added to the
+    template under the variable ``raw_questions``.
+
+  * ``with_keys`` (bool): If set to ``true``, a list with all the key labels of
+    the questiongroup is added to the template (variable ``keys``).
+
+
 ``form_options``
 ^^^^^^^^^^^^^^^^
 
@@ -145,14 +164,31 @@ form representation of the question.
     .. seealso::
         :doc:`/configuration/question`
 
-  * ``layout`` (str): General layout indications for the layout of the
+  * ``layout`` (str or list): General layout indications for the layout of the
     questiongroup inside the subcategory. This depends a lot on the subcategory
     template. Known values are for example "before_table" used in template
     "questionnaire/templates/form/subcategory/table_input.html" or
     "no_label_row" for tables.
+    For template "columns_custom", this can also be a nested list indicating the
+    distribution of the columns, eg. [["12"], ["8", "4"]]
 
   * ``user_role`` (str): A specific configuration used only for template
     ``select_user``.
+
+  * ``row_class`` (str): An additional CSS class for the ``<div class="row">``
+    element containing all the questions of the questiongroup.
+    Example: "no-top-margin".
+
+  * ``label_tag`` (str): Specifies the tag used for the label. Default is
+    ``h4``.
+
+  * ``label_class`` (str): Specifies an additional class name for the label tag.
+
+  * ``table_columns`` (int): Indicate the number of columns of the table. Used
+    by template ``table_columns``.
+
+  * ``helptext_length`` (int): Overwrite the default length (number of words) of
+    the helptext shown initially (without the "See more" button).
 
 
 ``questions``

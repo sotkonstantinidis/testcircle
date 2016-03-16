@@ -172,6 +172,9 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                     pass
                 elif question.field_type in ['user_id']:
                     pass
+                elif question.field_type in ['link_video']:
+                    # TODO: This should be properly checked!
+                    pass
                 else:
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(

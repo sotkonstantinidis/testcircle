@@ -24,13 +24,13 @@
 
   {% for questiongroup_config, questiongroup_formset in formsets %}
     {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout == 'before_table' %}
-      {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+      {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
       {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
     {% endif %}
   {% endfor %}
   {% for questiongroup_config, questiongroup_formset in formsets %}
     {% if questiongroup_config.keyword in config.table_grouping.0 %}
-      {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+      {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
     {% endif %}
   {% endfor %}
   <table>
@@ -77,7 +77,7 @@
   </table>
   {% for questiongroup_config, questiongroup_formset in formsets %}
     {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout != 'before_table' %}
-      {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+      {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
       {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
     {% endif %}
   {% endfor %}

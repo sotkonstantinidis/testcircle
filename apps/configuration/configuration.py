@@ -233,6 +233,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'cb_bool',
         'user_id',
         'date',
+        'link_video'
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -541,6 +542,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             translation_field = forms.CharField(
                 label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
                 required=self.required, max_length=max_length)
+        elif self.field_type == 'link_video':
+            widget = TextInput(attrs)
+            widget.options = field_options
+            field = forms.CharField(
+                label=self.label, widget=widget,
+                required=self.required)
         elif self.field_type in ['date']:
             widget = DateInput(attrs)
             widget.options = field_options
@@ -713,6 +720,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'level': level,
             })
         elif self.field_type in ['checkbox', 'cb_bool', 'radio']:
+            # Keep only values which were selected.
+            values = [v for v in values if v]
+
             template_name = 'checkbox'
             if self.view_options.get('with_raw_values') is True:
                 # Also add the raw keywords of the values.
@@ -760,6 +770,13 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             template_values.update({
                 'key': self.label_view,
                 'value': file_data.get('url'),
+                'interchange': file_data.get('interchange'),
+            })
+        elif self.field_type in ['link_video']:
+            template_name = 'video'
+            template_values.update({
+                'key': self.label_view,
+                'value': value,
             })
         elif self.field_type in ['file']:
             file_data = File.get_data(uid=value)
@@ -785,6 +802,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     'user_id': value,
                     'unknown_user': unknown_user,
                 })
+            else:
+                return '\n'
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -890,8 +909,20 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
               # Default: ""
               "questiongroup_condition": "CONDITION_NAME",
 
+              # Default: "" - can also be a list!
+              "layout": "before_table",
+
               # Default: ""
-              "layout": "before_table"
+              "row_class": "no-top-margin".
+
+              # Default: "h4"
+              "label_tag": "h5",
+
+              # Default: ""
+              "label_class": "",
+
+              # Default: ""
+              "table_columns": 2
             },
 
             # A list of questions.
@@ -1046,21 +1077,22 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'numbered': self.numbered,
             'label': self.label,
         })
+        template_values = {
+            'questiongroups': questiongroups,
+            'config': config,
+        }
         if self.view_options.get('raw_questions', False) is True:
             raw_questions = []
             for d in data:
                 raw_questions.append(self.get_raw_data([d]))
-            return render_to_string(
-                view_template, {
-                    'raw_questions': raw_questions,
-                    'config': config,
-                })
-        rendered = render_to_string(
-            view_template, {
-                'questiongroups': questiongroups,
-                'config': config,
-            })
-        return rendered
+            template_values.update({'raw_questions': raw_questions})
+        if self.view_options.get('with_keys', False) is True:
+            keys = []
+            for q in self.questions:
+                keys.append(q.label)
+            template_values.update({'keys': keys})
+        return render_to_string(
+            view_template, template_values)
 
     def get_question_by_key_keyword(self, key_keyword):
         for question in self.questions:

@@ -61,7 +61,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Specify stakeholders and describe their roles"
+            "en": "Specify stakeholders and describe their roles. Indicate lead agency."
           },
           "helptext": {
             "en": "If relevant, also specify gender, age, status, ethnicity, etc."
@@ -294,7 +294,7 @@
             "en": "Was training provided to land users/ other stakeholders?"
           },
           "helptext": {
-            "en": "<p>If yes, please answer the following sub-questions.</p><p>If no, go to question 5.2.</p>"
+            "en": "<p>If yes, please answer the following sub-questions.</p><p>If no, go to question 4.2.</p>"
           }
         }
       }
@@ -452,7 +452,7 @@
             "en": "Do land users have access to an advisory service?"
           },
           "helptext": {
-            "en": "<p><strong>Advisory service</strong>: technical assistance provided to land users by extension workers/ advisors from government, NGOs, projects, etc.</p><p>If yes, please answer the following sub-questions.</p><p>If no, go to question 5.2.</p>"
+            "en": "<p><strong>Advisory service</strong>: technical assistance provided to land users by extension workers/ advisors from government, NGOs, projects, etc.</p><p>If yes, please answer the following sub-questions.</p><p>If no, go to question 4.3.</p>"
           }
         }
       }
@@ -643,7 +643,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Were contributions made per area, per unit, or per product provided to land users?"
+            "en": "Were contributions made per area, per unit, or per product?"
           },
           "helptext": {
             "en": "E.g. tax exemptions, compensation payments, subsidies, etc."
@@ -660,7 +660,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "If yes, specify (type, conditions and provider of contributions)"
+            "en": "If yes, specify contributions (type, conditions and provider)"
           }
         }
       }
@@ -778,7 +778,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Was credit provided under the Approach for sustainable land management activities?"
+            "en": "Was credit provided under the Approach for SLM activities?"
           }
         }
       }
@@ -1184,7 +1184,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Indicate lead agency"
+            "en": "If several stakeholders were involved, indicate lead agency"
           }
         }
       }
@@ -1226,7 +1226,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "If yes, is systematic documentation of SLM practices part of reporting procedures?"
+            "en": "If yes, is systematic documentation of SLM technologies part of reporting procedures?"
           }
         }
       }
@@ -2681,7 +2681,7 @@
           },
           "numbering": "1.1",
           "helptext": {
-            "en": "Do not use exactly the same name as used for the corresponding Technology (QT); try to name the main characteristic of the Approach (name of project/ programme/ initiative; name of implementation/ extension/ promotion method used, etc.)"
+            "en": "Name of the SLM Approach: Do not use exactly the same name as used for the corresponding Technology (QT); try to name the main characteristic of the Approach (name of project/ programme/ initiative; name of implementation/ extension/ promotion method used, etc.)"
           }
         }
       }
@@ -2765,7 +2765,7 @@
           "helptext": {
             "en": "If you have already filled in Questionnaires on SLM Technologies that were implemented under this Approach, refer to the information given there in section QT 2.4"
           },
-          "numbering": "2.4"
+          "numbering": "2.5"
         }
       }
     },
@@ -2814,7 +2814,7 @@
             "en": "Photos showing impressions of the Approach"
           },
           "helptext": {
-            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing/ in training, etc.</p><p>Provide at least two digital files, i.e. scans from prints, scans from negative/ positive films or digital photos.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, GIF.</p>"
+            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing/ in training, etc.</p><p>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</p><p>Maximum file size: 3 MB.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2.</p>"
           },
           "numbering": "2.3"
         }
@@ -2831,7 +2831,7 @@
           "label": {
             "en": "Dates of initiation and termination of the Approach"
           },
-          "numbering": "2.5"
+          "numbering": "2.6"
         }
       }
     },
@@ -2849,7 +2849,7 @@
           "helptext": {
             "en": "Specify and indicate implementing agencies in question 3.1"
           },
-          "numbering": "2.6"
+          "numbering": "2.7"
         }
       }
     },
@@ -2867,7 +2867,7 @@
           "helptext": {
             "en": "Several answers possible. If for the same condition there are enabling as well as hindering factors, tick and specify both of them."
           },
-          "numbering": "2.7"
+          "numbering": "2.8"
         }
       }
     },
@@ -2883,7 +2883,7 @@
             "en": "Flow chart (if available)"
           },
           "helptext": {
-            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
+            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p>Supported file type: PDF, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
           },
           "numbering": "3.2"
         }
@@ -2958,7 +2958,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Monitoring, evaluation and documentation of SLM experiences"
+            "en": "Monitoring, evaluation and documentation of SLM technologies and approaches"
           },
           "numbering": "4.4"
         }
@@ -3006,7 +3006,7 @@
             "en": "Subsidies for specific inputs (including labour)"
           },
           "helptext": {
-            "en": "<p><strong>Subsidy</strong>: a subsidy is an instrument used by the state or by private actors to reduce the costs of a product or increase the returns from a particular activity (Kerr, 1994). It may be provided in cash or in kind and usually serves a specific purpose.</p><p>If no inputs were subsidized, go to question 6.2.</p>"
+            "en": "<p>If no inputs were subsidized, go to question 5.4.</p><p><strong>Subsidy</strong>: a subsidy is an instrument used by the state or by private actors to reduce the costs of a product or increase the returns from a particular activity (Kerr, 1994). It may be provided in cash or in kind and usually serves a specific purpose.</p>"
           },
           "numbering": "5.3"
         }
@@ -3129,7 +3129,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Link of the Approach to SLM Technologies"
+            "en": "Reference(s) to Questionnaire(s) on SLM Technologies"
           },
           "numbering": "1.4"
         }
@@ -3137,6 +3137,38 @@
     },
     "model": "configuration.translation",
     "pk": 8729
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Videos of the Approach"
+          },
+          "helptext": {
+            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link (provide the code used to embed the video - see <a href=\"https://support.google.com/youtube/answer/171780?hl=en\" target=\"_blank\" class=\"link\">https://support.google.com/youtube/answer/171780?hl=en</a>) and a short description for each file in the table below."
+          },
+          "numbering": "2.4"
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8730
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Which of the following methods/ sources of information were used?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8731
   },
   {
     "fields": {
@@ -3163,7 +3195,7 @@
           },
           "numbering": "2.",
           "helptext": {
-            "en": "<p>The <strong>SLM Approach</strong> (hereafter referred to as the Approach) defines the ways and means used to implement one or several SLM Technology(ies), including technical and material support, involvement and roles of different stakeholders, etc. All types of Approaches may be documented using this questionnaire: Besides SLM activities introduced through projects or programmes, WOCAT includes indigenous practices and spontaneous adoptions or adaptations of Technologies. <strong>In the case of a project, we restrict ourselves to those elements within the project that are directly or indirectly relevant to SLM.</strong></p>"
+            "en": "<p>The <strong>SLM Approach</strong> (hereafter referred to as the Approach) defines the ways and means used to implement one or several SLM Technology(ies), including technical and material support, involvement and roles of different stakeholders, etc. All types of Approaches may be documented using this questionnaire: Besides SLM technologies introduced through projects or programmes, WOCAT includes traditional SLM practices and spontaneous adoptions or adaptations of Technologies. <strong>In the case of a project, WOCAT asks you to document only those components or activities that are relevant to SLM.</strong></p>"
           }
         }
       }
@@ -3254,6 +3286,20 @@
     },
     "model": "configuration.translation",
     "pk": 8907
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "References and links"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8908
   },
   {
     "fields": {
@@ -6824,6 +6870,15 @@
   },
   {
     "fields": {
+      "keyword": "app_qg_106",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3106
+  },
+  {
+    "fields": {
       "keyword": "app__1__1",
       "translation": 8701
     },
@@ -6864,7 +6919,7 @@
   },
   {
     "fields": {
-      "keyword": "app__2__4",
+      "keyword": "app__2__5",
       "translation": 8706
     },
     "model": "configuration.category",
@@ -6896,7 +6951,7 @@
   },
   {
     "fields": {
-      "keyword": "app__2__5",
+      "keyword": "app__2__6",
       "translation": 8710
     },
     "model": "configuration.category",
@@ -6904,7 +6959,7 @@
   },
   {
     "fields": {
-      "keyword": "app__2__6",
+      "keyword": "app__2__7",
       "translation": 8711
     },
     "model": "configuration.category",
@@ -6912,7 +6967,7 @@
   },
   {
     "fields": {
-      "keyword": "app__2__7",
+      "keyword": "app__2__8",
       "translation": 8712
     },
     "model": "configuration.category",
@@ -7056,6 +7111,22 @@
   },
   {
     "fields": {
+      "keyword": "app__2__4",
+      "translation": 8730
+    },
+    "model": "configuration.category",
+    "pk": 3030
+  },
+  {
+    "fields": {
+      "keyword": "app__refs__sources",
+      "translation": 8731
+    },
+    "model": "configuration.category",
+    "pk": 3031
+  },
+  {
+    "fields": {
       "keyword": "app__1",
       "translation": 8901
     },
@@ -7109,6 +7180,14 @@
     },
     "model": "configuration.category",
     "pk": 3707
+  },
+  {
+    "fields": {
+      "keyword": "app__refs",
+      "translation": 8908
+    },
+    "model": "configuration.category",
+    "pk": 3708
   },
   {
     "fields": {
@@ -7168,6 +7247,10 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_name",
+                        "form_options": {
+                          "template": "columns_custom",
+                          "layout": [["12"], ["8", "4"]]
+                        },
                         "questions": [
                           {
                             "keyword": "name",
@@ -7178,6 +7261,9 @@
                           },
                           {
                             "keyword": "name_local"
+                          },
+                          {
+                            "keyword": "name_local_language"
                           }
                         ]
                       }
@@ -7191,7 +7277,9 @@
                         "form_options": {
                           "template": "select_user",
                           "user_role": "resourceperson",
-                          "max_num": 3
+                          "max_num": 3,
+                          "row_class": "no-top-margin",
+                          "label_class": "bottom-margin"
                         },
                         "view_options": {
                           "template": "select_user"
@@ -7225,56 +7313,80 @@
                           {
                             "keyword": "person_lastname",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_firstname",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_gender",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_institution_name",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_institution_address",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
-                            "keyword": "person_postal_code"
+                            "keyword": "person_postal_code",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "person_city"
+                            "keyword": "person_city",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "person_state"
+                            "keyword": "person_state",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "country"
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "person_phone_1"
+                            "keyword": "person_phone_1",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "person_phone_2"
+                            "keyword": "person_phone_2",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "person_email_1"
+                            "keyword": "person_email_1",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "person_email_2"
+                            "keyword": "person_email_2",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           }
                         ]
                       },
@@ -7372,7 +7484,8 @@
                           {
                             "keyword": "app_desc_roles",
                             "form_options": {
-                              "num_rows": 5
+                              "num_rows": 5,
+                              "helptext_position": "tooltip"
                             }
                           },
                           {
@@ -7392,6 +7505,9 @@
                         "keyword": "qg_photos",
                         "form_options": {
                           "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "image_questiongroup"
                         },
                         "questions": [
                           {
@@ -7414,6 +7530,34 @@
                     "keyword": "app__2__4",
                     "questiongroups": [
                       {
+                        "keyword": "qg_videos",
+                        "form_options": {
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "video_questiongroup"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "video_link"
+                          },
+                          {
+                            "keyword": "video_description"
+                          },
+                          {
+                            "keyword": "video_date_location"
+                          },
+                          {
+                            "keyword": "video_videographer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__2__5",
+                    "questiongroups": [
+                      {
                         "keyword": "qg_location",
                         "questions": [
                           {
@@ -7434,13 +7578,16 @@
                             "view_options": {
                               "template": "inline_6"
                             }
+                          },
+                          {
+                            "keyword": "location_comments"
                           }
                         ]
                       }
                     ]
                   },
                   {
-                    "keyword": "app__2__5",
+                    "keyword": "app__2__6",
                     "questiongroups": [
                       {
                         "keyword": "app_qg_4",
@@ -7474,7 +7621,7 @@
                     ]
                   },
                   {
-                    "keyword": "app__2__6",
+                    "keyword": "app__2__7",
                     "questiongroups": [
                       {
                         "keyword": "app_qg_5",
@@ -7504,7 +7651,7 @@
                     ]
                   },
                   {
-                    "keyword": "app__2__7",
+                    "keyword": "app__2__8",
                     "questiongroups": [
                       {
                         "keyword": "app_qg_6",
@@ -8187,7 +8334,7 @@
                       {
                         "keyword": "app_qg_91",
                         "form_options": {
-                          "template": "columns_e6_e6"
+                          "template": "columns_o4_o8"
                         },
                         "questions": [
                           {
@@ -8223,6 +8370,9 @@
                   },
                   {
                     "keyword": "app__3__2",
+                    "form_options": {
+                      "helptext_length": 30
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_103",
@@ -8574,7 +8724,8 @@
                         "keyword": "app_qg_28",
                         "form_options": {
                           "questiongroup_condition": "app_qg_28",
-                          "template": "columns_o4_o8"
+                          "template": "table_columns",
+                          "table_columns": 2
                         },
                         "view_options": {
                           "conditional_question": "app_subsidies_inputs_labour"
@@ -8592,7 +8743,8 @@
                         "keyword": "app_qg_29",
                         "form_options": {
                           "questiongroup_condition": "app_qg_29",
-                          "template": "table_3_columns"
+                          "template": "table_columns",
+                          "table_columns": 3
                         },
                         "view_options": {
                           "conditional_question": "app_subsidies_inputs_equipment"
@@ -8638,7 +8790,8 @@
                         "keyword": "app_qg_30",
                         "form_options": {
                           "questiongroup_condition": "app_qg_30",
-                          "template": "table_3_columns"
+                          "template": "table_columns",
+                          "table_columns": 3
                         },
                         "view_options": {
                           "conditional_question": "app_subsidies_inputs_agricultural"
@@ -8684,7 +8837,8 @@
                         "keyword": "app_qg_31",
                         "form_options": {
                           "questiongroup_condition": "app_qg_31",
-                          "template": "table_3_columns"
+                          "template": "table_columns",
+                          "table_columns": 3
                         },
                         "view_options": {
                           "conditional_question": "app_subsidies_inputs_construction"
@@ -8730,7 +8884,8 @@
                         "keyword": "app_qg_32",
                         "form_options": {
                           "questiongroup_condition": "app_qg_32",
-                          "template": "table_3_columns"
+                          "template": "table_columns",
+                          "table_columns": 3
                         },
                         "view_options": {
                           "conditional_question": "app_subsidies_inputs_infrastructure"
@@ -8775,7 +8930,10 @@
                       {
                         "keyword": "app_qg_33",
                         "form_options": {
-                          "template": "columns_e4_e4_e4"
+                          "template": "1q_table"
+                        },
+                        "view_options": {
+                          "layout": "not_conditional"
                         },
                         "questions": [
                           {
@@ -8799,6 +8957,9 @@
                       },
                       {
                         "keyword": "app_qg_34",
+                        "view_options": {
+                          "layout": "not_conditional"
+                        },
                         "questions": [
                           {
                             "keyword": "app_subsidies_labour_type"
@@ -8884,6 +9045,9 @@
                     "questiongroups": [
                       {
                         "keyword": "app_qg_39",
+                        "view_options": {
+                          "row_class": "foo"
+                        },
                         "questions": [
                           {
                             "keyword": "app_impacts_empower_local",
@@ -8895,7 +9059,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -8932,7 +9095,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -8969,7 +9131,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9006,7 +9167,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9043,7 +9203,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9080,7 +9239,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9117,7 +9275,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9154,7 +9311,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9191,7 +9347,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9228,7 +9383,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9265,7 +9419,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9302,7 +9455,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9339,7 +9491,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9376,7 +9527,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9413,7 +9563,6 @@
                             },
                             "view_options": {
                               "template": "measure_bar",
-                              "label_position": "none",
                               "layout": "stacked"
                             }
                           }
@@ -9441,7 +9590,8 @@
                         "keyword": "app_qg_69",
                         "form_options": {
                           "template": "measure_other",
-                          "max_num": 2
+                          "max_num": 2,
+                          "row_class": "top-margin"
                         },
                         "view_options": {
                           "template": "measure_other"
@@ -9820,9 +9970,16 @@
                           "template": "table",
                           "numbered": "display"
                         },
+                        "view_options": {
+                          "template": "table",
+                          "with_keys": true
+                        },
                         "questions": [
                           {
-                            "keyword": "strengths_landuser"
+                            "keyword": "strengths_landuser",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           }
                         ]
                       },
@@ -9834,9 +9991,16 @@
                           "template": "table",
                           "numbered": "display"
                         },
+                        "view_options": {
+                          "template": "table",
+                          "with_keys": true
+                        },
                         "questions": [
                           {
-                            "keyword": "strengths_compiler"
+                            "keyword": "strengths_compiler",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           }
                         ]
                       }
@@ -9853,12 +10017,22 @@
                           "template": "table",
                           "numbered": "display"
                         },
+                        "view_options": {
+                          "template": "table",
+                          "with_keys": true
+                        },
                         "questions": [
                           {
-                            "keyword": "weaknesses_landuser"
+                            "keyword": "weaknesses_landuser",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "weaknesses_overcome"
+                            "keyword": "weaknesses_overcome",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           }
                         ]
                       },
@@ -9870,12 +10044,143 @@
                           "template": "table",
                           "numbered": "display"
                         },
+                        "view_options": {
+                          "template": "table",
+                          "with_keys": true
+                        },
                         "questions": [
                           {
-                            "keyword": "weaknesses_compiler"
+                            "keyword": "weaknesses_compiler",
+                            "view_options": {
+                              "template": "value_only"
+                            }
                           },
                           {
-                            "keyword": "weaknesses_overcome"
+                            "keyword": "weaknesses_overcome",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "keyword": "app__refs",
+                "subcategories": [
+                  {
+                    "keyword": "app__refs__sources",
+                    "form_options": {
+                      "template": "checkbox_questiongroups",
+                      "questiongroup_conditions": [
+                        "=='source_field'|qg_sources_field",
+                        "=='source_interviews_landusers'|qg_sources_interviews_landusers",
+                        "=='source_interviews_experts'|qg_sources_interviews_experts",
+                        "=='source_compilation'|qg_sources_compilation"
+                      ],
+                      "questiongroup_conditions_template": "checkbox_with_questiongroup_2"
+                    },
+                    "view_options": {
+                      "template": "checkbox_questiongroups_2",
+                      "raw_questions": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_sources",
+                        "questions": [
+                          {
+                            "keyword": "sources_used",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "=='source_field'|qg_sources_field",
+                                "=='source_interviews_landusers'|qg_sources_interviews_landusers",
+                                "=='source_interviews_experts'|qg_sources_interviews_experts",
+                                "=='source_compilation'|qg_sources_compilation"
+                              ]
+                            },
+                            "view_options": {
+                              "template": "raw",
+                              "with_raw_values": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_field",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_field"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_field"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_interviews_landusers",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_interviews_landusers"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_interviews_landusers"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_interviews_experts",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_interviews_experts"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_interviews_experts"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_compilation",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_compilation"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_compilation"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_other",
+                        "form_options": {
+                          "template": "columns_e6_e6"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
+                            }
+                          },
+                          {
+                            "keyword": "sources_specify"
                           }
                         ]
                       }

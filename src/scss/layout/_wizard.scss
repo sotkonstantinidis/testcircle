@@ -148,6 +148,10 @@ form .single-item.single-item-checkbox-other {
   padding-bottom: rem-calc(16);
 }
 
+.questiongroup .row.list-item.no-top-margin {
+  margin-top: 0;
+  padding-top: 0;
+}
 
 /* USER SEARCH */
 .form-user-tabs-content {

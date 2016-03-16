@@ -22,6 +22,6 @@
     </div>
   </div>
   {% if options.helptext %}
-    {% include "form/helptext.html" with helptext=options.helptext %}
+    {% include "form/helptext.html" with helptext=options.helptext helptext_length=options.helptext_length %}
   {% endif %}
 {% endwith %}

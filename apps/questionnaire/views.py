@@ -552,11 +552,11 @@ def generic_questionnaire_new(
         # For edits, copy the data to the session first (if it was
         # edited for the first time only).
         questionnaire_object = query_questionnaire(request, identifier).first()
+        if questionnaire_object is None:
+            raise Http404()
         questionnaire_object.lock_questionnaire(
             questionnaire_object.code, request.user
         )
-        if questionnaire_object is None:
-            raise Http404()
         questionnaire_data = questionnaire_object.data
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)

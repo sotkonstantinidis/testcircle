@@ -5,10 +5,10 @@
 {% endcomment %}
 
 {% for questiongroup in questiongroups %}
-  <div class="row tech-output-columns top-margin{% if config.colclass %} {{ config.colclass }}{% endif %}">
+  <div class="row tech-output-columns">
     {% if config.label and forloop.first %}
       <div class="columns small-12">
-        <h5>{{ config.label }}</h5>
+        <{{ config.label_tag|default:"h4" }}>{{ config.label }}</{{ config.label_tag|default:"h4" }}>
       </div>
     {% endif %}
     <div class="columns medium-4">
@@ -19,11 +19,21 @@
       {% endfor %}
     </div>
     <div class="columns medium-8 user-details">
-      {% for question in questiongroup %}
-        {% if forloop.counter >= 3 %}
-          {{ question }}
-        {% endif %}
-      {% endfor %}
+      {# User link (with ID)#}
+      {{ questiongroup.2 }}
+
+      {# Address details of a non-registered user #}
+      <div class="row">
+        <div class="columns medium-6">
+          <p>{{ questiongroup.3 }} {{ questiongroup.4 }}</p>
+        </div>
+        <div class="columns medium-6">
+          <p><strong>{{ questiongroup.6 }}</strong></p>
+          <p>{{ questiongroup.7 }}</p>
+          <p>{{ questiongroup.8 }} {{ questiongroup.9 }}</p>
+          <p>{{ questiongroup.10 }} {{ questiongroup.11 }}</p>
+        </div>
+      </div>
     </div>
   </div>
 {% endfor %}

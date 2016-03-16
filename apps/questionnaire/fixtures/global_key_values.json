@@ -58,12 +58,12 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Local name (state which language)"
+            "en": "Local name"
           }
         },
         "technologies": {
           "label": {
-            "en": "Local name (state which language)"
+            "en": "Local name"
           }
         },
         "unccd": {
@@ -670,18 +670,170 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Date of documentation"
+            "en": "Date of documentation (in the field)"
           }
         },
         "technologies": {
           "label": {
-            "en": "Date of documentation"
+            "en": "Date of documentation (in the field)"
           }
         }
       }
     },
     "model": "configuration.translation",
     "pk": 5035
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Language"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Language"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5036
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Link"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Link"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5037
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Comments, short description"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Comments, short description"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5038
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Date and location"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Date and location"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5039
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of videographer"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of videographer"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5040
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Which of the following methods/ sources of information were used?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Which of the following methods/ sources of information were used?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5041
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify (number of informants, documents, etc.)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Specify (number of informants, documents, etc.)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5042
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "other (specify)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "other (specify)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5043
   },
   {
     "fields": {
@@ -5221,16 +5373,92 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "field visits, field surveys"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "field visits, field surveys"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5768
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "interviews with land users"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "interviews with land users"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5769
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "interviews with SLM specialists/ experts"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "interviews with SLM specialists/ experts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5770
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "compilation from reports and other existing documentation"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "compilation from reports and other existing documentation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5771
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "approaches": {
           "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 UnportedLicense.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
           }
         },
         "technologies": {
           "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 UnportedLicense.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
           }
         }
       }
@@ -5937,6 +6165,103 @@
     },
     "model": "configuration.key",
     "pk": 35
+  },
+  {
+    "fields": {
+      "keyword": "name_local_language",
+      "translation": 5036,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "keyword": "video_link",
+      "translation": 5037,
+      "configuration": {
+        "type": "link_video"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "keyword": "video_description",
+      "translation": 5038,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "keyword": "video_date_location",
+      "translation": 5039,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "keyword": "video_videographer",
+      "translation": 5040,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "keyword": "sources_used",
+      "translation": 5041,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        268,
+        269,
+        270,
+        271
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "keyword": "sources_specify",
+      "translation": 5042,
+      "configuration": {
+        "type": "text",
+        "view_options": {
+          "label_position": "none"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "keyword": "sources_other",
+      "translation": 5043,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 43
   },
   {
     "fields": {
@@ -8094,6 +8419,42 @@
   },
   {
     "fields": {
+      "keyword": "source_field",
+      "translation": 5768,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 268
+  },
+  {
+    "fields": {
+      "keyword": "source_interviews_landusers",
+      "translation": 5769,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 269
+  },
+  {
+    "fields": {
+      "keyword": "source_interviews_experts",
+      "translation": 5770,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 270
+  },
+  {
+    "fields": {
+      "keyword": "source_compilation",
+      "translation": 5771,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 271
+  },
+  {
+    "fields": {
       "keyword": "qg_name",
       "translation": null,
       "configuration": {}
@@ -8190,6 +8551,69 @@
     },
     "model": "configuration.questiongroup",
     "pk": 11
+  },
+  {
+    "fields": {
+      "keyword": "qg_videos",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_field",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_interviews_landusers",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_interviews_experts",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_compilation",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_other",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 18
   },
   {
     "fields": {

@@ -144,6 +144,9 @@ form representation of the question.
     with ``questiongroup_conditions``. Template must exist in
     ``form/fields/{}.html``.
 
+  * ``helptext_length`` (int): Overwrite the default length (number of words) of
+    the helptext shown initially (without the "See more" button).
+
 
 ``questiongroups``
 ^^^^^^^^^^^^^^^^^^

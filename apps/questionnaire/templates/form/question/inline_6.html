@@ -7,7 +7,7 @@
     <div class="row single-item">
       {% if options.helptext and options.helptext_position != 'tooltip' %}
         <div class="small-12 columns">
-          {% include "form/helptext.html" with helptext=options.helptext %}
+          {% include "form/helptext.html" with helptext=options.helptext helptext_length=options.helptext_length %}
         </div>
       {% endif %}
       <div class="small-6 columns{% if options.label_columns_class %} {{ options.label_columns_class }}{% endif %}">

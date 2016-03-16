@@ -1,5 +1,14 @@
 {% comment %}
-  The template to render a questiongroup.
+  The template to render a questiongroup with custom columns.
+
+  Depends on the form_option "layout", which needs to be a nested list
+  specifying the column distribution of the questions.
+
+  Example: "form_options": {"layout": [["12"], ["8", "4"]]}
+
+    This renders 3 questions, the first covering an entire row and the other two
+  on the same row, the second question will be 8 columns wide and the third will
+  be 4 columns wide.
 
   Adds buttons to add or remove additional questiongroups
 
@@ -23,7 +32,7 @@
   {% endif %}
 
   {% if config.label %}
-    <{{ config.label_tag|default:"h4" }} class="{% if config.label_class %}{{ config.label_class }}{% endif %}">{{ config.label }}</{{ config.label_tag|default:"h4" }}>
+    <{{ config.label_tag|default:"h4" }}>{{ config.label }}</{{ config.label_tag|default:"h4" }}>
   {% endif %}
 
   {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
@@ -41,14 +50,24 @@
     {% endif %}
 
     <div class="list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
-      {% for field in qg_form.visible_fields %}
-        {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
-          {% if template %}
-            {% formrow field using template %}
-          {% else %}
-            {% formrow field using "form/question/default.html" %}
-          {% endif %}
-        {% endwith %}
+      {% for columns in config.layout %}
+        <div class="row single-item">
+          {% for column in columns %}
+            <div class="columns medium-{{ column }}">
+              {% with ccc=forloop.counter0|add:forloop.parentloop.counter0 %}
+                {% with field=qg_form.visible_fields|get_by_index:ccc %}
+                  {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+                    {% if template %}
+                      {% formrow field using template %}
+                    {% else %}
+                      {% formrow field using "form/question/default.html" %}
+                    {% endif %}
+                  {% endwith %}
+                {% endwith %}
+              {% endwith %}
+            </div>
+          {% endfor %}
+        </div>
       {% endfor %}
       {% for field in qg_form.hidden_fields %}{% formfield field %}{% endfor %}
       <div class="columns right">
