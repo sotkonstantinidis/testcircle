@@ -1,7 +1,7 @@
 {% comment %}
   Table where each questiongroup occupies one row. The first column is filled with the label of the questiongroup.
 
-  Further questions are rendered either before the table (questiongroup_config.extra == 'before_table') or after the table.
+  Further questions are rendered either before the table (questiongroup_config.layout == 'before_table') or after the table.
 {% endcomment %}
 
 {% load floppyforms %}
@@ -16,14 +16,14 @@
   <fieldset class="row{% if config.has_changes %} has-changes{% endif %}">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
     {% for questiongroup_config, questiongroup_formset in formsets %}
-      {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.extra == 'before_table' %}
-        {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+      {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout == 'before_table' %}
+        {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
         {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}
     {% for questiongroup_config, questiongroup_formset in formsets %}
       {% if questiongroup_config.keyword in config.table_grouping.0 %}
-        {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+        {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
       {% endif %}
     {% endfor %}
     <table>
@@ -49,7 +49,7 @@
             {{ questiongroup_formset.management_form }}
             {% for f in questiongroup_formset.forms %}
               <tr>
-                {% if questiongroup_config.extra != 'no_label_row' %}
+                {% if questiongroup_config.layout != 'no_label_row' %}
                   <td>{{ questiongroup_config.label }}</td>
                 {% endif %}
                 {% for field in f.visible_fields %}
@@ -64,8 +64,8 @@
       </tbody>
     </table>
     {% for questiongroup_config, questiongroup_formset in formsets %}
-      {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.extra != 'before_table' %}
-        {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+      {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout != 'before_table' %}
+        {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
         {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}

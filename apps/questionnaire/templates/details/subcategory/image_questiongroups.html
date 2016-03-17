@@ -17,7 +17,7 @@
               <div class="aside-questiongroup">
                 <h3>{{ value.0 }}</h3>
                 {% for questiongroup_sub in questions %}
-                  {% if questiongroup_sub.extra == value.3 %}
+                  {% if questiongroup_sub.conditional_question == value.3 %}
                     {% for qg_questions_sub in questiongroup_sub.questions %}
                       {% for question_sub in qg_questions_sub %}
                         {{ question_sub }}
@@ -30,7 +30,7 @@
           {% endfor %}
         {% endfor %}
       {% endfor %}
-    {% elif forloop.last and questiongroup.extra == None %}
+    {% elif forloop.last and questiongroup.conditional_question == None %}
       {% for qg_questions in questiongroup.questions %}
         {% for question in qg_questions %}
           {{ question }}

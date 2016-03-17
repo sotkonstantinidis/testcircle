@@ -3,13 +3,7 @@
 {% endcomment %}
 
 {% if value %}
-  {% if view_label != 'none' %}
-    {% if header == 'small' %}
-      <h5>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h5>
-    {% else %}
-      <h3>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</h3>
-    {% endif %}
-  {% endif %}
+  {% if label_position != 'none' %}<{{ label_tag|default:"h5" }}>{{ key }}{% if key|last not in ".:!?" %}:{% endif %}</{{ label_tag|default:"h5" }}>{% endif %}
   <ul class="no-top-margin">
     <li>{{ value }}</li>
   </ul>

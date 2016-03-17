@@ -562,6 +562,31 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "secondary")]')
 
+        # She sees that step 0 has only 2 categories listed, although it
+        # contains 3 (a subcategory which has no content)
+        btn = self.findBy('xpath', '//a[contains(@href, "edit/new/cat_0")]')
+        self.assertIn('0/2', btn.text)
+
+        # She finally goes to step 0 of the questionnaire and also there, sees a
+        # subcategory with no content and she notices it is not counted for the
+        # progress
+        self.findBy(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
+                cat_1_position - 1)).click()
+        self.findBy('xpath', '//legend[contains(text(), "Subcategory 0_1")]')
+        self.findBy('xpath', '//legend[contains(text(), "Subcategory 0_2")]')
+        self.findBy('xpath', '//legend[contains(text(), "Subcategory 0_3")]')
+        completed_steps = self.findBy('class_name', 'progress-completed')
+        self.assertEqual(completed_steps.text, '0')
+        total_steps = self.findBy('class_name', 'progress-total')
+        self.assertEqual(total_steps.text, '2')
+        self.findBy('name', 'qg_31-0-original_key_45').send_keys('foo')
+        self.findBy('name', 'qg_31-0-original_key_46').send_keys('bar')
+        completed_steps = self.findBy('class_name', 'progress-completed')
+        self.assertEqual(completed_steps.text, '1')
+        total_steps = self.findBy('class_name', 'progress-total')
+        self.assertEqual(total_steps.text, '2')
+
     def test_textarea_maximum_length(self, mock_get_user_id):
 
         # Alice logs in
@@ -1648,6 +1673,94 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
         self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
         self.findBy('xpath', '//*[text()[contains(.,"low")]]')
+
+    def test_date_picker(self, mock_get_user_id):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        cat_1_position = get_position_of_category('cat_1')
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+
+        # She sees that key 47 has a datepicker
+        self.findBy(
+            'xpath',
+            '//input[@name="qg_2-0-key_47" and contains(@class, '
+            '"hasDatepicker")]')
+
+        # She sees that the form does not have any progress
+        self.findBy('xpath', '//span[@class="meter" and @style="width:0%"]')
+
+        # She submits the form empty and sees no value was submitted,
+        # progress of Category 1 is still 0
+        self.findBy('id', 'button-submit').click()
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 11")]]')
+        progress_indicator = self.findBy(
+            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
+                cat_1_position))
+        self.assertIn('0/', progress_indicator.text)
+
+        # She goes to the form again
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+
+        # She does not see the datepicker
+        datepicker = self.findBy('id', 'ui-datepicker-div')
+        self.assertFalse(datepicker.is_displayed())
+
+        # She sees there is no value in the field
+        datefield = self.findBy(
+            'xpath',
+            '//input[@name="qg_2-0-key_47" and contains(@class, '
+            '"hasDatepicker")]')
+        self.assertEqual(datefield.get_attribute('value'), '')
+
+        # She clicks the input and sees the datepicker opens
+        datefield.click()
+        self.assertTrue(datepicker.is_displayed())
+
+        # She selects a date
+        self.findBy('xpath', '//div[@id="ui-datepicker-div"]/table/tbody/tr[3]/td[4]/a').click()
+
+        # She sees the value was selected
+        selected_date = datefield.get_attribute('value')
+        self.assertNotEqual(selected_date, '')
+
+        # She sees that the progress was updated and submits the form.
+        self.findBy('xpath', '//span[@class="meter" and @style="width: 50%;"]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the value was submitted correctly
+        self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
+            selected_date))
+
+        # She goes back to the form again and sees the value was correctly
+        # populated
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        datefield = self.findBy(
+            'xpath',
+            '//input[@name="qg_2-0-key_47" and contains(@class, '
+            '"hasDatepicker")]')
+        self.assertEqual(datefield.get_attribute('value'), selected_date)
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
+            selected_date))
+
+        # She submits the entire questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
+            selected_date))
 
     def test_radio_selects(self, mock_get_user_id):
 

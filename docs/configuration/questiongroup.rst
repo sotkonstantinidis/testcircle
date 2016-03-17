@@ -32,10 +32,10 @@ The basic format of the configuration is as follows::
       "template": "TEMPLATE_NAME",
 
       # Default: ""
-      "extra": "measure_other",
+      "conditional_question": "KEY_KEYWORD",
 
       # Default: ""
-      "colclass": "top-margin"
+      "layout": "before_table"
     },
 
     # (optional)
@@ -57,6 +57,21 @@ The basic format of the configuration is as follows::
 
       # Default: ""
       "questiongroup_condition": "CONDITION_NAME",
+
+      # Default: "" - can also be a list!
+      "layout": "before_table",
+
+      # Default: ""
+      "row_class": "no-top-margin".
+
+      # Default: "h4"
+      "label_tag": "h5",
+
+      # Default: ""
+      "label_class": "",
+
+      # Default: ""
+      "table_columns": 2
     },
 
     # A list of questions.
@@ -94,13 +109,20 @@ The keyword of the questiongroup.
 view representation of the questiongroup.
 
   * ``template``: An optional template name. Must be a valid file name
-    with ``.html`` ending in folder
-    ``templates/details/questiongroup/``.
+    with ``.html`` ending in folder ``templates/details/questiongroup/``.
 
-  * ``extra``: TODO
+  * ``conditional_question`` (str): For conditional questiongroups, the name of
+    the key for which the questiongroup will be rendered next to. Works for
+    example with subcategory template "image_questiongroups"
 
-  * ``colclass``: An optional name of a CSS class to be passed to the
-    column of the Questiongroup in the template.
+  * ``layout`` (str): Additional indications used for the layout. These depend
+    largely on the template used. Known values are "before_table" or "label".
+
+  * ``raw_questions`` (bool): If set to ``true``, raw questions are added to the
+    template under the variable ``raw_questions``.
+
+  * ``with_keys`` (bool): If set to ``true``, a list with all the key labels of
+    the questiongroup is added to the template (variable ``keys``).
 
 
 ``form_options``
@@ -110,7 +132,8 @@ view representation of the questiongroup.
 form representation of the question.
 
   * ``template``: An optional template name. Must be a valid file name
-    with ``.html`` ending in folder ``templates/form/questiongroup/``.
+    with ``.html`` ending in folder ``templates/form/questiongroup/``. If not
+    specified, the default layout (``default.html``) is used.
 
   * ``min_num``: The minimum for repeating questiongroups to appear.
     Defaults to 1.
@@ -120,11 +143,13 @@ form representation of the question.
     will be rendered in the form. Defaults to ``min_num``.
 
   * ``numbered``: An optional parameter if the questiongroup is to be
-    numbered. Possible values are ``inline`` (numbering inside field
+    numbered. Currently, mainly the value ``display`` is used.
+
+  .. Possible values are ``inline`` (numbering inside field
     label) or ``prefix`` (numbering indented before fields). If not
     specified, no numbering is used.
 
-    .. hint::
+    .. .. hint::
         If possible, ``prefix`` should be used.
 
   * ``detail_level``: An optional parameter if the questiongroup
@@ -139,8 +164,67 @@ form representation of the question.
     .. seealso::
         :doc:`/configuration/question`
 
+  * ``layout`` (str or list): General layout indications for the layout of the
+    questiongroup inside the subcategory. This depends a lot on the subcategory
+    template. Known values are for example "before_table" used in template
+    "questionnaire/templates/form/subcategory/table_input.html" or
+    "no_label_row" for tables.
+    For template "columns_custom", this can also be a nested list indicating the
+    distribution of the columns, eg. [["12"], ["8", "4"]]
+
+  * ``user_role`` (str): A specific configuration used only for template
+    ``select_user``.
+
+  * ``row_class`` (str): An additional CSS class for the ``<div class="row">``
+    element containing all the questions of the questiongroup.
+    Example: "no-top-margin".
+
+  * ``label_tag`` (str): Specifies the tag used for the label. Default is
+    ``h4``.
+
+  * ``label_class`` (str): Specifies an additional class name for the label tag.
+
+  * ``table_columns`` (int): Indicate the number of columns of the table. Used
+    by template ``table_columns``.
+
+  * ``helptext_length`` (int): Overwrite the default length (number of words) of
+    the helptext shown initially (without the "See more" button).
+
 
 ``questions``
 ^^^^^^^^^^^^^
 
 A list of :doc:`/configuration/question`.
+
+
+Form templates
+--------------
+
+Templates for questiongroups are situated in the folder
+``templates/form/questiongroup/``. They have access to the following variables:
+
+  * ``formset``: A Django FormFormSet object, containing the (repeating) forms
+    (``formset.forms``) as well as the management form
+    (``formset.management_form``) which needs to be rendered in order for the
+    form to be submitted correctly.
+
+  * ``config`` (dict): A dictionary containing the configuration of the
+    questiongroup. All of the ``form_options`` specified in the configuration
+    are available, as well as the following keys:
+
+    * ``has_changes`` (bool): A boolean indicating whether there are changes in
+      this questiongroup compared the older version of the questionnaire.
+
+    * ``helptext`` (str): The helptext for the questiongroup.
+
+    * ``keyword`` (str): The keyword of the questiongroup.
+
+    * ``label`` (str): The label of the questiongroup (if available).
+
+    * ``options`` (dict): The options of the keys, (``{"key_1": {}}``), to be
+      passed to the template of the question.
+
+    * ``template`` (str): The name of the current questiongroup template.
+
+    * ``templates`` (dict): A dictionary of the templates of the questions
+      (``{"key_1": {}}``), to be passed to their templates

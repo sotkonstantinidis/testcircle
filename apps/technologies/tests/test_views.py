@@ -56,14 +56,16 @@ def get_category_count():
 
 def get_categories():
     return (
-        ('tech__1', 'General Information'),
-        ('tech__2', 'Description of the SLM technology'),
-        ('tech__3', 'Classification of the SLM technology'),
+        ('tech__1', 'General information'),
+        ('tech__2', 'Description of the SLM Technology'),
+        ('tech__3', 'Classification of the SLM Technology'),
         ('tech__4', 'Technical specifications'),
-        ('tech__5', 'Implementation, inputs and costs'),
+        ('tech__5', 'Implementation, inputs, and costs'),
         ('tech__6', 'Natural environment'),
         ('tech__7', 'Human environment and land use'),
         ('tech__8', 'Impacts: benefits and disadvantages'),
+        ('tech__9', 'Adoption and adaptation'),
+        ('tech__10', 'Conclusions and lessons learnt'),
     )
 
 
