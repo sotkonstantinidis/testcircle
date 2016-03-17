@@ -3147,7 +3147,7 @@
             "en": "Videos of the Approach"
           },
           "helptext": {
-            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link (provide the code used to embed the video - see <a href=\"https://support.google.com/youtube/answer/171780?hl=en\" target=\"_blank\" class=\"link\">https://support.google.com/youtube/answer/171780?hl=en</a>) and a short description for each file in the table below."
+            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each file in the table below."
           },
           "numbering": "2.4"
         }
@@ -7539,9 +7539,6 @@
                         "keyword": "qg_videos",
                         "form_options": {
                           "max_num": 3
-                        },
-                        "view_options": {
-                          "template": "video_questiongroup"
                         },
                         "questions": [
                           {

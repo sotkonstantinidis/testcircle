@@ -6193,7 +6193,10 @@
       "keyword": "video_link",
       "translation": 5037,
       "configuration": {
-        "type": "link_video"
+        "type": "char",
+        "view_options": {
+          "template": "link"
+        }
       }
     },
     "model": "configuration.key",
