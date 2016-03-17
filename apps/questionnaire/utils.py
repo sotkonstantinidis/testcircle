@@ -1070,7 +1070,6 @@ def get_list_values(
         template_value.update({
             'links': links,
             'id': obj.id,
-            'name': questionnaire_config.get_questionnaire_name(obj.data),
             'url': obj.get_absolute_url(),
             'data': obj.data
         })
@@ -1316,6 +1315,9 @@ def prepare_list_values(data, config, **kwargs):
             data[key] = items
 
     del data['list_data']
+
+    if 'links' in data and isinstance(data['links'], dict):
+        data['links'] = data['links'].get(language, original_language)
 
     # 'translations' must not list the currently active language
     if data['translations']:

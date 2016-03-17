@@ -61,10 +61,9 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Questionnaire
-        fields = ('code', 'compilers', 'configurations', 'created', 'editors',
-                  'data', 'editors', 'links', 'list_data', 'name',
-                  'serializer_config', 'status', 'translations', 'updated',
-                  'url', )
+        fields = ('code', 'compilers', 'configurations', 'created', 'data',
+                  'editors', 'links', 'list_data', 'name', 'serializer_config',
+                  'status', 'translations', 'updated', 'url', )
 
     def __init__(self, instance=None, data=empty, **kwargs):
         """
@@ -121,7 +120,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         # Prevent circular import
         from questionnaire.utils import get_link_display
 
-        links = dict.fromkeys(self.language_codes, [])
+        links = {lang: [] for lang in self.language_codes}
 
         for link in obj.links.all():
 
