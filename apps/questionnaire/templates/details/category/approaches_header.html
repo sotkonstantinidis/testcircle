@@ -14,7 +14,7 @@
     {% endif %}
   </div>
   <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
-  <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }} - {% endif %}{{ raw_data.country.0|default:"" }}</span></p>
+  <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }}{% endif %}{% if metadata.code and additional_data.country.0.0 %} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
 </header>
 <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
   <ul class="tech-output-infos">
@@ -68,7 +68,7 @@
     </div>
   </div>
   <div class="medium-3 columns">
-    <a class="button is-approaches right" data-toggle-boolean="section_one" href="{% url edit_step_route questionnaire_identifier keyword %}">
+    <a class="button is-approaches right" href="{% url edit_step_route questionnaire_identifier keyword %}">
       {% trans "Edit this section" %} <strong>({{ complete }}/{{ total }}){% if has_changes %}<span class="button-has-changes">*</span>{% endif %}</strong>
     </a>
   </div>

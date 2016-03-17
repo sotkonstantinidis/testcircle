@@ -1,4 +1,4 @@
-<h4 class="output-subcategory">{{ numbering|default:'' }} {{ label }}</h4>
+<{{ label_tag|default:"h5" }} class="output-subcategory">{{ numbering|default:'' }} {{ label }}</{{ label_tag|default:"h5" }}>
 {% if subcategories %}
   {% for subcategory in subcategories %}
     {{ subcategory }}

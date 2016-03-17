@@ -406,9 +406,9 @@ class ListTest(FunctionalTest):
                 entry_xpath))
         self.assertEqual(compiler.text, 'Foo Bar')
 
-        # # She goes to the WOCAT list and sees the list (retrieved from
-        # # elasticsearch) also contains metadata information and is
-        # # practically identical with the one on the landing page
+        # She goes to the WOCAT list and sees the list (retrieved from
+        # elasticsearch) also contains metadata information and is
+        # practically identical with the one on the landing page
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
 
