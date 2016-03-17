@@ -1604,9 +1604,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 has_changes = True
                 break
 
-        categories_with_content = [
-            c for c in self.subcategories
-                if c.questiongroups or c.subcategories]
+        categories_with_content = [c for c in self.subcategories if
+                                   c.questiongroups or c.subcategories]
 
         return render_to_string(
             view_template, {

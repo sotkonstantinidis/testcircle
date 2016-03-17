@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group, Permission  # noqa
 
 from qcat.tests import TestCase
 
