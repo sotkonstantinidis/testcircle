@@ -20,3 +20,14 @@ class QuestionnaireConf(AppConf):
     PUBLISHER = 'publisher'
     LANDUSER = 'landuser'
     RESOURCEPERSON = 'resourceperson'
+
+    METADATA_KEYS = [
+        'created',
+        'updated',
+        'compilers',
+        'editors',
+        'code',
+        'configurations',
+        'translations',
+        'status',
+    ]

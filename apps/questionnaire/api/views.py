@@ -1,14 +1,3 @@
-"""
-All questionnaire data is on the elasticsearch-index. As of now, the database
-is still touched. Efforts to refactor the following are in progress:
-
-- Create new serializer (see stub: questionnaire.serializers)
-- Use serializer when putting objects to the index
-  (search.index.put_questionnaire_data)
-- Put logic of 'get_list_values' to serializer.
-- Put logic of new required fields for external API to serializer.
-"""
-import contextlib
 from collections import OrderedDict
 
 from django.conf import settings
@@ -18,7 +7,6 @@ from rest_framework.response import Response
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
 from api.views import LogUserMixin, PermissionMixin
-from questionnaire.models import Questionnaire
 from questionnaire.view_utils import ESPagination, get_paginator, \
     get_page_parameter
 from search.search import advanced_search
@@ -29,11 +17,7 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
     """
     List view for questionnaires.
 
-    Todo:
-    - Refactor serializing / deserializing of indexed questionnaires
-    - Add pagination
-    - Add detail view
-    - Improve docstrings
+    @todo: Add detail view
 
     """
     page_size = settings.API_PAGE_SIZE
@@ -100,27 +84,8 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
             ('count', self.pagination.count),
             ('next', self.get_next_link()),
             ('previous', self.get_previous_link()),
-            ('results', self.extend_results(data))
+            ('results', data)
         ]))
-
-    def extend_results(self, data):
-        """
-        Todo: refactor this. This hits the db for each element!
-        Add the detail url to the results.
-
-        Args:
-            data: list of dictionaries.
-
-        Returns:
-            iterator
-        """
-        for questionnaire in data:
-            with contextlib.suppress(Questionnaire.DoesNotExist):
-                # Fetch db element and call the method to create the url.
-                qs = Questionnaire.objects.get(id=questionnaire['id'])
-                url = self.request.build_absolute_uri(qs.get_absolute_url())
-                questionnaire.update({'url': url})
-                yield questionnaire
 
     def _get_paginate_link(self, page_number):
         """

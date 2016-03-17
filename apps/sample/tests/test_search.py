@@ -117,7 +117,7 @@ class GetListValuesTest(TestCase):
         for res in [res_1, res_2]:
             for r in res:
                 self.assertEqual(r.get('configuration'), 'sample')
-                self.assertEqual(r.get('configurations'), ['sample'])
+                # self.assertEqual(r.get('configurations'), ['sample'])
                 self.assertTrue(r.get('native_configuration'))
                 self.assertIn('key_1', r)
                 self.assertIn('key_5', r)
@@ -129,10 +129,11 @@ class GetListValuesTest(TestCase):
             configuration_code='sample', es_hits=simple_search(
                 'key', configuration_codes=['samplemulti']).get(
                 'hits', {}).get('hits', []))
+
         self.assertEqual(len(res), 1)
         res = res[0]
         self.assertEqual(res.get('configuration'), 'sample')
-        self.assertEqual(res.get('configurations'), ['samplemulti'])
+        self.assertEqual(res.get('configurations_property'), ['samplemulti'])
         self.assertFalse(res.get('native_configuration'))
         self.assertNotIn('key_1', res)
         self.assertNotIn('key_5', res)

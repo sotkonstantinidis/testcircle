@@ -31,7 +31,10 @@ $color-print-light: #dddfe3;
     padding: 0.5rem;
     font-size: 0.75rem;
   }
-
+  span#cross {
+    font-weight: bold;
+    color: $color-orange;
+  }
   .tech-status {
     border: 1px solid $color-beige;
     border-top: none;

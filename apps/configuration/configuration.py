@@ -218,22 +218,23 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'form_options',
     ]
     valid_field_types = [
-        'char',
-        'text',
         'bool',
-        'measure',
-        'checkbox',
-        'image_checkbox',
-        'image',
-        'file',
-        'select_type',
-        'select',
-        'radio',
-        'todo',
         'cb_bool',
-        'user_id',
+        'char',
+        'checkbox',
         'date',
-        'link_video'
+        'file',
+        'hidden',
+        'image',
+        'image_checkbox',
+        'link_video',
+        'measure',
+        'radio',
+        'select',
+        'select_type',
+        'text',
+        'todo',
+        'user_id',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -553,9 +554,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             field = forms.CharField(
                 label=self.label, widget=widget, required=self.required)
-        elif self.field_type in ['user_id']:
+        elif self.field_type in ['user_id', 'hidden']:
             widget = HiddenInput()
-            widget.css_class = 'select-user-id'
+            if self.field_type == 'user_id':
+                widget.css_class = 'select-user-id'
             field = forms.CharField(
                 label=None, widget=widget, required=self.required)
         elif self.field_type == 'text':
@@ -804,6 +806,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 })
             else:
                 return '\n'
+        elif self.field_type in ['hidden']:
+            template_name = 'hidden'
+            template_values.update({
+                'key': self.label_view,
+                'value': value,
+            })
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -1596,9 +1604,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 has_changes = True
                 break
 
-        categories_with_content = [
-            c for c in self.subcategories
-                if c.questiongroups or c.subcategories]
+        categories_with_content = [c for c in self.subcategories if
+                                   c.questiongroups or c.subcategories]
 
         return render_to_string(
             view_template, {
@@ -1940,7 +1947,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 'interchange_list': image_data.get('interchange_list'),
                 'caption': image.get('image_caption'),
                 'date_location': image.get('image_date_location'),
-                'photographer': image.get('image_photographer')
+                'photographer': image.get('image_photographer'),
+                'absolute_path': image_data.get('absolute_path'),
+                'relative_path': image_data.get('relative_path'),
+                'target': image.get('image_target'),
             })
         return {
             'content': images,
@@ -2285,9 +2295,10 @@ class HiddenInput(forms.TextInput):
 
     def get_context_data(self):
         ctx = super(HiddenInput, self).get_context_data()
-        ctx.update({
-            'css_class': self.css_class
-        })
+        if hasattr(self, 'css_class'):
+            ctx.update({
+                'css_class': self.css_class
+            })
         return ctx
 
 
