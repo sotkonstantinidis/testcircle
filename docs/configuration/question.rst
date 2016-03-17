@@ -31,10 +31,16 @@ The basic format of the configuration is as follows::
       "template": "TEMPLATE_NAME",
 
       # Default: ""
-      "label": "none",
+      "label_position": "",
+
+      # Default: "h5"
+      "label_tag": "h5",
 
       # Default: ""
-      "header": "small",
+      "layout": "stacked",
+
+      # Default: false
+      "with_raw_values": true,
 
       # Default: false
       "in_list": true,
@@ -58,13 +64,10 @@ The basic format of the configuration is as follows::
       "num_rows": 5,
 
       # Default: ""
-      "colclass": "top-margin",
+      "helptext_position": "tooltip",
 
       # Default: ""
-      "helptext": "tooltip",
-
-      # Default: ""
-      "label": "placeholder",
+      "label_position": "placeholder",
 
       # Default: []
       "conditions": [],
@@ -103,12 +106,18 @@ view representation of the question.
   * ``template``: An optional template name. Must be a valid file name
     with ``.html`` ending in folder ``templates/details/question/``.
 
-  * ``label``: An optional name for label display or placement. Possible
-    values are: ``none`` (no label displayed).
+  * ``label_position`` (str): An optional indication for the label placement.
+    Possible values are: ``none`` (no label displayed).
 
-  * ``header``: An optional name for how the label is to be displayed.
-    Possible values are: ``small`` (small header), ``inline`` (inline
-    positioning of header).
+  * ``label_tag`` (str): Specifies the HTML tag used for the label (eg. ``h3``).
+    By default, the tag ``<h5>`` is used.
+
+  * ``layout`` (str): Additional indications used for the layout of the
+    question. Known values are ``stacked`` for stacked measure bars.
+
+  * ``with_raw_values`` (bool): Allows to also add the raw values (the keywords)
+    to the list of values. This works for field types "checkbox", "cb_bool" and
+    "radio". Defaults to ``false``.
 
   * ``in_list``: An optional boolean indicating whether this question
     should appear in the list representation of questionnaires or not.
@@ -146,14 +155,20 @@ form representation of the question.
     shown for textarea fields. This is only meaningful for key type
     ``text``. The default is 3.
 
-  * ``colclass``: An optional name of a CSS class to be passed to the
-    column of the Questiongroup in the template.
+  * ``label_columns_class`` (str): CSS class name added to the
+    ``<div class="columns">`` element containing the label.
 
-  * ``helptext``: An optional name for the placement of helptext related
-    to the question. Possible values are ``tooltip`` (showing the
+  * ``field_columns_class`` (str). CSS class name added to the
+    ``<div class="columns">`` element containing the field.
+
+  * ``helptext_position``: An optional name for the placement of helptext
+    related to the question. Possible values are ``tooltip`` (showing the
     helptext as a tooltip on the question label)
 
-  * ``label``: An optional name for the display and positioning of the
+  * ``helptext_length`` (int): Overwrite the default length (number of words) of
+    the helptext shown initially (without the "See more" button).
+
+  * ``label_position``: An optional name for the display and positioning of the
     label. Possible values are: ``placeholder`` (showing the label as a
     placeholder inside the input field)
 

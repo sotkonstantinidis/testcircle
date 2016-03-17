@@ -267,6 +267,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'configuration_name': 'sample',
                 'edit_mode': 'edit',
                 'view_url': '',
+                'content_categories': [],
             })
 
     def test_returns_rendered_response(self):

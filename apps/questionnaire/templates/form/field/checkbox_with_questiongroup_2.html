@@ -14,7 +14,7 @@
 {% for group_name, choices in optgroups %}
   {% for choice in choices %}
     <div class="row">
-      <div class="small-7 columns">
+      <div class="small-6 columns">
         <li>
           <div class="list-gallery-item list-item-no-gallery">
             <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub"{% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %} {% include "floppyforms/attrs.html" %}>
@@ -33,8 +33,8 @@
           </div>
         </li>
       </div>
-      <div class="small-5 columns image-cb-has-condition">
-          {% with subformset=additional_qg|get_by_index:forloop.counter %}
+      <div class="small-6 columns image-cb-has-condition">
+          {% with subformset=additional_qg|get_by_index:forloop.counter value=None %}
             {% form form using subformset.0.template with config=subformset.0 formset=subformset.1 %}
           {% endwith %}
       </div>

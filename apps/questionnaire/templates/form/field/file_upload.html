@@ -5,8 +5,18 @@
 {% endcomment %}
 
 {% load i18n %}
+{% load sekizai_tags %}
 {% load staticfiles %}
+{% load compress %}
 
+{% addtoblock 'js_head' %}
+  {% compress js %}
+    <script src="{% static 'js/dropzone.min.js' %}"></script>
+    <script type="text/javascript">
+      Dropzone.autoDiscover = false;
+    </script>
+  {% endcompress %}
+{% endaddtoblock %}
 
 <div id="{{ attrs.id }}" class="dropzone {{ attrs.css_class }}" data-upload-url="{% url 'file_upload' %}" data-upload-preview-container="preview-{{ attrs.id }}">
   <div class="fallback">

@@ -1,12 +1,8 @@
+{% load i18n %}
 {% load list_to_columns %}
 
 <h3>{{ numbering|default:'' }} {{ label }}</h3>
 
-{% for qg_config, qg_rendered in questiongroups %}
-  {% if qg_config.extra == 'before_table' %}
-    {{ qg_rendered }}
-  {% endif %}
-{% endfor %}
 {% for questiongroup in raw_questiongroups %}
   {% if questiongroup.qg_keyword == 'app_qg_27' %}
     {% for key, values in questiongroup.data_labelled.0 %}
@@ -16,7 +12,7 @@
         </ul>
         <div class="aside-questiongroup">
           {% with curr_value=questiongroup.data.0.0.1|get_by_index:forloop.counter0 curr_qg=raw_questiongroups|get_by_index:forloop.counter %}
-            {% if curr_value != 'app_subsidies_inputs_none' %}
+            {% if curr_value != 'app_subsidies_inputs_none' and curr_qg.layout != 'not_conditional' %}
               <table>
                 <thead>
                   {% for header in table_headers %}
@@ -47,15 +43,37 @@
                   {% endif %}
                 </tbody>
               </table>
+            {% else %}
+              &nbsp;
             {% endif %}
           {% endwith %}
         </div>
       {% endfor %}
     {% endfor %}
+  {% elif questiongroup.qg_keyword == 'app_qg_33' %}
+    <ul class="has-aside-questiongroup">
+      <li><strong>{% trans "other" %}</strong></li>
+    </ul>
+    <div class="aside-questiongroup">
+      <table>
+        <thead>
+          {% for key, __ in questiongroup.data_labelled.0 %}
+            <th>{{ key }}</th>
+          {% endfor %}
+        </thead>
+        <tbody>
+          <tr>
+            {% for key, values in questiongroup.data_labelled.0 %}
+              <td>{{ values|join:", " }}</td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+    </div>
   {% endif %}
 {% endfor %}
-  {% for qg_config, qg_rendered in questiongroups %}
-    {% if qg_config.extra != 'before_table' %}
-      {{ qg_rendered }}
-    {% endif %}
-  {% endfor %}
+{% for qg_config, qg_rendered in questiongroups %}
+  {% if qg_config.layout == 'not_conditional' %}
+    {{ qg_rendered }}
+  {% endif %}
+{% endfor %}

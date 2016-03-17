@@ -1,6 +1,6 @@
 {% load staticfiles %}
 {% if values|length > 0 %}
-  {% if view_label != 'none' %}
+  {% if label_position != 'none' %}
     ({{ key }}:
   {% endif %}
   {% for value in values %}

@@ -21,7 +21,13 @@
   {% endif %}
 
   <div class="small-12 medium-4 columns">
-    <label class="input-multiline"><input type="checkbox" class="cb-toggle-questiongroup" data-container="{{ config.keyword }}"{% if edit_mode != "edit" %} disabled="disabled"{% endif %}><span{% if config.helptext %} class="has-tip" title="{{ config.helptext }}" aria-haspopup="true" data-tooltip=""{% endif %}>{{ config.label }}</span></label>
+    <label class="input-multiline">
+      <input type="checkbox" class="cb-toggle-questiongroup" data-container="{{ config.keyword }}"{% if edit_mode != "edit" %} disabled="disabled"{% endif %}>
+      <span{% if config.helptext %} class="has-tip" title="{{ config.helptext }}" aria-haspopup="true" data-tooltip=""{% endif %}>
+        {{ config.label }}
+        {% if config.helptext %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>{% endif %}
+      </span>
+    </label>
   </div>
   <div id="{{ config.keyword }}" class="small-12 medium-8 columns cb-toggle-questiongroup-content" style="display:none;">
 

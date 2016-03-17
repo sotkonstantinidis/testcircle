@@ -22,7 +22,7 @@
               </div>
               <div class="small-6 columns">
                 {% for questiongroup_sub in questions %}
-                  {% if questiongroup_sub.extra == value.1 %}
+                  {% if questiongroup_sub.conditional_question == value.1 %}
                     {% for qg_questions_sub in questiongroup_sub.questions %}
                       {% for question_sub in qg_questions_sub %}
                         {{ question_sub }}

@@ -393,6 +393,11 @@ class UserTest2(FunctionalTest):
             'xpath', '//div[contains(@class, "form-user-search-loading")][1]')
         self.assertFalse(loading_indicator.is_displayed())
 
+        # Before she starts searching, she enters something in the text field
+        # above
+        textfield_above = self.findBy('name', 'qg_31-0-original_key_45')
+        textfield_above.send_keys('foo')
+
         # She enters a name and sees a search is conducted
         search_user.send_keys('abcdefghijklmnopq')
         WebDriverWait(self.browser, 10).until(
@@ -431,6 +436,10 @@ class UserTest2(FunctionalTest):
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Lukas Vonlanthen")]')
+
+        # She sees that the text she entered in the textfield above is still
+        # there
+        self.assertEqual(textfield_above.get_attribute('value'), 'foo')
 
         # She goes back to the select tab and sees that the values she
         # entered previously are gone now

@@ -1,6 +1,6 @@
 {% if config.numbered %}<div class="questiongroup-numbered-{{ config.numbered }}">{% endif %}
   {% for questiongroup in questiongroups %}
-    <div class="row tech-output-columns{% if config.colclass %} {{ config.colclass }}{% endif %}">
+    <div class="row tech-output-columns">
       {% if config.numbered == 'prefix' %}
           <div class="questiongroup-numbered-left">
             <p class="questiongroup-numbered-number"></p>

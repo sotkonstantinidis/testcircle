@@ -16,7 +16,7 @@ from nose.plugins.attrib import attr  # noqa
 @patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['global_key_values.json', 'technologies.json', 'unccd.json']
+    fixtures = ['global_key_values.json', 'technologies.json']
 
     def test_questionnaire_is_available(self, mock_get_user_id):
 
@@ -37,11 +37,7 @@ class QuestionnaireTest(FunctionalTest):
         progress_indicators = self.findManyBy(
             'xpath', '//div[@class="tech-section-progress progress"]')
 
-        # TODO: This has to do with the problem that Technologies for
-        # the moment also contains one category of UNCCD. If this is
-        # solved properly, you can also remove the fixture loading of
-        # unccd.json above.
-        self.assertEqual(len(progress_indicators), get_category_count() + 1)
+        self.assertEqual(len(progress_indicators), get_category_count())
 
         # She sees that all the categories are there with their correct name
         # Except the first one which is not displayed in the header template
@@ -61,5 +57,4 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         progress_indicators = self.findManyBy(
             'xpath', '//div[@class="tech-section-progress progress"]')
-        # See TODO above
-        self.assertEqual(len(progress_indicators), get_category_count() + 1)
+        self.assertEqual(len(progress_indicators), get_category_count())
