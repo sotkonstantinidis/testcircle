@@ -7255,7 +7255,7 @@
                         "keyword": "qg_name",
                         "form_options": {
                           "template": "columns_custom",
-                          "layout": [["12"], ["8", "4"]]
+                          "columns_custom": [["12"], ["8", "4"]]
                         },
                         "questions": [
                           {

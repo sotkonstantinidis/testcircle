@@ -115,3 +115,35 @@ def get_by_keyword(dictionary, key):
         return dictionary.get(key)
     except AttributeError:
         return None
+
+
+@register.assignment_tag
+def nested_counter(nested_list, inner_index, outer_index):
+    """
+    Return the counter of a nested list.
+
+    Usage in template:
+        {% load list_to_columns %}
+
+        {% for outer_loop in nested_list %}
+            {% for inner_loop in outer_loop %}
+                {{ nested_counter nested_list forloop.counter0
+                  forloop.parentloop.counter0 }}
+            {% endfor %}
+        {% endfor %}
+
+    Args:
+        nested_list: A nested list item.
+        inner_index: The current index of the inner loop.
+        outer_index: The current index of the outer loop.
+
+    Returns:
+        int. The counter.
+    """
+    counter = 0
+    for i, outer in enumerate(nested_list):
+        if i < outer_index:
+            counter += len(outer)
+        elif i == outer_index:
+            counter += inner_index
+    return counter
