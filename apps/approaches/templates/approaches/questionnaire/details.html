@@ -88,4 +88,16 @@
       </section>
     </main>
   </article>
+
+  {% if view_mode != 'edit' %}
+    {% addtoblock 'js' %}
+      {% compress js %}
+        <script>
+          $().ready(function() {
+           _paq.push(['trackEvent', 'Detail', 'Approach', '{{ questionnaire_identifier  }}']);
+          });
+        </script>
+      {% endcompress %}
+    {% endaddtoblock %}
+  {% endif %}
 {% endblock %}
