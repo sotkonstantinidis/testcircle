@@ -1364,7 +1364,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Indicate if the Technology is specifically applied in convex or concave situations"
+            "en": "Indicate if the Technology is specifically applied in"
           }
         }
       }
@@ -1856,7 +1856,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "off-farm income"
+            "en": "Off-farm income"
           },
           "helptext": {
             "en": "Income other than from the use of cropland, grazing land, forest and mixed land (e.g. business, trade, manufacturing, industry, pension, remittances)"
@@ -3091,7 +3091,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "If costs are calculated per area, indicate unit (e.g. hectare, acre)"
+            "en": "If costs are calculated per area, indicate unit"
           },
           "helptext": {
             "en": "<strong>Example:</strong> hectare"
@@ -4912,7 +4912,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "convex"
+            "en": "convex situations"
           },
           "helptext": {
             "en": "<strong>Convex</strong>: ridge (diversion of water flow)"
@@ -4929,7 +4929,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "concave"
+            "en": "concave situations"
           },
           "helptext": {
             "en": "<strong>Concave</strong>: depression (conversion of water flow)"
@@ -5719,7 +5719,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Indirect measures"
+            "en": "Other measures"
           }
         }
       }
@@ -7856,6 +7856,9 @@
         "technologies": {
           "label": {
             "en": "improved plant varieties, animal breeds"
+          },
+          "helptext": {
+            "en": "<strong>Improved plant varieties, animal breeds:</strong> Development of new varieties or breeds with features such as improved production, resistance to plant pests and diseases, drought tolerance in response to changing environmental conditions and land users’ needs."
           }
         }
       }
@@ -9998,7 +10001,10 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Floods"
+            "en": "tropical storm"
+          },
+          "helptext": {
+            "en": "cyclone, typhoon, hurricane"
           }
         }
       }
@@ -10012,7 +10018,10 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Landslides"
+            "en": "extra-tropical cyclone"
+          },
+          "helptext": {
+            "en": "winter storm"
           }
         }
       }
@@ -10026,7 +10035,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Sea level rise"
+            "en": "local rainstorm"
           }
         }
       }
@@ -10137,6 +10146,326 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "local thunderstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2330
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "local hailstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2331
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "local snowstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2332
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "local sandstorm/ duststorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2333
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "local windstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2334
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "tornado"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2335
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "heatwave"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2336
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "cold wave"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2337
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "extreme winter conditions"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2338
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "drought"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2339
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "forest fire"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2340
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "land fire"
+          },
+          "helptext": {
+            "en": "grass, shrub, bush"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2341
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "general (river) flood"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2342
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "flash flood"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2343
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "storm surge/ coastal flood"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2344
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "landslide"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2345
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "avalanche"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2346
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "epidemic diseases"
+          },
+          "helptext": {
+            "en": "viral, bacterial, fungal, parasitic"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2347
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "insect/ worm infestation"
+          },
+          "helptext": {
+            "en": "grasshoppers/ locusts/ worms"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2348
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "extended growing period"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2349
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "reduced growing period"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2350
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "sea level rise"
+          },
+          "helptext": {
+            "en": "gradual change"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2351
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "technologies": {
@@ -10214,7 +10543,7 @@
           "label": {
             "en": "Country/ region/ locations where the Technology has been applied and which are covered by this assessment"
           },
-          "numbering": "2.4",
+          "numbering": "2.5",
           "helptext": {
             "en": "The described Technology might be applied in various sites. However, restrict information given in this questionnaire to only those sites that have been assessed/ analysed in the documentation process (through field visits, interviews with respective land users, reports, etc.). Do not include other sites where the same Technology is applied but no data has been collected."
           }
@@ -10551,11 +10880,11 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Photos showing an overview and details of the Technology"
+            "en": "Photos of the Technology"
           },
           "numbering": "2.3",
           "helptext": {
-            "en": "<ul><li>Provide at least two digital files, i.e. scans from prints, scans from negative/ positive films or digital photos.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>Explanation (description) is required for each photo submitted!</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li><li>Please note thate</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
+            "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>Explanation (description) is required for each photo submitted!</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li><li>Please note thate</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
           }
         }
       }
@@ -10828,7 +11157,7 @@
           "label": {
             "en": "Date of implementation"
           },
-          "numbering": "2.5"
+          "numbering": "2.6"
         }
       }
     },
@@ -10843,7 +11172,7 @@
           "label": {
             "en": "Introduction of the Technology"
           },
-          "numbering": "2.6"
+          "numbering": "2.7"
         }
       }
     },
@@ -10888,7 +11217,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Climate-related extremes (disasters)"
+            "en": "Meteorological disasters"
           }
         }
       }
@@ -10924,7 +11253,8 @@
           },
           "helptext": {
             "en": "<strong>Adoption</strong>: voluntary implementation of a Technology without external material support other than technical guidance. Refer to the land use types described in 3.2 and the country/ region/ locations defined in 2.4."
-          }
+          },
+          "numbering": "9.1"
         }
       }
     },
@@ -10941,7 +11271,8 @@
           },
           "helptext": {
             "en": "<strong>Adaptation</strong>: Modifications made by land users to suit local context and changing conditions (Source: WOCAT)."
-          }
+          },
+          "numbering": "9.2"
         }
       }
     },
@@ -11079,6 +11410,108 @@
     },
     "model": "configuration.translation",
     "pk": 2760
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Videos of the Technology"
+          },
+          "helptext": {
+            "en": "If available, upload video files visualizing the Technology on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each file in the table below."
+          },
+          "numbering": "2.4"
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2761
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Which of the following methods/ sources of information were used?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2762
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Climatological disasters"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2763
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Hydrological disasters"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2764
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Biological disasters"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2765
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Other climate-related extremes (disasters)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2766
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Comments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2767
   },
   {
     "fields": {
@@ -11247,6 +11680,20 @@
     },
     "model": "configuration.translation",
     "pk": 2910
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "References and links"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2911
   },
   {
     "fields": {
@@ -11911,7 +12358,7 @@
       "keyword": "tech_input_date",
       "translation": 1035,
       "configuration": {
-        "type": "char"
+        "type": "date"
       }
     },
     "model": "configuration.key",
@@ -12768,7 +13215,7 @@
       "keyword": "tech_landforms",
       "translation": 1081,
       "configuration": {
-        "type": "checkbox"
+        "type": "radio"
       },
       "values": [
         1168,
@@ -12887,7 +13334,7 @@
       "keyword": "tech_altitudinalzone",
       "translation": 1087,
       "configuration": {
-        "type": "checkbox"
+        "type": "radio"
       },
       "values": [
         1174,
@@ -13571,7 +14018,7 @@
       "keyword": "tech_individuals",
       "translation": 1139,
       "configuration": {
-        "type": "checkbox"
+        "type": "radio"
       },
       "values": [
         1086,
@@ -13647,7 +14094,7 @@
       "keyword": "tech_land_size",
       "translation": 1143,
       "configuration": {
-        "type": "checkbox"
+        "type": "radio"
       },
       "values": [
         1216,
@@ -15016,7 +15463,7 @@
       "keyword": "tech_drawing_date",
       "translation": 1259,
       "configuration": {
-        "type": "char"
+        "type": "date"
       }
     },
     "model": "configuration.key",
@@ -16591,7 +17038,7 @@
   },
   {
     "fields": {
-      "keyword": "tech_est_type_i",
+      "keyword": "tech_est_type_o",
       "translation": 1647,
       "order_value": 5
     },
@@ -20008,6 +20455,222 @@
   },
   {
     "fields": {
+      "keyword": "tech_qg_193",
+      "translation": 2330,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1213
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_194",
+      "translation": 2331,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1214
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_195",
+      "translation": 2332,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1215
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_196",
+      "translation": 2333,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1216
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_197",
+      "translation": 2334,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1217
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_198",
+      "translation": 2335,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1218
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_199",
+      "translation": 2336,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1219
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_200",
+      "translation": 2337,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1220
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_201",
+      "translation": 2338,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1221
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_202",
+      "translation": 2339,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1222
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_203",
+      "translation": 2340,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1223
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_204",
+      "translation": 2341,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1224
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_205",
+      "translation": 2342,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1225
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_206",
+      "translation": 2343,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1226
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_207",
+      "translation": 2344,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1227
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_208",
+      "translation": 2345,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1228
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_209",
+      "translation": 2346,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1229
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_210",
+      "translation": 2347,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1230
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_211",
+      "translation": 2348,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1231
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_212",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1232
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_213",
+      "translation": 2349,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1233
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_214",
+      "translation": 2350,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1234
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_215",
+      "translation": 2351,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1235
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_216",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1236
+  },
+  {
+    "fields": {
       "keyword": "tech__0__1",
       "translation": 2701
     },
@@ -20040,7 +20703,7 @@
   },
   {
     "fields": {
-      "keyword": "tech__2__4",
+      "keyword": "tech__2__5",
       "translation": 2705
     },
     "model": "configuration.category",
@@ -20344,7 +21007,7 @@
   },
   {
     "fields": {
-      "keyword": "tech__2__5",
+      "keyword": "tech__2__6",
       "translation": 2744
     },
     "model": "configuration.category",
@@ -20352,7 +21015,7 @@
   },
   {
     "fields": {
-      "keyword": "tech__2__6",
+      "keyword": "tech__2__7",
       "translation": 2745
     },
     "model": "configuration.category",
@@ -20376,7 +21039,7 @@
   },
   {
     "fields": {
-      "keyword": "tech__8__3__extremes",
+      "keyword": "tech__8__3__meteorological",
       "translation": 2748
     },
     "model": "configuration.category",
@@ -20472,6 +21135,62 @@
   },
   {
     "fields": {
+      "keyword": "tech__2__4",
+      "translation": 2761
+    },
+    "model": "configuration.category",
+    "pk": 1061
+  },
+  {
+    "fields": {
+      "keyword": "tech__refs__sources",
+      "translation": 2762
+    },
+    "model": "configuration.category",
+    "pk": 1062
+  },
+  {
+    "fields": {
+      "keyword": "tech__8__3__climatological",
+      "translation": 2763
+    },
+    "model": "configuration.category",
+    "pk": 1063
+  },
+  {
+    "fields": {
+      "keyword": "tech__8__3__hydrological",
+      "translation": 2764
+    },
+    "model": "configuration.category",
+    "pk": 1064
+  },
+  {
+    "fields": {
+      "keyword": "tech__8__3__biological",
+      "translation": 2765
+    },
+    "model": "configuration.category",
+    "pk": 1065
+  },
+  {
+    "fields": {
+      "keyword": "tech__8__3__otherclimate",
+      "translation": 2766
+    },
+    "model": "configuration.category",
+    "pk": 1066
+  },
+  {
+    "fields": {
+      "keyword": "tech__8__3__comments",
+      "translation": 2767
+    },
+    "model": "configuration.category",
+    "pk": 1067
+  },
+  {
+    "fields": {
       "keyword": "tech__1",
       "translation": 2901
     },
@@ -20552,6 +21271,14 @@
   },
   {
     "fields": {
+      "keyword": "tech__refs",
+      "translation": 2911
+    },
+    "model": "configuration.category",
+    "pk": 1711
+  },
+  {
+    "fields": {
       "code": "technologies",
       "description": "Description of WOCAT Technology Configuration",
       "active": true,
@@ -20594,7 +21321,10 @@
                             "keyword": "image_caption"
                           },
                           {
-                            "keyword": "image_date_location"
+                            "keyword": "image_date"
+                          },
+                          {
+                            "keyword": "image_location"
                           },
                           {
                             "keyword": "image_photographer"
@@ -20614,6 +21344,10 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_name",
+                        "form_options": {
+                          "template": "columns_custom",
+                          "columns_custom": [["12"], ["8", "4"]]
+                        },
                         "questions": [
                           {
                             "keyword": "name",
@@ -20624,6 +21358,17 @@
                           },
                           {
                             "keyword": "name_local"
+                          },
+                          {
+                            "keyword": "name_local_language"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_import",
+                        "questions": [
+                          {
+                            "keyword": "import_old_code"
                           }
                         ]
                       }
@@ -20637,7 +21382,9 @@
                         "form_options": {
                           "template": "select_user",
                           "user_role": "resourceperson",
-                          "max_num": 3
+                          "max_num": 3,
+                          "row_class": "no-top-margin",
+                          "label_class": "bottom-margin"
                         },
                         "view_options": {
                           "template": "select_user"
@@ -20671,79 +21418,79 @@
                           {
                             "keyword": "person_lastname",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_firstname",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_gender",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_institution_name",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_institution_address",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_postal_code",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_city",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_state",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "country",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_phone_1",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_phone_2",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_email_1",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           },
                           {
                             "keyword": "person_email_2",
                             "view_options": {
-                              "label_position": "none"
+                              "template": "value_only"
                             }
                           }
                         ]
@@ -20882,14 +21629,14 @@
                   },
                   {
                     "keyword": "tech__2__3",
-                    "view_options": {
-                      "template": "none"
-                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_photos",
                         "form_options": {
                           "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "image_questiongroup"
                         },
                         "questions": [
                           {
@@ -20899,7 +21646,10 @@
                             "keyword": "image_caption"
                           },
                           {
-                            "keyword": "image_date_location"
+                            "keyword": "image_date"
+                          },
+                          {
+                            "keyword": "image_location"
                           },
                           {
                             "keyword": "image_photographer"
@@ -20918,6 +21668,34 @@
                   },
                   {
                     "keyword": "tech__2__4",
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_videos",
+                        "form_options": {
+                          "max_num": 3
+                        },
+                        "questions": [
+                          {
+                            "keyword": "video_link"
+                          },
+                          {
+                            "keyword": "video_description"
+                          },
+                          {
+                            "keyword": "video_date"
+                          },
+                          {
+                            "keyword": "video_location"
+                          },
+                          {
+                            "keyword": "video_videographer"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "tech__2__5",
                     "questiongroups": [
                       {
                         "keyword": "qg_location",
@@ -20966,7 +21744,7 @@
                     ]
                   },
                   {
-                    "keyword": "tech__2__5",
+                    "keyword": "tech__2__6",
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_160",
@@ -20982,7 +21760,7 @@
                     ]
                   },
                   {
-                    "keyword": "tech__2__6",
+                    "keyword": "tech__2__7",
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_5",
@@ -21804,27 +22582,33 @@
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_162",
+                        "form_options": {
+                          "template": "columns_custom",
+                          "columns_custom": [["6", "6"], ["12"], ["6", "6"]]
+                        },
                         "questions": [
                           {
                             "keyword": "tech_perarea_unit",
+                            "form_options": {
+                              "helptext_position": "tooltip",
+                              "label_columns_class": "top-margin"
+                            },
                             "view_options": {
                               "template": "inline_6"
                             }
                           },
                           {
                             "keyword": "tech_perarea_size",
+                            "form_options": {
+                              "helptext_position": "tooltip",
+                              "label_columns_class": "top-margin"
+                            },
                             "view_options": {
                               "template": "inline_6"
                             }
                           },
                           {
                             "keyword": "tech_area_unit_conversion",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_notperarea_unit",
                             "form_options": {
                               "label_columns_class": "top-margin"
                             },
@@ -21833,7 +22617,23 @@
                             }
                           },
                           {
+                            "keyword": "tech_notperarea_unit",
+                            "form_options": {
+                              "helptext_position": "tooltip",
+                              "label_columns_class": "top-margin"
+
+                            },
+                            "view_options": {
+                              "template": "inline_6"
+                            }
+                          },
+                          {
                             "keyword": "tech_notperarea_size",
+                            "form_options": {
+                              "helptext_position": "tooltip",
+                              "label_columns_class": "top-margin"
+
+                            },
                             "view_options": {
                               "template": "inline_6"
                             }
@@ -21932,7 +22732,9 @@
                       {
                         "keyword": "tech_qg_42",
                         "form_options": {
-                          "layout": "before_table"
+                          "layout": "before_table",
+                          "template": "columns_custom",
+                          "columns_custom": [["8", "4"], ["12"], ["12"]]
                         },
                         "view_options": {
                           "layout": "before_table"
@@ -22174,7 +22976,9 @@
                       {
                         "keyword": "tech_qg_50",
                         "form_options": {
-                          "layout": "before_table"
+                          "layout": "before_table",
+                          "template": "columns_custom",
+                          "columns_custom": [["8", "4"], ["12"]]
                         },
                         "view_options": {
                           "layout": "before_table"
@@ -22433,6 +23237,9 @@
                             "keyword": "tech_agroclimatic_zone_specifications",
                             "form_options": {
                               "helptext_position": "tooltip"
+                            },
+                            "view_options": {
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -22492,13 +23299,14 @@
                         "keyword": "tech_qg_57",
                         "questions": [
                           {
-                            "keyword": "tech_topography_comments",
-                            "form_options": {
-                              "helptext_position": "tooltip"
-                            }
+                            "keyword": "tech_convex_concave"
                           },
                           {
-                            "keyword": "tech_convex_concave"
+                            "keyword": "tech_topography_comments",
+                            "form_options": {
+                              "label_columns_class": "top-margin",
+                              "helptext_position": "tooltip"
+                            }
                           }
                         ]
                       }
@@ -22715,7 +23523,10 @@
                             "keyword": "tech_individuals"
                           },
                           {
-                            "keyword": "tech_mechanisation"
+                            "keyword": "tech_mechanisation",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            }
                           },
                           {
                             "keyword": "tech_gender",
@@ -22760,6 +23571,7 @@
                             },
                             "view_options": {
                               "template": "measure_stacked",
+                              "layout": "stacked",
                               "label_position": "none"
                             }
                           },
@@ -25380,8 +26192,579 @@
                   {
                     "keyword": "tech__8__3",
                     "form_options": {
-                      "template": "todo"
-                    }
+                      "template": "has_subcategories"
+                    },
+                    "subcategories": [
+                      {
+                        "keyword": "tech__8__3__gradual",
+                        "form_options": {
+                          "template": "table_5"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "tech_qg_169",
+                              "tech_qg_168",
+                              "tech_qg_170",
+                              "tech_qg_171",
+                              "tech_qg_172"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_168",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_incrdecr"
+                              },
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_169",
+                            "form_options": {
+                              "min_num": 4,
+                              "max_num": 4
+                            },
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_season"
+                              },
+                              {
+                                "keyword": "tech_exposure_incrdecr"
+                              },
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_170",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_incrdecr"
+                              },
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_171",
+                            "form_options": {
+                              "min_num": 4,
+                              "max_num": 4
+                            },
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_season"
+                              },
+                              {
+                                "keyword": "tech_exposure_incrdecr"
+                              },
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_172",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "tech_exposure_incrdecr"
+                              },
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__meteorological",
+                        "form_options": {
+                          "template": "table_5"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "tech_qg_177",
+                              "tech_qg_178",
+                              "tech_qg_179",
+                              "tech_qg_193",
+                              "tech_qg_194",
+                              "tech_qg_195",
+                              "tech_qg_196",
+                              "tech_qg_197",
+                              "tech_qg_198"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_177",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_178",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_179",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_193",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_194",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_195",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_196",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_197",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_198",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__climatological",
+                        "form_options": {
+                          "template": "table_5"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "tech_qg_199",
+                              "tech_qg_200",
+                              "tech_qg_201",
+                              "tech_qg_202",
+                              "tech_qg_203",
+                              "tech_qg_204"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_199",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_200",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_201",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_202",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_203",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_204",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__hydrological",
+                        "form_options": {
+                          "template": "table_5"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "tech_qg_205",
+                              "tech_qg_206",
+                              "tech_qg_207",
+                              "tech_qg_208",
+                              "tech_qg_209"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_205",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_206",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_207",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_208",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_209",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__biological",
+                        "form_options": {
+                          "template": "table_5"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "tech_qg_210",
+                              "tech_qg_211"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_210",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_211",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__otherclimate",
+                        "form_options": {
+                          "template": "table_5",
+                          "layout": "no_label_row"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "layout": "no_label_row",
+                          "table_grouping": [
+                            [
+                              "tech_qg_212"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_212",
+                            "form_options": {
+                              "layout": "no_label_row"
+                            },
+                            "view_options": {
+                              "layout": "no_label_row"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__other",
+                        "form_options": {
+                          "template": "table_5"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "tech_qg_213",
+                              "tech_qg_214",
+                              "tech_qg_215",
+                              "tech_qg_216"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_213",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_214",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_215",
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech_qg_216",
+                            "form_options": {
+                              "layout": "no_label_row"
+                            },
+                            "view_options": {
+                              "layout": "no_label_row"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "tech_exposure_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "tech_exposure_exposed"
+                              },
+                              {
+                                "keyword": "tech_exposure_sensitivity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__comments",
+                        "form_options": {
+                          "template": "empty"
+                        },
+                        "view_options": {
+                          "template": "empty"
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "tech_qg_180",
+                            "questions": [
+                              {
+                                "keyword": "tech_tolerance_comments"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     "keyword": "tech__8__4",
@@ -25579,6 +26962,127 @@
                           },
                           {
                             "keyword": "weaknesses_overcome"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "keyword": "tech__refs",
+                "subcategories": [
+                  {
+                    "keyword": "tech__refs__sources",
+                    "form_options": {
+                      "template": "checkbox_questiongroups",
+                      "questiongroup_conditions": [
+                        "=='source_field'|qg_sources_field",
+                        "=='source_interviews_landusers'|qg_sources_interviews_landusers",
+                        "=='source_interviews_experts'|qg_sources_interviews_experts",
+                        "=='source_compilation'|qg_sources_compilation"
+                      ],
+                      "questiongroup_conditions_template": "checkbox_with_questiongroup_2"
+                    },
+                    "view_options": {
+                      "template": "checkbox_questiongroups_2",
+                      "raw_questions": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_sources",
+                        "questions": [
+                          {
+                            "keyword": "sources_used",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "=='source_field'|qg_sources_field",
+                                "=='source_interviews_landusers'|qg_sources_interviews_landusers",
+                                "=='source_interviews_experts'|qg_sources_interviews_experts",
+                                "=='source_compilation'|qg_sources_compilation"
+                              ]
+                            },
+                            "view_options": {
+                              "template": "raw",
+                              "with_raw_values": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_field",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_field"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_field"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_interviews_landusers",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_interviews_landusers"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_interviews_landusers"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_interviews_experts",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_interviews_experts"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_interviews_experts"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_compilation",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_compilation"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_compilation"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_other",
+                        "form_options": {
+                          "template": "columns_e6_e6"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
+                            }
+                          },
+                          {
+                            "keyword": "sources_specify"
                           }
                         ]
                       }

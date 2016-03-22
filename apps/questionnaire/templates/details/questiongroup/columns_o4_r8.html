@@ -11,10 +11,10 @@
     {% endif %}
     {% for question in questiongroup %}
       {% if forloop.counter == 1 %}
-        <div class="columns medium-4">
+        <div class="columns medium-4 output">
           {{ question }}
         </div>
-        <div class="columns medium-8">
+        <div class="columns medium-8 output">
       {% else %}
         {{ question }}
         {% if forloop.last %}

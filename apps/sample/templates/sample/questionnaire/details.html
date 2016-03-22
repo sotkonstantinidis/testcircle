@@ -20,7 +20,9 @@
       {% if images.0.caption or images.0.photographer %}
         <div class="row hide-for-small-only">
           <figcaption class="medium-4 medium-offset-8 columns">
-            <p>{% if images.0.caption %}{{ images.0.caption }}{% endif %}{% if images.0.date_location %}<br><i>{{ images.0.date_location }}</i>{% endif %}
+            <p>{% if images.0.caption %}{{ images.0.caption }}{% endif %}
+              {% if images.0.date or images.0.location %}<br>{% endif %}
+              <i>{{ images.0.location|default:"" }}{% if images.0.date and images.0.location %} - {% endif %}{{ images.0.date|default:"" }}</i>
               {% if images.0.photographer %}
               <br><strong>{% trans "Photo" %}: {{ images.0.photographer }}</strong>
               {% endif %}

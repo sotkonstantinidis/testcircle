@@ -398,18 +398,24 @@ $(function() {
   });
 
   // Select inputs with chosen
-  $(".chosen-select").chosen({width: '100%'});
+  if ($.fn.chosen) {
+    $(".chosen-select").chosen({width: '100%'});
+  }
 
-  $('.date-input').each(function() {
-    $(this).datepicker({dateFormat: $(this).data('date-format')});
-  });
+  if ($.fn.datepicker) {
+    $('.date-input').each(function() {
+      $(this).datepicker({dateFormat: $(this).data('date-format')});
+    });
+  }
 
-  $('.sortable').sortable({
-    handle: '.questiongroup-numbered-number',
-    placeholder: 'sortable-placeholder',
-    forcePlaceholderSize: true,
-    stop: updateNumbering
-  });
+  if ($.fn.sortable) {
+    $('.sortable').sortable({
+      handle: '.questiongroup-numbered-number',
+      placeholder: 'sortable-placeholder',
+      forcePlaceholderSize: true,
+      stop: updateNumbering
+    });
+  }
 
   // Search a linked Questionnaire through AJAX autocomplete.
   if ($.fn.autocomplete) {
