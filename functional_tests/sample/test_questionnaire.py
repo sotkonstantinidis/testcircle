@@ -1724,7 +1724,10 @@ class QuestionnaireTest(FunctionalTest):
         self.assertTrue(datepicker.is_displayed())
 
         # She selects a date
-        self.findBy('xpath', '//div[@id="ui-datepicker-div"]/table/tbody/tr[3]/td[4]/a').click()
+        self.findBy(
+            'xpath',
+            '//div[@id="ui-datepicker-div"]/table/tbody/tr[3]/td[4]/a'
+        ).click()
 
         # She sees the value was selected
         selected_date = datefield.get_attribute('value')

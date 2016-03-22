@@ -1,5 +1,6 @@
 import contextlib
 import json
+from os.path import join
 from uuid import uuid4
 
 from django.contrib.auth import get_user_model
@@ -8,6 +9,7 @@ from django.contrib.messages import WARNING, SUCCESS
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Q
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
@@ -24,7 +26,7 @@ from questionnaire.upload import (
     get_url_by_file_name,
     get_file_path,
     store_file,
-)
+    get_upload_folder_structure)
 
 STATUSES = (
     (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
@@ -507,37 +509,13 @@ class Questionnaire(models.Model):
 
             * ``translations`` (list)
         """
-        compilers = []
-        editors = []
-        for compiler in self.members.filter(
-                questionnairemembership__role=settings.QUESTIONNAIRE_COMPILER
-        ):
-            compilers.append({
-                'id': compiler.id,
-                'name': str(compiler),
-            })
-        for editor in self.members.filter(
-            questionnairemembership__role=settings.QUESTIONNAIRE_EDITOR
-        ):
-            editors.append({
-                'id': editor.id,
-                'name': str(editor),
-            })
-        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
-        status_code = next(
-            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
-        return {
-            'created': self.created,
-            'updated': self.updated,
-            'compilers': compilers,
-            'editors': editors,
-            'code': self.code,
-            'configurations': [
-                conf.code for conf in self.configurations.all()],
-            'translations': [
-                t.language for t in self.questionnairetranslation_set.all()],
-            'status': (status_code[1], status[1])
-        }
+        return dict(self._get_metadata())
+
+    def _get_metadata(self):
+        # Access the property first, then the model field.
+        for key in settings.QUESTIONNAIRE_METADATA_KEYS:
+            yield key, getattr(self, '{}_property'.format(key),
+                               getattr(self, key))
 
     def add_link(self, questionnaire, symm=True):
         """
@@ -659,6 +637,42 @@ class Questionnaire(models.Model):
         else:
             return WARNING, _(u"This questionnaire is "
                               u"locked for editing by {}.".format(self.blocked))
+
+    # Properties for the get_metadata function.
+
+    def _get_role_list(self, role):
+        members = []
+        for member in self.members.filter(questionnairemembership__role=role):
+            members.append({
+                'id': member.id,
+                'name': str(member),
+            })
+        return members
+
+    @cached_property
+    def editors(self):
+        return self._get_role_list(settings.QUESTIONNAIRE_EDITOR)
+
+    @cached_property
+    def compilers(self):
+        return self._get_role_list(settings.QUESTIONNAIRE_COMPILER)
+
+    @cached_property
+    def status_property(self):
+        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
+        status_code = next(
+            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
+        return status_code[1], status[1]
+
+    @cached_property
+    def configurations_property(self):
+        return list(self.configurations.values_list('code', flat=True))
+
+    @cached_property
+    def translations(self):
+        return list(self.questionnairetranslation_set.values_list(
+            'language', flat=True
+        ))
 
 
 class QuestionnaireConfiguration(models.Model):
@@ -800,6 +814,14 @@ class File(models.Model):
             'uid': str(file_object.uuid),
             'url': file_object.get_url(),
         }
+        file_path, file_name = get_file_path(file_object)
+        folder_structure = get_upload_folder_structure(file_object.uuid)
+        if folder_structure:
+            relative_path = join(*folder_structure)
+            file_data.update({
+                'absolute_path': file_path,
+                'relative_path': join(relative_path, file_name),
+            })
         return file_data
 
     @staticmethod

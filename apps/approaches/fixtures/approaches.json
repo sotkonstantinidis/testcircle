@@ -3147,7 +3147,7 @@
             "en": "Videos of the Approach"
           },
           "helptext": {
-            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link (provide the code used to embed the video - see <a href=\"https://support.google.com/youtube/answer/171780?hl=en\" target=\"_blank\" class=\"link\">https://support.google.com/youtube/answer/171780?hl=en</a>) and a short description for each file in the table below."
+            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each file in the table below."
           },
           "numbering": "2.4"
         }
@@ -7233,10 +7233,19 @@
                             "keyword": "image_caption"
                           },
                           {
-                            "keyword": "image_date_location"
+                            "keyword": "image_date"
+                          },
+                          {
+                            "keyword": "image_location"
                           },
                           {
                             "keyword": "image_photographer"
+                          },
+                          {
+                            "keyword": "image_target",
+                            "form_options": {
+                              "template": "no_label"
+                            }
                           }
                         ]
                       }
@@ -7249,7 +7258,7 @@
                         "keyword": "qg_name",
                         "form_options": {
                           "template": "columns_custom",
-                          "layout": [["12"], ["8", "4"]]
+                          "columns_custom": [["12"], ["8", "4"]]
                         },
                         "questions": [
                           {
@@ -7264,6 +7273,14 @@
                           },
                           {
                             "keyword": "name_local_language"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_import",
+                        "questions": [
+                          {
+                            "keyword": "import_old_code"
                           }
                         ]
                       }
@@ -7517,7 +7534,10 @@
                             "keyword": "image_caption"
                           },
                           {
-                            "keyword": "image_date_location"
+                            "keyword": "image_date"
+                          },
+                          {
+                            "keyword": "image_location"
                           },
                           {
                             "keyword": "image_photographer"
@@ -7534,9 +7554,6 @@
                         "form_options": {
                           "max_num": 3
                         },
-                        "view_options": {
-                          "template": "video_questiongroup"
-                        },
                         "questions": [
                           {
                             "keyword": "video_link"
@@ -7545,7 +7562,10 @@
                             "keyword": "video_description"
                           },
                           {
-                            "keyword": "video_date_location"
+                            "keyword": "video_date"
+                          },
+                          {
+                            "keyword": "video_location"
                           },
                           {
                             "keyword": "video_videographer"

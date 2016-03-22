@@ -188,12 +188,12 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Date and location"
+            "en": "Date"
           }
         },
         "approaches": {
           "label": {
-            "en": "Date and location"
+            "en": "Date"
           }
         }
       }
@@ -290,6 +290,25 @@
     },
     "model": "configuration.translation",
     "pk": 5014
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Location"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Location"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5015
   },
   {
     "fields": {
@@ -746,12 +765,12 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Date and location"
+            "en": "Date"
           }
         },
         "technologies": {
           "label": {
-            "en": "Date and location"
+            "en": "Date"
           }
         }
       }
@@ -834,6 +853,44 @@
     },
     "model": "configuration.translation",
     "pk": 5043
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Location"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Location"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5044
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": ""
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": ""
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5045
   },
   {
     "fields": {
@@ -5874,10 +5931,10 @@
   },
   {
     "fields": {
-      "keyword": "image_date_location",
+      "keyword": "image_date",
       "translation": 5009,
       "configuration": {
-        "type": "char"
+        "type": "date"
       }
     },
     "model": "configuration.key",
@@ -5893,6 +5950,17 @@
     },
     "model": "configuration.key",
     "pk": 10
+  },
+  {
+    "fields": {
+      "keyword": "image_target",
+      "translation": 5010,
+      "configuration": {
+        "type": "hidden"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 44
   },
   {
     "fields": {
@@ -5937,6 +6005,17 @@
     },
     "model": "configuration.key",
     "pk": 14
+  },
+  {
+    "fields": {
+      "keyword": "image_location",
+      "translation": 5015,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 15
   },
   {
     "fields": {
@@ -6182,7 +6261,10 @@
       "keyword": "video_link",
       "translation": 5037,
       "configuration": {
-        "type": "link_video"
+        "type": "char",
+        "view_options": {
+          "template": "link"
+        }
       }
     },
     "model": "configuration.key",
@@ -6201,10 +6283,10 @@
   },
   {
     "fields": {
-      "keyword": "video_date_location",
+      "keyword": "video_date",
       "translation": 5039,
       "configuration": {
-        "type": "char"
+        "type": "date"
       }
     },
     "model": "configuration.key",
@@ -6262,6 +6344,31 @@
     },
     "model": "configuration.key",
     "pk": 43
+  },
+  {
+    "fields": {
+      "keyword": "video_location",
+      "translation": 5044,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "keyword": "import_old_code",
+      "translation": 5045,
+      "configuration": {
+        "type": "hidden",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 46
   },
   {
     "fields": {
@@ -8614,6 +8721,15 @@
     },
     "model": "configuration.questiongroup",
     "pk": 18
+  },
+  {
+    "fields": {
+      "keyword": "qg_import",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 19
   },
   {
     "fields": {

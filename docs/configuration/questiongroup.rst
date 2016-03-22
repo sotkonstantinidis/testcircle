@@ -164,13 +164,15 @@ form representation of the question.
     .. seealso::
         :doc:`/configuration/question`
 
-  * ``layout`` (str or list): General layout indications for the layout of the
+  * ``layout`` (str): General layout indications for the layout of the
     questiongroup inside the subcategory. This depends a lot on the subcategory
     template. Known values are for example "before_table" used in template
     "questionnaire/templates/form/subcategory/table_input.html" or
     "no_label_row" for tables.
-    For template "columns_custom", this can also be a nested list indicating the
-    distribution of the columns, eg. [["12"], ["8", "4"]]
+
+  * ``columns_custom`` (list): A nested list indicating the distribution of the
+    columns, eg. [["12"], ["8", "4"]]. This is valid for template
+    "columns_custom".
 
   * ``user_role`` (str): A specific configuration used only for template
     ``select_user``.

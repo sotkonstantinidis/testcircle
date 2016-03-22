@@ -4,7 +4,7 @@
   Depends on the form_option "layout", which needs to be a nested list
   specifying the column distribution of the questions.
 
-  Example: "form_options": {"layout": [["12"], ["8", "4"]]}
+  Example: "form_options": {"columns_custom": [["12"], ["8", "4"]]}
 
     This renders 3 questions, the first covering an entire row and the other two
   on the same row, the second question will be 8 columns wide and the third will
@@ -50,19 +50,18 @@
     {% endif %}
 
     <div class="list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
-      {% for columns in config.layout %}
+      {% for columns in config.columns_custom %}
         <div class="row single-item">
           {% for column in columns %}
             <div class="columns medium-{{ column }}">
-              {% with ccc=forloop.counter0|add:forloop.parentloop.counter0 %}
-                {% with field=qg_form.visible_fields|get_by_index:ccc %}
-                  {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
-                    {% if template %}
-                      {% formrow field using template %}
-                    {% else %}
-                      {% formrow field using "form/question/default.html" %}
-                    {% endif %}
-                  {% endwith %}
+              {% nested_counter config.columns_custom forloop.counter0 forloop.parentloop.counter0 as ncounter %}
+              {% with field=qg_form.visible_fields|get_by_index:ncounter %}
+                {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+                  {% if template %}
+                    {% formrow field using template %}
+                  {% else %}
+                    {% formrow field using "form/question/default.html" %}
+                  {% endif %}
                 {% endwith %}
               {% endwith %}
             </div>

@@ -28,15 +28,12 @@
       {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
     {% endif %}
   {% endfor %}
-  {% for questiongroup_config, questiongroup_formset in formsets %}
-    {% if questiongroup_config.keyword in config.table_grouping.0 %}
-      {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
-    {% endif %}
-  {% endfor %}
   <table>
     <thead>
       <tr>
-        <th></th>
+        {% if config.layout != 'no_label_row' %}
+          <th></th>
+        {% endif %}
         {% for header in config.table_headers %}
           <th>
             {% with helptext=config.table_helptexts|get_by_index:forloop.counter0 %}
@@ -54,17 +51,21 @@
       {% for questiongroup_config, questiongroup_formset in formsets %}
         {% if questiongroup_config.keyword in config.table_grouping.0 %}
           {{ questiongroup_formset.management_form }}
-          {% for f in questiongroup_formset.forms %}
+          {% for qg_form in questiongroup_formset.forms %}
             <tr>
               {% if questiongroup_config.layout != 'no_label_row' %}
                 <td>
-                  {{ questiongroup_config.label }}
-                  {% if f.visible_fields|length == 3 %}
+                  {% if questiongroup_config.helptext %}
+                    <span class="has-tip left" title="{{ questiongroup_config.helptext }}" aria-haspopup="true" data-tooltip="">{{ questiongroup_config.label }}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
+                  {% else %}
+                    {{ questiongroup_config.label }}
+                  {% endif %}
+                  {% if qg_form.visible_fields|length == 3 %}
                     </td><td>
                   {% endif %}
                 </td>
               {% endif %}
-              {% for field in f.visible_fields %}
+              {% for field in qg_form.visible_fields %}
                 <td>
                   {% formrow field using "form/question/no_label.html" %}
                 </td>

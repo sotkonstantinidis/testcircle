@@ -49,6 +49,11 @@ class QuestionnaireTest(FunctionalTest):
             route_questionnaire_new_step, kwargs={
                 'identifier': 'new', 'step': get_categories()[0][0]}))
 
+        # The script to set the focus point for the image is loaded, and the
+        # hidden field is in the DOM.
+        self.browser.execute_script("return $.addFocusPoint();")
+        self.findBy('id', 'id_qg_image-0-image_target')
+
         self.findBy('id', 'button-submit').click()
         progress_indicators = self.findManyBy(
             'xpath', '//div[@class="tech-section-progress progress"]')

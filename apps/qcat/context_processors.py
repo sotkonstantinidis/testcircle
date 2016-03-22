@@ -1,8 +1,11 @@
 from django.conf import settings
 
 
-def warn_header(request):
+def template_settings(request):
     """
-    Put the text from the env var into the template.
+    Put selected setting variables to the template.
     """
-    return {'WARN_HEADER': settings.WARN_HEADER}
+    return {
+        'WARN_HEADER': settings.WARN_HEADER,
+        'PIWIK_SITE_ID': settings.PIWIK_SITE_ID
+    }
