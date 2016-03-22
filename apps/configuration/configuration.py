@@ -1919,8 +1919,11 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             - ``caption``: The caption of the image. Corresponds to
               field ``image_caption``.
 
-            - ``date_location``: The date and location of the image.
-              Corresponds to field ``image_date_location``.
+            - ``date``: The date of the image. Corresponds to field
+              ``image_date``.
+
+            - ``location``: The location of the image. Corresponds to field
+              ``image_date``.
 
             - ``photographer``: The photographer of the image.
               Corresponds to field ``image_photographer``.
@@ -1946,7 +1949,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 'interchange': image_data.get('interchange'),
                 'interchange_list': image_data.get('interchange_list'),
                 'caption': image.get('image_caption'),
-                'date_location': image.get('image_date_location'),
+                'date': image.get('image_date'),
+                'location': image.get('image_location'),
                 'photographer': image.get('image_photographer'),
                 'absolute_path': image_data.get('absolute_path'),
                 'relative_path': image_data.get('relative_path'),
