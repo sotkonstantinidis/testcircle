@@ -10,7 +10,7 @@
       <ul class="list-gallery small-block-grid-1">
         <li>
           <div class="list-gallery-item without-label">
-            {{ field }}
+            {% widget field %}
             <label for="{{ field|id }}">
               <figure class="list-gallery-icon">
                 <img src="{% static 'assets/img/landuse_empty.png' %}">
@@ -22,6 +22,6 @@
     </div>
   </div>
   {% if options.helptext %}
-    {% include "form/helptext.html" with helptext=options.helptext %}
+    {% include "form/helptext.html" with helptext=options.helptext helptext_length=options.helptext_length %}
   {% endif %}
 {% endwith %}

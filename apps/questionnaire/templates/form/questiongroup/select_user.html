@@ -24,10 +24,10 @@
   {% endif %}
 
   {% if config.label %}
-    <h4>{{ config.label }}</h4>
+    <{{ config.label_tag|default:"h4" }} class="{% if config.label_class %}{{ config.label_class }}{% endif %}">{{ config.label }}</{{ config.label_tag|default:"h4" }}>
   {% endif %}
 
-  {% include "form/helptext.html" with helptext=config.helptext %}
+  {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
 
   {{ formset.management_form }}
 
@@ -35,82 +35,94 @@
     {% form form using %}
       {% for f in formset.forms %}
 
-        {% if config.numbered == 'prefix' %}
-          <div class="row">
-            <div class="questiongroup-numbered-left">
-              <p class="questiongroup-numbered-number"></p><span class="has-tip" title="{% trans 'Drag and drop the number to order the list' %}" aria-haspopup="true" data-tooltip="">?</span>
-            </div>
-          <div class="questiongroup-numbered-right">
-        {% endif %}
+        <div class="row list-item{% if config.row_class %} {{ config.row_class }}{% endif %}{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
 
-        <div class="row list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
-          <ul class="tabs form-user-tabs" data-tab>
-            <li class="tab-title active"><a href="#form-user-tab-select" class="show-tab-select">{% trans "Registered User" %}</a></li>
-            <li class="tab-title"><a href="#form-user-tab-create" class="show-tab-create">{% trans "Non-registered Person" %}</a></li>
-          </ul>
-          <div class="tabs-content form-user-tabs-content">
-            <div class="content active form-user-tab-select">
-              <div class="form-user-search-loading">{% trans "Loading ..." %}</div>
-              <div class="form-user-search">
-                <span>{% trans "Search a registered WOCAT user" %}</span>
-                <input type="search" class="user-search-field" placeholder="{% trans 'Search' %}" data-translation-no-results="{% trans 'No results found' %}" data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}" data-search-url="{% url 'user_search' %}" data-update-url="{% url 'user_update' %}">
+          <div class="small-12 columns">
+
+            {# The first 3 questions (type and other + hidden id) are rendered before the tabs #}
+            {% for field in f.visible_fields %}
+              {% if forloop.counter <= 3 %}
+                {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+                  {% if template %}
+                    {% formrow field using template %}
+                  {% else %}
+                    {% formrow field using "form/question/default.html" %}
+                  {% endif %}
+                {% endwith %}
+              {% endif %}
+            {% endfor %}
+
+            <ul class="tabs form-user-tabs" data-tab>
+              <li class="tab-title active"><a href="#form-user-tab-select" class="show-tab-select">{% trans "Registered User" %}</a></li>
+              <li class="tab-title"><a href="#form-user-tab-create" class="show-tab-create">{% trans "Non-registered Person" %}</a></li>
+            </ul>
+            <div class="tabs-content form-user-tabs-content">
+              <div class="content active form-user-tab-select">
+                <div class="form-user-search-loading">{% trans "Loading ..." %}</div>
+                <div class="form-user-search">
+                  <span>{% trans "Search a registered WOCAT user" %}</span>
+                  <input type="search" class="user-search-field" placeholder="{% trans 'Search' %}" data-translation-no-results="{% trans 'No results found' %}" data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}" data-search-url="{% url 'user_search' %}" data-update-url="{% url 'user_update' %}">
+                </div>
+                <div class="form-user-selected"></div>
+                <p class="form-user-search-error text-warning hide"></p>
               </div>
-              <div class="form-user-selected"></div>
-              <p class="form-user-search-error text-warning hide"></p>
-            </div>
-            <div class="content form-user-tab-create">
-              {% for field in f.visible_fields %}
+              <div class="content form-user-tab-create">
 
-                {% if forloop.counter == 3 %}
-                  <div class="row single-item">
-                {% elif forloop.counter == 6 or forloop.counter == 7 %}
-                  <div class="row single-item">
-                {% elif forloop.counter >= 8 and forloop.counter|divisibleby:2 %}
-                  <div class="row single-item">
-                {% endif %}
+                {% for field in f.visible_fields %}
 
-                {% if forloop.counter >= 3 and forloop.counter <= 5 %}
-                  <div class="small-4 columns">
-                {% elif forloop.counter == 6 or forloop.counter == 7 %}
-                  <div class="small-12 columns">
-                {% else %}
-                  <div class="small-6 columns">
-                {% endif %}
-                  {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
-                  {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
-                    {% if template %}
-                      {% formrow field using template %}
-                    {% else %}
-                      {% formrow field using "form/question/default.html" %}
+                  {% if forloop.counter >= 4 %}
+
+                    {% if forloop.counter == 4 %}
+                      <div class="row single-item">
+                    {% elif forloop.counter == 7 or forloop.counter == 8 %}
+                      <div class="row single-item">
+                    {% elif forloop.counter >= 9 and not forloop.counter|divisibleby:2 %}
+                      <div class="row single-item">
                     {% endif %}
-                  {% endwith %}
 
-                {% if forloop.counter >= 3 and forloop.counter <= 5 %}
-                  </div>
-                {% else %}
-                  </div>
-                {% endif %}
+                    {% if forloop.counter >= 4 and forloop.counter <= 6 %}
+                      <div class="small-4 columns">
+                    {% elif forloop.counter == 7 or forloop.counter == 8 %}
+                      <div class="small-12 columns">
+                    {% else %}
+                      <div class="small-6 columns">
+                    {% endif %}
 
-                {% if forloop.counter == 5 %}
-                  </div>
-                {% elif forloop.counter == 6 or forloop.counter == 7 %}
-                  </div>
-                {% elif forloop.counter >= 9 and not forloop.counter|divisibleby:2 %}
-                  </div>
-                {% endif %}
-              {% endfor %}
+                    {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
+
+                    {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+                      {% if template %}
+                        {% formrow field using template %}
+                      {% else %}
+                        {% formrow field using "form/question/default.html" %}
+                      {% endif %}
+                    {% endwith %}
+
+                    {% if forloop.counter >= 4 and forloop.counter <= 6 %}
+                      </div>
+                    {% else %}
+                      </div>
+                    {% endif %}
+
+                    {% if forloop.counter == 6 %}
+                      </div>
+                    {% elif forloop.counter == 7 or forloop.counter == 8 %}
+                      </div>
+                    {% elif forloop.counter >= 10 and forloop.counter|divisibleby:2 %}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+              </div>
+            </div>
+            <div class="columns right">
+              <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
+              style="display: none;"{% endif %}>{% trans "Remove" %}</a>
             </div>
           </div>
-          <div class="columns right">
-            <a class="right list-item-action link is-{{ configuration_name }}" data-remove-this="" {% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %}
-            style="display: none;"{% endif %}>{% trans "Remove" %}</a>
-          </div>
-        </div>
 
-        {% if config.numbered == 'prefix' %}
-          </div>
         </div>
-        {% endif %}
 
       {% endfor %}
       {% if formset.max_num > formset.min_num %}

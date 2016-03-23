@@ -23,11 +23,11 @@ class BaseSettings(Configuration):
 
     # Application definition
     INSTALLED_APPS = (
+        'django.contrib.contenttypes',
         'grappelli.dashboard',
         'grappelli',
         'django.contrib.admin',
         'django.contrib.auth',
-        'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.sitemaps',
@@ -36,10 +36,13 @@ class BaseSettings(Configuration):
         'django_nose',
         'django_extensions',
         'django_filters',
+        'easy_thumbnails',
+        'easy_thumbnails.optimize',
         'floppyforms',
         'imagekit',
         'maintenancemode',
         'rest_framework',
+        'rest_framework_swagger',
         'sekizai',
         # Custom apps
         'accounts',
@@ -142,6 +145,7 @@ class BaseSettings(Configuration):
         "django.contrib.messages.context_processors.messages",
         'django.core.context_processors.request',
         'sekizai.context_processors.sekizai',
+        'qcat.context_processors.template_settings'
     )
 
     AUTH_USER_MODEL = 'accounts.User'
@@ -185,12 +189,21 @@ class BaseSettings(Configuration):
             'rest_framework_xml.parsers.XMLParser',
         ),
         'DEFAULT_RENDERER_CLASSES': (
-            'rest_framework.renderers.BrowsableAPIRenderer',
             'rest_framework.renderers.JSONRenderer',
             'rest_framework_xml.renderers.XMLRenderer',
             'rest_framework_csv.renderers.CSVRenderer',
         ),
+        'DEFAULT_THROTTLE_RATES': {
+            'anon': '10/day',
+        },
+        'PAGE_SIZE': 25,
     }
+    SWAGGER_SETTINGS = {
+        'api_version': '0.1',
+        'doc_expansion': 'list',
+        'exclude_namespaces': ['api-root'],
+    }
+    API_PAGE_SIZE = values.IntegerValue(default=25, environ_prefix='')
 
     DATABASES = values.DatabaseURLValue()
 
@@ -236,6 +249,17 @@ class BaseSettings(Configuration):
     OPBEAT_ORGANIZATION_ID = values.Value(environ_prefix='')
     OPBEAT_APP_ID = values.Value(environ_prefix='')
     OPBEAT_SECRET_TOKEN = values.Value(environ_prefix='')
-    OPBEAT_ORGANIZATION_URL = values.Value(environ_prefix='')
+
+    # Settings for automated deploy with fabric.
+    OPBEAT_BEARER_DEV = values.Value(environ_prefix='')
+    OPBEAT_BEARER_LIVE = values.Value(environ_prefix='')
+
+    OPBEAT_URL_DEV = values.Value(environ_prefix='')
+    OPBEAT_URL_LIVE = values.Value(environ_prefix='')
 
     HOST_STRING_DEV = values.Value(environ_prefix='')
+    HOST_STRING_LIVE = values.Value(environ_prefix='')
+
+    WARN_HEADER = values.Value(environ_prefix='')
+
+    PIWIK_SITE_ID = values.IntegerValue(environ_prefix='', default=None)

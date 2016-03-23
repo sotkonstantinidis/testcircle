@@ -5,7 +5,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Common name"
+            "en": "Name"
           }
         },
         "technologies": {
@@ -58,12 +58,12 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Local name (with language)"
+            "en": "Local name"
           }
         },
         "technologies": {
           "label": {
-            "en": "Local name (with language)"
+            "en": "Local name"
           }
         },
         "unccd": {
@@ -106,12 +106,12 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Region / State / Province"
+            "en": "Region/ State/ Province"
           }
         },
         "technologies": {
           "label": {
-            "en": "Region / State / Province"
+            "en": "Region/ State/ Province"
           }
         }
       }
@@ -125,12 +125,15 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Further specification of location (e.g. district / commune)"
+            "en": "Further specification of location (e.g. municipality, town, etc.), if relevant"
+          },
+          "label_view": {
+            "en": "Further specification of location"
           }
         },
         "technologies": {
           "label": {
-            "en": "Further specification of location (e.g. district / commune)"
+            "en": "Further specification of location (e.g. municipality, town, etc.), if relevant"
           },
           "label_view": {
             "en": "Further specification of location"
@@ -185,12 +188,12 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Date and location"
+            "en": "Date"
           }
         },
         "approaches": {
           "label": {
-            "en": "Date and location"
+            "en": "Date"
           }
         }
       }
@@ -235,14 +238,14 @@
     "fields": {
       "translation_type": "key",
       "data": {
-        "technologies": {
-          "label": {
-            "en": "Name of project/institution which funded the documentation/evaluation of the SLM technology (if relevant)"
-          }
-        },
         "approaches": {
           "label": {
-            "en": "Name of project/institution which funded the documentation/evaluation of the SLM approach (if relevant)"
+            "en": "Name of project/ institution which funded the documentation/ evaluation of the Approach (if relevant)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of project/ institution which funded the documentation/ evaluation of the Technology (if relevant)"
           }
         }
       }
@@ -254,20 +257,14 @@
     "fields": {
       "translation_type": "key",
       "data": {
-        "technologies": {
-          "label": {
-            "en": "The editor and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
-          },
-          "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through the WOCAT</strong></p><ul><li>Data captured with WOCAT questionnaires will be entered and stored in the WOCAT online database by the editor or adata entry person assigned by the editor. Yet, the editor is responsible for compilation and the data quality. The editor,the resource persons and the data entry person will be recorded and will be given credit for the data in the database aswell as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data is made available for users under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 UnportedLicense (<a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/3.0/</a>)</li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the samelicense as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others fromdoing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
-          }
-        },
         "approaches": {
           "label": {
-            "en": "The editor and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
-          },
-          "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through the WOCAT</strong></p><ul><li>Data captured with WOCAT questionnaires will be entered and stored in the WOCAT online database by the editor or adata entry person assigned by the editor. Yet, the editor is responsible for compilation and the data quality. The editor,the resource persons and the data entry person will be recorded and will be given credit for the data in the database aswell as in any compilation or publication of the documented approach.</li><li>Data stored in the WOCAT database are open access.</li><li>Data is made available for users under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 UnportedLicense (<a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/3.0/</a>)</li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the samelicense as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others fromdoing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
           }
         }
       }
@@ -300,12 +297,12 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Registered user"
+            "en": "Location"
           }
         },
         "technologies": {
           "label": {
-            "en": "Registered user"
+            "en": "Location"
           }
         }
       }
@@ -319,7 +316,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Lastname / surname"
+            "en": "Last name"
           }
         },
         "technologies": {
@@ -540,6 +537,360 @@
     },
     "model": "configuration.translation",
     "pk": 5027
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Key resource person type"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Key resource person type"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5028
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Other (specify)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Other (specify)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5029
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the land user’s view"
+          },
+          "helptext": {
+            "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the land user’s view"
+          },
+          "helptext": {
+            "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5030
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the compiler’s or other key resource person’s view"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the compiler’s or other key resource person’s view"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5031
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the land user’s view"
+          },
+          "helptext": {
+            "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the land user’s view"
+          },
+          "helptext": {
+            "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5032
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource person’s view"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource person’s view"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5033
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "How can they be overcome?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "How can they be overcome?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5034
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Date of documentation (in the field)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Date of documentation (in the field)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5035
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Language"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Language"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5036
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Link"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Link"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5037
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Comments, short description"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Comments, short description"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5038
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Date"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Date"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5039
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of videographer"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of videographer"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5040
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Which of the following methods/ sources of information were used?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Which of the following methods/ sources of information were used?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5041
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify (number of informants, documents, etc.)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Specify (number of informants, documents, etc.)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5042
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "other (specify)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "other (specify)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5043
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Location"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Location"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5044
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": ""
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": ""
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5045
   },
   {
     "fields": {
@@ -4997,6 +5348,183 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "land user"
+          },
+          "helptext": {
+            "en": "the person/ entity who implements/ maintains the Technology(ies). The term land user may refer to individual small-/ large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "land user"
+          },
+          "helptext": {
+            "en": "the person/ entity who implements/ maintains the Technology(ies). The term land user may refer to individual small-/ large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5764
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "SLM specialist/ technical advisor"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "SLM specialist/ technical advisor"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5765
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "increase"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "increase"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5766
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "decrease"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "decrease"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5767
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "field visits, field surveys"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "field visits, field surveys"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5768
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "interviews with land users"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "interviews with land users"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5769
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "interviews with SLM specialists/ experts"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "interviews with SLM specialists/ experts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5770
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "compilation from reports and other existing documentation"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "compilation from reports and other existing documentation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5771
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "helptext": {
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+          }
+        },
+        "technologies": {
+          "helptext": {
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5901
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "approaches": {
@@ -5403,10 +5931,10 @@
   },
   {
     "fields": {
-      "keyword": "image_date_location",
+      "keyword": "image_date",
       "translation": 5009,
       "configuration": {
-        "type": "char"
+        "type": "date"
       }
     },
     "model": "configuration.key",
@@ -5422,6 +5950,17 @@
     },
     "model": "configuration.key",
     "pk": 10
+  },
+  {
+    "fields": {
+      "keyword": "image_target",
+      "translation": 5010,
+      "configuration": {
+        "type": "hidden"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 44
   },
   {
     "fields": {
@@ -5469,10 +6008,10 @@
   },
   {
     "fields": {
-      "keyword": "user_display",
+      "keyword": "image_location",
       "translation": 5015,
       "configuration": {
-        "type": "user_display"
+        "type": "char"
       }
     },
     "model": "configuration.key",
@@ -5613,6 +6152,223 @@
     },
     "model": "configuration.key",
     "pk": 27
+  },
+  {
+    "fields": {
+      "keyword": "user_resourceperson_type",
+      "translation": 5028,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        264,
+        265
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "keyword": "user_resourceperson_other",
+      "translation": 5029,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "keyword": "strengths_landuser",
+      "translation": 5030,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "keyword": "strengths_compiler",
+      "translation": 5031,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "keyword": "weaknesses_landuser",
+      "translation": 5032,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "keyword": "weaknesses_compiler",
+      "translation": 5033,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "keyword": "weaknesses_overcome",
+      "translation": 5034,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "keyword": "date_documentation",
+      "translation": 5035,
+      "configuration": {
+        "type": "date"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "keyword": "name_local_language",
+      "translation": 5036,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "keyword": "video_link",
+      "translation": 5037,
+      "configuration": {
+        "type": "char",
+        "view_options": {
+          "template": "link"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "keyword": "video_description",
+      "translation": 5038,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "keyword": "video_date",
+      "translation": 5039,
+      "configuration": {
+        "type": "date"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "keyword": "video_videographer",
+      "translation": 5040,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "keyword": "sources_used",
+      "translation": 5041,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        268,
+        269,
+        270,
+        271
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "keyword": "sources_specify",
+      "translation": 5042,
+      "configuration": {
+        "type": "text",
+        "view_options": {
+          "label_position": "none"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "keyword": "sources_other",
+      "translation": 5043,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "keyword": "video_location",
+      "translation": 5044,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "keyword": "import_old_code",
+      "translation": 5045,
+      "configuration": {
+        "type": "hidden",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 46
   },
   {
     "fields": {
@@ -7691,7 +8447,7 @@
     "fields": {
       "keyword": "implemenation_50_plus",
       "translation": 5759,
-      "order_value": 1
+      "order_value": 3
     },
     "model": "configuration.value",
     "pk": 259
@@ -7709,7 +8465,7 @@
     "fields": {
       "keyword": "implemenation_less_10",
       "translation": 5761,
-      "order_value": 3
+      "order_value": 1
     },
     "model": "configuration.value",
     "pk": 261
@@ -7731,6 +8487,78 @@
     },
     "model": "configuration.value",
     "pk": 263
+  },
+  {
+    "fields": {
+      "keyword": "resourceperson_landuser",
+      "translation": 5764,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 264
+  },
+  {
+    "fields": {
+      "keyword": "resourceperson_slmspecialist",
+      "translation": 5765,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 265
+  },
+  {
+    "fields": {
+      "keyword": "increase",
+      "translation": 5766,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 266
+  },
+  {
+    "fields": {
+      "keyword": "decrease",
+      "translation": 5767,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 267
+  },
+  {
+    "fields": {
+      "keyword": "source_field",
+      "translation": 5768,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 268
+  },
+  {
+    "fields": {
+      "keyword": "source_interviews_landusers",
+      "translation": 5769,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 269
+  },
+  {
+    "fields": {
+      "keyword": "source_interviews_experts",
+      "translation": 5770,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 270
+  },
+  {
+    "fields": {
+      "keyword": "source_compilation",
+      "translation": 5771,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 271
   },
   {
     "fields": {
@@ -7780,7 +8608,7 @@
   {
     "fields": {
       "keyword": "qg_accept_conditions",
-      "translation": null,
+      "translation": 5901,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7794,6 +8622,114 @@
     },
     "model": "configuration.questiongroup",
     "pk": 7
+  },
+  {
+    "fields": {
+      "keyword": "qg_strengths_landusers",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "keyword": "qg_strengths_compiler",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "keyword": "qg_weaknesses_landusers",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "keyword": "qg_weaknesses_compiler",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "keyword": "qg_videos",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_field",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_interviews_landusers",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_interviews_experts",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_compilation",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "keyword": "qg_sources_other",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "keyword": "qg_import",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 19
   },
   {
     "fields": {

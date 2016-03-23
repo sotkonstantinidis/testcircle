@@ -6,18 +6,38 @@ class DevMixin:
     TEMPLATE_DEBUG = values.BooleanValue(True)
     CACHES = values.CacheURLValue('dummy://')
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    THUMBNAIL_DEBUG = True
+
+
+class DebugToolbarMixin:
+    """
+    Not used by default, as it slows down request massively. Use this when
+    debugging questionnaires.
+    """
+    @property
+    def INSTALLED_APPS(self):
+        return super().INSTALLED_APPS + (
+            'debug_toolbar',
+        )
 
 
 class ProdMixin:
     DEBUG = values.BooleanValue(False)
     TEMPLATE_DEBUG = values.BooleanValue(False)
 
+    # Image postprocessors for uploaded images; optimize images.
+    THUMBNAIL_OPTIMIZE_COMMAND = {
+        'png': '/usr/bin/optipng {filename}',
+        'gif': '/usr/bin/optipng {filename}',
+        'jpeg': '/usr/bin/jpegoptim {filename}'
+    }
+
 
 class SecurityMixin:
     # Security settings, as recommended from manage.py check --deploy
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = 'DENY'
-    # It is recommended to set the max-age to a big value like 12/24 months
+    # Set the max-age to 12 months
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_CONTENT_TYPE_NOSNIFF = True

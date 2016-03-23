@@ -1,45 +1,59 @@
+import contextlib
 import json
+from os.path import join
 from uuid import uuid4
-from django.conf import settings
+
+from django.contrib.auth import get_user_model
 from django.contrib.gis.db import models
+from django.contrib.messages import WARNING, SUCCESS
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
+from django.db.models import Q
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
-from itertools import chain
 
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+from .conf import settings
+from .errors import QuestionnaireLockedException
+from .querysets import StatusQuerySet
 
+from questionnaire.upload import (
+    create_thumbnails,
+    get_url_by_file_name,
+    get_file_path,
+    store_file,
+    get_upload_folder_structure)
 
 STATUSES = (
-    (1, _('Draft')),
-    (2, _('Submitted')),
-    (3, _('Reviewed')),
-    (4, _('Public')),
-    (5, _('Rejected')),
-    (6, _('Inactive')),
+    (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
+    (settings.QUESTIONNAIRE_SUBMITTED, _('Submitted')),
+    (settings.QUESTIONNAIRE_REVIEWED, _('Reviewed')),
+    (settings.QUESTIONNAIRE_PUBLIC, _('Public')),
+    (settings.QUESTIONNAIRE_REJECTED, _('Rejected')),
+    (settings.QUESTIONNAIRE_INACTIVE, _('Inactive')),
 )
 STATUSES_CODES = (
-    (1, 'draft'),
-    (2, 'submitted'),
-    (3, 'reviewed'),
-    (4, 'public'),
-    (5, 'rejected'),
-    (6, 'inactive'),
+    (settings.QUESTIONNAIRE_DRAFT, 'draft'),
+    (settings.QUESTIONNAIRE_SUBMITTED, 'submitted'),
+    (settings.QUESTIONNAIRE_REVIEWED, 'reviewed'),
+    (settings.QUESTIONNAIRE_PUBLIC, 'public'),
+    (settings.QUESTIONNAIRE_REJECTED, 'rejected'),
+    (settings.QUESTIONNAIRE_INACTIVE, 'inactive'),
 )
 
 QUESTIONNAIRE_ROLES = (
     # Functional roles
-    ('compiler', _('Compiler')),
-    ('editor', _('Editor')),
-    ('reviewer', _('Reviewer')),
-    ('publisher', _('Publisher')),
+    (settings.QUESTIONNAIRE_COMPILER, _('Compiler')),
+    (settings.QUESTIONNAIRE_EDITOR, _('Editor')),
+    (settings.QUESTIONNAIRE_REVIEWER, _('Reviewer')),
+    (settings.QUESTIONNAIRE_PUBLISHER, _('Publisher')),
     # Content roles only, no privileges attached
-    ('landuser', _('Land User')),
-    ('resourceperson', _('Key resource person')),
+    (settings.QUESTIONNAIRE_LANDUSER, _('Land User')),
+    (settings.QUESTIONNAIRE_RESOURCEPERSON, _('Key resource person')),
 )
 
 
@@ -55,7 +69,11 @@ class Questionnaire(models.Model):
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
-    blocked = models.BooleanField(default=False)
+    blocked = models.ForeignKey(
+        settings.AUTH_USER_MODEL, blank=True, null=True,
+        related_name='blocks_questionnaire',
+        help_text=_(u"Set with the method: lock_questionnaire.")
+    )
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
     members = models.ManyToManyField(
@@ -66,6 +84,9 @@ class Questionnaire(models.Model):
         'self', through='QuestionnaireLink', symmetrical=False,
         related_name='linked_to+')
 
+    objects = models.Manager()
+    with_status = StatusQuerySet.as_manager()
+
     class Meta:
         ordering = ['-updated']
         permissions = (
@@ -74,10 +95,30 @@ class Questionnaire(models.Model):
         )
 
     def get_absolute_url(self):
-        return reverse(
-            'questionnaire_view_details', kwargs={'identifier': self.code})
+        """
+        Try to resolve the proper code for the object, using it as namespace.
 
-    def update_data(self, data, updated, configuration_code):
+        If some day, the configurations code is not the exact same string as
+        the application name, a 'mapping' dict is required.
+
+        Returns:
+            string: detail url of the questionnaire.
+        """
+        conf = self.configurations.filter(
+            active=True
+        ).exclude(
+            code=''
+        ).only(
+            'code'
+        )
+        if conf.exists() and conf.count() == 1:
+            with contextlib.suppress(NoReverseMatch):
+                return reverse('{app_name}:questionnaire_details'.format(
+                    app_name=conf.first().code
+                ), kwargs={'identifier': self.code})
+        return None
+
+    def update_data(self, data, updated, configuration_code, old_data=None):
         """
         Helper function to just update the data of the questionnaire
         without creating a new instance.
@@ -89,12 +130,23 @@ class Questionnaire(models.Model):
 
             ``configuration_code`` (str): The configuration code.
 
+            ``old_data`` (dict): The data dictionary containing the old data of
+            the questionnaire.
+
         Returns:
             ``Questionnaire``
         """
         self.data = data
         self.updated = updated
+        self.data_old = old_data
         self.save()
+        # Unblock all questionnaires with this code, as all questionnaires with
+        # this code are blocked for editing.
+        self._meta.model.objects.filter(
+            code=self.code
+        ).update(
+            blocked=None
+        )
 
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
@@ -104,7 +156,7 @@ class Questionnaire(models.Model):
     @staticmethod
     def create_new(
             configuration_code, data, user, previous_version=None, status=1,
-            created=None, updated=None):
+            created=None, updated=None, old_data=None):
         """
         Create and return a new Questionnaire.
 
@@ -128,6 +180,9 @@ class Questionnaire(models.Model):
             ``updated`` (datetime): A specific datetime object to be set
             as updated timestamp. Defaults to ``now`` if not set.
 
+            ``old_data`` (dict): The data dictionary containing the old data of
+            the questionnaire.
+
         Returns:
             ``questionnaire.models.Questionnaire``. The created
             Questionnaire.
@@ -150,18 +205,18 @@ class Questionnaire(models.Model):
                 raise ValidationError(
                     'You do not have permission to edit the questionnaire.')
 
-            if previous_version.status == 4:
+            if previous_version.status == settings.QUESTIONNAIRE_PUBLIC:
                 # Edit of a public questionnaire: Create new version
                 # with the same code
                 version = previous_version.version + 1
 
-            elif previous_version.status == 1:
+            elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
-            elif previous_version.status == 2:
+            elif previous_version.status == settings.QUESTIONNAIRE_SUBMITTED:
                 # Edit of a submitted questionnaire: Only update the data
                 # User must be reviewer!
                 if 'review_questionnaire' not in permissions:
@@ -169,10 +224,10 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
-            elif previous_version.status == 3:
+            elif previous_version.status == settings.QUESTIONNAIRE_REVIEWED:
                 # Edit of a reviewed questionnaire: Only update the data
                 # User must be publisher!
                 if 'publish_questionnaire' not in permissions:
@@ -180,7 +235,7 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(
-                    data, updated, configuration_code)
+                    data, updated, configuration_code, old_data=old_data)
                 return previous_version
 
             else:
@@ -214,12 +269,15 @@ class Questionnaire(models.Model):
 
         if previous_version:
             # Copy all the functional user roles from the old version
-            user_roles = ['compiler', 'editor', 'reviewer', 'publisher']
+            user_roles = [settings.QUESTIONNAIRE_COMPILER,
+                          settings.QUESTIONNAIRE_EDITOR,
+                          settings.QUESTIONNAIRE_REVIEWER,
+                          settings.QUESTIONNAIRE_PUBLISHER]
             for role in user_roles:
                 for old_user in previous_version.get_users_by_role(role):
                     questionnaire.add_user(old_user, role)
         else:
-            questionnaire.add_user(user, 'compiler')
+            questionnaire.add_user(user, settings.QUESTIONNAIRE_COMPILER)
         questionnaire.update_users_from_data(
             configuration_code)
 
@@ -250,30 +308,61 @@ class Questionnaire(models.Model):
             questionnaire object.
         """
         permissions = []
-        for role, user in self.get_users():
-            if current_user == user:
-                if role in ['compiler', 'editor'] and self.status in [1, 4]:
-                    permissions.append('edit_questionnaire')
-                if role in ['compiler'] and self.status in [1]:
-                    permissions.append('submit_questionnaire')
-                if role in ['reviewer'] and self.status in [2]:
-                    permissions.extend(
-                        ['edit_questionnaire', 'review_questionnaire'])
-                if role in ['publisher'] and self.status in [3]:
-                    permissions.extend(
-                        ['edit_questionnaire', 'publish_questionnaire'])
+        if not isinstance(current_user, get_user_model()):
+            return permissions
+
+        permission_groups = {
+            settings.QUESTIONNAIRE_COMPILER: [{
+                'status': [settings.QUESTIONNAIRE_DRAFT,
+                           settings.QUESTIONNAIRE_PUBLIC],
+                'permissions': ['edit_questionnaire']
+            }, {
+                'status': [settings.QUESTIONNAIRE_DRAFT],
+                'permissions': ['submit_questionnaire']
+            }],
+            settings.QUESTIONNAIRE_EDITOR: [{
+                'status': [settings.QUESTIONNAIRE_DRAFT,
+                           settings.QUESTIONNAIRE_PUBLIC],
+                'permissions': ['edit_questionnaire']
+            }],
+            settings.QUESTIONNAIRE_REVIEWER: [{
+                'status': [settings.QUESTIONNAIRE_SUBMITTED],
+                'permissions': ['edit_questionnaire', 'review_questionnaire']
+            }],
+            settings.QUESTIONNAIRE_PUBLISHER: [{
+                'status': [settings.QUESTIONNAIRE_REVIEWED],
+                'permissions': ['edit_questionnaire', 'publish_questionnaire']
+            }]
+        }
+        # Check if defined rules apply to user and set a list with all
+        # permissions
+        for member_role, user in self.get_users(user=current_user):
+            permission_group = permission_groups.get(member_role)
+            if not permission_group:
+                continue
+
+            for access_level in permission_group:
+                if self.status in access_level['status']:
+                    permissions.extend(access_level['permissions'])
 
         user_permissions = current_user.get_all_permissions()
         if ('questionnaire.review_questionnaire' in user_permissions
-                and self.status in [2]):
+                and self.status in [settings.QUESTIONNAIRE_SUBMITTED]):
             permissions.extend(['review_questionnaire', 'edit_questionnaire'])
         if ('questionnaire.publish_questionnaire' in user_permissions
-                and self.status in [3]):
+                and self.status in [settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
 
-        return list(set(permissions))
+        permissions = list(set(permissions))
 
-    def get_users(self):
+        # If questionnaire is blocked, remove 'edit' permissions.
+        if 'edit_questionnaire' in permissions and \
+                not self.can_edit(current_user):
+            permissions.remove('edit_questionnaire')
+
+        return permissions
+
+    def get_users(self, **kwargs):
         """
         Helper function to return the users of a questionnaire along
         with their role in this membership.
@@ -287,7 +376,7 @@ class Questionnaire(models.Model):
             - [1]: ``accounts.models.User``. The user object.
         """
         users = []
-        for membership in self.questionnairemembership_set.all():
+        for membership in self.questionnairemembership_set.filter(**kwargs):
             users.append((membership.role, membership.user))
         return users
 
@@ -361,8 +450,10 @@ class Questionnaire(models.Model):
         # the data dictionary (no functional user roles)
         previous_users = []
         for user_role, user in self.get_users():
-            if user_role not in [
-                    'compiler', 'editor', 'reviewer', 'publisher']:
+            if user_role not in [settings.QUESTIONNAIRE_COMPILER,
+                                 settings.QUESTIONNAIRE_EDITOR,
+                                 settings.QUESTIONNAIRE_REVIEWER,
+                                 settings.QUESTIONNAIRE_PUBLISHER]:
                 previous_users.append((user_role, user))
 
         # Check which users are new (in submitted_users but not in
@@ -389,36 +480,6 @@ class Questionnaire(models.Model):
         for removed_user in list(
                 set(previous_users) - set(previous_users_found)):
             self.remove_user(removed_user[1], removed_user[0])
-
-    def update_users_in_data(self, user):
-        """
-        Based on the links in the database, update the data dictionary
-        of the questionnaire. This usually happens after a user's
-        information (display name) changed.
-
-        Args:
-            ``user`` (accounts.models.User): The user to be updated in
-            the data dictionary.
-        """
-        configurations = self.configurations.all()
-
-        # Collect all the user fields of all configurations of the
-        # questionnaire
-        user_fields = []
-        for config in configurations:
-            questionnaire_configuration = get_configuration(config.code)
-            user_fields.extend(questionnaire_configuration.get_user_fields())
-
-        for user_field in user_fields:
-            user_data_list = self.data.get(user_field[0], [])
-            for user_data in user_data_list:
-                user_id = user_data.get(user_field[1])
-                if user_id and str(user_id) == str(user.id):
-                    updated_user_data = {}
-                    updated_user_data[user_field[2]] = user.get_display_name()
-                    user_data.update(updated_user_data)
-
-        self.save()
 
     def get_metadata(self):
         """
@@ -448,33 +509,13 @@ class Questionnaire(models.Model):
 
             * ``translations`` (list)
         """
-        compilers = []
-        editors = []
-        for compiler in self.members.filter(questionnairemembership__role='compiler'):
-            compilers.append({
-                'id': compiler.id,
-                'name': str(compiler),
-            })
-        for editor in self.members.filter(questionnairemembership__role='editor'):
-            editors.append({
-                'id': editor.id,
-                'name': str(editor),
-            })
-        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
-        status_code = next(
-            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
-        return {
-            'created': self.created,
-            'updated': self.updated,
-            'compilers': compilers,
-            'editors': editors,
-            'code': self.code,
-            'configurations': [
-                conf.code for conf in self.configurations.all()],
-            'translations': [
-                t.language for t in self.questionnairetranslation_set.all()],
-            'status': (status_code[1], status[1])
-        }
+        return dict(self._get_metadata())
+
+    def _get_metadata(self):
+        # Access the property first, then the model field.
+        for key in settings.QUESTIONNAIRE_METADATA_KEYS:
+            yield key, getattr(self, '{}_property'.format(key),
+                               getattr(self, key))
 
     def add_link(self, questionnaire, symm=True):
         """
@@ -529,6 +570,109 @@ class Questionnaire(models.Model):
 
     def __str__(self):
         return json.dumps(self.data)
+
+    @classmethod
+    def has_questionnaires_for_code(cls, code):
+        return cls.objects.filter(code=code).exists()
+
+    @classmethod
+    def get_editable_questionnaires(cls, code, user=None):
+        """
+        After internal discussion: 'blocking' of questionnaires should happen
+        for all items with the same code, not specific questionnaires only.
+
+        Args:
+            code: string
+            user: accounts.models.User
+
+        Returns:
+            queryset
+
+        """
+        qs = cls.objects.filter(code=code)
+        if user:
+            return qs.filter(Q(blocked__isnull=True) | Q(blocked=user))
+        else:
+            return qs.filter(blocked__isnull=True)
+
+    @classmethod
+    def lock_questionnaire(cls, code, user):
+        """
+        If the questionnaire is not locked, or locked by given user: lock the
+        questionnaire for this user - else raise an error.
+
+        Args:
+            code: string
+            user: accounts.models.User
+        """
+        editable_questionnaires = cls.get_editable_questionnaires(
+            code, user
+        )
+        if cls.has_questionnaires_for_code(code):
+            if not editable_questionnaires.exists():
+                raise QuestionnaireLockedException(
+                    cls.objects.filter(code=code).first().blocked
+                )
+            editable_questionnaires.exclude(
+                status=settings.QUESTIONNAIRE_PUBLIC
+            ).update(blocked=user)
+
+    def can_edit(self, user):
+        return self.has_questionnaires_for_code(
+            self.code) and self.get_editable_questionnaires(self.code, user)
+
+    def get_blocked_message(self, user):
+        """
+        The user that is locking the draft of the questionnaire.
+
+        Args:
+            user: accounts.models.User
+        """
+        editable_questionnaire = self.get_editable_questionnaires(
+            self.code, user
+        )
+        if self.has_questionnaires_for_code(self.code) and \
+                editable_questionnaire.exists():
+            return SUCCESS, _(u"This questionnaire can be edited.")
+        else:
+            return WARNING, _(u"This questionnaire is "
+                              u"locked for editing by {}.".format(self.blocked))
+
+    # Properties for the get_metadata function.
+
+    def _get_role_list(self, role):
+        members = []
+        for member in self.members.filter(questionnairemembership__role=role):
+            members.append({
+                'id': member.id,
+                'name': str(member),
+            })
+        return members
+
+    @cached_property
+    def editors(self):
+        return self._get_role_list(settings.QUESTIONNAIRE_EDITOR)
+
+    @cached_property
+    def compilers(self):
+        return self._get_role_list(settings.QUESTIONNAIRE_COMPILER)
+
+    @cached_property
+    def status_property(self):
+        status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
+        status_code = next(
+            (x for x in STATUSES_CODES if x[0] == self.status), (None, ''))
+        return status_code[1], status[1]
+
+    @cached_property
+    def configurations_property(self):
+        return list(self.configurations.values_list('code', flat=True))
+
+    @cached_property
+    def translations(self):
+        return list(self.questionnairetranslation_set.values_list(
+            'language', flat=True
+        ))
 
 
 class QuestionnaireConfiguration(models.Model):
@@ -598,18 +742,99 @@ class File(models.Model):
     thumbnails = JsonBField()
 
     @staticmethod
-    def create_new(content_type, size=None, thumbnails={}, uuid=None):
+    def handle_upload(uploaded_file):
+        """
+        Handle the upload of a file by storing it, create thumbnails for it and
+        create a database entry for it.
+
+        The storage of the file is handled by :func:`store_file`.
+
+        Args:
+            uploaded_file (django.core.files.uploadedfile.UploadedFile):
+            An uploaded file.
+
+        Returns:
+            The newly created File model instance.
+        """
+        file_uid, file_destination = store_file(uploaded_file)
+        thumbnails = create_thumbnails(
+            file_destination, uploaded_file.content_type)
+        file_object = File.create_new(
+            content_type=uploaded_file.content_type, size=uploaded_file.size,
+            thumbnails=thumbnails, uuid=file_uid)
+        return file_object
+
+    @staticmethod
+    def get_data(file_object=None, uid=None):
+        """
+        Get relevant data of a file.
+
+        Args:
+            file_object (questionnaire.models.File): A file model instance or
+            None. If provided, no UID is necessary.
+
+            uid (str): The UID of a file. If no file object is provided, the UID
+            is required.
+
+        Returns:
+            dict. A dictionary with information about the file, namely:
+
+            * content_type: The content type of the file.
+            * interchange: The interchange URLs of the thumbnails, as string.
+            * interchange_list: The interchange URLs of the thumbnails, as a
+              list of tuples (URL, format).
+            * size: The size of the file.
+            * uid: The UID of the file.
+            * url: The URL of the original file.
+        """
+        if file_object is None:
+            try:
+                file_object = File.objects.get(uuid=uid)
+            except File.DoesNotExist:
+                return {}
+
+        interchange_list = []
+        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
+            interchange_list.append(
+                (file_object.get_url(thumbnail=thumbnail_format[0]),
+                 thumbnail_format[0]))
+        if file_object.content_type.split('/')[0] == 'image':
+            # Only add large (pointing to the original file) if it is an image
+            interchange_list.append((file_object.get_url(), 'large'))
+
+        interchange_text = []
+        for i_url, i_format in interchange_list:
+            interchange_text.append('[{}, ({})]'.format(i_url, i_format))
+
+        file_data = {
+            'content_type': file_object.content_type,
+            'interchange': interchange_text,
+            'interchange_list': interchange_list,
+            'size': file_object.size,
+            'uid': str(file_object.uuid),
+            'url': file_object.get_url(),
+        }
+        file_path, file_name = get_file_path(file_object)
+        folder_structure = get_upload_folder_structure(file_object.uuid)
+        if folder_structure:
+            relative_path = join(*folder_structure)
+            file_data.update({
+                'absolute_path': file_path,
+                'relative_path': join(relative_path, file_name),
+            })
+        return file_data
+
+    @staticmethod
+    def create_new(content_type, size=None, thumbnails=None, uuid=None):
         """
         Create and return a new file.
 
         Args:
-            ``content_type`` (str): The mime type (e.g. ``image/png``) of
-            the file.
+            content_type (str): The mime type (e.g. ``image/png``) of the file.
 
-        Kwargs:
-            ``size`` (int): The size of the file.
+            size (int): The size of the file.
 
-            ``thumbnails`` (dict): A dictionary pointing to the
+            thumbnails (dict): A dictionary pointing to the
             thumbnails based on their predefined dimensions. Example::
 
               {
@@ -617,7 +842,7 @@ class File(models.Model):
                 "header_small": "23592f37-cd5b-43db-9376-04c5d805429d"
               }
 
-            ``uuid`` (str): The UUID for the file. If not provided, a
+            uuid (str): The UUID for the file. If not provided, a
             random UUID will be generated.
 
         Returns:
@@ -625,6 +850,8 @@ class File(models.Model):
         """
         if uuid is None:
             uuid = uuid4()
+        if thumbnails is None:
+            thumbnails = {}
         return File.objects.create(
             uuid=uuid, content_type=content_type, size=size,
             thumbnails=thumbnails)
@@ -635,7 +862,7 @@ class File(models.Model):
         return the respective URL.
 
         Args:
-            ``thumbnail`` (str or None). The name of the thumbnail for
+            thumbnail (str or None). The name of the thumbnail for
             which the URL shall be returned. If not specified, the
             original file will be returned.
 
@@ -643,58 +870,7 @@ class File(models.Model):
             ``str`` or ``None``. The relative URL of the file object or
             ``None`` if the thumbnail was not found.
         """
-        from questionnaire.upload import (
-            get_url_by_filename,
-            get_file_extension_by_content_type,
-        )
-        uid = self.uuid
-        if thumbnail is not None:
-            uid = self.thumbnails.get(thumbnail)
-            if uid is None:
-                return None
-        if thumbnail is not None:
-            file_extension = 'jpg'
-        else:
-            file_extension = get_file_extension_by_content_type(
-                self.content_type)
-        if file_extension is None:
+        __, file_name = get_file_path(self, thumbnail=thumbnail)
+        if file_name is None:
             return None
-        filename = '{}.{}'.format(uid, file_extension)
-        return get_url_by_filename(filename)
-
-    def get_interchange_urls(self):
-        """
-        Return the URLs for all the thumbnail sizes of the file. This
-        value can be used by foundation as the ``data-interchange``
-        value to allow interchange of images.
-
-        Also adds ``large`` as last thumbnail size. This size contains
-        the original image as it was uploaded.
-
-        Returns:
-            ``str``. A string with the interchange files. Can be used as
-            such in ``<img data-interchange="">``.
-        """
-        ret = []
-        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
-            ret.append('[{}, ({})]'.format(self.get_url(
-                thumbnail=thumbnail_format[0]), thumbnail_format[0]))
-        ret.append('[{}, ({})]'.format(self.get_url(), 'large'))
-        return ''.join(ret)
-
-    def get_interchange_urls_as_list(self):
-        """
-        Return the URLs for all the thumbnail sizes of the file. Similar
-        to :func:`get_interchange_urls` but returns list of tuples
-        instead of text.
-
-        Returns:
-            ``list``. A list of tuples with the interchange URLs and the
-            sizes.
-        """
-        ret = []
-        for thumbnail_format in settings.UPLOAD_IMAGE_THUMBNAIL_FORMATS:
-            ret.append((self.get_url(
-                thumbnail=thumbnail_format[0]), thumbnail_format[0]))
-        ret.append((self.get_url(), 'large'))
-        return ret
+        return get_url_by_file_name(file_name)

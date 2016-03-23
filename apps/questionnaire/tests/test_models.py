@@ -1,19 +1,17 @@
 import uuid
 from datetime import datetime
+
+from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ValidationError
 from django.utils.translation import activate
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from configuration.models import Configuration
 from qcat.tests import TestCase
-from questionnaire.models import (
-    Questionnaire,
-    QuestionnaireLink,
-    QuestionnaireMembership,
-    File,
-)
+from questionnaire.errors import QuestionnaireLockedException
+from questionnaire.models import Questionnaire, QuestionnaireLink, File
 
 
 def get_valid_file():
@@ -287,6 +285,13 @@ class QuestionnaireModelTest(TestCase):
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('publish_questionnaire', permissions)
 
+    def test_get_permissions_anonymous_user(self):
+        # Anonymous users have no rights.
+        questionnaire = get_valid_questionnaire()
+        user = AnonymousUser()
+        permissions = questionnaire.get_permissions(user)
+        self.assertEqual(permissions, [])
+
     def test_get_users_returns_tuples(self):
         questionnaire = get_valid_questionnaire(self.user)
         users = questionnaire.get_users()
@@ -335,19 +340,6 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(len(users), 1)
         self.assertEqual(users[0][0], 'compiler')
         self.assertEqual(users[0][1], self.user)
-
-    def test_update_users_in_data_updates_name(self):
-        questionnaire = get_valid_questionnaire(self.user)
-        user_2 = create_new_user(
-            id=2, email='foo@bar.com', firstname='Faz', lastname='Taz')
-        questionnaire.data = {'qg_31': [{'key_39': '2', 'key_40': 'Foo Bar'}]}
-        questionnaire.update_users_from_data('sample')
-        users = questionnaire.get_users()
-        self.assertEqual(len(users), 2)
-        questionnaire.update_users_in_data(user_2)
-        self.assertEqual(
-            questionnaire.data,
-            {'qg_31': [{'key_39': '2', 'key_40': 'Faz Taz'}]})
 
     def test_get_metadata(self):
         questionnaire = Questionnaire.create_new(
@@ -406,6 +398,30 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.save()
         self.assertEqual(questionnaire.data, {'foo': 'bar'})
 
+    def test_block_for_for_user(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
+        questionnaire.refresh_from_db()
+        self.assertEqual(questionnaire.blocked, self.user)
+
+    def test_blocked_questionnaire_raises_exception(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
+        user_2 = create_new_user(id=2, email='foo@bar.com')
+        with self.assertRaises(QuestionnaireLockedException):
+            questionnaire.lock_questionnaire(questionnaire.code, user_2)
+
+    def test_blocked_allow_editing_for_same_user(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
+        self.assertTrue(questionnaire.can_edit(self.user))
+
+    def test_blocked_for_other_user(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.lock_questionnaire(questionnaire.code, self.user)
+        user_2 = create_new_user(id=2, email='foo@bar.com')
+        self.assertFalse(questionnaire.can_edit(user_2))
+
 
 class FileModelTest(TestCase):
 
@@ -436,18 +452,82 @@ class FileModelTest(TestCase):
         file = File.create_new(content_type='foo/bar')
         self.assertIsInstance(file.uuid, uuid.UUID)
 
-    def test_get_url_returns_none_if_thumbnail_not_found(self):
+    @patch('questionnaire.models.get_file_path')
+    def test_get_url_calls_get_file_path(self, mock_get_file_path):
+        mock_get_file_path.return_value = None, None
         file = get_valid_file()
-        self.assertIsNone(file.get_url('foo'))
+        file.get_url(thumbnail='thumb')
+        mock_get_file_path.assert_called_once_with(file, thumbnail='thumb')
 
-    def test_get_url_returns_none_if_file_extension_is_none(self):
+    @patch('questionnaire.models.get_file_path')
+    def test_get_url_returns_none_if_file_name_none(self, mock_get_file_path):
+        mock_get_file_path.return_value = None, None
         file = get_valid_file()
-        file.content_type = 'foo'
-        self.assertIsNone(file.get_url())
+        res = file.get_url()
+        self.assertIsNone(res)
 
-    def test_get_url_returns_static_url(self):
+    @patch('questionnaire.models.get_url_by_file_name')
+    @patch('questionnaire.models.get_file_path')
+    def test_get_url_calls_get_url_by_filename(
+            self, mock_get_file_path, mock_get_url_by_file_name):
+        mock_get_file_path.return_value = None, Mock()
         file = get_valid_file()
-        file.content_type = 'image/jpeg'
-        uid = file.uuid
-        url = file.get_url()
-        self.assertIn('{}.jpg'.format(uid), url)
+        file.get_url()
+        mock_get_url_by_file_name.assert_called_once_with(
+            mock_get_file_path.return_value[1])
+
+    @patch.object(File, 'create_new')
+    @patch('questionnaire.models.create_thumbnails')
+    @patch('questionnaire.models.store_file')
+    def test_handle_upload_calls_store_file(
+            self, mock_store_file, mock_create_thumbnails, mock_create_new):
+        mock_store_file.return_value = 'uid', 'dest'
+        mock_file = Mock()
+        File.handle_upload(mock_file)
+        mock_store_file.assert_called_once_with(mock_file)
+
+    @patch.object(File, 'create_new')
+    @patch('questionnaire.models.create_thumbnails')
+    @patch('questionnaire.models.store_file')
+    def test_handle_upload_calls_create_thumbnails(
+            self, mock_store_file, mock_create_thumbnails, mock_create_new):
+        mock_store_file.return_value = 'uid', 'dest'
+        mock_file = Mock()
+        File.handle_upload(mock_file)
+        mock_create_thumbnails.assert_called_once_with(
+            'dest', mock_file.content_type)
+
+    @patch.object(File, 'create_new')
+    @patch('questionnaire.models.create_thumbnails')
+    @patch('questionnaire.models.store_file')
+    def test_handle_upload_calls_create_new(
+            self, mock_store_file, mock_create_thumbnails, mock_create_new):
+        mock_store_file.return_value = 'uid', 'dest'
+        mock_file = Mock()
+        File.handle_upload(mock_file)
+        mock_create_new.assert_called_once_with(
+            content_type=mock_file.content_type, size=mock_file.size,
+            thumbnails=mock_create_thumbnails.return_value, uuid='uid'
+        )
+
+    @patch.object(File.objects, 'get')
+    def test_get_data_gets_object_if_not_provided(self, mock_objects_get):
+        File.get_data(file_object=None, uid='uid')
+        mock_objects_get.assert_called_once_with(uuid='uid')
+
+    def test_get_data_returns_empty_if_no_file_found(self):
+        ret = File.get_data(file_object=None, uid='uid')
+        self.assertEqual(ret, {})
+
+    def test_returns_file_data(self):
+        file = get_valid_file()
+        ret = File.get_data(file_object=file)
+        self.assertEqual(len(ret), 6)
+        self.assertEqual(ret['content_type'], file.content_type)
+        self.assertEqual(len(ret['interchange']), 3)
+        self.assertIsInstance(ret['interchange'][0], str)
+        self.assertEqual(len(ret['interchange_list']), 3)
+        self.assertIsInstance(ret['interchange_list'][0], tuple)
+        self.assertEqual(ret['size'], file.size)
+        self.assertEqual(ret['uid'], str(file.uuid))
+        self.assertIn('url', ret)

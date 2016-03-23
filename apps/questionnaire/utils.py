@@ -1,12 +1,13 @@
 import ast
-from django.conf import settings
+import contextlib
+
 from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _, get_language
-from django.utils.dateparse import parse_datetime
 
+from configuration.cache import get_configuration
 from configuration.configuration import (
     QuestionnaireQuestion,
 )
@@ -15,11 +16,13 @@ from configuration.utils import (
     get_configuration_query_filter,
 )
 from qcat.errors import QuestionnaireFormatError
-from questionnaire.models import Questionnaire
+from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
 )
+from .models import Questionnaire
+from .conf import settings
 
 
 def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
@@ -168,9 +171,12 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                     value = translations
                 elif question.field_type in ['todo']:
                     value = None
-                elif question.field_type in ['image', 'user_display']:
+                elif question.field_type in ['image', 'file', 'date']:
                     pass
-                elif question.field_type in ['user_id']:
+                elif question.field_type in ['user_id', 'hidden']:
+                    pass
+                elif question.field_type in ['link_video']:
+                    # TODO: This should be properly checked!
                     pass
                 else:
                     raise NotImplementedError(
@@ -792,7 +798,9 @@ def get_query_status_filter(request, moderation_mode=''):
         if 'questionnaire.review_questionnaire' in permissions:
 
             if moderation_mode == '' or not moderation_mode != 'review':
-                status_filter |= Q(status__in=[2])
+                status_filter |= Q(
+                    status__in=[settings.QUESTIONNAIRE_SUBMITTED]
+                )
 
             if moderation_mode == 'review':
                 return status_filter
@@ -801,7 +809,7 @@ def get_query_status_filter(request, moderation_mode=''):
         if 'questionnaire.publish_questionnaire' in permissions:
 
             if moderation_mode == '' or not moderation_mode != 'publish':
-                status_filter |= Q(status__in=[3])
+                status_filter |= Q(status__in=[settings.QUESTIONNAIRE_REVIEWED])
 
             if moderation_mode == 'publish':
                 return status_filter
@@ -810,8 +818,13 @@ def get_query_status_filter(request, moderation_mode=''):
         # "reviewed" if they are "compiler" or "editor".
         status_filter |= (
             Q(members=request.user) &
-            Q(questionnairemembership__role__in=['compiler', 'editor'])
-            & Q(status__in=[1, 2, 3])
+            Q(questionnairemembership__role__in=[
+                settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
+            ])
+            & Q(status__in=[settings.QUESTIONNAIRE_DRAFT,
+                            settings.QUESTIONNAIRE_SUBMITTED,
+                            settings.QUESTIONNAIRE_REVIEWED
+                            ])
         )
 
         # Users see Questionnaires with status "submitted" if they are
@@ -819,18 +832,23 @@ def get_query_status_filter(request, moderation_mode=''):
         # see the "reviewed" Questionnaires they approved.
         status_filter |= (
             Q(members=request.user) &
-            Q(questionnairemembership__role__in=['reviewer'])
-            & Q(status__in=[2, 3]))
+            Q(questionnairemembership__role__in=[
+                settings.QUESTIONNAIRE_REVIEWER
+            ])
+            & Q(status__in=[settings.QUESTIONNAIRE_SUBMITTED,
+                            settings.QUESTIONNAIRE_REVIEWED]))
 
         # Users see Questionnaires with status "reviewed" if they are
         # assigned as "publisher" for this Questionnaire.
         status_filter |= (
             Q(members=request.user) &
-            Q(questionnairemembership__role__in=['publisher'])
-            & Q(status__in=[3]))
+            Q(questionnairemembership__role__in=[
+                settings.QUESTIONNAIRE_PUBLISHER
+            ])
+            & Q(status__in=[settings.QUESTIONNAIRE_REVIEWED]))
 
     # Everybody sees Questionnaires with status "public".
-    status_filter |= Q(status=4)
+    status_filter |= Q(status=settings.QUESTIONNAIRE_PUBLIC)
 
     return status_filter
 
@@ -993,53 +1011,20 @@ def get_list_values(
 
     for result in es_hits:
         # Results from Elasticsearch. List values are already available.
+        if result.get('_source'):
 
-        # Fall back to the original configuration if viewed from "wocat"
-        # or no configuration selected
-        if configuration_code is None or configuration_code == 'wocat':
-            current_configuration_code = result.get('_source', {}).get(
-                'configurations', ['technologies'])[0]
-        else:
-            current_configuration_code = configuration_code
+            if configuration_code and configuration_code != 'wocat':
+                config = get_configuration(configuration_code)
+            else:
+                config = None
 
-        template_value = result.get('_source', {}).get('list_data', {})
+            serializer = QuestionnaireSerializer(
+                data=result['_source'], config=config
+            )
 
-        translations = result.get('_source', {}).get('translations')
-        if not isinstance(translations, list) or len(translations) == 0:
-            translations = ['en']
-        original_lang = translations[0]
-        try:
-            translations.remove(get_language())
-        except ValueError:
-            pass
-        translations = [
-            lang for lang in settings.LANGUAGES if lang[0] in translations]
-
-        for key, value in template_value.items():
-            if isinstance(value, dict):
-                template_value[key] = value.get(
-                    get_language(), value.get(original_lang))
-
-        source = result.get('_source', {})
-        configurations = source.get('configurations', [])
-
-        template_value.update({
-            'links': source.get('links', {}).get(get_language(), []),
-            'configuration': current_configuration_code,  # Used for rendering
-            'id': result.get('_id'),
-            'configurations': configurations,
-            'native_configuration': current_configuration_code in
-            configurations,
-            'created': parse_datetime(
-                source.get('created', '')),
-            'updated': parse_datetime(
-                source.get('updated', '')),
-            'translations': translations,
-            'code': source.get('code', ''),
-            'compilers': source.get('compilers', []),
-            'editors': source.get('editors', []),
-        })
-        list_entries.append(template_value)
+            if serializer.is_valid():
+                serializer.to_list_values(lang=get_language())
+                list_entries.append(serializer.validated_data)
 
     configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
@@ -1057,30 +1042,20 @@ def get_list_values(
         else:
             current_configuration_code = configuration_code
 
-        questionnaire_configuration = configuration_list.get(
+        questionnaire_config = configuration_list.get(
             current_configuration_code)
 
-        template_value = questionnaire_configuration.get_list_data(
-            [obj.data])[0]
+        template_value = {
+            'list_data': questionnaire_config.get_list_data([obj.data])[0]
+        }
 
         metadata = obj.get_metadata()
         template_value.update(metadata)
 
-        translations = metadata.get('translations', [])
-        if len(translations) == 0:
-            translations = ['en']
-        original_lang = translations[0]
-        try:
-            translations.remove(get_language())
-        except ValueError:
-            pass
-        translations = [
-            lang for lang in settings.LANGUAGES if lang[0] in translations]
-
-        for key, value in template_value.items():
-            if isinstance(value, dict):
-                template_value[key] = value.get(
-                    get_language(), value.get(original_lang))
+        template_value = prepare_list_values(
+            data=template_value, config=questionnaire_config,
+            lang=get_language()
+        )
 
         links = []
         link_codes = []
@@ -1094,11 +1069,9 @@ def get_list_values(
 
         template_value.update({
             'links': links,
-            'configuration': current_configuration_code,  # Used for rendering
             'id': obj.id,
-            'native_configuration': current_configuration_code in
-            metadata.get('configurations', []),
-            'translations': translations,
+            'url': obj.get_absolute_url(),
+            'data': obj.data
         })
         list_entries.append(template_value)
 
@@ -1134,7 +1107,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     if request.POST.get('submit'):
 
         # Previous status must be "draft"
-        if questionnaire_object.status != 1:
+        if questionnaire_object.status != settings.QUESTIONNAIRE_DRAFT:
             messages.error(
                 request, 'The questionnaire could not be submitted because it '
                 'does not have to correct status.')
@@ -1147,7 +1120,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             return
 
         # Delete the old data and update the status
-        questionnaire_object.status = 2
+        questionnaire_object.status = settings.QUESTIONNAIRE_SUBMITTED
         questionnaire_object.data_old = None
         questionnaire_object.save()
 
@@ -1157,7 +1130,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     elif request.POST.get('review'):
 
         # Previous status must be "submitted"
-        if questionnaire_object.status != 2:
+        if questionnaire_object.status != settings.QUESTIONNAIRE_SUBMITTED:
             messages.error(
                 request, 'The questionnaire could not be reviewed because '
                 'it does not have to correct status.')
@@ -1174,7 +1147,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         questionnaire_object.add_user(request.user, 'reviewer')
 
         # Update the status
-        questionnaire_object.status = 3
+        questionnaire_object.status = settings.QUESTIONNAIRE_REVIEWED
         questionnaire_object.save()
 
         messages.success(
@@ -1183,7 +1156,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     elif request.POST.get('publish'):
 
         # Previous status must be "reviewed"
-        if questionnaire_object.status != 3:
+        if questionnaire_object.status != settings.QUESTIONNAIRE_REVIEWED:
             messages.error(
                 request, 'The questionnaire could not be published because '
                 'it does not have to correct status.')
@@ -1199,14 +1172,16 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Set the previously "public" Questionnaire to "inactive".
         # Also remove it from ES.
         previously_public = Questionnaire.objects.filter(
-            code=questionnaire_object.code, status=4)
+            code=questionnaire_object.code,
+            status=settings.QUESTIONNAIRE_PUBLIC
+        )
         for previous_object in previously_public:
-            previous_object.status = 6
+            previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
             delete_questionnaires_from_es(
                 configuration_code, [previous_object])
 
-        questionnaire_object.status = 4
+        questionnaire_object.status = settings.QUESTIONNAIRE_PUBLIC
         questionnaire_object.save()
 
         added, errors = put_questionnaire_data(
@@ -1232,20 +1207,22 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
     elif request.POST.get('reject'):
 
-        if questionnaire_object.status not in [2, 3]:
+        if questionnaire_object.status not in [
+            settings.QUESTIONNAIRE_SUBMITTED, settings.QUESTIONNAIRE_REVIEWED
+        ]:
             messages.error(
                 request, 'The questionnaire could not be rejected because it '
                 'does not have to correct status.')
             return
 
-        if (questionnaire_object.status == 2
+        if (questionnaire_object.status == settings.QUESTIONNAIRE_SUBMITTED
                 and 'review_questionnaire' not in permissions):
             messages.error(
                 request, 'The questionnaire could not be rejected because '
                 'you do not have permission to do so.')
             return
 
-        if (questionnaire_object.status == 3
+        if (questionnaire_object.status == settings.QUESTIONNAIRE_REVIEWED
                 and 'publish_questionnaire' not in permissions):
             messages.error(
                 request, 'The questionnaire could not be rejected because '
@@ -1255,7 +1232,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Attach the reviewer to the questionnaire if he is not already
         questionnaire_object.add_user(request.user, 'reviewer')
 
-        questionnaire_object.status = 1
+        questionnaire_object.status = settings.QUESTIONNAIRE_DRAFT
         questionnaire_object.save()
 
         messages.success(
@@ -1302,3 +1279,58 @@ def compare_questionnaire_data(data_1, data_2):
             different_qg_keywords.append(qg_keyword)
 
     return different_qg_keywords
+
+
+def prepare_list_values(data, config, **kwargs):
+    """
+    Helper for the function: questionnaire.utils.get_list_values.
+    This maps the 'new' serialized data as required by this 'old' function.
+    Mapping is easier than to update all related templates.
+
+    Args:
+        data: dict
+        config: configuration.QuestionnaireConfiguration
+        **kwargs:
+
+    Returns:
+        dict
+
+    """
+    language = kwargs.get('lang')
+    languages = dict(settings.LANGUAGES)
+
+    # 'list_data' are set in the configuration. Make them directly
+    # accessible. Use the language from the request - or the first
+    # language from 'translations', which should be the original one.
+    original_language = 'en'
+    with contextlib.suppress(IndexError):
+        original_language = data['translations'][0]
+
+    for key, items in data['list_data'].items():
+        # Items can either contain a dict with the language as key - or
+        # a raw string (e.g. 'country')
+        if isinstance(items, dict):
+            data[key] = items.get(language, items.get(original_language))
+        if isinstance(items, str):
+            data[key] = items
+
+    del data['list_data']
+
+    if 'links' in data and isinstance(data['links'], dict):
+        data['links'] = data['links'].get(language, original_language)
+
+    # 'translations' must not list the currently active language
+    if data['translations']:
+        data['translations'] = [
+            [lang, str(languages[lang])] for lang in
+            data['translations'] if lang != language
+        ]
+
+    data['configuration'] = config.keyword
+    # dict key is suffixed with _property when called from the serializer.
+    data['native_configuration'] = (
+        config.keyword in data.get('configurations_property',
+                                   data.get('configurations'))
+    )
+
+    return data

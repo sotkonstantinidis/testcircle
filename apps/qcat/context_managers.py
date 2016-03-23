@@ -1,3 +1,4 @@
+import warnings
 from contextlib import contextmanager
 
 
@@ -14,6 +15,9 @@ def ignored(*exceptions):
 
     :param exceptions: A variable number of exception classes.
     """
+    warnings.warn(
+        "Use contextlib.suppress instead of this!", DeprecationWarning
+    )
     try:
         yield
     except exceptions:

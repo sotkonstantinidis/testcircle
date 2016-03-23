@@ -32,6 +32,7 @@ Questionnaires
     configuration/key
     configuration/value
 
+
 Settings
 ~~~~~~~~
 
@@ -51,6 +52,7 @@ Development
     development/datamodel
     development/dataformat
     development/elasticsearch
+    development/data_flow
     development/usergroups
     development/testing
     development/translations
@@ -64,6 +66,14 @@ page of the project. Or see the `List of ToDo's`_ for open issues.
 
 .. _Redmine: https://redmine.cde.unibe.ch/projects/unccd-bp/issues
 .. _List of ToDo's: todos.html
+
+
+API
+---
+.. toctree::
+    :maxdepth: 2
+
+    api/docs
 
 
 Hosting

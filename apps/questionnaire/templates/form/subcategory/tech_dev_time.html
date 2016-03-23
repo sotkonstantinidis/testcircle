@@ -5,7 +5,7 @@
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
     {% for questiongroup_config, questiongroup_formset in formsets %}
       <div class="questiongroup">
-        {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
+        {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
 
         {{ questiongroup_formset.management_form }}
 

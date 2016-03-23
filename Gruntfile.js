@@ -159,17 +159,26 @@ module.exports = function(grunt) {
           'static/js/dropzone.min.js': 'bower_components/dropzone/dist/min/dropzone.min.js',
           'static/js/app.js': 'src/js/app.js',
           'static/js/filter.js': 'src/js/filter.js',
+          'static/js/focusPoint.js': 'src/js/focusPoint.js',
+          'static/js/parallax.js': 'src/js/parallax.js',
           'static/js/wocat.magellan.js': 'src/js/wocat.magellan.js',
           'static/js/wizard.js': 'src/js/wizard.js',
           'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
           'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css',
-          'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png'
+          'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png',
+          'static/css/jquery-ui.min.css': 'bower_components/jquery-ui/themes/base/jquery-ui.min.css'
         }
         ,{
           expand: true,
           cwd: 'bower_components/foundation/js/foundation/',
           src: ['**/*'],
           dest: 'static/js/foundation/'
+        }
+        ,{
+          expand: true,
+          cwd: 'bower_components/jquery-ui/themes/base/images/',
+          src: ['**/*'],
+          dest: 'static/css/images/'
         }
         // Manually copy GIFs
         ,{

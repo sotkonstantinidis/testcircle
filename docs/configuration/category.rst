@@ -105,6 +105,12 @@ view representation of the category.
       }
 
 
+``form_options``
+^^^^^^^^^^^^^^^^
+
+  * ``helptext_length`` (int): Overwrite the default length (number of words) of
+    the helptext shown initially (without the "See more" button).
+
 ``subcategories``
 ^^^^^^^^^^^^^^^^^
 

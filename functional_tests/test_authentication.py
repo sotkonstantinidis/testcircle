@@ -13,14 +13,17 @@ from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
 
 
+@patch.object(Typo3Client, 'get_and_update_django_user')
 @patch.object(Typo3Client, 'get_user_id')
 @patch.object(WocatAuthenticationBackend, 'authenticate')
 class LoginTest(FunctionalTest):
 
-    def test_login(self, mock_authenticate, mock_get_user_id):
+    def test_login(
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
 
         user = create_new_user()
 
+        mock_get_and_update.return_value = user
         mock_authenticate.return_value = None
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
@@ -54,23 +57,27 @@ class LoginTest(FunctionalTest):
         self.findBy('id', 'button_login').click()
 
         # She sees that she was redirected to the landing page
-        self.assertEqual(self.browser.current_url, self.live_server_url + '/en/')
+        self.assertEqual(self.browser.current_url,
+                         self.live_server_url + '/en/')
         self.checkOnPage(user.get_display_name())
         self.checkOnPage('Logout')
 
 
+@patch.object(Typo3Client, 'get_and_update_django_user')
 @patch.object(Typo3Client, 'get_user_id')
 @patch.object(WocatAuthenticationBackend, 'authenticate')
 class UserTest(FunctionalTest):
 
     fixtures = ['groups_permissions.json']
 
-    def test_superusers(self, mock_authenticate, mock_get_user_id):
+    def test_superusers(
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
 
         user = create_new_user()
         user.is_superuser = True
         user.save()
 
+        mock_get_and_update.return_value = user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
@@ -88,11 +95,13 @@ class UserTest(FunctionalTest):
             'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
             'admin")]')
 
-    def test_administrators(self, mock_authenticate, mock_get_user_id):
+    def test_administrators(
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=1)]
 
+        mock_get_and_update.return_value = user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
@@ -110,11 +119,13 @@ class UserTest(FunctionalTest):
             'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
             'admin")]')
 
-    def test_moderators(self, mock_authenticate, mock_get_user_id):
+    def test_moderators(
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=3)]
 
+        mock_get_and_update.return_value = user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
@@ -132,11 +143,13 @@ class UserTest(FunctionalTest):
             'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
             'admin")]')
 
-    def test_translators(self, mock_authenticate, mock_get_user_id):
+    def test_translators(
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=2)]
 
+        mock_get_and_update.return_value = user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id

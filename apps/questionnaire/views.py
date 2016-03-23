@@ -28,15 +28,13 @@ from qcat.utils import (
     get_session_questionnaire,
     save_session_questionnaire,
 )
-from questionnaire.models import (
-    Questionnaire,
-    File,
-)
 from questionnaire.upload import (
-    handle_upload,
     retrieve_file,
+    UPLOAD_THUMBNAIL_CONTENT_TYPE,
 )
-from questionnaire.utils import (
+from .errors import QuestionnaireLockedException
+from .models import Questionnaire, File
+from .utils import (
     clean_questionnaire_data,
     compare_questionnaire_data,
     get_active_filters,
@@ -51,7 +49,7 @@ from questionnaire.utils import (
     query_questionnaire,
     query_questionnaires,
 )
-from questionnaire.view_utils import (
+from .view_utils import (
     ESPagination,
     get_page_parameter,
     get_pagination_parameters,
@@ -59,6 +57,7 @@ from questionnaire.view_utils import (
     get_limit_parameter,
 )
 from search.search import advanced_search
+from .conf import settings
 
 
 @login_required
@@ -161,7 +160,11 @@ def generic_questionnaire_link_form(
                 request, _('Data successfully stored to Session.'))
             return redirect(overview_url)
 
-    return render(request, 'form/links.html', {
+    # Use a specific templates for the link or the default fallback template.
+    templates = [
+        'form/links/{}.html'.format(t) for t in [configuration_code, 'default']]
+
+    return render(request, templates, {
         'valid': valid,
         'overview_url': overview_url,
         'link_forms': link_forms,
@@ -291,13 +294,13 @@ def generic_questionnaire_view_step(
     initial_data = get_questionnaire_data_for_translation_form(
         data, current_locale, original_locale)
 
-    category_config, category_formsets = category.get_form(
+    category_config, subcategories = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode)
 
     return render(request, 'form/category.html', {
-        'category_formsets': category_formsets,
-        'category_config': category_config,
+        'subcategories': subcategories,
+        'config': category_config,
         'title': page_title,
         'valid': valid,
         'edit_mode': edit_mode,
@@ -414,7 +417,10 @@ def generic_questionnaire_new_step(
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
         session_questionnaire = session_data.get('questionnaire', {})
-        edited_questiongroups = session_data.get('edited_questiongroups', [])
+        old_data = session_data.get('old_questionnaire')
+        if old_data:
+            edited_questiongroups = compare_questionnaire_data(
+                session_questionnaire, old_data)
 
     # TODO: Make this more dynamic
     original_locale = None
@@ -425,7 +431,7 @@ def generic_questionnaire_new_step(
     initial_data = get_questionnaire_data_for_translation_form(
         session_questionnaire, current_locale, original_locale)
 
-    category_config, category_formsets = category.get_form(
+    category_config, subcategories = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode,
         edited_questiongroups=edited_questiongroups)
@@ -441,7 +447,7 @@ def generic_questionnaire_new_step(
     if request.method == 'POST':
 
         data, valid = _validate_formsets(
-            category_formsets, current_locale, original_locale)
+            subcategories, current_locale, original_locale)
 
         if valid is True:
             session_data = get_session_questionnaire(
@@ -451,6 +457,13 @@ def generic_questionnaire_new_step(
 
             questionnaire_data, errors = clean_questionnaire_data(
                 session_questionnaire, questionnaire_configuration)
+
+            # Try to lock questionnaire, raise an error if it is locked already.
+            try:
+                Questionnaire().lock_questionnaire(identifier, request.user)
+            except QuestionnaireLockedException as e:
+                errors.append(e)
+
             if errors:
                 valid = False
                 messages.error(
@@ -485,8 +498,10 @@ def generic_questionnaire_new_step(
             args=[identifier, step])
 
     return render(request, 'form/category.html', {
-        'category_formsets': category_formsets,
-        'category_config': category_config,
+        'subcategories': subcategories,
+        'config': category_config,
+        'content_subcategories_count': len(
+            [c for c in subcategories if c[1] != []]),
         'title': page_title,
         'overview_url': overview_url,
         'valid': valid,
@@ -539,20 +554,17 @@ def generic_questionnaire_new(
         questionnaire_object = query_questionnaire(request, identifier).first()
         if questionnaire_object is None:
             raise Http404()
+        questionnaire_object.lock_questionnaire(
+            questionnaire_object.code, request.user
+        )
         questionnaire_data = questionnaire_object.data
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
-        edited_questiongroups = session_data.get('edited_questiongroups')
         if session_data.get('questionnaire') is None:
 
-            # When the questionnaire data is stored in the session for
-            # the first time, also store its old data.
-            if questionnaire_object.data_old is None:
-                questionnaire_object.data_old = questionnaire_object.data
-                questionnaire_object.save()
-
-            edited_questiongroups = compare_questionnaire_data(
-                questionnaire_object.data, questionnaire_object.data_old)
+            old_data = questionnaire_object.data_old
+            if old_data is None:
+                old_data = questionnaire_data
 
             questionnaire_links = get_link_data(
                 questionnaire_object.links.all())
@@ -560,7 +572,18 @@ def generic_questionnaire_new(
                 request, configuration_code, identifier,
                 questionnaire_data=questionnaire_data,
                 questionnaire_links=questionnaire_links,
-                edited_questiongroups=edited_questiongroups)
+                old_questionnaire_data=old_data,
+            )
+
+            edited_questiongroups = compare_questionnaire_data(
+                questionnaire_data, old_data)
+
+        else:
+            session_questionnaire = session_data.get('questionnaire', {})
+            edited_questiongroups = compare_questionnaire_data(
+                session_questionnaire,
+                session_data.get('old_questionnaire', session_questionnaire))
+
     else:
         questionnaire_object = None
         identifier = 'new'
@@ -573,11 +596,19 @@ def generic_questionnaire_new(
     if request.method == 'POST':
         cleaned_questionnaire_data, errors = clean_questionnaire_data(
             session_questionnaire, questionnaire_configuration)
+
+        if questionnaire_object and \
+                not questionnaire_object.can_edit(request.user):
+            lvl, msg = questionnaire_object.get_blocked_message(request.user)
+            errors.append(msg)
+
         if errors:
             messages.error(
                 request, 'Something went wrong. The questionnaire cannot be '
                 'submitted because of the following errors: <br/>{}'.format(
                     '<br/>'.join(errors)), extra_tags='safe')
+            return redirect(request.path)
+
         if not cleaned_questionnaire_data:
             messages.info(
                 request, _('You cannot submit an empty questionnaire'),
@@ -586,7 +617,8 @@ def generic_questionnaire_new(
         else:
             questionnaire = Questionnaire.create_new(
                 configuration_code, session_questionnaire, request.user,
-                previous_version=questionnaire_object)
+                previous_version=questionnaire_object,
+                old_data=session_data.get('old_questionnaire'))
             clear_session_questionnaire(
                 request, configuration_code, identifier)
 
@@ -652,6 +684,19 @@ def generic_questionnaire_new(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
+    is_blocked = None
+    # Display a message regarding the state for editing (locked / available)
+    if questionnaire_object:
+        is_blocked = questionnaire_object.can_edit(request.user)
+        # Display a hint about the 'blocked' status for GET requests only. For
+        # post requests, this is done in the form validation.
+        if request.method == 'GET':
+            questionnaire_object
+            level, message = questionnaire_object.get_blocked_message(
+                request.user
+            )
+            messages.add_message(request, level, message)
+
     return render(request, template, {
         'images': images,
         'sections': sections,
@@ -661,6 +706,7 @@ def generic_questionnaire_new(
         'permissions': permissions,
         'edited_questiongroups': edited_questiongroups,
         'view_mode': 'edit',
+        'is_blocked': is_blocked
     })
 
 
@@ -706,14 +752,18 @@ def generic_questionnaire_details(
     permissions = questionnaire_object.get_permissions(request.user)
 
     review_config = {}
-    if request.user.is_authenticated() and questionnaire_object.status != 4:
+    if request.user.is_authenticated() \
+            and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
         # Show the review panel only if the user is logged in and if the
-        # version shown is not active.
+        # version shown is not active (public).
         review_config = {
             'review_status': questionnaire_object.status,
             'csrf_token_value': get_token(request),
             'permissions': permissions,
         }
+        if not questionnaire_object.can_edit(request.user):
+            lvl, msg = questionnaire_object.get_blocked_message(request.user)
+            review_config['blocked_by'] = msg
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,
@@ -962,7 +1012,7 @@ def generic_file_upload(request):
     and returns a JSON.
 
     Args:
-        ``request`` (django.http.HttpRequest): The request object. Only
+        request (django.http.HttpRequest): The request object. Only
         request method ``POST`` is accepted and the following parameters
         are valid:
 
@@ -997,16 +1047,17 @@ def generic_file_upload(request):
     file = files[0]
 
     try:
-        db_file = handle_upload(file)
+        file_object = File.handle_upload(file)
     except Exception as e:
         ret['msg'] = str(e)
         return JsonResponse(ret, status=400)
 
+    file_data = File.get_data(file_object=file_object)
     ret = {
         'success': True,
-        'uid': str(db_file.uuid),
-        'interchange': db_file.get_interchange_urls(),
-        'url': db_file.get_url(),
+        'uid': file_data.get('uid'),
+        'interchange': file_data.get('interchange'),
+        'url': file_data.get('url'),
     }
     return JsonResponse(ret)
 
@@ -1021,12 +1072,12 @@ def generic_file_serve(request, action, uid):
     :func:`questionnaire.upload.get_url_by_identifier`.
 
     Args:
-        ``request`` (django.http.HttpRequest): The request object.
+        request (django.http.HttpRequest): The request object.
 
-        ``action`` (str): The action to perform with the file. Available
+        action (str): The action to perform with the file. Available
         options are ``display``, ``download`` and ``interchange``.
 
-        ``uid`` (str): The UUID of the file object.
+        uid (str): The UUID of the file object.
 
     GET Parameters:
         ``format`` (str): The name of the thumbnail format for images.
@@ -1040,24 +1091,25 @@ def generic_file_serve(request, action, uid):
         raise Http404()
 
     file_object = get_object_or_404(File, uuid=uid)
+    file_data = File.get_data(file_object=file_object)
 
     if action == 'interchange':
-        return HttpResponse(file_object.get_interchange_urls())
+        return HttpResponse(file_data.get('interchange'))
 
     thumbnail = request.GET.get('format')
     try:
         file, filename = retrieve_file(file_object, thumbnail=thumbnail)
     except:
         raise Http404()
-    content_type = file_object.content_type
 
+    content_type = file_data.get('content_type')
     if thumbnail is not None:
-        content_type = 'image/jpeg'
+        content_type = UPLOAD_THUMBNAIL_CONTENT_TYPE
 
     response = HttpResponse(file, content_type=content_type)
     if action == 'download':
         response['Content-Disposition'] = 'attachment; filename={}'.format(
             filename)
-        response['Content-Length'] = file_object.size
+        response['Content-Length'] = file_data.get('size')
 
     return response

@@ -1,8 +1,8 @@
 from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
-from itertools import chain
 
+from questionnaire.serializers import QuestionnaireSerializer
 from .utils import (
     get_analyzer,
     get_alias,
@@ -250,61 +250,26 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
     Returns:
         ``int``. Count of objects created or updated.
 
-        ``list``. A list of errors occured.
+        ``list``. A list of errors occurred.
     """
-    from questionnaire.utils import get_link_display
-
     config_list = ConfigurationList()
     questionnaire_configuration = config_list.get(configuration_code)
     alias = get_alias([configuration_code])
 
     actions = []
     for obj in questionnaire_objects:
-        list_data = questionnaire_configuration.get_list_data(
-            [obj.data])[0]
+        serialized = QuestionnaireSerializer(
+            obj, config=questionnaire_configuration
+        ).data
 
-        language_codes = [l[0] for l in settings.LANGUAGES]
-
-        links = {}
-        for language in language_codes:
-            links[language] = []
-
-        for link in obj.links.all():
-
-            link_configuration_db = link.configurations.first()
-            if link_configuration_db is None:
-                continue
-
-            link_configuration = config_list.get(link_configuration_db.code)
-
-            name_data = link_configuration.get_questionnaire_name(link.data)
-            try:
-                original_language = link.questionnairetranslation_set.first()\
-                    .language
-            except AttributeError:
-                original_language = None
-
-            for language in language_codes:
-                name = name_data.get(
-                    language, name_data.get(original_language))
-                links[language].append(get_link_display(
-                    link_configuration.keyword, name, link.code))
-
-        source = {
-            'data': obj.data,
-            'list_data': list_data,
-            'name': questionnaire_configuration.get_questionnaire_name(
-                obj.data),
-            'links': links,
-        }
-        source.update(obj.get_metadata())
         action = {
             '_index': alias,
             '_type': 'questionnaire',
             '_id': obj.id,
-            '_source': source,
+            '_source': serialized,
         }
         actions.append(action)
+
     actions_executed, errors = bulk(es, actions)
 
     es.indices.refresh(index=alias)

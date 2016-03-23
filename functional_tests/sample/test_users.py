@@ -13,10 +13,7 @@ from unittest.mock import patch
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
     route_questionnaire_new_step,
-    route_questionnaire_details,
 )
-from accounts.tests.test_views import accounts_route_user
-
 
 from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
@@ -310,9 +307,10 @@ class UserTest2(FunctionalTest):
 
         # She sees the user is selected, loading and search fields are
         # not visible
-        loading_indicator = self.findBy(
-            'xpath', '//div[contains(@class, "form-user-search-loading")][1]')
-        self.assertFalse(loading_indicator.is_displayed())
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located((
+                By.CLASS_NAME, "form-user-search-loading")))
+
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Kurt Gerber")]')
@@ -395,6 +393,11 @@ class UserTest2(FunctionalTest):
             'xpath', '//div[contains(@class, "form-user-search-loading")][1]')
         self.assertFalse(loading_indicator.is_displayed())
 
+        # Before she starts searching, she enters something in the text field
+        # above
+        textfield_above = self.findBy('name', 'qg_31-0-original_key_45')
+        textfield_above.send_keys('foo')
+
         # She enters a name and sees a search is conducted
         search_user.send_keys('abcdefghijklmnopq')
         WebDriverWait(self.browser, 10).until(
@@ -433,6 +436,10 @@ class UserTest2(FunctionalTest):
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Lukas Vonlanthen")]')
+
+        # She sees that the text she entered in the textfield above is still
+        # there
+        self.assertEqual(textfield_above.get_attribute('value'), 'foo')
 
         # She goes back to the select tab and sees that the values she
         # entered previously are gone now
@@ -612,9 +619,11 @@ class UserTest2(FunctionalTest):
         qg_1_xpath = (
             '//fieldset[contains(@class, "row")][2]//div[contains(@class, '
             '"list-item")][1]')
-        self.findBy(
-            'xpath', '{}//div[contains(@class, "form-user-selected")]/div['
-            'contains(@class, "secondary")]'.format(qg_1_xpath))
+
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((
+                By.XPATH, '{}//div[contains(@class, "form-user-selected")]/div['
+                'contains(@class, "secondary")]'.format(qg_1_xpath))))
         self.assertEqual(self.findBy(
             'id', 'id_qg_31-0-key_39').get_attribute('value'), '1055')
         self.assertEqual(self.findBy(
@@ -635,9 +644,10 @@ class UserTest2(FunctionalTest):
         qg_3_xpath = (
             '//fieldset[contains(@class, "row")][2]//div[contains(@class, '
             '"list-item")][3]')
-        self.findBy(
-            'xpath', '{}//div[contains(@class, "form-user-selected")]/div['
-            'contains(@class, "secondary")]'.format(qg_3_xpath))
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((
+                By.XPATH, '{}//div[contains(@class, "form-user-selected")]/div['
+                'contains(@class, "secondary")]'.format(qg_3_xpath))))
         self.assertEqual(
             self.findBy('id', 'id_qg_31-2-key_39').get_attribute(
                 'value'), '2365')
@@ -782,7 +792,8 @@ class UserTest2(FunctionalTest):
 #         user.lastname = 'Foo'
 #         user.save()
 #
-#         # She refreshes the questionnaire details and sees that nothing changed
+#         # She refreshes the questionnaire details and
+#         # sees that nothing changed
 #         self.browser.refresh()
 #         self.findBy('xpath', '//*[contains(text(), "Faz Taz")]')
 #         self.findBy('xpath', '//*[contains(text(), "Some other person")]')

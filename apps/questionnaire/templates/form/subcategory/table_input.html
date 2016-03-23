@@ -1,3 +1,9 @@
+{% comment %}
+  Table where each questiongroup occupies one row. The first column is filled with the label of the questiongroup.
+
+  Further questions are rendered either before the table (questiongroup_config.layout == 'before_table') or after the table.
+{% endcomment %}
+
 {% load floppyforms %}
 {% load list_to_columns %}
 
@@ -7,62 +13,63 @@
     {% form form using sub_config.form_template with config=sub_config formsets=sub_formsets %}
   {% endfor %}
 {% else %}
-
   <fieldset class="row{% if config.has_changes %} has-changes{% endif %}">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
+
+    {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
+
     {% for questiongroup_config, questiongroup_formset in formsets %}
-      {% include "form/helptext.html" with helptext=questiongroup_config.helptext %}
-      {% if questiongroup_config.keyword == 'tech_qg_41' or questiongroup_config.keyword == 'tech_qg_50' %}
-        {% form form using "form/questiongroup/default.html" with config=questiongroup_config formset=questiongroup_formset %}
+      {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout == 'before_table' %}
+        {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
+      {% endif %}
+    {% endfor %}
+    {% for questiongroup_config, questiongroup_formset in formsets %}
+      {% if questiongroup_config.keyword in config.table_grouping.0 %}
+        {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
       {% endif %}
     {% endfor %}
     <table>
       <thead>
         <tr>
-          <th>Input</th>
-          <th width="620">Costs / Investment (in US$)</th>
-          <th>{{ config.table_headers.1 }}</th>
+          <th></th>
+          {% for header in config.table_headers %}
+            <th{% if forloop.first %} width="30%"{% endif %}>
+              {% with helptext=config.table_helptexts|get_by_index:forloop.counter0 %}
+                {% if helptext %}
+                  <span class="has-tip left" title="{{ helptext }}" aria-haspopup="true" data-tooltip="">{{ header }}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
+                {% else %}
+                  {{ header }}
+                {% endif %}
+              {% endwith %}
+            </th>
+          {% endfor %}
         </tr>
       </thead>
       <tbody>
         {% for questiongroup_config, questiongroup_formset in formsets %}
           {% if questiongroup_config.keyword in config.table_grouping.0 %}
             {{ questiongroup_formset.management_form }}
-            {% if questiongroup_config.keyword == 'tech_qg_40' or questiongroup_config.keyword == 'tech_qg_49' %}
-              {% for f in questiongroup_formset.forms %}
-                <tr>
-                  {% for field in f.visible_fields %}
-                    {% if forloop.counter == 1 %}
-                    <td>{% formrow field using "form/question/default.html" %}</td>
-                    {% else %}
-                    <td>
-                      {% formrow field using "form/question/no_label.html" %}
-                    </td>
-                    {% endif %}
-                  {% endfor %}
-                </tr>
-              {% endfor %}
-            {% else %}
-              {% for f in questiongroup_formset.forms %}
-                <tr>
-                  {% for field in f.visible_fields %}
-                    {% if forloop.counter == 1 %}
-                    <td>{{ field.label }}</td>
-                    {% endif %}
-                    <td>
-                      {% formrow field using "form/question/no_label.html" %}
-                    </td>
-                  {% endfor %}
-                </tr>
-              {% endfor %}
-            {% endif %}
+            {% for f in questiongroup_formset.forms %}
+              <tr>
+                {% if questiongroup_config.layout != 'no_label_row' %}
+                  {% if forloop.first %}
+                    <td rowspan="{{ questiongroup_formset.forms|length }}">{{ questiongroup_config.label }}</td>
+                  {% endif %}
+                {% endif %}
+                {% for field in f.visible_fields %}
+                  <td>
+                    {% formrow field using "form/question/no_label.html" %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
           {% endif %}
         {% endfor %}
       </tbody>
     </table>
-    {% for qg_config, questiongroup_formset in formsets %}
-      {% if questiongroup_config.keyword == 'tech_qg_42' or qg_config.keyword == 'tech_qg_51' or qg_config.keyword == 'tech_qg_52' or qg_config.keyword == 'tech_qg_53' %}
-        {% form form using "form/questiongroup/default.html" with config=qg_config formset=questiongroup_formset %}
+    {% for questiongroup_config, questiongroup_formset in formsets %}
+      {% if questiongroup_config.keyword not in config.table_grouping.0 and questiongroup_config.layout != 'before_table' %}
+        {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}
   </fieldset>

@@ -65,6 +65,9 @@ $(function() {
     var p = parseQueryString();
     p['q'] = search_term;
 
+    // track search
+    _paq.push(['trackEvent', 'Search', 'Value', search_term]);
+
     var s = ['?', $.param(p, traditional=true)].join('');
     changeUrl(s);
     updateList(s);
@@ -73,6 +76,9 @@ $(function() {
   // Button to submit the filter
   $('#submit-filter').click(function() {
     var p = parseQueryString();
+
+    // track search
+    _paq.push(['trackEvent', 'Filter', 'Value', p]);
 
     // Remove all filter parameters
     p = removeFilterParams(p);
