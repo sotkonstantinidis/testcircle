@@ -88,8 +88,6 @@ class Command(NoArgsCommand):
         """
         Make a multidimensional array from the list (keys) and copy/overwrite
         the value to the model-instance.
-        Not optimal regarding performance, but rather solid. And the feature
-        was requested for yesterday.
 
         Args:
             pk: id
@@ -113,7 +111,7 @@ class Command(NoArgsCommand):
 
         Returns: extract translated content from string with msgid, msgstr.
         """
-        return line[line.find('"')+1:line.rfind('"')]
+        return line[line.find('"') + 1:line.rfind('"')]
 
     def get_translation(self, pk):
         try:

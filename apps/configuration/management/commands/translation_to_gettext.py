@@ -1,5 +1,4 @@
 import collections
-import contextlib
 import re
 import subprocess
 from os.path import join
@@ -28,8 +27,8 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         """
-        Read all strints that must be translated from the json file, create a
-        po-file from it that may be used in the default translation workflow.
+        Read all strings that must be translated from the model and create a
+        po-file that may be used in the default translation workflow.
 
         """
         # Get all strings that must be translated in a single dict, grouped by
@@ -60,9 +59,11 @@ class Command(NoArgsCommand):
             buffer = ''
             with open(join(path, 'extract.po'), 'r+') as po_file:
                 for line in po_file.readlines():
-                    if line.startswith('#: {}{}.py:'.format(path, self.filename)):
+                    if line.startswith('#: {path}{filename}.py:'.format(
+                            path=path, filename=self.filename)
+                    ):
                         # Extract the number on the end of the line
-                        index = re.findall('\d+', line[line.rfind(':')+1:])[0]
+                        index = re.findall('\d+', line[line.rfind(':') + 1:])[0]
                         buffer += '{}\n'.format(line_model_info[int(index)])
                     else:
                         buffer += line
@@ -74,7 +75,8 @@ class Command(NoArgsCommand):
 
             # Remove unnecessary files.
             subprocess.call(['rm {}extract.pot'.format(path)], shell=True)
-            subprocess.call(['rm {}{}.py'.format(path, self.filename)], shell=True)
+            subprocess.call(['rm {}{}.py'.format(path, self.filename)],
+                            shell=True)
 
     def make_language_dict(self):
         """
@@ -87,12 +89,12 @@ class Command(NoArgsCommand):
 
     def get_pot_command(self, path):
         return 'pygettext -d extract -p {path} {path}{filename}.py'.format(
-                path=path, filename=self.filename)
+            path=path, filename=self.filename)
 
     def get_po_command(self, path, lang):
         return 'msginit -i {path}{filename}.pot -o {path}{filename}.po ' \
-               '--no-translator -l {lang}'.format(
-                path=path, lang=lang, filename=self.filename)
+               '--no-translator -l {lang}'.format(path=path, lang=lang,
+                                                  filename=self.filename)
 
     def walk(self, data, pk, path=''):
         """
