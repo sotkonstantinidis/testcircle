@@ -13,6 +13,12 @@
 {% load i18n %}
 {% load floppyforms %}
 {% load list_to_columns %}
+{% load sekizai_tags %}
+{% load staticfiles %}
+
+{% addtoblock 'js' %}
+  <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+{% endaddtoblock %}
 
 <div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %} class="questiongroup{% if config.numbered %} questiongroup-numbered-{{ config.numbered }}{% endif %}{% if config.numbered == 'prefix' %} sortable{% endif %}">
 

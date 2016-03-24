@@ -148,10 +148,9 @@ class FunctionalTest(StaticLiveServerTestCase):
                      ' "{}")]'.format(user)).click()
 
     def changeLanguage(self, locale):
-        topsearchbar = self.findBy(
-            'xpath', '//form[contains(@class, "top-bar-search")]')
-        self.browser.execute_script(
-            'arguments[0].style.margin = "10rem";', topsearchbar)
+        self.findBy(
+            'xpath', '//li[contains(@class, "has-dropdown") and contains('
+                     '@class, "top-bar-lang")]/a').click()
         self.findBy('xpath', '//a[@data-language="{}"]'.format(locale)).click()
 
     @patch.object(Typo3Client, 'get_and_update_django_user')

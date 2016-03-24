@@ -952,6 +952,9 @@ class ListTest(FunctionalTest):
         # She also searches for a word
         self.findBy('xpath', '//input[@type="search"]').send_keys('Foo')
         self.findBy('id', 'submit-search').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
         # She sees that both filters are applied
         list_entries = self.findManyBy(

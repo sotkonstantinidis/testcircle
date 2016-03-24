@@ -26,7 +26,7 @@
 
       {% with initial_link_data=config.initial_links|get_by_index:forloop.counter0 %}
 
-        <div clas6s="row list-item{% if config.row_class %} {{ config.row_class }}{% endif %}{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+        <div class="row list-item{% if config.row_class %} {{ config.row_class }}{% endif %}{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
 
           <div class="link-preview">{# Placeholder #}</div>
           <span class="link-name"{% if initial_link_data %} data-link-name="{{ initial_link_data.name }}"{% endif %}></span>

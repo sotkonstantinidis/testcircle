@@ -64,6 +64,7 @@ def get_categories():
         ('tech__8', 'Impacts: benefits and disadvantages'),
         ('tech__9', 'Adoption and adaptation'),
         ('tech__10', 'Conclusions and lessons learnt'),
+        ('tech__refs', 'References and links'),
     )
 
 
