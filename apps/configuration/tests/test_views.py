@@ -14,7 +14,7 @@ from ..views import BuildAllCachesView, delete_caches
 
 class CacheTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json']
     locmem = {'default': {'BACKEND': 'django.core.cache.backends.locmem.'
                                      'LocMemCache'}}
 

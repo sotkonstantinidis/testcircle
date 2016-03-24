@@ -1415,6 +1415,21 @@
       "data": {
         "sample": {
           "label": {
+            "en": "Subcategory 5_3 (links)",
+            "es": "Subcategoría 5_3 (links)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12724
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
             "en": "Category 1",
             "es": "Categoría 1"
           }
@@ -2644,6 +2659,15 @@
   },
   {
     "fields": {
+      "keyword": "qg_33__samplemulti",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11033
+  },
+  {
+    "fields": {
       "keyword": "subcat_1_1",
       "translation": 12701
     },
@@ -2825,6 +2849,14 @@
     },
     "model": "configuration.category",
     "pk": 11033
+  },
+  {
+    "fields": {
+      "keyword": "subcat_5_3",
+      "translation": 12724
+    },
+    "model": "configuration.category",
+    "pk": 11034
   },
   {
     "fields": {
@@ -3552,15 +3584,34 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "subcat_5_3",
+                    "form_options": {
+                      "has_links": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_33__samplemulti",
+                        "form_options": {
+                          "template": "select_link",
+                          "link": "samplemulti",
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "links"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "link_id"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
             ]
-          }
-        ],
-        "links": [
-          {
-            "keyword": "samplemulti"
           }
         ]
       },

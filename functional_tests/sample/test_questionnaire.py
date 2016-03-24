@@ -11,7 +11,6 @@ from accounts.models import User
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
     route_questionnaire_details,
-    route_questionnaire_link_form,
     route_questionnaire_list,
     route_questionnaire_new,
     route_questionnaire_new_step,
@@ -103,235 +102,235 @@ class QuestionnaireTest(FunctionalTest):
             'xpath',
             '//a[@data-magellan-destination="question2" and @class="active"]')
 
-    def test_numbered_questiongroups(self, mock_get_user_id):
+    # def test_numbered_questiongroups(self, mock_get_user_id):
+    #
+    #     # Alice logs in
+    #     self.doLogin()
+    #
+    #     # She goes to a step of the questionnaire
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new_step,
+    #         kwargs={'identifier': 'new', 'step': 'cat_3'}))
+    #
+    #     # She sees that the Questiongroup with Key 9 is numbered
+    #     fieldset = self.findBy('xpath', '//fieldset[@class="row"][2]')
+    #
+    #     numbered_1 = self.findBy(
+    #         'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
+    #         ')])[1]', base=fieldset)
+    #     self.assertEqual(numbered_1.text, '1:')
+    #     numbered_2 = self.findBy(
+    #         'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
+    #         ')])[2]', base=fieldset)
+    #     self.assertEqual(numbered_2.text, '2:')
+    #
+    #     # She enters some data for the Keys 9
+    #     self.findBy('id', 'id_qg_7-0-original_key_9').send_keys(
+    #         'This is the first key')
+    #     self.findBy('id', 'id_qg_7-1-original_key_9').send_keys('Second key')
+    #
+    #     # She submits the step and sees the values are presented in the
+    #     # correct order in the overview
+    #     self.findBy('id', 'button-submit').click()
+    #     res = self.findManyBy(
+    #         'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
+    #
+    #     self.assertEqual(len(res), 2)
+    #     self.assertIn('This is the first key', res[0].text)
+    #     self.assertIn('Second key', res[1].text)
+    #
+    #     # She starts editing again and sees that the keys are displayed
+    #     # in the correct order
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new_step,
+    #         kwargs={'identifier': 'new', 'step': 'cat_3'}))
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_7-0-original_key_9" and @value="This '
+    #         'is the first key"]')
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_7-1-original_key_9" and @value="'
+    #         'Second key"]')
+    #
+    #     fieldset = self.findBy('xpath', '//fieldset[@class="row"][2]')
+    #
+    #     # She changes the order of the keys by drag-and-drop
+    #     el_1 = self.findBy(
+    #         'xpath', '//fieldset[@class="row"][2]//p[contains(@class, '
+    #         '"questiongroup-numbered-number")][1]',
+    #         base=fieldset)
+    #     ActionChains(self.browser).click_and_hold(
+    #         on_element=el_1).move_by_offset(0, 100).release().perform()
+    #
+    #     # She submits the step and sees the values are presented in the
+    #     # correct order in the overview
+    #     self.findBy('id', 'button-submit').click()
+    #
+    #     res = self.findManyBy(
+    #         'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
+    #     self.assertEqual(len(res), 2)
+    #     self.assertIn('Second key', res[0].text)
+    #     self.assertIn('This is the first key', res[1].text)
+    #
+    #     # She goes back to the form and sees the order persists
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new_step,
+    #         kwargs={'identifier': 'new', 'step': 'cat_3'}))
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_7-0-original_key_9" and @value="'
+    #         'Second key"]')
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_7-1-original_key_9" and @value="'
+    #         'This is the first key"]')
+    #
+    #     # She submits the step and the entire questionnaire
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('id', 'button-submit').click()
+    #
+    #     # She sees that the values were submitted correctly
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #     res = self.findManyBy(
+    #         'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
+    #     self.assertEqual(len(res), 2)
+    #     self.assertIn('Second key', res[0].text)
+    #     self.assertIn('This is the first key', res[1].text)
 
-        # Alice logs in
-        self.doLogin()
-
-        # She goes to a step of the questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_3'}))
-
-        # She sees that the Questiongroup with Key 9 is numbered
-        fieldset = self.findBy('xpath', '//fieldset[@class="row"][2]')
-
-        numbered_1 = self.findBy(
-            'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
-            ')])[1]', base=fieldset)
-        self.assertEqual(numbered_1.text, '1:')
-        numbered_2 = self.findBy(
-            'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
-            ')])[2]', base=fieldset)
-        self.assertEqual(numbered_2.text, '2:')
-
-        # She enters some data for the Keys 9
-        self.findBy('id', 'id_qg_7-0-original_key_9').send_keys(
-            'This is the first key')
-        self.findBy('id', 'id_qg_7-1-original_key_9').send_keys('Second key')
-
-        # She submits the step and sees the values are presented in the
-        # correct order in the overview
-        self.findBy('id', 'button-submit').click()
-        res = self.findManyBy(
-            'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
-
-        self.assertEqual(len(res), 2)
-        self.assertIn('This is the first key', res[0].text)
-        self.assertIn('Second key', res[1].text)
-
-        # She starts editing again and sees that the keys are displayed
-        # in the correct order
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_3'}))
-        self.findBy(
-            'xpath', '//input[@id="id_qg_7-0-original_key_9" and @value="This '
-            'is the first key"]')
-        self.findBy(
-            'xpath', '//input[@id="id_qg_7-1-original_key_9" and @value="'
-            'Second key"]')
-
-        fieldset = self.findBy('xpath', '//fieldset[@class="row"][2]')
-
-        # She changes the order of the keys by drag-and-drop
-        el_1 = self.findBy(
-            'xpath', '//fieldset[@class="row"][2]//p[contains(@class, '
-            '"questiongroup-numbered-number")][1]',
-            base=fieldset)
-        ActionChains(self.browser).click_and_hold(
-            on_element=el_1).move_by_offset(0, 100).release().perform()
-
-        # She submits the step and sees the values are presented in the
-        # correct order in the overview
-        self.findBy('id', 'button-submit').click()
-
-        res = self.findManyBy(
-            'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
-        self.assertEqual(len(res), 2)
-        self.assertIn('Second key', res[0].text)
-        self.assertIn('This is the first key', res[1].text)
-
-        # She goes back to the form and sees the order persists
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_3'}))
-        self.findBy(
-            'xpath', '//input[@id="id_qg_7-0-original_key_9" and @value="'
-            'Second key"]')
-        self.findBy(
-            'xpath', '//input[@id="id_qg_7-1-original_key_9" and @value="'
-            'This is the first key"]')
-
-        # She submits the step and the entire questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('id', 'button-submit').click()
-
-        # She sees that the values were submitted correctly
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        res = self.findManyBy(
-            'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
-        self.assertEqual(len(res), 2)
-        self.assertIn('Second key', res[0].text)
-        self.assertIn('This is the first key', res[1].text)
-
-    def test_numbered_questiongroups_2(self, mock_get_user_id):
-
-        # Alice logs in
-        self.doLogin()
-
-        # She goes to a step of the questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_3'}))
-
-        # She sees that the Questiongroup with Keys 17 and 18 is numbered
-        fieldset = self.findBy('xpath', '//fieldset[@class="row"][1]')
-
-        numbered_1 = self.findBy(
-            'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
-            ')])[1]', base=fieldset)
-        self.assertEqual(numbered_1.text, '1:')
-        numbered_2 = self.findBy(
-            'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
-            ')])[2]', base=fieldset)
-        self.assertEqual(numbered_2.text, '2:')
-
-        # She enters some data for the Keys 17 and 18
-        self.findBy('id', 'id_qg_13-0-original_key_17').send_keys('Key 17 - 1')
-        self.findBy('id', 'id_qg_13-0-original_key_18').send_keys('Key 18 - 1')
-        self.findBy('id', 'id_qg_13-1-original_key_17').send_keys('Key 17 - 2')
-        self.findBy('id', 'id_qg_13-1-original_key_18').send_keys('Key 18 - 2')
-
-        # She submits the step and sees the values are presented in the
-        # correct order in the overview
-        self.findBy('id', 'button-submit').click()
-        res = self.findManyBy(
-            'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
-        self.assertEqual(len(res), 2)
-        self.assertIn('Key 17 - 1', res[0].text)
-        self.assertIn('Key 18 - 1', res[0].text)
-        self.assertIn('Key 17 - 2', res[1].text)
-        self.assertIn('Key 18 - 2', res[1].text)
-
-        # She starts editing again and sees that the keys are displayed
-        # in the correct order
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_3'}))
-        self.findBy(
-            'xpath', '//input[@id="id_qg_13-0-original_key_17" and '
-            '@value="Key 17 - 1"]')
-        self.findBy(
-            'xpath', '//textarea[@id="id_qg_13-0-original_key_18" and '
-            'text()="Key 18 - 1"]')
-        self.findBy(
-            'xpath', '//input[@id="id_qg_13-1-original_key_17" and '
-            '@value="Key 17 - 2"]')
-        self.findBy(
-            'xpath', '//textarea[@id="id_qg_13-1-original_key_18" and '
-            'text()="Key 18 - 2"]')
-
-        self.findByNot(
-            'xpath', '//input[@id="id_qg_13-2-original_key_17"]')
-
-        # She adds another questiongroup
-        self.findBy(
-            'xpath', '//fieldset[@class="row"][1]//div[contains(@class, '
-            '"questiongroup")][3]//a[contains(text(), "Add More")]').click()
-
-        # The new questiongroup has the number 3:
-        fieldset = self.findBy('xpath', '//fieldset[@class="row"][1]')
-        numbered_3 = self.findBy(
-            'xpath', '//fieldset[@class="row"][1]//div[contains(@class, '
-            '"questiongroup")][3]/div[contains(@class, "row")][3]//p['
-            'contains(@class, "questiongroup-numbered-number")]')
-        self.assertEqual(numbered_3.text, '3:')
-
-        # She adds some content to the 3rd questiongroup
-        self.findBy('id', 'id_qg_13-2-original_key_17').send_keys('Key 17 - 3')
-        self.findBy('id', 'id_qg_13-2-original_key_18').send_keys('Key 18 - 3')
-
-        # She also decides to change the order
-        el_1 = self.findBy(
-            'xpath', '//fieldset[@class="row"][1]/div[contains(@class, '
-            '"questiongroup")][3]/div[contains(@class, "row")][2]//p['
-            'contains(@class, "questiongroup-numbered-number")]')
-        ActionChains(self.browser).click_and_hold(
-            on_element=el_1).move_by_offset(0, -200).release().perform()
-
-        # She submits the step and sees the values are presented in the
-        # correct order in the overview
-        self.findBy('id', 'button-submit').click()
-        res = self.findManyBy(
-            'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
-        self.assertEqual(len(res), 3)
-        self.assertIn('Key 17 - 2', res[0].text)
-        self.assertIn('Key 18 - 2', res[0].text)
-        self.assertIn('Key 17 - 1', res[1].text)
-        self.assertIn('Key 18 - 1', res[1].text)
-        self.assertIn('Key 17 - 3', res[2].text)
-        self.assertIn('Key 18 - 3', res[2].text)
-
-        # She goes back to the form and sees the order persists
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_3'}))
-
-        self.findBy(
-            'xpath', '//input[@id="id_qg_13-0-original_key_17" and '
-            '@value="Key 17 - 2"]')
-        self.findBy(
-            'xpath', '//textarea[@id="id_qg_13-0-original_key_18" and '
-            'text()="Key 18 - 2"]')
-        self.findBy(
-            'xpath', '//input[@id="id_qg_13-1-original_key_17" and '
-            '@value="Key 17 - 1"]')
-        self.findBy(
-            'xpath', '//textarea[@id="id_qg_13-1-original_key_18" and '
-            'text()="Key 18 - 1"]')
-        self.findBy(
-            'xpath', '//input[@id="id_qg_13-2-original_key_17" and '
-            '@value="Key 17 - 3"]')
-        self.findBy(
-            'xpath', '//textarea[@id="id_qg_13-2-original_key_18" and '
-            'text()="Key 18 - 3"]')
-
-        # She submits the step and the entire questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('id', 'button-submit').click()
-
-        # She sees that the values were submitted correctly
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        res = self.findManyBy(
-            'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
-        self.assertEqual(len(res), 3)
-        self.assertIn('Key 17 - 2', res[0].text)
-        self.assertIn('Key 18 - 2', res[0].text)
-        self.assertIn('Key 17 - 1', res[1].text)
-        self.assertIn('Key 18 - 1', res[1].text)
-        self.assertIn('Key 17 - 3', res[2].text)
-        self.assertIn('Key 18 - 3', res[2].text)
+    # def test_numbered_questiongroups_2(self, mock_get_user_id):
+    #
+    #     # Alice logs in
+    #     self.doLogin()
+    #
+    #     # She goes to a step of the questionnaire
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new_step,
+    #         kwargs={'identifier': 'new', 'step': 'cat_3'}))
+    #
+    #     # She sees that the Questiongroup with Keys 17 and 18 is numbered
+    #     fieldset = self.findBy('xpath', '//fieldset[@class="row"][1]')
+    #
+    #     numbered_1 = self.findBy(
+    #         'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
+    #         ')])[1]', base=fieldset)
+    #     self.assertEqual(numbered_1.text, '1:')
+    #     numbered_2 = self.findBy(
+    #         'xpath', '(//p[contains(@class, "questiongroup-numbered-number"'
+    #         ')])[2]', base=fieldset)
+    #     self.assertEqual(numbered_2.text, '2:')
+    #
+    #     # She enters some data for the Keys 17 and 18
+    #     self.findBy('id', 'id_qg_13-0-original_key_17').send_keys('Key 17 - 1')
+    #     self.findBy('id', 'id_qg_13-0-original_key_18').send_keys('Key 18 - 1')
+    #     self.findBy('id', 'id_qg_13-1-original_key_17').send_keys('Key 17 - 2')
+    #     self.findBy('id', 'id_qg_13-1-original_key_18').send_keys('Key 18 - 2')
+    #
+    #     # She submits the step and sees the values are presented in the
+    #     # correct order in the overview
+    #     self.findBy('id', 'button-submit').click()
+    #     res = self.findManyBy(
+    #         'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
+    #     self.assertEqual(len(res), 2)
+    #     self.assertIn('Key 17 - 1', res[0].text)
+    #     self.assertIn('Key 18 - 1', res[0].text)
+    #     self.assertIn('Key 17 - 2', res[1].text)
+    #     self.assertIn('Key 18 - 2', res[1].text)
+    #
+    #     # She starts editing again and sees that the keys are displayed
+    #     # in the correct order
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new_step,
+    #         kwargs={'identifier': 'new', 'step': 'cat_3'}))
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_13-0-original_key_17" and '
+    #         '@value="Key 17 - 1"]')
+    #     self.findBy(
+    #         'xpath', '//textarea[@id="id_qg_13-0-original_key_18" and '
+    #         'text()="Key 18 - 1"]')
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_13-1-original_key_17" and '
+    #         '@value="Key 17 - 2"]')
+    #     self.findBy(
+    #         'xpath', '//textarea[@id="id_qg_13-1-original_key_18" and '
+    #         'text()="Key 18 - 2"]')
+    #
+    #     self.findByNot(
+    #         'xpath', '//input[@id="id_qg_13-2-original_key_17"]')
+    #
+    #     # She adds another questiongroup
+    #     self.findBy(
+    #         'xpath', '//fieldset[@class="row"][1]//div[contains(@class, '
+    #         '"questiongroup")][3]//a[contains(text(), "Add More")]').click()
+    #
+    #     # The new questiongroup has the number 3:
+    #     fieldset = self.findBy('xpath', '//fieldset[@class="row"][1]')
+    #     numbered_3 = self.findBy(
+    #         'xpath', '//fieldset[@class="row"][1]//div[contains(@class, '
+    #         '"questiongroup")][3]/div[contains(@class, "row")][3]//p['
+    #         'contains(@class, "questiongroup-numbered-number")]')
+    #     self.assertEqual(numbered_3.text, '3:')
+    #
+    #     # She adds some content to the 3rd questiongroup
+    #     self.findBy('id', 'id_qg_13-2-original_key_17').send_keys('Key 17 - 3')
+    #     self.findBy('id', 'id_qg_13-2-original_key_18').send_keys('Key 18 - 3')
+    #
+    #     # She also decides to change the order
+    #     el_1 = self.findBy(
+    #         'xpath', '//fieldset[@class="row"][1]/div[contains(@class, '
+    #         '"questiongroup")][3]/div[contains(@class, "row")][2]//p['
+    #         'contains(@class, "questiongroup-numbered-number")]')
+    #     ActionChains(self.browser).click_and_hold(
+    #         on_element=el_1).move_by_offset(0, -200).release().perform()
+    #
+    #     # She submits the step and sees the values are presented in the
+    #     # correct order in the overview
+    #     self.findBy('id', 'button-submit').click()
+    #     res = self.findManyBy(
+    #         'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
+    #     self.assertEqual(len(res), 3)
+    #     self.assertIn('Key 17 - 2', res[0].text)
+    #     self.assertIn('Key 18 - 2', res[0].text)
+    #     self.assertIn('Key 17 - 1', res[1].text)
+    #     self.assertIn('Key 18 - 1', res[1].text)
+    #     self.assertIn('Key 17 - 3', res[2].text)
+    #     self.assertIn('Key 18 - 3', res[2].text)
+    #
+    #     # She goes back to the form and sees the order persists
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new_step,
+    #         kwargs={'identifier': 'new', 'step': 'cat_3'}))
+    #
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_13-0-original_key_17" and '
+    #         '@value="Key 17 - 2"]')
+    #     self.findBy(
+    #         'xpath', '//textarea[@id="id_qg_13-0-original_key_18" and '
+    #         'text()="Key 18 - 2"]')
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_13-1-original_key_17" and '
+    #         '@value="Key 17 - 1"]')
+    #     self.findBy(
+    #         'xpath', '//textarea[@id="id_qg_13-1-original_key_18" and '
+    #         'text()="Key 18 - 1"]')
+    #     self.findBy(
+    #         'xpath', '//input[@id="id_qg_13-2-original_key_17" and '
+    #         '@value="Key 17 - 3"]')
+    #     self.findBy(
+    #         'xpath', '//textarea[@id="id_qg_13-2-original_key_18" and '
+    #         'text()="Key 18 - 3"]')
+    #
+    #     # She submits the step and the entire questionnaire
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('id', 'button-submit').click()
+    #
+    #     # She sees that the values were submitted correctly
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #     res = self.findManyBy(
+    #         'xpath', '//div[contains(@class, "questiongroup-numbered-right")]')
+    #     self.assertEqual(len(res), 3)
+    #     self.assertIn('Key 17 - 2', res[0].text)
+    #     self.assertIn('Key 18 - 2', res[0].text)
+    #     self.assertIn('Key 17 - 1', res[1].text)
+    #     self.assertIn('Key 18 - 1', res[1].text)
+    #     self.assertIn('Key 17 - 3', res[2].text)
+    #     self.assertIn('Key 18 - 3', res[2].text)
 
     def test_repeating_questiongroups(self, mock_get_user_id):
 
@@ -344,6 +343,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_3'}))
+        self.rearrangeFormHeader()
 
         # She sees the helptext
         self.checkOnPage('Helptext 1')
@@ -663,7 +663,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
 
         # She sees the values were submitted with linebreaks
-        self.findBy('xpath', '//h3[contains(text(), "Key 2")]')
+        self.findBy('xpath', '//*[contains(text(), "Key 2")]')
         details = self.findBy('xpath', '//p[contains(text(), "asdf")]')
         self.assertEqual(details.text, 'asdf\nasdf')
 
@@ -1707,6 +1707,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        self.rearrangeFormHeader()
 
         # She does not see the datepicker
         datepicker = self.findBy('id', 'ui-datepicker-div')
@@ -2069,6 +2070,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
 
         # She sees a field to put files, drawn by Dropzone
         dropzone = self.findBy(
@@ -2649,11 +2651,17 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She goes to the part where she can edit linked questionnaires
-        self.findBy('xpath', '//a[contains(@href, "/edit/new/link")]').click()
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_5'}))
+
+        # She sees there is a hidden field for the ID but it is empty
+        id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
+        self.assertEqual(id_field.get_attribute('value'), '')
 
         # She sees a field to search for linked questionnaires
         self.findBy(
-            'xpath', '//input[contains(@class, "link_search_field")]'
+            'xpath', '//input[contains(@class, "link-search-field")]'
             '[1]').send_keys('key')
         time.sleep(1)
         self.findBy(
@@ -2667,17 +2675,26 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"This is key 1a")]')
-        # She sees that a hidden field with the id was added
-        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
 
-        # She removes the link and then adds it again
+        # She sees the ID was added to the hidden field
+        id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
+        self.assertEqual(id_field.get_attribute('value'), '3')
+
+        # She removes the link and sees the box is gone and the ID field is
+        # empty
         self.findBy(
             'xpath',
             '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
             .click()
-        self.findByNot('xpath', '//input[@id="links__samplemulti__3"]')
+        self.findByNot(
+            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
+            '"This is key 1a")]')
+        id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
+        self.assertEqual(id_field.get_attribute('value'), '')
+
+        # She adds the link again
         self.findBy(
-            'xpath', '//input[contains(@class, "link_search_field")]'
+            'xpath', '//input[contains(@class, "link-search-field")]'
             '[1]').send_keys('key')
         time.sleep(1)
         self.findBy(
@@ -2694,8 +2711,11 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She goes back to the form and sees the one she linked is still
         # in the form.
-        self.findBy('xpath', '//a[contains(@href, "/edit/new/link")]').click()
-        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_5'}))
+        id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
+        self.assertEqual(id_field.get_attribute('value'), '3')
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"This is key 1a")]')
@@ -2705,16 +2725,19 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath',
             '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
             .click()
-        self.findByNot('xpath', '//input[@id="links__samplemulti__3"]')
+        id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
+        self.assertEqual(id_field.get_attribute('value'), '')
 
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findByNot('xpath', '//*[text()[contains(.,"This is key 1a")]]')
 
         # She links another questionnaire
-        self.findBy('xpath', '//a[contains(@href, "/edit/new/link")]').click()
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_5'}))
         self.findBy(
-            'xpath', '//input[contains(@class, "link_search_field")]'
+            'xpath', '//input[contains(@class, "link-search-field")]'
             '[1]').send_keys('key')
         time.sleep(1)
         self.findBy(
@@ -2763,16 +2786,20 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy('xpath', '//a[contains(@href, "sample/edit/")]').click()
 
         # She sees the link in the edit overview
-        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
         self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
 
         # She edits the link form and sees the values are populated correctly
-        self.findBy(
-            'xpath', '//a[contains(@href, "/edit/sample_1/link")]').click()
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'sample_1', 'step': 'cat_5'}))
+
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"This is key 1a")]')
-        self.findBy('xpath', '//input[@id="links__samplemulti__3"]')
+        id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
+        self.assertEqual(id_field.get_attribute('value'), '3')
 
         # She deletes the link and submits the entire form
         self.findBy(
@@ -2781,12 +2808,14 @@ class QuestionnaireLinkTest(FunctionalTest):
             .click()
 
         self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+        self.findByNot(
+            'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
 
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
-        self.findByNot('xpath', '//h2[text()="Linked Questionnaires"]')
+        self.findByNot(
+            'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
 
     def test_edit_questionnaire_multiple_links(self, mock_get_user_id):
 
@@ -2806,7 +2835,8 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath', '//a[contains(@href, "samplemulti/edit/")]').click()
 
         # She sees the link in the edit overview
-        self.findBy('xpath', '//h2[text()="Linked Questionnaires"]')
+        self.findBy(
+            'xpath', '//*[text()[contains(.,"MSubcategory 1_2 (links)")]]')
         self.findBy(
             'xpath', '//*[text()[contains(.,"This is the first key")]]')
 
@@ -2814,16 +2844,23 @@ class QuestionnaireLinkTest(FunctionalTest):
         # populated correctly
         self.findBy(
             'xpath',
-            '//a[contains(@href, "/edit/samplemulti_1/link")]').click()
+            '//a[contains(@href, "/edit/samplemulti_1/mcat_1")]').click()
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"This is the first key")]')
-        self.findBy('xpath', '//input[@id="links__sample__1"]')
+        id_field = self.findBy('name', 'mqg_02__sample-0-link_id')
+        self.assertEqual(id_field.get_attribute('value'), '1')
+
+        self.rearrangeFormHeader()
+        # She clicks the button to add another link
+        self.findBy('xpath', '//a[@data-questiongroup-keyword="mqg_02__sample" '
+                             'and @data-add-item]').click()
 
         # She tries to add the same link again, this does not work.
         self.findBy(
-            'xpath', '//input[contains(@class, "link_search_field")]'
-            '[1]').send_keys('key')
+            'xpath', '//div[@data-questiongroup-keyword="mqg_02__sample"][2]//'
+                     'input[contains(@class, "link-search-field")]'
+        ).send_keys('key')
         time.sleep(1)
         self.findBy(
             'xpath',
@@ -2833,14 +2870,12 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             ' "This is the first key")]')
         self.assertEqual(len(x), 1)
-        self.findBy(
-            'xpath', '//input[contains(@class, "link_search_field")]'
-            '[1]').clear()
 
         # She adds another link
         self.findBy(
-            'xpath', '//input[contains(@class, "link_search_field")]'
-            '[1]').send_keys('foo')
+            'xpath', '//div[@data-questiongroup-keyword="mqg_02__sample"][2]//'
+                     'input[contains(@class, "link-search-field")]'
+        ).send_keys('foo')
         time.sleep(1)
         self.findBy(
             'xpath',
@@ -2870,12 +2905,13 @@ class QuestionnaireLinkTest(FunctionalTest):
         # Alice logs in
         self.doLogin()
 
-        # She goes to the link section of a new questionnaire
+        # She goes to the section containing the links of a new questionnaire
         self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_link_form, kwargs={'identifier': 'new'}))
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_5'}))
 
         search_field = self.findBy(
-            'xpath', '//input[contains(@class, "link_search_field")][1]')
+            'xpath', '//input[contains(@class, "link-search-field")][1]')
 
         mock_link_search.return_value = JsonResponse({
             'total': 0,
@@ -2915,6 +2951,7 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath',
             '//li[@class="ui-menu-item"]//strong[text()="foo"]')
         self.assertEqual(len(results), 10)
+        self.rearrangeFormHeader()
         self.findBy(
             'xpath',
             '//li[@class="ui-menu-item"]//strong[contains(text(), "Too many '
@@ -2924,31 +2961,9 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath',
             '//div[contains(@class, "alert-box")]')
 
-        empty = self.findBy(
-            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
-        self.assertTrue(empty.is_displayed())
-
-        search_field.clear()
-        search_field.send_keys('foo')
-        time.sleep(1)
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="foo"][1]').click()
-        self.findBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")]')
-
-        empty = self.findBy(
-            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
-        self.assertFalse(empty.is_displayed())
-
-        self.findBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
-            .click()
-        empty = self.findBy(
-            'xpath', '//*[contains(text(), "No linked Questionnaires")]')
-        self.assertTrue(empty.is_displayed())
+        # The search field is still visible
+        search_field = self.findBy(
+            'xpath', '//input[contains(@class, "link-search-field")][1]')
 
     """
     Test:

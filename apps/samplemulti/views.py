@@ -7,7 +7,6 @@ from django.template.loader import render_to_string
 from accounts.decorators import force_login_check
 from questionnaire.views import (
     generic_questionnaire_details,
-    generic_questionnaire_link_form,
     generic_questionnaire_link_search,
     generic_questionnaire_list,
     generic_questionnaire_new_step,
@@ -26,32 +25,6 @@ def home(request):
         'filter_configuration': list_template_values.get(
             'filter_configuration', {}),
     })
-
-
-@login_required
-@force_login_check
-def questionnaire_link_form(request, identifier):
-    """
-    View to show the form for linking questionnaires. Also handles the
-    form submit along with its validation and redirect.
-
-    .. seealso::
-        The actual rendering of the form and the form validation is
-        handled by the generic questionnaire function
-        :func:`questionnaire.views.generic_questionnaire_new_step`.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-        ``identifier`` (str): The identifier of the Questionnaire
-        object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    return generic_questionnaire_link_form(
-        request, 'samplemulti', 'samplemulti', page_title='SAMPLEMULTI Links',
-        identifier=identifier)
 
 
 def questionnaire_link_search(request):

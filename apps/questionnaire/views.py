@@ -19,7 +19,6 @@ from django.views.decorators.http import require_POST
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
-from configuration.models import Configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
@@ -58,119 +57,6 @@ from .view_utils import (
 )
 from search.search import advanced_search
 from .conf import settings
-
-
-@login_required
-@force_login_check
-def generic_questionnaire_link_form(
-        request, configuration_code, url_namespace, page_title='QCAT Links',
-        identifier=None):
-    """
-    A generic view to add or remove linked questionnaires. By default,
-    the forms are shown. If the form was submitted, the submitted
-    questionnaires are validated and stored in the session, followed by
-    a redirect to the overview.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-        ``configuration_code`` (str): The code of the questionnaire
-        configuration.
-
-        ``url_namespace`` (str): The namespace of the questionnaire
-        URLs. It is assumed that all questionnaire apps have the same
-        routes for their questionnaires
-        (e.g. ``wocat:questionnaire_new``)
-
-    Kwargs:
-        ``page_title`` (str): The page title to be used in the HTML
-        template. Defaults to ``QCAT Form``.
-
-        ``identifier`` (str) The identifier of the Questionnaire if
-        available.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    questionnaire_configuration = get_configuration(configuration_code)
-    links_configuration = questionnaire_configuration.get_links_configuration()
-
-    session_data = get_session_questionnaire(
-        request, configuration_code, identifier)
-
-    link_forms = []
-    for links_config in links_configuration:
-        config_code = links_config.get('keyword')
-        config_label = ''
-        config_object = Configuration.get_active_by_code(config_code)
-        if config_object is not None:
-            config_label = config_object.name
-        initial_data = session_data.get('links', {}).get(config_code, [])
-        link_forms.append(
-            ({
-                'search_url': reverse(
-                    '{}:questionnaire_link_search'.format(config_code)),
-                'keyword': config_code,
-                'label': config_label,
-            }, initial_data))
-
-    if identifier is None:
-        overview_url = '{}#links'.format(
-            reverse('{}:questionnaire_new'.format(url_namespace)))
-    else:
-        overview_url = '{}#links'.format(reverse(
-            '{}:questionnaire_edit'.format(
-                url_namespace), kwargs={'identifier': identifier}))
-
-    valid = True
-    if request.method == 'POST':
-
-        link_data = {}
-        for submitted_key in request.POST.keys():
-
-            if not submitted_key.startswith('links__'):
-                continue
-
-            cleaned_links = []
-            for submitted_link in request.POST.getlist(submitted_key):
-                try:
-                    link_object = Questionnaire.objects.get(pk=submitted_link)
-                except Questionnaire.DoesNotExist:
-                    messages.error(
-                        request, 'The linked questionnaire with ID {} '
-                        'does not exist'.format(submitted_link))
-                    valid = False
-                    continue
-
-                link_configuration_code = submitted_key.replace('links__', '')
-                current_link_data = get_link_data(
-                    [link_object],
-                    link_configuration_code=link_configuration_code)
-                cleaned_links.extend(
-                    current_link_data.get(link_configuration_code))
-                if len(cleaned_links):
-                    link_data[link_configuration_code] = cleaned_links
-
-        if valid is True:
-            save_session_questionnaire(
-                request, configuration_code, identifier,
-                questionnaire_data=session_data.get('questionnaire', {}),
-                questionnaire_links=link_data)
-            messages.success(
-                request, _('Data successfully stored to Session.'))
-            return redirect(overview_url)
-
-    # Use a specific templates for the link or the default fallback template.
-    templates = [
-        'form/links/{}.html'.format(t) for t in [configuration_code, 'default']]
-
-    return render(request, templates, {
-        'valid': valid,
-        'overview_url': overview_url,
-        'link_forms': link_forms,
-        'configuration_name': url_namespace,
-        'title': page_title,
-    })
 
 
 def generic_questionnaire_link_search(request, configuration_code):
@@ -412,11 +298,13 @@ def generic_questionnaire_new_step(
         raise Http404
 
     session_questionnaire = {}
+    session_links = {}
     edited_questiongroups = []
     if request.method != 'POST':
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
         session_questionnaire = session_data.get('questionnaire', {})
+        session_links = session_data.get('links', {})
         old_data = session_data.get('old_questionnaire')
         if old_data:
             edited_questiongroups = compare_questionnaire_data(
@@ -434,7 +322,8 @@ def generic_questionnaire_new_step(
     category_config, subcategories = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode,
-        edited_questiongroups=edited_questiongroups)
+        edited_questiongroups=edited_questiongroups,
+        initial_links=session_links)
 
     if identifier is None:
         overview_url = '{}#{}'.format(
@@ -448,6 +337,54 @@ def generic_questionnaire_new_step(
 
         data, valid = _validate_formsets(
             subcategories, current_locale, original_locale)
+
+        # Check if any links were modified.
+        link_questiongroups = category.get_link_questiongroups()
+        if link_questiongroups:
+            for link_qg in link_questiongroups:
+                link_data = data.get(link_qg, [])
+                if link_data:
+                    try:
+                        link_configuration_code = link_qg.rsplit('__', 1)[1]
+                    except IndexError:
+                        messages.error(
+                            request, 'There was a problem submitting the link')
+                        valid = False
+                        continue
+
+                links_in_session = session_links.get(
+                    link_configuration_code, [])
+
+                for link in link_data:
+                    link_id = link.get('link_id')
+                    if not link_id:
+                        continue
+
+                    try:
+                        link_object = Questionnaire.objects.get(pk=link_id)
+                    except Questionnaire.DoesNotExist:
+                        messages.error(
+                            request, 'The linked questionnaire with ID {} '
+                            'does not exist'.format(link_id))
+                        valid = False
+                        continue
+
+                    # Check if the link is already in the session, in which case
+                    # there is no need to get the link data again
+                    link_found = False
+                    for old_link in links_in_session:
+                        if old_link.get('id') == link_id:
+                            link_found = True
+
+                    if link_found is False:
+                        current_link_data = get_link_data(
+                            [link_object],
+                            link_configuration_code=link_configuration_code)
+
+                        links_in_session.extend(current_link_data.get(
+                            link_configuration_code))
+
+                session_links[link_configuration_code] = links_in_session
 
         if valid is True:
             session_data = get_session_questionnaire(
@@ -482,7 +419,7 @@ def generic_questionnaire_new_step(
                 save_session_questionnaire(
                     request, configuration_code, identifier,
                     questionnaire_data=questionnaire_data,
-                    questionnaire_links=session_data.get('links', {}),
+                    questionnaire_links=session_links,
                     edited_questiongroups=diff_qgs)
 
                 messages.success(
@@ -651,12 +588,6 @@ def generic_questionnaire_new(
     if 'edit_questionnaire' in permissions:
         csrf_token = get_token(request)
 
-    sections = questionnaire_configuration.get_details(
-        data, permissions=permissions,
-        edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
-        questionnaire_object=questionnaire_object, csrf_token=csrf_token,
-        edited_questiongroups=edited_questiongroups, view_mode='edit')
-
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
 
@@ -680,6 +611,13 @@ def generic_questionnaire_new(
             configuration_code=configuration, questionnaire_objects=links,
             with_links=False)
 
+    sections = questionnaire_configuration.get_details(
+        data, permissions=permissions,
+        edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
+        questionnaire_object=questionnaire_object, csrf_token=csrf_token,
+        edited_questiongroups=edited_questiongroups, view_mode='edit',
+        links=link_display)
+
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
@@ -701,7 +639,6 @@ def generic_questionnaire_new(
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'links': link_display,
         'filter_configuration': filter_configuration,
         'permissions': permissions,
         'edited_questiongroups': edited_questiongroups,
@@ -765,10 +702,6 @@ def generic_questionnaire_details(
             lvl, msg = questionnaire_object.get_blocked_message(request.user)
             review_config['blocked_by'] = msg
 
-    sections = questionnaire_configuration.get_details(
-        data=data, permissions=permissions, review_config=review_config,
-        questionnaire_object=questionnaire_object)
-
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
 
@@ -797,6 +730,10 @@ def generic_questionnaire_details(
             configuration_code=configuration, questionnaire_objects=links,
             with_links=False)
 
+    sections = questionnaire_configuration.get_details(
+        data=data, permissions=permissions, review_config=review_config,
+        questionnaire_object=questionnaire_object, links=link_display)
+
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
@@ -805,7 +742,6 @@ def generic_questionnaire_details(
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'links': link_display,
         'filter_configuration': filter_configuration,
         'permissions': permissions,
         'view_mode': 'view',

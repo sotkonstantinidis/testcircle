@@ -11316,6 +11316,9 @@
           "label": {
             "en": "Reference to Questionnaire(s) on SLM Approaches"
           },
+          "helptext": {
+            "en": "To understand properly the implementation of the Technology, the associated SLM Approach must be described. Use the search field to find the SLM Approach in the database."
+          },
           "numbering": "1.5"
         }
       }
@@ -20671,6 +20674,15 @@
   },
   {
     "fields": {
+      "keyword": "tech_qg__approaches",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1237
+  },
+  {
+    "fields": {
       "keyword": "tech__0__1",
       "translation": 2701
     },
@@ -21553,8 +21565,26 @@
                   {
                     "keyword": "tech__1__5",
                     "form_options": {
-                      "template": "links_technologies"
-                    }
+                      "has_links": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "tech_qg__approaches",
+                        "form_options": {
+                          "template": "select_link",
+                          "link": "approaches",
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "links"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "link_id"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -27091,11 +27121,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "links": [
-          {
-            "keyword": "approaches"
           }
         ]
       },

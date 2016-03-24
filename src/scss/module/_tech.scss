@@ -348,3 +348,11 @@ table th.table-numbered {
 table th span.has-tip {
   font-weight: $table-head-font-weight;
 }
+
+div.inline-linked-questionnaires article {
+  padding-top: 1rem;
+
+  &:first-child {
+    padding-top: 0.5rem;
+  }
+}

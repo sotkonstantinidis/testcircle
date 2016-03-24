@@ -17,7 +17,6 @@ from questionnaire.models import Questionnaire, File
 from questionnaire.views import (
     generic_file_upload,
     generic_questionnaire_details,
-    generic_questionnaire_link_form,
     generic_questionnaire_link_search,
     generic_questionnaire_list,
     generic_questionnaire_new,
@@ -30,7 +29,6 @@ from sample.tests.test_views import (
     get_valid_new_values,
     get_valid_details_values,
     get_valid_list_values,
-    get_valid_link_form_values,
     route_questionnaire_details,
     route_questionnaire_list,
     route_questionnaire_link_search,
@@ -40,81 +38,6 @@ file_upload_route = 'file_upload'
 file_display_route = 'file_serve'
 valid_file = 'static/assets/img/img01.jpg'
 invalid_file = 'bower.json'  # Needs to exist but not valid file type
-
-
-class GenericQuestionnaireLinkFormTest(TestCase):
-
-    fixtures = [
-        'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json']
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = '/sample/edit/links'
-        self.request = self.factory.get(self.url)
-        self.request.user = create_new_user()
-        self.request.session = {}
-
-    def test_requires_login(self):
-        self.client.logout()
-        res = self.client.post(self.url, follow=True)
-        self.assertTemplateUsed(res, 'login.html')
-
-    @patch('questionnaire.views.get_configuration')
-    def test_calls_get_configuration(self, mock_get_configuration):
-        generic_questionnaire_link_form(
-            self.request, *get_valid_link_form_values()[0],
-            **get_valid_link_form_values()[1])
-        mock_get_configuration.assert_called_once_with('sample')
-
-    @patch.object(QuestionnaireConfiguration, 'get_links_configuration')
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    def test_calls_get_links_configuration(
-            self, mock_QuestionnaireConfiguration,
-            mock_get_links_configuration):
-        mock_QuestionnaireConfiguration.return_value = None
-        mock_get_links_configuration.return_value \
-            = []
-        generic_questionnaire_link_form(
-            self.request, *get_valid_link_form_values()[0],
-            **get_valid_link_form_values()[1])
-        mock_get_links_configuration.assert_called_once_with()
-
-    @patch('questionnaire.views.get_session_questionnaire')
-    def test_calls_get_session_questionnaire(
-            self, mock_get_session_questionnaire):
-        mock_get_session_questionnaire.return_value = {}
-        generic_questionnaire_link_form(
-            self.request, *get_valid_link_form_values()[0],
-            **get_valid_link_form_values()[1])
-        mock_get_session_questionnaire.assert_called_once_with(
-            self.request, 'sample', 'foo')
-
-    @patch('questionnaire.views.render')
-    def test_calls_render(self, mock_render):
-        generic_questionnaire_link_form(
-            self.request, *get_valid_link_form_values()[0],
-            **get_valid_link_form_values()[1])
-        mock_render.assert_called_once_with(
-            self.request,
-            [
-                'form/links/sample.html',
-                'form/links/default.html',
-            ],
-            {
-                'valid': True,
-                'overview_url': '/en/sample/edit/foo/#links',
-                'link_forms': [(
-                    {
-                        'label': '',
-                        'keyword': 'samplemulti',
-                        'search_url': '/en/samplemulti/search/links/',
-                    }, []
-                )],
-                'configuration_name': 'sample',
-                'title': 'SAMPLE Links'
-            }
-        )
 
 
 class GenericQuestionnaireLinkSearchTest(TestCase):
@@ -234,7 +157,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
             self.request, *get_valid_new_step_values()[0])
         mock_get_form.assert_called_once_with(
             post_data=None, show_translation=False, initial_data={},
-            edit_mode='edit', edited_questiongroups=[])
+            edit_mode='edit', edited_questiongroups=[], initial_links={})
 
     @patch.object(messages, 'success')
     @patch.object(QuestionnaireCategory, 'get_form')
@@ -259,15 +182,15 @@ class GenericQuestionnaireNewStepTest(TestCase):
             self.request, *get_valid_new_step_values()[0])
         mock_render.assert_called_once_with(
             self.request, 'form/category.html', {
-                'category_formsets': [],
-                'category_config': {},
+                'subcategories': [],
+                'config': {},
                 'title': 'QCAT Form',
                 'overview_url': '/en/sample/edit/new/#cat_0',
                 'valid': True,
                 'configuration_name': 'sample',
                 'edit_mode': 'edit',
                 'view_url': '',
-                'content_categories': [],
+                'content_subcategories_count': 0,
             })
 
     def test_returns_rendered_response(self):
@@ -409,7 +332,7 @@ class GenericQuestionnaireNewTest(TestCase):
             {}, permissions=['edit_questionnaire'],
             edit_step_route='sample:questionnaire_new_step',
             questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='edit')
+            edited_questiongroups=[], view_mode='edit', links={})
 
     @patch('questionnaire.views.get_list_values')
     @patch('questionnaire.views.Questionnaire')
@@ -438,7 +361,6 @@ class GenericQuestionnaireNewTest(TestCase):
                 'questionnaire_identifier': 'new',
                 'sections': ["foo"] * get_section_count(),
                 'images': [],
-                'links': {},
                 'filter_configuration': mock_filter_configuration.return_value,
                 'permissions': ['edit_questionnaire'],
                 'edited_questiongroups': [],
@@ -543,7 +465,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'csrf_token_value': None,
                 'permissions': mock_q_obj.get_permissions.return_value,
             },
-            permissions=mock_q_obj.get_permissions.return_value)
+            permissions=mock_q_obj.get_permissions.return_value,
+            links={})
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.query_questionnaire')
@@ -587,7 +510,6 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'sections': mock_conf.return_value.get_details.return_value,
                 'questionnaire_identifier': 'foo',
                 'images': img.get.return_value,
-                'links': {},
                 'filter_configuration': mfc,
                 'permissions': mock_q_obj.get_permissions.return_value,
                 'view_mode': 'view',

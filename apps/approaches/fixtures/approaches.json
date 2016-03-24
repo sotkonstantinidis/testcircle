@@ -3131,6 +3131,9 @@
           "label": {
             "en": "Reference(s) to Questionnaire(s) on SLM Technologies"
           },
+          "helptext": {
+            "en": "<p>Indicate SLM Technologies which were promoted by and implemented through this Approach.</p><p>The major Technologies promoted by and implemented through this Approach must be described in separate SLM Technology questionnaires. WOCAT recommends that you first fill in the Technology questionnaire and that you focus the description of the Approach to the Technology(ies) documented.</p>"
+          },
           "numbering": "1.4"
         }
       }
@@ -6879,6 +6882,15 @@
   },
   {
     "fields": {
+      "keyword": "app_qg__technologies",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3107
+  },
+  {
+    "fields": {
       "keyword": "app__1__1",
       "translation": 8701
     },
@@ -7436,8 +7448,26 @@
                   {
                     "keyword": "app__1__4",
                     "form_options": {
-                      "template": "links_approaches"
-                    }
+                      "has_links": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg__technologies",
+                        "form_options": {
+                          "template": "select_link",
+                          "link": "technologies",
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "links"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "link_id"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -10209,11 +10239,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "links": [
-          {
-            "keyword": "technologies"
           }
         ]
       },

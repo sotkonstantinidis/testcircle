@@ -1,6 +1,7 @@
 import collections
 import floppyforms as forms
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
@@ -235,6 +236,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'text',
         'todo',
         'user_id',
+        'link_id',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -554,10 +556,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             field = forms.CharField(
                 label=self.label, widget=widget, required=self.required)
-        elif self.field_type in ['user_id', 'hidden']:
+        elif self.field_type in ['user_id', 'link_id', 'hidden']:
             widget = HiddenInput()
             if self.field_type == 'user_id':
                 widget.css_class = 'select-user-id'
+            elif self.field_type == 'link_id':
+                widget.css_class = 'select-link-id is-cleared'
             field = forms.CharField(
                 label=None, widget=widget, required=self.required)
         elif self.field_type == 'text':
@@ -812,6 +816,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'key': self.label_view,
                 'value': value,
             })
+        elif self.field_type in ['link_id']:
+            return '\n'
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -987,7 +993,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
     def get_form(
             self, post_data=None, initial_data=None, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[]):
+            edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
             ``forms.formset_factory``. A formset consisting of one or
@@ -1048,6 +1054,23 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'has_changes': has_changes,
         })
 
+        if self.form_options.get('link'):
+            link_name = self.form_options.get('link')
+            curr_initial_data = []
+            curr_initial_links = initial_links.get(link_name, [])
+            for link in curr_initial_links:
+                curr_initial_data.append({'link_id': link.get('id')})
+            initial_data = curr_initial_data
+
+            try:
+                link = reverse('{}:questionnaire_link_search'.format(link_name))
+            except NoReverseMatch:
+                link = None
+            config.update({
+                'search_url': link,
+                'initial_links': curr_initial_links,
+            })
+
         return config, FormSet(
             post_data, prefix=self.keyword, initial=initial_data)
 
@@ -1076,7 +1099,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             questiongroups.append(rendered_questions)
         return questiongroups
 
-    def get_details(self, data=[]):
+    def get_details(self, data=[], links=None):
         view_template = 'details/questiongroup/{}.html'.format(
             self.view_options.get('template', 'default'))
         questiongroups = self.get_rendered_questions(data)
@@ -1089,6 +1112,10 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'questiongroups': questiongroups,
             'config': config,
         }
+        if links:
+            template_values.update({
+                'links': links,
+            })
         if self.view_options.get('raw_questions', False) is True:
             raw_questions = []
             for d in data:
@@ -1254,6 +1281,12 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         else:
             self.children = self.questiongroups
 
+        self.link_questiongroups = []
+        if self.form_options.get('has_links', False) is True:
+            for qg in self.questiongroups:
+                if qg.form_options.get('link'):
+                    self.link_questiongroups.append(qg.keyword)
+
         self.table_grouping = self.view_options.get('table_grouping', None)
         self.table_headers = []
         self.table_helptexts = []
@@ -1267,7 +1300,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[]):
+            edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -1296,7 +1329,8 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 questiongroup.get_form(
                     post_data=post_data, initial_data=questionset_initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
-                    edited_questiongroups=edited_questiongroups))
+                    edited_questiongroups=edited_questiongroups,
+                    initial_links=initial_links))
             config['next_level'] = 'questiongroups'
             if questiongroup.keyword in edited_questiongroups:
                 has_changes = True
@@ -1305,7 +1339,8 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 subcategory.get_form(
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
-                    edited_questiongroups=edited_questiongroups))
+                    edited_questiongroups=edited_questiongroups,
+                    initial_links=initial_links))
             config['next_level'] = 'subcategories'
 
         config.update({'has_changes': has_changes})
@@ -1319,7 +1354,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
         return config, formsets
 
-    def get_details(self, data={}):
+    def get_details(self, data={}, links=None):
         """
         Returns:
             ``string``. A rendered representation of the subcategory
@@ -1335,8 +1370,20 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         raw_questiongroups = []
         has_content = False
         for questiongroup in self.questiongroups:
+
+            questiongroup_links = {}
+            if questiongroup.keyword in self.link_questiongroups:
+                try:
+                    link_configuration_code = questiongroup.keyword.rsplit('__', 1)[1]
+                except IndexError:
+                    link_configuration_code = None
+
+                if links and link_configuration_code is not None:
+                    questiongroup_links[link_configuration_code] = links.get(
+                        link_configuration_code, [])
+
             questiongroup_data = data.get(questiongroup.keyword, [])
-            if not is_empty_list_of_dicts(questiongroup_data):
+            if not is_empty_list_of_dicts(questiongroup_data) or questiongroup_links:
                 has_content = True
                 if self.table_grouping and questiongroup.keyword in [
                         item for sublist in self.table_grouping
@@ -1402,10 +1449,12 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     })
                     rendered_questiongroups.append((
                         questiongroup_config,
-                        questiongroup.get_details(questiongroup_data)))
+                        questiongroup.get_details(
+                            questiongroup_data, links=questiongroup_links)))
         subcategories = []
         for subcategory in self.subcategories:
-            sub_rendered, sub_has_content = subcategory.get_details(data=data)
+            sub_rendered, sub_has_content = subcategory.get_details(
+                data=data, links=links)
             if sub_has_content:
                 subcategories.append(sub_rendered)
                 has_content = True
@@ -1501,9 +1550,15 @@ class QuestionnaireCategory(BaseConfigurationObject):
             form_options.update(configuration.get('form_options'))
         self.form_options = form_options
 
+    def get_link_questiongroups(self):
+        qg = []
+        for subcategory in self.subcategories:
+            qg.extend(subcategory.link_questiongroups)
+        return qg
+
     def get_form(
             self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[]):
+            edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
@@ -1515,7 +1570,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 subcategory.get_form(
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
-                    edited_questiongroups=edited_questiongroups))
+                    edited_questiongroups=edited_questiongroups,
+                    initial_links=initial_links))
         has_changes = False
         for qg in self.get_questiongroups():
             if qg.keyword in edited_questiongroups:
@@ -1535,7 +1591,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], edit_step_route='',
             questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view'):
+            edited_questiongroups=[], view_mode='view', links=None):
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1543,7 +1599,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
         raw_data = {}
         metadata = {}
         for subcategory in self.subcategories:
-            rendered_subcategory, has_content = subcategory.get_details(data)
+            rendered_subcategory, has_content = subcategory.get_details(
+                data, links=links)
             if has_content:
                 category_config = {
                     'keyword': subcategory.keyword
@@ -1744,7 +1801,7 @@ class QuestionnaireSection(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view'):
+            edited_questiongroups=[], view_mode='view', links=None):
 
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
@@ -1759,7 +1816,7 @@ class QuestionnaireSection(BaseConfigurationObject):
                 questionnaire_object=questionnaire_object,
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
-                view_mode=view_mode))
+                view_mode=view_mode, links=links))
 
         toc_content = []
         if self.view_options.get('include_toc', False) is True:
@@ -1808,7 +1865,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     """
     valid_options = [
         'sections',
-        'links',
     ]
     name_current = '-'
     name_parent = '-'
@@ -1875,7 +1931,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view'):
+            edited_questiongroups=[], view_mode='view', links=None):
         rendered_sections = []
         for section in self.sections:
             rendered_sections.append(section.get_details(
@@ -1884,7 +1940,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 questionnaire_object=questionnaire_object,
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
-                view_mode=view_mode))
+                view_mode=view_mode,
+                links=links))
         return rendered_sections
 
     def get_toc_data(self):
@@ -2094,12 +2151,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             questionnaire_value_list.append(questionnaire_value)
         return questionnaire_value_list
 
-    def get_links_configuration(self):
-        try:
-            return self.links_configuration
-        except:
-            return []
-
     def get_name_keywords(self):
         """
         Return the keywords of the question and questiongroup which
@@ -2241,8 +2292,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         for conf_section in conf_sections:
             self.sections.append(QuestionnaireSection(self, conf_section))
         self.children = self.sections
-
-        self.links_configuration = self.configuration.get('links', [])
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

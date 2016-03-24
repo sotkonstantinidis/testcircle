@@ -192,6 +192,10 @@ form representation of the question.
   * ``helptext_length`` (int): Overwrite the default length (number of words) of
     the helptext shown initially (without the "See more" button).
 
+  * ``link`` (str): Required if the questiongroup is a link to other
+    questionnaires. In this case, this value must contain the name of the
+    configuration which is linked (eg. ``technologies``).
+
 
 ``questions``
 ^^^^^^^^^^^^^

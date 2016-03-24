@@ -86,6 +86,7 @@ class UserTest(FunctionalTest):
 
         # She sees and clicks the link in the user menu to view her
         # Questionnaires
+        self.clickUserMenu(user_alice)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
             'contains(@href, "accounts/101/questionnaires")]').click()

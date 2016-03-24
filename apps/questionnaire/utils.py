@@ -173,7 +173,7 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                     value = None
                 elif question.field_type in ['image', 'file', 'date']:
                     pass
-                elif question.field_type in ['user_id', 'hidden']:
+                elif question.field_type in ['user_id', 'link_id', 'hidden']:
                     pass
                 elif question.field_type in ['link_video']:
                     # TODO: This should be properly checked!
