@@ -950,6 +950,98 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Value 13_2")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Value 13_3")]]')
 
+    def test_checkbox_other(self, mock_get_user_id):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+
+        # She sees there are checkboxes and one "other" checkbox with a
+        # textfield
+        cb_1 = self.findBy('id', 'id_qg_36-0-key_50_1_1')
+        cb_2 = self.findBy('id', 'id_qg_36-0-key_50_1_2')
+        other_cb = self.findBy(
+            'xpath', '//label[@for="id_qg_36-0-original_key_51"]/input['
+                     'contains(@class, "checkbox-other")]')
+        other_textfield = self.findBy('id', 'id_qg_36-0-original_key_51')
+
+        # She sees the textfield is readonly
+        self.assertEqual(other_textfield.get_attribute('readonly'), 'true')
+
+        # She selects the first checkbox, the other checkbox is still not
+        # selected, the textfield readonly
+        cb_1.click()
+        self.assertEqual(other_textfield.get_attribute('readonly'), 'true')
+        self.assertIsNone(other_cb.get_attribute('checked'))
+
+        # She selects the other checkbox and sees she can now enter some text
+        other_cb.click()
+        self.assertEqual(other_cb.get_attribute('checked'), 'true')
+        self.assertIsNone(other_textfield.get_attribute('readonly'))
+
+        # She selects another checkbox
+        cb_2.click()
+        self.assertEqual(other_cb.get_attribute('checked'), 'true')
+        self.assertIsNone(other_textfield.get_attribute('readonly'))
+
+        # She enters some text
+        other_textfield.send_keys('foo content')
+
+        # She deselects the first checkbox
+        cb_1.click()
+        self.assertEqual(other_cb.get_attribute('checked'), 'true')
+        self.assertIsNone(other_textfield.get_attribute('readonly'))
+        self.assertEqual(other_textfield.get_attribute('value'), 'foo content')
+
+        # She submits the step and sees the values are both submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"foo content")]]')
+
+        # She goes back to the form
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        cb_1 = self.findBy('id', 'id_qg_36-0-key_50_1_1')
+        cb_2 = self.findBy('id', 'id_qg_36-0-key_50_1_2')
+        other_cb = self.findBy(
+            'xpath', '//label[@for="id_qg_36-0-original_key_51"]/input['
+                     'contains(@class, "checkbox-other")]')
+        other_textfield = self.findBy('id', 'id_qg_36-0-original_key_51')
+
+        # She sees the correct checkboxes are selected
+        self.assertEqual(cb_2.get_attribute('checked'), 'true')
+        self.assertEqual(other_cb.get_attribute('checked'), 'true')
+        self.assertIsNone(other_textfield.get_attribute('readonly'))
+        self.assertEqual(other_textfield.get_attribute('value'), 'foo content')
+
+        # She deselects the other checkbox and sees the textfield is emptied
+        other_cb.click()
+        self.assertIsNone(other_cb.get_attribute('checked'))
+        self.assertEqual(other_textfield.get_attribute('readonly'), 'true')
+        self.assertEqual(other_textfield.get_attribute('value'), '')
+
+        # She selects it again and enters some text
+        other_cb.click()
+        other_textfield.send_keys('foo bar')
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"foo bar")]]')
+
+        # She submits the entire questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"foo bar")]]')
+
     def test_image_checkbox(self, mock_get_user_id):
 
         # Alice logs in
@@ -1688,7 +1780,7 @@ class QuestionnaireTest(FunctionalTest):
         # She sees that key 47 has a datepicker
         self.findBy(
             'xpath',
-            '//input[@name="qg_2-0-key_47" and contains(@class, '
+            '//input[@name="qg_34-0-key_47" and contains(@class, '
             '"hasDatepicker")]')
 
         # She sees that the form does not have any progress
@@ -1716,7 +1808,7 @@ class QuestionnaireTest(FunctionalTest):
         # She sees there is no value in the field
         datefield = self.findBy(
             'xpath',
-            '//input[@name="qg_2-0-key_47" and contains(@class, '
+            '//input[@name="qg_34-0-key_47" and contains(@class, '
             '"hasDatepicker")]')
         self.assertEqual(datefield.get_attribute('value'), '')
 
@@ -1750,21 +1842,53 @@ class QuestionnaireTest(FunctionalTest):
             kwargs={'identifier': 'new', 'step': 'cat_1'}))
         datefield = self.findBy(
             'xpath',
-            '//input[@name="qg_2-0-key_47" and contains(@class, '
+            '//input[@name="qg_34-0-key_47" and contains(@class, '
             '"hasDatepicker")]')
         self.assertEqual(datefield.get_attribute('value'), selected_date)
+
+        # She clicks "Add more" and selects another date
+        self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_34"]').click()
+
+        # She does not see the datepicker
+        datepicker = self.findBy('id', 'ui-datepicker-div')
+        self.assertFalse(datepicker.is_displayed())
+
+        # She sees there is no value in the field
+        datefield_2 = self.findBy(
+            'xpath',
+            '//input[@name="qg_34-1-key_47" and contains(@class, '
+            '"hasDatepicker")]')
+        self.assertEqual(datefield_2.get_attribute('value'), '')
+
+        # She clicks the input and sees the datepicker opens
+        datefield_2.click()
+        self.assertTrue(datepicker.is_displayed())
+
+        # She selects a date
+        self.findBy(
+            'xpath',
+            '//div[@id="ui-datepicker-div"]/table/tbody/tr[3]/td[2]/a'
+        ).click()
+
+        # She sees the value was selected
+        selected_date_2 = datefield_2.get_attribute('value')
+        self.assertNotEqual(selected_date_2, '')
 
         # She submits the step
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
             selected_date))
+        self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
+            selected_date_2))
 
         # She submits the entire questionnaire
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
             selected_date))
+        self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
+            selected_date_2))
 
     def test_radio_selects(self, mock_get_user_id):
 
@@ -1839,6 +1963,121 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//*[text()[contains(.,"Key 11")]]')
         self.findBy('xpath', '//*[text()[contains(.,"No")]]')
+
+    def test_radio_other(self, mock_get_user_id):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the Questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+
+        # She sees there are radio buttons with labels and one with a textfield
+        radio_1 = self.findBy('id', 'id_qg_35-0-key_48_1')
+        other_radio = self.findBy(
+            'xpath', '//label[@for="id_qg_35-0-original_key_49"]/input['
+                     'contains(@class, "radio-other")]')
+        other_textfield = self.findBy('id', 'id_qg_35-0-original_key_49')
+
+        # She sees the textfield is readonly
+        self.assertEqual(other_textfield.get_attribute('readonly'), 'true')
+
+        # She selects the radio in front of the textfield and sees she can now
+        # edit the textfield, she enters some text.
+        other_radio.click()
+        self.assertIsNone(other_textfield.get_attribute('readonly'))
+        other_textfield.send_keys('foo')
+
+        # She selects another radio and sees the radio in front of the textfield
+        # is deselected and the textfield is now empty and readonly
+        radio_1.click()
+        self.assertIsNone(other_radio.get_attribute('checked'))
+        self.assertEqual(other_textfield.get_attribute('readonly'), 'true')
+        self.assertEqual(other_textfield.get_attribute('value'), '')
+
+        # She submits the step and sees the radio value was submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"low")]]')
+
+        # She goes back to the form
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        radio_1 = self.findBy('id', 'id_qg_35-0-key_48_1')
+        other_radio = self.findBy(
+            'xpath', '//label[@for="id_qg_35-0-original_key_49"]/input['
+                     'contains(@class, "radio-other")]')
+        other_textfield = self.findBy('id', 'id_qg_35-0-original_key_49')
+
+        # She sees the radio was selected, the textfield is readonly
+        self.assertEqual(radio_1.get_attribute('checked'), 'true')
+        self.assertIsNone(other_radio.get_attribute('checked'))
+        self.assertEqual(other_textfield.get_attribute('readonly'), 'true')
+        self.assertEqual(other_textfield.get_attribute('value'), '')
+
+        # She selects the radio in front of the textfield and enters some text
+        other_radio.click()
+        other_textfield.send_keys('foo content')
+
+        # She sees that the first radio was deselected
+        self.assertIsNone(radio_1.get_attribute('checked'))
+
+        # She submits the step and sees the value was submitted.
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"foo content")]]')
+
+        # She goes back to the form
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        radio_1 = self.findBy('id', 'id_qg_35-0-key_48_1')
+        other_radio = self.findBy(
+            'xpath', '//label[@for="id_qg_35-0-original_key_49"]/input['
+                     'contains(@class, "radio-other")]')
+        other_textfield = self.findBy('id', 'id_qg_35-0-original_key_49')
+
+        # She sees the correct radio was selected and she can edit the textfield
+        self.assertEqual(other_radio.get_attribute('checked'), 'true')
+        self.assertIsNone(radio_1.get_attribute('checked'))
+        self.assertIsNone(other_textfield.get_attribute('readonly'))
+        self.assertEqual(other_textfield.get_attribute('value'), 'foo content')
+
+        # She deselects the radio and sees the textfield is emptied and readonly
+        other_radio.click()
+        self.assertIsNone(other_radio.get_attribute('checked'))
+        self.assertEqual(other_textfield.get_attribute('readonly'), 'true')
+        self.assertEqual(other_textfield.get_attribute('value'), '')
+
+        # She selects the first radio
+        radio_1.click()
+
+        # She selects the other radio again
+        other_radio.click()
+
+        # And she selects the first radio again
+        radio_1.click()
+
+        # She makes sure the first radio is selected
+        self.assertEqual(radio_1.get_attribute('checked'), 'true')
+
+        # Once again, she checks the other radio and enters some text
+        other_radio.click()
+        self.assertEqual(other_radio.get_attribute('checked'), 'true')
+        other_textfield.send_keys('foo bar')
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"foo bar")]]')
+
+        # She submits the entire questionnaire
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"foo bar")]]')
 
     def test_plus_questiongroup(self, mock_get_user_id):
 

@@ -22,9 +22,11 @@
     {% endif %}
     <div class="small-12 columns">
       <label class="input-multiline" for="{{ field|id }}">
-        <input class="checkbox-other {{ cb_css_classes }}" type="checkbox" disabled="disabled"{% if cb_data_container %} data-container="{{ cb_data_container }}"{% endif %}>
+        <input class="checkbox-other {{ cb_css_classes }}" type="checkbox" {% if cb_data_container %} data-container="{{ cb_data_container }}"{% endif %}>
         <span>
-          {% widget field %}
+          {% with other_textfield=True %}
+            {% widget field %}
+          {% endwith %}
         </span>
       </label>
     </div>

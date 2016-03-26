@@ -12,7 +12,14 @@
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
         <label class="input-multiline" for="{{ attrs.id }}_{{ forloop.counter }}">
-          <input type="radio" id="{{ attrs.id }}_{{ forloop.counter }}" value="{{ choice.0 }}" name="{{ name }}"{% if required %} required{% endif %}{% if choice.0 in value %} checked{% endif %}{% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %} {% include "floppyforms/attrs.html" %}>
+          <input type="radio"
+                 id="{{ attrs.id }}_{{ forloop.counter }}"
+                 value="{{ choice.0 }}"
+                 name="{{ name }}"{% if required %} required{% endif %}
+                  {% if options.has_other %} data-has-other="true"{% endif %}
+                  {% if choice.0 in value %} checked{% endif %}
+                  {% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %}
+                  {% include "floppyforms/attrs.html" %}>
           {% if options.helptext_choices %}
             {% with ttip=options.helptext_choices|get_by_index:forloop.counter0 %}
               {% if ttip %}

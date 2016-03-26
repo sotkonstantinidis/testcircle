@@ -37,7 +37,7 @@
       {% endfor %}
     {% endif %}
 
-    {% if forloop.last and questiongroup.conditional_question == None %}
+    {% if forloop.last and questiongroup.conditional_question == None and not forloop.first %}
       {% for qg_questions in questiongroup.questions %}
         <div class="row">
           {% for question in qg_questions %}

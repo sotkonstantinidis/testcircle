@@ -691,6 +691,66 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 48",
+            "es": "Clave 48"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11048
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 49",
+            "es": "Clave 49"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11049
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 50",
+            "es": "Clave 50"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11050
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 51",
+            "es": "Clave 51"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11051
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "sample": {
@@ -2132,6 +2192,60 @@
   },
   {
     "fields": {
+      "keyword": "key_48",
+      "translation": 11048,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        11001,
+        11002,
+        11003
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 11048
+  },
+  {
+    "fields": {
+      "keyword": "key_49",
+      "translation": 11049,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11049
+  },
+  {
+    "fields": {
+      "keyword": "key_50",
+      "translation": 11050,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        11001,
+        11002,
+        11003
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 11050
+  },
+  {
+    "fields": {
+      "keyword": "key_51",
+      "translation": 11051,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11051
+  },
+  {
+    "fields": {
       "keyword": "value_1",
       "translation": 11501,
       "order_value": 1
@@ -2668,6 +2782,33 @@
   },
   {
     "fields": {
+      "keyword": "qg_34",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11034
+  },
+  {
+    "fields": {
+      "keyword": "qg_35",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11035
+  },
+  {
+    "fields": {
+      "keyword": "qg_36",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11036
+  },
+  {
+    "fields": {
       "keyword": "subcat_1_1",
       "translation": 12701
     },
@@ -3062,12 +3203,53 @@
                           },
                           {
                             "keyword": "key_3"
-                          },
-                          {
-                            "keyword": "key_47"
                           }
                         ],
                         "keyword": "qg_2"
+                      },
+                      {
+                        "keyword": "qg_34",
+                        "form_options": {
+                          "max_num": 3
+                        },
+                        "questions": [
+                          {
+                            "keyword": "key_47"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_35",
+                        "questions": [
+                          {
+                            "keyword": "key_48",
+                            "form_options": {
+                              "has_other": true
+                            }
+                          },
+                          {
+                            "keyword": "key_49",
+                            "form_options": {
+                              "template": "radio_other",
+                              "label_position": "placeholder"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_36",
+                        "questions": [
+                          {
+                            "keyword": "key_50"
+                          },
+                          {
+                            "keyword": "key_51",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            }
+                          }
+                        ]
                       }
                     ]
                   },

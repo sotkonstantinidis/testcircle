@@ -70,13 +70,18 @@ function watchFormProgress() {
 
     // While we're at it, also check if "other" checkboxes are to be ticked
     $('input.checkbox-other').each(function () {
-        $(this).prop('checked', $(this).parent('label').find('input:text').val() != '');
-    });
-    $('input.radio-other').each(function () {
-        var otherSelected = $(this).closest('.single-item').prev().find('input:radio:checked:not(.radio-other)').first();
-        if (otherSelected.length) {
-            $(this).parent('label').find('input:text').val('');
+        var $el = $(this);
+        if ($el.parent('label').find('input:text').val() != '') {
+            $($el.prop('checked', true));
         }
+        // Toggle readonly
+        $el.closest('label').find('input:text').attr(
+            'readonly', !$el.is(':checked'));
+    });
+    $('input.radio-other').each(function() {
+        // Toggle readonly
+        $(this).closest('label').find('input:text').attr(
+            'readonly', !$(this).is(':checked'));
     });
 }
 
@@ -315,12 +320,25 @@ $(function () {
                 updateNumbering();
             }
 
+            // Update the datepicker fields (need to remove "hasDatepicker"
+            // first)
+            if ($.fn.datepicker) {
+                $('.date-input').each(function () {
+                    $(this).toggleClass('hasDatepicker', false).datepicker(
+                        $.extend(datepickerOptions, {
+                            dateFormat: $(this).data('date-format')})
+                    );
+                });
+            }
+
             // Update the autocomplete fields
-            $('.user-search-field').autocomplete(userSearchAutocompleteOptions);
-            $('.link-search-field').autocomplete(linkSearchAutocompleteOptions);
-            $('.ui-autocomplete').addClass('medium f-dropdown');
-            $(document).foundation();
-            removeUserField(newElement);
+            if ($.fn.autocomplete) {
+                $('.user-search-field').autocomplete(userSearchAutocompleteOptions);
+                $('.link-search-field').autocomplete(linkSearchAutocompleteOptions);
+                $('.ui-autocomplete').addClass('medium f-dropdown');
+                $(document).foundation();
+                removeUserField(newElement);
+            }
 
             // Remove any linked questionnaire of the new element - if necessary
             removeLinkedQuestionnaire(newElement);
@@ -393,10 +411,36 @@ $(function () {
                 $("input[name=" + name + "]:radio").attr('previousValue', false);
                 $(this).attr('previousValue', 'checked');
             }
+
+            if ($(this).data('has-other')) {
+                var $el = $(this);
+                if ($el.is(':checked')) {
+                    var list_item = $el.closest('.list-item');
+                    // Deselect the "other" element if necessary
+                    list_item.find('.radio-other').attr('checked', false).attr('previousvalue', false);
+                    // Reset the textfield
+                    list_item.find('.radio-other-field').find('input').val('');
+                }
+            }
+            if ($(this).hasClass('radio-other')) {
+                $el = $(this);
+                var list_item = $el.closest('.list-item');
+                if ($el.is(':checked')) {
+                    // Deselect all other radio buttons of the group
+                    list_item.find('input[data-has-other="true"]:radio')
+                        .attr('checked', false).attr('previousvalue', false);
+                } else {
+                    list_item.find('.radio-other-field').find('input').val('');
+                }
+            }
         })
 
-        .on('change', '.radio-other-field input:text', function () {
-            $(this).closest('label').find('input:radio').prop('checked', $(this).val());
+        // "Other" checkbox: Delete content of textfield if deselected
+        .on('click', 'input:checkbox[class^="checkbox-other"]', function() {
+            var $el = $(this);
+            if (!$el.prop('checked')) {
+                $el.closest('label').find('input:text').val('');
+            }
         })
 
         .on('click', '.cb-toggle-questiongroup', function () {
@@ -444,8 +488,15 @@ $(function () {
     }
 
     if ($.fn.datepicker) {
+        var datepickerOptions = {
+            changeMonth: true,
+            changeYear: true
+        };
         $('.date-input').each(function () {
-            $(this).datepicker({dateFormat: $(this).data('date-format')});
+            $(this).datepicker(
+                $.extend(datepickerOptions, {
+                    dateFormat: $(this).data('date-format')})
+            );
         });
     }
 

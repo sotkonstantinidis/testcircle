@@ -172,6 +172,10 @@ form representation of the question.
     label. Possible values are: ``placeholder`` (showing the label as a
     placeholder inside the input field)
 
+  * ``has_other`` (bool): A boolean to be used by questions with key type
+    "radio" to indicate that there is an additional option "other" with a
+    textfield to specify.
+
   * ``conditions``: An optional list of conditions triggering
     conditional questions. Each condition must have the format
     ``""value_keyword|Boolean|key_keyword""``. Example::
