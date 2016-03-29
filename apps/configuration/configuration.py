@@ -302,12 +302,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
               "label_position": "placeholder",
 
               # Default: []
-              "conditions": [],
-
-              # Default: false
-              "conditional": true,
-
-              # Default: []
               "questiongroup_conditions": [],
             }
           }
@@ -408,6 +402,26 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 {'label_left': label_left, 'label_right': label_right})
 
         self.conditional = self.form_options.get('conditional', False)
+
+        question_conditions = []
+        for question_condition in self.form_options.get('question_conditions', []):
+            try:
+                cond_expression, cond_name = question_condition.split('|')
+            except ValueError:
+                raise ConfigurationErrorInvalidCondition(
+                    question_condition, 'Needs to have form "expression|name"')
+            # Check the condition expression
+            try:
+                cond_expression = eval('{}{}'.format(0, cond_expression))
+            except SyntaxError:
+                raise ConfigurationErrorInvalidQuestiongroupCondition(
+                    question_condition,
+                    'Expression "{}" is not a valid Python condition'.format(
+                        cond_expression))
+            question_conditions.append(question_condition)
+
+        self.question_conditions = question_conditions
+        self.question_condition = self.form_options.get('question_condition')
 
         conditions = []
         for condition in self.form_options.get('conditions', []):
@@ -532,6 +546,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         if field_options.get('label_position') == 'placeholder':
             attrs.update({'placeholder': self.label})
+
+        if self.question_conditions:
+            field_options.update({'data-question-conditions': self.question_conditions})
+
+        if self.question_condition:
+            field_options.update({'data-question-condition': self.question_condition})
 
         if self.field_type == 'char':
             max_length = self.max_length
@@ -676,7 +696,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         if widget:
             widget.conditional = self.conditional
-            widget.conditions = self.conditions
             widget.questiongroup_conditions = ','.join(
                 self.questiongroup_conditions)
 
@@ -2477,7 +2496,6 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
         ctx.update({
             'images': self.images,
             'conditional': self.conditional,
-            'conditions': self.conditions,
             'options': self.options,
         })
         return ctx

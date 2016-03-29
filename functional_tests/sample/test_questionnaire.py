@@ -1422,6 +1422,102 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 28')
         self.checkOnPage('Foo')
 
+    def test_conditional_questions(self, mock_get_user_id):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
+        cb_1_1 = self.findBy('id', 'id_qg_12-0-key_16_1')
+        cb_1_2 = self.findBy('id', 'id_qg_12-0-key_16_2')
+        cb_2_1 = self.findBy('id', 'id_qg_12-0-key_15_1')
+
+        # She sees one checkbox, but not the conditional one
+        self.assertTrue(cb_1_1.is_displayed())
+        self.assertFalse(cb_2_1.is_displayed())
+
+        # She selects a checkbox which triggers the condition, she can now see
+        # the conditional question
+        cb_1_2.click()
+        self.assertTrue(cb_2_1.is_displayed())
+
+        # She deselects the checkbox and selects one which does not trigger
+        # anything, she sees the conditional question is hidden again
+        cb_1_2.click()
+        cb_1_1.click()
+        self.assertFalse(cb_2_1.is_displayed())
+
+        # She submits the form step and sees the correct value was submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//img[@alt="Value 16_1"]')
+        self.findByNot('xpath', '//img[@alt="Value 15_1"]')
+
+        # She goes back to the form
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
+        self.rearrangeFormHeader()
+        cb_1_1 = self.findBy('id', 'id_qg_12-0-key_16_1')
+        cb_1_2 = self.findBy('id', 'id_qg_12-0-key_16_2')
+        cb_2_1 = self.findBy('id', 'id_qg_12-0-key_15_1')
+
+        # She sees the conditional question is not visible
+        self.assertFalse(cb_2_1.is_displayed())
+
+        # She deselects the checkbox and selects one with a trigger, the
+        # conditional question is visible again
+        cb_1_1.click()
+        cb_1_2.click()
+
+        # She submits the form and checks the submitted value
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//img[@alt="Value 16_2"]')
+        self.findByNot('xpath', '//img[@alt="Value 15_1"]')
+
+        # She goes back to the form
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_4'}))
+        cb_1_1 = self.findBy('id', 'id_qg_12-0-key_16_1')
+        cb_1_2 = self.findBy('id', 'id_qg_12-0-key_16_2')
+        cb_2_1 = self.findBy('id', 'id_qg_12-0-key_15_1')
+
+        # She sees the conditional question is visible
+        self.assertTrue(cb_2_1.is_displayed())
+
+        # She selects a checkbox of the conditional question
+        cb_2_1.click()
+
+        # She deselects the checkbox which triggers and reselects it. She sees
+        # the conditional checkbox is not selected anymore
+        self.assertEqual(cb_2_1.get_attribute('checked'), 'true')
+        cb_1_2.click()
+        self.assertFalse(cb_2_1.is_displayed())
+        cb_1_2.click()
+        self.assertTrue(cb_2_1.is_displayed())
+        self.assertIsNone(cb_2_1.get_attribute('checked'))
+
+        # She selects something of the conditional question
+        cb_2_1.click()
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//img[@alt="Value 16_2"]')
+        self.findBy('xpath', '//img[@alt="Value 15_1"]')
+
+        # She submits the entire form
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//img[@alt="Value 16_2"]')
+        self.findBy('xpath', '//img[@alt="Value 15_1"]')
+
+
     # def test_image_checkbox_subcategory(self):
 
     #     # Alice logs in

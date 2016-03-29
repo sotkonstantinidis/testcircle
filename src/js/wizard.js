@@ -109,6 +109,65 @@ function checkCheckboxQuestiongroups() {
 }
 
 /**
+ * Check if there are conditional questions which are to be shown or hidden.
+ *
+ * @param element - The question element (containing the input fields which
+ * trigger changes and the question conditions as data attribute
+ * ("data-question-conditions").
+ */
+function checkConditionalQuestions(element) {
+    var $el = $(element),
+        qg = $el.closest('.list-item'),
+        conditions = $el.data('question-conditions'),
+        input_elements = $el.find('input'),
+        input_values = [];
+
+    input_elements.each(function() {
+        var input_type = input_elements.attr('type');
+        if ((input_type == 'checkbox' || input_type == 'radio')
+            && $(this).is(':checked')) {
+            input_values.push(this.value);
+        }
+    });
+
+    var cond_by_name = {};
+    for (var i = 0; i < conditions.length; i++) {
+        var condition_parts = conditions[i].split('|');
+        try {
+            cond_by_name[condition_parts[1]].push(condition_parts[0]);
+        } catch (err) {
+            cond_by_name[condition_parts[1]] = [condition_parts[0]];
+        }
+    }
+
+    for (var cond_name in cond_by_name) {
+        if (cond_by_name.hasOwnProperty(cond_name)) {
+            var conditional_el = qg.find(
+                '[data-question-condition="' + cond_name + '"]');
+            var condition_fulfilled = false;
+            for (var j = 0; j < cond_by_name[cond_name].length; j++) {
+                var current_condition = cond_by_name[cond_name][j];
+
+                for (var k = 0; k < input_values.length; k++) {
+                    var val = input_values[k];
+                    if (parseInt(val)) {
+                        var e = val + current_condition;
+                    } else {
+                        var e = '"' + val + '"' + current_condition;
+                    }
+                    condition_fulfilled = condition_fulfilled || eval(e);
+                }
+            }
+
+            conditional_el.toggle(condition_fulfilled);
+            if (!condition_fulfilled) {
+                clearQuestiongroup(conditional_el);
+            }
+        }
+    }
+}
+
+/**
  * Checks conditional questiongroups and shows or hides questiongroups
  * based on an input value condition.
  *
@@ -343,6 +402,12 @@ $(function () {
 
             // Remove any linked questionnaire of the new element - if necessary
             removeLinkedQuestionnaire(newElement);
+
+            // Update question conditions
+            newElement.find('[data-question-conditions]').trigger('change');
+
+            // Update questiongroup conditions
+            newElement.find('[data-questiongroup-condition]').trigger('change');
         })
 
         // Helptext: Toggle buttons (Show More / Show Less)
@@ -434,6 +499,7 @@ $(function () {
                     list_item.find('.radio-other-field').find('input').val('');
                 }
             }
+            $(this).trigger('change');
         })
 
         // "Other" checkbox: Delete content of textfield if deselected
@@ -442,6 +508,22 @@ $(function () {
             if (!$el.prop('checked')) {
                 $el.closest('label').find('input:text').val('');
             }
+        })
+
+        // Conditional questions
+        .on('change', '[data-question-conditions]', function() {
+            checkConditionalQuestions(this);
+        })
+        .on('input', '[data-question-conditions]', function() {
+            checkConditionalQuestions(this);
+        })
+
+        // Conditional questiongroups
+        .on('change', '[data-questiongroup-condition]', function() {
+            checkConditionalQuestiongroups(this);
+        })
+        .on('input', '[data-questiongroup-condition]', function() {
+            checkConditionalQuestiongroups(this);
         })
 
         .on('click', '.cb-toggle-questiongroup', function () {
@@ -455,23 +537,17 @@ $(function () {
             }
         });
 
+    // Trigger initial change for conditional questions
+    $('[data-question-conditions]').trigger('change');
+
+    // Trigger initial change for conditional questiongroups
+    $('[data-questiongroup-condition]').trigger('change');
+
     // Initial form progress
     watchFormProgress();
 
     // Initial button bar selected toggle
     $('.button-bar').each(toggleButtonBarSelected);
-
-    // Conditional questiongroups
-    $('[data-questiongroup-condition]')
-        .each(function () {
-            checkConditionalQuestiongroups(this);
-        })
-        .on('change', function () {
-            checkConditionalQuestiongroups(this);
-        })
-        .on('input', function () {
-            checkConditionalQuestiongroups(this);
-        });
 
     // Initial cb questiongroups
     checkCheckboxQuestiongroups();

@@ -8,7 +8,8 @@
 {% load list_to_columns %}
 
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-12 columns"
+      {% if options.question_conditions %} data-question-conditions="{{ options.question_conditions }}"{% endif %}>
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
         <label class="input-multiline" for="{{ attrs.id }}_{{ forloop.counter }}">

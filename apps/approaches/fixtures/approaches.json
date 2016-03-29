@@ -2900,7 +2900,7 @@
           "label": {
             "en": "Decision-making on the selection of SLM Technology(ies)"
           },
-          "numbering": "3.4"
+          "numbering": "3.3"
         }
       }
     },
@@ -9660,7 +9660,10 @@
                           {
                             "keyword": "app_impacts_other_measure",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "question_conditions": [
+                                "!=''|app_impacts_other_specify"
+                              ]
                             },
                             "view_options": {
                               "template": "measure_bar_nolabel",
@@ -9670,6 +9673,11 @@
                           },
                           {
                             "keyword": "app_impacts_other_specify",
+                            "form_options": {
+                              "template": "inline_6",
+                              "row_class": "top-margin",
+                              "question_condition": "app_impacts_other_specify"
+                            },
                             "view_options": {
                               "template": "inline_6",
                               "label_position": "none"

@@ -69,9 +69,6 @@ The basic format of the configuration is as follows::
       # Default: ""
       "label_position": "placeholder",
 
-      # Default: []
-      "conditions": [],
-
       # Default: false
       "conditional": true,
 
@@ -155,6 +152,10 @@ form representation of the question.
     shown for textarea fields. This is only meaningful for key type
     ``text``. The default is 3.
 
+  * ``row_class`` (str): CSS class name added to the
+    ``<div class="row single-item">`` element containing both the label and the
+    field.
+
   * ``label_columns_class`` (str): CSS class name added to the
     ``<div class="columns">`` element containing the label.
 
@@ -176,23 +177,16 @@ form representation of the question.
     "radio" to indicate that there is an additional option "other" with a
     textfield to specify.
 
-  * ``conditions``: An optional list of conditions triggering
-    conditional questions. Each condition must have the format
-    ``""value_keyword|Boolean|key_keyword""``. Example::
+  * ``question_conditions`` (list): An optional list of conditions triggering
+    conditional questions within the same questiongroup. Each condition must
+    have the format ``"expresssion|condition_name"`` where ``expression`` is
+    part of a valid (Python and Javascript!) boolean expression and
+    ``condition_name`` is the name of a Question's ``question_condition``
+    option.
 
-      "conditions": ["value_15_1|True|key_16"]
-
-    For the time being, conditions can only be set for Key
-    (see :doc:`/configuration/key`) with type ``image_checkbox``.
-
-  * ``conditional``: An optional boolean indicating whether this
-    question is only shown depending on the condition (value) of another
-    question. If set to ``true``, another question of this questiongroup
-    should have the option ``conditions`` set.
-
-    .. important::
-        Questions with ``"conditional": true`` need to be listed **before**
-        the question with ``"conditions": []`` triggering them.
+  * ``question_condition`` (str): The name of the condition to be triggered (as
+    specified in ``question_conditions``). Must be unique throughout the
+    configuration.
 
   * ``questiongroup_conditions``: An optional list of conditions
     triggering conditional questiongroups. Each condition must have the

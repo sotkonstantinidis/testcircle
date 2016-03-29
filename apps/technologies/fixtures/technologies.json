@@ -23171,9 +23171,6 @@
                       },
                       {
                         "keyword": "tech_qg_52",
-                        "form_options": {
-                          "questiongroup_condition": "tech_qg_52"
-                        },
                         "questions": [
                           {
                             "keyword": "tech_input_maint_remaining_costs"

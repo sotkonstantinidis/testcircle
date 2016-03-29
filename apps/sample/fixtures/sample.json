@@ -1610,7 +1610,9 @@
       "translation": 11001,
       "configuration": {
         "type": "char",
-        "form_template": "inline_2"
+        "form_options": {
+          "template": "inline_2"
+        }
       }
     },
     "model": "configuration.key",
@@ -3592,15 +3594,16 @@
                           {
                             "keyword": "key_16",
                             "form_options": {
-                              "conditional": true
+                              "question_conditions": [
+                                "=='value_16_2'|key_15",
+                                "=='value_16_3'|key_15"
+                              ]
                             }
                           },
                           {
                             "keyword": "key_15",
                             "form_options": {
-                              "conditions": [
-                                "value_15_1|True|key_16"
-                              ]
+                              "question_condition": "key_15"
                             }
                           }
                         ],
