@@ -21310,6 +21310,7 @@
                   "use_raw_data": true,
                   "with_metadata": true,
                   "include_toc": true,
+                  "review_panel": true,
                   "additional_data": {
                     "qg_location": [
                       "country"
@@ -21594,7 +21595,6 @@
             "keyword": "section_specifications",
             "view_options": {
               "template": "empty",
-              "review_panel": true,
               "media_gallery": true
             },
             "categories": [

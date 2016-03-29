@@ -363,6 +363,7 @@ class UserTest2(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
 
         # She sees a field to search for users
         search_user = self.findBy(
@@ -532,6 +533,7 @@ class UserTest2(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
 
         # She sees a field to search for users
         search_user = self.findBy(

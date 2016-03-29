@@ -1607,7 +1607,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], edit_step_route='',
             questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None):
+            edited_questiongroups=[], view_mode='view', links=None,
+            review_config=None):
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1685,6 +1686,9 @@ class QuestionnaireCategory(BaseConfigurationObject):
         categories_with_content = [c for c in self.subcategories if
                                    c.questiongroups or c.subcategories]
 
+        if self.view_options.get('review_panel', False) is not True:
+            review_config = {}
+
         return render_to_string(
             view_template, {
                 'subcategories': rendered_subcategories,
@@ -1706,6 +1710,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'toc_content': tuple(toc_content),
                 'questionnaire_identifier': questionnaire_identifier,
                 'has_changes': has_changes,
+                'review_config': review_config,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -1827,9 +1832,6 @@ class QuestionnaireSection(BaseConfigurationObject):
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
 
-        if self.view_options.get('review_panel', False) is not True:
-            review_config = {}
-
         rendered_categories = []
         for category in self.categories:
             rendered_categories.append(category.get_details(
@@ -1837,7 +1839,10 @@ class QuestionnaireSection(BaseConfigurationObject):
                 questionnaire_object=questionnaire_object,
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
-                view_mode=view_mode, links=links))
+                view_mode=view_mode, links=links, review_config=review_config))
+
+        if self.view_options.get('review_panel', False) is not True:
+            review_config = {}
 
         toc_content = []
         if self.view_options.get('include_toc', False) is True:
