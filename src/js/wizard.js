@@ -246,6 +246,7 @@ function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:radio').prop('checked', false).change();
     questiongroup.find('input:checkbox').prop('checked', false).change();
     questiongroup.find('input:hidden.is-cleared').val('').change();
+    questiongroup.find(".chosen-select").val('').trigger("chosen:updated");
 }
 
 $(function () {
@@ -703,11 +704,11 @@ $(function () {
                         initial_content = true;
                     }
                 });
+                qg.find('.form-user-search-loading').hide();
                 if (initial_content) {
                     qg.find('a.show-tab-create').click();
                 } else {
                     // Default: Show the search
-                    qg.find('.form-user-search-loading').hide();
                     qg.find('.form-user-select').show();
                     qg.find('.form-user-search').show();
                 }
