@@ -1040,6 +1040,11 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         if self.keyword in edited_questiongroups:
             has_changes = True
 
+        # TODO: Highlight changes disabled.
+        # For the time being, the function to show changes has been
+        # disabled. Delete the following line to reenable it.
+        has_changes = False
+
         config = self.form_options
         config.update({
             'keyword': self.keyword,
@@ -1343,6 +1348,11 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     initial_links=initial_links))
             config['next_level'] = 'subcategories'
 
+        # TODO: Highlight changes disabled.
+        # For the time being, the function to show changes has been
+        # disabled. Delete the following line to reenable it.
+        has_changes = False
+
         config.update({'has_changes': has_changes})
 
         if self.table_grouping:
@@ -1577,6 +1587,12 @@ class QuestionnaireCategory(BaseConfigurationObject):
             if qg.keyword in edited_questiongroups:
                 has_changes = True
                 break
+
+        # TODO: Highlight changes disabled.
+        # For the time being, the function to show changes has been
+        # disabled. Delete the following line to reenable it.
+        has_changes = False
+
         config = {
             'label': self.label,
             'numbering': self.numbering,
@@ -1660,6 +1676,11 @@ class QuestionnaireCategory(BaseConfigurationObject):
             if qg.keyword in edited_questiongroups:
                 has_changes = True
                 break
+
+        # TODO: Highlight changes disabled.
+        # For the time being, the function to show changes has been
+        # disabled. Delete the following line to reenable it.
+        has_changes = False
 
         categories_with_content = [c for c in self.subcategories if
                                    c.questiongroups or c.subcategories]

@@ -635,6 +635,11 @@ def generic_questionnaire_new(
             )
             messages.add_message(request, level, message)
 
+    # TODO: Highlight changes disabled.
+    # For the time being, the function to show changes has been
+    # disabled. Delete the following line to reenable it.
+    edited_questiongroups = []
+
     return render(request, template, {
         'images': images,
         'sections': sections,
