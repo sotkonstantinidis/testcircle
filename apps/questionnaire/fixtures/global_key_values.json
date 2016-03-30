@@ -6386,6 +6386,20 @@
   },
   {
     "fields": {
+      "keyword": "empty",
+      "translation": 5045,
+      "configuration": {
+        "type": "char",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 48
+  },
+  {
+    "fields": {
       "keyword": "country_AFG",
       "translation": 5501
     },

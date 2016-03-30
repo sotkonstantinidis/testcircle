@@ -1,5 +1,7 @@
 {% comment %}
 
+  A question and then a table.
+
   A table with 2 columns, each cell containing a question. If there are more
   than 2 questions, additional rows are created.Table headers are only created
   for the first 2 questions!
@@ -21,7 +23,7 @@
 
 {% for qg_form in formset.forms %}
 
-  <div class="list-item row">
+  <div class="list-item row{% if config.row_class %} {{ config.row_class }}{% endif %}">
     {# First question #}
     <div class="small-3 columns">
       {% for field in qg_form.visible_fields %}
@@ -37,7 +39,8 @@
       {% endfor %}
     </div>
     {# Other questions: As table #}
-    <div class="small-9 columns">
+    <div class="small-9 columns"
+          {% if config.table_condition %}data-question-condition="{{ config.table_condition }}"{% endif %}>
       <table>
         <thead>
           <tr>

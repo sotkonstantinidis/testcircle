@@ -21406,7 +21406,8 @@
                           {
                             "keyword": "user_resourceperson_type",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "has_other": "user_resourceperson_type"
                             },
                             "view_options": {
                               "template": "values_as_header"
@@ -21416,7 +21417,8 @@
                             "keyword": "user_resourceperson_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "user_resourceperson_type"
                             },
                             "view_options": {
                               "template": "as_header"
@@ -22168,7 +22170,8 @@
                           {
                             "keyword": "tech_watersupply",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "has_other": "tech_watersupply"
                             },
                             "view_options": {
                               "label_position": "none"
@@ -22179,7 +22182,8 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "tech_watersupply"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -26901,13 +26905,17 @@
                         "keyword": "tech_qg_192",
                         "questions": [
                           {
-                            "keyword": "tech_adaptation_modification"
+                            "keyword": "tech_adaptation_modification",
+                            "form_options": {
+                              "has_other": "tech_adaptation_modification"
+                            }
                           },
                           {
                             "keyword": "tech_adaptation_modification_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "tech_adaptation_modification"
                             }
                           },
                           {
