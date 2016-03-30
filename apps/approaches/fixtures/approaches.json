@@ -3887,7 +3887,12 @@
       "keyword": "app_annual_budget",
       "translation": 7042,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",

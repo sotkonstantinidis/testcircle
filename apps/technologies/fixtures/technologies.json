@@ -10884,7 +10884,7 @@
           },
           "numbering": "2.3",
           "helptext": {
-            "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>Explanation (description) is required for each photo submitted!</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li><li>Please note thate</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
+            "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
           }
         }
       }
@@ -11541,7 +11541,7 @@
           },
           "numbering": "2.",
           "helptext": {
-            "en": "<p><strong>An SLM Technology</strong> is a physical practice in the field that controls land degradation and/ or enhances productivity. A technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
+            "en": "<p><strong>An SLM Technology</strong> is a physical practice in the field that controls land degradation and/ or enhances productivity. A Technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
           }
         }
       }
@@ -14273,7 +14273,7 @@
       "keyword": "tech_sites_considered",
       "translation": 1187,
       "configuration": {
-        "type": "select"
+        "type": "radio"
       },
       "values": [
         1114,
@@ -15095,7 +15095,13 @@
       "keyword": "tech_implementation_year",
       "translation": 1234,
       "configuration": {
-        "type": "char"
+        "type": "int",
+        "form_options": {
+          "field_options": {
+            "min": 1900,
+            "max": "now"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -22569,6 +22575,9 @@
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_185",
+                        "form_options": {
+                          "max_num": 3
+                        },
                         "view_options": {
                           "template": "columns_o4_r8"
                         },
