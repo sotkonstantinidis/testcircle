@@ -1,4 +1,6 @@
 import collections
+import datetime
+
 import floppyforms as forms
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -237,6 +239,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'todo',
         'user_id',
         'link_id',
+        'int',
+        'float',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -576,6 +580,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             field = forms.CharField(
                 label=self.label, widget=widget, required=self.required)
+        elif self.field_type in ['int', 'float']:
+            field_options.update({'field_type': self.field_type})
+            if self.field_type == 'float':
+                attrs.update({'step': 'any'})
+            attrs.update(self.form_options.get('field_options', {}))
+            now_year = datetime.datetime.now().year
+            if attrs.get('max') == 'now':
+                attrs.update({'max': now_year})
+            if attrs.get('min') == 'now':
+                attrs.update({'min': now_year})
+            widget = NumberInput(attrs)
+            widget.options = field_options
+            field = forms.CharField(
+                label=self.label, widget=widget, required=self.required)
         elif self.field_type in ['user_id', 'link_id', 'hidden']:
             widget = HiddenInput()
             if self.field_type == 'user_id':
@@ -715,7 +733,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo', 'date']:
+        if self.field_type in ['char', 'text', 'todo', 'date', 'int', 'float']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -2373,6 +2391,17 @@ class DateInput(forms.DateInput):
         ctx.update({
             'options': self.options,
             'date_format': 'dd/mm/yy',
+        })
+        return ctx
+
+
+class NumberInput(forms.NumberInput):
+    template_name = 'form/field/numberinput.html'
+
+    def get_context_data(self):
+        ctx = super(NumberInput, self).get_context_data()
+        ctx.update({
+            'options': self.options,
         })
         return ctx
 

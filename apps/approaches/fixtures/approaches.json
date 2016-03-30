@@ -1411,7 +1411,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Enabling"
+            "en": "enabling"
           }
         }
       }
@@ -1425,7 +1425,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Hindering"
+            "en": "hindering"
           }
         }
       }
@@ -3150,7 +3150,7 @@
             "en": "Videos of the Approach"
           },
           "helptext": {
-            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each file in the table below."
+            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each video linked below."
           },
           "numbering": "2.4"
         }
@@ -3423,7 +3423,13 @@
       "keyword": "app_initiation_year",
       "translation": 7010,
       "configuration": {
-        "type": "char"
+        "type": "int",
+        "form_options": {
+          "field_options": {
+            "min": 1900,
+            "max": "now"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -3450,7 +3456,13 @@
       "keyword": "app_termination_year",
       "translation": 7012,
       "configuration": {
-        "type": "char"
+        "type": "int",
+        "form_options": {
+          "field_options": {
+            "min": 1900,
+            "max": 2100
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -3499,7 +3511,13 @@
       "keyword": "app_condition_enabling",
       "translation": 7015,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "template": "no_label"
+        },
+        "view_options": {
+          "label_position": "none"
+        }
       },
       "values": [
         3013
@@ -3513,7 +3531,13 @@
       "keyword": "app_condition_hindering",
       "translation": 7016,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "template": "no_label"
+        },
+        "view_options": {
+          "label_position": "none"
+        }
       },
       "values": [
         3014
@@ -3527,7 +3551,10 @@
       "keyword": "app_condition_enabling_specify",
       "translation": 7017,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "label_position": "none"
+        }
       }
     },
     "model": "configuration.key",
@@ -3538,7 +3565,10 @@
       "keyword": "app_condition_hindering_specify",
       "translation": 7017,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "label_position": "none"
+        }
       }
     },
     "model": "configuration.key",
@@ -7679,7 +7709,8 @@
                           {
                             "keyword": "app_type",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "has_other": true
                             },
                             "view_options": {
                               "label_position": "none"
@@ -7715,31 +7746,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_6_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_6_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_6_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_6_hindering_specify"
                             }
                           }
                         ]
@@ -7756,31 +7785,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_7_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_7_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_7_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_7_hindering_specify"
                             }
                           }
                         ]
@@ -7797,31 +7824,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_8_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_8_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_8_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_8_hindering_specify"
                             }
                           }
                         ]
@@ -7838,31 +7863,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_9_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_9_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_9_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_9_hindering_specify"
                             }
                           }
                         ]
@@ -7879,31 +7902,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_10_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_10_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_10_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_10_hindering_specify"
                             }
                           }
                         ]
@@ -7920,31 +7941,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_11_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_11_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_11_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_11_hindering_specify"
                             }
                           }
                         ]
@@ -7961,31 +7980,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_12_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_12_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_12_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_12_hindering_specify"
                             }
                           }
                         ]
@@ -8002,31 +8019,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_13_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_13_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_13_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_13_hindering_specify"
                             }
                           }
                         ]
@@ -8043,31 +8058,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_14_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_14_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_14_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_14_hindering_specify"
                             }
                           }
                         ]
@@ -8084,31 +8097,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_15_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_15_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_15_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_15_hindering_specify"
                             }
                           }
                         ]
@@ -8126,31 +8137,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_16_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_16_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_16_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_16_hindering_specify"
                             }
                           }
                         ]

@@ -177,6 +177,23 @@ form representation of the question.
     "radio" to indicate that there is an additional option "other" with a
     textfield to specify.
 
+  * ``field_options`` (dict): A dictionary containing options which are directly
+    passed as attributes to the input field. This is currently only used for
+    types ``int`` and ``float`` and allows for example to directly set the
+    minimum or maximum values of the field.
+
+    Example::
+
+      {
+        "field_options": {
+          "min": 1900,
+          "max": "now"
+        }
+      }
+
+    Please note that "now" is a special keyword and should only used with type
+    ``int``. This will be converted to the current year.
+
   * ``question_conditions`` (list): An optional list of conditions triggering
     conditional questions within the same questiongroup. Each condition must
     have the format ``"expresssion|condition_name"`` where ``expression`` is

@@ -169,6 +169,20 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                                 continue
                             translations[locale] = translation
                     value = translations
+                elif question.field_type in ['int']:
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        errors.append('Value "{}" of key "{}" is not a valid '
+                                      'integer.'.format(value, key))
+                        continue
+                elif question.field_type in ['float']:
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        errors.append('Value "{}" of key "{}" is not a valid '
+                                      'number.'.format(value, key))
+                        continue
                 elif question.field_type in ['todo']:
                     value = None
                 elif question.field_type in ['image', 'file', 'date']:

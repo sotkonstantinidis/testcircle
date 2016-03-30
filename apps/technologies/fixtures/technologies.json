@@ -11423,7 +11423,7 @@
             "en": "Videos of the Technology"
           },
           "helptext": {
-            "en": "If available, upload video files visualizing the Technology on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each file in the table below."
+            "en": "If available, upload video files visualizing the Technology on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each video linked below."
           },
           "numbering": "2.4"
         }
