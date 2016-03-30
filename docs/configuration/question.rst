@@ -173,9 +173,14 @@ form representation of the question.
     label. Possible values are: ``placeholder`` (showing the label as a
     placeholder inside the input field)
 
-  * ``has_other`` (bool): A boolean to be used by questions with key type
+  * ``has_other`` (str): A name to be used by questions with key type
     "radio" to indicate that there is an additional option "other" with a
-    textfield to specify.
+    textfield to specify. The name must be unique and must be the same as used
+    by ``other_radio`` of the other radio key.
+
+  * ``other_radio`` (str): A name to be used by the char key which acts as
+    "other" radio button. Must be unique and match the name  specified in
+    ``has_other`` of the radio key and must be unique.
 
   * ``field_options`` (dict): A dictionary containing options which are directly
     passed as attributes to the input field. This is currently only used for

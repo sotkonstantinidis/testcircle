@@ -44,6 +44,7 @@ class BaseSettings(Configuration):
         'rest_framework',
         'rest_framework_swagger',
         'sekizai',
+        # 'debug_toolbar',
         # Custom apps
         'accounts',
         'api',
@@ -263,3 +264,10 @@ class BaseSettings(Configuration):
     WARN_HEADER = values.Value(environ_prefix='')
 
     PIWIK_SITE_ID = values.IntegerValue(environ_prefix='', default=None)
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'DISABLE_PANELS': set([
+            'debug_toolbar.panels.redirects.RedirectsPanel',
+            'debug_toolbar.panels.sql.SQLPanel',
+        ])
+    }

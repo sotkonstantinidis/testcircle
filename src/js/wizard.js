@@ -129,6 +129,10 @@ function checkConditionalQuestions(element) {
             input_values.push(this.value);
         }
     });
+    // Also add checkboxes if they are "checkbox_other".
+    if ($el.hasClass('checkbox-other') && $el.is(':checked')) {
+        input_values.push(true);
+    }
 
     var cond_by_name = {};
     for (var i = 0; i < conditions.length; i++) {
@@ -479,24 +483,30 @@ $(function () {
             }
 
             if ($(this).data('has-other')) {
+                // Click on a radio which has an "other" radio
                 var $el = $(this);
+                var keyword = $el.data('has-other');
                 if ($el.is(':checked')) {
                     var list_item = $el.closest('.list-item');
                     // Deselect the "other" element if necessary
-                    list_item.find('.radio-other').attr('checked', false).attr('previousvalue', false);
+                    var other_radio = list_item.find('[data-other-radio=' + keyword + ']');
+                    other_radio.attr('checked', false).attr('previousvalue', false);
+
                     // Reset the textfield
-                    list_item.find('.radio-other-field').find('input').val('');
+                    other_radio.closest('label').find('.radio-other-field').find('input').val('');
                 }
             }
             if ($(this).hasClass('radio-other')) {
+                // Click on a "other" radio
                 $el = $(this);
+                var keyword = $el.data('other-radio');
                 var list_item = $el.closest('.list-item');
                 if ($el.is(':checked')) {
                     // Deselect all other radio buttons of the group
-                    list_item.find('input[data-has-other="true"]:radio')
+                    list_item.find('input[data-has-other="' + keyword + '"]:radio')
                         .attr('checked', false).attr('previousvalue', false);
                 } else {
-                    list_item.find('.radio-other-field').find('input').val('');
+                    $el.closest('label').find('.radio-other-field').find('input').val('');
                 }
             }
             $(this).trigger('change');

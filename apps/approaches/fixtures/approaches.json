@@ -61,7 +61,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Specify stakeholders and describe their roles. Indicate lead agency."
+            "en": "Specify stakeholders and describe their roles."
           },
           "helptext": {
             "en": "If relevant, also specify gender, age, status, ethnicity, etc."
@@ -2883,7 +2883,7 @@
             "en": "Flow chart (if available)"
           },
           "helptext": {
-            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p>Supported file type: PDF, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
+            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
           },
           "numbering": "3.2"
         }
@@ -7710,7 +7710,7 @@
                             "keyword": "app_type",
                             "form_options": {
                               "template": "no_label",
-                              "has_other": true
+                              "has_other": "app_type"
                             },
                             "view_options": {
                               "label_position": "none"
@@ -7720,7 +7720,8 @@
                             "keyword": "app_type_specify",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_type"
                             },
                             "view_options": {
                               "template": "radio_other",
@@ -8196,6 +8197,9 @@
                     "questiongroups": [
                       {
                         "keyword": "app_qg_3",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "app_stakeholders",
@@ -8393,14 +8397,18 @@
                       {
                         "keyword": "app_qg_91",
                         "form_options": {
-                          "template": "columns_o4_o8"
+                          "template": "columns_e6_e6",
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|app_sh_other_comments"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
@@ -8408,6 +8416,9 @@
                           },
                           {
                             "keyword": "app_stakeholders_comments",
+                            "form_options": {
+                              "question_condition": "app_sh_other_comments"
+                            },
                             "view_options": {
                               "label_position": "none"
                             }
@@ -8459,13 +8470,17 @@
                         "keyword": "app_qg_17",
                         "questions": [
                           {
-                            "keyword": "app_decisions_by"
+                            "keyword": "app_decisions_by",
+                            "form_options": {
+                              "has_other": "app_decisions_by"
+                            }
                           },
                           {
                             "keyword": "app_decisions_by_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_decisions_by"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8475,13 +8490,17 @@
                             "keyword": "app_decisions_explain"
                           },
                           {
-                            "keyword": "app_decisions_based"
+                            "keyword": "app_decisions_based",
+                            "form_options": {
+                              "has_other": "app_decisions_based"
+                            }
                           },
                           {
                             "keyword": "app_decisions_based_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_decisions_based"
                             },
                             "view_options": {
                               "template": "radio_other"

@@ -10,7 +10,7 @@
     {% include "form/errors.html" with errors=field.errors %}
   {% endblock %}
   <div class="row single-item{% if options.row_class %} {{ options.row_class }}{% endif %}"
-    {% if options.question_condition %}data-question-condition="{{ options.question_condition }}"{% endif %}>
+        {% if options.question_condition %}data-question-condition="{{ options.question_condition }}"{% endif %}>
     {% if options.label_position != 'placeholder' and options.label_position != 'none' %}
       <div class="small-12 columns{% if options.label_columns_class %} {{ options.label_columns_class }}{% endif %}">
         {% if options.helptext and options.helptext_position == 'tooltip' %}

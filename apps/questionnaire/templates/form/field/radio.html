@@ -17,7 +17,7 @@
                  id="{{ attrs.id }}_{{ forloop.counter }}"
                  value="{{ choice.0 }}"
                  name="{{ name }}"{% if required %} required{% endif %}
-                  {% if options.has_other %} data-has-other="true"{% endif %}
+                  {% if options.has_other %} data-has-other="{{ options.has_other }}"{% endif %}
                   {% if choice.0 in value %} checked{% endif %}
                   {% if questiongroup_conditions %} data-questiongroup-condition="{{ questiongroup_conditions }}"{% endif %}
                   {% include "floppyforms/attrs.html" %}>

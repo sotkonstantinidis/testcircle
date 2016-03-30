@@ -24,7 +24,7 @@
         <div class="questiongroup">
           {{ questiongroup_formset.management_form }}
           {% for qg_form in questiongroup_formset.forms %}
-            <div class="list-item row{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+            <div class="list-item row{% if questiongroup_config.row_class %} {{ questiongroup_config.row_class }}{% endif %}{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
               {% for field in qg_form.visible_fields %}
                 {% with options=questiongroup_config.options|get_by_keyword:field.name label=field.label%}
                   {% if label and options.label_position != 'placeholder' and options.label_position != 'none' %}

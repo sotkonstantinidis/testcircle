@@ -3226,14 +3226,15 @@
                           {
                             "keyword": "key_48",
                             "form_options": {
-                              "has_other": true
+                              "has_other": "key_48"
                             }
                           },
                           {
                             "keyword": "key_49",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "key_48"
                             }
                           }
                         ]
