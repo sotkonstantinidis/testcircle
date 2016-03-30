@@ -518,6 +518,7 @@ $(function () {
             if (!$el.prop('checked')) {
                 $el.closest('label').find('input:text').val('');
             }
+            watchFormProgress();
         })
 
         // Conditional questions

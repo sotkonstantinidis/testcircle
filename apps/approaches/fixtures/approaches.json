@@ -9798,6 +9798,9 @@
                     "questiongroups": [
                       {
                         "keyword": "app_qg_70",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "app_motivation",
@@ -10032,14 +10035,18 @@
                         "keyword": "app_qg_83",
                         "form_options": {
                           "template": "columns_e6_e6",
-                          "max_num": 2
+                          "max_num": 2,
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|app_motivation_other"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
@@ -10047,6 +10054,9 @@
                           },
                           {
                             "keyword": "app_motivation_comments",
+                            "form_options": {
+                              "question_condition": "app_motivation_other"
+                            },
                             "view_options": {
                               "label_position": "none"
                             }
@@ -10152,10 +10162,12 @@
                           "min_num": 4,
                           "max_num": 4,
                           "template": "table",
+                          "column_widths": ["60%", "40%"],
                           "numbered": "display"
                         },
                         "view_options": {
                           "template": "table",
+                          "column_widths": ["60%", "40%"],
                           "with_keys": true
                         },
                         "questions": [
@@ -10179,10 +10191,12 @@
                           "min_num": 4,
                           "max_num": 4,
                           "template": "table",
+                          "column_widths": ["60%", "40%"],
                           "numbered": "display"
                         },
                         "view_options": {
                           "template": "table",
+                          "column_widths": ["60%", "40%"],
                           "with_keys": true
                         },
                         "questions": [
@@ -10226,6 +10240,9 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_sources",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "sources_used",
@@ -10303,21 +10320,28 @@
                       {
                         "keyword": "qg_sources_other",
                         "form_options": {
-                          "template": "columns_e6_e6"
+                          "template": "columns_e6_e6",
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "sources_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|sources_other"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
                             }
                           },
                           {
-                            "keyword": "sources_specify"
+                            "keyword": "sources_specify",
+                            "form_options": {
+                              "question_condition": "sources_other"
+                            }
                           }
                         ]
                       }

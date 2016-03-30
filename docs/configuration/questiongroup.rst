@@ -186,6 +186,11 @@ form representation of the question.
 
   * ``label_class`` (str): Specifies an additional class name for the label tag.
 
+  * ``column_widths`` (list): Specify the column widths for the table. Used in
+    template ``table``. Example::
+
+        "column_widths": ["60%", "40%"]
+
   * ``table_columns`` (int): Indicate the number of columns of the table. Used
     by template ``table_columns``.
 
