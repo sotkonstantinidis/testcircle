@@ -421,9 +421,6 @@
         "technologies": {
           "label": {
             "en": "Specify input"
-          },
-          "helptext": {
-            "en": "<ul><li><strong>Labour costs</strong> if relevant, differentiate between skilled and unskilled labour</li><li><strong>Equipment</strong> tools, machine hours, animal traction, etc. Cost calculation for machine hours and animal traction should be based on hiring costs - even if the machinery/ animals are owned by the land user.</li><li><strong>Agricultural inputs</strong> include seeds, seedling, fertilizer, biocides, compost/ manure, etc.</li><li><strong>Construction material</strong> includes timber, stones, earth, cement, pipes, tanks, etc.</li></ul>"
           }
         }
       }
@@ -3450,6 +3447,9 @@
         "technologies": {
           "label": {
             "en": "[Label left]"
+          },
+          "helptext": {
+            "en": "Eg. decreased, reduced"
           }
         }
       }
@@ -3478,6 +3478,9 @@
         "technologies": {
           "label": {
             "en": "[Label right]"
+          },
+          "helptext": {
+            "en": "Eg. increased, improved"
           }
         }
       }
@@ -8570,7 +8573,7 @@
             "en": "Labour"
           },
           "helptext": {
-            "en": "If possible, break down the total costs for establishment: specify inputs and costs per input."
+            "en": "<strong>Labour costs</strong> if relevant, differentiate between skilled and unskilled labour"
           }
         }
       }
@@ -8585,6 +8588,9 @@
         "technologies": {
           "label": {
             "en": "Equipment"
+          },
+          "helptext": {
+            "en": "<strong>Equipment</strong> tools, machine hours, animal traction, etc. Cost calculation for machine hours and animal traction should be based on hiring costs - even if the machinery/ animals are owned by the land user."
           }
         }
       }
@@ -8599,6 +8605,9 @@
         "technologies": {
           "label": {
             "en": "Agricultural"
+          },
+          "helptext": {
+            "en": "<strong>Agricultural inputs</strong> include seeds, seedling, fertilizer, biocides, compost/ manure, etc."
           }
         }
       }
@@ -8613,6 +8622,9 @@
         "technologies": {
           "label": {
             "en": "Construction material"
+          },
+          "helptext": {
+            "en": "<strong>Construction material</strong> includes timber, stones, earth, cement, pipes, tanks, etc."
           }
         }
       }
@@ -10662,7 +10674,7 @@
           },
           "numbering": "5.2",
           "helptext": {
-            "en": "List establishment activities for the technology (in sequence) and indicate timing"
+            "en": "List establishment activities for the Technology (in sequence) and indicate timing"
           }
         }
       }
@@ -10811,7 +10823,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Land user applying the SLM technology"
+            "en": "Land user applying the SLM Technology"
           },
           "helptext": {
             "en": "Specify the characteristics of the average/ typical land users who apply the Technology. Indicate characteristics relative to your region/ country standards."
@@ -15585,7 +15597,8 @@
         "type": "char",
         "form_options": {
           "label_position": "placeholder",
-          "field_columns_class": "top-margin"
+          "field_columns_class": "top-margin",
+          "helptext_position": "field"
         },
         "view_options": {
           "template": "value_only"
@@ -15632,7 +15645,8 @@
         "type": "char",
         "form_options": {
           "label_position": "placeholder",
-          "field_columns_class": "top-margin"
+          "field_columns_class": "top-margin",
+          "helptext_position": "field"
         },
         "view_options": {
           "template": "value_only"
@@ -26944,12 +26958,6 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_strengths_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "strengths_landuser"
@@ -26958,12 +26966,6 @@
                       },
                       {
                         "keyword": "qg_strengths_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "strengths_compiler"
@@ -26977,12 +26979,6 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_weaknesses_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "weaknesses_landuser"
@@ -26994,12 +26990,6 @@
                       },
                       {
                         "keyword": "qg_weaknesses_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "weaknesses_compiler"
@@ -27035,6 +27025,9 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_sources",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "sources_used",
@@ -27112,21 +27105,28 @@
                       {
                         "keyword": "qg_sources_other",
                         "form_options": {
-                          "template": "columns_e6_e6"
+                          "template": "columns_e6_e6",
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "sources_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|sources_other"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
                             }
                           },
                           {
-                            "keyword": "sources_specify"
+                            "keyword": "sources_specify",
+                            "form_options": {
+                              "question_condition": "sources_other"
+                            }
                           }
                         ]
                       }

@@ -2000,6 +2000,9 @@
         "approaches": {
           "label": {
             "en": "fully financed"
+          },
+          "helptext": {
+            "en": "No costs to land users"
           }
         }
       }
@@ -10116,43 +10119,17 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_strengths_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "strengths_landuser",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "strengths_landuser"
                           }
                         ]
                       },
                       {
                         "keyword": "qg_strengths_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "strengths_compiler",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "strengths_compiler"
                           }
                         ]
                       }
@@ -10163,59 +10140,23 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_weaknesses_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "column_widths": ["60%", "40%"],
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "column_widths": ["60%", "40%"],
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "weaknesses_landuser",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_landuser"
                           },
                           {
-                            "keyword": "weaknesses_overcome",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_overcome"
                           }
                         ]
                       },
                       {
                         "keyword": "qg_weaknesses_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "column_widths": ["60%", "40%"],
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "column_widths": ["60%", "40%"],
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "weaknesses_compiler",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_compiler"
                           },
                           {
-                            "keyword": "weaknesses_overcome",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_overcome"
                           }
                         ]
                       }
