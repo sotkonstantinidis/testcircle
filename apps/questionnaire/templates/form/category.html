@@ -58,11 +58,13 @@
           </div>
         </div>
         <div class="columns small-12 medium-3">
-          <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
-            <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
-          </a><a class="button secondary button-icon" href="#question2" data-magellan-step="next">
-            <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
-          </a>
+          <div class="navigation-buttons">
+            <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
+              <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
+            </a><a class="button secondary button-icon" href="#question2" data-magellan-step="next">
+              <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
+            </a>
+          </div>
           {% if edit_mode == 'edit' %}
             <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ content_subcategories_count }}</span>)</strong></a>
           {% elif edit_mode == 'view' %}
@@ -116,4 +118,62 @@
   {% compress js %}
     <script src="{% static 'js/focusPoint.js' %}"></script>
   {% endcompress %}
+{% endblock %}
+
+{% block help_tour %}
+  {% addtoblock 'css' %}
+    <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
+  {% endaddtoblock %}
+  <div id="help-tour-icon">
+    <a href="#" id="show_help" onclick="return startIntro();">{% trans "Help" %}</a>
+  </div>
+  <script src="{% static 'js/intro.min.js' %}"></script>
+  <script>
+    function startIntro() {
+      introJs().setOptions({
+          skipLabel: '{% trans "Close" %}',
+          showStepNumbers: false,
+          highlightClass: 'intro-dark-background',
+          steps: [
+            {
+              intro: '{% trans "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a tour explaining the functions on this page.</p>" %}',
+              element: document.querySelector('#show_help'),
+              position: 'top'
+            },
+            {
+              intro: '{% trans "<p>The bar indicates the name of the section you are currently editing.</p>" %}',
+              element: document.querySelector('h2.wizard-header-title'),
+              position: 'top'
+            },
+            {
+              intro: '{% trans "<p>Click \"Save\" to save your changes and view them in the output.</p><p><strong>Important:</strong> You need to click \"Save\" in the output again to permanently save the Questionnaire!</p>" %}',
+              element: document.querySelector('a#button-submit'),
+              position: 'top'
+            },
+            {
+              intro: '{% trans "<p>You can use the arrows to navigate between the questions.</p>" %}',
+              element: document.querySelector('div.navigation-buttons'),
+              position: 'top'
+            },
+            {
+              intro: '{% trans "<p>You can also use the circles to jump from one question to the next one.</p>" %}',
+              element: document.querySelector('div[data-magellan-expedition]'),
+              position: 'left'
+            },
+            {
+              intro: '{% trans "<p>Use this link if you want to go back to the output without saving any changes.</p>" %}',
+              element: document.querySelector('a.wizard-header-back'),
+              position: 'top'
+            },
+            {
+              intro: '{% trans "<p>The progress bar indicates how many questions are already filled out.</p>" %}',
+              element: document.querySelector('div.progress'),
+              position: 'top'
+            }
+          ]
+        }).start();
+      window.scrollTo(0,0);
+      return false;
+    }
+  </script>
 {% endblock %}
