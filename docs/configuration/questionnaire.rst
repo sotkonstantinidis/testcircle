@@ -67,11 +67,6 @@ The basic format of the configuration is as follows::
           }
         ]
       }
-    ],
-    "links": [
-      {
-        "keyword": "CONFIGURATION_CODE"
-      }
     ]
   }
 
@@ -574,3 +569,4 @@ The following is an arbitrary example of how a configuration could look like::
       }
     ]
   }
+

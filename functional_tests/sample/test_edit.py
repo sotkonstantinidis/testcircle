@@ -452,139 +452,139 @@ class EditTest(FunctionalTest):
         self.findByNot('xpath', '//p[text()="Foo"]')
         self.findBy('xpath', '//p[text()="asdf"]')
 
-    def test_show_message_of_changed_versions(self, mock_get_user_id):
-
-        user = create_new_user(id=6, email='mod@bar.com')
-        user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
-        user.save()
-
-        initial_db_count = Questionnaire.objects.count()
-
-        # Alice logs in
-        self.doLogin(user=user)
-
-        # She enters a Questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new))
-
-        # She sees there is no message of an old version
-        has_no_old_version_overview(self)
-
-        edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(@href, "edit/new/cat")]')
-        edit_buttons[cat_1_position].click()
-
-        has_no_old_version_step(self)
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
-        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # She sees there is no message of an old version
-        has_no_old_version_overview(self)
-
-        # She saves it as draft
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # In the database, there is only one Questionnaire
-        self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
-
-        # She sees there is no message of an old version
-        has_no_old_version_overview(self)
-
-        # She edits it
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-
-        # She sees there is no message of an old version
-        has_no_old_version_overview(self)
-
-        self.findBy(
-            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
-
-        # She sees there is no message of an old version
-        has_no_old_version_step(self)
-
-        # She changes some values
-        self.findBy('name', 'qg_1-0-original_key_1').clear()
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # She sees there is a message of an old version
-        has_old_version_overview(self)
-
-        # She edits the step again and sees there is now a message of changes
-        self.findBy(
-            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
-        has_old_version_step(self)
-
-        # She reverts the changes made before and submits the step
-        self.findBy('name', 'qg_1-0-original_key_1').clear()
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # She sees there is no change message anymore.
-        has_no_old_version_overview(self)
-
-        # She goes back to the step and sees there is no change message
-        # there either.
-        self.findBy(
-            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
-        has_no_old_version_step(self)
-
-        # She makes some new changes, submits the step and sees the
-        # message is back.
-        self.findBy('name', 'qg_1-0-original_key_1').clear()
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        has_old_version_overview(self)
-
-        # She saves it as draft
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # In the database, there is only one Questionnaire
-        self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
-
-        # She sees there is no message of an old version
-        has_no_old_version_overview(self)
-
-        # She edits it again and sees there is NO message about the changes
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-        # TODO: In theory, the old version should disappear after a compiler ...
-        # saves the questionnaire.
-        has_old_version_overview(self)
-
-        # She edits a step and sees the message about changes there as well
-        self.findBy(
-            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
-        has_old_version_step(self)
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # She saves it as draft and submits it for review
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # There is no message about changes
-        has_no_old_version_overview(self)
-
-        # She is moderator and sets the questionnaire public, there is
-        # no message about changes
-        self.findBy('id', 'button-review').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('id', 'button-publish').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        has_no_old_version_overview(self)
-
-        # In the database, there is only one Questionnaire
-        self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
-
-        # She edits it again and sees there is no change message
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-        has_no_old_version_overview(self)
+    # def test_show_message_of_changed_versions(self, mock_get_user_id):
+    #
+    #     user = create_new_user(id=6, email='mod@bar.com')
+    #     user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
+    #     user.save()
+    #
+    #     initial_db_count = Questionnaire.objects.count()
+    #
+    #     # Alice logs in
+    #     self.doLogin(user=user)
+    #
+    #     # She enters a Questionnaire
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new))
+    #
+    #     # She sees there is no message of an old version
+    #     has_no_old_version_overview(self)
+    #
+    #     edit_buttons = self.findManyBy(
+    #         'xpath', '//a[contains(@href, "edit/new/cat")]')
+    #     edit_buttons[cat_1_position].click()
+    #
+    #     has_no_old_version_step(self)
+    #     self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+    #     self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #
+    #     # She sees there is no message of an old version
+    #     has_no_old_version_overview(self)
+    #
+    #     # She saves it as draft
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #
+    #     # In the database, there is only one Questionnaire
+    #     self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
+    #
+    #     # She sees there is no message of an old version
+    #     has_no_old_version_overview(self)
+    #
+    #     # She edits it
+    #     self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+    #
+    #     # She sees there is no message of an old version
+    #     has_no_old_version_overview(self)
+    #
+    #     self.findBy(
+    #         'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+    #
+    #     # She sees there is no message of an old version
+    #     has_no_old_version_step(self)
+    #
+    #     # She changes some values
+    #     self.findBy('name', 'qg_1-0-original_key_1').clear()
+    #     self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #
+    #     # She sees there is a message of an old version
+    #     has_old_version_overview(self)
+    #
+    #     # She edits the step again and sees there is now a message of changes
+    #     self.findBy(
+    #         'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+    #     has_old_version_step(self)
+    #
+    #     # She reverts the changes made before and submits the step
+    #     self.findBy('name', 'qg_1-0-original_key_1').clear()
+    #     self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #
+    #     # She sees there is no change message anymore.
+    #     has_no_old_version_overview(self)
+    #
+    #     # She goes back to the step and sees there is no change message
+    #     # there either.
+    #     self.findBy(
+    #         'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+    #     has_no_old_version_step(self)
+    #
+    #     # She makes some new changes, submits the step and sees the
+    #     # message is back.
+    #     self.findBy('name', 'qg_1-0-original_key_1').clear()
+    #     self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #     has_old_version_overview(self)
+    #
+    #     # She saves it as draft
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #
+    #     # In the database, there is only one Questionnaire
+    #     self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
+    #
+    #     # She sees there is no message of an old version
+    #     has_no_old_version_overview(self)
+    #
+    #     # She edits it again and sees there is NO message about the changes
+    #     self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+    #     # TODO: In theory, the old version should disappear after a compiler ...
+    #     # saves the questionnaire.
+    #     has_old_version_overview(self)
+    #
+    #     # She edits a step and sees the message about changes there as well
+    #     self.findBy(
+    #         'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+    #     has_old_version_step(self)
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #
+    #     # She saves it as draft and submits it for review
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #     self.findBy('id', 'button-submit').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #
+    #     # There is no message about changes
+    #     has_no_old_version_overview(self)
+    #
+    #     # She is moderator and sets the questionnaire public, there is
+    #     # no message about changes
+    #     self.findBy('id', 'button-review').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #     self.findBy('id', 'button-publish').click()
+    #     self.findBy('xpath', '//div[contains(@class, "success")]')
+    #     has_no_old_version_overview(self)
+    #
+    #     # In the database, there is only one Questionnaire
+    #     self.assertEqual(Questionnaire.objects.count(), initial_db_count + 1)
+    #
+    #     # She edits it again and sees there is no change message
+    #     self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+    #     has_no_old_version_overview(self)

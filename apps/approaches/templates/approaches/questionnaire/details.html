@@ -4,6 +4,7 @@
 {% load i18n %}
 {% load sekizai_tags %}
 {% load questionnaire_tags %}
+{% load staticfiles %}
 
 
 {% block bodyclass %}layout-tech{% endblock %}
@@ -46,32 +47,6 @@
       {% for section in sections %}
         {{ section }}
       {% endfor %}
-      {% if links or view_mode == 'edit' %}
-        <section id="links" class="tech-section row is-rhythmed" data-magellan-destination="links">
-          <a name="links"></a>
-          {% if 'edit_questionnaire' in permissions and view_mode == 'edit' %}
-            <div class="medium-9 columns">
-              <h2>{% trans "Linked Questionnaires" %}</h2>
-            </div>
-            <div class="medium-3 columns">
-              <a href="{% url 'approaches:questionnaire_link_form' questionnaire_identifier %}" class="button is-approaches right">{% trans "Edit links" %}</a>
-            </div>
-          {% else %}
-            <div class="medium-12 columns">
-              <h2>{% trans "Linked Questionnaires" %}</h2>
-            </div>
-          {% endif %}
-          <div class="small-12 columns output">
-            {% for configuration, list_values in links.items %}
-              {% for list_entry in list_values %}
-                {% with configuration=configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
-                  {% include configuration with item=list_entry %}
-                {% endwith %}
-              {% endfor %}
-            {% endfor %}
-          </div>
-        </section>
-      {% endif %}
       <section class="row is-rhythmed">
         <div class="small-12 columns">
           {% if 'edit_questionnaire' in permissions %}
@@ -88,4 +63,72 @@
       </section>
     </main>
   </article>
+
+  {% if view_mode != 'edit' %}
+    {% addtoblock 'js' %}
+      {% compress js %}
+        <script>
+          $().ready(function() {
+           _paq.push(['trackEvent', 'Detail', 'Approach', '{{ questionnaire_identifier  }}']);
+          });
+        </script>
+      {% endcompress %}
+    {% endaddtoblock %}
+  {% endif %}
+{% endblock %}
+
+{% block help_tour %}
+  {% if view_mode == 'edit' %}
+    {% addtoblock 'css' %}
+      <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
+    {% endaddtoblock %}
+
+    <div id="help-tour-icon">
+      <a href="#" id="show_help" onclick="return startIntro();">{% trans "Help" %}</a>
+    </div>
+    <script src="{% static 'js/intro.min.js' %}"></script>
+    <script>
+      function startIntro() {
+        introJs().setOptions({
+            skipLabel: '{% trans "Close" %}',
+            showStepNumbers: false,
+            steps: [
+              {
+                intro: '{% trans "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to take a tour explaining the functions on this page.</p>" %}',
+                element: document.querySelector('#show_help'),
+                position: 'top'
+              },
+              {
+                intro: '{% trans "<p>This is the output page where you can see all the data you entered in the form.</p>" %}',
+                element: document.querySelector('section#app__1')
+              },
+              {
+                intro: '{% trans "<p>The Questionnaire consists of multiple sections. You can use the Table of Content for navigation.</p>" %}',
+                element: document.querySelector('section.toc-row')
+              },
+              {
+                intro: '{% trans "<p>Each section is also visible in the output, any data you enter will appear here.</p>" %}',
+                element: document.querySelector('section#app__2'),
+                position: 'top'
+              },
+              {
+                intro: '{% trans "<p>Click on the button to edit a section and enter your data.</p><p>The numbers indicate how many questions are already filled out in this section.</p>" %}',
+                element: document.querySelector('section#app__2 a.button'),
+                position: 'top'
+              },
+              {
+                intro: '{% trans "<p>Once you are done editing, click the button to save the Questionnaire.</p>" %}',
+                element: document.querySelector('input.q-action-button-top[type="submit"]')
+              },
+              {
+                intro: '{% trans "<p>The metadata will be filled out automatically once you saved the Questionnaire.</p>" %}',
+                element: document.querySelector('ul.tech-output-infos')
+              }
+            ]
+          }).start();
+        window.scrollTo(0,0);
+        return false;
+      }
+    </script>
+  {% endif %}
 {% endblock %}

@@ -25,7 +25,8 @@
   {% endcompress %}
 {% endaddtoblock %}
 
-<select name="{{ name }}" data-placeholder=""{% if searchable %} class="chosen-select"{% endif %} {% include "floppyforms/attrs.html" %}>
+<select name="{{ name }}" data-placeholder=""{% if searchable %} class="chosen-select"{% endif %} {% include "floppyforms/attrs.html" %}
+    {% if options.question_conditions %} data-question-conditions="{{ options.question_conditions }}"{% endif %}>
   {% for group_name, choices in optgroups %}
     {% for choice in choices %}
       <option value="{{ choice.0 }}"{% if choice.0 in value %}selected="selected"{% endif %}>{{ choice.1 }}</option>

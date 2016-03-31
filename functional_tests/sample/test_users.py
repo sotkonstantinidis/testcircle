@@ -86,6 +86,7 @@ class UserTest(FunctionalTest):
 
         # She sees and clicks the link in the user menu to view her
         # Questionnaires
+        self.clickUserMenu(user_alice)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
             'contains(@href, "accounts/101/questionnaires")]').click()
@@ -362,6 +363,7 @@ class UserTest2(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
 
         # She sees a field to search for users
         search_user = self.findBy(
@@ -416,6 +418,13 @@ class UserTest2(FunctionalTest):
         new_tab.click()
         new_name.send_keys('New Person')
         self.assertEqual(new_name.get_attribute('value'), 'New Person')
+        self.findBy(
+            'xpath', '//div[@id="id_qg_31_0_key_4_chosen"]').click()
+        self.findBy(
+            'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]')\
+            .click()
+        chosen_field = self.findBy('xpath', '//div[@id="id_qg_31_0_key_4_chosen"]/a[@class="chosen-single"]')
+        self.assertEqual(chosen_field.text, 'Afghanistan')
 
         # She is having second thoughts and decides to search for a
         # person once again
@@ -445,6 +454,7 @@ class UserTest2(FunctionalTest):
         # entered previously are gone now
         new_tab.click()
         self.assertEqual(new_name.get_attribute('value'), '')
+        self.assertEqual(chosen_field.text, '-')
 
         # She enters a new name
         new_name.send_keys('Other New Person')
@@ -475,11 +485,25 @@ class UserTest2(FunctionalTest):
         self.assertTrue(new_name.is_displayed())
         self.assertEqual(new_name.get_attribute('value'), 'Other New Person')
 
+        search_tab = self.findBy(
+            'xpath', '//li[contains(@class ,"tab-title")]/a[contains(@class, '
+                     '"show-tab-select")]')
+        new_tab = self.findBy(
+            'xpath', '//li[contains(@class ,"tab-title")]/a[contains(@class, '
+            '"show-tab-create")]')
+
+        # She sees that there is no box with the user in the registered tab and
+        # there is no loading indicator
+        search_tab.click()
         self.findByNot(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Lukas Vonlanthen")]')
+        loading_indicator = self.findBy(
+            'xpath', '//div[contains(@class, "form-user-search-loading")][1]')
+        self.assertFalse(loading_indicator.is_displayed())
 
         # She changes the value of the new person
+        new_tab.click()
         new_name.clear()
         new_name.send_keys('Person A')
 
@@ -509,6 +533,7 @@ class UserTest2(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
 
         # She sees a field to search for users
         search_user = self.findBy(

@@ -22,6 +22,7 @@ class AdminTest(FunctionalTest):
         self.doLogin(user=self.user)
 
         # She sees the admin button in the top navigation bar and clicks on it
+        self.clickUserMenu(self.user)
         navbar = self.findBy('class_name', 'top-bar')
         navbar.find_element_by_link_text('Administration').click()
 
@@ -48,6 +49,7 @@ class AdminTest(FunctionalTest):
         self.doLogin(user=user)
 
         # She sees the admin button in the top navigation bar and clicks on it
+        self.clickUserMenu(user)
         navbar = self.findBy('class_name', 'top-bar')
         navbar.find_element_by_link_text('Administration').click()
 

@@ -9,6 +9,7 @@
     "dropzone": "~4.0.0",
     "chosen": "~1.4.2",
     "jquery-nstSlider": "~1.0.11",
-    "jquery-ui": "~1.11.4"
+    "jquery-ui": "~1.11.4",
+    "intro.js": "~2.0.0"
   }
 }

@@ -124,6 +124,7 @@ class SearchTestAdmin(FunctionalTest):
 
         # She sees the button to access the search administration in the
         # top navigation bar and clicks it.
+        self.clickUserMenu(self.user)
         navbar = self.findBy('class_name', 'top-bar')
         navbar.find_element_by_link_text('Search Index Administration').click()
 

@@ -34,11 +34,9 @@
         </li>
       </div>
       <div class="small-9 columns image-cb-has-condition">
-        {% if not forloop.last %}
-          {% with subformset=additional_qg|get_by_index:forloop.counter value=None %}
-            {% form form using subformset.0.template with config=subformset.0 formset=subformset.1 %}
-          {% endwith %}
-        {% endif %}
+        {% with subformset=additional_qg|get_by_index:forloop.counter value=None %}
+          {% form form using subformset.0.template with config=subformset.0 formset=subformset.1 %}
+        {% endwith %}
       </div>
     </div>
   {% endfor %}

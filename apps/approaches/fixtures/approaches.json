@@ -61,7 +61,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Specify stakeholders and describe their roles. Indicate lead agency."
+            "en": "Specify stakeholders and describe their roles."
           },
           "helptext": {
             "en": "If relevant, also specify gender, age, status, ethnicity, etc."
@@ -525,7 +525,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "If yes, at what level"
+            "en": "At what level"
           }
         }
       }
@@ -542,7 +542,7 @@
             "en": "Other (specify)"
           },
           "label_view": {
-            "en": "If yes, at what level:"
+            "en": "At what level"
           }
         }
       }
@@ -792,7 +792,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "If yes, specify conditions (interest rate, payback, etc.)"
+            "en": "Specify conditions (interest rate, payback, etc.)"
           }
         }
       }
@@ -1411,7 +1411,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Enabling"
+            "en": "enabling"
           }
         }
       }
@@ -1425,7 +1425,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Hindering"
+            "en": "hindering"
           }
         }
       }
@@ -2000,6 +2000,9 @@
         "approaches": {
           "label": {
             "en": "fully financed"
+          },
+          "helptext": {
+            "en": "No costs to land users"
           }
         }
       }
@@ -2883,7 +2886,7 @@
             "en": "Flow chart (if available)"
           },
           "helptext": {
-            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p>Supported file type: PDF, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
+            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
           },
           "numbering": "3.2"
         }
@@ -2900,7 +2903,7 @@
           "label": {
             "en": "Decision-making on the selection of SLM Technology(ies)"
           },
-          "numbering": "3.4"
+          "numbering": "3.3"
         }
       }
     },
@@ -3131,6 +3134,9 @@
           "label": {
             "en": "Reference(s) to Questionnaire(s) on SLM Technologies"
           },
+          "helptext": {
+            "en": "<p>Indicate SLM Technologies which were promoted by and implemented through this Approach.</p><p>The major Technologies promoted by and implemented through this Approach must be described in separate SLM Technology questionnaires. WOCAT recommends that you first fill in the Technology questionnaire and that you focus the description of the Approach to the Technology(ies) documented.</p>"
+          },
           "numbering": "1.4"
         }
       }
@@ -3147,7 +3153,7 @@
             "en": "Videos of the Approach"
           },
           "helptext": {
-            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each file in the table below."
+            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each video linked below."
           },
           "numbering": "2.4"
         }
@@ -3420,7 +3426,13 @@
       "keyword": "app_initiation_year",
       "translation": 7010,
       "configuration": {
-        "type": "char"
+        "type": "int",
+        "form_options": {
+          "field_options": {
+            "min": 1900,
+            "max": "now"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -3447,7 +3459,13 @@
       "keyword": "app_termination_year",
       "translation": 7012,
       "configuration": {
-        "type": "char"
+        "type": "int",
+        "form_options": {
+          "field_options": {
+            "min": 1900,
+            "max": 2100
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -3496,7 +3514,13 @@
       "keyword": "app_condition_enabling",
       "translation": 7015,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "template": "no_label"
+        },
+        "view_options": {
+          "label_position": "none"
+        }
       },
       "values": [
         3013
@@ -3510,7 +3534,13 @@
       "keyword": "app_condition_hindering",
       "translation": 7016,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "template": "no_label"
+        },
+        "view_options": {
+          "label_position": "none"
+        }
       },
       "values": [
         3014
@@ -3524,7 +3554,10 @@
       "keyword": "app_condition_enabling_specify",
       "translation": 7017,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "label_position": "none"
+        }
       }
     },
     "model": "configuration.key",
@@ -3535,7 +3568,10 @@
       "keyword": "app_condition_hindering_specify",
       "translation": 7017,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "label_position": "none"
+        }
       }
     },
     "model": "configuration.key",
@@ -3854,7 +3890,12 @@
       "keyword": "app_annual_budget",
       "translation": 7042,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5603,7 +5644,7 @@
     "fields": {
       "keyword": "app_subsidies_inputs_none",
       "translation": 7548,
-      "order_value": 7
+      "order_value": 1
     },
     "model": "configuration.value",
     "pk": 3048
@@ -6879,6 +6920,24 @@
   },
   {
     "fields": {
+      "keyword": "app_qg__technologies",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3107
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_107",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3108
+  },
+  {
+    "fields": {
       "keyword": "app__1__1",
       "translation": 8701
     },
@@ -7210,6 +7269,7 @@
                   "include_toc": true,
                   "use_raw_data": true,
                   "with_metadata": true,
+                  "review_panel": true,
                   "additional_data": {
                     "qg_location": [
                       "country"
@@ -7305,7 +7365,8 @@
                           {
                             "keyword": "user_resourceperson_type",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "has_other": "user_resourceperson_type"
                             },
                             "view_options": {
                               "template": "values_as_header"
@@ -7315,7 +7376,8 @@
                             "keyword": "user_resourceperson_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "user_resourceperson_type"
                             },
                             "view_options": {
                               "template": "as_header"
@@ -7436,8 +7498,26 @@
                   {
                     "keyword": "app__1__4",
                     "form_options": {
-                      "template": "links_approaches"
-                    }
+                      "has_links": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg__technologies",
+                        "form_options": {
+                          "template": "select_link",
+                          "link": "technologies",
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "links"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "link_id"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -7447,7 +7527,6 @@
             "keyword": "section_specifications",
             "view_options": {
               "template": "empty",
-              "review_panel": true,
               "media_gallery": true
             },
             "categories": [
@@ -7649,7 +7728,8 @@
                           {
                             "keyword": "app_type",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "has_other": "app_type"
                             },
                             "view_options": {
                               "label_position": "none"
@@ -7659,7 +7739,8 @@
                             "keyword": "app_type_specify",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_type"
                             },
                             "view_options": {
                               "template": "radio_other",
@@ -7685,31 +7766,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_6_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_6_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_6_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_6_hindering_specify"
                             }
                           }
                         ]
@@ -7726,31 +7805,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_7_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_7_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_7_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_7_hindering_specify"
                             }
                           }
                         ]
@@ -7767,31 +7844,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_8_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_8_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_8_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_8_hindering_specify"
                             }
                           }
                         ]
@@ -7808,31 +7883,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_9_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_9_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_9_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_9_hindering_specify"
                             }
                           }
                         ]
@@ -7849,31 +7922,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_10_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_10_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_10_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_10_hindering_specify"
                             }
                           }
                         ]
@@ -7890,31 +7961,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_11_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_11_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_11_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_11_hindering_specify"
                             }
                           }
                         ]
@@ -7931,31 +8000,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_12_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_12_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_12_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_12_hindering_specify"
                             }
                           }
                         ]
@@ -7972,31 +8039,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_13_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_13_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_13_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_13_hindering_specify"
                             }
                           }
                         ]
@@ -8013,31 +8078,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_14_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_14_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_14_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_14_hindering_specify"
                             }
                           }
                         ]
@@ -8054,31 +8117,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_15_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_15_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_15_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_15_hindering_specify"
                             }
                           }
                         ]
@@ -8096,31 +8157,29 @@
                           {
                             "keyword": "app_condition_enabling",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_16_enabling_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_enabling_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_16_enabling_specify"
                             }
                           },
                           {
                             "keyword": "app_condition_hindering",
                             "form_options": {
-                              "template": "no_label"
-                            },
-                            "view_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "!=''|app_qg_16_hindering_specify"
+                              ]
                             }
                           },
                           {
                             "keyword": "app_condition_hindering_specify",
-                            "view_options": {
-                              "template": "inline"
+                            "form_options": {
+                              "question_condition": "app_qg_16_hindering_specify"
                             }
                           }
                         ]
@@ -8157,6 +8216,9 @@
                     "questiongroups": [
                       {
                         "keyword": "app_qg_3",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "app_stakeholders",
@@ -8354,14 +8416,18 @@
                       {
                         "keyword": "app_qg_91",
                         "form_options": {
-                          "template": "columns_o4_o8"
+                          "template": "columns_e6_e6",
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "app_stakeholders_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|app_sh_other_comments"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
@@ -8369,6 +8435,9 @@
                           },
                           {
                             "keyword": "app_stakeholders_comments",
+                            "form_options": {
+                              "question_condition": "app_sh_other_comments"
+                            },
                             "view_options": {
                               "label_position": "none"
                             }
@@ -8420,13 +8489,17 @@
                         "keyword": "app_qg_17",
                         "questions": [
                           {
-                            "keyword": "app_decisions_by"
+                            "keyword": "app_decisions_by",
+                            "form_options": {
+                              "has_other": "app_decisions_by"
+                            }
                           },
                           {
                             "keyword": "app_decisions_by_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_decisions_by"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8436,13 +8509,17 @@
                             "keyword": "app_decisions_explain"
                           },
                           {
-                            "keyword": "app_decisions_based"
+                            "keyword": "app_decisions_based",
+                            "form_options": {
+                              "has_other": "app_decisions_based"
+                            }
                           },
                           {
                             "keyword": "app_decisions_based_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_decisions_based"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8480,13 +8557,17 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_training_who"
+                            "keyword": "app_training_who",
+                            "form_options": {
+                              "has_other": "app_training_who"
+                            }
                           },
                           {
                             "keyword": "app_training_who_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_training_who"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8499,13 +8580,17 @@
                             }
                           },
                           {
-                            "keyword": "app_training_form"
+                            "keyword": "app_training_form",
+                            "form_options": {
+                              "has_other": "app_training_form"
+                            }
                           },
                           {
                             "keyword": "app_training_form_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_training_who"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8544,13 +8629,17 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_advisory_service"
+                            "keyword": "app_advisory_service",
+                            "form_options": {
+                              "has_other": "app_advisory_service"
+                            }
                           },
                           {
                             "keyword": "app_advisory_service_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_advisory_service"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8586,13 +8675,17 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_institutions_level"
+                            "keyword": "app_institutions_level",
+                            "form_options": {
+                              "has_other": "app_institutions_level"
+                            }
                           },
                           {
                             "keyword": "app_institutions_level_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_institutions_level"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8602,13 +8695,17 @@
                             "keyword": "app_institutions_describe"
                           },
                           {
-                            "keyword": "app_institutions_support"
+                            "keyword": "app_institutions_support",
+                            "form_options": {
+                              "has_other": "app_institutions_support"
+                            }
                           },
                           {
                             "keyword": "app_institutions_support_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "app_institutions_support"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8693,7 +8790,7 @@
                   {
                     "keyword": "app__5__3",
                     "form_options": {
-                      "template": "checkbox_questiongroups",
+                      "template": "checkbox_questiongroups_2",
                       "questiongroup_conditions": [
                         "=='app_subsidies_inputs_labour'|app_qg_28",
                         "=='app_subsidies_inputs_equipment'|app_qg_29",
@@ -8722,6 +8819,9 @@
                     "questiongroups": [
                       {
                         "keyword": "app_qg_27",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "app_subsidies_inputs",
@@ -8737,6 +8837,18 @@
                             "view_options": {
                               "template": "raw"
                             }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_107",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_107",
+                          "template": "empty"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "empty"
                           }
                         ]
                       },
@@ -8950,7 +9062,9 @@
                       {
                         "keyword": "app_qg_33",
                         "form_options": {
-                          "template": "1q_table"
+                          "template": "1q_table",
+                          "table_condition": "app_subsidies_inputs_other",
+                          "row_class": "no-top-margin"
                         },
                         "view_options": {
                           "layout": "not_conditional"
@@ -8960,7 +9074,10 @@
                             "keyword": "app_subsidies_inputs_other",
                             "form_options": {
                               "label_position": "placeholder",
-                              "template": "checkbox_other"
+                              "template": "checkbox_other",
+                              "question_conditions": [
+                                "!=''|app_subsidies_inputs_other"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other",
@@ -9630,7 +9747,10 @@
                           {
                             "keyword": "app_impacts_other_measure",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "question_conditions": [
+                                "!=''|app_impacts_other_specify"
+                              ]
                             },
                             "view_options": {
                               "template": "measure_bar_nolabel",
@@ -9640,6 +9760,11 @@
                           },
                           {
                             "keyword": "app_impacts_other_specify",
+                            "form_options": {
+                              "template": "inline_6",
+                              "row_class": "top-margin",
+                              "question_condition": "app_impacts_other_specify"
+                            },
                             "view_options": {
                               "template": "inline_6",
                               "label_position": "none"
@@ -9681,6 +9806,9 @@
                     "questiongroups": [
                       {
                         "keyword": "app_qg_70",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "app_motivation",
@@ -9915,14 +10043,18 @@
                         "keyword": "app_qg_83",
                         "form_options": {
                           "template": "columns_e6_e6",
-                          "max_num": 2
+                          "max_num": 2,
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "app_motivation_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|app_motivation_other"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
@@ -9930,6 +10062,9 @@
                           },
                           {
                             "keyword": "app_motivation_comments",
+                            "form_options": {
+                              "question_condition": "app_motivation_other"
+                            },
                             "view_options": {
                               "label_position": "none"
                             }
@@ -9984,43 +10119,17 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_strengths_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "strengths_landuser",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "strengths_landuser"
                           }
                         ]
                       },
                       {
                         "keyword": "qg_strengths_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "strengths_compiler",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "strengths_compiler"
                           }
                         ]
                       }
@@ -10031,55 +10140,23 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_weaknesses_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "weaknesses_landuser",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_landuser"
                           },
                           {
-                            "keyword": "weaknesses_overcome",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_overcome"
                           }
                         ]
                       },
                       {
                         "keyword": "qg_weaknesses_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
-                        "view_options": {
-                          "template": "table",
-                          "with_keys": true
-                        },
                         "questions": [
                           {
-                            "keyword": "weaknesses_compiler",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_compiler"
                           },
                           {
-                            "keyword": "weaknesses_overcome",
-                            "view_options": {
-                              "template": "value_only"
-                            }
+                            "keyword": "weaknesses_overcome"
                           }
                         ]
                       }
@@ -10109,6 +10186,9 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_sources",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "sources_used",
@@ -10186,21 +10266,28 @@
                       {
                         "keyword": "qg_sources_other",
                         "form_options": {
-                          "template": "columns_e6_e6"
+                          "template": "columns_e6_e6",
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "sources_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|sources_other"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
                             }
                           },
                           {
-                            "keyword": "sources_specify"
+                            "keyword": "sources_specify",
+                            "form_options": {
+                              "question_condition": "sources_other"
+                            }
                           }
                         ]
                       }
@@ -10209,11 +10296,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "links": [
-          {
-            "keyword": "technologies"
           }
         ]
       },

@@ -23,11 +23,6 @@
         {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}
-    {% for questiongroup_config, questiongroup_formset in formsets %}
-      {% if questiongroup_config.keyword in config.table_grouping.0 %}
-        {% include "form/helptext.html" with helptext=questiongroup_config.helptext helptext_length=questiongroup_config.helptext_length %}
-      {% endif %}
-    {% endfor %}
     <table>
       <thead>
         <tr>
@@ -53,7 +48,13 @@
               <tr>
                 {% if questiongroup_config.layout != 'no_label_row' %}
                   {% if forloop.first %}
-                    <td rowspan="{{ questiongroup_formset.forms|length }}">{{ questiongroup_config.label }}</td>
+                    <td rowspan="{{ questiongroup_formset.forms|length }}">
+                      {% if questiongroup_config.helptext %}
+                        <span class="has-tip left" title="{{ questiongroup_config.helptext }}" aria-haspopup="true" data-tooltip="">{{ questiongroup_config.label }}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
+                      {% else %}
+                        {{ questiongroup_config.label }}
+                      {% endif %}
+                    </td>
                   {% endif %}
                 {% endif %}
                 {% for field in f.visible_fields %}

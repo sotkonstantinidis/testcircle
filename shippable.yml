@@ -1,7 +1,8 @@
 # Shippable CI/CD configuration file.
 # http://docs.shippable.com/en/latest/config.html#configuration
 language: python
-python: 3.4
+python:
+   - "3.4"
 
 branches:
   only:
