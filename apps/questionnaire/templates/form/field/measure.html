@@ -10,7 +10,7 @@
   <span class="measure-label measure-label-left">{{ options.additional_translations.label_left }}</span>
 {% endif %}
 <div class="button-bar{% if options.additional_translations.label_right %} measure-bar-labelled{% endif %}">
-  <ul class="button-switch radius"
+  <ul class="button-switch radius measure"
       {% if options.question_conditions %} data-question-conditions="{{ options.question_conditions }}"{% endif %}>
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}

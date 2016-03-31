@@ -94,7 +94,7 @@ button,
   input[type="radio"]{
     display: none;
   }
-  input[type="radio"]+.button {
+  &.measure input[type="radio"]+.button {
     background: $color-beige-dark;
   }
   input[type="radio"]:checked+.button{

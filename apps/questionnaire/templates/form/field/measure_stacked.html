@@ -7,7 +7,7 @@
 {% endcomment %}
 
 <div class="button-bar row">
-  <ul class="button-switch button-switch-stacked radius small-12 columns"
+  <ul class="button-switch button-switch-stacked radius measure small-12 columns"
       {% if options.question_conditions %} data-question-conditions="{{ options.question_conditions }}"{% endif %}>
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
