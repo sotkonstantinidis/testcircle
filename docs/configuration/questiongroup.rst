@@ -186,11 +186,20 @@ form representation of the question.
 
   * ``label_class`` (str): Specifies an additional class name for the label tag.
 
+  * ``column_widths`` (list): Specify the column widths for the table. Used in
+    template ``table``. Example::
+
+        "column_widths": ["60%", "40%"]
+
   * ``table_columns`` (int): Indicate the number of columns of the table. Used
     by template ``table_columns``.
 
   * ``helptext_length`` (int): Overwrite the default length (number of words) of
     the helptext shown initially (without the "See more" button).
+
+  * ``link`` (str): Required if the questiongroup is a link to other
+    questionnaires. In this case, this value must contain the name of the
+    configuration which is linked (eg. ``technologies``).
 
 
 ``questions``

@@ -35,6 +35,21 @@
       "data": {
         "samplemulti": {
           "label": {
+            "en": "MSubcategory 1_2 (links)",
+            "es": "MSubcategoría 1_2 (links)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 14702
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "samplemulti": {
+          "label": {
             "en": "MCategory 1",
             "es": "MCategoría 1"
           }
@@ -81,11 +96,28 @@
   },
   {
     "fields": {
+      "keyword": "mqg_02__sample",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 12002
+  },
+  {
+    "fields": {
       "keyword": "msubcat_1_1",
       "translation": 14701
     },
     "model": "configuration.category",
     "pk": 12001
+  },
+  {
+    "fields": {
+      "keyword": "msubcat_1_2",
+      "translation": 14702
+    },
+    "model": "configuration.category",
+    "pk": 12002
   },
   {
     "fields": {
@@ -141,15 +173,34 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "msubcat_1_2",
+                    "form_options": {
+                      "has_links": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "mqg_02__sample",
+                        "form_options": {
+                          "template": "select_link",
+                          "link": "sample",
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "links"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "link_id"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
             ]
-          }
-        ],
-        "links": [
-          {
-            "keyword": "sample"
           }
         ]
       },

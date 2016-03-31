@@ -7,7 +7,6 @@ from qcat.tests import TestCase
 from sample.views import (
     home,
     questionnaire_details,
-    questionnaire_link_form,
     questionnaire_link_search,
     questionnaire_list,
     questionnaire_list_partial,
@@ -17,18 +16,11 @@ from sample.views import (
 
 route_questionnaire_details = 'sample:questionnaire_details'
 route_home = 'sample:home'
-route_questionnaire_link_form = 'sample:questionnaire_link_form'
 route_questionnaire_link_search = 'sample:questionnaire_link_search'
 route_questionnaire_list = 'sample:questionnaire_list'
 route_questionnaire_list_partial = 'sample:questionnaire_list_partial'
 route_questionnaire_new = 'sample:questionnaire_new'
 route_questionnaire_new_step = 'sample:questionnaire_new_step'
-
-
-def get_valid_link_form_values():
-    args = ('sample', 'sample')
-    kwargs = {'page_title': 'SAMPLE Links', 'identifier': 'foo'}
-    return args, kwargs
 
 
 def get_valid_new_step_values():
@@ -105,28 +97,6 @@ class SampleHomeTest(TestCase):
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'sample/home.html')
         self.assertEqual(res.status_code, 200)
-
-
-class QuestionnaireLinkFormTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(
-            route_questionnaire_link_form, kwargs={'identifier': 'foo'})
-        self.request = self.factory.get(self.url)
-        self.request.user = create_new_user()
-        self.request.session = {}
-
-    def test_login_required(self):
-        res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'login.html')
-
-    @patch('sample.views.generic_questionnaire_link_form')
-    def test_calls_generic_function(self, mock_questionnaire_link_form):
-        questionnaire_link_form(self.request, identifier='foo')
-        mock_questionnaire_link_form.assert_called_once_with(
-            self.request, *get_valid_link_form_values()[0],
-            **get_valid_link_form_values()[1])
 
 
 class QuestionnaireLinkSearchTest(TestCase):

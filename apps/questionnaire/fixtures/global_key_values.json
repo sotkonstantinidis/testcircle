@@ -6184,7 +6184,10 @@
       "keyword": "strengths_landuser",
       "translation": 5030,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6195,7 +6198,10 @@
       "keyword": "strengths_compiler",
       "translation": 5031,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6206,7 +6212,10 @@
       "keyword": "weaknesses_landuser",
       "translation": 5032,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6217,7 +6226,10 @@
       "keyword": "weaknesses_compiler",
       "translation": 5033,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6228,7 +6240,10 @@
       "keyword": "weaknesses_overcome",
       "translation": 5034,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6369,6 +6384,34 @@
     },
     "model": "configuration.key",
     "pk": 46
+  },
+  {
+    "fields": {
+      "keyword": "link_id",
+      "translation": 5045,
+      "configuration": {
+        "type": "link_id",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "keyword": "empty",
+      "translation": 5045,
+      "configuration": {
+        "type": "char",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 48
   },
   {
     "fields": {
@@ -8627,7 +8670,18 @@
     "fields": {
       "keyword": "qg_strengths_landusers",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 8
@@ -8636,7 +8690,18 @@
     "fields": {
       "keyword": "qg_strengths_compiler",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 9
@@ -8645,7 +8710,20 @@
     "fields": {
       "keyword": "qg_weaknesses_landusers",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 10
@@ -8654,7 +8732,20 @@
     "fields": {
       "keyword": "qg_weaknesses_compiler",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 11

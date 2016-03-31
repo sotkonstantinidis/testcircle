@@ -421,9 +421,6 @@
         "technologies": {
           "label": {
             "en": "Specify input"
-          },
-          "helptext": {
-            "en": "<ul><li><strong>Labour costs</strong> if relevant, differentiate between skilled and unskilled labour</li><li><strong>Equipment</strong> tools, machine hours, animal traction, etc. Cost calculation for machine hours and animal traction should be based on hiring costs - even if the machinery/ animals are owned by the land user.</li><li><strong>Agricultural inputs</strong> include seeds, seedling, fertilizer, biocides, compost/ manure, etc.</li><li><strong>Construction material</strong> includes timber, stones, earth, cement, pipes, tanks, etc.</li></ul>"
           }
         }
       }
@@ -3450,6 +3447,9 @@
         "technologies": {
           "label": {
             "en": "[Label left]"
+          },
+          "helptext": {
+            "en": "Eg. decreased, reduced"
           }
         }
       }
@@ -3478,6 +3478,9 @@
         "technologies": {
           "label": {
             "en": "[Label right]"
+          },
+          "helptext": {
+            "en": "Eg. increased, improved"
           }
         }
       }
@@ -8570,7 +8573,7 @@
             "en": "Labour"
           },
           "helptext": {
-            "en": "If possible, break down the total costs for establishment: specify inputs and costs per input."
+            "en": "<strong>Labour costs</strong> if relevant, differentiate between skilled and unskilled labour"
           }
         }
       }
@@ -8585,6 +8588,9 @@
         "technologies": {
           "label": {
             "en": "Equipment"
+          },
+          "helptext": {
+            "en": "<strong>Equipment</strong> tools, machine hours, animal traction, etc. Cost calculation for machine hours and animal traction should be based on hiring costs - even if the machinery/ animals are owned by the land user."
           }
         }
       }
@@ -8599,6 +8605,9 @@
         "technologies": {
           "label": {
             "en": "Agricultural"
+          },
+          "helptext": {
+            "en": "<strong>Agricultural inputs</strong> include seeds, seedling, fertilizer, biocides, compost/ manure, etc."
           }
         }
       }
@@ -8613,6 +8622,9 @@
         "technologies": {
           "label": {
             "en": "Construction material"
+          },
+          "helptext": {
+            "en": "<strong>Construction material</strong> includes timber, stones, earth, cement, pipes, tanks, etc."
           }
         }
       }
@@ -10662,7 +10674,7 @@
           },
           "numbering": "5.2",
           "helptext": {
-            "en": "List establishment activities for the technology (in sequence) and indicate timing"
+            "en": "List establishment activities for the Technology (in sequence) and indicate timing"
           }
         }
       }
@@ -10811,7 +10823,7 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "Land user applying the SLM technology"
+            "en": "Land user applying the SLM Technology"
           },
           "helptext": {
             "en": "Specify the characteristics of the average/ typical land users who apply the Technology. Indicate characteristics relative to your region/ country standards."
@@ -10884,7 +10896,7 @@
           },
           "numbering": "2.3",
           "helptext": {
-            "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>Explanation (description) is required for each photo submitted!</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li><li>Please note thate</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
+            "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
           }
         }
       }
@@ -10919,7 +10931,7 @@
             "en": "Technical drawing of the Technology"
           },
           "helptext": {
-            "en": "<p>Please provide a comprehensive and detailed drawing (with dimensions) of the Technology and indicate technical specifications, measurements, spacing, gradient, etc. You can also provide several drawings showing (a) a temporal sequence of operations or (b) different elements or details of the Technology. Alternatively you can also provide one or several photographs with technical specifications drawn and/ or written on the photograph(s). Include as much as possible technical information on the drawings (or photographs).</p><p>Keep the drawing simple and schematic. The technical drawing is crucial for the understanding of the Technology! Scan the drawing and upload the scan.</p><p><strong>Example</strong>: Technical drawing indicating technical specifications, dimensions, spacing<br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
+            "en": "<p>Please provide a comprehensive and detailed drawing (with dimensions) of the Technology and indicate technical specifications, measurements, spacing, gradient, etc. You can also provide several drawings showing (a) a temporal sequence of operations or (b) different elements or details of the Technology. Alternatively you can also provide one or several photographs with technical specifications drawn and/ or written on the photograph(s). Include as much as possible technical information on the drawings (or photographs).</p><p>Keep the drawing simple and schematic. The technical drawing is crucial for the understanding of the Technology! Scan the drawing and upload the scan.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Technical drawing indicating technical specifications, dimensions, spacing<br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
           },
           "numbering": "4.1"
         }
@@ -11316,6 +11328,9 @@
           "label": {
             "en": "Reference to Questionnaire(s) on SLM Approaches"
           },
+          "helptext": {
+            "en": "To understand properly the implementation of the Technology, the associated SLM Approach must be described. Use the search field to find the SLM Approach in the database."
+          },
           "numbering": "1.5"
         }
       }
@@ -11420,7 +11435,7 @@
             "en": "Videos of the Technology"
           },
           "helptext": {
-            "en": "If available, upload video files visualizing the Technology on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each file in the table below."
+            "en": "If available, upload video files visualizing the Technology on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each video linked below."
           },
           "numbering": "2.4"
         }
@@ -11538,7 +11553,7 @@
           },
           "numbering": "2.",
           "helptext": {
-            "en": "<p><strong>An SLM Technology</strong> is a physical practice in the field that controls land degradation and/ or enhances productivity. A technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
+            "en": "<p><strong>An SLM Technology</strong> is a physical practice in the field that controls land degradation and/ or enhances productivity. A Technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
           }
         }
       }
@@ -14270,7 +14285,7 @@
       "keyword": "tech_sites_considered",
       "translation": 1187,
       "configuration": {
-        "type": "select"
+        "type": "radio"
       },
       "values": [
         1114,
@@ -15092,7 +15107,13 @@
       "keyword": "tech_implementation_year",
       "translation": 1234,
       "configuration": {
-        "type": "char"
+        "type": "int",
+        "form_options": {
+          "field_options": {
+            "min": 1900,
+            "max": "now"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15576,7 +15597,8 @@
         "type": "char",
         "form_options": {
           "label_position": "placeholder",
-          "field_columns_class": "top-margin"
+          "field_columns_class": "top-margin",
+          "helptext_position": "field"
         },
         "view_options": {
           "template": "value_only"
@@ -15623,7 +15645,8 @@
         "type": "char",
         "form_options": {
           "label_position": "placeholder",
-          "field_columns_class": "top-margin"
+          "field_columns_class": "top-margin",
+          "helptext_position": "field"
         },
         "view_options": {
           "template": "value_only"
@@ -20671,6 +20694,15 @@
   },
   {
     "fields": {
+      "keyword": "tech_qg__approaches",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1237
+  },
+  {
+    "fields": {
       "keyword": "tech__0__1",
       "translation": 2701
     },
@@ -21298,6 +21330,7 @@
                   "use_raw_data": true,
                   "with_metadata": true,
                   "include_toc": true,
+                  "review_panel": true,
                   "additional_data": {
                     "qg_location": [
                       "country"
@@ -21393,7 +21426,8 @@
                           {
                             "keyword": "user_resourceperson_type",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "has_other": "user_resourceperson_type"
                             },
                             "view_options": {
                               "template": "values_as_header"
@@ -21403,7 +21437,8 @@
                             "keyword": "user_resourceperson_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "user_resourceperson_type"
                             },
                             "view_options": {
                               "template": "as_header"
@@ -21553,8 +21588,26 @@
                   {
                     "keyword": "tech__1__5",
                     "form_options": {
-                      "template": "links_technologies"
-                    }
+                      "has_links": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "tech_qg__approaches",
+                        "form_options": {
+                          "template": "select_link",
+                          "link": "approaches",
+                          "max_num": 3
+                        },
+                        "view_options": {
+                          "template": "links"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "link_id"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -21564,7 +21617,6 @@
             "keyword": "section_specifications",
             "view_options": {
               "template": "empty",
-              "review_panel": true,
               "media_gallery": true
             },
             "categories": [
@@ -22138,7 +22190,8 @@
                           {
                             "keyword": "tech_watersupply",
                             "form_options": {
-                              "template": "no_label"
+                              "template": "no_label",
+                              "has_other": "tech_watersupply"
                             },
                             "view_options": {
                               "label_position": "none"
@@ -22149,7 +22202,8 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "tech_watersupply"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -22535,6 +22589,9 @@
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_185",
+                        "form_options": {
+                          "max_num": 3
+                        },
                         "view_options": {
                           "template": "columns_o4_r8"
                         },
@@ -23141,9 +23198,6 @@
                       },
                       {
                         "keyword": "tech_qg_52",
-                        "form_options": {
-                          "questiongroup_condition": "tech_qg_52"
-                        },
                         "questions": [
                           {
                             "keyword": "tech_input_maint_remaining_costs"
@@ -26874,13 +26928,17 @@
                         "keyword": "tech_qg_192",
                         "questions": [
                           {
-                            "keyword": "tech_adaptation_modification"
+                            "keyword": "tech_adaptation_modification",
+                            "form_options": {
+                              "has_other": "tech_adaptation_modification"
+                            }
                           },
                           {
                             "keyword": "tech_adaptation_modification_other",
                             "form_options": {
                               "template": "radio_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "other_radio": "tech_adaptation_modification"
                             }
                           },
                           {
@@ -26900,12 +26958,6 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_strengths_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "strengths_landuser"
@@ -26914,12 +26966,6 @@
                       },
                       {
                         "keyword": "qg_strengths_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "strengths_compiler"
@@ -26933,12 +26979,6 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_weaknesses_landusers",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "weaknesses_landuser"
@@ -26950,12 +26990,6 @@
                       },
                       {
                         "keyword": "qg_weaknesses_compiler",
-                        "form_options": {
-                          "min_num": 4,
-                          "max_num": 4,
-                          "template": "table",
-                          "numbered": "display"
-                        },
                         "questions": [
                           {
                             "keyword": "weaknesses_compiler"
@@ -26991,6 +27025,9 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_sources",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "sources_used",
@@ -27068,21 +27105,28 @@
                       {
                         "keyword": "qg_sources_other",
                         "form_options": {
-                          "template": "columns_e6_e6"
+                          "template": "columns_e6_e6",
+                          "row_class": "no-top-margin"
                         },
                         "questions": [
                           {
                             "keyword": "sources_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|sources_other"
+                              ]
                             },
                             "view_options": {
                               "template": "checkbox_other"
                             }
                           },
                           {
-                            "keyword": "sources_specify"
+                            "keyword": "sources_specify",
+                            "form_options": {
+                              "question_condition": "sources_other"
+                            }
                           }
                         ]
                       }
@@ -27091,11 +27135,6 @@
                 ]
               }
             ]
-          }
-        ],
-        "links": [
-          {
-            "keyword": "approaches"
           }
         ]
       },

@@ -1,28 +1,79 @@
 [
-{
+  {
     "fields": {
-        "translation_type": "key",
-        "data": {"approaches":{"label":{"en":"Country"}},"technologies":{"label":{"en":"Country"}},"unccd":{"label":{"en":"Country"}}}
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Country"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Country"
+          }
+        },
+        "unccd": {
+          "label": {
+            "en": "Country"
+          }
+        }
+      }
     },
     "model": "configuration.translation",
     "pk": 5002
-},
-{
+  },
+  {
     "fields": {
-        "keyword": "country",
-        "translation": 5002,
-        "configuration": {"type": "text"}
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": ""
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": ""
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5045
+  },
+  {
+    "fields": {
+      "keyword": "country",
+      "translation": 5002,
+      "configuration": {
+        "type": "text"
+      }
     },
     "model": "configuration.key",
     "pk": 2
-},
-{
+  },
+  {
     "fields": {
-        "keyword": "qg_location",
-        "translation": null,
-        "configuration": {}
+      "keyword": "link_id",
+      "translation": 5045,
+      "configuration": {
+        "type": "link_id",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "keyword": "qg_location",
+      "translation": null,
+      "configuration": {}
     },
     "model": "configuration.questiongroup",
     "pk": 2
-}
+  }
 ]

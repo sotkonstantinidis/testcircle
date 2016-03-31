@@ -7,7 +7,6 @@ from qcat.tests import TestCase
 from samplemulti.views import (
     home,
     questionnaire_details,
-    questionnaire_link_form,
     questionnaire_link_search,
     questionnaire_list,
     questionnaire_list_partial,
@@ -17,7 +16,6 @@ from samplemulti.views import (
 
 route_questionnaire_details = 'samplemulti:questionnaire_details'
 route_home = 'samplemulti:home'
-route_questionnaire_link_form = 'samplemulti:questionnaire_link_form'
 route_questionnaire_link_search = 'samplemulti:questionnaire_link_search'
 route_questionnaire_list = 'samplemulti:questionnaire_list'
 route_questionnaire_list_partial = 'samplemulti:questionnaire_list_partial'
@@ -102,26 +100,6 @@ class SampleMultiHomeTest(TestCase):
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'samplemulti/home.html')
         self.assertEqual(res.status_code, 200)
-
-
-class QuestionnaireLinkFormTest(TestCase):
-
-    def setUp(self):
-        self.url = reverse(
-            route_questionnaire_link_form, kwargs={'identifier': 'foo'})
-
-    def test_login_required(self):
-        res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'login.html')
-
-    @patch('samplemulti.views.generic_questionnaire_link_form')
-    def test_calls_generic_function(self, mock_generic_function):
-        request = Mock()
-        request.session = {}
-        questionnaire_link_form(request, identifier='foo')
-        mock_generic_function.assert_called_once_with(
-            request, *get_valid_link_form_values()[0],
-            **get_valid_link_form_values()[1])
 
 
 class QuestionnaireLinkSearchTest(TestCase):

@@ -20,12 +20,18 @@
   {% if options.label != 'none' %}
     <label for="{{ field.id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
   {% endif %}
-  <ul class="list-gallery small-block-grid-1">
+  <ul class="list-gallery small-block-grid-1"
+          {% if options.question_conditions %} data-question-conditions="{{ options.question_conditions }}"{% endif %}>
     {% for group_name, choices in optgroups %}
       {% for choice in choices %}
         <li>
           <div class="list-gallery-item without-label">
-            <input {% if choice.0 in value %}checked="checked" {% endif %}type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}" name="{{ name }}" value="{{ choice.0 }}" data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub" {% include "floppyforms/attrs.html" %}>
+            <input {% if choice.0 in value %}checked="checked" {% endif %}
+                   type="checkbox" id="{{ attrs.id }}_{{ forloop.counter }}"
+                   name="{{ name }}"
+                   value="{{ choice.0 }}"
+                   data-toggle="{{ attrs.id }}_{{ forloop.counter }}_sub"
+                    {% include "floppyforms/attrs.html" %}>
             {% if options.helptext_choices %}
               {% with ttip=options.helptext_choices|get_by_index:forloop.counter0 %}
                 {% if ttip %}
@@ -43,19 +49,6 @@
             </label>
           </div>
         </li>
-        {% for c in conditions %}
-          {% if choice.0 == c.0 %}
-            {% for f2 in f.visible_fields %}
-              {% if f2.name == c.2 %}
-                {% if choice.0 in value %}
-                  {% formfield f2 using "form/field/image_checkbox_conditional.html" with label=f2.label checked=True attrs_id=attrs.id forloop_counter=forloop.counter %}
-                {% else %}
-                  {% formfield f2 using "form/field/image_checkbox_conditional.html" with label=f2.label checked=False attrs_id=attrs.id forloop_counter=forloop.counter %}
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-        {% endfor %}
       {% endfor %}
     {% endfor %}
   </ul>

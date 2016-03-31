@@ -66,5 +66,26 @@ The following options are valid for ``type``. Default type is ``char``.
 | ``cb_bool``        | Basically a boolean field but rendered as a single     |
 |                    | checkbox (selected = true, not selected = false).      |
 +--------------------+--------------------------------------------------------+
+| ``date``           | A datepicker field.                                    |
++--------------------+--------------------------------------------------------+
+| ``file``           | A field to upload any file (as opposed to ``image``    |
++--------------------+--------------------------------------------------------+
+| ``image``          | A field to upload an image.                            |
++--------------------+--------------------------------------------------------+
+| ``hidden``         | A hidden input field.                                  |
++--------------------+--------------------------------------------------------+
+| ``radio``          | A set of radio buttons, needs values.                  |
++--------------------+--------------------------------------------------------+
+| ``user_id``        | A special field which allows to select a user.         |
++--------------------+--------------------------------------------------------+
+| ``link_id``        | A special field which allows to select another         |
+|                    | questionnaire.                                         |
++--------------------+--------------------------------------------------------+
+| ``int``            | A field rendered as input type="number", the           |
+|                    | validation makes sure it contains only integers.       |
++--------------------+--------------------------------------------------------+
+| ``float``          | A field rendered as input type="number", can contain   |
+|                    | decimal numbers                                        |
++--------------------+--------------------------------------------------------+
 
 .. _Chosen: http://harvesthq.github.io/chosen/

@@ -69,9 +69,6 @@ The basic format of the configuration is as follows::
       # Default: ""
       "label_position": "placeholder",
 
-      # Default: []
-      "conditions": [],
-
       # Default: false
       "conditional": true,
 
@@ -155,6 +152,10 @@ form representation of the question.
     shown for textarea fields. This is only meaningful for key type
     ``text``. The default is 3.
 
+  * ``row_class`` (str): CSS class name added to the
+    ``<div class="row single-item">`` element containing both the label and the
+    field.
+
   * ``label_columns_class`` (str): CSS class name added to the
     ``<div class="columns">`` element containing the label.
 
@@ -172,23 +173,42 @@ form representation of the question.
     label. Possible values are: ``placeholder`` (showing the label as a
     placeholder inside the input field)
 
-  * ``conditions``: An optional list of conditions triggering
-    conditional questions. Each condition must have the format
-    ``""value_keyword|Boolean|key_keyword""``. Example::
+  * ``has_other`` (str): A name to be used by questions with key type
+    "radio" to indicate that there is an additional option "other" with a
+    textfield to specify. The name must be unique and must be the same as used
+    by ``other_radio`` of the other radio key.
 
-      "conditions": ["value_15_1|True|key_16"]
+  * ``other_radio`` (str): A name to be used by the char key which acts as
+    "other" radio button. Must be unique and match the name  specified in
+    ``has_other`` of the radio key and must be unique.
 
-    For the time being, conditions can only be set for Key
-    (see :doc:`/configuration/key`) with type ``image_checkbox``.
+  * ``field_options`` (dict): A dictionary containing options which are directly
+    passed as attributes to the input field. This is currently only used for
+    types ``int`` and ``float`` and allows for example to directly set the
+    minimum or maximum values of the field.
 
-  * ``conditional``: An optional boolean indicating whether this
-    question is only shown depending on the condition (value) of another
-    question. If set to ``true``, another question of this questiongroup
-    should have the option ``conditions`` set.
+    Example::
 
-    .. important::
-        Questions with ``"conditional": true`` need to be listed **before**
-        the question with ``"conditions": []`` triggering them.
+      {
+        "field_options": {
+          "min": 1900,
+          "max": "now"
+        }
+      }
+
+    Please note that "now" is a special keyword and should only used with type
+    ``int``. This will be converted to the current year.
+
+  * ``question_conditions`` (list): An optional list of conditions triggering
+    conditional questions within the same questiongroup. Each condition must
+    have the format ``"expresssion|condition_name"`` where ``expression`` is
+    part of a valid (Python and Javascript!) boolean expression and
+    ``condition_name`` is the name of a Question's ``question_condition``
+    option.
+
+  * ``question_condition`` (str): The name of the condition to be triggered (as
+    specified in ``question_conditions``). Must be unique throughout the
+    configuration.
 
   * ``questiongroup_conditions``: An optional list of conditions
     triggering conditional questiongroups. Each condition must have the

@@ -6,7 +6,6 @@ from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
 from technologies.views import (
     questionnaire_details,
-    questionnaire_link_form,
     questionnaire_link_search,
     questionnaire_list,
     questionnaire_list_partial,
@@ -17,7 +16,6 @@ from technologies.views import (
 
 route_home = 'technologies:home'
 route_questionnaire_details = 'technologies:questionnaire_details'
-route_questionnaire_link_form = 'technologies:questionnaire_link_form'
 route_questionnaire_list = 'technologies:questionnaire_list'
 route_questionnaire_list_partial = 'technologies:questionnaire_list_partial'
 route_questionnaire_new = 'technologies:questionnaire_new'
@@ -66,6 +64,7 @@ def get_categories():
         ('tech__8', 'Impacts: benefits and disadvantages'),
         ('tech__9', 'Adoption and adaptation'),
         ('tech__10', 'Conclusions and lessons learnt'),
+        ('tech__refs', 'References and links'),
     )
 
 
@@ -80,26 +79,6 @@ class HomeTest(TestCase):
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'technologies/questionnaire/list.html')
         self.assertEqual(res.status_code, 200)
-
-
-class QuestionnaireLinkFormTest(TestCase):
-
-    def setUp(self):
-        self.url = reverse(
-            route_questionnaire_link_form, kwargs={'identifier': 'foo'})
-
-    def test_login_required(self):
-        res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'login.html')
-
-    @patch('technologies.views.generic_questionnaire_link_form')
-    def test_calls_generic_function(self, mock_generic_function):
-        request = Mock()
-        request.session = {}
-        questionnaire_link_form(request, identifier='foo')
-        mock_generic_function.assert_called_once_with(
-            request, *get_valid_link_form_values()[0],
-            **get_valid_link_form_values()[1])
 
 
 class QuestionnaireLinkSearchTest(TestCase):

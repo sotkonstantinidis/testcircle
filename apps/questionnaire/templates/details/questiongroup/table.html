@@ -11,6 +11,9 @@
   <h5>{{ config.label }}</h5>
 {% endif %}
 <table class="full-width">
+  {% for width in config.column_widths %}
+    <col width="{{ width }}">
+  {% endfor %}
   <thead>
     {% for key in keys %}
       <th>{{ key }}</th>

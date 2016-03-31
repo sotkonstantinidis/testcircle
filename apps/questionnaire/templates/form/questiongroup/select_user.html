@@ -13,6 +13,12 @@
 {% load i18n %}
 {% load floppyforms %}
 {% load list_to_columns %}
+{% load sekizai_tags %}
+{% load staticfiles %}
+
+{% addtoblock 'js' %}
+  <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+{% endaddtoblock %}
 
 <div{% if config.questiongroup_condition %} id="{{ config.questiongroup_condition }}"{% endif %} class="questiongroup{% if config.numbered %} questiongroup-numbered-{{ config.numbered }}{% endif %}{% if config.numbered == 'prefix' %} sortable{% endif %}">
 
@@ -53,11 +59,13 @@
             {% endfor %}
 
             <ul class="tabs form-user-tabs" data-tab>
-              <li class="tab-title active"><a href="#form-user-tab-select" class="show-tab-select">{% trans "Registered User" %}</a></li>
-              <li class="tab-title"><a href="#form-user-tab-create" class="show-tab-create">{% trans "Non-registered Person" %}</a></li>
+              <li class="tab-title has-tip active" title="{% trans "Search a registered WOCAT user by typing the name of the person." %}" aria-haspopup="true" data-tooltip=""><a href="#form-user-tab-select" class="show-tab-select">{% trans "Registered User" %}</a></li>
+              <li class="tab-title has-tip" title="{% trans "Enter the details of a person not registered in the WOCAT database." %}" aria-haspopup="true" data-tooltip=""><a href="#form-user-tab-create" class="show-tab-create">{% trans "Non-registered Person" %}</a></li>
             </ul>
             <div class="tabs-content form-user-tabs-content">
               <div class="content active form-user-tab-select">
+                {% trans '<ul><li>You can search a registered WOCAT user by typing the name of the person.</li><li>If the person is not a registered WOCAT user, you can use the tab "Non-registered Person".</li></ul>' as msg %}
+                {% include "form/helptext.html" with helptext=msg helptext_length=config.helptext_length %}
                 <div class="form-user-search-loading">{% trans "Loading ..." %}</div>
                 <div class="form-user-search">
                   <span>{% trans "Search a registered WOCAT user" %}</span>

@@ -47,32 +47,6 @@
       {% for section in sections %}
         {{ section }}
       {% endfor %}
-      {% if links or view_mode == 'edit' %}
-        <section id="links" class="tech-section row is-rhythmed" data-magellan-destination="links">
-          <a name="links"></a>
-          {% if 'edit_questionnaire' in permissions and view_mode == 'edit' %}
-            <div class="medium-9 columns">
-              <h2>{% trans "Linked Questionnaires" %}</h2>
-            </div>
-            <div class="medium-3 columns">
-              <a href="{% url 'technologies:questionnaire_link_form' questionnaire_identifier %}" class="button is-technologies right">{% trans "Edit links" %}</a>
-            </div>
-          {% else %}
-            <div class="medium-12 columns">
-              <h2>{% trans "Linked Questionnaires" %}</h2>
-            </div>
-          {% endif %}
-          <div class="small-12 columns output">
-            {% for configuration, list_values in links.items %}
-              {% for list_entry in list_values %}
-                {% with configuration=configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
-                  {% include configuration with item=list_entry %}
-                {% endwith %}
-              {% endfor %}
-            {% endfor %}
-          </div>
-        </section>
-      {% endif %}
       <section class="row is-rhythmed">
         <div class="small-12 columns">
           {% if 'edit_questionnaire' in permissions %}
