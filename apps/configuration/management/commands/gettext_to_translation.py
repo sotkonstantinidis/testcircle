@@ -1,15 +1,16 @@
+# -*- coding: utf-8 -*-
 import collections
 import contextlib
 import re
 from os.path import join
 
 from django.conf import settings
-from django.core.management.base import NoArgsCommand
 
 from configuration.models import Translation
+from .base import DevelopNoArgsCommand
 
 
-class Command(NoArgsCommand):
+class Command(DevelopNoArgsCommand):
     """
     Write translated po-files back into the model, so it may be used with the
     configurations.
@@ -23,7 +24,9 @@ class Command(NoArgsCommand):
         """
         Read translated files and write contents into the Translation model.
         """
+        super(Command, self).handle_noargs(**options)
         languages = dict(settings.LANGUAGES).keys()
+
         for language in languages:
             path = '{}/locale/{}/LC_MESSAGES/'.format(
                 settings.BASE_DIR, language
@@ -61,7 +64,7 @@ class Command(NoArgsCommand):
                 text = self.get_multiline_string(line, index) or msgid
                 for pk, dict_keys in buffer.items():
                     for element in dict_keys:
-                        self.create_dict_from_list(pk, element, text)
+                        self.save_instance(pk, element, text)
                 # Reset the buffer after it was written to the orm.
                 buffer = {}
 
@@ -84,7 +87,7 @@ class Command(NoArgsCommand):
             index += 1
         return text
 
-    def create_dict_from_list(self, pk, keys, value):
+    def save_instance(self, pk, keys, value):
         """
         Make a multidimensional array from the list (keys) and copy/overwrite
         the value to the model-instance.

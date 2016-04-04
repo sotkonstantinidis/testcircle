@@ -2,13 +2,14 @@ import collections
 import re
 import subprocess
 from os.path import join
+
 from django.conf import settings
-from django.core.management.base import NoArgsCommand
 
 from configuration.models import Translation
+from .base import DevelopNoArgsCommand
 
 
-class Command(NoArgsCommand):
+class Command(DevelopNoArgsCommand):
     """
     Extract all information about translations from the model into a
     po-file so the translators can work with that.
@@ -31,6 +32,7 @@ class Command(NoArgsCommand):
         po-file that may be used in the default translation workflow.
 
         """
+        super(Command, self).handle_noargs(**options)
         # Get all strings that must be translated in a single dict, grouped by
         # language.
         self.make_language_dict()

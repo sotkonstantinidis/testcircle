@@ -3,8 +3,10 @@ import subprocess
 from django.core.management import call_command
 from django.core.management.base import NoArgsCommand
 
+from .base import DevelopNoArgsCommand
 
-class Command(NoArgsCommand):
+
+class Command(DevelopNoArgsCommand):
     """
     Wrapper to handle translation files:
 
@@ -17,6 +19,7 @@ class Command(NoArgsCommand):
     """
 
     def handle_noargs(self, **options):
+        super(Command, self).handle_noargs(**options)
         # We need the current translations before creating new po files. Force
         # pull - this overwrites local changes!
         subprocess.call(['tx pull -f'], shell=True)
