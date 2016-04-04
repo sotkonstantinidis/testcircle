@@ -7603,7 +7603,7 @@
                           "max_num": 3
                         },
                         "view_options": {
-                          "template": "image_questiongroup"
+                          "template": "columns_o4_r8"
                         },
                         "questions": [
                           {

@@ -807,26 +807,18 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'values': list(zip(
                     values, images, conditional_outputs, value_keywords)),
             })
-        elif self.field_type in ['image']:
-            file_data = File.get_data(uid=value)
-            template_name = 'image'
-            template_values.update({
-                'key': self.label_view,
-                'value': file_data.get('url'),
-                'interchange': file_data.get('interchange'),
-            })
         elif self.field_type in ['link_video']:
             template_name = 'video'
             template_values.update({
                 'key': self.label_view,
                 'value': value,
             })
-        elif self.field_type in ['file']:
+        elif self.field_type in ['image', 'file']:
             file_data = File.get_data(uid=value)
             template_name = 'file'
             template_values.update({
                 'content_type': file_data.get('content_type'),
-                'interchange': file_data.get('interchange'),
+                'preview_image': file_data.get('interchange_list')[1][0],
                 'key': self.label_view,
                 'value': file_data.get('url'),
             })
