@@ -548,14 +548,14 @@ $(function () {
             }
         });
 
+    // Initial form progress
+    watchFormProgress();
+
     // Trigger initial change for conditional questions
     $('[data-question-conditions]').trigger('change');
 
     // Trigger initial change for conditional questiongroups
     $('[data-questiongroup-condition]').trigger('change');
-
-    // Initial form progress
-    watchFormProgress();
 
     // Initial button bar selected toggle
     $('.button-bar').each(toggleButtonBarSelected);
