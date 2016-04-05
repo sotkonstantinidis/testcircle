@@ -10503,8 +10503,7 @@
           },
           "label_view": {
             "en": "Name of the SLM Technology"
-          },
-          "numbering": "1.1"
+          }
         }
       }
     },
@@ -10519,7 +10518,6 @@
           "label": {
             "en": "Definition of the Technology"
           },
-          "numbering": "2.1",
           "helptext": {
             "en": "Describe the Technology in one sentence containing key words. The definition of a Technology is very important for searching the database."
           }
@@ -10537,7 +10535,6 @@
           "label": {
             "en": "Description of the Technology"
           },
-          "numbering": "2.2",
           "helptext": {
             "en": "The description should provide a concise but comprehensive picture of the Technology to outsiders and must therefore contain key characteristics such as: purpose and impacts, establishment/ maintenance activities and inputs, technical specifications, most important conditions regarding natural and human environment, strengths and weaknesses, etc. (max. 2500 characters). Fill in this information at the beginning but revise the description when you have completed the questionnaire."
           }
@@ -10555,7 +10552,6 @@
           "label": {
             "en": "Country/ region/ locations where the Technology has been applied and which are covered by this assessment"
           },
-          "numbering": "2.5",
           "helptext": {
             "en": "The described Technology might be applied in various sites. However, restrict information given in this questionnaire to only those sites that have been assessed/ analysed in the documentation process (through field visits, interviews with respective land users, reports, etc.). Do not include other sites where the same Technology is applied but no data has been collected."
           }
@@ -10572,8 +10568,7 @@
         "technologies": {
           "label": {
             "en": "Indicate the main purpose(s) of the SLM technology (land user's perspective)"
-          },
-          "numbering": "3.1"
+          }
         }
       }
     },
@@ -10588,7 +10583,6 @@
           "label": {
             "en": "Current land use type(s) where the Technology is applied"
           },
-          "numbering": "3.2",
           "helptext": {
             "en": "<p><strong>Land use</strong>: human activities which are directly related to land, making use of its resources or having an impact upon it.<br><strong>Land cover</strong>: Vegetation (natural or planted) or man-made structures (buildings, etc.) that cover the earth’s surface.</p>"
           }
@@ -10605,8 +10599,7 @@
         "technologies": {
           "label": {
             "en": "Water supply for the land on which the Technology is applied"
-          },
-          "numbering": "3.3"
+          }
         }
       }
     },
@@ -10621,7 +10614,6 @@
           "label": {
             "en": "SLM group to which the Technology belongs"
           },
-          "numbering": "3.4",
           "helptext": {
             "en": "Assign the described Technology to one of the following SLM groups. If this is not possible, select several (max. 3) groups to represent the Technology"
           }
@@ -10638,8 +10630,7 @@
         "technologies": {
           "label": {
             "en": "Main types of land degradation addressed by the Technology"
-          },
-          "numbering": "3.7"
+          }
         }
       }
     },
@@ -10656,8 +10647,7 @@
           },
           "helptext": {
             "en": "<p>Summarize technical specifications, e.g.:</p><ul><li>Dimensions (height, depth, width, length) of structures or vegetative elements;</li><li>Spacing between structures or plants/ vegetative measures</li><li>Vertical intervals structures or vegetative measures</li><li>Slope angle (before and after implementation of the Technology)</li><li>Lateral gradient of structures</li><li>Capacity of dams, ponds, etc.</li><li>Catchment area and beneficial area of dams, ponds, other water harvesting systems</li><li>Construction material used</li><li>Species used</li><li>Quantity/ density of plants (per ha)</li></ul>"
-          },
-          "numbering": "4.2"
+          }
         }
       }
     },
@@ -10672,7 +10662,6 @@
           "label": {
             "en": "Establishment activities"
           },
-          "numbering": "5.2",
           "helptext": {
             "en": "List establishment activities for the Technology (in sequence) and indicate timing"
           }
@@ -10690,7 +10679,6 @@
           "label": {
             "en": "Costs and inputs needed for establishment"
           },
-          "numbering": "5.3",
           "helptext": {
             "en": "Costs and inputs specified in this question should refer to the area/ unit defined in 5.1 and to the activities listed in 5.2"
           }
@@ -10708,7 +10696,6 @@
           "label": {
             "en": "Maintenance/ recurrent activities"
           },
-          "numbering": "5.4",
           "helptext": {
             "en": "List maintenance/ recurrent activities for the Technology (in sequence) and indicate timing"
           }
@@ -10726,7 +10713,6 @@
           "label": {
             "en": "Costs and inputs needed for maintenance/ recurrent activities (per year)"
           },
-          "numbering": "5.5",
           "helptext": {
             "en": "Costs and inputs specified in this question should refer to the area/unit defined in 5.1 (e.g. 2.5 hectares, 250m terrace wall), and to the activities listed in 5.4."
           }
@@ -10743,8 +10729,7 @@
         "technologies": {
           "label": {
             "en": "Climate"
-          },
-          "numbering": "6.1"
+          }
         }
       }
     },
@@ -10758,8 +10743,7 @@
         "technologies": {
           "label": {
             "en": "Topography"
-          },
-          "numbering": "6.2"
+          }
         }
       }
     },
@@ -10776,8 +10760,7 @@
           },
           "helptext": {
             "en": "<p>Maximum 2 answers per question.</p>"
-          },
-          "numbering": "6.3"
+          }
         }
       }
     },
@@ -10791,8 +10774,7 @@
         "technologies": {
           "label": {
             "en": "Water availability and quality"
-          },
-          "numbering": "6.4"
+          }
         }
       }
     },
@@ -10809,8 +10791,7 @@
           },
           "helptext": {
             "en": "<p>Indicate the state of biodiversity on the analysed sites relative to your region/ country standards.</p>"
-          },
-          "numbering": "6.5"
+          }
         }
       }
     },
@@ -10827,8 +10808,7 @@
           },
           "helptext": {
             "en": "Specify the characteristics of the average/ typical land users who apply the Technology. Indicate characteristics relative to your region/ country standards."
-          },
-          "numbering": "7.1"
+          }
         }
       }
     },
@@ -10845,8 +10825,7 @@
           },
           "helptext": {
             "en": "Refer to the total area used per household (leased and owned land), including the land where no Technology is applied."
-          },
-          "numbering": "7.2"
+          }
         }
       }
     },
@@ -10860,8 +10839,7 @@
         "technologies": {
           "label": {
             "en": "Land ownership, land use, and water use rights"
-          },
-          "numbering": "7.3"
+          }
         }
       }
     },
@@ -10878,8 +10856,7 @@
           },
           "helptext": {
             "en": "<ul><li><strong>-3</strong>: Very negative (- 50-100%)</li><li><strong>-2</strong>: Negative (- 20-50%)</li><li><strong>-1</strong>: Slightly negative (- 5-20%)</li><li><strong>0</strong>: Negligible impact</li><li><strong>1</strong>: Slightly positive (+5-20%)</li><li><strong>2</strong>: Positive (+20-50%)</li><li><strong>3</strong>: Very positive (+50-100%)</li></ul>"
-          },
-          "numbering": "8.1"
+          }
         }
       }
     },
@@ -10894,7 +10871,6 @@
           "label": {
             "en": "Photos of the Technology"
           },
-          "numbering": "2.3",
           "helptext": {
             "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
           }
@@ -10914,8 +10890,7 @@
           },
           "helptext": {
             "en": "Tick max. two answers."
-          },
-          "numbering": "3.8"
+          }
         }
       }
     },
@@ -10932,8 +10907,7 @@
           },
           "helptext": {
             "en": "<p>Please provide a comprehensive and detailed drawing (with dimensions) of the Technology and indicate technical specifications, measurements, spacing, gradient, etc. You can also provide several drawings showing (a) a temporal sequence of operations or (b) different elements or details of the Technology. Alternatively you can also provide one or several photographs with technical specifications drawn and/ or written on the photograph(s). Include as much as possible technical information on the drawings (or photographs).</p><p>Keep the drawing simple and schematic. The technical drawing is crucial for the understanding of the Technology! Scan the drawing and upload the scan.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Technical drawing indicating technical specifications, dimensions, spacing<br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
-          },
-          "numbering": "4.1"
+          }
         }
       }
     },
@@ -10947,8 +10921,7 @@
         "technologies": {
           "label": {
             "en": "General information regarding inputs and costs"
-          },
-          "numbering": "5.1"
+          }
         }
       }
     },
@@ -10963,7 +10936,6 @@
           "label": {
             "en": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes (disasters)"
           },
-          "numbering": "8.3",
           "helptext": {
             "en": "<p>Indicate gradual climate changes and climate-related extremes as observed by land users in the last 10 years (trend). Note: for detailed assessment fill questionnaire module on climate change adaptation.</p><strong>Exposure</strong>: is the nature and degree to which a system experiences environmental or sociopolitical or other stress (IPCC 2007)<br><strong>Sensitivity</strong> is the degree to which a system or species is affected, either adversely or beneficially, by climate variability or change. The effect may be direct (e.g. a change in crop yield in response to a change in the mean annual temperature) or indirect (e.g. damages caused by an increase in the frequency of coastal flooding due to sea level rise). (Source IPCC 5th assessment report, Climate Change 2014: Impacts, Adaptation, and Vulnerability)."
           }
@@ -11120,8 +11092,7 @@
         "technologies": {
           "label": {
             "en": "Off-site impacts the Technology has shown"
-          },
-          "numbering": "8.2"
+          }
         }
       }
     },
@@ -11135,8 +11106,7 @@
         "technologies": {
           "label": {
             "en": "Contact details of resource persons and institutions involved in the assessment and documentation of the Technology"
-          },
-          "numbering": "1.2"
+          }
         }
       }
     },
@@ -11151,7 +11121,6 @@
           "label": {
             "en": "Declaration on sustainability of the described Technology"
           },
-          "numbering": "1.4",
           "helptext": {
             "en": "Note that WOCAT questionnaires focus on the documentation and assessment of SLM practices. However, this questionnaire can also be used to describe partly sustainable and non-sustainable land management practices."
           }
@@ -11168,8 +11137,7 @@
         "technologies": {
           "label": {
             "en": "Date of implementation"
-          },
-          "numbering": "2.6"
+          }
         }
       }
     },
@@ -11183,8 +11151,7 @@
         "technologies": {
           "label": {
             "en": "Introduction of the Technology"
-          },
-          "numbering": "2.7"
+          }
         }
       }
     },
@@ -11199,7 +11166,6 @@
           "label": {
             "en": "SLM measures comprising the Technology"
           },
-          "numbering": "3.6",
           "helptext": {
             "en": "<p><strong>SLM measures – the constituents of a Technology</strong></p><p>SLM measures fall into five categories: agronomic, vegetative, structural, management, and other. Measures are components of Technologies. Each Technology is made up of one or – very commonly – a combination of measures: For instance, terraces – a typical structural measure – are often combined with other measures, such as grass on the risers for stabilization and fodder (vegetative measure), or contour ploughing (agronomic measure).</p>"
           }
@@ -11245,7 +11211,6 @@
           "label": {
             "en": "Cost-benefit analysis"
           },
-          "numbering": "8.4",
           "helptext": {
             "en": "Refer to questions 5.2 and 5.4 (where costs for establishment and maintenance have been specified)"
           }
@@ -11265,8 +11230,7 @@
           },
           "helptext": {
             "en": "<strong>Adoption</strong>: voluntary implementation of a Technology without external material support other than technical guidance. Refer to the land use types described in 3.2 and the country/ region/ locations defined in 2.4."
-          },
-          "numbering": "9.1"
+          }
         }
       }
     },
@@ -11283,8 +11247,7 @@
           },
           "helptext": {
             "en": "<strong>Adaptation</strong>: Modifications made by land users to suit local context and changing conditions (Source: WOCAT)."
-          },
-          "numbering": "9.2"
+          }
         }
       }
     },
@@ -11312,8 +11275,7 @@
         "technologies": {
           "label": {
             "en": "Conditions regarding the use of data documented through WOCAT"
-          },
-          "numbering": "1.3"
+          }
         }
       }
     },
@@ -11330,8 +11292,7 @@
           },
           "helptext": {
             "en": "To understand properly the implementation of the Technology, the associated SLM Approach must be described. Use the search field to find the SLM Approach in the database."
-          },
-          "numbering": "1.5"
+          }
         }
       }
     },
@@ -11345,8 +11306,7 @@
         "technologies": {
           "label": {
             "en": "Spread of the Technology"
-          },
-          "numbering": "3.5"
+          }
         }
       }
     },
@@ -11360,8 +11320,7 @@
         "technologies": {
           "label": {
             "en": "Most determinate factors affecting the costs"
-          },
-          "numbering": "5.6"
+          }
         }
       }
     },
@@ -11403,8 +11362,7 @@
         "technologies": {
           "label": {
             "en": "Strengths/ advantages/ opportunities of the Technology"
-          },
-          "numbering": "10.1"
+          }
         }
       }
     },
@@ -11418,8 +11376,7 @@
         "technologies": {
           "label": {
             "en": "Weaknesses/ disadvantages/ risks of the Technology and ways of overcoming them"
-          },
-          "numbering": "10.2"
+          }
         }
       }
     },
@@ -11436,8 +11393,7 @@
           },
           "helptext": {
             "en": "If available, upload video files visualizing the Technology on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each video linked below."
-          },
-          "numbering": "2.4"
+          }
         }
       }
     },
@@ -11535,8 +11491,7 @@
         "technologies": {
           "label": {
             "en": "General information"
-          },
-          "numbering": "1."
+          }
         }
       }
     },
@@ -11551,7 +11506,6 @@
           "label": {
             "en": "Description of the SLM Technology"
           },
-          "numbering": "2.",
           "helptext": {
             "en": "<p><strong>An SLM Technology</strong> is a physical practice in the field that controls land degradation and/ or enhances productivity. A Technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
           }
@@ -11568,8 +11522,7 @@
         "technologies": {
           "label": {
             "en": "Classification of the SLM Technology"
-          },
-          "numbering": "3."
+          }
         }
       }
     },
@@ -11583,8 +11536,7 @@
         "technologies": {
           "label": {
             "en": "Technical specifications"
-          },
-          "numbering": "4."
+          }
         }
       }
     },
@@ -11599,7 +11551,6 @@
           "label": {
             "en": "Implementation, inputs, and costs"
           },
-          "numbering": "5.",
           "helptext": {
             "en": "<p>Notes to implementation activities, inputs, and costs:</p><ul><li>It may be very difficult to determine the costs of a technology. Nevertheless, we ask you to give your best estimate!</li><li>A distinction is made between initial <strong>establishment</strong> (construction, initiation) and maintenance/ <strong>recurrent annual activities</strong>.</li><li>Indicate all SLM -related activities, inputs, and costs (to land users, projects, etc.) of the Technology that are additional to ordinary field operations. If the ordinary field operations have changed/ are part of the Technology (e.g. conservation agriculture), describe all activities.</li><li>Preferably, activities, inputs, and costs should be indicated per area. If you choose a local area unit, indicate conversion factor (e.g. between local unit and hectare). Include not only the area which is directly covered by SLM measures (e.g. the area with stone walls, tree lines, ditches) but also the area that is affected/ protected by the SLM measures (e.g. the area between stone walls).</li><li>If costs are not calculated per area, inputs and costs can alternatively be calculated per unit (e.g. dam) or per length (e.g. meter grass strip, meter stone line)</li><li>Exclude costs for awareness creation, planning, training, research, and financial/ material support (these will be addressed in the Approach questionnaire)</li><li>If the objective is to compare two situations i.e. after/ with SLM measures (e.g. conservation agriculture) and before/ without SLM measures (e.g. conventional agriculture) fill in two questionnaires.</li></ul>"
           }
@@ -11619,8 +11570,7 @@
           },
           "helptext": {
             "en": "<p>Give details of the natural (biophysical) conditions where the Technology is applied. Make specific reference to the sites where the documented Technology has been assessed and analysed. Use comment sections to specify and provide additional information.</p><p><strong>Note</strong>: Some of the environmental conditions (e.g. slope angle, soil characteristics, water quality/ availability, etc.) may change as a result of the Technology! However, <strong>describe the conditions as they were without any impact of sustainable land management!</strong></p><p>In exceptional cases certain questions might not be relevant for the Technology. In such cases skip the question but use the comment sections for explanations.</p>"
-          },
-          "numbering": "6."
+          }
         }
       }
     },
@@ -11634,8 +11584,7 @@
         "technologies": {
           "label": {
             "en": "Human environment and land use"
-          },
-          "numbering": "7."
+          }
         }
       }
     },
@@ -11652,8 +11601,7 @@
           },
           "helptext": {
             "en": "<p>Assess all relevant impacts in the table below. If data based on measurements is not available, give your best estimate. Negligible means \"no significant benefit nor disadvantage\". Make use of the \"Quantify before SLM/ after SLM\" and \"Comments/ specify\" columns to show evidence and justify your selection as far as possible. Even impacts referring to quality can be quantified (e.g. coliform measurement for water quality). While a 10% increase (e.g. of yield) might be judged as a great improvement, still tick the category \"Slightly positive (+5-20%)\", and use \"Comments\" to explain. Only indicate \"Quantify (before/ after)\" if impacts are measured or based on surveys. Impacts that are not ticked are considered \"not relevant\" or \"not applicable\".</p><p><strong>On-site</strong>: concerns the actual area where the Technology is applied.<br><strong>Off-site</strong>: concerns the adjacent area or areas further away from the area where the Technology is applied.</p>"
-          },
-          "numbering": "8."
+          }
         }
       }
     },
@@ -11670,8 +11618,7 @@
           },
           "helptext": {
             "en": "<strong>Note</strong>: For information on adoption barriers and adoption drivers (motivation of land users to implement the Technology), refer to the WOCAT Questionnaire on SLM Approaches."
-          },
-          "numbering": "9."
+          }
         }
       }
     },
@@ -11688,8 +11635,7 @@
           },
           "helptext": {
             "en": "Give a concluding statement about the Technology."
-          },
-          "numbering": "10."
+          }
         }
       }
     },
@@ -21325,6 +21271,9 @@
             "categories": [
               {
                 "keyword": "tech__1",
+                "form_options": {
+                  "numbering": "1."
+                },
                 "view_options": {
                   "template": "technologies_header",
                   "use_raw_data": true,
@@ -21374,6 +21323,9 @@
                   },
                   {
                     "keyword": "tech__1__1",
+                    "form_options": {
+                      "numbering": "1.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_name",
@@ -21409,6 +21361,9 @@
                   },
                   {
                     "keyword": "tech__1__2",
+                    "form_options": {
+                      "numbering": "1.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_184",
@@ -21542,6 +21497,9 @@
                   },
                   {
                     "keyword": "tech__1__3",
+                    "form_options": {
+                      "numbering": "1.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_accept_conditions",
@@ -21558,6 +21516,9 @@
                   },
                   {
                     "keyword": "tech__1__4",
+                    "form_options": {
+                      "numbering": "1.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_156",
@@ -21588,6 +21549,7 @@
                   {
                     "keyword": "tech__1__5",
                     "form_options": {
+                      "numbering": "1.5",
                       "has_links": true
                     },
                     "questiongroups": [
@@ -21622,9 +21584,15 @@
             "categories": [
               {
                 "keyword": "tech__2",
+                "form_options": {
+                  "numbering": "2."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__2__1",
+                    "form_options": {
+                      "numbering": "2.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_1",
@@ -21644,6 +21612,9 @@
                   },
                   {
                     "keyword": "tech__2__2",
+                    "form_options": {
+                      "numbering": "2.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_2",
@@ -21681,6 +21652,9 @@
                   },
                   {
                     "keyword": "tech__2__3",
+                    "form_options": {
+                      "numbering": "2.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_photos",
@@ -21720,6 +21694,9 @@
                   },
                   {
                     "keyword": "tech__2__4",
+                    "form_options": {
+                      "numbering": "2.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_videos",
@@ -21748,6 +21725,9 @@
                   },
                   {
                     "keyword": "tech__2__5",
+                    "form_options": {
+                      "numbering": "2.5"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_location",
@@ -21797,6 +21777,9 @@
                   },
                   {
                     "keyword": "tech__2__6",
+                    "form_options": {
+                      "numbering": "2.6"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_160",
@@ -21813,6 +21796,9 @@
                   },
                   {
                     "keyword": "tech__2__7",
+                    "form_options": {
+                      "numbering": "2.7"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_5",
@@ -21841,9 +21827,15 @@
               },
               {
                 "keyword": "tech__3",
+                "form_options": {
+                  "numbering": "3."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__3__1",
+                    "form_options": {
+                      "numbering": "3.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_6",
@@ -21873,6 +21865,9 @@
                   },
                   {
                     "keyword": "tech__3__2",
+                    "form_options": {
+                      "numbering": "3.2"
+                    },
                     "form_options": {
                       "template": "image_questiongroups",
                       "questiongroup_conditions": [
@@ -22183,6 +22178,9 @@
                   },
                   {
                     "keyword": "tech__3__3",
+                    "form_options": {
+                      "numbering": "3.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_19",
@@ -22218,6 +22216,9 @@
                   },
                   {
                     "keyword": "tech__3__4",
+                    "form_options": {
+                      "numbering": "3.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_20",
@@ -22237,6 +22238,9 @@
                   },
                   {
                     "keyword": "tech__3__5",
+                    "form_options": {
+                      "numbering": "3.5"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_4",
@@ -22260,6 +22264,7 @@
                   {
                     "keyword": "tech__3__6",
                     "form_options": {
+                      "numbering": "3.6",
                       "template": "image_questiongroups",
                       "questiongroup_conditions": [
                         "=='tech_measures_agronomic'|tech_qg_21",
@@ -22397,6 +22402,7 @@
                   {
                     "keyword": "tech__3__7",
                     "form_options": {
+                      "numbering": "3.7",
                       "template": "image_questiongroups",
                       "questiongroup_conditions": [
                         "=='degradation_erosion_water'|tech_qg_28",
@@ -22565,6 +22571,9 @@
                   },
                   {
                     "keyword": "tech__3__8",
+                    "form_options": {
+                      "numbering": "3.8"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_35",
@@ -22583,9 +22592,15 @@
               },
               {
                 "keyword": "tech__4",
+                "form_options": {
+                  "numbering": "4."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__4__1",
+                    "form_options": {
+                      "numbering": "4.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_185",
@@ -22611,6 +22626,9 @@
                   },
                   {
                     "keyword": "tech__4__2",
+                    "form_options": {
+                      "numbering": "4.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_161",
@@ -22633,9 +22651,15 @@
               },
               {
                 "keyword": "tech__5",
+                "form_options": {
+                  "numbering": "5."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__5__1",
+                    "form_options": {
+                      "numbering": "5.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_162",
@@ -22730,6 +22754,7 @@
                   {
                     "keyword": "tech__5__2",
                     "form_options": {
+                      "numbering": "5.2",
                       "template": "table_2"
                     },
                     "view_options": {
@@ -22771,6 +22796,7 @@
                   {
                     "keyword": "tech__5__3",
                     "form_options": {
+                      "numbering": "5.3",
                       "template": "table_input"
                     },
                     "view_options": {
@@ -22974,6 +23000,7 @@
                   {
                     "keyword": "tech__5__4",
                     "form_options": {
+                      "numbering": "5.4",
                       "template": "table_2"
                     },
                     "view_options": {
@@ -23015,6 +23042,7 @@
                   {
                     "keyword": "tech__5__5",
                     "form_options": {
+                      "numbering": "5.5",
                       "template": "table_input"
                     },
                     "view_options": {
@@ -23211,6 +23239,9 @@
                   },
                   {
                     "keyword": "tech__5__6",
+                    "form_options": {
+                      "numbering": "5.6"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_95",
@@ -23230,9 +23261,15 @@
               },
               {
                 "keyword": "tech__6",
+                "form_options": {
+                  "numbering": "6."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__6__1",
+                    "form_options": {
+                      "numbering": "6.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_54",
@@ -23302,6 +23339,9 @@
                   },
                   {
                     "keyword": "tech__6__2",
+                    "form_options": {
+                      "numbering": "6.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_56",
@@ -23368,6 +23408,9 @@
                   },
                   {
                     "keyword": "tech__6__3",
+                    "form_options": {
+                      "numbering": "6.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_58",
@@ -23411,6 +23454,9 @@
                   },
                   {
                     "keyword": "tech__6__4",
+                    "form_options": {
+                      "numbering": "6.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_60",
@@ -23504,6 +23550,9 @@
                   },
                   {
                     "keyword": "tech__6__5",
+                    "form_options": {
+                      "numbering": "6.5"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_66",
@@ -23542,9 +23591,15 @@
               },
               {
                 "keyword": "tech__7",
+                "form_options": {
+                  "numbering": "7."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__7__1",
+                    "form_options": {
+                      "numbering": "7.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_71",
@@ -23608,6 +23663,9 @@
                   },
                   {
                     "keyword": "tech__7__2",
+                    "form_options": {
+                      "numbering": "7.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_72",
@@ -23638,6 +23696,9 @@
                   },
                   {
                     "keyword": "tech__7__3",
+                    "form_options": {
+                      "numbering": "7.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_73",
@@ -23700,10 +23761,14 @@
               },
               {
                 "keyword": "tech__8",
+                "form_options": {
+                  "numbering": "8."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__8__1",
                     "form_options": {
+                      "numbering": "8.1",
                       "template": "has_subcategories"
                     },
                     "subcategories": [
@@ -25906,6 +25971,9 @@
                   },
                   {
                     "keyword": "tech__8__2",
+                    "form_options": {
+                      "numbering": "8.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_146",
@@ -26246,6 +26314,7 @@
                   {
                     "keyword": "tech__8__3",
                     "form_options": {
+                      "numbering": "8.3",
                       "template": "has_subcategories"
                     },
                     "subcategories": [
@@ -26822,6 +26891,9 @@
                   },
                   {
                     "keyword": "tech__8__4",
+                    "form_options": {
+                      "numbering": "8.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_181",
@@ -26895,9 +26967,15 @@
               },
               {
                 "keyword": "tech__9",
+                "form_options": {
+                  "numbering": "9."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__9__1",
+                    "form_options": {
+                      "numbering": "9.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_191",
@@ -26923,6 +27001,9 @@
                   },
                   {
                     "keyword": "tech__9__2",
+                    "form_options": {
+                      "numbering": "9.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_192",
@@ -26952,9 +27033,15 @@
               },
               {
                 "keyword": "tech__10",
+                "form_options": {
+                  "numbering": "10."
+                },
                 "subcategories": [
                   {
                     "keyword": "tech__10__1",
+                    "form_options": {
+                      "numbering": "10.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_strengths_landusers",
@@ -26976,6 +27063,9 @@
                   },
                   {
                     "keyword": "tech__10__2",
+                    "form_options": {
+                      "numbering": "10.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_weaknesses_landusers",

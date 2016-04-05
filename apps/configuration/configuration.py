@@ -99,7 +99,6 @@ class BaseConfigurationObject(object):
         self.helptext = ''
         self.label = ''
         self.label_view = ''
-        self.numbering = ''
         translation = self.configuration_object.translation
         if translation:
             self.helptext = translation.get_translation(
@@ -110,8 +109,6 @@ class BaseConfigurationObject(object):
                 'label_view', self.configuration_keyword)
             if self.label_view is None:
                 self.label_view = self.label
-            self.numbering = translation.get_numbering(
-                self.configuration_keyword)
 
         # Should be at the bottom of the function
         children = []
@@ -1355,7 +1352,6 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         config.update({
             'label': self.label,
             'helptext': self.helptext,
-            'numbering': self.numbering,
             'form_template': form_template,
         })
         has_changes = False
@@ -1506,7 +1502,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'questions': rendered_questions,
             'subcategories': subcategories,
             'label': self.label_view,
-            'numbering': self.numbering,
+            'numbering': self.form_options.get('numbering'),
             'helptext': self.helptext,
         })
         if self.table_grouping:
@@ -1528,6 +1524,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         'keyword',
         'subcategories',
         'view_options',
+        'form_options',
     ]
     name_current = 'categories'
     name_parent = 'sections'
@@ -1626,7 +1623,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
         config = {
             'label': self.label,
-            'numbering': self.numbering,
+            'numbering': self.form_options.get('numbering'),
             'helptext': self.helptext,
             'has_changes': has_changes,
         }
@@ -1727,7 +1724,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'additional_data': additional_data,
                 'metadata': metadata,
                 'label': self.label,
-                'numbering': self.numbering,
+                'numbering': self.form_options.get('numbering'),
                 'keyword': self.keyword,
                 'csrf_token': csrf_token,
                 'permissions': permissions,

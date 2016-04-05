@@ -2682,7 +2682,6 @@
           "label_view": {
             "en": "Name of the SLM Approach"
           },
-          "numbering": "1.1",
           "helptext": {
             "en": "Name of the SLM Approach: Do not use exactly the same name as used for the corresponding Technology (QT); try to name the main characteristic of the Approach (name of project/ programme/ initiative; name of implementation/ extension/ promotion method used, etc.)"
           }
@@ -2700,7 +2699,6 @@
           "label": {
             "en": "Definition of the Approach"
           },
-          "numbering": "2.1",
           "helptext": {
             "en": "<p>Describe the Approach in one sentence containing key words. The definition of an approach is very important as it determines whether anyone searching the database will read further.</p>"
           }
@@ -2734,8 +2732,7 @@
         "approaches": {
           "label": {
             "en": "Contact details of resource persons and institutions involved in the assessment and documentation of the Approach"
-          },
-          "numbering": "1.2"
+          }
         }
       }
     },
@@ -2749,8 +2746,7 @@
         "approaches": {
           "label": {
             "en": "Conditions regarding the use of data documented through WOCAT"
-          },
-          "numbering": "1.3"
+          }
         }
       }
     },
@@ -2767,8 +2763,7 @@
           },
           "helptext": {
             "en": "If you have already filled in Questionnaires on SLM Technologies that were implemented under this Approach, refer to the information given there in section QT 2.4"
-          },
-          "numbering": "2.5"
+          }
         }
       }
     },
@@ -2783,7 +2778,6 @@
           "label": {
             "en": "Description of the Approach"
           },
-          "numbering": "2.2",
           "helptext": {
             "en": "Make sure the description contains the key characteristics/ distinct features of the Approach, its aims/ objectives, methods used, stages of implementation, roles of involved stakeholders, strengths, and weaknesses. This summary has to provide a comprehensive/ concise picture of the Approach to outsiders. After having gone through the whole questionnaire, come back and revise/ complement this section."
           }
@@ -2800,8 +2794,7 @@
         "approaches": {
           "label": {
             "en": "Stakeholders involved in the Approach and their roles"
-          },
-          "numbering": "3.1"
+          }
         }
       }
     },
@@ -2818,8 +2811,7 @@
           },
           "helptext": {
             "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing/ in training, etc.</p><p>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</p><p>Maximum file size: 3 MB.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2.</p>"
-          },
-          "numbering": "2.3"
+          }
         }
       }
     },
@@ -2833,8 +2825,7 @@
         "approaches": {
           "label": {
             "en": "Dates of initiation and termination of the Approach"
-          },
-          "numbering": "2.6"
+          }
         }
       }
     },
@@ -2851,8 +2842,7 @@
           },
           "helptext": {
             "en": "Specify and indicate implementing agencies in question 3.1"
-          },
-          "numbering": "2.7"
+          }
         }
       }
     },
@@ -2869,8 +2859,7 @@
           },
           "helptext": {
             "en": "Several answers possible. If for the same condition there are enabling as well as hindering factors, tick and specify both of them."
-          },
-          "numbering": "2.8"
+          }
         }
       }
     },
@@ -2887,8 +2876,7 @@
           },
           "helptext": {
             "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
-          },
-          "numbering": "3.2"
+          }
         }
       }
     },
@@ -2902,8 +2890,7 @@
         "approaches": {
           "label": {
             "en": "Decision-making on the selection of SLM Technology(ies)"
-          },
-          "numbering": "3.3"
+          }
         }
       }
     },
@@ -2917,8 +2904,7 @@
         "approaches": {
           "label": {
             "en": "Training/ awareness raising"
-          },
-          "numbering": "4.1"
+          }
         }
       }
     },
@@ -2932,8 +2918,7 @@
         "approaches": {
           "label": {
             "en": "Advisory service"
-          },
-          "numbering": "4.2"
+          }
         }
       }
     },
@@ -2947,8 +2932,7 @@
         "approaches": {
           "label": {
             "en": "Institution strengthening (organisational development)"
-          },
-          "numbering": "4.3"
+          }
         }
       }
     },
@@ -2962,8 +2946,7 @@
         "approaches": {
           "label": {
             "en": "Monitoring and evaluation"
-          },
-          "numbering": "4.4"
+          }
         }
       }
     },
@@ -2977,8 +2960,7 @@
         "approaches": {
           "label": {
             "en": "Annual budget for the SLM component of the Approach"
-          },
-          "numbering": "5.1"
+          }
         }
       }
     },
@@ -2992,8 +2974,7 @@
         "approaches": {
           "label": {
             "en": "Contributions per area, per unit, or per product"
-          },
-          "numbering": "5.2"
+          }
         }
       }
     },
@@ -3010,8 +2991,7 @@
           },
           "helptext": {
             "en": "<p>If no inputs were subsidized, go to question 5.4.</p><p><strong>Subsidy</strong>: a subsidy is an instrument used by the state or by private actors to reduce the costs of a product or increase the returns from a particular activity (Kerr, 1994). It may be provided in cash or in kind and usually serves a specific purpose.</p>"
-          },
-          "numbering": "5.3"
+          }
         }
       }
     },
@@ -3025,8 +3005,7 @@
         "approaches": {
           "label": {
             "en": "Credit"
-          },
-          "numbering": "5.4"
+          }
         }
       }
     },
@@ -3040,8 +3019,7 @@
         "approaches": {
           "label": {
             "en": "Other incentives or instruments"
-          },
-          "numbering": "5.5"
+          }
         }
       }
     },
@@ -3058,8 +3036,7 @@
           },
           "helptext": {
             "en": "The term Approach refers to the implementation of one or several Technology(ies). It may have been introduced through a project/ programme, or be part of an indigenous system, or refer to a spontaneous adoption/ adaptation based on individual initiative."
-          },
-          "numbering": "6.1"
+          }
         }
       }
     },
@@ -3073,8 +3050,7 @@
         "approaches": {
           "label": {
             "en": "Main motivation of the land user to implement SLM"
-          },
-          "numbering": "7.1"
+          }
         }
       }
     },
@@ -3088,8 +3064,7 @@
         "approaches": {
           "label": {
             "en": "Sustainability of approach activities"
-          },
-          "numbering": "7.2"
+          }
         }
       }
     },
@@ -3103,8 +3078,7 @@
         "approaches": {
           "label": {
             "en": "Strengths/ advantages of the Approach"
-          },
-          "numbering": "7.3"
+          }
         }
       }
     },
@@ -3118,8 +3092,7 @@
         "approaches": {
           "label": {
             "en": "Weaknesses/ disadvantages of the Approach and ways of overcoming these"
-          },
-          "numbering": "7.4"
+          }
         }
       }
     },
@@ -3136,8 +3109,7 @@
           },
           "helptext": {
             "en": "<p>Indicate SLM Technologies which were promoted by and implemented through this Approach.</p><p>The major Technologies promoted by and implemented through this Approach must be described in separate SLM Technology questionnaires. WOCAT recommends that you first fill in the Technology questionnaire and that you focus the description of the Approach to the Technology(ies) documented.</p>"
-          },
-          "numbering": "1.4"
+          }
         }
       }
     },
@@ -3154,8 +3126,7 @@
           },
           "helptext": {
             "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each video linked below."
-          },
-          "numbering": "2.4"
+          }
         }
       }
     },
@@ -3183,8 +3154,7 @@
         "approaches": {
           "label": {
             "en": "General information"
-          },
-          "numbering": "1."
+          }
         }
       }
     },
@@ -3199,7 +3169,6 @@
           "label": {
             "en": "Specification of the SLM Approach"
           },
-          "numbering": "2.",
           "helptext": {
             "en": "<p>The <strong>SLM Approach</strong> (hereafter referred to as the Approach) defines the ways and means used to implement one or several SLM Technology(ies), including technical and material support, involvement and roles of different stakeholders, etc. All types of Approaches may be documented using this questionnaire: Besides SLM technologies introduced through projects or programmes, WOCAT includes traditional SLM practices and spontaneous adoptions or adaptations of Technologies. <strong>In the case of a project, WOCAT asks you to document only those components or activities that are relevant to SLM.</strong></p>"
           }
@@ -3216,8 +3185,7 @@
         "approaches": {
           "label": {
             "en": "Participation and roles of stakeholders involved"
-          },
-          "numbering": "3."
+          }
         }
       }
     },
@@ -3231,8 +3199,7 @@
         "approaches": {
           "label": {
             "en": "Technical support, capacity building, and knowledge management"
-          },
-          "numbering": "4."
+          }
         }
       }
     },
@@ -3249,8 +3216,7 @@
           },
           "helptext": {
             "en": "<p><strong>External material support</strong>: includes in-kind and financial support or incentives from government or private organisations.</p><p>Questions regarding financing consider all costs of the Approach including the implementation of the Technology.</p>"
-          },
-          "numbering": "5."
+          }
         }
       }
     },
@@ -3267,8 +3233,7 @@
           },
           "helptext": {
             "en": "Impact analysis is crucial to assess investments made in SLM, which are often poorly assessed and documented; please provide as much information as possible. Note: Impacts of the Technology on natural resources, production, etc. must be specified in the corresponding questionnaire(s) on SLM Technologies."
-          },
-          "numbering": "6."
+          }
         }
       }
     },
@@ -3285,8 +3250,7 @@
           },
           "helptext": {
             "en": "The concluding statements should concentrate on the Approach you described in this document. Concluding statements for the Technologies associated with this Approach are to be made in the separate Questionnaire on SLM Technologies."
-          },
-          "numbering": "7."
+          }
         }
       }
     },
@@ -7264,6 +7228,9 @@
             "categories": [
               {
                 "keyword": "app__1",
+                "form_options": {
+                  "numbering": "1."
+                },
                 "view_options": {
                   "template": "approaches_header",
                   "include_toc": true,
@@ -7313,6 +7280,9 @@
                   },
                   {
                     "keyword": "app__1__1",
+                    "form_options": {
+                      "numbering": "1.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_name",
@@ -7348,6 +7318,9 @@
                   },
                   {
                     "keyword": "app__1__2",
+                    "form_options": {
+                      "numbering": "1.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_102",
@@ -7481,6 +7454,9 @@
                   },
                   {
                     "keyword": "app__1__3",
+                    "form_options": {
+                      "numbering": "1.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_accept_conditions",
@@ -7498,6 +7474,7 @@
                   {
                     "keyword": "app__1__4",
                     "form_options": {
+                      "numbering": "1.4",
                       "has_links": true
                     },
                     "questiongroups": [
@@ -7532,9 +7509,15 @@
             "categories": [
               {
                 "keyword": "app__2",
+                "form_options": {
+                  "numbering": "2."
+                },
                 "subcategories": [
                   {
                     "keyword": "app__2__1",
+                    "form_options": {
+                      "numbering": "2.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_1",
@@ -7555,6 +7538,9 @@
                   },
                   {
                     "keyword": "app__2__2",
+                    "form_options": {
+                      "numbering": "2.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_2",
@@ -7596,6 +7582,9 @@
                   },
                   {
                     "keyword": "app__2__3",
+                    "form_options": {
+                      "numbering": "2.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_photos",
@@ -7627,6 +7616,9 @@
                   },
                   {
                     "keyword": "app__2__4",
+                    "form_options": {
+                      "numbering": "2.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_videos",
@@ -7655,6 +7647,9 @@
                   },
                   {
                     "keyword": "app__2__5",
+                    "form_options": {
+                      "numbering": "2.5"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_location",
@@ -7687,6 +7682,9 @@
                   },
                   {
                     "keyword": "app__2__6",
+                    "form_options": {
+                      "numbering": "2.6"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_4",
@@ -7721,6 +7719,9 @@
                   },
                   {
                     "keyword": "app__2__7",
+                    "form_options": {
+                      "numbering": "2.7"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_5",
@@ -7753,6 +7754,9 @@
                   },
                   {
                     "keyword": "app__2__8",
+                    "form_options": {
+                      "numbering": "2.8"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_6",
@@ -8190,10 +8194,14 @@
               },
               {
                 "keyword": "app__3",
+                "form_options": {
+                  "numbering": "3."
+                },
                 "subcategories": [
                   {
                     "keyword": "app__3__1",
                     "form_options": {
+                      "numbering": "3.1",
                       "template": "checkbox_questiongroups",
                       "questiongroup_conditions": [
                         "=='stakeholder_local'|app_qg_92",
@@ -8460,6 +8468,7 @@
                   {
                     "keyword": "app__3__2",
                     "form_options": {
+                      "numbering": "3.2",
                       "helptext_length": 30
                     },
                     "questiongroups": [
@@ -8484,6 +8493,9 @@
                   },
                   {
                     "keyword": "app__3__3",
+                    "form_options": {
+                      "numbering": "3.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_17",
@@ -8529,9 +8541,15 @@
               },
               {
                 "keyword": "app__4",
+                "form_options": {
+                  "numbering": "4."
+                },
                 "subcategories": [
                   {
                     "keyword": "app__4__1",
+                    "form_options": {
+                      "numbering": "4.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_18",
@@ -8600,6 +8618,9 @@
                   },
                   {
                     "keyword": "app__4__2",
+                    "form_options": {
+                      "numbering": "4.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_20",
@@ -8642,6 +8663,9 @@
                   },
                   {
                     "keyword": "app__4__3",
+                    "form_options": {
+                      "numbering": "4.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_22",
@@ -8700,6 +8724,9 @@
                   },
                   {
                     "keyword": "app__4__4",
+                    "form_options": {
+                      "numbering": "4.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_105",
@@ -8721,9 +8748,15 @@
               },
               {
                 "keyword": "app__5",
+                "form_options": {
+                  "numbering": "5."
+                },
                 "subcategories": [
                   {
                     "keyword": "app__5__1",
+                    "form_options": {
+                      "numbering": "5.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_24",
@@ -8740,6 +8773,9 @@
                   },
                   {
                     "keyword": "app__5__2",
+                    "form_options": {
+                      "numbering": "5.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_25",
@@ -8770,6 +8806,7 @@
                   {
                     "keyword": "app__5__3",
                     "form_options": {
+                      "numbering": "5.3",
                       "template": "checkbox_questiongroups_2",
                       "questiongroup_conditions": [
                         "=='app_subsidies_inputs_labour'|app_qg_28",
@@ -9090,6 +9127,9 @@
                   },
                   {
                     "keyword": "app__5__4",
+                    "form_options": {
+                      "numbering": "5.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_35",
@@ -9125,6 +9165,9 @@
                   },
                   {
                     "keyword": "app__5__5",
+                    "form_options": {
+                      "numbering": "5.5"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_37",
@@ -9156,9 +9199,15 @@
               },
               {
                 "keyword": "app__6",
+                "form_options": {
+                  "numbering": "6."
+                },
                 "subcategories": [
                   {
                     "keyword": "app__6__1",
+                    "form_options": {
+                      "numbering": "6.1"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_39",
@@ -9205,7 +9254,7 @@
                               "template": "inline_6",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_42"
-                              ]s
+                              ]
                             },
                             "view_options": {
                               "template": "measure_bar",
@@ -9755,10 +9804,14 @@
               },
               {
                 "keyword": "app__7",
+                "form_options": {
+                  "numbering": "7."
+                },
                 "subcategories": [
                   {
                     "keyword": "app__7__1",
                     "form_options": {
+                      "numbering": "7.1",
                       "template": "checkbox_questiongroups",
                       "questiongroup_conditions": [
                         "=='app_motivation_production'|app_qg_71",
@@ -10052,6 +10105,9 @@
                   },
                   {
                     "keyword": "app__7__2",
+                    "form_options": {
+                      "numbering": "7.2"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "app_qg_84",
@@ -10093,6 +10149,9 @@
                   },
                   {
                     "keyword": "app__7__3",
+                    "form_options": {
+                      "numbering": "7.3"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_strengths_landusers",
@@ -10114,6 +10173,9 @@
                   },
                   {
                     "keyword": "app__7__4",
+                    "form_options": {
+                      "numbering": "7.4"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_weaknesses_landusers",
