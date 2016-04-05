@@ -4,51 +4,55 @@ Translations
 The source language of this project is *English*. Refer to the `django docs`_
 for translations within django.
 
-All fixtures for configurations and questionnaires are expected to have texts
-at least in english.
+All fixtures for configurations and questionnaires are expected in English.
+Additional languages in the fixtures will not be used.
 
 
 Basics
 ------
 
-* Translations are handled separately for the texts from django and
-  questionnaires (see ``questionnaire.models.Translation``).
+* Translations are handled separately for the texts from django (i18n in python
+  files) and questionnaires (i18n in models; see
+  ``questionnaire.models.Translation``).
+* Historically, a jsonb field stores all translations. The structure is:
+  ``{'configuration_type': {'keyword': {'en': 'string ahoy'}}}``
+* This is caused by the way configurations are created: as fixtures.
 * Translation changes are expected to happen often, occasionally new languages
-  will be introduced. Managing translations should require no effort from
+  will be introduced. Managing translations should require minimal effort from
   developers.
-* These preconditions (handle translations for questionnaires in a jsonb-field,
-  vs. gettext files django-translations) and the requirement for one system to
+* These preconditions and the requirement for one system to
   handle all translations result in a workaround.
-* po files and gettext are the 'default' way to handle translations.
+* gettext is the 'default' way to handle translations.
 
 
 Workflow
 --------
 
-* Create translation files for the website with ``makemessages``
-* Translations from the database are exported into a .py file. ``pygettext``
-  then creates a .pot file, ``msginit`` creates the language-specific po file.
-  This process is automated (management command: ``translation_to_gettext``).
-* Editing of both files is done within `Transifex`_. See the folder ``.tx`` in
-  the project root for the transifex configuration.
-* Updated translation files can be pulled with ``tx pull``
-* Create new .mo files with ``compilemessages``
-* The text changes for questionnaires and configurations are restored to the
-  database with ``gettext_to_translation``.
-* This process is automated with the command ``makemessages_plus``. A valid
-  transifex account is required.
-* This could be integrated in the deployment, but manual control is desired.
+* A `string freeze`_ is announced for before deploying to production.
+* Creation of new .po files is therefore only allowed on the develop branch
+* The command ``makemessages`` handles the following:
+
+  * Get latest resources from Transifex
+  * If the -fp flag is set, the pull is 'forced'. This means that local
+    translation files are overwritten. By default, local files are not
+    overwritten if they are newer than the version on Transifex.
+  * If new files are pulled, the po files are compiled (to mo files)
+  * Check, if new translations for configurations are available. If so, the
+    content is written into a separate model. A temporary file based on this
+    model is created, this temporary file is then parsed by djangos own
+    makemessages command.
+  * Djangos ``makemessages`` creates .po files
+  * The user is asked if the new files should be uploaded to Transifex.
 
 
 Todo
 ----
 
-* Define the timing of translations with regard to git branches. Should
-  translating be included when developing a new feature, or does translation
-  'follow' after a feature is merged back to develop?
 * Check if `txgh`_ would be helpful.
-
+* The current workflow is rather strict (no translations on feature branches,
+  workaround with temporary file). Reviewing this workflow is recommended.
 
 .. _django docs: https://docs.djangoproject.com/en/1.8/topics/i18n/translation/
 .. _Transifex: https://www.transifex.com/university-of-bern-cde/qcat/
 .. _txgh: https://github.com/transifex/txgh
+.. _string freeze: https://wiki.openstack.org/wiki/StringFreeze
