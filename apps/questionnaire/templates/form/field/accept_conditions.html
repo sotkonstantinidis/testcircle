@@ -1,11 +1,12 @@
 {% comment %}
 
-  Template to render a radio form field. Renders the radios horizontally
-  aligned.
+  Template to render a radio form field.
 
 {% endcomment %}
 
 {% load list_to_columns %}
+{% load sekizai_tags %}
+{% load compress %}
 
 <div class="row">
   <div class="small-12 columns"
@@ -35,5 +36,27 @@
         </label>
       {% endfor %}
     {% endfor %}
+    <div data-alert class="alert-box alert top-margin" id="conditions-not-accepted">
+      {{ options.helptext|safe }}
+    </div>
   </div>
 </div>
+
+{% addtoblock 'js' %}
+  {% compress js %}
+    <script type="text/javascript">
+      function checkAcceptConditions(el) {
+        $el = $(el);
+        if ($el.val() == 1 && $el.is(':checked')) {
+          $('#conditions-not-accepted').hide();
+        } else {
+          $('#conditions-not-accepted').show();
+        }
+      }
+      $('input[name=qg_accept_conditions-0-accept_conditions]').change(function() {
+        checkAcceptConditions(this);
+      });
+      checkAcceptConditions('input[name=qg_accept_conditions-0-accept_conditions]:checked')
+    </script>
+  {% endcompress %}
+{% endaddtoblock %}

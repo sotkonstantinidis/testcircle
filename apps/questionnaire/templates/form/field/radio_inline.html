@@ -6,7 +6,8 @@
 
 {% load list_to_columns %}
 
-<div class="row">
+<div class="row"
+    {% if options.question_conditions %} data-question-conditions="{{ options.question_conditions }}"{% endif %}>
   {% for group_name, choices in optgroups %}
     {% for choice in choices %}
       <div class="small-6 columns">

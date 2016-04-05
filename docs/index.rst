@@ -31,6 +31,7 @@ Questionnaires
     configuration/question
     configuration/key
     configuration/value
+    configuration/links
 
 
 Settings

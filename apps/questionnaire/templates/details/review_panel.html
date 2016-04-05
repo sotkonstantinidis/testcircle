@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load compress %}
 
-<section class="row is-rhythmed">
+<section class="row is-rhythmed{% if review_css_class %} {{ review_css_class }}{% endif %}">
   <div class="small-12 columns">
     <h2 class="is-unvisible">{% trans "Status of review process" %}</h2>
     <ol class="process">

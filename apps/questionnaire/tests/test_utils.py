@@ -834,10 +834,10 @@ class QueryQuestionnairesForLinkTest(TestCase):
 @override_settings(USE_CACHING=False)
 class GetListValuesTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json']
 
     def setUp(self):
-        self.values_length = 14
+        self.values_length = 13
         self.es_hits = [{'_id': 1}]
 
     def test_serializer_uses_provided_configuration(self):

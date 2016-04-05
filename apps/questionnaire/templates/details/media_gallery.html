@@ -7,7 +7,11 @@
       {% for data in media_content %}
         {% if data.image %}
           <li>
-            <a class="th" href="{{ data.image }}"><img src="{{ data.interchange_list.1.0 }}" data-caption="{{ data.caption }}<br><i>{{ data.location|default:'' }}</i><br><i>{{ data.date|default:'' }}</i><br><strong>Photo: {{ data.photographer|default:'-' }}</strong>"></a>
+            <a class="th th-item" href="{{ data.image }}" style="background-image: url('{{ data.interchange_list.1.0 }}')">
+              <img class="transparent"
+                   src="{{ data.interchange_list.1.0 }}"
+                   data-caption="{{ data.caption }}<br><i>{{ data.location|default:'' }}</i><br><i>{{ data.date|default:'' }}</i><br><strong>Photo: {{ data.photographer|default:'-' }}</strong>">
+            </a>
           </li>
         {% endif %}
       {% endfor %}

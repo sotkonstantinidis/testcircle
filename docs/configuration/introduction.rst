@@ -26,6 +26,7 @@ The elements of a Questionnaire are:
     consisting of a key and value(s).
 #.  :doc:`Key </configuration/key>`: The key of a question.
 #.  :doc:`Value </configuration/value>`: The value of a question.
+#.  :doc:`Links </configuration/links>`: Links to other questionnaires.
 
 Most of the elements of a questionnaire can have a configuration of
 their own, stored in their ``configuration`` field in the database.

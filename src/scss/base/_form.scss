@@ -38,6 +38,7 @@ select {
 .input-multiline {
   position: relative;
   margin-top: rem-calc(6);
+  display: table;
   input[type="checkbox"],
   input[type="radio"] {
     position: absolute;

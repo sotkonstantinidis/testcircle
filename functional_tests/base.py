@@ -125,10 +125,32 @@ class FunctionalTest(StaticLiveServerTestCase):
             elem.value = value;
         ''', el, val)
 
+    def rearrangeFormHeader(self):
+        """
+        Use this function to rearrange the fixed header of the form if it is
+        blocking certain elements, namely when using headless browser for
+        testing. Sets the header to "position: relative".
+        """
+        form_header = self.findBy(
+            'xpath', '//header[contains(@class, "wizard-header")]')
+        self.browser.execute_script(
+            'arguments[0].style.position = "relative";', form_header)
+
+    def screenshot(self):
+        self.browser.save_screenshot('screenshot.png')
+
     def checkOnPage(self, text):
         self.assertIn(text, self.browser.page_source)
 
+    def clickUserMenu(self, user):
+        self.findBy(
+            'xpath', '//li[contains(@class, "has-dropdown")]/a[contains(text(),'
+                     ' "{}")]'.format(user)).click()
+
     def changeLanguage(self, locale):
+        self.findBy(
+            'xpath', '//li[contains(@class, "has-dropdown") and contains('
+                     '@class, "top-bar-lang")]/a').click()
         self.findBy('xpath', '//a[@data-language="{}"]'.format(locale)).click()
 
     @patch.object(Typo3Client, 'get_and_update_django_user')

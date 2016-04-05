@@ -10,7 +10,7 @@
         },
         "technologies": {
           "label": {
-            "en": "Common name"
+            "en": "Name"
           }
         },
         "unccd": {
@@ -58,12 +58,18 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Local name"
+            "en": "Locally used name"
+          },
+          "helptext": {
+            "en": "In latin letters"
           }
         },
         "technologies": {
           "label": {
-            "en": "Local name"
+            "en": "Locally used name"
+          },
+          "helptext": {
+            "en": "In latin letters"
           }
         },
         "unccd": {
@@ -260,11 +266,17 @@
         "approaches": {
           "label": {
             "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT you will not be able to enter and edit data in the WOCAT database."
           }
         },
         "technologies": {
           "label": {
             "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT you will not be able to enter and edit data in the WOCAT database."
           }
         }
       }
@@ -900,9 +912,6 @@
           "label": {
             "en": "Afghanistan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "AFG"
         }
       }
     },
@@ -917,9 +926,6 @@
           "label": {
             "en": "Albania"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ALB"
         }
       }
     },
@@ -934,9 +940,6 @@
           "label": {
             "en": "Algeria"
           }
-        },
-        "codes": {
-          "iso_3166_1": "DZA"
         }
       }
     },
@@ -951,9 +954,6 @@
           "label": {
             "en": "American Samoa"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ASM"
         }
       }
     },
@@ -968,9 +968,6 @@
           "label": {
             "en": "Andorra"
           }
-        },
-        "codes": {
-          "iso_3166_1": "AND"
         }
       }
     },
@@ -985,9 +982,6 @@
           "label": {
             "en": "Angola"
           }
-        },
-        "codes": {
-          "iso_3166_1": "AGO"
         }
       }
     },
@@ -1002,9 +996,6 @@
           "label": {
             "en": "Anguilla"
           }
-        },
-        "codes": {
-          "iso_3166_1": "AIA"
         }
       }
     },
@@ -1019,9 +1010,6 @@
           "label": {
             "en": "Antarctica"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ATA"
         }
       }
     },
@@ -1036,9 +1024,6 @@
           "label": {
             "en": "Antigua and Barbuda"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ATG"
         }
       }
     },
@@ -1053,9 +1038,6 @@
           "label": {
             "en": "Argentina"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ARG"
         }
       }
     },
@@ -1070,9 +1052,6 @@
           "label": {
             "en": "Armenia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ARM"
         }
       }
     },
@@ -1087,9 +1066,6 @@
           "label": {
             "en": "Aruba"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ABW"
         }
       }
     },
@@ -1104,9 +1080,6 @@
           "label": {
             "en": "Australia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "AUS"
         }
       }
     },
@@ -1121,9 +1094,6 @@
           "label": {
             "en": "Austria"
           }
-        },
-        "codes": {
-          "iso_3166_1": "AUT"
         }
       }
     },
@@ -1138,9 +1108,6 @@
           "label": {
             "en": "Azerbaijan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "AZE"
         }
       }
     },
@@ -1155,9 +1122,6 @@
           "label": {
             "en": "Bahamas"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BHS"
         }
       }
     },
@@ -1172,9 +1136,6 @@
           "label": {
             "en": "Bahrain"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BHR"
         }
       }
     },
@@ -1189,9 +1150,6 @@
           "label": {
             "en": "Bangladesh"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BGD"
         }
       }
     },
@@ -1206,9 +1164,6 @@
           "label": {
             "en": "Barbados"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BRB"
         }
       }
     },
@@ -1223,9 +1178,6 @@
           "label": {
             "en": "Belarus"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BLR"
         }
       }
     },
@@ -1240,9 +1192,6 @@
           "label": {
             "en": "Belgium"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BEL"
         }
       }
     },
@@ -1257,9 +1206,6 @@
           "label": {
             "en": "Belize"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BLZ"
         }
       }
     },
@@ -1274,9 +1220,6 @@
           "label": {
             "en": "Benin"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BEN"
         }
       }
     },
@@ -1291,9 +1234,6 @@
           "label": {
             "en": "Bermuda"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BMU"
         }
       }
     },
@@ -1308,9 +1248,6 @@
           "label": {
             "en": "Bhutan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BTN"
         }
       }
     },
@@ -1325,9 +1262,6 @@
           "label": {
             "en": "Bolivia, Plurinational State of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BOL"
         }
       }
     },
@@ -1342,9 +1276,6 @@
           "label": {
             "en": "Bonaire, Sint Eustatius and Saba"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BES"
         }
       }
     },
@@ -1359,9 +1290,6 @@
           "label": {
             "en": "Bosnia and Herzegovina"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BIH"
         }
       }
     },
@@ -1376,9 +1304,6 @@
           "label": {
             "en": "Botswana"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BWA"
         }
       }
     },
@@ -1393,9 +1318,6 @@
           "label": {
             "en": "Bouvet Island"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BVT"
         }
       }
     },
@@ -1410,9 +1332,6 @@
           "label": {
             "en": "Brazil"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BRA"
         }
       }
     },
@@ -1427,9 +1346,6 @@
           "label": {
             "en": "British Indian Ocean Territory"
           }
-        },
-        "codes": {
-          "iso_3166_1": "IOT"
         }
       }
     },
@@ -1444,9 +1360,6 @@
           "label": {
             "en": "Brunei Darussalam"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BRN"
         }
       }
     },
@@ -1461,9 +1374,6 @@
           "label": {
             "en": "Bulgaria"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BGR"
         }
       }
     },
@@ -1478,9 +1388,6 @@
           "label": {
             "en": "Burkina Faso"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BFA"
         }
       }
     },
@@ -1495,9 +1402,6 @@
           "label": {
             "en": "Burundi"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BDI"
         }
       }
     },
@@ -1512,9 +1416,6 @@
           "label": {
             "en": "Cambodia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KHM"
         }
       }
     },
@@ -1529,9 +1430,6 @@
           "label": {
             "en": "Cameroon"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CMR"
         }
       }
     },
@@ -1546,9 +1444,6 @@
           "label": {
             "en": "Canada"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CAN"
         }
       }
     },
@@ -1563,9 +1458,6 @@
           "label": {
             "en": "Cape Verde"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CPV"
         }
       }
     },
@@ -1580,9 +1472,6 @@
           "label": {
             "en": "Cayman Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CYM"
         }
       }
     },
@@ -1597,9 +1486,6 @@
           "label": {
             "en": "Central African Republic"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CAF"
         }
       }
     },
@@ -1614,9 +1500,6 @@
           "label": {
             "en": "Chad"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TCD"
         }
       }
     },
@@ -1631,9 +1514,6 @@
           "label": {
             "en": "Chile"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CHL"
         }
       }
     },
@@ -1648,9 +1528,6 @@
           "label": {
             "en": "China"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CHN"
         }
       }
     },
@@ -1665,9 +1542,6 @@
           "label": {
             "en": "Christmas Island"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CXR"
         }
       }
     },
@@ -1682,9 +1556,6 @@
           "label": {
             "en": "Cocos (Keeling) Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CCK"
         }
       }
     },
@@ -1699,9 +1570,6 @@
           "label": {
             "en": "Colombia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "COL"
         }
       }
     },
@@ -1716,9 +1584,6 @@
           "label": {
             "en": "Comoros"
           }
-        },
-        "codes": {
-          "iso_3166_1": "COM"
         }
       }
     },
@@ -1733,9 +1598,6 @@
           "label": {
             "en": "Congo"
           }
-        },
-        "codes": {
-          "iso_3166_1": "COG"
         }
       }
     },
@@ -1750,9 +1612,6 @@
           "label": {
             "en": "Congo, the Democratic Republic of the"
           }
-        },
-        "codes": {
-          "iso_3166_1": "COD"
         }
       }
     },
@@ -1767,9 +1626,6 @@
           "label": {
             "en": "Cook Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "COK"
         }
       }
     },
@@ -1784,9 +1640,6 @@
           "label": {
             "en": "Costa Rica"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CRI"
         }
       }
     },
@@ -1801,9 +1654,6 @@
           "label": {
             "en": "Croatia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "HRV"
         }
       }
     },
@@ -1818,9 +1668,6 @@
           "label": {
             "en": "Cuba"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CUB"
         }
       }
     },
@@ -1835,9 +1682,6 @@
           "label": {
             "en": "Curaçao"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CUW"
         }
       }
     },
@@ -1852,9 +1696,6 @@
           "label": {
             "en": "Cyprus"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CYP"
         }
       }
     },
@@ -1869,9 +1710,6 @@
           "label": {
             "en": "Czech Republic"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CZE"
         }
       }
     },
@@ -1886,9 +1724,6 @@
           "label": {
             "en": "Côte d'Ivoire"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CIV"
         }
       }
     },
@@ -1903,9 +1738,6 @@
           "label": {
             "en": "Denmark"
           }
-        },
-        "codes": {
-          "iso_3166_1": "DNK"
         }
       }
     },
@@ -1920,9 +1752,6 @@
           "label": {
             "en": "Djibouti"
           }
-        },
-        "codes": {
-          "iso_3166_1": "DJI"
         }
       }
     },
@@ -1937,9 +1766,6 @@
           "label": {
             "en": "Dominica"
           }
-        },
-        "codes": {
-          "iso_3166_1": "DMA"
         }
       }
     },
@@ -1954,9 +1780,6 @@
           "label": {
             "en": "Dominican Republic"
           }
-        },
-        "codes": {
-          "iso_3166_1": "DOM"
         }
       }
     },
@@ -1971,9 +1794,6 @@
           "label": {
             "en": "Ecuador"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ECU"
         }
       }
     },
@@ -1988,9 +1808,6 @@
           "label": {
             "en": "Egypt"
           }
-        },
-        "codes": {
-          "iso_3166_1": "EGY"
         }
       }
     },
@@ -2005,9 +1822,6 @@
           "label": {
             "en": "El Salvador"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SLV"
         }
       }
     },
@@ -2022,9 +1836,6 @@
           "label": {
             "en": "Equatorial Guinea"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GNQ"
         }
       }
     },
@@ -2039,9 +1850,6 @@
           "label": {
             "en": "Eritrea"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ERI"
         }
       }
     },
@@ -2056,9 +1864,6 @@
           "label": {
             "en": "Estonia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "EST"
         }
       }
     },
@@ -2073,9 +1878,6 @@
           "label": {
             "en": "Ethiopia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ETH"
         }
       }
     },
@@ -2090,9 +1892,6 @@
           "label": {
             "en": "Falkland Islands (Malvinas)"
           }
-        },
-        "codes": {
-          "iso_3166_1": "FLK"
         }
       }
     },
@@ -2107,9 +1906,6 @@
           "label": {
             "en": "Faroe Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "FRO"
         }
       }
     },
@@ -2124,9 +1920,6 @@
           "label": {
             "en": "Fiji"
           }
-        },
-        "codes": {
-          "iso_3166_1": "FJI"
         }
       }
     },
@@ -2141,9 +1934,6 @@
           "label": {
             "en": "Finland"
           }
-        },
-        "codes": {
-          "iso_3166_1": "FIN"
         }
       }
     },
@@ -2158,9 +1948,6 @@
           "label": {
             "en": "France"
           }
-        },
-        "codes": {
-          "iso_3166_1": "FRA"
         }
       }
     },
@@ -2175,9 +1962,6 @@
           "label": {
             "en": "French Guiana"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GUF"
         }
       }
     },
@@ -2192,9 +1976,6 @@
           "label": {
             "en": "French Polynesia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PYF"
         }
       }
     },
@@ -2209,9 +1990,6 @@
           "label": {
             "en": "French Southern Territories"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ATF"
         }
       }
     },
@@ -2226,9 +2004,6 @@
           "label": {
             "en": "Gabon"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GAB"
         }
       }
     },
@@ -2243,9 +2018,6 @@
           "label": {
             "en": "Gambia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GMB"
         }
       }
     },
@@ -2260,9 +2032,6 @@
           "label": {
             "en": "Georgia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GEO"
         }
       }
     },
@@ -2277,9 +2046,6 @@
           "label": {
             "en": "Germany"
           }
-        },
-        "codes": {
-          "iso_3166_1": "DEU"
         }
       }
     },
@@ -2294,9 +2060,6 @@
           "label": {
             "en": "Ghana"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GHA"
         }
       }
     },
@@ -2311,9 +2074,6 @@
           "label": {
             "en": "Gibraltar"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GIB"
         }
       }
     },
@@ -2328,9 +2088,6 @@
           "label": {
             "en": "Greece"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GRC"
         }
       }
     },
@@ -2345,9 +2102,6 @@
           "label": {
             "en": "Greenland"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GRL"
         }
       }
     },
@@ -2362,9 +2116,6 @@
           "label": {
             "en": "Grenada"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GRD"
         }
       }
     },
@@ -2379,9 +2130,6 @@
           "label": {
             "en": "Guadeloupe"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GLP"
         }
       }
     },
@@ -2396,9 +2144,6 @@
           "label": {
             "en": "Guam"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GUM"
         }
       }
     },
@@ -2413,9 +2158,6 @@
           "label": {
             "en": "Guatemala"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GTM"
         }
       }
     },
@@ -2430,9 +2172,6 @@
           "label": {
             "en": "Guernsey"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GGY"
         }
       }
     },
@@ -2447,9 +2186,6 @@
           "label": {
             "en": "Guinea"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GIN"
         }
       }
     },
@@ -2464,9 +2200,6 @@
           "label": {
             "en": "Guinea-Bissau"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GNB"
         }
       }
     },
@@ -2481,9 +2214,6 @@
           "label": {
             "en": "Guyana"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GUY"
         }
       }
     },
@@ -2498,9 +2228,6 @@
           "label": {
             "en": "Haiti"
           }
-        },
-        "codes": {
-          "iso_3166_1": "HTI"
         }
       }
     },
@@ -2515,9 +2242,6 @@
           "label": {
             "en": "Heard Island and McDonald Mcdonald Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "HMD"
         }
       }
     },
@@ -2532,9 +2256,6 @@
           "label": {
             "en": "Holy See (Vatican City State)"
           }
-        },
-        "codes": {
-          "iso_3166_1": "VAT"
         }
       }
     },
@@ -2549,9 +2270,6 @@
           "label": {
             "en": "Honduras"
           }
-        },
-        "codes": {
-          "iso_3166_1": "HND"
         }
       }
     },
@@ -2566,9 +2284,6 @@
           "label": {
             "en": "Hong Kong"
           }
-        },
-        "codes": {
-          "iso_3166_1": "HKG"
         }
       }
     },
@@ -2583,9 +2298,6 @@
           "label": {
             "en": "Hungary"
           }
-        },
-        "codes": {
-          "iso_3166_1": "HUN"
         }
       }
     },
@@ -2600,9 +2312,6 @@
           "label": {
             "en": "Iceland"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ISL"
         }
       }
     },
@@ -2617,9 +2326,6 @@
           "label": {
             "en": "India"
           }
-        },
-        "codes": {
-          "iso_3166_1": "IND"
         }
       }
     },
@@ -2634,9 +2340,6 @@
           "label": {
             "en": "Indonesia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "IDN"
         }
       }
     },
@@ -2651,9 +2354,6 @@
           "label": {
             "en": "Iran, Islamic Republic of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "IRN"
         }
       }
     },
@@ -2668,9 +2368,6 @@
           "label": {
             "en": "Iraq"
           }
-        },
-        "codes": {
-          "iso_3166_1": "IRQ"
         }
       }
     },
@@ -2685,9 +2382,6 @@
           "label": {
             "en": "Ireland"
           }
-        },
-        "codes": {
-          "iso_3166_1": "IRL"
         }
       }
     },
@@ -2702,9 +2396,6 @@
           "label": {
             "en": "Isle of Man"
           }
-        },
-        "codes": {
-          "iso_3166_1": "IMN"
         }
       }
     },
@@ -2719,9 +2410,6 @@
           "label": {
             "en": "Israel"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ISR"
         }
       }
     },
@@ -2736,9 +2424,6 @@
           "label": {
             "en": "Italy"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ITA"
         }
       }
     },
@@ -2753,9 +2438,6 @@
           "label": {
             "en": "Jamaica"
           }
-        },
-        "codes": {
-          "iso_3166_1": "JAM"
         }
       }
     },
@@ -2770,9 +2452,6 @@
           "label": {
             "en": "Japan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "JPN"
         }
       }
     },
@@ -2787,9 +2466,6 @@
           "label": {
             "en": "Jersey"
           }
-        },
-        "codes": {
-          "iso_3166_1": "JEY"
         }
       }
     },
@@ -2804,9 +2480,6 @@
           "label": {
             "en": "Jordan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "JOR"
         }
       }
     },
@@ -2821,9 +2494,6 @@
           "label": {
             "en": "Kazakhstan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KAZ"
         }
       }
     },
@@ -2838,9 +2508,6 @@
           "label": {
             "en": "Kenya"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KEN"
         }
       }
     },
@@ -2855,9 +2522,6 @@
           "label": {
             "en": "Kiribati"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KIR"
         }
       }
     },
@@ -2872,9 +2536,6 @@
           "label": {
             "en": "Korea, Democratic People's Republic of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PRK"
         }
       }
     },
@@ -2889,9 +2550,6 @@
           "label": {
             "en": "Korea, Republic of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KOR"
         }
       }
     },
@@ -2906,9 +2564,6 @@
           "label": {
             "en": "Kuwait"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KWT"
         }
       }
     },
@@ -2923,9 +2578,6 @@
           "label": {
             "en": "Kyrgyzstan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KGZ"
         }
       }
     },
@@ -2940,9 +2592,6 @@
           "label": {
             "en": "Lao People's Democratic Republic"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LAO"
         }
       }
     },
@@ -2957,9 +2606,6 @@
           "label": {
             "en": "Latvia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LVA"
         }
       }
     },
@@ -2974,9 +2620,6 @@
           "label": {
             "en": "Lebanon"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LBN"
         }
       }
     },
@@ -2991,9 +2634,6 @@
           "label": {
             "en": "Lesotho"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LSO"
         }
       }
     },
@@ -3008,9 +2648,6 @@
           "label": {
             "en": "Liberia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LBR"
         }
       }
     },
@@ -3025,9 +2662,6 @@
           "label": {
             "en": "Libya"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LBY"
         }
       }
     },
@@ -3042,9 +2676,6 @@
           "label": {
             "en": "Liechtenstein"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LIE"
         }
       }
     },
@@ -3059,9 +2690,6 @@
           "label": {
             "en": "Lithuania"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LTU"
         }
       }
     },
@@ -3076,9 +2704,6 @@
           "label": {
             "en": "Luxembourg"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LUX"
         }
       }
     },
@@ -3093,9 +2718,6 @@
           "label": {
             "en": "Macao"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MAC"
         }
       }
     },
@@ -3110,9 +2732,6 @@
           "label": {
             "en": "Macedonia, the Former Yugoslav Republic of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MKD"
         }
       }
     },
@@ -3127,9 +2746,6 @@
           "label": {
             "en": "Madagascar"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MDG"
         }
       }
     },
@@ -3144,9 +2760,6 @@
           "label": {
             "en": "Malawi"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MWI"
         }
       }
     },
@@ -3161,9 +2774,6 @@
           "label": {
             "en": "Malaysia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MYS"
         }
       }
     },
@@ -3178,9 +2788,6 @@
           "label": {
             "en": "Maldives"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MDV"
         }
       }
     },
@@ -3195,9 +2802,6 @@
           "label": {
             "en": "Mali"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MLI"
         }
       }
     },
@@ -3212,9 +2816,6 @@
           "label": {
             "en": "Malta"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MLT"
         }
       }
     },
@@ -3229,9 +2830,6 @@
           "label": {
             "en": "Marshall Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MHL"
         }
       }
     },
@@ -3246,9 +2844,6 @@
           "label": {
             "en": "Martinique"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MTQ"
         }
       }
     },
@@ -3263,9 +2858,6 @@
           "label": {
             "en": "Mauritania"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MRT"
         }
       }
     },
@@ -3280,9 +2872,6 @@
           "label": {
             "en": "Mauritius"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MUS"
         }
       }
     },
@@ -3297,9 +2886,6 @@
           "label": {
             "en": "Mayotte"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MYT"
         }
       }
     },
@@ -3314,9 +2900,6 @@
           "label": {
             "en": "Mexico"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MEX"
         }
       }
     },
@@ -3331,9 +2914,6 @@
           "label": {
             "en": "Micronesia, Federated States of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "FSM"
         }
       }
     },
@@ -3348,9 +2928,6 @@
           "label": {
             "en": "Moldova, Republic of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MDA"
         }
       }
     },
@@ -3365,9 +2942,6 @@
           "label": {
             "en": "Monaco"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MCO"
         }
       }
     },
@@ -3382,9 +2956,6 @@
           "label": {
             "en": "Mongolia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MNG"
         }
       }
     },
@@ -3399,9 +2970,6 @@
           "label": {
             "en": "Montenegro"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MNE"
         }
       }
     },
@@ -3416,9 +2984,6 @@
           "label": {
             "en": "Montserrat"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MSR"
         }
       }
     },
@@ -3433,9 +2998,6 @@
           "label": {
             "en": "Morocco"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MAR"
         }
       }
     },
@@ -3450,9 +3012,6 @@
           "label": {
             "en": "Mozambique"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MOZ"
         }
       }
     },
@@ -3467,9 +3026,6 @@
           "label": {
             "en": "Myanmar"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MMR"
         }
       }
     },
@@ -3484,9 +3040,6 @@
           "label": {
             "en": "Namibia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NAM"
         }
       }
     },
@@ -3501,9 +3054,6 @@
           "label": {
             "en": "Nauru"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NRU"
         }
       }
     },
@@ -3518,9 +3068,6 @@
           "label": {
             "en": "Nepal"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NPL"
         }
       }
     },
@@ -3535,9 +3082,6 @@
           "label": {
             "en": "Netherlands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NLD"
         }
       }
     },
@@ -3552,9 +3096,6 @@
           "label": {
             "en": "New Caledonia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NCL"
         }
       }
     },
@@ -3569,9 +3110,6 @@
           "label": {
             "en": "New Zealand"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NZL"
         }
       }
     },
@@ -3586,9 +3124,6 @@
           "label": {
             "en": "Nicaragua"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NIC"
         }
       }
     },
@@ -3603,9 +3138,6 @@
           "label": {
             "en": "Niger"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NER"
         }
       }
     },
@@ -3620,9 +3152,6 @@
           "label": {
             "en": "Nigeria"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NGA"
         }
       }
     },
@@ -3637,9 +3166,6 @@
           "label": {
             "en": "Niue"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NIU"
         }
       }
     },
@@ -3654,9 +3180,6 @@
           "label": {
             "en": "Norfolk Island"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NFK"
         }
       }
     },
@@ -3671,9 +3194,6 @@
           "label": {
             "en": "Northern Mariana Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MNP"
         }
       }
     },
@@ -3688,9 +3208,6 @@
           "label": {
             "en": "Norway"
           }
-        },
-        "codes": {
-          "iso_3166_1": "NOR"
         }
       }
     },
@@ -3705,9 +3222,6 @@
           "label": {
             "en": "Oman"
           }
-        },
-        "codes": {
-          "iso_3166_1": "OMN"
         }
       }
     },
@@ -3722,9 +3236,6 @@
           "label": {
             "en": "Pakistan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PAK"
         }
       }
     },
@@ -3739,9 +3250,6 @@
           "label": {
             "en": "Palau"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PLW"
         }
       }
     },
@@ -3756,9 +3264,6 @@
           "label": {
             "en": "Palestine, State of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PSE"
         }
       }
     },
@@ -3773,9 +3278,6 @@
           "label": {
             "en": "Panama"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PAN"
         }
       }
     },
@@ -3790,9 +3292,6 @@
           "label": {
             "en": "Papua New Guinea"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PNG"
         }
       }
     },
@@ -3807,9 +3306,6 @@
           "label": {
             "en": "Paraguay"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PRY"
         }
       }
     },
@@ -3824,9 +3320,6 @@
           "label": {
             "en": "Peru"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PER"
         }
       }
     },
@@ -3841,9 +3334,6 @@
           "label": {
             "en": "Philippines"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PHL"
         }
       }
     },
@@ -3858,9 +3348,6 @@
           "label": {
             "en": "Pitcairn"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PCN"
         }
       }
     },
@@ -3875,9 +3362,6 @@
           "label": {
             "en": "Poland"
           }
-        },
-        "codes": {
-          "iso_3166_1": "POL"
         }
       }
     },
@@ -3892,9 +3376,6 @@
           "label": {
             "en": "Portugal"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PRT"
         }
       }
     },
@@ -3909,9 +3390,6 @@
           "label": {
             "en": "Puerto"
           }
-        },
-        "codes": {
-          "iso_3166_1": "PRI"
         }
       }
     },
@@ -3926,9 +3404,6 @@
           "label": {
             "en": "Qatar"
           }
-        },
-        "codes": {
-          "iso_3166_1": "QAT"
         }
       }
     },
@@ -3943,9 +3418,6 @@
           "label": {
             "en": "Romania"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ROU"
         }
       }
     },
@@ -3960,9 +3432,6 @@
           "label": {
             "en": "Russian Federation"
           }
-        },
-        "codes": {
-          "iso_3166_1": "RUS"
         }
       }
     },
@@ -3977,9 +3446,6 @@
           "label": {
             "en": "Rwanda"
           }
-        },
-        "codes": {
-          "iso_3166_1": "RWA"
         }
       }
     },
@@ -3994,9 +3460,6 @@
           "label": {
             "en": "Réunion"
           }
-        },
-        "codes": {
-          "iso_3166_1": "REU"
         }
       }
     },
@@ -4011,9 +3474,6 @@
           "label": {
             "en": "Saint Barthélemy"
           }
-        },
-        "codes": {
-          "iso_3166_1": "BLM"
         }
       }
     },
@@ -4028,9 +3488,6 @@
           "label": {
             "en": "Saint Helena, Ascension and Tristan da Cunha"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SHN"
         }
       }
     },
@@ -4045,9 +3502,6 @@
           "label": {
             "en": "Saint Kitts and Nevis"
           }
-        },
-        "codes": {
-          "iso_3166_1": "KNA"
         }
       }
     },
@@ -4062,9 +3516,6 @@
           "label": {
             "en": "Saint Lucia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LCA"
         }
       }
     },
@@ -4079,9 +3530,6 @@
           "label": {
             "en": "Saint Martin (French part)"
           }
-        },
-        "codes": {
-          "iso_3166_1": "MAF"
         }
       }
     },
@@ -4096,9 +3544,6 @@
           "label": {
             "en": "Saint Pierre and Miquelon"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SPM"
         }
       }
     },
@@ -4113,9 +3558,6 @@
           "label": {
             "en": "Saint Vincent and the Grenadines"
           }
-        },
-        "codes": {
-          "iso_3166_1": "VCT"
         }
       }
     },
@@ -4130,9 +3572,6 @@
           "label": {
             "en": "Samoa"
           }
-        },
-        "codes": {
-          "iso_3166_1": "WSM"
         }
       }
     },
@@ -4147,9 +3586,6 @@
           "label": {
             "en": "San Marino"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SMR"
         }
       }
     },
@@ -4164,9 +3600,6 @@
           "label": {
             "en": "Sao Tome and Principe"
           }
-        },
-        "codes": {
-          "iso_3166_1": "STP"
         }
       }
     },
@@ -4181,9 +3614,6 @@
           "label": {
             "en": "Saudi Arabia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SAU"
         }
       }
     },
@@ -4198,9 +3628,6 @@
           "label": {
             "en": "Senegal"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SEN"
         }
       }
     },
@@ -4215,9 +3642,6 @@
           "label": {
             "en": "Serbia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SRB"
         }
       }
     },
@@ -4232,9 +3656,6 @@
           "label": {
             "en": "Seychelles"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SYC"
         }
       }
     },
@@ -4249,9 +3670,6 @@
           "label": {
             "en": "Sierra Leone"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SLE"
         }
       }
     },
@@ -4266,9 +3684,6 @@
           "label": {
             "en": "Singapore"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SGP"
         }
       }
     },
@@ -4283,9 +3698,6 @@
           "label": {
             "en": "Sint Maarten (Dutch part)"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SXM"
         }
       }
     },
@@ -4300,9 +3712,6 @@
           "label": {
             "en": "Slovakia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SVK"
         }
       }
     },
@@ -4317,9 +3726,6 @@
           "label": {
             "en": "Slovenia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SVN"
         }
       }
     },
@@ -4334,9 +3740,6 @@
           "label": {
             "en": "Solomon Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SLB"
         }
       }
     },
@@ -4351,9 +3754,6 @@
           "label": {
             "en": "Somalia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SOM"
         }
       }
     },
@@ -4368,9 +3768,6 @@
           "label": {
             "en": "South Africa"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ZAF"
         }
       }
     },
@@ -4385,9 +3782,6 @@
           "label": {
             "en": "South Georgia and the South Sandwich Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SGS"
         }
       }
     },
@@ -4402,9 +3796,6 @@
           "label": {
             "en": "South Sudan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SSD"
         }
       }
     },
@@ -4419,9 +3810,6 @@
           "label": {
             "en": "Spain"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ESP"
         }
       }
     },
@@ -4436,9 +3824,6 @@
           "label": {
             "en": "Sri Lanka"
           }
-        },
-        "codes": {
-          "iso_3166_1": "LKA"
         }
       }
     },
@@ -4453,9 +3838,6 @@
           "label": {
             "en": "Sudan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SDN"
         }
       }
     },
@@ -4470,9 +3852,6 @@
           "label": {
             "en": "Suriname"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SUR"
         }
       }
     },
@@ -4487,9 +3866,6 @@
           "label": {
             "en": "Svalbard and Jan Mayen"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SJM"
         }
       }
     },
@@ -4504,9 +3880,6 @@
           "label": {
             "en": "Swaziland"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SWZ"
         }
       }
     },
@@ -4521,9 +3894,6 @@
           "label": {
             "en": "Sweden"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SWE"
         }
       }
     },
@@ -4538,9 +3908,6 @@
           "label": {
             "en": "Switzerland"
           }
-        },
-        "codes": {
-          "iso_3166_1": "CHE"
         }
       }
     },
@@ -4555,9 +3922,6 @@
           "label": {
             "en": "Syrian Arab Republic"
           }
-        },
-        "codes": {
-          "iso_3166_1": "SYR"
         }
       }
     },
@@ -4572,9 +3936,6 @@
           "label": {
             "en": "Taiwan, Province of China"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TWN"
         }
       }
     },
@@ -4589,9 +3950,6 @@
           "label": {
             "en": "Tajikistan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TJK"
         }
       }
     },
@@ -4606,9 +3964,6 @@
           "label": {
             "en": "Tanzania, United Republic of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TZA"
         }
       }
     },
@@ -4623,9 +3978,6 @@
           "label": {
             "en": "Thailand"
           }
-        },
-        "codes": {
-          "iso_3166_1": "THA"
         }
       }
     },
@@ -4640,9 +3992,6 @@
           "label": {
             "en": "Timor-Leste"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TLS"
         }
       }
     },
@@ -4657,9 +4006,6 @@
           "label": {
             "en": "Togo"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TGO"
         }
       }
     },
@@ -4674,9 +4020,6 @@
           "label": {
             "en": "Tokelau"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TKL"
         }
       }
     },
@@ -4691,9 +4034,6 @@
           "label": {
             "en": "Tonga"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TON"
         }
       }
     },
@@ -4708,9 +4048,6 @@
           "label": {
             "en": "Trinidad and Tobago"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TTO"
         }
       }
     },
@@ -4725,9 +4062,6 @@
           "label": {
             "en": "Tunisia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TUN"
         }
       }
     },
@@ -4742,9 +4076,6 @@
           "label": {
             "en": "Turkey"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TUR"
         }
       }
     },
@@ -4759,9 +4090,6 @@
           "label": {
             "en": "Turkmenistan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TKM"
         }
       }
     },
@@ -4776,9 +4104,6 @@
           "label": {
             "en": "Turks and Caicos Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TCA"
         }
       }
     },
@@ -4793,9 +4118,6 @@
           "label": {
             "en": "Tuvalu"
           }
-        },
-        "codes": {
-          "iso_3166_1": "TUV"
         }
       }
     },
@@ -4810,9 +4132,6 @@
           "label": {
             "en": "Uganda"
           }
-        },
-        "codes": {
-          "iso_3166_1": "UGA"
         }
       }
     },
@@ -4827,9 +4146,6 @@
           "label": {
             "en": "Ukraine"
           }
-        },
-        "codes": {
-          "iso_3166_1": "UKR"
         }
       }
     },
@@ -4844,9 +4160,6 @@
           "label": {
             "en": "United Arab Emirates"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ARE"
         }
       }
     },
@@ -4861,9 +4174,6 @@
           "label": {
             "en": "United Kingdom"
           }
-        },
-        "codes": {
-          "iso_3166_1": "GBR"
         }
       }
     },
@@ -4878,9 +4188,6 @@
           "label": {
             "en": "United States"
           }
-        },
-        "codes": {
-          "iso_3166_1": "USA"
         }
       }
     },
@@ -4895,9 +4202,6 @@
           "label": {
             "en": "United States Minor Outlying Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "UMI"
         }
       }
     },
@@ -4912,9 +4216,6 @@
           "label": {
             "en": "Uruguay"
           }
-        },
-        "codes": {
-          "iso_3166_1": "URY"
         }
       }
     },
@@ -4929,9 +4230,6 @@
           "label": {
             "en": "Uzbekistan"
           }
-        },
-        "codes": {
-          "iso_3166_1": "UZB"
         }
       }
     },
@@ -4946,9 +4244,6 @@
           "label": {
             "en": "Vanuatu"
           }
-        },
-        "codes": {
-          "iso_3166_1": "VUT"
         }
       }
     },
@@ -4963,9 +4258,6 @@
           "label": {
             "en": "Venezuela, Bolivarian Republic of"
           }
-        },
-        "codes": {
-          "iso_3166_1": "VEN"
         }
       }
     },
@@ -4980,9 +4272,6 @@
           "label": {
             "en": "Viet Nam"
           }
-        },
-        "codes": {
-          "iso_3166_1": "VNM"
         }
       }
     },
@@ -4997,9 +4286,6 @@
           "label": {
             "en": "Virgin Islands, British"
           }
-        },
-        "codes": {
-          "iso_3166_1": "VGB"
         }
       }
     },
@@ -5014,9 +4300,6 @@
           "label": {
             "en": "Virgin Islands, U.S."
           }
-        },
-        "codes": {
-          "iso_3166_1": "VIR"
         }
       }
     },
@@ -5031,9 +4314,6 @@
           "label": {
             "en": "Wallis and Futuna"
           }
-        },
-        "codes": {
-          "iso_3166_1": "WLF"
         }
       }
     },
@@ -5048,9 +4328,6 @@
           "label": {
             "en": "Western Sahara"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ESH"
         }
       }
     },
@@ -5065,9 +4342,6 @@
           "label": {
             "en": "Yemen"
           }
-        },
-        "codes": {
-          "iso_3166_1": "YEM"
         }
       }
     },
@@ -5082,9 +4356,6 @@
           "label": {
             "en": "Zambia"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ZMB"
         }
       }
     },
@@ -5099,9 +4370,6 @@
           "label": {
             "en": "Zimbabwe"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ZWE"
         }
       }
     },
@@ -5116,9 +4384,6 @@
           "label": {
             "en": "Åland Islands"
           }
-        },
-        "codes": {
-          "iso_3166_1": "ALA"
         }
       }
     },
@@ -5510,7 +4775,7 @@
       "data": {
         "approaches": {
           "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented approach.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
           }
         },
         "technologies": {
@@ -5868,7 +5133,10 @@
       "keyword": "name_local",
       "translation": 5003,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
       }
     },
     "model": "configuration.key",
@@ -5989,7 +5257,10 @@
       "keyword": "accept_conditions",
       "translation": 5013,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "form_options": {
+          "helptext_position": "field"
+        }
       }
     },
     "model": "configuration.key",
@@ -6184,7 +5455,10 @@
       "keyword": "strengths_landuser",
       "translation": 5030,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6195,7 +5469,10 @@
       "keyword": "strengths_compiler",
       "translation": 5031,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6206,7 +5483,10 @@
       "keyword": "weaknesses_landuser",
       "translation": 5032,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6217,7 +5497,10 @@
       "keyword": "weaknesses_compiler",
       "translation": 5033,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6228,7 +5511,10 @@
       "keyword": "weaknesses_overcome",
       "translation": 5034,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6369,6 +5655,34 @@
     },
     "model": "configuration.key",
     "pk": 46
+  },
+  {
+    "fields": {
+      "keyword": "link_id",
+      "translation": 5045,
+      "configuration": {
+        "type": "link_id",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "keyword": "empty",
+      "translation": 5045,
+      "configuration": {
+        "type": "char",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 48
   },
   {
     "fields": {
@@ -8627,7 +7941,18 @@
     "fields": {
       "keyword": "qg_strengths_landusers",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 8
@@ -8636,7 +7961,18 @@
     "fields": {
       "keyword": "qg_strengths_compiler",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 9
@@ -8645,7 +7981,20 @@
     "fields": {
       "keyword": "qg_weaknesses_landusers",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 10
@@ -8654,7 +8003,20 @@
     "fields": {
       "keyword": "qg_weaknesses_compiler",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 4,
+          "max_num": 4,
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "column_widths": ["60%", "40%"],
+          "with_keys": true
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 11

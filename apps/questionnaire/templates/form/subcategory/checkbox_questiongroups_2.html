@@ -2,6 +2,8 @@
   This subcategory assumes that the first questiongroup contains a checkbox
   question where each conditionally opens a new questiongroup.
   The questiongroups not appearing part of the conditions are rendered normally.
+
+  This template assumes that there is one condition less than checkboxes in the first question.
 {% endcomment %}
 
 {% load floppyforms %}
@@ -47,7 +49,7 @@
             </div>
           {% endfor %}
         </div>
-      {% elif forloop.counter0 > config.questiongroup_conditions|length %}
+      {% elif forloop.counter0 > config.questiongroup_conditions|length|add:"1" %}
         {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}
