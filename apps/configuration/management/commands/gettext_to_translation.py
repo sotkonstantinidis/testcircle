@@ -2,9 +2,11 @@
 import collections
 import contextlib
 import re
+from io import StringIO
 from os.path import join
 
 from django.conf import settings
+from django.core.management import call_command
 
 from configuration.models import Translation
 from .base import DevelopNoArgsCommand
@@ -25,6 +27,9 @@ class Command(DevelopNoArgsCommand):
         Read translated files and write contents into the Translation model.
         """
         super(Command, self).handle_noargs(**options)
+
+        self.backup_table_contents()
+
         languages = dict(settings.LANGUAGES).keys()
 
         for language in languages:
@@ -122,3 +127,12 @@ class Command(DevelopNoArgsCommand):
         except Translation.DoesNotExist as e:
             # maybe: add logging here.
             raise e
+
+    def backup_table_contents(self):
+        buffer = StringIO()
+        call_command('dumpdata', 'configuration.translation', stdout=buffer)
+        buffer.seek(0)
+        with open(join('logs', 'translation.json'), 'w') as f:
+            f.write(buffer.read())
+
+
