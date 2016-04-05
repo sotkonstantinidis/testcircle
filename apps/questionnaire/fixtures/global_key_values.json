@@ -260,11 +260,17 @@
         "approaches": {
           "label": {
             "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT you will not be able to enter and edit data in the WOCAT database."
           }
         },
         "technologies": {
           "label": {
             "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT you will not be able to enter and edit data in the WOCAT database."
           }
         }
       }
@@ -5989,7 +5995,10 @@
       "keyword": "accept_conditions",
       "translation": 5013,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "form_options": {
+          "helptext_position": "field"
+        }
       }
     },
     "model": "configuration.key",

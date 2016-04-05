@@ -619,6 +619,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             if self.form_options.get('extra') == 'inline':
                 widget.template_name = 'form/field/radio_inline.html'
+            if self.keyword == 'accept_conditions':
+                widget.template_name = 'form/field/accept_conditions.html'
             field = forms.IntegerField(
                 label=self.label, widget=widget,
                 required=self.required)
