@@ -525,7 +525,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "At what level"
+            "en": "At what level have institutions been strengthened or established"
           }
         }
       }
@@ -542,7 +542,7 @@
             "en": "Other (specify)"
           },
           "label_view": {
-            "en": "At what level"
+            "en": "At what level have institutions been strengthened or established"
           }
         }
       }
@@ -570,7 +570,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "If yes, specify support"
+            "en": "Specify support"
           }
         }
       }
@@ -587,7 +587,7 @@
             "en": "Other (specify)"
           },
           "label_view": {
-            "en": "If yes, specify support:"
+            "en": "Specify support:"
           }
         }
       }
@@ -1439,7 +1439,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "by land users alone (self-initiative/ bottom-up)?"
+            "en": "by land users alone (self-initiative)?"
           }
         }
       }
@@ -1495,7 +1495,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "by SLM specialists alone (top-down)?"
+            "en": "by SLM specialists alone?"
           }
         }
       }
@@ -2961,7 +2961,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Monitoring, evaluation and documentation of SLM technologies and approaches"
+            "en": "Monitoring and evaluation"
           },
           "numbering": "4.4"
         }
@@ -3623,7 +3623,7 @@
       "keyword": "app_decisions_based",
       "translation": 7020,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox"
       },
       "values": [
         3021,
@@ -3661,7 +3661,7 @@
       "keyword": "app_training_who",
       "translation": 7022,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox"
       },
       "values": [
         3024,
@@ -3760,7 +3760,7 @@
       "keyword": "app_advisory_service",
       "translation": 7032,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox"
       },
       "values": [
         3031,
@@ -3814,7 +3814,7 @@
       "keyword": "app_institutions_level",
       "translation": 7036,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox"
       },
       "values": [
         3037,
@@ -3852,7 +3852,7 @@
       "keyword": "app_institutions_support",
       "translation": 7039,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox"
       },
       "values": [
         3040,
@@ -8509,20 +8509,16 @@
                             "keyword": "app_decisions_explain"
                           },
                           {
-                            "keyword": "app_decisions_based",
-                            "form_options": {
-                              "has_other": "app_decisions_based"
-                            }
+                            "keyword": "app_decisions_based"
                           },
                           {
                             "keyword": "app_decisions_based_other",
                             "form_options": {
-                              "template": "radio_other",
-                              "label_position": "placeholder",
-                              "other_radio": "app_decisions_based"
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "radio_other"
+                              "template": "checkbox_other"
                             }
                           }
                         ]
@@ -8557,20 +8553,16 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_training_who",
-                            "form_options": {
-                              "has_other": "app_training_who"
-                            }
+                            "keyword": "app_training_who"
                           },
                           {
                             "keyword": "app_training_who_other",
                             "form_options": {
-                              "template": "radio_other",
-                              "label_position": "placeholder",
-                              "other_radio": "app_training_who"
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "radio_other"
+                              "template": "checkbox_other"
                             }
                           },
                           {
@@ -8590,7 +8582,7 @@
                             "form_options": {
                               "template": "radio_other",
                               "label_position": "placeholder",
-                              "other_radio": "app_training_who"
+                              "other_radio": "app_training_form"
                             },
                             "view_options": {
                               "template": "radio_other"
@@ -8629,20 +8621,16 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_advisory_service",
-                            "form_options": {
-                              "has_other": "app_advisory_service"
-                            }
+                            "keyword": "app_advisory_service"
                           },
                           {
                             "keyword": "app_advisory_service_other",
                             "form_options": {
-                              "template": "radio_other",
-                              "label_position": "placeholder",
-                              "other_radio": "app_advisory_service"
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "radio_other"
+                              "template": "checkbox_other"
                             }
                           },
                           {
@@ -8675,40 +8663,32 @@
                         },
                         "questions": [
                           {
-                            "keyword": "app_institutions_level",
-                            "form_options": {
-                              "has_other": "app_institutions_level"
-                            }
+                            "keyword": "app_institutions_level"
                           },
                           {
                             "keyword": "app_institutions_level_other",
                             "form_options": {
-                              "template": "radio_other",
-                              "label_position": "placeholder",
-                              "other_radio": "app_institutions_level"
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "radio_other"
+                              "template": "checkbox_other"
                             }
                           },
                           {
                             "keyword": "app_institutions_describe"
                           },
                           {
-                            "keyword": "app_institutions_support",
-                            "form_options": {
-                              "has_other": "app_institutions_support"
-                            }
+                            "keyword": "app_institutions_support"
                           },
                           {
                             "keyword": "app_institutions_support_other",
                             "form_options": {
-                              "template": "radio_other",
-                              "label_position": "placeholder",
-                              "other_radio": "app_institutions_support"
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "radio_other"
+                              "template": "checkbox_other"
                             }
                           },
                           {
@@ -9182,9 +9162,6 @@
                     "questiongroups": [
                       {
                         "keyword": "app_qg_39",
-                        "view_options": {
-                          "row_class": "foo"
-                        },
                         "questions": [
                           {
                             "keyword": "app_impacts_empower_local",
@@ -9228,7 +9205,7 @@
                               "template": "inline_6",
                               "questiongroup_conditions": [
                                 "!=''|app_qg_42"
-                              ]
+                              ]s
                             },
                             "view_options": {
                               "template": "measure_bar",

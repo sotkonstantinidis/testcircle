@@ -58,12 +58,18 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Local name"
+            "en": "Locally used name"
+          },
+          "helptext": {
+            "en": "In latin letters"
           }
         },
         "technologies": {
           "label": {
-            "en": "Local name"
+            "en": "Locally used name"
+          },
+          "helptext": {
+            "en": "In latin letters"
           }
         },
         "unccd": {
@@ -5874,7 +5880,10 @@
       "keyword": "name_local",
       "translation": 5003,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
       }
     },
     "model": "configuration.key",
