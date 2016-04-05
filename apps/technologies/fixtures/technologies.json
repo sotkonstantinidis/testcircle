@@ -490,7 +490,10 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "If using national currency, indicate name"
+            "en": "Indicate currency used for cost calculations"
+          },
+          "helptext": {
+            "en": "You can use USD or any other national currency. Indicate all costs in the same currency."
           }
         }
       }
@@ -11552,7 +11555,7 @@
             "en": "Implementation, inputs, and costs"
           },
           "helptext": {
-            "en": "<p>Notes to implementation activities, inputs, and costs:</p><ul><li>It may be very difficult to determine the costs of a technology. Nevertheless, we ask you to give your best estimate!</li><li>A distinction is made between initial <strong>establishment</strong> (construction, initiation) and maintenance/ <strong>recurrent annual activities</strong>.</li><li>Indicate all SLM -related activities, inputs, and costs (to land users, projects, etc.) of the Technology that are additional to ordinary field operations. If the ordinary field operations have changed/ are part of the Technology (e.g. conservation agriculture), describe all activities.</li><li>Preferably, activities, inputs, and costs should be indicated per area. If you choose a local area unit, indicate conversion factor (e.g. between local unit and hectare). Include not only the area which is directly covered by SLM measures (e.g. the area with stone walls, tree lines, ditches) but also the area that is affected/ protected by the SLM measures (e.g. the area between stone walls).</li><li>If costs are not calculated per area, inputs and costs can alternatively be calculated per unit (e.g. dam) or per length (e.g. meter grass strip, meter stone line)</li><li>Exclude costs for awareness creation, planning, training, research, and financial/ material support (these will be addressed in the Approach questionnaire)</li><li>If the objective is to compare two situations i.e. after/ with SLM measures (e.g. conservation agriculture) and before/ without SLM measures (e.g. conventional agriculture) fill in two questionnaires.</li></ul>"
+            "en": "<p>Notes to implementation activities, inputs, and costs:</p><ul><li>It may be very difficult to determine the costs of a Technology. Nevertheless, we ask you to give your best estimate!</li><li>A distinction is made between initial <strong>establishment</strong> (construction, initiation) and maintenance/ <strong>recurrent annual activities</strong>.</li><li>Indicate all SLM -related activities, inputs, and costs (to land users, projects, etc.) of the Technology that are additional to ordinary field operations. If the ordinary field operations have changed/ are part of the Technology (e.g. conservation agriculture), describe all activities.</li><li>Preferably, activities, inputs, and costs should be indicated per area. If you choose a local area unit, indicate conversion factor (e.g. between local unit and hectare). Include not only the area which is directly covered by SLM measures (e.g. the area with stone walls, tree lines, ditches) but also the area that is affected/ protected by the SLM measures (e.g. the area between stone walls).</li><li>If costs are not calculated per area, inputs and costs can alternatively be calculated per unit (e.g. dam) or per length (e.g. meter grass strip, meter stone line)</li><li>Exclude costs for awareness creation, planning, training, research, and financial/ material support (these will be addressed in the Approach questionnaire)</li><li>If the objective is to compare two situations i.e. after/ with SLM measures (e.g. conservation agriculture) and before/ without SLM measures (e.g. conventional agriculture) fill in two questionnaires.</li></ul>"
           }
         }
       }
