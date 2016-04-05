@@ -99,7 +99,6 @@ class BaseConfigurationObject(object):
         self.helptext = ''
         self.label = ''
         self.label_view = ''
-        self.numbering = ''
         translation = self.configuration_object.translation
         if translation:
             self.helptext = translation.get_translation(
@@ -110,8 +109,6 @@ class BaseConfigurationObject(object):
                 'label_view', self.configuration_keyword)
             if self.label_view is None:
                 self.label_view = self.label
-            self.numbering = translation.get_numbering(
-                self.configuration_keyword)
 
         # Should be at the bottom of the function
         children = []
@@ -619,6 +616,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             if self.form_options.get('extra') == 'inline':
                 widget.template_name = 'form/field/radio_inline.html'
+            if self.keyword == 'accept_conditions':
+                widget.template_name = 'form/field/accept_conditions.html'
             field = forms.IntegerField(
                 label=self.label, widget=widget,
                 required=self.required)
@@ -807,26 +806,18 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'values': list(zip(
                     values, images, conditional_outputs, value_keywords)),
             })
-        elif self.field_type in ['image']:
-            file_data = File.get_data(uid=value)
-            template_name = 'image'
-            template_values.update({
-                'key': self.label_view,
-                'value': file_data.get('url'),
-                'interchange': file_data.get('interchange'),
-            })
         elif self.field_type in ['link_video']:
             template_name = 'video'
             template_values.update({
                 'key': self.label_view,
                 'value': value,
             })
-        elif self.field_type in ['file']:
+        elif self.field_type in ['image', 'file']:
             file_data = File.get_data(uid=value)
             template_name = 'file'
             template_values.update({
                 'content_type': file_data.get('content_type'),
-                'interchange': file_data.get('interchange'),
+                'preview_image': file_data.get('interchange_list')[1][0],
                 'key': self.label_view,
                 'value': file_data.get('url'),
             })
@@ -1361,7 +1352,6 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         config.update({
             'label': self.label,
             'helptext': self.helptext,
-            'numbering': self.numbering,
             'form_template': form_template,
         })
         has_changes = False
@@ -1512,7 +1502,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'questions': rendered_questions,
             'subcategories': subcategories,
             'label': self.label_view,
-            'numbering': self.numbering,
+            'numbering': self.form_options.get('numbering'),
             'helptext': self.helptext,
         })
         if self.table_grouping:
@@ -1534,6 +1524,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         'keyword',
         'subcategories',
         'view_options',
+        'form_options',
     ]
     name_current = 'categories'
     name_parent = 'sections'
@@ -1632,7 +1623,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
         config = {
             'label': self.label,
-            'numbering': self.numbering,
+            'numbering': self.form_options.get('numbering'),
             'helptext': self.helptext,
             'has_changes': has_changes,
         }
@@ -1733,7 +1724,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'additional_data': additional_data,
                 'metadata': metadata,
                 'label': self.label,
-                'numbering': self.numbering,
+                'numbering': self.form_options.get('numbering'),
                 'keyword': self.keyword,
                 'csrf_token': csrf_token,
                 'permissions': permissions,

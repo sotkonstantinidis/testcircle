@@ -1,7 +1,7 @@
 {% if value %}
   <div class="file-preview-container">
     <a href="{{ value }}" target="_blank">
-      <img data-interchange="{{ interchange }}"/>
+      <img src="{{ preview_image }}"/>
       <span class="text-content"><span>
         <svg class="icon">
           {% if content_type == 'application/pdf' %}
