@@ -1,6 +1,6 @@
 {% comment %}
-  Two columns (4 / 8). The first question is rendered in the first column, all
-  others in the second column.
+  Two columns (6 / 6). The first question is rendered in the first column,
+  all others in the second column.
 
   Adds buttons to add or remove additional questiongroups
 
@@ -42,11 +42,11 @@
     {% endif %}
 
     <div class="list-item row{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
-      <div class="medium-4 columns">
+      <div class="medium-6 columns">
       {% for field in qg_form.visible_fields %}
         {% if forloop.counter == 2 %}
           </div>
-          <div class="medium-8 columns">
+          <div class="medium-6 columns">
         {% endif %}
         {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
           {% if template %}
