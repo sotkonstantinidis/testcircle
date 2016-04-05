@@ -20,7 +20,7 @@
       {% include "form/helptext.html" with helptext=options.helptext helptext_length=options.helptext_length %}
     {% endif %}
     <div class="small-12 columns{% if options.field_columns_class %} {{ options.field_columns_class }}{% endif %}">
-      <label class="input-multiline" for="{{ field|id }}">
+      <label class="input-multiline{% if options.label_class %} {{ options.label_class }}{% endif %}" for="{{ field|id }}">
         <input class="checkbox-other {{ cb_css_classes }}"
                type="checkbox"
                 {% if cb_data_container %} data-container="{{ cb_data_container }}"{% endif %}
