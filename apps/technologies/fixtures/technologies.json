@@ -12352,7 +12352,13 @@
       "keyword": "tech_input_est_quantity",
       "translation": 1261,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -12425,7 +12431,13 @@
       "keyword": "tech_input_est_costs",
       "translation": 1041,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -12436,7 +12448,13 @@
       "keyword": "tech_input_est_percentage_costs",
       "translation": 1042,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -12575,7 +12593,13 @@
       "keyword": "tech_input_maint_costs",
       "translation": 1041,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -12586,7 +12610,13 @@
       "keyword": "tech_input_maint_percentage_costs",
       "translation": 1042,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15478,7 +15508,13 @@
       "keyword": "tech_input_est_total_costs_pi",
       "translation": 1263,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15489,7 +15525,13 @@
       "keyword": "tech_input_maint_quantity",
       "translation": 1264,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15511,7 +15553,13 @@
       "keyword": "tech_input_maint_total_costs_pi",
       "translation": 1266,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
       }
     },
     "model": "configuration.key",
