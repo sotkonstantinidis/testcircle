@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
 import collections
 import re
 import subprocess
 from os.path import join
 
 from django.conf import settings
+from django.core.management import call_command
+from django.utils.translation import ugettext_lazy as _
 
 from configuration.models import Translation
 from .base import DevelopNoArgsCommand
@@ -33,6 +36,19 @@ class Command(DevelopNoArgsCommand):
 
         """
         super(Command, self).handle_noargs(**options)
+
+        confirm = input(_(u"The content of the database must be up to date, "
+                          u"previous .po files will be overwritten. Should the"
+                          u"command 'gettext_to_translation' be executed now? "
+                          u"(y/n)"))
+
+        if confirm == 'y':
+            print(_(u"Importing latest translations."))
+            call_command('gettext_to_translation')
+            print(_(u"Done"))
+        else:
+            print(_(u"Skip import of latest translations."))
+
         # Get all strings that must be translated in a single dict, grouped by
         # language.
         self.make_language_dict()
