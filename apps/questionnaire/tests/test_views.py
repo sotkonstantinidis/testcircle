@@ -207,7 +207,7 @@ class GenericQuestionnaireNewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.request = self.factory.get('/sample/new')
+        self.request = self.factory.get('/en/sample/edit/new/')
         self.request.user = create_new_user()
         self.request.session = {}
 

@@ -244,6 +244,8 @@ class TranslationContent(models.Model):
     These are the 'original' texts from the fixtures for the configurations. All
     this content is expected to be English.
     """
+    translation_type = 'content'
+
     translation = models.ForeignKey(Translation, on_delete=models.PROTECT)
     keyword = models.CharField(max_length=50)
     configuration = models.CharField(max_length=50, default='wocat')
