@@ -9,4 +9,4 @@ The code for this tool is available at https://github.com/CDE-UNIBE/qcat.
 
 Documentation: https://qcat.readthedocs.org/en/develop/
 
-Current version: 0.01
+Current status: https://redmine.cde.unibe.ch/projects/qcat/roadmap
