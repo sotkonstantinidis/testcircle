@@ -31,9 +31,11 @@ Process
   merge commits into the branches ``develop`` and ``master``.
 * `Shippable`_ is monitoring these branches, new commits trigger a deployment.
 * The configuration for shippable is stored in the file: ``shippable.yml``
+
   * The host string is a secure value, which be generated on the platform.
   * Before the actual deployment is started, all tests are run.
   * If no tests fail, the deployment is started.
+
 * Deployment is handled with Fabric.
 * For the git branches develop and master, respective environments are created.
 * Manual deployment should be avoided.
