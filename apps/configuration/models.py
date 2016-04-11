@@ -205,17 +205,23 @@ class Translation(models.Model):
             for the given locale was not found.
         """
 
-        translation = self.translationcontent_set.filter(
-            configuration__in=[configuration, 'wocat'],
-            keyword=keyword,
-        )
-        if not translation.exists():
-            return ''
-
+        # translation = self.translationcontent_set.filter(
+        #     configuration__in=[configuration, 'wocat'],
+        #     keyword=keyword,
+        # )
+        # if not translation.exists():
+        #     return ''
         # Use the configuration as dict-key.
-        values = dict(translation.values_list('configuration', 'text'))
-        text = values.get(configuration, values.get('wocat'))
+        # values = dict(translation.values_list('configuration', 'text'))
+        # text = values.get(configuration, values.get('wocat'))
 
+        # Performance improvement: omit query by trusting that 'makemessages'
+        # was executed and translation exists.
+        text = self.data.get(
+            configuration, self.data.get('wocat', {})
+        ).get(
+            keyword, {}
+        ).get('en')
         # When creating the values, the configuration and keyword was used as
         # context. Recreate this.
         context = '{} {}'.format(configuration, keyword)
