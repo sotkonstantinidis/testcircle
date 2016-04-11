@@ -1,8 +1,10 @@
 from django.conf.urls import url, patterns
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import RedirectView
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'unccd.views.home', name='home'),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('wocat:home')), name='home'),
     url(r'^view/(?P<identifier>\w+)/$', 'unccd.views.questionnaire_details',
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>\w+)/(?P<step>\w+)/$',
