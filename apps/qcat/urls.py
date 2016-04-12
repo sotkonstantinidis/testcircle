@@ -4,7 +4,8 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from django.views.generic import TemplateView
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import TemplateView, RedirectView
 
 from .views import static_sitemap
 
@@ -12,7 +13,10 @@ from .views import static_sitemap
 urlpatterns = patterns(
     '',
 
-    url(r'^$', 'qcat.views.home', name='home'),
+    url(r'^$', RedirectView.as_view(
+        url=reverse_lazy('wocat:home'),
+        permanent=False
+    ), name='home'),
     url(r'^about/$', 'qcat.views.about', name='about'),
 
     # View to change language
