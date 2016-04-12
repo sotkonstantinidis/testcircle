@@ -168,7 +168,8 @@ class BaseSettings(Configuration):
     ES_HOST = values.Value(default='localhost', environ_prefix='')
     ES_PORT = values.IntegerValue(default=9200, environ_prefix='')
     ES_INDEX_PREFIX = values.Value(default='qcat_', environ_prefix='')
-
+    # For Elasticsearch >= 2.3: https://www.elastic.co/guide/en/elasticsearch/reference/current/breaking-changes-2.3.html
+    ES_NESTED_FIELDS_LIMIT = values.IntegerValue(default=250, environ_prefix='')
     # For each language (as set in the setting ``LANGUAGES``), a language
     # analyzer can be specified. This helps to analyze the text in the
     # corresponding language for better search results.
