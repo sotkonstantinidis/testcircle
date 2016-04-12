@@ -90,9 +90,6 @@
                 <a href="{% url 'home' %}">
                   <img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}" class="hide-on-print"><img src="{% static 'assets/img/wocat_logo_print.svg' %}" alt="{% trans "WOCAT" %}" class="print-only">
                 </a>
-                <a href="{% url 'home' %}">
-                  <img src="{% static 'assets/img/unccd_mono_logo.png' %}" alt="{% trans "UNCCD" %}">
-                </a>
               </h1>
             {% endblock %}
           </li>
@@ -180,12 +177,17 @@
     {% render_block "js" %}
 
     <footer class="row page-footer large-collapse" role="contentinfo">
-      <nav class="sub-nav-footer medium-6 columns">
+      <nav class="sub-nav-footer medium-4 columns">
         <a href="" class="link">{% trans "About" %}</a> | <a href="" class="link">{% trans "FAQ" %}</a> | <a href="" class="link">{% trans "Contact" %}</a>
       </nav>
-      <div class="page-footer-copy medium-6 columns">
+      <div class="medium-4 columns large-text-center">
+          {% trans "Recommended by" %} <br>
+          <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
+      </div>
+      <div class="page-footer-copy medium-4 columns">
         © 2015 - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
       </div>
+
     </footer>
 
     {% block help_tour %}{% endblock %}

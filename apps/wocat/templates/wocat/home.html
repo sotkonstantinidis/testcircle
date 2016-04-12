@@ -40,8 +40,11 @@
 <main class="row large-collapse" role="main">
   <section class="tech-list small-12 columns">
     <div class="tech-group">
-      <h2 class="is-group">{% trans "Last updates" %}</h2>
+      <h2 class="is-group">{% trans "All SLM data" %}</h2>
       {% include "wocat/questionnaire/partial/list.html" %}
+    </div>
+    <div id="pagination" class="is-rhythmed-2">
+      {% include "pagination.html" %}
     </div>
   </section>
 </main>
