@@ -224,7 +224,7 @@ class Translation(models.Model):
         ).get('en')
 
         if not text:
-            return None
+            return ''
 
         # When creating the values, the configuration and keyword was used as
         # context. Recreate this.

@@ -91,7 +91,7 @@ class SampleHomeTest(TestCase):
         home(request)
         mock_questionnaire_list.assert_called_once_with(
             request, 'sample', template=None, only_current=True,
-            limit=3, db_query=True)
+            limit=3)
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url)

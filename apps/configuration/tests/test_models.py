@@ -21,7 +21,7 @@ def get_valid_configuration_model():
 
 def get_valid_translation_model():
     return Translation(translation_type='key', data={
-        "configuration": {"keyword": {"locale": "foo"}}})
+        "configuration": {"keyword": {"en": "foo"}}})
 
 
 def get_valid_translationcontent_instance(translation):
@@ -324,13 +324,11 @@ class TranslationModelTest(TestCase):
         self.assertEqual(get_language(), 'en')
 
     @patch('configuration.models.activate')
-    @patch.object(Translation, 'translationcontent_set')
     def test_get_translation_activates_other_locale(self,
-                                                    mocktranslationcontent_set,
                                                     mock_activate):
-        mocktranslationcontent_set.exists.return_value = True
-        mocktranslationcontent_set.return_value = {'wocat': 'foo'}
-        self.translation.get_translation('keyword', locale='es')
+        self.translation.get_translation(
+            'keyword', configuration='configuration', locale='es'
+        )
         mock_activate.assert_any_call('es')
         mock_activate.assert_any_call(get_language())
 
@@ -340,8 +338,10 @@ class TranslationModelTest(TestCase):
                                             mock_pgettext):
         mocktranslationcontent_set.exists.return_value = True
         mocktranslationcontent_set.return_value = {'wocat': 'foo'}
-        self.translation.get_translation('keyword')
-        mock_pgettext.assert_called_once_with('wocat keyword', None)
+        self.translation.get_translation(
+            'keyword', configuration='configuration', locale='es'
+        )
+        mock_pgettext.assert_called_once_with('configuration keyword', 'foo')
 
     def test_get_translation_returns_empty_string_if_configuration_not_found(self):
         self.assertEquals(self.translation.get_translation(

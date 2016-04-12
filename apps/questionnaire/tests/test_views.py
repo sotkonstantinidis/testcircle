@@ -553,34 +553,12 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_page_parameter.assert_called_once_with(self.request)
 
-    @patch('questionnaire.views.query_questionnaires')
-    def test_db_query_calls_query_questionnaires(
-            self, mock_query_questionnaires, mock_advanced_search,
-            mock_render):
-        mock_query_questionnaires.return_value = []
-        generic_questionnaire_list(self.request, 'sample', db_query=True)
-        mock_query_questionnaires.assert_called_once_with(
-            self.request, 'sample', only_current=False, limit=None)
-
-    @patch('questionnaire.views.get_pagination_parameters')
-    @patch('questionnaire.views.get_list_values')
-    @patch('questionnaire.views.query_questionnaires')
-    @patch('questionnaire.views.get_paginator')
-    def test_db_query_calls_get_paginator(
-            self, mock_get_paginator, mock_query_questionnaires,
-            mock_get_list_values, mock_get_pagination_parameters,
-            mock_advanced_search, mock_render):
-        mock_query_questionnaires.return_value = []
-        mock_get_paginator.return_value = None, None
-        generic_questionnaire_list(self.request, 'sample', db_query=True)
-        mock_get_paginator.assert_called_once_with([], 1, 10)
-
     @patch('questionnaire.views.get_list_values')
     def test_db_query_calls_get_list_values(
             self, mock_get_list_values, mock_advanced_search, mock_render):
         self.request.user = Mock()
         self.request.user.is_authenticated.return_value = False
-        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        generic_questionnaire_list(self.request, 'sample')
         self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch('questionnaire.views.get_configuration_index_filter')
