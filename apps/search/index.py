@@ -178,6 +178,15 @@ def create_or_update_index(configuration_code, mappings):
     logs = []
     body = {
         'mappings': mappings,
+        'settings': {
+            'index': {
+                'mapping': {
+                    'nested_fields': {
+                       'limit': settings.ES_NESTED_FIELDS_LIMIT
+                    }
+                }
+            }
+        }
     }
 
     # Check if there is already an alias pointing to the index.
