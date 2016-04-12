@@ -222,6 +222,10 @@ class Translation(models.Model):
         ).get(
             keyword, {}
         ).get('en')
+
+        if not text:
+            return None
+
         # When creating the values, the configuration and keyword was used as
         # context. Recreate this.
         context = '{} {}'.format(configuration, keyword)

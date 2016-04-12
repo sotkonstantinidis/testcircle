@@ -23,7 +23,7 @@ def get_configuration(configuration_code):
         either returned from cache or newly created.
     """
 
-    if False and settings.USE_CACHING:
+    if settings.USE_CACHING:
         cache_key = get_cache_key(configuration_code)
         configuration = get_cached_configuration(
             cache_key,

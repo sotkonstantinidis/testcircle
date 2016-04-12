@@ -977,19 +977,6 @@ def query_questionnaires_for_link(request, configuration, q, limit=10):
     return total, results[:limit]
 
 
-@lru_cache(maxsize=256)
-def get_serializer(result, config):
-    serializer = QuestionnaireSerializer(
-        data=result['_source'], config=config
-    )
-
-    if serializer.is_valid():
-        serializer.to_list_values(lang=get_language())
-        return serializer.validated_data
-
-    return None
-
-
 def get_list_values(
         configuration_code=None, es_hits=[], questionnaire_objects=[],
         with_links=True, status_filter=None):
@@ -1046,9 +1033,13 @@ def get_list_values(
             else:
                 config = None
 
-            serialized = get_serializer(result, config)
-            if serialized is not None:
-                list_entries.append(serialized)
+            serializer = QuestionnaireSerializer(
+                data=result['_source'], config=config
+            )
+
+            if serializer.is_valid():
+                serializer.to_list_values(lang=get_language())
+                list_entries.append(serializer.validated_data)
 
     configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
