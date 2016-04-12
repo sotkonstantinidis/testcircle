@@ -4,7 +4,9 @@ from django.views.generic import RedirectView
 
 urlpatterns = patterns(
     '',
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('wocat:home')), name='home'),
+    url(r'^$', RedirectView.as_view(
+        url=reverse_lazy('wocat:home', permanent=False)
+    ), name='home'),
     url(r'^view/(?P<identifier>\w+)/$', 'unccd.views.questionnaire_details',
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>\w+)/(?P<step>\w+)/$',
