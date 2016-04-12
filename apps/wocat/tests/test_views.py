@@ -4,10 +4,9 @@ from unittest.mock import patch, Mock
 
 from qcat.tests import TestCase
 from wocat.views import (
-    home,
     questionnaire_list,
     questionnaire_list_partial,
-)
+    HomeView)
 
 
 route_questionnaire_details = 'wocat:questionnaire_details'
@@ -30,16 +29,29 @@ class WocatHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
+    def setup_view(self, view, request, *args, **kwargs):
+        """Mimic ``as_view()``, but returns view instance.
+        Use this function to get view instances on which you can run unit tests,
+        by testing specific methods."""
+
+        view.request = request
+        view.args = args
+        view.kwargs = kwargs
+        return view
+
     @patch('wocat.views.generic_questionnaire_list')
     def test_calls_generic_questionnaire_list(
             self, mock_questionnaire_list):
         request = self.factory.get(self.url)
-        home(request)
+        view = self.setup_view(HomeView(), request)
+        view.get_context_data()
         mock_questionnaire_list.assert_called_once_with(
-            request, 'wocat', template=None, only_current=False, limit=3,
-            db_query=True)
+            request, 'wocat', template=None,
+        )
 
-    def test_renders_correct_template(self):
+    @patch.object(HomeView, 'get_context_data')
+    def test_renders_correct_template(self, mock_ctx_data):
+        mock_ctx_data.return_value = {}
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'wocat/home.html')
         self.assertEqual(res.status_code, 200)
