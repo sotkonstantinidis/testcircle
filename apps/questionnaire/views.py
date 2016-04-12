@@ -833,7 +833,7 @@ def generic_questionnaire_list_no_config(
 
 def generic_questionnaire_list(
         request, configuration_code, template=None, filter_url='', limit=None,
-        only_current=False, db_query=False):
+        only_current=False):
     """
     A generic view to show a list of Questionnaires.
 
@@ -855,10 +855,6 @@ def generic_questionnaire_list(
         ``only_current`` (bool): A boolean indicating whether to include
         only questionnaires from the current configuration. Passed to
         :func:`questionnaire.utils.query_questionnaires`
-
-        ``db_query`` (bool): A boolean indicating whether to query the
-        database for results instead of using Elasticsearch. Please note
-        that filters are ignored if querying the database.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -889,38 +885,22 @@ def generic_questionnaire_list(
     page = get_page_parameter(request)
     offset = page * limit - limit
 
-    if db_query is True:
+    search_configuration_codes = get_configuration_index_filter(
+        configuration_code, only_current=only_current)
 
-        # Limit is handled by the paginator
-        questionnaire_objects = query_questionnaires(
-            request, configuration_code, only_current=only_current,
-            limit=None)
+    search = advanced_search(
+        filter_params=filter_params, query_string=query_string,
+        configuration_codes=search_configuration_codes, limit=limit,
+        offset=offset)
 
-        questionnaires, paginator = get_paginator(
-            questionnaire_objects, page, limit)
+    es_hits = search.get('hits', {})
+    es_pagination = ESPagination(
+        es_hits.get('hits', []), es_hits.get('total', 0))
 
-        status_filter = get_query_status_filter(request)
-        list_values = get_list_values(
-            configuration_code=configuration_code,
-            questionnaire_objects=questionnaires, status_filter=status_filter)
+    questionnaires, paginator = get_paginator(es_pagination, page, limit)
 
-    else:
-        search_configuration_codes = get_configuration_index_filter(
-            configuration_code, only_current=only_current)
-
-        search = advanced_search(
-            filter_params=filter_params, query_string=query_string,
-            configuration_codes=search_configuration_codes, limit=limit,
-            offset=offset)
-
-        es_hits = search.get('hits', {})
-        es_pagination = ESPagination(
-            es_hits.get('hits', []), es_hits.get('total', 0))
-
-        questionnaires, paginator = get_paginator(es_pagination, page, limit)
-
-        list_values = get_list_values(
-            configuration_code=configuration_code, es_hits=questionnaires)
+    list_values = get_list_values(
+        configuration_code=configuration_code, es_hits=questionnaires)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\

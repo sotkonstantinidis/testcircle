@@ -17,18 +17,6 @@ from questionnaire.views import (
 )
 
 
-def home(request):
-    list_template_values = generic_questionnaire_list(
-        request, 'unccd', template=None, only_current=True, limit=3,
-        db_query=True)
-
-    return render(request, 'unccd/home.html', {
-        'list_values': list_template_values.get('list_values', []),
-        'filter_configuration': list_template_values.get(
-            'filter_configuration', {}),
-    })
-
-
 @login_required
 @force_login_check
 def unccd_data_import(request):
