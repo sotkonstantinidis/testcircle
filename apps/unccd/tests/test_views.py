@@ -71,9 +71,7 @@ class UnccdHomeTest(TestCase):
     def test_redirect(self, mock_ctx_data):
         mock_ctx_data.return_value = {}
         res = self.client.get(self.url)
-        self.assertRedirects(
-            res, 'http://testserver/en/wocat/', status_code=301
-        )
+        self.assertRedirects(res, 'http://testserver/en/wocat/')
 
 
 class QuestionnaireNewTest(TestCase):
