@@ -50,8 +50,9 @@ class Command(makemessages.Command):
         if new_translations.exists():
             print('New texts to translate for the configuration. Creating DB '
                   'entries and temporary file to extract strings.')
-            configuration_helper_file = os.path.join('apps', 'configuration',
-                                                     'configuration.py')
+            configuration_helper_file = os.path.join(
+                'apps', 'configuration', 'configuration_translations.py'
+            )
 
             for translation in new_translations:
                 for configuration, contents in translation.data.items():
@@ -82,9 +83,6 @@ class Command(makemessages.Command):
 
             self.call_parent_makemessages(*args, **options)
 
-            # Remove the temporary file
-            os.unlink(configuration_helper_file)
-
         else:
             # No new translations for the configuration - create new files for
             # the python source only.
@@ -93,7 +91,7 @@ class Command(makemessages.Command):
         do_upload_to_transifex = input('Do you want to push the new '
                                        'translations to transifex? (y/n)')
         if do_upload_to_transifex == 'y':
-            subprocess.call('tx push', shell=True)
+            subprocess.call('tx push -s -t', shell=True)
 
     def call_parent_makemessages(self, *args, **options):
         # Create the .po files.

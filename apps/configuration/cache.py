@@ -56,8 +56,10 @@ def get_cached_configuration(cache_key, configuration_code):
     Simple retrieval. If object is not in the lru_cache, use the default cache
     from django as fallback.
 
-    todo: discuss this - this doubles the required memory for cached
-    configurations.
+    @todo: refactor configurations. this is a workaround due to bad performance
+    which caches the configs in two places (memcached and python-threads -->
+    twice the memory usage!). configurations should probably be cached by
+    section or such.
     """
     configuration = cache.get(cache_key)
     if not configuration:
