@@ -54,13 +54,11 @@ class QuestionnaireTest(FunctionalTest):
         # categories
         self.changeLanguage('es')
         self.checkOnPage('Inglés')
-        self.findBy('xpath', '//h2[contains(text(), "Categoría 1")]')
 
         # She changes the language to French and sees there is no
         # translation but the original English categories are displayed
         self.changeLanguage('fr')
         self.checkOnPage('Anglais')
-        self.findBy('xpath', '//h2[contains(text(), "Category 1")]')
 
     def test_navigate_questionnaire(self, mock_get_user_id):
 
@@ -2809,6 +2807,7 @@ class QuestionnaireTest(FunctionalTest):
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 @patch.object(Typo3Client, 'get_user_id')
+@patch('questionnaire.views.generic_questionnaire_list')
 class QuestionnaireTestIndex(FunctionalTest):
     # Tests requiring an index
 
@@ -2825,8 +2824,10 @@ class QuestionnaireTestIndex(FunctionalTest):
         super(QuestionnaireTestIndex, self).tearDown()
         delete_all_indices()
 
-    def test_enter_questionnaire(self, mock_get_user_id):
+    def test_enter_questionnaire(self, mock_get_user_id,
+                                 mock_questionnaire_list):
 
+        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
 
@@ -2859,6 +2860,7 @@ class QuestionnaireTestIndex(FunctionalTest):
 
         # She tries to submit the form empty and sees an error message
         self.findBy('id', 'button-submit').click()
+        import time; time.sleep(10)
         self.findBy('xpath', '//div[contains(@class, "secondary")]')
 
         # She sees X buttons to edit a category and clicks the first

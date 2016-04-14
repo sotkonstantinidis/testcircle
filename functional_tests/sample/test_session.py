@@ -117,14 +117,21 @@ class SessionTest(FunctionalTest):
 
 
 @patch.object(Typo3Client, 'get_user_id')
+@patch('wocat.views.generic_questionnaire_list')
+@patch('sample.views.generic_questionnaire_list')
 class SessionTest2(FunctionalTest):
 
     fixtures = [
         'groups_permissions.json', 'sample_global_key_values.json',
         'sample.json']
 
-    def test_sessions_separated_by_questionnaire(self, mock_get_user_id):
+    def test_sessions_separated_by_questionnaire(self, mock_get_user_id,
+                                                 mock_questionnaire_list,
+                                                 mock_questionnaire_list_sample
+                                                 ):
 
+        mock_questionnaire_list.return_value = {}
+        mock_questionnaire_list_sample.return_value = {}
         cat_1_position = get_position_of_category('cat_1')
 
         user_moderator = create_new_user(id=2, email='foo@bar.com')
@@ -141,8 +148,10 @@ class SessionTest2(FunctionalTest):
             kwargs={'identifier': 'new', 'step': 'cat_1'}))
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        import time; time.sleep(60)
         self.findBy('id', 'button-submit').click()
 
+        import time; time.sleep(20)
         # She saves the Questionnaire
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')

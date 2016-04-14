@@ -224,7 +224,7 @@ class Translation(models.Model):
         ).get('en')
 
         if not text:
-            return ''
+            return None
 
         # When creating the values, the configuration and keyword was used as
         # context. Recreate this.
@@ -239,9 +239,6 @@ class Translation(models.Model):
             return translated
 
         return pgettext_lazy(context, text)
-
-    def get_numbering(self, configuration):
-        return self.data.get(configuration, {}).get('numbering')
 
     def __str__(self):
         return self.data.get(settings.LANGUAGES[0][0], '-')

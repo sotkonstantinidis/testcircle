@@ -438,6 +438,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     's choices'.format(cond_value))
             # Check the condition expression
             try:
+                # todo: don't use eval (here and further down)
                 cond_expression = eval(cond_expression)
             except SyntaxError:
                 raise ConfigurationErrorInvalidCondition(
@@ -1030,6 +1031,14 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         """
         form_template = 'form/questiongroup/{}.html'.format(
             self.form_options.get('template', 'default'))
+        # todo: this is a workaround.
+        # inspect following problem: the form_template throws an error
+        # when the config is loaded from the lru_cache.
+        # this is might be caused by mro or mutable types as method
+        # kwargs.
+        if self.form_options.get('template', '').endswith('.html'):
+           form_template = self.form_options.get('template')
+
         formfields = {}
         templates = {}
         options = {}
