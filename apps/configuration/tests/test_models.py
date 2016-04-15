@@ -305,7 +305,7 @@ class TranslationModelTest(TestCase):
         self.assertEqual(len(valid_types), 5)
 
     def test_empty_response_for_translation_without_content(self):
-        self.assertEqual(
+        self.assertIsNone(
             self.translation.get_translation('keyword'),
             ''
         )
@@ -344,8 +344,8 @@ class TranslationModelTest(TestCase):
         mock_pgettext.assert_called_once_with('configuration keyword', 'foo')
 
     def test_get_translation_returns_empty_if_configuration_not_found(self):
-        self.assertEquals(self.translation.get_translation(
-            'keyword', configuration='foo'), '')
+        self.assertIsNone(self.translation.get_translation(
+            'keyword', configuration='foo'), None)
 
 
 class ConfigurationModelTest(TestCase):
