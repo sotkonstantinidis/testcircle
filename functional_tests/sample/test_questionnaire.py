@@ -2,7 +2,7 @@ import time
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.test.utils import override_settings
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.action_chains import ActionChains  # noqa
 from selenium.webdriver.common.keys import Keys
 from unittest.mock import patch
 
@@ -1515,7 +1515,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//img[@alt="Value 16_2"]')
         self.findBy('xpath', '//img[@alt="Value 15_1"]')
 
-
     # def test_image_checkbox_subcategory(self):
 
     #     # Alice logs in
@@ -2860,7 +2859,6 @@ class QuestionnaireTestIndex(FunctionalTest):
 
         # She tries to submit the form empty and sees an error message
         self.findBy('id', 'button-submit').click()
-        import time; time.sleep(10)
         self.findBy('xpath', '//div[contains(@class, "secondary")]')
 
         # She sees X buttons to edit a category and clicks the first

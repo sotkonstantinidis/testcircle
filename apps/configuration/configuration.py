@@ -405,21 +405,21 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.conditional = self.form_options.get('conditional', False)
 
         question_conditions = []
-        for question_condition in self.form_options.get('question_conditions', []):
+        for question_cond in self.form_options.get('question_conditions', []):
             try:
-                cond_expression, cond_name = question_condition.split('|')
+                cond_expression, cond_name = question_cond.split('|')
             except ValueError:
                 raise ConfigurationErrorInvalidCondition(
-                    question_condition, 'Needs to have form "expression|name"')
+                    question_cond, 'Needs to have form "expression|name"')
             # Check the condition expression
             try:
                 cond_expression = eval('{}{}'.format(0, cond_expression))
             except SyntaxError:
                 raise ConfigurationErrorInvalidQuestiongroupCondition(
-                    question_condition,
+                    question_cond,
                     'Expression "{}" is not a valid Python condition'.format(
                         cond_expression))
-            question_conditions.append(question_condition)
+            question_conditions.append(question_cond)
 
         self.question_conditions = question_conditions
         self.question_condition = self.form_options.get('question_condition')
@@ -550,10 +550,14 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             attrs.update({'placeholder': self.label})
 
         if self.question_conditions:
-            field_options.update({'data-question-conditions': self.question_conditions})
+            field_options.update(
+                {'data-question-conditions': self.question_conditions}
+            )
 
         if self.question_condition:
-            field_options.update({'data-question-condition': self.question_condition})
+            field_options.update(
+                {'data-question-condition': self.question_condition}
+            )
 
         if self.field_type == 'char':
             max_length = self.max_length
@@ -1037,7 +1041,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         # this is might be caused by mro or mutable types as method
         # kwargs.
         if self.form_options.get('template', '').endswith('.html'):
-           form_template = self.form_options.get('template')
+            form_template = self.form_options.get('template')
 
         formfields = {}
         templates = {}
@@ -1416,11 +1420,11 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         raw_questiongroups = []
         has_content = False
         for questiongroup in self.questiongroups:
-
             questiongroup_links = {}
             if questiongroup.keyword in self.link_questiongroups:
                 try:
-                    link_configuration_code = questiongroup.keyword.rsplit('__', 1)[1]
+                    link_configuration_code = \
+                        questiongroup.keyword.rsplit('__', 1)[1]
                 except IndexError:
                     link_configuration_code = None
 
@@ -1429,7 +1433,8 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         link_configuration_code, [])
 
             questiongroup_data = data.get(questiongroup.keyword, [])
-            if not is_empty_list_of_dicts(questiongroup_data) or questiongroup_links:
+            if not is_empty_list_of_dicts(questiongroup_data) or \
+                    questiongroup_links:
                 has_content = True
                 if self.table_grouping and questiongroup.keyword in [
                         item for sublist in self.table_grouping

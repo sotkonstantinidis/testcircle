@@ -148,10 +148,8 @@ class SessionTest2(FunctionalTest):
             kwargs={'identifier': 'new', 'step': 'cat_1'}))
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
-        import time; time.sleep(60)
         self.findBy('id', 'button-submit').click()
 
-        import time; time.sleep(20)
         # She saves the Questionnaire
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')

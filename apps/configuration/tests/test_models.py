@@ -343,7 +343,7 @@ class TranslationModelTest(TestCase):
         )
         mock_pgettext.assert_called_once_with('configuration keyword', 'foo')
 
-    def test_get_translation_returns_empty_string_if_configuration_not_found(self):
+    def test_get_translation_returns_empty_if_configuration_not_found(self):
         self.assertEquals(self.translation.get_translation(
             'keyword', configuration='foo'), '')
 

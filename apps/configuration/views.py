@@ -10,7 +10,7 @@ from django.views.generic import RedirectView
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.decorators import force_login_check
-from configuration.cache import delete_configuration_cache, get_configuration
+from configuration.cache import delete_configuration_cache
 from configuration.models import Configuration
 
 

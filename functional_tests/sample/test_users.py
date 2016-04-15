@@ -427,7 +427,7 @@ class UserTest2(FunctionalTest):
         self.findBy(
             'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]')\
             .click()
-        chosen_field = self.findBy('xpath', '//div[@id="id_qg_31_0_key_4_chosen"]/a[@class="chosen-single"]')
+        chosen_field = self.findBy('xpath', '//div[@id="id_qg_31_0_key_4_chosen"]/a[@class="chosen-single"]')  # noqa
         self.assertEqual(chosen_field.text, 'Afghanistan')
 
         # She is having second thoughts and decides to search for a
