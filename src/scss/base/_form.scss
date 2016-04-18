@@ -45,7 +45,13 @@ select {
     left: 0;
     top: rem-calc(6);
   }
-  span {
+  &.big {
+    input[type="checkbox"],
+    input[type="radio"] {
+      top: rem-calc(10);
+    }
+  }
+  span, h4 {
     display: inline-block;
     margin-left: rem-calc(24);
   }

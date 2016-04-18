@@ -21917,10 +21917,8 @@
                   {
                     "keyword": "tech__3__2",
                     "form_options": {
-                      "numbering": "3.2"
-                    },
-                    "form_options": {
                       "template": "image_questiongroups",
+                      "numbering": "3.2",
                       "questiongroup_conditions": [
                         "=='tech_lu_cropland'|tech_qg_10",
                         "=='tech_lu_grazingland'|tech_qg_11",
@@ -23837,7 +23835,7 @@
                           {
                             "keyword": "tech__8__1__socioeconomic_production",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {
@@ -24240,7 +24238,7 @@
                           {
                             "keyword": "tech__8__1__socioeconomic_water",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {
@@ -24463,7 +24461,7 @@
                           {
                             "keyword": "tech__8__1__socioeconomic_income",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {
@@ -24626,7 +24624,7 @@
                           {
                             "keyword": "tech__8__1__socioeconomic_other",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {
@@ -24682,338 +24680,350 @@
                           "template": "has_subcategories",
                           "label_tag": "h4"
                         },
-                        "questiongroups": [
+                        "subcategories": [
                           {
-                            "keyword": "tech_qg_108",
+                            "keyword": "tech__8__1__sociocultural",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "collapsible",
+                              "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "impacts"
+                              "template": "empty"
                             },
-                            "questions": [
+                            "questiongroups": [
                               {
-                                "keyword": "tech_impacts_foodsecurity",
+                                "keyword": "tech_qg_108",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_foodsecurity",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_109",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_health",
+                                "keyword": "tech_qg_109",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_health",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_110",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_landuse",
+                                "keyword": "tech_qg_110",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_landuse",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_111",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_cultural",
+                                "keyword": "tech_qg_111",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_cultural",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_112",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_recreational",
+                                "keyword": "tech_qg_112",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_recreational",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_113",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_community",
+                                "keyword": "tech_qg_113",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_community",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_114",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_national",
+                                "keyword": "tech_qg_114",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_national",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_115",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_slmknowledge",
+                                "keyword": "tech_qg_115",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_slmknowledge",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_116",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_conflictmitigation",
+                                "keyword": "tech_qg_116",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_conflictmitigation",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_117",
-                            "form_options": {
-                              "template": "checkbox_toggle"
-                            },
-                            "view_options": {
-                              "template": "impacts"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_situationdisadvantaged",
+                                "keyword": "tech_qg_117",
                                 "form_options": {
-                                  "template": "no_label"
+                                  "template": "checkbox_toggle"
                                 },
                                 "view_options": {
-                                  "template": "measure_labelled",
-                                  "layout": "stacked"
-                                }
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_situationdisadvantaged",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_187",
-                            "form_options": {
-                              "template": "checkbox_toggle_other",
-                              "min_num": 1,
-                              "max_num": 3
-                            },
-                            "view_options": {
-                              "template": "impacts_other"
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_impacts_other_specify"
-                              },
-                              {
-                                "keyword": "tech_impacts_other_labelleft"
-                              },
-                              {
-                                "keyword": "tech_impacts_other_measure"
-                              },
-                              {
-                                "keyword": "tech_impacts_other_labelright"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_before"
-                              },
-                              {
-                                "keyword": "tech_impacts_quant_after"
-                              },
-                              {
-                                "keyword": "tech_impacts_specify"
+                                "keyword": "tech_qg_187",
+                                "form_options": {
+                                  "template": "checkbox_toggle_other",
+                                  "min_num": 1,
+                                  "max_num": 3
+                                },
+                                "view_options": {
+                                  "template": "impacts_other"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_other_specify"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_other_labelleft"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_other_measure"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_other_labelright"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -25033,7 +25043,7 @@
                           {
                             "keyword": "tech__8__1__ecological_water",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {
@@ -25256,7 +25266,7 @@
                           {
                             "keyword": "tech__8__1__ecological_soil",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {
@@ -25569,7 +25579,7 @@
                           {
                             "keyword": "tech__8__1__ecological_biodiversity",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {
@@ -25822,7 +25832,7 @@
                           {
                             "keyword": "tech__8__1__ecological_other",
                             "form_options": {
-                              "template": "has_subcategories",
+                              "template": "collapsible",
                               "label_tag": "h4"
                             },
                             "view_options": {

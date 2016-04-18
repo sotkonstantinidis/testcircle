@@ -815,9 +815,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         elif self.field_type in ['image', 'file']:
             file_data = File.get_data(uid=value)
             template_name = 'file'
+            preview_image = ''
+            if file_data:
+                preview_image = file_data.get('interchange_list')[1][0]
             template_values.update({
                 'content_type': file_data.get('content_type'),
-                'preview_image': file_data.get('interchange_list')[1][0],
+                'preview_image': preview_image,
                 'key': self.label_view,
                 'value': file_data.get('url'),
             })
@@ -2003,7 +2006,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         for section in self.sections:
             categories = []
             for category in section.categories:
-                categories.append((category.keyword, category.label))
+                categories.append((
+                    category.keyword, category.label,
+                    category.form_options.get('numbering')))
             sections.append(
                 (section.keyword, section.label, tuple(categories)))
         return tuple(sections)

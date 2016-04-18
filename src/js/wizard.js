@@ -537,6 +537,11 @@ $(function () {
             checkConditionalQuestiongroups(this);
         })
 
+        .on('click', '[data-checkbox-toggle]', function() {
+            $(this).closest('div.columns').find(
+                'div#' + $(this).data('checkbox-toggle')).slideToggle();
+        })
+
         .on('click', '.cb-toggle-questiongroup', function () {
             var container = $(this).data('container');
             if ($(this).prop('checked')) {
@@ -550,6 +555,13 @@ $(function () {
 
     // Initial form progress
     watchFormProgress();
+
+    // Initially checked checkbox toggles.
+    $('[data-checkbox-toggle]').each(function() {
+        if (hasContent($(this).closest('div.columns'))) {
+            $(this).trigger('click');
+        }
+    });
 
     // Trigger initial change for conditional questions
     $('[data-question-conditions]').trigger('change');
