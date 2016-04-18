@@ -57,6 +57,32 @@ select {
   }
 }
 
+.list-gallery-item.without-label {
+  padding-left: 0;
+
+  .input-multiline-image {
+    position: relative;
+    margin-top: rem-calc(6);
+    display: table;
+    input[type="checkbox"],
+    input[type="radio"] {
+      position: absolute;
+      left: rem-calc(84);
+      top: rem-calc(6);
+    }
+    &.big {
+      input[type="checkbox"],
+      input[type="radio"] {
+        top: rem-calc(10);
+      }
+    }
+    span {
+      display: inline-block;
+      margin-left: rem-calc(106);
+    }
+  }
+}
+
 input[type="text"],
 input[type="password"],
 input[type="date"],

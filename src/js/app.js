@@ -88,7 +88,8 @@ $(function() {
   // Toggle view
   $('body').on('click', '[data-toggle]', function (e) {
     var target = $('#'+ $(this).data('toggle'));
-    if($(this).parent().hasClass('list-gallery-item')){
+    if($(this).parent().hasClass('list-gallery-item')
+        || $(this).parent().parent().hasClass('list-gallery-item')){
       target.slideToggle();
       toggleImageCheckboxConditional(target);
     } else if($(this).parent().hasClass('button-bar')){

@@ -22017,7 +22017,8 @@
                           {
                             "keyword": "tech_lu_sub_other",
                             "form_options": {
-                              "template": "checkbox_other"
+                              "template": "checkbox_other",
+                              "row_class": "top-margin"
                             },
                             "view_options": {
                               "template": "checkbox_other"
