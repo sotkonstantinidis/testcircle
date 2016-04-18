@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
-from django.utils.translation import to_locale, get_language
+from django.utils.translation import pgettext_lazy, get_language, activate
 from django_pgjson.fields import JsonBField
 
 
@@ -178,11 +179,11 @@ class Translation(models.Model):
     def get_translation(self, keyword, configuration='wocat', locale=None):
         """
         Return the translation of the instance by looking it up in the
-        ``data`` JSON field. If no ``locale`` is provided, the currently
-        active locale is used. If no configuration is provided, the
-        wocat configuration is used. If no translation is found for a
-        given locale, the default locale (the first language of the
-        settings) is used.
+        TranslationContent text and getting the translated content.
+        If no ``locale`` is provided, the currently active locale is used.
+        If no configuration is provided, the wocat configuration is used.
+        If no translation is found for a given locale, the default locale (the
+        first language of the settings) is used.
 
         The translations are searched in the following order:
             * configuration > locale
@@ -203,24 +204,59 @@ class Translation(models.Model):
             ``str`` or ``None``. The translation or ``None`` if no entry
             for the given locale was not found.
         """
-        default_locale = settings.LANGUAGES[0][0]
-        if locale is None:
-            locale = to_locale(get_language())
-        translation = self.data.get(
-            configuration, {}).get(keyword, {}).get(locale)
-        if translation is None:
-            translation = self.data.get(
-                configuration, {}).get(keyword, {}).get(default_locale)
-        if translation is None:
-            translation = self.data.get(
-                'wocat', {}).get(keyword, {}).get(locale)
-        if translation is None:
-            translation = self.data.get(
-                'wocat', {}).get(keyword, {}).get(default_locale)
-        return translation
+
+        # translation = self.translationcontent_set.filter(
+        #     configuration__in=[configuration, 'wocat'],
+        #     keyword=keyword,
+        # )
+        # if not translation.exists():
+        #     return ''
+        # Use the configuration as dict-key.
+        # values = dict(translation.values_list('configuration', 'text'))
+        # text = values.get(configuration, values.get('wocat'))
+
+        # Performance improvement: omit query by trusting that 'makemessages'
+        # was executed and translation exists.
+        text = self.data.get(
+            configuration, self.data.get('wocat', {})
+        ).get(
+            keyword, {}
+        ).get('en')
+
+        if not text:
+            return None
+
+        # When creating the values, the configuration and keyword was used as
+        # context. Recreate this.
+        context = '{} {}'.format(configuration, keyword)
+
+        current_language = get_language()
+        if locale != current_language:
+            # Get translation in requested language and restore current lang.
+            activate(locale)
+            translated = pgettext_lazy(context, text)
+            activate(current_language)
+            return translated
+
+        return pgettext_lazy(context, text)
 
     def __str__(self):
         return self.data.get(settings.LANGUAGES[0][0], '-')
+
+
+class TranslationContent(models.Model):
+    """
+    Store the translated strings for the 'Translation' model.
+
+    These are the 'original' texts from the fixtures for the configurations. All
+    this content is expected to be English.
+    """
+    translation_type = 'content'
+
+    translation = models.ForeignKey(Translation, on_delete=models.PROTECT)
+    keyword = models.CharField(max_length=50)
+    configuration = models.CharField(max_length=50, default='wocat')
+    text = models.TextField()
 
 
 class Key(models.Model):

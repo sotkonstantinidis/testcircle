@@ -117,14 +117,21 @@ class SessionTest(FunctionalTest):
 
 
 @patch.object(Typo3Client, 'get_user_id')
+@patch('wocat.views.generic_questionnaire_list')
+@patch('sample.views.generic_questionnaire_list')
 class SessionTest2(FunctionalTest):
 
     fixtures = [
         'groups_permissions.json', 'sample_global_key_values.json',
         'sample.json']
 
-    def test_sessions_separated_by_questionnaire(self, mock_get_user_id):
+    def test_sessions_separated_by_questionnaire(self, mock_get_user_id,
+                                                 mock_questionnaire_list,
+                                                 mock_questionnaire_list_sample
+                                                 ):
 
+        mock_questionnaire_list.return_value = {}
+        mock_questionnaire_list_sample.return_value = {}
         cat_1_position = get_position_of_category('cat_1')
 
         user_moderator = create_new_user(id=2, email='foo@bar.com')

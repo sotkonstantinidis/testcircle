@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
-from django.test.utils import override_settings
 from unittest.mock import patch
+
+from django.utils.translation import get_language
 
 from configuration.models import (
     Category,
@@ -9,7 +10,7 @@ from configuration.models import (
     Questiongroup,
     Translation,
     Value,
-)
+    TranslationContent)
 from qcat.tests import TestCase
 
 
@@ -20,7 +21,16 @@ def get_valid_configuration_model():
 
 def get_valid_translation_model():
     return Translation(translation_type='key', data={
-        "configuration": {"keyword": {"locale": "foo"}}})
+        "configuration": {"keyword": {"en": "foo"}}})
+
+
+def get_valid_translationcontent_instance(translation):
+    return TranslationContent(
+        translation=translation,
+        keyword='keyword',
+        configuration='configuration',
+        text='foo'
+    )
 
 
 def get_valid_questiongroup_model():
@@ -292,49 +302,50 @@ class TranslationModelTest(TestCase):
 
     def test_get_translation_types_returns_valid_types(self):
         valid_types = self.translation.get_translation_types()
-        self.assertEqual(len(valid_types), 4)
+        self.assertEqual(len(valid_types), 5)
 
-    @patch('configuration.models.to_locale')
-    @patch('configuration.models.get_language')
-    def test_get_translation_calls_get_language_if_no_locale_provided(
-            self, mock_get_language, mock_to_locale):
-        mock_to_locale.return_value = ''
+    def test_empty_response_for_translation_without_content(self):
+        self.assertIsNone(
+            self.translation.get_translation('keyword'),
+            ''
+        )
+
+    @patch('django.utils.translation.pgettext_lazy')
+    def test_empty_response_without_translation(self, mock_pgettext_lazy):
         self.translation.get_translation('keyword')
-        mock_get_language.assert_called_once_with()
+        mock_pgettext_lazy.assert_not_called()
 
-    @patch('configuration.models.get_language')
-    def test_get_translation_does_not_call_get_language_if_locale_provided(
-            self, mock_get_language):
-        self.translation.get_translation('keyword', locale='locale')
-        mock_get_language.assert_not_called()
+    @patch.object(Translation, 'translationcontent_set')
+    def test_get_translation_does_not_change_locale(self,
+                                                    mocktranslationcontent_set):
+        mocktranslationcontent_set.exists.return_value = True
+        mocktranslationcontent_set.return_value = {'wocat': 'foo'}
+        self.translation.get_translation('keyword', locale='es')
+        self.assertEqual(get_language(), 'en')
 
-    def test_get_translation_returns_data_by_configuration_and_locale(self):
-        self.assertEqual(self.translation.get_translation(
-            'keyword', configuration='configuration', locale='locale'), 'foo')
+    @patch('configuration.models.activate')
+    def test_get_translation_activates_other_locale(self,
+                                                    mock_activate):
+        self.translation.get_translation(
+            'keyword', configuration='configuration', locale='es'
+        )
+        mock_activate.assert_any_call('es')
+        mock_activate.assert_any_call(get_language())
 
-    def test_get_translation_uses_wocat_configuration_if_not_provided(self):
-        self.translation.data = {"wocat": {"keyword": {"locale": "foo"}}}
-        self.assertEqual(
-            self.translation.get_translation('keyword', locale='locale'),
-            'foo')
+    @patch('configuration.models.pgettext_lazy')
+    @patch.object(Translation, 'translationcontent_set')
+    def test_get_translation_calls_pgettext(self, mocktranslationcontent_set,
+                                            mock_pgettext):
+        mocktranslationcontent_set.exists.return_value = True
+        mocktranslationcontent_set.return_value = {'wocat': 'foo'}
+        self.translation.get_translation(
+            'keyword', configuration='configuration', locale='es'
+        )
+        mock_pgettext.assert_called_once_with('configuration keyword', 'foo')
 
-    @override_settings(LANGUAGES=(('locale', 'Locale'),))
-    def test_get_translation_returns_default_locale_if_locale_not_found(self):
-        self.translation.data = {"wocat": {"keyword": {"locale": "foo"}}}
-        translation = self.translation.get_translation(
-            'keyword', locale='non-existent')
-        self.assertEqual(translation, 'foo')
-
-    def test_get_translation_returns_wocat_translation_if_locale_not_found(
-            self):
-        self.translation.data = {"wocat": {"keyword": {"locale": "foo"}}}
-        translation = self.translation.get_translation(
-            'keyword', configuration='foo', locale='locale')
-        self.assertEqual(translation, 'foo')
-
-    def test_get_translation_returns_None_if_configuration_not_found(self):
+    def test_get_translation_returns_empty_if_configuration_not_found(self):
         self.assertIsNone(self.translation.get_translation(
-            'keyword', configuration='foo'))
+            'keyword', configuration='foo'), None)
 
 
 class ConfigurationModelTest(TestCase):

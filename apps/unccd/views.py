@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
@@ -15,18 +15,6 @@ from questionnaire.views import (
     generic_questionnaire_new,
     generic_questionnaire_view_step,
 )
-
-
-def home(request):
-    list_template_values = generic_questionnaire_list(
-        request, 'unccd', template=None, only_current=True, limit=3,
-        db_query=True)
-
-    return render(request, 'unccd/home.html', {
-        'list_values': list_template_values.get('list_values', []),
-        'filter_configuration': list_template_values.get(
-            'filter_configuration', {}),
-    })
 
 
 @login_required

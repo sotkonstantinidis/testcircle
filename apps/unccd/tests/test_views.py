@@ -5,7 +5,6 @@ from unittest.mock import patch, Mock
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
 from unccd.views import (
-    home,
     questionnaire_details,
     questionnaire_list,
     questionnaire_list_partial,

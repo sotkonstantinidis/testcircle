@@ -3,13 +3,14 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.management import call_command
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import RedirectView
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.decorators import force_login_check
-from configuration.cache import delete_configuration_cache, get_configuration
+from configuration.cache import delete_configuration_cache
 from configuration.models import Configuration
 
 
@@ -56,12 +57,6 @@ class BuildAllCachesView(LoginRequiredMixin, SuperuserRequiredMixin,
         Build the cache for all active configurations.
 
         """
-        configurations = Configuration.objects.filter(active=True)
-        cached_configs = []
-        for configuration in configurations:
-            get_configuration(configuration.code)
-            cached_configs.append(configuration.code)
+        call_command('build_config_caches')
 
-        messages.success(request, _(u"Built cache for {}".format(
-            ', '.join(cached_configs)
-        )))
+        messages.success(request, _(u"Built configuration caches."))

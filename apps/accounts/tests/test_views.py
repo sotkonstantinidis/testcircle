@@ -200,7 +200,7 @@ class UserUpdateTest(TestCase):
 class UserDetailsTest(TestCase):
 
     def setUp(self):
-        self.request = RequestFactory().get('/accounts/user/1')
+        self.request = RequestFactory().get('/en/accounts/user/1')
         self.user = create_new_user()
 
     @patch('accounts.views.get_object_or_404')
