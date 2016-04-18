@@ -1362,8 +1362,9 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         config = self.form_options
 
         if config.get('questiongroup_conditions_template'):
-            config['questiongroup_conditions_template'] = 'form/field/{}.html'.\
-                format(config.get('questiongroup_conditions_template'))
+            config['questiongroup_conditions_template_path'] = \
+                'form/field/{}.html'.format(
+                    config.get('questiongroup_conditions_template'))
 
         config.update({
             'label': self.label,

@@ -21664,7 +21664,8 @@
                   {
                     "keyword": "tech__2__2",
                     "form_options": {
-                      "numbering": "2.2"
+                      "numbering": "2.2",
+                      "helptext_length": 1000
                     },
                     "questiongroups": [
                       {
@@ -21777,7 +21778,8 @@
                   {
                     "keyword": "tech__2__5",
                     "form_options": {
-                      "numbering": "2.5"
+                      "numbering": "2.5",
+                      "helptext_length": 1000
                     },
                     "questiongroups": [
                       {
@@ -21853,6 +21855,9 @@
                     "questiongroups": [
                       {
                         "keyword": "tech_qg_5",
+                        "form_options": {
+                          "helptext_length": 1000
+                        },
                         "questions": [
                           {
                             "keyword": "tech_who_implemented"
@@ -22314,6 +22319,7 @@
                     "keyword": "tech__3__6",
                     "form_options": {
                       "numbering": "3.6",
+                      "helptext_length": 1000,
                       "template": "image_questiongroups",
                       "questiongroup_conditions": [
                         "=='tech_measures_agronomic'|tech_qg_21",

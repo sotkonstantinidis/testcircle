@@ -7340,6 +7340,7 @@
                     "keyword": "app__1__4",
                     "form_options": {
                       "numbering": "1.4",
+                      "helptext_length": 1000,
                       "has_links": true
                     },
                     "questiongroups": [
@@ -7404,7 +7405,8 @@
                   {
                     "keyword": "app__2__2",
                     "form_options": {
-                      "numbering": "2.2"
+                      "numbering": "2.2",
+                      "helptext_length": 1000
                     },
                     "questiongroups": [
                       {
@@ -8672,6 +8674,7 @@
                     "keyword": "app__5__3",
                     "form_options": {
                       "numbering": "5.3",
+                      "helptext_length": 1000,
                       "template": "checkbox_questiongroups_2",
                       "questiongroup_conditions": [
                         "=='app_subsidies_inputs_labour'|app_qg_28",
@@ -9071,7 +9074,8 @@
                   {
                     "keyword": "app__6__1",
                     "form_options": {
-                      "numbering": "6.1"
+                      "numbering": "6.1",
+                      "helptext_length": 1000
                     },
                     "questiongroups": [
                       {

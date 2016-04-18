@@ -41,7 +41,7 @@
 
                   <div class="small-12 columns">
                     <ul class="list-gallery small-block-grid-1">
-                      {% formfield field using config.questiongroup_conditions_template with additional_qg=formsets questiongroup_conditions=config.questiongroup_conditions|join:',' %}
+                      {% formfield field using config.questiongroup_conditions_template_path with additional_qg=formsets questiongroup_conditions=config.questiongroup_conditions|join:',' %}
                     </ul>
                   </div>
                 {% endwith %}
