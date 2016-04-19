@@ -122,6 +122,11 @@
   padding-top: rem-calc(12);
   padding-bottom: rem-calc(12);
   padding-left: rem-calc(6);
+
+  &.action-below-table {
+    padding-top: 0;
+    padding-bottom: rem-calc(24);
+  }
 }
 .list-ordered + .list-action .link {
   margin-left: rem-calc(24);
