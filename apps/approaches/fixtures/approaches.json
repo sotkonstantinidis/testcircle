@@ -3857,7 +3857,8 @@
         "type": "float",
         "form_options": {
           "field_options": {
-            "min": 0
+            "min": 0,
+            "decimals": 2
           }
         }
       }

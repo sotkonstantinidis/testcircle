@@ -12438,7 +12438,8 @@
         "form_options": {
           "label": "placeholder",
           "field_options": {
-            "min": 0
+            "min": 0,
+            "decimals": 2
           }
         }
       }
@@ -12600,7 +12601,8 @@
         "form_options": {
           "label": "placeholder",
           "field_options": {
-            "min": 0
+            "min": 0,
+            "decimals": 2
           }
         }
       }
@@ -15515,7 +15517,8 @@
         "form_options": {
           "label": "placeholder",
           "field_options": {
-            "min": 0
+            "min": 0,
+            "decimals": 2
           }
         }
       }
@@ -15560,7 +15563,8 @@
         "form_options": {
           "label": "placeholder",
           "field_options": {
-            "min": 0
+            "min": 0,
+            "decimals": 2
           }
         }
       }

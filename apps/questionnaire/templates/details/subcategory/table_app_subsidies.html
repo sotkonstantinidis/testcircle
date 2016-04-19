@@ -16,16 +16,19 @@
               <table>
                 <thead>
                   {% for header in table_headers %}
-                    <th>{{ header }}</th>
+                    {% if curr_value == 'app_subsidies_inputs_labour' and forloop.counter == 1 %}
+                    {% else %}
+                    <th{% if forloop.last %} width="50%"{% endif %}>{{ header }}</th>
+                    {% endif %}
                   {% endfor %}
                 </thead>
                 <tbody>
-                  {% if curr_value == 'app_subsidies_inputs_labour' %}
-                    <td></td>
-                    {% for key, values in curr_qg.data_labelled.0 %}
-                      <td>{{ values|join:", " }}</td>
-                    {% endfor %}
-                  {% else %}
+{#                  {% if curr_value == 'app_subsidies_inputs_labour' %}#}
+{#                    <td></td>#}
+{#                    {% for key, values in curr_qg.data_labelled.0 %}#}
+{#                      <td>{{ values|join:", " }}</td>#}
+{#                    {% endfor %}#}
+{#                  {% else %}#}
                     {% for key, values in curr_qg.data_labelled.0 %}
                       {% if forloop.first %}
                         <tr>
@@ -40,7 +43,7 @@
                         </tr>
                       {% endif %}
                     {% endfor %}
-                  {% endif %}
+{#                  {% endif %}#}
                 </tbody>
               </table>
             {% else %}

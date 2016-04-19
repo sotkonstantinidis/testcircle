@@ -737,11 +737,19 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo', 'date', 'int', 'float']:
+        if self.field_type in ['char', 'text', 'todo', 'date', 'int']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
                 'value': value,
+            })
+        elif self.field_type in ['float']:
+            template_name = 'float'
+            template_values.update({
+                'key': self.label_view,
+                'value': value,
+                'decimals': self.form_options.get(
+                    'field_options', {}).get('decimals'),
             })
         elif self.field_type in ['bool', 'select_type', 'select']:
             template_name = 'textinput'
