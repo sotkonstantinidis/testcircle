@@ -1537,6 +1537,16 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 'table_headers': self.table_headers,
                 'raw_questiongroups': raw_questiongroups,
             })
+
+        if self.view_options.get('media_gallery', False) is True:
+            media_data = self.parent_object.parent_object.get_image_data(data)
+            media_content = media_data.get('content', [])
+            media_additional = media_data.get('additional', {})
+            template_values.update({
+                'media_content': media_content,
+                'media_additional': media_additional,
+            })
+
         rendered = render_to_string(view_template, template_values)
         return rendered, has_content
 

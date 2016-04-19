@@ -21633,8 +21633,7 @@
           {
             "keyword": "section_specifications",
             "view_options": {
-              "template": "empty",
-              "media_gallery": true
+              "template": "empty"
             },
             "categories": [
               {
@@ -21711,6 +21710,9 @@
                     "form_options": {
                       "numbering": "2.3"
                     },
+                    "view_options": {
+                      "media_gallery": true
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_photos",
@@ -21718,7 +21720,7 @@
                           "max_num": 3
                         },
                         "view_options": {
-                          "template": "columns_o4_r8"
+                          "template": "none"
                         },
                         "questions": [
                           {
