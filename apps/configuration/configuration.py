@@ -1539,7 +1539,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             })
 
         if self.view_options.get('media_gallery', False) is True:
-            media_data = self.parent_object.parent_object.get_image_data(data)
+            media_data = self.parent_object.parent_object.parent_object.get_image_data(data)
             media_content = media_data.get('content', [])
             media_additional = media_data.get('additional', {})
             template_values.update({

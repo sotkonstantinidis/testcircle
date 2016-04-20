@@ -1,0 +1,19 @@
+.sticky-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 1rem 1rem 1.5rem;
+  z-index: 10000;
+}
+
+.sticky-menu-button {
+  border: 1px solid $color-beige-dark;
+  padding: 0.5rem;
+  background: #d0ccc0;
+  border-radius: 0.2rem;
+
+  &:hover {
+    border: 1px solid darken($color-beige-dark, 10%);
+    background: darken(#d0ccc0, 10%);
+  }
+}

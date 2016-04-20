@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div id="toc-menu" class="sticky-menu">
+  <ul class="toc-menu-content">
+    <li class="toc-menu-title">{% trans "Table of Content" %}</li>
+    {% for section_keyword, section_label, categories in toc_content %}
+      {% for category_keyword, category_label, category_numbering in categories %}
+        <li data-magellan-arrival="{{ category_keyword }}">
+          <a href="#{{ category_keyword }}" class="link">{% if category_numbering %}{{ category_numbering }} {% endif %}{{ category_label }}</a>
+        </li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+  <a href="#" class="toc-menu-button sticky-menu-button">
+    <span class="toc-menu-show-button">
+      <svg class="icon-lines"><use xlink:href="#icon-list"></use></svg>
+    </span>
+    <span class="toc-menu-hide-button">
+      <svg class="icon-lines"><use xlink:href="#icon-cross"></use></svg>
+    </span>
+  </a>
+</div>
