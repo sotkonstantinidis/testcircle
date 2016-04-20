@@ -1,21 +1,13 @@
 div#help-tour-icon {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  margin: 1rem 1rem 1.5rem;
-  z-index: 100000;
+  margin-left: 4rem;
 
-  a {
-    border: 1px solid #a94442;
-    padding: 0.5rem;
-    background: #d0ccc0;
-    border-radius: 0.2rem;
-
-    &:hover {
-      border: 1px solid darken(#a94442, 10%);
-      background: darken(#d0ccc0, 10%);
-    }
+  &.introjs-fixParent {
+    position: fixed !important;
   }
+}
+
+div#help-tour-icon-left {
+  margin-left: 1rem;
 
   &.introjs-fixParent {
     position: fixed !important;

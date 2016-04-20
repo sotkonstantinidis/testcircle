@@ -75,6 +75,9 @@
       {% endcompress %}
     {% endaddtoblock %}
   {% endif %}
+
+  {% include 'details/sticky_toc.html' %}
+
 {% endblock %}
 
 {% block help_tour %}
@@ -83,8 +86,8 @@
       <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
     {% endaddtoblock %}
 
-    <div id="help-tour-icon">
-      <a href="#" id="show_help" onclick="return startIntro();">{% trans "Help" %}</a>
+    <div id="help-tour-icon" class="sticky-menu">
+      <a href="#" id="show_help" class="sticky-menu-button" onclick="return startIntro();">{% trans "Help" %}</a>
     </div>
     <script src="{% static 'js/intro.min.js' %}"></script>
     <script>

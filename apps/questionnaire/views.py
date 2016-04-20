@@ -648,7 +648,8 @@ def generic_questionnaire_new(
         'permissions': permissions,
         'edited_questiongroups': edited_questiongroups,
         'view_mode': 'edit',
-        'is_blocked': is_blocked
+        'is_blocked': is_blocked,
+        'toc_content': questionnaire_configuration.get_toc_data(),
     })
 
 
@@ -750,6 +751,7 @@ def generic_questionnaire_details(
         'filter_configuration': filter_configuration,
         'permissions': permissions,
         'view_mode': 'view',
+        'toc_content': questionnaire_configuration.get_toc_data(),
     })
 
 
