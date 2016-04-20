@@ -751,6 +751,7 @@ def generic_questionnaire_details(
         'filter_configuration': filter_configuration,
         'permissions': permissions,
         'view_mode': 'view',
+        'toc_content': questionnaire_configuration.get_toc_data(),
     })
 
 
