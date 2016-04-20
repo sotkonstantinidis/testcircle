@@ -357,6 +357,14 @@ $(function () {
             otherItems.find('[data-remove-this]').show();
 
             var lastItem = container.prev('.list-item');
+
+            // If the item to clone is a table row, we need to find it inside
+            // the table
+            var isTableRow = typeof $(this).data('add-table-row') !== 'undefined';
+            if (isTableRow) {
+                lastItem = container.prev('.outer-list-item').find('.list-item:first-child');
+            }
+
             var doNumberingUpdate = false;
             if (!lastItem.length) {
                 // The element might be numbered, in which case it needs to be
@@ -371,7 +379,13 @@ $(function () {
             var newElement = lastItem.clone();
 
             updateFieldsetElement(newElement, qg, currentCount, true);
-            newElement.insertBefore(container);
+
+            if (isTableRow) {
+                // Add table rows after the last existing row.
+                newElement.insertAfter(container.prev('.outer-list-item').find('.list-item:last-child'));
+            } else {
+                newElement.insertBefore(container);
+            }
 
             // Update the dropzones
             updateDropzones(true);
@@ -537,6 +551,11 @@ $(function () {
             checkConditionalQuestiongroups(this);
         })
 
+        .on('click', '[data-checkbox-toggle]', function() {
+            $(this).closest('div.columns').find(
+                'div#' + $(this).data('checkbox-toggle')).slideToggle();
+        })
+
         .on('click', '.cb-toggle-questiongroup', function () {
             var container = $(this).data('container');
             if ($(this).prop('checked')) {
@@ -550,6 +569,13 @@ $(function () {
 
     // Initial form progress
     watchFormProgress();
+
+    // Initially checked checkbox toggles.
+    $('[data-checkbox-toggle]').each(function() {
+        if (hasContent($(this).closest('div.columns'))) {
+            $(this).trigger('click');
+        }
+    });
 
     // Trigger initial change for conditional questions
     $('[data-question-conditions]').trigger('change');

@@ -12,13 +12,7 @@ from .views import static_sitemap
 
 urlpatterns = patterns(
     '',
-
-    url(r'^$', RedirectView.as_view(
-        url=reverse_lazy('wocat:home'),
-        permanent=False
-    ), name='home'),
     url(r'^about/$', 'qcat.views.about', name='about'),
-
     # View to change language
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^grappelli/', include('grappelli.urls')),
@@ -31,7 +25,10 @@ urlpatterns = patterns(
 # en/questionnaire
 urlpatterns += i18n_patterns(
     '',
-    url(r'^$', 'qcat.views.home', name='home'),
+    url(r'^$', RedirectView.as_view(
+        url=reverse_lazy('wocat:home'),
+        permanent=False
+    ), name='home'),
     url(r'^questionnaire/', include('questionnaire.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^wocat/', include('wocat.urls', namespace='wocat')),

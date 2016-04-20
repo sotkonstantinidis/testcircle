@@ -155,14 +155,16 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @patch.object(Typo3Client, 'get_and_update_django_user')
     @patch.object(WocatAuthenticationBackend, 'authenticate')
-    def doLogin(self, mock_authenticate, mock_get_and_update_django_user,
-                user=None):
+    @patch('wocat.views.generic_questionnaire_list')
+    def doLogin(self, mock_questionnaire_list, mock_authenticate,
+                mock_get_and_update_django_user, user=None):
         self.doLogout()
         if user is None:
             user = create_new_user()
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_and_update_django_user.return_value = user
+        mock_questionnaire_list.return_value = {}
         with patch('accounts.client.typo3_client.get_user_id') as get_user_id:
             get_user_id.return_value = user.id
             self.browser.get(self.live_server_url + '/404_no_such_url/')

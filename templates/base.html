@@ -20,6 +20,7 @@
     bottom: A block at the bottom of the body to add additional JS files.
 {% endcomment %}
 
+{% load change_language %}
 {% load clean_language_url %}
 {% load compress %}
 {% load i18n %}
@@ -136,7 +137,7 @@
                   <input name="next" type="hidden" value="{{ request.path|clean_url }}" />
                   <input id="language_field" name="language" type="hidden" />
                   {% for lang in LANGUAGES %}
-                    <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="#" data-language="{{ lang.0 }}">{{ lang.1 }}</a></li>
+                    <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% change_lang lang.0 %}" data-language="{{ lang.0 }}">{{ lang.1 }}</a></li>
                   {% endfor %}
                 </form>
               </ul>
@@ -180,7 +181,7 @@
       <nav class="sub-nav-footer medium-4 columns">
         <a href="" class="link">{% trans "About" %}</a> | <a href="" class="link">{% trans "FAQ" %}</a> | <a href="" class="link">{% trans "Contact" %}</a>
       </nav>
-      <div class="medium-4 columns large-text-center">
+      <div class="medium-4 columns text-center">
           {% trans "Recommended by" %} <br>
           <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
       </div>

@@ -7943,7 +7943,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 4,
+          "min_num": 1,
           "max_num": 4,
           "template": "table",
           "numbered": "display"
@@ -7963,7 +7963,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 4,
+          "min_num": 1,
           "max_num": 4,
           "template": "table",
           "numbered": "display"
@@ -7983,7 +7983,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 4,
+          "min_num": 1,
           "max_num": 4,
           "template": "table",
           "column_widths": ["60%", "40%"],
@@ -8005,7 +8005,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 4,
+          "min_num": 1,
           "max_num": 4,
           "template": "table",
           "column_widths": ["60%", "40%"],

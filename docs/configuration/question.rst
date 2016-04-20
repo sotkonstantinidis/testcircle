@@ -199,6 +199,10 @@ form representation of the question.
     Please note that "now" is a special keyword and should only used with type
     ``int``. This will be converted to the current year.
 
+    For ``float`` values, there exists an additional ``field_option`` named
+    ``decimals`` which is an integer specifying the number of decimal places in
+    the output (details).
+
   * ``question_conditions`` (list): An optional list of conditions triggering
     conditional questions within the same questiongroup. Each condition must
     have the format ``"expresssion|condition_name"`` where ``expression`` is

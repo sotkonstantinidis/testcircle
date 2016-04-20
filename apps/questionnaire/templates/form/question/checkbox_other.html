@@ -7,7 +7,6 @@
   <div class="row single-item single-item-checkbox-other{% if options.row_class %} {{ options.row_class }}{% endif %}"
         {% if options.question_condition %}data-question-condition="{{ options.question_condition }}"{% endif %}>
     {% if options.label_position != 'placeholder' %}
-      <h1>WATCHOUT!! Check QA 3.1</h1>
       <div class="small-12 columns{% if options.label_columns_class %} {{ options.label_columns_class }}{% endif %}">
         {% if options.helptext and options.helptext_position == 'tooltip' %}
           <label for="{{ field|id }}" class="has-tip left" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></label>

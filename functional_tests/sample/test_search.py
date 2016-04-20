@@ -9,7 +9,6 @@ from unittest.mock import patch
 from accounts.client import Typo3Client
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
-from qcat.tests.test_views import qcat_route_home
 from sample.tests.test_views import route_home as sample_route_home
 from samplemulti.tests.test_views import route_home as samplemulti_route_home
 from search.index import delete_all_indices
@@ -45,7 +44,7 @@ class SearchTest(FunctionalTest):
             'sample', 'samplemulti']
 
         # Alice goes to the landing page and sees the search field
-        self.browser.get(self.live_server_url + reverse(qcat_route_home))
+        self.browser.get(self.live_server_url + reverse('home'))
 
         # She enters a search value and submits the search form
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')

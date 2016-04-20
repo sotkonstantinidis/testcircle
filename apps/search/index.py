@@ -182,7 +182,7 @@ def create_or_update_index(configuration_code, mappings):
             'index': {
                 'mapping': {
                     'nested_fields': {
-                       'limit': settings.ES_NESTED_FIELDS_LIMIT
+                        'limit': settings.ES_NESTED_FIELDS_LIMIT
                     }
                 }
             }

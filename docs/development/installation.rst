@@ -46,7 +46,8 @@ install QCAT, you need to create a database first and install the
 Elasticsearch
 ^^^^^^^^^^^^^
 
-`Elasticsearch`_ is used as a search engine to query the questionnaires.
+`Elasticsearch`_ is used as a search engine to query the questionnaires. This
+project is developed with version 2.3.0 of elasticsearch.
 
 .. seealso::
     :doc:`/development/elasticsearch`

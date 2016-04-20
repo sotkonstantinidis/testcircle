@@ -13,13 +13,16 @@ from nose.plugins.attrib import attr  # noqa
 # @attr('foo')
 
 
+@patch('wocat.views.generic_questionnaire_list')
 @patch.object(Typo3Client, 'get_and_update_django_user')
 @patch.object(Typo3Client, 'get_user_id')
 @patch.object(WocatAuthenticationBackend, 'authenticate')
 class LoginTest(FunctionalTest):
 
     def test_login(
-            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update,
+            mock_questionnaire_list
+    ):
 
         user = create_new_user()
 
@@ -27,6 +30,7 @@ class LoginTest(FunctionalTest):
         mock_authenticate.return_value = None
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
+        mock_questionnaire_list.return_value = {}
 
         # Alice opens her web browser and goes to the home page
         self.browser.get(self.live_server_url)
@@ -58,11 +62,12 @@ class LoginTest(FunctionalTest):
 
         # She sees that she was redirected to the landing page
         self.assertEqual(self.browser.current_url,
-                         self.live_server_url + '/en/')
+                         self.live_server_url + reverse('wocat:home'))
         self.checkOnPage(user.get_display_name())
         self.checkOnPage('Logout')
 
 
+@patch('wocat.views.generic_questionnaire_list')
 @patch.object(Typo3Client, 'get_and_update_django_user')
 @patch.object(Typo3Client, 'get_user_id')
 @patch.object(WocatAuthenticationBackend, 'authenticate')
@@ -71,7 +76,9 @@ class UserTest(FunctionalTest):
     fixtures = ['groups_permissions.json']
 
     def test_superusers(
-            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update,
+            mock_questionnaire_list
+    ):
 
         user = create_new_user()
         user.is_superuser = True
@@ -81,6 +88,7 @@ class UserTest(FunctionalTest):
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
+        mock_questionnaire_list.return_value = {}
 
         self.browser.get(self.live_server_url + '/404_no_such_url/')
         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
@@ -96,7 +104,9 @@ class UserTest(FunctionalTest):
             'admin")]')
 
     def test_administrators(
-            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update,
+            mock_questionnaire_list
+    ):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=1)]
@@ -105,6 +115,7 @@ class UserTest(FunctionalTest):
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
+        mock_questionnaire_list.return_value = {}
 
         self.browser.get(self.live_server_url + '/404_no_such_url/')
         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
@@ -120,7 +131,9 @@ class UserTest(FunctionalTest):
             'admin")]')
 
     def test_moderators(
-            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update,
+            mock_questionnaire_list
+    ):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=3)]
@@ -129,6 +142,7 @@ class UserTest(FunctionalTest):
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
+        mock_questionnaire_list.return_value = {}
 
         self.browser.get(self.live_server_url + '/404_no_such_url/')
         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
@@ -144,7 +158,9 @@ class UserTest(FunctionalTest):
             'admin")]')
 
     def test_translators(
-            self, mock_authenticate, mock_get_user_id, mock_get_and_update):
+            self, mock_authenticate, mock_get_user_id, mock_get_and_update,
+            mock_questionnaire_list
+    ):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=2)]
@@ -153,6 +169,8 @@ class UserTest(FunctionalTest):
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_user_id.return_value = user.id
+
+        mock_questionnaire_list.return_value = {}
 
         self.browser.get(self.live_server_url + '/404_no_such_url/')
         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
@@ -194,11 +212,13 @@ class ModerationTest(FunctionalTest):
         'groups_permissions.json', 'global_key_values.json', 'sample.json',
         'sample_questionnaire_status.json', 'sample_user.json']
 
-    def test_user_questionnaires(self):
+    @patch('wocat.views.generic_questionnaire_list')
+    def test_user_questionnaires(self, mock_questionnaire_list):
 
         user_alice = User.objects.get(pk=101)
         user_moderator = User.objects.get(pk=2365)
 
+        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin(user=user_alice)
 

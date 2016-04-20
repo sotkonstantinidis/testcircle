@@ -18,7 +18,6 @@ class StaticViewSitemap(sitemaps.Sitemap):
     def items(self):
         return [
             'wocat:home',
-            'unccd:home',
             'technologies:home',
             'approaches:home',
             'login',

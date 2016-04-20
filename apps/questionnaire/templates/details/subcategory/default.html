@@ -1,4 +1,7 @@
 <h3>{{ numbering|default:'' }} {{ label }}</h3>
+{% if media_content %}
+  {% include 'details/media_gallery.html' %}
+{% endif %}
 {% if subcategories %}
   {% for subcategory in subcategories %}
     {{ subcategory }}

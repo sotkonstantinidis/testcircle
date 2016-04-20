@@ -356,3 +356,7 @@ div.inline-linked-questionnaires article {
     padding-top: 0.5rem;
   }
 }
+
+.has-tip svg {
+  pointer-events: none;
+}

@@ -91,9 +91,11 @@ class SampleHomeTest(TestCase):
         home(request)
         mock_questionnaire_list.assert_called_once_with(
             request, 'sample', template=None, only_current=True,
-            limit=3, db_query=True)
+            limit=3)
 
-    def test_renders_correct_template(self):
+    @patch('sample.views.generic_questionnaire_list')
+    def test_renders_correct_template(self, mock_questionnaire_list):
+        mock_questionnaire_list.return_value = {}
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'sample/home.html')
         self.assertEqual(res.status_code, 200)

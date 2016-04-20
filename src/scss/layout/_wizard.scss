@@ -7,13 +7,9 @@
   }
 
   fieldset {
-    opacity: 0.5;
+    opacity: 1;
     margin-bottom: 4em;
     transition: opacity 300ms ease-in-out;
-  }
-  .active + fieldset {
-    opacity: 1;
-    border-width: 2px;
   }
   .multiple-choice {
     input[type="file"],
@@ -111,7 +107,7 @@
 }
 
 .top-margin {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 form .row.top-margin {
   margin-top: 0.5rem;

@@ -405,21 +405,21 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.conditional = self.form_options.get('conditional', False)
 
         question_conditions = []
-        for question_condition in self.form_options.get('question_conditions', []):
+        for question_cond in self.form_options.get('question_conditions', []):
             try:
-                cond_expression, cond_name = question_condition.split('|')
+                cond_expression, cond_name = question_cond.split('|')
             except ValueError:
                 raise ConfigurationErrorInvalidCondition(
-                    question_condition, 'Needs to have form "expression|name"')
+                    question_cond, 'Needs to have form "expression|name"')
             # Check the condition expression
             try:
                 cond_expression = eval('{}{}'.format(0, cond_expression))
             except SyntaxError:
                 raise ConfigurationErrorInvalidQuestiongroupCondition(
-                    question_condition,
+                    question_cond,
                     'Expression "{}" is not a valid Python condition'.format(
                         cond_expression))
-            question_conditions.append(question_condition)
+            question_conditions.append(question_cond)
 
         self.question_conditions = question_conditions
         self.question_condition = self.form_options.get('question_condition')
@@ -438,6 +438,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     's choices'.format(cond_value))
             # Check the condition expression
             try:
+                # todo: don't use eval (here and further down)
                 cond_expression = eval(cond_expression)
             except SyntaxError:
                 raise ConfigurationErrorInvalidCondition(
@@ -549,10 +550,14 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             attrs.update({'placeholder': self.label})
 
         if self.question_conditions:
-            field_options.update({'data-question-conditions': self.question_conditions})
+            field_options.update(
+                {'data-question-conditions': self.question_conditions}
+            )
 
         if self.question_condition:
-            field_options.update({'data-question-condition': self.question_condition})
+            field_options.update(
+                {'data-question-condition': self.question_condition}
+            )
 
         if self.field_type == 'char':
             max_length = self.max_length
@@ -732,11 +737,19 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo', 'date', 'int', 'float']:
+        if self.field_type in ['char', 'text', 'todo', 'date', 'int']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
                 'value': value,
+            })
+        elif self.field_type in ['float']:
+            template_name = 'float'
+            template_values.update({
+                'key': self.label_view,
+                'value': value,
+                'decimals': self.form_options.get(
+                    'field_options', {}).get('decimals'),
             })
         elif self.field_type in ['bool', 'select_type', 'select']:
             template_name = 'textinput'
@@ -815,9 +828,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         elif self.field_type in ['image', 'file']:
             file_data = File.get_data(uid=value)
             template_name = 'file'
+            preview_image = ''
+            if file_data:
+                preview_image = file_data.get('interchange_list')[1][0]
             template_values.update({
                 'content_type': file_data.get('content_type'),
-                'preview_image': file_data.get('interchange_list')[1][0],
+                'preview_image': preview_image,
                 'key': self.label_view,
                 'value': file_data.get('url'),
             })
@@ -1030,6 +1046,14 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         """
         form_template = 'form/questiongroup/{}.html'.format(
             self.form_options.get('template', 'default'))
+        # todo: this is a workaround.
+        # inspect following problem: the form_template throws an error
+        # when the config is loaded from the lru_cache.
+        # this is might be caused by mro or mutable types as method
+        # kwargs.
+        if self.form_options.get('template', '').endswith('.html'):
+            form_template = self.form_options.get('template')
+
         formfields = {}
         templates = {}
         options = {}
@@ -1346,8 +1370,9 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         config = self.form_options
 
         if config.get('questiongroup_conditions_template'):
-            config['questiongroup_conditions_template'] = 'form/field/{}.html'.\
-                format(config.get('questiongroup_conditions_template'))
+            config['questiongroup_conditions_template_path'] = \
+                'form/field/{}.html'.format(
+                    config.get('questiongroup_conditions_template'))
 
         config.update({
             'label': self.label,
@@ -1407,11 +1432,11 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         raw_questiongroups = []
         has_content = False
         for questiongroup in self.questiongroups:
-
             questiongroup_links = {}
             if questiongroup.keyword in self.link_questiongroups:
                 try:
-                    link_configuration_code = questiongroup.keyword.rsplit('__', 1)[1]
+                    link_configuration_code = \
+                        questiongroup.keyword.rsplit('__', 1)[1]
                 except IndexError:
                     link_configuration_code = None
 
@@ -1420,7 +1445,8 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         link_configuration_code, [])
 
             questiongroup_data = data.get(questiongroup.keyword, [])
-            if not is_empty_list_of_dicts(questiongroup_data) or questiongroup_links:
+            if not is_empty_list_of_dicts(questiongroup_data) or \
+                    questiongroup_links:
                 has_content = True
                 if self.table_grouping and questiongroup.keyword in [
                         item for sublist in self.table_grouping
@@ -1511,6 +1537,16 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 'table_headers': self.table_headers,
                 'raw_questiongroups': raw_questiongroups,
             })
+
+        if self.view_options.get('media_gallery', False) is True:
+            media_data = self.parent_object.parent_object.get_image_data(data)
+            media_content = media_data.get('content', [])
+            media_additional = media_data.get('additional', {})
+            template_values.update({
+                'media_content': media_content,
+                'media_additional': media_additional,
+            })
+
         rendered = render_to_string(view_template, template_values)
         return rendered, has_content
 
@@ -2003,7 +2039,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         for section in self.sections:
             categories = []
             for category in section.categories:
-                categories.append((category.keyword, category.label))
+                categories.append((
+                    category.keyword, category.label,
+                    category.form_options.get('numbering')))
             sections.append(
                 (section.keyword, section.label, tuple(categories)))
         return tuple(sections)

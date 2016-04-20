@@ -3857,7 +3857,8 @@
         "type": "float",
         "form_options": {
           "field_options": {
-            "min": 0
+            "min": 0,
+            "decimals": 2
           }
         }
       }
@@ -7340,6 +7341,7 @@
                     "keyword": "app__1__4",
                     "form_options": {
                       "numbering": "1.4",
+                      "helptext_length": 1000,
                       "has_links": true
                     },
                     "questiongroups": [
@@ -7368,8 +7370,7 @@
           {
             "keyword": "section_specifications",
             "view_options": {
-              "template": "empty",
-              "media_gallery": true
+              "template": "empty"
             },
             "categories": [
               {
@@ -7404,7 +7405,8 @@
                   {
                     "keyword": "app__2__2",
                     "form_options": {
-                      "numbering": "2.2"
+                      "numbering": "2.2",
+                      "helptext_length": 1000
                     },
                     "questiongroups": [
                       {
@@ -7450,6 +7452,9 @@
                     "form_options": {
                       "numbering": "2.3"
                     },
+                    "view_options": {
+                      "media_gallery": true
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_photos",
@@ -7457,7 +7462,7 @@
                           "max_num": 3
                         },
                         "view_options": {
-                          "template": "columns_o4_r8"
+                          "template": "none"
                         },
                         "questions": [
                           {
@@ -8672,6 +8677,7 @@
                     "keyword": "app__5__3",
                     "form_options": {
                       "numbering": "5.3",
+                      "helptext_length": 1000,
                       "template": "checkbox_questiongroups_2",
                       "questiongroup_conditions": [
                         "=='app_subsidies_inputs_labour'|app_qg_28",
@@ -9071,7 +9077,8 @@
                   {
                     "keyword": "app__6__1",
                     "form_options": {
-                      "numbering": "6.1"
+                      "numbering": "6.1",
+                      "helptext_length": 1000
                     },
                     "questiongroups": [
                       {
