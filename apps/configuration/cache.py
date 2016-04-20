@@ -5,8 +5,6 @@ from django.core.cache import cache
 from django.db import ProgrammingError
 from django.utils.translation import get_language
 
-from .models import Configuration
-
 
 def get_configuration(configuration_code):
     """
@@ -38,6 +36,8 @@ def get_total_configs():
     """
     Helper to set the maxsize for the lru_cache.
     """
+    from .models import Configuration
+
     try:
         configs = Configuration.objects.filter(active=True).count()
     except ProgrammingError:
