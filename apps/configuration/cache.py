@@ -32,25 +32,27 @@ def get_configuration(configuration_code):
     return get_configuration_by_code(configuration_code)
 
 
-def get_total_configs():
-    """
-    Helper to set the maxsize for the lru_cache.
-    """
-    from .models import Configuration
+# This is deactivated to enable CI. Reactivate when tests are run before
+# the deployment.
+# def get_total_configs():
+#     """
+#     Helper to set the maxsize for the lru_cache.
+#     """
+#     from .models import Configuration
+#
+#     try:
+#         configs = Configuration.objects.filter(active=True).count()
+#     except ProgrammingError:
+#         # Except error: db does not exist yet.
+#         configs = 3
+#
+#     languages = len(settings.LANGUAGES)
+#     total_configs = configs * languages
+#     # lru_cache works best if size is power of two.
+#     return 1 << (total_configs - 1).bit_length()
 
-    try:
-        configs = Configuration.objects.filter(active=True).count()
-    except ProgrammingError:
-        # Except error: db does not exist yet.
-        configs = 3
 
-    languages = len(settings.LANGUAGES)
-    total_configs = configs * languages
-    # lru_cache works best if size is power of two.
-    return 1 << (total_configs - 1).bit_length()
-
-
-@lru_cache(maxsize=get_total_configs())
+@lru_cache(maxsize=16)
 def get_cached_configuration(cache_key, configuration_code):
     """
     Simple retrieval. If object is not in the lru_cache, use the default cache
