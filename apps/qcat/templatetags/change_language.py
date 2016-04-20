@@ -1,5 +1,5 @@
 from django.template import Library
-from django.core.urlresolvers import resolve, reverse
+from django.core.urlresolvers import resolve, reverse, Resolver404
 from django.utils.translation import activate, get_language
 
 register = Library()
@@ -13,7 +13,10 @@ def change_lang(context, lang=None, *args, **kwargs):
     Usage: {% change_lang 'en' %}
     """
     path = context['request'].path
-    url_parts = resolve(path)
+    try:
+        url_parts = resolve(path)
+    except Resolver404:
+        return path
 
     url = path
     cur_language = get_language()
