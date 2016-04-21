@@ -66,7 +66,7 @@ function watchFormProgress() {
     stepsElement.html(completed);
     var total = stepsElement.next('.progress-total').html();
     var progress = completed / total * 100;
-    $('header.wizard-header').find('.meter').width(progress + '%');
+    $('.wizard-header').find('.meter').width(progress + '%');
 
     // While we're at it, also check if "other" checkboxes are to be ticked
     $('input.checkbox-other').each(function () {

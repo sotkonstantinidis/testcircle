@@ -36,7 +36,7 @@
   </div>
   <div class="content medium-8 columns">
     <header>
-       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'technologies:questionnaire_details' item.code %}" title="" class="link">{{ item.name }}</a> <small>{{ item.country }}</small></h1>
+       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'technologies:questionnaire_details' item.code %}" title="" class="link">{{ item.name|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
     </header>
     <aside class="tech-infos row collapse">
       <dl class="medium-6 columns">
@@ -57,7 +57,7 @@
       </dl>
     </aside>
     <main>
-      <p>{{ item.tech_definition }}</p>
+      <p>{{ item.tech_definition|truncatewords:50 }}</p>
     </main>
     <footer>
       {% if item.links|length > 0 or item.translations %}
