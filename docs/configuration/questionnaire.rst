@@ -135,7 +135,6 @@ The following is an arbitrary example of how a configuration could look like::
           },
           {
             "keyword": "cat_1",
-            "include_toc": true,
             "subcategories": [
               {
                 "keyword": "subcat_1_1",

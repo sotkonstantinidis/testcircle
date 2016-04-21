@@ -21333,7 +21333,6 @@
                   "template": "technologies_header",
                   "use_raw_data": true,
                   "with_metadata": true,
-                  "include_toc": true,
                   "review_panel": true,
                   "additional_data": {
                     "qg_location": [

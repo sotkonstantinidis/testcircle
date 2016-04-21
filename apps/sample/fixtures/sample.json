@@ -3168,9 +3168,6 @@
               },
               {
                 "keyword": "cat_1",
-                "view_options": {
-                  "include_toc": true
-                },
                 "subcategories": [
                   {
                     "keyword": "subcat_1_1",

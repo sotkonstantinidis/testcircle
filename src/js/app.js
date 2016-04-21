@@ -116,16 +116,10 @@ $(function () {
             }
         })
 
-        .on('click', '.toc-menu-button', function(e) {
+        .on('click', '.js-sticky-entry-link-toggle', function(e) {
             e.preventDefault();
-            $('#toc-menu').toggleClass('toc-menu-is-visible');
-        })
+            $(this).closest('.sticky-entry').toggleClass('sticky-entry-active');
 
-        .on('click', document, function(e) {
-            var t = event.target;
-            if (!$(t).is('.toc-menu-button') && !$(t).is('.toc-menu-button svg') && !$(t).is('.toc-menu-button use')) {
-			    $('#toc-menu').removeClass('toc-menu-is-visible');
-            }
         });
 
     // Update the numbering of the questiongroups

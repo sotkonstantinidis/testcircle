@@ -1,11 +1,6 @@
 {% load i18n %}
 {% load sekizai_tags %}
 
-
-{% if toc_content %}
-  {% include "details/toc.html" with toc_keyword=keyword %}
-{% endif %}
-
 {% if subcategories or 'edit_questionnaire' in permissions %}
   <section id="{{ keyword }}" class="tech-section is-rhythmed row{% if not subcategories %} is-empty-section{% endif %}" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>

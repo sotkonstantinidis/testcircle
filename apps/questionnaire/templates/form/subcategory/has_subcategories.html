@@ -21,7 +21,7 @@
 
 {% if not fieldset_rendered %}
   {# The first subcategory is rendered with a <fieldset>, the label as legend #}
-  <fieldset class="row{% if config.has_changes %} has-changes{% endif %}">
+  <fieldset id="{{ config.keyword }}" class="row{% if config.has_changes %} has-changes{% endif %}">
     <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
 {% else %}
   {# The label of other subcategories #}

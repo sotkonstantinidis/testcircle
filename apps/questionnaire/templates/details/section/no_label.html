@@ -6,10 +6,6 @@
   {% include 'details/media_gallery.html' %}
 {% endif %}
 
-{% if toc_content %}
-  {% include "details/toc.html" with toc_keyword=keyword %}
-{% endif %}
-
 <section id="{{ keyword }}" class="tech-section row is-rhythmed-4" data-magellan-destination="{{ keyword }}">
   <a name="{{ keyword }}"></a>
   <div class="small-12 columns output is-rhythmed-2">

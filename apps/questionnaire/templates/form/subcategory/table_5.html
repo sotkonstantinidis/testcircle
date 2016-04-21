@@ -12,6 +12,8 @@
 {% load floppyforms %}
 {% load list_to_columns %}
 
+<a id="{{ config.keyword }}"></a>
+
 {% if config.next_level == 'subcategories' %}
   <p>{{ config.label }}</p>
   {% for sub_config, sub_formsets in formsets %}

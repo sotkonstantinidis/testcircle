@@ -184,6 +184,13 @@ def generic_questionnaire_view_step(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode)
 
+    toc_content = []
+    for subcategory_config, __ in subcategories:
+        toc_content.append((
+            subcategory_config.get('keyword'), subcategory_config.get('label'),
+            subcategory_config.get('numbering')
+        ))
+
     return render(request, 'form/category.html', {
         'subcategories': subcategories,
         'config': category_config,
@@ -191,6 +198,7 @@ def generic_questionnaire_view_step(
         'valid': valid,
         'edit_mode': edit_mode,
         'configuration_name': configuration_code,
+        'toc_content': toc_content,
     })
 
 
@@ -428,6 +436,13 @@ def generic_questionnaire_new_step(
 
     configuration_name = category_config.get('configuration', url_namespace)
 
+    toc_content = []
+    for subcategory_config, __ in subcategories:
+        toc_content.append((
+            subcategory_config.get('keyword'), subcategory_config.get('label'),
+            subcategory_config.get('numbering')
+        ))
+
     view_url = ''
     if identifier:
         view_url = reverse(
@@ -445,6 +460,7 @@ def generic_questionnaire_new_step(
         'configuration_name': configuration_name,
         'edit_mode': edit_mode,
         'view_url': view_url,
+        'toc_content': toc_content,
     })
 
 
