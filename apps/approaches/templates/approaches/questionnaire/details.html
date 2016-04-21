@@ -76,7 +76,9 @@
     {% endaddtoblock %}
   {% endif %}
 
-  {% include 'details/sticky_toc.html' %}
+  <div class="sticky-menu-outer">
+    {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode=view_mode %}
+  </div>
 
 {% endblock %}
 
@@ -86,9 +88,6 @@
       <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
     {% endaddtoblock %}
 
-    <div id="help-tour-icon" class="sticky-menu">
-      <a href="#" id="show_help" class="sticky-menu-button" onclick="return startIntro();">{% trans "Help" %}</a>
-    </div>
     <script src="{% static 'js/intro.min.js' %}"></script>
     <script>
       function startIntro() {
@@ -107,7 +106,8 @@
               },
               {
                 intro: '{% trans "<p>The Questionnaire consists of multiple sections. You can use the Table of Content for navigation.</p>" %}',
-                element: document.querySelector('section.toc-row')
+                element: document.querySelector('.js-sticky-entry-help-toc'),
+                position: 'top'
               },
               {
                 intro: '{% trans "<p>Each section is also visible in the output, any data you enter will appear here.</p>" %}',
@@ -128,6 +128,10 @@
                 element: document.querySelector('ul.tech-output-infos')
               }
             ]
+          }).onbeforechange(function(targetElement) {
+            if ($(targetElement).hasClass('sticky-entry')) {
+              $("html, body").animate({ scrollTop: 0 }, "fast");
+            }
           }).start();
         window.scrollTo(0,0);
         return false;

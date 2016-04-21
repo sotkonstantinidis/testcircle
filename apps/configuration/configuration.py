@@ -1376,6 +1376,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
         config.update({
             'label': self.label,
+            'keyword': self.keyword,
             'helptext': self.helptext,
             'form_template': form_template,
         })
@@ -1583,9 +1584,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
               "template": "TEMPLATE_NAME",
 
               # Default: false
-              "include_toc": true,
-
-              # Default: false
               "use_raw_data": true,
 
               # Default: false
@@ -1729,10 +1727,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
         if questionnaire_object is not None:
             questionnaire_identifier = questionnaire_object.code
 
-        toc_content = []
-        if self.view_options.get('include_toc', False) is True:
-            toc_content = self.parent_object.parent_object.get_toc_data()
-
         configuration = self.view_options.get(
             'configuration', self.configuration_keyword)
 
@@ -1771,7 +1765,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
                     with_content / len(categories_with_content) * 100),
                 'edit_step_route': edit_step_route,
                 'configuration_name': configuration,
-                'toc_content': tuple(toc_content),
                 'questionnaire_identifier': questionnaire_identifier,
                 'has_changes': has_changes,
                 'review_config': review_config,
@@ -1855,9 +1848,6 @@ class QuestionnaireSection(BaseConfigurationObject):
               "review_panel": true,
 
               # Default: false
-              "include_toc": true,
-
-              # Default: false
               "media_gallery": true
             },
 
@@ -1908,10 +1898,6 @@ class QuestionnaireSection(BaseConfigurationObject):
         if self.view_options.get('review_panel', False) is not True:
             review_config = {}
 
-        toc_content = []
-        if self.view_options.get('include_toc', False) is True:
-            toc_content = self.parent_object.get_toc_data()
-
         media_content = []
         media_additional = {}
         if self.view_options.get('media_gallery', False) is True:
@@ -1923,7 +1909,6 @@ class QuestionnaireSection(BaseConfigurationObject):
             'label': self.label,
             'keyword': self.keyword,
             'categories': rendered_categories,
-            'toc_content': toc_content,
             'media_content': media_content,
             'media_additional': media_additional,
             'review_config': review_config,
@@ -2035,16 +2020,13 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         return rendered_sections
 
     def get_toc_data(self):
-        sections = []
+        categories = []
         for section in self.sections:
-            categories = []
             for category in section.categories:
                 categories.append((
                     category.keyword, category.label,
                     category.form_options.get('numbering')))
-            sections.append(
-                (section.keyword, section.label, tuple(categories)))
-        return tuple(sections)
+        return categories
 
     def get_image_data(self, data):
         """

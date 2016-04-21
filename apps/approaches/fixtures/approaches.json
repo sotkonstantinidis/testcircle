@@ -7099,7 +7099,6 @@
                 },
                 "view_options": {
                   "template": "approaches_header",
-                  "include_toc": true,
                   "use_raw_data": true,
                   "with_metadata": true,
                   "review_panel": true,

@@ -1,19 +1,76 @@
+.sticky-content {
+  background-color: $color-beige-dark;
+}
+
+.sticky-entry {
+  padding: 0 20px;
+  display: inline-block;
+  border-right: 1px solid $color-beige;
+
+  &:hover {
+    background: white;
+  }
+}
+
+.sticky-entry-link, .sticky-entry-link:focus {
+  color: #2b261a;
+  font-size: .875rem;
+  line-height: 1.6rem;
+
+  svg.icon-lines.is-inline {
+    margin-top: 0.4rem;
+  }
+}
+
 .sticky-menu {
+  position: absolute;
+  bottom: 100%;
+  background: white;
+  border: 1px solid $color-beige;
+  border-radius: 2px;
+  border-bottom-left-radius: 0;
+  border-bottom: none;
+  margin-left: -21px;
+  color: #2b261a;
+  padding: 1rem;
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+  }
+}
+
+.sticky-entry-active .sticky-entry-link, .sticky-entry-link:hover {
+  color: $color-beige-dark;
+}
+
+.sticky-entry-active {
+  background: white;
+}
+
+.sticky-toc-content {
+  ul {
+    margin-top: 0.5rem;
+  }
+}
+
+.sticky-help-content {
+  ul {
+    margin-top: 0.5rem;
+  }
+}
+
+.sticky-toc-title {
+  font-weight: bold;
+}
+.sticky-help-title {
+  font-weight: bold;
+}
+
+.sticky-menu-outer {
   position: fixed;
   bottom: 0;
   left: 0;
-  margin: 1rem 1rem 1.5rem;
-  z-index: 10000;
-}
-
-.sticky-menu-button {
-  border: 1px solid $color-beige-dark;
-  padding: 0.5rem;
-  background: #d0ccc0;
-  border-radius: 0.2rem;
-
-  &:hover {
-    border: 1px solid darken($color-beige-dark, 10%);
-    background: darken(#d0ccc0, 10%);
-  }
+  right: 0;
+  z-index: 999;
 }

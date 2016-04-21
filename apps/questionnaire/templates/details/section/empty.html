@@ -6,10 +6,6 @@
   {% include 'details/media_gallery.html' %}
 {% endif %}
 
-{% if toc_content %}
-  {% include "details/toc.html" with toc_keyword=keyword %}
-{% endif %}
-
 <a name="{{ keyword }}"></a>
 {% for category in categories %}
   {{ category }}

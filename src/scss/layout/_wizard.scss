@@ -1,6 +1,6 @@
 // Wizard
 .wizard {
-  padding: 4em 3em 70vh;
+  padding: 4em 3em 5vh;
   @media #{$large-up} {
     padding-left: 0;
     padding-right: 0;
@@ -20,14 +20,16 @@
     }
   }
 }
-.wizard-header {
+.wizard-header-outer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: $color-brown;
-  color: #fff;
   z-index: 999;
+  color: #fff;
+}
+.wizard-header {
+  background: $color-brown;
   padding-bottom: rem-calc(24);
 
   .progress {

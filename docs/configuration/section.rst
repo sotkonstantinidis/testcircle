@@ -34,9 +34,6 @@ The basic format of the configuration is as follows::
       "review_panel": true,
 
       # Default: false
-      "include_toc": true,
-
-      # Default: false
       "media_gallery": true
     },
 
@@ -72,10 +69,6 @@ view representation of the section.
 
   * ``template``: An optional template name. Must be a valid file name
     with ``.html`` ending in folder ``templates/details/section/``.
-
-  * ``include_toc``: An optional boolean indicating whether to add a
-    table of contents to the current section or not. The ToC is rendered
-    at the top of the section. Defaults to ``False``.
 
   * ``review_panel``: An optional boolean indicating whether to include
     the review panel at the top of the section or not. The review panel
