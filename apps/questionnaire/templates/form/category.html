@@ -45,7 +45,7 @@
     {% csrf_token %}
 
     <header class="wizard-header-outer" role="banner">
-      {% include 'details/sticky_menu.html' with toc_content=toc_content %}
+      {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode='edit' %}
       <div class="wizard-header">
         <div class="row">
           <div class="columns small-12 medium-9">
