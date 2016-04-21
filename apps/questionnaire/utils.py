@@ -1,5 +1,6 @@
 import ast
 import contextlib
+from uuid import UUID
 
 from django.contrib import messages
 from django.db.models import Q
@@ -705,9 +706,18 @@ def query_questionnaire(request, identifier):
         ``django.db.models.query.QuerySet``. The queried
         Questionnaire(s).
     """
+
+    # If the identifier is a valid UUID, the Questionnaire object is searched by
+    # uuid, otherwise by code.
+    try:
+        UUID(identifier)
+        q_filter = Q(uuid=identifier)
+    except ValueError:
+        q_filter = Q(code=identifier)
+
     status_filter = get_query_status_filter(request)
 
-    return Questionnaire.objects.filter(code=identifier).filter(status_filter)
+    return Questionnaire.objects.filter(q_filter).filter(status_filter)
 
 
 def query_questionnaires(

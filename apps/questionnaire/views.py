@@ -645,7 +645,6 @@ def generic_questionnaire_new(
         # Display a hint about the 'blocked' status for GET requests only. For
         # post requests, this is done in the form validation.
         if request.method == 'GET':
-            questionnaire_object
             level, message = questionnaire_object.get_blocked_message(
                 request.user
             )
