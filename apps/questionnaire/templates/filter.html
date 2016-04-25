@@ -90,11 +90,11 @@
 
             {% for section in filter_configuration.sections %}
               <li class="accordion-navigation">
-                <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}">
+                <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}-filter">
                   <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
                   {{ section.label }}
                 </a>
-                <div aria-labelledby="{{ section.keyword }}-heading" role="tabpanel" class="content" id="{{ section.keyword }}">
+                <div aria-labelledby="{{ section.keyword }}-heading" role="tabpanel" class="content" id="{{ section.keyword }}-filter">
 
                   {% for filter in section.filters %}
 

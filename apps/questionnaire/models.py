@@ -200,6 +200,7 @@ class Questionnaire(models.Model):
             permissions = previous_version.get_permissions(user)
             code = previous_version.code
             version = previous_version.version
+            uuid = previous_version.uuid
 
             if 'edit_questionnaire' not in permissions:
                 raise ValidationError(
@@ -246,6 +247,7 @@ class Questionnaire(models.Model):
             from configuration.utils import create_new_code
             code = create_new_code(configuration_code, data)
             version = 1
+            uuid = uuid4()
         if status not in [s[0] for s in STATUSES]:
             raise ValidationError('"{}" is not a valid status'.format(status))
         configuration = Configuration.get_active_by_code(configuration_code)
@@ -254,7 +256,7 @@ class Questionnaire(models.Model):
                 'No active configuration found for code "{}"'.format(
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
-            data=data, code=code, version=version, status=status,
+            data=data, uuid=uuid, code=code, version=version, status=status,
             created=created, updated=updated)
 
         # TODO: Not all configurations should be the original ones!
