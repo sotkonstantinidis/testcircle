@@ -14,9 +14,9 @@
     {% if options.label_position != 'placeholder' and options.label_position != 'none' %}
       <div class="small-12 columns{% if options.label_columns_class %} {{ options.label_columns_class }}{% endif %}">
         {% if options.helptext and options.helptext_position == 'tooltip' %}
-          <label for="{{ field|id }}" class="has-tip left" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></label>
+          <label for="{{ field|id }}" class="has-tip left{% if options.label_class %} {{ options.label_class }}{% endif %}" title="{{ options.helptext }}" data-tooltip="" aria-haspopup="true">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></label>
         {% else %}
-          <label for="{{ field|id }}">{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
+          <label for="{{ field|id }}"{% if options.label_class %}class="{{ options.label_class }}"{% endif %}>{{ label }}{% if label|last not in ".:!?" %}:{% endif %}</label>
         {% endif %}
       </div>
     {% endif %}
