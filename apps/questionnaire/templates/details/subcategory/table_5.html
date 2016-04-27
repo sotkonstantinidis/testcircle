@@ -4,11 +4,7 @@
   Further questions are rendered either before the table (questiongroup_config.layout == 'before_table') or after the table.
 {% endcomment %}
 
-{% if header == 'small' %}
-  <h5>{{ numbering|default:'' }} {{ label }}</h5>
-{% else %}
-  <h3>{{ numbering|default:'' }} {{ label }}</h3>
-{% endif %}
+<{{ label_tag|default:"h5" }}>{{ numbering|default:'' }} {{ label }}</{{ label_tag|default:"h5" }}>
 {% if subcategories %}
   {% for subcategory in subcategories %}
     {{ subcategory }}
@@ -38,7 +34,7 @@
               <tr>
                 {% if questiongroup.layout != 'no_label_row' %}
                   <td>{{ questiongroup.label }}</td>
-                  {% if qg|length == 3 %}
+                  {% if qg|length == 2 %}
                     </td><td>
                   {% endif %}
                 {% endif %}
