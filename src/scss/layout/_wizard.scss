@@ -167,9 +167,12 @@ form .single-item.single-item-checkbox-other {
 
 /* USER SEARCH */
 .form-user-tabs-content {
-  padding: 1rem;
+  margin-top: 1rem;
   background-color: $tabs-navigation-active-bg-color;
   margin-bottom: 0;
+}
+.form-user-tab-search, .form-user-tab-create {
+  padding: 1rem;
 }
 .form-user-tabs .tab-title>a, .form-user-tabs-content span {
   font-size: 0.875rem;

@@ -209,10 +209,9 @@ class UserTest(FunctionalTest):
             'xpath', '//p[@class="questionnaire-list-empty" and contains('
             'text(), "No WOCAT and UNCCD SLM practices found.")]')
 
-
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 @patch('wocat.views.generic_questionnaire_list')
+@patch.object(Typo3Client, 'get_user_id')
 class UserTest2(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
@@ -228,11 +227,17 @@ class UserTest2(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
 
-        # She sees a field to search for users
+        # She does not see a field to search for users
         search_user = self.findBy(
-            'xpath', '//input[contains(@class, "user-search-field")]'
-            '[1]')
+            'xpath', '//input[contains(@class, "user-search-field")]')
+        self.assertFalse(search_user.is_displayed())
+
+        # She clicks on the radio to search fo an existing user
+        search_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="search"]')
+        search_radio.click()
 
         # There is no loading indicator
         loading_indicator = self.findBy(
@@ -369,29 +374,28 @@ class UserTest2(FunctionalTest):
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
         self.rearrangeFormHeader()
 
-        # She sees a field to search for users
+        # She does not see a field to search for users
         search_user = self.findBy(
-            'xpath', '//input[contains(@class, "user-search-field")]'
-            '[1]')
-        search_tab = self.findBy(
-            'xpath', '//li[contains(@class ,"tab-title") and contains('
-            '@class, "active")]/a[contains(@class, "show-tab-select")]')
+            'xpath', '//input[contains(@class, "user-search-field")]')
+        self.assertFalse(search_user.is_displayed())
 
-        # She also sees that there is a tab to add new persons, which is
-        # not active.
-        new_tab = self.findBy(
-            'xpath', '//li[contains(@class ,"tab-title") and not('
-            'contains(@class, "active"))]/a[contains(@class, '
-            '"show-tab-create")]')
+        # She does not see a field to add new personas either
         new_name = self.findBy('id', 'id_qg_31-0-original_key_41')
         self.assertFalse(new_name.is_displayed())
 
-        # She clicks the tab and sees that the input field is visible
-        new_tab.click()
+        # She sees two radio buttons
+        search_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="search"]')
+        create_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="create"]')
+
+        # She clicks on the radio to enter a new persona and sees that the input
+        # field is visible
+        create_radio.click()
         self.assertTrue(new_name.is_displayed())
 
         # She decides to search for a user first
-        search_tab.click()
+        search_radio.click()
         self.assertFalse(new_name.is_displayed())
 
         # There is no loading indicator
@@ -419,7 +423,7 @@ class UserTest2(FunctionalTest):
         self.assertFalse(loading_indicator.is_displayed())
 
         # She decides to enter a new person
-        new_tab.click()
+        create_radio.click()
         new_name.send_keys('New Person')
         self.assertEqual(new_name.get_attribute('value'), 'New Person')
         self.findBy(
@@ -432,7 +436,7 @@ class UserTest2(FunctionalTest):
 
         # She is having second thoughts and decides to search for a
         # person once again
-        search_tab.click()
+        search_radio.click()
         search_user.clear()
         search_user.send_keys('lukas')
         WebDriverWait(self.browser, 10).until(
@@ -456,7 +460,7 @@ class UserTest2(FunctionalTest):
 
         # She goes back to the select tab and sees that the values she
         # entered previously are gone now
-        new_tab.click()
+        create_radio.click()
         self.assertEqual(new_name.get_attribute('value'), '')
         self.assertEqual(chosen_field.text, '-')
 
@@ -466,7 +470,7 @@ class UserTest2(FunctionalTest):
         self.assertTrue(new_name.is_displayed())
 
         # She goes back to the other tab and sees the selected user is gone
-        search_tab.click()
+        search_radio.click()
         self.findByNot(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Lukas Vonlanthen")]')
@@ -489,16 +493,14 @@ class UserTest2(FunctionalTest):
         self.assertTrue(new_name.is_displayed())
         self.assertEqual(new_name.get_attribute('value'), 'Other New Person')
 
-        search_tab = self.findBy(
-            'xpath', '//li[contains(@class ,"tab-title")]/a[contains(@class, '
-                     '"show-tab-select")]')
-        new_tab = self.findBy(
-            'xpath', '//li[contains(@class ,"tab-title")]/a[contains(@class, '
-            '"show-tab-create")]')
+        search_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="search"]')
+        create_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="create"]')
 
         # She sees that there is no box with the user in the registered tab and
         # there is no loading indicator
-        search_tab.click()
+        search_radio.click()
         self.findByNot(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Lukas Vonlanthen")]')
@@ -507,7 +509,7 @@ class UserTest2(FunctionalTest):
         self.assertFalse(loading_indicator.is_displayed())
 
         # She changes the value of the new person
-        new_tab.click()
+        create_radio.click()
         new_name.clear()
         new_name.send_keys('Person A')
 
@@ -541,10 +543,23 @@ class UserTest2(FunctionalTest):
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
         self.rearrangeFormHeader()
 
-        # She sees a field to search for users
+        # She does not see a field to search for users
         search_user = self.findBy(
-            'xpath', '//input[contains(@class, "user-search-field")]'
-            '[1]')
+            'xpath', '//input[contains(@class, "user-search-field")]')
+        self.assertFalse(search_user.is_displayed())
+
+        # She does not see a field to add new personas either
+        new_name = self.findBy('id', 'id_qg_31-0-original_key_41')
+        self.assertFalse(new_name.is_displayed())
+
+        # She sees two radio buttons
+        search_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="search"]')
+        create_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="create"]')
+
+        # She clicks the radio to search for a user
+        search_radio.click()
 
         # There is no loading indicator
         loading_indicator = self.findBy(
@@ -569,24 +584,38 @@ class UserTest2(FunctionalTest):
             'contains(@class, "link") and @data-questiongroup-keyword='
             '"qg_31"]').click()
 
-        # She sees that the second group shows the search field by
-        # default, no user is selected
-        qg_2_xpath = (
-            '//fieldset[contains(@class, "row")][2]//div[contains(@class, '
-            '"list-item")][2]')
+        # She sees that the second group does not show neither search field nor
+        # create field.
+        qg_2_xpath = '//fieldset[@id="subcat_0_2"]//div[contains(@class, ' \
+                     '"list-item")][2]'
+
+        # She does not see a field to search for users
         search_user_2 = self.findBy(
             'xpath', '{}//input[contains(@class, "user-search-field")]'.format(
                 qg_2_xpath))
-        self.assertTrue(search_user_2.is_displayed())
+        self.assertFalse(search_user_2.is_displayed())
 
+        # She does not see a field to add new personas either
+        new_name = self.findBy('id', 'id_qg_31-1-original_key_41')
+        self.assertFalse(new_name.is_displayed())
+
+        # No user is selected
         self.findByNot(
             'xpath', '{}//div[contains(@class, "form-user-selected")]/div['
             'contains(@class, "secondary")]'.format(qg_2_xpath))
 
+        # She sees two radio buttons
+        search_radio_2 = self.findBy(
+            'xpath', '{}//input[@name="form-user-radio" and @value="search"]'.
+                     format(qg_2_xpath))
+        create_radio_2 = self.findBy(
+            'xpath', '{}//input[@name="form-user-radio" and @value="create"]'.
+                     format(qg_2_xpath))
+
+        # She clicks the radio to create a new persona
+        create_radio_2.click()
+
         # She adds the second user as a non-registered person
-        self.findBy(
-            'xpath', '{}//a[contains(@class, "show-tab-create")]'.format(
-                qg_2_xpath)).click()
         self.findBy('id', 'id_qg_31-1-original_key_41').send_keys(
             'Some Person')
 
@@ -598,9 +627,14 @@ class UserTest2(FunctionalTest):
 
         # She sees that the third group shows the search field by
         # default, no user is selected
-        qg_3_xpath = (
-            '//fieldset[contains(@class, "row")][2]//div[contains(@class, '
-            '"list-item")][3]')
+        qg_3_xpath = '//fieldset[@id="subcat_0_2"]//div[contains(@class, ' \
+                     '"list-item")][3]'
+
+        search_radio_3 = self.findBy(
+            'xpath', '{}//input[@name="form-user-radio" and @value="search"]'.
+                     format(qg_3_xpath))
+        search_radio_3.click()
+
         search_user_3 = self.findBy(
             'xpath', '{}//input[contains(@class, "user-search-field")]'.format(
                 qg_3_xpath))
@@ -722,10 +756,15 @@ class UserTest2(FunctionalTest):
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
 
-        # She sees a field to search for users
+        # She does not see a field to search for users
         search_user = self.findBy(
-            'xpath', '//input[contains(@class, "user-search-field")]'
-            '[1]')
+            'xpath', '//input[contains(@class, "user-search-field")]')
+        self.assertFalse(search_user.is_displayed())
+
+        # She clicks the radio to search for a user
+        search_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="search"]')
+        search_radio.click()
 
         # She enters a first user by search
         search_user.send_keys('lukas')

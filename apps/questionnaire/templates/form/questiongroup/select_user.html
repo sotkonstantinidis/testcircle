@@ -58,24 +58,28 @@
               {% endif %}
             {% endfor %}
 
-            <ul class="tabs form-user-tabs" data-tab>
-              <li class="tab-title has-tip active" title="{% trans "Search a registered WOCAT user by typing the name of the person." %}" aria-haspopup="true" data-tooltip=""><a href="#form-user-tab-select" class="show-tab-select">{% trans "Registered User" %}</a></li>
-              <li class="tab-title has-tip" title="{% trans "Enter the details of a person not registered in the WOCAT database." %}" aria-haspopup="true" data-tooltip=""><a href="#form-user-tab-create" class="show-tab-create">{% trans "Non-registered Person" %}</a></li>
-            </ul>
+            <label class="input-multiline top-margin">
+              <input type="radio" name="form-user-radio" class="form-user-radio" value="search">
+              <span class="has-tip" title="{% trans "Search a registered WOCAT user by typing the name of the person." %}" aria-haspopup="true" data-tooltip="">{% trans "Registered User" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
+            </label>
+            <label class="input-multiline">
+              <input type="radio" name="form-user-radio" class="form-user-radio" value="create">
+              <span class="has-tip" title="{% trans "Enter the details of a person not registered in the WOCAT database." %}" aria-haspopup="true" data-tooltip="">{% trans "Non-registered User" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
+            </label>
+
             <div class="tabs-content form-user-tabs-content">
-              <div class="content active form-user-tab-select">
-                {% trans '<ul><li>You can search a registered WOCAT user by typing the name of the person.</li><li>If the person is not a registered WOCAT user, you can use the tab "Non-registered Person".</li></ul>' as msg %}
+              <div class="form-user-tab-search hide">
+                {% trans '<ul><li>You can search a registered WOCAT user by typing the name of the person.</li><li>If the person is not a registered WOCAT user, select the option "Non-registered Person" above.</li></ul>' as msg %}
                 {% include "form/helptext.html" with helptext=msg helptext_length=config.helptext_length %}
                 <div class="form-user-search-loading">{% trans "Loading ..." %}</div>
                 <div class="form-user-search">
-                  <span>{% trans "Search a registered WOCAT user" %}</span>
+                  <label>{% trans "Search a registered WOCAT user" %}</label>
                   <input type="search" class="user-search-field" placeholder="{% trans 'Search' %}" data-translation-no-results="{% trans 'No results found' %}" data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}" data-search-url="{% url 'user_search' %}" data-update-url="{% url 'user_update' %}">
                 </div>
                 <div class="form-user-selected"></div>
                 <p class="form-user-search-error text-warning hide"></p>
               </div>
-              <div class="content form-user-tab-create">
-
+              <div class="form-user-tab-create hide">
                 {% for field in f.visible_fields %}
 
                   {% if forloop.counter >= 4 %}
@@ -121,7 +125,6 @@
                     {% endif %}
                   {% endif %}
                 {% endfor %}
-
               </div>
             </div>
             <div class="columns right">
