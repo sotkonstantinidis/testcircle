@@ -13792,7 +13792,16 @@
       "keyword": "tech_input_est_total_costs",
       "translation": 1287,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-sum": "tech_input_est_total_costs_pi"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -13987,7 +13996,16 @@
       "keyword": "tech_input_maint_total_costs",
       "translation": 1290,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-sum": "tech_input_maint_total_costs_pi"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16846,7 +16864,9 @@
           "label": "placeholder",
           "field_options": {
             "min": 0,
-            "decimals": 2
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-multiplication": "tech_input_est_quantity|tech_input_est_costs"
           }
         }
       }
@@ -16892,7 +16912,9 @@
           "label": "placeholder",
           "field_options": {
             "min": 0,
-            "decimals": 2
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-multiplication": "tech_input_maint_quantity|tech_input_maint_costs"
           }
         }
       }
@@ -22297,6 +22319,24 @@
   },
   {
     "fields": {
+      "keyword": "tech_qg_222",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1243
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_223",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1244
+  },
+  {
+    "fields": {
       "keyword": "tech__0__1",
       "translation": 2701
     },
@@ -24426,7 +24466,7 @@
                       "template": "table_input"
                     },
                     "view_options": {
-                      "template": "table_4",
+                      "template": "table_input",
                       "table_grouping": [
                         [
                           "tech_qg_36",
@@ -24435,6 +24475,9 @@
                           "tech_qg_218",
                           "tech_qg_39",
                           "tech_qg_40"
+                        ],
+                        [
+                          "tech_qg_222"
                         ]
                       ]
                     },
@@ -24616,11 +24659,16 @@
                         ]
                       },
                       {
-                        "keyword": "tech_qg_93",
+                        "keyword": "tech_qg_222",
                         "questions": [
                           {
                             "keyword": "tech_input_est_total_costs"
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_93",
+                        "questions": [
                           {
                             "keyword": "tech_input_est_remaining_costs"
                           },
@@ -24680,7 +24728,7 @@
                       "template": "table_input"
                     },
                     "view_options": {
-                      "template": "table_4",
+                      "template": "table_input",
                       "table_grouping": [
                         [
                           "tech_qg_45",
@@ -24689,6 +24737,9 @@
                           "tech_qg_219",
                           "tech_qg_48",
                           "tech_qg_49"
+                        ],
+                        [
+                          "tech_qg_223"
                         ]
                       ]
                     },
@@ -24870,11 +24921,16 @@
                         ]
                       },
                       {
-                        "keyword": "tech_qg_52",
+                        "keyword": "tech_qg_223",
                         "questions": [
                           {
                             "keyword": "tech_input_maint_total_costs"
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_52",
+                        "questions": [
                           {
                             "keyword": "tech_input_maint_remaining_costs"
                           },

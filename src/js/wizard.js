@@ -83,6 +83,58 @@ function watchFormProgress() {
         $(this).closest('label').find('input:text').attr(
             'readonly', !$(this).is(':checked'));
     });
+
+    updateAutoMultiplication();
+}
+
+/**
+ * Function to handle fields with [data-auto-multiplication] and
+ * [data-auto-sum]. Such fields are currently used for the input tables.
+ */
+function updateAutoMultiplication() {
+    var check_sum = false;
+    $('[data-auto-multiplication]').each(function() {
+
+        // Get the prefix of the current questiongroup
+        var prefix_parts = this.name.split('-');
+        var list_item = $(this).closest('.list-item');
+
+        var sum = 1;
+        var data_sum = $(this).data('auto-multiplication').split('|');
+        for (var i in data_sum) {
+            var el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-' + data_sum[i] + ']');
+            if (el.length == 0) {
+                // Try to find with "original"
+                el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-original_' + data_sum[i] + ']');
+            }
+            sum *= parseFloat(el.val());
+        }
+        if (sum) {
+            $(this).val(sum.toFixed(2));
+        } else {
+            $(this).val('');
+        }
+        check_sum = true;
+    });
+    if (check_sum) {
+        $('[data-auto-sum]').each(function() {
+            var identifier = $(this).data('auto-sum');
+            var sum = 0;
+            var has_value = false;
+            $('input[name$=' + identifier + ']').each(function() {
+                var x = parseFloat($(this).val());
+                if (x) {
+                    has_value = true;
+                    sum += x;
+                }
+            });
+            if (has_value) {
+                $(this).val(sum.toFixed(2));
+            } else {
+                $(this).val('');
+            }
+        });
+    }
 }
 
 /**
