@@ -238,6 +238,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'link_id',
         'int',
         'float',
+        'map',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -597,7 +598,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             field = forms.CharField(
                 label=self.label, widget=widget, required=self.required)
-        elif self.field_type in ['user_id', 'link_id', 'hidden']:
+        elif self.field_type in ['user_id', 'link_id', 'hidden', 'map']:
             widget = HiddenInput()
             if self.field_type == 'user_id':
                 widget.css_class = 'select-user-id'
@@ -738,7 +739,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo', 'date', 'int']:
+        if self.field_type in ['char', 'text', 'todo', 'date', 'int', 'map']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,

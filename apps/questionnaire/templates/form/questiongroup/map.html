@@ -1,0 +1,79 @@
+{% comment %}
+  Template to render a map form field. Assumes that the first key in the
+  questiongroup is of type "map" (a hidden field holding the coordinates)
+{% endcomment %}
+
+{% load i18n %}
+{% load floppyforms %}
+{% load list_to_columns %}
+{% load sekizai_tags %}
+{% load staticfiles %}
+
+{% addtoblock 'js' %}
+  <script src="http://openlayers.org/en/v3.15.0/build/ol.js" type="text/javascript"></script>
+  <script src="{% static 'js/map.min.js' %}"></script>
+{% endaddtoblock %}
+
+{% addtoblock 'css' %}
+  <link rel="stylesheet" href="http://openlayers.org/en/v3.15.0/css/ol.css" type="text/css">
+{% endaddtoblock %}
+
+<div class="questiongroup">
+
+  {% if config.label %}
+    <{{ config.label_tag|default:"h4" }} class="{% if config.label_class %}{{ config.label_class }}{% endif %}">
+      {{ config.label }}
+    </{{ config.label_tag|default:"h4" }}>
+  {% endif %}
+
+  {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
+
+  {{ formset.management_form }}
+
+  {% for qg_form in formset.forms %}
+
+    <div class="row list-item{% if config.row_class %} {{ config.row_class }}{% endif %}{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
+
+      <div class="button-bar">
+        <ul class="button-switch radius measure">
+          <li>
+            <input type="radio" id="id_qg_9-0-key_12_1" value="draw" name="map-actions" previousvalue="false">
+            <label class="button small secondary" for="id_qg_9-0-key_12_1">
+              <span>{% trans "Draw" %}</span>
+            </label>
+          </li>
+
+          <li>
+            <input type="radio" id="id_qg_9-0-key_12_2" value="modify" name="map-actions" previousvalue="checked">
+            <label class="button small secondary" for="id_qg_9-0-key_12_2">
+              <span>{% trans "Modify" %}</span>
+            </label>
+          </li>
+
+          <li>
+            <input type="radio" id="id_qg_9-0-key_12_3" value="delete" name="map-actions" previousvalue="false">
+            <label class="button small secondary" for="id_qg_9-0-key_12_3">
+              <span>{% trans "Delete" %}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="map-form-container"></div>
+
+      {% for field in qg_form.visible_fields %}
+        {% with template=config.templates|get_by_keyword:field.name options=config.options|get_by_keyword:field.name %}
+          {% if template %}
+            {% formrow field using template %}
+          {% else %}
+            {% formrow field using "form/question/default.html" %}
+          {% endif %}
+        {% endwith %}
+      {% endfor %}
+
+      {% for field in qg_form.hidden_fields %}{% formfield field %}{% endfor %}
+
+    </div>
+
+  {% endfor %}
+
+</div>

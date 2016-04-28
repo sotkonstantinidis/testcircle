@@ -144,6 +144,11 @@ module.exports = function(grunt) {
         files: {
           'static/js/wizard.min.js': ['src/js/wizard.js']
         }
+      },
+      map: {
+        files: {
+          'static/js/map.min.js': ['src/js/map.js']
+        }
       }
     },
 

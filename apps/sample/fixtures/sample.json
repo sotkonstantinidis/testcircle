@@ -751,6 +751,21 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 52",
+            "es": "Clave 52"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11052
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "sample": {
@@ -1483,6 +1498,21 @@
     },
     "model": "configuration.translation",
     "pk": 12724
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Subcategory 3_3",
+            "es": "Subcategoría 3_3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12725
   },
   {
     "fields": {
@@ -2248,6 +2278,17 @@
   },
   {
     "fields": {
+      "keyword": "key_52",
+      "translation": 11052,
+      "configuration": {
+        "type": "map"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11052
+  },
+  {
+    "fields": {
       "keyword": "value_1",
       "translation": 11501,
       "order_value": 1
@@ -2811,6 +2852,15 @@
   },
   {
     "fields": {
+      "keyword": "qg_37",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11037
+  },
+  {
+    "fields": {
       "keyword": "subcat_1_1",
       "translation": 12701
     },
@@ -3000,6 +3050,14 @@
     },
     "model": "configuration.category",
     "pk": 11034
+  },
+  {
+    "fields": {
+      "keyword": "subcat_3_3",
+      "translation": 12725
+    },
+    "model": "configuration.category",
+    "pk": 11035
   },
   {
     "fields": {
@@ -3558,6 +3616,22 @@
                             "view_options": {
                               "in_list": true
                             }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "subcat_3_3",
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_37",
+                        "form_options": {
+                          "template": "map"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "key_52"
                           }
                         ]
                       }
