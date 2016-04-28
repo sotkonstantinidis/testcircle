@@ -987,6 +987,44 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of project which funded the documentation/ evaluation of the Approach (if relevant)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of project which funded the documentation/ evaluation of the Technology (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5050
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of institution which funded the documentation/ evaluation of the Approach (if relevant)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of institution which funded the documentation/ evaluation of the Technology (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5051
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "wocat": {
@@ -5344,9 +5382,9 @@
   {
     "fields": {
       "keyword": "funding_project",
-      "translation": 5012,
+      "translation": 5050,
       "configuration": {
-        "type": "text"
+        "type": "char"
       }
     },
     "model": "configuration.key",
@@ -5783,6 +5821,17 @@
     },
     "model": "configuration.key",
     "pk": 48
+  },
+  {
+    "fields": {
+      "keyword": "funding_institution",
+      "translation": 5051,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 49
   },
   {
     "fields": {

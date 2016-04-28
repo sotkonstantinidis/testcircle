@@ -3378,7 +3378,7 @@
             "en": "Description of the Approach"
           },
           "helptext": {
-            "en": "<p>The description should provide a concise but comprehensive picture of the Technology to outsiders and addresses key questions such as:</p><ol><li>What are the main characteristics/ distinct features of the Approach?</li><li>What are the aims/ objectives of the Approach?</li><li>Which methods were used?</li><li>Which were the stages of implementation?</li><li>Which stakeholders were involved and what were their roles?</li><li>What did land users like / dislike about the Approach?</li></ol><p>Max. 2500 characters. Fill in this information at the beginning but revise the description when you have completed the questionnaire.</p>"
+            "en": "<p>The description should provide a concise but comprehensive picture of the Approach to outsiders and addresses key questions such as:</p><ol><li>What are the main characteristics/ distinct features of the Approach?</li><li>What are the aims/ objectives of the Approach?</li><li>Which methods were used?</li><li>Which were the stages of implementation?</li><li>Which stakeholders were involved and what were their roles?</li><li>What did land users like / dislike about the Approach?</li></ol><p>Max. 2500 characters. Fill in this information at the beginning but revise the description when you have completed the questionnaire.</p>"
           }
         }
       }
@@ -7749,6 +7749,9 @@
                         "questions": [
                           {
                             "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_institution"
                           }
                         ]
                       }
