@@ -906,6 +906,125 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Locally used name"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Locally used name"
+          }
+        },
+        "unccd": {
+          "label": {
+            "en": "Local name"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5046
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Define type of key resource person"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Define type of key resource person"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5047
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "When was data compiled (in the field)?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "When was data compiled (in the field)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5048
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "General remarks regarding photos"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "General remarks regarding photos"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5049
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of project which funded the documentation/ evaluation of the Approach (if relevant)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of project which funded the documentation/ evaluation of the Technology (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5050
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of institution which funded the documentation/ evaluation of the Approach (if relevant)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of institution which funded the documentation/ evaluation of the Technology (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5051
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "wocat": {
@@ -4771,6 +4890,25 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "SLM specialist"
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "SLM specialist"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5772
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "approaches": {
@@ -5131,7 +5269,7 @@
   {
     "fields": {
       "keyword": "name_local",
-      "translation": 5003,
+      "translation": 5046,
       "configuration": {
         "type": "char",
         "form_options": {
@@ -5233,7 +5371,7 @@
   {
     "fields": {
       "keyword": "image_remarks",
-      "translation": 5011,
+      "translation": 5049,
       "configuration": {
         "type": "text"
       }
@@ -5244,9 +5382,9 @@
   {
     "fields": {
       "keyword": "funding_project",
-      "translation": 5012,
+      "translation": 5050,
       "configuration": {
-        "type": "text"
+        "type": "char"
       }
     },
     "model": "configuration.key",
@@ -5427,7 +5565,7 @@
   {
     "fields": {
       "keyword": "user_resourceperson_type",
-      "translation": 5028,
+      "translation": 5047,
       "configuration": {
         "type": "radio"
       },
@@ -5523,7 +5661,7 @@
   {
     "fields": {
       "keyword": "date_documentation",
-      "translation": 5035,
+      "translation": 5048,
       "configuration": {
         "type": "date"
       }
@@ -5683,6 +5821,17 @@
     },
     "model": "configuration.key",
     "pk": 48
+  },
+  {
+    "fields": {
+      "keyword": "funding_institution",
+      "translation": 5051,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 49
   },
   {
     "fields": {
@@ -7814,7 +7963,7 @@
   {
     "fields": {
       "keyword": "resourceperson_slmspecialist",
-      "translation": 5765,
+      "translation": 5772,
       "order_value": 2
     },
     "model": "configuration.value",

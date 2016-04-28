@@ -83,6 +83,58 @@ function watchFormProgress() {
         $(this).closest('label').find('input:text').attr(
             'readonly', !$(this).is(':checked'));
     });
+
+    updateAutoMultiplication();
+}
+
+/**
+ * Function to handle fields with [data-auto-multiplication] and
+ * [data-auto-sum]. Such fields are currently used for the input tables.
+ */
+function updateAutoMultiplication() {
+    var check_sum = false;
+    $('[data-auto-multiplication]').each(function() {
+
+        // Get the prefix of the current questiongroup
+        var prefix_parts = this.name.split('-');
+        var list_item = $(this).closest('.list-item');
+
+        var sum = 1;
+        var data_sum = $(this).data('auto-multiplication').split('|');
+        for (var i in data_sum) {
+            var el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-' + data_sum[i] + ']');
+            if (el.length == 0) {
+                // Try to find with "original"
+                el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-original_' + data_sum[i] + ']');
+            }
+            sum *= parseFloat(el.val());
+        }
+        if (sum) {
+            $(this).val(sum.toFixed(2));
+        } else {
+            $(this).val('');
+        }
+        check_sum = true;
+    });
+    if (check_sum) {
+        $('[data-auto-sum]').each(function() {
+            var identifier = $(this).data('auto-sum');
+            var sum = 0;
+            var has_value = false;
+            $('input[name$=' + identifier + ']').each(function() {
+                var x = parseFloat($(this).val());
+                if (x) {
+                    has_value = true;
+                    sum += x;
+                }
+            });
+            if (has_value) {
+                $(this).val(sum.toFixed(2));
+            } else {
+                $(this).val('');
+            }
+        });
+    }
 }
 
 /**
@@ -309,7 +361,7 @@ function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:radio').prop('checked', false).change();
     questiongroup.find('input:checkbox').prop('checked', false).change();
     questiongroup.find('input:hidden.is-cleared').val('').change();
-    questiongroup.find(".chosen-select").val('').trigger("chosen:updated");
+    questiongroup.find('.chosen-select').val('').trigger('chosen:updated');
 }
 
 $(function () {
@@ -448,21 +500,24 @@ $(function () {
 
         // ADD USERS
         // -----------------
-        // Tabs to search registered or capture non-registered person.
-        .on('click', '.form-user-tabs>li>a', function (e) {
-            e.preventDefault();
+        // Radio to switch between search registered or capture non-registered
+        // person.
+        .on('change', '.form-user-radio', function() {
+            var qg = $(this).closest('.list-item');
+            var select_user = qg.find('.form-user-tab-search');
+            var create_user = qg.find('.form-user-tab-create');
 
-            var hrefs = $(this).attr('href').split('#');
-            if (hrefs.length != 2) return;
-
-            // Tab titles
-            $(this).closest('.tabs').find('.tab-title').removeClass('active');
-            $(this).closest('.tab-title').addClass('active');
-
-            // Tab content
-            var tabs = $(this).closest('.list-item').find('.tabs-content');
-            tabs.find('.content').removeClass('active');
-            tabs.find('.' + hrefs[1]).addClass('active');
+            var selected = qg.find('input[name="form-user-radio"]:checked').val();
+            if (selected === 'search') {
+                select_user.show();
+                create_user.hide();
+            } else if (selected === 'create') {
+                select_user.hide();
+                create_user.show();
+            } else {
+                select_user.hide();
+                create_user.hide();
+            }
         })
         // Button to remove a selected user
         .on('click', '.form-user-selected a.close', function (e) {
@@ -533,6 +588,22 @@ $(function () {
                 $el.closest('label').find('input:text').val('');
             }
             watchFormProgress();
+        })
+
+        // Validate max choices of checkboxes
+        .on('change', '[data-cb-max-choices]', function() {
+            var $t = $(this);
+            if (this.checked) {
+                var question = $t.closest('.single-item');
+                if (!question.length) {
+                    // Try to find on questiongroup level
+                    var question = $t.closest('.list-item');
+                }
+                var checked = question.find('input[name="' + this.name + '"]:checked');
+                if (checked.length > $t.data('cb-max-choices')) {
+                    $(this).attr('checked', false);
+                }
+            }
         })
 
         // Conditional questions
@@ -808,6 +879,8 @@ $(function () {
             if ($t.val()) {
                 // A user is already selected, show it
                 updateUser(qg, $t.val());
+                // Also, select the radio to show it
+                qg.find('input[value="search"]').click();
             } else {
                 // No users linked but check if the form has content (new person)
                 var initial_content = false;
@@ -819,11 +892,8 @@ $(function () {
                 });
                 qg.find('.form-user-search-loading').hide();
                 if (initial_content) {
-                    qg.find('a.show-tab-create').click();
-                } else {
-                    // Default: Show the search
-                    qg.find('.form-user-select').show();
-                    qg.find('.form-user-search').show();
+                    // Select the radio to show the content
+                    qg.find('input[value="create"]').click();
                 }
             }
         });
@@ -1202,11 +1272,16 @@ function updateFieldsetElement(element, prefix, index, reset) {
         }
     });
     element.find('label').each(function () {
-        var newFor = $(this).attr('for').replace(id_regex, replacement);
-        $(this).attr('for', newFor);
+        var for_attr = $(this).attr('for');
+        if (for_attr) {
+            var newFor = for_attr.replace(id_regex, replacement);
+            $(this).attr('for', newFor);
+        }
     });
     if (reset) {
         clearQuestiongroup(element);
+        element.find('.form-user-tab-search').hide();
+        element.find('.form-user-tab-create').hide();
     }
 }
 

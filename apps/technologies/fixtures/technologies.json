@@ -3600,6 +3600,429 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Is the described technology problematic in view of land degradation and cannot be declared as a sustainable land management technology?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1278
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Description"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1279
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Is the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1280
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify whether you calculate costs and inputs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1281
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify unit"
+          },
+          "helptext": {
+            "en": "<strong>Example:</strong> watering point, energy saving stove, stone line"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1282
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify volume, length, etc. (if relevant)"
+          },
+          "helptext": {
+            "en": "<strong>Example:</strong> stone lines: 250 m, dam: 20’000 m<sup>3</sup>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1283
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Indicate size and area unit"
+          },
+          "helptext": {
+            "en": "<strong>Example:</strong> 24 acres, 4.5 hectares"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1284
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Indicate name of currency used for cost calculations"
+          },
+          "helptext": {
+            "en": "You can use USD or any other national currency. Indicate all costs in the same currency."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1285
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If possible, break down the costs for establishment according to the following table: specify inputs and costs per input. If you are not able to break down the costs, give an estimation of the total costs for the establishment of the technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1286
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Total costs for establishment of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1287
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If possible, break down the costs for maintenance according to the following table: specify inputs and costs per input. If you are not able to break down the costs, give an estimation of the total costs for the maintenance of the technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1288
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If not 100% of costs borne by land user, indicate who funded the remaining costs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1289
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Total costs for maintenance of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1290
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify average annual rainfall (if known), in mm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1291
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specifications/ comments on rainfall"
+          },
+          "helptext": {
+            "en": "Other specifications/comments on rainfall distribution, seasonality (e.g. monsoon, winter-/summer rains), number/length/months of rainy seasons, occurrence of heavy rains, length of dry periods"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1292
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Landforms"
+          },
+          "helptext": {
+            "en": "<p>Max. 2 ticks</p><p><strong>Landforms</strong> (modified after ISRIC 1993):</p><ul><li><strong>Plateau/ plains</strong>: extended level land (slopes less than 8 %).</li><li><strong>Ridges</strong>: narrow elongated area rising above the surrounding area, often hilltops or mountain-tops.</li><li><strong>Mountain slopes (including major escarpments)</strong>: extended area with altitude differences of more than 600 m per 2 km and slopes greater than 15 %.</li><li><strong>Hill slopes (including valley and minor escarpment slopes)</strong>: altitude difference of less than 600 m per 2 km and slopes greater than 8 %.</li><li><strong>Footslopes</strong>: zone bordering steeper mountain/ hill slopes on one side and valley floors/plains/plateaus on the other side.</li><li><strong>Valley floors</strong>: elongated strips of level land (less than 8 % slope), flanked by sloping or steep land on both sides.</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1293
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Altitudinal zone"
+          },
+          "helptext": {
+            "en": "Max. 2 ticks"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1294
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If available, attach full soil description or specify the available information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, nitrogen, salinity etc.)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1295
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Sedentary or nomadic"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1296
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Level of mechanization"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1297
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Indicate other relevant characteristics of the land users"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1298
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "flood impacts"
+          },
+          "label_left": {
+            "en": "increased"
+          },
+          "label_right": {
+            "en": "decreased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1299
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "drought impacts"
+          },
+          "label_left": {
+            "en": "increased"
+          },
+          "label_right": {
+            "en": "decreased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1300
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "impacts of cyclones, rain storms"
+          },
+          "label_left": {
+            "en": "increased"
+          },
+          "label_right": {
+            "en": "decreased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1301
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Type of climatic change/ extreme"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1302
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "How does the Technology cope with it?"
+          },
+          "helptext": {
+            "en": "How does the Technology cope with these changes and disasters in view of achieving its main purposes (as defined in 3.1)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1303
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "How many land users in the area have adopted/implemented the Technology?"
+          },
+          "helptext": {
+            "en": "<strong>Area</strong>: Refer to the country/ region/ locations defined in 2.4. and to the land use types described in 3.2."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1304
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "technologies": {
@@ -8555,6 +8978,460 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "preserve/ improve biodiversity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1847
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "reduce risk of disasters"
+          },
+          "helptext": {
+            "en": "e.g. droughts, floods, landslides, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1848
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "adapt to climate change/ extremes and its impacts"
+          },
+          "helptext": {
+            "en": "e.g. resilience to droughts, storms."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1849
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "mitigate climate change and its impacts"
+          },
+          "helptext": {
+            "en": "e.g. through carbon sequestration"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1850
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "create beneficial economic impact"
+          },
+          "helptext": {
+            "en": "e.g. increase income/ employment opportunities"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1851
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "forest plantation management"
+          },
+          "helptext": {
+            "en": "<strong>Forest plantation management:</strong> plantation forests comprise even-aged monocultures and are established primarily for wood and fibre production. They are usually intensively managed and have relatively high growth rates and productivity."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1852
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "irrigation management (incl. water supply, drainage)"
+          },
+          "helptext": {
+            "en": "<strong>Irrigation management (incl. water supply, drainage)</strong> aims to achieve higher water use efficiency through more efficient water collection and abstraction, water storage,  distribution, and water application."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1853
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "surface water management (spring, river, lakes, sea)"
+          },
+          "helptext": {
+            "en": "<strong>Surface water management (spring, river, lakes, sea):</strong> involves the protection of springs, rivers and lakes from pollution, from high water flows(floods) or over abstraction of water as well as protection measures against negative impacts from water bodies (e.g. river bank erosion, floods, tidal erosion)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1854
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "ecosystem-based disaster risk reduction"
+          },
+          "helptext": {
+            "en": "<strong>Ecosystem-based Disaster Risk Reduction:</strong> is the sustainable management, conservation and restoration of ecosystems to reduce disaster risk and safeguard the direct and indirect benefits people obtain from the ecosystems."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1855
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "evenly spread over an area?"
+          },
+          "helptext": {
+            "en": "e.g. mulching, series of terraces, afforestation, micro-catchments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1856
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "applied at specific points/ concentrated on a small area?"
+          },
+          "helptext": {
+            "en": "e.g. water points, dams, compost production pits, smallstock stables, hydropower stations"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1857
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "prevent land degradation?"
+          },
+          "helptext": {
+            "en": "<strong>Prevention:</strong> good land management practices are already in place on land that may be prone to land degradation. They maintain natural resources and their environmental and productive functions."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1858
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "reduce land degradation?"
+          },
+          "helptext": {
+            "en": "<strong>Reduction:</strong> interventions intended to reduce ongoing degradation and/ or halt further degradation. They start improving natural resources and their functions. Impacts tend to be noticeable in the short to medium term."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1859
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "restore/ rehabilitate severely degraded land?"
+          },
+          "helptext": {
+            "en": "<strong>Rehabilitation/ restoration</strong> required when the land is already degraded to such an extent that the original use is no longer possible, and land has become practically unproductive. Here, longer-term and more costly investments are needed to show any impact."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1860
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "adapt to land degradation?"
+          },
+          "helptext": {
+            "en": "<strong>Adaptation:</strong> applied when rehabilitation/ restoration of the original state of the land is no longer possible or requires resources beyond the means of land users. This means the state of land degradation is “accepted”, but land management is adapted to suit land degradation (e.g. adapting to soil salinity by introducing salt-tolerant plants)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1861
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "per technology unit"
+          },
+          "helptext": {
+            "en": "e.g. watering point, energy saving stove, stone line"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1862
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "per technology area"
+          },
+          "helptext": {
+            "en": "e.g. 24 acres"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1863
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "101-500 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1864
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "501-1000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1865
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1001-1500 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1866
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1501-2000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1867
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "2001-2500 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1868
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "2501-3000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1869
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "3001-4000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1870
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "not relevant"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1871
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Sedentary"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1872
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Semi-nomadic"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1873
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Nomadic"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1874
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "both"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1875
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "technologies": {
@@ -10481,6 +11358,195 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Key resource person(s)"
+          },
+          "helptext": {
+            "en": "Person(s) who provided most of the information documented in this questionnaire. These can be land users, or SLM specialists (e.g. technical advisors, researchers) or any other persons."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2352
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Plant material"
+          },
+          "helptext": {
+            "en": "<strong>Plant material</strong> includes seeds, seedling, cuttings, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2353
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Fertilizers and biocides"
+          },
+          "helptext": {
+            "en": "<strong>Fertilizers and biocides</strong>: compost/ manure, inorganic fertilizer, herbicides, pesticides, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2354
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Labour"
+          },
+          "helptext": {
+            "en": "<strong>Labour</strong> includes total person days, be they paid or unpaid (e.g. contributed by family members). For “Costs per Unit” indicate daily wage for hired labour. If relevant, differentiate between skilled and unskilled labour."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2355
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Equipment"
+          },
+          "helptext": {
+            "en": "<strong>Equipment</strong> includes tools, machine hours, animal traction, etc. Cost calculation for machine hours and animal traction should be based on hiring costs - even if the machinery/ animals are owned by the land user."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2356
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Annual rainfall"
+          },
+          "helptext": {
+            "en": "Max. 2 ticks"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2357
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "flood impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2358
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "drought impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2359
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "impacts of cyclones, rain storms"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2360
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "cold wave"
+          },
+          "helptext": {
+            "en": "any time of the year, e.g. frost"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2361
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "How do the benefits compare with the establishment costs (from land users’ perception)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2362
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "How do the benefits compare with the maintenance/ recurrent costs (from land users' perception)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2363
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "technologies": {
@@ -11493,6 +12559,229 @@
       "data": {
         "technologies": {
           "label": {
+            "en": "Declaration on sustainability of the described Technology"
+          },
+          "helptext": {
+            "en": "Note that WOCAT questionnaires focus on the documentation and assessment of SLM practices. However, this questionnaire can also be used to describe non-sustainable land management practices, if you wish to compare this practice with other technologies."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2768
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Description of the Technology"
+          },
+          "helptext": {
+            "en": "<p>The description should provide a concise but comprehensive picture of the Technology to outsiders and addresses key questions such as:</p><ol><li>Where is the Technology applied (natural and human environment)?</li><li>What are the main characteristics/ elements of theTechnology (including technical specifications)?</li><li>What are the purpose/ functions of the Technology?</li><li>What activities and inputsare needed to establish/ maintain the Technology?</li><li>What are the benefits/ impacts of the Technology?</li><li>What do land users like / dislike about the technology?</li></ol><p>Max. 2500 characters. Fill in this information at the beginning but revise the description when youhave completed the questionnaire.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2769
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Indicate the main purpose(s) of the SLM technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2770
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "General information regarding the calculation of inputs and costs"
+          },
+          "helptext": {
+            "en": "<ul><li>Preferably, activities, inputs, and costs should be calculated per area where the technology is applied. If you choose a local area unit, indicate conversion factor (e.g. between local unit and hectare). Include not only the area which is directly covered by SLM measures (e.g. the area with stone walls, tree lines, ditches) but also the area that is affected/ protected by the SLM measures (e.g. the area between stone walls).</li><li>If costs are not calculated per area, inputs and costs can alternatively be calculated per unit (e.g. dam, animal watering point, energy saving stove) or per length (e.g. meter stone line)</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2771
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Costs and inputs needed for establishment"
+          },
+          "helptext": {
+            "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 5.1 and to the activities listed in 5.2. Use the currency indicated in 5.1.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2772
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Costs and inputs needed for maintenance/ recurrent activities (per year)"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 5.1, and to the activities listed in 5.4. Use the currency indicated in 5.1."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2773
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Most important factors affecting the costs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2774
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Land user applying the SLM Technology"
+          },
+          "helptext": {
+            "en": "Specify the characteristics of the average/ typical land users who apply the Technology. Tick max. two answers per question. Indicate characteristics relative to your region/ country standards."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2775
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Average land size per household/ land use entreprise applying the Technology"
+          },
+          "helptext": {
+            "en": "Refer to the total area used per household (leased and owned land), including the land where no Technology is applied. Tick max. two answers."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2776
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Indicate the on-site impacts the SLM technology has shown"
+          },
+          "helptext": {
+            "en": "<p>First, tick relevant impacts (tick boxes on the left). Then for each selected impact, tick the extent and specify/quantify if possible.</p><ul><li><strong>-3</strong>: Very negative (- 50-100%)</li><li><strong>-2</strong>: Negative (- 20-50%)</li><li><strong>-1</strong>: Slightly negative (- 5-20%)</li><li><strong>0</strong>: Negligible impact</li><li><strong>1</strong>: Slightly positive (+5-20%)</li><li><strong>2</strong>: Positive (+20-50%)</li><li><strong>3</strong>: Very positive (+50-100%)</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2777
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Climate and disaster risk reduction"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2778
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Climate-related extremes (disasters)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2779
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Adoption of the technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2780
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Current land use type(s) where the Technology is applied"
+          },
+          "helptext": {
+            "en": "<p><strong>Land use</strong>: human activities which are directly related to land, making use of its resources or having an impact upon it.<br><strong>Land cover</strong>: Vegetation (natural or planted) or man-made structures (buildings, etc.) that cover the earth’s surface.</p><p>Usually one, max. two ticks</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2781
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
             "en": "General information"
           }
         }
@@ -11661,6 +12950,57 @@
   },
   {
     "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Description of the SLM Technology"
+          },
+          "helptext": {
+            "en": "<p><strong>An SLM Technology</strong> is a practice applied in the field that controls land degradation and/ or enhances productivity. A Technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2912
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Implementation, inputs, and costs"
+          },
+          "helptext": {
+            "en": "<p>Notes to implementation activities, inputs, and costs:</p><ul><li>It may be very difficult to determine the costs of a Technology. Nevertheless, we ask you to give your best estimate!</li><li>A distinction is made between initial establishment (construction, initiation) and maintenance/ recurrent annual activities.</li><li>All costs should be calculated based at market prices. If labour is provided by land users themselves indicate equivalent cost of hired labour. If inputs are provided/ produced by land users themselves indicate equivalent market price.</li><li>Exclude costs for awareness creation, planning, training, research, and financial/ material support (these will be addressed in the Approach questionnaire)</li><li>If the objective is to compare two situations i.e. after/ with SLM measures (e.g. conservation agriculture) and before/ without SLM measures (e.g. conventional agriculture) fill in two questionnaires.</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2913
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Impacts: benefits and disadvantages"
+          },
+          "helptext": {
+            "en": "<p>Assess relevant impacts in the table below. If data based on measurements is not available, give your best estimate. Negligible means “no significant benefit nor disadvantage”. Make use of the “Quantify before SLM/ after SLM” and “Comments/ specify” columns to show evidence and justify your selection as far as possible. Choose adequate indicators to quantify impacts (e.g. t/ha for crop production, coliform measurement for water quality, etc.). While a 10% increase (e.g. of yield) might be judged as a great improvement, still tick the category “Slightly positive (+5-20%)”, and use “Comments” to explain. Only indicate “Quantify (before/ after)” if impacts are measured or based on surveys. Impacts that are not ticked are considered “not relevant” or “not applicable”.</p><p><strong>On-site</strong>: concerns the actual area where the Technology is applied.<br><strong>Off-site</strong>: concerns the adjacent area or areas further away from the area where the Technology is applied.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2914
+  },
+  {
+    "fields": {
       "keyword": "tech_definition",
       "translation": 1001,
       "configuration": {
@@ -11808,7 +13148,12 @@
       "keyword": "tech_landuse",
       "translation": 1010,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1119,
@@ -12282,7 +13627,12 @@
       "keyword": "tech_prevention",
       "translation": 1032,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1140,
@@ -12467,9 +13817,18 @@
   {
     "fields": {
       "keyword": "tech_input_est_total_costs",
-      "translation": 1044,
+      "translation": 1287,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-sum": "tech_input_est_total_costs_pi"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -12489,7 +13848,7 @@
   {
     "fields": {
       "keyword": "tech_input_est_remaining_costs",
-      "translation": 1189,
+      "translation": 1289,
       "configuration": {
         "type": "char"
       }
@@ -12500,7 +13859,7 @@
   {
     "fields": {
       "keyword": "tech_input_national_currency",
-      "translation": 1045,
+      "translation": 1285,
       "configuration": {
         "type": "char"
       }
@@ -12630,7 +13989,7 @@
   {
     "fields": {
       "keyword": "tech_input_maint_remaining_costs",
-      "translation": 1189,
+      "translation": 1289,
       "configuration": {
         "type": "char"
       }
@@ -12662,9 +14021,18 @@
   {
     "fields": {
       "keyword": "tech_input_maint_total_costs",
-      "translation": 1191,
+      "translation": 1290,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-sum": "tech_input_maint_total_costs_pi"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -12695,7 +14063,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_annual",
-      "translation": 1050,
+      "translation": 1291,
       "configuration": {
         "type": "char"
       }
@@ -12806,7 +14174,12 @@
       "keyword": "tech_rainfall",
       "translation": 1059,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1148,
@@ -12970,7 +14343,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_specifications",
-      "translation": 1068,
+      "translation": 1292,
       "configuration": {
         "type": "text"
       }
@@ -12983,7 +14356,7 @@
       "keyword": "tech_agroclimatic_zone",
       "translation": 1069,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox"
       },
       "values": [
         1157,
@@ -13071,7 +14444,12 @@
       "keyword": "tech_slopes",
       "translation": 1074,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1161,
@@ -13209,9 +14587,14 @@
   {
     "fields": {
       "keyword": "tech_landforms",
-      "translation": 1081,
+      "translation": 1293,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1168,
@@ -13328,9 +14711,14 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone",
-      "translation": 1087,
+      "translation": 1294,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1174,
@@ -13527,7 +14915,8 @@
       },
       "values": [
         1081,
-        1082
+        1082,
+        1350
       ]
     },
     "model": "configuration.key",
@@ -13538,7 +14927,12 @@
       "keyword": "tech_soil_depth",
       "translation": 1098,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1183,
@@ -13636,7 +15030,12 @@
       "keyword": "tech_soil_texture_topsoil",
       "translation": 1103,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1188,
@@ -13692,7 +15091,12 @@
       "keyword": "tech_soil_texture_20cm",
       "translation": 1106,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1188,
@@ -13708,7 +15112,12 @@
       "keyword": "tech_topsoil_organic",
       "translation": 1107,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1191,
@@ -13722,7 +15131,7 @@
   {
     "fields": {
       "keyword": "tech_soil_comments",
-      "translation": 1109,
+      "translation": 1295,
       "configuration": {
         "type": "text"
       }
@@ -13904,7 +15313,12 @@
       "keyword": "tech_market_orientation",
       "translation": 1130,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1208,
@@ -13920,7 +15334,12 @@
       "keyword": "tech_wealth",
       "translation": 1133,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1211,
@@ -13998,7 +15417,12 @@
       "keyword": "tech_offfarm_income",
       "translation": 1138,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1090,
@@ -14014,7 +15438,12 @@
       "keyword": "tech_individuals",
       "translation": 1139,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1086,
@@ -14029,9 +15458,14 @@
   {
     "fields": {
       "keyword": "tech_mechanisation",
-      "translation": 1140,
+      "translation": 1297,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1093,
@@ -14077,7 +15511,7 @@
   {
     "fields": {
       "keyword": "tech_landuser_comments",
-      "translation": 1127,
+      "translation": 1298,
       "configuration": {
         "type": "text"
       }
@@ -14090,7 +15524,12 @@
       "keyword": "tech_land_size",
       "translation": 1143,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1216,
@@ -14125,7 +15564,12 @@
       "keyword": "tech_ownership",
       "translation": 1154,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1227,
@@ -14166,7 +15610,12 @@
       "keyword": "tech_landuserights",
       "translation": 1160,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1233,
@@ -14194,7 +15643,12 @@
       "keyword": "tech_wateruserights",
       "translation": 1161,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1233,
@@ -15053,7 +16507,7 @@
   {
     "fields": {
       "keyword": "tech_sustainability",
-      "translation": 1230,
+      "translation": 1278,
       "configuration": {
         "type": "bool"
       }
@@ -15064,7 +16518,7 @@
   {
     "fields": {
       "keyword": "tech_sustainability_indicate",
-      "translation": 1231,
+      "translation": 5004,
       "configuration": {
         "type": "text"
       }
@@ -15224,7 +16678,12 @@
       "keyword": "tech_slm_group",
       "translation": 1244,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 3
+          }
+        }
       },
       "values": [
         1279,
@@ -15251,6 +16710,7 @@
         1300,
         1301,
         1246,
+        1347,
         1302
       ]
     },
@@ -15271,7 +16731,7 @@
   {
     "fields": {
       "keyword": "tech_perarea_size",
-      "translation": 1246,
+      "translation": 1284,
       "configuration": {
         "type": "char"
       }
@@ -15360,9 +16820,12 @@
   {
     "fields": {
       "keyword": "tech_exposure_sensitivity",
-      "translation": 1254,
+      "translation": 1303,
       "configuration": {
-        "type": "select"
+        "type": "select",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
       },
       "values": [
         1319,
@@ -15474,7 +16937,7 @@
   {
     "fields": {
       "keyword": "tech_spread_tech",
-      "translation": 1260,
+      "translation": 1280,
       "configuration": {
         "type": "radio"
       },
@@ -15518,7 +16981,9 @@
           "label": "placeholder",
           "field_options": {
             "min": 0,
-            "decimals": 2
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-multiplication": "tech_input_est_quantity|tech_input_est_costs"
           }
         }
       }
@@ -15564,7 +17029,9 @@
           "label": "placeholder",
           "field_options": {
             "min": 0,
-            "decimals": 2
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-multiplication": "tech_input_maint_quantity|tech_input_maint_costs"
           }
         }
       }
@@ -15680,7 +17147,7 @@
   {
     "fields": {
       "keyword": "tech_exposure_incrdecr",
-      "translation": 1272,
+      "translation": 1302,
       "configuration": {
         "type": "select"
       },
@@ -15697,7 +17164,10 @@
       "keyword": "tech_exposure_season",
       "translation": 1273,
       "configuration": {
-        "type": "select"
+        "type": "select",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
       },
       "values": [
         1334,
@@ -15725,7 +17195,7 @@
   {
     "fields": {
       "keyword": "tech_adoption_percentage",
-      "translation": 1274,
+      "translation": 1304,
       "configuration": {
         "type": "radio"
       },
@@ -15798,6 +17268,174 @@
     },
     "model": "configuration.key",
     "pk": 1339
+  },
+  {
+    "fields": {
+      "keyword": "tech_description",
+      "translation": 1279,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1340
+  },
+  {
+    "fields": {
+      "keyword": "tech_cost_calculation_base",
+      "translation": 1281,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        1348,
+        1349
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1341
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_perunit_unit",
+      "translation": 1282,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1342
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_perunit_volume",
+      "translation": 1283,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1343
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_est_total_estimation",
+      "translation": 1286,
+      "configuration": {
+        "type": "float",
+        "field_options": {
+          "min": 0
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1344
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_maint_total_estimation",
+      "translation": 1288,
+      "configuration": {
+        "type": "float",
+        "field_options": {
+          "min": 0
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1345
+  },
+  {
+    "fields": {
+      "keyword": "tech_sedentary_nomadic",
+      "translation": 1296,
+      "configuration": {
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
+      },
+      "values": [
+        1351,
+        1352,
+        1353
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1346
+  },
+  {
+    "fields": {
+      "keyword": "tech_sedentary_other",
+      "translation": 1008,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1347
+  },
+  {
+    "fields": {
+      "keyword": "tech_impacts_floodimpacts",
+      "translation": 1299,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1237,
+        1238,
+        1239,
+        1240,
+        1241,
+        1242,
+        1243
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1348
+  },
+  {
+    "fields": {
+      "keyword": "tech_impacts_droughtimpacts",
+      "translation": 1300,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1237,
+        1238,
+        1239,
+        1240,
+        1241,
+        1242,
+        1243
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1349
+  },
+  {
+    "fields": {
+      "keyword": "tech_impacts_cyclones",
+      "translation": 1301,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1237,
+        1238,
+        1239,
+        1240,
+        1241,
+        1242,
+        1243
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1350
   },
   {
     "fields": {
@@ -16676,7 +18314,7 @@
   {
     "fields": {
       "keyword": "gender_mixed",
-      "translation": 1598,
+      "translation": 1875,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -17000,7 +18638,7 @@
   {
     "fields": {
       "keyword": "intervention_prevent_ld",
-      "translation": 1640,
+      "translation": 1858,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -17009,7 +18647,7 @@
   {
     "fields": {
       "keyword": "intervention_reduce_ld",
-      "translation": 1641,
+      "translation": 1859,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -17018,7 +18656,7 @@
   {
     "fields": {
       "keyword": "intervention_rehabilitate",
-      "translation": 1642,
+      "translation": 1860,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -17315,7 +18953,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_100_500",
-      "translation": 1675,
+      "translation": 1864,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -17324,7 +18962,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_500_1000",
-      "translation": 1676,
+      "translation": 1865,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -17333,7 +18971,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_1000_1500",
-      "translation": 1677,
+      "translation": 1866,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -17342,7 +18980,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_1500_2000",
-      "translation": 1678,
+      "translation": 1867,
       "order_value": 5
     },
     "model": "configuration.value",
@@ -17351,7 +18989,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_2000_2500",
-      "translation": 1679,
+      "translation": 1868,
       "order_value": 6
     },
     "model": "configuration.value",
@@ -17360,7 +18998,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_2500_3000",
-      "translation": 1680,
+      "translation": 1869,
       "order_value": 7
     },
     "model": "configuration.value",
@@ -17369,7 +19007,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_3000_4000",
-      "translation": 1681,
+      "translation": 1870,
       "order_value": 8
     },
     "model": "configuration.value",
@@ -17999,7 +19637,7 @@
   {
     "fields": {
       "keyword": "main_purpose_biodiversity",
-      "translation": 1752,
+      "translation": 1847,
       "order_value": 5
     },
     "model": "configuration.value",
@@ -18008,7 +19646,7 @@
   {
     "fields": {
       "keyword": "main_purpose_disasters",
-      "translation": 1753,
+      "translation": 1848,
       "order_value": 6
     },
     "model": "configuration.value",
@@ -18017,7 +19655,7 @@
   {
     "fields": {
       "keyword": "main_purpose_adaption",
-      "translation": 1754,
+      "translation": 1849,
       "order_value": 7
     },
     "model": "configuration.value",
@@ -18026,7 +19664,7 @@
   {
     "fields": {
       "keyword": "main_purpose_mitigation",
-      "translation": 1755,
+      "translation": 1850,
       "order_value": 8
     },
     "model": "configuration.value",
@@ -18035,7 +19673,7 @@
   {
     "fields": {
       "keyword": "main_purpose_economic",
-      "translation": 1756,
+      "translation": 1851,
       "order_value": 9
     },
     "model": "configuration.value",
@@ -18254,7 +19892,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_plantation",
-      "translation": 1780,
+      "translation": 1852,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -18380,7 +20018,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_irrigation",
-      "translation": 1794,
+      "translation": 1853,
       "order_value": 16
     },
     "model": "configuration.value",
@@ -18398,7 +20036,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_surfacewater",
-      "translation": 1796,
+      "translation": 1854,
       "order_value": 18
     },
     "model": "configuration.value",
@@ -18453,7 +20091,7 @@
     "fields": {
       "keyword": "tech_slm_group_other",
       "translation": 1802,
-      "order_value": 25
+      "order_value": 26
     },
     "model": "configuration.value",
     "pk": 1302
@@ -18482,7 +20120,7 @@
   {
     "fields": {
       "keyword": "intervention_adapt",
-      "translation": 1810,
+      "translation": 1861,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -18617,7 +20255,7 @@
   {
     "fields": {
       "keyword": "tech_spread_evenly",
-      "translation": 1829,
+      "translation": 1856,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -18626,7 +20264,7 @@
   {
     "fields": {
       "keyword": "tech_spread_points",
-      "translation": 1830,
+      "translation": 1857,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -18775,6 +20413,69 @@
     },
     "model": "configuration.value",
     "pk": 1346
+  },
+  {
+    "fields": {
+      "keyword": "tech_slm_group_drr",
+      "translation": 1855,
+      "order_value": 25
+    },
+    "model": "configuration.value",
+    "pk": 1347
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_calc_per_unit",
+      "translation": 1862,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1348
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_calc_per_area",
+      "translation": 1863,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1349
+  },
+  {
+    "fields": {
+      "keyword": "topography_not_relevant",
+      "translation": 1871,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1350
+  },
+  {
+    "fields": {
+      "keyword": "sedentary_sedentary",
+      "translation": 1872,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1351
+  },
+  {
+    "fields": {
+      "keyword": "sedentary_seminomadic",
+      "translation": 1873,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1352
+  },
+  {
+    "fields": {
+      "keyword": "sedentary_nomadic",
+      "translation": 1874,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1353
   },
   {
     "fields": {
@@ -19103,7 +20804,7 @@
   {
     "fields": {
       "keyword": "tech_qg_36",
-      "translation": 2203,
+      "translation": 2355,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -19112,7 +20813,7 @@
   {
     "fields": {
       "keyword": "tech_qg_37",
-      "translation": 2204,
+      "translation": 2356,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -19121,7 +20822,7 @@
   {
     "fields": {
       "keyword": "tech_qg_38",
-      "translation": 2205,
+      "translation": 2353,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -19184,7 +20885,7 @@
   {
     "fields": {
       "keyword": "tech_qg_45",
-      "translation": 2208,
+      "translation": 2355,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -19193,7 +20894,7 @@
   {
     "fields": {
       "keyword": "tech_qg_46",
-      "translation": 2204,
+      "translation": 2356,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -19202,7 +20903,7 @@
   {
     "fields": {
       "keyword": "tech_qg_47",
-      "translation": 2205,
+      "translation": 2353,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -19256,7 +20957,7 @@
   {
     "fields": {
       "keyword": "tech_qg_54",
-      "translation": 2218,
+      "translation": 2357,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20021,7 +21722,7 @@
   {
     "fields": {
       "keyword": "tech_qg_142",
-      "translation": 2293,
+      "translation": 2358,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20155,15 +21856,6 @@
   },
   {
     "fields": {
-      "keyword": "tech_qg_157",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 1177
-  },
-  {
-    "fields": {
       "keyword": "tech_qg_158",
       "translation": null,
       "configuration": {}
@@ -20201,7 +21893,7 @@
   {
     "fields": {
       "keyword": "tech_qg_162",
-      "translation": 2307,
+      "translation": null,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20210,7 +21902,7 @@
   {
     "fields": {
       "keyword": "tech_qg_163",
-      "translation": 2308,
+      "translation": null,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20219,7 +21911,7 @@
   {
     "fields": {
       "keyword": "tech_qg_164",
-      "translation": 2309,
+      "translation": null,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20372,7 +22064,7 @@
   {
     "fields": {
       "keyword": "tech_qg_181",
-      "translation": 2323,
+      "translation": 2362,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20381,7 +22073,7 @@
   {
     "fields": {
       "keyword": "tech_qg_182",
-      "translation": 2324,
+      "translation": 2363,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20399,7 +22091,7 @@
   {
     "fields": {
       "keyword": "tech_qg_184",
-      "translation": 2325,
+      "translation": 2352,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20543,7 +22235,7 @@
   {
     "fields": {
       "keyword": "tech_qg_200",
-      "translation": 2337,
+      "translation": 2361,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20651,7 +22343,7 @@
   {
     "fields": {
       "keyword": "tech_qg_212",
-      "translation": null,
+      "translation": 2328,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20687,7 +22379,7 @@
   {
     "fields": {
       "keyword": "tech_qg_216",
-      "translation": null,
+      "translation": 2328,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -20701,6 +22393,69 @@
     },
     "model": "configuration.questiongroup",
     "pk": 1237
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_217",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1238
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_218",
+      "translation": 2354,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1239
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_219",
+      "translation": 2354,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1240
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_220",
+      "translation": 2359,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1241
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_221",
+      "translation": 2360,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1242
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_222",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1243
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_223",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1244
   },
   {
     "fields": {
@@ -20729,7 +22484,7 @@
   {
     "fields": {
       "keyword": "tech__2__2",
-      "translation": 2704
+      "translation": 2769
     },
     "model": "configuration.category",
     "pk": 1004
@@ -20745,7 +22500,7 @@
   {
     "fields": {
       "keyword": "tech__3__1",
-      "translation": 2706
+      "translation": 2770
     },
     "model": "configuration.category",
     "pk": 1006
@@ -20753,7 +22508,7 @@
   {
     "fields": {
       "keyword": "tech__3__2",
-      "translation": 2707
+      "translation": 2781
     },
     "model": "configuration.category",
     "pk": 1007
@@ -20801,7 +22556,7 @@
   {
     "fields": {
       "keyword": "tech__5__3",
-      "translation": 2713
+      "translation": 2772
     },
     "model": "configuration.category",
     "pk": 1013
@@ -20817,7 +22572,7 @@
   {
     "fields": {
       "keyword": "tech__5__5",
-      "translation": 2715
+      "translation": 2773
     },
     "model": "configuration.category",
     "pk": 1015
@@ -20865,7 +22620,7 @@
   {
     "fields": {
       "keyword": "tech__7__1",
-      "translation": 2721
+      "translation": 2775
     },
     "model": "configuration.category",
     "pk": 1021
@@ -20873,7 +22628,7 @@
   {
     "fields": {
       "keyword": "tech__7__2",
-      "translation": 2722
+      "translation": 2776
     },
     "model": "configuration.category",
     "pk": 1022
@@ -20889,7 +22644,7 @@
   {
     "fields": {
       "keyword": "tech__8__1",
-      "translation": 2724
+      "translation": 2777
     },
     "model": "configuration.category",
     "pk": 1024
@@ -20921,7 +22676,7 @@
   {
     "fields": {
       "keyword": "tech__5__1",
-      "translation": 2728
+      "translation": 2771
     },
     "model": "configuration.category",
     "pk": 1028
@@ -21097,7 +22852,7 @@
   {
     "fields": {
       "keyword": "tech__9__1",
-      "translation": 2750
+      "translation": 2780
     },
     "model": "configuration.category",
     "pk": 1051
@@ -21113,7 +22868,7 @@
   {
     "fields": {
       "keyword": "tech__1__4",
-      "translation": 2743
+      "translation": 2768
     },
     "model": "configuration.category",
     "pk": 1054
@@ -21137,7 +22892,7 @@
   {
     "fields": {
       "keyword": "tech__5__6",
-      "translation": 2756
+      "translation": 2774
     },
     "model": "configuration.category",
     "pk": 1057
@@ -21224,6 +22979,22 @@
   },
   {
     "fields": {
+      "keyword": "tech__8__1__ecological_climate",
+      "translation": 2778
+    },
+    "model": "configuration.category",
+    "pk": 1068
+  },
+  {
+    "fields": {
+      "keyword": "tech__8__3__climaterelated",
+      "translation": 2779
+    },
+    "model": "configuration.category",
+    "pk": 1069
+  },
+  {
+    "fields": {
       "keyword": "tech__1",
       "translation": 2901
     },
@@ -21233,7 +23004,7 @@
   {
     "fields": {
       "keyword": "tech__2",
-      "translation": 2902
+      "translation": 2912
     },
     "model": "configuration.category",
     "pk": 1702
@@ -21257,7 +23028,7 @@
   {
     "fields": {
       "keyword": "tech__5",
-      "translation": 2905
+      "translation": 2913
     },
     "model": "configuration.category",
     "pk": 1705
@@ -21281,7 +23052,7 @@
   {
     "fields": {
       "keyword": "tech__8",
-      "translation": 2908
+      "translation": 2914
     },
     "model": "configuration.category",
     "pk": 1708
@@ -21383,10 +23154,6 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_name",
-                        "form_options": {
-                          "template": "columns_custom",
-                          "columns_custom": [["12"], ["8", "4"]]
-                        },
                         "questions": [
                           {
                             "keyword": "name",
@@ -21399,7 +23166,7 @@
                             "keyword": "name_local"
                           },
                           {
-                            "keyword": "name_local_language"
+                            "keyword": "country"
                           }
                         ]
                       },
@@ -21435,7 +23202,6 @@
                           {
                             "keyword": "user_resourceperson_type",
                             "form_options": {
-                              "template": "no_label",
                               "has_other": "user_resourceperson_type"
                             },
                             "view_options": {
@@ -21544,6 +23310,9 @@
                         "questions": [
                           {
                             "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_institution"
                           }
                         ]
                       }
@@ -21578,21 +23347,8 @@
                         "keyword": "tech_qg_156",
                         "questions": [
                           {
-                            "keyword": "tech_sustainability",
-                            "form_options": {
-                              "questiongroup_conditions": [
-                                "==0|tech_qg_157"
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "tech_qg_157",
-                        "form_options": {
-                          "questiongroup_condition": "tech_qg_157"
-                        },
-                        "questions": [
+                            "keyword": "tech_sustainability"
+                          },
                           {
                             "keyword": "tech_sustainability_indicate"
                           }
@@ -21674,30 +23430,11 @@
                         "keyword": "tech_qg_2",
                         "questions": [
                           {
-                            "keyword": "tech_description_layout",
+                            "keyword": "tech_description",
                             "form_options": {
-                              "num_rows": 5
-                            }
-                          },
-                          {
-                            "keyword": "tech_description_purpose"
-                          },
-                          {
-                            "keyword": "tech_description_establishment",
-                            "form_options": {
-                              "num_rows": 5
-                            }
-                          },
-                          {
-                            "keyword": "tech_description_environment",
-                            "form_options": {
-                              "num_rows": 5
-                            }
-                          },
-                          {
-                            "keyword": "tech_description_conclusions",
-                            "form_options": {
-                              "num_rows": 3
+                              "label_position": "none",
+                              "num_rows": 10,
+                              "max_length": 2500
                             }
                           }
                         ]
@@ -22052,7 +23789,8 @@
                           {
                             "keyword": "tech_lu_sub_other",
                             "form_options": {
-                              "template": "checkbox_other"
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other"
@@ -22307,9 +24045,6 @@
                         "questions": [
                           {
                             "keyword": "tech_spread_tech",
-                            "form_options": {
-                              "template": "no_label"
-                            },
                             "view_options": {
                               "label_position": "none"
                             }
@@ -22723,58 +24458,40 @@
                     },
                     "questiongroups": [
                       {
+                        "keyword": "tech_qg_217",
+                        "questions": [
+                          {
+                            "keyword": "tech_cost_calculation_base",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "=='tech_input_calc_per_unit'|tech_qg_162",
+                                "=='tech_input_calc_per_area'|tech_qg_163"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
                         "keyword": "tech_qg_162",
                         "form_options": {
+                          "questiongroup_condition": "tech_qg_162",
                           "template": "columns_custom",
-                          "columns_custom": [["6", "6"], ["12"], ["6", "6"]]
+                          "columns_custom": [["6", "6"]]
                         },
                         "questions": [
                           {
-                            "keyword": "tech_perarea_unit",
+                            "keyword": "tech_input_perunit_unit",
                             "form_options": {
-                              "helptext_position": "tooltip",
-                              "label_columns_class": "top-margin"
+                              "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "template": "inline_6"
                             }
                           },
                           {
-                            "keyword": "tech_perarea_size",
+                            "keyword": "tech_input_perunit_volume",
                             "form_options": {
-                              "helptext_position": "tooltip",
-                              "label_columns_class": "top-margin"
-                            },
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_area_unit_conversion",
-                            "form_options": {
-                              "label_columns_class": "top-margin"
-                            },
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_notperarea_unit",
-                            "form_options": {
-                              "helptext_position": "tooltip",
-                              "label_columns_class": "top-margin"
-
-                            },
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_notperarea_size",
-                            "form_options": {
-                              "helptext_position": "tooltip",
-                              "label_columns_class": "top-margin"
-
+                              "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "template": "inline_6"
@@ -22784,12 +24501,23 @@
                       },
                       {
                         "keyword": "tech_qg_163",
+                        "form_options": {
+                          "questiongroup_condition": "tech_qg_163",
+                          "template": "columns_custom",
+                          "columns_custom": [["6", "6"]]
+                        },
                         "questions": [
                           {
-                            "keyword": "tech_input_national_currency",
+                            "keyword": "tech_perarea_size",
                             "form_options": {
-                              "template": "no_label"
+                              "helptext_position": "tooltip"
                             },
+                            "view_options": {
+                              "template": "inline_6"
+                            }
+                          },
+                          {
+                            "keyword": "tech_area_unit_conversion",
                             "view_options": {
                               "template": "inline_6"
                             }
@@ -22800,10 +24528,13 @@
                         "keyword": "tech_qg_164",
                         "questions": [
                           {
+                            "keyword": "tech_input_national_currency",
+                            "view_options": {
+                              "template": "inline_6"
+                            }
+                          },
+                          {
                             "keyword": "tech_input_average_wage",
-                            "form_options": {
-                              "template": "no_label"
-                            },
                             "view_options": {
                               "template": "inline_6"
                             }
@@ -22861,14 +24592,18 @@
                       "template": "table_input"
                     },
                     "view_options": {
-                      "template": "table_4",
+                      "template": "table_input",
                       "table_grouping": [
                         [
                           "tech_qg_36",
                           "tech_qg_37",
                           "tech_qg_38",
+                          "tech_qg_218",
                           "tech_qg_39",
                           "tech_qg_40"
+                        ],
+                        [
+                          "tech_qg_222"
                         ]
                       ]
                     },
@@ -22876,37 +24611,14 @@
                       {
                         "keyword": "tech_qg_42",
                         "form_options": {
-                          "layout": "before_table",
-                          "template": "columns_custom",
-                          "columns_custom": [["8", "4"], ["12"], ["12"]]
+                          "layout": "before_table"
                         },
                         "view_options": {
                           "layout": "before_table"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_input_est_total_costs",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_input_currency",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_input_date",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_input_est_labour_involved_body",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
+                            "keyword": "tech_input_est_total_estimation"
                           }
                         ]
                       },
@@ -22992,6 +24704,33 @@
                         ]
                       },
                       {
+                        "keyword": "tech_qg_218",
+                        "form_options": {
+                          "min_num": 4,
+                          "max_num": 4
+                        },
+                        "questions": [
+                          {
+                            "keyword": "tech_input_est_specify"
+                          },
+                          {
+                            "keyword": "tech_input_est_quantity"
+                          },
+                          {
+                            "keyword": "tech_input_est_unit"
+                          },
+                          {
+                            "keyword": "tech_input_est_costs"
+                          },
+                          {
+                            "keyword": "tech_input_est_total_costs_pi"
+                          },
+                          {
+                            "keyword": "tech_input_est_percentage_costs"
+                          }
+                        ]
+                      },
+                      {
                         "keyword": "tech_qg_39",
                         "form_options": {
                           "min_num": 4,
@@ -23042,6 +24781,14 @@
                           },
                           {
                             "keyword": "tech_input_est_percentage_costs"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_222",
+                        "questions": [
+                          {
+                            "keyword": "tech_input_est_total_costs"
                           }
                         ]
                       },
@@ -23107,14 +24854,18 @@
                       "template": "table_input"
                     },
                     "view_options": {
-                      "template": "table_4",
+                      "template": "table_input",
                       "table_grouping": [
                         [
                           "tech_qg_45",
                           "tech_qg_46",
                           "tech_qg_47",
+                          "tech_qg_219",
                           "tech_qg_48",
                           "tech_qg_49"
+                        ],
+                        [
+                          "tech_qg_223"
                         ]
                       ]
                     },
@@ -23122,31 +24873,14 @@
                       {
                         "keyword": "tech_qg_50",
                         "form_options": {
-                          "layout": "before_table",
-                          "template": "columns_custom",
-                          "columns_custom": [["8", "4"], ["12"]]
+                          "layout": "before_table"
                         },
                         "view_options": {
                           "layout": "before_table"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_input_maint_total_costs",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_input_currency",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_input_maint_labour_involved_body",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
+                            "keyword": "tech_input_maint_total_estimation"
                           }
                         ]
                       },
@@ -23232,6 +24966,33 @@
                         ]
                       },
                       {
+                        "keyword": "tech_qg_219",
+                        "form_options": {
+                          "min_num": 4,
+                          "max_num": 4
+                        },
+                        "questions": [
+                          {
+                            "keyword": "tech_input_maint_specify"
+                          },
+                          {
+                            "keyword": "tech_input_maint_quantity"
+                          },
+                          {
+                            "keyword": "tech_input_maint_unit"
+                          },
+                          {
+                            "keyword": "tech_input_maint_costs"
+                          },
+                          {
+                            "keyword": "tech_input_maint_total_costs_pi"
+                          },
+                          {
+                            "keyword": "tech_input_maint_percentage_costs"
+                          }
+                        ]
+                      },
+                      {
                         "keyword": "tech_qg_48",
                         "form_options": {
                           "min_num": 4,
@@ -23282,6 +25043,14 @@
                           },
                           {
                             "keyword": "tech_input_maint_percentage_costs"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_223",
+                        "questions": [
+                          {
+                            "keyword": "tech_input_maint_total_costs"
                           }
                         ]
                       },
@@ -23665,14 +25434,21 @@
                       {
                         "keyword": "tech_qg_71",
                         "form_options": {
-                          "template": "columns_e4_e4_e4"
+                          "template": "columns_24_e4_e4"
                         },
                         "view_options": {
                           "template": "columns_e4_e4_e4"
                         },
                         "questions": [
                           {
-                            "keyword": "tech_landuser_scale"
+                            "keyword": "tech_sedentary_nomadic"
+                          },
+                          {
+                            "keyword": "tech_sedentary_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            }
                           },
                           {
                             "keyword": "tech_market_orientation"
@@ -23693,19 +25469,13 @@
                             "keyword": "tech_individuals"
                           },
                           {
-                            "keyword": "tech_mechanisation",
-                            "form_options": {
-                              "helptext_position": "tooltip"
-                            }
+                            "keyword": "tech_mechanisation"
                           },
                           {
                             "keyword": "tech_gender",
                             "form_options": {
                               "helptext_position": "tooltip"
                             }
-                          },
-                          {
-                            "keyword": "tech_status_society"
                           }
                         ]
                       },
@@ -25842,7 +27612,7 @@
                             ]
                           },
                           {
-                            "keyword": "tech__8__1__ecological_other",
+                            "keyword": "tech__8__1__ecological_climate",
                             "form_options": {
                               "template": "collapsible",
                               "label_tag": "h4"
@@ -25862,7 +27632,67 @@
                                 },
                                 "questions": [
                                   {
-                                    "keyword": "tech_impacts_disasterrisk",
+                                    "keyword": "tech_impacts_floodimpacts",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_220",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "view_options": {
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_droughtimpacts",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_221",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "view_options": {
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_cyclones",
                                     "form_options": {
                                       "template": "no_label"
                                     },
@@ -26001,7 +27831,20 @@
                                     "keyword": "tech_impacts_specify"
                                   }
                                 ]
-                              },
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech__8__1__ecological_other",
+                            "form_options": {
+                              "template": "collapsible",
+                              "label_tag": "h4"
+                            },
+                            "view_options": {
+                              "template": "has_subcategories",
+                              "label_tag": "h5"
+                            },
+                            "questiongroups": [
                               {
                                 "keyword": "tech_qg_189",
                                 "form_options": {
@@ -26394,473 +28237,487 @@
                       {
                         "keyword": "tech__8__3__gradual",
                         "form_options": {
-                          "template": "table_5"
+                          "template": "has_subcategories",
+                          "label_tag": "h3"
                         },
-                        "view_options": {
-                          "template": "table_5",
-                          "table_grouping": [
-                            [
-                              "tech_qg_169",
-                              "tech_qg_168",
-                              "tech_qg_170",
-                              "tech_qg_171",
-                              "tech_qg_172"
-                            ]
-                          ]
-                        },
-                        "questiongroups": [
+                        "subcategories": [
                           {
-                            "keyword": "tech_qg_168",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_incrdecr"
-                              },
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_169",
+                            "keyword": "tech__8__3__gradual",
                             "form_options": {
-                              "min_num": 4,
-                              "max_num": 4
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_season"
-                              },
-                              {
-                                "keyword": "tech_exposure_incrdecr"
-                              },
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_170",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_incrdecr"
-                              },
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_171",
-                            "form_options": {
-                              "min_num": 4,
-                              "max_num": 4
-                            },
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_season"
-                              },
-                              {
-                                "keyword": "tech_exposure_incrdecr"
-                              },
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_172",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_other_specify",
-                                "form_options": {
-                                  "label_position": "placeholder"
-                                }
-                              },
-                              {
-                                "keyword": "tech_exposure_incrdecr"
-                              },
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "tech__8__3__meteorological",
-                        "form_options": {
-                          "template": "table_5"
-                        },
-                        "view_options": {
-                          "template": "table_5",
-                          "table_grouping": [
-                            [
-                              "tech_qg_177",
-                              "tech_qg_178",
-                              "tech_qg_179",
-                              "tech_qg_193",
-                              "tech_qg_194",
-                              "tech_qg_195",
-                              "tech_qg_196",
-                              "tech_qg_197",
-                              "tech_qg_198"
-                            ]
-                          ]
-                        },
-                        "questiongroups": [
-                          {
-                            "keyword": "tech_qg_177",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_178",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_179",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_193",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_194",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_195",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_196",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_197",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_198",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "tech__8__3__climatological",
-                        "form_options": {
-                          "template": "table_5"
-                        },
-                        "view_options": {
-                          "template": "table_5",
-                          "table_grouping": [
-                            [
-                              "tech_qg_199",
-                              "tech_qg_200",
-                              "tech_qg_201",
-                              "tech_qg_202",
-                              "tech_qg_203",
-                              "tech_qg_204"
-                            ]
-                          ]
-                        },
-                        "questiongroups": [
-                          {
-                            "keyword": "tech_qg_199",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_200",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_201",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_202",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_203",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_204",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "tech__8__3__hydrological",
-                        "form_options": {
-                          "template": "table_5"
-                        },
-                        "view_options": {
-                          "template": "table_5",
-                          "table_grouping": [
-                            [
-                              "tech_qg_205",
-                              "tech_qg_206",
-                              "tech_qg_207",
-                              "tech_qg_208",
-                              "tech_qg_209"
-                            ]
-                          ]
-                        },
-                        "questiongroups": [
-                          {
-                            "keyword": "tech_qg_205",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_206",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_207",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_208",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_209",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "tech__8__3__biological",
-                        "form_options": {
-                          "template": "table_5"
-                        },
-                        "view_options": {
-                          "template": "table_5",
-                          "table_grouping": [
-                            [
-                              "tech_qg_210",
-                              "tech_qg_211"
-                            ]
-                          ]
-                        },
-                        "questiongroups": [
-                          {
-                            "keyword": "tech_qg_210",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_211",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "tech__8__3__otherclimate",
-                        "form_options": {
-                          "template": "table_5",
-                          "layout": "no_label_row"
-                        },
-                        "view_options": {
-                          "template": "table_5",
-                          "layout": "no_label_row",
-                          "table_grouping": [
-                            [
-                              "tech_qg_212"
-                            ]
-                          ]
-                        },
-                        "questiongroups": [
-                          {
-                            "keyword": "tech_qg_212",
-                            "form_options": {
-                              "layout": "no_label_row"
+                              "template": "collapsible",
+                              "label_tag": "h4"
                             },
                             "view_options": {
-                              "layout": "no_label_row"
+                              "template": "table_5",
+                              "table_grouping": [
+                                [
+                                  "tech_qg_169",
+                                  "tech_qg_168",
+                                  "tech_qg_170",
+                                  "tech_qg_171",
+                                  "tech_qg_172"
+                                ]
+                              ]
                             },
-                            "questions": [
+                            "questiongroups": [
                               {
-                                "keyword": "tech_exposure_other_specify",
+                                "keyword": "tech_qg_168",
                                 "form_options": {
-                                  "label_position": "placeholder"
-                                }
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_incrdecr"
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_exposure_exposed"
+                                "keyword": "tech_qg_169",
+                                "form_options": {
+                                  "template": "checkbox_toggle",
+                                  "max_num": 4
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_season"
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_incrdecr"
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_exposure_sensitivity"
+                                "keyword": "tech_qg_170",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_incrdecr"
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_171",
+                                "form_options": {
+                                  "template": "checkbox_toggle",
+                                  "max_num": 4
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_season"
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_incrdecr"
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_172",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_other_specify",
+                                    "form_options": {
+                                      "label_position": "placeholder"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_incrdecr"
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech__8__3__climaterelated",
+                        "form_options": {
+                          "template": "has_subcategories",
+                          "label_tag": "h3"
+                        },
+                        "subcategories": [
+                          {
+                            "keyword": "tech__8__3__meteorological",
+                            "form_options": {
+                              "template": "collapsible",
+                              "label_tag": "h4"
+                            },
+                            "view_options": {
+                              "template": "table_5",
+                              "table_grouping": [
+                                [
+                                  "tech_qg_177",
+                                  "tech_qg_178",
+                                  "tech_qg_179",
+                                  "tech_qg_193",
+                                  "tech_qg_194",
+                                  "tech_qg_195",
+                                  "tech_qg_196",
+                                  "tech_qg_197",
+                                  "tech_qg_198"
+                                ]
+                              ]
+                            },
+                            "questiongroups": [
+                              {
+                                "keyword": "tech_qg_177",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_178",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_179",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_193",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_194",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_195",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_196",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_197",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_198",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech__8__3__climatological",
+                            "form_options": {
+                              "template": "collapsible",
+                              "label_tag": "h4"
+                            },
+                            "view_options": {
+                              "template": "table_5",
+                              "table_grouping": [
+                                [
+                                  "tech_qg_199",
+                                  "tech_qg_200",
+                                  "tech_qg_201",
+                                  "tech_qg_202",
+                                  "tech_qg_203",
+                                  "tech_qg_204"
+                                ]
+                              ]
+                            },
+                            "questiongroups": [
+                              {
+                                "keyword": "tech_qg_199",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_200",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_201",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_202",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_203",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_204",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech__8__3__hydrological",
+                            "form_options": {
+                              "template": "collapsible",
+                              "label_tag": "h4"
+                            },
+                            "view_options": {
+                              "template": "table_5",
+                              "table_grouping": [
+                                [
+                                  "tech_qg_205",
+                                  "tech_qg_206",
+                                  "tech_qg_207",
+                                  "tech_qg_208",
+                                  "tech_qg_209"
+                                ]
+                              ]
+                            },
+                            "questiongroups": [
+                              {
+                                "keyword": "tech_qg_205",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_206",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_207",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_208",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_209",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech__8__3__biological",
+                            "form_options": {
+                              "template": "collapsible",
+                              "label_tag": "h4"
+                            },
+                            "view_options": {
+                              "template": "table_5",
+                              "table_grouping": [
+                                [
+                                  "tech_qg_210",
+                                  "tech_qg_211"
+                                ]
+                              ]
+                            },
+                            "questiongroups": [
+                              {
+                                "keyword": "tech_qg_210",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_211",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "tech__8__3__otherclimate",
+                            "form_options": {
+                              "template": "collapsible",
+                              "label_tag": "h4"
+                            },
+                            "view_options": {
+                              "template": "table_5",
+                              "layout": "no_label_row",
+                              "table_grouping": [
+                                [
+                                  "tech_qg_212"
+                                ]
+                              ]
+                            },
+                            "questiongroups": [
+                              {
+                                "keyword": "tech_qg_212",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "view_options": {
+                                  "layout": "no_label_row"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_other_specify",
+                                    "form_options": {
+                                      "label_position": "placeholder"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -26869,73 +28726,80 @@
                       {
                         "keyword": "tech__8__3__other",
                         "form_options": {
-                          "template": "table_5"
+                          "template": "has_subcategories",
+                          "label_tag": "h3"
                         },
-                        "view_options": {
-                          "template": "table_5",
-                          "table_grouping": [
-                            [
-                              "tech_qg_213",
-                              "tech_qg_214",
-                              "tech_qg_215",
-                              "tech_qg_216"
-                            ]
-                          ]
-                        },
-                        "questiongroups": [
+                        "subcategories": [
                           {
-                            "keyword": "tech_qg_213",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_214",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_215",
-                            "questions": [
-                              {
-                                "keyword": "tech_exposure_exposed"
-                              },
-                              {
-                                "keyword": "tech_exposure_sensitivity"
-                              }
-                            ]
-                          },
-                          {
-                            "keyword": "tech_qg_216",
+                            "keyword": "tech__8__3__other",
                             "form_options": {
-                              "layout": "no_label_row"
+                              "template": "collapsible",
+                              "label_tag": "h4"
                             },
                             "view_options": {
-                              "layout": "no_label_row"
+                              "template": "table_5",
+                              "table_grouping": [
+                                [
+                                  "tech_qg_213",
+                                  "tech_qg_214",
+                                  "tech_qg_215",
+                                  "tech_qg_216"
+                                ]
+                              ]
                             },
-                            "questions": [
+                            "questiongroups": [
                               {
-                                "keyword": "tech_exposure_other_specify",
+                                "keyword": "tech_qg_213",
                                 "form_options": {
-                                  "label_position": "placeholder"
-                                }
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_exposure_exposed"
+                                "keyword": "tech_qg_214",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
                               },
                               {
-                                "keyword": "tech_exposure_sensitivity"
+                                "keyword": "tech_qg_215",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "tech_qg_216",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "view_options": {
+                                  "layout": "no_label_row"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_exposure_other_specify",
+                                    "form_options": {
+                                      "label_position": "placeholder"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_exposure_sensitivity"
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -26954,7 +28818,10 @@
                             "keyword": "tech_qg_180",
                             "questions": [
                               {
-                                "keyword": "tech_tolerance_comments"
+                                "keyword": "tech_tolerance_comments",
+                                "form_options": {
+                                  "label_class": "top-margin"
+                                }
                               }
                             ]
                           }
@@ -27055,9 +28922,6 @@
                         "questions": [
                           {
                             "keyword": "tech_adoption_percentage",
-                            "form_options": {
-                              "template": "no_label"
-                            },
                             "view_options": {
                               "label_position": "none"
                             }
