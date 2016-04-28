@@ -559,6 +559,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 {'data-question-condition': self.question_condition}
             )
 
+        attrs.update(self.form_options.get('field_options', {}))
+
         if self.field_type == 'char':
             max_length = self.max_length
             if max_length is None:
@@ -586,7 +588,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field_options.update({'field_type': self.field_type})
             if self.field_type == 'float':
                 attrs.update({'step': 'any'})
-            attrs.update(self.form_options.get('field_options', {}))
             now_year = datetime.datetime.now().year
             if attrs.get('max') == 'now':
                 attrs.update({'max': now_year})

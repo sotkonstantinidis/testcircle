@@ -590,6 +590,22 @@ $(function () {
             watchFormProgress();
         })
 
+        // Validate max choices of checkboxes
+        .on('change', '[data-cb-max-choices]', function() {
+            var $t = $(this);
+            if (this.checked) {
+                var question = $t.closest('.single-item');
+                if (!question.length) {
+                    // Try to find on questiongroup level
+                    var question = $t.closest('.list-item');
+                }
+                var checked = question.find('input[name="' + this.name + '"]:checked');
+                if (checked.length > $t.data('cb-max-choices')) {
+                    $(this).attr('checked', false);
+                }
+            }
+        })
+
         // Conditional questions
         .on('change', '[data-question-conditions]', function() {
             checkConditionalQuestions(this);

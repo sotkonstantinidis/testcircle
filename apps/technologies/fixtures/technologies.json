@@ -12765,6 +12765,23 @@
       "data": {
         "technologies": {
           "label": {
+            "en": "Current land use type(s) where the Technology is applied"
+          },
+          "helptext": {
+            "en": "<p><strong>Land use</strong>: human activities which are directly related to land, making use of its resources or having an impact upon it.<br><strong>Land cover</strong>: Vegetation (natural or planted) or man-made structures (buildings, etc.) that cover the earth’s surface.</p><p>Usually one, max. two ticks</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2781
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
             "en": "General information"
           }
         }
@@ -13131,7 +13148,12 @@
       "keyword": "tech_landuse",
       "translation": 1010,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1119,
@@ -13605,7 +13627,12 @@
       "keyword": "tech_prevention",
       "translation": 1032,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1140,
@@ -14147,7 +14174,12 @@
       "keyword": "tech_rainfall",
       "translation": 1059,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1148,
@@ -14412,7 +14444,12 @@
       "keyword": "tech_slopes",
       "translation": 1074,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1161,
@@ -14552,7 +14589,12 @@
       "keyword": "tech_landforms",
       "translation": 1293,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1168,
@@ -14671,7 +14713,12 @@
       "keyword": "tech_altitudinalzone",
       "translation": 1294,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1174,
@@ -14880,7 +14927,12 @@
       "keyword": "tech_soil_depth",
       "translation": 1098,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1183,
@@ -14978,7 +15030,12 @@
       "keyword": "tech_soil_texture_topsoil",
       "translation": 1103,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1188,
@@ -15034,7 +15091,12 @@
       "keyword": "tech_soil_texture_20cm",
       "translation": 1106,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1188,
@@ -15050,7 +15112,12 @@
       "keyword": "tech_topsoil_organic",
       "translation": 1107,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1191,
@@ -15246,7 +15313,12 @@
       "keyword": "tech_market_orientation",
       "translation": 1130,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1208,
@@ -15262,7 +15334,12 @@
       "keyword": "tech_wealth",
       "translation": 1133,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1211,
@@ -15340,7 +15417,12 @@
       "keyword": "tech_offfarm_income",
       "translation": 1138,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1090,
@@ -15356,7 +15438,12 @@
       "keyword": "tech_individuals",
       "translation": 1139,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1086,
@@ -15373,7 +15460,12 @@
       "keyword": "tech_mechanisation",
       "translation": 1297,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1093,
@@ -15432,7 +15524,12 @@
       "keyword": "tech_land_size",
       "translation": 1143,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1216,
@@ -15467,7 +15564,12 @@
       "keyword": "tech_ownership",
       "translation": 1154,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1227,
@@ -15508,7 +15610,12 @@
       "keyword": "tech_landuserights",
       "translation": 1160,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1233,
@@ -15536,7 +15643,12 @@
       "keyword": "tech_wateruserights",
       "translation": 1161,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1233,
@@ -16566,7 +16678,12 @@
       "keyword": "tech_slm_group",
       "translation": 1244,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 3
+          }
+        }
       },
       "values": [
         1279,
@@ -17233,7 +17350,12 @@
       "keyword": "tech_sedentary_nomadic",
       "translation": 1296,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
       },
       "values": [
         1351,
@@ -22386,7 +22508,7 @@
   {
     "fields": {
       "keyword": "tech__3__2",
-      "translation": 2707
+      "translation": 2781
     },
     "model": "configuration.category",
     "pk": 1007
@@ -23664,7 +23786,8 @@
                           {
                             "keyword": "tech_lu_sub_other",
                             "form_options": {
-                              "template": "checkbox_other"
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
                             },
                             "view_options": {
                               "template": "checkbox_other"
