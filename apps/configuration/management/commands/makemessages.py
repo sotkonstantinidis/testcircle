@@ -87,11 +87,16 @@ class Command(makemessages.Command):
             'translation__id', 'id'
         )
         with open(configuration_helper_file, 'w') as f:
+            line_number = 1
             for translation in all_translations:
+                while line_number < translation.translation.id:
+                    f.write('\n')
+                    line_number += 1
                 f.write('pgettext("{0} {1}", {2!r})\n'.format(
                     translation.configuration, translation.keyword,
                     translation.text.replace('\r', '').replace('%', '%%')
                 ))
+                line_number += 1
 
         self.call_parent_makemessages(*args, **options)
 
