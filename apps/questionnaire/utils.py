@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
+from django.utils.functional import Promise
 from django.utils.translation import ugettext as _, get_language
 
 from configuration.cache import get_configuration
@@ -1335,7 +1336,8 @@ def prepare_list_values(data, config, **kwargs):
         # a raw string (e.g. 'country')
         if isinstance(items, dict):
             data[key] = items.get(language, items.get(original_language))
-        if isinstance(items, str):
+        # lazy pgettext objects are Promise objects
+        if isinstance(items, str) or isinstance(items, Promise):
             data[key] = items
 
     del data['list_data']

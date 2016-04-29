@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 import copy
-from unittest.mock import patch, Mock, call
+from unittest.mock import patch, Mock, call, MagicMock
 from django.http import QueryDict
 from django.test.utils import override_settings
+from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import User
 from configuration.configuration import QuestionnaireConfiguration
@@ -23,7 +25,7 @@ from questionnaire.utils import (
     query_questionnaire,
     query_questionnaires,
     query_questionnaires_for_link,
-)
+    prepare_list_values)
 from questionnaire.tests.test_models import get_valid_metadata, \
     get_valid_questionnaire
 from qcat.errors import QuestionnaireFormatError
@@ -943,6 +945,21 @@ class GetListValuesTest(TestCase):
         keys = ['url', 'compilers', 'data']
         for key in keys:
             self.assertEqual(serializer_data[key], object_data[key])
+
+    def test_prepare_list_values_with_i18n(self):
+        data = {
+            'list_data': {
+                'name': {'en': 'foo'},
+                'country': _(u'country')
+            },
+            'translations': ['en'],
+            'configurations': ['sample']
+        }
+        configuration = MagicMock()
+        configuration.keyword = 'foo'
+        prepared = prepare_list_values(data, configuration)
+        self.assertEqual(prepared['country'], _(u'country'))
+        self.assertEqual(prepared['name'], 'foo')
 
 
 @patch('questionnaire.utils.messages')

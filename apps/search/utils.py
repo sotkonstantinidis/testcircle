@@ -78,3 +78,18 @@ def check_connection(es, index=None):
         return (False, 'Elasticsearch Error: No index with name "{}" '
                 'found'.format(index))
     return True, ''
+
+
+def force_strings(serialized):
+    """
+    Recursively loop over values and cast lazy gettext objects to strings.
+
+    Args:
+        serialized: dict
+    """
+    for key, nested in serialized.items():
+        if isinstance(nested, dict):
+            serialized[key] = force_strings(nested)
+        else:
+            serialized[key] = str(nested)
+    return serialized
