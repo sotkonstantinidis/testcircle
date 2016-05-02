@@ -191,6 +191,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'edit_mode': 'edit',
                 'view_url': '',
                 'content_subcategories_count': 0,
+                'toc_content': [],
             })
 
     def test_returns_rendered_response(self):
@@ -347,11 +348,13 @@ class GenericQuestionnaireNewTest(TestCase):
             questionnaire_objects=[link], with_links=False,
             configuration_code=link.configurations.first().code)
 
+    @patch.object(QuestionnaireConfiguration, 'get_toc_data')
     @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')
     def test_calls_render(
-            self, mock_render, mock_get_details, mock_filter_configuration):
+            self, mock_render, mock_get_details, mock_filter_configuration,
+            mock_get_toc_data):
         mock_get_details.return_value = "foo"
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
@@ -366,6 +369,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'edited_questiongroups': [],
                 'view_mode': 'edit',
                 'is_blocked': None,
+                'toc_content': mock_get_toc_data.return_value,
             })
 
     def test_returns_rendered_response(self):
@@ -513,6 +517,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'filter_configuration': mfc,
                 'permissions': mock_q_obj.get_permissions.return_value,
                 'view_mode': 'view',
+                'toc_content': mock_conf.return_value.get_toc_data.return_value,
             })
 
 
