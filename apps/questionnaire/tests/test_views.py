@@ -322,7 +322,8 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
-        mock_get_questionnaire_data.assert_called_once_with({}, 'en')
+        mock_get_questionnaire_data.assert_called_once_with(
+            {}, 'en', original_locale=None)
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     def test_calls_get_details(self, mock_get_details):
@@ -416,9 +417,9 @@ class GenericQuestionnaireDetailsTest(TestCase):
             mock_get_q_data_in_single_lang, mock_render):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
+        mock_q = mock_query_questionnaire.return_value.first.return_value
         mock_get_q_data_in_single_lang.assert_called_once_with(
-            mock_query_questionnaire.return_value.first.return_value.data,
-            'en')
+            mock_q.data, 'en', original_locale=mock_q.original_locale)
 
     @patch('questionnaire.views.handle_review_actions')
     @patch('questionnaire.views.redirect')

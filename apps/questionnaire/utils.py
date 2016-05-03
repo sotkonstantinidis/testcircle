@@ -282,7 +282,8 @@ def is_valid_questionnaire_format(questionnaire_data):
     return True
 
 
-def get_questionnaire_data_in_single_language(questionnaire_data, locale):
+def get_questionnaire_data_in_single_language(
+        questionnaire_data, locale, original_locale=None):
     """
     Returns a questionnaire data dictionary in a single language. For
     translated values, the dictionary value containing the translations
@@ -329,7 +330,8 @@ def get_questionnaire_data_in_single_language(questionnaire_data, locale):
             qg_data_sl = {}
             for key, value in questiongroup_data.items():
                 if isinstance(value, dict):
-                    qg_data_sl[key] = value.get(locale)
+                    qg_data_sl[key] = value.get(
+                        locale, value.get(original_locale))
                 else:
                     qg_data_sl[key] = value
             qg_sl.append(qg_data_sl)
@@ -403,7 +405,8 @@ def get_questionnaire_data_for_translation_form(
             for key, value in questiongroup_data.items():
                 if isinstance(value, dict):
                     qg_data_translation['{}{}'.format(
-                        translation_prefix, key)] = value.get(current_locale)
+                        translation_prefix, key)] = value.get(
+                            current_locale, value.get(original_locale))
                     qg_data_translation['{}{}'.format(
                         original_prefix, key)] = value.get(original_locale)
                     qg_data_translation['{}{}'.format(old_prefix, key)] = value
