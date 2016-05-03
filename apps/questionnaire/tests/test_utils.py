@@ -950,7 +950,7 @@ class GetListValuesTest(TestCase):
         data = {
             'list_data': {
                 'name': {'en': 'foo'},
-                'country': _(u'country')
+                'country': _(u'Login')
             },
             'translations': ['en'],
             'configurations': ['sample']
@@ -958,7 +958,7 @@ class GetListValuesTest(TestCase):
         configuration = MagicMock()
         configuration.keyword = 'foo'
         prepared = prepare_list_values(data, configuration)
-        self.assertEqual(prepared['country'], _(u'country'))
+        self.assertEqual(prepared['country'], _(u'Login'))
         self.assertEqual(prepared['name'], 'foo')
 
 
