@@ -529,7 +529,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             form_template = 'no_label'
         form_template = 'form/question/{}.html'.format(
             self.form_options.get('template', form_template))
-        readonly_attrs = {'readonly': 'readonly'}
         field = None
         translation_field = None
         widget = None
@@ -566,12 +565,17 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if max_length is None:
                 max_length = 2000
             widget = TextInput(attrs)
+            translation_widget = forms.HiddenInput(attrs)
+            if show_translation is True:
+                widget = forms.HiddenInput(attrs)
+                translation_widget = TextInput(attrs)
             widget.options = field_options
+            translation_widget.options = field_options
             field = forms.CharField(
                 label=self.label, widget=widget,
                 required=self.required, max_length=max_length)
             translation_field = forms.CharField(
-                label=self.label, widget=forms.TextInput(attrs=readonly_attrs),
+                label=self.label, widget=translation_widget,
                 required=self.required, max_length=max_length)
         elif self.field_type == 'link_video':
             widget = TextInput(attrs)
@@ -611,11 +615,15 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 max_length = 5000
             attrs.update({'rows': self.num_rows})
             widget = forms.Textarea(attrs=attrs)
+            translation_widget = forms.HiddenInput(attrs=attrs)
+            if show_translation is True:
+                widget = forms.HiddenInput(attrs=attrs)
+                translation_widget = forms.Textarea(attrs=attrs)
             field = forms.CharField(
                 label=self.label, widget=widget,
                 required=self.required, max_length=max_length)
             translation_field = forms.CharField(
-                label=self.label, widget=forms.Textarea(attrs=readonly_attrs),
+                label=self.label, widget=translation_widget,
                 required=self.required)
         elif self.field_type == 'bool':
             widget = RadioSelect(choices=self.choices, attrs=attrs)

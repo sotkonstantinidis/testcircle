@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-28 11:36+0200\n"
+"POT-Creation-Date: 2016-05-03 07:54+0200\n"
 "PO-Revision-Date: 2016-04-05 15:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -54,6 +54,9 @@ msgid "Please log in to access"
 msgstr ""
 
 #: apps/accounts/templates/login.html:15 apps/accounts/templates/login.html:24
+#: apps/questionnaire/tests/test_utils.py:953
+#: apps/questionnaire/tests/test_utils.py:961
+#: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:130
 msgid "Login"
 msgstr ""
@@ -92,15 +95,15 @@ msgstr ""
 msgid " and reset your password."
 msgstr ""
 
-#: apps/accounts/templates/questionnaires.html:16 templates/base.html:111
+#: apps/accounts/templates/questionnaires.html:12 templates/base.html:111
 msgid "Pending SLM practices"
 msgstr ""
 
-#: apps/accounts/templates/questionnaires.html:16
+#: apps/accounts/templates/questionnaires.html:12
 msgid "Your SLM practices"
 msgstr ""
 
-#: apps/accounts/templates/questionnaires.html:16
+#: apps/accounts/templates/questionnaires.html:12
 msgid "SLM practices by"
 msgstr ""
 
@@ -108,74 +111,74 @@ msgstr ""
 msgid "WOCAT SLM Approaches"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:36
+#: apps/approaches/templates/approaches/questionnaire/details.html:27
 #: apps/sample/templates/sample/questionnaire/details.html:27
 #: apps/samplemulti/templates/samplemulti/questionnaire/details.html:27
-#: apps/technologies/templates/technologies/questionnaire/details.html:37
+#: apps/technologies/templates/technologies/questionnaire/details.html:28
 #: apps/unccd/templates/unccd/questionnaire/details.html:19
 #: apps/wocat/templates/wocat/questionnaire/details.html:19
 msgid "Photo"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:56
+#: apps/approaches/templates/approaches/questionnaire/details.html:47
 #: apps/questionnaire/templates/details/category/approaches_header.html:66
 msgid "Save SLM Approach"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:59
+#: apps/approaches/templates/approaches/questionnaire/details.html:50
 #: apps/questionnaire/templates/details/category/approaches_header.html:69
 msgid "Edit SLM Approach"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:95
+#: apps/approaches/templates/approaches/questionnaire/details.html:86
 #: apps/questionnaire/templates/form/category.html:73
 #: apps/questionnaire/templates/form/category.html:125
-#: apps/technologies/templates/technologies/questionnaire/details.html:99
+#: apps/technologies/templates/technologies/questionnaire/details.html:90
 msgid "Close"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:99
-#: apps/technologies/templates/technologies/questionnaire/details.html:103
+#: apps/approaches/templates/approaches/questionnaire/details.html:90
+#: apps/technologies/templates/technologies/questionnaire/details.html:94
 msgid "<p>Welcome to the help section of the Questionnaire!</p><p>Click \\"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:104
-#: apps/technologies/templates/technologies/questionnaire/details.html:108
+#: apps/approaches/templates/approaches/questionnaire/details.html:95
+#: apps/technologies/templates/technologies/questionnaire/details.html:99
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:108
-#: apps/technologies/templates/technologies/questionnaire/details.html:112
+#: apps/approaches/templates/approaches/questionnaire/details.html:99
+#: apps/technologies/templates/technologies/questionnaire/details.html:103
 msgid ""
 "<p>The Questionnaire consists of multiple sections. You can use the Table of "
 "Content for navigation.</p>"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:113
-#: apps/technologies/templates/technologies/questionnaire/details.html:117
+#: apps/approaches/templates/approaches/questionnaire/details.html:104
+#: apps/technologies/templates/technologies/questionnaire/details.html:108
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:118
-#: apps/technologies/templates/technologies/questionnaire/details.html:122
+#: apps/approaches/templates/approaches/questionnaire/details.html:109
+#: apps/technologies/templates/technologies/questionnaire/details.html:113
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
 "p>"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:123
-#: apps/technologies/templates/technologies/questionnaire/details.html:127
+#: apps/approaches/templates/approaches/questionnaire/details.html:114
+#: apps/technologies/templates/technologies/questionnaire/details.html:118
 msgid ""
 "<p>Once you are done editing, click the button to save the Questionnaire.</p>"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:127
-#: apps/technologies/templates/technologies/questionnaire/details.html:131
+#: apps/approaches/templates/approaches/questionnaire/details.html:118
+#: apps/technologies/templates/technologies/questionnaire/details.html:122
 msgid ""
 "<p>The metadata will be filled out automatically once you saved the "
 "Questionnaire.</p>"
@@ -312,7 +315,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: apps/configuration/configuration.py:2281
+#: apps/configuration/configuration.py:2289
 msgid "Unknown name"
 msgstr ""
 
@@ -10075,12 +10078,12 @@ msgid "Edit this section"
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:66
-#: apps/technologies/templates/technologies/questionnaire/details.html:57
+#: apps/technologies/templates/technologies/questionnaire/details.html:48
 msgid "Save SLM Technology"
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:69
-#: apps/technologies/templates/technologies/questionnaire/details.html:60
+#: apps/technologies/templates/technologies/questionnaire/details.html:51
 msgid "Edit SLM Technology"
 msgstr ""
 
@@ -10182,7 +10185,7 @@ msgstr ""
 
 #: apps/questionnaire/templates/details/sticky_menu.html:22
 #: apps/questionnaire/templates/details/sticky_menu.html:28
-#: apps/technologies/templates/technologies/questionnaire/details.html:93
+#: apps/technologies/templates/technologies/questionnaire/details.html:84
 msgid "Help"
 msgstr ""
 
@@ -10475,47 +10478,47 @@ msgstr ""
 msgid "File is too big"
 msgstr ""
 
-#: apps/questionnaire/utils.py:541
+#: apps/questionnaire/utils.py:545
 msgid "Search Terms"
 msgstr ""
 
-#: apps/questionnaire/utils.py:561
+#: apps/questionnaire/utils.py:565
 msgid "Created"
 msgstr ""
 
-#: apps/questionnaire/utils.py:563
+#: apps/questionnaire/utils.py:567
 msgid "Updated"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1152
+#: apps/questionnaire/utils.py:1156
 msgid "The questionnaire was successfully submitted."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1178
+#: apps/questionnaire/utils.py:1182
 msgid "The questionnaire was successfully reviewed."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1230
+#: apps/questionnaire/utils.py:1234
 msgid "The questionnaire was successfully set public."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1263
+#: apps/questionnaire/utils.py:1267
 msgid "The questionnaire was successfully rejected."
 msgstr ""
 
-#: apps/questionnaire/views.py:434
+#: apps/questionnaire/views.py:439
 msgid "Data successfully stored to Session."
 msgstr ""
 
-#: apps/questionnaire/views.py:567
+#: apps/questionnaire/views.py:572
 msgid "You cannot submit an empty questionnaire"
 msgstr ""
 
-#: apps/questionnaire/views.py:588
+#: apps/questionnaire/views.py:593
 msgid "The questionnaire was successfully created."
 msgstr ""
 
-#: apps/questionnaire/views.py:983
+#: apps/questionnaire/views.py:993
 msgid "No or multiple files provided."
 msgstr ""
 

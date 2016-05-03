@@ -676,6 +676,15 @@ class Questionnaire(models.Model):
             'language', flat=True
         ))
 
+    @cached_property
+    def original_locale(self):
+        translation = self.questionnairetranslation_set.filter(
+            original_language=True).first()
+        if translation:
+            return translation.language
+        else:
+            return None
+
 
 class QuestionnaireConfiguration(models.Model):
     """
