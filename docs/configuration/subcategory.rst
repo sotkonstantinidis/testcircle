@@ -147,6 +147,8 @@ form representation of the question.
   * ``helptext_length`` (int): Overwrite the default length (number of words) of
     the helptext shown initially (without the "See more" button).
 
+  * ``numbering`` (str): An optional numbering of the subcategory.
+
   * ``has_links`` (bool): This is only required if a questiongroup within the
     subcategories is used to link to other questionnaires. Defaults to false.
 

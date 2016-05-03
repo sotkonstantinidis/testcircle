@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from django.utils.translation import ugettext_lazy as _
 from django.test.utils import override_settings
 from elasticsearch import TransportError
 from unittest.mock import Mock
@@ -7,7 +9,7 @@ from search.utils import (
     get_alias,
     get_analyzer,
     check_connection,
-)
+    force_strings)
 
 
 class GetAnalyzerTest(TestCase):
@@ -90,3 +92,26 @@ class TestConnectionTest(TestCase):
         success, error_msg = check_connection(es, index='foo')
         self.assertFalse(success)
         self.assertNotEqual(error_msg, '')
+
+
+class ForceStringsTest(TestCase):
+
+    def setUp(self):
+        self.single_level = {
+            'a': _(u'Login')
+        }
+        self.multi_level = {
+            'a': {
+                'b': {
+                    'c': _(u'Login')
+                }
+            }
+        }
+
+    def test_single_level(self):
+        single_level = force_strings(self.single_level)
+        self.assertIsInstance(single_level['a'], str)
+
+    def test_multi_level(self):
+        multi_level = force_strings(self.multi_level)
+        self.assertIsInstance(multi_level['a']['b']['c'], str)

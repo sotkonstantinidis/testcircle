@@ -11,10 +11,6 @@ from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
-from functional_tests.sample.test_edit import (
-    has_old_version_overview,
-    has_old_version_step,
-)
 from sample.tests.test_views import (
     route_home,
     route_questionnaire_new,

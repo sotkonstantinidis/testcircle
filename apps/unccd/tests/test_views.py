@@ -5,13 +5,13 @@ from unittest.mock import patch, Mock
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
 from unccd.views import (
-    home,
     questionnaire_details,
     questionnaire_list,
     questionnaire_list_partial,
     questionnaire_new,
     questionnaire_new_step,
 )
+from wocat.views import HomeView
 
 route_home = 'unccd:home'
 route_questionnaire_details = 'unccd:questionnaire_details'
@@ -66,18 +66,11 @@ class UnccdHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
-        home(request)
-        mock_questionnaire_list.assert_called_once_with(
-            request, 'unccd', template=None, only_current=True, limit=3,
-            db_query=True)
-
-    def test_renders_correct_template(self):
+    @patch.object(HomeView, 'get_context_data')
+    def test_redirect(self, mock_ctx_data):
+        mock_ctx_data.return_value = {}
         res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'unccd/home.html')
-        self.assertEqual(res.status_code, 200)
+        self.assertRedirects(res, 'http://testserver/en/wocat/')
 
 
 class QuestionnaireNewTest(TestCase):

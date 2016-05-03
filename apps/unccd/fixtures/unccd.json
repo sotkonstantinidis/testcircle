@@ -3884,9 +3884,6 @@
           },
           {
             "keyword": "section_specifications",
-            "view_options": {
-              "include_toc": true
-            },
             "categories": [
               {
                 "keyword": "unccd_1_context",
@@ -4242,9 +4239,6 @@
           },
           {
             "keyword": "section_analysis",
-            "view_options": {
-              "include_toc": true
-            },
             "categories": [
               {
                 "keyword": "unccd_5_impact",

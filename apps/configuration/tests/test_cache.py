@@ -59,8 +59,8 @@ class DeleteConfigurationCacheTest(TestCase):
     def test_calls_delete_many(self, mock_cache):
         conf = Mock()
         delete_configuration_cache(conf)
-        mock_cache.delete_many.assert_called_once_with(
-            [get_cache_key(conf.code)])
+        mock_cache.delete.assert_called_once_with(
+            get_cache_key(conf.code))
 
     @override_settings(USE_CACHING=False)
     def test_does_not_call_delete_many_if_use_caching_settings_false(

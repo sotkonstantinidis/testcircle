@@ -4,7 +4,7 @@
 
 {% load i18n %}
 
-<fieldset class="row">
+<fieldset id="{{ config.keyword }}" class="row">
   <legend>{{ config.numbering|default:'' }} {{ config.label }}</legend>
 
   {% trans 'SLM Technologies which were promoted by and implemented through this Approach can be linked in a separate section "Linked Questionnaires" at the end.' as msg %}

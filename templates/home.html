@@ -26,7 +26,7 @@
       <div class="small-10 small-centered medium-6 columns">
         <form action="{% url 'wocat:questionnaire_list' %}" method="GET" role="search">
           <div class="search-input radius">
-            <input type="search" name="q" placeholder="{% trans 'Search SLM data ...' %}">
+            <input type="search" tabindex="1" name="q" placeholder="{% trans 'Search SLM data ...' %}">
             <div class="search-btn postfix light">
               <a href="#" id="submit-search"><svg class="icon"><use xlink:href="#icon-search"></use></svg></a>
             </div>
@@ -48,17 +48,10 @@
   {% endif %}
 
   <main class="row" role="main" data-equalizer>
-    <div class="hero-big medium-6 large-6 columns">
+    <div class="hero-big medium-12 columns">
       <h2 class="is-wocat">{% trans "WOCAT SLM portal" %}</h2>
       <p data-equalizer-watch>{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
       <a href="{% url 'wocat:home' %}" class="button is-wocat">{% trans "WOCAT SLM practices" %}</a>
-    </div>
-
-    <div class="hero-big medium-6 large-6 columns end">
-      <h2 class="is-unccd">{% trans "UNCCD SLM portal" %}</h2>
-      <span class="aside">{% trans "hosted by WOCAT" %}</span>
-      <p data-equalizer-watch>{% trans "The UNCCD database on SLM practices comprises of SLM best practices from UNCCD Member States that were included in the UNCCD PRAIS system and newly reported SLM practices based on WOCAT." %}</p>
-      <a href="{% url 'unccd:home' %}" class="button is-unccd">{% trans "UNCCD SLM practices" %}</a>
     </div>
   </main>
 

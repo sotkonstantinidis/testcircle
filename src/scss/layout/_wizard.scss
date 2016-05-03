@@ -1,19 +1,15 @@
 // Wizard
 .wizard {
-  padding: 4em 3em 70vh;
+  padding: 4em 3em 5vh;
   @media #{$large-up} {
     padding-left: 0;
     padding-right: 0;
   }
 
   fieldset {
-    opacity: 0.5;
+    opacity: 1;
     margin-bottom: 4em;
     transition: opacity 300ms ease-in-out;
-  }
-  .active + fieldset {
-    opacity: 1;
-    border-width: 2px;
   }
   .multiple-choice {
     input[type="file"],
@@ -24,14 +20,16 @@
     }
   }
 }
-.wizard-header {
+.wizard-header-outer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: $color-brown;
-  color: #fff;
   z-index: 999;
+  color: #fff;
+}
+.wizard-header {
+  background: $color-brown;
   padding-bottom: rem-calc(24);
 
   .progress {
@@ -111,7 +109,10 @@
 }
 
 .top-margin {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
+}
+.top-margin-big {
+  margin-top: 2rem !important;
 }
 form .row.top-margin {
   margin-top: 0.5rem;
@@ -166,9 +167,12 @@ form .single-item.single-item-checkbox-other {
 
 /* USER SEARCH */
 .form-user-tabs-content {
-  padding: 1rem;
+  margin-top: 1rem;
   background-color: $tabs-navigation-active-bg-color;
   margin-bottom: 0;
+}
+.form-user-tab-search, .form-user-tab-create {
+  padding: 1rem;
 }
 .form-user-tabs .tab-title>a, .form-user-tabs-content span {
   font-size: 0.875rem;

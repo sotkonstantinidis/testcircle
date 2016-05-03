@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.views.generic import TemplateView
 
 from questionnaire.views import (
     generic_questionnaire_details,
@@ -9,16 +9,19 @@ from questionnaire.views import (
 )
 
 
-def home(request):
-    list_template_values = generic_questionnaire_list(
-        request, 'wocat', template=None, only_current=False, limit=3,
-        db_query=True)
+class HomeView(TemplateView):
+    """
+    Home view with all slm practices and pagination.
 
-    return render(request, 'wocat/home.html', {
-        'list_values': list_template_values.get('list_values', []),
-        'filter_configuration': list_template_values.get(
-            'filter_configuration', {}),
-    })
+    """
+    template_name = 'wocat/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(**generic_questionnaire_list(
+            self.request, 'wocat', template=None
+        ))
+        return context
 
 
 def questionnaire_details(request, identifier):

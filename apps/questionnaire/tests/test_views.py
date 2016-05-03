@@ -191,6 +191,7 @@ class GenericQuestionnaireNewStepTest(TestCase):
                 'edit_mode': 'edit',
                 'view_url': '',
                 'content_subcategories_count': 0,
+                'toc_content': [],
             })
 
     def test_returns_rendered_response(self):
@@ -207,7 +208,7 @@ class GenericQuestionnaireNewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.request = self.factory.get('/sample/new')
+        self.request = self.factory.get('/en/sample/edit/new/')
         self.request.user = create_new_user()
         self.request.session = {}
 
@@ -321,7 +322,8 @@ class GenericQuestionnaireNewTest(TestCase):
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
             **get_valid_new_values()[1])
-        mock_get_questionnaire_data.assert_called_once_with({}, 'en')
+        mock_get_questionnaire_data.assert_called_once_with(
+            {}, 'en', original_locale=None)
 
     @patch.object(QuestionnaireConfiguration, 'get_details')
     def test_calls_get_details(self, mock_get_details):
@@ -347,11 +349,13 @@ class GenericQuestionnaireNewTest(TestCase):
             questionnaire_objects=[link], with_links=False,
             configuration_code=link.configurations.first().code)
 
+    @patch.object(QuestionnaireConfiguration, 'get_toc_data')
     @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     @patch.object(QuestionnaireSection, 'get_details')
     @patch('questionnaire.views.render')
     def test_calls_render(
-            self, mock_render, mock_get_details, mock_filter_configuration):
+            self, mock_render, mock_get_details, mock_filter_configuration,
+            mock_get_toc_data):
         mock_get_details.return_value = "foo"
         generic_questionnaire_new(
             self.request, *get_valid_new_values()[0],
@@ -366,6 +370,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'edited_questiongroups': [],
                 'view_mode': 'edit',
                 'is_blocked': None,
+                'toc_content': mock_get_toc_data.return_value,
             })
 
     def test_returns_rendered_response(self):
@@ -412,9 +417,9 @@ class GenericQuestionnaireDetailsTest(TestCase):
             mock_get_q_data_in_single_lang, mock_render):
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
+        mock_q = mock_query_questionnaire.return_value.first.return_value
         mock_get_q_data_in_single_lang.assert_called_once_with(
-            mock_query_questionnaire.return_value.first.return_value.data,
-            'en')
+            mock_q.data, 'en', original_locale=mock_q.original_locale)
 
     @patch('questionnaire.views.handle_review_actions')
     @patch('questionnaire.views.redirect')
@@ -513,6 +518,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'filter_configuration': mfc,
                 'permissions': mock_q_obj.get_permissions.return_value,
                 'view_mode': 'view',
+                'toc_content': mock_conf.return_value.get_toc_data.return_value,
             })
 
 
@@ -553,34 +559,12 @@ class GenericQuestionnaireListTest(TestCase):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_page_parameter.assert_called_once_with(self.request)
 
-    @patch('questionnaire.views.query_questionnaires')
-    def test_db_query_calls_query_questionnaires(
-            self, mock_query_questionnaires, mock_advanced_search,
-            mock_render):
-        mock_query_questionnaires.return_value = []
-        generic_questionnaire_list(self.request, 'sample', db_query=True)
-        mock_query_questionnaires.assert_called_once_with(
-            self.request, 'sample', only_current=False, limit=None)
-
-    @patch('questionnaire.views.get_pagination_parameters')
-    @patch('questionnaire.views.get_list_values')
-    @patch('questionnaire.views.query_questionnaires')
-    @patch('questionnaire.views.get_paginator')
-    def test_db_query_calls_get_paginator(
-            self, mock_get_paginator, mock_query_questionnaires,
-            mock_get_list_values, mock_get_pagination_parameters,
-            mock_advanced_search, mock_render):
-        mock_query_questionnaires.return_value = []
-        mock_get_paginator.return_value = None, None
-        generic_questionnaire_list(self.request, 'sample', db_query=True)
-        mock_get_paginator.assert_called_once_with([], 1, 10)
-
     @patch('questionnaire.views.get_list_values')
     def test_db_query_calls_get_list_values(
             self, mock_get_list_values, mock_advanced_search, mock_render):
         self.request.user = Mock()
         self.request.user.is_authenticated.return_value = False
-        generic_questionnaire_list(self.request, 'sample', db_query=True)
+        generic_questionnaire_list(self.request, 'sample')
         self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch('questionnaire.views.get_configuration_index_filter')

@@ -1,10 +1,12 @@
 import ast
 import contextlib
+from uuid import UUID
 
 from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
+from django.utils.functional import Promise
 from django.utils.translation import ugettext as _, get_language
 
 from configuration.cache import get_configuration
@@ -280,7 +282,8 @@ def is_valid_questionnaire_format(questionnaire_data):
     return True
 
 
-def get_questionnaire_data_in_single_language(questionnaire_data, locale):
+def get_questionnaire_data_in_single_language(
+        questionnaire_data, locale, original_locale=None):
     """
     Returns a questionnaire data dictionary in a single language. For
     translated values, the dictionary value containing the translations
@@ -327,7 +330,8 @@ def get_questionnaire_data_in_single_language(questionnaire_data, locale):
             qg_data_sl = {}
             for key, value in questiongroup_data.items():
                 if isinstance(value, dict):
-                    qg_data_sl[key] = value.get(locale)
+                    qg_data_sl[key] = value.get(
+                        locale, value.get(original_locale))
                 else:
                     qg_data_sl[key] = value
             qg_sl.append(qg_data_sl)
@@ -401,7 +405,8 @@ def get_questionnaire_data_for_translation_form(
             for key, value in questiongroup_data.items():
                 if isinstance(value, dict):
                     qg_data_translation['{}{}'.format(
-                        translation_prefix, key)] = value.get(current_locale)
+                        translation_prefix, key)] = value.get(
+                            current_locale, value.get(original_locale))
                     qg_data_translation['{}{}'.format(
                         original_prefix, key)] = value.get(original_locale)
                     qg_data_translation['{}{}'.format(old_prefix, key)] = value
@@ -705,9 +710,18 @@ def query_questionnaire(request, identifier):
         ``django.db.models.query.QuerySet``. The queried
         Questionnaire(s).
     """
+
+    # If the identifier is a valid UUID, the Questionnaire object is searched by
+    # uuid, otherwise by code.
+    try:
+        UUID(identifier)
+        q_filter = Q(uuid=identifier)
+    except ValueError:
+        q_filter = Q(code=identifier)
+
     status_filter = get_query_status_filter(request)
 
-    return Questionnaire.objects.filter(code=identifier).filter(status_filter)
+    return Questionnaire.objects.filter(q_filter).filter(status_filter)
 
 
 def query_questionnaires(
@@ -1325,7 +1339,8 @@ def prepare_list_values(data, config, **kwargs):
         # a raw string (e.g. 'country')
         if isinstance(items, dict):
             data[key] = items.get(language, items.get(original_language))
-        if isinstance(items, str):
+        # lazy pgettext objects are Promise objects
+        if isinstance(items, str) or isinstance(items, Promise):
             data[key] = items
 
     del data['list_data']

@@ -71,19 +71,15 @@
       {% endif %}
     </aside>
 
-    <div class="medium-12 columns">
-      {% include "details/toc.html" with toc_keyword=keyword %}
-    </div>
-
     {% if 'edit_questionnaire' in permissions and view_mode == 'edit' %}
-      <div class="medium-9 columns">
+      <div class="medium-9 columns is-rhythmed">
         <h2>{{ numbering|default:'' }} {{ label }}</h2>
         <div class="tech-section-progress progress">
           <span class="progress-steps"></span>
           <span class="meter" style="width:{{ progress }}%"></span>
         </div>
       </div>
-      <div class="medium-3 columns">
+      <div class="medium-3 columns is-rhythmed">
         <a class="button is-approaches right" href="{% url edit_step_route questionnaire_identifier keyword %}">
           {% trans "Edit this section" %} <strong>({{ complete }}/{{ total }}){% if has_changes %}<span class="button-has-changes">*</span>{% endif %}</strong>
         </a>

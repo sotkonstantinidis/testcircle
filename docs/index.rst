@@ -56,6 +56,7 @@ Development
     development/data_flow
     development/usergroups
     development/testing
+    development/translations
     development/deployment
     development/django
     development/grunt

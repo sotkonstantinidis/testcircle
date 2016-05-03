@@ -5,9 +5,14 @@
   <div class="tech-thumbnail medium-4 columns">
     <figure>
       <a href="{% url 'sample:questionnaire_details' item.code %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.key_1 }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
-      {% if item.status.0 and item.status.0 != 'public' %}
-        <figcaption class="tech-status label is-{{ item.status.0 }}">{{ item.status.1 }}</figcaption>
-      {% endif %}
+      <figcaption class="tech-status">
+        {% if item.configurations.0 %}
+          <span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
+        {% endif %}
+        {% if item.status.0 and item.status.0 != 'public' %}
+          <span class="label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
+        {% endif %}
+      </figcaption>
     </figure>
     <ul class="tech-icons">
       <li>
@@ -15,7 +20,7 @@
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
             <br>
-            PDF
+            {% trans "PDF" %}
           </span>
         </a>
       </li>
@@ -23,7 +28,7 @@
         <a href="{% url 'sample:questionnaire_details' item.code %}">
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-video"></use></svg>
-            Video
+            {% trans "Video" %}
           </span>
         </a>
       </li>
@@ -31,7 +36,7 @@
   </div>
   <div class="content medium-8 columns">
     <header>
-       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'sample:questionnaire_details' item.code %}" title="" class="link">{{ item.key_1 }}</a> <small>{{ item.country }}</small></h1>
+       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations_property|join:"|" }}]</small> {% endif %}<a href="{% url 'sample:questionnaire_details' item.code %}" title="" class="link">{{ item.key_1|default:""|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
     </header>
     <aside class="tech-infos row collapse">
       <dl class="medium-6 columns">
@@ -39,11 +44,11 @@
         <dd>{{ item.code|default:"&ndash;" }}</dd>
       </dl>
       <dl class="medium-6 columns">
-        <dt>Creation:</dt>
+        <dt>{% trans "Creation:" %}</dt>
         <dd><time datetime="{{ item.created|date:"c" }}" pubdate="pubdate">{{ item.created|date:"SHORT_DATETIME_FORMAT"|default:"&ndash;" }}</time></dd>
       </dl>
       <dl class="medium-6 columns">
-        <dt>Update:</dt>
+        <dt>{% trans "Update:" %}</dt>
         <dd><time datetime="{{ item.updated|date:"c" }}">{{ item.updated|date:"SHORT_DATETIME_FORMAT"|default:"&ndash;" }}</time></dd>
       </dl>
       <dl class="medium-6 columns">
@@ -52,7 +57,7 @@
       </dl>
     </aside>
     <main>
-      <p>{{ item.key_5 }}</p>
+      <p>{{ item.key_5|truncatewords:50 }}</p>
     </main>
     <footer>
       {% if item.links|length > 0 or item.translations %}

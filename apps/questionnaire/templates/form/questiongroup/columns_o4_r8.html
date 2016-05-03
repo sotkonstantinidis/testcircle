@@ -1,5 +1,6 @@
 {% comment %}
-  Two columns (4 / 8). The first question is rendered in the first column, all others in the second column.
+  Two columns (4 / 8). The first question is rendered in the first column, all
+  others in the second column.
 
   Adds buttons to add or remove additional questiongroups
 
@@ -23,7 +24,7 @@
   {% endif %}
 
   {% if config.label %}
-    <h4>{{ config.label }}</h4>
+    <{{ config.label_tag|default:"h4" }} class="{% if config.label_class %}{{ config.label_class }}{% endif %}">{{ config.label }}</{{ config.label_tag|default:"h4" }}>
   {% endif %}
 
   {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}

@@ -156,6 +156,10 @@ class CreateOrUpdateIndexTest(TestCase):
             raise Exception(
                 'No connection to Elasticsearch possible. Make sure it is '
                 'running and the configuration is correct.')
+        self.default_body = {
+            'settings': {'index': {'mapping': {
+                'nested_fields': {'limit': 250}}}
+            }, 'mappings': {}}
 
     def tearDown(self):
         """
@@ -191,7 +195,7 @@ class CreateOrUpdateIndexTest(TestCase):
         mock_es.indices.exists_alias.return_value = False
         create_or_update_index('foo', {})
         mock_es.indices.create.assert_called_once_with(
-            index='{}foo_1'.format(TEST_INDEX_PREFIX), body={'mappings': {}})
+            index='{}foo_1'.format(TEST_INDEX_PREFIX), body=self.default_body)
 
     @patch('search.index.es')
     def test_calls_indices_put_alias_if_no_alias(self, mock_es):
@@ -220,7 +224,7 @@ class CreateOrUpdateIndexTest(TestCase):
         mock_get_current_and_next_index.return_value = 'a', 'b'
         create_or_update_index('foo', {})
         mock_es.indices.create.assert_called_once_with(
-            index='b', body={'mappings': {}})
+            index='b', body=self.default_body)
 
     @patch('search.index.reindex')
     @patch('search.index.get_current_and_next_index')
@@ -332,6 +336,13 @@ class CreateOrUpdateIndexTest(TestCase):
         self.assertIsInstance(logs, list)
         self.assertEqual(len(logs), 7)
         self.assertEqual(error_msg, '')
+
+    @patch('search.index.force_strings')
+    def test_calls_force_string(self, mock_force_strings):
+        m = get_valid_questionnaire()
+        mock_force_strings.return_value = {}
+        put_questionnaire_data(TEST_ALIAS, [m])
+        mock_force_strings.assert_called_once_with({})
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

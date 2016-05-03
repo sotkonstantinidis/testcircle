@@ -8,7 +8,7 @@ from django.utils.translation import get_language
 
 from qcat.tests import TestCase
 from configuration.models import Configuration
-from ..cache import get_configuration
+from configuration.cache import get_configuration
 from ..views import BuildAllCachesView, delete_caches
 
 

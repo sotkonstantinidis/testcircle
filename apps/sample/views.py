@@ -17,8 +17,8 @@ from questionnaire.views import (
 
 def home(request):
     list_template_values = generic_questionnaire_list(
-        request, 'sample', template=None, only_current=True, limit=3,
-        db_query=True)
+        request, 'sample', template=None, only_current=True, limit=3
+    )
 
     return render(request, 'sample/home.html', {
         'list_values': list_template_values.get('list_values', []),

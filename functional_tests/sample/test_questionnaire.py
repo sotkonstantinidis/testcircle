@@ -2,7 +2,7 @@ import time
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.test.utils import override_settings
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.action_chains import ActionChains  # noqa
 from selenium.webdriver.common.keys import Keys
 from unittest.mock import patch
 
@@ -54,13 +54,11 @@ class QuestionnaireTest(FunctionalTest):
         # categories
         self.changeLanguage('es')
         self.checkOnPage('Inglés')
-        self.findBy('xpath', '//h2[contains(text(), "Categoría 1")]')
 
         # She changes the language to French and sees there is no
         # translation but the original English categories are displayed
         self.changeLanguage('fr')
         self.checkOnPage('Anglais')
-        self.findBy('xpath', '//h2[contains(text(), "Category 1")]')
 
     def test_navigate_questionnaire(self, mock_get_user_id):
 
@@ -72,35 +70,21 @@ class QuestionnaireTest(FunctionalTest):
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_1'}))
 
-        # She sees that the first question is active, the second not
-        self.findBy(
-            'xpath',
-            '//a[@data-magellan-destination="question1" and @class="active"]')
-        self.findByNot(
-            'xpath',
-            '//a[@data-magellan-destination="question2" and @class="active"]')
+        scroll_position_1 = self.browser.execute_script("return window.scrollY;")
 
         # She clicks the button to go to the next question
         self.findBy('xpath', '//a[@data-magellan-step="next"]').click()
-        self.browser.implicitly_wait(5)
 
-        # Now the first question is inactive, the second is active
-        self.findBy(
-            'xpath',
-            '//a[@data-magellan-destination="question2" and @class="active"]')
-        self.findByNot(
-            'xpath',
-            '//a[@data-magellan-destination="question1" and @class="active"]')
+        time.sleep(1)
+        scroll_position_2 = self.browser.execute_script("return window.scrollY;")
+        self.assertTrue(scroll_position_1 < scroll_position_2)
 
         # A click on the other button goes up one question
         self.findBy('xpath', '//a[@data-magellan-step="previous"]').click()
-        self.browser.implicitly_wait(5)
-        self.findBy(
-            'xpath',
-            '//a[@data-magellan-destination="question1" and @class="active"]')
-        self.findByNot(
-            'xpath',
-            '//a[@data-magellan-destination="question2" and @class="active"]')
+
+        time.sleep(1)
+        scroll_position_3 = self.browser.execute_script("return window.scrollY;")
+        self.assertEqual(scroll_position_1, scroll_position_3)
 
     # def test_numbered_questiongroups(self, mock_get_user_id):
     #
@@ -1053,6 +1037,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_4'}))
+        self.rearrangeFormHeader()
 
         # She sees that no Checkbox of Key 14 is selected by default
         self.findByNot(
@@ -1082,7 +1067,7 @@ class QuestionnaireTest(FunctionalTest):
         # She selects a first checkbox and sees that the form progress
         # was updated
         self.findBy(
-            'xpath', '(//input[@name="qg_11-0-key_14"])[1]').click()
+            'xpath', '//label[@for="id_qg_11-0-key_14_1"]').click()
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
@@ -1100,22 +1085,23 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_4'}))
+        self.rearrangeFormHeader()
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
 
         # She deselects the first value and sees that the progress was
         # updated
         self.findBy(
-            'xpath', '(//input[@name="qg_11-0-key_14"])[1]').click()
+            'xpath', '//label[@for="id_qg_11-0-key_14_1"]').click()
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 0%;"]')
 
         # She then selects the second and third values and submits the
         # form
         self.findBy(
-            'xpath', '(//input[@name="qg_11-0-key_14"])[2]').click()
+            'xpath', '//label[@for="id_qg_11-0-key_14_2"]').click()
         self.findBy(
-            'xpath', '(//input[@name="qg_11-0-key_14"])[3]').click()
+            'xpath', '//label[@for="id_qg_11-0-key_14_3"]').click()
         self.findBy('id', 'button-submit').click()
 
         # The overview now shows both values
@@ -1158,7 +1144,7 @@ class QuestionnaireTest(FunctionalTest):
             '//div[@class="button-bar"]/ul/li/input[@name="qg_16-0-key_21"]')
 
         # She sees that Key 22 and Key 23 are not visible
-        key_22 = self.findBy('id', 'id_qg_17-0-key_22_1')
+        key_22 = self.findBy('xpath', '//label[@for="id_qg_17-0-key_22_1"]')
         key_23 = self.findBy('id', 'id_qg_17-0-original_key_23')
         self.assertFalse(key_22.is_displayed())
         self.assertFalse(key_23.is_displayed())
@@ -1208,7 +1194,7 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_4'}))
-        key_22 = self.findBy('id', 'id_qg_17-0-key_22_1')
+        key_22 = self.findBy('xpath', '//label[@for="id_qg_17-0-key_22_1"]')
         key_23 = self.findBy('id', 'id_qg_17-0-original_key_23')
         self.assertTrue(key_22.is_displayed())
         self.assertTrue(key_23.is_displayed())
@@ -1431,9 +1417,10 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_4'}))
-        cb_1_1 = self.findBy('id', 'id_qg_12-0-key_16_1')
-        cb_1_2 = self.findBy('id', 'id_qg_12-0-key_16_2')
-        cb_2_1 = self.findBy('id', 'id_qg_12-0-key_15_1')
+        self.rearrangeFormHeader()
+        cb_1_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_1"]')
+        cb_1_2 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_2"]')
+        cb_2_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_15_1"]')
 
         # She sees one checkbox, but not the conditional one
         self.assertTrue(cb_1_1.is_displayed())
@@ -1461,9 +1448,9 @@ class QuestionnaireTest(FunctionalTest):
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_4'}))
         self.rearrangeFormHeader()
-        cb_1_1 = self.findBy('id', 'id_qg_12-0-key_16_1')
-        cb_1_2 = self.findBy('id', 'id_qg_12-0-key_16_2')
-        cb_2_1 = self.findBy('id', 'id_qg_12-0-key_15_1')
+        cb_1_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_1"]')
+        cb_1_2 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_2"]')
+        cb_2_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_15_1"]')
 
         # She sees the conditional question is not visible
         self.assertFalse(cb_2_1.is_displayed())
@@ -1483,9 +1470,10 @@ class QuestionnaireTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_4'}))
-        cb_1_1 = self.findBy('id', 'id_qg_12-0-key_16_1')
-        cb_1_2 = self.findBy('id', 'id_qg_12-0-key_16_2')
-        cb_2_1 = self.findBy('id', 'id_qg_12-0-key_15_1')
+        cb_1_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_1"]')
+        cb_1_2 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_2"]')
+        cb_2_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_15_1"]')
+        cb_2_1_cb = self.findBy('id', 'id_qg_12-0-key_15_1')
 
         # She sees the conditional question is visible
         self.assertTrue(cb_2_1.is_displayed())
@@ -1495,12 +1483,12 @@ class QuestionnaireTest(FunctionalTest):
 
         # She deselects the checkbox which triggers and reselects it. She sees
         # the conditional checkbox is not selected anymore
-        self.assertEqual(cb_2_1.get_attribute('checked'), 'true')
+        self.assertEqual(cb_2_1_cb.get_attribute('checked'), 'true')
         cb_1_2.click()
         self.assertFalse(cb_2_1.is_displayed())
         cb_1_2.click()
         self.assertTrue(cb_2_1.is_displayed())
-        self.assertIsNone(cb_2_1.get_attribute('checked'))
+        self.assertIsNone(cb_2_1_cb.get_attribute('checked'))
 
         # She selects something of the conditional question
         cb_2_1.click()
@@ -1516,7 +1504,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//img[@alt="Value 16_2"]')
         self.findBy('xpath', '//img[@alt="Value 15_1"]')
-
 
     # def test_image_checkbox_subcategory(self):
 
@@ -2808,6 +2795,7 @@ class QuestionnaireTest(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@patch('questionnaire.views.generic_questionnaire_list')
 @patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTestIndex(FunctionalTest):
     # Tests requiring an index
@@ -2825,8 +2813,10 @@ class QuestionnaireTestIndex(FunctionalTest):
         super(QuestionnaireTestIndex, self).tearDown()
         delete_all_indices()
 
-    def test_enter_questionnaire(self, mock_get_user_id):
+    def test_enter_questionnaire(self, mock_get_user_id,
+                                 mock_questionnaire_list):
 
+        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
 
@@ -3286,19 +3276,19 @@ class QuestionnaireLinkTest(FunctionalTest):
             'xpath',
             '//li[@class="ui-menu-item"]//strong[text()="foo"]')
         self.assertEqual(len(results), 10)
-        self.rearrangeFormHeader()
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[contains(text(), "Too many '
-            'results")]'
-        ).click()
-        self.findByNot(
-            'xpath',
-            '//div[contains(@class, "alert-box")]')
-
-        # The search field is still visible
-        search_field = self.findBy(
-            'xpath', '//input[contains(@class, "link-search-field")][1]')
+        # self.rearrangeFormHeader()
+        # self.findBy(
+        #     'xpath',
+        #     '//li[@class="ui-menu-item"]//strong[contains(text(), "Too many '
+        #     'results")]'
+        # ).click()
+        # self.findByNot(
+        #     'xpath',
+        #     '//div[contains(@class, "alert-box")]')
+        #
+        # # The search field is still visible
+        # search_field = self.findBy(
+        #     'xpath', '//input[contains(@class, "link-search-field")][1]')
 
     """
     Test:

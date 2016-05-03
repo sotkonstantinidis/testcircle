@@ -10,9 +10,6 @@
 
 {% block logo %}
   <h1>
-    <a href="{% url 'unccd:home' %}">
-      <img src="{% static 'assets/img/unccd_mono_trans.png' %}" alt="{% trans "UNCCD" %}">
-    </a>
     <a href="{% url 'wocat:home' %}">
       <img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}" class="hide-on-print"><img src="{% static 'assets/img/wocat_logo_print.svg' %}" alt="{% trans "WOCAT" %}" class="print-only">
     </a>
@@ -23,7 +20,7 @@
   <form action="{% url 'unccd:questionnaire_list' %}" method="GET" role="search" class="top-bar-search">
     <div class="search-group">
       <div class="search-input radius">
-        <input type="search" name="q" placeholder="{% trans 'Search SLM data ...' %}">
+        <input type="search" tabindex="1" name="q" placeholder="{% trans 'Search SLM data ...' %}">
         <div class="search-btn postfix light">
           <a href="#" id="submit-search"><svg class="icon"><use xlink:href="#icon-search"></use></svg></a>
         </div>

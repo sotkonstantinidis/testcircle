@@ -95,6 +95,7 @@ def deploy():
     _update_static_files(env.source_folder)
     _update_database(env.source_folder)
     _set_maintenance_mode(False, env.source_folder)
+    _rebuild_configuration_cache()
     print(green("Everything OK"))
 
 
@@ -187,6 +188,10 @@ def _set_maintenance_mode(value, source_folder):
         run('rm {}'.format(settings.MAINTENANCE_LOCKFILE_PATH))
     _reload_uwsgi()
 
+
+def _rebuild_configuration_cache():
+    run('cd %s && ../virtualenv/bin/python3 manage.py build_config_caches' %
+        env.source_folder)
 
 @task
 @runs_once

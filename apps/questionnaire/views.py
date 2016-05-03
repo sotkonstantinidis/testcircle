@@ -184,6 +184,13 @@ def generic_questionnaire_view_step(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode)
 
+    toc_content = []
+    for subcategory_config, __ in subcategories:
+        toc_content.append((
+            subcategory_config.get('keyword'), subcategory_config.get('label'),
+            subcategory_config.get('numbering')
+        ))
+
     return render(request, 'form/category.html', {
         'subcategories': subcategories,
         'config': category_config,
@@ -191,6 +198,7 @@ def generic_questionnaire_view_step(
         'valid': valid,
         'edit_mode': edit_mode,
         'configuration_name': configuration_code,
+        'toc_content': toc_content,
     })
 
 
@@ -310,8 +318,13 @@ def generic_questionnaire_new_step(
             edited_questiongroups = compare_questionnaire_data(
                 session_questionnaire, old_data)
 
-    # TODO: Make this more dynamic
+    # TODO: This is still not very efficient as the Questionnaire object has to
+    # be queried just to get the original locale. This should be improved!
     original_locale = None
+    if identifier is not None and identifier != 'new':
+        questionnaire_object = query_questionnaire(request, identifier).first()
+        if questionnaire_object:
+            original_locale = questionnaire_object.original_locale
     current_locale = get_language()
     show_translation = (
         original_locale is not None and current_locale != original_locale)
@@ -428,6 +441,13 @@ def generic_questionnaire_new_step(
 
     configuration_name = category_config.get('configuration', url_namespace)
 
+    toc_content = []
+    for subcategory_config, __ in subcategories:
+        toc_content.append((
+            subcategory_config.get('keyword'), subcategory_config.get('label'),
+            subcategory_config.get('numbering')
+        ))
+
     view_url = ''
     if identifier:
         view_url = reverse(
@@ -445,6 +465,7 @@ def generic_questionnaire_new_step(
         'configuration_name': configuration_name,
         'edit_mode': edit_mode,
         'view_url': view_url,
+        'toc_content': toc_content,
     })
 
 
@@ -576,8 +597,12 @@ def generic_questionnaire_new(
                 reverse('{}:questionnaire_details'.format(
                     url_namespace), args=[questionnaire.code])))
 
+    original_locale = None
+    if questionnaire_object:
+        original_locale = questionnaire_object.original_locale
+
     data = get_questionnaire_data_in_single_language(
-        session_questionnaire, get_language())
+        session_questionnaire, get_language(), original_locale=original_locale)
 
     if questionnaire_object is None:
         permissions = ['edit_questionnaire']
@@ -629,7 +654,6 @@ def generic_questionnaire_new(
         # Display a hint about the 'blocked' status for GET requests only. For
         # post requests, this is done in the form validation.
         if request.method == 'GET':
-            questionnaire_object
             level, message = questionnaire_object.get_blocked_message(
                 request.user
             )
@@ -648,7 +672,8 @@ def generic_questionnaire_new(
         'permissions': permissions,
         'edited_questiongroups': edited_questiongroups,
         'view_mode': 'edit',
-        'is_blocked': is_blocked
+        'is_blocked': is_blocked,
+        'toc_content': questionnaire_configuration.get_toc_data(),
     })
 
 
@@ -680,7 +705,8 @@ def generic_questionnaire_details(
         raise Http404()
     questionnaire_configuration = get_configuration(configuration_code)
     data = get_questionnaire_data_in_single_language(
-        questionnaire_object.data, get_language())
+        questionnaire_object.data, get_language(),
+        original_locale=questionnaire_object.original_locale)
 
     if request.method == 'POST':
         review = handle_review_actions(
@@ -750,6 +776,7 @@ def generic_questionnaire_details(
         'filter_configuration': filter_configuration,
         'permissions': permissions,
         'view_mode': 'view',
+        'toc_content': questionnaire_configuration.get_toc_data(),
     })
 
 
@@ -833,7 +860,7 @@ def generic_questionnaire_list_no_config(
 
 def generic_questionnaire_list(
         request, configuration_code, template=None, filter_url='', limit=None,
-        only_current=False, db_query=False):
+        only_current=False):
     """
     A generic view to show a list of Questionnaires.
 
@@ -855,10 +882,6 @@ def generic_questionnaire_list(
         ``only_current`` (bool): A boolean indicating whether to include
         only questionnaires from the current configuration. Passed to
         :func:`questionnaire.utils.query_questionnaires`
-
-        ``db_query`` (bool): A boolean indicating whether to query the
-        database for results instead of using Elasticsearch. Please note
-        that filters are ignored if querying the database.
 
     Returns:
         ``HttpResponse``. A rendered Http Response.
@@ -889,38 +912,22 @@ def generic_questionnaire_list(
     page = get_page_parameter(request)
     offset = page * limit - limit
 
-    if db_query is True:
+    search_configuration_codes = get_configuration_index_filter(
+        configuration_code, only_current=only_current)
 
-        # Limit is handled by the paginator
-        questionnaire_objects = query_questionnaires(
-            request, configuration_code, only_current=only_current,
-            limit=None)
+    search = advanced_search(
+        filter_params=filter_params, query_string=query_string,
+        configuration_codes=search_configuration_codes, limit=limit,
+        offset=offset)
 
-        questionnaires, paginator = get_paginator(
-            questionnaire_objects, page, limit)
+    es_hits = search.get('hits', {})
+    es_pagination = ESPagination(
+        es_hits.get('hits', []), es_hits.get('total', 0))
 
-        status_filter = get_query_status_filter(request)
-        list_values = get_list_values(
-            configuration_code=configuration_code,
-            questionnaire_objects=questionnaires, status_filter=status_filter)
+    questionnaires, paginator = get_paginator(es_pagination, page, limit)
 
-    else:
-        search_configuration_codes = get_configuration_index_filter(
-            configuration_code, only_current=only_current)
-
-        search = advanced_search(
-            filter_params=filter_params, query_string=query_string,
-            configuration_codes=search_configuration_codes, limit=limit,
-            offset=offset)
-
-        es_hits = search.get('hits', {})
-        es_pagination = ESPagination(
-            es_hits.get('hits', []), es_hits.get('total', 0))
-
-        questionnaires, paginator = get_paginator(es_pagination, page, limit)
-
-        list_values = get_list_values(
-            configuration_code=configuration_code, es_hits=questionnaires)
+    list_values = get_list_values(
+        configuration_code=configuration_code, es_hits=questionnaires)
 
     # Add the configuration of the filter
     filter_configuration = questionnaire_configuration.\

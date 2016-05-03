@@ -5,3 +5,4 @@
 -r base.txt
 
 opbeat==3.2.2
+pylibmc==1.5.1

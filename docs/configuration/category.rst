@@ -31,9 +31,6 @@ The basic format of the configuration is as follows::
       "template": "TEMPLATE_NAME",
 
       # Default: false
-      "include_toc": true,
-
-      # Default: false
       "use_raw_data": true,
 
       # Default: false
@@ -78,10 +75,6 @@ view representation of the category.
   * ``template``: An optional template name. Must be a valid file name
     with ``.html`` ending in folder ``templates/details/category/``.
 
-  * ``include_toc``: An optional boolean indicating whether to add a
-    table of contents to the current section or not. The ToC is rendered
-    at the top of the category. Defaults to ``False``.
-
   * ``use_raw_data``: An optional boolean indicating whether to add the
     raw category data to the template or not. These values can then be
     used for example for manual rendering of the category details.
@@ -110,6 +103,8 @@ view representation of the category.
 
   * ``helptext_length`` (int): Overwrite the default length (number of words) of
     the helptext shown initially (without the "See more" button).
+
+  * ``numbering`` (str): An optional numbering of the category.
 
 ``subcategories``
 ^^^^^^^^^^^^^^^^^

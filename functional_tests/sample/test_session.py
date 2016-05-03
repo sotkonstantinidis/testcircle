@@ -210,7 +210,8 @@ class SessionTest2(FunctionalTest):
         self.findBy('xpath', '//a[contains(@href, "/sample/edit/")]').click()
 
         self.findBy(
-            'xpath', '(//a[contains(@href, "/sample/edit/")])[{}]'.format(
+            'xpath',
+            '(//a[contains(@href, "/sample/edit/sample_0/cat")])[{}]'.format(
                 cat_1_position)).click()
         self.findBy('name', 'qg_1-0-original_key_1').send_keys(' asdf')
         self.findBy('id', 'button-submit').click()

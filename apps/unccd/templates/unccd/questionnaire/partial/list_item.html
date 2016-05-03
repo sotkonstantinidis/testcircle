@@ -5,7 +5,7 @@
     <header>
        <h1>{% if item.status.0 and item.status.0 != 'public' %}
           <span class="label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
-        {% endif %}{% if item.configurations.0 %}<span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>{% endif %}<a href="{% url 'unccd:questionnaire_details' item.code %}" title="" class="link">{{ item.name|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
+        {% endif %}{% if item.configurations.0 %}<span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>{% endif %}<a href="{% url 'unccd:questionnaire_details' item.code %}" title="" class="link">{{ item.name|default:""|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
     </header>
     <aside class="tech-infos row collapse">
       <dl class="medium-6 columns">
