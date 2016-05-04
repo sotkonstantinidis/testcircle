@@ -318,8 +318,13 @@ def generic_questionnaire_new_step(
             edited_questiongroups = compare_questionnaire_data(
                 session_questionnaire, old_data)
 
-    # TODO: Make this more dynamic
+    # TODO: This is still not very efficient as the Questionnaire object has to
+    # be queried just to get the original locale. This should be improved!
     original_locale = None
+    if identifier is not None and identifier != 'new':
+        questionnaire_object = query_questionnaire(request, identifier).first()
+        if questionnaire_object:
+            original_locale = questionnaire_object.original_locale
     current_locale = get_language()
     show_translation = (
         original_locale is not None and current_locale != original_locale)
@@ -592,8 +597,12 @@ def generic_questionnaire_new(
                 reverse('{}:questionnaire_details'.format(
                     url_namespace), args=[questionnaire.code])))
 
+    original_locale = None
+    if questionnaire_object:
+        original_locale = questionnaire_object.original_locale
+
     data = get_questionnaire_data_in_single_language(
-        session_questionnaire, get_language())
+        session_questionnaire, get_language(), original_locale=original_locale)
 
     if questionnaire_object is None:
         permissions = ['edit_questionnaire']
@@ -665,6 +674,7 @@ def generic_questionnaire_new(
         'view_mode': 'edit',
         'is_blocked': is_blocked,
         'toc_content': questionnaire_configuration.get_toc_data(),
+        'has_content': data != {},
     })
 
 
@@ -696,7 +706,8 @@ def generic_questionnaire_details(
         raise Http404()
     questionnaire_configuration = get_configuration(configuration_code)
     data = get_questionnaire_data_in_single_language(
-        questionnaire_object.data, get_language())
+        questionnaire_object.data, get_language(),
+        original_locale=questionnaire_object.original_locale)
 
     if request.method == 'POST':
         review = handle_review_actions(

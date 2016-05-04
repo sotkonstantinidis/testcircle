@@ -7,9 +7,6 @@
 
 {% block content %}
   <main class="row large-collapse" role="main">
-    {% comment %}
-      TODO: COP12
-    {% endcomment %}
     <section class="tech-list small-12 columns">
       <div class="tech-group">
         <h2 class="is-group">{% if is_moderation %}{% trans "Pending SLM practices" %}{% elif is_current_user %}{% trans "Your SLM practices" %}{% else %}{% trans "SLM practices by" %} {{ list_user }}{% endif %} (<span id="questionnaire-count">{{ count }}</span>)</h2>

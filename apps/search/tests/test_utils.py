@@ -98,12 +98,12 @@ class ForceStringsTest(TestCase):
 
     def setUp(self):
         self.single_level = {
-            'a': _(u'bar')
+            'a': _(u'Login')
         }
         self.multi_level = {
             'a': {
                 'b': {
-                    'c': _(u'bar')
+                    'c': _(u'Login')
                 }
             }
         }

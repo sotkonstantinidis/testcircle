@@ -16,7 +16,7 @@
     </figure>
     <ul class="tech-icons">
       <li>
-        <a href="{% url 'approaches:questionnaire_details' item.code %}">
+        <a href="{% url 'approaches:questionnaire_details' item.code %}" title="{% trans "Under construction" %}" aria-haspopup="true" data-tooltip="">
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
             <br>
@@ -25,7 +25,7 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'approaches:questionnaire_details' item.code %}">
+        <a href="{% url 'approaches:questionnaire_details' item.code %}" title="{% trans "Under construction" %}" aria-haspopup="true" data-tooltip="">
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-video"></use></svg>
             {% trans "Video" %}
@@ -36,7 +36,7 @@
   </div>
   <div class="content medium-8 columns">
     <header>
-       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'approaches:questionnaire_details' item.code %}" title="" class="link">{{ item.name|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
+       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'approaches:questionnaire_details' item.code %}" title="" class="link">{{ item.name|default:""|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
     </header>
     <aside class="tech-infos row collapse">
       <dl class="medium-6 columns">

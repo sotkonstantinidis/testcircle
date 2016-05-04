@@ -11,14 +11,22 @@
 
 {% block content %}
 
-{% comment %}
-  TODO: COP12
-{% endcomment %}
-{% if 'edit_questionnaire' in permissions %}
-  <div class="notice alert-box demo-version text-center">
-    <strong>Data entered in this test version will not be stored.</strong>
-  </div>
-{% endif %}
+  {% if view_mode == 'edit' and not has_content %}
+    {% comment %}
+      TODO: For UNCCD testing (shared account), this notice is shown for every
+      new edit. In future, this should probably be shown only once per user and
+      could be customized (Welcome XYZ, ...).
+    {% endcomment %}
+    <section class="hero welcome-notice" id="welcome-notice">
+      <a class="welcome-notice-close" data-toggle="welcome-notice"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+      <div class="row large-collapse">
+        <div class="small-12 columns">
+          <h2>{% trans "Welcome to the SLM Approach data entry form." %}</h2>
+          <p>{% trans "You are about to add a new Approach." %} <a href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start by editing the general information section." %}</a></p>
+        </div>
+      </div>
+    </section>
+  {% endif %}
 
   {% if images|length %}
     <figure class="tech-figure">
