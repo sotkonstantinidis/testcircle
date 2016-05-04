@@ -16,7 +16,7 @@
     </figure>
     <ul class="tech-icons">
       <li>
-        <a href="{% url 'technologies:questionnaire_details' item.code %}">
+        <a href="{% url 'technologies:questionnaire_details' item.code %}" title="{% trans "Under construction" %}" aria-haspopup="true" data-tooltip="">
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-pdf"></use></svg>
             <br>
@@ -25,7 +25,7 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'technologies:questionnaire_details' item.code %}">
+        <a href="{% url 'technologies:questionnaire_details' item.code %}" title="{% trans "Under construction" %}" aria-haspopup="true" data-tooltip="">
           <span class="tech-icon">
             <svg class="icon"><use xlink:href="#icon-video"></use></svg>
             {% trans "Video" %}

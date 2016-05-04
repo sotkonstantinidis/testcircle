@@ -1,4 +1,7 @@
+from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
+
+from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 
 from accounts.client import Typo3Client
@@ -208,6 +211,7 @@ class UserTest(FunctionalTest):
         self.findBy(
             'xpath', '//p[@class="questionnaire-list-empty" and contains('
             'text(), "No WOCAT and UNCCD SLM practices found.")]')
+
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 @patch('wocat.views.generic_questionnaire_list')
@@ -830,6 +834,72 @@ class UserTest2(FunctionalTest):
         for user_tuple in questionnaire_users:
             self.assertIn(user_tuple[0], ['compiler'])
             self.assertIn(user_tuple[1].id, [1])
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@patch.object(Typo3Client, 'get_user_id')
+class UserTest3(FunctionalTest):
+
+    fixtures = [
+        'groups_permissions.json', 'sample_global_key_values.json',
+        'sample.json']
+
+    def test_user_questionnaires_no_duplicates(self, mock_get_user_id):
+
+        # Alice logs in
+        user = create_new_user()
+        user.groups = [
+            Group.objects.get(pk=3), Group.objects.get(pk=4)]
+        user.save()
+        self.doLogin(user=user)
+
+        # She goes directly to the Sample questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        self.findBy(
+            'xpath', '//input[@name="qg_1-0-original_key_1"]').send_keys(
+                'Foo 1')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        details_url = self.browser.current_url
+
+        # She goes to the list of her own questionnaires and sees it.
+        self.clickUserMenu(user)
+        self.findBy(
+            'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
+            'contains(@href, "accounts/1/questionnaires")]').click()
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 1")]')
+
+        # She submits, reviews and publishes the questionnaire
+        self.browser.get(details_url)
+        self.findBy('xpath', '//input[@name="submit"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//input[@name="review"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//input[@name="publish"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # Back on the list of her own questionnaires, she sees it only once
+        self.clickUserMenu(user)
+        self.findBy(
+            'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
+            'contains(@href, "accounts/1/questionnaires")]').click()
+
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'contains(text(), "Foo 1")]')
 
 
 # @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

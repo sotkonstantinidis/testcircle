@@ -736,6 +736,19 @@ class QueryQuestionnairesTest(TestCase):
         self.assertEqual(ret[4].id, 9)
         self.assertEqual(ret[5].id, 10)
 
+    def test_own_reviewer_sees_only_one_version(self):
+        # A user who is the reviewer of his own questionnaire should only see
+        # one version of it
+        user = User.objects.get(pk=103)
+        questionnaire = Questionnaire.objects.get(pk=7)
+        questionnaire.add_user(user, 'reviewer')
+        request = Mock()
+        request.user = user
+        ret = query_questionnaires(
+            request, 'all', only_current=False, limit=None, user=user)
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0].id, 7)
+
     def test_applies_limit(self):
         request = Mock()
         request.user.is_authenticated.return_value = False

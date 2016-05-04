@@ -771,10 +771,10 @@ def query_questionnaires(
         status_filter).values_list('id', flat=True).order_by(
             'code', '-updated').distinct('code')
 
-    query = Questionnaire.objects.filter(id__in=ids)
-
     if user is not None:
-        query = query.filter(members=user)
+        ids = ids.filter(members=user)
+
+    query = Questionnaire.objects.filter(id__in=ids)
 
     if limit is not None:
         return query[offset:offset + limit]
