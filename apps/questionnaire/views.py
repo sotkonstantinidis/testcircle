@@ -674,6 +674,7 @@ def generic_questionnaire_new(
         'view_mode': 'edit',
         'is_blocked': is_blocked,
         'toc_content': questionnaire_configuration.get_toc_data(),
+        'has_content': data != {},
     })
 
 
