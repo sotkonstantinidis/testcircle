@@ -1,5 +1,6 @@
 .sticky-content {
   background-color: $color-beige-dark;
+  line-height: 2;
 }
 
 .sticky-entry {
@@ -24,7 +25,7 @@
 
 .sticky-menu {
   position: absolute;
-  bottom: 100%;
+  top: 100%;
   background: white;
   border: 1px solid $color-beige;
   border-radius: 2px;
@@ -68,8 +69,8 @@
 }
 
 .sticky-menu-outer {
-  position: fixed;
-  bottom: 0;
+  position: relative;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 999;

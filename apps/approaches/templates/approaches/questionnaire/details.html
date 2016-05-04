@@ -11,6 +11,15 @@
 
 {% block content %}
 
+  <div id="scroll-fixed-top" class="sticky-menu-outer">
+    {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode=view_mode %}
+    {% addtoblock 'js' %}
+      {% compress js %}
+        <script src="{% static 'js/scrollTop.js'  %}"></script>
+      {% endcompress %}
+    {% endaddtoblock %}
+  </div>
+
   {% if view_mode == 'edit' and not has_content %}
     {% comment %}
       TODO: For UNCCD testing (shared account), this notice is shown for every
@@ -23,7 +32,10 @@
         <div class="small-12 columns">
           <h2>{% trans "Welcome to the SLM Approach data entry form." %}</h2>
           <p>{% trans "You are about to add a new Approach." %} <a href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start by editing the general information section." %}</a></p>
-          {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}
+            {% comment %}
+              Deactivated during unccd testing, as requested by Isabelle.
+            {% endcomment %}
+{#          {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
         </div>
       </div>
     </section>
@@ -84,10 +96,6 @@
       {% endcompress %}
     {% endaddtoblock %}
   {% endif %}
-
-  <div class="sticky-menu-outer">
-    {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode=view_mode %}
-  </div>
 
 {% endblock %}
 
