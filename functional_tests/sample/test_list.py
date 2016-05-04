@@ -1,4 +1,6 @@
 import time
+
+import re
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from selenium.webdriver.support.ui import WebDriverWait
@@ -397,6 +399,8 @@ class ListTest(FunctionalTest):
         self.assertEqual(compiler.text, 'Foo Bar')
 
         html_1 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
+        # Nasty regex replacement of automatically generated tooltip IDs
+        html_1 = re.sub(r'(?<=tooltip-)(.*)(?=")', '', html_1)
 
         # She also sees that the second entry has one compiler and one editor
         # but only the compiler is shown
@@ -431,6 +435,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(compiler.text, 'Foo Bar')
 
         html_2 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
+        html_2 = re.sub(r'(?<=tooltip-)(.*)(?=")', '', html_2)
 
         # She also sees that the second entry has one compiler and one editor
         # but only the compiler is shown
