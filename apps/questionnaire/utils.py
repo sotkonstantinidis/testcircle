@@ -1363,3 +1363,23 @@ def prepare_list_values(data, config, **kwargs):
     )
 
     return data
+
+
+def questionnaires_in_progress(user):
+    """
+    Get all questionnaires that given user is currently working on.
+
+    Args:
+        user: accounts.models.User
+
+    Returns:
+        list
+
+    """
+    return Questionnaire.objects.filter(
+        status=settings.QUESTIONNAIRE_DRAFT,
+        questionnairemembership__user=user,
+        questionnairemembership__role__in=[
+            settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
+        ]
+    )

@@ -47,7 +47,7 @@ from .utils import (
     query_questionnaires_for_link,
     query_questionnaire,
     query_questionnaires,
-)
+    questionnaires_in_progress)
 from .view_utils import (
     ESPagination,
     get_page_parameter,
@@ -548,6 +548,7 @@ def generic_questionnaire_new(
 
     session_data = get_session_questionnaire(
         request, configuration_code, identifier)
+
     session_questionnaire = session_data.get('questionnaire', {})
     session_links = session_data.get('links', {})
 
@@ -674,7 +675,8 @@ def generic_questionnaire_new(
         'view_mode': 'edit',
         'is_blocked': is_blocked,
         'toc_content': questionnaire_configuration.get_toc_data(),
-        'has_content': data != {},
+        'has_content': bool(data),
+        'questionnaires_in_progress': questionnaires_in_progress(request.user)
     })
 
 

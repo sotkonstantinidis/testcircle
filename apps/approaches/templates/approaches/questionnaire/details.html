@@ -23,6 +23,7 @@
         <div class="small-12 columns">
           <h2>{% trans "Welcome to the SLM Approach data entry form." %}</h2>
           <p>{% trans "You are about to add a new Approach." %} <a href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start by editing the general information section." %}</a></p>
+          {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}
         </div>
       </div>
     </section>
