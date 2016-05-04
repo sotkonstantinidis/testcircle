@@ -68,7 +68,7 @@
               </a>
             </div>
             {% if edit_mode == 'edit' %}
-              <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ content_subcategories_count }}</span>)</strong></a>
+              <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">{% trans "Continue" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ content_subcategories_count }}</span>)</strong></a>
             {% elif edit_mode == 'view' %}
               <a id="" class="button expand is-{{ configuration_name }}" onclick="window.close()"><strong>{% trans "Close" %}</strong></a>
             {% endif %}
