@@ -371,6 +371,7 @@ class GenericQuestionnaireNewTest(TestCase):
                 'view_mode': 'edit',
                 'is_blocked': None,
                 'toc_content': mock_get_toc_data.return_value,
+                'has_content': False,
             })
 
     def test_returns_rendered_response(self):

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2016
 # Pedro Albornoz <pedrotraducciones@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-03 07:54+0200\n"
-"PO-Revision-Date: 2016-05-02 12:01+0000\n"
-"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
+"POT-Creation-Date: 2016-05-04 08:44+0200\n"
+"PO-Revision-Date: 2016-05-04 06:43+0000\n"
+"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -57,8 +58,8 @@ msgid "Please log in to access"
 msgstr "Por favor inicie sesión para acceder"
 
 #: apps/accounts/templates/login.html:15 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:953
-#: apps/questionnaire/tests/test_utils.py:961
+#: apps/questionnaire/tests/test_utils.py:966
+#: apps/questionnaire/tests/test_utils.py:974
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:130
 msgid "Login"
@@ -114,40 +115,53 @@ msgstr "Prácticas MST por"
 msgid "WOCAT SLM Approaches"
 msgstr "Enfoques MST WOCAT"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:27
+#: apps/approaches/templates/approaches/questionnaire/details.html:25
+msgid "Welcome to the SLM Approach data entry form."
+msgstr "Bienvenido al formulario de introducción de datos de Enfoque MST."
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:26
+msgid "You are about to add a new Approach."
+msgstr "Usted está a punto de agregar un nuevo Enfoque."
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:26
+#: apps/technologies/templates/technologies/questionnaire/details.html:27
+msgid "Start by editing the general information section."
+msgstr "Comience por editar la sección de información general."
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:45
 #: apps/sample/templates/sample/questionnaire/details.html:27
 #: apps/samplemulti/templates/samplemulti/questionnaire/details.html:27
-#: apps/technologies/templates/technologies/questionnaire/details.html:28
+#: apps/technologies/templates/technologies/questionnaire/details.html:46
 #: apps/unccd/templates/unccd/questionnaire/details.html:19
 #: apps/wocat/templates/wocat/questionnaire/details.html:19
 msgid "Photo"
 msgstr "Foto"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:47
+#: apps/approaches/templates/approaches/questionnaire/details.html:65
 #: apps/questionnaire/templates/details/category/approaches_header.html:66
 msgid "Save SLM Approach"
 msgstr "Guarde Enfoque MST"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:50
+#: apps/approaches/templates/approaches/questionnaire/details.html:68
 #: apps/questionnaire/templates/details/category/approaches_header.html:69
 msgid "Edit SLM Approach"
 msgstr "Edite Enfoque MST"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:86
+#: apps/approaches/templates/approaches/questionnaire/details.html:104
 #: apps/questionnaire/templates/form/category.html:73
 #: apps/questionnaire/templates/form/category.html:125
-#: apps/technologies/templates/technologies/questionnaire/details.html:90
+#: apps/technologies/templates/technologies/questionnaire/details.html:108
 msgid "Close"
 msgstr "Cerrar"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:90
-#: apps/technologies/templates/technologies/questionnaire/details.html:94
+#: apps/approaches/templates/approaches/questionnaire/details.html:108
+#: apps/technologies/templates/technologies/questionnaire/details.html:112
 msgid "<p>Welcome to the help section of the Questionnaire!</p><p>Click \\"
 msgstr ""
 "<p>¡Bienvenido a la sección de ayuda del Cuestionario!</p><p>Haga clic \\"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:95
-#: apps/technologies/templates/technologies/questionnaire/details.html:99
+#: apps/approaches/templates/approaches/questionnaire/details.html:113
+#: apps/technologies/templates/technologies/questionnaire/details.html:117
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
@@ -155,8 +169,8 @@ msgstr ""
 "<p>Esta es la página de resultados donde usted puede ver todos los datos que "
 "ingresó en el formulario.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:99
-#: apps/technologies/templates/technologies/questionnaire/details.html:103
+#: apps/approaches/templates/approaches/questionnaire/details.html:117
+#: apps/technologies/templates/technologies/questionnaire/details.html:121
 msgid ""
 "<p>The Questionnaire consists of multiple sections. You can use the Table of "
 "Content for navigation.</p>"
@@ -164,8 +178,8 @@ msgstr ""
 "<p>El cuestionario consiste de múltiples secciones. Puede usar la Tabla de "
 "Contenidos para navegar.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:104
-#: apps/technologies/templates/technologies/questionnaire/details.html:108
+#: apps/approaches/templates/approaches/questionnaire/details.html:122
+#: apps/technologies/templates/technologies/questionnaire/details.html:126
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
@@ -173,8 +187,8 @@ msgstr ""
 "<p>Cada sección también se halla visible en los resultados; cualquier dato "
 "que ingrese aparecerá aquí.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:109
-#: apps/technologies/templates/technologies/questionnaire/details.html:113
+#: apps/approaches/templates/approaches/questionnaire/details.html:127
+#: apps/technologies/templates/technologies/questionnaire/details.html:131
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -184,16 +198,16 @@ msgstr ""
 "p><p>Los números indican cuántas preguntas ya fueron respondidas en esta "
 "sección.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:114
-#: apps/technologies/templates/technologies/questionnaire/details.html:118
+#: apps/approaches/templates/approaches/questionnaire/details.html:132
+#: apps/technologies/templates/technologies/questionnaire/details.html:136
 msgid ""
 "<p>Once you are done editing, click the button to save the Questionnaire.</p>"
 msgstr ""
 "<p>Una vez que haya terminado de editar, haga clic en el botón para guardar "
 "el Cuestionario.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:118
-#: apps/technologies/templates/technologies/questionnaire/details.html:122
+#: apps/approaches/templates/approaches/questionnaire/details.html:136
+#: apps/technologies/templates/technologies/questionnaire/details.html:140
 msgid ""
 "<p>The metadata will be filled out automatically once you saved the "
 "Questionnaire.</p>"
@@ -225,6 +239,17 @@ msgstr "Enfoque"
 #: apps/approaches/templates/approaches/questionnaire/partial/list.html:19
 msgid "No SLM Approaches found."
 msgstr "No se hallaron enfoques MST"
+
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:19
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:28
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:19
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:28
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:19
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:28
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:19
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:28
+msgid "Under construction"
+msgstr ""
 
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:23
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:23
@@ -7243,13 +7268,13 @@ msgstr ""
 "mantenimiento/ actividades anuales recurrentes.</li><li> Todos los costos "
 "deben calcularse a partir de de los precios del mercado. Si la mano de obra "
 "es proporcionada por los mismos usuarios de la tierra, indique el costo "
-"equivalente de la mano de obra empleada. si los insumos son proporcionados "
-"por los mismos usuarios de tierra, indique el precio equivalente en el "
-"mercado. </li><li>Excluya los costos para la toma de consciencia, "
-"planificación, capacitación, investigación y apoyo financiero/ material "
-"(estos se considerarán en el cuestionario de Enfoque).</li><li>Si el "
-"objetivo es comparar dos situaciones (es decir, luego/ con medidas MST (ej. "
-"Agricultura de conservación) y antes/ sin medidas MST (ej. agricultura "
+"equivalente en el mercado de la mano de obra empleada. si los insumos son "
+"proporcionados por los mismos usuarios de tierra, indique el precio "
+"equivalente en el mercado. </li><li>Excluya los costos para la toma de "
+"consciencia, planificación, capacitación, investigación y apoyo financiero/ "
+"material (estos se considerarán en el cuestionario de Enfoque).</li><li>Si "
+"el objetivo es comparar dos situaciones (es decir, luego/ con medidas MST "
+"(ej. Agricultura de conservación) y antes/ sin medidas MST (ej. agricultura "
 "convencional), llene dos cuestionarios. </li></ul> "
 
 #: apps/configuration/configuration_translations.py:2922
@@ -11301,12 +11326,12 @@ msgid "Edit this section"
 msgstr "Editar esta sección"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:66
-#: apps/technologies/templates/technologies/questionnaire/details.html:48
+#: apps/technologies/templates/technologies/questionnaire/details.html:66
 msgid "Save SLM Technology"
 msgstr "Guardar Tecnología MST"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:69
-#: apps/technologies/templates/technologies/questionnaire/details.html:51
+#: apps/technologies/templates/technologies/questionnaire/details.html:69
 msgid "Edit SLM Technology"
 msgstr "Editar Tecnología MST"
 
@@ -11421,7 +11446,7 @@ msgstr "Tabla de contenidos"
 
 #: apps/questionnaire/templates/details/sticky_menu.html:22
 #: apps/questionnaire/templates/details/sticky_menu.html:28
-#: apps/technologies/templates/technologies/questionnaire/details.html:84
+#: apps/technologies/templates/technologies/questionnaire/details.html:102
 msgid "Help"
 msgstr "Ayuda"
 
@@ -11775,7 +11800,7 @@ msgstr "No puede enviar un cuestionario vacío"
 msgid "The questionnaire was successfully created."
 msgstr "El cuestionario fue creado exitosamente."
 
-#: apps/questionnaire/views.py:993
+#: apps/questionnaire/views.py:994
 msgid "No or multiple files provided."
 msgstr "No se proporcionaron archivos o se proporcionaron múltiples archivos."
 
@@ -11848,6 +11873,14 @@ msgstr "[SAMPLEMULTI] Todas las tecnologías"
 #: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
 msgstr "Tecnologías MST WOCAT"
+
+#: apps/technologies/templates/technologies/questionnaire/details.html:26
+msgid "Welcome to the SLM Technology data entry form."
+msgstr "Bienvenido al formulario de introducción de datos de Tecnología MST."
+
+#: apps/technologies/templates/technologies/questionnaire/details.html:27
+msgid "You are about to add a new Technology."
+msgstr "Usted está a punto de agregar una nueva Tecnología."
 
 #: apps/technologies/templates/technologies/questionnaire/list.html:17
 msgid "SLM Technologies"
@@ -11928,9 +11961,9 @@ msgstr "UNCCD"
 msgid "UNCCD Form"
 msgstr "Formulario UNCCD "
 
-#: apps/wocat/templates/wocat/home.html:11 templates/home.html:53
-msgid "WOCAT SLM portal"
-msgstr "Portal MST WOCAT "
+#: apps/wocat/templates/wocat/home.html:11
+msgid "Global Database on SLM"
+msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:12 templates/home.html:54
 msgid ""
@@ -12049,8 +12082,8 @@ msgid "Contact"
 msgstr "Contacto"
 
 #: templates/base.html:186
-msgid "Recommended by"
-msgstr "Recomendado por"
+msgid "Primary recommended database"
+msgstr ""
 
 #: templates/home.html:5
 msgid "QCAT"
@@ -12059,6 +12092,10 @@ msgstr "QCAT"
 #: templates/home.html:14
 msgid "global SLM practices database"
 msgstr "Base de datos mundial de prácticas MST"
+
+#: templates/home.html:53
+msgid "WOCAT SLM portal"
+msgstr "Portal MST WOCAT "
 
 #: templates/rest_framework/api.html:7 templates/rest_framework/api.html:13
 msgid "WOCAT API"
