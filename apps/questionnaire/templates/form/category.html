@@ -101,6 +101,14 @@
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
         {% form form using subcategory_config.form_template with config=subcategory_config formsets=subcategory_formsets %}
       {% endfor %}
+
+      {% if edit_mode == 'edit' %}
+        <div class="row">
+          <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
+            <svg class="icon-lines is-small"><use xlink:href="#icon-upload"></use></svg>{% trans "Save" %}
+          </a>
+        </div>
+      {% endif %}
     </main>
   </form>
 
@@ -164,5 +172,8 @@
       window.scrollTo(0,0);
       return false;
     }
+    $(function() {
+      $('.main').css({'padding-top': $('.wizard-header-outer').height()});
+    });
   </script>
 {% endblock %}
