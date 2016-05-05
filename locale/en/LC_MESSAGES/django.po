@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-04 08:44+0200\n"
-"PO-Revision-Date: 2016-04-05 15:04+0200\n"
+"PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: apps/accounts/client.py:168
 msgid "Error when logging in and updating the user {}: {}"
@@ -6515,12 +6515,12 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5024
 msgctxt "approaches label"
 msgid "Caption, explanation of photo"
-msgstr "Caption"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:5025
 msgctxt "technologies label"
 msgid "Caption, explanation of photo"
-msgstr "Captions!"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:5026
 #: apps/configuration/configuration_translations.py:5091
@@ -10634,8 +10634,7 @@ msgstr ""
 msgid "No SLM Technologies found."
 msgstr ""
 
-#: apps/technologies/views.py:50
-#: apps/wocat/templates/wocat/partial/top.html:14
+#: apps/technologies/views.py:50 apps/wocat/templates/wocat/partial/top.html:14
 msgid "Technologies"
 msgstr ""
 
