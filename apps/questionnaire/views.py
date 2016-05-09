@@ -321,6 +321,7 @@ def generic_questionnaire_new_step(
     # TODO: This is still not very efficient as the Questionnaire object has to
     # be queried just to get the original locale. This should be improved!
     original_locale = None
+    questionnaire_object = None
     if identifier is not None and identifier != 'new':
         questionnaire_object = query_questionnaire(request, identifier).first()
         if questionnaire_object:
@@ -435,9 +436,20 @@ def generic_questionnaire_new_step(
                     questionnaire_links=session_links,
                     edited_questiongroups=diff_qgs)
 
-                messages.success(
-                    request, _('Data successfully stored to Session.'))
-                return redirect(overview_url)
+                questionnaire = Questionnaire.create_new(
+                    configuration_code, session_questionnaire, request.user,
+                    previous_version=questionnaire_object,
+                    old_data=session_data.get('old_questionnaire'))
+
+                clear_session_questionnaire(
+                    request, configuration_code, identifier
+                )
+                messages.success(request, _('Data successfully saved.'))
+
+                url = reverse('{}:questionnaire_edit'.format(url_namespace),
+                              kwargs={'identifier': questionnaire.code})
+
+                return redirect('{}#{}'.format(url), step)
 
     configuration_name = category_config.get('configuration', url_namespace)
 
@@ -512,9 +524,18 @@ def generic_questionnaire_new(
         questionnaire_object = query_questionnaire(request, identifier).first()
         if questionnaire_object is None:
             raise Http404()
-        questionnaire_object.lock_questionnaire(
-            questionnaire_object.code, request.user
-        )
+        try:
+            questionnaire_object.lock_questionnaire(
+                questionnaire_object.code, request.user
+            )
+        except QuestionnaireLockedException:
+            messages.warning(request, _(u"This questionnaire is locked by "
+                                        u"another user."))
+
+            return redirect('{}#top'.format(
+                reverse('{}:questionnaire_details'.format(
+                    url_namespace), args=[questionnaire_object.code])))
+
         questionnaire_data = questionnaire_object.data
         session_data = get_session_questionnaire(
             request, configuration_code, identifier)
@@ -674,7 +695,8 @@ def generic_questionnaire_new(
         'csrf_token_value': get_token(request),
         'permissions': permissions,
         'mode': _('view') if identifier else None,
-        'url': url
+        'url': url,
+        'blocked_by': is_blocked
     }
 
     return render(request, template, {

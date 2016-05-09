@@ -443,7 +443,7 @@ class Questionnaire(models.Model):
         for user_questiongroup in user_fields:
             for user_data in self.data.get(user_questiongroup[0], []):
                 user_id = user_data.get(user_questiongroup[1])
-                if user_id is None:
+                if not bool(user_id):
                     continue
                 submitted_users.append((user_questiongroup[3], user_id))
 

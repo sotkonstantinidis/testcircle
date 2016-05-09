@@ -48,12 +48,12 @@
                 <p id="is-blocked" data-confirm="{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}">{{ review_config.blocked_by }}</p>
               {% endif %}
             </div>
-            <div class="medium-4 columns text-right">
-              {% if review_config.mode %}
-                <span class="button small is-ok" data-tooltip aria-haspopup="true" title="{{ review_config.mode|title }}{% trans ' this draft version.' %}" onclick="window.location='{{ review_config.url }}';">{{ review_config.mode|title }}</span>
+            <div class="small-12 columns">
+              {% if review_config.mode and not review_config.blocked_by%}
+                <a class="button" data-tooltip aria-haspopup="true" title="{{ review_config.mode|title }}{% trans ' this draft version.' %}" onclick="window.location='{{ review_config.url }}';">{{ review_config.mode|title }}</a>
               {% endif %}
               {% if 'submit_questionnaire' in review_config.permissions %}
-                <input id="button-submit" name="submit" class="button small is-dangerous" type="submit" value="{% trans "Submit" %}" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">
+                <a id="button-submit" name="submit" class="button is-dangerous" type="submit" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">{% trans "Submit" %}</a>
               {% endif %}
             </div>
           {% elif review_config.review_status == 2 %}
