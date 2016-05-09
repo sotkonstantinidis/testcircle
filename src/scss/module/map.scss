@@ -2,4 +2,39 @@
   border: 1px solid silver;
   height: 400px;
   background: lightgrey;
+  clear: both;
+}
+
+.map-coordinates {
+  border: 1px solid silver;
+}
+
+.map-coordinates-parse {
+  padding: 1rem;
+}
+
+.map-coordinates-close {
+  position: absolute;
+  top: 0.3rem;
+  right: 0;
+}
+
+.map-coordinates-log {
+  margin-top: 0.5rem;
+
+  p {
+    margin-left: 0.5rem;
+
+    &.success {
+      color: green;
+    }
+
+    &.error {
+      color: red;
+    }
+  }
+}
+
+.button-parse-coordinates {
+  height: 2.25rem;
 }

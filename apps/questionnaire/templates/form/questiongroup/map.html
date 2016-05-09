@@ -34,29 +34,75 @@
 
     <div class="row list-item{% if config.row_class %} {{ config.row_class }}{% endif %}{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
 
-      <div class="button-bar">
-        <ul class="button-switch radius measure">
-          <li>
-            <input type="radio" id="id_qg_9-0-key_12_1" value="draw" name="map-actions" previousvalue="false">
-            <label class="button small secondary" for="id_qg_9-0-key_12_1">
-              <span>{% trans "Draw" %}</span>
-            </label>
-          </li>
+      <div class="map-controls">
 
-          <li>
-            <input type="radio" id="id_qg_9-0-key_12_2" value="modify" name="map-actions" previousvalue="checked">
-            <label class="button small secondary" for="id_qg_9-0-key_12_2">
-              <span>{% trans "Modify" %}</span>
-            </label>
-          </li>
+        <div class="button-bar left">
+          <ul class="button-switch radius measure">
+            <li>
+              <button type="button" class="button small secondary map-coordinates-show">
+                <svg class="icon-lines is-inline"><use xlink:href="#icon-compass2"></use></svg>
+                {% trans "Enter coordinates" %}
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="button-bar right">
+          <ul class="button-switch radius measure">
+            <li>
+              <input type="radio" id="{{ config.keyword }}_{{ forloop.counter }}_1" value="draw" name="map-actions" previousvalue="checked">
+              <label class="button small secondary" for="{{ config.keyword }}_{{ forloop.counter }}_1">
+                <svg class="icon-lines is-inline"><use xlink:href="#icon-plus"></use></svg>
+                <span>{% trans "Draw" %}</span>
+              </label>
+            </li>
 
-          <li>
-            <input type="radio" id="id_qg_9-0-key_12_3" value="delete" name="map-actions" previousvalue="false">
-            <label class="button small secondary" for="id_qg_9-0-key_12_3">
-              <span>{% trans "Delete" %}</span>
-            </label>
-          </li>
-        </ul>
+            <li>
+              <input type="radio" id="{{ config.keyword }}_{{ forloop.counter }}_2" value="modify" name="map-actions" previousvalue="false">
+              <label class="button small secondary" for="{{ config.keyword }}_{{ forloop.counter }}_2">
+                <svg class="icon-lines is-inline"><use xlink:href="#icon-edit"></use></svg>
+                <span>{% trans "Modify" %}</span>
+              </label>
+            </li>
+
+            <li>
+              <input type="radio" id="{{ config.keyword }}_{{ forloop.counter }}_3" value="delete" name="map-actions" previousvalue="false">
+              <label class="button small secondary" for="{{ config.keyword }}_{{ forloop.counter }}_3">
+                <svg class="icon-lines is-inline"><use xlink:href="#icon-cross2"></use></svg>
+                <span>{% trans "Delete" %}</span>
+              </label>
+            </li>
+
+            <li>
+              <button type="button" class="button small secondary button-delete-features">
+                <svg class="icon-lines is-inline"><use xlink:href="#icon-bin"></use></svg>
+                {% trans "Delete all" %}
+              </button>
+            </li>
+
+            <li>
+              <button type="button" class="button small secondary button-show-features">
+                <svg class="icon-lines is-inline"><use xlink:href="#icon-shrink"></use></svg>
+                {% trans "Show all" %}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="map-coordinates small-12 columns hide">
+        <a class="map-coordinates-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
+        <div class="row map-coordinates-parse">
+          <div class="small-9 columns">
+            <label for="map-coordinates-field">{% trans "Coordinates:" %}</label>
+            <input type="text" class="map-coordinates-field" placeholder="46.9526, 7.4352">
+          </div>
+          <div class="small-3 columns">
+            <label></label>
+            <button type="button" class="button small button-parse-coordinates">Parse</button>
+          </div>
+          <div class="small-12 columns map-coordinates-log">
+            <p><!-- Log --></p>
+          </div>
+        </div>
       </div>
       <div class="map-form-container"></div>
 

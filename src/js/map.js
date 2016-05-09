@@ -48,8 +48,9 @@
         });
 
         // Vector layer containing the features.
+        var vector_source = new ol.source.Vector();
         var vector_layer = new ol.layer.Vector({
-            source: new ol.source.Vector(),
+            source: vector_source,
             style: defaultStyle
         });
 
@@ -89,12 +90,17 @@
             // Unbind mouseover function used to delete features.
             $(map.getViewport()).unbind('mousemove');
 
+            if (!$(this).is(':checked')) {
+                // No interaction selected (or interaction deselected)
+                return;
+            }
+
             switch(this.value) {
 
                 case 'draw':
                     // Draw (add) new features on the map.
                     interaction = new ol.interaction.Draw({
-                        source: vector_layer.getSource(),
+                        source: vector_source,
                         type: 'Point',
                         maxPoints: 10,
                         style: selectStyle
@@ -105,7 +111,7 @@
                     // Modify (move) features on the map.
                     interaction = new ol.interaction.Modify({
                         features: new ol.Collection(
-                            vector_layer.getSource().getFeatures()),
+                            vector_source.getFeatures()),
                         style: selectStyle
                     });
                     break;
@@ -118,7 +124,7 @@
                     interaction.on('select', function(event) {
                         if (event.selected.length) {
                             var feature = event.selected[0];
-                            vector_layer.getSource().removeFeature(feature);
+                            vector_source.removeFeature(feature);
                             interaction.getFeatures().clear();
                         }
                     });
@@ -145,12 +151,15 @@
 
         if (coordinatesField.val()) {
             // Put initial features on map and set interaction type: Modify.
+            // Zoom to features.
             var features = geomFormat.readFeatures(coordinatesField.val());
-            vector_layer.getSource().addFeatures(features);
+            vector_source.addFeatures(features);
             interactionSwitch.filter(
                 '[value="modify"]').attr('checked', true).trigger('change');
+            zoomToFeatures();
         } else {
             // Set initial interaction type: Draw.
+            //interactionSwitch.filter('[value="draw"]').click();
             interactionSwitch.filter(
                 '[value="draw"]').attr('checked', true).trigger('change');
         }
@@ -158,6 +167,33 @@
         // Listen to changes on the vector layer.
         vector_layer.on('change', function() {
             saveFeatures();
+        });
+
+        // Parse GPS coordinates.
+        $('.button-parse-coordinates').click(function() {
+            var listItem = $(mapContainer).closest('.list-item');
+            var logField = listItem.find('.map-coordinates-log');
+            var coordsField = listItem.find('.map-coordinates-field');
+            if (!coordsField.val()) return;
+
+            var msg = document.createElement('p');
+            var coords = getCoordinatesFromText(coordsField.val());
+            if (!coords.valid) {
+                $(msg).html(coords.msg).addClass('error');
+            } else {
+                var feature = new ol.Feature(new ol.geom.Point(coords.coords));
+                vector_source.addFeatures([feature]);
+                $(msg).html('A point was added.').addClass('success');
+                coordsField.val('');
+            }
+            logField.html(msg);
+        });
+
+        $('.map-coordinates-show').click(function() {
+            toggleCoordinates(true);
+        });
+        $('.map-coordinates-close').click(function() {
+            toggleCoordinates(false);
         });
 
         /**
@@ -175,10 +211,83 @@
          * Save features on the map (store coordinates in the hidden field).
          */
         function saveFeatures() {
-            var features = vector_layer.getSource().getFeatures();
-            coordinatesField.val(geomFormat.writeFeatures(features));
+            var features = vector_source.getFeatures();
+            if (features.length) {
+                coordinatesField.val(geomFormat.writeFeatures(features));
+            } else {
+                coordinatesField.val('');
+            }
+        }
+
+        /**
+         * Zoom to all features on the map.
+         */
+        function zoomToFeatures() {
+            if (vector_source.getFeatures().length) {
+                map.getView().fit(vector_source.getExtent(), map.getSize());
+            }
+        }
+
+        // Zoom to features.
+        $('.button-show-features').click(zoomToFeatures);
+
+        // Delete all features.
+        $('.button-delete-features').click(function() {
+            vector_source.clear();
+            // Activate the draw interaction.
+            interactionSwitch.filter(
+                '[value="draw"]').attr('checked', true).trigger('change');
+        });
+
+        /**
+         * Toggle the field for parsing coordinates. Hides the control panel.
+         * @param show
+         */
+        function toggleCoordinates(show) {
+            var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-controls').toggle(!show);
+            listItem.find('.map-coordinates').toggle(show);;
         }
 
     });
+
+    /**
+     * Parse a string of coordinates. Returns an object with the coordinates or
+     * error message.
+     *
+     * Caution: The coordinates are reversed to be used by OpenLayers,
+     * input: "Latitude, Longitude"
+     * output: [lon, lat]
+     *
+     * @param coords_text. Coordinates as string. Must be of format "Latitude,
+     * Longitude", eg. "46.9526, 7.4352".
+     * @returns {{valid: boolean, coords: Array, msg: string}}
+     */
+    function getCoordinatesFromText(coords_text) {
+        var coordinates = {
+            valid: false,
+            coords: [],
+            msg: ''
+        };
+
+        var coords_list = coords_text.split(',');
+        if (coords_list.length != 2) {
+            coordinates.msg = 'Must be of format "Latitude, Longitude", eg. ' +
+                '"46.9526, 7.4352"';
+            return coordinates;
+        }
+
+        coordinates.coords = coords_list.map(function(c) {
+            var asFloat = parseFloat(c);
+            if (isNaN(asFloat)) {
+                coordinates.msg = 'Coordinates do not contain valid number ' +
+                    'values.'
+            }
+            return asFloat;
+        }).reverse();
+        coordinates.valid = coordinates.msg == '';
+
+        return coordinates;
+    }
 
 }(jQuery));
