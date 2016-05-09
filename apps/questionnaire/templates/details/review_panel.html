@@ -53,7 +53,7 @@
                 <a class="button" data-tooltip aria-haspopup="true" title="{{ review_config.mode|title }}{% trans ' this draft version.' %}" onclick="window.location='{{ review_config.url }}';">{{ review_config.mode|title }}</a>
               {% endif %}
               {% if 'submit_questionnaire' in review_config.permissions %}
-                <a id="button-submit" name="submit" class="button is-dangerous" type="submit" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">{% trans "Submit" %}</a>
+                <input id="button-submit" name="submit" {% trans "Submit" %} class="button is-dangerous" type="submit" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">
               {% endif %}
             </div>
           {% elif review_config.review_status == 2 %}
