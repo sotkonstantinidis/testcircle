@@ -665,6 +665,18 @@ def generic_questionnaire_new(
     # disabled. Delete the following line to reenable it.
     edited_questiongroups = []
 
+    # Url when switching the mode - go to the detail view.
+    url = reverse('{}:questionnaire_details'.format(url_namespace), kwargs={
+        'identifier': identifier}) if identifier else ''
+
+    review_config = {
+        'review_status': getattr(questionnaire_object, 'status', 0),
+        'csrf_token_value': get_token(request),
+        'permissions': permissions,
+        'mode': _('view') if identifier else None,
+        'url': url
+    }
+
     return render(request, template, {
         'images': images,
         'sections': sections,
@@ -676,6 +688,7 @@ def generic_questionnaire_new(
         'is_blocked': is_blocked,
         'toc_content': questionnaire_configuration.get_toc_data(),
         'has_content': bool(data),
+        'review_config': review_config,
         'questionnaires_in_progress': questionnaires_in_progress(request.user)
     })
 
@@ -731,6 +744,9 @@ def generic_questionnaire_details(
             'review_status': questionnaire_object.status,
             'csrf_token_value': get_token(request),
             'permissions': permissions,
+            'mode': _('edit'),
+            'url': reverse('{}:questionnaire_edit'.format(url_namespace),
+                           kwargs={'identifier': identifier})
         }
         if not questionnaire_object.can_edit(request.user):
             lvl, msg = questionnaire_object.get_blocked_message(request.user)
@@ -780,6 +796,7 @@ def generic_questionnaire_details(
         'permissions': permissions,
         'view_mode': 'view',
         'toc_content': questionnaire_configuration.get_toc_data(),
+        'review_config': review_config
     })
 
 

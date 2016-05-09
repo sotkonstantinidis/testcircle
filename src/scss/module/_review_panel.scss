@@ -1,0 +1,16 @@
+.review-panel-container {
+  max-width: none;
+  background-color: $color-beige-dark;
+  position: relative;
+}
+
+.review-panel-content {
+  background-color: $color-beige-light;
+  padding: 1rem;
+}
+
+.review-header {
+  font-size: $h4-font-size;
+  font-weight: $font-weight-bold;
+  margin-right: rem-calc(20);
+}

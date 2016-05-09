@@ -1,11 +1,14 @@
 {% load i18n %}
 {% load compress %}
 
-<section class="row is-rhythmed{% if review_css_class %} {{ review_css_class }}{% endif %}">
+<div class="review-panel-container" id="review-panel">
+  <a class="welcome-notice-close" data-toggle="review-panel"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></a>
+  <section class="row review-panel-content{% if review_css_class %} {{ review_css_class }}{% endif %}">
   <div class="small-12 columns">
-    <h2 class="is-unvisible">{% trans "Status of review process" %}</h2>
+
     <ol class="process">
-      <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
+      <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
+      <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Draft" %}</li>
       <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
       <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
     </ol>
@@ -13,22 +16,48 @@
       <div class="row collapse">
         <form action="" method="POST">
           <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
-          {% if review_config.review_status == 1 %}
-            <div class="{% if 'submit_questionnaire' in review_config.permissions %}medium-8{% else %}medium-12{% endif %} columns">
-              <h3>{% trans "Edit" %}</h3>
+          {% if review_config.review_status == 0 %}
+            <div class="small-12 columns">
+              <h2><span class="is-wocat">{% trans "Hello" %} {{ request.user.firstname }}.</span> {% trans "Welcome to the SLM Approach data entry form." %}</h2>
+              <p>
+                {% trans "You are about to add a new Approach. If this is the first time editing a questionnaire, please follow the tour to start off." %}
+                <br>
+                {% trans "Only one person can edit the questionnaire at a time. Only the person that started a questionnaire ('compiler') may submit it for review." %}
+                <br>
+                {% trans "The reviewer may reject the questionnaire. In this case, the editors have to perform updates..." %}
+                <br>
+                {% trans "If the reviewer accepted the questionnaire, it must be released for publication by a publisher." %}
+                <br>
+                {% trans "Depending on the status of the questionnaire (draft, in review, published) and your role (compiler, editor, reviewer, publisher) you may not be allowed to change it." %}
+                {% trans "Maybe: list permissions?" %}
+              </p>
+                {% comment %}
+                  Deactivated list of questionnaires with status draft from current user during unccd testing, as requested by Isabelle.
+                {% endcomment %}
+{#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
+              <p>
+                <a class="button is-approaches" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
+                <a class="button is-approaches" href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start by editing the first section." %}</a>
+              </p>
+            </div>
+
+          {% elif review_config.review_status == 1 %}
+            <div class="medium-12 columns">
               <p>{% trans "The version is saved as a draft. Editors can work on the draft. The compiler can submit it for review." %}</p>
               {% if review_config.blocked_by %}
                 <p id="is-blocked" data-confirm="{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}">{{ review_config.blocked_by }}</p>
               {% endif %}
             </div>
             <div class="medium-4 columns text-right">
+              {% if review_config.mode %}
+                <span class="button small is-ok" data-tooltip aria-haspopup="true" title="{{ review_config.mode|title }}{% trans ' this draft version.' %}" onclick="window.location='{{ review_config.url }}';">{{ review_config.mode|title }}</span>
+              {% endif %}
               {% if 'submit_questionnaire' in review_config.permissions %}
-                <input id="button-submit" name="submit" class="button small is-ok" type="submit" value="{% trans "Submit" %}" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">
+                <input id="button-submit" name="submit" class="button small is-dangerous" type="submit" value="{% trans "Submit" %}" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">
               {% endif %}
             </div>
           {% elif review_config.review_status == 2 %}
-            <div class="{% if 'review_questionnaire' in review_config.permissions %}medium-8{% else %}medium-12{% endif %} columns">
-              <h3>{% trans "Pending for review" %}</h3>
+            <div class="medium-12 columns">
               <p>{% trans "This questionnaire is currently waiting to be reviewed before it can be published." %}</p>
             </div>
             {% if 'review_questionnaire' in review_config.permissions %}
@@ -38,8 +67,7 @@
               </div>
             {% endif %}
           {% elif review_config.review_status == 3 %}
-            <div class="{% if 'publish_questionnaire' in review_config.permissions %}medium-8{% else %}medium-12{% endif %} columns">
-              <h3>{% trans "Pending for publishing" %}</h3>
+            <div class="medium-12 columns">
               <p>{% trans "This questionnaire is currently waiting to be published. Once it is published, it will be publicly visible." %}</p>
             </div>
             {% if 'publish_questionnaire' in review_config.permissions %}
@@ -54,6 +82,7 @@
     </div>
   </div>
 </section>
+</div>
 
 {# This should be added to 'js' with sekizai. However, this needs refactoring of the config, and the template structure as a context_instance and template blocks would be required #}
 {% compress js %}

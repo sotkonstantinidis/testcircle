@@ -13,7 +13,6 @@
               <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
             {% endif %}
           </div>
-          {% include 'details/review_panel.html' with review_css_class='section-bottom-margin' %}
         </header>
       {% endif %}
 
@@ -59,16 +58,6 @@
           {% endfor %}
         </li>
       </ul>
-      {% if 'edit_questionnaire' in permissions %}
-        {% if view_mode == 'edit' %}
-          <form action="" method="POST">
-            <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/></div>
-              <input class="button large is-approaches q-action-button-top" type="submit" value="{% trans "Save SLM Approach" %}">
-            </form>
-        {% else %}
-          <a href="{% url 'approaches:questionnaire_edit' questionnaire_identifier %}" class="button large is-approaches q-action-button-top">{% trans "Edit SLM Approach" %}</a>
-        {% endif %}
-      {% endif %}
     </aside>
 
     {% if 'edit_questionnaire' in permissions and view_mode == 'edit' %}
