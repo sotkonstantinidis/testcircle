@@ -1,12 +1,19 @@
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
 from functional_tests.base import FunctionalTest
 
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 from technologies.tests.test_views import route_questionnaire_list as \
     route_tech_list
-from wocat.tests.test_views import route_questionnaire_list as route_wocat_list
+from wocat.tests.test_views import (
+    route_questionnaire_list as route_wocat_list,
+    route_home as route_wocat_home,
+)
 
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
@@ -18,8 +25,9 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json', 'technologies.json', 'unccd.json',
-        'technologies_questionnaires.json', 'unccd_questionnaires.json']
+        'global_key_values.json', 'wocat.json', 'technologies.json',
+        'unccd.json', 'technologies_questionnaires.json',
+        'unccd_questionnaires.json']
 
     def setUp(self):
         super(ListTest, self).setUp()
@@ -145,3 +153,31 @@ class ListTest(FunctionalTest):
             'contains(text(), "Ceci est la déscription 1 en français.")]')
         self.findBy('xpath', '//article[2]//a[contains(text(), "English")]')
         self.findBy('xpath', '//article[2]//a[contains(text(), "French")]')
+
+    def test_filter(self):
+
+        # Alice goes to the home page and decides to add a filter by country
+        self.browser.get(self.live_server_url + reverse(route_wocat_home))
+
+        self.findBy('link_text', 'Advanced filter').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.ID, "filter-country")))
+        self.findBy('id', 'filter-country').send_keys('Switzerland')
+        self.findBy('id', 'submit-filter').click()
+
+        # She sees that she has been redirected to the list view and the filter
+        # is set, only 1 entry is visible
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Country: Switzerland')
