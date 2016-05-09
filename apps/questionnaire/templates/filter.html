@@ -22,7 +22,7 @@
     <a class="search-close" data-toggle="search-advanced"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
     <div class="row">
       <div class="medium-4 columns">
-        <label for="filter-country-input">{% trans "Country" %}</label>
+        <label for="filter-country">{% trans "Country" %}</label>
         <input type="text" placeholder="{% trans 'Select or type a Country name' %}" list="filter-country-list" id="filter-country">
         <datalist id="filter-country-list">
           {% for country in filter_configuration.countries %}
