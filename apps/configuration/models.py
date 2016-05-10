@@ -233,10 +233,13 @@ class Translation(models.Model):
         current_language = get_language()
         if locale != current_language:
             # Get translation in requested language and restore current lang.
+            # '%' signs are escaped in gettext using double '%%', in order for
+            # the translation to be found, it is necessary to do this as well
+            # (and reverse it again).
             activate(locale)
-            translated = pgettext_lazy(context, text)
+            translated = pgettext_lazy(context, text.replace('%', '%%'))
             activate(current_language)
-            return translated
+            return translated.replace('%%', '%')
 
         return pgettext_lazy(context, text)
 
