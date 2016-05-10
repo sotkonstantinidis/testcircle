@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 08:44+0200\n"
-"PO-Revision-Date: 2016-05-04 06:40+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2016-05-10 07:44+0200\n"
+"PO-Revision-Date: 2016-05-09 14:33+0000\n"
+"Last-Translator: DE CHOUDENS BARBARA <barbara.dc@dimensionsud.com>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -119,16 +119,16 @@ msgstr "Approches WOCAT de GDT"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:25
 msgid "Welcome to the SLM Approach data entry form."
-msgstr ""
+msgstr "Bienvenue dans le formulaire de saisie de l'approche de GDT"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:26
 msgid "You are about to add a new Approach."
-msgstr ""
+msgstr "Vous êtes sur le point d'ajouter une nouvelle approche."
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:26
 #: apps/technologies/templates/technologies/questionnaire/details.html:27
 msgid "Start by editing the general information section."
-msgstr ""
+msgstr "Commencez par éditer la section sur les informations générales."
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:45
 #: apps/sample/templates/sample/questionnaire/details.html:27
@@ -177,7 +177,7 @@ msgid ""
 "Content for navigation.</p>"
 msgstr ""
 "<P> Le questionnaire se compose de plusieurs sections. Vous pouvez utiliser "
-"la table des matières pour la navigation. </ P>"
+"la table des matières naviguer. </ P>"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:122
 #: apps/technologies/templates/technologies/questionnaire/details.html:126
@@ -195,9 +195,9 @@ msgid ""
 "numbers indicate how many questions are already filled out in this section.</"
 "p>"
 msgstr ""
-"<P> Cliquer sur le bouton pour modifier une section et saisir vos données. "
-"</ P> <p> Le nombre indique à combien de questions vous avez déjà répondu "
-"dans cette section. </ P>"
+"<P> Cliquer sur le bouton pour éditer une section et saisir vos données. </ "
+"P> <p> Le nombre indique à combien de questions vous avez déjà répondu dans "
+"cette section. </ P>"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:132
 #: apps/technologies/templates/technologies/questionnaire/details.html:136
@@ -250,7 +250,7 @@ msgstr "Aucune approche de GDT trouvée."
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:19
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:28
 msgid "Under construction"
-msgstr ""
+msgstr "En construction"
 
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:23
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:23
@@ -1918,7 +1918,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1370
 msgctxt "technologies label"
 msgid "If costs are NOT calculated per area, indicate unit"
-msgstr ""
+msgstr "Si les coûts ne sont pas calculés par superficie, indiquez l'unité"
 
 #: apps/configuration/configuration_translations.py:1371
 msgctxt "technologies helptext"
@@ -1926,6 +1926,8 @@ msgid ""
 "<strong>Example:</strong> volume of dam 30,000 m 3 , length of terrace wall "
 "250 m etc."
 msgstr ""
+"<strong>Exemple:</strong> volume du barrage 30 000 m3 , longueur du mur des "
+"terrasses 250 m, etc."
 
 #: apps/configuration/configuration_translations.py:1372
 msgctxt "technologies label"
@@ -6566,6 +6568,21 @@ msgid ""
 "sea level rise). (Source IPCC 5th assessment report, Climate Change 2014: "
 "Impacts, Adaptation, and Vulnerability)."
 msgstr ""
+"<p>Indiquez les changements progressifs et les évènements extrêmes du climat "
+"tels qu'ils ont été observés par les exploitants des terres au cours des 10 "
+"dernières années (tendances). Note: pour une évaluation détaillée, veuillez "
+"remplir le module sur l'adaptation au changement climatique.</"
+"p><strong>L'exposition</strong>: au changement climatique correspond à la "
+"nature et au degré auxquels un système est exposé à un stress "
+"environnemental ou sociopolitique ou autre. (GIEC 2007).<br><strong>La "
+"sensibilité</strong> est le degré auquel un système ou des espèces sont "
+"affectés, soit favorablement soit défavorablement, par la variabilité ou le "
+"changement climatique. Les effets peuvent être directs (par ex., une "
+"modification des rendements agricoles liée à un changement de la valeur "
+"moyenne annuelle de la température) ou indirects (par ex., des dommages "
+"causés par la fréquence accrue des inondations de zones côtières dues à "
+"l'élévation du niveau de la mer). (Source: 5ème rapport d'évaluation du GIEC "
+"sur les changements climatiques 2014: Impacts, adaptation et vulnérabilité)."
 
 #: apps/configuration/configuration_translations.py:2750
 msgctxt "technologies label"
@@ -6736,6 +6753,8 @@ msgctxt "technologies label"
 msgid ""
 "Specify if the technology relates to one or more of the other UNCCD themes"
 msgstr ""
+"Précisez si la technologie se rapporte à un ou plusieurs autres thèmes de "
+"l'UNCCD"
 
 #: apps/configuration/configuration_translations.py:2778
 msgctxt "technologies label"
@@ -11345,7 +11364,7 @@ msgstr "Rédacteur:"
 #: apps/questionnaire/templates/details/category/unccd_header.html:69
 #: apps/questionnaire/templates/details/category/with_metadata.html:53
 msgid "Edit this section"
-msgstr "Modifier cette section"
+msgstr "Editer cette section"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:66
 #: apps/technologies/templates/technologies/questionnaire/details.html:66
@@ -11538,8 +11557,7 @@ msgstr ""
 #: apps/questionnaire/templates/form/category.html:135
 msgid ""
 "<p>The bar indicates the name of the section you are currently editing.</p>"
-msgstr ""
-"<p>La barre indique le nom de la section en cours de modification.</ P>"
+msgstr "<p>La barre indique le nom de la section en cours d'édition.</ P>"
 
 #: apps/questionnaire/templates/form/category.html:140
 msgid "<p>Click \\"
@@ -11590,7 +11608,7 @@ msgstr "Supprimer"
 
 #: apps/questionnaire/templates/form/field/file_upload.html:25
 msgid "Edit focus point"
-msgstr "Modifier le point central"
+msgstr "Modifier le point central du cadrage"
 
 #: apps/questionnaire/templates/form/field/numberinput.html:7
 msgid "Enter a whole number"
@@ -11820,11 +11838,11 @@ msgstr "Le questionnaire a été rejeté avec succès."
 
 #: apps/questionnaire/views.py:439
 msgid "Data successfully stored to Session."
-msgstr "Les données de la session stockées avec succès."
+msgstr "Les données de la session ont été stockées avec succès."
 
 #: apps/questionnaire/views.py:572
 msgid "You cannot submit an empty questionnaire"
-msgstr "Vous ne pouvez pas soumettre un questionnaire vide"
+msgstr "Vous ne pouvez pas soumettre un questionnaire vide."
 
 #: apps/questionnaire/views.py:593
 msgid "The questionnaire was successfully created."
@@ -11904,11 +11922,11 @@ msgstr "Technologies WOCAT de GDT"
 
 #: apps/technologies/templates/technologies/questionnaire/details.html:26
 msgid "Welcome to the SLM Technology data entry form."
-msgstr ""
+msgstr "Bienvenue dans le formulaire de saisie de la technologie de GDT"
 
 #: apps/technologies/templates/technologies/questionnaire/details.html:27
 msgid "You are about to add a new Technology."
-msgstr ""
+msgstr "Vous êtes sur le point d'ajouter une nouvelle technologie."
 
 #: apps/technologies/templates/technologies/questionnaire/list.html:17
 msgid "SLM Technologies"
@@ -11922,8 +11940,7 @@ msgstr "Technologie"
 msgid "No SLM Technologies found."
 msgstr "Aucune technologie de GDT trouvée."
 
-#: apps/technologies/views.py:50
-#: apps/wocat/templates/wocat/partial/top.html:14
+#: apps/technologies/views.py:50 apps/wocat/templates/wocat/partial/top.html:14
 msgid "Technologies"
 msgstr "Technologies"
 
@@ -11968,7 +11985,7 @@ msgstr "Enregistrer le questionnaire de l'UNCCD"
 
 #: apps/unccd/templates/unccd/questionnaire/details.html:42
 msgid "Edit UNCCD questionnaire"
-msgstr "Modifier le questionnaire de l'UNCCD"
+msgstr "Editer le questionnaire de l'UNCCD"
 
 #: apps/unccd/templates/unccd/questionnaire/list.html:10
 msgid "Only data declared as public are visible."
@@ -11992,7 +12009,7 @@ msgstr "Formulaire de l'UNCCD"
 
 #: apps/wocat/templates/wocat/home.html:11
 msgid "Global Database on SLM"
-msgstr ""
+msgstr "Base de données mondiale sur la GDT"
 
 #: apps/wocat/templates/wocat/home.html:12 templates/home.html:54
 msgid ""
@@ -12115,7 +12132,7 @@ msgstr "Contact"
 
 #: templates/base.html:186
 msgid "Primary recommended database"
-msgstr ""
+msgstr "Base de données primaire recommandée"
 
 #: templates/home.html:5
 msgid "QCAT"
@@ -12202,3 +12219,53 @@ msgid ""
 "\n"
 "        "
 msgstr ""
+"\n"
+"            <p>Welcome to the documentation for the Wocat API. Please refer "
+"to\n"
+"                the <a href=\"https://qcat.readthedocs.org\" target=\"_blank"
+"\">qcat docs</a>\n"
+"                in case of questions regarding the structure of the returned "
+"objects.\n"
+"                The API is built on top of the <a href=\"http://www.django-"
+"rest-framework.org/\" target=\"_blank\">django REST framework</a>.\n"
+"            </p>\n"
+"            <p>\n"
+"                The current version of the API is: 1.0. Docs for the older "
+"versions will be listed here as well.\n"
+"            </p>\n"
+"            <h2>Authentication</h2>\n"
+"            <p>\n"
+"                Requests to any resource requires an authentication token in "
+"the header of the request.\n"
+"                The token can be obtained with this API (see: auth-token), a "
+"wocat user account is\n"
+"                required to obtain a token. Please specify what you will use "
+"the token for as \"notes\". Example request:\n"
+"                <pre style=\"white-space:pre-line;\">curl -X POST -d "
+"'{\"username\":\"name\", \"notes\": \"token will be used for testing\", "
+"\"password\": \"***\"}' -H \"Content-Type: application/json\" https://qcat."
+"wocat.net/en/api/v1/auth-token/</pre>\n"
+"                <br>\n"
+"                Pass the token in the request header as follows: "
+"'Authorization: Token &#60;your token here&#62;'. Example request:\n"
+"                <br>\n"
+"                <pre style=\"white-space:pre-line;\">curl -X GET -H "
+"'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://qcat."
+"wocat.net/en/api/v1/questionnaires/</pre>\n"
+"            </p>\n"
+"            <h2>Response content types</h2>\n"
+"            <p>\n"
+"            The format of the response can be defined with the 'Accept' "
+"header. Following types are available:\n"
+"            <ul>\n"
+"                <li>JSON (Accept:application/json)</li>\n"
+"                <li>XML (Accept:application/xml)</li>\n"
+"                <li>CSV (Accept:text/csv)</li>\n"
+"            </ul>\n"
+"            <br>\n"
+"            Example:\n"
+"            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:text/"
+"csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
+"            </p>\n"
+"\n"
+"        "

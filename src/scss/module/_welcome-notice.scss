@@ -1,5 +1,9 @@
 .welcome-notice {
 
+  @media #{$small-only} {
+    padding-bottom: 0;
+  }
+
   .row {
     padding-bottom: rem-calc(24);
     padding-top: rem-calc(24);

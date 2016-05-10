@@ -130,3 +130,38 @@
     margin-left: rem-calc(6);
   }
 }
+
+#unccd-hero-left {
+  position: absolute;
+  top: 3.5rem;
+  left: -15rem;
+  width: 10rem;
+  color: #d9d6cc;
+  font-size: .875rem;
+  text-align: center;
+
+  p {
+    margin-top: 0.5rem;
+  }
+}
+
+#unccd-hero-center {
+  color: #d9d6cc;
+  font-size: .875rem;
+  margin-top: 1.5rem;
+  text-align: center;
+
+  p {
+    margin-top: 0.5rem;
+  }
+}
+
+#unccd-hero-welcome {
+  color: #d9d6cc;
+  font-size: .875rem;
+  text-align: center;
+
+  p {
+    margin-top: 0.5rem;
+  }
+}
