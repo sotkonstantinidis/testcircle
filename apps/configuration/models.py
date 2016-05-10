@@ -229,6 +229,7 @@ class Translation(models.Model):
         # When creating the values, the configuration and keyword was used as
         # context. Recreate this.
         context = '{} {}'.format(configuration, keyword)
+        fallback_context = 'wocat {}'.format(keyword)
 
         current_language = get_language()
         if locale != current_language:
@@ -238,6 +239,14 @@ class Translation(models.Model):
             # (and reverse it again).
             activate(locale)
             translated = pgettext_lazy(context, text.replace('%', '%%'))
+            if translated == text and configuration != 'wocat':
+                # TODO: Find a better way to handle "wocat" translations
+                # For "global" keys and values (eg. countries), the translation
+                # is stored in context "wocat". Therefore, if no translation is
+                # found for the current context, try to find a translation in
+                # the "wocat" context.
+                translated = pgettext_lazy(
+                    fallback_context, text.replace('%', '%%'))
             activate(current_language)
             return translated.replace('%%', '%')
 
