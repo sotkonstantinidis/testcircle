@@ -449,7 +449,7 @@ def generic_questionnaire_new_step(
                 url = reverse('{}:questionnaire_edit'.format(url_namespace),
                               kwargs={'identifier': questionnaire.code})
 
-                return redirect('{}#{}'.format(url), step)
+                return redirect('{}#{}'.format(url, step))
 
     configuration_name = category_config.get('configuration', url_namespace)
 
