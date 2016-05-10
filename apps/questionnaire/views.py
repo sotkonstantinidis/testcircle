@@ -47,7 +47,7 @@ from .utils import (
     query_questionnaires_for_link,
     query_questionnaire,
     query_questionnaires,
-    questionnaires_in_progress)
+    questionnaires_in_progress, get_review_config)
 from .view_utils import (
     ESPagination,
     get_page_parameter,
@@ -669,16 +669,18 @@ def generic_questionnaire_new(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
-    is_blocked = None
+    can_edit = None
+    blocked_by = None
     # Display a message regarding the state for editing (locked / available)
     if questionnaire_object:
-        is_blocked = questionnaire_object.can_edit(request.user)
+        can_edit = questionnaire_object.can_edit(request.user)
         # Display a hint about the 'blocked' status for GET requests only. For
         # post requests, this is done in the form validation.
         if request.method == 'GET':
             level, message = questionnaire_object.get_blocked_message(
                 request.user
             )
+            blocked_by = message
             messages.add_message(request, level, message)
 
     # TODO: Highlight changes disabled.
@@ -690,15 +692,6 @@ def generic_questionnaire_new(
     url = reverse('{}:questionnaire_details'.format(url_namespace), kwargs={
         'identifier': identifier}) if identifier else ''
 
-    review_config = {
-        'review_status': getattr(questionnaire_object, 'status', 0),
-        'csrf_token_value': get_token(request),
-        'permissions': permissions,
-        'mode': _('view') if identifier else None,
-        'url': url,
-        'blocked_by': is_blocked
-    }
-
     return render(request, template, {
         'images': images,
         'sections': sections,
@@ -707,10 +700,15 @@ def generic_questionnaire_new(
         'permissions': permissions,
         'edited_questiongroups': edited_questiongroups,
         'view_mode': 'edit',
-        'is_blocked': is_blocked,
+        'is_blocked': not can_edit,
         'toc_content': questionnaire_configuration.get_toc_data(),
         'has_content': bool(data),
-        'review_config': review_config,
+        'review_config': get_review_config(
+            csrf_token=get_token(request), permissions=permissions,
+            url=url, blocked_by=blocked_by if not can_edit else False,
+            status=getattr(questionnaire_object, 'status', 0),
+            mode=_('view') if identifier else None
+        ),
         'questionnaires_in_progress': questionnaires_in_progress(request.user)
     })
 
@@ -762,17 +760,17 @@ def generic_questionnaire_details(
             and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
         # Show the review panel only if the user is logged in and if the
         # version shown is not active (public).
-        review_config = {
-            'review_status': questionnaire_object.status,
-            'csrf_token_value': get_token(request),
-            'permissions': permissions,
-            'mode': _('edit'),
-            'url': reverse('{}:questionnaire_edit'.format(url_namespace),
-                           kwargs={'identifier': identifier})
-        }
+        blocked_by = None
         if not questionnaire_object.can_edit(request.user):
-            lvl, msg = questionnaire_object.get_blocked_message(request.user)
-            review_config['blocked_by'] = msg
+            lvl, blocked_by = questionnaire_object.get_blocked_message(request.user)
+
+        review_config = get_review_config(
+            csrf_token=get_token(request), permissions=permissions,
+            status=questionnaire_object.status,  url=reverse(
+                '{}:questionnaire_edit'.format(url_namespace),
+                kwargs={'identifier': identifier}), blocked_by=blocked_by,
+            mode=_('edit')
+        )
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])

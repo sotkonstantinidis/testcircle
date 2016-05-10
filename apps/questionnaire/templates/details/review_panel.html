@@ -1,5 +1,7 @@
 {% load i18n %}
 {% load compress %}
+{% load static %}
+
 
 <div class="review-panel-container" id="review-panel">
   <a class="welcome-notice-close" data-toggle="review-panel"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></a>
@@ -48,12 +50,12 @@
           {% elif review_config.review_status == 1 %}
             <div class="medium-12 columns">
               <p>{% trans "The version is saved as a draft. Editors can work on the draft. The compiler can submit it for review." %}</p>
-              {% if review_config.blocked_by %}
+              {% if review_config.is_blocked %}
                 <p id="is-blocked" data-confirm="{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}">{{ review_config.blocked_by }}</p>
               {% endif %}
             </div>
             <div class="small-12 columns">
-              {% if review_config.mode and not review_config.blocked_by%}
+              {% if review_config.mode and not review_config.is_blocked %}
                 <a class="button" data-tooltip aria-haspopup="true" title="{{ review_config.mode|title }}{% trans ' this draft version.' %}" onclick="window.location='{{ review_config.url }}';">{{ review_config.mode|title }}</a>
               {% endif %}
               {% if 'submit_questionnaire' in review_config.permissions %}

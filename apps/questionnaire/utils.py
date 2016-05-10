@@ -1383,3 +1383,28 @@ def questionnaires_in_progress(user):
             settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
         ]
     )
+
+
+def get_review_config(csrf_token, permissions, url, **kwargs):
+    """
+    Create a dict with the review_config, this is required for proper display
+    of the review panel.
+
+    Args:
+        csrf_token: string
+        permissions: list
+        url: string
+        **kwargs:
+
+    Returns: dict
+
+    """
+    return {
+        'review_status': kwargs.get('status', 0),
+        'csrf_token_value': csrf_token,
+        'permissions': permissions,
+        'mode': kwargs.get('mode', None),
+        'url': url,
+        'is_blocked': bool(kwargs.get('blocked_by', False)),
+        'blocked_by': kwargs.get('blocked_by', '')
+    }
