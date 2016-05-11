@@ -73,7 +73,7 @@ class IndexTest(TestCase):
     @patch('search.views.get_configuration')
     def test_calls_QuestionnaireConfiguration(self, mock_conf, mock_messages):
         index(self.request, 'foo')
-        mock_conf.assert_callert_once_with('foo')
+        mock_conf.assert_called_once_with('foo')
 
     @patch('search.views.get_configuration')
     def test_returns_bad_request_if_errors_in_configuration(
@@ -84,16 +84,14 @@ class IndexTest(TestCase):
 
     @patch('search.views.get_mappings')
     @patch('search.views.create_or_update_index')
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    @patch.object(QuestionnaireConfiguration, 'get_configuration_errors')
+    @patch('search.views.get_configuration')
     def test_calls_get_mappings(
-            self, mock_get_conf_errors, mock_Conf, mock_create_index,
-            mock_get_mappings, mock_messages):
-        mock_Conf.return_value = None
-        mock_get_conf_errors.return_value = None
+            self, mock_conf, mock_create_index, mock_get_mappings,
+            mock_messages):
+        mock_conf.return_value.get_configuration_errors.return_value = None
         mock_create_index.return_value = None, None, ''
         index(self.request, 'foo')
-        mock_get_mappings.assert_callert_once_with('foo')
+        mock_get_mappings.assert_called_once_with(mock_conf.return_value)
 
     @patch('search.views.get_mappings')
     @patch('search.views.create_or_update_index')
@@ -167,7 +165,7 @@ class UpdateTest(TestCase):
     @patch('search.views.get_configuration')
     def test_calls_get_configuration(self, mock_conf, mock_messages):
         update(self.request, 'foo')
-        mock_conf.assert_callert_once_with('foo')
+        mock_conf.assert_called_once_with('foo')
 
     @patch('search.views.get_configuration')
     def test_returns_bad_request_if_errors_in_configuration(
