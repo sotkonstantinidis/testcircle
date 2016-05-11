@@ -32,6 +32,11 @@
   background: $color-brown;
   padding-top: rem-calc(24);
 
+  .button.expand:hover {
+    background-color: $color-wocat-dark;
+    box-shadow: 0 0 0 $button-shadow-effect $color-wocat-dark;
+  }
+
   .button-icon {
     width: 49.5%;
     margin-left: 1%;
@@ -51,6 +56,16 @@
 .wizard-header-title {
   color: #fff;
   margin-top: 0;
+  position: relative;
+
+  i {
+    position: absolute;
+    font: inherit;
+    text-align: right;
+    font-size: $small-font-size;
+    right: rem-calc(10);
+    bottom: rem-calc(10);
+  }
 }
 .wizard-header-back {
   display: inline-block;

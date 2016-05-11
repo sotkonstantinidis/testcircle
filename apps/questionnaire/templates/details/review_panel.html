@@ -43,7 +43,7 @@
 {#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
               <p>
                 <a class="button is-approaches" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
-                <a class="button is-approaches" href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start by editing the first section." %}</a>
+                <a class="button is-approaches" href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start editing." %}</a>
               </p>
             </div>
 
