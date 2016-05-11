@@ -1,3 +1,6 @@
+import contextlib
+from itertools import chain
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -448,8 +451,31 @@ def generic_questionnaire_new_step(
                 )
                 messages.success(request, _('Data successfully saved.'))
 
+                # Functionality for 'save and continue' / 'save and next step'
                 url = reverse('{}:questionnaire_edit'.format(url_namespace),
                               kwargs={'identifier': questionnaire.code})
+
+                if request.POST.get('goto-next-section', '') == 'true':
+                    # The 'step' we need is the keyword of the next 'category'
+                    # This category is part of the section.
+                    config = get_configuration(configuration_code)
+                    # Flattened list with all categories.
+                    categories = list(chain.from_iterable(
+                        (section.categories for section in config.sections)
+                    ))
+                    steps = [category.keyword for category in categories]
+
+                    # Current or next step may not exist - use the default
+                    # redirect.
+                    with contextlib.suppress(ValueError, IndexError):
+                        current_step = steps.index(step)
+                        url = reverse(
+                            '{}:questionnaire_new_step'.format(url_namespace),
+                            kwargs={
+                                'identifier': questionnaire.code,
+                                'step': steps[current_step + 1]
+                            })
+                        return redirect(url)
 
                 return redirect('{}#{}'.format(url, step))
 

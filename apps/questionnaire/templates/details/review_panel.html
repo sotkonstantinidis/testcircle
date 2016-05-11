@@ -59,7 +59,7 @@
               {% endif %}
               {% if 'submit_questionnaire' in review_config.permissions %}
                 <input id="button-submit" name="submit" {% trans "Submit" %} class="button is-dangerous" type="submit" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">
-                <a class="button is-dangerous" href="{% url 'delete_questionnaire' identifier=questionnaire_identifier %}" class="link">{% trans "Delete." %}</a>
+                <a class="button is-dangerous" href="{% url 'delete_questionnaire' identifier=questionnaire_identifier %}" class="link">{% trans "Delete" %}</a>
               {% endif %}
             </div>
           {% elif review_config.review_status == 2 %}

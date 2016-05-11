@@ -64,10 +64,11 @@
                 <svg class="icon-lines is-small"><use xlink:href="#icon-upload"></use></svg>
                 {% trans "Save and to the overview" %}
               </a>
-              <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
+              <a id="button-submit-goto-next-section" class="button expand is-{{ configuration_name }}">
                 <svg class="icon-lines is-small"><use xlink:href="#icon-upload"></use></svg>
                 {% trans "Save and to the next section" %}
               </a>
+              <input type="hidden" name="goto-next-section" id="goto-next-section" value="false">
             {% elif edit_mode == 'view' %}
               <a id="" class="button expand is-{{ configuration_name }}" onclick="window.close()"><strong>{% trans "Close" %}</strong></a>
             {% endif %}
@@ -126,6 +127,12 @@
   <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
   <script type="text/javascript">
     Dropzone.autoDiscover = false;
+    (function($) {
+      $('#button-submit-goto-next-section').click(function() {
+        $('#goto-next-section').val('true');
+        $('#wizard-form').submit();
+      });
+    })(jQuery);
   </script>
   {% compress js %}
     <script src="{% static 'js/focusPoint.js' %}"></script>
