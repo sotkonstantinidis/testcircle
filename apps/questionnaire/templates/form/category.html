@@ -123,11 +123,14 @@
     function startIntro() {
       introJs().setOptions({
           skipLabel: '{% trans "Close" %}',
+          nextLabel: '{% trans 'Next' %}' + ' &#8594;',
+          prevLabel: '{% trans 'Back' %}' + ' &#8592;',
+          doneLabel: '{% trans 'Done' %}',
           showStepNumbers: false,
           highlightClass: 'intro-dark-background',
           steps: [
             {
-              intro: '{% trans "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a tour explaining the functions on this page.</p>" %}',
+              intro: '{% trans '<p>Welcome to the help section of the form!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
               element: document.querySelector('#show_help'),
               position: 'top'
             },
@@ -137,7 +140,7 @@
               position: 'top'
             },
             {
-              intro: '{% trans "<p>Click \"Save\" to save your changes and view them in the output.</p><p><strong>Important:</strong> You need to click \"Save\" in the output again to permanently save the Questionnaire!</p>" %}',
+              intro: '{% trans '<p>Click "Save" to save your changes and view them in the output.</p><p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
               element: document.querySelector('a#button-submit'),
               position: 'top'
             },

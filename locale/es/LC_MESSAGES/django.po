@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Isabelle Providoli <isabelle.providoli@cde.unibe.ch>, 2016
 # Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2016
 # Pedro Albornoz <pedrotraducciones@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-10 07:44+0200\n"
-"PO-Revision-Date: 2016-05-09 12:51+0000\n"
-"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
+"POT-Creation-Date: 2016-05-11 11:01+0200\n"
+"PO-Revision-Date: 2016-05-10 15:48+0000\n"
+"Last-Translator: Isabelle Providoli <isabelle.providoli@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: apps/accounts/client.py:168
 msgid "Error when logging in and updating the user {}: {}"
@@ -71,7 +72,7 @@ msgstr "¿No tiene nombre de usuario?"
 
 #: apps/accounts/templates/login.html:32
 msgid "If you do not yet have a login, please visit "
-msgstr "Si todavía no tiene nombre de usuario, por favor visite"
+msgstr "Si todavía no tiene nombre de usuario, por favor visite "
 
 #: apps/accounts/templates/login.html:34 apps/accounts/templates/login.html:38
 #: apps/approaches/templates/approaches/base.html:14
@@ -85,7 +86,7 @@ msgstr "WOCAT"
 
 #: apps/accounts/templates/login.html:34
 msgid " and register for a free account."
-msgstr "y regístrese para obtener una cuenta gratuita."
+msgstr " y regístrese para obtener una cuenta gratuita."
 
 #: apps/accounts/templates/login.html:36
 msgid "Forgot your password?"
@@ -111,57 +112,98 @@ msgstr "Sus prácticas MST"
 msgid "SLM practices by"
 msgstr "Prácticas MST por"
 
+#: apps/accounts/views.py:48
+msgid "Welcome {}"
+msgstr ""
+
 #: apps/approaches/templates/approaches/base.html:6
 msgid "WOCAT SLM Approaches"
 msgstr "Enfoques MST WOCAT"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:25
-msgid "Welcome to the SLM Approach data entry form."
-msgstr "Bienvenido al formulario de introducción de datos de Enfoque MST."
-
-#: apps/approaches/templates/approaches/questionnaire/details.html:26
-msgid "You are about to add a new Approach."
-msgstr "Usted está a punto de agregar un nuevo Enfoque."
+#: apps/technologies/templates/technologies/questionnaire/details.html:26
+#: apps/unccd/views.py:66 apps/wocat/templates/wocat/home.html:12
+#: apps/wocat/templates/wocat/home.html:40 templates/base.html:187
+msgid "UNCCD"
+msgstr "UNCCD"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:26
 #: apps/technologies/templates/technologies/questionnaire/details.html:27
+#: apps/wocat/templates/wocat/home.html:13
+#: apps/wocat/templates/wocat/home.html:41 templates/base.html:186
+msgid "Primary recommended database"
+msgstr "Base de datos principal recomendada"
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:29
+msgid "Welcome to the SLM Approach data entry form."
+msgstr "Bienvenido al formulario de introducción de datos de Enfoque MST."
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:30
+msgid "You are about to add a new Approach."
+msgstr "Usted está a punto de agregar un nuevo Enfoque."
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:30
+#: apps/technologies/templates/technologies/questionnaire/details.html:31
 msgid "Start by editing the general information section."
 msgstr "Comience por editar la sección de información general."
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:45
+#: apps/approaches/templates/approaches/questionnaire/details.html:49
 #: apps/sample/templates/sample/questionnaire/details.html:27
 #: apps/samplemulti/templates/samplemulti/questionnaire/details.html:27
-#: apps/technologies/templates/technologies/questionnaire/details.html:46
+#: apps/technologies/templates/technologies/questionnaire/details.html:50
 #: apps/unccd/templates/unccd/questionnaire/details.html:19
 #: apps/wocat/templates/wocat/questionnaire/details.html:19
 msgid "Photo"
 msgstr "Foto"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:65
+#: apps/approaches/templates/approaches/questionnaire/details.html:69
 #: apps/questionnaire/templates/details/category/approaches_header.html:66
 msgid "Save SLM Approach"
 msgstr "Guarde Enfoque MST"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:68
+#: apps/approaches/templates/approaches/questionnaire/details.html:72
 #: apps/questionnaire/templates/details/category/approaches_header.html:69
 msgid "Edit SLM Approach"
 msgstr "Edite Enfoque MST"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:104
+#: apps/approaches/templates/approaches/questionnaire/details.html:108
 #: apps/questionnaire/templates/form/category.html:73
 #: apps/questionnaire/templates/form/category.html:125
-#: apps/technologies/templates/technologies/questionnaire/details.html:108
+#: apps/technologies/templates/technologies/questionnaire/details.html:112
 msgid "Close"
 msgstr "Cerrar"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:108
-#: apps/technologies/templates/technologies/questionnaire/details.html:112
-msgid "<p>Welcome to the help section of the Questionnaire!</p><p>Click \\"
+#: apps/approaches/templates/approaches/questionnaire/details.html:109
+#: apps/questionnaire/templates/form/category.html:126
+#: apps/technologies/templates/technologies/questionnaire/details.html:113
+msgid "Next"
+msgstr ""
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:110
+#: apps/questionnaire/templates/form/category.html:127
+#: apps/technologies/templates/technologies/questionnaire/details.html:114
+#, fuzzy
+#| msgid "Go Back"
+msgid "Back"
+msgstr "Regresar"
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:111
+#: apps/questionnaire/templates/form/category.html:128
+#: apps/technologies/templates/technologies/questionnaire/details.html:115
+msgid "Done"
+msgstr ""
+
+#: apps/approaches/templates/approaches/questionnaire/details.html:115
+#, fuzzy
+#| msgid "<p>Welcome to the help section of the Questionnaire!</p><p>Click \\"
+msgid ""
+"<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
+"take a tour explaining the functions on this page.</p>"
 msgstr ""
 "<p>¡Bienvenido a la sección de ayuda del Cuestionario!</p><p>Haga clic \\"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:113
-#: apps/technologies/templates/technologies/questionnaire/details.html:117
+#: apps/approaches/templates/approaches/questionnaire/details.html:120
+#: apps/technologies/templates/technologies/questionnaire/details.html:124
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
@@ -169,8 +211,8 @@ msgstr ""
 "<p>Esta es la página de resultados donde usted puede ver todos los datos que "
 "ingresó en el formulario.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:117
-#: apps/technologies/templates/technologies/questionnaire/details.html:121
+#: apps/approaches/templates/approaches/questionnaire/details.html:124
+#: apps/technologies/templates/technologies/questionnaire/details.html:128
 msgid ""
 "<p>The Questionnaire consists of multiple sections. You can use the Table of "
 "Content for navigation.</p>"
@@ -178,8 +220,8 @@ msgstr ""
 "<p>El cuestionario consiste de múltiples secciones. Puede usar la Tabla de "
 "Contenidos para navegar.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:122
-#: apps/technologies/templates/technologies/questionnaire/details.html:126
+#: apps/approaches/templates/approaches/questionnaire/details.html:129
+#: apps/technologies/templates/technologies/questionnaire/details.html:133
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
@@ -187,8 +229,8 @@ msgstr ""
 "<p>Cada sección también se halla visible en los resultados; cualquier dato "
 "que ingrese aparecerá aquí.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:127
-#: apps/technologies/templates/technologies/questionnaire/details.html:131
+#: apps/approaches/templates/approaches/questionnaire/details.html:134
+#: apps/technologies/templates/technologies/questionnaire/details.html:138
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -198,16 +240,16 @@ msgstr ""
 "p><p>Los números indican cuántas preguntas ya fueron respondidas en esta "
 "sección.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:132
-#: apps/technologies/templates/technologies/questionnaire/details.html:136
+#: apps/approaches/templates/approaches/questionnaire/details.html:139
+#: apps/technologies/templates/technologies/questionnaire/details.html:143
 msgid ""
 "<p>Once you are done editing, click the button to save the Questionnaire.</p>"
 msgstr ""
 "<p>Una vez que haya terminado de editar, haga clic en el botón para guardar "
 "el Cuestionario.</p>"
 
-#: apps/approaches/templates/approaches/questionnaire/details.html:136
-#: apps/technologies/templates/technologies/questionnaire/details.html:140
+#: apps/approaches/templates/approaches/questionnaire/details.html:143
+#: apps/technologies/templates/technologies/questionnaire/details.html:147
 msgid ""
 "<p>The metadata will be filled out automatically once you saved the "
 "Questionnaire.</p>"
@@ -3638,7 +3680,7 @@ msgid ""
 "place on land that may be prone to land degradation. They maintain natural "
 "resources and their environmental and productive functions."
 msgstr ""
-"<strong>Prevención</strong>:las buenas prácticas de manejo de tierras ya "
+"<strong>Prevención:</strong> las buenas prácticas de manejo de tierras ya "
 "existen en tierras que pueden hallarse susceptibles a la degradación del "
 "suelo.  Mantienen los recursos naturales y sus funciones medioambientales y "
 "productivas. "
@@ -3676,7 +3718,7 @@ msgid ""
 "possible, and land has become practically unproductive. Here, longer-term "
 "and more costly investments are needed to show any impact."
 msgstr ""
-"<strong>Rehabilitación/ restauración</strong>se requieren cuando la tierra "
+"<strong>Rehabilitación/ restauración:</strong> se requieren cuando la tierra "
 "ya se ha degradado a tal grado que el uso original ya no es posible, y la "
 "tierra se ha vuelto prácticamente improductiva. En este caso, se precisan "
 "inversiones a mayor plazo y con mayor costo para demostrar cualquier forma "
@@ -3761,7 +3803,7 @@ msgstr "> 4000 mm"
 msgctxt "technologies helptext"
 msgid "<strong>Humid</strong>: Length of growing period (LGP) > 270 days"
 msgstr ""
-"<strong>Húmeda</strong>Duración del periodo de crecimiento (LGP) > 270 días"
+"<strong>Húmeda</strong>: Duración del periodo de crecimiento (LGP) > 270 días"
 
 #: apps/configuration/configuration_translations.py:1723
 msgctxt "technologies label"
@@ -3772,7 +3814,9 @@ msgstr "húmeda"
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Sub-humid</strong>: Length of growing period (LGP) 180 - 269 days"
-msgstr "<strong>Sub-húmeda</strong>: LGP 180 – 269 días"
+msgstr ""
+"<strong>Sub-húmeda</strong>: Duración del periodo de crecimiento (LGP) 180 – "
+"269 días"
 
 #: apps/configuration/configuration_translations.py:1725
 msgctxt "technologies label"
@@ -3785,7 +3829,7 @@ msgid ""
 "<strong>Semi-arid</strong>: Length of growing period (LGP) 75 - 179 days"
 msgstr ""
 "<strong>Semi-árida</strong>: Duración del periodo de crecimiento (LGP) 75 – "
-"179 días-"
+"179 días"
 
 #: apps/configuration/configuration_translations.py:1727
 msgctxt "technologies label"
@@ -4650,7 +4694,7 @@ msgid ""
 "provide shelter from the wind and to protect soil from erosion. They are "
 "commonly planted around the edges of fields on farms."
 msgstr ""
-"<strong>Rompevientos:</strong> o cinturones de protección, son plantaciones "
+"<strong>Rompevientos o cinturones de protección:</strong> son plantaciones "
 "usualmente compuestas de una o más hileras de árboles o arbustos plantados "
 "de tal forma que proporcionan abrigo del viento y protegen al suelo de la "
 "erosión.  comúnmente se plantan alrededor de los bordes de los campos en las "
@@ -4659,7 +4703,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1877
 msgctxt "technologies label"
 msgid "windbreak/ shelterbelt"
-msgstr "rompevientos/ o cinturones de protección"
+msgstr "rompevientos/ cinturones de protección"
 
 #: apps/configuration/configuration_translations.py:1878
 msgctxt "technologies helptext"
@@ -5297,7 +5341,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1970
 msgctxt "technologies label"
 msgid "forest plantation management"
-msgstr "forest plantation management"
+msgstr "manejo de plantación forestal"
 
 #: apps/configuration/configuration_translations.py:1971
 msgctxt "technologies helptext"
@@ -5588,8 +5632,8 @@ msgid ""
 "two answers per question.</p>"
 msgstr ""
 "<p><strong>La tenencia de tierra</strong> es el tipo de posesión de tierra, "
-"mientras que <strong>los derechos de uso de tierra</strong>Máximo dos "
-"respuestas por pregunta"
+"mientras que <strong>los derechos de uso de tierra</strong> se refieren al "
+"acceso a la tierra.</p><p>Máximo dos respuestas por pregunta.</p>"
 
 #: apps/configuration/configuration_translations.py:2232
 msgctxt "technologies helptext"
@@ -6030,8 +6074,8 @@ msgid ""
 "<strong>Fertilizers and biocides</strong>: compost/ manure, inorganic "
 "fertilizer, herbicides, pesticides, etc."
 msgstr ""
-"<strong>Fertilizantes y biocidas</strong>: composta/ abono, fertilizante "
-"inorgánico, herbicidas, pesticidas, etc. "
+"<strong>Fertilizantes y biocidas</strong> incluye composta/ abono, "
+"fertilizante inorgánico, herbicidas, pesticidas, etc. "
 
 #: apps/configuration/configuration_translations.py:2376
 msgctxt "technologies label"
@@ -6099,7 +6143,7 @@ msgid ""
 "images later.</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, "
 "GIF.</p>"
 msgstr ""
-"<p>Por favor proporcione una primera imagen de la Tecnología SLM. Puede "
+"<p>Por favor proporcione una primera imagen de la Tecnología MST. Puede "
 "agregar más imágenes luego.</p><p>Tamaño máximo del archivo: 3 MB. Formatos "
 "de archivo válidos: JPG, PNG, GIF.</p>"
 
@@ -6240,13 +6284,13 @@ msgstr ""
 "<p>Resuma las especificaciones técnicas, ej.:</p><ul><li>dimensiones (altura,"
 "profundidad, ancho, longitud) de las estructuras o elementos vegetativos;</"
 "li><li>espaciado entre estructuras o plantas/ medidas vegetativas;</"
-"li><li>intervalos verticales de estructuras o  medidas vegetativas</"
+"li><li>intervalos verticales de estructuras o medidas vegetativas;</"
 "li><li>ángulo de pendiente (antes y luego de implementar Tecnología);</"
 "li><li>pendiente lateral de las estructuras;</li><li>capacidad de los "
 "diques, estanques, etc.;</li><li>área de captación y área benéfica de "
 "diques, estanques, otros sistemas de cosecha de agua; material de "
-"construcción utilizado</li><li>especies usadas;</li><li>\tcantidad/ densidad "
-"de plantas (por ha. )</li></ul>\n"
+"construcción utilizado;</li><li>especies usadas;</li><li>\tcantidad/ "
+"densidad de plantas (por ha. )</li></ul>\n"
 " "
 
 #: apps/configuration/configuration_translations.py:2719
@@ -6783,7 +6827,7 @@ msgid ""
 "for each video linked below."
 msgstr ""
 "Si estuviesen disponibles, cargue archivos de video que muestren  la "
-"Tecnología a una plataforma pública (ej.. <a href=\"https://vimeo.com/\" "
+"Tecnología a una plataforma pública (ej. <a href=\"https://vimeo.com/\" "
 "target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www."
 "youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) y "
 "proporcione un vínculo y una breve descripción de cada video vinculado abajo."
@@ -7036,7 +7080,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2919
 msgctxt "technologies label"
 msgid "Description of the SLM Technology"
-msgstr "Descripción de la Tecnología SLM"
+msgstr "Descripción de la Tecnología MST"
 
 #: apps/configuration/configuration_translations.py:2904
 msgctxt "technologies label"
@@ -7098,10 +7142,10 @@ msgstr ""
 "considerarán en el cuestionario de Enfoque).</li><li>Si el objetivo es "
 "comparar dos situaciones, es decir, luego/ con medidas MST (ej. Agricultura "
 "de conservación) y antes/ sin medidas MST (ej. agricultura convencional), "
-"llene dos cuestionarios. </li><li>Si el objetivo es comparar dos situaciones "
-"(es decir, luego/ con medidas MST (ej. Agricultura de conservación) y antes/ "
-"sin medidas MST (ej. agricultura convencional), llene dos cuestionarios. </"
-"li></ul>"
+"llene dos cuestionarios. </li><li>Si el objetivo es comparar dos "
+"situaciones, es decir, luego/ con medidas MST (ej. Agricultura de "
+"conservación) y antes/ sin medidas MST (ej. agricultura convencional), llene "
+"dos cuestionarios. </li></ul>"
 
 #: apps/configuration/configuration_translations.py:2907
 #: apps/configuration/configuration_translations.py:2921
@@ -7196,7 +7240,7 @@ msgid ""
 "drivers (motivation of land users to implement the Technology), refer to the "
 "WOCAT Questionnaire on SLM Approaches."
 msgstr ""
-"<strong>Nota</strong>:Para información sobre barreras de adopción e "
+"<strong>Nota</strong>: Para información sobre barreras de adopción e "
 "impulsores de adopción (motivación de los usuarios de tierras para "
 "implementar la Tecnología), refiérase al cuestionario WOCAT sobre Enfoques "
 "MST."
@@ -7698,7 +7742,7 @@ msgid ""
 "age, status, interest), cooperatives, industrial companies (e.g. mining), "
 "government institutions (e.g. state forest), etc."
 msgstr ""
-"<strong>Usuario de tierras</strong>: La persona/entidad que implementa/"
+"<strong>Usuario de la tierra</strong>: La persona/entidad que implementa/"
 "mantiene la/s Tecnología/s. El término usuario de la tierra puede referirse "
 "a pequeños o grandes agricultores individuales, grupos (género, edad, "
 "estatus, interés), cooperativas, empresas industriales (por ej. minería), "
@@ -7720,7 +7764,7 @@ msgid ""
 "age, status, interest), cooperatives, industrial companies (e.g. mining), "
 "government institutions (e.g. state forest), etc."
 msgstr ""
-"<strong>Usuario de tierras</strong>: La persona/entidad que implementa/"
+"<strong>Usuario de la tierra</strong>: La persona/entidad que implementa/"
 "mantiene la/s Tecnología/s. El término usuario de la tierra puede referirse "
 "a pequeños o grandes agricultores individuales, grupos (género, edad, "
 "estatus, interés), cooperativas, empresas industriales (por ej. minería), "
@@ -9669,7 +9713,7 @@ msgid ""
 "question 4.2.</p>"
 msgstr ""
 "<p>Si la respuesta es sí, por favor responda las siguientes sub-preguntas.</"
-"p><p>si la respuesta es no, vaya a la pregunta 4.2</p>"
+"p><p>Si la respuesta es no, vaya a la pregunta 4.2.</p>"
 
 #: apps/configuration/configuration_translations.py:7024
 msgctxt "approaches label"
@@ -9736,8 +9780,8 @@ msgstr ""
 "<p><strong>Servicio de asesoría</strong>: Asistencia técnica proporcionada a "
 "usuarios de tierras por extensionistas/ asesores del gobierno, ONGs, "
 "proyectos, etc. </p><p>Si la respuesta es sí, por favor responda las "
-"siguientes sub-preguntas</p><p>si la respuesta es no, vaya a la pregunta "
-"4.3</p>"
+"siguientes sub-preguntas.</p><p>Si la respuesta es no, vaya a la pregunta "
+"4.3.</p>"
 
 #: apps/configuration/configuration_translations.py:7040
 msgctxt "approaches label"
@@ -9918,7 +9962,7 @@ msgctxt "approaches label"
 msgid ""
 "Did the Approach help land users to implement and maintain SLM technologies?"
 msgstr ""
-"El Enfoque ayudó a los usuarios de tierras a implementar y mantener "
+"¿El Enfoque ayudó a los usuarios de tierras a implementar y mantener "
 "Tecnologías MST?"
 
 #: apps/configuration/configuration_translations.py:7078
@@ -10062,7 +10106,7 @@ msgstr "Indique nombre del proyecto (si es relevante)"
 #: apps/configuration/configuration_translations.py:7099
 msgctxt "approaches label"
 msgid "Is monitoring and evaluation part of the Approach?"
-msgstr "¿El monitoreo y la evaluación forman parte del Enfoque? "
+msgstr "¿El monitoreo y la evaluación forman parte del Enfoque?"
 
 #: apps/configuration/configuration_translations.py:7100
 msgctxt "approaches label"
@@ -10093,7 +10137,8 @@ msgstr "¿Se proporciona servicio de asesoría"
 #: apps/configuration/configuration_translations.py:7105
 msgctxt "approaches helptext"
 msgid "If yes, please answer the following sub-questions."
-msgstr "Si la respuesta es sí, por favor responda las siguientes sub-preguntas"
+msgstr ""
+"Si la respuesta es sí, por favor responda las siguientes sub-preguntas."
 
 #: apps/configuration/configuration_translations.py:7107
 msgctxt "approaches label"
@@ -10493,22 +10538,22 @@ msgstr "escuelas"
 #: apps/configuration/configuration_translations.py:7566
 msgctxt "approaches label"
 msgid "voluntary"
-msgstr "voluntario"
+msgstr "voluntario?"
 
 #: apps/configuration/configuration_translations.py:7567
 msgctxt "approaches label"
 msgid "food-for-work"
-msgstr "comida por trabajo"
+msgstr "comida por trabajo?"
 
 #: apps/configuration/configuration_translations.py:7568
 msgctxt "approaches label"
 msgid "paid in cash"
-msgstr "pagado en efectivo"
+msgstr "pagado en efectivo?"
 
 #: apps/configuration/configuration_translations.py:7569
 msgctxt "approaches label"
 msgid "rewarded with other material support"
-msgstr " recompensado con otro tipo de apoyo material"
+msgstr " recompensado con otro tipo de apoyo material?"
 
 #: apps/configuration/configuration_translations.py:7570
 msgctxt "approaches label"
@@ -10735,9 +10780,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:8702
 msgctxt "approaches label"
 msgid "Name of the SLM Approach (hereafter referred to as the Approach)"
-msgstr ""
-"Nombre de la Tecnología MST (de aquí en adelante, se denominará la "
-"Tecnología)"
+msgstr "Nombre del Enfoque MST (de aquí en adelante, se denominará el Enfoque)"
 
 #: apps/configuration/configuration_translations.py:8703
 msgctxt "approaches label_view"
@@ -10751,9 +10794,9 @@ msgid ""
 "definition of an approach is very important as it determines whether anyone "
 "searching the database will read further.</p>"
 msgstr ""
-"<p>Describa el En foque Tecnología en una oración que contenga palabras "
-"claves. La definición de una Tecnología es muy importante para la búsqueda "
-"en la base de datos.</p>"
+"<p>Describa el Enfoque en una oración que contenga palabras claves. La "
+"definición de un Enfoque es muy importante para la búsqueda en la base de "
+"datos.</p>"
 
 #: apps/configuration/configuration_translations.py:8705
 msgctxt "approaches label"
@@ -10838,7 +10881,7 @@ msgstr ""
 "</p><p>Proporcione al menos dos archivos digitales (JPG, PNG, GIF), por "
 "ejemplo, archivos de una cámara digital o escaneos de copias,  de fotos, de "
 "película negativa/positiva o fotos de diapositivas</p><p> Tamaño máximo de "
-"archivo: 3 MB. </p><p>Las fotos deben se rde alta calidad/ alta resolución y "
+"archivo: 3 MB. </p><p>Las fotos deben ser de alta calidad/ alta resolución y "
 "no hallarse manipuladas o distorsionadas. </p><p> Se requiere que cada foto "
 "presentada venga con una explicación (descripción). Las fotos deben seguir "
 "las especificaciones estipuladas en la descripción del punto 2.2.</p>"
@@ -11040,7 +11083,7 @@ msgid ""
 "description for each video linked below."
 msgstr ""
 "Si estuviesen disponibles, cargue archivos de video que muestren las "
-"actividades del Enfoque a una plataforma pública (ej.. <a href=\"https://"
+"actividades del Enfoque a una plataforma pública (ej. <a href=\"https://"
 "vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href="
 "\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</"
 "a>) y proporcione un vínculo y una breve descripción de cada video a "
@@ -11325,12 +11368,12 @@ msgid "Edit this section"
 msgstr "Editar esta sección"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:66
-#: apps/technologies/templates/technologies/questionnaire/details.html:66
+#: apps/technologies/templates/technologies/questionnaire/details.html:70
 msgid "Save SLM Technology"
 msgstr "Guardar Tecnología MST"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:69
-#: apps/technologies/templates/technologies/questionnaire/details.html:69
+#: apps/technologies/templates/technologies/questionnaire/details.html:73
 msgid "Edit SLM Technology"
 msgstr "Editar Tecnología MST"
 
@@ -11445,7 +11488,7 @@ msgstr "Tabla de contenidos"
 
 #: apps/questionnaire/templates/details/sticky_menu.html:22
 #: apps/questionnaire/templates/details/sticky_menu.html:28
-#: apps/technologies/templates/technologies/questionnaire/details.html:102
+#: apps/technologies/templates/technologies/questionnaire/details.html:106
 msgid "Help"
 msgstr "Ayuda"
 
@@ -11504,25 +11547,32 @@ msgstr "Existe una versión anterior con cambios en esta sección."
 msgid "View old version"
 msgstr "Visualice la versión antigua"
 
-#: apps/questionnaire/templates/form/category.html:130
-msgid "<p>Welcome to the help section of the form!</p><p>Click \\"
+#: apps/questionnaire/templates/form/category.html:133
+#, fuzzy
+#| msgid "<p>Welcome to the help section of the form!</p><p>Click \\"
+msgid ""
+"<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a "
+"tour explaining the functions on this page.</p>"
 msgstr ""
 "<p>¡Bienvenido a la sección de ayuda del formulario!</p><p>Haga clic \\"
 
-#: apps/questionnaire/templates/form/category.html:135
+#: apps/questionnaire/templates/form/category.html:138
 msgid ""
 "<p>The bar indicates the name of the section you are currently editing.</p>"
 msgstr "<p>La barra indica el nombre de la sección que actualmente edita.</p>"
 
-#: apps/questionnaire/templates/form/category.html:140
-msgid "<p>Click \\"
-msgstr "<p>Haga clic \\"
+#: apps/questionnaire/templates/form/category.html:143
+msgid ""
+"<p>Click \"Save\" to save your changes and view them in the output.</"
+"p><p><strong>Important:</strong> You need to click \"Save\" in the output "
+"again to permanently save the Questionnaire!</p>"
+msgstr ""
 
-#: apps/questionnaire/templates/form/category.html:145
+#: apps/questionnaire/templates/form/category.html:148
 msgid "<p>You can use the arrows to navigate between the questions.</p>"
 msgstr "<p>Puede usar las flechas para navegar entre las preguntas.</p>"
 
-#: apps/questionnaire/templates/form/category.html:150
+#: apps/questionnaire/templates/form/category.html:153
 msgid ""
 "<p>Use this link if you want to go back to the output without saving any "
 "changes.</p>"
@@ -11530,7 +11580,7 @@ msgstr ""
 "<p>Use este vínculo si desea regresar al resultado sin guardar los cambios.</"
 "p>"
 
-#: apps/questionnaire/templates/form/category.html:155
+#: apps/questionnaire/templates/form/category.html:158
 msgid ""
 "<p>The progress bar indicates how many questions are already filled out.</p>"
 msgstr ""
@@ -11873,13 +11923,18 @@ msgstr "[SAMPLEMULTI] Todas las tecnologías"
 msgid "WOCAT SLM Technologies"
 msgstr "Tecnologías MST WOCAT"
 
-#: apps/technologies/templates/technologies/questionnaire/details.html:26
+#: apps/technologies/templates/technologies/questionnaire/details.html:30
 msgid "Welcome to the SLM Technology data entry form."
 msgstr "Bienvenido al formulario de introducción de datos de Tecnología MST."
 
-#: apps/technologies/templates/technologies/questionnaire/details.html:27
+#: apps/technologies/templates/technologies/questionnaire/details.html:31
 msgid "You are about to add a new Technology."
 msgstr "Usted está a punto de agregar una nueva Tecnología."
+
+#: apps/technologies/templates/technologies/questionnaire/details.html:119
+msgid "<p>Welcome to the help section of the Questionnaire!</p><p>Click \\"
+msgstr ""
+"<p>¡Bienvenido a la sección de ayuda del Cuestionario!</p><p>Haga clic \\"
 
 #: apps/technologies/templates/technologies/questionnaire/list.html:17
 msgid "SLM Technologies"
@@ -11951,19 +12006,15 @@ msgstr "Mejores prácticas MST"
 msgid "No SLM best practices found."
 msgstr "No se hallaron mejores prácticas MST."
 
-#: apps/unccd/views.py:66 templates/base.html:187
-msgid "UNCCD"
-msgstr "UNCCD"
-
 #: apps/unccd/views.py:94
 msgid "UNCCD Form"
 msgstr "Formulario UNCCD "
 
-#: apps/wocat/templates/wocat/home.html:11
+#: apps/wocat/templates/wocat/home.html:15
 msgid "Global Database on SLM"
 msgstr "Base de datos mundial de MST"
 
-#: apps/wocat/templates/wocat/home.html:12 templates/home.html:54
+#: apps/wocat/templates/wocat/home.html:16 templates/home.html:54
 msgid ""
 "The WOCAT database on SLM practices (Technologies and Approaches) contains a "
 "vast range of good practices from all over the world."
@@ -11971,27 +12022,27 @@ msgstr ""
 "La base de datos WOCAT de prácticas MST (Tecnologías y Enfoques) contiene "
 "una gran cantidad de buenas prácticas de todo el mundo. "
 
-#: apps/wocat/templates/wocat/home.html:15
+#: apps/wocat/templates/wocat/home.html:19
 msgid "View SLM Technologies"
 msgstr "Ver Tecnologías MST"
 
-#: apps/wocat/templates/wocat/home.html:18
+#: apps/wocat/templates/wocat/home.html:22
 msgid "View SLM Approaches"
 msgstr "Ver Enfoques MST"
 
-#: apps/wocat/templates/wocat/home.html:23
+#: apps/wocat/templates/wocat/home.html:27
 msgid "View WOCAT and UNCCD SLM practices"
 msgstr "Ver prácticas WOCAT y UNCCD"
 
-#: apps/wocat/templates/wocat/home.html:28
+#: apps/wocat/templates/wocat/home.html:32
 msgid "Add new SLM Technology"
-msgstr "Agregar nueva Tecnología SLM "
+msgstr "Agregar nueva Tecnología MST "
 
-#: apps/wocat/templates/wocat/home.html:31
+#: apps/wocat/templates/wocat/home.html:35
 msgid "Add new SLM Approach"
 msgstr "Agregar nuevo Enfoque MST"
 
-#: apps/wocat/templates/wocat/home.html:43
+#: apps/wocat/templates/wocat/home.html:53
 msgid "All SLM data"
 msgstr "Todos los datos MST"
 
@@ -12078,10 +12129,6 @@ msgstr "Preguntas frecuentes"
 #: templates/base.html:183
 msgid "Contact"
 msgstr "Contacto"
-
-#: templates/base.html:186
-msgid "Primary recommended database"
-msgstr "Base de datos principal recomendada"
 
 #: templates/home.html:5
 msgid "QCAT"
@@ -12219,3 +12266,6 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
+
+#~ msgid "<p>Click \\"
+#~ msgstr "<p>Haga clic \\"
