@@ -721,7 +721,11 @@ def query_questionnaire(request, identifier):
 
     status_filter = get_query_status_filter(request)
 
-    return Questionnaire.objects.filter(q_filter).filter(status_filter)
+    return Questionnaire.with_status.not_deleted().filter(
+        q_filter
+    ).filter(
+        status_filter
+    )
 
 
 def query_questionnaires(
@@ -765,7 +769,7 @@ def query_questionnaires(
     # Find the IDs of the Questionnaires which are visible to the
     # current user. If multiple versions exist for a Questionnaire, only
     # the latest (visible to the current user) is used.
-    ids = Questionnaire.objects.filter(
+    ids = Questionnaire.with_status.not_deleted().filter(
         get_configuration_query_filter(
             configuration_code, only_current=only_current),
         status_filter).values_list('id', flat=True).order_by(
@@ -774,7 +778,7 @@ def query_questionnaires(
     if user is not None:
         ids = ids.filter(members=user)
 
-    query = Questionnaire.objects.filter(id__in=ids)
+    query = Questionnaire.with_status.not_deleted().filter(id__in=ids)
 
     if limit is not None:
         return query[offset:offset + limit]
@@ -1376,7 +1380,7 @@ def questionnaires_in_progress(user):
         list
 
     """
-    return Questionnaire.objects.filter(
+    return Questionnaire.with_status.not_deleted().filter(
         status=settings.QUESTIONNAIRE_DRAFT,
         questionnairemembership__user=user,
         questionnairemembership__role__in=[

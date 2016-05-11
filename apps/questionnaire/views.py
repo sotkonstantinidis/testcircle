@@ -376,7 +376,8 @@ def generic_questionnaire_new_step(
                         continue
 
                     try:
-                        link_object = Questionnaire.objects.get(pk=link_id)
+                        link_object = Questionnaire.with_status.not_deleted().\
+                            get(pk=link_id)
                     except Questionnaire.DoesNotExist:
                         messages.error(
                             request, 'The linked questionnaire with ID {} '
@@ -606,7 +607,8 @@ def generic_questionnaire_new(
             for __, linked_questionnaires in session_links.items():
                 for linked in linked_questionnaires:
                     try:
-                        link = Questionnaire.objects.get(pk=linked.get('id'))
+                        link = Questionnaire.with_status.not_deleted().\
+                            get(pk=linked.get('id'))
                     except Questionnaire.DoesNotExist:
                         continue
                     questionnaire.add_link(link)
@@ -644,7 +646,9 @@ def generic_questionnaire_new(
         link_ids.extend([l.get('id') for l in linked_questionnaires])
 
     links_by_configuration = {}
-    for linked in Questionnaire.objects.filter(id__in=link_ids):
+    for linked in Questionnaire.with_status.not_deleted().filter(
+            id__in=link_ids
+    ):
         configuration = linked.configurations.first()
         if configuration is None:
             continue
