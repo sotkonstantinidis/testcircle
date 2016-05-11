@@ -50,7 +50,17 @@
     margin: 0;
     background: inherit;
     border: none;
-    padding: 0 rem-calc(5);
+    position: relative;
+
+    a {
+      position: absolute;
+      bottom: 0;
+      width: 98%;
+    }
+  }
+
+  .progress {
+    margin-bottom: rem-calc(5);
   }
 }
 .wizard-header-title {
