@@ -6,7 +6,7 @@ from django.http import (
     Http404,
     HttpResponse,
     JsonResponse,
-)
+    HttpResponseRedirect)
 from django.middleware.csrf import get_token
 from django.shortcuts import (
     render,
@@ -16,6 +16,7 @@ from django.shortcuts import (
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
+from django.views.generic import DeleteView
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
@@ -1101,3 +1102,34 @@ def generic_file_serve(request, action, uid):
         response['Content-Length'] = file_data.get('size')
 
     return response
+
+
+class QuestionnaireDeleteView(DeleteView):
+    """
+    Confirm and pseudo-delete questionnaire object.
+
+    """
+    model = Questionnaire
+    slug_field = 'code'
+    slug_url_kwarg = 'identifier'
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Update deleted flag for given questionnaire and add message.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        messages.success(
+            self.request, _('Successfully removed questionnaire')
+        )
+        self.object.is_deleted=True
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
+    def get_success_url(self):
+        """
+        Go to the users list of slm data in case of success.
+        """
+        return reverse(
+            'account_questionnaires', kwargs={'user_id': self.request.user.id}
+        )

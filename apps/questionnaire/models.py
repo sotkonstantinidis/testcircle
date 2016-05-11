@@ -74,6 +74,7 @@ class Questionnaire(models.Model):
         related_name='blocks_questionnaire',
         help_text=_(u"Set with the method: lock_questionnaire.")
     )
+    is_deleted = models.BooleanField(default=False)
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
     members = models.ManyToManyField(

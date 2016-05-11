@@ -21,11 +21,11 @@
           {% if review_config.review_status == 0 %}
             <div class="small-12 columns">
               <h2><span class="is-wocat">{% trans "Hello" %} {{ request.user.firstname }}.</span> {% trans "Welcome to the SLM Approach data entry form." %}</h2>
-              <p>
                 <div id="unccd-hero-welcome" class="small-3 large-2 columns">
                   <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
                   <p>{% trans "Primary recommended database" %}</p>
                 </div>
+              <p>
                 {% trans "You are about to add a new Approach. If this is the first time editing a questionnaire, please follow the tour to start off." %}
                 <br>
                 {% trans "Only one person can edit the questionnaire at a time. Only the person that started a questionnaire ('compiler') may submit it for review." %}
@@ -46,7 +46,6 @@
                 <a class="button is-approaches" href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start editing." %}</a>
               </p>
             </div>
-
           {% elif review_config.review_status == 1 %}
             <div class="medium-12 columns">
               <p>{% trans "The version is saved as a draft. Editors can work on the draft. The compiler can submit it for review." %}</p>
@@ -60,6 +59,7 @@
               {% endif %}
               {% if 'submit_questionnaire' in review_config.permissions %}
                 <input id="button-submit" name="submit" {% trans "Submit" %} class="button is-dangerous" type="submit" data-tooltip aria-haspopup="true" title="{% trans 'The questionnaire will be submitted for review. Next status will be 'pending' and reviewers will be notified.' %}">
+                <a class="button is-dangerous" href="{% url 'delete_questionnaire' identifier=questionnaire_identifier %}" class="link">{% trans "Delete." %}</a>
               {% endif %}
             </div>
           {% elif review_config.review_status == 2 %}
