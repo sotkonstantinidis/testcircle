@@ -67,15 +67,6 @@
   color: #fff;
   margin-top: 0;
   position: relative;
-
-  i {
-    position: absolute;
-    font: inherit;
-    text-align: right;
-    font-size: $small-font-size;
-    right: rem-calc(10);
-    bottom: rem-calc(10);
-  }
 }
 .wizard-header-back {
   display: inline-block;
