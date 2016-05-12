@@ -7,10 +7,10 @@
       <header class="tech-output-header medium-12 columns">
         <div class="tech-status">
           {% if metadata.configurations.0 %}
-            <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
+            <span class="label is-{{ metadata.configurations.0 }}">{% trans "Approach" %}</span>
           {% endif %}
           {% if metadata.status.0 and metadata.status.0 != 'public' %}
-            <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
+            <span class="label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
           {% endif %}
         </div>
         {% include 'details/review_panel.html' with review_css_class='section-bottom-margin' %}
