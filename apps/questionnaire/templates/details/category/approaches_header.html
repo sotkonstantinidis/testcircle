@@ -1,21 +1,21 @@
 {% load i18n %}
 
-  <section id="{{ keyword }}" class="row" data-magellan-destination="{{ keyword }}">
+  <section id="{{ keyword }}" class="row tech-section" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
 
-      {% if review_config %}
-        <header class="tech-output-header medium-12 columns">
-          <div class="tech-status">
-            {% if metadata.configurations.0 %}
-              <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
-            {% endif %}
-            {% if metadata.status.0 and metadata.status.0 != 'public' %}
-              <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
-            {% endif %}
-          </div>
-          {% include 'details/review_panel.html' with review_css_class='section-bottom-margin' %}
-        </header>
-      {% endif %}
+    {% if review_config %}
+      <header class="tech-output-header medium-12 columns">
+        <div class="tech-status">
+          {% if metadata.configurations.0 %}
+            <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
+          {% endif %}
+          {% if metadata.status.0 and metadata.status.0 != 'public' %}
+            <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
+          {% endif %}
+        </div>
+        {% include 'details/review_panel.html' with review_css_class='section-bottom-margin' %}
+      </header>
+    {% endif %}
 
     <header class="tech-output-header medium-7 columns">
       {% if not review_config %}
@@ -29,7 +29,7 @@
         </div>
       {% endif %}
       <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
-    <p class="is-large subheader">{{ raw_data.name_local|default:""|linebreaksbr }}</p>
+      <p class="is-large subheader">{{ raw_data.name_local|default:""|linebreaksbr }}</p>
       <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }}{% endif %}{% if metadata.code and additional_data.country.0.0 %} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
     </header>
     <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
