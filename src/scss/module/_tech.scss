@@ -360,3 +360,31 @@ div.inline-linked-questionnaires article {
 .has-tip svg {
   pointer-events: none;
 }
+
+.tech-section {
+  h2 {
+    font-weight: 400;
+  }
+  h3 {
+    font-weight: 400;
+    font-size: 1.25rem;
+  }
+
+  h4 {
+    font-weight: 400;
+    font-size: 1.1rem;
+  }
+
+  h5 {
+    font-weight: 400;
+    font-size: 0.9rem
+  }
+
+  p {
+    font-weight: 300;
+  }
+
+  .output ul > li {
+    font-weight: 300;
+  }
+}

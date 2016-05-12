@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 11:01+0200\n"
-"PO-Revision-Date: 2016-05-10 05:45+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2016-05-12 16:59+0200\n"
+"PO-Revision-Date: 2016-05-12 07:35+0000\n"
+"Last-Translator: DE CHOUDENS BARBARA <barbara.dc@dimensionsud.com>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -115,7 +115,7 @@ msgstr "Pratiques de GDT par "
 
 #: apps/accounts/views.py:48
 msgid "Welcome {}"
-msgstr ""
+msgstr "Bienvenue {}"
 
 #: apps/approaches/templates/approaches/base.html:6
 msgid "WOCAT SLM Approaches"
@@ -165,7 +165,7 @@ msgstr "Enregistrer l'approche de GDT"
 #: apps/approaches/templates/approaches/questionnaire/details.html:72
 #: apps/questionnaire/templates/details/category/approaches_header.html:69
 msgid "Edit SLM Approach"
-msgstr "Modifier l'approche de GDT"
+msgstr "Editer l'approche de GDT"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:108
 #: apps/questionnaire/templates/form/category.html:73
@@ -178,13 +178,11 @@ msgstr "Fermer"
 #: apps/questionnaire/templates/form/category.html:126
 #: apps/technologies/templates/technologies/questionnaire/details.html:113
 msgid "Next"
-msgstr ""
+msgstr "Suivant"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:110
 #: apps/questionnaire/templates/form/category.html:127
 #: apps/technologies/templates/technologies/questionnaire/details.html:114
-#, fuzzy
-#| msgid "Go Back"
 msgid "Back"
 msgstr "Retour"
 
@@ -192,15 +190,16 @@ msgstr "Retour"
 #: apps/questionnaire/templates/form/category.html:128
 #: apps/technologies/templates/technologies/questionnaire/details.html:115
 msgid "Done"
-msgstr ""
+msgstr "Terminé"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:115
-#, fuzzy
-#| msgid "<p>Welcome to the help section of the Questionnaire!</p><p>Click \\"
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
-msgstr "<p>Bienvenue dans la section d'aide du questionnaire!</p><p>Cliquer \\"
+msgstr ""
+"<p>Bienvenue dans la section d'aide du questionnaire! </p> Cliquez sur "
+"\"Suivant\" pour avoir des explications sur les fonctionnalités de cette "
+"page.</p>"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:120
 #: apps/technologies/templates/technologies/questionnaire/details.html:124
@@ -275,6 +274,7 @@ msgid "SLM Approaches"
 msgstr "Approches de GDT"
 
 #: apps/approaches/templates/approaches/questionnaire/partial/link.html:16
+#: apps/questionnaire/templates/details/category/approaches_header.html:10
 msgid "Approach"
 msgstr "Approche"
 
@@ -11407,6 +11407,11 @@ msgstr "Rédacteur:"
 msgid "Edit this section"
 msgstr "Editer cette section"
 
+#: apps/questionnaire/templates/details/category/technologies_header.html:10
+#: apps/technologies/templates/technologies/questionnaire/partial/link.html:16
+msgid "Technology"
+msgstr "Technologie"
+
 #: apps/questionnaire/templates/details/category/technologies_header.html:66
 #: apps/technologies/templates/technologies/questionnaire/details.html:70
 msgid "Save SLM Technology"
@@ -11415,7 +11420,7 @@ msgstr "Enregistrer la technologie de GDT"
 #: apps/questionnaire/templates/details/category/technologies_header.html:69
 #: apps/technologies/templates/technologies/questionnaire/details.html:73
 msgid "Edit SLM Technology"
-msgstr "Modifier la technologie de GDT"
+msgstr "Editer la technologie de GDT"
 
 #: apps/questionnaire/templates/details/category/unccd_header.html:27
 msgid "Comments"
@@ -11432,7 +11437,7 @@ msgstr "Statut du processus de révision"
 #: apps/questionnaire/templates/details/review_panel.html:8
 #: apps/questionnaire/templates/details/review_panel.html:18
 msgid "Edit"
-msgstr "Modifier"
+msgstr "Editer"
 
 #: apps/questionnaire/templates/details/review_panel.html:9
 msgid "Review"
@@ -11478,8 +11483,7 @@ msgid ""
 "This questionnaire is currently waiting to be reviewed before it can be "
 "published."
 msgstr ""
-"Ce questionnaire est actuellement en attente d'être révisé avant qu'il "
-"puisse être publié."
+"Ce questionnaire est actuellement en attente de révision avant d'être publié."
 
 #: apps/questionnaire/templates/details/review_panel.html:36
 msgid "Approve"
@@ -11516,7 +11520,7 @@ msgid ""
 "published, it will be publicly visible."
 msgstr ""
 "Ce questionnaire est actuellement en attente de publication. Une fois "
-"publié, il sera rendu visible publiquement."
+"publié, il sera rendu publiquement visible."
 
 #: apps/questionnaire/templates/details/review_panel.html:47
 msgid "The questionnaire will be published. Next status will be "
@@ -11591,13 +11595,12 @@ msgid "View old version"
 msgstr "Voir l'ancienne version"
 
 #: apps/questionnaire/templates/form/category.html:133
-#, fuzzy
-#| msgid "<p>Welcome to the help section of the form!</p><p>Click \\"
 msgid ""
 "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a "
 "tour explaining the functions on this page.</p>"
 msgstr ""
-"<P> Bienvenue dans la section d'aide du formulaire! </p> <p> Cliquer sur \\"
+"<p>Bienvenue dans la section d'aide du formulaire! </p> Cliquez sur \"Suivant"
+"\" pour les avoir des explications sur les fonctionnalités de cette page.</p>"
 
 #: apps/questionnaire/templates/form/category.html:138
 msgid ""
@@ -11610,6 +11613,10 @@ msgid ""
 "p><p><strong>Important:</strong> You need to click \"Save\" in the output "
 "again to permanently save the Questionnaire!</p>"
 msgstr ""
+"<p>Cliquez sur \"Enregistrer\" pour sauvegarder vos modifications et pour "
+"les afficher dans les résultats.</p><p><strong> Important:</strong> Vous "
+"devez cliquer à nouveau sur \"Enregistrer\" à la fin pour enregistrer de "
+"façon permanente tout le questionnaire!</p>"
 
 #: apps/questionnaire/templates/form/category.html:148
 msgid "<p>You can use the arrows to navigate between the questions.</p>"
@@ -11656,7 +11663,7 @@ msgstr "Supprimer"
 
 #: apps/questionnaire/templates/form/field/file_upload.html:25
 msgid "Edit focus point"
-msgstr "Modifier le point central du cadrage"
+msgstr "Editer le point central du cadrage"
 
 #: apps/questionnaire/templates/form/field/numberinput.html:7
 msgid "Enter a whole number"
@@ -11936,7 +11943,7 @@ msgstr "Enregistrer l'ECHANTILLON"
 
 #: apps/sample/templates/sample/questionnaire/details.html:50
 msgid "Edit SAMPLE"
-msgstr "Modifier l'ECHANTILLON"
+msgstr "Editer l'ECHANTILLON"
 
 #: apps/sample/templates/sample/questionnaire/list.html:11
 #: apps/samplemulti/templates/samplemulti/questionnaire/list.html:11
@@ -11958,7 +11965,7 @@ msgstr "Enregistrer MULTIECHANTILLON"
 
 #: apps/samplemulti/templates/samplemulti/questionnaire/details.html:50
 msgid "Edit SAMPLEMULTI"
-msgstr "Modifier MULTIECHANTILLON"
+msgstr "Editer MULTIECHANTILLON"
 
 #: apps/samplemulti/templates/samplemulti/questionnaire/list.html:15
 msgid "[SAMPLEMULTI] All technologies"
@@ -11983,10 +11990,6 @@ msgstr "<p>Bienvenue dans la section d'aide du questionnaire!</p><p>Cliquer \\"
 #: apps/technologies/templates/technologies/questionnaire/list.html:17
 msgid "SLM Technologies"
 msgstr "Technologies de GDT"
-
-#: apps/technologies/templates/technologies/questionnaire/partial/link.html:16
-msgid "Technology"
-msgstr "Technologie"
 
 #: apps/technologies/templates/technologies/questionnaire/partial/list.html:19
 msgid "No SLM Technologies found."
@@ -12116,7 +12119,7 @@ msgstr "Afficher toutes les pratiques de GDT"
 
 #: apps/wocat/templates/wocat/questionnaire/details.html:41
 msgid "Edit links"
-msgstr "Modifier les liens"
+msgstr "Editer les liens"
 
 #: apps/wocat/templates/wocat/questionnaire/list.html:17
 msgid "WOCAT and UNCCD SLM practices"
@@ -12313,6 +12316,3 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
-
-#~ msgid "<p>Click \\"
-#~ msgstr "<p>Cliquer sur \\"

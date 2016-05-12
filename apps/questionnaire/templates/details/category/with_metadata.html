@@ -1,12 +1,12 @@
 {% load i18n %}
 
-  <section id="{{ keyword }}" class="row" data-magellan-destination="{{ keyword }}">
+  <section id="{{ keyword }}" class="row tech-section" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
 
     <header class="tech-output-header medium-7 columns">
       {% if metadata.status.0 and metadata.status.0 != 'public' %}
         <div class="tech-status">
-          <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
+          <span class="label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
         </div>
       {% endif %}
       <p class="tech-output-header-info clearfix"><span class="is-muted left">{{ metadata.code }}</span></p>

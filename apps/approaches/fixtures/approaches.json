@@ -7900,6 +7900,9 @@
                       },
                       {
                         "keyword": "qg_image_remarks",
+                        "view_options": {
+                          "template": "none"
+                        },
                         "questions": [
                           {
                             "keyword": "image_remarks"

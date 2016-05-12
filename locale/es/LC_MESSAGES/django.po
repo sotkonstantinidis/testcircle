@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-11 11:01+0200\n"
-"PO-Revision-Date: 2016-05-10 15:48+0000\n"
+"POT-Creation-Date: 2016-05-12 16:59+0200\n"
+"PO-Revision-Date: 2016-05-11 12:26+0000\n"
 "Last-Translator: Isabelle Providoli <isabelle.providoli@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
@@ -114,7 +114,7 @@ msgstr "Prácticas MST por"
 
 #: apps/accounts/views.py:48
 msgid "Welcome {}"
-msgstr ""
+msgstr "Bienvenido {}"
 
 #: apps/approaches/templates/approaches/base.html:6
 msgid "WOCAT SLM Approaches"
@@ -182,10 +182,8 @@ msgstr ""
 #: apps/approaches/templates/approaches/questionnaire/details.html:110
 #: apps/questionnaire/templates/form/category.html:127
 #: apps/technologies/templates/technologies/questionnaire/details.html:114
-#, fuzzy
-#| msgid "Go Back"
 msgid "Back"
-msgstr "Regresar"
+msgstr ""
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:111
 #: apps/questionnaire/templates/form/category.html:128
@@ -194,13 +192,10 @@ msgid "Done"
 msgstr ""
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:115
-#, fuzzy
-#| msgid "<p>Welcome to the help section of the Questionnaire!</p><p>Click \\"
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
 msgstr ""
-"<p>¡Bienvenido a la sección de ayuda del Cuestionario!</p><p>Haga clic \\"
 
 #: apps/approaches/templates/approaches/questionnaire/details.html:120
 #: apps/technologies/templates/technologies/questionnaire/details.html:124
@@ -275,6 +270,7 @@ msgid "SLM Approaches"
 msgstr "Enfoques MST"
 
 #: apps/approaches/templates/approaches/questionnaire/partial/link.html:16
+#: apps/questionnaire/templates/details/category/approaches_header.html:10
 msgid "Approach"
 msgstr "Enfoque"
 
@@ -11367,6 +11363,11 @@ msgstr "Editor:"
 msgid "Edit this section"
 msgstr "Editar esta sección"
 
+#: apps/questionnaire/templates/details/category/technologies_header.html:10
+#: apps/technologies/templates/technologies/questionnaire/partial/link.html:16
+msgid "Technology"
+msgstr "Tecnología"
+
 #: apps/questionnaire/templates/details/category/technologies_header.html:66
 #: apps/technologies/templates/technologies/questionnaire/details.html:70
 msgid "Save SLM Technology"
@@ -11548,13 +11549,10 @@ msgid "View old version"
 msgstr "Visualice la versión antigua"
 
 #: apps/questionnaire/templates/form/category.html:133
-#, fuzzy
-#| msgid "<p>Welcome to the help section of the form!</p><p>Click \\"
 msgid ""
 "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a "
 "tour explaining the functions on this page.</p>"
 msgstr ""
-"<p>¡Bienvenido a la sección de ayuda del formulario!</p><p>Haga clic \\"
 
 #: apps/questionnaire/templates/form/category.html:138
 msgid ""
@@ -11940,10 +11938,6 @@ msgstr ""
 msgid "SLM Technologies"
 msgstr "Tecnologías MST"
 
-#: apps/technologies/templates/technologies/questionnaire/partial/link.html:16
-msgid "Technology"
-msgstr "Tecnología"
-
 #: apps/technologies/templates/technologies/questionnaire/partial/list.html:19
 msgid "No SLM Technologies found."
 msgstr "No se hallaron Tecnologías MST"
@@ -12266,6 +12260,3 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
-
-#~ msgid "<p>Click \\"
-#~ msgstr "<p>Haga clic \\"
