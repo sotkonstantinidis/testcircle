@@ -76,7 +76,7 @@
     {% block temporary %}
         {% if WARN_HEADER %}
           <div class="notice alert-box demo-version text-center">
-            <span class="large">{{ WARN_HEADER }}</span>Optimized for <a href="https://www.google.com/chrome/" target="_blank">Chrome</a> and <a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a>&nbsp; &ndash; &nbsp;<strong>Feedback</strong>: <a href="https://www.wocat.net/survey" target="_blank">Fill out the survey</a> or <a href="mailto:wocat-support@cde.unibe.ch">wocat-support@cde.unibe.ch</a>.
+            <span class="large">{{ WARN_HEADER }}</span>Optimized for <a href="https://www.google.com/chrome/" target="_blank">Chrome</a> and <a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a>&nbsp; &ndash; &nbsp;<strong>Feedback</strong>: <a href="https://survey.cde.unibe.ch/index.php/281737?lang={{ request.LANGUAGE_CODE }}" target="_blank">Fill out the survey</a>.
           </div>
         {% endif %}
     {% endblock %}
