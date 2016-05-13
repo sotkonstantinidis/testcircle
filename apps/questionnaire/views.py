@@ -307,7 +307,7 @@ def generic_questionnaire_new_step(
 
     questionnaire_configuration = get_configuration(configuration_code)
     category = questionnaire_configuration.get_category(step)
-    import pdb; pdb.set_trace()
+
     if category is None:
         raise Http404
 
@@ -515,28 +515,76 @@ def generic_questionnaire_new_step(
     })
 
 
-class QuestionnaireEditView(LoginRequiredMixin, TemplateResponseMixin):
+class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     """
     Base class for all views that are used to update a questionnaire.
     """
-
-    def dispatch(self, request, *args, **kwargs):
-        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
-        return super().dispatch(request, *args, **kwargs)
-
-
-class GenericQuestionnaireView(QuestionnaireEditView, View):
-    """
-    Refactored function based view: generic_questionnaire_new
-    """
-    http_method_names = ['get', 'post']
-
+    new_identifier = 'new'
     questionnaire_configuration = None
     url_namespace = None
     configuration_code = None
-
     template_name = ''
-    new_identifier = 'new'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.identifier = self.kwargs.get('identifier', self.new_identifier)
+        self.questionnaire_configuration = get_configuration(self.get_configuration_code())
+        self.object = self.get_object()
+        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_template_names(self):
+        return self.template_name or '{}/questionnaire/details.html'.format(self.url_namespace)
+
+    def get_configuration_code(self):
+        return self.configuration_code or self.url_namespace
+
+    @property
+    def has_object(self):
+        return self.identifier != self.new_identifier
+
+    def get_object(self):
+        """
+        Returns: questionnaires.models.Questionnaire or None
+        """
+        if self.has_object:
+            object = query_questionnaire(self.request, self.identifier).first()
+            if not object:
+                raise Http404()
+
+            try:
+                object.lock_questionnaire(object.code, self.request.user)
+            except QuestionnaireLockedException:
+                messages.warning(self.request, _("This questionnaire is locked by another user."))
+                # todo: raise ?
+                # return redirect(self.get_detail_url())
+
+            return object
+
+        return {}
+
+    @property
+    def questionnaire_data(self):
+        return self.object.data if self.has_object else {}
+
+    def get_detail_url(self, step):
+        """
+        The detail view of the current object with #top as anchor.
+
+        Returns: string
+        """
+        if self.has_object:
+            url = reverse('{}:questionnaire_details'.format(self.url_namespace), args=[self.object.code])
+        else:
+            url = reverse('{}:questionnaire_new'.format(self.url_namespace))
+
+        return '{url}#{step}'.format(url=url, step=step)
+
+
+class GenericQuestionnaireView(QuestionnaireEditMixin, View):
+    """
+    Refactored function based view: generic_questionnaire_new
+    """
+    http_method_names = ['get']
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -555,7 +603,7 @@ class GenericQuestionnaireView(QuestionnaireEditView, View):
             questionnaire_data=self.questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
         )
-        permissions = ['edit_questionnaire'] if not self.object else self.object.get_permissions(self.request.user)
+        permissions = ['edit_questionnaire'] if not self.has_object else self.object.get_permissions(self.request.user)
 
         csrf_token = get_token(self.request) if 'edit_questionnaire' in permissions else None
 
@@ -575,7 +623,7 @@ class GenericQuestionnaireView(QuestionnaireEditView, View):
         can_edit = None
         blocked_by = None
         # Display a message regarding the state for editing (locked / available)
-        if self.object:
+        if self.has_object:
             can_edit = self.object.can_edit(request.user)
             # Display a hint about the 'blocked' status for GET requests only. For
             # post requests, this is done in the form validation.
@@ -592,7 +640,7 @@ class GenericQuestionnaireView(QuestionnaireEditView, View):
         edited_questiongroups = []
 
         # Url when switching the mode - go to the detail view.
-        if self.identifier != self.new_identifier:
+        if self.has_object:
             url = reverse('{}:questionnaire_details'.format(self.url_namespace), kwargs={'identifier': self.identifier})
         else:
             # Can't switch view mode when a new questionnaire should be created.
@@ -616,54 +664,8 @@ class GenericQuestionnaireView(QuestionnaireEditView, View):
         }
         return self.render_to_response(context=context)
 
-    def post(self, request, *args, **kwargs):
-        """
-        Save posted elements and redirect to the .get view.
-        Returns: HttpResponseRedirect
-        """
-        # handle workflow operations only.
-        # saving the questionnaire is only done in the post method of a step.
-        return redirect(self.get_detail_url())
-
-    def get_object(self):
-        """
-        Returns: questionnaires.models.Questionnaire or None
-        """
-        if self.identifier != self.new_identifier:
-            object = query_questionnaire(self.request, self.identifier).first()
-            if not object:
-                raise Http404()
-
-            try:
-                object.lock_questionnaire(object.code, self.request.user)
-            except QuestionnaireLockedException:
-                messages.warning(self.request, _("This questionnaire is locked by another user."))
-                # todo: raise ?
-                # return redirect(self.get_detail_url())
-
-            return object
-
-        return {}
-
-    @property
-    def questionnaire_data(self):
-        return {} if not self.object else self.object.data
-
-    def save_object(self):
-        pass
-
-    def get_detail_url(self):
-        """
-        The detail view of the current object with #top as anchor.
-
-        Returns: string
-        """
-        if not self.object:
-            raise Http404
-        return '{}#top'.format(reverse('{}:questionnaire_details'.format(self.url_namespace), args=[self.object.code]))
-
-    def get_template_names(self):
-        return self.template_name or '{}/questionnaire/details.html'.format(self.url_namespace)
+    def get_detail_url(self, step):
+        return super().get_detail_url(step='top')
 
     def get_review_config(self, permissions, url, **kwargs):
         """
@@ -679,10 +681,10 @@ class GenericQuestionnaireView(QuestionnaireEditView, View):
 
         """
         return {
-            'review_status': self.object.status if self.object else 0,
+            'review_status': self.object.status if self.has_object else 0,
             'csrf_token_value': get_token(self.request),
             'permissions': permissions,
-            'mode': _('view') if self.identifier != self.new_identifier else None,
+            'mode': _('view') if self.has_object else None,
             'url': url,
             'is_blocked': bool(kwargs.get('blocked_by', False)),
             'blocked_by': kwargs.get('blocked_by', '')
@@ -708,13 +710,10 @@ class GenericQuestionnaireView(QuestionnaireEditView, View):
         """
         ?
         """
-        return compare_questionnaire_data(self.object.data, self.object.data_old) if self.object else []
-
-    def get_configuration_code(self):
-        return self.configuration_code or self.url_namespace
+        return compare_questionnaire_data(self.object.data, self.object.data_old) if self.has_object else []
 
     def get_links(self):
-        if not self.object:
+        if not self.has_object:
             return None
 
         linked_questionnaires = self.object.links.all()
@@ -735,241 +734,62 @@ class GenericQuestionnaireView(QuestionnaireEditView, View):
             )
         return link_display
 
-@login_required
-@force_login_check
-def generic_questionnaire_new(
-        request, configuration_code, template, url_namespace, identifier=None):
+
+class GenericQuestionnaireStepView(QuestionnaireEditMixin, View):
     """
-    A generic view to show an entire questionnaire.
-
-    By default, the overview of the questionnaire is shown. If the form
-    was submitted, it is validated and if valid stored in the database,
-    followed by a redirect to the desired route (``success_route``).
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-        ``configuration_code`` (str): The code of the questionnaire
-        configuration.
-
-        ``template`` (str): The name and path of the template to render
-        the response with.
-
-        ``url_namespace`` (str): The namespace of the questionnaire
-        URLs. It is assumed that all questionnaire apps have the same
-        routes for their questionnaires
-        (e.g. ``wocat:questionnaire_new``)
-
-    Kwargs:
-        ``identifier`` (str): The identifier of a questionnaire if it is
-        an edit form.
-
-        ``page_title`` (str): The page title to be used in the HTML
-        template. Defaults to ``QCAT Form``.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
+    A section of the questionnaire.
     """
-    questionnaire_configuration = get_configuration(configuration_code)
-    edited_questiongroups = []
-    if identifier is not None:
-        # For edits, copy the data to the session first (if it was
-        # edited for the first time only).
-        questionnaire_object = query_questionnaire(request, identifier).first()
-        if questionnaire_object is None:
+    edit_mode = 'edit'
+
+    def get(self, request, *args, **kwargs):
+        category = self.questionnaire_configuration.get_category(self.kwargs['step'])
+        if not category:
             raise Http404()
-        try:
-            questionnaire_object.lock_questionnaire(
-                questionnaire_object.code, request.user
-            )
-        except QuestionnaireLockedException:
-            messages.warning(request, _(u"This questionnaire is locked by "
-                                        u"another user."))
 
-            return redirect('{}#top'.format(
-                reverse('{}:questionnaire_details'.format(
-                    url_namespace), args=[questionnaire_object.code])))
-
-        questionnaire_data = questionnaire_object.data
-
-        # zuerst post-daten behandeln
-
-        session_data = get_session_questionnaire(
-            request, configuration_code, identifier)
-        if session_data.get('questionnaire') is None:
-
-            old_data = questionnaire_object.data_old
-            if old_data is None:
-                old_data = questionnaire_data
-
-            questionnaire_links = get_link_data(
-                questionnaire_object.links.all())
-            save_session_questionnaire(
-                request, configuration_code, identifier,
-                questionnaire_data=questionnaire_data,
-                questionnaire_links=questionnaire_links,
-                old_questionnaire_data=old_data,
-            )
-
-            edited_questiongroups = compare_questionnaire_data(
-                questionnaire_data, old_data)
-
-        else:
-            session_questionnaire = session_data.get('questionnaire', {})
-            edited_questiongroups = compare_questionnaire_data(
-                session_questionnaire,
-                session_data.get('old_questionnaire', session_questionnaire))
-
-    else:
+        original_locale = None
         questionnaire_object = None
-        identifier = 'new'
+        if self.has_object:
+            original_locale = self.object.original_locale
+        current_locale = get_language()
+        show_translation = (original_locale is not None and current_locale != original_locale)
 
-    # weg
-    session_data = get_session_questionnaire(
-        request, configuration_code, identifier)
-    session_questionnaire = session_data.get('questionnaire', {})
-    session_links = session_data.get('links', {})
+        initial_data = get_questionnaire_data_for_translation_form(
+            self.object.data if self.has_object else {}, current_locale, original_locale)
 
-    if request.method == 'POST':
-        # nach oben --> gibt in jedem fall ein return - code läuft nicht weiter als dieser block!
-        cleaned_questionnaire_data, errors = clean_questionnaire_data(
-            session_questionnaire, questionnaire_configuration)
+        category_config, subcategories = category.get_form(
+            post_data=None, initial_data=initial_data, show_translation=show_translation, edit_mode=self.edit_mode,
+            edited_questiongroups=[], initial_links={})
 
-        if questionnaire_object and \
-                not questionnaire_object.can_edit(request.user):
-            lvl, msg = questionnaire_object.get_blocked_message(request.user)
-            errors.append(msg)
+        configuration_name = category_config.get('configuration', self.url_namespace)
 
-        if errors:
-            messages.error(
-                request, 'Something went wrong. The questionnaire cannot be '
-                'submitted because of the following errors: <br/>{}'.format(
-                    '<br/>'.join(errors)), extra_tags='safe')
-            return redirect(request.path)
+        toc_content = []
+        for subcategory_config, __ in subcategories:
+            toc_content.append((
+                subcategory_config.get('keyword'), subcategory_config.get('label'),
+                subcategory_config.get('numbering')
+            ))
 
-        if not cleaned_questionnaire_data:
-            messages.info(
-                request, _('You cannot submit an empty questionnaire'),
-                fail_silently=True)
-            return redirect(request.path)
-        else:
-            questionnaire = Questionnaire.create_new(
-                configuration_code, session_questionnaire, request.user,
-                previous_version=questionnaire_object,
-                old_data=session_data.get('old_questionnaire'))
+        view_url = ''
+        if self.has_object:
+            view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
+                               args=[self.identifier, self.kwargs['step']])
 
-            # weg
-            clear_session_questionnaire(
-                request, configuration_code, identifier)
+        return render(request, 'form/category.html', {
+            'subcategories': subcategories,
+            'config': category_config,
+            'content_subcategories_count': len(
+                [c for c in subcategories if c[1] != []]),
+            'title': _('QCAT Form'),
+            'overview_url': self.get_detail_url(self.kwargs['step']),
+            'valid': True,
+            'configuration_name': configuration_name,
+            'edit_mode': self.edit_mode,
+            'view_url': view_url,
+            'toc_content': toc_content,
+        })
 
-            for __, linked_questionnaires in session_links.items():
-                for linked in linked_questionnaires:
-                    try:
-                        link = Questionnaire.with_status.not_deleted().\
-                            get(pk=linked.get('id'))
-                    except Questionnaire.DoesNotExist:
-                        continue
-                    questionnaire.add_link(link)
+        return
 
-            messages.success(
-                request,
-                _('The questionnaire was successfully saved.'),
-                fail_silently=True)
-
-            return redirect('{}#top'.format(
-                reverse('{}:questionnaire_details'.format(
-                    url_namespace), args=[questionnaire.code])))
-
-    # ab hier: get --> questionnaire holen
-    original_locale = None
-    if questionnaire_object:
-        original_locale = questionnaire_object.original_locale
-
-    data = get_questionnaire_data_in_single_language(
-        session_questionnaire, get_language(), original_locale=original_locale)
-
-    if questionnaire_object is None:
-        permissions = ['edit_questionnaire']
-    else:
-        permissions = questionnaire_object.get_permissions(request.user)
-
-    csrf_token = None
-    if 'edit_questionnaire' in permissions:
-        csrf_token = get_token(request)
-
-    images = questionnaire_configuration.get_image_data(
-        data).get('content', [])
-
-    link_ids = []
-    for __, linked_questionnaires in session_links.items():
-        link_ids.extend([l.get('id') for l in linked_questionnaires])
-
-    links_by_configuration = {}
-    for linked in Questionnaire.with_status.not_deleted().filter(
-            id__in=link_ids
-    ):
-        configuration = linked.configurations.first()
-        if configuration is None:
-            continue
-        if configuration.code not in links_by_configuration:
-            links_by_configuration[configuration.code] = [linked]
-        else:
-            links_by_configuration[configuration.code].append(linked)
-
-    link_display = {}
-    for configuration, links in links_by_configuration.items():
-        link_display[configuration] = get_list_values(
-            configuration_code=configuration, questionnaire_objects=links,
-            with_links=False)
-
-    sections = questionnaire_configuration.get_details(
-        data, permissions=permissions,
-        edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
-        questionnaire_object=questionnaire_object, csrf_token=csrf_token,
-        edited_questiongroups=edited_questiongroups, view_mode='edit',
-        links=link_display)
-
-    # Add the configuration of the filter
-    filter_configuration = questionnaire_configuration.\
-        get_filter_configuration()
-
-    can_edit = None
-    blocked_by = None
-    # Display a message regarding the state for editing (locked / available)
-    if questionnaire_object:
-        can_edit = questionnaire_object.can_edit(request.user)
-        # Display a hint about the 'blocked' status for GET requests only. For
-        # post requests, this is done in the form validation.
-        if request.method == 'GET':
-            level, message = questionnaire_object.get_blocked_message(
-                request.user
-            )
-            blocked_by = message
-            messages.add_message(request, level, message)
-
-    # TODO: Highlight changes disabled.
-    # For the time being, the function to show changes has been
-    # disabled. Delete the following line to reenable it.
-    edited_questiongroups = []
-
-    # Url when switching the mode - go to the detail view.
-    url = reverse('{}:questionnaire_details'.format(url_namespace), kwargs={
-        'identifier': identifier}) if identifier else ''
-
-    return render(request, template, {
-        'images': images,
-        'sections': sections,
-        'questionnaire_identifier': identifier,
-        'filter_configuration': filter_configuration,
-        'permissions': permissions,
-        'edited_questiongroups': edited_questiongroups,
-        'view_mode': 'edit',
-        'is_blocked': not can_edit,
-        'toc_content': questionnaire_configuration.get_toc_data(),
-        'has_content': bool(data),
-        'review_config': {},
-        'questionnaires_in_progress': {}
-    })
 
 
 def generic_questionnaire_details(

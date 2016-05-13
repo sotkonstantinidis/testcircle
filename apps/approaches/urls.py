@@ -1,7 +1,8 @@
 from django.conf.urls import url, patterns
 
-from questionnaire.views import GenericQuestionnaireView
+from questionnaire.views import GenericQuestionnaireView, GenericQuestionnaireStepView
 
+url_namespace = 'approaches'
 urlpatterns = patterns(
     '',
     # The 'home' route points to the list
@@ -12,12 +13,12 @@ urlpatterns = patterns(
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         'approaches.views.questionnaire_view_step',
         name='questionnaire_view_step'),
-    url(r'^edit/new/$', GenericQuestionnaireView.as_view(url_namespace='approaches'),
+    url(r'^edit/new/$', GenericQuestionnaireView.as_view(url_namespace=url_namespace),
         name='questionnaire_new'),
-    url(r'^edit/(?P<identifier>[^/]+)/$', GenericQuestionnaireView.as_view(url_namespace='approaches'),
+    url(r'^edit/(?P<identifier>[^/]+)/$', GenericQuestionnaireView.as_view(url_namespace=url_namespace),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        'approaches.views.questionnaire_new_step',
+        GenericQuestionnaireStepView.as_view(url_namespace=url_namespace),
         name='questionnaire_new_step'),
     url(r'^search/links/$', 'approaches.views.questionnaire_link_search',
         name='questionnaire_link_search'),
