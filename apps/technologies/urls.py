@@ -1,5 +1,7 @@
 from django.conf.urls import url, patterns
 
+from questionnaire.views import GenericQuestionnaireView
+
 urlpatterns = patterns(
     '',
     # The 'home' route points to the list
@@ -10,9 +12,9 @@ urlpatterns = patterns(
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         'technologies.views.questionnaire_view_step',
         name='questionnaire_view_step'),
-    url(r'^edit/new/$', 'technologies.views.questionnaire_new',
+    url(r'^edit/new/$', GenericQuestionnaireView.as_view(url_namespace='technologies'),
         name='questionnaire_new'),
-    url(r'^edit/(?P<identifier>[^/]+)/$', 'technologies.views.questionnaire_new',
+    url(r'^edit/(?P<identifier>[^/]+)/$', GenericQuestionnaireView.as_view(url_namespace='technologies'),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         'technologies.views.questionnaire_new_step',

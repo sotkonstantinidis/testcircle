@@ -79,34 +79,6 @@ def questionnaire_new_step(request, identifier, step):
         page_title=_('Approaches Form'), identifier=identifier)
 
 
-@login_required
-@force_login_check
-def questionnaire_new(request, identifier=None):
-    """
-    View to show the overview of a new or edited Approaches
-    questionnaire. Also handles the form submit of the entire
-    questionnaire.
-
-    .. seealso::
-        The actual rendering of the form and the form validation is
-        handled by the generic questionnaire function
-        :func:`questionnaire.views.questionnaire_new`.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Kwargs:
-        ``identifier`` (str): The identifier of the Questionnaire
-        object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    return generic_questionnaire_new(
-        request, 'approaches', 'approaches/questionnaire/details.html',
-        'approaches', identifier=identifier)
-
-
 def questionnaire_details(request, identifier):
     """
     View to show the details of an existing Approaches questionnaire.
