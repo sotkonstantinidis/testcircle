@@ -60,15 +60,15 @@
           </div>
           {% if edit_mode == 'edit' %}
             <div class="columns small-12 medium-2 panel" data-equalizer-watch>
-              <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
-                <svg class="icon-lines is-small"><use xlink:href="#icon-upload"></use></svg>
-                {% trans "Overview" %}
+              <a id="button-submit" class="button nobr expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
+                <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-left"></use></svg>
+                {% trans "Save and back" %}
               </a>
             </div>
             <div class="columns small-12 medium-2 panel" data-equalizer-watch>
-              <a id="button-submit-goto-next-section" class="button expand is-{{ configuration_name }}">
-                <svg class="icon-lines is-small"><use xlink:href="#icon-upload"></use></svg>
-                {% trans "Next section" %}
+              <a class="button nbr expand is-{{ configuration_name }} button-submit-goto-next-section">
+                {% trans "Save and next" %}
+                <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-right"></use></svg>
               </a>
               <input type="hidden" name="goto-next-section" id="goto-next-section" value="false">
             </div>
@@ -106,9 +106,14 @@
 
       {% if edit_mode == 'edit' %}
         <div class="row">
-          <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
-            <svg class="icon-lines is-small"><use xlink:href="#icon-upload"></use></svg>{% trans "Save" %}
+          <a id="button-submit" class="button is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
+            <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-left"></use></svg>
+            {% trans "Save and go to overview" %}
           </a>
+          <a class="button nbr is-{{ configuration_name }} button-submit-goto-next-section">
+            {% trans "Save and go to next section" %}
+            <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-right"></use></svg>
+            </a>
         </div>
       {% endif %}
     </main>
@@ -124,7 +129,7 @@
 
     // Helper for 'save and to next section
     (function($) {
-      $('#button-submit-goto-next-section').click(function() {
+      $('.button-submit-goto-next-section').click(function() {
         $('#goto-next-section').val('true');
         $('#wizard-form').submit();
       });
