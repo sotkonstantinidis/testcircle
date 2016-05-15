@@ -4,6 +4,7 @@ from itertools import chain
 from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import (
@@ -586,6 +587,191 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
         return '{url}#{step}'.format(url=url, step=step)
 
 
+class QuestionnaireSaveMixin:
+    """
+    Validate and save data for object.
+    """
+    def get_success_url(self):
+        url = reverse('{}:questionnaire_edit'.format(self.url_namespace), kwargs={'identifier': self.object.code})
+        return '{}#{}'.format(url, self.kwargs['step'])
+
+    def validate(self, subcategories, original_locale):
+        data, is_valid = self._validate_formsets(subcategories, get_language(), original_locale)
+        links = {}
+        # Check if any links were modified.
+        link_questiongroups = self.category.get_link_questiongroups()
+        if link_questiongroups:
+            for link_qg in link_questiongroups:
+                link_data = data.get(link_qg, [])
+                if link_data:
+                    try:
+                        link_configuration_code = link_qg.rsplit('__', 1)[1]
+                    except IndexError:
+                        messages.error(self.request, 'There was a problem submitting the link')
+                        valid = False
+                        continue
+
+                links_in_session = links.get(
+                    link_configuration_code, [])
+
+                for link in link_data:
+                    link_id = link.get('link_id')
+                    if not link_id:
+                        continue
+
+                    try:
+                        link_object = Questionnaire.with_status.not_deleted().get(pk=link_id)
+                    except Questionnaire.DoesNotExist:
+                        messages.error(
+                            self.request, 'The linked questionnaire with ID {} does not exist'.format(link_id))
+                        valid = False
+                        continue
+
+                    # Check if the link is already in the session, in which case
+                    # there is no need to get the link data again
+                    link_found = False
+                    for old_link in links_in_session:
+                        if old_link.get('id') == link_id:
+                            link_found = True
+
+                    if link_found is False:
+                        current_link_data = get_link_data(
+                            [link_object], link_configuration_code=link_configuration_code
+                        )
+
+                        links_in_session.extend(current_link_data.get(
+                            link_configuration_code)
+                        )
+
+                links[link_configuration_code] = links_in_session
+
+        return is_valid, data, links
+
+    def can_lock_object(self):
+        # Try to lock questionnaire, raise an error if it is locked already.
+        try:
+            Questionnaire().lock_questionnaire(self.identifier, self.request.user)
+        except QuestionnaireLockedException as e:
+            return False
+        return True
+
+    def save(self, subcategories, original_locale):
+        is_valid, data, links = self.validate(subcategories, original_locale)
+
+        if not is_valid or not self.can_lock_object():
+            return self.form_invalid()
+        else:
+            return self.form_valid(data)
+
+    def form_valid(self, data):
+        # merge existing data and new data.
+        if self.has_object:
+            self.object.data.update(data)
+            data = self.object.data
+
+        # validierung des kompletten questionnaires
+        questionnaire_data, errors = clean_questionnaire_data(data, self.questionnaire_configuration)
+
+        diff_qgs = []
+        # Recalculate difference between the two diffs
+        if self.has_object:
+            q_obj = self.object
+            diff_qgs = compare_questionnaire_data(q_obj.data_old, questionnaire_data)
+
+        questionnaire = Questionnaire.create_new(
+            configuration_code=self.get_configuration_code(), data=questionnaire_data, user=self.request.user,
+            previous_version=self.object if self.has_object else None, old_data=None
+        )
+
+        messages.success(self.request, _('Data successfully saved.'))
+
+        if self.request.POST.get('goto-next-section', '') == 'true':
+            return self.get_success_url_next_section(questionnaire.code)
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self):
+        pass
+
+    def _validate_formsets(self, nested_formsets, current_locale, original_locale):
+        """
+        Helper function to validate a set of nested formsets. Unnests
+        the formsets and validates each of them. Returns the cleaned
+        data if the formsets are valid.
+
+        Args:
+            ``nested_formsets`` (list): A nested list of tuples with
+            formsets. Each tuple contains of the configuration [0] and
+            the formsets [1]
+
+            ``current_locale`` (str): The current locale.
+
+            ``original_locale`` (str): The original locale in which the
+            questionnaire was originally created.
+
+        Returns:
+            ``dict``. The cleaned data dictionary if the formsets are
+            valid. Else ``None``.
+
+            ``bool``. A boolean indicating whether the formsets are
+            valid or not.
+        """
+
+        def unnest_formets(nested_formsets):
+            """
+            Small helper function to unnest nested formsets. Returns them
+            all in a flat array.
+            """
+            ret = []
+            for __, f in nested_formsets:
+                if isinstance(f, list):
+                    ret.extend(unnest_formets(f))
+                else:
+                    ret.append(f)
+            return ret
+
+        data = {}
+        is_valid = True
+        formsets = unnest_formets(nested_formsets)
+        for formset in formsets:
+            is_valid = is_valid and formset.is_valid()
+
+            if is_valid is False:
+                return None, False
+
+            for f in formset.forms:
+                questiongroup_keyword = f.prefix.split('-')[0]
+                cleaned_data = \
+                    get_questiongroup_data_from_translation_form(
+                        f.cleaned_data, current_locale, original_locale)
+                try:
+                    data[questiongroup_keyword].append(cleaned_data)
+                except KeyError:
+                    data[questiongroup_keyword] = [cleaned_data]
+
+        return data, True
+
+    def get_success_url_next_section(self, code):
+        # The 'step' we need is the keyword of the next 'category'
+        # This category is part of the section.
+
+        # Flattened list with all categories.
+        categories = list(chain.from_iterable(
+            (section.categories for section in self.questionnaire_configuration.sections)
+        ))
+        steps = [category.keyword for category in categories]
+
+        # Current or next step may not exist - use the default
+        # redirect.
+        with contextlib.suppress(ValueError, IndexError):
+            current_step = steps.index(self.kwargs['step'])
+            url = reverse('{}:questionnaire_new_step'.format(self.url_namespace), kwargs={
+                'identifier': code,
+                'step': steps[current_step + 1]
+            })
+            return redirect(url)
+
+
 class GenericQuestionnaireView(QuestionnaireEditMixin, View):
     """
     Refactored function based view: generic_questionnaire_new
@@ -732,7 +918,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
         return link_display
 
 
-class GenericQuestionnaireStepView(QuestionnaireEditMixin, View):
+class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixin, View):
     """
     A section of the questionnaire.
     """
@@ -782,178 +968,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, View):
 
         category_config, subcategories = self.get_subcategories()
         original_locale, show_translation = self.get_locale_info()
-
-        data, valid = self._validate_formsets(subcategories, get_language(), original_locale)
-        links = {}
-        # Check if any links were modified.
-        link_questiongroups = self.category.get_link_questiongroups()
-        if link_questiongroups:
-            for link_qg in link_questiongroups:
-                link_data = data.get(link_qg, [])
-                if link_data:
-                    try:
-                        link_configuration_code = link_qg.rsplit('__', 1)[1]
-                    except IndexError:
-                        messages.error(
-                            request, 'There was a problem submitting the link')
-                        valid = False
-                        continue
-
-                links_in_session = links.get(
-                    link_configuration_code, [])
-
-                for link in link_data:
-                    link_id = link.get('link_id')
-                    if not link_id:
-                        continue
-
-                    try:
-                        link_object = Questionnaire.with_status.not_deleted(). \
-                            get(pk=link_id)
-                    except Questionnaire.DoesNotExist:
-                        messages.error(
-                            request, 'The linked questionnaire with ID {} '
-                                     'does not exist'.format(link_id))
-                        valid = False
-                        continue
-
-                    # Check if the link is already in the session, in which case
-                    # there is no need to get the link data again
-                    link_found = False
-                    for old_link in links_in_session:
-                        if old_link.get('id') == link_id:
-                            link_found = True
-
-                    if link_found is False:
-                        current_link_data = get_link_data(
-                            [link_object],
-                            link_configuration_code=link_configuration_code)
-
-                        links_in_session.extend(current_link_data.get(
-                            link_configuration_code))
-
-                links[link_configuration_code] = links_in_session
-
-        if valid is True:
-
-            # merge existing data and new data.
-            self.object.data.update(data)
-
-            # validierung des kompletten questionnaires
-            questionnaire_data, errors = clean_questionnaire_data(self.object.data, self.questionnaire_configuration)
-
-            # Try to lock questionnaire, raise an error if it is locked already.
-            try:
-                Questionnaire().lock_questionnaire(self.identifier, request.user)
-            except QuestionnaireLockedException as e:
-                errors.append(e)
-
-            if errors:
-                valid = False
-                messages.error(
-                    request, 'Something went wrong. The step cannot be saved because of the following '
-                             'errors: <br/>{}'.format('<br/>'.join(errors)), extra_tags='safe'
-                )
-            else:
-                diff_qgs = []
-                # Recalculate difference between the two diffs
-                if self.has_object:
-                    q_obj = self.object
-                    diff_qgs = compare_questionnaire_data(
-                        q_obj.data_old, questionnaire_data)
-
-                questionnaire = Questionnaire.create_new(
-                    configuration_code=self.get_configuration_code(), data=questionnaire_data, user=request.user,
-                    previous_version=self.object if self.has_object else None, old_data=None
-                )
-
-                messages.success(request, _('Data successfully saved.'))
-
-                # Functionality for 'save and continue' / 'save and next step'
-                url = reverse('{}:questionnaire_edit'.format(self.url_namespace),
-                              kwargs={'identifier': questionnaire.code})
-
-                if request.POST.get('goto-next-section', '') == 'true':
-                    # The 'step' we need is the keyword of the next 'category'
-                    # This category is part of the section.
-
-                    # Flattened list with all categories.
-                    categories = list(chain.from_iterable(
-                        (section.categories for section in self.questionnaire_configuration.sections)
-                    ))
-                    steps = [category.keyword for category in categories]
-
-                    # Current or next step may not exist - use the default
-                    # redirect.
-                    with contextlib.suppress(ValueError, IndexError):
-                        current_step = steps.index(self.kwargs['step'])
-                        url = reverse(
-                            '{}:questionnaire_new_step'.format(self.url_namespace),
-                            kwargs={
-                                'identifier': questionnaire.code,
-                                'step': steps[current_step + 1]
-                            })
-                        return redirect(url)
-
-                return redirect('{}#{}'.format(url, self.kwargs['step']))
-
-    def _validate_formsets(self, nested_formsets, current_locale, original_locale):
-        """
-        Helper function to validate a set of nested formsets. Unnests
-        the formsets and validates each of them. Returns the cleaned
-        data if the formsets are valid.
-
-        Args:
-            ``nested_formsets`` (list): A nested list of tuples with
-            formsets. Each tuple contains of the configuration [0] and
-            the formsets [1]
-
-            ``current_locale`` (str): The current locale.
-
-            ``original_locale`` (str): The original locale in which the
-            questionnaire was originally created.
-
-        Returns:
-            ``dict``. The cleaned data dictionary if the formsets are
-            valid. Else ``None``.
-
-            ``bool``. A boolean indicating whether the formsets are
-            valid or not.
-        """
-
-        def unnest_formets(nested_formsets):
-            """
-            Small helper function to unnest nested formsets. Returns them
-            all in a flat array.
-            """
-            ret = []
-            for __, f in nested_formsets:
-                if isinstance(f, list):
-                    ret.extend(unnest_formets(f))
-                else:
-                    ret.append(f)
-            return ret
-
-        data = {}
-        is_valid = True
-        formsets = unnest_formets(nested_formsets)
-        for formset in formsets:
-            is_valid = is_valid and formset.is_valid()
-
-            if is_valid is False:
-                return None, False
-
-            for f in formset.forms:
-                questiongroup_keyword = f.prefix.split('-')[0]
-                cleaned_data = \
-                    get_questiongroup_data_from_translation_form(
-                        f.cleaned_data, current_locale, original_locale)
-                try:
-                    data[questiongroup_keyword].append(cleaned_data)
-                except KeyError:
-                    data[questiongroup_keyword] = [cleaned_data]
-
-        return data, True
+        return self.save(subcategories, original_locale)
 
     def get_locale_info(self):
         """
