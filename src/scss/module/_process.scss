@@ -7,7 +7,7 @@
 
 .process > * {
   position: relative;
-  display: inline-block;
+  float: left;
   flex: 1;
   padding: rem-calc(12) rem-calc(12) rem-calc(12) rem-calc(24);
   text-align: center;
@@ -15,7 +15,6 @@
   background: rgba($color-beige-dark, 0.2);
   transition: background 300ms ease-in-out;
   cursor: pointer;
-  border-bottom: 1px solid $color-beige-light;
 
   @media #{$medium-up} {
     padding: rem-calc(12) rem-calc(24) rem-calc(12) rem-calc(36);
@@ -28,7 +27,7 @@
     content: "";
     border-top: rem-calc(24) solid transparent;
     border-bottom: rem-calc(24) solid transparent;
-    border-left: rem-calc(12) solid $color-beige;
+    border-left: rem-calc(12) solid $color-beige-light;
     position: absolute;
     right: rem-calc(-12);
     top: 0;
