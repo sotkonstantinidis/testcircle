@@ -293,6 +293,10 @@ class QuestionnaireSaveMixin:
     category = None
     url_namespace = None
 
+    def dispatch(self, request, *args, **kwargs):
+        self.errors = []
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('{}:questionnaire_edit'.format(self.url_namespace), kwargs={'identifier': self.object.code})
 
@@ -320,7 +324,7 @@ class QuestionnaireSaveMixin:
                     try:
                         link_configuration_code = link_qg.rsplit('__', 1)[1]
                     except IndexError:
-                        messages.error(self.request, 'There was a problem submitting the link')
+                        self.errors.append('There was a problem submitting the link')
                         valid = False
                         continue
 
@@ -334,8 +338,7 @@ class QuestionnaireSaveMixin:
                     try:
                         link_object = Questionnaire.with_status.not_deleted().get(pk=link_id)
                     except Questionnaire.DoesNotExist:
-                        messages.error(
-                            self.request, 'The linked questionnaire with ID {} does not exist'.format(link_id))
+                        self.errors.append('The linked questionnaire with ID {} does not exist'.format(link_id))
                         valid = False
                         continue
 
@@ -380,14 +383,17 @@ class QuestionnaireSaveMixin:
             self.object.data.update(data)
             data = self.object.data
 
-        questionnaire_data, self.errors = clean_questionnaire_data(data, self.questionnaire_configuration)
+        questionnaire_data, errors = clean_questionnaire_data(data, self.questionnaire_configuration)
+        if errors:
+            self.errors.append(errors)
         return not bool(self.errors), questionnaire_data
 
     def can_lock_object(self):
         # Try to lock questionnaire, raise an error if it is locked already.
         try:
             Questionnaire().lock_questionnaire(self.identifier, self.request.user)
-        except QuestionnaireLockedException:
+        except QuestionnaireLockedException as e:
+            self.errors.append(e)
             return False
         return True
 
@@ -416,7 +422,8 @@ class QuestionnaireSaveMixin:
                 previous_version=self.object if self.has_object else None, old_data=None
             )
             self.object = questionnaire
-        except ValidationError:
+        except ValidationError as e:
+            self.errors.append(e)
             return self.form_invalid()
 
         self.save_questionnaire_links()
@@ -424,6 +431,12 @@ class QuestionnaireSaveMixin:
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self):
+        """
+        Some errors are non-form errors and are displayed with as messages. The context (or better: the templates)
+        doesn't display the errors yet.
+        """
+        for error in self.errors:
+            messages.error(self.request, error)
         return self.render_to_response(self.get_context_data(errors=self.errors))
 
     def _validate_formsets(self, nested_formsets, current_locale, original_locale):
