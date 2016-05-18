@@ -544,9 +544,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
             # Display a hint about the 'blocked' status for GET requests only. For
             # post requests, this is done in the form validation.
             if request.method == 'GET':
-                level, message = self.object.get_blocked_message(
-                    request.user
-                )
+                level, message = self.object.get_blocked_message(request.user)
                 blocked_by = message
                 messages.add_message(request, level, message)
 
@@ -661,8 +659,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
 
     def set_attributes(self):
         """
-        Common calls (pseudo setup) for get and post
-
+        Shared calls (pseudo setup) for get and post
         """
         self.object = self.get_object()
         self.category = self.questionnaire_configuration.get_category(self.kwargs['step'])
@@ -675,33 +672,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         Display the form for the selected step,
         """
         self.set_attributes()
-
-        configuration_name = self.category_config.get('configuration', self.url_namespace)
-
-        toc_content = []
-        for subcategory_config, __ in self.subcategories:
-            toc_content.append((
-                subcategory_config.get('keyword'), subcategory_config.get('label'),
-                subcategory_config.get('numbering')
-            ))
-
-        view_url = ''
-        if self.has_object:
-            view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
-                               args=[self.identifier, self.kwargs['step']])
-
-        return self.render_to_response({
-            'subcategories': self.subcategories,
-            'config': self.category_config,
-            'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
-            'title': _('QCAT Form'),
-            'overview_url': self.get_detail_url(self.kwargs['step']),
-            'valid': True,
-            'configuration_name': configuration_name,
-            'edit_mode': self.edit_mode,
-            'view_url': view_url,
-            'toc_content': toc_content,
-        })
+        return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):
         self.set_attributes()
@@ -750,6 +721,43 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             edited_questiongroups=[], initial_links={}
         )
         return category_config, subcategories
+
+    def get_toc_content(self):
+        toc_content = []
+        for subcategory_config, __ in self.subcategories:
+            toc_content.append((
+                subcategory_config.get('keyword'), subcategory_config.get('label'),
+                subcategory_config.get('numbering')
+            ))
+        return toc_content
+
+    def get_context_data(self, **kwargs):
+        """
+        Provide all info required to display a single step of the form.
+
+        Returns: dict
+
+        """
+        ctx = super().get_context_data(**kwargs)
+
+        view_url = ''
+        if self.has_object:
+            view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
+                               args=[self.identifier, self.kwargs['step']])
+
+        ctx.update({
+            'subcategories': self.subcategories,
+            'config': self.category_config,
+            'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
+            'title': _('QCAT Form'),
+            'overview_url': self.get_detail_url(self.kwargs['step']),
+            'valid': True,
+            'configuration_name': self.category_config.get('configuration', self.url_namespace),
+            'edit_mode': self.edit_mode,
+            'view_url': view_url,
+            'toc_content': self.get_toc_content(),
+        })
+        return ctx
 
 
 def generic_questionnaire_details(
