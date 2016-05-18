@@ -1,3 +1,4 @@
+import collections
 import contextlib
 from itertools import chain
 
@@ -529,6 +530,8 @@ class QuestionnaireSaveMixin:
     def save_questionnaire_links(self):
         """
         Save the linked questionnaires to for the current object.
+
+        Todo: clarify - should we use Questionnaire.add_link ?
         """
         if not hasattr(self, 'links') or not self.links:
             return
@@ -587,11 +590,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
         edited_questiongroups = []
 
         # Url when switching the mode - go to the detail view.
-        if self.has_object:
-            url = self.get_detail_url(step='')
-        else:
-            # Can't switch view mode when a new questionnaire should be created.
-            url = ''
+        url = self.get_detail_url(step='') if self.has_object else ''
 
         context = {
             'images': images,
@@ -662,23 +661,18 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
 
     def get_links(self):
         """
-        todo: clarify everything with links.
-        Returns:
+        Prepare links as expected by the template.
 
+        Returns: dict
         """
         if not self.has_object:
             return None
 
-        linked_questionnaires = self.object.links.all()
-        links_by_configuration = {}
+        linked_questionnaires = self.object.links.filter(configurations__isnull=False)
+        links_by_configuration = collections.defaultdict(list)
+
         for linked in linked_questionnaires:
-            configuration = linked.configurations.first()
-            if configuration is None:
-                continue
-            if configuration.code not in links_by_configuration:
-                links_by_configuration[configuration.code] = [linked]
-            else:
-                links_by_configuration[configuration.code].append(linked)
+            links_by_configuration[linked.configurations.first().code].append(linked)
 
         link_display = {}
         for configuration, links in links_by_configuration.items():
