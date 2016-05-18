@@ -1367,3 +1367,16 @@ def prepare_list_values(data, config, **kwargs):
     )
 
     return data
+
+
+def get_review_config_dict(status, token, permissions, view_mode, url, is_blocked, blocked_by, form_url):
+    return {
+        'review_status': status,
+        'csrf_token_value': token,
+        'permissions': permissions,
+        'mode': view_mode,
+        'url': url,
+        'is_blocked': is_blocked,
+        'blocked_by': blocked_by,
+        'form_action_url': form_url
+    }

@@ -4,7 +4,6 @@ from itertools import chain
 from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import (
@@ -49,7 +48,7 @@ from .utils import (
     query_questionnaires_for_link,
     query_questionnaire,
     query_questionnaires,
-)
+    get_review_config_dict)
 from .view_utils import (
     ESPagination,
     get_page_parameter,
@@ -515,6 +514,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
         Display the questionnaire overview.
         """
         self.object = self.get_object()
+
         data = get_questionnaire_data_in_single_language(
             questionnaire_data=self.questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
@@ -557,7 +557,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
 
         # Url when switching the mode - go to the detail view.
         if self.has_object:
-            url = reverse('{}:questionnaire_details'.format(self.url_namespace), kwargs={'identifier': self.identifier})
+            url = self.get_detail_url(step='')
         else:
             # Can't switch view mode when a new questionnaire should be created.
             url = ''
@@ -596,15 +596,16 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
         Returns: dict
 
         """
-        return {
-            'review_status': self.object.status if self.has_object else 0,
-            'csrf_token_value': get_token(self.request),
-            'permissions': permissions,
-            'mode': _('view') if self.has_object else None,
-            'url': url,
-            'is_blocked': bool(kwargs.get('blocked_by', False)),
-            'blocked_by': kwargs.get('blocked_by', '')
-        }
+        return get_review_config_dict(
+            status=self.object.status if self.has_object else 0,
+            token=get_token(self.request),
+            permissions=permissions,
+            view_mode=_('view') if self.has_object else None,
+            url=url,
+            is_blocked=bool(kwargs.get('blocked_by', False)),
+            blocked_by=kwargs.get('blocked_by', ''),
+            form_url=self.get_detail_url(step='')
+        )
 
     def questionnaires_in_progress(self):
         """
@@ -794,15 +795,25 @@ def generic_questionnaire_details(
     permissions = questionnaire_object.get_permissions(request.user)
 
     review_config = {}
-    if request.user.is_authenticated() \
-            and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
+    if request.user.is_authenticated() and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
         # Show the review panel only if the user is logged in and if the
         # version shown is not active (public).
         blocked_by = None
         if not questionnaire_object.can_edit(request.user):
             lvl, blocked_by = questionnaire_object.get_blocked_message(request.user)
 
-        review_config = {}
+        review_config = get_review_config_dict(
+            status=questionnaire_object.status,
+            token=get_token(request),
+            permissions=permissions,
+            view_mode=_('edit'),
+            url=reverse('{}:questionnaire_edit'.format(url_namespace),
+                        kwargs={'identifier': questionnaire_object.code}),
+            is_blocked=bool(blocked_by),
+            blocked_by=blocked_by,
+            form_url=reverse('{}:questionnaire_details'.format(url_namespace),
+                             kwargs={'identifier': questionnaire_object.code})
+        )
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
