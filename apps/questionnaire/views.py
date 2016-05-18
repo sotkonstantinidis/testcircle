@@ -4,6 +4,7 @@ from itertools import chain
 from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import (
@@ -323,8 +324,7 @@ class QuestionnaireSaveMixin:
                         valid = False
                         continue
 
-                links_in_session = links.get(
-                    link_configuration_code, [])
+                links_in_session = links.get(link_configuration_code, [])
 
                 for link in link_data:
                     link_id = link.get('link_id')
@@ -351,15 +351,15 @@ class QuestionnaireSaveMixin:
                             [link_object], link_configuration_code=link_configuration_code
                         )
 
-                        links_in_session.extend(current_link_data.get(
-                            link_configuration_code)
-                        )
+                        links_in_session.extend(current_link_data.get(link_configuration_code))
 
                 links[link_configuration_code] = links_in_session
 
         if not is_valid:
             return is_valid, data
         else:
+            # Links will be saved only when everything is valid.
+            self.links = links
             # Merge validated data to complete questionnaire and validate this again.
             return self.merge_and_validate(data)
 
@@ -373,7 +373,7 @@ class QuestionnaireSaveMixin:
         Returns:
             tuple: is_valid, data
 
-        Todo: discuss with lukas: what happens if the section data is valid, but the whole questionnaire is inva
+        Todo: discuss with lukas: what happens if the section data is valid, but the whole questionnaire is invalid?
 
         """
         if self.has_object:
@@ -387,7 +387,7 @@ class QuestionnaireSaveMixin:
         # Try to lock questionnaire, raise an error if it is locked already.
         try:
             Questionnaire().lock_questionnaire(self.identifier, self.request.user)
-        except QuestionnaireLockedException as e:
+        except QuestionnaireLockedException:
             return False
         return True
 
@@ -410,12 +410,16 @@ class QuestionnaireSaveMixin:
             q_obj = self.object
             diff_qgs = compare_questionnaire_data(q_obj.data_old, data)
 
-        questionnaire = Questionnaire.create_new(
-            configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
-            previous_version=self.object if self.has_object else None, old_data=None
-        )
-        self.object = questionnaire
+        try:
+            questionnaire = Questionnaire.create_new(
+                configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
+                previous_version=self.object if self.has_object else None, old_data=None
+            )
+            self.object = questionnaire
+        except ValidationError:
+            return self.form_invalid()
 
+        self.save_questionnaire_links()
         messages.success(self.request, _('Data successfully saved.'))
         return HttpResponseRedirect(self.get_success_url())
 
@@ -508,6 +512,18 @@ class QuestionnaireSaveMixin:
                 'step': steps[current_step + 1]
             })
             return HttpResponseRedirect(url)
+
+    def save_questionnaire_links(self):
+        """
+        Save the linked questionnaires to for the current object.
+        """
+        if not hasattr(self, 'links') or not self.links:
+            return
+        for __, linked_questionnaires in self.links.items():
+            for linked in linked_questionnaires:
+                with contextlib.suppress(Questionnaire.DoesNotExist):
+                    link = Questionnaire.objects.get(pk=linked.get('id'))
+                    self.object.add_link(link)
 
 
 class GenericQuestionnaireView(QuestionnaireEditMixin, View):
