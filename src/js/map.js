@@ -1,9 +1,14 @@
 (function ($) {
 
-    var geomFormat = new ol.format.GeoJSON();
+    var dataProjection = 'EPSG:4326';
+    var featureProjection = 'EPSG:3857';
+    var geomFormat = new ol.format.GeoJSON({
+        defaultDataProjection: dataProjection
+    });
 
     $('.map-form-container').each(function() {
         var mapContainer = this;
+        var deleteMode = false;
 
         // The default style for features on the map.
         var defaultStyle = new ol.style.Style({
@@ -51,27 +56,66 @@
         var vector_source = new ol.source.Vector();
         var vector_layer = new ol.layer.Vector({
             source: vector_source,
-            style: defaultStyle
+            style: defaultStyle,
+            name: 'vector'
         });
+
+        // Base layers
+        // https://leaflet-extras.github.io/leaflet-providers/preview/
+        var layers = [
+            new ol.layer.Tile({
+                name: 'osm',
+                source: new ol.source.OSM()
+            }),
+            new ol.layer.Tile({
+                name: 'aerial',
+                visible: false,
+                source: new ol.source.XYZ({
+                    attributions: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+                    url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                })
+            }),
+            new ol.layer.Tile({
+                name: 'opentopo',
+                visible: false,
+                source: new ol.source.XYZ({
+                    attributions: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+                    url: 'http://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                })
+            }),
+            new ol.layer.Tile({
+                name: 'landscape',
+                visible: false,
+                source: new ol.source.XYZ({
+                    attributions: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                    url: 'http://{a-c}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
+                })
+            }),
+            new ol.layer.Tile({
+                name: 'worldtopo',
+                visible: false,
+                source: new ol.source.XYZ({
+                    attributions: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
+                    url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+                })
+            }),
+            vector_layer
+        ];
 
         // Map container.
         var map = new ol.Map({
             target: mapContainer,
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.MapQuest({layer: 'sat'})
-                }),
-                vector_layer
-            ],
+            layers: layers,
             view: new ol.View({
-                projection: 'EPSG:4326',
                 center: [0, 0],
-                zoom: 2
+                zoom: 2,
+                minZoom: 2,
+                maxZoom: 20
             })
         });
 
         // The hidden input field where the coordinates are stored.
-        var coordinatesField = $(mapContainer).next(
+        var coordinatesField = $(mapContainer).closest('.map-container').next(
             '.single-item').find('input:hidden');
 
         // The current interaction mode.
@@ -152,16 +196,20 @@
         if (coordinatesField.val()) {
             // Put initial features on map and set interaction type: Modify.
             // Zoom to features.
-            var features = geomFormat.readFeatures(coordinatesField.val());
+            var features = geomFormat.readFeatures(coordinatesField.val(), {
+                featureProjection: featureProjection
+            });
+
             vector_source.addFeatures(features);
             interactionSwitch.filter(
                 '[value="modify"]').attr('checked', true).trigger('change');
             zoomToFeatures();
+            toggleDeleteMode(true);
         } else {
             // Set initial interaction type: Draw.
-            //interactionSwitch.filter('[value="draw"]').click();
             interactionSwitch.filter(
                 '[value="draw"]').attr('checked', true).trigger('change');
+            toggleDeleteMode(false);
         }
 
         // Listen to changes on the vector layer.
@@ -181,19 +229,34 @@
             if (!coords.valid) {
                 $(msg).html(coords.msg).addClass('error');
             } else {
-                var feature = new ol.Feature(new ol.geom.Point(coords.coords));
+                var coords_transformed = ol.proj.transform(coords.coords, dataProjection, featureProjection)
+                var feature = new ol.Feature(new ol.geom.Point(coords_transformed));
                 vector_source.addFeatures([feature]);
-                $(msg).html('A point was added.').addClass('success');
+                $(msg).html('The point was successfully added.').addClass('success');
                 coordsField.val('');
             }
             logField.html(msg);
         });
 
         $('.map-coordinates-show').click(function() {
-            toggleCoordinates(true);
+            var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-coordinates').toggle();
         });
         $('.map-coordinates-close').click(function() {
-            toggleCoordinates(false);
+            var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-coordinates').toggle(false);
+        });
+
+        $('[name="map-layers"]').on('change', function(e) {
+            toggleLayer(this.value);
+        });
+        $('.map-layers-show').click(function() {
+            var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-layers').toggle();
+        });
+        $('.map-layers-close').click(function() {
+            var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-layers').toggle(false);
         });
 
         /**
@@ -213,11 +276,54 @@
         function saveFeatures() {
             var features = vector_source.getFeatures();
             if (features.length) {
-                coordinatesField.val(geomFormat.writeFeatures(features));
+                coordinatesField.val(geomFormat.writeFeatures(features, {
+                    featureProjection: featureProjection
+                }));
+                toggleDeleteMode(true);
             } else {
                 coordinatesField.val('');
+                toggleDeleteMode(false);
             }
         }
+
+        
+        /**
+         * Enable or disable the buttons to modify/edit existing points.
+         * @param enabled
+         */
+        function toggleDeleteMode(enabled) {
+            if (enabled != deleteMode) {
+                // Mode changed
+                deleteMode = enabled;
+                var btnToggle = $(mapContainer).closest('.map-container').find('.map-btn-toggle');
+                btnToggle.each(function() {
+                    $(this).toggleClass('map-btn-disabled', !deleteMode);
+                    $('#' + $(this).attr('for')).prop('disabled', !deleteMode);
+                });
+                if (!deleteMode) {
+                    // No points left, deactivate modify and delete mode if enabled.
+                    interactionSwitch.filter(
+                        '[value="delete"]').attr('checked', false).trigger('change');
+                    interactionSwitch.filter(
+                        '[value="modify"]').attr('checked', false).trigger('change');
+                }
+            }
+        }
+
+
+        /**
+         * Toggle the visibility of a certain layer while hiding all the others.
+         * Never hide the layer with name "vector" (the one used for the points)
+         * @param layername
+         */
+        function toggleLayer(layername) {
+            for (var i=0; i<layers.length; i++) {
+                console.log(layers[i].get('name'));
+                var layer = layers[i];
+                layer.set('visible', (layer.get('name') == layername || layer.get('name') == 'vector'));
+            }
+        }
+
 
         /**
          * Zoom to all features on the map.
@@ -238,16 +344,6 @@
             interactionSwitch.filter(
                 '[value="draw"]').attr('checked', true).trigger('change');
         });
-
-        /**
-         * Toggle the field for parsing coordinates. Hides the control panel.
-         * @param show
-         */
-        function toggleCoordinates(show) {
-            var listItem = $(mapContainer).closest('.list-item');
-            listItem.find('.map-controls').toggle(!show);
-            listItem.find('.map-coordinates').toggle(show);;
-        }
 
     });
 
