@@ -7,6 +7,7 @@
 
 .process > * {
   position: relative;
+  display: inline-block; // prevent spaces between inline-block elements.
   float: left;
   flex: 1;
   padding: rem-calc(12) rem-calc(12) rem-calc(12) rem-calc(24);
@@ -22,26 +23,30 @@
   &:last-child {
     border-top-right-radius: $global-radius;
     border-bottom-right-radius: $global-radius;
+    &:after {
+      right: rem-calc(-13);
+    }
   }
   &:after {
     content: "";
     border-top: rem-calc(24) solid transparent;
     border-bottom: rem-calc(24) solid transparent;
-    border-left: rem-calc(12) solid $color-beige-light;
+    border-left: rem-calc(14) solid $color-beige;
     position: absolute;
-    right: rem-calc(-12);
+    right: rem-calc(-14);
     top: 0;
-    z-index: 1;
     transition: border-color 300ms ease-in-out;
+    z-index: 2;
   }
   &:before {
     content: "";
     border-top: rem-calc(24) solid transparent;
     border-bottom: rem-calc(24) solid transparent;
-    border-left: rem-calc(12) solid white;
+    border-left: rem-calc(14) solid white;
     position: absolute;
-    left: 0;
+    left: rem-calc(1);
     top: 0;
+    z-index: 1;
   }
   &:first-child:before {
     content: " ";
@@ -57,6 +62,9 @@
     border-bottom: none;
     &:after {
       border-left-color: white;
+    }
+    +:before {
+      left: 0;
     }
   }
 }

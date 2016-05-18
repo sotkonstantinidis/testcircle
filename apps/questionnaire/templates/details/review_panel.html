@@ -8,7 +8,7 @@
   <section class="row review-panel-content{% if review_css_class %} {{ review_css_class }}{% endif %}">
   <div class="small-12 columns">
 
-    <ol class="process">
+    <ol class="process clearfix">
       <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
       <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Draft" %}</li>
       <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
