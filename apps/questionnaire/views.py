@@ -32,6 +32,8 @@ from questionnaire.upload import (
     retrieve_file,
     UPLOAD_THUMBNAIL_CONTENT_TYPE,
 )
+from search.search import advanced_search
+
 from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File
 from .utils import (
@@ -56,7 +58,6 @@ from .view_utils import (
     get_paginator,
     get_limit_parameter,
 )
-from search.search import advanced_search
 from .conf import settings
 
 
@@ -205,7 +206,9 @@ def generic_questionnaire_view_step(
 
 class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     """
-    Base class for all views that are used to update a questionnaire.
+    Base class for all views that are used to update a questionnaire. At least the url_namespace must be set
+    when using this view.
+
     """
     new_identifier = 'new'
     questionnaire_configuration = None
@@ -237,21 +240,19 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
 
     def get_object(self):
         """
-        Returns: questionnaires.models.Questionnaire or None
+        Returns: questionnaires.models.Questionnaire or {}
         """
         if self.has_object:
-            object = query_questionnaire(self.request, self.identifier).first()
-            if not object:
+            obj = query_questionnaire(self.request, self.identifier).first()
+            if not obj:
                 raise Http404()
 
             try:
-                object.lock_questionnaire(object.code, self.request.user)
+                obj.lock_questionnaire(obj.code, self.request.user)
             except QuestionnaireLockedException:
                 messages.warning(self.request, _("This questionnaire is locked by another user."))
-                # todo: raise ?
-                # return redirect(self.get_detail_url())
 
-            return object
+            return obj
 
         return {}
 
@@ -273,6 +274,12 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
         return '{url}#{step}'.format(url=url, step=step)
 
     def get_context_data(self, **kwargs):
+        """
+        The context data of the view. The required content is based on the previously existing views and the template
+        markup.
+
+        Returns: dict
+        """
         if 'view' not in kwargs:
             kwargs['view'] = self
         return kwargs
@@ -280,7 +287,7 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
 
 class QuestionnaireSaveMixin:
     """
-    Validate and save data for object.
+    Validate and save data for object. Errors are written to
     """
     category = None
     url_namespace = None
@@ -413,7 +420,7 @@ class QuestionnaireSaveMixin:
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self):
-        return self.render_to_response(self.get_context_data())
+        return self.render_to_response(self.get_context_data(errors=self.errors))
 
     def _validate_formsets(self, nested_formsets, current_locale, original_locale):
         """
@@ -541,12 +548,9 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
         # Display a message regarding the state for editing (locked / available)
         if self.has_object:
             can_edit = self.object.can_edit(request.user)
-            # Display a hint about the 'blocked' status for GET requests only. For
-            # post requests, this is done in the form validation.
-            if request.method == 'GET':
-                level, message = self.object.get_blocked_message(request.user)
-                blocked_by = message
-                messages.add_message(request, level, message)
+            level, message = self.object.get_blocked_message(request.user)
+            blocked_by = message
+            messages.add_message(request, level, message)
 
         # TODO: Highlight changes disabled.
         # For the time being, the function to show changes has been
@@ -628,6 +632,11 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
         return compare_questionnaire_data(self.object.data, self.object.data_old) if self.has_object else []
 
     def get_links(self):
+        """
+        todo: clarify everything with links.
+        Returns:
+
+        """
         if not self.has_object:
             return None
 
@@ -675,6 +684,12 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):
+        """
+        Validate and save the data. If valid, a redirect to the .get() view is returned (Post-Redirect-Get)
+
+        Returns: HttpResponse
+
+        """
         self.set_attributes()
         original_locale, show_translation = self.get_locale_info()
         return self.save(self.subcategories, original_locale)
@@ -684,6 +699,10 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         return '{}#{}'.format(url, self.kwargs['step'])
 
     def form_valid(self, data):
+        """
+        Handle special case if the user clicks on 'save and go to next section'
+
+        """
         response = super().form_valid(data)
 
         if self.request.POST.get('goto-next-section', '') == 'true':
@@ -693,6 +712,8 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
 
     def get_locale_info(self):
         """
+        Get the original locale of the current object.
+
         Returns: tuple (original_locale, show_translation)
         """
         original_locale = None
@@ -704,9 +725,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
 
     def get_subcategories(self):
         """
-
         Returns: tuple (category_config, subcategories)
-
         """
         original_locale, show_translation = self.get_locale_info()
 
@@ -736,7 +755,6 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         Provide all info required to display a single step of the form.
 
         Returns: dict
-
         """
         ctx = super().get_context_data(**kwargs)
 
