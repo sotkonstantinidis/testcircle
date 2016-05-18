@@ -9,7 +9,6 @@ from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_link_search,
     generic_questionnaire_list,
-    generic_questionnaire_new_step,
     generic_questionnaire_view_step,
 )
 
@@ -47,35 +46,6 @@ def questionnaire_view_step(request, identifier, step):
     return generic_questionnaire_view_step(
         request, identifier, step, 'technologies',
         page_title=_('Technologies'))
-
-
-@login_required
-@force_login_check
-def questionnaire_new_step(request, identifier, step):
-    """
-    View to show the form of a single step of a new Technologies
-    questionnaire. Also handles the form submit of the step along with
-    its validation and redirect.
-
-    .. seealso::
-        The actual rendering of the form and the form validation is
-        handled by the generic questionnaire function
-        :func:`questionnaire.views.questionnaire_new_step`.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-        ``identifier`` (str): The identifier of the Questionnaire
-        object.
-
-        ``step`` (str): The code of the questionnaire category.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    return generic_questionnaire_new_step(
-        request, step, 'technologies', 'technologies',
-        page_title=_('Technologies Form'), identifier=identifier)
 
 
 def questionnaire_details(request, identifier):
