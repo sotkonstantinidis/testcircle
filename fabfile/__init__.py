@@ -1,3 +1,5 @@
+import contextlib
+import urllib.request
 from os.path import join, dirname
 
 import envdir
@@ -32,6 +34,7 @@ ENVIRONMENTS = {
         'host_string': settings.HOST_STRING_LIVE,
         'opbeat_url': settings.OPBEAT_URL_LIVE,
         'opbeat_bearer': settings.OPBEAT_BEARER_LIVE,
+        'url': 'https://qcat.wocat.net/{}/wocat/',
     },
     'common': {
         'project_name': 'qcat',
@@ -97,6 +100,7 @@ def deploy():
     _set_maintenance_mode(False, env.source_folder)
     _rebuild_configuration_cache()
     print(green("Everything OK"))
+    _access_project()
 
 
 @task
@@ -192,6 +196,17 @@ def _set_maintenance_mode(value, source_folder):
 def _rebuild_configuration_cache():
     run('cd %s && ../virtualenv/bin/python3 manage.py build_config_caches' %
         env.source_folder)
+
+
+def _access_project():
+    """
+    Call the homepage of the project for given branch if an url is set. This is a cheap way to fill the lru cache.
+    """
+    if hasattr(env, 'url'):
+        for lang in settings.LANGUAGES:
+            with contextlib.closing(urllib.request.urlopen(env.url.format(lang[0]))) as request:
+                request.read()
+
 
 @task
 @runs_once

@@ -116,6 +116,9 @@
       function startIntro() {
         introJs().setOptions({
             skipLabel: '{% trans "Close" %}',
+            nextLabel: '{% trans 'Next' %}' + ' &#8594;',
+            prevLabel: '{% trans 'Back' %}' + ' &#8592;',
+            doneLabel: '{% trans 'Done' %}',
             showStepNumbers: false,
             steps: [
               {

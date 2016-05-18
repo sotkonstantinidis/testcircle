@@ -39,7 +39,7 @@ class CreateThumbnailsTest(TestCase):
     @patch('questionnaire.upload.subprocess')
     def test_calls_subprocess(self, mock_subprocess, mock_os):
         create_thumbnails('path', 'content_type')
-        mock_subprocess.call.assert_call_count(3)
+        self.assertEqual(mock_subprocess.call.call_count, 3)
 
 
 @patch('questionnaire.upload.os.makedirs')

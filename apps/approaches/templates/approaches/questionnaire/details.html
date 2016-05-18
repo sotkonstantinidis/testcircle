@@ -77,10 +77,13 @@
       function startIntro() {
         introJs().setOptions({
             skipLabel: '{% trans "Close" %}',
+            nextLabel: '{% trans 'Next' %}' + ' &#8594;',
+            prevLabel: '{% trans 'Back' %}' + ' &#8592;',
+            doneLabel: '{% trans 'Done' %}',
             showStepNumbers: false,
             steps: [
               {
-                intro: '{% trans "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to take a tour explaining the functions on this page.</p>" %}',
+                intro: '{% trans '<p>Welcome to the help section of the Questionnaire!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
                 element: document.querySelector('#show_help'),
                 position: 'top'
               },

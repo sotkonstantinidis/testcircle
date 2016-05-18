@@ -147,6 +147,16 @@ section.row.section-bottom-margin {
   margin-bottom: 0.5rem;
 }
 
+input[type=checkbox].cb-long-label {
+  float: left;
+  margin-top: 0.3rem;
+
+  + label {
+    display: table;
+    margin-left: 1.5rem;
+  }
+}
+
 fieldset.row.has-changes {
   border-color: $primary-color;
 }

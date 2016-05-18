@@ -676,7 +676,7 @@ class GenericFileUploadTest(TestCase):
     def test_calls_handle_upload(self, mock_handle_upload, mock_get_data):
         mock_get_data.return_value = {}
         generic_file_upload(self.mock_request)
-        mock_handle_upload.assert_called_once()
+        self.assertTrue(mock_handle_upload.called)
 
     def test_handles_exception_by_handle_upload(self):
         res = generic_file_upload(self.request)
