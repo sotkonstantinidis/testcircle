@@ -13,6 +13,21 @@ $map-height: 400px;
 
     background-color: $color-brown-light;
 
+    &.button-feature-count {
+      width: $controls-width;
+      height: 24px;
+      background-color: $color-beige-light;
+      border: 1px solid $color-beige-dark;
+      color: $color-beige-dark;
+      font-weight: bold;
+      padding: 0;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: $color-beige-light;
+      }
+    }
+
     &.map-btn-danger {
       background-color: rgba(255, 0, 0, 0.5);
 
@@ -67,28 +82,24 @@ $map-height: 400px;
   margin-left: $controls-width;
 }
 
-.map-coordinates, .map-layers {
+.map-coordinates, .map-layers, .map-search {
   position: absolute;
-  z-index: 100;
+  z-index: 1;
   background: $color-brown-light;
   margin-left: $controls-width;
   height: $map-height;
-  width: 40%;
+  width: 300px;
 
-  label, svg, p, h3 {
+  label, svg, p {
     color: white;
-  }
-
-  h3 {
-    margin-bottom: 0.75rem;
   }
 }
 
-.map-coordinates-parse, .map-layers-list {
+.map-coordinates-parse, .map-layers-list, .map-search-container {
   padding: 1rem;
 }
 
-.map-coordinates-close, .map-layers-close {
+.map-coordinates-close, .map-layers-close, .map-search-close {
   position: absolute;
   top: 0.3rem;
   right: 0;
@@ -110,4 +121,8 @@ $map-height: 400px;
 
 .button-parse-coordinates {
   height: 2.25rem;
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
 }

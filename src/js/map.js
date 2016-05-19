@@ -240,6 +240,7 @@
 
         $('.map-coordinates-show').click(function() {
             var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-menu').not('.map-coordinates').hide();
             listItem.find('.map-coordinates').toggle();
         });
         $('.map-coordinates-close').click(function() {
@@ -252,11 +253,28 @@
         });
         $('.map-layers-show').click(function() {
             var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-menu').not('.map-layers').hide();
             listItem.find('.map-layers').toggle();
         });
         $('.map-layers-close').click(function() {
             var listItem = $(mapContainer).closest('.list-item');
             listItem.find('.map-layers').toggle(false);
+        });
+
+        $('.map-search-show').click(function() {
+            var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-menu').not('.map-search').hide();
+            listItem.find('.map-search').toggle();
+        });
+        $('.map-search-close').click(function() {
+            var listItem = $(mapContainer).closest('.list-item');
+            listItem.find('.map-search').toggle(false);
+        });
+
+        $('.map-change-size').click(function() {
+            var container = $(mapContainer);
+            container.height(container.height() == 400 ? 700 : 400);
+            map.updateSize();
         });
 
         /**
@@ -286,7 +304,7 @@
             }
         }
 
-        
+
         /**
          * Enable or disable the buttons to modify/edit existing points.
          * @param enabled
@@ -308,6 +326,9 @@
                         '[value="modify"]').attr('checked', false).trigger('change');
                 }
             }
+            // Update feature count button
+            $(mapContainer).closest('.map-container').find('.button-feature-count')
+                .html(vector_source.getFeatures().length);
         }
 
 
@@ -318,7 +339,6 @@
          */
         function toggleLayer(layername) {
             for (var i=0; i<layers.length; i++) {
-                console.log(layers[i].get('name'));
                 var layer = layers[i];
                 layer.set('visible', (layer.get('name') == layername || layer.get('name') == 'vector'));
             }
@@ -329,8 +349,10 @@
          * Zoom to all features on the map.
          */
         function zoomToFeatures() {
-            if (vector_source.getFeatures().length) {
+            featureCount = vector_source.getFeatures().length;
+            if (featureCount) {
                 map.getView().fit(vector_source.getExtent(), map.getSize());
+                map.getView().setZoom(Math.min(map.getView().getZoom(), 15));
             }
         }
 
@@ -344,6 +366,71 @@
             interactionSwitch.filter(
                 '[value="draw"]').attr('checked', true).trigger('change');
         });
+
+        if ($.fn.autocomplete) {
+            $('.map-search-field').autocomplete({
+                source: function(request, response) {
+                    var thisElement = $(this.element);
+                    var translationNoResults = thisElement.data('translation-no-results');
+                    var translationTooManyResults = thisElement.data('translation-too-many-results');
+                    var currentLocale = thisElement.data('current-locale');
+                    $.ajax({
+                        url: 'http://api.geonames.org/searchJSON',
+                        dataType: 'json',
+                        data: {
+                            username: 'wocat_webdev',
+                            lang: currentLocale,
+                            maxRows: 10,
+                            name_startsWith: request.term
+                        },
+                        success: function(data) {
+                            if (data.totalResultsCount == 0) {
+                                // No results
+                                var result = [
+                                    {
+                                        error: translationNoResults
+                                    }
+                                ];
+                                return response(result);
+                            }
+                            var res = data.geonames;
+                            if (data.totalResultsCount > 10) {
+                                var moreResults = data.totalResultsCount - 10;
+                                // Too many results
+                                res.push({
+                                    error: '(' + moreResults + ') ' + translationTooManyResults
+                                });
+                            }
+                            return response(res);
+                        }
+                    });
+                },
+                create: function() {
+                    $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
+                        var displayName = item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName;
+                        if (item.error) {
+                            displayName = item.error;
+                        }
+                        return $('<li>')
+                            .append('<a>' + displayName + '</a>')
+                            .appendTo(ul);
+                    }
+                },
+                select: function(event, ui) {
+                    if (ui.item.error) {
+                        return false;
+                    }
+                    var lat = parseFloat(ui.item.lat);
+                    var lng = parseFloat(ui.item.lng);
+                    if (isNaN(lat) || isNaN(lng)) {
+                        return false;
+                    }
+
+                    map.getView().setCenter(ol.proj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857'));
+                    map.getView().setZoom(15);
+                }
+            });
+        }
 
     });
 
