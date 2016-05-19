@@ -12,7 +12,7 @@ class BaseTemplateTest(FunctionalTest):
     def test_warning_is_displayed(self, mock_questionnaire_list):
         mock_questionnaire_list.return_value = {}
         with self.settings(WARN_HEADER='FOO'):
-            self.browser.get(self.live_server_url + reverse('home'))
+            self.browser.get(self.live_server_url + reverse('about'))
             # Check if the warning box is displayed
             is_displayed = self.browser.find_element_by_class_name(
                 'demo-version'

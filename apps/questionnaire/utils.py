@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
+from django.utils.functional import Promise
 from django.utils.translation import ugettext as _, get_language
 
 from configuration.cache import get_configuration
@@ -294,7 +295,8 @@ def is_valid_questionnaire_format(questionnaire_data):
     return True
 
 
-def get_questionnaire_data_in_single_language(questionnaire_data, locale):
+def get_questionnaire_data_in_single_language(
+        questionnaire_data, locale, original_locale=None):
     """
     Returns a questionnaire data dictionary in a single language. For
     translated values, the dictionary value containing the translations
@@ -341,7 +343,8 @@ def get_questionnaire_data_in_single_language(questionnaire_data, locale):
             qg_data_sl = {}
             for key, value in questiongroup_data.items():
                 if isinstance(value, dict):
-                    qg_data_sl[key] = value.get(locale)
+                    qg_data_sl[key] = value.get(
+                        locale, value.get(original_locale))
                 else:
                     qg_data_sl[key] = value
             qg_sl.append(qg_data_sl)
@@ -415,7 +418,8 @@ def get_questionnaire_data_for_translation_form(
             for key, value in questiongroup_data.items():
                 if isinstance(value, dict):
                     qg_data_translation['{}{}'.format(
-                        translation_prefix, key)] = value.get(current_locale)
+                        translation_prefix, key)] = value.get(
+                            current_locale, value.get(original_locale))
                     qg_data_translation['{}{}'.format(
                         original_prefix, key)] = value.get(original_locale)
                     qg_data_translation['{}{}'.format(old_prefix, key)] = value
@@ -780,10 +784,10 @@ def query_questionnaires(
         status_filter).values_list('id', flat=True).order_by(
             'code', '-updated').distinct('code')
 
-    query = Questionnaire.objects.filter(id__in=ids)
-
     if user is not None:
-        query = query.filter(members=user)
+        ids = ids.filter(members=user)
+
+    query = Questionnaire.objects.filter(id__in=ids)
 
     if limit is not None:
         return query[offset:offset + limit]
@@ -1348,7 +1352,8 @@ def prepare_list_values(data, config, **kwargs):
         # a raw string (e.g. 'country')
         if isinstance(items, dict):
             data[key] = items.get(language, items.get(original_language))
-        if isinstance(items, str):
+        # lazy pgettext objects are Promise objects
+        if isinstance(items, str) or isinstance(items, Promise):
             data[key] = items
 
     del data['list_data']

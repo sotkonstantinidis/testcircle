@@ -11,6 +11,7 @@ from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.timezone import now
+from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
@@ -44,7 +45,7 @@ class LoginView(FormView):
         # Put the user on the request, and add a welcome message.
         user = form.get_user()
         django_login(self.request, user)
-        messages.info(self.request, 'Welcome {}'.format(user.firstname))
+        messages.info(self.request, _('Welcome {}').format(user.firstname))
 
         # Get the response, add a cookie and return it.
         response = HttpResponseRedirect(self.get_success_url())

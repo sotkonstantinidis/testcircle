@@ -12,14 +12,26 @@
 
 {% block content %}
 
-{% comment %}
-  TODO: COP12
-{% endcomment %}
-{% if 'edit_questionnaire' in permissions %}
-  <div class="notice alert-box demo-version text-center">
-    <strong>Data entered in this test version will not be stored.</strong>
-  </div>
-{% endif %}
+  {% if view_mode == 'edit' and not has_content %}
+    {% comment %}
+      TODO: For UNCCD testing (shared account), this notice is shown for every
+      new edit. In future, this should probably be shown only once per user and
+      could be customized (Welcome XYZ, ...).
+    {% endcomment %}
+    <section class="hero welcome-notice" id="welcome-notice">
+      <a class="welcome-notice-close" data-toggle="welcome-notice"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+      <div class="row large-collapse">
+        <div id="unccd-hero-welcome" class="small-3 large-2 columns">
+          <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
+          <p>{% trans "Primary recommended database" %}</p>
+        </div>
+        <div class="small-9 large-offset-1 columns">
+          <h2>{% trans "Welcome to the SLM Technology data entry form." %}</h2>
+          <p>{% trans "You are about to add a new Technology." %} <a href="{% url 'technologies:questionnaire_new_step' questionnaire_identifier 'tech__1' %}" class="link">{% trans "Start by editing the general information section." %}</a></p>
+        </div>
+      </div>
+    </section>
+  {% endif %}
 
   {% if images|length %}
     <figure class="tech-figure">
@@ -97,6 +109,9 @@
       function startIntro() {
         introJs().setOptions({
             skipLabel: '{% trans "Close" %}',
+            nextLabel: '{% trans 'Next' %}' + ' &#8594;',
+            prevLabel: '{% trans 'Back' %}' + ' &#8592;',
+            doneLabel: '{% trans 'Done' %}',
             showStepNumbers: false,
             steps: [
               {

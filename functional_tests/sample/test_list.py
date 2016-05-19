@@ -1,4 +1,6 @@
 import time
+
+import re
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from selenium.webdriver.support.ui import WebDriverWait
@@ -397,6 +399,8 @@ class ListTest(FunctionalTest):
         self.assertEqual(compiler.text, 'Foo Bar')
 
         html_1 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
+        # Nasty regex replacement of automatically generated tooltip IDs
+        html_1 = re.sub(r'(?<=tooltip-)(.*)(?=")', '', html_1)
 
         # She also sees that the second entry has one compiler and one editor
         # but only the compiler is shown
@@ -431,6 +435,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(compiler.text, 'Foo Bar')
 
         html_2 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
+        html_2 = re.sub(r'(?<=tooltip-)(.*)(?=")', '', html_2)
 
         # She also sees that the second entry has one compiler and one editor
         # but only the compiler is shown
@@ -1657,20 +1662,36 @@ class ListTestStatus(FunctionalTest):
         user = User.objects.get(pk=101)
         self.doLogin(user=user)
 
-        # She goes to the SAMPLE landing page and sees the latest
-        # updates. These are: 1 (draft), 3 (public) and 6 (public)
-        self.browser.get(self.live_server_url + reverse(route_home))
+        # Design change: Home also shows only public questionnaires
+
+        # She goes to the SAMPLE landing page and sees only the public
+        # questionnaires
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
+        self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 1"]')
-        self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
+
+        # # She goes to the SAMPLE landing page and sees the latest
+        # # updates. These are: 1 (draft), 3 (public) and 6 (public)
+        # self.browser.get(self.live_server_url + reverse(route_home))
+        #
+        # list_entries = self.findManyBy(
+        #     'xpath', '//article[contains(@class, "tech-item")]')
+        # self.assertEqual(len(list_entries), 3)
+        #
+        # self.findBy('xpath', '//article[1]//h1/a[text()="Foo 1"]')
+        # self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
+        # self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        # self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
+        # self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
+        # self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
         # questionnaires
@@ -1694,21 +1715,37 @@ class ListTestStatus(FunctionalTest):
         user = User.objects.get(pk=102)
         self.doLogin(user=user)
 
-        # She goes to the SAMPLE landing page and sees the latest
-        # updates. These are: 2 (pending), 3 (public) and 6
-        # (public)
-        self.browser.get(self.live_server_url + reverse(route_home))
+        # Design change: Home also shows only public questionnaires
+
+        # She goes to the SAMPLE landing page and sees only the public
+        # questionnaires
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
+        self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
-        self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
+
+        # # She goes to the SAMPLE landing page and sees the latest
+        # # updates. These are: 2 (pending), 3 (public) and 6
+        # # (public)
+        # self.browser.get(self.live_server_url + reverse(route_home))
+        #
+        # list_entries = self.findManyBy(
+        #     'xpath', '//article[contains(@class, "tech-item")]')
+        # self.assertEqual(len(list_entries), 3)
+        #
+        # self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
+        # self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
+        # self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        # self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
+        # self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
+        # self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
         # questionnaires
@@ -1732,20 +1769,35 @@ class ListTestStatus(FunctionalTest):
         user = User.objects.get(pk=103)
         self.doLogin(user=user)
 
-        # She goes to the SAMPLE landing page and sees the latest
-        # updates. These are: 7 (draft), 2 (pending), 3 (public)
+        # Design change: Home also shows only public questionnaires
+
+        # She goes to the SAMPLE landing page and sees only the public
+        # questionnaires
         self.browser.get(self.live_server_url + reverse(route_home))
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
+        self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
-        self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
+        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
+        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
         self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
+
+        # # She goes to the SAMPLE landing page and sees the latest
+        # # updates. These are: 7 (draft), 2 (pending), 3 (public)
+        # self.browser.get(self.live_server_url + reverse(route_home))
+        #
+        # list_entries = self.findManyBy(
+        #     'xpath', '//article[contains(@class, "tech-item")]')
+        # self.assertEqual(len(list_entries), 3)
+        #
+        # self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
+        # self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
+        # self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
+        # self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
+        # self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
+        # self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
 
         # She goes to the list view and sees only the public
         # questionnaires

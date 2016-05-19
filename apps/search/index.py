@@ -6,7 +6,7 @@ from questionnaire.serializers import QuestionnaireSerializer
 from .utils import (
     get_analyzer,
     get_alias,
-)
+    force_strings)
 from configuration.utils import ConfigurationList
 
 
@@ -271,6 +271,10 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
             obj, config=questionnaire_configuration
         ).data
 
+        # The serializer calls a method (get_list_data) on the configuration
+        # object, which returns values that are prepared to be presented on the
+        # frontend and include lazy translation objects. Cast them to strings.
+        serialized['list_data'] = force_strings(serialized['list_data'])
         action = {
             '_index': alias,
             '_type': 'questionnaire',

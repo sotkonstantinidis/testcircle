@@ -13806,7 +13806,8 @@
         "form_options": {
           "label": "placeholder",
           "field_options": {
-            "min": 0
+            "min": 0,
+            "max": 100
           }
         }
       }
@@ -13978,7 +13979,8 @@
         "form_options": {
           "label": "placeholder",
           "field_options": {
-            "min": 0
+            "min": 0,
+            "max": 100
           }
         }
       }
@@ -23478,6 +23480,9 @@
                       },
                       {
                         "keyword": "qg_image_remarks",
+                        "view_options": {
+                          "template": "none"
+                        },
                         "questions": [
                           {
                             "keyword": "image_remarks"

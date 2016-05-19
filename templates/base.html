@@ -76,7 +76,7 @@
     {% block temporary %}
         {% if WARN_HEADER %}
           <div class="notice alert-box demo-version text-center">
-            <span class="large">{{ WARN_HEADER }}</span>Optimized for <a href="https://www.google.com/chrome/" target="_blank">Chrome</a> and <a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a>&nbsp; &ndash; &nbsp;<strong>Feedback</strong>: <a href="https://www.wocat.net/survey" target="_blank">Fill out the survey</a> or <a href="mailto:wocat-support@cde.unibe.ch">wocat-support@cde.unibe.ch</a>.
+            <span class="large">{{ WARN_HEADER }}</span>Optimized for <a href="https://www.google.com/chrome/" target="_blank">Chrome</a> and <a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a>&nbsp; &ndash; &nbsp;<strong>Feedback</strong>: <a href="https://survey.cde.unibe.ch/index.php/281737?lang={{ request.LANGUAGE_CODE }}" target="_blank">Fill out the survey</a>.
           </div>
         {% endif %}
     {% endblock %}
@@ -182,8 +182,8 @@
         <a href="" class="link">{% trans "About" %}</a> | <a href="" class="link">{% trans "FAQ" %}</a> | <a href="" class="link">{% trans "Contact" %}</a>
       </nav>
       <div class="medium-4 columns text-center">
-          {% trans "Recommended by" %} <br>
-          <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
+          <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
+          <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
       </div>
       <div class="page-footer-copy medium-4 columns">
         © 2015 - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>

@@ -337,6 +337,13 @@ class CreateOrUpdateIndexTest(TestCase):
         self.assertEqual(len(logs), 7)
         self.assertEqual(error_msg, '')
 
+    @patch('search.index.force_strings')
+    def test_calls_force_string(self, mock_force_strings):
+        m = get_valid_questionnaire()
+        mock_force_strings.return_value = {}
+        put_questionnaire_data(TEST_ALIAS, [m])
+        mock_force_strings.assert_called_once_with({})
+
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class PutQuestionnaireDataTest(TestCase):
