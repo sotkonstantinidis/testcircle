@@ -6,7 +6,9 @@
     <figure>
       <a href="{% url 'sample:questionnaire_details' item.code %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.key_1 }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
       <figcaption class="tech-status">
-        {% if item.configurations.0 %}
+        {% if item.configurations_property.0 %}
+          <span class="label is-{{ item.configurations_property.0 }}">{{ item.configurations_property.0 }}</span>
+        {% elif item.configurations.0 %}
           <span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
         {% endif %}
         {% if item.status.0 and item.status.0 != 'public' %}
