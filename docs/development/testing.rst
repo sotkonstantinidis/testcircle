@@ -68,22 +68,30 @@ Stress tests
 ------------
 
 To check the performance of all parts, some stress tests are included. `Docker`_ is required to run them, the tests
-are written with `locustio`_. To execute the tests, proceed as follows (from the project root)::
+are written with `locustio`_. As locustio doesn't work with python3, a dockerimage is provided. To execute the tests,
+proceed as follows (from the project root) and then open the browser::
+
+    (env)$ cd stress_tests && ./test.sh && cd -
+
+Don't forget to stop and remove all docker containers after the tests::
+
+    $ docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+
+To only create the dockerimage and run it, execute following commands::
 
     (env)$ cd stress_tests
     (env)$ docker build -t locust .
     (env)$ docker run --rm -P locust
 
-This starts a docker container with locust (on python 2.7). To start the test, the IP address of the docker container is
-required (open a new terminal)::
+This starts a docker container with locust (on python 2.7). The IP address of the docker container is listed with::
 
     $ docker network inspect bridge
 
-Get the IP for the running container and open the browser with <container ID>:8089 - the rest is managed in the browser.
-
-When actively developing the locustfile, the ``stress_tests`` folder can be linked into the docker image::
+With the IP for the running container, open the the URL <container ID>:8089. When actively developing the locustfile,
+the ``stress_tests`` folder can be linked into the docker image::
 
     (env)$ docker run -v <path_to_qcat>/stress_tests:/locust -P locust --host=<your_host>
+
 
 .. _Docker: https://www.docker.com/
 .. _locustio: http://locust.io/
