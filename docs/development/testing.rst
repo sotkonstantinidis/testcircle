@@ -62,3 +62,28 @@ Run the tests with coverage::
 
 This will create a report which can be found under
 ``coverage_html/index.html``.
+
+
+Stress tests
+------------
+
+To check the performance of all parts, some stress tests are included. `Docker`_ is required to run them, the tests
+are written with `locustio`_. To execute the tests, proceed as follows (from the project root)::
+
+    (env)$ cd stress_tests
+    (env)$ docker build -t locust .
+    (env)$ docker run --rm -P locust
+
+This starts a docker container with locust (on python 2.7). To start the test, the IP address of the docker container is
+required (open a new terminal)::
+
+    $ docker network inspect bridge
+
+Get the IP for the running container and open the browser with <container ID>:8089 - the rest is managed in the browser.
+
+When actively developing the locustfile, the ``stress_tests`` folder can be linked into the docker image::
+
+    (env)$ docker run -v <path_to_qcat>/stress_tests:/locust -P locust --host=<your_host>
+
+.. _Docker: https://www.docker.com/
+.. _locustio: http://locust.io/
