@@ -18,6 +18,7 @@ class QuestionnaireConf(AppConf):
     EDITOR = 'editor'
     REVIEWER = 'reviewer'
     PUBLISHER = 'publisher'
+    SECRETARIAT = 'secretariat'
     LANDUSER = 'landuser'
     RESOURCEPERSON = 'resourceperson'
 

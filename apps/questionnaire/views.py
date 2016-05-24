@@ -734,6 +734,10 @@ def generic_questionnaire_details(
             lvl, msg = questionnaire_object.get_blocked_message(request.user)
             review_config['blocked_by'] = msg
 
+        if 'assign_questionnaire' in review_config.get('permissions', []):
+            review_config['reviewers'] = questionnaire_object.get_users_by_role(
+                'reviewer')
+
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
 

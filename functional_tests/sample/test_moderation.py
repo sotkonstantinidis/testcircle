@@ -21,9 +21,6 @@ from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
-from nose.plugins.attrib import attr  # noqa
-# @attr('foo')
-
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
@@ -171,6 +168,7 @@ class ModerationTestFixture(FunctionalTest):
         self.user_editor = User.objects.get(pk=102)
         self.user_reviewer = User.objects.get(pk=103)
         self.user_publisher = User.objects.get(pk=104)
+        self.user_secretariat = User.objects.get(pk=107)
 
     def tearDown(self):
         super(ModerationTestFixture, self).tearDown()
@@ -325,6 +323,145 @@ class ModerationTestFixture(FunctionalTest):
         # There is no more review panel and no edit button.
         self.findByNot('xpath', '//ol[@class="process"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+
+    def test_secretariat_can_assign_reviewer(self, mock_get_user_id):
+
+        identifier = 'sample_2'
+
+        # A user logs in
+        self.doLogin(user=self.user_editor)
+
+        # He goes to a submitted questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+
+        # He sees he can neither edit, review or assign users
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        self.findByNot('id', 'button-review')
+        self.findByNot('id', 'review-list-assigned-users')
+
+        # A reviewer logs in
+        self.doLogin(user=self.user_reviewer)
+
+        # He goes to a submitted questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+
+        # He sees he can edit and review, but not assign users
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+        self.findBy('id', 'button-review')
+        self.findByNot('id', 'review-list-assigned-users')
+
+        # Secretariat logs in
+        self.doLogin(user=self.user_secretariat)
+
+        # She goes to a submitted questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}))
+        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+
+        # She sees he can edit and review and assign users
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+        self.findBy('id', 'button-review')
+        self.findBy('id', 'review-list-assigned-users')
+
+        # She decides to add two users as reviewers
+        self.findBy(
+            'xpath', '//a[contains(@class, "review-assigned-users-'
+                     'toggle")]').click()
+
+        selected_users = self.findManyBy(
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box")]')
+        self.assertEqual(len(selected_users), 0)
+
+        self.findBy('id', 'review-search-user').send_keys('kurt')
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="Kurt Gerber"]'
+        ).click()
+
+        selected_users = self.findManyBy(
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box")]')
+        self.assertEqual(len(selected_users), 1)
+
+        self.findBy('id', 'review-search-user').send_keys('lukas')
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="Lukas Vonlanthen"]'
+        ).click()
+
+        selected_users = self.findManyBy(
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box")]')
+        self.assertEqual(len(selected_users), 2)
+        self.assertTrue('Kurt Gerber' in selected_users[0].text)
+        self.assertTrue('Lukas Vonlanthen' in selected_users[1].text)
+
+        # She updates the users
+        self.findBy('id', 'button-assign').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the users were added
+        assigned_users = self.findManyBy(
+            'xpath', '//div[@id="review-list-assigned-users"]/ul/li')
+        self.assertEqual(len(assigned_users), 2)
+        self.assertTrue('Kurt Gerber' in assigned_users[0].text)
+        self.assertTrue('Lukas Vonlanthen' in assigned_users[1].text)
+
+        # She edits the users again
+        self.findBy(
+            'xpath', '//a[contains(@class, "review-assigned-users-'
+                     'toggle")]').click()
+        selected_users = self.findManyBy(
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box")]')
+        self.assertEqual(len(selected_users), 2)
+        self.assertTrue('Kurt Gerber' in selected_users[0].text)
+        self.assertTrue('Lukas Vonlanthen' in selected_users[1].text)
+
+        # She removes one of the user
+        self.findBy(
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box")][1]/a').click()
+        selected_users = self.findManyBy(
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box")]')
+        self.assertEqual(len(selected_users), 1)
+
+        # She adds another user
+        self.findBy('id', 'review-search-user').send_keys('sebastian')
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="Sebastian Manger"]'
+        ).click()
+
+        selected_users = self.findManyBy(
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box")]')
+        self.assertEqual(len(selected_users), 2)
+        self.assertTrue('Lukas Vonlanthen' in selected_users[0].text)
+        self.assertTrue('Sebastian Manger' in selected_users[1].text)
+
+        # She updates the users
+        self.findBy('id', 'button-assign').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees the users were added
+        assigned_users = self.findManyBy(
+            'xpath', '//div[@id="review-list-assigned-users"]/ul/li')
+        self.assertEqual(len(assigned_users), 2)
+        self.assertTrue('Lukas Vonlanthen' in assigned_users[0].text)
+        self.assertTrue('Sebastian Manger' in assigned_users[1].text)
 
     def test_reviewer_can_edit_questionnaire(self, mock_get_user_id):
 

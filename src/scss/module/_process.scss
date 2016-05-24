@@ -82,15 +82,78 @@
   border-radius: $global-radius;
   padding: rem-calc(12) rem-calc(24);
 
+  h5 {
+    margin-top: 1rem;
+  }
+
   p {
     margin-top: rem-calc(6);
   }
 
-  input.is-dangerous {
-    background-color: $warning-color;
+  ul {
+    margin-top: rem-calc(6);
   }
 
-  input.is-ok {
-    background-color: $success-color;
+  input[type="submit"] {
+    width: 100%;
+
+    &.is-dangerous {
+      background-color: $warning-color;
+    }
+    &.is-ok {
+      background-color: $success-color;
+    }
   }
+
+  input[type="search"] {
+    border: 1px solid $color-brown;
+  }
+
+  .user-display div.alert-box {
+    &:first-of-type {
+      margin-top: rem-calc(12);
+    }
+    margin-top: rem-calc(8);
+    margin-bottom: 0;
+    border: 1px solid $color-brown;
+    background-color: $color-beige;
+    color: inherit;
+    padding: rem-calc(6);
+
+    a.close {
+      opacity: inherit;
+    }
+  }
+
+  #button-assign {
+    margin-top: rem-calc(12);
+  }
+
+  #review-list-assigned-users, #review-edit-assigned-users {
+    border: 1px solid $color-beige;
+    margin-top: rem-calc(8);
+    padding: rem-calc(16);
+
+    p {
+      margin-top: 0;
+    }
+  }
+
+  .review-assigned-users-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: rem-calc(8);
+
+    svg {
+      height: rem-calc(16);
+      width: rem-calc(16);
+      color: $color-brown;
+
+      &:hover {
+        color: inherit;
+      }
+    }
+  }
+
 }

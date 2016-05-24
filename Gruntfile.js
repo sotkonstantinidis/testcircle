@@ -144,6 +144,11 @@ module.exports = function(grunt) {
         files: {
           'static/js/wizard.min.js': ['src/js/wizard.js']
         }
+      },
+      review: {
+        files: {
+          'static/js/review.min.js': ['src/js/review.js']
+        }
       }
     },
 
@@ -162,6 +167,7 @@ module.exports = function(grunt) {
           'static/js/focusPoint.js': 'src/js/focusPoint.js',
           'static/js/parallax.js': 'src/js/parallax.js',
           'static/js/wizard.js': 'src/js/wizard.js',
+          'static/js/review.js': 'src/js/review.js',
           'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
           'static/js/intro.min.js': 'bower_components/intro.js/minified/intro.min.js',
           'static/css/introjs.min.css': 'bower_components/intro.js/minified/introjs.min.css',
