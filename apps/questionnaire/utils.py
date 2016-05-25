@@ -9,6 +9,8 @@ from django.shortcuts import redirect
 from django.utils.functional import Promise
 from django.utils.translation import ugettext as _, get_language
 
+from accounts.client import typo3_client
+from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.configuration import (
     QuestionnaireQuestion,
@@ -1272,6 +1274,69 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         permissions = questionnaire_object.get_permissions(request.user)
         if 'edit_questionnaire' not in permissions:
             return redirect('{}:home'.format(configuration_code))
+
+    elif request.POST.get('assign'):
+
+        # Make sure the questionnaire has the right status and define the role
+        # of the users based on the status.
+        status = questionnaire_object.status
+        if status == settings.QUESTIONNAIRE_DRAFT:
+            role = settings.QUESTIONNAIRE_EDITOR
+        elif status == settings.QUESTIONNAIRE_SUBMITTED:
+            role = settings.QUESTIONNAIRE_REVIEWER
+        elif status == settings.QUESTIONNAIRE_REVIEWED:
+            role = settings.QUESTIONNAIRE_PUBLISHER
+        else:
+            messages.error(
+                request, 'No users can be assigned to this questionnaire '
+                         'because of its status.')
+            return
+
+        # Check privileges
+        if 'assign_questionnaire' not in permissions:
+            messages.error(
+                request, 'You do not have permissions to assign a user to this '
+                         'questionnaire.')
+            return
+
+        # Check the submitted user IDs
+        user_ids_string = request.POST.get('user-id', '').split(',')
+        try:
+            user_ids = [int(i) for i in user_ids_string]
+        except ValueError:
+            user_ids = []
+
+        previous_users = questionnaire_object.get_users_by_role(role)
+
+        user_error = []
+        for user_id in user_ids:
+            # Create or update the user
+            user_info = typo3_client.get_user_information(user_id)
+            if not user_info:
+                user_error.append(user_id)
+                continue
+            user, created = User.objects.get_or_create(pk=user_id)
+            typo3_client.update_user(user, user_info)
+
+            # Add the user
+            questionnaire_object.add_user(user, role)
+
+            # Remove user from list of previous users
+            if user in previous_users:
+                previous_users.remove(user)
+
+        # Remove remaining previous users
+        for user in previous_users:
+            questionnaire_object.remove_user(user, role)
+
+        if not user_error:
+            messages.success(
+                request,
+                _('Assigned users were successfully updated'))
+
+        else:
+            messages.error(request, 'At least one of the assigned users could '
+                                    'not be updated.')
 
 
 def compare_questionnaire_data(data_1, data_2):

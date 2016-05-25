@@ -92,6 +92,8 @@ class Questionnaire(models.Model):
         permissions = (
             ("review_questionnaire", "Can review questionnaire"),
             ("publish_questionnaire", "Can publish questionnaire"),
+            ("assign_questionnaire",
+             "Can assign questionnaire (for review/publish)")
         )
 
     def get_absolute_url(self):
@@ -320,7 +322,7 @@ class Questionnaire(models.Model):
                 'permissions': ['edit_questionnaire']
             }, {
                 'status': [settings.QUESTIONNAIRE_DRAFT],
-                'permissions': ['submit_questionnaire']
+                'permissions': ['submit_questionnaire', 'assign_questionnaire']
             }],
             settings.QUESTIONNAIRE_EDITOR: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
@@ -354,6 +356,10 @@ class Questionnaire(models.Model):
         if ('questionnaire.publish_questionnaire' in user_permissions
                 and self.status in [settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
+        if ('questionnaire.assign_questionnaire' in user_permissions
+                and self.status in [settings.QUESTIONNAIRE_SUBMITTED,
+                                    settings.QUESTIONNAIRE_REVIEWED]):
+            permissions.extend(['assign_questionnaire'])
 
         permissions = list(set(permissions))
 
@@ -363,6 +369,20 @@ class Questionnaire(models.Model):
             permissions.remove('edit_questionnaire')
 
         return permissions
+
+    def get_user(self, user, role):
+        """
+        Get and return a user of the Questionnaire by role.
+
+        Args:
+            user: (User) The user.
+            role: (str): The role of the user.
+
+        Returns:
+            User or None.
+        """
+        return self.questionnairemembership_set.filter(
+            user=user, role=role).first()
 
     def get_users(self, **kwargs):
         """
@@ -401,15 +421,16 @@ class Questionnaire(models.Model):
 
     def add_user(self, user, role):
         """
-        Add a user.
+        Add a user. Users are only added if the membership does not yet exist.
 
         Args:
             ``user`` (User): The user.
 
             ``role`` (str): The role of the user.
         """
-        QuestionnaireMembership.objects.create(
-            questionnaire=self, user=user, role=role)
+        if self.get_user(user, role) is None:
+            QuestionnaireMembership.objects.create(
+                questionnaire=self, user=user, role=role)
 
     def remove_user(self, user, role):
         """
@@ -420,7 +441,9 @@ class Questionnaire(models.Model):
 
             ``role`` (str): The role of the user.
         """
-        self.questionnairemembership_set.filter(user=user, role=role).delete()
+        user = self.get_user(user, role)
+        if user is not None:
+            user.delete()
 
     def update_users_from_data(self, configuration_code):
         """
