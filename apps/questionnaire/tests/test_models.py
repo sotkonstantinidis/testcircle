@@ -308,6 +308,16 @@ class QuestionnaireModelTest(TestCase):
             self.assertIn(role, ['compiler', 'landuser'])
             self.assertIn(user, [self.user])
 
+    def test_add_user_adds_user_only_once(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.add_user(self.user, 'landuser')
+        questionnaire.add_user(self.user, 'landuser')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        for role, user in users:
+            self.assertIn(role, ['compiler', 'landuser'])
+            self.assertIn(user, [self.user])
+
     def test_remove_user_removes_user(self):
         questionnaire = get_valid_questionnaire(self.user)
         questionnaire.remove_user(self.user, 'compiler')
