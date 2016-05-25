@@ -735,8 +735,16 @@ def generic_questionnaire_details(
             review_config['blocked_by'] = msg
 
         if 'assign_questionnaire' in review_config.get('permissions', []):
-            review_config['reviewers'] = questionnaire_object.get_users_by_role(
-                'reviewer')
+            if questionnaire_object.status == settings.QUESTIONNAIRE_DRAFT:
+                review_config['editors'] = questionnaire_object.\
+                    get_users_by_role('editor')
+            elif questionnaire_object.status \
+                    == settings.QUESTIONNAIRE_SUBMITTED:
+                review_config['reviewers'] = questionnaire_object.\
+                    get_users_by_role('reviewer')
+            elif questionnaire_object.status == settings.QUESTIONNAIRE_REVIEWED:
+                review_config['publishers'] = questionnaire_object. \
+                    get_users_by_role('publisher')
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])

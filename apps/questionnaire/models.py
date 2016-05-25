@@ -322,7 +322,7 @@ class Questionnaire(models.Model):
                 'permissions': ['edit_questionnaire']
             }, {
                 'status': [settings.QUESTIONNAIRE_DRAFT],
-                'permissions': ['submit_questionnaire']
+                'permissions': ['submit_questionnaire', 'assign_questionnaire']
             }],
             settings.QUESTIONNAIRE_EDITOR: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,

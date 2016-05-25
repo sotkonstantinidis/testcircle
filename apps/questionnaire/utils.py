@@ -1280,7 +1280,9 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Make sure the questionnaire has the right status and define the role
         # of the users based on the status.
         status = questionnaire_object.status
-        if status == settings.QUESTIONNAIRE_SUBMITTED:
+        if status == settings.QUESTIONNAIRE_DRAFT:
+            role = settings.QUESTIONNAIRE_EDITOR
+        elif status == settings.QUESTIONNAIRE_SUBMITTED:
             role = settings.QUESTIONNAIRE_REVIEWER
         elif status == settings.QUESTIONNAIRE_REVIEWED:
             role = settings.QUESTIONNAIRE_PUBLISHER
