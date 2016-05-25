@@ -1144,6 +1144,68 @@ class HandleReviewActionsTest(TestCase):
             mock_link.configurations.first.return_value.code, [mock_link])
         mock_put_data.assert_has_calls([call_1, call_2])
 
+    def test_assign_needs_status(self, mock_messages):
+        self.obj.status = 1
+        self.request.POST = {'assign': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'No users can be assigned to this questionnaire because of its '
+            'status.')
+
+    def test_assign_needs_privileges(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'assign': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'You do not have permissions to assign a user to this '
+            'questionnaire.')
+
+    def test_assign_handles_non_valid_ids(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': 'foo,bar',
+        }
+        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        self.obj.get_users_by_role.return_value = []
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'Assigned users were successfully updated')
+
+    @patch('questionnaire.utils.typo3_client')
+    def test_assign_adds_new_user(self, mock_typo3_client, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '98',
+        }
+        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        self.obj.get_users_by_role.return_value = []
+        mock_typo3_client.get_user_information.return_value = {
+            'username': 'user'
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        user = User.objects.get(pk=98)
+        self.obj.add_user.assert_called_once_with(user, 'reviewer')
+
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'Assigned users were successfully updated')
+
+    def test_assign_removes_user(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '98',
+        }
+        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        mock_user = Mock()
+        self.obj.get_users_by_role.return_value = [mock_user]
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.obj.remove_user.assert_called_once_with(mock_user, 'reviewer')
 
 class CompareQuestionnaireDataTest(TestCase):
 
