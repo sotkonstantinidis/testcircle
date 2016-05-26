@@ -12782,6 +12782,23 @@
       "data": {
         "technologies": {
           "label": {
+            "en": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes (disasters)"
+          },
+          "helptext": {
+            "en": "<p>Indicate gradual climate changes and climate-related extremes as observed by land users in the last 10 years (trend). Note: for detailed assessment fill questionnaire module on climate change adaptation.</p><p>Tick those gradual climate changes and climate-related extremes (disasters) to which the Technology is exposed.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2782
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
             "en": "General information"
           }
         }
@@ -22686,7 +22703,7 @@
   {
     "fields": {
       "keyword": "tech__8__3",
-      "translation": 2729
+      "translation": 2782
     },
     "model": "configuration.category",
     "pk": 1029
