@@ -77,6 +77,10 @@ Don't forget to stop and remove all docker containers after the tests::
 
     $ docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 
+To (force) remove all images, run::
+
+    $ docker rmi -f $(docker images -q)
+
 To only create the dockerimage and run it, execute following commands::
 
     (env)$ cd stress_tests
