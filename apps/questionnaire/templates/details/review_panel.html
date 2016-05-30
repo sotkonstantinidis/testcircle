@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load compress %}
-{% load static %}
 
 
 <div class="review-panel-container" id="review-panel">
@@ -18,33 +17,7 @@
       <form action="{{ review_config.form_action_url }}" method="POST" class="collapse">
         <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
         {% if review_config.review_status == 0 %}
-            <div class="small-12 columns">
-              <h2><span class="is-wocat">{% trans "Hello" %} {{ request.user.firstname }}.</span> {% trans "Welcome to the SLM Approach data entry form." %}</h2>
-                <div id="unccd-hero-welcome" class="small-3 large-2 columns">
-                  <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
-                  <p>{% trans "Primary recommended database" %}</p>
-                </div>
-              <p>
-                {% trans "You are about to add a new Approach. If this is the first time editing a questionnaire, please follow the tour to start off." %}
-                <br>
-                {% trans "Only one person can edit the questionnaire at a time. Only the person that started a questionnaire ('compiler') may submit it for review." %}
-                <br>
-                {% trans "The reviewer may reject the questionnaire. In this case, the editors have to perform updates..." %}
-                <br>
-                {% trans "If the reviewer accepted the questionnaire, it must be released for publication by a publisher." %}
-                <br>
-                {% trans "Depending on the status of the questionnaire (draft, in review, published) and your role (compiler, editor, reviewer, publisher) you may not be allowed to change it." %}
-                {% trans "Maybe: list permissions?" %}
-              </p>
-                {% comment %}
-                  Deactivated list of questionnaires with status draft from current user during unccd testing, as requested by Isabelle.
-                {% endcomment %}
-{#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
-              <p>
-                <a class="button is-approaches" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
-                <a class="button is-approaches" href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start editing." %}</a>
-              </p>
-            </div>
+            {% include 'details/review_panel/welcome.html' %}
         {% elif review_config.review_status == 1 %}
           {# Edit #}
           {% include 'details/review_panel/edit.html' %}
