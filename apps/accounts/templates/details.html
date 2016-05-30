@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
+{% load staticfiles %}
 
 {% block bodyclass %}layout-wocat{% endblock %}
 {% block navclass %}is-wocat{% endblock %}
@@ -8,7 +9,7 @@
 {% block content %}
   <div class="row">
     <div class="large-12 columns">
-      <h1>{% trans "User Details" %}</h1>
+      <h1 class="user-details-header">{% trans "User Details" %}</h1>
       <div class="row">
         <div class="small-4 medium-3 large-2 columns"><p>{% trans "First name:" %}</p></div>
         <div class="small-8 medium-9 large-10 columns"><p>{{ detail_user.firstname }}</p></div>
@@ -23,6 +24,14 @@
           <div class="small-8 medium-9 large-10 columns"><p>{{ detail_user.email }}</p></div>
         </div>
       {% endif %}
+      {% if detail_user.get_unccd_countries %}
+        <div class="user-unccd-focal-point">
+          <h3>{% trans "UNCCD Focal Point" %}</h3>
+          <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
+          <span>{% trans "UNCCD Focal Point for country:" %} <strong>{{ detail_user.get_unccd_countries|join:", " }}</strong></span>
+        </div>
+      {% endif %}
+      {{ detail_user.is_unccd_focal_point }}
     </div>
   </div>
 {% endblock %}
