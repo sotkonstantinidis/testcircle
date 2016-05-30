@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-17 11:38+0200\n"
+"POT-Creation-Date: 2016-05-26 08:17+0200\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -256,106 +256,106 @@ msgstr ""
 msgid "No SLM Approaches found."
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:19
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:28
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:19
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:28
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:19
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:28
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:19
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:28
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:21
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:30
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:21
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:30
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:21
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:30
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:21
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:30
 msgid "Under construction"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:23
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:23
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:23
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:23
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:25
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:25
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:25
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:25
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:18
 msgid "PDF"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:31
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:31
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:31
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:31
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:33
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:33
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:33
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:33
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:26
 msgid "Video"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:43
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:43
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:43
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:43
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:45
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:45
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:12
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:38
 msgid "ID:"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:47
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:49
 #: apps/questionnaire/templates/details/category/approaches_header.html:38
 #: apps/questionnaire/templates/details/category/technologies_header.html:38
 #: apps/questionnaire/templates/details/category/unccd_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:17
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:47
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:47
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:47
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:49
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:49
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:49
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:16
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:42
 msgid "Creation:"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:51
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:53
 #: apps/questionnaire/templates/details/category/approaches_header.html:42
 #: apps/questionnaire/templates/details/category/technologies_header.html:42
 #: apps/questionnaire/templates/details/category/unccd_header.html:37
 #: apps/questionnaire/templates/details/category/with_metadata.html:21
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:51
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:51
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:51
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:53
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:53
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:53
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:20
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:46
 msgid "Update:"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:55
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:57
 #: apps/questionnaire/templates/details/category/approaches_header.html:46
 #: apps/questionnaire/templates/details/category/technologies_header.html:46
 #: apps/questionnaire/templates/details/category/unccd_header.html:41
 #: apps/questionnaire/templates/details/category/with_metadata.html:25
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:55
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:55
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:55
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:57
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:57
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:57
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:24
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:50
 msgid "Compilers:"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:55
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:57
 #: apps/questionnaire/templates/details/category/approaches_header.html:46
 #: apps/questionnaire/templates/details/category/technologies_header.html:46
 #: apps/questionnaire/templates/details/category/unccd_header.html:41
 #: apps/questionnaire/templates/details/category/with_metadata.html:25
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:55
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:55
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:55
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:57
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:57
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:57
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:24
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:50
 msgid "Compiler:"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:66
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:66
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:66
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:66
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:68
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:68
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:68
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:68
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:61
 msgid "Linked Questionnaires:"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:73
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:73
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:73
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:73
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:75
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:75
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:75
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:75
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:33
 #: apps/wocat/templates/wocat/questionnaire/partial/list_item.html:68
 msgid "This article is also available in:"
@@ -5874,6 +5874,7 @@ msgid ""
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:2750
+#: apps/configuration/configuration_translations.py:2819
 msgctxt "technologies label"
 msgid ""
 "Exposure and sensitivity of the Technology to gradual climate change and "
@@ -6236,6 +6237,16 @@ msgid ""
 "<br><strong>Land cover</strong>: Vegetation (natural or planted) or man-made "
 "structures (buildings, etc.) that cover the earth’s surface.</p><p>Usually "
 "one, max. two ticks</p>"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:2818
+msgctxt "technologies helptext"
+msgid ""
+"<p>Indicate gradual climate changes and climate-related extremes as observed "
+"by land users in the last 10 years (trend). Note: for detailed assessment "
+"fill questionnaire module on climate change adaptation.</p><p>Tick those "
+"gradual climate changes and climate-related extremes (disasters) to which "
+"the Technology is exposed.</p>"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:2901

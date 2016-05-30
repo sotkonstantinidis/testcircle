@@ -11,6 +11,16 @@
 {% block bodyclass %}layout-tech{% endblock %}
 
 {% block content %}
+  {% if 'assign_questionnaire' in permissions %}
+    {% addtoblock 'js' %}
+      <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+      <script src="{% static 'js/review.min.js' %}"></script>
+    {% endaddtoblock %}
+    {% addtoblock 'css' %}
+      <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
+    {% endaddtoblock %}
+  {% endif %}
+
 
   <div id="scroll-fixed-top" class="sticky-menu-outer">
     {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode=view_mode %}
@@ -95,7 +105,9 @@
       {% compress js %}
         <script>
           $().ready(function() {
-           _paq.push(['trackEvent', 'Detail', 'Technology', '{{ questionnaire_identifier  }}']);
+            if (typeof _paq !== 'undefined') {
+              _paq.push(['trackEvent', 'Detail', 'Technology', '{{ questionnaire_identifier  }}']);
+            }
           });
         </script>
       {% endcompress %}
