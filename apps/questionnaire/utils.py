@@ -1,5 +1,4 @@
 import ast
-import contextlib
 from uuid import UUID
 
 from django.contrib import messages
@@ -1395,9 +1394,7 @@ def prepare_list_values(data, config, **kwargs):
     # 'list_data' are set in the configuration. Make them directly
     # accessible. Use the language from the request - or the first
     # language from 'translations', which should be the original one.
-    original_language = 'en'
-    with contextlib.suppress(IndexError):
-        original_language = data['original_locale']
+    original_language = data.get('original_locale', 'en')
 
     for key, items in data['list_data'].items():
         # Items can either contain a dict with the language as key - or
