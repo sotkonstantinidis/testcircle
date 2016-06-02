@@ -3,12 +3,14 @@
 
 <section class="row is-rhythmed{% if review_css_class %} {{ review_css_class }}{% endif %}">
   <div class="small-12 columns">
-    <h2 class="is-unvisible">{% trans "Status of review process" %}</h2>
-    <ol class="process">
-      <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
-      <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
-      <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
-    </ol>
+    {% if review_config.review_status != 4 %}
+      <h2 class="is-unvisible">{% trans "Status of review process" %}</h2>
+      <ol class="process">
+        <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
+        <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
+        <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
+      </ol>
+    {% endif %}
     <div class="process-status">
       <form action="" method="POST" class="collapse">
         <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
@@ -21,6 +23,8 @@
         {% elif review_config.review_status == 3 %}
           {# Publish #}
           {% include 'details/review_panel/publish.html' %}
+        {% elif review_config.review_status == 4 %}
+          {% include 'details/review_panel/flagging.html' %}
         {% endif %}
       </form>
     </div>

@@ -6,9 +6,10 @@ from django.test.utils import override_settings
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import User
+from accounts.tests.test_models import create_new_user
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, Flag
 from questionnaire.serializers import QuestionnaireSerializer
 from questionnaire.utils import (
     clean_questionnaire_data,
@@ -1145,7 +1146,7 @@ class HandleReviewActionsTest(TestCase):
         mock_put_data.assert_has_calls([call_1, call_2])
 
     def test_assign_needs_status(self, mock_messages):
-        self.obj.status = 1
+        self.obj.status = 6
         self.request.POST = {'assign': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
@@ -1206,6 +1207,161 @@ class HandleReviewActionsTest(TestCase):
         self.obj.get_users_by_role.return_value = [mock_user]
         handle_review_actions(self.request, self.obj, 'sample')
         self.obj.remove_user.assert_called_once_with(mock_user, 'reviewer')
+
+
+@patch('questionnaire.utils.messages')
+class UnccdFlagTest(TestCase):
+
+    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
+                'sample_questionnaires_5']
+
+    def setUp(self):
+        self.obj = Mock(spec=Questionnaire)
+        self.obj.get_permissions.return_value = []
+        self.obj.links.all.return_value = []
+        self.user = create_new_user()
+        self.user.update(usergroups=[{
+            'name': 'UNCCD Focal Point',
+            'unccd_country': 'CHE',
+        }])
+        self.request = Mock()
+        self.request.user = self.user
+        self.request.POST = {'flag-unccd': 'foo'}
+
+    def test_flag_unccd_requires_permissions(self, mock_messages):
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'You do not have permissions to add this flag!')
+
+    def test_flag_unccd_requires_valid_flag(self, mock_messages):
+        Flag.objects.get(flag='unccd_bp').delete()
+        self.obj.get_permissions.return_value = ['flag_unccd_questionnaire']
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'The flag could not be set.')
+
+    def test_flag_unccd_prevented_if_review_questionnaire(self, mock_messages):
+        # Create a copy of the questionnaire
+        questionnaire = Questionnaire.objects.get(pk=1)
+        questionnaire.pk = None
+        questionnaire.status = 1
+        questionnaire.save()
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The flag could not be set because a version of this questionnaire '
+            'is already in the review process and needs to be published first. '
+            'Please try again later.')
+
+    def test_flag_unccd_creates_a_new_version(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        self.assertEqual(Questionnaire.objects.count(), 5)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        self.assertEqual(Questionnaire.objects.count(), 6)
+
+    def test_flag_unccd_creates_a_new_reviewed_version(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.status, 3)
+
+    def test_flag_unccd_adds_flag(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.flags.count(), 1)
+
+    def test_flag_unccd_adds_user(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.get_user(self.user, 'flagger'), self.user)
+
+    def test_flag_unccd_adds_success_message(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request, 'The flag was successfully set.')
+
+
+@patch('questionnaire.utils.messages')
+class UnccdUnflagTest(TestCase):
+
+    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
+                'sample_questionnaires_5']
+
+    def setUp(self):
+        self.obj = Mock(spec=Questionnaire)
+        self.obj.get_permissions.return_value = []
+        self.obj.links.all.return_value = []
+        self.user = create_new_user()
+        self.user.update(usergroups=[{
+            'name': 'UNCCD Focal Point',
+            'unccd_country': 'CHE',
+        }])
+        self.request = Mock()
+        self.request.user = self.user
+        self.request.POST = {'unflag-unccd': 'foo'}
+        self.questionnaire = Questionnaire.objects.get(pk=1)
+        flag = Flag.objects.first()
+        self.questionnaire.add_flag(flag)
+
+    def test_unflag_unccd_requires_permissions(self, mock_messages):
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'You do not have permissions to remove this flag!')
+
+    def test_unflag_unccd_requires_valid_flag(self, mock_messages):
+        Flag.objects.get(flag='unccd_bp').delete()
+        self.obj.get_permissions.return_value = ['unflag_unccd_questionnaire']
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'The flag could not be removed.')
+
+    def test_unflag_unccd_prevented_if_review_questionnaire(self, mock_messages):
+        # Create a copy of the questionnaire
+        questionnaire = Questionnaire.objects.get(pk=1)
+        questionnaire.pk = None
+        questionnaire.status = 1
+        questionnaire.save()
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The flag could not be removed because a version of this '
+            'questionnaire is already in the review process and needs to be '
+            'published first. Please try again later.')
+
+    def test_unflag_unccd_creates_a_new_version(self, mock_messages):
+        self.assertEqual(Questionnaire.objects.count(), 5)
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        self.assertEqual(Questionnaire.objects.count(), 6)
+
+    def test_unflag_unccd_creates_a_new_reviewed_version(self, mock_messages):
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.status, 3)
+
+    def test_unflag_unccd_removes_flag(self, mock_messages):
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.flags.count(), 0)
+
+    def test_unflag_unccd_removes_user(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.get_user(self.user, 'flagger'), None)
+
+    def test_unflag_unccd_adds_success_message(self, mock_messages):
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The flag was successfully removed. Please note that this created '
+            'a new version which needs to be reviewed. In the meantime, you '
+            'are seeing the public version which still shows the flag.')
+
 
 class CompareQuestionnaireDataTest(TestCase):
 

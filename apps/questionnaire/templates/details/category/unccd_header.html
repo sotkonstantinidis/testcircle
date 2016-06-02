@@ -8,6 +8,9 @@
         {% if metadata.configurations.0 %}
           <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
         {% endif %}
+        {% for flag in metadata.flags %}
+            <span class="label is-{{ flag.0 }}">{{ flag.1 }}</span>
+          {% endfor %}
         {% if metadata.status.0 and metadata.status.0 != 'public' %}
           <span class="label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
         {% endif %}

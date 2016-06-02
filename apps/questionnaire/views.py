@@ -721,8 +721,7 @@ def generic_questionnaire_details(
     permissions = questionnaire_object.get_permissions(request.user)
 
     review_config = {}
-    if request.user.is_authenticated() \
-            and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
+    if request.user.is_authenticated():
         # Show the review panel only if the user is logged in and if the
         # version shown is not active (public).
         review_config = {
@@ -730,6 +729,14 @@ def generic_questionnaire_details(
             'csrf_token_value': get_token(request),
             'permissions': permissions,
         }
+
+        # For public questionnaires, only UNCCD focal points can flag/unflag it.
+        # All other users do not have any permissions general on it.
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC and \
+                'flag_unccd_questionnaire' not in permissions and \
+                'unflag_unccd_questionnaire' not in permissions:
+            review_config = {}
+
         if not questionnaire_object.can_edit(request.user):
             lvl, msg = questionnaire_object.get_blocked_message(request.user)
             review_config['blocked_by'] = msg
