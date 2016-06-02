@@ -211,6 +211,13 @@ class Questionnaire(models.Model):
             version = previous_version.version
             uuid = previous_version.uuid
 
+            # Unblock all other questionnaires with same code
+            Questionnaire.objects.filter(
+                code=code
+            ).update(
+                blocked=None
+            )
+
             if 'edit_questionnaire' not in permissions:
                 raise ValidationError(
                     'You do not have permission to edit the questionnaire.')
