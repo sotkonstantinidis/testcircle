@@ -5,7 +5,7 @@
 
     <header class="tech-output-header medium-7 columns">
       {% for flag in metadata.flags %}
-        <span class="label is-{{ flag.0 }}">{{ flag.1 }}</span>
+        <span class="label is-{{ flag.flag }}">{{ flag.name }}</span>
       {% endfor %}
       {% if metadata.status.0 and metadata.status.0 != 'public' %}
         <div class="tech-status">

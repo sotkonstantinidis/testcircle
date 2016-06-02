@@ -767,8 +767,13 @@ class Questionnaire(models.Model):
 
     @cached_property
     def flags_property(self):
-        return [(flag.flag, flag.get_flag_display())
-                for flag in self.flags.all()]
+        flags = []
+        for flag in self.flags.all():
+            flags.append({
+                'flag': flag.flag,
+                'name': flag.get_flag_display(),
+            })
+        return flags
 
 
 class QuestionnaireConfiguration(models.Model):

@@ -7,10 +7,14 @@ from django.test.utils import override_settings
 from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
-from accounts.tests.test_views import accounts_route_user
+from accounts.tests.test_views import accounts_route_user, \
+    accounts_route_questionnaires
 from functional_tests.base import FunctionalTest
+from search.index import delete_all_indices
+from search.tests.test_index import create_temp_indices
 from unccd.tests.test_views import route_home
-from sample.tests.test_views import route_questionnaire_details
+from sample.tests.test_views import route_questionnaire_details, \
+    route_questionnaire_list
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
@@ -57,6 +61,15 @@ class FlaggingTest(FunctionalTest):
     fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
                 'sample_questionnaires_5']
 
+    def setUp(self):
+        super(FlaggingTest, self).setUp()
+        delete_all_indices()
+        create_temp_indices(['sample', 'unccd'])
+
+    def tearDown(self):
+        super(FlaggingTest, self).tearDown()
+        delete_all_indices()
+
     def test_unccd_focal_point(self, mock_get_user_id):
 
         unccd_user = create_new_user()
@@ -75,6 +88,60 @@ class FlaggingTest(FunctionalTest):
 
         self.findBy('xpath', '//h3[contains(text(), "UNCCD Focal Point")]')
         self.findBy('xpath', '//strong[contains(text(), "Switzerland")]')
+
+    def test_unccd_flag_elasticsearch(self, mock_get_user_id):
+        unccd_user = create_new_user(id=1, email='a@b.com')
+        unccd_user.update(usergroups=[{
+            'name': 'UNCCD Focal Point',
+            'unccd_country': 'CHE',
+        }])
+        user_publisher = create_new_user(id=2, email='c@d.com')
+        user_publisher.groups = [
+            Group.objects.get(pk=3), Group.objects.get(pk=4)]
+        user_publisher.save()
+
+        # Alice logs in as UNCCD focal point
+        self.doLogin(user=unccd_user)
+
+        # She flags a questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        self.findBy('xpath', '//input[@name="flag-unccd"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
+
+        # A publisher publishes it
+        self.doLogin(user=user_publisher)
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
+        self.findBy(
+            'xpath', '//a[contains(@href, "sample/edit/")]')
+        self.findBy('xpath', '//input[@name="publish"]').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
+
+        # He sees the questionnaire is in the list, with the flag visible
+        self.browser.get(
+            self.live_server_url + reverse(route_questionnaire_list))
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]'
+                     '//span[contains(@class, "is-unccd_bp")]')
+
+        # He goes to the page where he sees the questionnaires of user UNCCD
+        # and sees the flag there as well.
+        self.browser.get(self.live_server_url + reverse(
+            accounts_route_questionnaires, kwargs={'user_id': unccd_user.id}))
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]'
+                     '//span[contains(@class, "is-unccd_bp")]')
+
+        # UNCCD user logs in and goes to the page where he sees his own
+        # questionnaires (this one queries the database) and sees the
+        # questionnaire with the flag there as well.
+        self.doLogin(user=unccd_user)
+        self.browser.get(self.live_server_url + reverse(
+            accounts_route_questionnaires, kwargs={'user_id': unccd_user.id}))
 
     def test_unccd_flag(self, mock_get_user_id):
 
