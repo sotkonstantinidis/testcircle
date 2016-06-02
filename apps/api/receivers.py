@@ -5,9 +5,9 @@ from .models import RequestLog
 
 
 @receiver(post_save, sender=RequestLog)
-def submit_to_piwik(instance, created, *args, **kwargs):
+def submit_to_piwik(sender, instance, created, *args, **kwargs):
     """
     All API requests must be logged to Piwik for statistical purposes (single application for all stats).
     """
     if created:
-        instance.sumbmit_to_piwik()
+        instance.submit_to_piwik()
