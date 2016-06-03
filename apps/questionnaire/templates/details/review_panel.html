@@ -18,43 +18,24 @@
       <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
     </ol>
     <div class="process-status">
-    <div class="row collapse">
-      <form action="{{ review_config.form_action_url }}" method="POST" class="collapse">
-        <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
-        {% if review_config.review_status == 0 %}
-            {% include 'details/review_panel/welcome.html' %}
-        {% elif review_config.review_status == 1 %}
-          {# Edit #}
-          {% include 'details/review_panel/edit.html' %}
-        {% elif review_config.review_status == 2 %}
-          {# Review #}
-          {% include 'details/review_panel/review.html' %}
-        {% elif review_config.review_status == 3 %}
-          {# Publish #}
-          {% include 'details/review_panel/publish.html' %}
-        {% endif %}
-      </form>
-    </div>
+      <div class="row collapse">
+        <form action="{{ review_config.form_action_url }}" method="POST" class="collapse">
+          <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
+          {% if review_config.review_status == 0 %}
+              {% include 'details/review_panel/welcome.html' %}
+          {% elif review_config.review_status == 1 %}
+            {# Edit #}
+            {% include 'details/review_panel/edit.html' %}
+          {% elif review_config.review_status == 2 %}
+            {# Review #}
+            {% include 'details/review_panel/review.html' %}
+          {% elif review_config.review_status == 3 %}
+            {# Publish #}
+            {% include 'details/review_panel/publish.html' %}
+          {% endif %}
+        </form>
+      </div>
     </div>
   </div>
 </section>
 </div>
-
-{# This should be added to 'js' with sekizai. However, this needs refactoring of the config, and the template structure as a context_instance and template blocks would be required #}
-{% compress js %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var isBlocked = document.getElementById('is-blocked');
-            if (isBlocked !== null) {
-                btnSubmit = document.getElementById('button-submit');
-                btnSubmit.addEventListener('click', function() {
-                    event.preventDefault();
-                    var choice = confirm(isBlocked.getAttribute('data-confirm'));
-                    if (choice) {
-                        window.location.href = this.getAttribute('href');
-                    }
-                })
-            }
-        });
-    </script>
-{% endcompress %}
