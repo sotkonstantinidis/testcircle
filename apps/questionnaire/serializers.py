@@ -20,15 +20,14 @@ class OutgoingMethodIncomingRawField(serializers.SerializerMethodField):
     def __init__(self, method_name=None, **kwargs):
         self.method_name = method_name
         kwargs['read_only'] = False
-        super(serializers.SerializerMethodField, self).__init__(**kwargs)
+        super().__init__(method_name, **kwargs)
 
     def get_attribute(self, instance):
         """
         The whole instance is needed when serializing objects; deserializing
         only requires the field 'url'
         """
-        self.source_attrs = [] if isinstance(instance, Questionnaire) \
-            else self.field_name
+        self.source_attrs = [] if isinstance(instance, Questionnaire) else self.field_name
         return super().get_attribute(instance)
 
     def to_internal_value(self, data):
@@ -39,8 +38,7 @@ class OutgoingMethodIncomingRawField(serializers.SerializerMethodField):
         Serializing: call method (e.g. get_url)
         Deserializing: return string from dict.
         """
-        return super().to_representation(value) if \
-            isinstance(value, Questionnaire) else value
+        return super().to_representation(value) if isinstance(value, Questionnaire) else value
 
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
@@ -54,6 +52,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     links = OutgoingMethodIncomingRawField()
     list_data = serializers.SerializerMethodField()
     name = serializers.SerializerMethodField()
+    original_locale = serializers.CharField()
     serializer_config = serializers.SerializerMethodField()
     status = serializers.ReadOnlyField(source='status_property')
     translations = serializers.ListField()
@@ -61,9 +60,8 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Questionnaire
-        fields = ('code', 'compilers', 'configurations', 'created', 'data',
-                  'editors', 'links', 'list_data', 'name', 'serializer_config',
-                  'status', 'translations', 'updated', 'url', )
+        fields = ('code', 'compilers', 'configurations', 'created', 'data', 'editors', 'links', 'list_data', 'name',
+                  'original_locale', 'serializer_config', 'status', 'translations', 'updated', 'url', )
 
     def __init__(self, instance=None, data=empty, **kwargs):
         """
