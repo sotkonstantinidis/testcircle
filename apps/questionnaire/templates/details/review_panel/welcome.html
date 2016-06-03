@@ -3,27 +3,36 @@
 
 
 <div class="small-12 columns">
-    <h2><span class="is-wocat">{% trans "Hello" %} {{ request.user.firstname }}.</span> {% trans "Welcome to the SLM Approach data entry form." %}
-    </h2>
-    <p>
-        {% trans "You are about to add a new Approach. If this is the first time editing a questionnaire, please follow the tour to start off." %}
-        <br>
-        {% trans "Only one person can edit the questionnaire at a time. Only the person that started a questionnaire ('compiler') may submit it for review." %}
-        <br>
-        {% trans "The reviewer may reject the questionnaire. In this case, the editors have to perform updates..." %}
-        <br>
-        {% trans "If the reviewer accepted the questionnaire, it must be released for publication by a publisher." %}
-        <br>
-        {% trans "Depending on the status of the questionnaire (draft, in review, published) and your role (compiler, editor, reviewer, publisher) you may not be allowed to change it." %}
-        {% trans "Maybe: list permissions?" %}
-    </p>
-    {% comment %}
-        Deactivated list of questionnaires with status draft from current user during unccd testing, as requested by
-        Isabelle.
-    {% endcomment %}
-    {#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
-    <p>
-        <a class="button is-approaches" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
-        <a class="button is-approaches" href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}" class="link">{% trans "Start editing." %}</a>
-    </p>
+  <h2>
+    <span class="is-wocat">{% trans "Hello" %} {{ request.user.firstname }}.</span>
+    {% trans "Welcome to the SLM Approach data entry form." %}
+  </h2>
+  <p>
+    <img src="{% static 'assets/img/publish-workflow.png' %}" alt="{% trans "Workflow description" %}">
+  </p>
+  <p>
+    {% trans "Some image description here." %}
+    <br>
+    {% trans "You are about to add a new Questionnaire. If this is the first time editing a questionnaire, please follow the tour to start off." %}
+    <br>
+    {% trans "Only one person can edit the questionnaire at a time. Only the person that started a questionnaire ('compiler') may submit it for review." %}
+    <br>
+    {% trans "The reviewer may reject the questionnaire. In this case, the editors have to perform updates..." %}
+    <br>
+    {% trans "If the reviewer accepted the questionnaire, it must be released for publication by a publisher." %}
+    <br>
+    {% trans "Depending on the status of the questionnaire (draft, in review, published) and your role (compiler, editor, reviewer, publisher) you may not be allowed to change it." %}
+  </p>
+  {% comment %}
+    Deactivated list of questionnaires with status draft from current user during unccd testing, as requested by
+    Isabelle.
+  {% endcomment %}
+  {#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
+  <p>
+    <a class="button is-approaches" id="show_help" class="link"
+       onclick="return startIntro();">{% trans "Take a tour" %}</a>
+    <a class="button is-approaches"
+       href="{% url 'approaches:questionnaire_new_step' questionnaire_identifier 'app__1' %}"
+       class="link">{% trans "Start editing." %}</a>
+  </p>
 </div>
