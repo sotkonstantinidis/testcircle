@@ -1,11 +1,16 @@
 {% load i18n %}
 {% load compress %}
-
+{% load static %}
 
 <div class="review-panel-container" id="review-panel">
-  <a class="welcome-notice-close" data-toggle="review-panel"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></a>
   <section class="row review-panel-content{% if review_css_class %} {{ review_css_class }}{% endif %}">
   <div class="small-12 columns">
+    <div id="unccd-hero-left" class="show-for-xlarge-up">
+      <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank">
+        <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
+      </a>
+      <p>{% trans "Primary recommended database" %}</p>
+    </div>
     <ol class="process clearfix">
       <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
       <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Draft" %}</li>
