@@ -32,10 +32,9 @@ class RequestLog(models.Model):
         important feature.
         """
         if settings.PIWIK_SITE_ID and settings.PIWIK_URL and settings.PIWIK_AUTH_TOKEN:
-            url = '{}/piwik.php?'.format(settings.PIWIK_URL)
             # List of all attributes: http://developer.piwik.org/api-reference/tracking-api
             with contextlib.suppress(RequestException):
-                response = requests.post(url, data={
+                response = requests.post(settings.PIWIK_URL, data={
                     'idsite': settings.PIWIK_SITE_ID,
                     'rec': '1',  # fixed value according to API docs
                     'url': self.resource,
