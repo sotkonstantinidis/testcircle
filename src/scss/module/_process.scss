@@ -88,13 +88,21 @@
 
   input[type="submit"] {
     width: 100%;
-
+  }
   .is-dangerous {
     background-color: $warning-color;
   }
   .is-ok {
     background-color: $success-color;
   }
+  .workflow-action{
+    border-top: 1px solid $color-beige;
+    margin: rem-calc(10) rem-calc(5);
+
+    .button {
+      padding: rem-calc(10);
+      width: 100%;
+    }
   }
 
   input[type="search"] {
@@ -119,16 +127,6 @@
 
   #button-assign {
     margin-top: rem-calc(12);
-  }
-
-  #review-list-assigned-users, #review-edit-assigned-users {
-    border: 1px solid $color-beige;
-    margin-top: rem-calc(8);
-    padding: rem-calc(16);
-
-    p {
-      margin-top: 0;
-    }
   }
 
   .review-assigned-users-toggle {

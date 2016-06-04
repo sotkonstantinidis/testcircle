@@ -2,64 +2,64 @@
   users: A list of assigned users
 
   The following strings need to be defined:
-    assign_header
-    assign_description
-    assign_assigned
-    assign_empty
-    assign_edit
+  assign_header
+  assign_description
+  assign_assigned
+  assign_empty
+  assign_edit
 {% endcomment %}
 
 {% load i18n %}
 
-<div class="row">
-  <h5 class="medium-12 columns">{{ assign_header }}</h5>
-  <div class="medium-12 columns">
-    <p>{{ assign_description }}</p>
+<div class="row workflow-action">
+  <div class="medium-2 columns">
+    <p>
+      <a class="button js-toggle-edit-assigned-users">{{ assign_header }}</a>
+    </p>
   </div>
-
-  <div class="medium-12 columns">
-    <div class="row">
-      <div class="medium-12 columns" id="review-list-assigned-users">
-        <a href="#" class="review-assigned-users-toggle js-toggle-edit-assigned-users" data-tooltip="" title="{% trans "Edit users" %}">
-          <svg class="icon"><use xlink:href="#icon-edit" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
-        </a>
-        <p>{{ assign_assigned }}</p>
-        <ul>
-          {% for user in users %}
-            <li>{{ user }}</li>
+  <div class="medium-10 columns">
+    <p>
+      {{ assign_description }}
+    </p>
+    <div id="review-list-assigned-users">
+      <p>{{ assign_assigned }}</p>
+      <ul>
+        {% for user in users %}
+          <li>{{ user }}</li>
           {% empty %}
-            <li><i>{{ assign_empty }}</i></li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="medium-12 columns hide" id="review-edit-assigned-users">
-        <a href="#" class="review-assigned-users-toggle js-toggle-edit-assigned-users">
-          <svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
-        </a>
-        <p>{{ assign_edit }}</p>
-        <div class="row">
-          <div class="medium-9 columns">
-            <div id="review-new-user" class="user-display">
-              <input type="hidden" name="user-id" value="{% for user in users %}{{ user.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
-              {% for user in users %}
-                <div class="alert-box">
-                  {{ user }}<a href="#" class="close" onclick="return reviewRemoveUser(this, {{ user.id }});">&times;</a>
-                </div>
-              {% endfor %}
-            </div>
-            <input type="search"
-                   id="review-search-user"
-                   placeholder="{% trans 'Search user' %}"
-                   data-search-url="{% url 'user_search' %}"
-                   data-display-container="review-new-user"
-                   data-translation-no-results="{% trans 'No results found' %}"
-                   data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}">
+          <li><i>{{ assign_empty }}</i></li>
+        {% endfor %}
+      </ul>
+    </div>
+  <div class="row">
+    <div class="medium-12 columns hide" id="review-edit-assigned-users">
+      <a href="#" class="review-assigned-users-toggle js-toggle-edit-assigned-users">
+        <svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
+      </a>
+      <p>{{ assign_edit }}</p>
+      <div class="row">
+        <div class="medium-9 columns">
+          <div id="review-new-user" class="user-display">
+            <input type="hidden" name="user-id" value="{% for user in users %}{{ user.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
+            {% for user in users %}
+              <div class="alert-box">
+                {{ user }}<a href="#" class="close" onclick="return reviewRemoveUser(this, {{ user.id }});">&times;</a>
+              </div>
+            {% endfor %}
           </div>
-          <div class="medium-2 medium-offset-1 columns">
-            <input id="button-assign" name="assign" class="button small" type="submit" value="{% trans "Update users" %}">
-          </div>
+          <input type="search"
+                 id="review-search-user"
+                 placeholder="{% trans 'Search user' %}"
+                 data-search-url="{% url 'user_search' %}"
+                 data-display-container="review-new-user"
+                 data-translation-no-results="{% trans 'No results found' %}"
+                 data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}">
+        </div>
+        <div class="medium-2 medium-offset-1 columns">
+          <input id="button-assign" name="assign" class="button small" type="submit" value="{% trans "Update users" %}">
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
