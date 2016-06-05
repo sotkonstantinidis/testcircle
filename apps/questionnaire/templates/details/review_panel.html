@@ -12,7 +12,11 @@
       <p>{% trans "Primary recommended database" %}</p>
     </div>
     <ol class="process clearfix">
-      <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
+      {% if review_config.has_release %}
+        <li class="{% if review_config.review_status == 4 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
+      {% else %}
+        <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
+      {% endif %}
       <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Draft" %}</li>
       <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
       <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
@@ -25,13 +29,16 @@
               {% include 'details/review_panel/welcome.html' %}
           {% elif review_config.review_status == 1 %}
             {# Edit #}
-            {% include 'details/review_panel/edit.html' %}
+            {% include 'details/review_panel/draft.html' %}
           {% elif review_config.review_status == 2 %}
             {# Review #}
             {% include 'details/review_panel/review.html' %}
           {% elif review_config.review_status == 3 %}
             {# Publish #}
             {% include 'details/review_panel/publish.html' %}
+          {% elif review_config.review_status == 4 %}
+            {# Edit published questionnaire #}
+            {% include 'details/review_panel/edit.html' %}
           {% endif %}
         </form>
       </div>

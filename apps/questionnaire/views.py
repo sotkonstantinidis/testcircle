@@ -634,7 +634,8 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
             url=url,
             is_blocked=bool(kwargs.get('blocked_by', False)),
             blocked_by=kwargs.get('blocked_by', ''),
-            form_url=self.get_detail_url(step='')
+            form_url=self.get_detail_url(step=''),
+            has_release=self.has_release()
         )
 
     def questionnaires_in_progress(self):
@@ -680,6 +681,13 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
                 configuration_code=configuration, questionnaire_objects=links, with_links=False
             )
         return link_display
+
+    def has_release(self):
+        return self.has_object and (
+            self.object.status == settings.QUESTIONNAIRE_PUBLIC or Questionnaire.objects.filter(
+                code=self.object.code, status=settings.QUESTIONNAIRE_PUBLIC
+            ).exists()
+        )
 
 
 class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixin, View):
@@ -844,12 +852,16 @@ def generic_questionnaire_details(
     permissions = questionnaire_object.get_permissions(request.user)
 
     review_config = {}
-    if request.user.is_authenticated() and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
+    if request.user.is_authenticated():
         # Show the review panel only if the user is logged in and if the
         # version shown is not active (public).
         blocked_by = None
         if not questionnaire_object.can_edit(request.user):
             lvl, blocked_by = questionnaire_object.get_blocked_message(request.user)
+
+        # The first tab or the review panel is either welcome or edit - depending if this object has a public version.
+        has_release = questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC or Questionnaire.objects.filter(
+            code=questionnaire_object.code, status=settings.QUESTIONNAIRE_PUBLIC).exists()
 
         review_config = get_review_config_dict(
             status=questionnaire_object.status,
@@ -861,7 +873,8 @@ def generic_questionnaire_details(
             is_blocked=bool(blocked_by),
             blocked_by=blocked_by,
             form_url=reverse('{}:questionnaire_details'.format(url_namespace),
-                             kwargs={'identifier': questionnaire_object.code})
+                             kwargs={'identifier': questionnaire_object.code}),
+            has_release=has_release
         )
 
         if 'assign_questionnaire' in review_config.get('permissions', []):

@@ -52,7 +52,9 @@
     </figure>
   {% endif %}
 
-  {% include 'details/review_panel.html' with review_config=review_config %}
+  {% if review_config %}
+    {% include 'details/review_panel.html' with review_config=review_config %}
+  {% endif %}
 
   <article role="main">
     <main class="is-rhythmed-4">
