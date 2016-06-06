@@ -24,14 +24,17 @@
           <div class="small-8 medium-9 large-10 columns"><p>{{ detail_user.email }}</p></div>
         </div>
       {% endif %}
-      {% if detail_user.get_unccd_countries %}
+      {% if unccd_countries %}
         <div class="user-unccd-focal-point">
           <h3>{% trans "UNCCD Focal Point" %}</h3>
           <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
-          <span>{% trans "UNCCD Focal Point for country:" %} <strong>{{ detail_user.get_unccd_countries|join:", " }}</strong></span>
+          <span>{% trans "UNCCD Focal Point for country:" %} <strong>
+            {% for country in unccd_countries %}
+              <a href="{{ country.1 }}" class="link">{{ country.0 }}</a>
+            {% endfor %}
+          </strong></span>
         </div>
       {% endif %}
-      {{ detail_user.is_unccd_focal_point }}
     </div>
   </div>
 {% endblock %}

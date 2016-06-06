@@ -1976,6 +1976,19 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_configuration_errors(self):
         return self.configuration_error
 
+    @staticmethod
+    def get_country_filter(country_keyword):
+        """
+        Return the query parameters representing a country filter.
+
+        Args:
+            country_keyword:
+
+        Returns:
+
+        """
+        return 'filter__qg_location__country={}'.format(country_keyword)
+
     def add_category(self, category):
         self.categories.append(category)
 
