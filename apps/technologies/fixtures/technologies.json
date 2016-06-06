@@ -23183,9 +23183,36 @@
                           },
                           {
                             "keyword": "name_local"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_location",
+                        "questions": [
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "inline_6",
+                              "in_list": true
+                            }
                           },
                           {
-                            "keyword": "country"
+                            "keyword": "state_province",
+                            "form_options": {
+                              "template": "hidden"
+                            }
+                          },
+                          {
+                            "keyword": "further_location",
+                            "form_options": {
+                              "template": "hidden"
+                            }
+                          },
+                          {
+                            "keyword": "location_comments",
+                            "form_options": {
+                              "template": "hidden"
+                            }
                           }
                         ]
                       },
