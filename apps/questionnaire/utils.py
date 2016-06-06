@@ -577,6 +577,22 @@ def get_active_filters(questionnaire_configuration, query_dict):
                 'questiongroup': filter_param,
             })
 
+        if filter_param in ['flag']:
+            for filter_value in filter_values:
+                try:
+                    flag_label = Flag.objects.get(flag=filter_value)\
+                        .get_flag_display()
+                except Flag.DoesNotExist:
+                    flag_label = _('Unknown')
+                active_filters.append({
+                    'type': '_flag',
+                    'key': filter_param,
+                    'key_label': '',
+                    'value': filter_value,
+                    'value_label': flag_label,
+                    'questiongroup': filter_param,
+                })
+
         if not filter_param.startswith('filter__'):
             continue
 

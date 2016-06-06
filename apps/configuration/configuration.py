@@ -27,7 +27,8 @@ from qcat.utils import (
     find_dict_in_list,
     is_empty_list_of_dicts,
 )
-from questionnaire.models import File
+from questionnaire.models import File, Flag
+
 User = get_user_model()
 
 
@@ -2173,9 +2174,14 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if country_question:
             countries = country_question.choices[1:]
 
+        flags = []
+        for flag in Flag.objects.all():
+            flags.append((flag.flag, flag.get_flag_display()))
+
         return {
             'sections': filter_configuration,
             'countries': countries,
+            'flags': flags,
         }
 
     def get_list_data(self, questionnaire_data_list):

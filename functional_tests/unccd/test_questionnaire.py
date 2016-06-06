@@ -58,8 +58,8 @@ class QuestionnaireTest(FunctionalTest):
 @patch.object(Typo3Client, 'get_user_id')
 class FlaggingTest(FunctionalTest):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
-                'sample_questionnaires_5']
+    fixtures = ['groups_permissions', 'global_key_values', 'flags', 'sample',
+                'unccd', 'sample_questionnaires_5']
 
     def setUp(self):
         super(FlaggingTest, self).setUp()

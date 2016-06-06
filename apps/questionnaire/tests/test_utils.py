@@ -525,6 +525,35 @@ class GetActiveFiltersTest(TestCase):
         filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(len(filters), 0)
 
+    def test_returns_flag_filter(self):
+        Flag.objects.create(flag='unccd_bp')
+        query_dict = QueryDict('flag=unccd_bp')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_flag')
+        self.assertEqual(filter_1['key'], 'flag')
+        self.assertEqual(filter_1['questiongroup'], 'flag')
+        self.assertEqual(filter_1['key_label'], '')
+        self.assertEqual(filter_1['value'], 'unccd_bp')
+        self.assertEqual(filter_1['value_label'], 'UNCCD Best Practice')
+
+    def test_returns_unknown_flag_filter(self):
+        query_dict = QueryDict('flag=unknown')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_flag')
+        self.assertEqual(filter_1['key'], 'flag')
+        self.assertEqual(filter_1['questiongroup'], 'flag')
+        self.assertEqual(filter_1['key_label'], '')
+        self.assertEqual(filter_1['value'], 'unknown')
+        self.assertEqual(filter_1['value_label'], 'Unknown')
+
     def test_returns_mixed_filters(self):
         query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
         filters = get_active_filters(self.conf, query_dict)
