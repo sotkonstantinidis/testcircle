@@ -23207,12 +23207,6 @@
                             "form_options": {
                               "template": "hidden"
                             }
-                          },
-                          {
-                            "keyword": "location_comments",
-                            "form_options": {
-                              "template": "hidden"
-                            }
                           }
                         ]
                       },
