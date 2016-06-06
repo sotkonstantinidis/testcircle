@@ -19,3 +19,15 @@
   font-weight: $font-weight-bold;
   margin-right: rem-calc(20);
 }
+
+.reveal-modal {
+  border: rem-calc(5) solid $color-beige;
+
+  h2 {
+    color: $color-beige-dark;
+  }
+
+  .button {
+    background-color: $success-color;
+  }
+}

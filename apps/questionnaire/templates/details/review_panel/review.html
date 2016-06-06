@@ -21,7 +21,7 @@
     <div id="confirm-approval" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm approval." %}</h2>
       <p>{% trans "By submitting this, a publisher will review the questionnaire and make it available for public users." %}</p>
-      <button name='review' value='true' class="button is-ok" type="submit" form="review_form">{% trans "Approve" %}</button>
+      <button name='review' value='true' class="button" type="submit" form="review_form">{% trans "Approve" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
     <!-- endmodal -->
@@ -40,7 +40,7 @@
     <div id="confirm-reject" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm rejection." %}</h2>
       <p>{% trans "By rejecting this, the compiler (and editors) can edit the questionnaire again, before re-submitting it." %}</p>
-      <button name='reject' value='true' class="button is-ok" type="submit" form="review_form">{% trans "Reject" %}</button>
+      <button name='reject' value='true' class="button" type="submit" form="review_form">{% trans "Reject" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
     <!-- endmodal -->
