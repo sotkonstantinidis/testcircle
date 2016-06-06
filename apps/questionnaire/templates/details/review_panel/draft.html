@@ -28,6 +28,34 @@
     </div>
   </div>
 {% endif %}
+{% if review_config.mode == 'edit' and 'edit_questionnaire' in review_config.permissions %}
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a class="button is-ok" href="{{ review_config.url }}">{% trans "Edit" %}</a>
+        {% if review_config.blocked_by %}
+          <p id="is-blocked" data-confirm="{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}">{{ review_config.blocked_by }}</p>
+        {% endif %}
+      </p>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans 'Start editing this questionnaire.' %}</p>
+    </div>
+  </div>
+{% endif %}
+{% if review_config.mode == 'view' %}
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a class="button is-ok" href="{{ review_config.url }}">{% trans "View" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans 'View this questionnaire.' %}</p>
+    </div>
+  </div>
+{% endif %}
+
 
 {% if 'assign_questionnaire' in review_config.permissions %}
   {% trans "Manage editors" as assign_header %}

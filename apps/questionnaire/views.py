@@ -248,12 +248,6 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
             obj = query_questionnaire(self.request, self.identifier).first()
             if not obj:
                 raise Http404()
-
-            try:
-                obj.lock_questionnaire(obj.code, self.request.user)
-            except QuestionnaireLockedException:
-                messages.warning(self.request, _("This questionnaire is locked by another user."))
-
             return obj
 
         return {}
@@ -428,6 +422,7 @@ class QuestionnaireSaveMixin:
             return self.form_invalid()
 
         self.save_questionnaire_links()
+        questionnaire.unlock_questionnaire()
         messages.success(self.request, _('Data successfully saved.'))
         return HttpResponseRedirect(self.get_success_url())
 
@@ -712,6 +707,8 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         Display the form for the selected step,
         """
         self.set_attributes()
+        if self.has_object:
+            Questionnaire.lock_questionnaire(self.object.code, self.request.user)
         return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):

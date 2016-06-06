@@ -654,6 +654,13 @@ class Questionnaire(models.Model):
         return self.has_questionnaires_for_code(
             self.code) and self.get_editable_questionnaires(self.code, user)
 
+    def unlock_questionnaire(self):
+        self._meta.model.objects.filter(
+            code=self.code
+        ).update(
+            blocked=None
+        )
+
     def get_blocked_message(self, user):
         """
         The user that is locking the draft of the questionnaire.
