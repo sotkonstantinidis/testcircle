@@ -1,6 +1,5 @@
 from collections import OrderedDict
 
-from django.conf import settings
 from django.core.paginator import EmptyPage
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -10,7 +9,9 @@ from api.views import LogUserMixin, PermissionMixin
 from questionnaire.view_utils import ESPagination, get_paginator, \
     get_page_parameter
 from search.search import advanced_search
+
 from ..utils import get_list_values
+from ..conf import settings
 
 
 class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
@@ -48,7 +49,7 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
 
         # Combine configuration and questionnaire values.
         list_values = get_list_values(es_hits=questionnaires)
-        return list_values
+        return self.update_dict_keys(list_values)
 
     def get_es_paginated_results(self, offset):
         """
@@ -111,3 +112,19 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
 
     def get_previous_link(self):
         return self._get_paginate_link(self.current_page - 1)
+
+    def update_dict_keys(self, items):
+        """
+        Some keys need to be updated (e.g. description has a different key depending on the config) for a more
+        consistent behavior of the APIs data.
+        This cannot be done when indexing (elasticsearch) the data, as the templates expect the variable names in
+        the 'original' format.
+        """
+        setting_keys = set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
+        for item in items:
+            matching_keys = setting_keys.intersection(item.keys())
+            if matching_keys:
+                for key in matching_keys:
+                    item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = item.pop(key)
+
+            yield item

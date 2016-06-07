@@ -33,6 +33,40 @@ class ProdMixin:
     }
 
 
+class LogMixin:
+    """
+    Very basic logger - everything with 'warn' or above is written to a file.
+    """
+    @property
+    def LOGGING(self):
+        return {
+            'version': 1,
+            'disable_existing_loggers': False,
+            'formatters': {
+                'verbose': {
+                    'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+                },
+            },
+            'handlers': {
+                'file': {
+                    'level': 'DEBUG',
+                    'class': 'logging.handlers.TimedRotatingFileHandler',
+                    'when': 'midnight',
+                    'backupCount': 5,
+                    'filename': '{}/logs/django.log'.format(super().BASE_DIR),
+                    'formatter': 'verbose'
+                },
+            },
+            'loggers': {
+                '': {
+                    'handlers': ['file'],
+                    'propagate': True,
+                    'level': 'WARNING',
+                },
+            },
+        }
+
+
 class SecurityMixin:
     # Security settings, as recommended from manage.py check --deploy
     CSRF_COOKIE_SECURE = True
@@ -42,8 +76,7 @@ class SecurityMixin:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
-    # Turn this on as soon as the site is available with ssl.
-    # SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_HTTPONLY = True
 
