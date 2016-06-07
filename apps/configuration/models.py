@@ -402,3 +402,21 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'categories'
+
+
+class Project(models.Model):
+    """
+    The model representing the Projects as they are managed by the WOCAT
+    website. IDs must be identical!
+
+    Only "active" Projects can be selected in the form.
+    """
+    name = models.CharField(max_length=255)
+    abbreviation = models.CharField(max_length=63)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.abbreviation)

@@ -3294,3 +3294,96 @@ class QuestionnaireLinkTest(FunctionalTest):
     Test:
     * Show pending
     """
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@patch.object(Typo3Client, 'get_user_id')
+class QuestionnaireTestProjects(FunctionalTest):
+
+    fixtures = ['sample_global_key_values.json', 'sample.json',
+                'sample_projects.json']
+
+    def test_select_project(self, mock_get_user_id):
+
+        # Alice logs in
+        self.doLogin()
+
+        step_url = self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'})
+
+        # She goes to a step of the questionnaire
+        self.browser.get(step_url)
+
+        # She sees Key 52, which is a select field rendered with Chosen
+        self.findBy('xpath', '//select[@name="qg_37-0-key_52"]')
+        chosen_field = self.findBy('xpath', '//a[@class="chosen-single"]')
+        self.assertEqual(chosen_field.text, '-')
+
+        # She sees that the values are ordered alphabetically and the list only
+        # shows active projects
+        values = ['International Project for Collecting Technologies (IPCT)',
+                  'The first Project (TFP)']
+        for i, v in enumerate(values):
+            self.findBy(
+                'xpath',
+                '//select[@name="qg_37-0-key_52"]/option[{}][contains(text(),'
+                ' "{}")]'.format(i + 2, v))
+
+        # She selects a project
+        self.findBy(
+            'xpath', '//div[contains(@class, "chosen-container")]').click()
+        self.findBy(
+            'xpath', '//ul[@class="chosen-results"]/li[contains(text(), '
+                     '"International")]').click()
+        self.assertEqual(chosen_field.text, 'International Project for '
+                                            'Collecting Technologies (IPCT)')
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+        # She sees that the display value is visible in the overview (as Key 53)
+        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"International Project for '
+                             'Collecting Technologies")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
+
+        # She goes back to the step and deselects the project
+        self.browser.get(step_url)
+        self.findBy(
+            'xpath', '//div[contains(@class, "chosen-container")]').click()
+        self.findBy(
+            'xpath',
+            '//ul[@class="chosen-results"]/li[contains(text(), "-")]').click()
+
+        # She submits the step and sees the project is gone in the overview
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
+
+        # She goes back to the step and selects another project
+        self.browser.get(step_url)
+        self.findBy(
+            'xpath', '//div[contains(@class, "chosen-container")]').click()
+        self.findBy(
+            'xpath',
+            '//ul[@class="chosen-results"]/li[contains(text(), "first")]').\
+            click()
+
+        # She submits the step
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findBy('xpath',
+                    '//*[text()[contains(.,"The first Project (TFP)")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
+
+        # She submits the questionnaire and sees the project is submitted
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findBy('xpath',
+                    '//*[text()[contains(.,"The first Project (TFP)")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
