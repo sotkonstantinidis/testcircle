@@ -231,7 +231,7 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
         return get_configuration(self.get_configuration_code())
 
     def get_template_names(self):
-        return self.template_name or '{}/questionnaire/details.html'.format(self.url_namespace)
+        return self.template_name or 'questionnaire/details.html'
 
     def get_configuration_code(self):
         return self.configuration_code or self.url_namespace
@@ -591,6 +591,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
             'images': images,
             'sections': sections,
             'questionnaire_identifier': self.identifier,
+            'url_namespace': self.url_namespace,
             'filter_configuration': filter_configuration,
             'permissions': permissions,
             'edited_questiongroups': edited_questiongroups,

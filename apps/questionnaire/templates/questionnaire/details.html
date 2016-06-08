@@ -70,7 +70,7 @@
         <script>
           $().ready(function() {
             if (typeof _paq !== 'undefined') {
-              _paq.push(['trackEvent', 'Detail', 'Approach', '{{ questionnaire_identifier  }}']);
+              _paq.push(['trackEvent', 'Detail', '{{ url_namespace }}', '{{ questionnaire_identifier  }}']);
             }
           });
         </script>
@@ -98,31 +98,24 @@
             steps: [
               {
                 intro: '{% trans '<p>Welcome to the help section of the Questionnaire!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
-                element: document.querySelector('#show_help'),
-                position: 'top'
               },
               {
                 intro: '{% trans "<p>This is the output page where you can see all the data you entered in the form.</p>" %}',
-                element: document.querySelector('section#app__1')
+                element: document.querySelector('main section')
               },
               {
                 intro: '{% trans "<p>The Questionnaire consists of multiple sections. You can use the Table of Content for navigation.</p>" %}',
-                element: document.querySelector('.js-sticky-entry-help-toc'),
-                position: 'top'
+                element: document.querySelector('.js-sticky-entry-help-toc')
               },
               {
                 intro: '{% trans "<p>Each section is also visible in the output, any data you enter will appear here.</p>" %}',
-                element: document.querySelector('section#app__2'),
+                element: document.querySelectorAll('main section')[1],
                 position: 'top'
               },
               {
                 intro: '{% trans "<p>Click on the button to edit a section and enter your data.</p><p>The numbers indicate how many questions are already filled out in this section.</p>" %}',
-                element: document.querySelector('section#app__2 a.button'),
+                element: document.querySelectorAll('main section div a')[1],
                 position: 'top'
-              },
-              {
-                intro: '{% trans "<p>Once you are done editing, click the button to save the Questionnaire.</p>" %}',
-                element: document.querySelector('input.q-action-button-top[type="submit"]')
               },
               {
                 intro: '{% trans "<p>The metadata will be filled out automatically once you saved the Questionnaire.</p>" %}',
