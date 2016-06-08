@@ -59,3 +59,43 @@ class AdminTest(FunctionalTest):
 
         with self.assertRaises(NoSuchElementException):
             column_1.find_element_by_id('module_2')
+
+    def test_admin_page_wocat_secretariat(self):
+        user = create_new_user(id=2, email='foo@bar.com')
+        user.groups.add(Group.objects.filter(name='WOCAT Secretariat').first())
+        user.save()
+
+        # Alice logs in
+        self.doLogin(user=user)
+
+        # She sees the admin button in the top navigation bar and clicks on it
+        self.clickUserMenu(user)
+        navbar = self.findBy('class_name', 'top-bar')
+        navbar.find_element_by_link_text('Administration').click()
+
+        # She sees that she can edit projects in the admin section
+        self.findBy('xpath', '//h2[contains(text(), "Configuration")]')
+        self.findBy('xpath', '//strong[contains(text(), "Projects")]')
+
+        # She clicks to add a new project and sees that she can edit the ID as
+        # well
+        self.findBy('xpath', '//a[contains(@href, "/admin/configuration/project'
+                             '/add/")]').click()
+
+        textfields = self.findManyBy('xpath', '//input[@type="text"]')
+        self.assertEqual(len(textfields), 3)
+
+        # She goes back to the admin page
+        self.browser.execute_script("window.history.go(-1)")
+
+        # She also sees that she can edit institutions
+        self.findBy('xpath', '//h2[contains(text(), "Configuration")]')
+        self.findBy('xpath', '//strong[contains(text(), "Institutions")]')
+
+        # She clicks to add a new institution and sees that she can edit the ID
+        # as well
+        self.findBy('xpath', '//a[contains(@href, "/admin/configuration/'
+                             'institution/add/")]').click()
+
+        textfields = self.findManyBy('xpath', '//input[@type="text"]')
+        self.assertEqual(len(textfields), 3)

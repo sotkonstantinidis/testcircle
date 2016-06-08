@@ -5,7 +5,7 @@ from configuration.utils import (
     create_new_code,
     get_configuration_index_filter,
     get_configuration_query_filter,
-)
+    get_choices_from_model)
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.tests.test_models import get_valid_questionnaire
@@ -77,3 +77,29 @@ class CreateNewCodeTest(TestCase):
         questionnaire.save()
         code = create_new_code('sample', {})
         self.assertEqual(Questionnaire.objects.filter(code=code).count(), 0)
+
+
+class GetChoicesFromModelTest(TestCase):
+
+    fixtures = ['sample_projects']
+
+    def test_returns_empty_if_model_not_found(self):
+        choices = get_choices_from_model('foo')
+        self.assertEqual(choices, [])
+
+    def test_filters_active_by_default(self):
+        choices = get_choices_from_model('Project')
+        self.assertEqual(len(choices), 2)
+
+    def test_active_filter_false(self):
+        choices = get_choices_from_model('Project', only_active=False)
+        self.assertEqual(len(choices), 3)
+
+    def test_returns_ordered_choices(self):
+        choices = get_choices_from_model('Project')
+        self.assertEqual(
+            choices[0][1],
+            'International Project for Collecting Technologies (IPCT)')
+        self.assertEqual(
+            choices[1][1], 'The first Project (TFP)')
+

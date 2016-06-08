@@ -353,6 +353,36 @@
           "assign_questionnaire",
           "questionnaire",
           "questionnaire"
+        ],
+        [
+          "add_project",
+          "configuration",
+          "project"
+        ],
+        [
+          "change_project",
+          "configuration",
+          "project"
+        ],
+        [
+          "delete_project",
+          "configuration",
+          "project"
+        ],
+        [
+          "add_institution",
+          "configuration",
+          "institution"
+        ],
+        [
+          "change_institution",
+          "configuration",
+          "institution"
+        ],
+        [
+          "delete_institution",
+          "configuration",
+          "institution"
         ]
       ]
     },

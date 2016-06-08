@@ -14,6 +14,7 @@ from configuration.models import (
     Key,
     Questiongroup,
 )
+from configuration.utils import get_choices_from_model
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -239,6 +240,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'link_id',
         'int',
         'float',
+        'select_model',
+        'display_only',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -602,7 +605,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             field = forms.CharField(
                 label=self.label, widget=widget, required=self.required)
-        elif self.field_type in ['user_id', 'link_id', 'hidden']:
+        elif self.field_type in [
+                'user_id', 'link_id', 'hidden', 'display_only']:
             widget = HiddenInput()
             if self.field_type == 'user_id':
                 widget.css_class = 'select-user-id'
@@ -692,6 +696,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 widget=forms.TextInput(
                     attrs={'readonly': 'readonly', 'value': '[TODO]'}),
                 required=self.required)
+        elif self.field_type == 'select_model':
+            attrs.update({
+                'data-select-display-field': self.form_options.get('display_field'),
+                'data-key-keyword': self.keyword,
+            })
+            widget = Select(attrs=attrs)
+            widget.options = field_options
+            widget.searchable = True
+            choices = [('', '-')]
+            choices.extend(
+                get_choices_from_model(self.form_options.get('model')))
+            field = forms.ChoiceField(
+                label=self.label, widget=widget, choices=choices,
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -747,7 +765,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo', 'date', 'int']:
+        if self.field_type in [
+                'char', 'text', 'todo', 'date', 'int', 'display_only']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -864,7 +883,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 })
             else:
                 return '\n'
-        elif self.field_type in ['hidden']:
+        elif self.field_type in ['hidden', 'select_model']:
             template_name = 'hidden'
             template_values.update({
                 'key': self.label_view,

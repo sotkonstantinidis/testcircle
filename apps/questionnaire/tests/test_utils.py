@@ -45,7 +45,8 @@ def get_valid_questionnaire_content():
 
 class CleanQuestionnaireDataTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json',
+                'sample_projects.json']
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -285,6 +286,21 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 0)
         self.assertEqual(cleaned, {})
+
+    def test_select_model_checks_valid_model(self):
+        data = {"qg_37": [
+            {"key_52": "4", "key_53": "Non-existing project"}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
+    def test_select_model_parses_to_int(self):
+        data = {"qg_37": [
+            {"key_52": "2", "key_53": "Some project"}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(errors, [])
+        self.assertEqual(cleaned['qg_37'][0]['key_52'], 2)
 
 
 class IsValidQuestionnaireFormatTest(TestCase):

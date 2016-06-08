@@ -68,7 +68,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.is_superuser is True:
             return True
         for group in self.groups.all():
-            if group.name in ['Administrators', 'Translators']:
+            if group.name in [
+                    'Administrators', 'Translators', 'WOCAT Secretariat']:
                 return True
         return False
 

@@ -17,7 +17,7 @@ from configuration.configuration import (
 from configuration.utils import (
     ConfigurationList,
     get_configuration_query_filter,
-)
+    get_choices_from_model)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
@@ -186,11 +186,19 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                         errors.append('Value "{}" of key "{}" is not a valid '
                                       'number.'.format(value, key))
                         continue
+                elif question.field_type in ['select_model']:
+                    model = question.form_options.get('model')
+                    choices = get_choices_from_model(model, only_active=False)
+                    if str(value) not in [str(c[0]) for c in choices]:
+                        errors.append('The value is not a valid choice of model'
+                                      ' "{}"'.format(model))
+                    value = int(value)
                 elif question.field_type in ['todo']:
                     value = None
                 elif question.field_type in ['image', 'file', 'date']:
                     pass
-                elif question.field_type in ['user_id', 'link_id', 'hidden']:
+                elif question.field_type in [
+                        'user_id', 'link_id', 'hidden', 'display_only']:
                     pass
                 elif question.field_type in ['link_video']:
                     # TODO: This should be properly checked!

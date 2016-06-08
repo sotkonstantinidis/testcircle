@@ -1,6 +1,7 @@
 import random
 import string
 
+from django.apps import apps
 from django.db.models import Q
 from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire
@@ -133,3 +134,32 @@ def create_new_code(configuration, questionnaire_data):
     if Questionnaire.objects.filter(code=code).count() != 0:
         code = random_code(configuration)
     return code
+
+
+def get_choices_from_model(model_name, only_active=True):
+    """
+    Return the values of a model as choices to be used in the form.
+
+    Args:
+        model_name: (str) The name of the model inside the ``configuration`` app
+        only_active: (bool) If True, a filter is set to return only instances of
+          the model with "active" = True
+
+    Returns:
+        list. A list of tuples where
+            [0] The ID of the model instance
+            [1] The string representation of the instance
+    """
+    choices = []
+    try:
+        model = apps.get_model(
+            app_label='configuration', model_name=model_name)
+        if only_active is True:
+            objects = model.objects.filter(active=True).all()
+        else:
+            objects = model.objects.all()
+        for o in objects:
+            choices.append((o.id, str(o)))
+    except LookupError:
+        pass
+    return choices
