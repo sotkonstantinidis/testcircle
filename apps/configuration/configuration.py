@@ -27,7 +27,8 @@ from qcat.utils import (
     find_dict_in_list,
     is_empty_list_of_dicts,
 )
-from questionnaire.models import File
+from questionnaire.models import File, Flag
+
 User = get_user_model()
 
 
@@ -1975,6 +1976,19 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_configuration_errors(self):
         return self.configuration_error
 
+    @staticmethod
+    def get_country_filter(country_keyword):
+        """
+        Return the query parameters representing a country filter.
+
+        Args:
+            country_keyword:
+
+        Returns:
+
+        """
+        return 'filter__qg_location__country={}'.format(country_keyword)
+
     def add_category(self, category):
         self.categories.append(category)
 
@@ -2173,9 +2187,14 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if country_question:
             countries = country_question.choices[1:]
 
+        flags = []
+        for flag in Flag.objects.all():
+            flags.append((flag.flag, flag.get_flag_display()))
+
         return {
             'sections': filter_configuration,
             'countries': countries,
+            'flags': flags,
         }
 
     def get_list_data(self, questionnaire_data_list):

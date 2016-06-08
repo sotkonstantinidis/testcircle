@@ -56,12 +56,15 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     serializer_config = serializers.SerializerMethodField()
     status = serializers.ReadOnlyField(source='status_property')
     translations = serializers.ListField()
+    flags = serializers.ListField(source='flags_property')
     url = OutgoingMethodIncomingRawField(read_only=False, allow_null=True)
 
     class Meta:
         model = Questionnaire
-        fields = ('code', 'compilers', 'configurations', 'created', 'data', 'editors', 'links', 'list_data', 'name',
-                  'original_locale', 'serializer_config', 'status', 'translations', 'updated', 'url', )
+        fields = ('code', 'compilers', 'configurations', 'created', 'data',
+                  'editors', 'links', 'list_data', 'name', 'original_locale',
+                  'serializer_config', 'status', 'translations', 'updated',
+                  'url', 'flags', )
 
     def __init__(self, instance=None, data=empty, **kwargs):
         """

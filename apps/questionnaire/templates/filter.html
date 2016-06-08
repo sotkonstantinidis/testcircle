@@ -40,13 +40,10 @@
         </select>
       </div>
       <div class="medium-4 columns">
-        <label for="author">Author</label>
-        <input type="text" placeholder="Select or type the name of the author" list="authors" id="author" disabled="disabled">
-        <datalist id="authors">
-          <option value="Georges R.R.Martin"></option>
-          <option value="Philipp K. Dick"></option>
-          <option value="Isaac Asimov"></option>
-        </datalist>
+        <label>&nbsp;</label>
+        {% for flag in filter_configuration.flags %}
+          <label class="filter-checkbox-only"><input type="checkbox" id="flag_{{ flag.0 }}" data-value="{{ flag.0 }}" data-key="flag" data-questiongroup> {{ flag.1 }}</label>
+        {% endfor %}
       </div>
     </div>
 
