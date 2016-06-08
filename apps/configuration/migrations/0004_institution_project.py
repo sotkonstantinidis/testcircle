@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('configuration', '0002_translationcontent'),
+        ('configuration', '0003_valueuser'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Institution',
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False, help_text='The ID must be exactly the same as on the WOCAT website!')),
+                ('id', models.IntegerField(help_text='The ID must be exactly the same as on the WOCAT website!', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=255)),
                 ('abbreviation', models.CharField(max_length=63)),
                 ('active', models.BooleanField(default=True)),
-                ('country', models.ForeignKey(null=True, blank=True, to='configuration.Value')),
+                ('country', models.ForeignKey(blank=True, to='configuration.Value', null=True)),
             ],
             options={
                 'ordering': ['name'],
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Project',
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False, help_text='The ID must be exactly the same as on the WOCAT website!')),
+                ('id', models.IntegerField(help_text='The ID must be exactly the same as on the WOCAT website!', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=255)),
                 ('abbreviation', models.CharField(max_length=63)),
                 ('active', models.BooleanField(default=True)),
