@@ -21,3 +21,4 @@ class Command(NoArgsCommand):
 
         call_command('loaddata', 'groups_permissions')
         call_command('loaddata', 'global_key_values')
+        call_command('loaddata', 'flags')

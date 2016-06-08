@@ -1,5 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group
+
+from configuration.models import Country, ValueUser
+from .conf import settings
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -116,6 +119,22 @@ class User(AbstractBaseUser, PermissionsMixin):
             questionnaires.append((membership.role, membership.questionnaire))
         return questionnaires
 
+    def get_unccd_countries(self):
+        """
+        Return a list of countries (value objects) related to the current user
+        with relation UNCCD Focal Point.
+
+        Returns:
+            A list of countries (configuration.models.Value) for which the
+            current user is a focal point.
+        """
+        countries = []
+
+        for relation in self.valueuser_set.filter(
+                relation=settings.CONFIGURATION_VALUEUSER_UNCCD).all():
+            countries.append(relation.value)
+        return countries
+
     def __str__(self):
         return '{} {}'.format(self.firstname, self.lastname)
 
@@ -137,26 +156,41 @@ class User(AbstractBaseUser, PermissionsMixin):
         return user
 
     def update(
-            self, email=None, lastname='', firstname='', privileges=[],
-            usergroups=[]):
+            self, email=None, lastname='', firstname='', usergroups=[]):
         """
         Handles the one-way synchronization of the user database by
         updating the values.
 
-        If the user information changed, a call to
-        :func:`update_related_questionnaires` is made.
-
         Args:
-            ``name`` (str): The name of the user.
-
-            ``privileges`` (list): A list of privileges of the user.
-
-            .. todo::
-                Actually handle privileges.
+            email:
+            lastname:
+            firstname:
+            usergroups: A list of dicts representing the usergroups as provided
+              by the remote service.
         """
         if (email is None and lastname == self.lastname and
                 firstname == self.firstname):
             return
+
+        """
+        UNCCD Focal Points
+        {
+            'name': 'UNCCD Focal Point',
+            'unccd_country': 'CHE',
+        }
+        """
+        new_unccd_group = next((x for x in usergroups if x.get('name') ==
+                                settings.ACCOUNTS_UNCCD_ROLE_NAME), None)
+        if not new_unccd_group:
+            ValueUser.objects.filter(
+                user=self, relation=settings.CONFIGURATION_VALUEUSER_UNCCD)\
+                .delete()
+        else:
+            country = Country.get(new_unccd_group.get('unccd_country'))
+            if country is not None:
+                ValueUser.objects.get_or_create(
+                    value=country, user=self,
+                    relation=settings.CONFIGURATION_VALUEUSER_UNCCD)
 
         if email is not None:
             self.email = email

@@ -24,7 +24,7 @@ from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
 )
-from .models import Questionnaire
+from .models import Questionnaire, Flag
 from .conf import settings
 
 
@@ -584,6 +584,22 @@ def get_active_filters(questionnaire_configuration, query_dict):
                 'questiongroup': filter_param,
             })
 
+        if filter_param in ['flag']:
+            for filter_value in filter_values:
+                try:
+                    flag_label = Flag.objects.get(flag=filter_value)\
+                        .get_flag_display()
+                except Flag.DoesNotExist:
+                    flag_label = _('Unknown')
+                active_filters.append({
+                    'type': '_flag',
+                    'key': filter_param,
+                    'key_label': '',
+                    'value': filter_value,
+                    'value_label': flag_label,
+                    'questiongroup': filter_param,
+                })
+
         if not filter_param.startswith('filter__'):
             continue
 
@@ -876,11 +892,12 @@ def get_query_status_filter(request, moderation_mode=''):
                             settings.QUESTIONNAIRE_REVIEWED]))
 
         # Users see Questionnaires with status "reviewed" if they are
-        # assigned as "publisher" for this Questionnaire.
+        # assigned as "publisher" or as "flagger" for this Questionnaire.
         status_filter |= (
             Q(members=request.user) &
             Q(questionnairemembership__role__in=[
-                settings.QUESTIONNAIRE_PUBLISHER
+                settings.QUESTIONNAIRE_PUBLISHER,
+                settings.QUESTIONNAIRE_FLAGGER,
             ])
             & Q(status__in=[settings.QUESTIONNAIRE_REVIEWED]))
 
@@ -1344,6 +1361,97 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         else:
             messages.error(request, 'At least one of the assigned users could '
                                     'not be updated.')
+
+    elif request.POST.get('flag-unccd'):
+
+        if 'flag_unccd_questionnaire' not in permissions:
+            messages.error(
+                request, 'You do not have permissions to add this flag!')
+            return
+
+        try:
+            flag = Flag.objects.get(flag=settings.QUESTIONNAIRE_FLAG_UNCCD)
+        except Flag.DoesNotExist:
+            messages.error(request, 'The flag could not be set.')
+            return
+
+        # No flag can be set if the Questionnaire has a version in the review
+        # process.
+        review_questionnaires = Questionnaire.objects.filter(
+            code=questionnaire_object.code,
+            status__in=[settings.QUESTIONNAIRE_DRAFT,
+                        settings.QUESTIONNAIRE_SUBMITTED,
+                        settings.QUESTIONNAIRE_REVIEWED]).all()
+        if review_questionnaires:
+            messages.error(request, _(
+                'The flag could not be set because a version of this '
+                'questionnaire is already in the review process and needs to '
+                'be published first. Please try again later.'))
+            return
+
+        # First, create a new Questionnaire version
+        compiler = questionnaire_object.get_users_by_role('compiler')[0]
+        configuration = questionnaire_object.configurations.first()
+        next_status = settings.QUESTIONNAIRE_REVIEWED
+        new_version = Questionnaire.create_new(
+            configuration.code, questionnaire_object.data, compiler,
+            previous_version=questionnaire_object, status=next_status,
+            old_data=questionnaire_object.data)
+
+        # Then flag it
+        new_version.add_flag(flag)
+
+        # Add the user who flagged it
+        new_version.add_user(request.user, settings.QUESTIONNAIRE_FLAGGER)
+
+        messages.success(request, _('The flag was successfully set.'))
+
+    elif request.POST.get('unflag-unccd'):
+
+        if 'unflag_unccd_questionnaire' not in permissions:
+            messages.error(
+                request, 'You do not have permissions to remove this flag!')
+            return
+
+        try:
+            flag = Flag.objects.get(flag=settings.QUESTIONNAIRE_FLAG_UNCCD)
+        except Flag.DoesNotExist:
+            messages.error(request, 'The flag could not be removed.')
+            return
+
+        # No flag can be removed if the Questionnaire has a version in the
+        # review process.
+        review_questionnaires = Questionnaire.objects.filter(
+            code=questionnaire_object.code,
+            status__in=[settings.QUESTIONNAIRE_DRAFT,
+                        settings.QUESTIONNAIRE_SUBMITTED,
+                        settings.QUESTIONNAIRE_REVIEWED]).all()
+        if review_questionnaires:
+            messages.error(request, _(
+                'The flag could not be removed because a version of this '
+                'questionnaire is already in the review process and needs to '
+                'be published first. Please try again later.'))
+            return
+
+        # First, create a new Questionnaire version
+        compiler = questionnaire_object.get_users_by_role('compiler')[0]
+        configuration = questionnaire_object.configurations.first()
+        next_status = settings.QUESTIONNAIRE_REVIEWED
+        new_version = Questionnaire.create_new(
+            configuration.code, questionnaire_object.data, compiler,
+            previous_version=questionnaire_object, status=next_status,
+            old_data=questionnaire_object.data)
+
+        # Then remove the flag
+        new_version.flags.remove(flag)
+
+        # Remove the user who flagged it
+        new_version.remove_user(request.user, settings.QUESTIONNAIRE_FLAGGER)
+
+        messages.success(request, _(
+            'The flag was successfully removed. Please note that this created '
+            'a new version which needs to be reviewed. In the meantime, you '
+            'are seeing the public version which still shows the flag.'))
 
 
 def compare_questionnaire_data(data_1, data_2):
