@@ -781,6 +781,36 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 54",
+            "es": "Clave 54"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11054
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 55",
+            "es": "Clave 55"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11055
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "sample": {
@@ -2300,6 +2330,28 @@
   },
   {
     "fields": {
+      "keyword": "key_54",
+      "translation": 11054,
+      "configuration": {
+        "type": "select_model"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11054
+  },
+  {
+    "fields": {
+      "keyword": "key_55",
+      "translation": 11055,
+      "configuration": {
+        "type": "display_only"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11055
+  },
+  {
+    "fields": {
       "keyword": "value_1",
       "translation": 11501,
       "order_value": 1
@@ -2872,6 +2924,15 @@
   },
   {
     "fields": {
+      "keyword": "qg_38",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11038
+  },
+  {
+    "fields": {
       "keyword": "subcat_1_1",
       "translation": 12701
     },
@@ -3420,6 +3481,21 @@
                           },
                           {
                             "keyword": "key_53"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_38",
+                        "questions": [
+                          {
+                            "keyword": "key_54",
+                            "form_options": {
+                              "model": "Institution",
+                              "display_field": "key_55"
+                            }
+                          },
+                          {
+                            "keyword": "key_55"
                           }
                         ]
                       }

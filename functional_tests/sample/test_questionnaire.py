@@ -3300,8 +3300,8 @@ class QuestionnaireLinkTest(FunctionalTest):
 @patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTestProjects(FunctionalTest):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json',
-                'sample_projects.json']
+    fixtures = ['global_key_values.json', 'sample.json',
+                'sample_projects.json', 'sample_institutions.json']
 
     def test_select_project(self, mock_get_user_id):
 
@@ -3314,6 +3314,7 @@ class QuestionnaireTestProjects(FunctionalTest):
 
         # She goes to a step of the questionnaire
         self.browser.get(step_url)
+        self.rearrangeFormHeader()
 
         # She sees Key 52, which is a select field rendered with Chosen
         self.findBy('xpath', '//select[@name="qg_37-0-key_52"]')
@@ -3351,6 +3352,7 @@ class QuestionnaireTestProjects(FunctionalTest):
 
         # She goes back to the step and deselects the project
         self.browser.get(step_url)
+        self.rearrangeFormHeader()
         self.findBy(
             'xpath', '//div[contains(@class, "chosen-container")]').click()
         self.findBy(
@@ -3365,11 +3367,20 @@ class QuestionnaireTestProjects(FunctionalTest):
 
         # She goes back to the step and selects another project
         self.browser.get(step_url)
+        self.rearrangeFormHeader()
         self.findBy(
             'xpath', '//div[contains(@class, "chosen-container")]').click()
         self.findBy(
             'xpath',
             '//ul[@class="chosen-results"]/li[contains(text(), "first")]').\
+            click()
+
+        # She sees that she can also select an institution, which she does
+        self.findBy(
+            'xpath', '(//div[contains(@class, "chosen-container")])[2]').click()
+        self.findBy(
+            'xpath',
+            '//ul[@class="chosen-results"]/li[contains(text(), "Global")]'). \
             click()
 
         # She submits the step
@@ -3379,6 +3390,10 @@ class QuestionnaireTestProjects(FunctionalTest):
         self.findBy('xpath',
                     '//*[text()[contains(.,"The first Project (TFP)")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 55")]]')
+        self.findBy('xpath',
+                    '//*[text()[contains(.,"Global Institution")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 54")]]')
 
         # She submits the questionnaire and sees the project is submitted
         self.findBy('id', 'button-submit').click()
@@ -3387,3 +3402,7 @@ class QuestionnaireTestProjects(FunctionalTest):
         self.findBy('xpath',
                     '//*[text()[contains(.,"The first Project (TFP)")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 55")]]')
+        self.findBy('xpath',
+                    '//*[text()[contains(.,"Global Institution")]]')
+        self.findByNot('xpath', '//*[text()[contains(.,"Key 54")]]')
