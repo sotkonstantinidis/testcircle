@@ -3480,7 +3480,10 @@
                             }
                           },
                           {
-                            "keyword": "key_53"
+                            "keyword": "key_53",
+                            "form_options": {
+                              "template": "no_label"
+                            }
                           }
                         ]
                       },

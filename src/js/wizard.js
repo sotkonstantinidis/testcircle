@@ -682,8 +682,10 @@ $(function () {
                     displayText = $t.find('option:selected').html();
                 }
                 // Find the display field: Replace the key in the element's ID
-                // with the key of the display field.
-                var displayId = this.id.replace($t.data('key-keyword'), displayKey);
+                // with the key of the display field. Important: Replace only
+                // last occurrence of string as qg can contain the key.
+                var displayId = this.id.replace(
+                    new RegExp($t.data('key-keyword') + '$'), displayKey);
                 var displayField = $('#' + displayId);
                 if (displayField.length) {
                     displayField.val(displayText);
