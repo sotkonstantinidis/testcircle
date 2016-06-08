@@ -8,6 +8,7 @@ from configuration.models import (
     Category,
     Configuration,
     Key,
+    Project,
     Translation,
 )
 
@@ -183,3 +184,14 @@ class TranslationAdmin(admin.ModelAdmin):
             translations.append('<strong>{}</strong>: {}'.format(
                 locale, obj.get_translation(locale)))
         return format_html('<br/>'.join(translations))
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    """
+    The representation of :class:`configuration.models.Project` in the
+    administration interface.
+    """
+    list_display = ('name', 'abbreviation', 'active',)
+    list_filter = ('active',)
+    search_fields = ('name', 'abbreviation',)

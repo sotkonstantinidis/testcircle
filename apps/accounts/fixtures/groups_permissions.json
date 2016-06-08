@@ -353,6 +353,21 @@
           "assign_questionnaire",
           "questionnaire",
           "questionnaire"
+        ],
+        [
+          "add_project",
+          "configuration",
+          "project"
+        ],
+        [
+          "change_project",
+          "configuration",
+          "project"
+        ],
+        [
+          "delete_project",
+          "configuration",
+          "project"
         ]
       ]
     },
