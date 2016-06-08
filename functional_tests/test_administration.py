@@ -84,3 +84,18 @@ class AdminTest(FunctionalTest):
 
         textfields = self.findManyBy('xpath', '//input[@type="text"]')
         self.assertEqual(len(textfields), 3)
+
+        # She goes back to the admin page
+        self.browser.execute_script("window.history.go(-1)")
+
+        # She also sees that she can edit institutions
+        self.findBy('xpath', '//h2[contains(text(), "Configuration")]')
+        self.findBy('xpath', '//strong[contains(text(), "Institutions")]')
+
+        # She clicks to add a new institution and sees that she can edit the ID
+        # as well
+        self.findBy('xpath', '//a[contains(@href, "/admin/configuration/'
+                             'institution/add/")]').click()
+
+        textfields = self.findManyBy('xpath', '//input[@type="text"]')
+        self.assertEqual(len(textfields), 3)

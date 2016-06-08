@@ -368,6 +368,21 @@
           "delete_project",
           "configuration",
           "project"
+        ],
+        [
+          "add_institution",
+          "configuration",
+          "institution"
+        ],
+        [
+          "change_institution",
+          "configuration",
+          "institution"
+        ],
+        [
+          "delete_institution",
+          "configuration",
+          "institution"
         ]
       ]
     },

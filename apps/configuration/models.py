@@ -3,6 +3,7 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.db.models.signals import post_save
 from django.utils.translation import pgettext_lazy, get_language, activate
 from django_pgjson.fields import JsonBField
@@ -344,6 +345,9 @@ class Value(models.Model):
         """
         return self.translation.get_translation(*args, **kwargs)
 
+    def __str__(self):
+        return self.get_translation(keyword='label') or '[Value]'
+
 
 class Questiongroup(models.Model):
     """
@@ -423,3 +427,30 @@ class Project(models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.abbreviation)
+
+
+class Institution(models.Model):
+    """
+        The model representing the Institutions as they are managed by the WOCAT
+        website. IDs must be identical!
+
+        Only "active" Institutions can be selected in the form.
+        """
+    id = models.IntegerField(
+        primary_key=True,
+        help_text="The ID must be exactly the same as on the WOCAT website!")
+    name = models.CharField(max_length=255)
+    abbreviation = models.CharField(max_length=63)
+    country = models.ForeignKey(
+        'Value', null=True, blank=True,
+        limit_choices_to=Q(key__keyword='country'))
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        name = '{} ({})'.format(self.name, self.abbreviation)
+        if self.country:
+            name = '{} - {}'.format(name, self.country)
+        return name
