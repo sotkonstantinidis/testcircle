@@ -281,7 +281,19 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
         return kwargs
 
 
-class QuestionnaireSaveMixin:
+class StepsMixin:
+    """
+    Get a list with all steps for current questionnaire.
+    """
+    def get_steps(self):
+        # Flattened list with all categories.
+        categories = list(chain.from_iterable(
+            (section.categories for section in self.questionnaire_configuration.sections)
+        ))
+        return [category.keyword for category in categories]
+
+
+class QuestionnaireSaveMixin(StepsMixin):
     """
     Validate and save data for object. Errors are written to
     """
@@ -506,14 +518,9 @@ class QuestionnaireSaveMixin:
 
         """
 
-        # Flattened list with all categories.
-        categories = list(chain.from_iterable(
-            (section.categories for section in self.questionnaire_configuration.sections)
-        ))
-        steps = [category.keyword for category in categories]
-
         # Current or next step may not exist - use the default
         # redirect.
+        steps = self.get_steps()
         with contextlib.suppress(ValueError, IndexError):
             current_step = steps.index(current)
             url = reverse('{}:questionnaire_new_step'.format(self.url_namespace), kwargs={
@@ -537,7 +544,7 @@ class QuestionnaireSaveMixin:
                     self.object.add_link(link)
 
 
-class GenericQuestionnaireView(QuestionnaireEditMixin, View):
+class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     """
     Refactored function based view: generic_questionnaire_new
     """
@@ -587,6 +594,17 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
         # Url when switching the mode - go to the detail view.
         url = self.get_detail_url(step='') if self.has_object else ''
 
+        review_config = self.get_review_config(
+            permissions=permissions, url=url, blocked_by=blocked_by if not can_edit else False
+        )
+        if not self.has_object:
+            review_config.update({
+                'data_type': self.url_namespace,
+                'first_section_url': reverse('{}:questionnaire_new_step'.format(self.url_namespace), kwargs={
+                    'identifier': self.identifier, 'step': self.get_steps()[0]
+                })
+            })
+
         context = {
             'images': images,
             'sections': sections,
@@ -599,9 +617,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, View):
             'is_blocked': not can_edit,
             'toc_content': self.questionnaire_configuration.get_toc_data(),
             'has_content': bool(data),
-            'review_config': self.get_review_config(
-                permissions=permissions, url=url, blocked_by=blocked_by if not can_edit else False
-            ),
+            'review_config': review_config,
             'questionnaires_in_progress': self.questionnaires_in_progress()
         }
         return self.render_to_response(context=context)
