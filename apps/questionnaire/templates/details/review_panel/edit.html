@@ -20,7 +20,7 @@
     <div id="confirm-edit" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm submission." %}</h2>
       <p>{% trans "By submitting, a new version of this questionnaire with the status 'draft' will be created, for you and all editors to work on." %}</p>
-      <button name='submit' value='true' class="button" type="submit" form="review_form">{% trans "Edit" %}</button>
+      <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
   </div>
