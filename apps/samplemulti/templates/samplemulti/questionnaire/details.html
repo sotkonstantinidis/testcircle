@@ -6,6 +6,16 @@
 
 {% block content %}
 
+  {% if 'assign_questionnaire' in permissions %}
+    {% addtoblock 'js' %}
+      <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+      <script src="{% static 'js/review.min.js' %}"></script>
+    {% endaddtoblock %}
+    {% addtoblock 'css' %}
+      <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
+    {% endaddtoblock %}
+  {% endif %}
+
   {% if edited_questiongroups %}
     <div class="notice alert-box text-center">
       <p>{% trans "There is an old version which is different than the current one." %}</p>

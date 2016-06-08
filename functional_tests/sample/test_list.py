@@ -39,7 +39,7 @@ cat_1_position = get_position_of_category('cat_1', start0=True)
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json', 'sample.json', 'unccd.json',
+        'global_key_values.json', 'flags.json', 'sample.json', 'unccd.json',
         'sample_questionnaires_5.json']
 
     def setUp(self):
@@ -700,6 +700,139 @@ class ListTest(FunctionalTest):
 
         cb = self.findBy('xpath', '//input[@id="key_14_value_14_2"]')
         self.assertTrue(cb.is_selected())
+
+    def test_filter_flags(self):
+
+        # Alice goes to the list view
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She sees a link for advanced filtering which opens the filter
+        # panel
+        filter_panel = self.findBy('id', 'search-advanced')
+        self.assertFalse(filter_panel.is_displayed())
+        self.findBy('link_text', 'Advanced filter').click()
+        self.assertTrue(filter_panel.is_displayed())
+
+        # She sees a checkbox to filter by flag
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.ID, "flag_unccd_bp")))
+
+        url = self.browser.current_url
+        # She submits the filter and sees the flag values were not submitted
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+        self.assertEqual(self.browser.current_url, '{}?'.format(url))
+
+        # She clicks the UNCCD flag checkbox
+        flag_cb = self.findBy('id', 'flag_unccd_bp')
+        flag_cb.click()
+
+        # She submits the filter
+        filter_button.click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that the filter was submitted and the results are filtered.
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+                     'contains(text(), "Foo 4")]')
+
+        # The filter is in the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'UNCCD Best Practice')
+
+        # The checkbox is checked
+        self.assertTrue(flag_cb.is_selected())
+
+        # She clears the filter
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees the active filter is gone, checkbox is not checked and the
+        # results are all there again
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+        self.assertFalse(flag_cb.is_selected())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She applies the filter once again
+        flag_cb.click()
+        filter_button.click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+
+        # She reloads the page
+        url = self.browser.current_url
+        self.browser.get(url)
+
+        # She sees that the results are correctly filtered
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+                     'contains(text(), "Foo 4")]')
+
+        # The filter is in the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'UNCCD Best Practice')
+
+        # The checkbox is checked
+        flag_cb = self.findBy('id', 'flag_unccd_bp')
+        self.assertTrue(flag_cb.is_selected())
+
+        # She clicks "filter" again and sees the filter is not added twice.
+        url = self.browser.current_url
+        self.findBy('link_text', 'Advanced filter').click()
+        filter_button = self.findBy('id', 'submit-filter')
+        filter_button.click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+        self.assertEqual(self.browser.current_url, url)
 
     def test_filter_dates(self):
 

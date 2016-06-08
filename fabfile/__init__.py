@@ -117,6 +117,15 @@ def load_qcat_data():
     run('cd {} && python manage.py load_qcat_data'.format(env.source_folder))
 
 
+@task
+def show_logs(file='django.log', n=100):
+    """
+    Arguments can be passed like fab develop show_logs:file=myfile.log,n=1
+    """
+    require('environment', provided_by=(develop, master))
+    run('tail -n {n} {folder}/logs/{file}'.format(n=n, folder=env.source_folder, file=file))
+
+
 def _install_prerequirements():
     sudo('apt-get install apache2 git python3 python3-pip nodejs '
          'nodejs-legacy npm')

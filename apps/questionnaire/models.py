@@ -56,6 +56,10 @@ QUESTIONNAIRE_ROLES = (
     (settings.QUESTIONNAIRE_RESOURCEPERSON, _('Key resource person')),
 )
 
+QUESTIONNAIRE_FLAGS = (
+    (settings.QUESTIONNAIRE_FLAG_UNCCD, _('UNCCD Best Practice')),
+)
+
 
 class Questionnaire(models.Model):
     """
@@ -83,6 +87,7 @@ class Questionnaire(models.Model):
     links = models.ManyToManyField(
         'self', through='QuestionnaireLink', symmetrical=False,
         related_name='linked_to+')
+    flags = models.ManyToManyField('Flag')
 
     objects = models.Manager()
     with_status = StatusQuerySet.as_manager()
@@ -92,6 +97,10 @@ class Questionnaire(models.Model):
         permissions = (
             ("review_questionnaire", "Can review questionnaire"),
             ("publish_questionnaire", "Can publish questionnaire"),
+            ("assign_questionnaire",
+             "Can assign questionnaire (for review/publish)"),
+            ("flag_unccd_questionnaire", "Can flag UNCCD questionnaire"),
+            ("unflag_unccd_questionnaire", "Can unflag UNCCD questionnaire"),
         )
 
     def get_absolute_url(self):
@@ -202,6 +211,13 @@ class Questionnaire(models.Model):
             version = previous_version.version
             uuid = previous_version.uuid
 
+            # Unblock all other questionnaires with same code
+            Questionnaire.objects.filter(
+                code=code
+            ).update(
+                blocked=None
+            )
+
             if 'edit_questionnaire' not in permissions:
                 raise ValidationError(
                     'You do not have permission to edit the questionnaire.')
@@ -278,6 +294,9 @@ class Questionnaire(models.Model):
             for role in user_roles:
                 for old_user in previous_version.get_users_by_role(role):
                     questionnaire.add_user(old_user, role)
+
+            # Also copy any flags
+            questionnaire.flags.add(*previous_version.flags.all())
         else:
             questionnaire.add_user(user, settings.QUESTIONNAIRE_COMPILER)
         questionnaire.update_users_from_data(
@@ -320,7 +339,7 @@ class Questionnaire(models.Model):
                 'permissions': ['edit_questionnaire']
             }, {
                 'status': [settings.QUESTIONNAIRE_DRAFT],
-                'permissions': ['submit_questionnaire']
+                'permissions': ['submit_questionnaire', 'assign_questionnaire']
             }],
             settings.QUESTIONNAIRE_EDITOR: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
@@ -354,6 +373,24 @@ class Questionnaire(models.Model):
         if ('questionnaire.publish_questionnaire' in user_permissions
                 and self.status in [settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
+        if ('questionnaire.assign_questionnaire' in user_permissions
+                and self.status in [settings.QUESTIONNAIRE_SUBMITTED,
+                                    settings.QUESTIONNAIRE_REVIEWED]):
+            permissions.extend(['assign_questionnaire'])
+
+        # UNCCD Flagging
+        questionnaire_country = self.get_question_data('qg_location', 'country')
+        if len(questionnaire_country) == 1 \
+                and self.status in [settings.QUESTIONNAIRE_PUBLIC]:
+            for country in current_user.get_unccd_countries():
+                if country.keyword == questionnaire_country[0]:
+                    try:
+                        self.flags.get(flag=settings.QUESTIONNAIRE_FLAG_UNCCD)
+                        # Flag already exists
+                        permissions.extend(['unflag_unccd_questionnaire'])
+                    except Flag.DoesNotExist:
+                        # No flag yet
+                        permissions.extend(['flag_unccd_questionnaire'])
 
         permissions = list(set(permissions))
 
@@ -363,6 +400,53 @@ class Questionnaire(models.Model):
             permissions.remove('edit_questionnaire')
 
         return permissions
+
+    def get_question_data(self, qg_keyword, q_keyword):
+        """
+        Get the raw question data by keyword. This does not translate the values
+        or return the labelled choices. For this, use
+        QuestionnaireConfiguration.
+
+        Args:
+            qg_keyword: (str): The keyword of the questiongroup.
+            q_keyword: (str): The keyword of the question.
+
+        Returns:
+            (list). A list of (raw) values.
+        """
+        data = []
+        for q_data in self.data.get(qg_keyword, []):
+            for key, value in q_data.items():
+                if key == q_keyword:
+                    data.append(value)
+        return data
+
+    def add_flag(self, flag):
+        """
+        Add a Flag object to the questionnaire. Add it only once.
+
+        Args:
+            flag: (Flag): The flag to be added.
+        """
+        if flag not in self.flags.all():
+            self.flags.add(flag)
+
+    def get_user(self, user, role):
+        """
+        Get and return a user of the Questionnaire by role.
+
+        Args:
+            user: (User) The user.
+            role: (str): The role of the user.
+
+        Returns:
+            User or None.
+        """
+        membership = self.questionnairemembership_set.filter(
+            user=user, role=role).first()
+        if membership:
+            return membership.user
+        return None
 
     def get_users(self, **kwargs):
         """
@@ -401,15 +485,16 @@ class Questionnaire(models.Model):
 
     def add_user(self, user, role):
         """
-        Add a user.
+        Add a user. Users are only added if the membership does not yet exist.
 
         Args:
             ``user`` (User): The user.
 
             ``role`` (str): The role of the user.
         """
-        QuestionnaireMembership.objects.create(
-            questionnaire=self, user=user, role=role)
+        if self.get_user(user, role) is None:
+            QuestionnaireMembership.objects.create(
+                questionnaire=self, user=user, role=role)
 
     def remove_user(self, user, role):
         """
@@ -420,7 +505,9 @@ class Questionnaire(models.Model):
 
             ``role`` (str): The role of the user.
         """
-        self.questionnairemembership_set.filter(user=user, role=role).delete()
+        user = self.get_user(user, role)
+        if user is not None:
+            user.delete()
 
     def update_users_from_data(self, configuration_code):
         """
@@ -685,6 +772,16 @@ class Questionnaire(models.Model):
         else:
             return None
 
+    @cached_property
+    def flags_property(self):
+        flags = []
+        for flag in self.flags.all():
+            flags.append({
+                'flag': flag.flag,
+                'name': flag.get_flag_display(),
+            })
+        return flags
+
 
 class QuestionnaireConfiguration(models.Model):
     """
@@ -714,6 +811,10 @@ class QuestionnaireTranslation(models.Model):
 
     class Meta:
         ordering = ['-original_language']
+
+
+class Flag(models.Model):
+    flag = models.CharField(max_length=64, choices=QUESTIONNAIRE_FLAGS)
 
 
 class QuestionnaireLink(models.Model):

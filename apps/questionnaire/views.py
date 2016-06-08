@@ -721,8 +721,7 @@ def generic_questionnaire_details(
     permissions = questionnaire_object.get_permissions(request.user)
 
     review_config = {}
-    if request.user.is_authenticated() \
-            and questionnaire_object.status != settings.QUESTIONNAIRE_PUBLIC:
+    if request.user.is_authenticated():
         # Show the review panel only if the user is logged in and if the
         # version shown is not active (public).
         review_config = {
@@ -730,9 +729,29 @@ def generic_questionnaire_details(
             'csrf_token_value': get_token(request),
             'permissions': permissions,
         }
+
+        # For public questionnaires, only UNCCD focal points can flag/unflag it.
+        # All other users do not have any permissions general on it.
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC and \
+                'flag_unccd_questionnaire' not in permissions and \
+                'unflag_unccd_questionnaire' not in permissions:
+            review_config = {}
+
         if not questionnaire_object.can_edit(request.user):
             lvl, msg = questionnaire_object.get_blocked_message(request.user)
             review_config['blocked_by'] = msg
+
+        if 'assign_questionnaire' in review_config.get('permissions', []):
+            if questionnaire_object.status == settings.QUESTIONNAIRE_DRAFT:
+                review_config['editors'] = questionnaire_object.\
+                    get_users_by_role('editor')
+            elif questionnaire_object.status \
+                    == settings.QUESTIONNAIRE_SUBMITTED:
+                review_config['reviewers'] = questionnaire_object.\
+                    get_users_by_role('reviewer')
+            elif questionnaire_object.status == settings.QUESTIONNAIRE_REVIEWED:
+                review_config['publishers'] = questionnaire_object. \
+                    get_users_by_role('publisher')
 
     images = questionnaire_configuration.get_image_data(
         data).get('content', [])
@@ -899,7 +918,7 @@ def generic_questionnaire_list(
         if filter_type in ['_search']:
             query_string = active_filter.get('value', '')
         elif filter_type in [
-                'checkbox', 'image_checkbox', '_date', 'select_type']:
+                'checkbox', 'image_checkbox', 'select_type', '_date', '_flag']:
             filter_params.append(
                 (active_filter.get('questiongroup'),
                  active_filter.get('key'), active_filter.get('value'), None,

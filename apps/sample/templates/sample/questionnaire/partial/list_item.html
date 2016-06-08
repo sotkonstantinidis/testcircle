@@ -11,6 +11,12 @@
         {% elif item.configurations.0 %}
           <span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
         {% endif %}
+        {% for flag in item.flags_property %}
+          <span class="label is-{{ flag.flag }}">{{ flag.name }}</span>
+        {% endfor %}
+        {% for flag in item.flags %}
+          <span class="label is-{{ flag.flag }}">{{ flag.name }}</span>
+        {% endfor %}
         {% if item.status.0 and item.status.0 != 'public' %}
           <span class="label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
         {% endif %}

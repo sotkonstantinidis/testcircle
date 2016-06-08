@@ -8,7 +8,8 @@
   &.is-approach {
     background-color: rgba($color-approach, 0.8);
   }
-  &.is-unccd {
+  &.is-unccd,
+  &.is-unccd_bp {
     background-color: rgba($color-unccd, 0.8);
     color: #ffffff;
   }

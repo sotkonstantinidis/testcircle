@@ -386,6 +386,9 @@
         ]
       },
       "code": "sample_4",
+      "flags": [
+          1
+      ],
       "status": 4,
       "version": 1,
       "blocked": null,

@@ -80,6 +80,9 @@
   a {
     color: white;
   }
+  label.filter-checkbox-only {
+    margin-top: rem-calc(8);
+  }
   a.link {
     color: $color-beige;
     &:hover {

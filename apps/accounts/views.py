@@ -17,6 +17,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
 from django.views.generic import FormView
 
+from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.views import generic_questionnaire_list_no_config
 from .client import typo3_client
 from .conf import settings
@@ -65,6 +66,17 @@ class LoginView(FormView):
     def get_success_url(self):
         # Explicitly passed ?next= url takes precedence.
         redirect_to = self.request.GET.get('next') or reverse(self.success_url)
+        # Redirect UNCCD focal points to the list filtered with Questionnaires
+        # from their country. Only if no "next" is set.
+        if self.request.GET.get('next') is None:
+            unccd_countries = self.request.user.get_unccd_countries()
+            if unccd_countries:
+                country_keyword = unccd_countries[0].keyword
+                redirect_to = '{}?{}'.format(
+                    reverse('wocat:questionnaire_list'),
+                    QuestionnaireConfiguration.get_country_filter(
+                        country_keyword)
+                )
         # Prevent redirecting to other/invalid hosts - i.e. prevent xsrf
         if not is_safe_url(url=redirect_to, host=self.request.get_host()):
             redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
@@ -224,6 +236,17 @@ def details(request, id):
     user_info = typo3_client.get_user_information(user.id)
     typo3_client.update_user(user, user_info)
 
+    unccd_countries_list = []
+    unccd_countries = user.get_unccd_countries()
+    for country in unccd_countries:
+        unccd_countries_list.append((
+            country,
+            '{}?{}'.format(
+                reverse('wocat:questionnaire_list'),
+                QuestionnaireConfiguration.get_country_filter(country.keyword))
+        ))
+
     return render(request, 'details.html', {
         'detail_user': user,
+        'unccd_countries': unccd_countries_list,
     })

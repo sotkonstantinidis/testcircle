@@ -766,6 +766,66 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 53",
+            "es": "Clave 53"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11053
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 54",
+            "es": "Clave 54"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11054
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 55",
+            "es": "Clave 55"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11055
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 56",
+            "es": "Clave 56"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11056
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "sample": {
@@ -2281,11 +2341,55 @@
       "keyword": "key_52",
       "translation": 11052,
       "configuration": {
-        "type": "map"
+        "type": "select_model"
       }
     },
     "model": "configuration.key",
     "pk": 11052
+  },
+  {
+    "fields": {
+      "keyword": "key_53",
+      "translation": 11053,
+      "configuration": {
+        "type": "display_only"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11053
+  },
+  {
+    "fields": {
+      "keyword": "key_54",
+      "translation": 11054,
+      "configuration": {
+        "type": "select_model"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11054
+  },
+  {
+    "fields": {
+      "keyword": "key_55",
+      "translation": 11055,
+      "configuration": {
+        "type": "display_only"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11055
+  },
+  {
+    "fields": {
+      "keyword": "key_56",
+      "translation": 11056,
+      "configuration": {
+        "type": "map"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11056
   },
   {
     "fields": {
@@ -2861,6 +2965,15 @@
   },
   {
     "fields": {
+      "keyword": "qg_38",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11038
+  },
+  {
+    "fields": {
       "keyword": "subcat_1_1",
       "translation": 12701
     },
@@ -3404,6 +3517,39 @@
                             "keyword": "key_24"
                           }
                         ]
+                      },
+                      {
+                        "keyword": "qg_37",
+                        "questions": [
+                          {
+                            "keyword": "key_52",
+                            "form_options": {
+                              "model": "Project",
+                              "display_field": "key_53"
+                            }
+                          },
+                          {
+                            "keyword": "key_53",
+                            "form_options": {
+                              "template": "no_label"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_38",
+                        "questions": [
+                          {
+                            "keyword": "key_54",
+                            "form_options": {
+                              "model": "Institution",
+                              "display_field": "key_55"
+                            }
+                          },
+                          {
+                            "keyword": "key_55"
+                          }
+                        ]
                       }
                     ]
                   },
@@ -3631,7 +3777,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "key_52"
+                            "keyword": "key_56"
                           }
                         ]
                       }
