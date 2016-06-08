@@ -1,16 +1,16 @@
-{% extends 'technologies/base.html' %}
+{% extends 'approaches/base.html' %}
 
-{% load i18n %}
-{% load thumbnail %}
-{% load questionnaire_tags %}
 {% load compress %}
+{% load i18n %}
 {% load sekizai_tags %}
+{% load questionnaire_tags %}
 {% load staticfiles %}
 
 
 {% block bodyclass %}layout-tech{% endblock %}
 
 {% block content %}
+
   {% if 'assign_questionnaire' in permissions %}
     {% addtoblock 'js' %}
       <script src="{% static 'js/jquery-ui.min.js' %}"></script>
@@ -21,7 +21,6 @@
     {% endaddtoblock %}
   {% endif %}
 
-
   <div id="scroll-fixed-top" class="sticky-menu-outer">
     {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode=view_mode %}
     {% addtoblock 'js' %}
@@ -31,36 +30,11 @@
     {% endaddtoblock %}
   </div>
 
-  {% if view_mode == 'edit' and not has_content %}
-    {% comment %}
-      TODO: For UNCCD testing (shared account), this notice is shown for every
-      new edit. In future, this should probably be shown only once per user and
-      could be customized (Welcome XYZ, ...).
-    {% endcomment %}
-    <section class="hero welcome-notice" id="welcome-notice">
-      <a class="welcome-notice-close" data-toggle="welcome-notice"><svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
-      <div class="row large-collapse">
-        <div id="unccd-hero-welcome" class="small-3 large-2 columns">
-          <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
-          <p>{% trans "Primary recommended database" %}</p>
-        </div>
-        <div class="small-9 large-offset-1 columns">
-          <h2>{% trans "Welcome to the SLM Technology data entry form." %}</h2>
-          <p>{% trans "You are about to add a new Technology." %} <a href="{% url 'technologies:questionnaire_new_step' questionnaire_identifier 'tech__1' %}" class="link">{% trans "Start by editing the general information section." %}</a></p>
-            {% comment %}
-              Deactivated during unccd testing, as requested by Isabelle.
-            {% endcomment %}
-{#          {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
-        </div>
-      </div>
-    </section>
-  {% endif %}
-
   {% if images|length %}
     <figure class="tech-figure">
       <div class="tech-figure-container">
-          {% prepare_image images.0 as prepared_image %}
-          <img alt="{{ images.0.caption }}" data-interchange="{{ prepared_image.interchange }}" src="{{ prepared_image.src }}">
+        {% prepare_image images.0 as prepared_image %}
+        <img alt="{{ images.0.caption }}" data-interchange="{{ prepared_image.interchange }}" src="{{ prepared_image.src }}">
       </div>
       {% if images.0.caption or images.0.photographer %}
         <div class="row hide-for-small-only">
@@ -78,25 +52,15 @@
     </figure>
   {% endif %}
 
+  {% if review_config %}
+    {% include 'details/review_panel.html' with review_config=review_config %}
+  {% endif %}
+
   <article role="main">
     <main class="is-rhythmed-4">
       {% for section in sections %}
         {{ section }}
       {% endfor %}
-      <section class="row is-rhythmed">
-        <div class="small-12 columns">
-          {% if 'edit_questionnaire' in permissions %}
-            {% if view_mode == 'edit' %}
-              <form action="" method="POST">
-                {% csrf_token %}
-                <input id="button-submit" class="button large is-technologies" type="submit" value="{% trans "Save SLM Technology" %}">
-              </form>
-            {% else %}
-              <a href="{% url 'technologies:questionnaire_edit' questionnaire_identifier %}" class="button large is-technologies">{% trans "Edit SLM Technology" %}</a>
-            {% endif %}
-          {% endif %}
-        </div>
-      </section>
     </main>
   </article>
 
@@ -106,7 +70,7 @@
         <script>
           $().ready(function() {
             if (typeof _paq !== 'undefined') {
-              _paq.push(['trackEvent', 'Detail', 'Technology', '{{ questionnaire_identifier  }}']);
+              _paq.push(['trackEvent', 'Detail', 'Approach', '{{ questionnaire_identifier  }}']);
             }
           });
         </script>
@@ -122,7 +86,6 @@
       <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
     {% endaddtoblock %}
 
-
     <script src="{% static 'js/intro.min.js' %}"></script>
     <script>
       function startIntro() {
@@ -134,13 +97,13 @@
             showStepNumbers: false,
             steps: [
               {
-                intro: '{% trans "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to take a tour explaining the functions on this page.</p>" %}',
+                intro: '{% trans '<p>Welcome to the help section of the Questionnaire!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
                 element: document.querySelector('#show_help'),
                 position: 'top'
               },
               {
                 intro: '{% trans "<p>This is the output page where you can see all the data you entered in the form.</p>" %}',
-                element: document.querySelector('section#tech__1')
+                element: document.querySelector('section#app__1')
               },
               {
                 intro: '{% trans "<p>The Questionnaire consists of multiple sections. You can use the Table of Content for navigation.</p>" %}',
@@ -149,12 +112,12 @@
               },
               {
                 intro: '{% trans "<p>Each section is also visible in the output, any data you enter will appear here.</p>" %}',
-                element: document.querySelector('section#tech__2'),
+                element: document.querySelector('section#app__2'),
                 position: 'top'
               },
               {
                 intro: '{% trans "<p>Click on the button to edit a section and enter your data.</p><p>The numbers indicate how many questions are already filled out in this section.</p>" %}',
-                element: document.querySelector('section#tech__2 a.button'),
+                element: document.querySelector('section#app__2 a.button'),
                 position: 'top'
               },
               {
