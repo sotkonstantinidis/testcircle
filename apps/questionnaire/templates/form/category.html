@@ -105,7 +105,7 @@
       {% endfor %}
 
       {% if edit_mode == 'edit' %}
-        <div class="row">
+        <div class="submit-buttons-bottom row">
           <a id="button-submit" class="button is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
             <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-left"></use></svg>
             {% trans "Save and go to overview" %}
@@ -157,33 +157,32 @@
           steps: [
             {
               intro: '{% trans '<p>Welcome to the help section of the form!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
-              element: document.querySelector('#show_help'),
-              position: 'top'
+              element: document.querySelector('#show_help')
             },
             {
               intro: '{% trans "<p>The bar indicates the name of the section you are currently editing.</p>" %}',
-              element: document.querySelector('h2.wizard-header-title'),
-              position: 'top'
+              element: document.querySelector('h2.wizard-header-title')
             },
             {
-              intro: '{% trans '<p>Click "Save" to save your changes and view them in the output.</p><p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
-              element: document.querySelector('a#button-submit'),
-              position: 'top'
+              intro: '{% trans '<p>Click "Save and back" to save your changes and go back to the overview to view them in the output.</p><p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
+              element: document.querySelector('a#button-submit')
             },
             {
-              intro: '{% trans "<p>You can use the arrows to navigate between the questions.</p>" %}',
-              element: document.querySelector('div.navigation-buttons'),
-              position: 'top'
+              intro: '{% trans '<p>Click "Save and next" to save the current section and directly continue to the next section.<p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
+              element: document.querySelector('a.button-submit-goto-next-section')
+            },
+            {
+              intro: '{% trans '<p>Both options "save and back to overview" and "save and next section" are also available on the bottom of the page.</p>' %}',
+{#              element: document.querySelector('div.submit-buttons-bottom'),  - doesn't seem to work #}
+              position: 'top',
             },
             {
               intro: '{% trans "<p>Use this link if you want to go back to the output without saving any changes.</p>" %}',
-              element: document.querySelector('a.wizard-header-back'),
-              position: 'top'
+              element: document.querySelector('a.wizard-header-back')
             },
             {
               intro: '{% trans "<p>The progress bar indicates how many questions are already filled out.</p>" %}',
-              element: document.querySelector('div.progress'),
-              position: 'top'
+              element: document.querySelector('div.progress')
             }
           ]
         }).start();
