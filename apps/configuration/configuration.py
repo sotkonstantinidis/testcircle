@@ -14,6 +14,7 @@ from configuration.models import (
     Key,
     Questiongroup,
 )
+from configuration.utils import get_choices_from_model
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -27,7 +28,8 @@ from qcat.utils import (
     find_dict_in_list,
     is_empty_list_of_dicts,
 )
-from questionnaire.models import File
+from questionnaire.models import File, Flag
+
 User = get_user_model()
 
 
@@ -238,6 +240,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'link_id',
         'int',
         'float',
+        'select_model',
+        'display_only',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -601,7 +605,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.options = field_options
             field = forms.CharField(
                 label=self.label, widget=widget, required=self.required)
-        elif self.field_type in ['user_id', 'link_id', 'hidden']:
+        elif self.field_type in [
+                'user_id', 'link_id', 'hidden', 'display_only']:
             widget = HiddenInput()
             if self.field_type == 'user_id':
                 widget.css_class = 'select-user-id'
@@ -691,6 +696,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 widget=forms.TextInput(
                     attrs={'readonly': 'readonly', 'value': '[TODO]'}),
                 required=self.required)
+        elif self.field_type == 'select_model':
+            attrs.update({
+                'data-select-display-field': self.form_options.get('display_field'),
+                'data-key-keyword': self.keyword,
+            })
+            widget = Select(attrs=attrs)
+            widget.options = field_options
+            widget.searchable = True
+            choices = [('', '-')]
+            choices.extend(
+                get_choices_from_model(self.form_options.get('model')))
+            field = forms.ChoiceField(
+                label=self.label, widget=widget, choices=choices,
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -746,7 +765,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if not isinstance(value, list):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
-        if self.field_type in ['char', 'text', 'todo', 'date', 'int']:
+        if self.field_type in [
+                'char', 'text', 'todo', 'date', 'int', 'display_only']:
             template_name = 'textarea'
             template_values.update({
                 'key': self.label_view,
@@ -863,7 +883,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 })
             else:
                 return '\n'
-        elif self.field_type in ['hidden']:
+        elif self.field_type in ['hidden', 'select_model']:
             template_name = 'hidden'
             template_values.update({
                 'key': self.label_view,
@@ -1975,6 +1995,19 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_configuration_errors(self):
         return self.configuration_error
 
+    @staticmethod
+    def get_country_filter(country_keyword):
+        """
+        Return the query parameters representing a country filter.
+
+        Args:
+            country_keyword:
+
+        Returns:
+
+        """
+        return 'filter__qg_location__country={}'.format(country_keyword)
+
     def add_category(self, category):
         self.categories.append(category)
 
@@ -2173,9 +2206,14 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if country_question:
             countries = country_question.choices[1:]
 
+        flags = []
+        for flag in Flag.objects.all():
+            flags.append((flag.flag, flag.get_flag_display()))
+
         return {
             'sections': filter_configuration,
             'countries': countries,
+            'flags': flags,
         }
 
     def get_list_data(self, questionnaire_data_list):

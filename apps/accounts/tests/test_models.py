@@ -1,6 +1,8 @@
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+
+from configuration.models import Value, ValueUser
 from qcat.tests import TestCase
 User = get_user_model()
 
@@ -107,3 +109,39 @@ class UserModelTestFixtures(TestCase):
         for role, questionnaire in ret:
             self.assertIn(role, ['compiler', 'landuser'])
             self.assertIn(questionnaire, [questionnaire_1, questionnaire_2])
+
+
+class UserModelTestFixturesValues(TestCase):
+
+    fixtures = ['groups_permissions', 'global_key_values']
+
+    def test_update_adds_unccd_countries(self):
+        user = User.create_new(id=1, email='a@b.com', lastname='Foo')
+        self.assertEqual(user.get_unccd_countries(), [])
+        user.update(usergroups=[{
+            'name': 'UNCCD Focal Point',
+            'unccd_country': 'CHE',
+        }])
+        countries = user.get_unccd_countries()
+        self.assertEqual(len(countries), 1)
+        self.assertEqual(str(countries[0]), 'Switzerland')
+
+    def test_update_removes_unccd_countries(self):
+        user = User.create_new(id=1, email='a@b.com', lastname='Foo')
+        country = Value.objects.get(pk=215)
+        ValueUser.objects.create(value=country, user=user, relation='unccd_fp')
+        countries = user.get_unccd_countries()
+        self.assertEqual(len(countries), 1)
+        self.assertEqual(str(countries[0]), 'Switzerland')
+        user.update(usergroups=[])
+        self.assertEqual(user.get_unccd_countries(), [])
+        self.assertEqual(len(user.groups.all()), 0)
+
+    def test_get_unccd_countries_returns_countries(self):
+        user = User.create_new(id=1, email='a@b.com', lastname='Foo')
+        country = Value.objects.get(pk=215)
+        group = Group.objects.get(pk=6)
+        ValueUser.objects.create(value=country, user=user, relation='unccd_fp')
+        user.groups.add(group)
+        unccd_countries = user.get_unccd_countries()
+        self.assertEqual(unccd_countries, [country])

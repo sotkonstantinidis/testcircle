@@ -10,7 +10,7 @@ from configuration.models import (
     Questiongroup,
     Translation,
     Value,
-    TranslationContent)
+    TranslationContent, Country)
 from qcat.tests import TestCase
 
 
@@ -480,3 +480,20 @@ class ConfigurationModelTestFixtures(TestCase):
         active = Configuration.objects.filter(active=True).all()
         self.assertEqual(len(active), 1)
         self.assertEqual(active[0], conf_2)
+
+
+class ValueUserTest(TestCase):
+
+    fixtures = ['global_key_values']
+
+    def test_all_returns_all_countries(self):
+        all = Country.all()
+        self.assertEqual(len(all), 249)
+
+    def test_get_returns_single_country(self):
+        ch = Country.get('CHE')
+        self.assertEqual(ch, Value.objects.get(pk=215))
+
+    def test_get_returns_none_if_not_found(self):
+        notfound = Country.get('foo')
+        self.assertIsNone(notfound)

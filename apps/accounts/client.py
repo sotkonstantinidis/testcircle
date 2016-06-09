@@ -184,13 +184,12 @@ class Typo3Client:
               from :func:`get_user_information`
         """
         if user_information:
-            usergroups = [
-                g.get('name') for g in user_information.get('usergroup', [])]
             user.update(
                 email=user_information.get('username'),
                 lastname=user_information.get('last_name'),
                 firstname=user_information.get('first_name'),
-                usergroups=usergroups)
+                usergroups=user_information.get('usergroup'),
+            )
 
     def search_users(self, name=''):
         """

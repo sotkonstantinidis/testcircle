@@ -131,6 +131,17 @@ def get_mappings(questionnaire_configuration):
                 'links': {
                     'properties': link_properties,
                 },
+                'flags': {
+                    'type': 'nested',
+                    'properties': {
+                        'flag': {
+                            'type': 'string',
+                        },
+                        'name': {
+                            'type': 'string',
+                        },
+                    }
+                },
                 # 'list_data' is added dynamically
             }
         }

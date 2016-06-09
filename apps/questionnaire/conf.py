@@ -21,6 +21,9 @@ class QuestionnaireConf(AppConf):
     SECRETARIAT = 'secretariat'
     LANDUSER = 'landuser'
     RESOURCEPERSON = 'resourceperson'
+    FLAGGER = 'flagger'
+
+    FLAG_UNCCD = 'unccd_bp'
 
     METADATA_KEYS = [
         'created',
@@ -31,6 +34,7 @@ class QuestionnaireConf(AppConf):
         'configurations',
         'translations',
         'status',
+        'flags',
     ]
 
     # Definition = one sentence, description = max. 2500 chars

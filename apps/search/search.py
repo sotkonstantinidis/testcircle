@@ -119,6 +119,19 @@ def advanced_search(
                 }
             })
 
+        elif filter_type in ['_flag']:
+            must.append({
+                'nested': {
+                    'path': 'flags',
+                    'query': {
+                        'query_string': {
+                            'query': value,
+                            'fields': ['flags.flag'],
+                        }
+                    }
+                }
+            })
+
     # Query string: Full text search
     if query_string:
         must.append({
