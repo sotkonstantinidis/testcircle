@@ -703,9 +703,7 @@ class Questionnaire(models.Model):
                 raise QuestionnaireLockedException(
                     cls.objects.filter(code=code).first().blocked
                 )
-            editable_questionnaires.exclude(
-                status=settings.QUESTIONNAIRE_PUBLIC
-            ).update(blocked=user)
+            editable_questionnaires.update(blocked=user)
 
     def can_edit(self, user):
         return self.has_questionnaires_for_code(
