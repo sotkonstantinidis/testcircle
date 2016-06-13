@@ -126,3 +126,9 @@ $map-height: 400px;
 .ui-helper-hidden-accessible {
   display: none;
 }
+
+#map-view {
+  border: 1px solid silver;
+  height: 400px;
+  width: 100%;
+}

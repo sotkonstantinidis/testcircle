@@ -1,5 +1,8 @@
 import contextlib
 import json
+
+from django.contrib.gis.gdal.error import GDALException
+from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from os.path import join
 from uuid import uuid4
 
@@ -73,6 +76,7 @@ class Questionnaire(models.Model):
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
+    geom = models.GeometryField(null=True, blank=True)
     blocked = models.ForeignKey(
         settings.AUTH_USER_MODEL, blank=True, null=True,
         related_name='blocks_questionnaire',
@@ -156,6 +160,8 @@ class Questionnaire(models.Model):
         ).update(
             blocked=None
         )
+
+        self.update_geometry(configuration_code=configuration_code)
 
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
@@ -274,6 +280,8 @@ class Questionnaire(models.Model):
         questionnaire = Questionnaire.objects.create(
             data=data, uuid=uuid, code=code, version=version, status=status,
             created=created, updated=updated)
+
+        questionnaire.update_geometry(configuration_code=configuration_code)
 
         # TODO: Not all configurations should be the original ones!
         QuestionnaireConfiguration.objects.create(
@@ -420,6 +428,39 @@ class Questionnaire(models.Model):
                 if key == q_keyword:
                     data.append(value)
         return data
+
+    def update_geometry(self, configuration_code):
+        """
+        Update the geometry of a questionnaire based on the GeoJSON found in the
+        data json.
+
+        Args:
+            configuration_code:
+
+        Returns:
+            -
+        """
+        conf_object = get_configuration(configuration_code)
+        geometry_string = conf_object.get_questionnaire_geometry(self.data)
+        if geometry_string is None:
+            return
+        try:
+            geometry_json = json.loads(geometry_string)
+        except json.decoder.JSONDecodeError:
+            return
+        geoms = []
+        for feature in geometry_json.get('features', []):
+            try:
+                feature_geom = GEOSGeometry(json.dumps(feature.get('geometry')))
+            except ValueError:
+                continue
+            except GDALException:
+                continue
+            geoms.append(feature_geom)
+        if geoms:
+            geometry = GeometryCollection(tuple(geoms))
+            self.geom = geometry
+        self.save()
 
     def add_flag(self, flag):
         """

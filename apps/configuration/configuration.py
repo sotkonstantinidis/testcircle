@@ -344,6 +344,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         self.in_list = self.view_options.get('in_list', False) is True
         self.is_name = self.view_options.get('is_name', False) is True
+        self.is_geometry = self.view_options.get('is_geometry', False) is True
 
         self.max_length = self.form_options.get('max_length', None)
         if self.max_length and not isinstance(self.max_length, int):
@@ -767,8 +768,14 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 value = [value]
             values = self.lookup_choices_labels_by_keywords(value)
         if self.field_type in [
-                'char', 'text', 'todo', 'date', 'int', 'display_only', 'map']:
+                'char', 'text', 'todo', 'date', 'int', 'display_only']:
             template_name = 'textarea'
+            template_values.update({
+                'key': self.label_view,
+                'value': value,
+            })
+        elif self.field_type in ['map']:
+            template_name = 'map'
             template_values.update({
                 'key': self.label_view,
                 'value': value,
@@ -2288,6 +2295,21 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     questiongroup_keyword = questiongroup.keyword
         return question_keyword, questiongroup_keyword
 
+    def get_geometry_keywords(self):
+        """
+        Return the keywords of the question and questiongroup which
+        contain the name of the questionnaire as defined in the
+        configuration by the ``is_geometry`` parameter.
+        """
+        question_keyword = None
+        questiongroup_keyword = None
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.is_geometry is True:
+                    question_keyword = question.keyword
+                    questiongroup_keyword = questiongroup.keyword
+        return question_keyword, questiongroup_keyword
+
     def get_description_keywords(self, keys):
         """
         Get a list of tuples in the form of 'questiongroup': 'keyword' for
@@ -2326,6 +2348,13 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             for x in questionnaire_data.get(questiongroup_keyword, []):
                 return x.get(question_keyword)
         return {'en': _('Unknown name')}
+
+    def get_questionnaire_geometry(self, questionnaire_data):
+        question_keyword, questiongroup_keyword = self.get_geometry_keywords()
+        if question_keyword:
+            for x in questionnaire_data.get(questiongroup_keyword, []):
+                return x.get(question_keyword)
+        return None
 
     def get_questionnaire_description(self, questionnaire_data, keys):
         """

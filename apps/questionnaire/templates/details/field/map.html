@@ -1,0 +1,15 @@
+{% comment %}
+  Basic map for the details view. Rendered with Google Maps.
+  See JS code in map-view.min.js
+{% endcomment %}
+
+{% load staticfiles %}
+
+<div id="map-view"></div>
+
+<script>
+  var mapViewGeojson = {{ value|safe }};
+</script>
+<script src="{% static 'js/map-view.min.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>

@@ -2974,6 +2974,15 @@
   },
   {
     "fields": {
+      "keyword": "qg_39",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11039
+  },
+  {
+    "fields": {
       "keyword": "subcat_1_1",
       "translation": 12701
     },
@@ -3771,13 +3780,16 @@
                     "keyword": "subcat_3_3",
                     "questiongroups": [
                       {
-                        "keyword": "qg_37",
+                        "keyword": "qg_39",
                         "form_options": {
                           "template": "map"
                         },
                         "questions": [
                           {
-                            "keyword": "key_56"
+                            "keyword": "key_56",
+                            "view_options": {
+                              "is_geometry": true
+                            }
                           }
                         ]
                       }

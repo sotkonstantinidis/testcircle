@@ -147,7 +147,8 @@ module.exports = function(grunt) {
       },
       map: {
         files: {
-          'static/js/map.min.js': ['src/js/map.js']
+          'static/js/map.min.js': ['src/js/map.js'],
+          'static/js/map-view.min.js': ['src/js/map-view.js']
         }
       },
       review: {
