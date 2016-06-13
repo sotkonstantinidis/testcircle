@@ -12,40 +12,50 @@
     <div class="medium-2 columns">
       <p>
         <a class="button is-ok" data-reveal-id="confirm-submit">{% trans "Submit" %}</a>
-        {% if review_config.blocked_by %}
-          <p id="is-blocked" data-confirm="{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}">{{ review_config.blocked_by }}</p>
-        {% endif %}
       </p>
     </div>
     <div class="medium-10 columns">
       <p>{% trans 'All edits have been made and the questionnaire is ready to be submitted. Next status will be "submitted" and reviewers will be notified.' %}</p>
+      {% if review_config.blocked_by %}
+        <p>{{ review_config.blocked_by }}</p>
+      {% endif %}
     </div>
     <div id="confirm-submit" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm submission." %}</h2>
       <p>{% trans "By submitting this, a the defined reviewer will check your questionnaire. In that time, you will not be able to modify it." %}</p>
+      {% if review_config.blocked_by %}
+        <p>{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}</p>
+      {% endif %}
       <button name='submit' value='true' class="button" type="submit" form="review_form">{% trans "Submit" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
   </div>
 {% endif %}
+
 {% if review_config.mode == 'edit' and 'edit_questionnaire' in review_config.permissions %}
   <div class="row workflow-action">
     <div class="medium-2 columns">
       <p>
         <a class="button is-ok" href="{{ review_config.url }}">{% trans "Edit" %}</a>
-        {% if review_config.blocked_by %}
-          <p id="is-blocked" data-confirm="{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}">{{ review_config.blocked_by }}</p>
-        {% endif %}
       </p>
     </div>
     <div class="medium-10 columns">
       <p>{% trans 'Start editing this questionnaire.' %}</p>
     </div>
   </div>
+{% elif review_config.mode == 'view' %}
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a class="button is-ok" href="{{ review_config.url }}">{% trans "View" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans 'View this questionnaire.' %}</p>
+    </div>
+  </div>
 {% endif %}
-{% comment %}
-  Only the compiler is allowed to submit.
-{% endcomment %}
+
 {% if 'submit_questionnaire' in review_config.permissions %}
   <div class="row workflow-action">
     <div class="medium-2 columns">
@@ -65,18 +75,6 @@
   </div>
 {% endif %}
 
-{% if review_config.mode == 'view' %}
-  <div class="row workflow-action">
-    <div class="medium-2 columns">
-      <p>
-        <a class="button is-ok" href="{{ review_config.url }}">{% trans "View" %}</a>
-      </p>
-    </div>
-    <div class="medium-10 columns">
-      <p>{% trans 'View this questionnaire.' %}</p>
-    </div>
-  </div>
-{% endif %}
 
 
 {% if 'assign_questionnaire' in review_config.permissions %}
