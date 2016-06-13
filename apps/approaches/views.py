@@ -68,7 +68,7 @@ def questionnaire_details(request, identifier):
     """
     return generic_questionnaire_details(
         request, identifier, 'approaches', 'approaches',
-        'approaches/questionnaire/details.html')
+        'questionnaire/details.html')
 
 
 def questionnaire_list_partial(request):
