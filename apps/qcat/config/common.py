@@ -268,3 +268,6 @@ class BaseSettings(Configuration):
     PIWIK_URL = values.Value(environ_prefix='')
     PIWIK_AUTH_TOKEN = values.Value(environ_prefix='')
     PIWIK_API_VERSION = values.IntegerValue(environ_prefix='', default=1)
+
+    # google webdeveloper verification
+    GOOGLE_WEBMASTER_TOOLS_KEY = values.Value(environ_prefix='')

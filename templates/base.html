@@ -39,6 +39,9 @@
     <meta name="description" content="WOCAT is an established global network which supports innovation and decision-making processes in Sustainable Land Management.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-language" content="{{ request.LANGUAGE_CODE }}" />
+    {% if GOOGLE_WEBMASTER_TOOLS_KEY %}
+      <meta name="google-site-verification" content="{{ GOOGLE_WEBMASTER_TOOLS_KEY }}" />
+    {% endif %}
 
     <!-- Theme styles -->
     {% compress css %}
