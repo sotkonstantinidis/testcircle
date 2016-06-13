@@ -43,6 +43,28 @@
     </div>
   </div>
 {% endif %}
+{% comment %}
+  Only the compiler is allowed to submit.
+{% endcomment %}
+{% if 'submit_questionnaire' in review_config.permissions %}
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a class="button is-dangerous" data-reveal-id="confirm-delete">{% trans "Delete" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans 'Delete this questionnaire. This is only possible for the compiler and while it is still in the draft mode.' %}</p>
+    </div>
+    <div id="confirm-delete" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2>{% trans "Please confirm removal." %}</h2>
+      <p>{% trans "By submitting this the questionnaire will be deleted." %}</p>
+      <button name='delete' value='true' class="button" type="submit" form="review_form">{% trans "Delete" %}</button>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+  </div>
+{% endif %}
+
 {% if review_config.mode == 'view' %}
   <div class="row workflow-action">
     <div class="medium-2 columns">

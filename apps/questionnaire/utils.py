@@ -1457,6 +1457,12 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             'a new version which needs to be reviewed. In the meantime, you '
             'are seeing the public version which still shows the flag.'))
 
+    elif request.POST.get('delete'):
+        questionnaire_object.is_deleted = True
+        questionnaire_object.save()
+        messages.success(request, _('The questionnaire was succesfully removed'))
+        return redirect('{}:home'.format(configuration_code))
+
 
 def compare_questionnaire_data(data_1, data_2):
     """
