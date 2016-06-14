@@ -80,8 +80,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
 
         # She submits the form and sees the values are in the details
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
 
         self.findBy('xpath', '//*[text()[contains(.,"MKey 1")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')

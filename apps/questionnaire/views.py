@@ -256,6 +256,10 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     def questionnaire_data(self):
         return self.object.data if self.has_object else {}
 
+    @property
+    def questionnaire_links(self):
+        return self.object.links.all() if self.has_object else []
+
     def get_detail_url(self, step):
         """
         The detail view of the current object with #top as anchor.
@@ -777,12 +781,13 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         initial_data = get_questionnaire_data_for_translation_form(
             self.object.data if self.has_object else {}, get_language(), original_locale
         )
+        initial_links = get_link_data(self.questionnaire_links)
 
         category_config, subcategories = self.category.get_form(
             post_data=self.request.POST or None,
             initial_data=initial_data, show_translation=show_translation,
             edit_mode=self.edit_mode,
-            edited_questiongroups=[], initial_links={}
+            edited_questiongroups=[], initial_links=initial_links,
         )
         return category_config, subcategories
 

@@ -24,23 +24,42 @@
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
   </div>
+{% endif %}
 
-  {% if 'flag_unccd_questionnaire' in review_config.permissions %}
-    <div class="row workflow-action">
-      <div class="medium-2 columns">
-        <p>
-          <a class="button is-ok" data-reveal-id="confirm-focal-point">{% trans "Focal point" %}</a>
-        </p>
-      </div>
-      <div class="medium-10 columns">
-        <p>{% trans 'Set this questionnaire as a unnccd focal point.' %}</p>
-      </div>
-      <div id="confirm-focal-point" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-        <h2>{% trans "Please confirm focal point." %}</h2>
-        <p>{% trans "By submitting, this questionnaire will be set as UNCCD focal point." %}</p>
-        <button name='flag-unccd' value='true' class="button" type="submit" form="review_form">{% trans "Confirm" %}</button>
-        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-      </div>
+{% if 'flag_unccd_questionnaire' in review_config.permissions %}
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a class="button is-ok" data-reveal-id="confirm-flag-unccd">{% trans "Focal point" %}</a>
+      </p>
     </div>
-  {% endif %}
+    <div class="medium-10 columns">
+      <p>{% trans 'Set this questionnaire as a unccd focal point.' %}</p>
+    </div>
+    <div id="confirm-flag-unccd" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2>{% trans "Please confirm focal point." %}</h2>
+      <p>{% trans "By submitting, this questionnaire will be set as UNCCD focal point." %}</p>
+      <button name='flag-unccd' value='true' class="button" type="submit" form="review_form">{% trans "Confirm" %}</button>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+  </div>
+{% endif %}
+
+{% if 'unflag_unccd_questionnaire' in review_config.permissions %}
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a class="button is-ok" data-reveal-id="confirm-unflag-unccd">{% trans "Unflag as UNCCD best practice" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans 'This questionnaire is flagged as a UNCCD best practice. As a UNCCD focal point, you can remove this flag. This will create a new version of the questionnaire which will go through the review process before it is publicly visible.' %}</p>
+    </div>
+    <div id="confirm-unflag-unccd" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2>{% trans "Please confirm unflag." %}</h2>
+      <p>{% trans "By submitting, this questionnaire will be unflagged as UNCCD focal point." %}</p>
+      <button name='unflag-unccd' value='true' class="button" type="submit" form="review_form">{% trans "Confirm" %}</button>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+  </div>
 {% endif %}

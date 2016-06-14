@@ -2,6 +2,9 @@ from django.conf.urls import url, patterns
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
+from questionnaire.views import GenericQuestionnaireView, \
+    GenericQuestionnaireStepView
+
 urlpatterns = patterns(
     '',
     url(r'^$', RedirectView.as_view(
@@ -12,12 +15,15 @@ urlpatterns = patterns(
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         'unccd.views.questionnaire_view_step',
         name='questionnaire_view_step'),
-    url(r'^edit/new/$', 'unccd.views.questionnaire_new',
+    url(r'^edit/new/$',
+        GenericQuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_new'),
-    url(r'^edit/(?P<identifier>[^/]+)/$', 'unccd.views.questionnaire_new',
+    url(r'^edit/(?P<identifier>[^/]+)/$',
+        GenericQuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        'unccd.views.questionnaire_new_step', name='questionnaire_new_step'),
+        GenericQuestionnaireStepView.as_view(url_namespace=__package__),
+        name='questionnaire_new_step'),
     url(r'^list/$', 'unccd.views.questionnaire_list',
         name='questionnaire_list'),
     url(r'^list_partial/$', 'unccd.views.questionnaire_list_partial',

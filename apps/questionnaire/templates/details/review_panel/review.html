@@ -11,14 +11,25 @@
   <div class="row workflow-action">
     <div class="medium-2 columns">
       <p>
-        <a id="button-review" name="review" class="button small is-ok" data-reveal-id="confirm-approval">{% trans "Approve" %}</a>
+        <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans 'Make small changes to the questionnaire.' %}</p>
+    </div>
+  </div>
+
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a id="button-review" name="review" class="button small is-ok" data-reveal-id="confirm-review">{% trans "Approve" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">
       <p>{% trans 'The questionnaire is ready to be checked for publishing. Next status will be 'reviewed' and publishers will be notified.' %}</p>
     </div>
     <!-- The modal for approval -->
-    <div id="confirm-approval" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <div id="confirm-review" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm approval." %}</h2>
       <p>{% trans "By submitting this, a publisher will review the questionnaire and make it available for public users." %}</p>
       <button name='review' value='true' class="button" type="submit" form="review_form">{% trans "Approve" %}</button>

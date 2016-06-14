@@ -80,7 +80,7 @@ def questionnaire_details(request, identifier):
     """
     return generic_questionnaire_details(
         request, identifier, 'samplemulti', 'samplemulti',
-        'samplemulti/questionnaire/details.html')
+        'questionnaire/details.html')
 
 
 def questionnaire_list_partial(request):

@@ -11,6 +11,17 @@
   <div class="row workflow-action">
     <div class="medium-2 columns">
       <p>
+        <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans 'Make small changes to the questionnaire.' %}</p>
+    </div>
+  </div>
+
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
         <a id="button-publish" name="publish" class="button small is-ok" data-reveal-id="confirm-publish">{% trans "Publish" %}</a>
       </p>
     </div>
