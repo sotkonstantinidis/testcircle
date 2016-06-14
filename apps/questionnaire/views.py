@@ -622,7 +622,8 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             'toc_content': self.questionnaire_configuration.get_toc_data(),
             'has_content': bool(data),
             'review_config': review_config,
-            'questionnaires_in_progress': self.questionnaires_in_progress()
+            'questionnaires_in_progress': self.questionnaires_in_progress(),
+            'base_template': '{}/base.html'.format(self.url_namespace),
         }
         return self.render_to_response(context=context)
 
@@ -829,7 +830,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
 
 
 def generic_questionnaire_details(
-        request, identifier, configuration_code, url_namespace, template):
+        request, identifier, configuration_code, url_namespace):
     """
     A generic view to show the details of a questionnaire.
 
@@ -944,7 +945,7 @@ def generic_questionnaire_details(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
-    return render(request, template, {
+    return render(request, 'questionnaire/details.html', {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
@@ -952,7 +953,8 @@ def generic_questionnaire_details(
         'permissions': permissions,
         'view_mode': 'view',
         'toc_content': questionnaire_configuration.get_toc_data(),
-        'review_config': review_config
+        'review_config': review_config,
+        'base_template': '{}/base.html'.format(url_namespace),
     })
 
 
@@ -1074,7 +1076,7 @@ def generic_questionnaire_list(
         if filter_type in ['_search']:
             query_string = active_filter.get('value', '')
         elif filter_type in [
-                'checkbox', 'image_checkbox', '_date', 'select_type']:
+                'checkbox', 'image_checkbox', '_date', '_flag', 'select_type']:
             filter_params.append(
                 (active_filter.get('questiongroup'),
                  active_filter.get('key'), active_filter.get('value'), None,

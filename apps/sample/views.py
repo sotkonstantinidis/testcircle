@@ -79,8 +79,7 @@ def questionnaire_details(request, identifier):
         ``HttpResponse``. A rendered Http Response.
     """
     return generic_questionnaire_details(
-        request, identifier, 'sample', 'sample',
-        'questionnaire/details.html')
+        request, identifier, 'sample', 'sample')
 
 
 def questionnaire_list_partial(request):
