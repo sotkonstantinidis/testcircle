@@ -9,6 +9,10 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 from accounts.authentication import WocatAuthenticationBackend
 from accounts.client import Typo3Client
 from qcat.tests import TEST_CACHES
@@ -138,6 +142,46 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def screenshot(self):
         self.browser.save_screenshot('screenshot.png')
+
+    def review_action(
+            self, action, exists_only=False, expected_msg_class='success'):
+        """
+        Handle review actions which trigger a modal.
+
+        Args:
+            action: One of
+                - 'edit'
+                - 'view'
+                - 'submit'
+                ⁻ 'review'
+                - 'publish'
+                - 'flag-unccd'
+                - 'unflag-unccd'
+            exists_only: Only check that the modal is opened without triggering
+              the action.
+            expected_msg_class: str.
+
+        Returns:
+
+        """
+        if action == 'view':
+            self.findBy(
+                'xpath', '//form[@id="review_form"]//a[text()="View"]').click()
+            return
+        self.findBy(
+            'xpath', '//a[@data-reveal-id="confirm-{}"]'.format(action)).click()
+        btn_xpath = '//button[@name="{}"]'.format(action)
+        if action == 'edit':
+            # No button for "edit"
+            btn_xpath = '//a[text()="Edit" and @type="submit"]'
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, btn_xpath)))
+        if exists_only is True:
+            return
+        self.findBy('xpath', btn_xpath).click()
+        self.findBy(
+            'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
 
     def checkOnPage(self, text):
         self.assertIn(text, self.browser.page_source)
