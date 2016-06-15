@@ -747,7 +747,9 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         response = super().form_valid(data)
 
         if self.request.POST.get('goto-next-section', '') == 'true':
-            return self.get_success_url_next_section(self.object.code, self.kwargs['step'])
+            next_step = self.get_success_url_next_section(self.object.code, self.kwargs['step'])
+            if next_step:
+                return next_step
 
         return response
 

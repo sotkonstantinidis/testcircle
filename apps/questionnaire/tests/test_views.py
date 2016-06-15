@@ -12,7 +12,7 @@ from configuration.configuration import (
     QuestionnaireConfiguration,
 )
 from qcat.tests import TestCase
-from questionnaire.models import File
+from questionnaire.models import File, Questionnaire
 from questionnaire.views import (
     generic_file_upload,
     generic_questionnaire_details,
@@ -612,3 +612,84 @@ class GenericQuestionnaireViewTest(TestCase):
     def test_force_login(self):
         self.view.dispatch(self.request)
         self.assertTrue(self.request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME])
+
+
+class GenericQuestionnaireStepViewTest(TestCase):
+    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        view = GenericQuestionnaireStepView(url_namespace='sample')
+        self.request = self.factory.get('/en/sample/view/app_1/cat_0/')
+        self.request.user = create_new_user()
+        self.request._messages = MagicMock()
+        self.view = self.setup_view(view, self.request, identifier='sample_1', step='cat_0')
+
+    def test_valid_step(self):
+        self.view.get(self.request)
+        self.assertEqual(self.view.category.keyword, 'cat_0')
+
+    def test_invalid_step(self):
+        view = self.setup_view(self.view, self.request, identifier='sample_1', step='cat_666')
+        with self.assertRaises(Http404):
+            view.get(self.request)
+
+    @patch.object(Questionnaire, 'lock_questionnaire')
+    def test_lock_questionnaire(self, lock_questionnaire):
+        self.view.get(self.request)
+        lock_questionnaire.assert_called_with('sample_1', self.request.user)
+
+    @patch.object(Questionnaire, 'create_new')
+    @patch.object(Questionnaire, 'unlock_questionnaire')
+    def test_unlock_questionnaire(self, unlock_questionnaire, create_new):
+        obj = self.view.get_object()
+        self.view.object = obj
+        create_new.return_value = obj
+        self.view.form_valid({})
+        unlock_questionnaire.assert_called_once_with()
+
+    @patch.object(Questionnaire, 'create_new')
+    @patch.object(GenericQuestionnaireStepView, 'get_success_url_next_section')
+    def test_next_section_route(self, get_success_url_next_section, create_new):
+        request = self.factory.post('/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0')
+        request.user = self.request.user
+        request._messages = MagicMock()
+        request.POST['goto-next-section'] = 'true'
+        view = self.setup_view(self.view, request, step='cat_0')
+        view.object = MagicMock()
+        view.object.code = 'foo'
+        create_new.return_value = view.object
+        view.form_valid({})
+        get_success_url_next_section.assert_called_with('foo', 'cat_0')
+
+    @patch.object(GenericQuestionnaireStepView, 'get_steps')
+    def test_next_section_url(self, get_steps):
+        get_steps.return_value = ['foo', 'bar']
+        response = self.view.get_success_url_next_section('sample_1', 'foo')
+        self.assertEqual(response.url, '/en/sample/edit/sample_1/bar/')
+
+    @patch.object(GenericQuestionnaireStepView, 'get_steps')
+    def test_next_section_url_no_exception(self, get_steps):
+        get_steps.return_value = ['foo', 'bar', 'baz']
+        response = self.view.get_success_url_next_section('sample_1', 'abc')
+        self.assertIsNone(response)
+
+    @patch.object(Questionnaire, 'create_new')
+    def test_success_url(self, create_new):
+        request = self.factory.post('/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0')
+        request.user = self.request.user
+        request._messages = MagicMock()
+
+        view = self.setup_view(self.view, request, step='cat_0')
+        view.object = MagicMock()
+        view.object.code = 'bar'
+        create_new.return_value = view.object
+        response = view.form_valid({})
+        self.assertEqual(response.url, "/en/sample/edit/bar/#cat_0")
+
+
+    def test_get_locale_info(self):
+        self.view.set_attributes()
+        original_locale, show_translation = self.view.get_locale_info()
+        self.assertIsNone(original_locale)
+        self.assertFalse(show_translation)
