@@ -144,7 +144,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.save_screenshot('screenshot.png')
 
     def review_action(
-            self, action, exists_only=False, expected_msg_class='success'):
+            self, action, exists_only=False, exists_not=False,
+            expected_msg_class='success'):
         """
         Handle review actions which trigger a modal.
 
@@ -155,6 +156,7 @@ class FunctionalTest(StaticLiveServerTestCase):
                 - 'submit'
                 ⁻ 'review'
                 - 'publish'
+                - 'reject'
                 - 'flag-unccd'
                 - 'unflag-unccd'
             exists_only: Only check that the modal is opened without triggering
@@ -168,6 +170,10 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.findBy(
                 'xpath', '//form[@id="review_form"]//a[text()="View"]').click()
             return
+        if exists_not is True:
+            self.findByNot(
+                'xpath', '//a[@data-reveal-id="confirm-{}"]'.format(action))
+            return
         self.findBy(
             'xpath', '//a[@data-reveal-id="confirm-{}"]'.format(action)).click()
         btn_xpath = '//button[@name="{}"]'.format(action)
@@ -178,13 +184,34 @@ class FunctionalTest(StaticLiveServerTestCase):
             EC.visibility_of_element_located(
                 (By.XPATH, btn_xpath)))
         if exists_only is True:
+            self.findBy('xpath', '//div[contains(@class, "reveal-modal") and contains(@class, "open")]//a[contains(@class, "close-reveal-modal")]').click()
+            import time; time.sleep(1)
             return
         self.findBy('xpath', btn_xpath).click()
         self.findBy(
             'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
 
+    def submit_form_step(self):
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+    def click_edit_section(self, section_identifier, return_button=False):
+        btn = self.findBy(
+            'xpath', '//a[contains(@href, "/edit/") and '
+                     'contains(@href, "{}")]'.format(section_identifier))
+        if return_button is True:
+            return btn
+        btn.click()
+        self.rearrangeFormHeader()
+
     def checkOnPage(self, text):
-        self.assertIn(text, self.browser.page_source)
+        xpath = '//*[text()[contains(.,"{}")]]'.format(text)
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, xpath)))
+
+    def scroll_to_element(self, el):
+        self.browser.execute_script("return arguments[0].scrollIntoView();", el)
 
     def clickUserMenu(self, user):
         self.findBy(

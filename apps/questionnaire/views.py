@@ -325,7 +325,8 @@ class QuestionnaireSaveMixin(StepsMixin):
 
         """
         data, is_valid = self._validate_formsets(subcategories, get_language(), original_locale)
-        links = {}
+        links = get_link_data(self.questionnaire_links)
+
         # Check if any links were modified.
         link_questiongroups = self.category.get_link_questiongroups()
         if link_questiongroups:
@@ -339,7 +340,9 @@ class QuestionnaireSaveMixin(StepsMixin):
                         valid = False
                         continue
 
-                links_in_session = links.get(link_configuration_code, [])
+                # The links initially available
+                initial_links = links.get(link_configuration_code, [])
+                new_links = []
 
                 for link in link_data:
                     link_id = link.get('link_id')
@@ -356,18 +359,20 @@ class QuestionnaireSaveMixin(StepsMixin):
                     # Check if the link is already in the session, in which case
                     # there is no need to get the link data again
                     link_found = False
-                    for old_link in links_in_session:
+                    for old_link in initial_links:
                         if old_link.get('id') == link_id:
                             link_found = True
+                            new_links.extend(old_link)
 
                     if link_found is False:
                         current_link_data = get_link_data(
-                            [link_object], link_configuration_code=link_configuration_code
+                            [link_object],
+                            link_configuration_code=link_configuration_code
                         )
+                        new_links.extend(current_link_data.get(
+                            link_configuration_code))
 
-                        links_in_session.extend(current_link_data.get(link_configuration_code))
-
-                links[link_configuration_code] = links_in_session
+                links[link_configuration_code] = new_links
 
         if not is_valid:
             return is_valid, data
@@ -536,16 +541,24 @@ class QuestionnaireSaveMixin(StepsMixin):
     def save_questionnaire_links(self):
         """
         Save the linked questionnaires to for the current object.
-
-        Todo: clarify - should we use Questionnaire.add_link ?
         """
         if not hasattr(self, 'links') or not self.links:
             return
+
+        # Collect the IDs of all (newly) linked questionnaires
+        linked_ids = []
         for __, linked_questionnaires in self.links.items():
-            for linked in linked_questionnaires:
-                with contextlib.suppress(Questionnaire.DoesNotExist):
-                    link = Questionnaire.objects.get(pk=linked.get('id'))
-                    self.object.add_link(link)
+            linked_ids.extend([x.get('id') for x in linked_questionnaires])
+
+        # Remove all currently linked questionnaires which are not in this list
+        for removed in self.object.links.exclude(id__in=linked_ids):
+            self.object.remove_link(removed)
+
+        # Add links to all questionnaires in the list
+        for linked in linked_ids:
+            with contextlib.suppress(Questionnaire.DoesNotExist):
+                link = Questionnaire.objects.get(pk=linked)
+                self.object.add_link(link)
 
 
 class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):

@@ -59,15 +59,15 @@ class ModerationTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new))
         edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(@href, "edit/new/cat")]')
+            'xpath', '//main//a[contains(@href, "edit/new/cat")]')
         edit_buttons[cat_1_position].click()
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
 
+        # She changes to the view mode
+        self.review_action('view')
         url = self.browser.current_url
 
         # She refreshes the page and sees the questionnaire
@@ -97,9 +97,7 @@ class ModerationTest(FunctionalTest):
         # Alice submits the questionnaire
         self.doLogin(user=user_alice)
         self.browser.get(url)
-        self.findBy('xpath', '//input[@name="submit"]').click()
-        time.sleep(1)
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
 
         # She logs out and cannot see the questionnaire
         self.doLogout()
@@ -118,14 +116,11 @@ class ModerationTest(FunctionalTest):
         # The moderator logs in and sees the questionnaire
         self.doLogin(user=user_moderator)
         self.browser.get(url)
-        time.sleep(1)
         self.checkOnPage('Foo')
 
         # He publishes the questionnaire
-        self.findBy('xpath', '//input[@name="review"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('review')
+        self.review_action('publish')
 
         # The moderator cannot edit the questionnaire
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
@@ -133,7 +128,6 @@ class ModerationTest(FunctionalTest):
         # Logged out users can see the questionnaire
         self.doLogout()
         self.browser.get(url)
-        time.sleep(1)
         self.checkOnPage('Foo')
 
         # Logged out users cannot edit the questionnaire
@@ -142,14 +136,13 @@ class ModerationTest(FunctionalTest):
         # Bob cannot edit the questionnaire
         self.doLogin(user=user_bob)
         self.browser.get(url)
-        time.sleep(1)
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
         # Alice can edit the questionnaire
         self.doLogin(user=user_alice)
         self.browser.get(url)
-        time.sleep(1)
-        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+        self.checkOnPage('Foo')
+        self.review_action('edit', exists_only=True)
 
 
 @patch.object(Typo3Client, 'get_user_id')
@@ -184,8 +177,12 @@ class ModerationTestFixture(FunctionalTest):
             route_questionnaire_details, kwargs={'identifier': 'sample_5'}))
         self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
 
-        # He does not see the review panel.
-        self.findByNot('xpath', '//ol[@class="process"]')
+        # He does see the review panel but no actions are possible
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
         # He sees that there is no edit button for him.
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
@@ -195,11 +192,14 @@ class ModerationTestFixture(FunctionalTest):
             route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
         self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
 
-        # He does not see the review panel.
-        self.findByNot('xpath', '//ol[@class="process"]')
+        # He does see the review panel but can only edit
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
         # He sees a button to edit the questionnaire and clicks on it.
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.review_action('edit')
 
         # He makes some changes and saves the questionnaire
         self.findBy(
@@ -207,16 +207,15 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (by Editor)')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # He sees a review panel but he does not see the button to
         # submit the questionnaire for review
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
+        self.review_action('view')
         url_details = self.browser.current_url
 
         # Compiler logs in
@@ -227,22 +226,20 @@ class ModerationTestFixture(FunctionalTest):
         # review. She clicks it.
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findBy('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
-        self.browser.implicitly_wait(3)
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
 
         # The questionnaire is now pending for review. The review panel
         # is visible but Compiler cannot do any actions.
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findByNot('id', 'button-publish')
-        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
         # Editor logs in
         self.doLogin(user=self.user_editor)
@@ -251,11 +248,12 @@ class ModerationTestFixture(FunctionalTest):
 
         # He goes to the page and he also sees the review panel but no
         # actions can be taken.
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
         # Reviewer logs in.
         self.doLogin(user=self.user_reviewer)
@@ -264,64 +262,64 @@ class ModerationTestFixture(FunctionalTest):
 
         # He goes to the page and sees the review panel. There is a
         # button to do the review.
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findBy('id', 'button-review')
-        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_only=True)
+        self.review_action('publish', exists_not=True)
 
         # He clicks the button to do the review
-        self.browser.implicitly_wait(3)
-        self.findBy('id', 'button-review').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('review')
 
         # He sees the review panel but no action is possible.
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
         # Compiler logs in and goes to the page, sees the review panel
         # but no actions possible
         self.doLogin(user=self.user_compiler)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
         # Editor logs in and goes to the page, sees the review panel but
         # no actions possible.
         self.doLogin(user=self.user_editor)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findByNot('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_not=True)
 
         # Publisher logs in and goes to the page. He sees the review
         # panel with a button to publish.
         self.doLogin(user=self.user_publisher)
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
-        self.findBy('xpath', '//ol[@class="process"]')
-        self.findByNot('id', 'button-submit')
-        self.findByNot('id', 'button-review')
-        self.findBy('id', 'button-publish')
+        self.findBy('xpath', '//form[@id="review_form"]')
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
+        self.review_action('edit', exists_not=True)
+        self.review_action('submit', exists_not=True)
+        self.review_action('review', exists_not=True)
+        self.review_action('publish', exists_only=True)
 
         # He clicks the button to publish the questionnaire.
-        self.findBy('id', 'button-publish').click()
-        self.browser.implicitly_wait(3)
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('publish')
 
-        # There is no more review panel and no edit button.
-        self.findByNot('xpath', '//ol[@class="process"]')
+        # The review panel is there but he cannot edit
+        self.findBy('xpath', '//form[@id="review_form"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
     def test_secretariat_can_assign_reviewer(self, mock_get_user_id):
@@ -369,8 +367,8 @@ class ModerationTestFixture(FunctionalTest):
 
         # She decides to add two users as reviewers
         self.findBy(
-            'xpath', '//a[contains(@class, "review-assigned-users-'
-                     'toggle")]').click()
+            'xpath', '//a[contains(@class, "js-toggle-edit-assigned-users")]').\
+            click()
 
         selected_users = self.findManyBy(
             'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
@@ -406,7 +404,9 @@ class ModerationTestFixture(FunctionalTest):
         self.assertTrue('Lukas Vonlanthen' in selected_users[1].text)
 
         # She updates the users
-        self.findBy('id', 'button-assign').click()
+        btn = self.findBy('id', 'button-assign')
+        self.scroll_to_element(btn)
+        btn.click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She sees the users were added
@@ -418,8 +418,8 @@ class ModerationTestFixture(FunctionalTest):
 
         # She edits the users again
         self.findBy(
-            'xpath', '//a[contains(@class, "review-assigned-users-'
-                     'toggle")]').click()
+            'xpath', '//a[contains(@class, "js-toggle-edit-assigned-users")]').\
+            click()
         selected_users = self.findManyBy(
             'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
                      '"alert-box")]')
@@ -453,7 +453,9 @@ class ModerationTestFixture(FunctionalTest):
         self.assertTrue('Sebastian Manger' in selected_users[1].text)
 
         # She updates the users
-        self.findBy('id', 'button-assign').click()
+        btn = self.findBy('id', 'button-assign')
+        self.scroll_to_element(btn)
+        btn.click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She sees the users were added
@@ -480,7 +482,7 @@ class ModerationTestFixture(FunctionalTest):
         # He changes the name and submits the step
         self.findManyBy(
             'xpath',
-            '//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
+            '//main//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
                 cat_1_position].click()
         self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
         self.findBy('id', 'button-submit').click()
@@ -488,12 +490,9 @@ class ModerationTestFixture(FunctionalTest):
 
         # He sees the changes in the overview and submits the questionnaire
         self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
 
         # He starts editing again
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        # self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
 
         # He sees there is a message of an old version
         # has_old_version_overview(self)
@@ -501,18 +500,15 @@ class ModerationTestFixture(FunctionalTest):
         # He edits the step again and sees there is now a message of changes
         self.findManyBy(
             'xpath',
-            '//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
+            '//main//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
                 cat_1_position].click()
         # has_old_version_step(self)
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # He goes back to the overview and reviews the questionnaire
         self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
-        self.findBy('id', 'button-review').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('review')
         self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
 
     def test_reviewer_can_reject_questionnaire(self, mock_get_user_id):
@@ -531,7 +527,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
 
         # He sees that he can reject the questionnaire and so he does
-        self.findBy('id', 'button-reject').click()
+        self.review_action('reject')
 
         # He sees the reject was successful
         self.findBy('xpath', '//div[contains(@class, "success")]')
@@ -575,12 +571,9 @@ class ModerationTestFixture(FunctionalTest):
 
         # He sees the changes in the overview and submits the questionnaire
         self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
 
         # He starts editing again
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        # self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
 
         # He sees there is a message of an old version
         # TODO: Basically, the old version should disappear after a compiler
@@ -595,13 +588,10 @@ class ModerationTestFixture(FunctionalTest):
         # has_old_version_step(self)
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # He goes back to the overview and reviews the questionnaire
         self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
-        self.findBy('id', 'button-publish').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('publish')
 
     def test_publisher_can_reject_questionnaire(self, mock_get_user_id):
 
@@ -619,10 +609,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
 
         # He sees that he can reject the questionnaire and so he does
-        self.findBy('id', 'button-reject').click()
-
-        # He sees the reject was successful
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('reject')
 
         # The reviewer has been taken "home" because he has no
         # permission to view or edit the draft questionnaire
