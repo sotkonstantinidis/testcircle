@@ -44,6 +44,16 @@ class SerializerTest(TestCase):
                 'sample', 'Unknown name', 'sample_1'
             )
 
+    def test_serialized_links(self):
+        linked_questionnaire = get_valid_questionnaire()
+        self.questionnaire.add_link(linked_questionnaire)
+        # load serialized data to python again
+        serialized = QuestionnaireSerializer(self.questionnaire).data
+        print('serialized')
+        deserialized = QuestionnaireSerializer(data=serialized)
+        self.assertTrue(deserialized.is_valid())
+        # self.assertEqual(serialized['links'], deserialized.validated_data['links'])
+
     def test_complete_serialization(self):
         data = QuestionnaireSerializer(self.questionnaire).data
         expected = {
@@ -55,10 +65,12 @@ class SerializerTest(TestCase):
             'name': {'en': 'Unknown name'},
             'data': {"foo": "bar"},
             'editors': [],
+            'flags': [],
             'links': {'en': [], 'es': [], 'fr': []},
             'configurations': ['sample'],
             'status': ('draft', 'Draft'),
-            'serializer_config': 'sample'
+            'serializer_config': 'sample',
+            'original_locale': 'en'
         }
         # datetimes are not relevant to the structure.
         del data['created']
