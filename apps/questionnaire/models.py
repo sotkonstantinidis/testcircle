@@ -788,6 +788,18 @@ class Questionnaire(models.Model):
             })
         return flags
 
+    @cached_property
+    def has_release(self):
+        """
+        Check if any version of this questionnaire was published.
+
+        Returns: boolean
+
+        """
+        return self.status == settings.QUESTIONNAIRE_PUBLIC or self._meta.model.with_status.not_deleted().filter(
+            code=self.code, status=settings.QUESTIONNAIRE_PUBLIC
+        ).exists()
+
 
 class QuestionnaireConfiguration(models.Model):
     """

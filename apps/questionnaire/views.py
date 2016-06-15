@@ -695,11 +695,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         return link_display
 
     def has_release(self):
-        return self.has_object and (
-            self.object.status == settings.QUESTIONNAIRE_PUBLIC or Questionnaire.objects.filter(
-                code=self.object.code, status=settings.QUESTIONNAIRE_PUBLIC
-            ).exists()
-        )
+        return self.has_object and self.object.has_release
 
 
 class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixin, View):
