@@ -1,68 +1,152 @@
 [
-{
+  {
     "model": "questionnaire.questionnaire",
     "pk": 1,
     "fields": {
-        "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
-        "data": {"qg_1":[{"key_1":{"en":"This is the first Key 1","es":"Esto es la primera Clave 1"},"key_3":{"en":"While this is the first Key 3","es":"Esto es la primera Clave 3"}},{"key_1":{"en":"This is the second Key 1","es":"Esto es la segunda Clave 1"},"key_3":{"en":"While this is the second Key 3","es":"Esto es la segunda Clave 3"}}],"qg_19":[{"key_5":{"en":"Over here, it's Key 5","es":"Clave 5"}}]},
-        "code": "sample_1",
-        "status": 4,
-        "version": 1,
-        "blocked": null,
-        "created": "2015-02-10T16:07:20.847Z",
-        "updated": "2015-02-10T16:07:20.847Z"
+      "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
+      "data": {
+        "qg_1": [
+          {
+            "key_1": {
+              "en": "This is the first Key 1",
+              "es": "Esto es la primera Clave 1"
+            },
+            "key_3": {
+              "en": "While this is the first Key 3",
+              "es": "Esto es la primera Clave 3"
+            }
+          },
+          {
+            "key_1": {
+              "en": "This is the second Key 1",
+              "es": "Esto es la segunda Clave 1"
+            },
+            "key_3": {
+              "en": "While this is the second Key 3",
+              "es": "Esto es la segunda Clave 3"
+            }
+          }
+        ],
+        "qg_19": [
+          {
+            "key_5": {
+              "en": "Over here, it's Key 5",
+              "es": "Clave 5"
+            }
+          }
+        ]
+      },
+      "code": "sample_1",
+      "status": 4,
+      "version": 1,
+      "blocked": null,
+      "created": "2015-02-10T16:07:20.847Z",
+      "updated": "2015-02-10T16:07:20.847Z"
     }
-},
-{
+  },
+  {
     "model": "questionnaire.questionnaireconfiguration",
     "fields": {
-        "configuration": 11002,
-        "questionnaire": 1,
-        "original_configuration": true
+      "configuration": 11002,
+      "questionnaire": 1,
+      "original_configuration": true
     }
-},
-{
+  },
+  {
+    "pk": 1011,
+    "fields": {
+      "questionnaire": 1,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  },
+  {
     "model": "questionnaire.questionnaire",
     "pk": 2,
     "fields": {
-        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
-        "data": {"qg_1": [{"key_1": {"en": "This is Key One"}, "key_3": {"en": "While this is Key Three"}}], "qg_19": [{"key_5": {"en": "Over here, it's Key Five"}}]},
-        "code": "sample_2",
-        "status": 4,
-        "version": 1,
-        "blocked": null,
-        "created": "2015-02-11T16:08:20.904Z",
-        "updated": "2015-02-11T16:08:20.904Z"
+      "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b05",
+      "data": {
+        "qg_1": [
+          {
+            "key_1": {
+              "en": "This is Key One"
+            },
+            "key_3": {
+              "en": "While this is Key Three"
+            }
+          }
+        ],
+        "qg_19": [
+          {
+            "key_5": {
+              "en": "Over here, it's Key Five"
+            }
+          }
+        ]
+      },
+      "code": "sample_2",
+      "status": 4,
+      "version": 1,
+      "blocked": null,
+      "created": "2015-02-11T16:08:20.904Z",
+      "updated": "2015-02-11T16:08:20.904Z"
     }
-},
-{
+  },
+  {
     "model": "questionnaire.questionnaireconfiguration",
     "fields": {
-        "configuration": 11002,
-        "questionnaire": 2,
-        "original_configuration": true
+      "configuration": 11002,
+      "questionnaire": 2,
+      "original_configuration": true
     }
-},
-{
+  },
+  {
+    "pk": 1021,
+    "fields": {
+      "questionnaire": 2,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  },
+  {
     "model": "questionnaire.questionnaire",
     "pk": 3,
     "fields": {
-        "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b06",
-        "data": {"mqg_01": [{"mkey_01": {"en": "The first key of Multisample"}}]},
-        "code": "samplemulti_1",
-        "status": 4,
-        "version": 1,
-        "blocked": null,
-        "created": "2015-02-11T16:08:20.904Z",
-        "updated": "2015-02-11T16:08:20.904Z"
+      "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b06",
+      "data": {
+        "mqg_01": [
+          {
+            "mkey_01": {
+              "en": "The first key of Multisample"
+            }
+          }
+        ]
+      },
+      "code": "samplemulti_1",
+      "status": 4,
+      "version": 1,
+      "blocked": null,
+      "created": "2015-02-11T16:08:20.904Z",
+      "updated": "2015-02-11T16:08:20.904Z"
     }
-},
-{
+  },
+  {
     "model": "questionnaire.questionnaireconfiguration",
     "fields": {
-        "configuration": 12001,
-        "questionnaire": 3,
-        "original_configuration": true
+      "configuration": 12001,
+      "questionnaire": 3,
+      "original_configuration": true
     }
-}
+  },
+  {
+    "pk": 1031,
+    "fields": {
+      "questionnaire": 3,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  }
 ]

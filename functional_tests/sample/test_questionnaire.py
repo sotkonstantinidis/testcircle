@@ -2774,6 +2774,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_5'}))
+        self.rearrangeFormHeader()
 
         search_field = self.findBy(
             'xpath', '//input[contains(@class, "link-search-field")][1]')

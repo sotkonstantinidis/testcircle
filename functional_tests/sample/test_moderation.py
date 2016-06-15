@@ -316,6 +316,8 @@ class ModerationTestFixture(FunctionalTest):
         self.review_action('publish', exists_only=True)
 
         # He clicks the button to publish the questionnaire.
+        self.scroll_to_element(
+            self.findBy('xpath', '//form[@id="review_form"]'))
         self.review_action('publish')
 
         # The review panel is there but he cannot edit

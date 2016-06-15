@@ -91,7 +91,6 @@ class ListTest(FunctionalTest):
         # questionnaire
         link.click()
         self.checkOnPage('Key 3')
-        self.checkOnPage('Bar')
 
         # She goes to the list page and sees all 4 questionnaires available.
         self.browser.get(self.live_server_url + reverse(
