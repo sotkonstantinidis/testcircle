@@ -10,13 +10,14 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Q
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _, get_language, activate
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
 
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+
 from .conf import settings
 from .errors import QuestionnaireLockedException
 from .querysets import StatusQuerySet
@@ -777,6 +778,45 @@ class Questionnaire(models.Model):
             return translation.language
         else:
             return None
+
+    @cached_property
+    def linked_questionnaires_property(self):
+        """
+        Collect all info about linked questionnaire and structure it according to language.
+        This follows a often used pattern of questionnaire data.
+
+        Returns: list
+
+        """
+        from configuration.utils import ConfigurationList
+
+        links = []
+        config_list = ConfigurationList()
+        current_language = get_language()
+
+        for link in self.links.filter(configurations__isnull=False):
+
+            link_configuration = config_list.get(link.configurations.first().code)
+            name_data = link_configuration.get_questionnaire_name(link.data)
+
+            try:
+                original_language = link.questionnairetranslation_set.first().language
+            except AttributeError:
+                original_language = settings.LANGUAGES[0][0]  # 'en'
+
+            for code, language in settings.LANGUAGES:
+                activate(code)
+                name = name_data.get(code, name_data.get(original_language))
+                links.append({
+                    code: {
+                        'code': link.code,
+                        'configuration': link_configuration.keyword,
+                        'name': name,
+                        'url': link.get_absolute_url()
+                }})
+
+        activate(current_language)
+        return links
 
     @cached_property
     def flags_property(self):

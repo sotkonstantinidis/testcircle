@@ -1,4 +1,5 @@
 import ast
+import logging
 from uuid import UUID
 
 from django.contrib import messages
@@ -26,6 +27,9 @@ from search.index import (
 )
 from .models import Questionnaire, Flag
 from .conf import settings
+
+
+logger = logging.getLogger(__name__)
 
 
 def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
@@ -1083,6 +1087,8 @@ def get_list_values(
             if serializer.is_valid():
                 serializer.to_list_values(lang=get_language())
                 list_entries.append(serializer.validated_data)
+            else:
+                logger.warning('Invalid data on the serializer: {}'.format(serializer.errors))
 
     configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
