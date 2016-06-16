@@ -34,7 +34,7 @@ def get_valid_new_values():
 
 
 def get_valid_details_values():
-    return ('foo', 'sample', 'sample', 'sample/questionnaire/details.html')
+    return ('foo', 'sample', 'sample')
 
 
 def get_valid_list_values():

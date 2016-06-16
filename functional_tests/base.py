@@ -9,6 +9,10 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 from accounts.authentication import WocatAuthenticationBackend
 from accounts.client import Typo3Client
 from qcat.tests import TEST_CACHES
@@ -136,11 +140,96 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.execute_script(
             'arguments[0].style.position = "relative";', form_header)
 
+    def rearrangeStickyMenu(self):
+        """
+        Use this function to rearrange the fixed sticky menu if it is blocking
+        certain elements, namely when using headless browser for testing. Sets
+        it to "position: relative".
+        """
+        sticky = self.findBy('class_name', 'sticky-menu-outer')
+        self.browser.execute_script(
+            'arguments[0].style.position = "absolute";', sticky)
+
     def screenshot(self):
         self.browser.save_screenshot('screenshot.png')
 
+    def review_action(
+            self, action, exists_only=False, exists_not=False,
+            expected_msg_class='success'):
+        """
+        Handle review actions which trigger a modal.
+
+        Args:
+            action: One of
+                - 'edit'
+                - 'view'
+                - 'submit'
+                ⁻ 'review'
+                - 'publish'
+                - 'reject'
+                - 'flag-unccd'
+                - 'unflag-unccd'
+            exists_only: Only check that the modal is opened without triggering
+              the action.
+            expected_msg_class: str.
+
+        Returns:
+
+        """
+        if action == 'view':
+            btn = self.findBy(
+                'xpath', '//form[@id="review_form"]//a[text()="View"]')
+            if exists_only is True:
+                return btn
+            btn.click()
+            return
+        if exists_not is True:
+            self.findByNot(
+                'xpath', '//a[@data-reveal-id="confirm-{}"]'.format(action))
+            return
+        self.findBy(
+            'xpath', '//a[@data-reveal-id="confirm-{}"]'.format(action)).click()
+        btn_xpath = '//button[@name="{}"]'.format(action)
+        if action == 'edit':
+            # No button for "edit"
+            btn_xpath = '//a[text()="Edit" and @type="submit"]'
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, btn_xpath)))
+        if exists_only is True:
+            self.findBy('xpath', '//div[contains(@class, "reveal-modal") and contains(@class, "open")]//a[contains(@class, "close-reveal-modal")]').click()
+            import time; time.sleep(1)
+            return
+        self.findBy('xpath', btn_xpath).click()
+        self.findBy(
+            'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
+
+    def submit_form_step(self):
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
+
+    def click_edit_section(
+            self, section_identifier, return_button=False, exists_not=False):
+        btn_xpath = '//a[contains(@href, "/edit/") and contains(@href, "{}")]'.\
+            format(section_identifier)
+        if exists_not is True:
+            self.findByNot('xpath', btn_xpath)
+            return
+        btn = self.findBy(
+            'xpath', btn_xpath)
+        if return_button is True:
+            return btn
+        btn.click()
+        self.rearrangeFormHeader()
+
     def checkOnPage(self, text):
-        self.assertIn(text, self.browser.page_source)
+        xpath = '//*[text()[contains(.,"{}")]]'.format(text)
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, xpath)))
+
+    def scroll_to_element(self, el):
+        self.browser.execute_script("return arguments[0].scrollIntoView();", el)
 
     def clickUserMenu(self, user):
         self.findBy(
