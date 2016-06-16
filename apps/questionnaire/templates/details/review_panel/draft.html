@@ -32,7 +32,7 @@
   </div>
 {% endif %}
 
-{% if review_config.mode == 'edit' and 'edit_questionnaire' in review_config.permissions %}
+{% if review_config.mode == 'view' and 'edit_questionnaire' in review_config.permissions %}
   <div class="row workflow-action">
     <div class="medium-2 columns">
       <p>
@@ -43,7 +43,7 @@
       <p>{% trans 'Start editing this questionnaire.' %}</p>
     </div>
   </div>
-{% elif review_config.mode == 'view' %}
+{% elif review_config.mode == 'edit' %}
   <div class="row workflow-action">
     <div class="medium-2 columns">
       <p>

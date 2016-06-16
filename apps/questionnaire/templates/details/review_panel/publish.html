@@ -8,16 +8,29 @@
 </div>
 
 {% if 'publish_questionnaire' in review_config.permissions %}
-  <div class="row workflow-action">
-    <div class="medium-2 columns">
-      <p>
-        <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
-      </p>
+  {% if review_config.mode == 'view' and 'edit_questionnaire' in review_config.permissions %}
+    <div class="row workflow-action">
+      <div class="medium-2 columns">
+        <p>
+          <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
+        </p>
+      </div>
+      <div class="medium-10 columns">
+        <p>{% trans 'Edit the questionnaire. If big changes need to be made, you can also "reject" the questionnaire so editors can revise it.' %}</p>
+      </div>
     </div>
-    <div class="medium-10 columns">
-      <p>{% trans 'Make small changes to the questionnaire.' %}</p>
+  {% elif review_config.mode == 'edit' %}
+    <div class="row workflow-action">
+      <div class="medium-2 columns">
+        <p>
+          <a class="button is-ok" href="{{ review_config.url }}">{% trans "View" %}</a>
+        </p>
+      </div>
+      <div class="medium-10 columns">
+        <p>{% trans 'View this questionnaire.' %}</p>
+      </div>
     </div>
-  </div>
+  {% endif %}
 
   <div class="row workflow-action">
     <div class="medium-2 columns">

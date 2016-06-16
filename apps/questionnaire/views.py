@@ -612,7 +612,9 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         url = self.get_detail_url(step='') if self.has_object else ''
 
         review_config = self.get_review_config(
-            permissions=permissions, url=url, blocked_by=blocked_by if not can_edit else False
+            permissions=permissions, url=url,
+            blocked_by=blocked_by if not can_edit else False,
+            view_mode='edit'
         )
         if not self.has_object:
             review_config.update({
@@ -660,7 +662,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             status=self.object.status if self.has_object else 0,
             token=get_token(self.request),
             permissions=permissions,
-            view_mode=_('view') if self.has_object else None,
+            view_mode=kwargs.get('view_mode', 'view'),
             url=url,
             is_blocked=bool(kwargs.get('blocked_by', False)),
             blocked_by=kwargs.get('blocked_by', ''),
@@ -900,7 +902,7 @@ def generic_questionnaire_details(
             status=questionnaire_object.status,
             token=get_token(request),
             permissions=permissions,
-            view_mode=_('edit'),
+            view_mode='view',
             url=reverse('{}:questionnaire_edit'.format(url_namespace),
                         kwargs={'identifier': questionnaire_object.code}),
             is_blocked=bool(blocked_by),

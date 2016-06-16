@@ -140,6 +140,16 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.execute_script(
             'arguments[0].style.position = "relative";', form_header)
 
+    def rearrangeStickyMenu(self):
+        """
+        Use this function to rearrange the fixed sticky menu if it is blocking
+        certain elements, namely when using headless browser for testing. Sets
+        it to "position: relative".
+        """
+        sticky = self.findBy('class_name', 'sticky-menu-outer')
+        self.browser.execute_script(
+            'arguments[0].style.position = "absolute";', sticky)
+
     def screenshot(self):
         self.browser.save_screenshot('screenshot.png')
 
@@ -167,8 +177,11 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         """
         if action == 'view':
-            self.findBy(
-                'xpath', '//form[@id="review_form"]//a[text()="View"]').click()
+            btn = self.findBy(
+                'xpath', '//form[@id="review_form"]//a[text()="View"]')
+            if exists_only is True:
+                return btn
+            btn.click()
             return
         if exists_not is True:
             self.findByNot(
@@ -195,10 +208,15 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
-    def click_edit_section(self, section_identifier, return_button=False):
+    def click_edit_section(
+            self, section_identifier, return_button=False, exists_not=False):
+        btn_xpath = '//a[contains(@href, "/edit/") and contains(@href, "{}")]'.\
+            format(section_identifier)
+        if exists_not is True:
+            self.findByNot('xpath', btn_xpath)
+            return
         btn = self.findBy(
-            'xpath', '//a[contains(@href, "/edit/") and '
-                     'contains(@href, "{}")]'.format(section_identifier))
+            'xpath', btn_xpath)
         if return_button is True:
             return btn
         btn.click()

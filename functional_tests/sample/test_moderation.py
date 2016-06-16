@@ -215,27 +215,46 @@ class ModerationTestFixture(FunctionalTest):
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
+        # He sees the buttons to edit each section
+        self.click_edit_section('cat_0', return_button=True)
+
         self.review_action('view')
         url_details = self.browser.current_url
+
+        # He does not see the button to edit each section anymore
+        self.click_edit_section('cat_0', exists_not=True)
 
         # Compiler logs in
         self.doLogin(user=self.user_compiler)
 
         # She also goes to the details page of the questionnaire and
         # she does see the button to submit the questionnaire for
-        # review. She clicks it.
+        # review.
         self.browser.get(url_details)
         self.browser.implicitly_wait(3)
         self.findBy('xpath', '//form[@id="review_form"]')
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
+        # She is on the detail page and does not see the buttons to edit each
+        # section
+        self.click_edit_section('cat_0', exists_not=True)
+
+        # She goes to the edit page and now she sees the buttons as well as a
+        # button to view the questionnaire
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.click_edit_section('cat_0', return_button=True)
+        self.review_action('view', exists_only=True)
+
+        # She submits the questionnaire to review
         self.review_action('submit')
 
         # The questionnaire is now pending for review. The review panel
         # is visible but Compiler cannot do any actions.
         self.findBy('xpath', '//form[@id="review_form"]')
+        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
         self.review_action('review', exists_not=True)
@@ -264,9 +283,21 @@ class ModerationTestFixture(FunctionalTest):
         # button to do the review.
         self.findBy('xpath', '//form[@id="review_form"]')
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
+        self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
         self.review_action('review', exists_only=True)
         self.review_action('publish', exists_not=True)
+
+        # He is on the detail page and does not see the buttons to edit each
+        # section
+        self.click_edit_section('cat_0', exists_not=True)
+        self.rearrangeStickyMenu()
+
+        # He goes to the edit page and now she sees the buttons as well as a
+        # button to view the questionnaire
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.click_edit_section('cat_0', return_button=True)
+        self.review_action('view', exists_only=True)
 
         # He clicks the button to do the review
         self.review_action('review')
@@ -314,6 +345,17 @@ class ModerationTestFixture(FunctionalTest):
         self.review_action('submit', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_only=True)
+
+        # He is on the detail page and does not see the buttons to edit each
+        # section
+        self.click_edit_section('cat_0', exists_not=True)
+
+        # He goes to the edit page and now she sees the buttons as well as a
+        # button to view the questionnaire
+        self.rearrangeStickyMenu()
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.click_edit_section('cat_0', return_button=True)
+        self.review_action('view', exists_only=True)
 
         # He clicks the button to publish the questionnaire.
         self.scroll_to_element(
