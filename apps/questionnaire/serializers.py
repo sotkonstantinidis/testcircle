@@ -18,12 +18,12 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     configurations = serializers.ListField(source='configurations_property')
     data = serializers.DictField()
     editors = serializers.ListField()
-    links = serializers.ListField(source='linked_questionnaires_property')
+    links = serializers.ListField(source='links_property')
     list_data = serializers.SerializerMethodField()
     name = serializers.SerializerMethodField()
     original_locale = serializers.CharField()
     serializer_config = serializers.SerializerMethodField()
-    status = serializers.ReadOnlyField(source='status_property')
+    status = serializers.ListField(source='status_property')
     translations = serializers.ListField()
     flags = serializers.ListField(source='flags_property')
     url = serializers.CharField(source='get_absolute_url')
@@ -99,14 +99,16 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         return obj.get_absolute_url()
 
     def to_internal_value(self, data):
-        internal_value = super().to_internal_value(data)
+        internal_value = dict(super().to_internal_value(data))
         # Add fields to rep that are defined, but not yet set and require the
         # configuration.
         internal_value['serializer_config'] = self.get_serializer_config(None)
         internal_value['list_data'] = self.get_list_data(data['data'], False)
         internal_value['name'] = self.get_name(data['data'], False)
-        internal_value['links'] = internal_value.pop('linked_questionnaires_property', [])
         internal_value['url'] = internal_value.pop('get_absolute_url', '')
+        replace_property_keys = filter(lambda item: item.endswith('_property'), internal_value.keys())
+        for key in replace_property_keys:
+            internal_value[key.replace('_property', '')] = internal_value.pop(key)
         return internal_value
 
     def to_list_values(self, **kwargs):

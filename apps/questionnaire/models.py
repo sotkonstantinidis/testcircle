@@ -780,7 +780,7 @@ class Questionnaire(models.Model):
             return None
 
     @cached_property
-    def linked_questionnaires_property(self):
+    def links_property(self):
         """
         Collect all info about linked questionnaire and structure it according to language.
         This follows a often used pattern of questionnaire data.
