@@ -273,20 +273,9 @@ class GenericQuestionnaireDetailsTest(TestCase):
             self, mock_query_questionnaire, mock_get_details,
             mock_get_query_status_filter, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
-        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
         self.request.user.is_authenticated.return_value = True
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_get_details.assert_called_once_with(
-            data={},
-            questionnaire_object=mock_q_obj,
-            review_config={
-                'review_status': mock_q_obj.status,
-                'csrf_token_value': None,
-                'permissions': mock_q_obj.get_permissions.return_value,
-            },
-            permissions=mock_q_obj.get_permissions.return_value,
-            links={})
+        generic_questionnaire_details(self.request, *get_valid_details_values())
+        self.assertTrue(mock_get_details.called)
 
     @patch('questionnaire.views.get_configuration')
     @patch('questionnaire.views.query_questionnaire')
@@ -326,7 +315,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mfc = mock_conf.return_value.get_filter_configuration.return_value
         img = mock_conf.return_value.get_image_data.return_value
         mock_render.assert_called_once_with(
-            self.request, 'sample/questionnaire/details.html', {
+            self.request, 'questionnaire/details.html', {
                 'sections': mock_conf.return_value.get_details.return_value,
                 'questionnaire_identifier': 'foo',
                 'images': img.get.return_value,
@@ -334,6 +323,8 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'permissions': mock_q_obj.get_permissions.return_value,
                 'view_mode': 'view',
                 'toc_content': mock_conf.return_value.get_toc_data.return_value,
+                'base_template': 'sample/base.html',
+                'review_config': {}
             })
 
 

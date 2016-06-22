@@ -179,7 +179,7 @@ class QuestionnaireDetailsTest(TestCase):
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'sample/questionnaire/details.html')
+        self.assertTemplateUsed(res, 'questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('sample.views.generic_questionnaire_details')

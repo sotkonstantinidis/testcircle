@@ -10,8 +10,6 @@ from samplemulti.views import (
     questionnaire_link_search,
     questionnaire_list,
     questionnaire_list_partial,
-    questionnaire_new,
-    questionnaire_new_step,
 )
 
 route_questionnaire_details = 'samplemulti:questionnaire_details'
@@ -37,15 +35,13 @@ def get_valid_new_step_values():
 
 def get_valid_new_values():
     args = (
-        'samplemulti', 'samplemulti/questionnaire/details.html', 'samplemulti')
+        'samplemulti', 'questionnaire/details.html', 'samplemulti')
     kwargs = {'identifier': None}
     return args, kwargs
 
 
 def get_valid_details_values():
-    return (
-        'foo', 'samplemulti', 'samplemulti',
-        'samplemulti/questionnaire/details.html')
+    return ('foo', 'samplemulti', 'samplemulti')
 
 
 def get_valid_list_values():
@@ -126,20 +122,6 @@ class QuestionnaireNewTest(TestCase):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'login.html')
 
-    def test_questionnaire_new_test_renders_correct_template(self):
-        res = questionnaire_new(self.request)
-        self.assertEqual(res.status_code, 200)
-
-    @patch('samplemulti.views.generic_questionnaire_new')
-    def test_calls_generic_function(self, mock_questionnaire_new):
-        questionnaire_new(self.request)
-        mock_questionnaire_new.assert_called_once_with(
-            self.request,
-            *get_valid_new_values()[0],
-            **get_valid_new_values()[1]
-        )
-
-
 class QuestionnaireNewStepTest(TestCase):
 
     fixtures = [
@@ -159,19 +141,6 @@ class QuestionnaireNewStepTest(TestCase):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'login.html')
 
-    def test_renders_correct_template(self):
-        res = questionnaire_new_step(
-            self.request, identifier='new', step=get_categories()[0][0])
-        self.assertEqual(res.status_code, 200)
-
-    @patch('samplemulti.views.generic_questionnaire_new_step')
-    def test_calls_generic_function(self, mock_questionnaire_new_step):
-        questionnaire_new_step(
-            self.request, identifier='new', step=get_categories()[0][0])
-        mock_questionnaire_new_step.assert_called_once_with(
-            self.request, *get_valid_new_step_values()[0],
-            **get_valid_new_step_values()[1])
-
 
 class QuestionnaireDetailsTest(TestCase):
 
@@ -187,7 +156,7 @@ class QuestionnaireDetailsTest(TestCase):
 
     def test_renders_correct_template(self):
         res = self.client.get(self.url, follow=True)
-        self.assertTemplateUsed(res, 'samplemulti/questionnaire/details.html')
+        self.assertTemplateUsed(res, 'questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
 
     @patch('samplemulti.views.generic_questionnaire_details')

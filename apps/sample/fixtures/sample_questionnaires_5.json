@@ -133,6 +133,13 @@
     }
   },
   {
+    "pk": 1,
+    "model": "questionnaire.flag",
+    "fields": {
+      "flag": "unccd_bp"
+    }
+  },
+  {
     "model": "questionnaire.questionnaire",
     "pk": 1,
     "fields": {

@@ -208,7 +208,7 @@ class QuestionnaireModelTest(TestCase):
         questionnaire = get_valid_questionnaire(self.user)
         permissions = questionnaire.get_permissions(self.user)
         self.assertIsInstance(permissions, list)
-        self.assertEqual(len(permissions), 2)
+        self.assertEqual(len(permissions), 3)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('submit_questionnaire', permissions)
 
@@ -356,7 +356,7 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user)
         metadata = questionnaire.get_metadata()
         self.assertIsInstance(metadata, dict)
-        self.assertEqual(len(metadata), 8)
+        self.assertEqual(len(metadata), 9)
         self.assertEqual(metadata['created'], questionnaire.created)
         self.assertEqual(metadata['updated'], questionnaire.updated)
         self.assertEqual(

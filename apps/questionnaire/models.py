@@ -417,10 +417,11 @@ class Questionnaire(models.Model):
             (list). A list of (raw) values.
         """
         data = []
-        for q_data in self.data.get(qg_keyword, []):
-            for key, value in q_data.items():
-                if key == q_keyword:
-                    data.append(value)
+        if self.data:
+            for q_data in self.data.get(qg_keyword, []):
+                for key, value in q_data.items():
+                    if key == q_keyword:
+                        data.append(value)
         return data
 
     def add_flag(self, flag):

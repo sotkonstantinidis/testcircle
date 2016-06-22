@@ -140,7 +140,7 @@ class UserModelTestFixturesValues(TestCase):
     def test_get_unccd_countries_returns_countries(self):
         user = User.create_new(id=1, email='a@b.com', lastname='Foo')
         country = Value.objects.get(pk=215)
-        group = Group.objects.get(pk=6)
+        group = Group.objects.get(pk=5)
         ValueUser.objects.create(value=country, user=user, relation='unccd_fp')
         user.groups.add(group)
         unccd_countries = user.get_unccd_countries()

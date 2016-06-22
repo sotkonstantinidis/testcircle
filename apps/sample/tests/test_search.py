@@ -133,7 +133,7 @@ class GetListValuesTest(TestCase):
         self.assertEqual(len(res), 1)
         res = res[0]
         self.assertEqual(res.get('configuration'), 'sample')
-        self.assertEqual(res.get('configurations_property'), ['samplemulti'])
+        self.assertEqual(res.get('configurations'), ['samplemulti'])
         self.assertFalse(res.get('native_configuration'))
         self.assertNotIn('key_1', res)
         self.assertNotIn('key_5', res)
