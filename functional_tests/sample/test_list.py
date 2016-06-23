@@ -336,9 +336,9 @@ class ListTest(FunctionalTest):
 
         # The UNCCD entry has a valid key but the attribute [unccd] in front
         # of the title
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/small['
-            'text()="[unccd]"]')
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/small['
+        #     'text()="[unccd]"]')
         # self.findBy(
         #     'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
         #     'contains(text(), "Foo 5")]')
