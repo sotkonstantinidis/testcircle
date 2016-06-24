@@ -1,8 +1,10 @@
 from collections import OrderedDict
 
 from django.core.paginator import EmptyPage
+from django.utils.functional import cached_property
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
 from api.views import LogUserMixin, PermissionMixin
@@ -15,6 +17,14 @@ from ..conf import settings
 
 
 class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
+    """
+    Shared functionality for list and detail view.
+    """
+    add_detail_url = False
+
+    @cached_property
+    def setting_keys(self):
+        return set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
 
     def get_elasticsearch_items(self):
         raise NotImplementedError()
@@ -26,24 +36,26 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         This cannot be done when indexing (elasticsearch) the data, as the templates expect the variable names in
         the 'original' format.
         """
-        setting_keys = set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
         for item in items:
-            matching_keys = setting_keys.intersection(item.keys())
-            if matching_keys:
-                for key in matching_keys:
-                    item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = item.pop(key)
+            yield self.replace_keys(item)
 
-            yield item
+    def replace_keys(self, item):
+        matching_keys = self.setting_keys.intersection(item.keys())
+        if matching_keys:
+            for key in matching_keys:
+                item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = item.pop(key)
+        if self.add_detail_url:
+            item['api_url'] = reverse('questionnaires-api-detail', kwargs={'identifier': item['code']})
+        return item
 
 
 class QuestionnaireListView(QuestionnaireAPIMixin):
     """
     List view for questionnaires.
 
-    @todo: Add detail view
-
     """
     page_size = settings.API_PAGE_SIZE
+    add_detail_url = True
 
     def get(self, request, *args, **kwargs):
         items = self.get_elasticsearch_items()
@@ -107,7 +119,7 @@ class QuestionnaireListView(QuestionnaireAPIMixin):
             ('count', self.pagination.count),
             ('next', self.get_next_link()),
             ('previous', self.get_previous_link()),
-            ('results', data)
+            ('results', list(data))
         ]))
 
     def _get_paginate_link(self, page_number):
@@ -142,7 +154,8 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
     """
 
     def get(self, request, *args, **kwargs):
-        return Response(self.get_elasticsearch_items())
+        item = self.get_elasticsearch_items()
+        return Response(item)
 
     def get_elasticsearch_items(self):
         """
@@ -154,7 +167,7 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
         """
         obj = self.get_current_object()
         item = get_element(obj.id, obj.configurations.all().first().code)
-        return item
+        return self.replace_keys(item)
 
     def get_current_object(self):
         """
