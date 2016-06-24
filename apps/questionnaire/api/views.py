@@ -1,20 +1,42 @@
 from collections import OrderedDict
 
 from django.core.paginator import EmptyPage
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
 from api.views import LogUserMixin, PermissionMixin
-from questionnaire.view_utils import ESPagination, get_paginator, \
-    get_page_parameter
-from search.search import advanced_search
+from questionnaire.models import Questionnaire
+from questionnaire.view_utils import ESPagination, get_paginator, get_page_parameter
+from search.search import advanced_search, get_element
 
 from ..utils import get_list_values
 from ..conf import settings
 
 
-class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
+class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
+
+    def get_elasticsearch_items(self):
+        raise NotImplementedError()
+
+    def update_dict_keys(self, items):
+        """
+        Some keys need to be updated (e.g. description has a different key depending on the config) for a more
+        consistent behavior of the APIs data.
+        This cannot be done when indexing (elasticsearch) the data, as the templates expect the variable names in
+        the 'original' format.
+        """
+        setting_keys = set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
+        for item in items:
+            matching_keys = setting_keys.intersection(item.keys())
+            if matching_keys:
+                for key in matching_keys:
+                    item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = item.pop(key)
+
+            yield item
+
+
+class QuestionnaireListView(QuestionnaireAPIMixin):
     """
     List view for questionnaires.
 
@@ -113,18 +135,34 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
     def get_previous_link(self):
         return self._get_paginate_link(self.current_page - 1)
 
-    def update_dict_keys(self, items):
-        """
-        Some keys need to be updated (e.g. description has a different key depending on the config) for a more
-        consistent behavior of the APIs data.
-        This cannot be done when indexing (elasticsearch) the data, as the templates expect the variable names in
-        the 'original' format.
-        """
-        setting_keys = set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
-        for item in items:
-            matching_keys = setting_keys.intersection(item.keys())
-            if matching_keys:
-                for key in matching_keys:
-                    item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = item.pop(key)
 
-            yield item
+class QuestionnaireDetailView(QuestionnaireAPIMixin):
+    """
+    Return a single item from elasticsearch, if object is still valid on the model.
+    """
+
+    def get(self, request, *args, **kwargs):
+        return Response(self.get_elasticsearch_items())
+
+    def get_elasticsearch_items(self):
+        """
+        Get a single element from elasticsearch. As the _id used for elasticsearch is the actual objects id, and not the
+        code, resolve the id first.
+
+        Returns: dict
+
+        """
+        obj = self.get_current_object()
+        item = get_element(obj.id, obj.configurations.all().first().code)
+        return item
+
+    def get_current_object(self):
+        """
+        Check if the model entry is still valid.
+
+        Returns: object (Questionnaire instance)
+
+        """
+        return get_object_or_404(
+            Questionnaire.with_status.public(), code=self.kwargs['identifier']
+        )
