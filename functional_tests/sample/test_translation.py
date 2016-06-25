@@ -5,7 +5,6 @@ from accounts.client import Typo3Client
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
     route_questionnaire_new,
-    get_position_of_category,
 )
 
 
@@ -18,7 +17,6 @@ class TranslationTest(FunctionalTest):
 
         # Alice logs in
         self.doLogin()
-        cat_1_position = get_position_of_category('cat_1')
 
         # She goes to the form to enter a new Questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -28,22 +26,12 @@ class TranslationTest(FunctionalTest):
         self.changeLanguage('es')
 
         # She starts editing and enters some freetext
-        self.findBy(
-            'xpath', '(//a[contains(@href, "edit/new/cat")])[{}]'.format(
-                cat_1_position)).click()
+        self.click_edit_section('cat_1')
         self.findBy('name', 'qg_1-0-original_key_1').send_keys(
             'Foo content in Spanish')
 
         # She submits the step and sees the values were transmitted correctly.
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"Foo content in Spanish")]]')
-
-        # She submits the questionnaire and sees the values are there in
-        # Spanish.
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
         self.findBy(
             'xpath', '//*[text()[contains(.,"Foo content in Spanish")]]')
 
@@ -53,14 +41,7 @@ class TranslationTest(FunctionalTest):
         self.findBy(
             'xpath', '//*[text()[contains(.,"Foo content in Spanish")]]')
 
-        # She decides to edit the Questionnaire (in English)
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"Foo content in Spanish")]]')
-
-        self.findBy(
-            'xpath', '(//a[contains(@href, "edit/sample_0/cat")])[{}]'.format(
-                cat_1_position)).click()
+        self.click_edit_section('cat_1')
 
         # She sees that the field already contains the original value
         text_field = self.findBy('name', 'qg_1-0-translation_key_1')
@@ -72,14 +53,12 @@ class TranslationTest(FunctionalTest):
         text_field.send_keys('Foo content in English')
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
         self.findBy(
             'xpath', '//*[text()[contains(.,"Foo content in English")]]')
 
         # She submits the Questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
         self.findBy(
             'xpath', '//*[text()[contains(.,"Foo content in English")]]')
 

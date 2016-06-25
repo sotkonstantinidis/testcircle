@@ -8,24 +8,66 @@
 </div>
 
 {% if 'review_questionnaire' in review_config.permissions %}
-  <div class="row">
-    <h5 class="medium-12 columns">{% trans "Approve" %}</h5>
-    <div class="medium-9 columns">
+  {% if review_config.mode == 'view' and 'edit_questionnaire' in review_config.permissions %}
+    <div class="row workflow-action">
+      <div class="medium-2 columns">
+        <p>
+          <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
+        </p>
+      </div>
+      <div class="medium-10 columns">
+        <p>{% trans 'Edit the questionnaire. If big changes need to be made, you can also "reject" the questionnaire so editors can revise it.' %}</p>
+      </div>
+    </div>
+  {% elif review_config.mode == 'edit' %}
+    <div class="row workflow-action">
+      <div class="medium-2 columns">
+        <p>
+          <a class="button is-ok" href="{{ review_config.url }}">{% trans "View" %}</a>
+        </p>
+      </div>
+      <div class="medium-10 columns">
+        <p>{% trans 'View this questionnaire.' %}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a id="button-review" name="review" class="button small is-ok" data-reveal-id="confirm-review">{% trans "Approve" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
       <p>{% trans 'The questionnaire is ready to be checked for publishing. Next status will be 'reviewed' and publishers will be notified.' %}</p>
     </div>
-    <div class="medium-2 medium-offset-1 columns">
-      <input id="button-review" name="review" class="button small is-ok" type="submit" value="{% trans "Approve" %}">
+    <!-- The modal for approval -->
+    <div id="confirm-review" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2>{% trans "Please confirm approval." %}</h2>
+      <p>{% trans "By submitting this, a publisher will review the questionnaire and make it available for public users." %}</p>
+      <button name='review' value='true' class="button" type="submit" form="review_form">{% trans "Approve" %}</button>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
+    <!-- endmodal -->
   </div>
 
-  <div class="row">
-    <h5 class="medium-12 columns">{% trans "Reject" %}</h5>
-    <div class="medium-9 columns">
+  <div class="row workflow-action">
+    <div class="medium-2 columns">
+      <p>
+        <a id="button-reject" name="reject" class="button is-dangerous" data-reveal-id="confirm-reject">{% trans "Reject" %}</a>
+      </p>
+    </div>
+    <div class="medium-10 columns">
       <p>{% trans 'The questionnaire is not acceptable and it needs to be edited again. Next status will be 'draft' and editors will be notified.' %}</p>
     </div>
-    <div class="medium-2 medium-offset-1 columns">
-      <input id="button-reject" name="reject" class="button small is-dangerous" type="submit" value="{% trans "Reject" %}">
+    <!-- the modal for rejection -->
+    <div id="confirm-reject" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2>{% trans "Please confirm rejection." %}</h2>
+      <p>{% trans "By rejecting this, the compiler (and editors) can edit the questionnaire again, before re-submitting it." %}</p>
+      <button name='reject' value='true' class="button" type="submit" form="review_form">{% trans "Reject" %}</button>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
+    <!-- endmodal -->
   </div>
 {% endif %}
 

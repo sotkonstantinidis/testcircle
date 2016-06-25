@@ -8,7 +8,7 @@ class InitialGroupsTest(TestCase):
     fixtures = ['groups_permissions.json']
 
     def test_all_groups_are_loaded(self):
-        self.assertEqual(Group.objects.count(), 4)
+        self.assertEqual(Group.objects.count(), 5)
 
     def test_administrators_have_all_permissions(self):
         pass

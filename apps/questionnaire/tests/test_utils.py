@@ -913,7 +913,7 @@ class GetListValuesTest(TestCase):
         )
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), len(serialized.fields))
+
         self.assertEqual(ret_1.get('configuration'), 'sample_core')
 
     def test_es_wocat_uses_default_configuration(self):
@@ -925,7 +925,6 @@ class GetListValuesTest(TestCase):
         )
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), len(serialized.fields))
         self.assertEqual(ret_1.get('configuration'), 'sample')
 
     @patch('questionnaire.utils.get_link_data')
