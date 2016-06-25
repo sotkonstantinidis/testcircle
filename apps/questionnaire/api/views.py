@@ -26,6 +26,10 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
     def setting_keys(self):
         return set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
 
+    @cached_property
+    def setting_keys(self):
+        return set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
+
     def get_elasticsearch_items(self):
         raise NotImplementedError()
 
@@ -152,6 +156,7 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
     """
     Return a single item from elasticsearch, if object is still valid on the model.
     """
+    add_detail_url = False
 
     def get(self, request, *args, **kwargs):
         item = self.get_elasticsearch_items()
