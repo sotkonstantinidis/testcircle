@@ -1,51 +1,48 @@
 {% load i18n %}
 {% load compress %}
+{% load static %}
 
-<section class="row is-rhythmed{% if review_css_class %} {{ review_css_class }}{% endif %}">
+<div class="review-panel-container" id="review-panel">
+  <section class="row review-panel-content{% if review_css_class %} {{ review_css_class }}{% endif %}">
   <div class="small-12 columns">
-    {% if review_config.review_status != 4 %}
-      <h2 class="is-unvisible">{% trans "Status of review process" %}</h2>
-      <ol class="process">
-        <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
-        <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
-        <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
-      </ol>
-    {% endif %}
+    <div id="unccd-hero-left" class="show-for-xlarge-up">
+      <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank">
+        <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
+      </a>
+      <p>{% trans "Primary recommended database" %}</p>
+    </div>
+    <ol class="process clearfix">
+      {% if review_config.has_release %}
+        <li class="{% if review_config.review_status == 4 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
+      {% else %}
+        <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
+      {% endif %}
+      <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Draft" %}</li>
+      <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
+      <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
+    </ol>
     <div class="process-status">
-      <form action="" method="POST" class="collapse">
-        <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
-        {% if review_config.review_status == 1 %}
-          {# Edit #}
-          {% include 'details/review_panel/edit.html' %}
-        {% elif review_config.review_status == 2 %}
-          {# Review #}
-          {% include 'details/review_panel/review.html' %}
-        {% elif review_config.review_status == 3 %}
-          {# Publish #}
-          {% include 'details/review_panel/publish.html' %}
-        {% elif review_config.review_status == 4 %}
-          {% include 'details/review_panel/flagging.html' %}
-        {% endif %}
-      </form>
+      <div class="row collapse">
+        <form action="{{ review_config.form_action_url }}" method="POST" class="collapse" id="review_form">
+          <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
+          {% if review_config.review_status == 0 %}
+              {% include 'details/review_panel/welcome.html' %}
+          {% elif review_config.review_status == 1 %}
+            {# Edit #}
+            {% include 'details/review_panel/draft.html' %}
+          {% elif review_config.review_status == 2 %}
+            {# Review #}
+            {% include 'details/review_panel/review.html' %}
+          {% elif review_config.review_status == 3 %}
+            {# Publish #}
+            {% include 'details/review_panel/publish.html' %}
+          {% elif review_config.review_status == 4 %}
+            {# Edit published questionnaire #}
+            {% include 'details/review_panel/edit.html' %}
+          {% endif %}
+        </form>
+      </div>
     </div>
   </div>
 </section>
-
-{# This should be added to 'js' with sekizai. However, this needs refactoring of the config, and the template structure as a context_instance and template blocks would be required #}
-{% compress js %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var isBlocked = document.getElementById('is-blocked');
-            if (isBlocked !== null) {
-                btnSubmit = document.getElementById('button-submit');
-                btnSubmit.addEventListener('click', function() {
-                    event.preventDefault();
-                    var choice = confirm(isBlocked.getAttribute('data-confirm'));
-                    if (choice) {
-                        window.location.href = this.getAttribute('href');
-                    }
-                })
-            }
-        });
-    </script>
-{% endcompress %}
+</div>

@@ -3699,8 +3699,7 @@
           {
             "keyword": "section_general_information",
             "view_options": {
-              "template": "empty",
-              "review_panel": true
+              "template": "empty"
             },
             "categories": [
               {

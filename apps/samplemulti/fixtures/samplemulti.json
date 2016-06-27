@@ -146,9 +146,6 @@
         "sections": [
           {
             "keyword": "msection_1",
-            "view_options": {
-              "review_panel": true
-            },
             "categories": [
               {
                 "keyword": "mcat_1",

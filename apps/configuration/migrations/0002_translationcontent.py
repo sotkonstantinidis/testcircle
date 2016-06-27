@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
                 ('translation', models.ForeignKey(to='configuration.Translation', on_delete=models.deletion.PROTECT)),
             ],
         ),
-        migrations.RunSQL(
-            'CREATE RULE translation_data_protect_update AS ON UPDATE TO configuration_translation DO INSTEAD NOTHING;'
-        )
+        # migrations.RunSQL(
+        #     'CREATE RULE translation_data_protect_update AS ON UPDATE TO configuration_translation DO INSTEAD NOTHING;'
+        # )
     ]
 

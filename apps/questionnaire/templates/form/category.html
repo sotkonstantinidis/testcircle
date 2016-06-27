@@ -45,36 +45,41 @@
     {% csrf_token %}
 
     <header class="wizard-header-outer" role="banner">
-      {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode='edit' %}
       <div class="wizard-header">
-        <div class="row">
-          <div class="columns small-12 medium-9">
+        <div class="row" data-equalizer>
+          <div class="columns small-12 medium-8" data-equalizer-watch>
             {% if edit_mode == 'edit' %}
               <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back without saving" %}</a>
             {% elif edit_mode == 'view' %}
               <a class="wizard-header-back">&nbsp;</a>
             {% endif %}
-            <h2 class="wizard-header-title">{{ config.numbering|default:'' }} {{ config.label }}</h2>
+            <h2 class="wizard-header-title">{{ config.numbering|default:'' }} {{ config.label }} <i>(<span class="progress-completed">0</span> / <span class="progress-total">{{ content_subcategories_count }}</span>)</i></h2>
             <div class="progress">
               <span class="meter" style="width:0%"></span>
             </div>
           </div>
-          <div class="columns small-12 medium-3">
-            <div class="navigation-buttons">
-              <a class="button secondary button-icon" href="#question1" data-magellan-step="previous">
-                <svg class="icon"><use xlink:href="#icon-chevron-thin-up"></use></svg>
-              </a><a class="button secondary button-icon" href="#question2" data-magellan-step="next">
-                <svg class="icon"><use xlink:href="#icon-chevron-thin-down"></use></svg>
+          {% if edit_mode == 'edit' %}
+            <div class="columns small-12 medium-2 panel" data-equalizer-watch>
+              <a id="button-submit" class="button nobr expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
+                <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-left"></use></svg>
+                {% trans "Save and back" %}
               </a>
             </div>
-            {% if edit_mode == 'edit' %}
-              <a id="button-submit" class="button expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">{% trans "Save" %} <strong>(<span class="progress-completed">0</span> / <span class="progress-total">{{ content_subcategories_count }}</span>)</strong></a>
-            {% elif edit_mode == 'view' %}
+            <div class="columns small-12 medium-2 panel" data-equalizer-watch>
+              <a class="button nbr expand is-{{ configuration_name }} button-submit-goto-next-section">
+                {% trans "Save and next" %}
+                <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-right"></use></svg>
+              </a>
+              <input type="hidden" name="goto-next-section" id="goto-next-section" value="false">
+            </div>
+          {% elif edit_mode == 'view' %}
+            <div class="columns small-12 medium-4">
               <a id="" class="button expand is-{{ configuration_name }}" onclick="window.close()"><strong>{% trans "Close" %}</strong></a>
-            {% endif %}
-          </div>
+            </div>
+          {% endif %}
         </div>
       </div>
+    {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode='edit' %}
     </header>
 
     <main class="main inner-wrap">
@@ -98,6 +103,19 @@
         <a name="question{{ forloop.counter }}" data-magellan-destination="question{{ forloop.counter }}" class="{% if forloop.counter == 1 %}active{% endif %}"></a>
         {% form form using subcategory_config.form_template with config=subcategory_config formsets=subcategory_formsets %}
       {% endfor %}
+
+      {% if edit_mode == 'edit' %}
+        <div class="submit-buttons-bottom row">
+          <a id="button-submit" class="button is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
+            <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-left"></use></svg>
+            {% trans "Save and go to overview" %}
+          </a>
+          <a class="button nbr is-{{ configuration_name }} button-submit-goto-next-section">
+            {% trans "Save and go to next section" %}
+            <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-right"></use></svg>
+            </a>
+        </div>
+      {% endif %}
     </main>
   </form>
 
@@ -108,6 +126,14 @@
   <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
   <script type="text/javascript">
     Dropzone.autoDiscover = false;
+
+    // Helper for 'save and to next section
+    (function($) {
+      $('.button-submit-goto-next-section').click(function() {
+        $('#goto-next-section').val('true');
+        $('#wizard-form').submit();
+      });
+    })(jQuery);
   </script>
   {% compress js %}
     <script src="{% static 'js/focusPoint.js' %}"></script>
@@ -131,38 +157,40 @@
           steps: [
             {
               intro: '{% trans '<p>Welcome to the help section of the form!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
-              element: document.querySelector('#show_help'),
-              position: 'top'
+              element: document.querySelector('#show_help')
             },
             {
               intro: '{% trans "<p>The bar indicates the name of the section you are currently editing.</p>" %}',
-              element: document.querySelector('h2.wizard-header-title'),
-              position: 'top'
+              element: document.querySelector('h2.wizard-header-title')
             },
             {
-              intro: '{% trans '<p>Click "Save" to save your changes and view them in the output.</p><p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
-              element: document.querySelector('a#button-submit'),
-              position: 'top'
+              intro: '{% trans '<p>Click "Save and back" to save your changes and go back to the overview to view them in the output.</p><p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
+              element: document.querySelector('a#button-submit')
             },
             {
-              intro: '{% trans "<p>You can use the arrows to navigate between the questions.</p>" %}',
-              element: document.querySelector('div.navigation-buttons'),
-              position: 'top'
+              intro: '{% trans '<p>Click "Save and next" to save the current section and directly continue to the next section.<p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
+              element: document.querySelector('a.button-submit-goto-next-section')
+            },
+            {
+              intro: '{% trans '<p>Both options "save and back to overview" and "save and next section" are also available on the bottom of the page.</p>' %}',
+{#              element: document.querySelector('div.submit-buttons-bottom'),  - doesn't seem to work #}
+              position: 'top',
             },
             {
               intro: '{% trans "<p>Use this link if you want to go back to the output without saving any changes.</p>" %}',
-              element: document.querySelector('a.wizard-header-back'),
-              position: 'top'
+              element: document.querySelector('a.wizard-header-back')
             },
             {
               intro: '{% trans "<p>The progress bar indicates how many questions are already filled out.</p>" %}',
-              element: document.querySelector('div.progress'),
-              position: 'top'
+              element: document.querySelector('div.progress')
             }
           ]
         }).start();
       window.scrollTo(0,0);
       return false;
     }
+    $(function() {
+      $('.main').css({'padding-top': $('.wizard-header-outer').height()});
+    });
   </script>
 {% endblock %}

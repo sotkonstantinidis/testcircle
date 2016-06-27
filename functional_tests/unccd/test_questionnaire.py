@@ -87,7 +87,7 @@ class FlaggingTest(FunctionalTest):
             accounts_route_user, kwargs={'id': unccd_user.id}))
 
         self.findBy('xpath', '//h3[contains(text(), "UNCCD Focal Point")]')
-        self.findBy('xpath', '//strong[contains(text(), "Switzerland")]')
+        self.findBy('xpath', '//strong/a[contains(text(), "Switzerland")]')
 
     def test_unccd_flag_elasticsearch(self, mock_get_user_id):
         unccd_user = create_new_user(id=1, email='a@b.com')
@@ -106,8 +106,7 @@ class FlaggingTest(FunctionalTest):
         # She flags a questionnaire
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
-        self.findBy('xpath', '//input[@name="flag-unccd"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('flag-unccd')
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
 
         # A publisher publishes it
@@ -117,8 +116,7 @@ class FlaggingTest(FunctionalTest):
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
         self.findBy(
             'xpath', '//a[contains(@href, "sample/edit/")]')
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('publish')
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
 
         # He sees the questionnaire is in the list, with the flag visible
@@ -142,6 +140,9 @@ class FlaggingTest(FunctionalTest):
         self.doLogin(user=unccd_user)
         self.browser.get(self.live_server_url + reverse(
             accounts_route_questionnaires, kwargs={'user_id': unccd_user.id}))
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]'
+                     '//span[contains(@class, "is-unccd_bp")]')
 
     def test_unccd_flag(self, mock_get_user_id):
 
@@ -170,11 +171,9 @@ class FlaggingTest(FunctionalTest):
         # sees a possibility to flag it.
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
-        btn = self.findBy('xpath', '//input[@name="flag-unccd"]')
 
-        # She clicks the button to flag it and she sees a success message
-        btn.click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        # She flags the questionnaire
+        self.review_action('flag-unccd')
 
         # She sees the new UNCCD flag
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
@@ -202,8 +201,7 @@ class FlaggingTest(FunctionalTest):
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
         self.findBy(
             'xpath', '//a[contains(@href, "sample/edit/")]')
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('publish')
 
         # It is public and flagged
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
@@ -218,15 +216,14 @@ class FlaggingTest(FunctionalTest):
         self.findByNot('xpath', '//input[@name="flag-unccd"]')
 
         # However, he sees the option to unflag the Questionnaire
-        self.findBy('xpath', '//input[@name="unflag-unccd"]')
+        self.review_action('unflag-unccd', exists_only=True)
 
         # An editor makes an edit on the Questionnaire
         self.doLogin(user=user_editor)
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
-        self.findBy(
-            'xpath', '//a[contains(@href, "sample/edit/")]').click()
+        self.review_action('edit')
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
 
         # He changes some values
@@ -234,21 +231,18 @@ class FlaggingTest(FunctionalTest):
             'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
         self.findBy('name', 'qg_1-0-original_key_1').clear()
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
+
+        # She saves the step which creates a new version
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # He saves the Questionnaire which creates a new version of it
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # He sees that the new version also has the UNCCD flag
-        self.findBy('xpath', '//p[text()="asdf"]')
-        self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
         self.findBy('xpath', '//span[contains(@class, "is-draft")]')
 
-        # He also submits the version
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        # She sees that the new version also has the UNCCD flag
+        self.findBy('xpath', '//p[text()="asdf"]')
+        self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
+
+        # He submits the Questionnaire
+        self.review_action('submit')
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
         self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
 
@@ -261,8 +255,7 @@ class FlaggingTest(FunctionalTest):
 
         # He cannot unflag the Questionnaire as it has a version in the review
         # cycle.
-        self.findBy('xpath', '//input[@name="unflag-unccd"]').click()
-        self.findBy('xpath', '//div[contains(@class, "error")]')
+        self.review_action('unflag-unccd', expected_msg_class='error')
 
         # The UNCCD flag is still there
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
@@ -274,10 +267,8 @@ class FlaggingTest(FunctionalTest):
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
         self.findBy(
             'xpath', '//a[contains(@href, "sample/edit/")]')
-        self.findBy('xpath', '//input[@name="review"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('review')
+        self.review_action('publish')
 
         # UNCCD user comes along again and tries to unflag the questionnaire
         # again. This time, it works and the flag is removed.
@@ -285,9 +276,7 @@ class FlaggingTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
-
-        self.findBy('xpath', '//input[@name="unflag-unccd"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('unflag-unccd')
 
         # As the user is not linked to the questionnaire anymore, he does not
         # see the reviewed version (no privileges). Instead, he sees the public
@@ -297,8 +286,7 @@ class FlaggingTest(FunctionalTest):
 
         # Although he sees the button to (again) unflag the questionnaire,
         # nothing happens if he clicks it
-        self.findBy('xpath', '//input[@name="unflag-unccd"]').click()
-        self.findBy('xpath', '//div[contains(@class, "error")]')
+        self.review_action('unflag-unccd', expected_msg_class='error')
         self.findBy('xpath', '//span[contains(@class, "is-unccd_bp")]')
 
         # The publisher publishes the Questionnaire and now the flag is gone.
@@ -308,6 +296,5 @@ class FlaggingTest(FunctionalTest):
         self.findByNot('xpath', '//span[contains(@class, "is-unccd_bp")]')
         self.findBy(
             'xpath', '//a[contains(@href, "sample/edit/")]')
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('publish')
         self.findByNot('xpath', '//span[contains(@class, "is-unccd_bp")]')

@@ -28,6 +28,10 @@ button,
     background-color: $color-unccd;
     box-shadow: 0 0 0 0 $color-unccd;
   }
+  &.is-wizard-next {
+    margin-top: rem-calc(5);
+    margin-left: 0;
+  }
 
   &:hover,
   &:focus {
