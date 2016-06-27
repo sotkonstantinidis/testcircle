@@ -146,9 +146,7 @@ def get_mappings(questionnaire_configuration):
                 },
                 'links': {
                     'type': 'nested',
-                    'properties': {
-                        **link_structure
-                    },
+                    'properties': link_structure,
                 },
                 'flags': {
                     'type': 'nested',
