@@ -1,3 +1,5 @@
+from elasticsearch import TransportError
+
 from .index import get_elasticsearch
 from .utils import get_alias
 
@@ -176,4 +178,7 @@ def get_element(object_id: int, *configuration_codes) -> dict:
     Get a single element from elasticsearch.
     """
     alias = get_alias(configuration_codes)
-    return es.get_source(index=alias, id=object_id, doc_type='questionnaire')
+    try:
+        return es.get_source(index=alias, id=object_id, doc_type='questionnaire')
+    except TransportError:
+        return {}

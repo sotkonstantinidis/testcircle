@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django.core.paginator import EmptyPage
+from django.http import Http404
 from django.utils.functional import cached_property
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
@@ -29,9 +30,6 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
     @cached_property
     def setting_keys(self):
         return set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
-
-    def get_elasticsearch_items(self):
-        raise NotImplementedError()
 
     def update_dict_keys(self, items):
         """
@@ -159,10 +157,10 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
     add_detail_url = False
 
     def get(self, request, *args, **kwargs):
-        item = self.get_elasticsearch_items()
+        item = self.get_elasticsearch_item()
         return Response(item)
 
-    def get_elasticsearch_items(self):
+    def get_elasticsearch_item(self):
         """
         Get a single element from elasticsearch. As the _id used for elasticsearch is the actual objects id, and not the
         code, resolve the id first.
@@ -172,6 +170,9 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
         """
         obj = self.get_current_object()
         item = get_element(obj.id, obj.configurations.all().first().code)
+        if not item:
+            raise Http404()
+
         return self.replace_keys(item)
 
     def get_current_object(self):
