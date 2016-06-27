@@ -76,5 +76,14 @@
         "role": "compiler"
     },
     "model": "questionnaire.questionnairemembership"
+},
+{
+    "pk": 66,
+    "fields": {
+        "questionnaire": 1,
+        "language": "en",
+        "original_language": true
+    },
+    "model": "questionnaire.questionnairetranslation"
 }
 ]

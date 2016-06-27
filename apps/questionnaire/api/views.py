@@ -1,20 +1,25 @@
 from collections import OrderedDict
+import logging
 
 from django.core.paginator import EmptyPage
 from django.http import Http404
 from django.utils.functional import cached_property
+from django.utils.translation import get_language
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
 from api.views import LogUserMixin, PermissionMixin
-from questionnaire.models import Questionnaire
-from questionnaire.view_utils import ESPagination, get_paginator, get_page_parameter
 from search.search import advanced_search, get_element
-
-from ..utils import get_list_values
 from ..conf import settings
+from ..models import Questionnaire
+from ..serializers import QuestionnaireSerializer
+from ..utils import get_list_values
+from ..view_utils import ESPagination, get_paginator, get_page_parameter
+
+
+logger = logging.getLogger(__name__)
 
 
 class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
@@ -22,10 +27,6 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
     Shared functionality for list and detail view.
     """
     add_detail_url = False
-
-    @cached_property
-    def setting_keys(self):
-        return set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
 
     @cached_property
     def setting_keys(self):
@@ -158,7 +159,8 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
 
     def get(self, request, *args, **kwargs):
         item = self.get_elasticsearch_item()
-        return Response(item)
+        serialized = self.serialize_item(item)
+        return Response(self.replace_keys(serialized))
 
     def get_elasticsearch_item(self):
         """
@@ -173,7 +175,21 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
         if not item:
             raise Http404()
 
-        return self.replace_keys(item)
+        return item
+
+    def serialize_item(self, item):
+        """
+        Serialize the data and get the list values -- the same as executed within advanced_search (get_list_values) in
+        the QuestionnaireListView.
+        """
+        serializer = QuestionnaireSerializer(data=item)
+
+        if serializer.is_valid():
+            serializer.to_list_values(lang=get_language())
+            return serializer.validated_data
+        else:
+            logger.warning('Invalid data on the serializer: {}'.format(serializer.errors))
+            raise Http404()
 
     def get_current_object(self):
         """

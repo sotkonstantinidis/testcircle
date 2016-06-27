@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from django.conf import settings
 from django.http import Http404
@@ -8,8 +8,8 @@ from rest_framework.response import Response
 
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
-from questionnaire.models import Questionnaire
-from questionnaire.serializers import QuestionnaireSerializer
+from ..models import Questionnaire
+from ..serializers import QuestionnaireSerializer
 from ..api.views import QuestionnaireListView, QuestionnaireDetailView
 
 
@@ -18,10 +18,9 @@ class QuestionnaireListViewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        view = QuestionnaireListView()
         self.url = '/en/api/v1/questionnaires/sample_1/'
         self.request = self.factory.get(self.url)
-        self.view = self.setup_view(view, self.request, identifier='sample_1')
+        self.view = self.setup_view(QuestionnaireListView(), self.request, identifier='sample_1')
 
     @patch('questionnaire.api.views.advanced_search')
     def test_logs_call(self, mock_advanced_search):
@@ -91,14 +90,19 @@ class QuestionnaireDetailViewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        view = QuestionnaireDetailView()
         self.url = '/en/api/v1/questionnaires/sample_1/'
         self.request = self.factory.get(self.url)
         self.invalid_request = self.factory.get('/en/api/v1/questionnaires/foo')
-        self.view = self.setup_view(view, self.request, identifier='sample_1')
+        self.identifier = 'sample_1'
+        self.view = self.setup_view(QuestionnaireDetailView(), self.request, identifier=self.identifier)
+
+    def get_serialized_data(self):
+        questionnaire = Questionnaire.objects.get(code=self.identifier)
+        return QuestionnaireSerializer(questionnaire).data
 
     @patch('questionnaire.api.views.get_element')
     def test_access_elasticsearch(self, mock_get_element):
+        mock_get_element.return_value = {'oo': 'bar'}
         self.view.get_elasticsearch_item()
         mock_get_element.assert_called_once_with(1, 'sample')
 
@@ -113,15 +117,25 @@ class QuestionnaireDetailViewTest(TestCase):
     def test_get_object(self):
         item = self.view.get_current_object()
         self.assertEqual(item.id, 1)
-        self.assertEqual(item.code, 'sample_1')
+        self.assertEqual(item.code, self.identifier)
 
     def test_get_invalid_object(self):
         with self.assertRaises(Http404):
             self.view.get(self.invalid_request)
 
     def test_api_detail_url(self):
-        questionnaire = Questionnaire.objects.get(code='sample_1')
-        serialized = QuestionnaireSerializer(questionnaire).data
-        item = self.view.replace_keys(serialized)
+        item = self.view.replace_keys(self.get_serialized_data())
         with self.assertRaises(KeyError):
             foo = item['api_url']  # noqa
+
+    def test_serialized_item(self):
+        mock_list_values = MagicMock()
+        with patch.object(QuestionnaireSerializer, 'to_list_values', mock_list_values):
+            self.view.serialize_item(self.get_serialized_data())
+            mock_list_values.assert_called_once_with(lang='en')
+
+    def test_failed_serialization(self):
+        serialized = self.get_serialized_data()
+        del serialized['status']
+        with self.assertRaises(Http404):
+            self.view.serialize_item(serialized)
