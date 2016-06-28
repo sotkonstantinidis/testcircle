@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from questionnaire.api.views import QuestionnaireListView
+from questionnaire.api.views import QuestionnaireListView, QuestionnaireDetailView
 
 from .views import APIRoot, ObtainNoteAuthTokenView
 
@@ -14,6 +14,10 @@ urlpatterns = patterns(
     url(r'^questionnaires/$',
         QuestionnaireListView.as_view(),
         name='questionnaires-api-list'
+        ),
+    url(r'^questionnaires/(?P<identifier>[^/]+)/$',
+        QuestionnaireDetailView.as_view(),
+        name='questionnaires-api-detail'
         ),
     url(r'^auth-token/$', ObtainNoteAuthTokenView.as_view(),
         name='obtain-api-token'),
