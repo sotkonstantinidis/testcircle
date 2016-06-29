@@ -10,8 +10,6 @@ from technologies.tests.test_views import (
 )
 from wocat.tests.test_views import route_home
 
-from nose.plugins.attrib import attr  # noqa
-
 
 @patch('wocat.views.generic_questionnaire_list')
 @patch.object(Typo3Client, 'get_user_id')

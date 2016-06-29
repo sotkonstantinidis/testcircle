@@ -27,9 +27,6 @@ from samplemulti.tests.test_views import (
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
-from nose.plugins.attrib import attr  # noqa
-# @attr('foo')
-
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 cat_1_position = get_position_of_category('cat_1', start0=True)
@@ -94,7 +91,6 @@ class ListTest(FunctionalTest):
         # questionnaire
         link.click()
         self.checkOnPage('Key 3')
-        self.checkOnPage('Bar')
 
         # She goes to the list page and sees all 4 questionnaires available.
         self.browser.get(self.live_server_url + reverse(
@@ -340,9 +336,9 @@ class ListTest(FunctionalTest):
 
         # The UNCCD entry has a valid key but the attribute [unccd] in front
         # of the title
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/small['
-            'text()="[unccd]"]')
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/small['
+        #     'text()="[unccd]"]')
         # self.findBy(
         #     'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
         #     'contains(text(), "Foo 5")]')
@@ -1420,7 +1416,6 @@ class ListTest(FunctionalTest):
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
-        time.sleep(1)
 
         # She sees that she is redirected to the list view where she
         # sees the filtered results
@@ -1498,7 +1493,6 @@ class ListTest(FunctionalTest):
         filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
         self.assertEqual(filter_1.text, 'Country: Switzerland')
 
-        #
         # The same is possible from the overview page to create a new
         # questionnaire
         self.doLogin()
@@ -1968,7 +1962,7 @@ class ListTestStatus(FunctionalTest):
 
         # She edits the Questionnaire and sees that the URL contains the
         # code of the Questionnaire
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.review_action('edit')
         self.findManyBy(
             'xpath',
             '//a[contains(@href, "edit/{}/cat")]'.format(code))[
@@ -1979,10 +1973,6 @@ class ListTestStatus(FunctionalTest):
         key_1.clear()
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
         self.findBy('id', 'button-submit').click()
-
-        # She submits the Questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She sees that the value of Key 1 was updated
         self.findByNot('xpath', '//*[text()[contains(.,"Foo 3")]]')
@@ -2014,8 +2004,7 @@ class ListTestStatus(FunctionalTest):
         self.checkOnPage('asdf')
 
         # She submits the questionnaire
-        self.findBy('xpath', '//input[@name="submit"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
         url = self.browser.current_url
 
         # Bob (the moderator) logs in
@@ -2029,10 +2018,8 @@ class ListTestStatus(FunctionalTest):
 
         # The moderator publishes the questionnaire
         self.browser.get(url)
-        self.findBy('xpath', '//input[@name="review"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('review')
+        self.review_action('publish')
 
         # In the DB, there is still only one active version (now id: 8)
         db_q = Questionnaire.objects.filter(code=code, status=4)

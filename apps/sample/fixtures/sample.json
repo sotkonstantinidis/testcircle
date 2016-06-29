@@ -3256,9 +3256,6 @@
         "sections": [
           {
             "keyword": "section_1",
-            "view_options": {
-              "review_panel": true
-            },
             "categories": [
               {
                 "keyword": "cat_0",

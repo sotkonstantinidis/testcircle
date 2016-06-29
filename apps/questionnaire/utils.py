@@ -1,5 +1,6 @@
 import ast
 import json
+import logging
 from uuid import UUID
 
 from django.contrib import messages
@@ -27,6 +28,9 @@ from search.index import (
 )
 from .models import Questionnaire, Flag
 from .conf import settings
+
+
+logger = logging.getLogger(__name__)
 
 
 def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
@@ -759,7 +763,11 @@ def query_questionnaire(request, identifier):
 
     status_filter = get_query_status_filter(request)
 
-    return Questionnaire.objects.filter(q_filter).filter(status_filter)
+    return Questionnaire.with_status.not_deleted().filter(
+        q_filter
+    ).filter(
+        status_filter
+    )
 
 
 def query_questionnaires(
@@ -803,7 +811,7 @@ def query_questionnaires(
     # Find the IDs of the Questionnaires which are visible to the
     # current user. If multiple versions exist for a Questionnaire, only
     # the latest (visible to the current user) is used.
-    ids = Questionnaire.objects.filter(
+    ids = Questionnaire.with_status.not_deleted().filter(
         get_configuration_query_filter(
             configuration_code, only_current=only_current),
         status_filter).values_list('id', flat=True).order_by(
@@ -812,7 +820,7 @@ def query_questionnaires(
     if user is not None:
         ids = ids.filter(members=user)
 
-    query = Questionnaire.objects.filter(id__in=ids)
+    query = Questionnaire.with_status.not_deleted().filter(id__in=ids)
 
     if limit is not None:
         return query[offset:offset + limit]
@@ -1092,6 +1100,8 @@ def get_list_values(
             if serializer.is_valid():
                 serializer.to_list_values(lang=get_language())
                 list_entries.append(serializer.validated_data)
+            else:
+                logger.warning('Invalid data on the serializer: {}'.format(serializer.errors))
 
     configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
@@ -1466,6 +1476,12 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             'a new version which needs to be reviewed. In the meantime, you '
             'are seeing the public version which still shows the flag.'))
 
+    elif request.POST.get('delete'):
+        questionnaire_object.is_deleted = True
+        questionnaire_object.save()
+        messages.success(request, _('The questionnaire was succesfully removed'))
+        return redirect('{}:home'.format(configuration_code))
+
 
 def compare_questionnaire_data(data_1, data_2):
     """
@@ -1553,3 +1569,17 @@ def prepare_list_values(data, config, **kwargs):
     )
 
     return data
+
+
+def get_review_config_dict(status, token, permissions, view_mode, url, is_blocked, blocked_by, form_url, has_release):
+    return {
+        'review_status': status,
+        'csrf_token_value': token,
+        'permissions': permissions,
+        'mode': view_mode,
+        'url': url,
+        'is_blocked': is_blocked,
+        'blocked_by': blocked_by,
+        'form_action_url': form_url,
+        'has_release': has_release,  # flag if this questionnaire has a published version - controlling the first tab.
+    }

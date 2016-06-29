@@ -11,9 +11,6 @@ from wocat.tests.test_views import route_questionnaire_list as route_wocat_list
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-from nose.plugins.attrib import attr  # noqa
-# @attr('foo')
-
 
 @override_settings(
     ES_INDEX_PREFIX=TEST_INDEX_PREFIX,

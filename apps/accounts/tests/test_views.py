@@ -233,5 +233,5 @@ class UserDetailsTest(TestCase):
         mock_get_user_information.return_value = {}
         details(self.request, self.user.id)
         mock_render.assert_called_once_with(self.request, 'details.html', {
-            'detail_user': self.user,
+            'detail_user': self.user, 'unccd_countries': []
         })

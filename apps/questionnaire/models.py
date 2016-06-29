@@ -16,7 +16,7 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Q
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _, get_language, activate
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
 from staticmap import StaticMap, CircleMarker, Polygon
@@ -24,6 +24,7 @@ from staticmap import StaticMap, CircleMarker, Polygon
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+
 from .conf import settings
 from .errors import QuestionnaireLockedException
 from .querysets import StatusQuerySet
@@ -86,6 +87,7 @@ class Questionnaire(models.Model):
         related_name='blocks_questionnaire',
         help_text=_(u"Set with the method: lock_questionnaire.")
     )
+    is_deleted = models.BooleanField(default=False)
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
     members = models.ManyToManyField(
@@ -427,10 +429,11 @@ class Questionnaire(models.Model):
             (list). A list of (raw) values.
         """
         data = []
-        for q_data in self.data.get(qg_keyword, []):
-            for key, value in q_data.items():
-                if key == q_keyword:
-                    data.append(value)
+        if self.data:
+            for q_data in self.data.get(qg_keyword, []):
+                for key, value in q_data.items():
+                    if key == q_keyword:
+                        data.append(value)
         return data
 
     def update_geometry(self, configuration_code):
@@ -632,7 +635,7 @@ class Questionnaire(models.Model):
         for user_questiongroup in user_fields:
             for user_data in self.data.get(user_questiongroup[0], []):
                 user_id = user_data.get(user_questiongroup[1])
-                if user_id is None:
+                if not bool(user_id):
                     continue
                 submitted_users.append((user_questiongroup[3], user_id))
 
@@ -804,13 +807,18 @@ class Questionnaire(models.Model):
                 raise QuestionnaireLockedException(
                     cls.objects.filter(code=code).first().blocked
                 )
-            editable_questionnaires.exclude(
-                status=settings.QUESTIONNAIRE_PUBLIC
-            ).update(blocked=user)
+            editable_questionnaires.update(blocked=user)
 
     def can_edit(self, user):
         return self.has_questionnaires_for_code(
             self.code) and self.get_editable_questionnaires(self.code, user)
+
+    def unlock_questionnaire(self):
+        self._meta.model.objects.filter(
+            code=self.code
+        ).update(
+            blocked=None
+        )
 
     def get_blocked_message(self, user):
         """
@@ -875,6 +883,45 @@ class Questionnaire(models.Model):
             return None
 
     @cached_property
+    def links_property(self):
+        """
+        Collect all info about linked questionnaire and structure it according to language.
+        This follows a often used pattern of questionnaire data.
+
+        Returns: list
+
+        """
+        from configuration.utils import ConfigurationList
+
+        links = []
+        config_list = ConfigurationList()
+        current_language = get_language()
+
+        for link in self.links.filter(configurations__isnull=False):
+
+            link_configuration = config_list.get(link.configurations.first().code)
+            name_data = link_configuration.get_questionnaire_name(link.data)
+
+            try:
+                original_language = link.questionnairetranslation_set.first().language
+            except AttributeError:
+                original_language = settings.LANGUAGES[0][0]  # 'en'
+
+            for code, language in settings.LANGUAGES:
+                activate(code)
+                name = name_data.get(code, name_data.get(original_language))
+                links.append({
+                    code: {
+                        'code': link.code,
+                        'configuration': link_configuration.keyword,
+                        'name': name,
+                        'url': link.get_absolute_url()
+                }})
+
+        activate(current_language)
+        return links
+
+    @cached_property
     def flags_property(self):
         flags = []
         for flag in self.flags.all():
@@ -883,6 +930,18 @@ class Questionnaire(models.Model):
                 'name': flag.get_flag_display(),
             })
         return flags
+
+    @cached_property
+    def has_release(self):
+        """
+        Check if any version of this questionnaire was published.
+
+        Returns: boolean
+
+        """
+        return self.status == settings.QUESTIONNAIRE_PUBLIC or self._meta.model.with_status.not_deleted().filter(
+            code=self.code, status=settings.QUESTIONNAIRE_PUBLIC
+        ).exists()
 
 
 class QuestionnaireConfiguration(models.Model):

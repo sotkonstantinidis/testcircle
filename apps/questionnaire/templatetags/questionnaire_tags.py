@@ -3,6 +3,7 @@ from easy_thumbnails.files import get_thumbnailer
 
 from ..models import Questionnaire
 from ..upload import get_url_by_file_name
+from ..utils import get_link_display
 
 register = template.Library()
 
@@ -99,3 +100,8 @@ def prepare_image(image):
         'interchange': interchange,
         'src': url
     }
+
+
+@register.simple_tag
+def link_display(configuration_code, name, identifier):
+    return get_link_display(configuration_code, name, identifier)

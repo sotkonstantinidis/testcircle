@@ -31,9 +31,6 @@ The basic format of the configuration is as follows::
       "template": "TEMPLATE_NAME",
 
       # Default: false
-      "review_panel": true,
-
-      # Default: false
       "media_gallery": true
     },
 
@@ -69,11 +66,6 @@ view representation of the section.
 
   * ``template``: An optional template name. Must be a valid file name
     with ``.html`` ending in folder ``templates/details/section/``.
-
-  * ``review_panel``: An optional boolean indicating whether to include
-    the review panel at the top of the section or not. The review panel
-    contains actions related to the editing and moderation workflow (eg.
-    submit, publish).
 
   * ``media_gallery``: An optional boolean indicating whether to include
     a media gallery at the top of the section or not. The gallery

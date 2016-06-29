@@ -78,9 +78,25 @@ def get_mappings(questionnaire_configuration):
             q.update({'analyzer': analyzer})
             name_properties[language_code] = q
 
-    link_properties = {}
+    link_structure = {}
     for language_code in language_codes:
-        link_properties[language_code] = {'type': 'string'}
+        link_structure[language_code] = {
+            'type': 'nested',
+            'properties': {
+                'code': {
+                    'type': 'string'
+                },
+                'configuration': {
+                    'type': 'string'
+                },
+                'name': {
+                    'type': 'string'
+                },
+                'url': {
+                    'type': 'string'
+                }
+            }
+        }
 
     mappings = {
         'questionnaire': {
@@ -129,7 +145,8 @@ def get_mappings(questionnaire_configuration):
                     }
                 },
                 'links': {
-                    'properties': link_properties,
+                    'type': 'nested',
+                    'properties': link_structure,
                 },
                 'flags': {
                     'type': 'nested',

@@ -179,12 +179,14 @@ class User(AbstractBaseUser, PermissionsMixin):
             'unccd_country': 'CHE',
         }
         """
-        new_unccd_group = next((x for x in usergroups if x.get('name') ==
-                                settings.ACCOUNTS_UNCCD_ROLE_NAME), None)
-        if not new_unccd_group:
+        # todo: refactoring needed. prevent passing a mutable as method argument.
+        if usergroups:
+            new_unccd_group = next((x for x in usergroups if x.get('name') ==
+                                    settings.ACCOUNTS_UNCCD_ROLE_NAME), None)
+        if not usergroups or not new_unccd_group:
             ValueUser.objects.filter(
-                user=self, relation=settings.CONFIGURATION_VALUEUSER_UNCCD)\
-                .delete()
+                user=self, relation=settings.CONFIGURATION_VALUEUSER_UNCCD
+            ).delete()
         else:
             country = Country.get(new_unccd_group.get('unccd_country'))
             if country is not None:

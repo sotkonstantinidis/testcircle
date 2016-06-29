@@ -70,13 +70,7 @@
     <footer>
       {% if item.links|length > 0 or item.translations %}
         <p class="is-light">
-          {% if item.links|length > 0 %}
-            <em>{% trans "Linked Questionnaires:" %}
-              {% for link in item.links %}
-                {{ link|safe }}{% if not forloop.last %}, {% endif %}
-              {% endfor %}
-            </em><br>
-          {% endif %}
+          {% include "details/includes/link_items.html" with links=item.links %}
           {% if item.translations %}
             <em>{% trans "This article is also available in:" %}
               {% for translation in item.translations %}

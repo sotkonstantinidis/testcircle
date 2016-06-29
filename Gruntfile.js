@@ -171,6 +171,7 @@ module.exports = function(grunt) {
           'static/js/filter.js': 'src/js/filter.js',
           'static/js/focusPoint.js': 'src/js/focusPoint.js',
           'static/js/parallax.js': 'src/js/parallax.js',
+          'static/js/scrollTop.js': 'src/js/scrollTop.js',
           'static/js/wizard.js': 'src/js/wizard.js',
           'static/js/review.js': 'src/js/review.js',
           'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',

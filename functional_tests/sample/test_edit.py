@@ -15,8 +15,6 @@ from sample.tests.test_views import (
 
 from django.contrib.auth.models import Group
 from accounts.tests.test_models import create_new_user
-from nose.plugins.attrib import attr  # noqa
-# @attr('foo')
 
 cat_1_position = get_position_of_category('cat_1', start0=True)
 
@@ -193,7 +191,7 @@ class EditTest(FunctionalTest):
         update_date = dates[1].text
 
         # She edits the questionnaire
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.review_action('edit')
         self.findManyBy(
             'xpath',
             '//a[contains(@href, "edit/sample_3/cat")]')[
@@ -201,8 +199,6 @@ class EditTest(FunctionalTest):
         self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
 
         # She submits the questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
@@ -240,8 +236,6 @@ class EditTest(FunctionalTest):
         self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
 
         # She submits the questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
@@ -295,10 +289,6 @@ class EditTest(FunctionalTest):
         # contains the code of the Questionnaire
         self.assertIn(code, self.browser.current_url)
 
-        # She submits the Questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
         # She sees that no new code was created.
         self.assertIn(code, self.browser.current_url)
 
@@ -327,7 +317,7 @@ class EditTest(FunctionalTest):
 
         # She edits the Questionnaire and sees that the URL contains the
         # code of the Questionnaire
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.review_action('edit')
         self.assertIn(code, self.browser.current_url)
 
         #  She edits a category and sees that the URL still contains the
@@ -347,10 +337,6 @@ class EditTest(FunctionalTest):
         # She is back on the overview page and sees that the URL still
         # contains the code of the Questionnaire
         self.assertIn(code, self.browser.current_url)
-
-        # She submits the Questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She sees that no new code was created.
         self.assertIn(code, self.browser.current_url)
@@ -399,28 +385,22 @@ class EditTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new))
         edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(@href, "edit/new/cat")]')
+            'xpath', '//main//a[contains(@href, "edit/new/cat")]')
         edit_buttons[cat_1_position].click()
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
-        # She saves it as draft
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
+        # The questionnaire is already saved as draft
         # She submits it for review
-        self.findBy('xpath', '//input[@name="submit"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
 
         # She reviews it
-        self.findBy('xpath', '//input[@name="review"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('review')
 
         # She publishes it
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('publish')
 
         # She sees it is public and visible
         self.findBy('xpath', '//p[text()="Foo"]')
@@ -429,7 +409,7 @@ class EditTest(FunctionalTest):
         url = self.browser.current_url
 
         # She edits it
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.review_action('edit')
         self.findBy(
             'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
 
@@ -439,18 +419,29 @@ class EditTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
-        # She saves it as draft
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
+        # The questionnaire is already saved as draft
         # She is taken to the overview page where she sees the latest
         # (pending) changes of the draft
-
-        self.assertEqual(url, self.browser.current_url)
-
         self.findBy('xpath', '//p[text()="Bar"]')
         self.findByNot('xpath', '//p[text()="Foo"]')
         self.findBy('xpath', '//p[text()="asdf"]')
+
+        # She sees the edit buttons
+        self.findBy(
+            'xpath', '(//a[contains(text(), "Edit this section")])[2]')
+
+        # She sees the possibility to view the questionnaire
+        self.review_action('view')
+        self.assertIn(url, self.browser.current_url)
+
+        # All the changes are there
+        self.findBy('xpath', '//p[text()="Bar"]')
+        self.findByNot('xpath', '//p[text()="Foo"]')
+        self.findBy('xpath', '//p[text()="asdf"]')
+
+        # There are no buttons to edit the sections anymore
+        self.findByNot(
+            'xpath', '(//a[contains(text(), "Edit this section")])[2]')
 
     # def test_show_message_of_changed_versions(self, mock_get_user_id):
     #

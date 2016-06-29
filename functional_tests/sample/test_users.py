@@ -92,7 +92,7 @@ class UserTest(FunctionalTest):
         self.clickUserMenu(user_alice)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
-            'contains(@href, "accounts/101/questionnaires")]').click()
+            'contains(@href, "accounts/user/101/questionnaires")]').click()
 
         # She sees here Questionnaires are listed, even those with
         # status draft or submitted
@@ -307,16 +307,13 @@ class UserTest2(FunctionalTest):
                 By.CLASS_NAME, "form-user-search-loading")))
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
         # She sees the name is in the overview
         self.checkOnPage('Kurt Gerber')
 
         # She goes back to the form
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.click_edit_section('cat_0')
 
         # She sees the user is selected, loading and search fields are
         # not visible
@@ -349,13 +346,11 @@ class UserTest2(FunctionalTest):
                 By.CLASS_NAME, "form-user-search-loading")))
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
         self.checkOnPage('Lukas Vonlanthen')
 
         # She submits the entire questionnaire and sees the name is there
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
         self.checkOnPage('Lukas Vonlanthen')
 
         # She checks the database to make sure the user was added.
@@ -480,17 +475,14 @@ class UserTest2(FunctionalTest):
             '"Lukas Vonlanthen")]')
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
         # She sees the new person was submitted correctly
         self.checkOnPage('Other New Person')
         self.findByNot('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
 
         # She goes back to the form
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.click_edit_section('cat_0')
 
         # She sees the tab with the new user details is shown
         new_name = self.findBy('id', 'id_qg_31-0-original_key_41')
@@ -518,13 +510,11 @@ class UserTest2(FunctionalTest):
         new_name.send_keys('Person A')
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
         self.checkOnPage('Person A')
 
         # She submits the entire questionnaire and sees the name is there
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
         self.checkOnPage('Person A')
 
         # She checks the database to make sure no additional user was added.
@@ -671,8 +661,7 @@ class UserTest2(FunctionalTest):
                 'loading")]'.format(qg_3_xpath))))
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
         # She sees all the values are in the overview
         self.checkOnPage('Kurt Gerber')
@@ -680,9 +669,7 @@ class UserTest2(FunctionalTest):
         self.checkOnPage('Lukas Vonlanthen')
 
         # She goes back to the form
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.click_edit_section('cat_0')
 
         # She sees that the form was populated correctly
         qg_1_xpath = (
@@ -724,8 +711,7 @@ class UserTest2(FunctionalTest):
             'id', 'id_qg_31-2-original_key_41').get_attribute('value'), '')
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
         # She sees all the values are in the overview
         self.checkOnPage('Kurt Gerber')
@@ -733,8 +719,7 @@ class UserTest2(FunctionalTest):
         self.checkOnPage('Lukas Vonlanthen')
 
         # She submits the entire questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
 
         # She sees all the values are in the overview
         self.checkOnPage('Kurt Gerber')
@@ -759,6 +744,7 @@ class UserTest2(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new_step,
             kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
 
         # She does not see a field to search for users
         search_user = self.findBy(
@@ -783,29 +769,18 @@ class UserTest2(FunctionalTest):
                 By.CLASS_NAME, "form-user-search-loading")))
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
         # She also enters a name and submits the step
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        self.click_edit_section('cat_1')
         self.findBy('id', 'id_qg_1-0-original_key_1').send_keys('Foo')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
-        # She submits the entire questionnaire and sees the user was
-        # added
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy('xpath', '//*[contains(text(), "Foo")]')
         self.findBy('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
 
         # Alice edits the questionnaire again
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'sample_0', 'step': 'cat_0'}))
+        self.click_edit_section('cat_0')
 
         # She removes the user from the questionnaire and submits the
         # step
@@ -813,16 +788,14 @@ class UserTest2(FunctionalTest):
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Lukas Vonlanthen")]/a').click()
 
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
         # She sees that the user is not listed anymore
         self.findByNot('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
 
         # She submits the entire questionnaire and sees that the user is
         # not listed anymore.
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
         self.findByNot('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
 
         # Also in the database, the user is not connected to the
@@ -860,10 +833,8 @@ class UserTest3(FunctionalTest):
         self.findBy(
             'xpath', '//input[@name="qg_1-0-original_key_1"]').send_keys(
                 'Foo 1')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
+        self.review_action('view')
 
         details_url = self.browser.current_url
 
@@ -871,7 +842,7 @@ class UserTest3(FunctionalTest):
         self.clickUserMenu(user)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
-            'contains(@href, "accounts/1/questionnaires")]').click()
+            'contains(@href, "accounts/user/1/questionnaires")]').click()
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
@@ -881,18 +852,15 @@ class UserTest3(FunctionalTest):
 
         # She submits, reviews and publishes the questionnaire
         self.browser.get(details_url)
-        self.findBy('xpath', '//input[@name="submit"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//input[@name="review"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy('xpath', '//input[@name="publish"]').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.review_action('submit')
+        self.review_action('review')
+        self.review_action('publish')
 
         # Back on the list of her own questionnaires, she sees it only once
         self.clickUserMenu(user)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
-            'contains(@href, "accounts/1/questionnaires")]').click()
+            'contains(@href, "accounts/user/1/questionnaires")]').click()
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')

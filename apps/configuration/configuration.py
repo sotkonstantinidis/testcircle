@@ -1789,9 +1789,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
         categories_with_content = [c for c in self.subcategories if
                                    c.questiongroups or c.subcategories]
 
-        if self.view_options.get('review_panel', False) is not True:
-            review_config = {}
-
         return render_to_string(
             view_template, {
                 'subcategories': rendered_subcategories,
@@ -1812,7 +1809,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'configuration_name': configuration,
                 'questionnaire_identifier': questionnaire_identifier,
                 'has_changes': has_changes,
-                'review_config': review_config,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -1890,9 +1886,6 @@ class QuestionnaireSection(BaseConfigurationObject):
               "template": "TEMPLATE_NAME",
 
               # Default: false
-              "review_panel": true,
-
-              # Default: false
               "media_gallery": true
             },
 
@@ -1940,9 +1933,6 @@ class QuestionnaireSection(BaseConfigurationObject):
                 edited_questiongroups=edited_questiongroups,
                 view_mode=view_mode, links=links, review_config=review_config))
 
-        if self.view_options.get('review_panel', False) is not True:
-            review_config = {}
-
         media_content = []
         media_additional = {}
         if self.view_options.get('media_gallery', False) is True:
@@ -1956,7 +1946,6 @@ class QuestionnaireSection(BaseConfigurationObject):
             'categories': rendered_categories,
             'media_content': media_content,
             'media_additional': media_additional,
-            'review_config': review_config,
         })
 
     def get_questiongroups(self):

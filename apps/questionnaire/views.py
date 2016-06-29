@@ -1,12 +1,18 @@
+import collections
+import contextlib
+from itertools import chain
+
+from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import (
     Http404,
     HttpResponse,
     JsonResponse,
-)
+    HttpResponseRedirect)
 from django.middleware.csrf import get_token
 from django.shortcuts import (
     render,
@@ -16,21 +22,20 @@ from django.shortcuts import (
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.http import require_POST
+from django.views.generic import DeleteView, View
+from django.views.generic.base import TemplateResponseMixin
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
-from qcat.utils import (
-    clear_session_questionnaire,
-    get_session_questionnaire,
-    save_session_questionnaire,
-)
 from questionnaire.upload import (
     retrieve_file,
     UPLOAD_THUMBNAIL_CONTENT_TYPE,
 )
+from search.search import advanced_search
+
 from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File
 from .utils import (
@@ -47,7 +52,7 @@ from .utils import (
     query_questionnaires_for_link,
     query_questionnaire,
     query_questionnaires,
-)
+    get_review_config_dict)
 from .view_utils import (
     ESPagination,
     get_page_parameter,
@@ -55,7 +60,6 @@ from .view_utils import (
     get_paginator,
     get_limit_parameter,
 )
-from search.search import advanced_search
 from .conf import settings
 
 
@@ -228,44 +232,257 @@ def generic_questionnaire_view_map(request, identifier, configuration_code):
     })
 
 
-@login_required
-@force_login_check
-def generic_questionnaire_new_step(
-        request, step, configuration_code, url_namespace,
-        page_title='QCAT Form', identifier=None):
+class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     """
-    A generic view to show the form of a single step of a new or edited
-    questionnaire.
+    Base class for all views that are used to update a questionnaire. At least the url_namespace must be set
+    when using this view.
 
-    By default, the form is shown. If the form was submitted, it is
-    validated and if valid stored in the session, followed by a redirect
-    to the overview.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-        ``step`` (str): The code of the questionnaire category.
-
-        ``configuration_code`` (str): The code of the questionnaire
-        configuration.
-
-        ``url_namespace`` (str): The namespace of the questionnaire
-        URLs. It is assumed that all questionnaire apps have the same
-        routes for their questionnaires
-        (e.g. ``wocat:questionnaire_new``)
-
-    Kwargs:
-        ``page_title`` (str): The page title to be used in the HTML
-        template. Defaults to ``QCAT Form``.
-
-        ``identifier`` (str) The identifier of the Questionnaire if
-        available.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
     """
-    def _validate_formsets(
-            nested_formsets, current_locale, original_locale):
+    new_identifier = 'new'
+    questionnaire_configuration = None
+    url_namespace = None
+    configuration_code = None
+    template_name = ''
+
+    def dispatch(self, request, *args, **kwargs):
+        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
+        return super().dispatch(request, *args, **kwargs)
+
+    @property
+    def identifier(self):
+        return self.kwargs.get('identifier', self.new_identifier)
+
+    @property
+    def questionnaire_configuration(self):
+        return get_configuration(self.get_configuration_code())
+
+    def get_template_names(self):
+        return self.template_name or 'questionnaire/details.html'
+
+    def get_configuration_code(self):
+        return self.configuration_code or self.url_namespace
+
+    @property
+    def has_object(self):
+        return self.identifier != self.new_identifier
+
+    def get_object(self):
+        """
+        Returns: questionnaires.models.Questionnaire or {}
+        """
+        if self.has_object:
+            obj = query_questionnaire(self.request, self.identifier).first()
+            if not obj:
+                raise Http404()
+            return obj
+
+        return {}
+
+    @property
+    def questionnaire_data(self):
+        return self.object.data if self.has_object else {}
+
+    @property
+    def questionnaire_links(self):
+        return self.object.links.all() if self.has_object else []
+
+    def get_detail_url(self, step):
+        """
+        The detail view of the current object with #top as anchor.
+
+        Returns: string
+        """
+        if self.has_object:
+            url = reverse('{}:questionnaire_details'.format(self.url_namespace), args=[self.object.code])
+        else:
+            url = reverse('{}:questionnaire_new'.format(self.url_namespace))
+
+        return '{url}#{step}'.format(url=url, step=step)
+
+    def get_context_data(self, **kwargs):
+        """
+        The context data of the view. The required content is based on the previously existing views and the template
+        markup.
+
+        Returns: dict
+        """
+        if 'view' not in kwargs:
+            kwargs['view'] = self
+        return kwargs
+
+
+class StepsMixin:
+    """
+    Get a list with all steps for current questionnaire.
+    """
+    def get_steps(self):
+        # Flattened list with all categories.
+        categories = list(chain.from_iterable(
+            (section.categories for section in self.questionnaire_configuration.sections)
+        ))
+        return [category.keyword for category in categories]
+
+
+class QuestionnaireSaveMixin(StepsMixin):
+    """
+    Validate and save data for object. Errors are written to
+    """
+    category = None
+    url_namespace = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.errors = []
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('{}:questionnaire_edit'.format(self.url_namespace), kwargs={'identifier': self.object.code})
+
+    def validate(self, subcategories, original_locale):
+        """
+        Validation is executed in two steps:
+
+        - Validate given section
+        - Validate complete questionnaire, with merged new section
+
+        If either fails, an error is added to request.messages - else the object is saved and a redirect to the
+        success url is returned.
+
+        Returns: tuple (is_valid, data)
+
+        """
+        data, is_valid = self._validate_formsets(subcategories, get_language(), original_locale)
+        links = get_link_data(self.questionnaire_links)
+
+        # Check if any links were modified.
+        link_questiongroups = self.category.get_link_questiongroups()
+        if link_questiongroups:
+            for link_qg in link_questiongroups:
+                link_data = data.get(link_qg, [])
+                if link_data:
+                    try:
+                        link_configuration_code = link_qg.rsplit('__', 1)[1]
+                    except IndexError:
+                        self.errors.append('There was a problem submitting the link')
+                        valid = False
+                        continue
+
+                # The links initially available
+                initial_links = links.get(link_configuration_code, [])
+                new_links = []
+
+                for link in link_data:
+                    link_id = link.get('link_id')
+                    if not link_id:
+                        continue
+
+                    try:
+                        link_object = Questionnaire.with_status.not_deleted().get(pk=link_id)
+                    except Questionnaire.DoesNotExist:
+                        self.errors.append('The linked questionnaire with ID {} does not exist'.format(link_id))
+                        valid = False
+                        continue
+
+                    # Check if the link is already in the session, in which case
+                    # there is no need to get the link data again
+                    link_found = False
+                    for old_link in initial_links:
+                        if old_link.get('id') == link_id:
+                            link_found = True
+                            new_links.extend(old_link)
+
+                    if link_found is False:
+                        current_link_data = get_link_data(
+                            [link_object],
+                            link_configuration_code=link_configuration_code
+                        )
+                        new_links.extend(current_link_data.get(
+                            link_configuration_code))
+
+                links[link_configuration_code] = new_links
+
+        if not is_valid:
+            return is_valid, data
+        else:
+            # Links will be saved only when everything is valid.
+            self.links = links
+            # Merge validated data to complete questionnaire and validate this again.
+            return self.merge_and_validate(data)
+
+    def merge_and_validate(self, data):
+        """
+        Merge data from current section to questionnaire and validate complete questionnaire data.
+
+        Args:
+            data: dict
+
+        Returns:
+            tuple: is_valid, data
+
+        Todo: discuss with lukas: what happens if the section data is valid, but the whole questionnaire is invalid?
+
+        """
+        if self.has_object:
+            self.object.data.update(data)
+            data = self.object.data
+
+        questionnaire_data, errors = clean_questionnaire_data(data, self.questionnaire_configuration)
+        if errors:
+            self.errors.append(errors)
+        return not bool(self.errors), questionnaire_data
+
+    def can_lock_object(self):
+        # Try to lock questionnaire, raise an error if it is locked already.
+        try:
+            Questionnaire().lock_questionnaire(self.identifier, self.request.user)
+        except QuestionnaireLockedException as e:
+            self.errors.append(e)
+            return False
+        return True
+
+    def save(self, subcategories, original_locale):
+        """
+        Validate and save the questionnaire.
+        """
+        is_valid, data = self.validate(subcategories, original_locale)
+
+        if not is_valid or not self.can_lock_object():
+            return self.form_invalid()
+        else:
+            return self.form_valid(data)
+
+    def form_valid(self, data):
+
+        diff_qgs = []
+        # Recalculate difference between the two diffs
+        if self.has_object:
+            q_obj = self.object
+            diff_qgs = compare_questionnaire_data(q_obj.data_old, data)
+
+        try:
+            questionnaire = Questionnaire.create_new(
+                configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
+                previous_version=self.object if self.has_object else None, old_data=None
+            )
+            self.object = questionnaire
+        except ValidationError as e:
+            self.errors.append(e)
+            return self.form_invalid()
+
+        self.save_questionnaire_links()
+        questionnaire.unlock_questionnaire()
+        messages.success(self.request, _('Data successfully saved.'))
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self):
+        """
+        Some errors are non-form errors and are displayed with as messages. The context (or better: the templates)
+        doesn't display the errors yet.
+        """
+        for error in self.errors:
+            messages.error(self.request, error)
+        return self.render_to_response(self.get_context_data(errors=self.errors))
+
+    def _validate_formsets(self, nested_formsets, current_locale, original_locale):
         """
         Helper function to validate a set of nested formsets. Unnests
         the formsets and validates each of them. Returns the cleaned
@@ -288,6 +505,7 @@ def generic_questionnaire_new_step(
             ``bool``. A boolean indicating whether the formsets are
             valid or not.
         """
+
         def unnest_formets(nested_formsets):
             """
             Small helper function to unnest nested formsets. Returns them
@@ -312,9 +530,9 @@ def generic_questionnaire_new_step(
 
             for f in formset.forms:
                 questiongroup_keyword = f.prefix.split('-')[0]
-                cleaned_data = \
-                    get_questiongroup_data_from_translation_form(
-                        f.cleaned_data, current_locale, original_locale)
+                cleaned_data = get_questiongroup_data_from_translation_form(
+                    f.cleaned_data, current_locale, original_locale
+                )
                 try:
                     data[questiongroup_keyword].append(cleaned_data)
                 except KeyError:
@@ -322,390 +540,336 @@ def generic_questionnaire_new_step(
 
         return data, True
 
-    # Edit mode for the form.
-    edit_mode = 'edit'
+    def get_success_url_next_section(self, identifier, current):
+        """
+        The 'step' we need is the keyword of the next 'category'. This category is part of the section.
 
-    questionnaire_configuration = get_configuration(configuration_code)
-    category = questionnaire_configuration.get_category(step)
+        Args:
+            current: string (the current step)
+            identifier: string to identify the questionnaire in the url pattern
 
-    if category is None:
-        raise Http404
+        Returns:
+            url
 
-    session_questionnaire = {}
-    session_links = {}
-    edited_questiongroups = []
-    if request.method != 'POST':
-        session_data = get_session_questionnaire(
-            request, configuration_code, identifier)
-        session_questionnaire = session_data.get('questionnaire', {})
-        session_links = session_data.get('links', {})
-        old_data = session_data.get('old_questionnaire')
-        if old_data:
-            edited_questiongroups = compare_questionnaire_data(
-                session_questionnaire, old_data)
+        """
 
-    # TODO: This is still not very efficient as the Questionnaire object has to
-    # be queried just to get the original locale. This should be improved!
-    original_locale = None
-    if identifier is not None and identifier != 'new':
-        questionnaire_object = query_questionnaire(request, identifier).first()
-        if questionnaire_object:
-            original_locale = questionnaire_object.original_locale
-    current_locale = get_language()
-    show_translation = (
-        original_locale is not None and current_locale != original_locale)
+        # Current or next step may not exist - use the default
+        # redirect.
+        steps = self.get_steps()
+        with contextlib.suppress(ValueError, IndexError):
+            current_step = steps.index(current)
+            url = reverse('{}:questionnaire_new_step'.format(self.url_namespace), kwargs={
+                'identifier': identifier,
+                'step': steps[current_step + 1]
+            })
+            return HttpResponseRedirect(url)
 
-    initial_data = get_questionnaire_data_for_translation_form(
-        session_questionnaire, current_locale, original_locale)
+    def save_questionnaire_links(self):
+        """
+        Save the linked questionnaires to for the current object.
+        """
+        if not hasattr(self, 'links') or not self.links:
+            return
 
-    category_config, subcategories = category.get_form(
-        post_data=request.POST or None, initial_data=initial_data,
-        show_translation=show_translation, edit_mode=edit_mode,
-        edited_questiongroups=edited_questiongroups,
-        initial_links=session_links)
+        # Collect the IDs of all (newly) linked questionnaires
+        linked_ids = []
+        for __, linked_questionnaires in self.links.items():
+            linked_ids.extend([x.get('id') for x in linked_questionnaires])
 
-    if identifier is None:
-        overview_url = '{}#{}'.format(
-            reverse('{}:questionnaire_new'.format(url_namespace)), step)
-    else:
-        overview_url = '{}#{}'.format(reverse('{}:questionnaire_edit'.format(
-            url_namespace), kwargs={'identifier': identifier}), step)
+        # Remove all currently linked questionnaires which are not in this list
+        for removed in self.object.links.exclude(id__in=linked_ids):
+            self.object.remove_link(removed)
 
-    valid = True
-    if request.method == 'POST':
-
-        data, valid = _validate_formsets(
-            subcategories, current_locale, original_locale)
-
-        # Check if any links were modified.
-        link_questiongroups = category.get_link_questiongroups()
-        if link_questiongroups:
-            for link_qg in link_questiongroups:
-                link_data = data.get(link_qg, [])
-                if link_data:
-                    try:
-                        link_configuration_code = link_qg.rsplit('__', 1)[1]
-                    except IndexError:
-                        messages.error(
-                            request, 'There was a problem submitting the link')
-                        valid = False
-                        continue
-
-                links_in_session = session_links.get(
-                    link_configuration_code, [])
-
-                for link in link_data:
-                    link_id = link.get('link_id')
-                    if not link_id:
-                        continue
-
-                    try:
-                        link_object = Questionnaire.objects.get(pk=link_id)
-                    except Questionnaire.DoesNotExist:
-                        messages.error(
-                            request, 'The linked questionnaire with ID {} '
-                            'does not exist'.format(link_id))
-                        valid = False
-                        continue
-
-                    # Check if the link is already in the session, in which case
-                    # there is no need to get the link data again
-                    link_found = False
-                    for old_link in links_in_session:
-                        if old_link.get('id') == link_id:
-                            link_found = True
-
-                    if link_found is False:
-                        current_link_data = get_link_data(
-                            [link_object],
-                            link_configuration_code=link_configuration_code)
-
-                        links_in_session.extend(current_link_data.get(
-                            link_configuration_code))
-
-                session_links[link_configuration_code] = links_in_session
-
-        if valid is True:
-            session_data = get_session_questionnaire(
-                request, configuration_code, identifier)
-            session_questionnaire = session_data.get('questionnaire', {})
-            session_questionnaire.update(data)
-
-            questionnaire_data, errors = clean_questionnaire_data(
-                session_questionnaire, questionnaire_configuration)
-
-            # Try to lock questionnaire, raise an error if it is locked already.
-            try:
-                Questionnaire().lock_questionnaire(identifier, request.user)
-            except QuestionnaireLockedException as e:
-                errors.append(e)
-
-            if errors:
-                valid = False
-                messages.error(
-                    request, 'Something went wrong. The step cannot be saved '
-                    'because of the following errors: <br/>{}'.format(
-                        '<br/>'.join(errors)), extra_tags='safe')
-            else:
-                diff_qgs = []
-                # Recalculate difference between the two diffs
-                if identifier and identifier != 'new':
-                    q_obj = query_questionnaire(
-                        request, identifier).first()
-                    diff_qgs = compare_questionnaire_data(
-                        q_obj.data_old, questionnaire_data)
-
-                save_session_questionnaire(
-                    request, configuration_code, identifier,
-                    questionnaire_data=questionnaire_data,
-                    questionnaire_links=session_links,
-                    edited_questiongroups=diff_qgs)
-
-                messages.success(
-                    request, _('Data successfully stored to Session.'))
-                return redirect(overview_url)
-
-    configuration_name = category_config.get('configuration', url_namespace)
-
-    toc_content = []
-    for subcategory_config, __ in subcategories:
-        toc_content.append((
-            subcategory_config.get('keyword'), subcategory_config.get('label'),
-            subcategory_config.get('numbering')
-        ))
-
-    view_url = ''
-    if identifier:
-        view_url = reverse(
-            '{}:questionnaire_view_step'.format(url_namespace),
-            args=[identifier, step])
-
-    return render(request, 'form/category.html', {
-        'subcategories': subcategories,
-        'config': category_config,
-        'content_subcategories_count': len(
-            [c for c in subcategories if c[1] != []]),
-        'title': page_title,
-        'overview_url': overview_url,
-        'valid': valid,
-        'configuration_name': configuration_name,
-        'edit_mode': edit_mode,
-        'view_url': view_url,
-        'toc_content': toc_content,
-    })
+        # Add links to all questionnaires in the list
+        for linked in linked_ids:
+            with contextlib.suppress(Questionnaire.DoesNotExist):
+                link = Questionnaire.objects.get(pk=linked)
+                self.object.add_link(link)
 
 
-@login_required
-@force_login_check
-def generic_questionnaire_new(
-        request, configuration_code, template, url_namespace, identifier=None):
+class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     """
-    A generic view to show an entire questionnaire.
-
-    By default, the overview of the questionnaire is shown. If the form
-    was submitted, it is validated and if valid stored in the database,
-    followed by a redirect to the desired route (``success_route``).
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-        ``configuration_code`` (str): The code of the questionnaire
-        configuration.
-
-        ``template`` (str): The name and path of the template to render
-        the response with.
-
-        ``url_namespace`` (str): The namespace of the questionnaire
-        URLs. It is assumed that all questionnaire apps have the same
-        routes for their questionnaires
-        (e.g. ``wocat:questionnaire_new``)
-
-    Kwargs:
-        ``identifier`` (str): The identifier of a questionnaire if it is
-        an edit form.
-
-        ``page_title`` (str): The page title to be used in the HTML
-        template. Defaults to ``QCAT Form``.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
+    Refactored function based view: generic_questionnaire_new
     """
-    questionnaire_configuration = get_configuration(configuration_code)
-    edited_questiongroups = []
-    if identifier is not None:
-        # For edits, copy the data to the session first (if it was
-        # edited for the first time only).
-        questionnaire_object = query_questionnaire(request, identifier).first()
-        if questionnaire_object is None:
-            raise Http404()
-        questionnaire_object.lock_questionnaire(
-            questionnaire_object.code, request.user
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        """
+        Display the questionnaire overview.
+        """
+        self.object = self.get_object()
+
+        data = get_questionnaire_data_in_single_language(
+            questionnaire_data=self.questionnaire_data, locale=get_language(),
+            original_locale=self.object.original_locale if self.object else None
         )
-        questionnaire_data = questionnaire_object.data
-        session_data = get_session_questionnaire(
-            request, configuration_code, identifier)
-        if session_data.get('questionnaire') is None:
+        permissions = ['edit_questionnaire'] if not self.has_object else self.object.get_permissions(self.request.user)
 
-            old_data = questionnaire_object.data_old
-            if old_data is None:
-                old_data = questionnaire_data
+        csrf_token = get_token(self.request) if 'edit_questionnaire' in permissions else None
 
-            questionnaire_links = get_link_data(
-                questionnaire_object.links.all())
-            save_session_questionnaire(
-                request, configuration_code, identifier,
-                questionnaire_data=questionnaire_data,
-                questionnaire_links=questionnaire_links,
-                old_questionnaire_data=old_data,
-            )
+        images = self.questionnaire_configuration.get_image_data(data).get('content', [])
 
-            edited_questiongroups = compare_questionnaire_data(
-                questionnaire_data, old_data)
+        sections = self.questionnaire_configuration.get_details(
+            data, permissions=permissions,
+            edit_step_route='{}:questionnaire_new_step'.format(self.url_namespace),
+            questionnaire_object=self.object or None, csrf_token=csrf_token,
+            edited_questiongroups=self.get_edited_questiongroups(), view_mode='edit',
+            links=self.get_links()
+        )
 
-        else:
-            session_questionnaire = session_data.get('questionnaire', {})
-            edited_questiongroups = compare_questionnaire_data(
-                session_questionnaire,
-                session_data.get('old_questionnaire', session_questionnaire))
+        # Add the configuration of the filter
+        filter_configuration = self.questionnaire_configuration.get_filter_configuration()
 
-    else:
-        questionnaire_object = None
-        identifier = 'new'
-
-    session_data = get_session_questionnaire(
-        request, configuration_code, identifier)
-    session_questionnaire = session_data.get('questionnaire', {})
-    session_links = session_data.get('links', {})
-
-    if request.method == 'POST':
-        cleaned_questionnaire_data, errors = clean_questionnaire_data(
-            session_questionnaire, questionnaire_configuration)
-
-        if questionnaire_object and \
-                not questionnaire_object.can_edit(request.user):
-            lvl, msg = questionnaire_object.get_blocked_message(request.user)
-            errors.append(msg)
-
-        if errors:
-            messages.error(
-                request, 'Something went wrong. The questionnaire cannot be '
-                'submitted because of the following errors: <br/>{}'.format(
-                    '<br/>'.join(errors)), extra_tags='safe')
-            return redirect(request.path)
-
-        if not cleaned_questionnaire_data:
-            messages.info(
-                request, _('You cannot submit an empty questionnaire'),
-                fail_silently=True)
-            return redirect(request.path)
-        else:
-            questionnaire = Questionnaire.create_new(
-                configuration_code, session_questionnaire, request.user,
-                previous_version=questionnaire_object,
-                old_data=session_data.get('old_questionnaire'))
-            clear_session_questionnaire(
-                request, configuration_code, identifier)
-
-            for __, linked_questionnaires in session_links.items():
-                for linked in linked_questionnaires:
-                    try:
-                        link = Questionnaire.objects.get(pk=linked.get('id'))
-                    except Questionnaire.DoesNotExist:
-                        continue
-                    questionnaire.add_link(link)
-
-            messages.success(
-                request,
-                _('The questionnaire was successfully created.'),
-                fail_silently=True)
-
-            return redirect('{}#top'.format(
-                reverse('{}:questionnaire_details'.format(
-                    url_namespace), args=[questionnaire.code])))
-
-    original_locale = None
-    if questionnaire_object:
-        original_locale = questionnaire_object.original_locale
-
-    data = get_questionnaire_data_in_single_language(
-        session_questionnaire, get_language(), original_locale=original_locale)
-
-    if questionnaire_object is None:
-        permissions = ['edit_questionnaire']
-    else:
-        permissions = questionnaire_object.get_permissions(request.user)
-
-    csrf_token = None
-    if 'edit_questionnaire' in permissions:
-        csrf_token = get_token(request)
-
-    images = questionnaire_configuration.get_image_data(
-        data).get('content', [])
-
-    link_ids = []
-    for __, linked_questionnaires in session_links.items():
-        link_ids.extend([l.get('id') for l in linked_questionnaires])
-
-    links_by_configuration = {}
-    for linked in Questionnaire.objects.filter(id__in=link_ids):
-        configuration = linked.configurations.first()
-        if configuration is None:
-            continue
-        if configuration.code not in links_by_configuration:
-            links_by_configuration[configuration.code] = [linked]
-        else:
-            links_by_configuration[configuration.code].append(linked)
-
-    link_display = {}
-    for configuration, links in links_by_configuration.items():
-        link_display[configuration] = get_list_values(
-            configuration_code=configuration, questionnaire_objects=links,
-            with_links=False)
-
-    sections = questionnaire_configuration.get_details(
-        data, permissions=permissions,
-        edit_step_route='{}:questionnaire_new_step'.format(url_namespace),
-        questionnaire_object=questionnaire_object, csrf_token=csrf_token,
-        edited_questiongroups=edited_questiongroups, view_mode='edit',
-        links=link_display)
-
-    # Add the configuration of the filter
-    filter_configuration = questionnaire_configuration.\
-        get_filter_configuration()
-
-    is_blocked = None
-    # Display a message regarding the state for editing (locked / available)
-    if questionnaire_object:
-        is_blocked = questionnaire_object.can_edit(request.user)
-        # Display a hint about the 'blocked' status for GET requests only. For
-        # post requests, this is done in the form validation.
-        if request.method == 'GET':
-            level, message = questionnaire_object.get_blocked_message(
-                request.user
-            )
+        can_edit = None
+        blocked_by = None
+        # Display a message regarding the state for editing (locked / available)
+        if self.has_object:
+            can_edit = self.object.can_edit(request.user)
+            level, message = self.object.get_blocked_message(request.user)
+            blocked_by = message
             messages.add_message(request, level, message)
 
-    # TODO: Highlight changes disabled.
-    # For the time being, the function to show changes has been
-    # disabled. Delete the following line to reenable it.
-    edited_questiongroups = []
+        # TODO: Highlight changes disabled.
+        # For the time being, the function to show changes has been
+        # disabled. Delete the following line to reenable it.
+        edited_questiongroups = []
 
-    return render(request, template, {
-        'images': images,
-        'sections': sections,
-        'questionnaire_identifier': identifier,
-        'filter_configuration': filter_configuration,
-        'permissions': permissions,
-        'edited_questiongroups': edited_questiongroups,
-        'view_mode': 'edit',
-        'is_blocked': is_blocked,
-        'toc_content': questionnaire_configuration.get_toc_data(),
-        'has_content': data != {},
-    })
+        # Url when switching the mode - go to the detail view.
+        url = self.get_detail_url(step='') if self.has_object else ''
+
+        review_config = self.get_review_config(
+            permissions=permissions, url=url,
+            blocked_by=blocked_by if not can_edit else False,
+            view_mode='edit'
+        )
+        if not self.has_object:
+            review_config.update({
+                'data_type': self.url_namespace,
+                'first_section_url': reverse('{}:questionnaire_new_step'.format(self.url_namespace), kwargs={
+                    'identifier': self.identifier, 'step': self.get_steps()[0]
+                })
+            })
+
+        context = {
+            'images': images,
+            'sections': sections,
+            'questionnaire_identifier': self.identifier,
+            'url_namespace': self.url_namespace,
+            'filter_configuration': filter_configuration,
+            'permissions': permissions,
+            'edited_questiongroups': edited_questiongroups,
+            'view_mode': 'edit',
+            'is_blocked': not can_edit,
+            'toc_content': self.questionnaire_configuration.get_toc_data(),
+            'has_content': bool(data),
+            'review_config': review_config,
+            'questionnaires_in_progress': self.questionnaires_in_progress(),
+            'base_template': '{}/base.html'.format(self.url_namespace),
+        }
+        return self.render_to_response(context=context)
+
+    def get_detail_url(self, step):
+        return super().get_detail_url(step='top')
+
+    def get_review_config(self, permissions, url, **kwargs):
+        """
+        Create a dict with the review_config, this is required for proper display
+        of the review panel.
+
+        Args:
+            permissions: list
+            url: string
+            **kwargs:
+
+        Returns: dict
+
+        """
+        return get_review_config_dict(
+            status=self.object.status if self.has_object else 0,
+            token=get_token(self.request),
+            permissions=permissions,
+            view_mode=kwargs.get('view_mode', 'view'),
+            url=url,
+            is_blocked=bool(kwargs.get('blocked_by', False)),
+            blocked_by=kwargs.get('blocked_by', ''),
+            form_url=self.get_detail_url(step=''),
+            has_release=self.has_release()
+        )
+
+    def questionnaires_in_progress(self):
+        """
+        Get all questionnaires that given user is currently working on.
+
+        Returns:
+            queryset
+
+        """
+        return Questionnaire.with_status.not_deleted().filter(
+            status=settings.QUESTIONNAIRE_DRAFT,
+            questionnairemembership__user=self.request.user,
+            questionnairemembership__role__in=[
+                settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
+            ]
+        )
+
+    def get_edited_questiongroups(self):
+        """
+        ?
+        """
+        return compare_questionnaire_data(self.object.data, self.object.data_old) if self.has_object else []
+
+    def get_links(self):
+        """
+        Prepare links as expected by the template.
+
+        Returns: dict
+        """
+        if not self.has_object:
+            return None
+
+        linked_questionnaires = self.object.links.filter(configurations__isnull=False)
+        links_by_configuration = collections.defaultdict(list)
+
+        for linked in linked_questionnaires:
+            links_by_configuration[linked.configurations.first().code].append(linked)
+
+        link_display = {}
+        for configuration, links in links_by_configuration.items():
+            link_display[configuration] = get_list_values(
+                configuration_code=configuration, questionnaire_objects=links, with_links=False
+            )
+        return link_display
+
+    def has_release(self):
+        return self.has_object and self.object.has_release
+
+
+class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixin, View):
+    """
+    A section of the questionnaire.
+    """
+    edit_mode = 'edit'
+    template_name = 'form/category.html'
+
+    def set_attributes(self):
+        """
+        Shared calls (pseudo setup) for get and post
+        """
+        self.object = self.get_object()
+        self.category = self.questionnaire_configuration.get_category(self.kwargs['step'])
+        if not self.category:
+            raise Http404()
+        self.category_config, self.subcategories = self.get_subcategories()
+
+    def get(self, request, *args, **kwargs):
+        """
+        Display the form for the selected step,
+        """
+        self.set_attributes()
+        if self.has_object:
+            Questionnaire.lock_questionnaire(self.object.code, self.request.user)
+        return self.render_to_response(context=self.get_context_data())
+
+    def post(self, request, *args, **kwargs):
+        """
+        Validate and save the data. If valid, a redirect to the .get() view is returned (Post-Redirect-Get)
+
+        Returns: HttpResponse
+
+        """
+        self.set_attributes()
+        original_locale, show_translation = self.get_locale_info()
+        return self.save(self.subcategories, original_locale)
+
+    def get_success_url(self):
+        url = super().get_success_url()
+        return '{}#{}'.format(url, self.kwargs['step'])
+
+    def form_valid(self, data):
+        """
+        Handle special case if the user clicks on 'save and go to next section'
+
+        """
+        response = super().form_valid(data)
+
+        if self.request.POST.get('goto-next-section', '') == 'true':
+            next_step = self.get_success_url_next_section(self.object.code, self.kwargs['step'])
+            if next_step:
+                return next_step
+
+        return response
+
+    def get_locale_info(self):
+        """
+        Get the original locale of the current object.
+
+        Returns: tuple (original_locale, show_translation)
+        """
+        original_locale = None
+        if self.has_object:
+            original_locale = self.object.original_locale
+
+        show_translation = (original_locale is not None and get_language() != original_locale)
+        return original_locale, show_translation
+
+    def get_subcategories(self):
+        """
+        Returns: tuple (category_config, subcategories)
+        """
+        original_locale, show_translation = self.get_locale_info()
+
+        initial_data = get_questionnaire_data_for_translation_form(
+            self.object.data if self.has_object else {}, get_language(), original_locale
+        )
+        initial_links = get_link_data(self.questionnaire_links)
+
+        category_config, subcategories = self.category.get_form(
+            post_data=self.request.POST or None,
+            initial_data=initial_data, show_translation=show_translation,
+            edit_mode=self.edit_mode,
+            edited_questiongroups=[], initial_links=initial_links,
+        )
+        return category_config, subcategories
+
+    def get_toc_content(self):
+        toc_content = []
+        for subcategory_config, __ in self.subcategories:
+            toc_content.append((
+                subcategory_config.get('keyword'), subcategory_config.get('label'),
+                subcategory_config.get('numbering')
+            ))
+        return toc_content
+
+    def get_context_data(self, **kwargs):
+        """
+        Provide all info required to display a single step of the form.
+
+        Returns: dict
+        """
+        ctx = super().get_context_data(**kwargs)
+
+        view_url = ''
+        if self.has_object:
+            view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
+                               args=[self.identifier, self.kwargs['step']])
+
+        ctx.update({
+            'subcategories': self.subcategories,
+            'config': self.category_config,
+            'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
+            'title': _('QCAT Form'),
+            'overview_url': self.get_detail_url(self.kwargs['step']),
+            'valid': True,
+            'configuration_name': self.category_config.get('configuration', self.url_namespace),
+            'edit_mode': self.edit_mode,
+            'view_url': view_url,
+            'toc_content': self.get_toc_content(),
+        })
+        return ctx
 
 
 def generic_questionnaire_details(
-        request, identifier, configuration_code, url_namespace, template):
+        request, identifier, configuration_code, url_namespace):
     """
     A generic view to show the details of a questionnaire.
 
@@ -750,22 +914,27 @@ def generic_questionnaire_details(
     if request.user.is_authenticated():
         # Show the review panel only if the user is logged in and if the
         # version shown is not active (public).
-        review_config = {
-            'review_status': questionnaire_object.status,
-            'csrf_token_value': get_token(request),
-            'permissions': permissions,
-        }
-
-        # For public questionnaires, only UNCCD focal points can flag/unflag it.
-        # All other users do not have any permissions general on it.
-        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC and \
-                'flag_unccd_questionnaire' not in permissions and \
-                'unflag_unccd_questionnaire' not in permissions:
-            review_config = {}
-
+        blocked_by = None
         if not questionnaire_object.can_edit(request.user):
-            lvl, msg = questionnaire_object.get_blocked_message(request.user)
-            review_config['blocked_by'] = msg
+            lvl, blocked_by = questionnaire_object.get_blocked_message(request.user)
+
+        # The first tab or the review panel is either welcome or edit - depending if this object has a public version.
+        has_release = questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC or Questionnaire.objects.filter(
+            code=questionnaire_object.code, status=settings.QUESTIONNAIRE_PUBLIC).exists()
+
+        review_config = get_review_config_dict(
+            status=questionnaire_object.status,
+            token=get_token(request),
+            permissions=permissions,
+            view_mode='view',
+            url=reverse('{}:questionnaire_edit'.format(url_namespace),
+                        kwargs={'identifier': questionnaire_object.code}),
+            is_blocked=bool(blocked_by),
+            blocked_by=blocked_by,
+            form_url=reverse('{}:questionnaire_details'.format(url_namespace),
+                             kwargs={'identifier': questionnaire_object.code}),
+            has_release=has_release
+        )
 
         if 'assign_questionnaire' in review_config.get('permissions', []):
             if questionnaire_object.status == settings.QUESTIONNAIRE_DRAFT:
@@ -815,7 +984,7 @@ def generic_questionnaire_details(
     filter_configuration = questionnaire_configuration.\
         get_filter_configuration()
 
-    return render(request, template, {
+    return render(request, 'questionnaire/details.html', {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
@@ -823,6 +992,8 @@ def generic_questionnaire_details(
         'permissions': permissions,
         'view_mode': 'view',
         'toc_content': questionnaire_configuration.get_toc_data(),
+        'review_config': review_config,
+        'base_template': '{}/base.html'.format(url_namespace),
     })
 
 
@@ -944,7 +1115,7 @@ def generic_questionnaire_list(
         if filter_type in ['_search']:
             query_string = active_filter.get('value', '')
         elif filter_type in [
-                'checkbox', 'image_checkbox', 'select_type', '_date', '_flag']:
+                'checkbox', 'image_checkbox', '_date', '_flag', 'select_type']:
             filter_params.append(
                 (active_filter.get('questiongroup'),
                  active_filter.get('key'), active_filter.get('value'), None,
@@ -1107,3 +1278,34 @@ def generic_file_serve(request, action, uid):
         response['Content-Length'] = file_data.get('size')
 
     return response
+
+
+class QuestionnaireDeleteView(DeleteView):
+    """
+    Confirm and pseudo-delete questionnaire object.
+
+    """
+    model = Questionnaire
+    slug_field = 'code'
+    slug_url_kwarg = 'identifier'
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Update deleted flag for given questionnaire and add message.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        messages.success(
+            self.request, _('Successfully removed questionnaire')
+        )
+        self.object.is_deleted=True
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
+    def get_success_url(self):
+        """
+        Go to the users list of slm data in case of success.
+        """
+        return reverse(
+            'account_questionnaires', kwargs={'user_id': self.request.user.id}
+        )

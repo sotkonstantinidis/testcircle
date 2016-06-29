@@ -13,3 +13,6 @@ class StatusQuerySet(models.QuerySet):
 
     def draft(self):
         return self.filter(status=settings.QUESTIONNAIRE_DRAFT)
+
+    def not_deleted(self):
+        return self.filter(is_deleted=False)

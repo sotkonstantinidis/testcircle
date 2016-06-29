@@ -118,7 +118,7 @@ class GetMappingsTest(TestCase):
         mock_Conf.get_questiongroups.return_value = []
         mappings = get_mappings(mock_Conf)
         q_props = mappings.get('questionnaire').get('properties')
-        self.assertEqual(len(q_props), 10)
+        self.assertEqual(len(q_props), 11)
         self.assertEqual(q_props['data'], {'properties': {}})
         self.assertEqual(q_props['created'], {'type': 'date'})
         self.assertEqual(q_props['updated'], {'type': 'date'})
