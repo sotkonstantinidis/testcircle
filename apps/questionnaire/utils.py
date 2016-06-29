@@ -25,9 +25,10 @@ from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
 )
-from .models import Questionnaire, Flag
-from .conf import settings
 
+from .conf import settings
+from .models import Questionnaire, Flag
+from .signals import change_status, change_member, delete_questionnaire
 
 logger = logging.getLogger(__name__)
 
@@ -1168,6 +1169,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         (typically a redirect) or None.
     """
     permissions = questionnaire_object.get_permissions(request.user)
+
     if request.POST.get('submit'):
 
         # Previous status must be "draft"
@@ -1190,6 +1192,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully submitted.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            reviewer=request.user
+        )
 
     elif request.POST.get('review'):
 
@@ -1216,6 +1223,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully reviewed.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            reviewer=request.user
+        )
 
     elif request.POST.get('publish'):
 
@@ -1242,8 +1254,12 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         for previous_object in previously_public:
             previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
-            delete_questionnaires_from_es(
-                configuration_code, [previous_object])
+            delete_questionnaires_from_es(configuration_code, [previous_object])
+            change_status.send(
+                sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+                questionnaire=previous_object,
+                reviewer=request.user
+            )
 
         questionnaire_object.status = settings.QUESTIONNAIRE_PUBLIC
         questionnaire_object.save()
@@ -1268,6 +1284,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully set public.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            reviewer=request.user
+        )
 
     elif request.POST.get('reject'):
 
@@ -1301,6 +1322,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully rejected.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            reviewer=request.user
+        )
 
         # Query the permissions again, if the user does not have
         # edit rights on the now draft questionnaire, then route him
@@ -1354,6 +1380,14 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
             # Add the user
             questionnaire_object.add_user(user, role)
+            if user not in previous_users:
+                change_member.send(
+                    sender=settings.NOTIFICATIONS_ADD_MEMBER,
+                    questionnaire=questionnaire_object,
+                    reviewer=request.user,
+                    person=user,
+                    role=role
+                )
 
             # Remove user from list of previous users
             if user in previous_users:
@@ -1362,6 +1396,13 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Remove remaining previous users
         for user in previous_users:
             questionnaire_object.remove_user(user, role)
+            change_member.send(
+                sender=settings.NOTIFICATIONS_REMOVE_MEMBER,
+                questionnaire=questionnaire_object,
+                reviewer=request.user,
+                person=user,
+                role=role
+            )
 
         if not user_error:
             messages.success(
@@ -1462,11 +1503,21 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             'The flag was successfully removed. Please note that this created '
             'a new version which needs to be reviewed. In the meantime, you '
             'are seeing the public version which still shows the flag.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=new_version,
+            reviewer=request.user
+        )
 
     elif request.POST.get('delete'):
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
         messages.success(request, _('The questionnaire was succesfully removed'))
+        delete_questionnaire.send(
+            sender=settings.NOTIFICATIONS_DELETE,
+            questionnaire=questionnaire_object,
+            reviewer=request.user
+        )
         return redirect('{}:home'.format(configuration_code))
 
 

@@ -17,6 +17,7 @@ from django_pgjson.fields import JsonBField
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+from .signals import change_status, create_questionnaire
 
 from .conf import settings
 from .errors import QuestionnaireLockedException
@@ -224,6 +225,11 @@ class Questionnaire(models.Model):
                 raise ValidationError(
                     'You do not have permission to edit the questionnaire.')
 
+            change_status.send(
+                sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+                questionnaire=previous_version,
+                reviewer=user
+            )
             if previous_version.status == settings.QUESTIONNAIRE_PUBLIC:
                 # Edit of a public questionnaire: Create new version
                 # with the same code
@@ -276,6 +282,11 @@ class Questionnaire(models.Model):
         questionnaire = Questionnaire.objects.create(
             data=data, uuid=uuid, code=code, version=version, status=status,
             created=created, updated=updated)
+        create_questionnaire.send(
+            sender=settings.NOTIFICATIONS_CREATE,
+            questionnaire=questionnaire,
+            reviewer=user
+        )
 
         # TODO: Not all configurations should be the original ones!
         QuestionnaireConfiguration.objects.create(
