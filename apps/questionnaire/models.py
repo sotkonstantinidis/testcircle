@@ -518,7 +518,7 @@ class Questionnaire(models.Model):
             # No bbox found, guess zoom level
             image = m.render(zoom=6)
 
-        map_folder = get_upload_folder_path(self.uuid, subfolder='maps')
+        map_folder = get_upload_folder_path(str(self.uuid), subfolder='maps')
         if not os.path.exists(map_folder):
             os.makedirs(map_folder)
 
