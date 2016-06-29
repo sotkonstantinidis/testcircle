@@ -753,7 +753,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         return formfields, templates, options
 
-    def get_details(self, data={}, measure_label=None):
+    def get_details(
+            self, data={}, measure_label=None, questionnaire_object=None):
         MAX_MEASURE_LEVEL = 5
         template_values = self.view_options
         template_values.update({
@@ -779,6 +780,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             template_values.update({
                 'key': self.label_view,
                 'value': value,
+                'questionnaire_object': questionnaire_object,
             })
         elif self.field_type in ['float']:
             template_name = 'float'
@@ -1168,7 +1170,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         return config, FormSet(
             post_data, prefix=self.keyword, initial=initial_data)
 
-    def get_rendered_questions(self, data):
+    def get_rendered_questions(self, data, questionnaire_object=None):
         questiongroups = []
         for d in data:
             rendered_questions = []
@@ -1176,27 +1178,31 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
                 measure_label = d.get(self.questions[0].keyword, '')
                 rendered_questions.append(
                     self.questions[1].get_details(
-                        d, measure_label=measure_label))
+                        d, measure_label=measure_label,
+                        questionnaire_object=questionnaire_object))
                 if len(self.questions) > 2:
                     for question in self.questions[2:]:
                         if question.conditional:
                             continue
-                        rendered_questions.append(question.get_details(d))
+                        rendered_questions.append(question.get_details(
+                            d, questionnaire_object=questionnaire_object))
             else:
                 for question in self.questions:
                     if question.conditional:
                         continue
 
-                    question_details = question.get_details(d)
+                    question_details = question.get_details(
+                        d, questionnaire_object=questionnaire_object)
                     if question_details:
                         rendered_questions.append(question_details)
             questiongroups.append(rendered_questions)
         return questiongroups
 
-    def get_details(self, data=[], links=None):
+    def get_details(self, data=[], links=None, questionnaire_object=None):
         view_template = 'details/questiongroup/{}.html'.format(
             self.view_options.get('template', 'default'))
-        questiongroups = self.get_rendered_questions(data)
+        questiongroups = self.get_rendered_questions(
+            data, questionnaire_object=questionnaire_object)
         config = self.view_options
         config.update({
             'numbered': self.numbered,
@@ -1454,7 +1460,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
         return config, formsets
 
-    def get_details(self, data={}, links=None):
+    def get_details(self, data={}, links=None, questionnaire_object=None):
         """
         Returns:
             ``string``. A rendered representation of the subcategory
@@ -1551,11 +1557,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     rendered_questiongroups.append((
                         questiongroup_config,
                         questiongroup.get_details(
-                            questiongroup_data, links=questiongroup_links)))
+                            questiongroup_data, links=questiongroup_links,
+                            questionnaire_object=questionnaire_object)))
         subcategories = []
         for subcategory in self.subcategories:
             sub_rendered, sub_has_content = subcategory.get_details(
-                data=data, links=links)
+                data=data, links=links,
+                questionnaire_object=questionnaire_object)
             if sub_has_content:
                 subcategories.append(sub_rendered)
                 has_content = True
@@ -1716,7 +1724,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         metadata = {}
         for subcategory in self.subcategories:
             rendered_subcategory, has_content = subcategory.get_details(
-                data, links=links)
+                data, links=links, questionnaire_object=questionnaire_object)
             if has_content:
                 category_config = {
                     'keyword': subcategory.keyword

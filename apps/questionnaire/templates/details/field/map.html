@@ -1,15 +1,20 @@
 {% comment %}
-  Basic map for the details view. Rendered with Google Maps.
-  See JS code in map-view.min.js
+  Basic map for the details view. Renders a static map image and the interactive
+  map in a modal window.
 {% endcomment %}
 
+{% load i18n %}
 {% load staticfiles %}
+{% load questionnaire_tags %}
 
-<div id="map-view"></div>
-
-<script>
-  var mapViewGeojson = {{ value|safe }};
-</script>
-<script src="{% static 'js/map-view.min.js' %}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
-        async defer></script>
+<div class="map-preview-container">
+  <a href="{% url 'technologies:questionnaire_view_map' questionnaire_object.code %}" data-reveal-id="large-map" data-reveal-ajax="true">
+    <img src="{% get_static_map_url questionnaire_object %}" alt="{% trans "Map preview" %}" class="map-preview">
+    <span class="text-content"><span>
+      {% trans "Show interactive map" %}
+    </span></span>
+  </a>
+</div>
+<div id="large-map" class="reveal-modal xlarge" data-reveal aria-labelledby="modal-title" aria-hidden="true" role="dialog">
+  <h2 id="modal-title">Map</h2>
+</div>

@@ -202,6 +202,32 @@ def generic_questionnaire_view_step(
     })
 
 
+def generic_questionnaire_view_map(request, identifier, configuration_code):
+    """
+    A generic view to show the map of a questionnaire (in a modal)
+
+    Args:
+        request: (django.http.HttpRequest): The request object.
+        identifier: (str) The identifier of the Questionnaire
+        configuration_code: The code of the questionnaire
+          configuration.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    questionnaire_object = query_questionnaire(request, identifier).first()
+    if questionnaire_object is None:
+        raise Http404
+
+    configuration = get_configuration(configuration_code)
+    geometry = configuration.get_questionnaire_geometry(
+        questionnaire_object.data)
+
+    return render(request, 'details/modal_map.html', {
+        'geometry': geometry,
+    })
+
+
 @login_required
 @force_login_check
 def generic_questionnaire_new_step(

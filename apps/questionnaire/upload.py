@@ -105,7 +105,7 @@ def store_file(file):
     return uid, file_path
 
 
-def get_upload_folder_path(uid):
+def get_upload_folder_path(uid, subfolder=''):
     """
     Return the path of the upload folder of a given file.
 
@@ -116,7 +116,8 @@ def get_upload_folder_path(uid):
         str. The path of the file in its upload folder.
     """
     upload_folder = settings.MEDIA_ROOT
-    return os.path.join(upload_folder, *get_upload_folder_structure(uid))
+    return os.path.join(
+        upload_folder, subfolder, *get_upload_folder_structure(uid))
 
 
 def get_file_path(file_object, thumbnail=None):
@@ -224,7 +225,7 @@ def get_file_extension_by_content_type(content_type):
     return file_extension[0]
 
 
-def get_url_by_file_name(file_name):
+def get_url_by_file_name(file_name, subfolder=''):
     """
     Return the relative URL of a file based on its filename. The URL
     basically indicates the location where the file was stored in the
@@ -241,7 +242,7 @@ def get_url_by_file_name(file_name):
         str. The relative URL of the file.
     """
     folder_path = os.path.join(*get_upload_folder_structure(file_name))
-    return os.path.join(settings.MEDIA_URL, folder_path, file_name)
+    return os.path.join(settings.MEDIA_URL, subfolder, folder_path, file_name)
 
 
 def get_upload_folder_structure(file_name):

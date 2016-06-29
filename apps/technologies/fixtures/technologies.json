@@ -15757,7 +15757,7 @@
       "keyword": "tech_location_map",
       "translation": 1188,
       "configuration": {
-        "type": "todo"
+        "type": "map"
       }
     },
     "model": "configuration.key",
@@ -22478,6 +22478,24 @@
   },
   {
     "fields": {
+      "keyword": "tech_qg_224",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1245
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_225",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1246
+  },
+  {
+    "fields": {
       "keyword": "tech__0__1",
       "translation": 2701
     },
@@ -23577,6 +23595,9 @@
                       "numbering": "2.5",
                       "helptext_length": 1000
                     },
+                    "view_options": {
+                      "template": "map_subcategory"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_location",
@@ -23610,10 +23631,29 @@
                             "view_options": {
                               "template": "inline"
                             }
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_224",
+                        "form_options": {
+                          "template": "map"
+                        },
+                        "questions": [
                           {
-                            "keyword": "tech_location_map"
-                          },
+                            "keyword": "tech_location_map",
+                            "form_options": {
+                              "template": "no_label"
+                            },
+                            "view_options": {
+                              "is_geometry": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_225",
+                        "questions": [
                           {
                             "keyword": "location_comments",
                             "view_options": {

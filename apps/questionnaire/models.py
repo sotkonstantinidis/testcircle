@@ -1,8 +1,11 @@
 import contextlib
 import json
 
+import os
+import requests
 from django.contrib.gis.gdal.error import GDALException
 from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
+from django.utils.text import slugify
 from os.path import join
 from uuid import uuid4
 
@@ -16,6 +19,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
+from staticmap import StaticMap, CircleMarker, Polygon
 
 from accounts.models import User
 from configuration.cache import get_configuration
@@ -29,7 +33,7 @@ from questionnaire.upload import (
     get_url_by_file_name,
     get_file_path,
     store_file,
-    get_upload_folder_structure)
+    get_upload_folder_structure, get_upload_folder_path)
 
 STATUSES = (
     (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
@@ -459,8 +463,65 @@ class Questionnaire(models.Model):
             geoms.append(feature_geom)
         if geoms:
             geometry = GeometryCollection(tuple(geoms))
+
+            if self.geom == geometry:
+                # No need to update the static map if the geometry did not
+                # change.
+                return
+
             self.geom = geometry
-        self.save()
+            self.save()
+
+        # Create static map
+        width = 500
+        height = 400
+        marker_color = '#0036FF'
+
+        m = StaticMap(width, height)
+
+        for point in self.geom:
+            m.add_marker(CircleMarker((point.x,  point.y), marker_color, 12))
+
+        bbox = None
+        questionnaire_country = self.get_question_data('qg_location', 'country')
+
+        if len(questionnaire_country) == 1:
+            country_iso3 = questionnaire_country[0].replace('country_', '')
+            country_iso2 = settings.CONFIGURATION_COUNTRY_ISO_MAPPING.get(
+                country_iso3)
+
+            if country_iso2:
+                r = requests.get(
+                    'http://api.geonames.org/countryInfoJSON?username=wocat_webdev&country={}'.format(
+                        country_iso2))
+                geonames_country = r.json().get('geonames')
+
+                if len(geonames_country) == 1:
+                    ctry = geonames_country[0]
+                    poly_coords = [
+                        [ctry.get('west'), ctry.get('north')],
+                        [ctry.get('west'), ctry.get('south')],
+                        [ctry.get('east'), ctry.get('south')],
+                        [ctry.get('east'), ctry.get('north')],
+                        [ctry.get('west'), ctry.get('north')]
+                    ]
+
+                    bbox = Polygon(poly_coords, None, None)
+
+        if bbox:
+            m.add_polygon(bbox)
+            image = m.render()
+        else:
+            # No bbox found, guess zoom level
+            image = m.render(zoom=6)
+
+        map_folder = get_upload_folder_path(self.uuid, subfolder='maps')
+        if not os.path.exists(map_folder):
+            os.makedirs(map_folder)
+
+        filename = '{}_{}.jpg'.format(self.uuid, self.version)
+        image.save(os.path.join(map_folder, filename))
+
 
     def add_flag(self, flag):
         """

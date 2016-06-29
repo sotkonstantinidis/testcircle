@@ -19,7 +19,7 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 @patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['groups_permissions.json', 'sample_global_key_values.json',
+    fixtures = ['groups_permissions.json', 'global_key_values.json',
                 'sample.json']
 
     def test_add_points(self, mock_get_user_id):
@@ -52,6 +52,21 @@ class QuestionnaireTest(FunctionalTest):
 
         # In the overview, she now sees a map with the point on it
         self.findBy('id', 'map-view')
+
+        cat_0_position = get_position_of_category('cat_0', start0=True)
+        self.findManyBy(
+            'xpath',
+            '//a[contains(@href, "sample/edit/") and contains(@class, "button"'
+            ')]')[cat_0_position].click()
+        self.rearrangeFormHeader()
+        self.screenshot()
+        self.findBy(
+            'xpath', '//div[contains(@class, "chosen-container")]').click()
+        self.findBy(
+            'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]') \
+            .click()
+        self.findBy('id', 'button-submit').click()
+        self.findBy('xpath', '//div[contains(@class, "success")]')
 
         # She submits the questionnaire
         self.findBy('id', 'button-submit').click()

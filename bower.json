@@ -10,6 +10,7 @@
     "chosen": "~1.4.2",
     "jquery-nstSlider": "~1.0.11",
     "jquery-ui": "~1.11.4",
-    "intro.js": "~2.0.0"
+    "intro.js": "~2.0.0",
+    "openlayers": "https://github.com/openlayers/ol3/releases/download/v3.16.0/v3.16.0-dist.zip"
   }
 }

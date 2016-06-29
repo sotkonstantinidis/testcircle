@@ -7,6 +7,23 @@ from ..upload import get_url_by_file_name
 register = template.Library()
 
 
+@register.simple_tag
+def get_static_map_url(obj):
+    """
+    Get the URL of the static map of a questionnaire.
+
+    Args:
+        obj: questionnaire.models.Questionnaire
+
+    Returns:
+        string: The URL or ''.
+    """
+    if isinstance(obj, Questionnaire):
+        filename = '{}_{}.jpg'.format(obj.uuid, obj.version)
+        return get_url_by_file_name(filename, subfolder='maps')
+    return ''
+
+
 @register.assignment_tag
 def call_model_method(method, obj, user):
     """

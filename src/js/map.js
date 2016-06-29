@@ -113,6 +113,7 @@
                 maxZoom: 20
             })
         });
+        $(mapContainer).data('map', map);
 
         // The hidden input field where the coordinates are stored.
         var coordinatesField = $(mapContainer).closest('.map-container').next(
