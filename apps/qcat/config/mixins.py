@@ -32,6 +32,9 @@ class ProdMixin:
         'jpeg': '/usr/bin/jpegoptim {filename}'
     }
 
+    # This is the default, stated here to be explicit.
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 
 class LogMixin:
     """

@@ -51,6 +51,7 @@ class BaseSettings(Configuration):
         'configuration',
         'qcat',
         'questionnaire',
+        'notifications',
         'sample',
         'samplemulti',
         'search',
@@ -272,3 +273,6 @@ class BaseSettings(Configuration):
 
     # google webdeveloper verification
     GOOGLE_WEBMASTER_TOOLS_KEY = values.Value(environ_prefix='')
+
+    # Global switch to prevent sending mails.
+    SEND_MAILS = values.BooleanValue(default=False)
