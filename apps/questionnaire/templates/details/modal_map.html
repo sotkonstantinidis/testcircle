@@ -34,12 +34,16 @@
           {% trans 'Select a layer from the list below.' as msg %}
           {% include "form/helptext.html" with helptext=msg %}
           <label>
-            <input type="radio" value="osm" name="map-layers" checked="checked">
+            <input type="radio" value="osm" name="map-layers">
             <span>OpenStreetMap</span>
           </label>
           <label>
             <input type="radio" value="opentopo" name="map-layers">
             <span>OpenTopoMap</span>
+          </label>
+          <label>
+            <input type="radio" value="komoot" name="map-layers" checked="checked">
+            <span>Komoot (OSM)</span>
           </label>
           <label>
             <input type="radio" value="landscape" name="map-layers">
@@ -74,6 +78,7 @@
       function updatemap() {
         var map = $('.map-form-container').data('map');
         map.updateSize();
+        map.zoomToFeatures();
       }
     });
   </script>

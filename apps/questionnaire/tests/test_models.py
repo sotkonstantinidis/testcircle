@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from django.core.exceptions import ValidationError
 from django.utils.translation import activate
 from unittest.mock import patch, Mock
@@ -513,6 +514,20 @@ class QuestionnaireModelTest(TestCase):
         })}]}
         questionnaire.save()
         self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_deletes_geometry(self):
+        questionnaire = get_valid_questionnaire()
+
+        geojson = {'coordinates': [7.435190677642821, 46.952664413488606],
+                   'type': 'Point'}
+        questionnaire.geom = GeometryCollection(
+            GEOSGeometry(json.dumps(geojson)),)
+        questionnaire.save()
+        questionnaire.data = {}
+        questionnaire.save()
+        self.assertIsNotNone(questionnaire.geom)
         questionnaire.update_geometry('sample')
         self.assertIsNone(questionnaire.geom)
 

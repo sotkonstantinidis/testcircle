@@ -12,7 +12,7 @@
     <a href="{{ map_url }}" data-reveal-id="large-map" data-reveal-ajax="true">
       <img src="{% get_static_map_url questionnaire_object %}" alt="{% trans "Map preview" %}" class="map-preview">
       <span class="text-content"><span>
-        {% trans "Show interactive map" %}
+        <svg class="icon"><use xlink:href="#icon-map"></use></svg>
       </span></span>
     </a>
   {% else %}

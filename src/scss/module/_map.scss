@@ -151,7 +151,11 @@ $map-height: 400px;
       justify-content: center;
       align-items: center;
       color: $color-beige;
-      font-size: 1.5rem;
+
+      svg.icon {
+        height: 5rem;
+        width: 5rem;
+      }
     }
   }
 }

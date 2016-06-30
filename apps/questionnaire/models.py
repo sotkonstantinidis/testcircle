@@ -446,33 +446,54 @@ class Questionnaire(models.Model):
         Returns:
             -
         """
-        conf_object = get_configuration(configuration_code)
-        geometry_string = conf_object.get_questionnaire_geometry(self.data)
-        if geometry_string is None:
-            return
-        try:
-            geometry_json = json.loads(geometry_string)
-        except json.decoder.JSONDecodeError:
-            return
-        geoms = []
-        for feature in geometry_json.get('features', []):
+        def get_geometry_from_string(geometry_string):
+            """
+            Extract and convert the geometry from a (GeoJSON) string.
+
+            Args:
+                geometry_string: The geometry as (GeoJSON) string.
+
+            Returns:
+                A GeometryCollection or None.
+            """
+
+            if geometry_string is None:
+                return None
+
             try:
-                feature_geom = GEOSGeometry(json.dumps(feature.get('geometry')))
-            except ValueError:
-                continue
-            except GDALException:
-                continue
-            geoms.append(feature_geom)
-        if geoms:
-            geometry = GeometryCollection(tuple(geoms))
+                geometry_json = json.loads(geometry_string)
+            except json.decoder.JSONDecodeError:
+                return None
+            geoms = []
+            for feature in geometry_json.get('features', []):
+                try:
+                    feature_geom = GEOSGeometry(
+                        json.dumps(feature.get('geometry')))
+                except ValueError:
+                    continue
+                except GDALException:
+                    continue
+                geoms.append(feature_geom)
 
-            if self.geom == geometry:
-                # No need to update the static map if the geometry did not
-                # change.
-                return
+            if geoms:
+                return GeometryCollection(tuple(geoms))
 
-            self.geom = geometry
-            self.save()
+            else:
+                return None
+
+        conf_object = get_configuration(configuration_code)
+        geometry_value = conf_object.get_questionnaire_geometry(self.data)
+        geometry = get_geometry_from_string(geometry_value)
+
+        geometry_changed = self.geom != geometry
+
+        self.geom = geometry
+        self.save()
+
+        if self.geom is None or not geometry_changed:
+            # If there is no geometry or if it did not change, there is no need
+            # to create the static map image (again)
+            return
 
         # Create static map
         width = 500
@@ -481,7 +502,7 @@ class Questionnaire(models.Model):
 
         m = StaticMap(width, height)
 
-        for point in self.geom:
+        for point in iter(self.geom):
             m.add_marker(CircleMarker((point.x,  point.y), marker_color, 12))
 
         bbox = None

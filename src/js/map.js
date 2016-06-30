@@ -68,11 +68,19 @@
                 source: new ol.source.OSM()
             }),
             new ol.layer.Tile({
+                name: 'komoot',
+                visible: false,
+                source: new ol.source.XYZ({
+                    attributions: '&copy; <a href="http://www.komoot.de/">Komoot</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                    url: 'http://a.tile.komoot.de/komoot-2/{z}/{x}/{y}.png'
+                })
+            }),
+            new ol.layer.Tile({
                 name: 'aerial',
                 visible: false,
                 source: new ol.source.XYZ({
                     attributions: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-                    url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                    url: 'http://a.tile.komoot.de/komoot-2/{z}/{x}/{y}.png'
                 })
             }),
             new ol.layer.Tile({
@@ -114,6 +122,9 @@
             })
         });
         $(mapContainer).data('map', map);
+
+        // Initial layer: Komoot
+        toggleLayer('komoot');
 
         // The hidden input field where the coordinates are stored.
         var coordinatesField = $(mapContainer).closest('.map-container').next(
@@ -356,6 +367,9 @@
                 map.getView().setZoom(Math.min(map.getView().getZoom(), 15));
             }
         }
+        // Attach the function to the map so it can be called (again) when
+        // opening the modal in the detail view.
+        map.zoomToFeatures = zoomToFeatures;
 
         // Zoom to features.
         $('.button-show-features').click(zoomToFeatures);

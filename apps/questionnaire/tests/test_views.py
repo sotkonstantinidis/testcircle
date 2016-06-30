@@ -678,9 +678,8 @@ class GenericQuestionnaireStepViewTest(TestCase):
         response = view.form_valid({})
         self.assertEqual(response.url, "/en/sample/edit/bar/#cat_0")
 
-
     def test_get_locale_info(self):
         self.view.set_attributes()
         original_locale, show_translation = self.view.get_locale_info()
-        self.assertIsNone(original_locale)
+        self.assertIsNotNone(original_locale)
         self.assertFalse(show_translation)
