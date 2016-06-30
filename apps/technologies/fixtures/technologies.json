@@ -23645,7 +23645,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "is_geometry": true
+                              "is_geometry": true,
+                              "configuration": "technologies"
                             }
                           }
                         ]

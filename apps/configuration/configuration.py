@@ -777,10 +777,17 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             })
         elif self.field_type in ['map']:
             template_name = 'map'
+            try:
+                map_url = reverse('{}:questionnaire_view_map'.format(
+                    self.view_options.get('configuration')), kwargs={
+                    'identifier': questionnaire_object.code})
+            except NoReverseMatch:
+                map_url = None
             template_values.update({
                 'key': self.label_view,
                 'value': value,
                 'questionnaire_object': questionnaire_object,
+                'map_url': map_url,
             })
         elif self.field_type in ['float']:
             template_name = 'float'

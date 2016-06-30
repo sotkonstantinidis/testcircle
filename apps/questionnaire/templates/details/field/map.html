@@ -8,7 +8,7 @@
 {% load questionnaire_tags %}
 
 <div class="map-preview-container">
-  <a href="{% url 'technologies:questionnaire_view_map' questionnaire_object.code %}" data-reveal-id="large-map" data-reveal-ajax="true">
+  <a href="{{ map_url }}" data-reveal-id="large-map" data-reveal-ajax="true">
     <img src="{% get_static_map_url questionnaire_object %}" alt="{% trans "Map preview" %}" class="map-preview">
     <span class="text-content"><span>
       {% trans "Show interactive map" %}

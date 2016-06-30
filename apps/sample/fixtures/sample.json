@@ -3788,7 +3788,8 @@
                           {
                             "keyword": "key_56",
                             "view_options": {
-                              "is_geometry": true
+                              "is_geometry": true,
+                              "configuration": "sample"
                             }
                           }
                         ]
