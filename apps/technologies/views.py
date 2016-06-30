@@ -10,7 +10,7 @@ from questionnaire.views import (
     generic_questionnaire_link_search,
     generic_questionnaire_list,
     generic_questionnaire_view_step,
-    generic_questionnaire_view_map)
+)
 
 
 def questionnaire_link_search(request):
@@ -34,20 +34,6 @@ def questionnaire_link_search(request):
         ``JsonResponse``. A rendered JSON Response.
     """
     return generic_questionnaire_link_search(request, 'technologies')
-
-
-def questionnaire_view_map(request, identifier):
-    """
-    View rendering the map of a questionnaire (in a modal).
-
-    Args:
-        request:
-        identifier:
-
-    Returns:
-
-    """
-    return generic_questionnaire_view_map(request, identifier, 'technologies')
 
 
 @login_required

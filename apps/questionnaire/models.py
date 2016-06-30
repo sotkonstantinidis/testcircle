@@ -5,7 +5,6 @@ import os
 import requests
 from django.contrib.gis.gdal.error import GDALException
 from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
-from django.utils.text import slugify
 from os.path import join
 from uuid import uuid4
 

@@ -8,12 +8,16 @@
 {% load questionnaire_tags %}
 
 <div class="map-preview-container">
-  <a href="{{ map_url }}" data-reveal-id="large-map" data-reveal-ajax="true">
+  {% if map_url %}
+    <a href="{{ map_url }}" data-reveal-id="large-map" data-reveal-ajax="true">
+      <img src="{% get_static_map_url questionnaire_object %}" alt="{% trans "Map preview" %}" class="map-preview">
+      <span class="text-content"><span>
+        {% trans "Show interactive map" %}
+      </span></span>
+    </a>
+  {% else %}
     <img src="{% get_static_map_url questionnaire_object %}" alt="{% trans "Map preview" %}" class="map-preview">
-    <span class="text-content"><span>
-      {% trans "Show interactive map" %}
-    </span></span>
-  </a>
+  {% endif %}
 </div>
 <div id="large-map" class="reveal-modal xlarge" data-reveal aria-labelledby="modal-title" aria-hidden="true" role="dialog">
   <h2 id="modal-title">Map</h2>

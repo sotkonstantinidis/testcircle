@@ -206,32 +206,6 @@ def generic_questionnaire_view_step(
     })
 
 
-def generic_questionnaire_view_map(request, identifier, configuration_code):
-    """
-    A generic view to show the map of a questionnaire (in a modal)
-
-    Args:
-        request: (django.http.HttpRequest): The request object.
-        identifier: (str) The identifier of the Questionnaire
-        configuration_code: The code of the questionnaire
-          configuration.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    questionnaire_object = query_questionnaire(request, identifier).first()
-    if questionnaire_object is None:
-        raise Http404
-
-    configuration = get_configuration(configuration_code)
-    geometry = configuration.get_questionnaire_geometry(
-        questionnaire_object.data)
-
-    return render(request, 'details/modal_map.html', {
-        'geometry': geometry,
-    })
-
-
 class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     """
     Base class for all views that are used to update a questionnaire. At least the url_namespace must be set
@@ -585,6 +559,35 @@ class QuestionnaireSaveMixin(StepsMixin):
             with contextlib.suppress(Questionnaire.DoesNotExist):
                 link = Questionnaire.objects.get(pk=linked)
                 self.object.add_link(link)
+
+
+class GenericQuestionnaireMapView(TemplateResponseMixin, View):
+    """
+    A generic view to show the map of a questionnaire (in a modal)
+    """
+    http_method_names = ['get']
+    template_name = 'details/modal_map.html'
+    url_namespace = None
+
+    def get_object(self):
+        questionnaire_object = query_questionnaire(
+            self.request, self.kwargs.get('identifier')).first()
+        if questionnaire_object is None:
+            raise Http404()
+        return questionnaire_object
+
+    def get(self, request, *args, **kwargs):
+        questionnaire_object = self.get_object()
+
+        configuration = get_configuration(configuration_code=self.url_namespace)
+        geometry = configuration.get_questionnaire_geometry(
+            questionnaire_object.data)
+
+        context = {
+            'geometry': geometry,
+        }
+
+        return self.render_to_response(context=context)
 
 
 class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
