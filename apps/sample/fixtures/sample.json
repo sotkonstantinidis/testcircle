@@ -3775,6 +3775,9 @@
                   },
                   {
                     "keyword": "subcat_3_3",
+                    "view_options": {
+                      "template": "map_subcategory"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_39",
