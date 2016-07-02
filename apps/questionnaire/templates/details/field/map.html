@@ -9,7 +9,7 @@
 
 <div class="map-preview-container">
   {% if map_url %}
-    <a href="{{ map_url }}" data-reveal-id="large-map" data-reveal-ajax="true">
+    <a href="#" data-reveal-id="large-map">
       <img src="{% get_static_map_url questionnaire_object %}" alt="{% trans "Map preview" %}" class="map-preview">
       <span class="text-content"><span>
         <svg class="icon"><use xlink:href="#icon-map"></use></svg>
@@ -19,6 +19,8 @@
     <img src="{% get_static_map_url questionnaire_object %}" alt="{% trans "Map preview" %}" class="map-preview">
   {% endif %}
 </div>
-<div id="large-map" class="reveal-modal xlarge" data-reveal aria-labelledby="modal-title" aria-hidden="true" role="dialog">
-  <h2 id="modal-title">Map</h2>
+<div id="large-map" class="reveal-modal large" data-reveal="" aria-labelledby="large-map-title" aria-hidden="true" role="dialog">
+  <h2 id="large-map-title" class="hide">Map</h2>
+    <iframe width="100%" height="100%" src="{{ map_url }}"></iframe>
+    <a class="close-reveal-modal" aria-label="Close">×</a>
 </div>

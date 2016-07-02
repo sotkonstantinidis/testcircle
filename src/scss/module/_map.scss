@@ -159,3 +159,29 @@ $map-height: 400px;
     }
   }
 }
+
+.layout-map-modal {
+  background: white;
+
+  .list-item {
+    padding: 0;
+    height: 100%;
+  }
+
+  .map-container {
+    height: 100%;
+  }
+
+  .map-form-container {
+    height: 100%;
+  }
+}
+
+#large-map {
+  height: 80%;
+
+  iframe {
+    border: none;
+    padding-top: 1rem;
+  }
+}
