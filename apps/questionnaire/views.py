@@ -561,6 +561,35 @@ class QuestionnaireSaveMixin(StepsMixin):
                 self.object.add_link(link)
 
 
+class GenericQuestionnaireMapView(TemplateResponseMixin, View):
+    """
+    A generic view to show the map of a questionnaire (in a modal)
+    """
+    http_method_names = ['get']
+    template_name = 'details/modal_map.html'
+    url_namespace = None
+
+    def get_object(self):
+        questionnaire_object = query_questionnaire(
+            self.request, self.kwargs.get('identifier')).first()
+        if questionnaire_object is None:
+            raise Http404()
+        return questionnaire_object
+
+    def get(self, request, *args, **kwargs):
+        questionnaire_object = self.get_object()
+
+        configuration = get_configuration(configuration_code=self.url_namespace)
+        geometry = configuration.get_questionnaire_geometry(
+            questionnaire_object.data)
+
+        context = {
+            'geometry': geometry,
+        }
+
+        return self.render_to_response(context=context)
+
+
 class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     """
     Refactored function based view: generic_questionnaire_new

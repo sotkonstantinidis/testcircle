@@ -145,6 +145,11 @@ module.exports = function(grunt) {
           'static/js/wizard.min.js': ['src/js/wizard.js']
         }
       },
+      map: {
+        files: {
+          'static/js/map.min.js': ['src/js/map.js']
+        }
+      },
       review: {
         files: {
           'static/js/review.min.js': ['src/js/review.js']
@@ -171,10 +176,12 @@ module.exports = function(grunt) {
           'static/js/review.js': 'src/js/review.js',
           'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
           'static/js/intro.min.js': 'bower_components/intro.js/minified/intro.min.js',
+          'static/js/ol.min.js': 'bower_components/openlayers/ol.js',
           'static/css/introjs.min.css': 'bower_components/intro.js/minified/introjs.min.css',
           'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css',
           'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png',
-          'static/css/jquery-ui.min.css': 'bower_components/jquery-ui/themes/base/jquery-ui.min.css'
+          'static/css/jquery-ui.min.css': 'bower_components/jquery-ui/themes/base/jquery-ui.min.css',
+          'static/css/ol.css': 'bower_components/openlayers/ol.css'
         }
         ,{
           expand: true,

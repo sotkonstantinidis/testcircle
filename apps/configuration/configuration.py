@@ -240,6 +240,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'link_id',
         'int',
         'float',
+        'map',
         'select_model',
         'display_only',
     ]
@@ -343,6 +344,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         self.in_list = self.view_options.get('in_list', False) is True
         self.is_name = self.view_options.get('is_name', False) is True
+        self.is_geometry = self.view_options.get('is_geometry', False) is True
 
         self.max_length = self.form_options.get('max_length', None)
         if self.max_length and not isinstance(self.max_length, int):
@@ -606,7 +608,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.CharField(
                 label=self.label, widget=widget, required=self.required)
         elif self.field_type in [
-                'user_id', 'link_id', 'hidden', 'display_only']:
+                'user_id', 'link_id', 'hidden', 'display_only', 'map']:
             widget = HiddenInput()
             if self.field_type == 'user_id':
                 widget.css_class = 'select-user-id'
@@ -751,7 +753,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         return formfields, templates, options
 
-    def get_details(self, data={}, measure_label=None):
+    def get_details(
+            self, data={}, measure_label=None, questionnaire_object=None):
         MAX_MEASURE_LEVEL = 5
         template_values = self.view_options
         template_values.update({
@@ -771,6 +774,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             template_values.update({
                 'key': self.label_view,
                 'value': value,
+            })
+        elif self.field_type in ['map']:
+            template_name = 'map'
+            try:
+                map_url = reverse('{}:questionnaire_view_map'.format(
+                    self.view_options.get('configuration')), kwargs={
+                    'identifier': questionnaire_object.code})
+            except NoReverseMatch:
+                map_url = None
+            template_values.update({
+                'key': self.label_view,
+                'value': value,
+                'questionnaire_object': questionnaire_object,
+                'map_url': map_url,
             })
         elif self.field_type in ['float']:
             template_name = 'float'
@@ -1160,7 +1177,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         return config, FormSet(
             post_data, prefix=self.keyword, initial=initial_data)
 
-    def get_rendered_questions(self, data):
+    def get_rendered_questions(self, data, questionnaire_object=None):
         questiongroups = []
         for d in data:
             rendered_questions = []
@@ -1168,27 +1185,31 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
                 measure_label = d.get(self.questions[0].keyword, '')
                 rendered_questions.append(
                     self.questions[1].get_details(
-                        d, measure_label=measure_label))
+                        d, measure_label=measure_label,
+                        questionnaire_object=questionnaire_object))
                 if len(self.questions) > 2:
                     for question in self.questions[2:]:
                         if question.conditional:
                             continue
-                        rendered_questions.append(question.get_details(d))
+                        rendered_questions.append(question.get_details(
+                            d, questionnaire_object=questionnaire_object))
             else:
                 for question in self.questions:
                     if question.conditional:
                         continue
 
-                    question_details = question.get_details(d)
+                    question_details = question.get_details(
+                        d, questionnaire_object=questionnaire_object)
                     if question_details:
                         rendered_questions.append(question_details)
             questiongroups.append(rendered_questions)
         return questiongroups
 
-    def get_details(self, data=[], links=None):
+    def get_details(self, data=[], links=None, questionnaire_object=None):
         view_template = 'details/questiongroup/{}.html'.format(
             self.view_options.get('template', 'default'))
-        questiongroups = self.get_rendered_questions(data)
+        questiongroups = self.get_rendered_questions(
+            data, questionnaire_object=questionnaire_object)
         config = self.view_options
         config.update({
             'numbered': self.numbered,
@@ -1446,7 +1467,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
         return config, formsets
 
-    def get_details(self, data={}, links=None):
+    def get_details(self, data={}, links=None, questionnaire_object=None):
         """
         Returns:
             ``string``. A rendered representation of the subcategory
@@ -1543,11 +1564,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                     rendered_questiongroups.append((
                         questiongroup_config,
                         questiongroup.get_details(
-                            questiongroup_data, links=questiongroup_links)))
+                            questiongroup_data, links=questiongroup_links,
+                            questionnaire_object=questionnaire_object)))
         subcategories = []
         for subcategory in self.subcategories:
             sub_rendered, sub_has_content = subcategory.get_details(
-                data=data, links=links)
+                data=data, links=links,
+                questionnaire_object=questionnaire_object)
             if sub_has_content:
                 subcategories.append(sub_rendered)
                 has_content = True
@@ -1708,7 +1731,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         metadata = {}
         for subcategory in self.subcategories:
             rendered_subcategory, has_content = subcategory.get_details(
-                data, links=links)
+                data, links=links, questionnaire_object=questionnaire_object)
             if has_content:
                 category_config = {
                     'keyword': subcategory.keyword
@@ -2276,6 +2299,21 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     questiongroup_keyword = questiongroup.keyword
         return question_keyword, questiongroup_keyword
 
+    def get_geometry_keywords(self):
+        """
+        Return the keywords of the question and questiongroup which
+        contain the name of the questionnaire as defined in the
+        configuration by the ``is_geometry`` parameter.
+        """
+        question_keyword = None
+        questiongroup_keyword = None
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.is_geometry is True:
+                    question_keyword = question.keyword
+                    questiongroup_keyword = questiongroup.keyword
+        return question_keyword, questiongroup_keyword
+
     def get_description_keywords(self, keys):
         """
         Get a list of tuples in the form of 'questiongroup': 'keyword' for
@@ -2314,6 +2352,13 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             for x in questionnaire_data.get(questiongroup_keyword, []):
                 return x.get(question_keyword)
         return {'en': _('Unknown name')}
+
+    def get_questionnaire_geometry(self, questionnaire_data):
+        question_keyword, questiongroup_keyword = self.get_geometry_keywords()
+        if question_keyword:
+            for x in questionnaire_data.get(questiongroup_keyword, []):
+                return x.get(question_keyword)
+        return None
 
     def get_questionnaire_description(self, questionnaire_data, keys):
         """

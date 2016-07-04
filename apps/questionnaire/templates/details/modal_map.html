@@ -1,0 +1,87 @@
+{% extends 'form/base.html' %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load sekizai_tags %}
+
+{% block bodyclass %}layout-map-modal{% endblock %}
+
+{% block content %}
+
+  {% addtoblock 'js' %}
+    <script src="{% static 'js/ol.min.js' %}"></script>
+    <script src="{% static 'js/map.min.js' %}"></script>
+  {% endaddtoblock %}
+
+  {% addtoblock 'css' %}
+    <link rel="stylesheet" href="{% static 'css/ol.css' %}" type="text/css">
+  {% endaddtoblock %}
+
+  <div class="list-item">
+    <div class="map-container">
+      <div class="map-controls">
+        <button type="button" class="button small tip-right has-top-margin button-feature-count" title="{% trans "Number of points on the map" %}" data-tooltip="">
+        </button>
+        <button type="button" class="button small tip-right button-show-features map-btn-disabled map-btn-toggle" title="{% trans "Zoom to all points on the map" %}" data-tooltip="">
+          <svg class="icon-lines is-inline"><use xlink:href="#icon-shrink"></use></svg>
+        </button>
+        <button type="button" class="button small tip-right map-layers-show has-top-margin" title="{% trans "Show and change the map layer" %}" data-tooltip="">
+          <svg class="icon-lines is-inline"><use xlink:href="#icon-stack"></use></svg>
+        </button>
+      </div>
+      <div class="map-layers map-menu hide">
+        <a class="map-layers-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
+        <div class="row map-layers-list">
+          <br/>
+          {% trans 'Select a layer from the list below.' as msg %}
+          {% include "form/helptext.html" with helptext=msg %}
+          <label>
+            <input type="radio" value="osm" name="map-layers">
+            <span>OpenStreetMap</span>
+          </label>
+          <label>
+            <input type="radio" value="opentopo" name="map-layers">
+            <span>OpenTopoMap</span>
+          </label>
+          <label>
+            <input type="radio" value="komoot" name="map-layers" checked="checked">
+            <span>Komoot (OSM)</span>
+          </label>
+          <label>
+            <input type="radio" value="landscape" name="map-layers">
+            <span>Thunderforest Landscape</span>
+          </label>
+          <label>
+            <input type="radio" value="worldtopo" name="map-layers">
+            <span>Esri WorldTopoMap</span>
+          </label>
+          <label>
+            <input type="radio" value="aerial" name="map-layers">
+            <span>Esri WorldImagery</span>
+          </label>
+        </div>
+      </div>
+      <div class="map-form-container"></div>
+    </div>
+
+    <div class="single-item">
+      <input type="hidden" name="coordinates" value="{{ geometry }}">
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block bottom %}
+  {# Little hack to correctly display the OL map in the modal #}
+  <script>
+    $(document).ready(function() {
+      setTimeout(updatemap, 200);
+      function updatemap() {
+        var map = $('.map-form-container').data('map');
+        map.updateSize();
+        map.zoomToFeatures();
+      }
+    });
+  </script>
+{% endblock %}

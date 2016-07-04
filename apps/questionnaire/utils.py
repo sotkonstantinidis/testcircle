@@ -1,4 +1,5 @@
 import ast
+import json
 import logging
 from uuid import UUID
 
@@ -207,6 +208,18 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                 elif question.field_type in ['link_video']:
                     # TODO: This should be properly checked!
                     pass
+                elif question.field_type in ['map']:
+                    # A very rough check if the value is a GeoJSON.
+                    try:
+                        geojson = json.loads(value)
+                    except ValueError:
+                        errors.append('Invalid geometry: "{}"'.format(value))
+                        continue
+                    for feature in geojson.get('features', []):
+                        geom = feature.get('geometry', {})
+                        if 'coordinates' not in geom or 'type' not in geom:
+                            errors.append('Invalid geometry: "{}"'.format(value))
+                            continue
                 else:
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(
