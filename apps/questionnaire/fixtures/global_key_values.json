@@ -1025,6 +1025,82 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify the key resource person"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Specify the key resource person"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5052
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5053
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5054
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5055
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "wocat": {
@@ -4909,6 +4985,31 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "land user"
+          },
+          "helptext": {
+            "en": "the person/ entity who implements/ maintains the Technology. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "land user"
+          },
+          "helptext": {
+            "en": "the person/ entity who implements/ maintains the Technology. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5773
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "approaches": {
@@ -5382,7 +5483,7 @@
   {
     "fields": {
       "keyword": "funding_project",
-      "translation": 5050,
+      "translation": 5053,
       "configuration": {
         "type": "select_model",
         "form_options": {
@@ -5569,7 +5670,7 @@
   {
     "fields": {
       "keyword": "user_resourceperson_type",
-      "translation": 5047,
+      "translation": 5052,
       "configuration": {
         "type": "radio"
       },
@@ -5829,7 +5930,7 @@
   {
     "fields": {
       "keyword": "funding_institution",
-      "translation": 5051,
+      "translation": 5054,
       "configuration": {
         "type": "select_model",
         "form_options": {
@@ -5844,7 +5945,7 @@
   {
     "fields": {
       "keyword": "funding_institution_display",
-      "translation": 5051,
+      "translation": 5054,
       "configuration": {
         "type": "display_only",
         "form_options": {
@@ -5858,7 +5959,7 @@
   {
     "fields": {
       "keyword": "funding_project_display",
-      "translation": 5050,
+      "translation": 5053,
       "configuration": {
         "type": "display_only",
         "form_options": {
@@ -7990,7 +8091,7 @@
   {
     "fields": {
       "keyword": "resourceperson_landuser",
-      "translation": 5764,
+      "translation": 5773,
       "order_value": 1
     },
     "model": "configuration.value",

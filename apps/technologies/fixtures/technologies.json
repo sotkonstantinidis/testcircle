@@ -4023,6 +4023,118 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Is the Technology described here problematic with regard to land degradation, so that it cannot be declared a sustainable land management technology?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1305
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If precise year is not known, indicate approximate date"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1306
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify how the Technology was introduced"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1307
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Number of growing seasons per year"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1308
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Livestock density (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1309
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify the spread of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1310
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If the Technology is evenly spread over an area, indicate approximate area covered"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1311
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify the goal of the Technology with regard to land degradation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1312
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "technologies": {
@@ -9432,6 +9544,406 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "through land users' innovation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1876
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "as part of a traditional system (> 50 years)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1877
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "during experiments/ research"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1878
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "through projects/ external interventions"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1879
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1880
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1881
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1882
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "improved plant varieties/ animal breeds"
+          },
+          "helptext": {
+            "en": "<strong>Improved plant varieties/ animal breeds:</strong> refers to the development of new plant varieties or animal breeds that offer benefits such as improved production, resistance to pests and diseases, or drought tolerance, in response to changing environmental conditions and land users’ needs."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1883
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "ground water management"
+          },
+          "helptext": {
+            "en": "<strong>Groundwater management:</strong> involves securing the recharge of groundwater reserves and their protection from pollution, overexploitation/ overuse, and rising groundwater levels leading to salinization."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1884
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "energy efficiency technologies"
+          },
+          "helptext": {
+            "en": "<strong>Energy efficiency technologies:</strong> reduce the amount of energy required to provide products and services, e.g. for cooking and heating, reducing the demand for fuel (fossil, wood)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1885
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "post-harvest measures"
+          },
+          "helptext": {
+            "en": "<strong>Post-harvest measures:</strong> encompasses activities to deliver a crop from harvest to consumption with minimum loss, maximum efficiency, and maximum return for all involved – such as drying, storage, cooling, cleaning, sorting, and packing."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1886
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "evenly spread over an area"
+          },
+          "helptext": {
+            "en": "e.g. mulching, series of terraces, afforestation, micro-catchments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1887
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "applied at specific points/ concentrated on a small area"
+          },
+          "helptext": {
+            "en": "e.g. water points, dams, compost production pits, smallstock stables, hydropower stations"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1888
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "< 0.1 km2 (10 ha)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1889
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "0.1-1 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1890
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1-10 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1891
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "10-100 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1892
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "100-1,000 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1893
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1,000-10,000 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1894
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "> 10,000 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1895
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "structural measures"
+          },
+          "helptext": {
+            "en": "<strong>Structural measures</strong><ul><li>are of long duration or permanent</li><li>often require substantial inputs of labour or money when first installed</li><li>involve major earth movements and/ or construction with wood, stone, concrete, etc. are often carried out to control runoff, erosion and wind velocity and to harvest rainwater</li><li>often lead to a change in slope profile</li><li>are often aligned along the contour/ against prevailing wind direction</li><li>are often spaced according to slope</li></ul><p>If structures are stabilized by means of vegetation, also select relevant vegetative measures!</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1896
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "M5: Control/ change of species composition"
+          },
+          "helptext": {
+            "en": "<p>if annually or in a rotational sequence as done e.g. on cropland &rarr; A1</p><p>Examples: Reduction of invasive species, selective clearing, encouragement of desired/ introduction of new species,  controlled burning (e.g. prescribed fires in forests/ on grazing land)/ residue burning</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1897
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "prevent land degradation"
+          },
+          "helptext": {
+            "en": "<strong>Prevention:</strong> good land management practices are already in place on land that may be prone to land degradation. They maintain natural resources and their environmental and productive functions."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1898
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "reduce land degradation"
+          },
+          "helptext": {
+            "en": "<strong>Reduction:</strong> interventions intended to reduce ongoing degradation and/ or halt further degradation. They start improving natural resources and their functions. Impacts tend to be noticeable in the short to medium term."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1899
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "restore/ rehabilitate severely degraded land"
+          },
+          "helptext": {
+            "en": "<strong>Rehabilitation/ restoration</strong> required when the land is already degraded to such an extent that the original use is no longer possible, and land has become practically unproductive. Here, longer-term and more costly investments are needed to show any impact."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1900
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "adapt to land degradation"
+          },
+          "helptext": {
+            "en": "<strong>Adaptation:</strong> applied when rehabilitation/ restoration of the original state of the land is no longer possible or requires resources beyond the means of land users. This means the state of land degradation is “accepted”, but land management is adapted to suit land degradation (e.g. adapting to soil salinity by introducing salt-tolerant plants)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1901
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "technologies": {
@@ -11547,6 +12059,37 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Key resource person(s)"
+          },
+          "helptext": {
+            "en": "Person(s) who provided most of the information documented in this questionnaire. These can be land users, SLM specialists (e.g. technical advisers, researchers), or any other persons."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2364
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "helptext": {
+            "en": "The terms <strong>traditional and innovation</strong> refer to the land users’ own technologies. They cover technologies that have been in use for generations, as well as those developed more recently by innovative land users in response to changing circumstances. Use “other” when the Technology does not fit any of the given categories and specify why it does not fit."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2365
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "technologies": {
@@ -12799,6 +13342,122 @@
       "data": {
         "technologies": {
           "label": {
+            "en": "Declaration on sustainability of the described Technology"
+          },
+          "helptext": {
+            "en": "Note that WOCAT questionnaires focus on the documentation and assessment of SLM practices. However, this questionnaire can also be used to describe a non-sustainable land management practice if you wish to compare this practice with specific SLM Technologies. In this case, indicate reference to those SLM Technologies in question 1.6."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2783
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Reference to/ comparison with other Technologies"
+          },
+          "helptext": {
+            "en": "If the Technology described in this questionnaire is part of a comparative assessment of different Technologies/ situations, please indicate details."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2784
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Short description of the Technology"
+          },
+          "helptext": {
+            "en": "Summarize the Technology in 1-2 sentences. Make sure this short description is precise and contains relevant keywords. It is the lead text of this documentation and provides an important basis for searching the database."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2785
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Detailed description of the Technology"
+          },
+          "helptext": {
+            "en": "<p>The detailed description should provide a concise but comprehensive picture of the Technology to outsiders. It should therefore address key questions such as:</p><ol><li>Where is the Technology applied (natural and human environment)?</li><li>What are the main characteristics/ elements of the Technology (including technical specifications)?</li><li>What are the purposes/ functions of the Technology?</li><li>What major activities/ inputs are needed to establish/ maintain the Technology?</li><li>What are the benefits/ impacts of the Technology?</li><li>What do land users like / dislike about the Technology?</ol><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents. Fill in the description at the beginning, but revise it when you have completed the questionnaire.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2786
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Videos of the Technology"
+          },
+          "helptext": {
+            "en": "If video files presenting the Technology are available, upload them to a public platform (e.g. vimeo.com, youtube.com) and indicate a link and a short description for each file in the table below."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2787
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Further information about land use"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2788
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Main types of land degradation addressed by the Technology"
+          },
+          "helptext": {
+            "en": "<p><strong>Land degradation:</strong> Degradation of land resources, including soils, water, vegetation, and animals.</p><p>Use the degradation types and subcategories listed below</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2789
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
             "en": "General information"
           }
         }
@@ -13018,6 +13677,23 @@
   },
   {
     "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Description of the SLM Technology"
+          },
+          "helptext": {
+            "en": "<p><strong>An SLM Technology</strong> is a practice applied in the field that controls land degradation and/ or enhances productivity. A Technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p>A single SLM Technology should cover a homogeneous set of natural (biophysical) and human (socio-economic) conditions. This means that the Technology is not applied or applicable to different, very dissimilar climatic or altitudinal zones or slope categories, or under very dissimilar land tenure arrangements. A Technology may consist of one or several <strong>SLM measures</strong> (agronomic, vegetative, structural, and management measures); e.g. terraces combined with grass strips and contour ploughing.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2915
+  },
+  {
+    "fields": {
       "keyword": "tech_definition",
       "translation": 1001,
       "configuration": {
@@ -13063,7 +13739,7 @@
   {
     "fields": {
       "keyword": "tech_who_implemented",
-      "translation": 1004,
+      "translation": 1307,
       "configuration": {
         "type": "checkbox"
       },
@@ -13642,7 +14318,7 @@
   {
     "fields": {
       "keyword": "tech_prevention",
-      "translation": 1032,
+      "translation": 1312,
       "configuration": {
         "type": "checkbox",
         "form_options": {
@@ -16526,7 +17202,7 @@
   {
     "fields": {
       "keyword": "tech_sustainability",
-      "translation": 1278,
+      "translation": 1305,
       "configuration": {
         "type": "bool"
       }
@@ -16576,7 +17252,7 @@
   {
     "fields": {
       "keyword": "tech_implementation_decades",
-      "translation": 1235,
+      "translation": 1306,
       "configuration": {
         "type": "radio"
       },
@@ -16730,6 +17406,7 @@
         1301,
         1246,
         1347,
+        1357,
         1302
       ]
     },
@@ -16956,7 +17633,7 @@
   {
     "fields": {
       "keyword": "tech_spread_tech",
-      "translation": 1280,
+      "translation": 1310,
       "configuration": {
         "type": "radio"
       },
@@ -17458,8 +18135,66 @@
   },
   {
     "fields": {
+      "keyword": "tech_growing_seasons",
+      "translation": 1308,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        1354,
+        1355,
+        1356
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1351
+  },
+  {
+    "fields": {
+      "keyword": "tech_growing_seasons_specify",
+      "translation": 1018,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1352
+  },
+  {
+    "fields": {
+      "keyword": "tech_livestock_density",
+      "translation": 1309,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1353
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_area",
+      "translation": 1311,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        1358,
+        1359,
+        1360,
+        1361,
+        1362,
+        1363,
+        1364
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1354
+  },
+  {
+    "fields": {
       "keyword": "implementation_innovation",
-      "translation": 1500,
+      "translation": 1876,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -17468,7 +18203,7 @@
   {
     "fields": {
       "keyword": "implementation_traditional",
-      "translation": 1501,
+      "translation": 1877,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -17477,7 +18212,7 @@
   {
     "fields": {
       "keyword": "implementation_experiments",
-      "translation": 1502,
+      "translation": 1878,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -17486,7 +18221,7 @@
   {
     "fields": {
       "keyword": "implementation_externally",
-      "translation": 1503,
+      "translation": 1879,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -17810,7 +18545,7 @@
   {
     "fields": {
       "keyword": "measures_management_m5",
-      "translation": 1539,
+      "translation": 1897,
       "order_value": 5
     },
     "model": "configuration.value",
@@ -18561,7 +19296,7 @@
   {
     "fields": {
       "keyword": "tech_measures_structural",
-      "translation": 1632,
+      "translation": 1896,
       "order_value": 3,
       "configuration": {
         "image_name": "pictos/swc_1_struc.png"
@@ -18657,7 +19392,7 @@
   {
     "fields": {
       "keyword": "intervention_prevent_ld",
-      "translation": 1858,
+      "translation": 1898,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -18666,7 +19401,7 @@
   {
     "fields": {
       "keyword": "intervention_reduce_ld",
-      "translation": 1859,
+      "translation": 1899,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -18675,7 +19410,7 @@
   {
     "fields": {
       "keyword": "intervention_rehabilitate",
-      "translation": 1860,
+      "translation": 1900,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -20019,7 +20754,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_varieties",
-      "translation": 1792,
+      "translation": 1883,
       "order_value": 14
     },
     "model": "configuration.value",
@@ -20064,7 +20799,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_groundwater",
-      "translation": 1797,
+      "translation": 1884,
       "order_value": 19
     },
     "model": "configuration.value",
@@ -20091,7 +20826,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_energy",
-      "translation": 1800,
+      "translation": 1885,
       "order_value": 22
     },
     "model": "configuration.value",
@@ -20110,7 +20845,7 @@
     "fields": {
       "keyword": "tech_slm_group_other",
       "translation": 1802,
-      "order_value": 26
+      "order_value": 27
     },
     "model": "configuration.value",
     "pk": 1302
@@ -20139,7 +20874,7 @@
   {
     "fields": {
       "keyword": "intervention_adapt",
-      "translation": 1861,
+      "translation": 1901,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -20274,7 +21009,7 @@
   {
     "fields": {
       "keyword": "tech_spread_evenly",
-      "translation": 1856,
+      "translation": 1887,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -20283,7 +21018,7 @@
   {
     "fields": {
       "keyword": "tech_spread_points",
-      "translation": 1857,
+      "translation": 1888,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -20498,6 +21233,105 @@
   },
   {
     "fields": {
+      "keyword": "growing_season_1",
+      "translation": 1880,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1354
+  },
+  {
+    "fields": {
+      "keyword": "growing_season_2",
+      "translation": 1881,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1355
+  },
+  {
+    "fields": {
+      "keyword": "growing_season_3",
+      "translation": 1882,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1356
+  },
+  {
+    "fields": {
+      "keyword": "tech_slm_group_postharvest",
+      "translation": 1886,
+      "order_value": 26
+    },
+    "model": "configuration.value",
+    "pk": 1357
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_less_01",
+      "translation": 1889,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1358
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_01_1",
+      "translation": 1890,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1359
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_1_10",
+      "translation": 1891,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1360
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_10_100",
+      "translation": 1892,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1361
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_100_1000",
+      "translation": 1893,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 1362
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_1000_10000",
+      "translation": 1894,
+      "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 1363
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_10000_plus",
+      "translation": 1895,
+      "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 1364
+  },
+  {
+    "fields": {
       "keyword": "tech_qg_1",
       "translation": null,
       "configuration": {}
@@ -20535,7 +21369,7 @@
   {
     "fields": {
       "keyword": "tech_qg_5",
-      "translation": 2201,
+      "translation": 2365,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -22110,7 +22944,7 @@
   {
     "fields": {
       "keyword": "tech_qg_184",
-      "translation": 2352,
+      "translation": 2364,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -22513,7 +23347,7 @@
   {
     "fields": {
       "keyword": "tech__2__1",
-      "translation": 2703
+      "translation": 2785
     },
     "model": "configuration.category",
     "pk": 1003
@@ -22521,7 +23355,7 @@
   {
     "fields": {
       "keyword": "tech__2__2",
-      "translation": 2769
+      "translation": 2786
     },
     "model": "configuration.category",
     "pk": 1004
@@ -22553,7 +23387,7 @@
   {
     "fields": {
       "keyword": "tech__3__3",
-      "translation": 2708
+      "translation": 2788
     },
     "model": "configuration.category",
     "pk": 1008
@@ -22697,7 +23531,7 @@
   {
     "fields": {
       "keyword": "tech__3__7",
-      "translation": 2710
+      "translation": 2789
     },
     "model": "configuration.category",
     "pk": 1026
@@ -22905,7 +23739,7 @@
   {
     "fields": {
       "keyword": "tech__1__4",
-      "translation": 2768
+      "translation": 2783
     },
     "model": "configuration.category",
     "pk": 1054
@@ -22961,7 +23795,7 @@
   {
     "fields": {
       "keyword": "tech__2__4",
-      "translation": 2761
+      "translation": 2787
     },
     "model": "configuration.category",
     "pk": 1061
@@ -23032,6 +23866,14 @@
   },
   {
     "fields": {
+      "keyword": "tech__1__6",
+      "translation": 2784
+    },
+    "model": "configuration.category",
+    "pk": 1070
+  },
+  {
+    "fields": {
       "keyword": "tech__1",
       "translation": 2901
     },
@@ -23041,7 +23883,7 @@
   {
     "fields": {
       "keyword": "tech__2",
-      "translation": 2912
+      "translation": 2915
     },
     "model": "configuration.category",
     "pk": 1702
@@ -23363,17 +24205,6 @@
                         ]
                       },
                       {
-                        "keyword": "qg_funding_project",
-                        "questions": [
-                          {
-                            "keyword": "funding_project"
-                          },
-                          {
-                            "keyword": "funding_project_display"
-                          }
-                        ]
-                      },
-                      {
                         "keyword": "qg_funding_institution",
                         "questions": [
                           {
@@ -23381,6 +24212,17 @@
                           },
                           {
                             "keyword": "funding_institution_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_project_display"
                           }
                         ]
                       }
@@ -23448,6 +24290,13 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "tech__1__6",
+                    "form_options": {
+                      "template": "comingsoon",
+                      "numbering": "1.6"
+                    }
                   }
                 ]
               }
@@ -23502,7 +24351,7 @@
                             "form_options": {
                               "label_position": "none",
                               "num_rows": 10,
-                              "max_length": 2500
+                              "max_length": 3500
                             }
                           }
                         ]
@@ -24080,11 +24929,7 @@
                           {
                             "keyword": "tech_watersupply",
                             "form_options": {
-                              "template": "no_label",
                               "has_other": "tech_watersupply"
-                            },
-                            "view_options": {
-                              "label_position": "none"
                             }
                           },
                           {
@@ -24101,6 +24946,15 @@
                           },
                           {
                             "keyword": "tech_watersupply_comments"
+                          },
+                          {
+                            "keyword": "tech_growing_seasons"
+                          },
+                          {
+                            "keyword": "tech_growing_seasons_specify"
+                          },
+                          {
+                            "keyword": "tech_livestock_density"
                           }
                         ]
                       }
@@ -24139,8 +24993,16 @@
                         "questions": [
                           {
                             "keyword": "tech_spread_tech",
-                            "view_options": {
-                              "label_position": "none"
+                            "form_options": {
+                              "question_conditions": [
+                                "=='tech_spread_evenly'|tech_spread_area"
+                              ]
+                            }
+                          },
+                          {
+                            "keyword": "tech_spread_area",
+                            "form_options": {
+                              "question_condition": "tech_spread_area"
                             }
                           },
                           {
