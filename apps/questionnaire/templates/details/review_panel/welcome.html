@@ -8,7 +8,8 @@
     {% trans "Welcome to the SLM data entry form." %}
   </h2>
   <p>
-    {% trans "You are about to add a new Questionnaire. If this is the first time editing a questionnaire, <a class='link' href='#' onclick='return startIntro();'>please follow the tour to start off.</a>" %}
+    {% url 'wocat:help_questionnaire_introduction' as intro_url %}
+    {% blocktrans with start_tour_link="<a class='link' href='#' onclick='return startIntro();'>" end_link="</a>" %}You are about to add a new Questionnaire. If this is the first time editing a questionnaire, {{ start_tour_link }}please follow the tour to start off{{ end_link }} and <a href="{{ intro_url }}" class="link">read the introduction to the questionnaire{{ end_link }}.{% endblocktrans %}
   </p>
   <div class="row">
     <div class="medium-8 columns">
