@@ -7,6 +7,7 @@ __pycache__
 qcat/settings/*
 !qcat/settings/base.py
 !qcat/settings/sample.py.dist
+qcat_virtualenv
 
 # Ignore CodeIntel files
 .codeintel
