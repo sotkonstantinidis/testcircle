@@ -7,6 +7,6 @@ class DevDefaultSite(DevMixin, BaseSettings):
     pass
 
 
-class ProdDefaultSite(ProdMixin, CompressMixin, OpBeatMixin, SecurityMixin, LogMixin,
+class ProdDefaultSite(ProdMixin, CompressMixin, OpBeatMixin, SecurityMixin,
                       BaseSettings):
     pass
