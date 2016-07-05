@@ -83,7 +83,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'src/partial/svg_icons.hbs': ['src/assets/icons/*.svg']
+          // 'src/partial/svg.html': ['src/assets/icons/*.svg']
+          'templates/svg.html': ['src/assets/icons/*.svg']
         }
       },
     },
