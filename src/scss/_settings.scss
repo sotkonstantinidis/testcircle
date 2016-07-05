@@ -123,16 +123,21 @@ $color-unccd      : #2592B7;
 $color-unccd-dark : #136C8B;
 $color-unccd-light: #55BFE3;
 
-$color-approach   : #DC7D35;
+$color-approach   : #D26929;
 $color-tech       : #4A6D22;
 
 $color-brown      : #3E3B34;
+
 $color-brown-dark : #2B261A;
 $color-brown-light: #5F594F;
 
 $color-beige      : #D9D6CC;
 $color-beige-dark : #A09889;
 $color-beige-light: #EAE8DF;
+
+$color-blue      : #2592B7;
+$color-blue-dark : #136C8B;
+$color-blue-light: #55BFE3;
 
 $color-yellow     : #FEFFEC;
 
@@ -230,7 +235,7 @@ $xlarge-range: (90.063em, 120em); // 1441 > 1920
 
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
-$header-font-weight: 100;
+$header-font-weight: 400;
 // $header-font-style: normal;
 // $header-font-color: $jet;
 $header-line-height: 1.5;
@@ -268,7 +273,7 @@ $h6-font-size: rem-calc(14);
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
 $paragraph-font-weight: 400;
-$paragraph-font-size: rem-calc(14);
+$paragraph-font-size: inherit;
 $paragraph-line-height: rem-calc(24);
 $paragraph-margin-bottom: 0;
 // $paragraph-aside-font-size: rem-calc(14);
@@ -287,10 +292,10 @@ $paragraph-margin-bottom: 0;
 // $code-padding: rem-calc(2) rem-calc(5) rem-calc(1);
 
 // We use these to style anchors
-// $anchor-text-decoration: none;
-// $anchor-text-decoration-hover: none;
-$anchor-font-color: $body-font-color;
-$anchor-font-color-hover: #000;
+$anchor-text-decoration: none;
+$anchor-text-decoration-hover: none;
+$anchor-font-color: $color-blue;
+$anchor-font-color-hover: $color-blue-dark;
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;

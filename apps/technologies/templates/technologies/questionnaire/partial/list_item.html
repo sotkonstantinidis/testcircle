@@ -1,7 +1,72 @@
 {% load i18n %}
 {% load staticfiles %}
 
-<article role="article" class="row large-collapse tech-item">
+<article role="article" class="tech-item is-tech">
+  <figure class="tech-thumbnail">
+    <a href="{% url 'technologies:questionnaire_details' item.code %}" title="">
+      {% if item.image %}
+        <img src="{{ item.image }}" alt="{{ item.name }}" />
+      {% else %}
+        <img src="{% static "assets/img/picture.svg" %}" alt="{{ item.name }}">
+      {% endif %}
+    </a>
+    {% if item.configurations_property.0 %}
+      <figcaption class="tech-status is-{{ item.configurations_property.0 }}">
+        <span>{{ item.configurations_property.0 }}</span>
+      </figcaption>
+    {% elif item.configurations.0 %}
+      <figcaption class="tech-status is-{{ item.configurations.0 }}">
+        <span class="is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
+      </figcaption>
+    {% endif %}
+    {% for flag in item.flags_property %}
+      <figcaption class="tech-status is-{{ flag.flag }}">
+        <span>{{ flag.name }}</span>
+      </figcaption>
+    {% endfor %}
+    {% for flag in item.flags %}
+      <figcaption class="tech-status is-{{ flag.flag }}">
+        <span>{{ flag.name }}</span>
+      </figcaption>
+    {% endfor %}
+    {% if item.status.0 and item.status.0 != 'public' %}
+      <figcaption class="tech-status is-{{ item.status.0 }}">
+        <span >{{ item.status.1 }}</span>
+      </figcaption>
+    {% endif %}
+  </figure>
+
+  <div class="tech-item-content">
+    <header>
+      <h2 class="tech-item-title">
+        <a href="{% url 'technologies:questionnaire_details' item.code %}">
+          {% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}{{ item.name|default:""|truncatewords:8 }} <span class="is-light">[{{ item.country }}]</span>
+        </a>
+      </h2>
+    </header>
+    <main>
+      <p>{{ item.tech_definition|truncatewords:50 }}</p>
+    </main>
+    <footer>
+      {% if item.links|length > 0 or item.translations %}
+        <p class="is-light">
+          {% include "details/includes/link_items.html" with links=item.links %}
+          {% if item.translations %}
+            <em>{% trans "This article is also available in:" %}
+              {% for translation in item.translations %}
+                {% language translation.0 %}
+                <a href="{% url 'technologies:questionnaire_details' item.code %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
+                {% endlanguage %}
+              {% endfor %}
+            </em>
+          {% endif %}
+        </p>
+      {% endif %}
+    </footer>
+  </div>
+
+  <!--
+  {% comment %}
   <div class="tech-thumbnail medium-4 columns">
     <figure>
       <a href="{% url 'technologies:questionnaire_details' item.code %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
@@ -22,6 +87,8 @@
         {% endif %}
       </figcaption>
     </figure>
+
+    TODO: Icons von Video und PDF brauchen wir nicht mehr
     <ul class="tech-icons">
       <li>
         <a href="{% url 'technologies:questionnaire_details' item.code %}" title="{% trans "Under construction" %}" aria-haspopup="true" data-tooltip="">
@@ -84,4 +151,6 @@
       {% endif %}
     </footer>
   </div>
+  {% endcomment %}
+   -->
 </article>
