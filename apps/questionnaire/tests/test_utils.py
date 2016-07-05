@@ -6,9 +6,10 @@ from django.test.utils import override_settings
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import User
+from accounts.tests.test_models import create_new_user
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, Flag
 from questionnaire.serializers import QuestionnaireSerializer
 from questionnaire.utils import (
     clean_questionnaire_data,
@@ -44,7 +45,8 @@ def get_valid_questionnaire_content():
 
 class CleanQuestionnaireDataTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json',
+                'sample_projects.json']
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -285,6 +287,21 @@ class CleanQuestionnaireDataTest(TestCase):
         self.assertEqual(len(errors), 0)
         self.assertEqual(cleaned, {})
 
+    def test_select_model_checks_valid_model(self):
+        data = {"qg_37": [
+            {"key_52": "4", "key_53": "Non-existing project"}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(len(errors), 1)
+
+    def test_select_model_parses_to_int(self):
+        data = {"qg_37": [
+            {"key_52": "2", "key_53": "Some project"}
+        ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(errors, [])
+        self.assertEqual(cleaned['qg_37'][0]['key_52'], 2)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 
@@ -523,6 +540,35 @@ class GetActiveFiltersTest(TestCase):
         query_dict = QueryDict('updated=foo-bar')
         filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(len(filters), 0)
+
+    def test_returns_flag_filter(self):
+        Flag.objects.create(flag='unccd_bp')
+        query_dict = QueryDict('flag=unccd_bp')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_flag')
+        self.assertEqual(filter_1['key'], 'flag')
+        self.assertEqual(filter_1['questiongroup'], 'flag')
+        self.assertEqual(filter_1['key_label'], '')
+        self.assertEqual(filter_1['value'], 'unccd_bp')
+        self.assertEqual(filter_1['value_label'], 'UNCCD Best Practice')
+
+    def test_returns_unknown_flag_filter(self):
+        query_dict = QueryDict('flag=unknown')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(filter_1['type'], '_flag')
+        self.assertEqual(filter_1['key'], 'flag')
+        self.assertEqual(filter_1['questiongroup'], 'flag')
+        self.assertEqual(filter_1['key_label'], '')
+        self.assertEqual(filter_1['value'], 'unknown')
+        self.assertEqual(filter_1['value_label'], 'Unknown')
 
     def test_returns_mixed_filters(self):
         query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
@@ -867,7 +913,7 @@ class GetListValuesTest(TestCase):
         )
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), len(serialized.fields))
+
         self.assertEqual(ret_1.get('configuration'), 'sample_core')
 
     def test_es_wocat_uses_default_configuration(self):
@@ -879,7 +925,6 @@ class GetListValuesTest(TestCase):
         )
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
-        self.assertEqual(len(ret_1), len(serialized.fields))
         self.assertEqual(ret_1.get('configuration'), 'sample')
 
     @patch('questionnaire.utils.get_link_data')
@@ -1143,6 +1188,223 @@ class HandleReviewActionsTest(TestCase):
         call_2 = call(
             mock_link.configurations.first.return_value.code, [mock_link])
         mock_put_data.assert_has_calls([call_1, call_2])
+
+    def test_assign_needs_status(self, mock_messages):
+        self.obj.status = 6
+        self.request.POST = {'assign': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'No users can be assigned to this questionnaire because of its '
+            'status.')
+
+    def test_assign_needs_privileges(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {'assign': 'foo'}
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'You do not have permissions to assign a user to this '
+            'questionnaire.')
+
+    def test_assign_handles_non_valid_ids(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': 'foo,bar',
+        }
+        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        self.obj.get_users_by_role.return_value = []
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'Assigned users were successfully updated')
+
+    @patch('questionnaire.utils.typo3_client')
+    def test_assign_adds_new_user(self, mock_typo3_client, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '98',
+        }
+        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        self.obj.get_users_by_role.return_value = []
+        mock_typo3_client.get_user_information.return_value = {
+            'username': 'user'
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        user = User.objects.get(pk=98)
+        self.obj.add_user.assert_called_once_with(user, 'reviewer')
+
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'Assigned users were successfully updated')
+
+    def test_assign_removes_user(self, mock_messages):
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '98',
+        }
+        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        mock_user = Mock()
+        self.obj.get_users_by_role.return_value = [mock_user]
+        handle_review_actions(self.request, self.obj, 'sample')
+        self.obj.remove_user.assert_called_once_with(mock_user, 'reviewer')
+
+
+@patch('questionnaire.utils.messages')
+class UnccdFlagTest(TestCase):
+
+    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
+                'sample_questionnaires_5']
+
+    def setUp(self):
+        self.obj = Mock(spec=Questionnaire)
+        self.obj.get_permissions.return_value = []
+        self.obj.links.all.return_value = []
+        self.user = create_new_user()
+        self.user.update(usergroups=[{
+            'name': 'UNCCD Focal Point',
+            'unccd_country': 'CHE',
+        }])
+        self.request = Mock()
+        self.request.user = self.user
+        self.request.POST = {'flag-unccd': 'foo'}
+
+    def test_flag_unccd_requires_permissions(self, mock_messages):
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'You do not have permissions to add this flag!')
+
+    def test_flag_unccd_requires_valid_flag(self, mock_messages):
+        Flag.objects.get(flag='unccd_bp').delete()
+        self.obj.get_permissions.return_value = ['flag_unccd_questionnaire']
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'The flag could not be set.')
+
+    def test_flag_unccd_prevented_if_review_questionnaire(self, mock_messages):
+        # Create a copy of the questionnaire
+        questionnaire = Questionnaire.objects.get(pk=1)
+        questionnaire.pk = None
+        questionnaire.status = 1
+        questionnaire.save()
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The flag could not be set because a version of this questionnaire '
+            'is already in the review process and needs to be published first. '
+            'Please try again later.')
+
+    def test_flag_unccd_creates_a_new_version(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        self.assertEqual(Questionnaire.objects.count(), 5)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        self.assertEqual(Questionnaire.objects.count(), 6)
+
+    def test_flag_unccd_creates_a_new_reviewed_version(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.status, 3)
+
+    def test_flag_unccd_adds_flag(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.flags.count(), 1)
+
+    def test_flag_unccd_adds_user(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.get_user(self.user, 'flagger'), self.user)
+
+    def test_flag_unccd_adds_success_message(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request, 'The flag was successfully set.')
+
+
+@patch('questionnaire.utils.messages')
+class UnccdUnflagTest(TestCase):
+
+    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
+                'sample_questionnaires_5']
+
+    def setUp(self):
+        self.obj = Mock(spec=Questionnaire)
+        self.obj.get_permissions.return_value = []
+        self.obj.links.all.return_value = []
+        self.user = create_new_user()
+        self.user.update(usergroups=[{
+            'name': 'UNCCD Focal Point',
+            'unccd_country': 'CHE',
+        }])
+        self.request = Mock()
+        self.request.user = self.user
+        self.request.POST = {'unflag-unccd': 'foo'}
+        self.questionnaire = Questionnaire.objects.get(pk=1)
+        flag = Flag.objects.first()
+        self.questionnaire.add_flag(flag)
+
+    def test_unflag_unccd_requires_permissions(self, mock_messages):
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'You do not have permissions to remove this flag!')
+
+    def test_unflag_unccd_requires_valid_flag(self, mock_messages):
+        Flag.objects.get(flag='unccd_bp').delete()
+        self.obj.get_permissions.return_value = ['unflag_unccd_questionnaire']
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request, 'The flag could not be removed.')
+
+    def test_unflag_unccd_prevented_if_review_questionnaire(self, mock_messages):
+        # Create a copy of the questionnaire
+        questionnaire = Questionnaire.objects.get(pk=1)
+        questionnaire.pk = None
+        questionnaire.status = 1
+        questionnaire.save()
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'The flag could not be removed because a version of this '
+            'questionnaire is already in the review process and needs to be '
+            'published first. Please try again later.')
+
+    def test_unflag_unccd_creates_a_new_version(self, mock_messages):
+        self.assertEqual(Questionnaire.objects.count(), 5)
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        self.assertEqual(Questionnaire.objects.count(), 6)
+
+    def test_unflag_unccd_creates_a_new_reviewed_version(self, mock_messages):
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.status, 3)
+
+    def test_unflag_unccd_removes_flag(self, mock_messages):
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.flags.count(), 0)
+
+    def test_unflag_unccd_removes_user(self, mock_messages):
+        questionnaire = Questionnaire.objects.get(pk=1)
+        handle_review_actions(self.request, questionnaire, 'sample')
+        new_version = Questionnaire.objects.latest('id')
+        self.assertEqual(new_version.get_user(self.user, 'flagger'), None)
+
+    def test_unflag_unccd_adds_success_message(self, mock_messages):
+        handle_review_actions(self.request, self.questionnaire, 'sample')
+        mock_messages.success.assert_called_once_with(
+            self.request,
+            'The flag was successfully removed. Please note that this created '
+            'a new version which needs to be reviewed. In the meantime, you '
+            'are seeing the public version which still shows the flag.')
 
 
 class CompareQuestionnaireDataTest(TestCase):

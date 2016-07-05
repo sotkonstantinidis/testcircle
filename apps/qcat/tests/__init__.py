@@ -16,4 +16,14 @@ TEST_CACHES = {
 @override_settings(USE_TZ=False)
 @attr('unit')
 class TestCase(DjangoTestCase):
-    pass
+
+    def setup_view(self, view, request, *args, **kwargs):
+        """
+        Mimic as_view() returned callable, but returns view instance.
+
+        See: http://tech.novapost.fr/django-unit-test-your-views-en.html
+        """
+        view.request = request
+        view.args = args
+        view.kwargs = kwargs
+        return view

@@ -3,8 +3,26 @@ from easy_thumbnails.files import get_thumbnailer
 
 from ..models import Questionnaire
 from ..upload import get_url_by_file_name
+from ..utils import get_link_display
 
 register = template.Library()
+
+
+@register.simple_tag
+def get_static_map_url(obj):
+    """
+    Get the URL of the static map of a questionnaire.
+
+    Args:
+        obj: questionnaire.models.Questionnaire
+
+    Returns:
+        string: The URL or ''.
+    """
+    if isinstance(obj, Questionnaire):
+        filename = '{}_{}.jpg'.format(obj.uuid, obj.version)
+        return get_url_by_file_name(filename, subfolder='maps')
+    return ''
 
 
 @register.assignment_tag
@@ -82,3 +100,8 @@ def prepare_image(image):
         'interchange': interchange,
         'src': url
     }
+
+
+@register.simple_tag
+def link_display(configuration_code, name, identifier):
+    return get_link_display(configuration_code, name, identifier)

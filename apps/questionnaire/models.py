@@ -1,5 +1,10 @@
 import contextlib
 import json
+
+import os
+import requests
+from django.contrib.gis.gdal.error import GDALException
+from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from os.path import join
 from uuid import uuid4
 
@@ -10,13 +15,15 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db.models import Q
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _, get_language, activate
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
+from staticmap import StaticMap, CircleMarker, Polygon
 
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+
 from .conf import settings
 from .errors import QuestionnaireLockedException
 from .querysets import StatusQuerySet
@@ -26,7 +33,7 @@ from questionnaire.upload import (
     get_url_by_file_name,
     get_file_path,
     store_file,
-    get_upload_folder_structure)
+    get_upload_folder_structure, get_upload_folder_path)
 
 STATUSES = (
     (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
@@ -56,6 +63,10 @@ QUESTIONNAIRE_ROLES = (
     (settings.QUESTIONNAIRE_RESOURCEPERSON, _('Key resource person')),
 )
 
+QUESTIONNAIRE_FLAGS = (
+    (settings.QUESTIONNAIRE_FLAG_UNCCD, _('UNCCD Best Practice')),
+)
+
 
 class Questionnaire(models.Model):
     """
@@ -69,11 +80,13 @@ class Questionnaire(models.Model):
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
+    geom = models.GeometryField(null=True, blank=True)
     blocked = models.ForeignKey(
         settings.AUTH_USER_MODEL, blank=True, null=True,
         related_name='blocks_questionnaire',
         help_text=_(u"Set with the method: lock_questionnaire.")
     )
+    is_deleted = models.BooleanField(default=False)
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
     members = models.ManyToManyField(
@@ -83,6 +96,7 @@ class Questionnaire(models.Model):
     links = models.ManyToManyField(
         'self', through='QuestionnaireLink', symmetrical=False,
         related_name='linked_to+')
+    flags = models.ManyToManyField('Flag')
 
     objects = models.Manager()
     with_status = StatusQuerySet.as_manager()
@@ -92,6 +106,10 @@ class Questionnaire(models.Model):
         permissions = (
             ("review_questionnaire", "Can review questionnaire"),
             ("publish_questionnaire", "Can publish questionnaire"),
+            ("assign_questionnaire",
+             "Can assign questionnaire (for review/publish)"),
+            ("flag_unccd_questionnaire", "Can flag UNCCD questionnaire"),
+            ("unflag_unccd_questionnaire", "Can unflag UNCCD questionnaire"),
         )
 
     def get_absolute_url(self):
@@ -148,6 +166,8 @@ class Questionnaire(models.Model):
             blocked=None
         )
 
+        self.update_geometry(configuration_code=configuration_code)
+
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
 
@@ -201,6 +221,13 @@ class Questionnaire(models.Model):
             code = previous_version.code
             version = previous_version.version
             uuid = previous_version.uuid
+
+            # Unblock all other questionnaires with same code
+            Questionnaire.objects.filter(
+                code=code
+            ).update(
+                blocked=None
+            )
 
             if 'edit_questionnaire' not in permissions:
                 raise ValidationError(
@@ -259,6 +286,8 @@ class Questionnaire(models.Model):
             data=data, uuid=uuid, code=code, version=version, status=status,
             created=created, updated=updated)
 
+        questionnaire.update_geometry(configuration_code=configuration_code)
+
         # TODO: Not all configurations should be the original ones!
         QuestionnaireConfiguration.objects.create(
             questionnaire=questionnaire, configuration=configuration,
@@ -278,6 +307,9 @@ class Questionnaire(models.Model):
             for role in user_roles:
                 for old_user in previous_version.get_users_by_role(role):
                     questionnaire.add_user(old_user, role)
+
+            # Also copy any flags
+            questionnaire.flags.add(*previous_version.flags.all())
         else:
             questionnaire.add_user(user, settings.QUESTIONNAIRE_COMPILER)
         questionnaire.update_users_from_data(
@@ -320,7 +352,7 @@ class Questionnaire(models.Model):
                 'permissions': ['edit_questionnaire']
             }, {
                 'status': [settings.QUESTIONNAIRE_DRAFT],
-                'permissions': ['submit_questionnaire']
+                'permissions': ['submit_questionnaire', 'assign_questionnaire']
             }],
             settings.QUESTIONNAIRE_EDITOR: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
@@ -354,6 +386,24 @@ class Questionnaire(models.Model):
         if ('questionnaire.publish_questionnaire' in user_permissions
                 and self.status in [settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
+        if ('questionnaire.assign_questionnaire' in user_permissions
+                and self.status in [settings.QUESTIONNAIRE_SUBMITTED,
+                                    settings.QUESTIONNAIRE_REVIEWED]):
+            permissions.extend(['assign_questionnaire'])
+
+        # UNCCD Flagging
+        questionnaire_country = self.get_question_data('qg_location', 'country')
+        if len(questionnaire_country) == 1 \
+                and self.status in [settings.QUESTIONNAIRE_PUBLIC]:
+            for country in current_user.get_unccd_countries():
+                if country.keyword == questionnaire_country[0]:
+                    try:
+                        self.flags.get(flag=settings.QUESTIONNAIRE_FLAG_UNCCD)
+                        # Flag already exists
+                        permissions.extend(['unflag_unccd_questionnaire'])
+                    except Flag.DoesNotExist:
+                        # No flag yet
+                        permissions.extend(['flag_unccd_questionnaire'])
 
         permissions = list(set(permissions))
 
@@ -363,6 +413,165 @@ class Questionnaire(models.Model):
             permissions.remove('edit_questionnaire')
 
         return permissions
+
+    def get_question_data(self, qg_keyword, q_keyword):
+        """
+        Get the raw question data by keyword. This does not translate the values
+        or return the labelled choices. For this, use
+        QuestionnaireConfiguration.
+
+        Args:
+            qg_keyword: (str): The keyword of the questiongroup.
+            q_keyword: (str): The keyword of the question.
+
+        Returns:
+            (list). A list of (raw) values.
+        """
+        data = []
+        if self.data:
+            for q_data in self.data.get(qg_keyword, []):
+                for key, value in q_data.items():
+                    if key == q_keyword:
+                        data.append(value)
+        return data
+
+    def update_geometry(self, configuration_code):
+        """
+        Update the geometry of a questionnaire based on the GeoJSON found in the
+        data json.
+
+        Args:
+            configuration_code:
+
+        Returns:
+            -
+        """
+        def get_geometry_from_string(geometry_string):
+            """
+            Extract and convert the geometry from a (GeoJSON) string.
+
+            Args:
+                geometry_string: The geometry as (GeoJSON) string.
+
+            Returns:
+                A GeometryCollection or None.
+            """
+
+            if geometry_string is None:
+                return None
+
+            try:
+                geometry_json = json.loads(geometry_string)
+            except json.decoder.JSONDecodeError:
+                return None
+            geoms = []
+            for feature in geometry_json.get('features', []):
+                try:
+                    feature_geom = GEOSGeometry(
+                        json.dumps(feature.get('geometry')))
+                except ValueError:
+                    continue
+                except GDALException:
+                    continue
+                geoms.append(feature_geom)
+
+            if geoms:
+                return GeometryCollection(tuple(geoms))
+
+            else:
+                return None
+
+        conf_object = get_configuration(configuration_code)
+        geometry_value = conf_object.get_questionnaire_geometry(self.data)
+        geometry = get_geometry_from_string(geometry_value)
+
+        geometry_changed = self.geom != geometry
+
+        self.geom = geometry
+        self.save()
+
+        if self.geom is None or not geometry_changed:
+            # If there is no geometry or if it did not change, there is no need
+            # to create the static map image (again)
+            return
+
+        # Create static map
+        width = 500
+        height = 400
+        marker_color = '#0036FF'
+
+        m = StaticMap(width, height)
+
+        for point in iter(self.geom):
+            m.add_marker(CircleMarker((point.x,  point.y), marker_color, 12))
+
+        bbox = None
+        questionnaire_country = self.get_question_data('qg_location', 'country')
+
+        if len(questionnaire_country) == 1:
+            country_iso3 = questionnaire_country[0].replace('country_', '')
+            country_iso2 = settings.CONFIGURATION_COUNTRY_ISO_MAPPING.get(
+                country_iso3)
+
+            if country_iso2:
+                r = requests.get(
+                    'http://api.geonames.org/countryInfoJSON?username=wocat_webdev&country={}'.format(
+                        country_iso2))
+                geonames_country = r.json().get('geonames')
+
+                if len(geonames_country) == 1:
+                    ctry = geonames_country[0]
+                    poly_coords = [
+                        [ctry.get('west'), ctry.get('north')],
+                        [ctry.get('west'), ctry.get('south')],
+                        [ctry.get('east'), ctry.get('south')],
+                        [ctry.get('east'), ctry.get('north')],
+                        [ctry.get('west'), ctry.get('north')]
+                    ]
+
+                    bbox = Polygon(poly_coords, None, None)
+
+        if bbox:
+            m.add_polygon(bbox)
+            image = m.render()
+        else:
+            # No bbox found, guess zoom level
+            image = m.render(zoom=6)
+
+        map_folder = get_upload_folder_path(str(self.uuid), subfolder='maps')
+        if not os.path.exists(map_folder):
+            os.makedirs(map_folder)
+
+        filename = '{}_{}.jpg'.format(self.uuid, self.version)
+        image.save(os.path.join(map_folder, filename))
+
+
+    def add_flag(self, flag):
+        """
+        Add a Flag object to the questionnaire. Add it only once.
+
+        Args:
+            flag: (Flag): The flag to be added.
+        """
+        if flag not in self.flags.all():
+            self.flags.add(flag)
+
+    def get_user(self, user, role):
+        """
+        Get and return a user of the Questionnaire by role.
+
+        Args:
+            user: (User) The user.
+            role: (str): The role of the user.
+
+        Returns:
+            User or None.
+        """
+        membership = self.questionnairemembership_set.filter(
+            user=user, role=role).first()
+        if membership:
+            return membership.user
+        return None
 
     def get_users(self, **kwargs):
         """
@@ -401,15 +610,16 @@ class Questionnaire(models.Model):
 
     def add_user(self, user, role):
         """
-        Add a user.
+        Add a user. Users are only added if the membership does not yet exist.
 
         Args:
             ``user`` (User): The user.
 
             ``role`` (str): The role of the user.
         """
-        QuestionnaireMembership.objects.create(
-            questionnaire=self, user=user, role=role)
+        if self.get_user(user, role) is None:
+            QuestionnaireMembership.objects.create(
+                questionnaire=self, user=user, role=role)
 
     def remove_user(self, user, role):
         """
@@ -420,7 +630,9 @@ class Questionnaire(models.Model):
 
             ``role`` (str): The role of the user.
         """
-        self.questionnairemembership_set.filter(user=user, role=role).delete()
+        user = self.get_user(user, role)
+        if user is not None:
+            user.delete()
 
     def update_users_from_data(self, configuration_code):
         """
@@ -443,7 +655,7 @@ class Questionnaire(models.Model):
         for user_questiongroup in user_fields:
             for user_data in self.data.get(user_questiongroup[0], []):
                 user_id = user_data.get(user_questiongroup[1])
-                if user_id is None:
+                if not bool(user_id):
                     continue
                 submitted_users.append((user_questiongroup[3], user_id))
 
@@ -615,13 +827,18 @@ class Questionnaire(models.Model):
                 raise QuestionnaireLockedException(
                     cls.objects.filter(code=code).first().blocked
                 )
-            editable_questionnaires.exclude(
-                status=settings.QUESTIONNAIRE_PUBLIC
-            ).update(blocked=user)
+            editable_questionnaires.update(blocked=user)
 
     def can_edit(self, user):
         return self.has_questionnaires_for_code(
             self.code) and self.get_editable_questionnaires(self.code, user)
+
+    def unlock_questionnaire(self):
+        self._meta.model.objects.filter(
+            code=self.code
+        ).update(
+            blocked=None
+        )
 
     def get_blocked_message(self, user):
         """
@@ -685,6 +902,67 @@ class Questionnaire(models.Model):
         else:
             return None
 
+    @cached_property
+    def links_property(self):
+        """
+        Collect all info about linked questionnaire and structure it according to language.
+        This follows a often used pattern of questionnaire data.
+
+        Returns: list
+
+        """
+        from configuration.utils import ConfigurationList
+
+        links = []
+        config_list = ConfigurationList()
+        current_language = get_language()
+
+        for link in self.links.filter(configurations__isnull=False):
+
+            link_configuration = config_list.get(link.configurations.first().code)
+            name_data = link_configuration.get_questionnaire_name(link.data)
+
+            try:
+                original_language = link.questionnairetranslation_set.first().language
+            except AttributeError:
+                original_language = settings.LANGUAGES[0][0]  # 'en'
+
+            for code, language in settings.LANGUAGES:
+                activate(code)
+                name = name_data.get(code, name_data.get(original_language))
+                links.append({
+                    code: {
+                        'code': link.code,
+                        'configuration': link_configuration.keyword,
+                        'name': name,
+                        'url': link.get_absolute_url()
+                }})
+
+        activate(current_language)
+        return links
+
+    @cached_property
+    def flags_property(self):
+        flags = []
+        for flag in self.flags.all():
+            flags.append({
+                'flag': flag.flag,
+                'name': flag.get_flag_display(),
+            })
+        return flags
+
+    @cached_property
+    def has_release(self):
+        """
+        Check if any version of this questionnaire was published.
+
+        Returns: boolean
+
+        """
+        return self.status == settings.QUESTIONNAIRE_PUBLIC or self._meta.model.with_status.not_deleted().filter(
+            code=self.code, status=settings.QUESTIONNAIRE_PUBLIC
+        ).exists()
+
 
 class QuestionnaireConfiguration(models.Model):
     """
@@ -714,6 +992,10 @@ class QuestionnaireTranslation(models.Model):
 
     class Meta:
         ordering = ['-original_language']
+
+
+class Flag(models.Model):
+    flag = models.CharField(max_length=64, choices=QUESTIONNAIRE_FLAGS)
 
 
 class QuestionnaireLink(models.Model):

@@ -5384,7 +5384,11 @@
       "keyword": "funding_project",
       "translation": 5050,
       "configuration": {
-        "type": "char"
+        "type": "select_model",
+        "form_options": {
+          "model": "Project",
+          "display_field": "funding_project_display"
+        }
       }
     },
     "model": "configuration.key",
@@ -5827,11 +5831,43 @@
       "keyword": "funding_institution",
       "translation": 5051,
       "configuration": {
-        "type": "char"
+        "type": "select_model",
+        "form_options": {
+          "model": "Institution",
+          "display_field": "funding_institution_display"
+        }
       }
     },
     "model": "configuration.key",
     "pk": 49
+  },
+  {
+    "fields": {
+      "keyword": "funding_institution_display",
+      "translation": 5051,
+      "configuration": {
+        "type": "display_only",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "keyword": "funding_project_display",
+      "translation": 5050,
+      "configuration": {
+        "type": "display_only",
+        "form_options": {
+          "template": "no_label"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 51
   },
   {
     "fields": {
@@ -8241,6 +8277,15 @@
     },
     "model": "configuration.questiongroup",
     "pk": 19
+  },
+  {
+    "fields": {
+      "keyword": "qg_funding_institution",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 20
   },
   {
     "fields": {

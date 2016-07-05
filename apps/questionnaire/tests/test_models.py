@@ -1,7 +1,9 @@
+import json
 import uuid
 from datetime import datetime
 
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from django.core.exceptions import ValidationError
 from django.utils.translation import activate
 from unittest.mock import patch, Mock
@@ -208,7 +210,7 @@ class QuestionnaireModelTest(TestCase):
         questionnaire = get_valid_questionnaire(self.user)
         permissions = questionnaire.get_permissions(self.user)
         self.assertIsInstance(permissions, list)
-        self.assertEqual(len(permissions), 2)
+        self.assertEqual(len(permissions), 3)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('submit_questionnaire', permissions)
 
@@ -308,6 +310,16 @@ class QuestionnaireModelTest(TestCase):
             self.assertIn(role, ['compiler', 'landuser'])
             self.assertIn(user, [self.user])
 
+    def test_add_user_adds_user_only_once(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.add_user(self.user, 'landuser')
+        questionnaire.add_user(self.user, 'landuser')
+        users = questionnaire.get_users()
+        self.assertEqual(len(users), 2)
+        for role, user in users:
+            self.assertIn(role, ['compiler', 'landuser'])
+            self.assertIn(user, [self.user])
+
     def test_remove_user_removes_user(self):
         questionnaire = get_valid_questionnaire(self.user)
         questionnaire.remove_user(self.user, 'compiler')
@@ -346,7 +358,7 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user)
         metadata = questionnaire.get_metadata()
         self.assertIsInstance(metadata, dict)
-        self.assertEqual(len(metadata), 8)
+        self.assertEqual(len(metadata), 9)
         self.assertEqual(metadata['created'], questionnaire.created)
         self.assertEqual(metadata['updated'], questionnaire.updated)
         self.assertEqual(
@@ -421,6 +433,103 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.lock_questionnaire(questionnaire.code, self.user)
         user_2 = create_new_user(id=2, email='foo@bar.com')
         self.assertFalse(questionnaire.can_edit(user_2))
+
+    def test_update_geometry_updates_geometry(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': json.dumps({
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            7.5,
+                            47
+                        ]
+                    },
+                },
+               {
+                   "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            8.5,
+                            48
+                        ]
+                    },
+               }
+            ]
+        })}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        geojson = json.loads(questionnaire.geom.geojson)
+        self.assertEqual(len(geojson['geometries']), 2)
+        self.assertEqual(geojson['geometries'][0]['coordinates'], [7.5, 47.0])
+        self.assertEqual(geojson['geometries'][1]['coordinates'], [8.5, 48.0])
+
+    def test_update_geometry_handles_no_geometry(self):
+        questionnaire = get_valid_questionnaire()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_handles_invalid_geometry(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': 'invalid geometry'}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_handles_invalid_geojson(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': json.dumps({'foo': 'bar'})}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_handles_invalid_geojson_2(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': json.dumps({
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": "invalid",
+                },
+               {
+                   "type": "Foo",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            "foo",
+                            "bar"
+                        ]
+                    },
+               }
+            ]
+        })}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_deletes_geometry(self):
+        questionnaire = get_valid_questionnaire()
+
+        geojson = {'coordinates': [7.435190677642821, 46.952664413488606],
+                   'type': 'Point'}
+        questionnaire.geom = GeometryCollection(
+            GEOSGeometry(json.dumps(geojson)),)
+        questionnaire.save()
+        questionnaire.data = {}
+        questionnaire.save()
+        self.assertIsNotNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
 
 
 class FileModelTest(TestCase):

@@ -6,17 +6,10 @@ from accounts.client import Typo3Client
 from accounts.models import User
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
-    # get_position_of_category,
-    # route_home,
     route_questionnaire_details,
-    # route_questionnaire_list,
-    # route_questionnaire_new,
 )
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
-
-from nose.plugins.attrib import attr  # noqa
-# @attr('foo')
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
@@ -83,7 +76,7 @@ class LinkTests(FunctionalTest):
 
         # She edits the MULTISAMPLE questionnaire and sees only one
         # version is linked (still the same)
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.review_action('edit')
         self.findBy(
             'xpath',
             '//a[contains(text(), "Edit this section")][1]').click()
@@ -91,10 +84,6 @@ class LinkTests(FunctionalTest):
             ' (changed)')
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # She submits the questionnaire
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 

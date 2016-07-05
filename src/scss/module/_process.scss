@@ -1,64 +1,54 @@
 .process {
   @include reset-list;
-  display: flex;
+  display: inline;
   margin: 0;
   border-radius: $global-radius;
 }
 
 .process > * {
   position: relative;
-  display: inline-block;
+  display: inline-block; // prevent spaces between inline-block elements.
+  float: left;
   flex: 1;
-  margin: 0 0 0 rem-calc(2);
   padding: rem-calc(12) rem-calc(12) rem-calc(12) rem-calc(24);
   text-align: center;
   color: $color-brown;
   background: rgba($color-beige-dark, 0.2);
   transition: background 300ms ease-in-out;
   cursor: pointer;
-  border-bottom: 1px solid $color-beige-light;
 
   @media #{$medium-up} {
     padding: rem-calc(12) rem-calc(24) rem-calc(12) rem-calc(36);
   }
-  &:first-child {
-    padding-left: rem-calc(12);
-    margin-left: 0;
-    border-top-left-radius: $global-radius;
-    border-bottom-left-radius: $global-radius;
-    @media #{$medium-up} {
-      padding-left: rem-calc(24);
-    }
-  }
   &:last-child {
     border-top-right-radius: $global-radius;
     border-bottom-right-radius: $global-radius;
+    &:after {
+      right: rem-calc(-13);
+    }
   }
   &:after {
     content: "";
     border-top: rem-calc(24) solid transparent;
     border-bottom: rem-calc(24) solid transparent;
-    border-left: rem-calc(12) solid $color-beige;
+    border-left: rem-calc(14) solid $color-beige;
     position: absolute;
-    right: rem-calc(-12);
+    right: rem-calc(-14);
     top: 0;
-    z-index: 1;
     transition: border-color 300ms ease-in-out;
+    z-index: 2;
   }
   &:before {
     content: "";
     border-top: rem-calc(24) solid transparent;
     border-bottom: rem-calc(24) solid transparent;
-    border-left: rem-calc(12) solid $color-beige;
+    border-left: rem-calc(14) solid white;
     position: absolute;
-    left: 0;
+    left: rem-calc(1);
     top: 0;
+    z-index: 1;
   }
   &:first-child:before {
-    content: " ";
-    border: none;
-  }
-  &:last-child:after {
     content: " ";
     border: none;
   }
@@ -73,24 +63,87 @@
     &:after {
       border-left-color: white;
     }
+    +:before {
+      left: 0;
+    }
   }
 }
-
 
 .process-status {
   background: white;
   border-radius: $global-radius;
   padding: rem-calc(12) rem-calc(24);
 
+  h5 {
+    margin-top: 1rem;
+  }
+
   p {
     margin-top: rem-calc(6);
   }
 
-  input.is-dangerous {
-    background-color: $warning-color;
+  ul {
+    margin-top: rem-calc(6);
   }
 
-  input.is-ok {
+  input[type="submit"] {
+    width: 100%;
+  }
+  .is-dangerous {
+    background-color: $warning-color;
+  }
+  .is-ok {
     background-color: $success-color;
   }
+  .workflow-action{
+    border-top: 1px solid $color-beige;
+    margin: rem-calc(10) rem-calc(5);
+
+    .button {
+      padding: rem-calc(10);
+      width: 100%;
+    }
+  }
+
+  input[type="search"] {
+    border: 1px solid $color-brown;
+  }
+
+  .user-display div.alert-box {
+    &:first-of-type {
+      margin-top: rem-calc(12);
+    }
+    margin-top: rem-calc(8);
+    margin-bottom: 0;
+    border: 1px solid $color-brown;
+    background-color: $color-beige;
+    color: inherit;
+    padding: rem-calc(6);
+
+    a.close {
+      opacity: inherit;
+    }
+  }
+
+  #button-assign {
+    margin-top: rem-calc(12);
+  }
+
+  .review-assigned-users-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: rem-calc(8);
+
+    svg {
+      height: rem-calc(16);
+      width: rem-calc(16);
+      color: $color-brown;
+
+      &:hover {
+        color: inherit;
+      }
+    }
+  }
+
 }

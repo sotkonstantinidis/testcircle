@@ -1,0 +1,33 @@
+.review-panel-container {
+  max-width: none;
+  background-color: $color-beige-dark;
+  position: relative;
+
+  #unccd-hero-left img {
+    -webkit-filter: brightness(3);
+    filter: brightness(3)
+  }
+}
+
+.review-panel-content {
+  background-color: $color-beige-light;
+  padding: 1rem;
+}
+
+.review-header {
+  font-size: $h4-font-size;
+  font-weight: $font-weight-bold;
+  margin-right: rem-calc(20);
+}
+
+.reveal-modal {
+  border: rem-calc(5) solid $color-beige;
+
+  h2 {
+    color: $color-beige-dark;
+  }
+
+  .button {
+    background-color: $success-color;
+  }
+}

@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from django.conf import settings
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.db.models.signals import post_save
-from django.utils.translation import pgettext_lazy, get_language, activate
+from django.utils.translation import pgettext_lazy, get_language, activate, \
+    ugettext as _
 from django_pgjson.fields import JsonBField
+
+from .conf import settings
+
+
+VALUEUSER_RELATIONS = (
+    (settings.CONFIGURATION_VALUEUSER_UNCCD, _('UNCCD Focal Point')),
+)
 
 
 class Configuration(models.Model):
@@ -344,6 +352,9 @@ class Value(models.Model):
         """
         return self.translation.get_translation(*args, **kwargs)
 
+    def __str__(self):
+        return self.get_translation(keyword='label') or '[Value]'
+
 
 class Questiongroup(models.Model):
     """
@@ -402,3 +413,95 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'categories'
+
+
+class Project(models.Model):
+    """
+    The model representing the Projects as they are managed by the WOCAT
+    website. IDs must be identical!
+
+    Only "active" Projects can be selected in the form.
+    """
+    id = models.IntegerField(
+        primary_key=True,
+        help_text="The ID must be exactly the same as on the WOCAT website!")
+    name = models.CharField(max_length=255)
+    abbreviation = models.CharField(max_length=63)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.abbreviation)
+
+
+class Institution(models.Model):
+    """
+        The model representing the Institutions as they are managed by the WOCAT
+        website. IDs must be identical!
+
+        Only "active" Institutions can be selected in the form.
+        """
+    id = models.IntegerField(
+        primary_key=True,
+        help_text="The ID must be exactly the same as on the WOCAT website!")
+    name = models.CharField(max_length=255)
+    abbreviation = models.CharField(max_length=63)
+    country = models.ForeignKey(
+        'Value', null=True, blank=True,
+        limit_choices_to=Q(key__keyword='country'))
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        name = '{} ({})'.format(self.name, self.abbreviation)
+        if self.country:
+            name = '{} - {}'.format(name, self.country)
+        return name
+
+
+class ValueUser(models.Model):
+    """
+    Represents a many-to-many relationship between Values and Users with
+    additional fields. Additional fields define the type of relationship.
+    """
+    value = models.ForeignKey('Value')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    relation = models.CharField(max_length=64, choices=VALUEUSER_RELATIONS)
+
+
+class Country(object):
+    """
+    Basically a filtered view on the Country values of the questionnaire.
+    """
+
+    key_keyword = 'country'
+    value_prefix = 'country_'
+
+    @classmethod
+    def all(cls):
+        """
+        Return a list of all country values.
+
+        Returns:
+            List of country values (configuration.models.Value)
+        """
+        key = Key.objects.get(keyword=cls.key_keyword)
+        return key.values.all()
+
+    @classmethod
+    def get(cls, iso_code):
+        """
+        Return a single country value or None if not found.
+
+        Args:
+            iso_code: The country ISO code.
+
+        Returns:
+            A country value (configuration.models.Value) or None.
+        """
+        value_keyword = '{}{}'.format(cls.value_prefix, iso_code)
+        return cls.all().filter(keyword=value_keyword).first()

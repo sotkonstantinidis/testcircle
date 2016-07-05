@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import empty
@@ -7,40 +6,8 @@ from rest_framework.fields import empty
 from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from configuration.models import Configuration
-from configuration.utils import ConfigurationList
 
 from .models import Questionnaire
-
-
-class OutgoingMethodIncomingRawField(serializers.SerializerMethodField):
-    """
-    Call serializer method when serializing, return raw element from dict when
-    deserializing.
-    """
-    def __init__(self, method_name=None, **kwargs):
-        self.method_name = method_name
-        kwargs['read_only'] = False
-        super(serializers.SerializerMethodField, self).__init__(**kwargs)
-
-    def get_attribute(self, instance):
-        """
-        The whole instance is needed when serializing objects; deserializing
-        only requires the field 'url'
-        """
-        self.source_attrs = [] if isinstance(instance, Questionnaire) \
-            else self.field_name
-        return super().get_attribute(instance)
-
-    def to_internal_value(self, data):
-        return data
-
-    def to_representation(self, value):
-        """
-        Serializing: call method (e.g. get_url)
-        Deserializing: return string from dict.
-        """
-        return super().to_representation(value) if \
-            isinstance(value, Questionnaire) else value
 
 
 class QuestionnaireSerializer(serializers.ModelSerializer):
@@ -51,19 +18,22 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     configurations = serializers.ListField(source='configurations_property')
     data = serializers.DictField()
     editors = serializers.ListField()
-    links = OutgoingMethodIncomingRawField()
+    links = serializers.ListField(source='links_property')
     list_data = serializers.SerializerMethodField()
     name = serializers.SerializerMethodField()
+    original_locale = serializers.CharField()
     serializer_config = serializers.SerializerMethodField()
-    status = serializers.ReadOnlyField(source='status_property')
+    status = serializers.ListField(source='status_property')
     translations = serializers.ListField()
-    url = OutgoingMethodIncomingRawField(read_only=False, allow_null=True)
+    flags = serializers.ListField(source='flags_property')
+    url = serializers.CharField(source='get_absolute_url')
 
     class Meta:
         model = Questionnaire
         fields = ('code', 'compilers', 'configurations', 'created', 'data',
-                  'editors', 'links', 'list_data', 'name', 'serializer_config',
-                  'status', 'translations', 'updated', 'url', )
+                  'editors', 'links', 'list_data', 'name', 'original_locale',
+                  'serializer_config', 'status', 'translations', 'updated',
+                  'url', 'flags', )
 
     def __init__(self, instance=None, data=empty, **kwargs):
         """
@@ -108,44 +78,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
             raise ValueError(_(u"Can't serialize questionnaire without a valid "
                                u"configuration."))
 
-        # Helpers
-        self.language_codes = dict(settings.LANGUAGES).keys()
-        self.config_list = ConfigurationList()
         super().__init__(instance=instance, data=data, **kwargs)
-
-    def get_links(self, obj):
-        """
-        Return a dict with URLs of the linked questionnaires.
-        """
-        # Prevent circular import
-        from questionnaire.utils import get_link_display
-
-        links = {lang: [] for lang in self.language_codes}
-
-        for link in obj.links.all():
-
-            link_configuration_db = link.configurations.first()
-            if link_configuration_db is None:
-                continue
-
-            link_configuration = self.config_list.get(
-                link_configuration_db.code
-            )
-
-            name_data = link_configuration.get_questionnaire_name(link.data)
-
-            try:
-                original_language = link.questionnairetranslation_set.first()\
-                    .language
-            except AttributeError:
-                original_language = None
-
-            for language in self.language_codes:
-                name = name_data.get(language, name_data.get(original_language))
-                links[language].append(get_link_display(
-                    link_configuration.keyword, name, link.code)
-                )
-        return dict(links)
 
     def get_list_data(self, obj, is_attribute=True):
         param = obj.data if is_attribute else obj
@@ -166,12 +99,16 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         return obj.get_absolute_url()
 
     def to_internal_value(self, data):
-        internal_value = super().to_internal_value(data)
+        internal_value = dict(super().to_internal_value(data))
         # Add fields to rep that are defined, but not yet set and require the
         # configuration.
         internal_value['serializer_config'] = self.get_serializer_config(None)
         internal_value['list_data'] = self.get_list_data(data['data'], False)
         internal_value['name'] = self.get_name(data['data'], False)
+        internal_value['url'] = internal_value.pop('get_absolute_url', '')
+        replace_property_keys = filter(lambda item: item.endswith('_property'), internal_value.keys())
+        for key in replace_property_keys:
+            internal_value[key.replace('_property', '')] = internal_value.pop(key)
         return internal_value
 
     def to_list_values(self, **kwargs):

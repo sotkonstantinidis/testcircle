@@ -9,9 +9,6 @@ from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from accounts.tests.test_views import accounts_route_moderation
 
-from nose.plugins.attrib import attr  # noqa
-# @attr('foo')
-
 
 @patch('wocat.views.generic_questionnaire_list')
 @patch.object(Typo3Client, 'get_and_update_django_user')

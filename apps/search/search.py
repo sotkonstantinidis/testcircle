@@ -1,7 +1,7 @@
+from elasticsearch import TransportError
+
 from .index import get_elasticsearch
-from .utils import (
-    get_alias,
-)
+from .utils import get_alias
 
 
 es = get_elasticsearch()
@@ -119,6 +119,19 @@ def advanced_search(
                 }
             })
 
+        elif filter_type in ['_flag']:
+            must.append({
+                'nested': {
+                    'path': 'flags',
+                    'query': {
+                        'query_string': {
+                            'query': value,
+                            'fields': ['flags.flag'],
+                        }
+                    }
+                }
+            })
+
     # Query string: Full text search
     if query_string:
         must.append({
@@ -158,3 +171,14 @@ def advanced_search(
     }
 
     return es.search(index=alias, body=query, size=limit, from_=offset)
+
+
+def get_element(object_id: int, *configuration_codes) -> dict:
+    """
+    Get a single element from elasticsearch.
+    """
+    alias = get_alias(configuration_codes)
+    try:
+        return es.get_source(index=alias, id=object_id, doc_type='questionnaire')
+    except TransportError:
+        return {}

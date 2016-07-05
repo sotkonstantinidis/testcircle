@@ -87,5 +87,12 @@ The following options are valid for ``type``. Default type is ``char``.
 | ``float``          | A field rendered as input type="number", can contain   |
 |                    | decimal numbers                                        |
 +--------------------+--------------------------------------------------------+
+| ``select_model``   | A select field similar to ``select_type`` which lets   |
+|                    | you select an instance of a model which has to be      |
+|                    | specified in the ``form_options``.                     |
++--------------------+--------------------------------------------------------+
+| ``display_only``   | A field rendered as hidden in the form, but displayed  |
+|                    | like a textfield in the details.                       |
++--------------------+--------------------------------------------------------+
 
 .. _Chosen: http://harvesthq.github.io/chosen/

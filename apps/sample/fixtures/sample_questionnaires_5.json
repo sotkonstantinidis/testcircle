@@ -133,6 +133,13 @@
     }
   },
   {
+    "pk": 1,
+    "model": "questionnaire.flag",
+    "fields": {
+      "flag": "unccd_bp"
+    }
+  },
+  {
     "model": "questionnaire.questionnaire",
     "pk": 1,
     "fields": {
@@ -181,6 +188,15 @@
       "created": "2011-02-10T16:07:20.847Z",
       "updated": "2011-02-10T16:07:20.847Z"
     }
+  },
+  {
+    "pk": 1011,
+    "fields": {
+      "questionnaire": 1,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
   },
   {
     "model": "questionnaire.questionnaireconfiguration",
@@ -250,6 +266,15 @@
     }
   },
   {
+    "pk": 1021,
+    "fields": {
+      "questionnaire": 2,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  },
+  {
     "model": "questionnaire.questionnaireconfiguration",
     "fields": {
       "configuration": 11002,
@@ -315,6 +340,15 @@
       "created": "2013-02-12T16:08:20.904Z",
       "updated": "2013-02-12T16:08:20.904Z"
     }
+  },
+  {
+    "pk": 1031,
+    "fields": {
+      "questionnaire": 3,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
   },
   {
     "model": "questionnaire.questionnaireconfiguration",
@@ -386,6 +420,9 @@
         ]
       },
       "code": "sample_4",
+      "flags": [
+          1
+      ],
       "status": 4,
       "version": 1,
       "blocked": null,
@@ -461,6 +498,15 @@
       "created": "2015-02-14T16:08:20.904Z",
       "updated": "2015-03-14T16:08:20.904Z"
     }
+  },
+  {
+    "pk": 1051,
+    "fields": {
+      "questionnaire": 5,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
   },
   {
     "model": "questionnaire.questionnaireconfiguration",

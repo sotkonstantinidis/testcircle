@@ -1,26 +1,64 @@
 from collections import OrderedDict
+import logging
 
-from django.conf import settings
 from django.core.paginator import EmptyPage
-from rest_framework.generics import GenericAPIView
+from django.http import Http404
+from django.utils.functional import cached_property
+from django.utils.translation import get_language
+from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
 from api.views import LogUserMixin, PermissionMixin
-from questionnaire.view_utils import ESPagination, get_paginator, \
-    get_page_parameter
-from search.search import advanced_search
+from search.search import advanced_search, get_element
+from ..conf import settings
+from ..models import Questionnaire
+from ..serializers import QuestionnaireSerializer
 from ..utils import get_list_values
+from ..view_utils import ESPagination, get_paginator, get_page_parameter
 
 
-class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
+logger = logging.getLogger(__name__)
+
+
+class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
+    """
+    Shared functionality for list and detail view.
+    """
+    add_detail_url = False
+
+    @cached_property
+    def setting_keys(self):
+        return set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
+
+    def update_dict_keys(self, items):
+        """
+        Some keys need to be updated (e.g. description has a different key depending on the config) for a more
+        consistent behavior of the APIs data.
+        This cannot be done when indexing (elasticsearch) the data, as the templates expect the variable names in
+        the 'original' format.
+        """
+        for item in items:
+            yield self.replace_keys(item)
+
+    def replace_keys(self, item):
+        matching_keys = self.setting_keys.intersection(item.keys())
+        if matching_keys:
+            for key in matching_keys:
+                item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = item.pop(key)
+        if self.add_detail_url:
+            item['api_url'] = reverse('questionnaires-api-detail', kwargs={'identifier': item['code']})
+        return item
+
+
+class QuestionnaireListView(QuestionnaireAPIMixin):
     """
     List view for questionnaires.
 
-    @todo: Add detail view
-
     """
     page_size = settings.API_PAGE_SIZE
+    add_detail_url = True
 
     def get(self, request, *args, **kwargs):
         items = self.get_elasticsearch_items()
@@ -48,7 +86,7 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
 
         # Combine configuration and questionnaire values.
         list_values = get_list_values(es_hits=questionnaires)
-        return list_values
+        return self.update_dict_keys(list_values)
 
     def get_es_paginated_results(self, offset):
         """
@@ -84,7 +122,7 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
             ('count', self.pagination.count),
             ('next', self.get_next_link()),
             ('previous', self.get_previous_link()),
-            ('results', data)
+            ('results', list(data))
         ]))
 
     def _get_paginate_link(self, page_number):
@@ -111,3 +149,55 @@ class QuestionnaireListView(PermissionMixin, LogUserMixin, GenericAPIView):
 
     def get_previous_link(self):
         return self._get_paginate_link(self.current_page - 1)
+
+
+class QuestionnaireDetailView(QuestionnaireAPIMixin):
+    """
+    Return a single item from elasticsearch, if object is still valid on the model.
+    """
+    add_detail_url = False
+
+    def get(self, request, *args, **kwargs):
+        item = self.get_elasticsearch_item()
+        serialized = self.serialize_item(item)
+        return Response(self.replace_keys(serialized))
+
+    def get_elasticsearch_item(self):
+        """
+        Get a single element from elasticsearch. As the _id used for elasticsearch is the actual objects id, and not the
+        code, resolve the id first.
+
+        Returns: dict
+
+        """
+        obj = self.get_current_object()
+        item = get_element(obj.id, obj.configurations.all().first().code)
+        if not item:
+            raise Http404()
+
+        return item
+
+    def serialize_item(self, item):
+        """
+        Serialize the data and get the list values -- the same as executed within advanced_search (get_list_values) in
+        the QuestionnaireListView.
+        """
+        serializer = QuestionnaireSerializer(data=item)
+
+        if serializer.is_valid():
+            serializer.to_list_values(lang=get_language())
+            return serializer.validated_data
+        else:
+            logger.warning('Invalid data on the serializer: {}'.format(serializer.errors))
+            raise Http404()
+
+    def get_current_object(self):
+        """
+        Check if the model entry is still valid.
+
+        Returns: object (Questionnaire instance)
+
+        """
+        return get_object_or_404(
+            Questionnaire.with_status.public(), code=self.kwargs['identifier']
+        )

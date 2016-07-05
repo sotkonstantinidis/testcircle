@@ -11,6 +11,12 @@
         {% elif item.configurations.0 %}
           <span class="label is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
         {% endif %}
+        {% for flag in item.flags_property %}
+          <span class="label is-{{ flag.flag }}">{{ flag.name }}</span>
+        {% endfor %}
+        {% for flag in item.flags %}
+          <span class="label is-{{ flag.flag }}">{{ flag.name }}</span>
+        {% endfor %}
         {% if item.status.0 and item.status.0 != 'public' %}
           <span class="label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
         {% endif %}
@@ -64,13 +70,7 @@
     <footer>
       {% if item.links|length > 0 or item.translations %}
         <p class="is-light">
-          {% if item.links|length > 0 %}
-            <em>{% trans "Linked Questionnaires:" %}
-              {% for link in item.links %}
-                {{ link|safe }}{% if not forloop.last %}, {% endif %}
-              {% endfor %}
-            </em><br>
-          {% endif %}
+          {% include "details/includes/link_items.html" with links=item.links %}
           {% if item.translations %}
             <em>{% trans "This article is also available in:" %}
               {% for translation in item.translations %}

@@ -15757,7 +15757,7 @@
       "keyword": "tech_location_map",
       "translation": 1188,
       "configuration": {
-        "type": "todo"
+        "type": "map"
       }
     },
     "model": "configuration.key",
@@ -22478,6 +22478,24 @@
   },
   {
     "fields": {
+      "keyword": "tech_qg_224",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1245
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_225",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1246
+  },
+  {
+    "fields": {
       "keyword": "tech__0__1",
       "translation": 2701
     },
@@ -23123,7 +23141,6 @@
                   "template": "technologies_header",
                   "use_raw_data": true,
                   "with_metadata": true,
-                  "review_panel": true,
                   "additional_data": {
                     "qg_location": [
                       "country"
@@ -23183,9 +23200,30 @@
                           },
                           {
                             "keyword": "name_local"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_location",
+                        "questions": [
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "inline_6",
+                              "in_list": true
+                            }
                           },
                           {
-                            "keyword": "country"
+                            "keyword": "state_province",
+                            "form_options": {
+                              "template": "hidden"
+                            }
+                          },
+                          {
+                            "keyword": "further_location",
+                            "form_options": {
+                              "template": "hidden"
+                            }
                           }
                         ]
                       },
@@ -23331,7 +23369,18 @@
                             "keyword": "funding_project"
                           },
                           {
+                            "keyword": "funding_project_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_institution",
+                        "questions": [
+                          {
                             "keyword": "funding_institution"
+                          },
+                          {
+                            "keyword": "funding_institution_display"
                           }
                         ]
                       }
@@ -23545,6 +23594,9 @@
                       "numbering": "2.5",
                       "helptext_length": 1000
                     },
+                    "view_options": {
+                      "template": "map_subcategory"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_location",
@@ -23578,10 +23630,30 @@
                             "view_options": {
                               "template": "inline"
                             }
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_224",
+                        "form_options": {
+                          "template": "map"
+                        },
+                        "questions": [
                           {
-                            "keyword": "tech_location_map"
-                          },
+                            "keyword": "tech_location_map",
+                            "form_options": {
+                              "template": "no_label"
+                            },
+                            "view_options": {
+                              "is_geometry": true,
+                              "configuration": "technologies"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_225",
+                        "questions": [
                           {
                             "keyword": "location_comments",
                             "view_options": {

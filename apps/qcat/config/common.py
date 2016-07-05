@@ -196,6 +196,7 @@ class BaseSettings(Configuration):
         ),
         'DEFAULT_THROTTLE_RATES': {
             'anon': '10/day',
+            'user': '200/day',
         },
         'PAGE_SIZE': 25,
     }
@@ -263,4 +264,11 @@ class BaseSettings(Configuration):
 
     WARN_HEADER = values.Value(environ_prefix='')
 
+    # Settings for piwik integration. Tracking happens in the frontend (base template) and backend (API)
     PIWIK_SITE_ID = values.IntegerValue(environ_prefix='', default=None)
+    PIWIK_URL = values.Value(environ_prefix='')
+    PIWIK_AUTH_TOKEN = values.Value(environ_prefix='')
+    PIWIK_API_VERSION = values.IntegerValue(environ_prefix='', default=1)
+
+    # google webdeveloper verification
+    GOOGLE_WEBMASTER_TOOLS_KEY = values.Value(environ_prefix='')

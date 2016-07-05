@@ -248,6 +248,11 @@ function updateFilterInputs() {
             }
         });
     }
+
+    // Flags
+    for (var k in p.flag) {
+        $('#flag_' + p.flag[k]).prop('checked', true);
+    }
 }
 
 
@@ -287,7 +292,7 @@ function removeFilter(questiongroup, key, value) {
     var keyParameter;
     if (key == '_search') {
         keyParameter = 'q';
-    } else if (key == 'created' || key == 'updated') {
+    } else if (key == 'created' || key == 'updated' || key == 'flag') {
         keyParameter = key;
     } else {
         keyParameter = createKeyParameter(questiongroup, key);
@@ -371,7 +376,7 @@ function changeUrl(url) {
  */
 function removeFilterParams(p) {
     for (var k in p) {
-        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated') {
+        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag') {
             delete p[k];
         }
     }
