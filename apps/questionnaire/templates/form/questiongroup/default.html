@@ -26,7 +26,9 @@
     <{{ config.label_tag|default:"h4" }} class="{% if config.label_class %}{{ config.label_class }}{% endif %}">{{ config.label }}</{{ config.label_tag|default:"h4" }}>
   {% endif %}
 
-  {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
+  {% if config.helptext_position|default:"top" == 'top' %}
+    {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
+  {% endif %}
 
   {{ formset.management_form }}
 
@@ -75,6 +77,10 @@
         </div>
       </li>
     </ul>
+  {% endif %}
+
+  {% if config.helptext_position|default:"top" == 'bottom' %}
+    {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
   {% endif %}
 
 </div>

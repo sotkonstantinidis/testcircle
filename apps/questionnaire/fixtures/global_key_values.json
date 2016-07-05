@@ -1101,6 +1101,145 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify (e.g. number of informants)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Specify (e.g. number of informants)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5056
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Title, author, year, ISBN"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Title, author, year, ISBN"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5057
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Available from where? Costs?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Available from where? Costs?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5058
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Title/ description"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Title/ description"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5059
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "URL"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "URL"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5060
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5061
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5062
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "wocat": {
@@ -5498,7 +5637,7 @@
   {
     "fields": {
       "keyword": "accept_conditions",
-      "translation": 5013,
+      "translation": 5062,
       "configuration": {
         "type": "bool",
         "form_options": {
@@ -5766,7 +5905,7 @@
   {
     "fields": {
       "keyword": "date_documentation",
-      "translation": 5048,
+      "translation": 5061,
       "configuration": {
         "type": "date"
       }
@@ -5852,7 +5991,7 @@
   {
     "fields": {
       "keyword": "sources_specify",
-      "translation": 5042,
+      "translation": 5056,
       "configuration": {
         "type": "text",
         "view_options": {
@@ -5969,6 +6108,50 @@
     },
     "model": "configuration.key",
     "pk": 51
+  },
+  {
+    "fields": {
+      "keyword": "references_title",
+      "translation": 5057,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "keyword": "references_source",
+      "translation": 5058,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "keyword": "links_title",
+      "translation": 5059,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "keyword": "links_url",
+      "translation": 5060,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 55
   },
   {
     "fields": {
@@ -8387,6 +8570,34 @@
     },
     "model": "configuration.questiongroup",
     "pk": 20
+  },
+  {
+    "fields": {
+      "keyword": "qg_references",
+      "translation": null,
+      "configuration": {
+        "form_options": {
+          "template": "columns_e6_e6",
+          "max_num": 10
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "keyword": "qg_links",
+      "translation": null,
+      "configuration": {
+        "form_options": {
+          "template": "columns_e6_e6",
+          "max_num": 10
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 22
   },
   {
     "fields": {

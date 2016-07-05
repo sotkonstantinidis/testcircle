@@ -21,6 +21,7 @@ from django.shortcuts import (
 )
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin
@@ -576,6 +577,7 @@ class GenericQuestionnaireMapView(TemplateResponseMixin, View):
             raise Http404()
         return questionnaire_object
 
+    @xframe_options_exempt
     def get(self, request, *args, **kwargs):
         questionnaire_object = self.get_object()
 
