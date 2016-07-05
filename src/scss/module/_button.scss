@@ -5,6 +5,7 @@ button,
   @include rhythm;
   box-shadow: 0 0 0 0 $button-bg-color;
   transition: all 200ms ease-out;
+  border-radius:2px;
 
   &.secondary {
     box-shadow: 0 0 0 0 $secondary-color;
@@ -88,7 +89,7 @@ button,
   .button {
     position: relative;
     margin: 0;
-    font-size: rem-calc(14);
+    font-size: rem-calc(16);
     z-index: 1;
   }
   .button:focus,
