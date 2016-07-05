@@ -1,5 +1,10 @@
 .card {
   background-color: $color-beige-light;
+  flex:1 100%;
+}
+
+.card-image-holder {
+  position:relative;
 }
 
 .card-image {
@@ -10,6 +15,8 @@
   position:absolute;
   left:0;
   bottom:0;
+  width:72px;
+  height:72px;
 }
 
 .card-well {
@@ -19,3 +26,10 @@
 .card-title {}
 
 .card-desc {}
+
+  .is-flex {
+    display:flex;
+    flex-direction:row;
+    align-items:stretch;
+    flex-wrap:wrap;
+  }
