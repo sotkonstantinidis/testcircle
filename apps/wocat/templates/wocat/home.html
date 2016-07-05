@@ -5,7 +5,12 @@
 
 {% block content %}
 
-<section class="hero" data-equalizer>
+<section class="home-slider row       ">
+
+  <div class="home-slider-img"></div>
+
+  <!-- TODO: Replace this block with a Slider -->
+  {% comment %}
   <div class="row large-collapse" data-equalizer-watch>
     <div class="medium-4 large-5 columns">
       <div id="unccd-hero-left" class="show-for-xlarge-up">
@@ -45,9 +50,38 @@
   </div>
   <div class="hero-media" id="wocat-hero-image" data-equalizer-watch>
   </div>
+  {% endcomment %}
 </section>
 
-<main class="row large-collapse" role="main">
+<main class="home-main row large-collapse" role="main">
+
+  <div class="small-12 medium-9 columns">
+    <ul class="tabs" data-tab role="tablist">
+      <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">Search SLM Data</a></li>
+      <li class="tab-title" role="presentation"><a href="#panel2-2" role="tab" tabindex="0" aria-selected="false" aria-controls="panel2-2">Add SLM Data</a></li>
+    </ul>
+    <div class="tabs-content">
+      <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
+        <h2>Search</h2>
+
+        <h2>Cards</h2>
+
+      </section>
+      <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
+        <h2>Cards ADD</h2>
+
+      </section>
+    </div>
+  </div>
+
+  <div class="small-12 medium-3 columns">
+    <div class="home-keynumbers">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta voluptatibus ea dolorem dignissimos ratione qui earum, laudantium rem quaerat, officia quis non, iusto quasi expedita deserunt voluptatem sequi vero quibusdam.
+    </div>
+  </div>
+
+  <!-- TODO: Replace this List on Search SLM Data Page -->
+  {% comment %}
   <section class="tech-list small-12 columns">
     <div class="tech-group">
       <h2 class="is-group">{% trans "All SLM data" %}</h2>
@@ -57,6 +91,7 @@
       {% include "pagination.html" %}
     </div>
   </section>
+  {% endcomment %}
 </main>
 
 {% endblock %}

@@ -88,16 +88,18 @@
     <header class="page-header inner-wrap" role="banner">
 
       {% block logo %}
-      <h1 class="logo">
-        <a href="{% url 'home' %}">
-          <img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}" class="hide-on-print logo-img">
-          <img src="{% static 'assets/img/wocat_logo_print.svg' %}" alt="{% trans "WOCAT" %}" class="print-only logo-img">
-          <span class="logo-title">SLM Database</span>
-        </a>
-      </h1>
+        <div class="row">
+          <h1 class="logo">
+            <a href="{% url 'home' %}">
+              <img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}" class="hide-on-print logo-img">
+              <img src="{% static 'assets/img/wocat_logo_print.svg' %}" alt="{% trans "WOCAT" %}" class="print-only logo-img">
+              <span class="logo-title">SLM Database</span>
+            </a>
+          </h1>
+        </div>
       {% endblock %}
 
-      <nav class="top-bar {% block navclass %}is-wocat{% endblock %}" role="navigation" data-topbar="" data-options="is_hover: false">
+      <nav class="top-bar {% block navclass %}is-wocat{% endblock %} row" role="navigation" data-topbar="" data-options="is_hover: false">
         <ul class="title-area">
           <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
         </ul>
@@ -149,8 +151,8 @@
           </ul>
 
           <ul class="left">
-            <li class="active"><a href="">Home</a></li>
-            <li><a href="">Search SLM Data</a></li>
+            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'wocat:questionnaire_list' %}">Search SLM Data</a></li>
             <li><a href="">Add SLM Data</a></li>
             <li><a href="">My SLM Data</a></li>
           </ul>

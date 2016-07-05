@@ -6,9 +6,24 @@
   @media #{$medium-up} {
     min-height: rem-calc(600);
   }
-
 }
 .home-search {
   background: $color-brown;
   padding: rem-calc(24) 0 rem-calc(24);
+}
+.home-slider,
+.home-main {
+  margin-top: rem-calc(24);
+}
+.home-slider-img {
+  background: url("/static/assets/img/wocat_hero.jpg") $color-brown no-repeat top center;
+  background-size: cover;
+
+  min-width: 100%;
+  height: 576px;
+}
+.home-keynumbers {
+  margin-left: rem-calc(24);
+  padding: rem-calc(12);
+  background-color: $color-beige;
 }
