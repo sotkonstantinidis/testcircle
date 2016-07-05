@@ -33,6 +33,9 @@ button,
     margin-top: rem-calc(5);
     margin-left: 0;
   }
+  &.is-blue {
+    //background-color: $color-blue;
+  }
 
   &:hover,
   &:focus {

@@ -7,22 +7,15 @@
 }
 
 .card-image-overlay {
-
+  position:absolute;
+  left:0;
+  bottom:0;
 }
 
 .card-well {
-  padding:rem-calc(0 24 12);
-
+  padding:rem-calc(24);
 }
 
-.card-title {
+.card-title {}
 
-}
-
-.card-desc {
-
-}
-
-.card-button {
-
-}
+.card-desc {}
