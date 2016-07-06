@@ -8,9 +8,8 @@ p, dl, ol, ul {
 h1, h2, h3, h4, h5, h6 {
   &.is-group {
     border-bottom: 2px solid $color-beige;
-    text-transform: uppercase;
-    font-size: rem-calc(16);
-    font-weight: 600;
+    font-size: rem-calc(18);
+    color: $color-brown;
   }
   &.is-small {
     font-size: $paragraph-font-size;

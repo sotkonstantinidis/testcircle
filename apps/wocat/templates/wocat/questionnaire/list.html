@@ -6,11 +6,22 @@
 
 {% block content %}
 
-  <main class="row large-collapse" role="main">
+  <!-- Top Bar Search -->
+  <div class="top-bar-search">
+    <div class="row">
+      <div class="small-12 columns">
+        {% include "wocat/partial/search.html" with current="wocat" %}
+      </div>
+    </div>
+  </div>
+
+  <main class="row large-collapse is-padded" role="main">
     {% comment %}
       TODO: COP12
     {% endcomment %}
-    <p class="help-bloc">{% trans "Only data declared as public are visible. Please note that the WOCAT datasets have not been migrated to this test version yet. Only a few examples are available for illustration of the new database." %}</p>
+    <div class="small-12 columns">
+      <p class="help-bloc">{% trans "Only data declared as public are visible. Please note that the WOCAT datasets have not been migrated to this test version yet. Only a few examples are available for illustration of the new database." %}</p>
+    </div>
     <section class="tech-list small-12 columns">
       <div class="tech-group">
         <h2 class="is-group">{% trans "WOCAT and UNCCD SLM practices" %} (<span id="questionnaire-count">{{ count }}</span>)</h2>

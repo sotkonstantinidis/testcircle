@@ -127,11 +127,11 @@ $color-orange       : #DC7D35;
 $color-orange-dark  : #D26929;
 $color-orange-light : #F78F50;
 
-$color-brown        : #3E3B34;
+$color-brown        : #5F594F;
 $color-brown-dark   : #3E3B34;
-$color-brown-light  : #5F594F;
+$color-brown-light  : #7D7768;
 
-$color-beige        : #D9D6CC;
+$color-beige        : #CAC5BA;
 $color-beige-dark   : #A09889;
 $color-beige-light  : #EAE8DF;
 
@@ -1355,7 +1355,7 @@ $sub-nav-font-color-hover: #000;
 // $include-html-tabs-classes: $include-html-classes;
 
 $tabs-navigation-padding: rem-calc(12);
-$tabs-navigation-bg-color: #cac5ba;
+$tabs-navigation-bg-color: $color-beige;
 $tabs-navigation-active-bg-color: #fff;
 // $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
 $tabs-navigation-font-color: $color-brown;
@@ -1417,7 +1417,7 @@ $has-tip-font-weight: $font-weight-normal;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: $color-brown-light;
+$topbar-bg-color: $color-brown;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin

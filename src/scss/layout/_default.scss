@@ -6,12 +6,19 @@ body {
 .is-rhythmed {
   @include rhythm;
 }
-.is-rhythmed-2 {
-  @include rhythm(2);
+@for $i from 1 to 4 {
+  .is-rhythmed-#{$i} {
+    @include rhythm($i);
+  }
 }
-.is-rhythmed-3 {
-  @include rhythm(3);
+
+.is-padded {
+  padding-top: lineHeight(1);
+  padding-bottom: lineHeight(1);
 }
-.is-rhythmed-4 {
-  @include rhythm(4);
+@for $i from 1 to 4 {
+  .is-padded-#{$i} {
+    padding-top: lineHeight($i);
+    padding-bottom: lineHeight($i);
+  }
 }

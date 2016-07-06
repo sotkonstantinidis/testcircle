@@ -28,17 +28,8 @@
 }
 
 .top-bar-search {
-  float: left;
-  margin: rem-calc(24);
-  @media #{$medium-up} {
-    width: 100%;
-    margin: rem-calc(24 0);
-  }
-  @media #{$large-up} {
-    min-width: 0;
-    max-width: 50%;
-    margin: rem-calc(0 0 12 48);
-  }
+  background-color: $color-beige;
+  padding: rem-calc(24 0);
 }
 
 /**
