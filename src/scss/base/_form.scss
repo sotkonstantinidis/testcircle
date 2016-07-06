@@ -35,6 +35,11 @@ select {
   }
 }
 
+label.inline {
+  margin: 0;
+  padding: rem-calc(6 0);
+}
+
 .input-multiline {
   position: relative;
   margin-top: rem-calc(6);

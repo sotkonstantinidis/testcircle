@@ -8,15 +8,40 @@
 
   <!-- Top Bar Search -->
   <div class="top-bar-search">
-    <div class="row">
+    <div class="row large-no-gutters">
+      <div class="medium-4 columns">
+        <label for="filter-country">{% trans "Country" %}</label>
+        <input type="text" placeholder="{% trans 'Select or type a Country name' %}" list="filter-country-list" id="filter-country">
+        <datalist id="filter-country-list">
+          {% for country in filter_configuration.countries %}
+          <option data-value="{{ country.0 }}">{{ country.1 }}</option>
+          {% endfor %}
+        </datalist>
+        <input type="hidden" name="filter-country" id="filter-country-hidden" data-questiongroup="qg_location" data-key="country">
+      </div>
+      <div class="medium-4 columns">
+        <label for="language">Language</label>
+        <select id="language" disabled="disabled">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </div>
+      <div class="medium-4 columns">
+        <label>&nbsp;</label>
+        {% for flag in filter_configuration.flags %}
+        <label class="filter-checkbox-only inline"><input type="checkbox" id="flag_{{ flag.0 }}" data-value="{{ flag.0 }}" data-key="flag" data-questiongroup> {{ flag.1 }}</label>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row large-no-gutters is-rhythmed">
       <div class="small-12 columns">
         {% include "wocat/partial/search.html" with current="wocat" %}
       </div>
     </div>
-    {% include "filter.html" with list_route="wocat:questionnaire_list" %}
   </div>
 
-  <main class="row large-collapse is-padded" role="main">
+  <main class="row large-collapse is-padded-2" role="main">
     {% comment %}
       TODO: COP12
     {% endcomment %}

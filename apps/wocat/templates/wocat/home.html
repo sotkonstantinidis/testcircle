@@ -54,7 +54,7 @@
 -->
 </section>
 
-<main class="home-main row large-collapse" role="main">
+<main class="home-main row large-no-gutters" role="main">
   <div class="small-12 medium-9 columns">
     <ul class="tabs" data-tab role="tablist">
       <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">Search SLM Data</a></li>
@@ -65,27 +65,11 @@
         <div class="home-search">
           <div class="row">
             <div class="small-10 small-centered medium-12 columns">
-              <form action="" role="search" class="search">
-                <div class="search-field">
-                  <input type="search" placeholder="Search">
-                  <div class="search-category dropdown">
-                    <a href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">All SLM Data</a>
-                    <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
-                      <li><a href="#">This is a link</a></li>
-                      <li><a href="#">This is another</a></li>
-                      <li><a href="#">Yet another</a></li>
-                    </ul>
-                  </div>
-                  <input type="submit" class="search-submit button is-blue" value="Search">
-                </div>
-                <div class="search-option is-padded">
-                  <a href="#" data-toggle="search-advanced">Advanced filter</a>
-                </div>
-              </form>
+              {% include "wocat/partial/search.html" with current="wocat" %}
             </div>
           </div>
         </div>
-        <div class="row is-padded is-flex">
+        <div class="row is-flex">
           <div class="small-12 medium-4 columns">
             <div class="card">
               <div class="card-image-holder">
@@ -138,7 +122,7 @@
             </div>
           </div>
         </div>
-        <div class="row is-padded">
+        <div class="row ">
           <div class="small-12 medium-6 columns">
             <div class="card">
               <div class="card-image-holder">
@@ -176,7 +160,7 @@
         </div>
       </section>
       <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
-        <div class="row is-padded is-flex">
+        <div class="row is-flex">
           <div class="small-12 medium-4 columns">
             <div class="card">
               <div class="card-image-holder">

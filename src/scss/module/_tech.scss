@@ -26,6 +26,7 @@
 
 .tech-item-title {
   line-height: rem-calc(30);
+  padding-right: rem-calc(24);
 
   & > a:hover,
   & > a:focus, {
@@ -49,7 +50,7 @@
 }
 
 .tech-item-description {
-  margin-top: rem-calc(12);
+  padding: rem-calc(12 24 0 0);
 }
 
 .tech-item-infos {
