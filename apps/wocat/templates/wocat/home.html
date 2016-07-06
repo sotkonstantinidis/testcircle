@@ -5,17 +5,70 @@
 
 {% block content %}
 
-<section class="home-slider row       ">
+<section class="home-slider row">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="orbit-container"><ul id="featured1" data-orbit="" data-options="timer_speed:5000;" class="orbit-slides-container">
+        <li class="" style="z-index: 2; margin-left: 100%;">
+          <img src="/static/assets/img/wocat_hero.jpg" class="orbit-image">
+          <div class="orbit-caption">
+            Caption One. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          </div>
+        </li>
+        <li class="active" style="z-index: 4; margin-left: 0%;">
+          <img src="/static/assets/img/wocat_hero.jpg">
+          <div class="orbit-caption">
+            Caption Two. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          </div>
+        </li>
+        <li>
+          <img src="/static/assets/img/wocat_hero.jpg">
+          <div class="orbit-caption">
+            Caption Three. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          </div>
+        </li>
+      </ul>
+      <a href="#" class="orbit-prev"><span></span></a>
+      <a href="#" class="orbit-next"><span></span></a>
+    </div>
+  </div>
+</div>
 
-  <div class="home-slider-img"></div>
+<!-- Kitchen-Sink -->
+<div class="row">
+  <div class="large-12 columns">
+    <div class="orbit-container"><ul id="featured1" data-orbit="" data-options="timer_speed:5000;" class="orbit-slides-container" style="height: 280px;">
+      <li class="" style="z-index: 2; margin-left: 100%;">
+        <img src="http://foundation.zurb.com/docs/assets/img/examples/satelite-orbit.jpg">
+        <div class="orbit-caption">
+          Caption One. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        </div>
+      </li>
+      <li class="active" style="z-index: 4; margin-left: 0%;">
+        <img src="http://foundation.zurb.com/docs/assets/img/examples/andromeda-orbit.jpg">
+        <div class="orbit-caption">
+          Caption Two. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        </div>
+      </li>
+      <li>
+        <img src="http://foundation.zurb.com/docs/assets/img/examples/launch-orbit.jpg">
+        <div class="orbit-caption">
+          Caption Three. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        </div>
+      </li>
+    </ul><a href="#" class="orbit-prev"><span></span></a><a href="#" class="orbit-next"><span></span></a><div class="orbit-timer paused"><span></span><div class="orbit-progress" style="width: 63.62%;"></div></div><div class="orbit-slide-number"><span>2</span> of <span>3</span></div><div class="orbit-bullets-container"><ol class="orbit-bullets"><li data-orbit-slide="0" class=""></li><li data-orbit-slide="1" class="active"></li><li data-orbit-slide="2"></li></ol></div></div>
+  </div>
+</div>
 
-  <!-- TODO: Replace this block with a Slider
-  {% comment %}
-  <div class="row large-collapse" data-equalizer-watch>
-  <div class="medium-4 large-5 columns">
-  <div id="unccd-hero-left" class="show-for-xlarge-up">
-  <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
-  <p>{% trans "Primary recommended database" %}</p>
+<!-- <div class="home-slider-img"></div> -->
+
+<!-- TODO: Replace this block with a Slider
+{% comment %}
+<div class="row large-collapse" data-equalizer-watch>
+<div class="medium-4 large-5 columns">
+<div id="unccd-hero-left" class="show-for-xlarge-up">
+<a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
+<p>{% trans "Primary recommended database" %}</p>
 </div>
 <h1 class="is-wocat">{% trans "Global Database on SLM" %}</h1>
 <p class="is-large">{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
