@@ -37,7 +37,7 @@
   </figure>
 
   <div class="tech-item-content">
-    <span class="tech-item-status label">Draft</span>
+    <span class="tech-item-status label secondary">Draft</span>
     <header>
       <h2 class="tech-item-title">
         <a href="{% url 'technologies:questionnaire_details' item.code %}">
@@ -53,14 +53,25 @@
       </ul>
     </main>
     <footer class="tech-item-footer">
+      <!-- Attaches DATA and Modules -->
+      <ul class="right tech-attached sub-nav-square">
+        <li>
+          <a href="" class="is-tech"><svg class="icon"><use xlink:href="#icon-technology"></use></svg> <span class="number">2</span></a>
+        </li>
+        <li>
+          <a href=""><svg class="icon"><use xlink:href="#icon-climate"></use></svg></a>
+        </li>
+      </ul>
+
+      <!-- Translations -->
       {% if item.links|length > 0 or item.translations %}
         {% include "details/includes/link_items.html" with links=item.links %}
         {% if item.translations %}
-        <ul class="left tech-lang-list">
+        <ul class="left tech-lang-list sub-nav-square">
           {% for translation in item.translations %}
             <li>
               {% language translation.0 %}
-              <a href="{% url 'technologies:questionnaire_details' item.code %}" title="{% trans "This article is also available in:" %} {{ translation.1 }}">EN</a>{% if not forloop.last %}, {% endif %}
+              <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-tech" title="{% trans "This article is also available in:" %} {{ translation.1 }}">EN</a>{% if not forloop.last %}, {% endif %}
               {% endlanguage %}
             </li>
           {% endfor %}
