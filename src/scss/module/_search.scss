@@ -1,5 +1,7 @@
 .search-field {
   display:flex;
+  border-radius:2px;
+  border:solid 2px #d9d6cc;
 }
 .search-category {
   flex:none;
@@ -14,10 +16,6 @@
   margin-top:0;
 }
 
-a {
-  .search-advanced {
-  }
-}
 .search-option {
   a {
     font-size:rem-calc(14);
