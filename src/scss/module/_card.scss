@@ -1,6 +1,5 @@
 .card {
   background-color: $color-beige-light;
-  //flex:1 100%;
   display:flex;
   flex-direction:column;
 }
@@ -13,10 +12,16 @@
   width:100%;
 }
 
-.card-image-overlay {
+.card-image-overlay-container {
   position:absolute;
+  width:auto;
+  height:auto;
   left:0;
   bottom:0;
+}
+
+.card-image-overlay {
+  float:left;
   width: rem-calc(72);
   height: rem-calc(72);
   padding: rem-calc(12);
@@ -27,6 +32,9 @@
   }
   &.is-approach {
     background-color: rgba($color-approach, 0.8);
+  }
+  &.is-map {
+    background-color: rgba($color-map, 0.8);
   }
   & > .icon {
     width: rem-calc(48);
