@@ -1,7 +1,7 @@
 .search-field {
   display:flex;
   border-radius:2px;
-  border:solid 2px #d9d6cc;
+  box-shadow: 0 0 0 2px rgba($color-brown-dark, 0.15);
 }
 .search-category {
   flex:none;

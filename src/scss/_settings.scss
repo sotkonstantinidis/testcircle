@@ -477,7 +477,7 @@ $button-shadow-effect: rem-calc(2);
 $button-tny: rem-calc(0);
 $button-sml: rem-calc(6);
 $button-med: rem-calc(8);
-$button-lrg: rem-calc(16);
+$button-lrg: rem-calc(12);
 
 // We use this to control the display property.
 // $button-display: inline-block;
@@ -490,8 +490,8 @@ $button-margin-bottom: 0;
 $button-font-tny: rem-calc(10);
 $button-font-sml: rem-calc(12);
 $button-font-med: rem-calc(14);
-$button-font-lrg: rem-calc(18);
-$button-font-weight: 300;
+$button-font-lrg: rem-calc(16);
+$button-font-weight: 500;
 // $button-font-align: center;
 
 // We use these to control various hover effects.
@@ -500,8 +500,8 @@ $button-function-factor: 20%;
 // We use these to control button border and hover styles.
 // $button-border-width: 0px;
 // $button-border-style: solid;
-$button-bg-color: $color-brown;
-// $button-bg-hover: scale-color($button-bg-color, $lightness: $button-function-factor);
+$button-bg-color: $color-blue;
+$button-bg-hover: $color-unccd-dark;
 // $button-border-color: $button-bg-hover;
 $secondary-button-bg-hover: scale-color($color-brown-light, $lightness: $button-function-factor);
 // $secondary-button-border-color: $secondary-button-bg-hover;

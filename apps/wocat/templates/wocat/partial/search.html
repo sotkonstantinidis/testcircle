@@ -9,7 +9,7 @@
 <form action="{% if current == 'technologies' %}{% url 'technologies:questionnaire_list' %}{% elif current == 'approaches' %}{% url 'approaches:questionnaire_list' %}{% else %}{% url 'wocat:questionnaire_list' %}{% endif %}" method="GET" role="search" class="search">
   <div class="search-field">
     <input type="search" placeholder="Search">
-    <div class="search-category dropdown">
+    <div class="search-category">
       <a href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">All SLM Data</a>
       <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
         <li><a href="#">All SLM Data</a></li>
