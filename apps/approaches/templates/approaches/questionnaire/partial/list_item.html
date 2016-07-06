@@ -1,7 +1,89 @@
 {% load i18n %}
 {% load staticfiles %}
 
-<article role="article" class="row large-collapse tech-item">
+<article role="article" class="tech-item is-approach">
+
+  <figure class="tech-thumbnail">
+    <a href="{% url 'approaches:questionnaire_details' item.code %}" title="">
+      {% if item.image %}
+        <img src="{{ item.image }}" alt="{{ item.name }}" />
+      {% else %}
+        <img src="{% static "assets/img/picture.svg" %}" alt="{{ item.name }}">
+      {% endif %}
+    </a>
+    {% if item.configurations_property.0 %}
+      <figcaption class="tech-status is-{{ item.configurations_property.0 }}">
+        <span>{{ item.configurations_property.0 }}</span>
+      </figcaption>
+    {% elif item.configurations.0 %}
+      <figcaption class="tech-status is-{{ item.configurations.0 }}">
+        <span class="is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
+      </figcaption>
+    {% endif %}
+    {% for flag in item.flags_property %}
+      <figcaption class="tech-status is-{{ flag.flag }}">
+        <span>{{ flag.name }}</span>
+      </figcaption>
+    {% endfor %}
+    {% for flag in item.flags %}
+      <figcaption class="tech-status is-{{ flag.flag }}">
+        <span>{{ flag.name }}</span>
+      </figcaption>
+    {% endfor %}
+    {% if item.status.0 and item.status.0 != 'public' %}
+      <figcaption class="tech-status is-{{ item.status.0 }}">
+        <span >{{ item.status.1 }}</span>
+      </figcaption>
+    {% endif %}
+  </figure>
+
+  <div class="tech-item-content">
+    <span class="tech-item-status label secondary">Draft</span>
+    <header>
+      <h2 class="tech-item-title">
+        <a href="{% url 'approaches:questionnaire_details' item.code %}">
+          {% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}{{ item.name|default:""|truncatewords:8 }} <span class="is-light">[{{ item.country }}]</span>
+        </a>
+      </h2>
+    </header>
+    <main class="tech-item-description">
+      <p>{{ item.tech_definition|truncatewords:50 }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto a ad obcaecati doloremque saepe laboriosam eveniet facere repudiandae incidunt excepturi officia, veritatis, fugit similique quis provident dolorum vitae quia voluptas.</p>
+      <ul class="tech-item-infos is-light is-muted">
+        <li>{% if item.compilers|length > 1 %}{% trans "Compilers:" %}{% else %}{% trans "Compiler:" %}{% endif %} {% for compiler in item.compilers %}{{ compiler.name }}{% if not forloop.last %}, {% endif %}{% empty %}&ndash;{% endfor %}</li>
+        <li><time datetime="{{ item.created|date:"c" }}" pubdate="pubdate">{{ item.created|date:"SHORT_DATETIME_FORMAT"|default:"&ndash;" }}</time></li>
+      </ul>
+    </main>
+    <footer class="tech-item-footer">
+      <!-- Attaches DATA and Modules -->
+      <ul class="right tech-attached sub-nav-square">
+        <li>
+          <a href="" class="is-tech"><svg class="icon"><use xlink:href="#icon-technology"></use></svg> <span class="number">2</span></a>
+        </li>
+        <li>
+          <a href=""><svg class="icon"><use xlink:href="#icon-climate"></use></svg></a>
+        </li>
+      </ul>
+
+      <!-- Translations -->
+      {% if item.links|length > 0 or item.translations %}
+        {% include "details/includes/link_items.html" with links=item.links %}
+        {% if item.translations %}
+        <ul class="left tech-lang-list sub-nav-square">
+          {% for translation in item.translations %}
+            <li>
+              {% language translation.0 %}
+              <a href="{% url 'approaches:questionnaire_details' item.code %}" class="is-approach" title="{% trans "This article is also available in:" %} {{ translation.1 }}">ES</a>{% if not forloop.last %}, {% endif %}
+              {% endlanguage %}
+            </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      {% endif %}
+    </footer>
+  </div>
+
+  <!--
+  {% comment %}
   <div class="tech-thumbnail medium-4 columns">
     <figure>
       <a href="{% url 'approaches:questionnaire_details' item.code %}" title="">{% if item.image %}<img src="{{ item.image }}" alt="{{ item.name }}" />{% else %}<div style="height: 180px; background: url('{% static "assets/img/picture.svg" %}') no-repeat scroll center center / 100% 100% transparent;"></div>{% endif %}</a>
@@ -84,4 +166,6 @@
       {% endif %}
     </footer>
   </div>
+  {% endcomment %}
+  -->
 </article>
