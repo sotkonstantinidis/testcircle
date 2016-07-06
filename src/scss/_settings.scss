@@ -931,16 +931,16 @@ $off-canvas-overlay-background-hover: rgba(black, 0.15);
 // $include-html-orbit-classes: $include-html-classes;
 
 // We use these to control the caption styles
-// $orbit-container-bg: none;
-// $orbit-caption-bg: rgba(51,51,51, 0.8);
+$orbit-container-bg: none;
+$orbit-caption-bg: rgba(37, 146, 183, 0.8);
 $orbit-caption-font-color: #fff;
 $orbit-caption-font-size: rem-calc(36);
 // $orbit-caption-position: "bottom"; // Supported values: "bottom", "under"
 // $orbit-caption-padding: rem-calc(10 14);
-$orbit-caption-height: auto;
+$orbit-caption-height: 192px;
 
 // We use these to control the left/right nav styles
- $orbit-nav-bg: transparent;
+ //$orbit-nav-bg: transparent;
 // $orbit-nav-bg-hover: rgba(0,0,0,0.3);
 // $orbit-nav-arrow-color: $white;
 // $orbit-nav-arrow-color-hover: $white;

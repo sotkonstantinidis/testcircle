@@ -1,7 +1,7 @@
 /*
  * Foundation Responsive Library
  * http://foundation.zurb.com
- * Copyright 2014, ZURB
+ * Copyright 2015, ZURB
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
 */
@@ -10,14 +10,12 @@
   'use strict';
 
   var header_helpers = function (class_array) {
-    var i = class_array.length;
     var head = $('head');
-
-    while (i--) {
-      if (head.has('.' + class_array[i]).length === 0) {
-        head.append('<meta class="' + class_array[i] + '" />');
+    head.prepend($.map(class_array, function (class_name) {
+      if (head.has('.' + class_name).length === 0) {
+        return '<meta class="' + class_name + '" />';
       }
-    }
+    }));
   };
 
   header_helpers([
@@ -157,42 +155,52 @@
     }
   };
 
-  /*
-    https://github.com/paulirish/matchMedia.js
-  */
+  /*! matchMedia() polyfill - Test a CSS media type/query in JS. Authors & copyright (c) 2012: Scott Jehl, Paul Irish, Nicholas Zakas, David Knight. Dual MIT/BSD license */
 
-  window.matchMedia = window.matchMedia || (function ( doc ) {
+  window.matchMedia || (window.matchMedia = function() {
+      "use strict";
 
-    'use strict';
+      // For browsers that support matchMedium api such as IE 9 and webkit
+      var styleMedia = (window.styleMedia || window.media);
 
-    var bool,
-        docElem = doc.documentElement,
-        refNode = docElem.firstElementChild || docElem.firstChild,
-        // fakeBody required for <FF4 when executed in <head>
-        fakeBody = doc.createElement( 'body' ),
-        div = doc.createElement( 'div' );
+      // For those that don't support matchMedium
+      if (!styleMedia) {
+          var style       = document.createElement('style'),
+              script      = document.getElementsByTagName('script')[0],
+              info        = null;
 
-    div.id = 'mq-test-1';
-    div.style.cssText = 'position:absolute;top:-100em';
-    fakeBody.style.background = 'none';
-    fakeBody.appendChild(div);
+          style.type  = 'text/css';
+          style.id    = 'matchmediajs-test';
 
-    return function (q) {
+          script.parentNode.insertBefore(style, script);
 
-      div.innerHTML = '&shy;<style media="' + q + '"> #mq-test-1 { width: 42px; }</style>';
+          // 'style.currentStyle' is used by IE <= 8 and 'window.getComputedStyle' for all other browsers
+          info = ('getComputedStyle' in window) && window.getComputedStyle(style, null) || style.currentStyle;
 
-      docElem.insertBefore( fakeBody, refNode );
-      bool = div.offsetWidth === 42;
-      docElem.removeChild( fakeBody );
+          styleMedia = {
+              matchMedium: function(media) {
+                  var text = '@media ' + media + '{ #matchmediajs-test { width: 1px; } }';
 
-      return {
-        matches : bool,
-        media : q
+                  // 'style.styleSheet' is used by IE <= 8 and 'style.textContent' for all other browsers
+                  if (style.styleSheet) {
+                      style.styleSheet.cssText = text;
+                  } else {
+                      style.textContent = text;
+                  }
+
+                  // Test if media query is true or false
+                  return info.width === '1px';
+              }
+          };
+      }
+
+      return function(media) {
+          return {
+              matches: styleMedia.matchMedium(media || 'all'),
+              media: media || 'all'
+          };
       };
-
-    };
-
-  }( document ));
+  }());
 
   /*
    * jquery.requestAnimationFrame
@@ -280,21 +288,30 @@
     return string;
   }
 
+  function MediaQuery(selector) {
+    this.selector = selector;
+    this.query = '';
+  }
+
+  MediaQuery.prototype.toString = function () {
+    return this.query || (this.query = S(this.selector).css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''));
+  };
+
   window.Foundation = {
     name : 'Foundation',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     media_queries : {
-      'small'       : S('.foundation-mq-small').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'small-only'  : S('.foundation-mq-small-only').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'medium'      : S('.foundation-mq-medium').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'medium-only' : S('.foundation-mq-medium-only').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'large'       : S('.foundation-mq-large').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'large-only'  : S('.foundation-mq-large-only').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'xlarge'      : S('.foundation-mq-xlarge').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'xlarge-only' : S('.foundation-mq-xlarge-only').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-      'xxlarge'     : S('.foundation-mq-xxlarge').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
+      'small'       : new MediaQuery('.foundation-mq-small'),
+      'small-only'  : new MediaQuery('.foundation-mq-small-only'),
+      'medium'      : new MediaQuery('.foundation-mq-medium'),
+      'medium-only' : new MediaQuery('.foundation-mq-medium-only'),
+      'large'       : new MediaQuery('.foundation-mq-large'),
+      'large-only'  : new MediaQuery('.foundation-mq-large-only'),
+      'xlarge'      : new MediaQuery('.foundation-mq-xlarge'),
+      'xlarge-only' : new MediaQuery('.foundation-mq-xlarge-only'),
+      'xxlarge'     : new MediaQuery('.foundation-mq-xxlarge')
     },
 
     stylesheet : $('<style></style>').appendTo('head')[0].sheet,
@@ -583,7 +600,7 @@
 
           if (query !== undefined) {
             Foundation.stylesheet.insertRule('@media ' +
-              Foundation.media_queries[media] + '{ ' + rule + ' }');
+              Foundation.media_queries[media] + '{ ' + rule + ' }', Foundation.stylesheet.cssRules.length);
           }
         }
       },
@@ -599,7 +616,19 @@
         var self = this,
             unloaded = images.length;
 
-        if (unloaded === 0) {
+        function pictures_has_height(images) {
+          var pictures_number = images.length;
+
+          for (var i = pictures_number - 1; i >= 0; i--) {
+            if(images.attr('height') === undefined) {
+              return false;
+            };
+          };
+
+          return true;
+        }
+
+        if (unloaded === 0 || pictures_has_height(images)) {
           callback(images);
         }
 
@@ -708,7 +737,7 @@
   Foundation.libs.accordion = {
     name : 'accordion',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       content_class : 'content',
@@ -722,30 +751,35 @@
       this.bindings(method, options);
     },
 
-    events : function () {
+    events : function (instance) {
       var self = this;
       var S = this.S;
+      self.create(this.S(instance));
+
       S(this.scope)
       .off('.fndtn.accordion')
-      .on('click.fndtn.accordion', '[' + this.attr_name() + '] > .accordion-navigation > a', function (e) {
+      .on('click.fndtn.accordion', '[' + this.attr_name() + '] > dd > a, [' + this.attr_name() + '] > li > a', function (e) {
         var accordion = S(this).closest('[' + self.attr_name() + ']'),
             groupSelector = self.attr_name() + '=' + accordion.attr(self.attr_name()),
             settings = accordion.data(self.attr_name(true) + '-init') || self.settings,
             target = S('#' + this.href.split('#')[1]),
-            aunts = $('> .accordion-navigation', accordion),
+            aunts = $('> dd, > li', accordion),
             siblings = aunts.children('.' + settings.content_class),
             active_content = siblings.filter('.' + settings.active_class);
 
         e.preventDefault();
 
         if (accordion.attr(self.attr_name())) {
-          siblings = siblings.add('[' + groupSelector + '] dd > ' + '.' + settings.content_class);
-          aunts = aunts.add('[' + groupSelector + '] .accordion-navigation');
+          siblings = siblings.add('[' + groupSelector + '] dd > ' + '.' + settings.content_class + ', [' + groupSelector + '] li > ' + '.' + settings.content_class);
+          aunts = aunts.add('[' + groupSelector + '] dd, [' + groupSelector + '] li');
         }
 
         if (settings.toggleable && target.is(active_content)) {
-          target.parent('.accordion-navigation').toggleClass(settings.active_class, false);
+          target.parent('dd, li').toggleClass(settings.active_class, false);
           target.toggleClass(settings.active_class, false);
+          S(this).attr('aria-expanded', function(i, attr){
+              return attr === 'true' ? 'false' : 'true';
+          });
           settings.callback(target);
           target.triggerHandler('toggled', [accordion]);
           accordion.triggerHandler('toggled', [target]);
@@ -755,14 +789,67 @@
         if (!settings.multi_expand) {
           siblings.removeClass(settings.active_class);
           aunts.removeClass(settings.active_class);
+          aunts.children('a').attr('aria-expanded','false');
         }
 
         target.addClass(settings.active_class).parent().addClass(settings.active_class);
         settings.callback(target);
         target.triggerHandler('toggled', [accordion]);
         accordion.triggerHandler('toggled', [target]);
+        S(this).attr('aria-expanded','true');
       });
     },
+
+    create: function($instance) {
+      var self = this,
+          accordion = $instance,
+          aunts = $('> .accordion-navigation', accordion),
+          settings = accordion.data(self.attr_name(true) + '-init') || self.settings;
+
+      aunts.children('a').attr('aria-expanded','false');
+      aunts.has('.' + settings.content_class + '.' + settings.active_class).addClass(settings.active_class).children('a').attr('aria-expanded','true');
+
+      if (settings.multi_expand) {
+        $instance.attr('aria-multiselectable','true');
+      }
+    },
+	
+  	toggle : function(options) {
+  		var options = typeof options !== 'undefined' ? options : {};
+  		var selector = typeof options.selector !== 'undefined' ? options.selector : '';
+  		var toggle_state = typeof options.toggle_state !== 'undefined' ? options.toggle_state : '';
+  		var $accordion = typeof options.$accordion !== 'undefined' ? options.$accordion : this.S(this.scope).closest('[' + this.attr_name() + ']');
+  
+  		var $items = $accordion.find('> dd' + selector + ', > li' + selector);
+  		if ( $items.length < 1 ) {
+  			if ( window.console ) {
+  				console.error('Selection not found.', selector);
+  			}
+  			return false;
+  		}
+  
+  		var S = this.S;
+  		var active_class = this.settings.active_class;
+  		$items.each(function() {
+  			var $item = S(this);
+  			var is_active = $item.hasClass(active_class);
+  			if ( ( is_active && toggle_state === 'close' ) || ( !is_active && toggle_state === 'open' ) || toggle_state === '' ) {
+  				$item.find('> a').trigger('click.fndtn.accordion');
+  			}
+  		});
+  	},
+  
+  	open : function(options) {
+  		var options = typeof options !== 'undefined' ? options : {};
+  		options.toggle_state = 'open';
+  		this.toggle(options);
+  	},
+  
+  	close : function(options) {
+  		var options = typeof options !== 'undefined' ? options : {};
+  		options.toggle_state = 'close';
+  		this.toggle(options);
+  	},	
 
     off : function () {},
 
@@ -776,14 +863,16 @@
   Foundation.libs.clearing = {
     name : 'clearing',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       templates : {
         viewing : '<a href="#" class="clearing-close">&times;</a>' +
           '<div class="visible-img" style="display: none"><div class="clearing-touch-label"></div><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt="" />' +
           '<p class="clearing-caption"></p><a href="#" class="clearing-main-prev"><span></span></a>' +
-          '<a href="#" class="clearing-main-next"><span></span></a></div>'
+          '<a href="#" class="clearing-main-next"><span></span></a></div>' +
+          '<img class="clearing-preload-next" style="display: none" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt="" />' +
+          '<img class="clearing-preload-prev" style="display: none" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt="" />'
       },
 
       // comma delimited list of selectors that, on click, will close clearing,
@@ -798,7 +887,7 @@
 
       touch_label : '',
 
-      // event initializers and locks
+      // event initializer and locks
       init : false,
       locked : false
     },
@@ -973,7 +1062,8 @@
           visible_image = self.S('.visible-img', container),
           image = self.S('img', visible_image).not($image),
           label = self.S('.clearing-touch-label', container),
-          error = false;
+          error = false,
+          loaded = {};
 
       // Event to disable scrolling on touch devices when Clearing is activated
       $('body').on('touchmove', function (e) {
@@ -999,6 +1089,7 @@
       function cb (image) {
         var $image = $(image);
         $image.css('visibility', 'visible');
+        $image.trigger('imageVisible');
         // toggle the gallery
         body.css('overflow', 'hidden');
         root.addClass('clearing-blackout');
@@ -1017,9 +1108,17 @@
       if (!this.locked()) {
         visible_image.trigger('open.fndtn.clearing');
         // set the image to the selected thumbnail
-        image
-          .attr('src', this.load($image))
-          .css('visibility', 'hidden');
+        loaded = this.load($image);
+        if (loaded.interchange) {
+          image
+            .attr('data-interchange', loaded.interchange)
+            .foundation('interchange', 'reflow');
+        } else {
+          image
+            .attr('src', loaded.src)
+            .attr('data-interchange', '');
+        }
+        image.css('visibility', 'hidden');
 
         startLoad.call(this);
       }
@@ -1074,7 +1173,7 @@
         this.go(clearing, 'prev');
       }
       if (e.which === ESC_KEY) {
-        this.S('a.clearing-close').trigger('click').trigger('click.fndtn.clearing');
+        this.S('a.clearing-close').trigger('click.fndtn.clearing');
       }
     },
 
@@ -1153,37 +1252,55 @@
     // image loading and preloading
 
     load : function ($image) {
-      var href;
+      var href,
+          interchange,
+          closest_a;
 
       if ($image[0].nodeName === 'A') {
         href = $image.attr('href');
+        interchange = $image.data('clearing-interchange');
       } else {
-        href = $image.closest('a').attr('href');
+        closest_a = $image.closest('a');
+        href = closest_a.attr('href');
+        interchange = closest_a.data('clearing-interchange');
       }
 
       this.preload($image);
 
-      if (href) {
-        return href;
+      return {
+        'src': href ? href : $image.attr('src'),
+        'interchange': href ? interchange : $image.data('clearing-interchange')
       }
-      return $image.attr('src');
     },
 
     preload : function ($image) {
       this
-        .img($image.closest('li').next())
-        .img($image.closest('li').prev());
+        .img($image.closest('li').next(), 'next')
+        .img($image.closest('li').prev(), 'prev');
     },
 
-    img : function (img) {
+    img : function (img, sibling_type) {
       if (img.length) {
-        var new_img = new Image(),
-            new_a = this.S('a', img);
+        var preload_img = $('.clearing-preload-' + sibling_type),
+            new_a = this.S('a', img),
+            src,
+            interchange,
+            image;
 
         if (new_a.length) {
-          new_img.src = new_a.attr('href');
+          src = new_a.attr('href');
+          interchange = new_a.data('clearing-interchange');
         } else {
-          new_img.src = this.S('img', img).attr('src');
+          image = this.S('img', img);
+          src = image.attr('src');
+          interchange = image.data('clearing-interchange');
+        }
+
+        if (interchange) {
+          preload_img.attr('data-interchange', interchange);
+        } else {
+          preload_img.attr('src', src);
+          preload_img.attr('data-interchange', '');
         }
       }
       return this;
@@ -1195,9 +1312,9 @@
       var caption = $image.attr('data-caption');
 
       if (caption) {
-        container
-          .html(caption)
-          .show();
+      	var containerPlain = container.get(0);
+      	containerPlain.innerHTML = caption;
+        container.show();
       } else {
         container
           .text('')
@@ -1219,7 +1336,7 @@
 
       if (target.length) {
         this.S('img', target)
-          .trigger('click', [current, target]).trigger('click.fndtn.clearing', [current, target])
+          .trigger('click.fndtn.clearing', [current, target])
           .trigger('change.fndtn.clearing');
       }
     },
@@ -1333,7 +1450,7 @@
   Foundation.libs.dropdown = {
     name : 'dropdown',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       active_class : 'open',
@@ -1363,7 +1480,7 @@
           var settings = S(this).data(self.attr_name(true) + '-init') || self.settings;
           if (!settings.is_hover || Modernizr.touch) {
             e.preventDefault();
-            if (S(this).parent('[data-reveal-id]')) {
+            if (S(this).parent('[data-reveal-id]').length) {
               e.stopPropagation();
             }
             self.toggle($(this));
@@ -1460,8 +1577,8 @@
 
     close : function (dropdown) {
       var self = this;
-      dropdown.each(function () {
-        var original_target = $('[' + self.attr_name() + '=' + dropdown[0].id + ']') || $('aria-controls=' + dropdown[0].id + ']');
+      dropdown.each(function (idx) {
+        var original_target = $('[' + self.attr_name() + '=' + dropdown[idx].id + ']') || $('aria-controls=' + dropdown[idx].id + ']');
         original_target.attr('aria-expanded', 'false');
         if (self.S(this).hasClass(self.settings.active_class)) {
           self.S(this)
@@ -1472,7 +1589,7 @@
             .removeClass(self.settings.active_class)
             .removeData('target');
 
-          self.S(this).trigger('closed').trigger('closed.fndtn.dropdown', [dropdown]);
+          self.S(this).trigger('closed.fndtn.dropdown', [dropdown]);
         }
       });
       dropdown.removeClass('f-open-' + this.attr_name(true));
@@ -1490,7 +1607,7 @@
         .css(dropdown
         .addClass(this.settings.active_class), target);
       dropdown.prev('[' + this.attr_name() + ']').addClass(this.settings.active_class);
-      dropdown.data('target', target.get(0)).trigger('opened').trigger('opened.fndtn.dropdown', [dropdown, target]);
+      dropdown.data('target', target.get(0)).trigger('opened.fndtn.dropdown', [dropdown, target]);
       dropdown.attr('aria-hidden', 'false');
       target.attr('aria-expanded', 'true');
       dropdown.focus();
@@ -1538,9 +1655,12 @@
 
     css : function (dropdown, target) {
       var left_offset = Math.max((target.width() - dropdown.width()) / 2, 8),
-          settings = target.data(this.attr_name(true) + '-init') || this.settings;
+          settings = target.data(this.attr_name(true) + '-init') || this.settings,
+          parentOverflow = dropdown.parent().css('overflow-y') || dropdown.parent().css('overflow');
 
       this.clear_idx();
+
+
 
       if (this.small()) {
         var p = this.dirs.bottom.call(dropdown, target, settings);
@@ -1553,7 +1673,19 @@
         });
 
         dropdown.css(Foundation.rtl ? 'right' : 'left', left_offset);
-      } else {
+      }
+      // detect if dropdown is in an overflow container
+      else if (parentOverflow !== 'visible') {
+        var offset = target[0].offsetTop + target[0].offsetHeight;
+
+        dropdown.attr('style', '').css({
+          position : 'absolute',
+          top : offset
+        });
+
+        dropdown.css(Foundation.rtl ? 'right' : 'left', left_offset);
+      }
+      else {
 
         this.style(dropdown, target, settings);
       }
@@ -1572,7 +1704,7 @@
     // `this` is the dropdown
     dirs : {
       // Calculate target offset
-      _base : function (t) {
+      _base : function (t, s) {
         var o_p = this.offsetParent(),
             o = o_p.offset(),
             p = t.offset();
@@ -1589,31 +1721,36 @@
         //lets see if the panel will be off the screen
         //get the actual width of the page and store it
         var actualBodyWidth;
+        var windowWidth = window.innerWidth;
+        
         if (document.getElementsByClassName('row')[0]) {
           actualBodyWidth = document.getElementsByClassName('row')[0].clientWidth;
         } else {
-          actualBodyWidth = window.outerWidth;
+          actualBodyWidth = windowWidth;
         }
 
-        var actualMarginWidth = (window.outerWidth - actualBodyWidth) / 2;
+        var actualMarginWidth = (windowWidth - actualBodyWidth) / 2;
         var actualBoundary = actualBodyWidth;
 
-        if (!this.hasClass('mega')) {
+        if (!this.hasClass('mega') && !s.ignore_repositioning) {
+          var outerWidth = this.outerWidth();
+          var o_left = t.offset().left;
+		  
           //miss top
           if (t.offset().top <= this.outerHeight()) {
             p.missTop = true;
-            actualBoundary = window.outerWidth - actualMarginWidth;
+            actualBoundary = windowWidth - actualMarginWidth;
             p.leftRightFlag = true;
           }
 
           //miss right
-          if (t.offset().left + this.outerWidth() > t.offset().left + actualMarginWidth && t.offset().left - actualMarginWidth > this.outerWidth()) {
+          if (o_left + outerWidth > o_left + actualMarginWidth && o_left - actualMarginWidth > outerWidth) {
             p.missRight = true;
             p.missLeft = false;
           }
 
           //miss left
-          if (t.offset().left - this.outerWidth() <= 0) {
+          if (o_left - outerWidth <= 0) {
             p.missLeft = true;
             p.missRight = false;
           }
@@ -1624,7 +1761,7 @@
 
       top : function (t, s) {
         var self = Foundation.libs.dropdown,
-            p = self.dirs._base.call(this, t);
+            p = self.dirs._base.call(this, t, s);
 
         this.addClass('drop-top');
 
@@ -1651,7 +1788,7 @@
 
       bottom : function (t, s) {
         var self = Foundation.libs.dropdown,
-            p = self.dirs._base.call(this, t);
+            p = self.dirs._base.call(this, t, s);
 
         if (p.missRight == true) {
           p.left = p.left - this.outerWidth() + t.outerWidth();
@@ -1669,7 +1806,7 @@
       },
 
       left : function (t, s) {
-        var p = Foundation.libs.dropdown.dirs._base.call(this, t);
+        var p = Foundation.libs.dropdown.dirs._base.call(this, t, s);
 
         this.addClass('drop-left');
 
@@ -1683,7 +1820,7 @@
       },
 
       right : function (t, s) {
-        var p = Foundation.libs.dropdown.dirs._base.call(this, t);
+        var p = Foundation.libs.dropdown.dirs._base.call(this, t, s);
 
         this.addClass('drop-right');
 
@@ -1782,13 +1919,14 @@
   Foundation.libs.equalizer = {
     name : 'equalizer',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       use_tallest : true,
       before_height_change : $.noop,
       after_height_change : $.noop,
-      equalize_on_stack : false
+      equalize_on_stack : false,
+      act_on_hidden_el: false
     },
 
     init : function (scope, method, options) {
@@ -1805,28 +1943,38 @@
 
     equalize : function (equalizer) {
       var isStacked = false,
-          vals = equalizer.find('[' + this.attr_name() + '-watch]:visible'),
-          settings = equalizer.data(this.attr_name(true) + '-init');
+          group = equalizer.data('equalizer'),
+          settings = equalizer.data(this.attr_name(true)+'-init') || this.settings,
+          vals,
+          firstTopOffset;
 
+      if (settings.act_on_hidden_el) {
+        vals = group ? equalizer.find('['+this.attr_name()+'-watch="'+group+'"]') : equalizer.find('['+this.attr_name()+'-watch]');
+      }
+      else {
+        vals = group ? equalizer.find('['+this.attr_name()+'-watch="'+group+'"]:visible') : equalizer.find('['+this.attr_name()+'-watch]:visible');
+      }
+      
       if (vals.length === 0) {
         return;
       }
-      var firstTopOffset = vals.first().offset().top;
+
       settings.before_height_change();
-      equalizer.trigger('before-height-change').trigger('before-height-change.fndth.equalizer');
+      equalizer.trigger('before-height-change.fndth.equalizer');
       vals.height('inherit');
-      vals.each(function () {
-        var el = $(this);
-        if (el.offset().top !== firstTopOffset) {
-          isStacked = true;
-        }
-      });
 
       if (settings.equalize_on_stack === false) {
+        firstTopOffset = vals.first().offset().top;
+        vals.each(function () {
+          if ($(this).offset().top !== firstTopOffset) {
+            isStacked = true;
+            return false;
+          }
+        });
         if (isStacked) {
           return;
         }
-      };
+      }
 
       var heights = vals.map(function () { return $(this).outerHeight(false) }).get();
 
@@ -1837,17 +1985,33 @@
         var min = Math.min.apply(null, heights);
         vals.css('height', min);
       }
+
       settings.after_height_change();
-      equalizer.trigger('after-height-change').trigger('after-height-change.fndtn.equalizer');
+      equalizer.trigger('after-height-change.fndtn.equalizer');
     },
 
     reflow : function () {
       var self = this;
 
       this.S('[' + this.attr_name() + ']', this.scope).each(function () {
-        var $eq_target = $(this);
+        var $eq_target = $(this),
+            media_query = $eq_target.data('equalizer-mq'),
+            ignore_media_query = true;
+
+        if (media_query) {
+          media_query = 'is_' + media_query.replace(/-/g, '_');
+          if (Foundation.utils.hasOwnProperty(media_query)) {
+            ignore_media_query = false;
+          }
+        }
+
         self.image_loaded(self.S('img', this), function () {
-          self.equalize($eq_target)
+          if (ignore_media_query || Foundation.utils[media_query]()) {
+            self.equalize($eq_target)
+          } else {
+            var vals = $eq_target.find('[' + self.attr_name() + '-watch]:visible');
+            vals.css('height', 'auto');
+          }
         });
       });
     }
@@ -1860,7 +2024,7 @@
   Foundation.libs.interchange = {
     name : 'interchange',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     cache : {},
 
@@ -1904,14 +2068,15 @@
           //   console.log($(this).html(), a, b, c);
           // });
 
-          if (/IMG/.test(el[0].nodeName)) {
-            var orig_path = el[0].src;
+          if (el !== null && /IMG/.test(el[0].nodeName)) {
+            var orig_path = $.each(el, function(){this.src = path;});
+            // var orig_path = el[0].src;
 
             if (new RegExp(path, 'i').test(orig_path)) {
               return;
             }
 
-            el[0].src = path;
+            el.attr("src", path);
 
             return trigger(el[0].src);
           }
@@ -1944,8 +2109,7 @@
       this.data_attr = this.set_data_attr();
       $.extend(true, this.settings, method, options);
       this.bindings(method, options);
-      this.load('images');
-      this.load('nodes');
+      this.reflow();
     },
 
     get_media_hash : function () {
@@ -1983,11 +2147,10 @@
       for (var uuid in cache) {
         if (cache.hasOwnProperty(uuid)) {
           var passed = this.results(uuid, cache[uuid]);
-
           if (passed) {
             this.settings.directives[passed
               .scenario[1]].call(this, passed.el, passed.scenario[0], (function (passed) {
-                if (arguments[0] instanceof Array) { 
+                if (arguments[0] instanceof Array) {
                   var args = arguments[0];
                 } else {
                   var args = Array.prototype.slice.call(arguments, 0);
@@ -2097,7 +2260,7 @@
         this.object($(this['cached_' + type][i]));
       }
 
-      return $(window).trigger('resize').trigger('resize.fndtn.interchange');
+      return $(window).trigger('resize.fndtn.interchange');
     },
 
     convert_directive : function (directive) {
@@ -2114,19 +2277,25 @@
     parse_scenario : function (scenario) {
       // This logic had to be made more complex since some users were using commas in the url path
       // So we cannot simply just split on a comma
+
       var directive_match = scenario[0].match(/(.+),\s*(\w+)\s*$/),
-      media_query         = scenario[1];
+      // getting the mq has gotten a bit complicated since we started accounting for several use cases
+      // of URLs. For now we'll continue to match these scenarios, but we may consider having these scenarios
+      // as nested objects or arrays in F6.
+      // regex: match everything before close parenthesis for mq
+      media_query         = scenario[1].match(/(.*)\)/);
 
       if (directive_match) {
         var path  = directive_match[1],
         directive = directive_match[2];
+
       } else {
         var cached_split = scenario[0].split(/,\s*$/),
         path             = cached_split[0],
         directive        = '';
       }
 
-      return [this.trim(path), this.convert_directive(directive), this.trim(media_query)];
+      return [this.trim(path), this.convert_directive(directive), this.trim(media_query[1])];
     },
 
     object : function (el) {
@@ -2136,10 +2305,12 @@
 
       if (i > 0) {
         while (i--) {
-          var split = raw_arr[i].split(/\(([^\)]*?)(\))$/);
+          // split array between comma delimited content and mq
+          // regex: comma, optional space, open parenthesis
+          var scenario = raw_arr[i].split(/,\s?\(/);
 
-          if (split.length > 1) {
-            var params = this.parse_scenario(split);
+          if (scenario.length > 1) {
+            var params = this.parse_scenario(scenario);
             scenarios.push(params);
           }
         }
@@ -2157,7 +2328,6 @@
       }
 
       el.attr(this.add_namespace('data-uuid'), uuid);
-
       return this.cache[uuid] = scenarios;
     },
 
@@ -2215,7 +2385,7 @@
   Foundation.libs['magellan-expedition'] = {
     name : 'magellan-expedition',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       active_class : 'active',
@@ -2243,38 +2413,41 @@
 
       S(self.scope)
         .off('.magellan')
-        .on('click.fndtn.magellan', '[' + self.add_namespace('data-magellan-arrival') + '] a[href^="#"]', function (e) {
-          e.preventDefault();
-          var expedition = $(this).closest('[' + self.attr_name() + ']'),
-              settings = expedition.data('magellan-expedition-init'),
-              hash = this.hash.split('#').join(''),
-              target = $('a[name="' + hash + '"]');
+        .on('click.fndtn.magellan', '[' + self.add_namespace('data-magellan-arrival') + '] a[href*=#]', function (e) {
+          var sameHost = ((this.hostname === location.hostname) || !this.hostname),
+              samePath = self.filterPathname(location.pathname) === self.filterPathname(this.pathname),
+              testHash = this.hash.replace(/(:|\.|\/)/g, '\\$1'),
+              anchor = this;
 
-          if (target.length === 0) {
-            target = $('#' + hash);
+          if (sameHost && samePath && testHash) {
+            e.preventDefault();
+            var expedition = $(this).closest('[' + self.attr_name() + ']'),
+                settings = expedition.data('magellan-expedition-init'),
+                hash = this.hash.split('#').join(''),
+                target = $('a[name="' + hash + '"]');
 
-          }
+            if (target.length === 0) {
+              target = $('#' + hash);
 
-          // Account for expedition height if fixed position
-          var scroll_top = target.offset().top - settings.destination_threshold + 1;
-          if (settings.offset_by_height) {
-            scroll_top = scroll_top - expedition.outerHeight();
-          }
-
-          $('html, body').stop().animate({
-            'scrollTop' : scroll_top
-          }, settings.duration, settings.easing, function () {
-            if (history.pushState) {
-              history.pushState(null, null, '#' + hash);
-            } else {
-              location.hash = '#' + hash;
             }
-          });
+
+            // Account for expedition height if fixed position
+            var scroll_top = target.offset().top - settings.destination_threshold + 1;
+            if (settings.offset_by_height) {
+              scroll_top = scroll_top - expedition.outerHeight();
+            }
+            $('html, body').stop().animate({
+              'scrollTop' : scroll_top
+            }, settings.duration, settings.easing, function () {
+              if (history.pushState) {
+                history.pushState(null, null, anchor.pathname + anchor.search + '#' + hash);
+              } else {
+                location.hash = anchor.pathname + anchor.search + '#' + hash;
+              }
+            });
+          }
         })
         .on('scroll.fndtn.magellan', self.throttle(this.check_for_arrivals.bind(this), settings.throttle_delay));
-
-      $(window)
-        .on('resize.fndtn.magellan', self.throttle(this.set_expedition_position.bind(this), settings.throttle_delay));
     },
 
     check_for_arrivals : function () {
@@ -2405,6 +2578,14 @@
       this.S(window).off('.magellan');
     },
 
+    filterPathname : function (pathname) {
+      pathname = pathname || '';
+      return pathname
+          .replace(/^\//,'')
+          .replace(/(?:index|default).[a-zA-Z]{3,4}$/,'')
+          .replace(/\/$/,'');
+    },
+
     reflow : function () {
       var self = this;
       // remove placeholder expeditions used for height calculation purposes
@@ -2419,7 +2600,7 @@
   Foundation.libs.offcanvas = {
     name : 'offcanvas',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       open_method : 'move',
@@ -2435,16 +2616,22 @@
           S = self.S,
           move_class = '',
           right_postfix = '',
-          left_postfix = '';
+          left_postfix = '',
+          top_postfix = '',
+          bottom_postfix = '';
 
       if (this.settings.open_method === 'move') {
         move_class = 'move-';
         right_postfix = 'right';
         left_postfix = 'left';
+        top_postfix = 'top';
+        bottom_postfix = 'bottom';
       } else if (this.settings.open_method === 'overlap_single') {
         move_class = 'offcanvas-overlap-';
         right_postfix = 'right';
         left_postfix = 'left';
+        top_postfix = 'top';
+        bottom_postfix = 'bottom';
       } else if (this.settings.open_method === 'overlap') {
         move_class = 'offcanvas-overlap';
       }
@@ -2473,6 +2660,7 @@
           }
           $('.left-off-canvas-toggle').attr('aria-expanded', 'true');
         })
+        //end of left canvas
         .on('click.fndtn.offcanvas', '.right-off-canvas-toggle', function (e) {
           self.click_toggle_class(e, move_class + left_postfix);
           if (self.settings.open_method !== 'overlap') {
@@ -2496,6 +2684,55 @@
           }
           $('.right-off-canvas-toggle').attr('aria-expanded', 'true');
         })
+        //end of right canvas
+        .on('click.fndtn.offcanvas', '.top-off-canvas-toggle', function (e) {
+          self.click_toggle_class(e, move_class + bottom_postfix);
+          if (self.settings.open_method !== 'overlap') {
+            S('.top-submenu').removeClass(move_class + bottom_postfix);
+          }
+          $('.top-off-canvas-toggle').attr('aria-expanded', 'true');
+        })
+        .on('click.fndtn.offcanvas', '.top-off-canvas-menu a', function (e) {
+          var settings = self.get_settings(e);
+          var parent = S(this).parent();
+
+          if (settings.close_on_click && !parent.hasClass('has-submenu') && !parent.hasClass('back')) {
+            self.hide.call(self, move_class + bottom_postfix, self.get_wrapper(e));
+            parent.parent().removeClass(move_class + bottom_postfix);
+          } else if (S(this).parent().hasClass('has-submenu')) {
+            e.preventDefault();
+            S(this).siblings('.top-submenu').toggleClass(move_class + bottom_postfix);
+          } else if (parent.hasClass('back')) {
+            e.preventDefault();
+            parent.parent().removeClass(move_class + bottom_postfix);
+          }
+          $('.top-off-canvas-toggle').attr('aria-expanded', 'true');
+        })
+        //end of top canvas
+        .on('click.fndtn.offcanvas', '.bottom-off-canvas-toggle', function (e) {
+          self.click_toggle_class(e, move_class + top_postfix);
+          if (self.settings.open_method !== 'overlap') {
+            S('.bottom-submenu').removeClass(move_class + top_postfix);
+          }
+          $('.bottom-off-canvas-toggle').attr('aria-expanded', 'true');
+        })
+        .on('click.fndtn.offcanvas', '.bottom-off-canvas-menu a', function (e) {
+          var settings = self.get_settings(e);
+          var parent = S(this).parent();
+
+          if (settings.close_on_click && !parent.hasClass('has-submenu') && !parent.hasClass('back')) {
+            self.hide.call(self, move_class + top_postfix, self.get_wrapper(e));
+            parent.parent().removeClass(move_class + top_postfix);
+          } else if (S(this).parent().hasClass('has-submenu')) {
+            e.preventDefault();
+            S(this).siblings('.bottom-submenu').toggleClass(move_class + top_postfix);
+          } else if (parent.hasClass('back')) {
+            e.preventDefault();
+            parent.parent().removeClass(move_class + top_postfix);
+          }
+          $('.bottom-off-canvas-toggle').attr('aria-expanded', 'true');
+        })
+        //end of bottom
         .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e) {
           self.click_remove_class(e, move_class + left_postfix);
           S('.right-submenu').removeClass(move_class + left_postfix);
@@ -2512,6 +2749,23 @@
             self.click_remove_class(e, move_class + right_postfix);
             $('.right-off-canvas-toggle').attr('aria-expanded', 'false');
           }
+        })
+        .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e) {
+          self.click_remove_class(e, move_class + top_postfix);
+          S('.bottom-submenu').removeClass(move_class + top_postfix);
+          if (bottom_postfix) {
+            self.click_remove_class(e, move_class + bottom_postfix);
+            S('.top-submenu').removeClass(move_class + top_postfix);
+          }
+          $('.bottom-off-canvas-toggle').attr('aria-expanded', 'true');
+        })
+        .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e) {
+          self.click_remove_class(e, move_class + top_postfix);
+          $('.top-off-canvas-toggle').attr('aria-expanded', 'false');
+          if (bottom_postfix) {
+            self.click_remove_class(e, move_class + bottom_postfix);
+            $('.bottom-off-canvas-toggle').attr('aria-expanded', 'false');
+          }
         });
     },
 
@@ -2526,13 +2780,13 @@
 
     show : function (class_name, $off_canvas) {
       $off_canvas = $off_canvas || this.get_wrapper();
-      $off_canvas.trigger('open').trigger('open.fndtn.offcanvas');
+      $off_canvas.trigger('open.fndtn.offcanvas');
       $off_canvas.addClass(class_name);
     },
 
     hide : function (class_name, $off_canvas) {
       $off_canvas = $off_canvas || this.get_wrapper();
-      $off_canvas.trigger('close').trigger('close.fndtn.offcanvas');
+      $off_canvas.trigger('close.fndtn.offcanvas');
       $off_canvas.removeClass(class_name);
     },
 
@@ -2569,10 +2823,12 @@
 ;(function ($, window, document, undefined) {
   'use strict';
 
+  var openModals = [];
+
   Foundation.libs.reveal = {
     name : 'reveal',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     locked : false,
 
@@ -2589,6 +2845,7 @@
       opened : function(){},
       close : function(){},
       closed : function(){},
+      on_ajax_error: $.noop,
       bg : $('.reveal-modal-bg'),
       css : {
         open : {
@@ -2620,7 +2877,8 @@
 
           if (!self.locked) {
             var element = S(this),
-                ajax = element.data(self.data_attr('reveal-ajax'));
+                ajax = element.data(self.data_attr('reveal-ajax')),
+                replaceContentSel = element.data(self.data_attr('reveal-replace-content'));
 
             self.locked = true;
 
@@ -2628,8 +2886,7 @@
               self.open.call(self, element);
             } else {
               var url = ajax === true ? element.attr('href') : ajax;
-
-              self.open.call(self, element, {url : url});
+              self.open.call(self, element, {url : url}, { replaceContentSel : replaceContentSel });
             }
           }
         });
@@ -2650,7 +2907,7 @@
             }
 
             self.locked = true;
-            self.close.call(self, bg_clicked ? S('[' + self.attr_name() + '].open') : S(this).closest('[' + self.attr_name() + ']'));
+            self.close.call(self, bg_clicked ? S('[' + self.attr_name() + '].open:not(.toback)') : S(this).closest('[' + self.attr_name() + ']'));
           }
         });
 
@@ -2721,7 +2978,8 @@
       var settings = modal.data(self.attr_name(true) + '-init');
       settings = settings || this.settings;
 
-      if (modal.hasClass('open') && target.attr('data-reveal-id') == modal.attr('id')) {
+
+      if (modal.hasClass('open') && target !== undefined && target.attr('data-reveal-id') == modal.attr('id')) {
         return self.close(modal);
       }
 
@@ -2733,7 +2991,14 @@
             .data('offset', this.cache_offset(modal));
         }
 
+        modal.attr('tabindex','0').attr('aria-hidden','false');
+
         this.key_up_on(modal);    // PATCH #3: turning on key up capture only when a reveal window is open
+
+        // Prevent namespace event from triggering twice
+        modal.on('open.fndtn.reveal', function(e) {
+          if (e.namespace !== 'fndtn.reveal') return;
+        });
 
         modal.on('open.fndtn.reveal').trigger('open.fndtn.reveal');
 
@@ -2747,19 +3012,27 @@
           };
         }
 
-        if (typeof ajax_settings === 'undefined' || !ajax_settings.url) {
-          if (open_modal.length > 0) {
-            if (settings.multiple_opened) {
-              this.to_back(open_modal);
+        var openModal = function() {
+          if(open_modal.length > 0) {
+            if(settings.multiple_opened) {
+              self.to_back(open_modal);
             } else {
-              this.hide(open_modal, settings.css.close);
+              self.hide(open_modal, settings.css.close);
             }
           }
 
-          this.show(modal, settings.css.open);
+          // bl: add the open_modal that isn't already in the background to the openModals array
+          if(settings.multiple_opened) {
+            openModals.push(modal);
+          }
+
+          self.show(modal, settings.css.open);
+        };
+
+        if (typeof ajax_settings === 'undefined' || !ajax_settings.url) {
+          openModal();
         } else {
           var old_success = typeof ajax_settings.success !== 'undefined' ? ajax_settings.success : null;
-
           $.extend(ajax_settings, {
             success : function (data, textStatus, jqXHR) {
               if ( $.isFunction(old_success) ) {
@@ -2769,20 +3042,25 @@
                 }
               }
 
-              modal.html(data);
+              if (typeof options !== 'undefined' && typeof options.replaceContentSel !== 'undefined') {
+                modal.find(options.replaceContentSel).html(data);
+              } else {
+                modal.html(data);
+              }
+
               self.S(modal).foundation('section', 'reflow');
               self.S(modal).children().foundation();
 
-              if (open_modal.length > 0) {
-                if (settings.multiple_opened) {
-                  this.to_back(open_modal);
-                } else {
-                  this.hide(open_modal, settings.css.close);
-                }
-              }
-              self.show(modal, settings.css.open);
+              openModal();
             }
           });
+
+          // check for if user initalized with error callback
+          if (settings.on_ajax_error !== $.noop) {
+            $.extend(ajax_settings, {
+              error : settings.on_ajax_error
+            });
+          }
 
           $.ajax(ajax_settings);
         }
@@ -2793,23 +3071,47 @@
     close : function (modal) {
       var modal = modal && modal.length ? modal : this.S(this.scope),
           open_modals = this.S('[' + this.attr_name() + '].open'),
-          settings = modal.data(this.attr_name(true) + '-init') || this.settings;
+          settings = modal.data(this.attr_name(true) + '-init') || this.settings,
+          self = this;
 
       if (open_modals.length > 0) {
+
+        modal.removeAttr('tabindex','0').attr('aria-hidden','true');
+
         this.locked = true;
         this.key_up_off(modal);   // PATCH #3: turning on key up capture only when a reveal window is open
-        modal.trigger('close').trigger('close.fndtn.reveal');
-        
+
+        modal.trigger('close.fndtn.reveal');
+
         if ((settings.multiple_opened && open_modals.length === 1) || !settings.multiple_opened || modal.length > 1) {
-          this.toggle_bg(modal, false);
-          this.to_front(modal);
+          self.toggle_bg(modal, false);
+          self.to_front(modal);
         }
-        
+
         if (settings.multiple_opened) {
-          this.hide(modal, settings.css.close, settings);
-          this.to_front($($.makeArray(open_modals).reverse()[1]));
+          var isCurrent = modal.is(':not(.toback)');
+          self.hide(modal, settings.css.close, settings);
+          if(isCurrent) {
+            // remove the last modal since it is now closed
+            openModals.pop();
+          } else {
+            // if this isn't the current modal, then find it in the array and remove it
+            openModals = $.grep(openModals, function(elt) {
+              var isThis = elt[0]===modal[0];
+              if(isThis) {
+                // since it's not currently in the front, put it in the front now that it is hidden
+                // so that if it's re-opened, it won't be .toback
+                self.to_front(modal);
+              }
+              return !isThis;
+            });
+          }
+          // finally, show the next modal in the stack, if there is one
+          if(openModals.length>0) {
+            self.to_front(openModals[openModals.length - 1]);
+          }
         } else {
-          this.hide(open_modals, settings.css.close, settings);
+          self.hide(open_modals, settings.css.close, settings);
         }
       }
     },
@@ -2844,7 +3146,8 @@
       // is modal
       if (css) {
         var settings = el.data(this.attr_name(true) + '-init') || this.settings,
-            root_element = settings.root_element;
+            root_element = settings.root_element,
+            context = this;
 
         if (el.parent(root_element).length === 0) {
           var placeholder = el.wrap('<div style="display: none;" />').parent();
@@ -2872,29 +3175,30 @@
             return el
               .css(css)
               .animate(end_css, settings.animation_speed, 'linear', function () {
-                this.locked = false;
-                el.trigger('opened').trigger('opened.fndtn.reveal');
-              }.bind(this))
+                context.locked = false;
+                el.trigger('opened.fndtn.reveal');
+              })
               .addClass('open');
-          }.bind(this), settings.animation_speed / 2);
+          }, settings.animation_speed / 2);
         }
 
+        css.top = $(window).scrollTop() + el.data('css-top') + 'px';
+
         if (animData.fade) {
-          css.top = $(window).scrollTop() + el.data('css-top') + 'px';
           var end_css = {opacity: 1};
 
           return setTimeout(function () {
             return el
               .css(css)
               .animate(end_css, settings.animation_speed, 'linear', function () {
-                this.locked = false;
-                el.trigger('opened').trigger('opened.fndtn.reveal');
-              }.bind(this))
+                context.locked = false;
+                el.trigger('opened.fndtn.reveal');
+              })
               .addClass('open');
-          }.bind(this), settings.animation_speed / 2);
+          }, settings.animation_speed / 2);
         }
 
-        return el.css(css).show().css({opacity : 1}).addClass('open').trigger('opened').trigger('opened.fndtn.reveal');
+        return el.css(css).show().css({opacity : 1}).addClass('open').trigger('opened.fndtn.reveal');
       }
 
       var settings = this.settings;
@@ -2908,11 +3212,11 @@
 
       return el.show();
     },
-    
+
     to_back : function(el) {
       el.addClass('toback');
     },
-    
+
     to_front : function(el) {
       el.removeClass('toback');
     },
@@ -2920,7 +3224,8 @@
     hide : function (el, css) {
       // is modal
       if (css) {
-        var settings = el.data(this.attr_name(true) + '-init');
+        var settings = el.data(this.attr_name(true) + '-init'),
+            context = this;
         settings = settings || this.settings;
 
         var animData = getAnimationData(settings.animation);
@@ -2936,11 +3241,11 @@
           return setTimeout(function () {
             return el
               .animate(end_css, settings.animation_speed, 'linear', function () {
-                this.locked = false;
-                el.css(css).trigger('closed').trigger('closed.fndtn.reveal');
-              }.bind(this))
+                context.locked = false;
+                el.css(css).trigger('closed.fndtn.reveal');
+              })
               .removeClass('open');
-          }.bind(this), settings.animation_speed / 2);
+          }, settings.animation_speed / 2);
         }
 
         if (animData.fade) {
@@ -2949,14 +3254,14 @@
           return setTimeout(function () {
             return el
               .animate(end_css, settings.animation_speed, 'linear', function () {
-                this.locked = false;
-                el.css(css).trigger('closed').trigger('closed.fndtn.reveal');
-              }.bind(this))
+                context.locked = false;
+                el.css(css).trigger('closed.fndtn.reveal');
+              })
               .removeClass('open');
-          }.bind(this), settings.animation_speed / 2);
+          }, settings.animation_speed / 2);
         }
 
-        return el.hide().css(css).removeClass('open').trigger('closed').trigger('closed.fndtn.reveal');
+        return el.hide().css(css).removeClass('open').trigger('closed.fndtn.reveal');
       }
 
       var settings = this.settings;
@@ -3006,7 +3311,7 @@
     },
 
     cache_offset : function (modal) {
-      var offset = modal.show().height() + parseInt(modal.css('top'), 10);
+      var offset = modal.show().height() + parseInt(modal.css('top'), 10) + modal.scrollY;
 
       modal.hide();
 
@@ -3044,7 +3349,7 @@
   Foundation.libs.tab = {
     name : 'tab',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       active_class : 'active',
@@ -3060,40 +3365,51 @@
       var self = this,
           S = this.S;
 
+  	  // Store the default active tabs which will be referenced when the
+  	  // location hash is absent, as in the case of navigating the tabs and
+  	  // returning to the first viewing via the browser Back button.
+  	  S('[' + this.attr_name() + '] > .active > a', this.scope).each(function () {
+  	    self.default_tab_hashes.push(this.hash);
+  	  });
+
       this.bindings(method, options);
-
-      // store the initial href, which is used to allow correct behaviour of the
-      // browser back button when deep linking is turned on.
-      self.entry_location = window.location.href;
-
       this.handle_location_hash_change();
-
-      // Store the default active tabs which will be referenced when the
-      // location hash is absent, as in the case of navigating the tabs and
-      // returning to the first viewing via the browser Back button.
-      S('[' + this.attr_name() + '] > .active > a', this.scope).each(function () {
-        self.default_tab_hashes.push(this.hash);
-      });
     },
 
     events : function () {
       var self = this,
           S = this.S;
 
-      var usual_tab_behavior =  function (e) {
-          var settings = S(this).closest('[' + self.attr_name() + ']').data(self.attr_name(true) + '-init');
-          if (!settings.is_hover || Modernizr.touch) {
+      var usual_tab_behavior =  function (e, target) {
+        var settings = S(target).closest('[' + self.attr_name() + ']').data(self.attr_name(true) + '-init');
+        if (!settings.is_hover || Modernizr.touch) {
+          // if user did not pressed tab key, prevent default action
+          var keyCode = e.keyCode || e.which;
+          if (keyCode !== 9) { 
             e.preventDefault();
             e.stopPropagation();
-            self.toggle_active_tab(S(this).parent());
           }
-        };
+          self.toggle_active_tab(S(target).parent());
+          
+        }
+      };
 
       S(this.scope)
         .off('.tab')
+        // Key event: focus/tab key
+        .on('keydown.fndtn.tab', '[' + this.attr_name() + '] > * > a', function(e) {
+          var keyCode = e.keyCode || e.which;
+          // if user pressed tab key
+          if (keyCode === 13 || keyCode === 32) { // enter or space
+            var el = this;
+            usual_tab_behavior(e, el);
+          } 
+        })
         // Click event: tab title
-        .on('focus.fndtn.tab', '[' + this.attr_name() + '] > * > a', usual_tab_behavior )
-        .on('click.fndtn.tab', '[' + this.attr_name() + '] > * > a', usual_tab_behavior )
+        .on('click.fndtn.tab', '[' + this.attr_name() + '] > * > a', function(e) {
+          var el = this;
+          usual_tab_behavior(e, el);
+        })
         // Hover event: tab title
         .on('mouseenter.fndtn.tab', '[' + this.attr_name() + '] > * > a', function (e) {
           var settings = S(this).closest('[' + self.attr_name() + ']').data(self.attr_name(true) + '-init');
@@ -3209,17 +3525,16 @@
           go_to_hash = function(hash) {
             // This function allows correct behaviour of the browser's back button when deep linking is enabled. Without it
             // the user would get continually redirected to the default hash.
-            var is_entry_location = window.location.href === self.entry_location,
-                default_hash = settings.scroll_to_content ? self.default_tab_hashes[0] : is_entry_location ? window.location.hash :'fndtn-' + self.default_tab_hashes[0].replace('#', '')
+            var default_hash = settings.scroll_to_content ? self.default_tab_hashes[0] : 'fndtn-' + self.default_tab_hashes[0].replace('#', '');
 
-            if (!(is_entry_location && hash === default_hash)) {
+            if (hash !== default_hash || window.location.hash) {
               window.location.hash = hash;
             }
           };
 
       // allow usage of data-tab-content attribute instead of href
-      if (S(this).data(this.data_attr('tab-content'))) {
-        target_hash = '#' + S(this).data(this.data_attr('tab-content')).split('#')[1];
+      if (anchor.data('tab-content')) {
+        target_hash = '#' + anchor.data('tab-content').split('#')[1];
         target = S(target_hash);
       }
 
@@ -3252,12 +3567,12 @@
       tab.addClass(settings.active_class).triggerHandler('opened');
       tab_link.attr({'aria-selected' : 'true',  tabindex : 0});
       siblings.removeClass(settings.active_class)
-      siblings.find('a').attr({'aria-selected' : 'false',  tabindex : -1});
-      target.siblings().removeClass(settings.active_class).attr({'aria-hidden' : 'true',  tabindex : -1});
+      siblings.find('a').attr({'aria-selected' : 'false'/*,  tabindex : -1*/});
+      target.siblings().removeClass(settings.active_class).attr({'aria-hidden' : 'true'/*,  tabindex : -1*/});
       target.addClass(settings.active_class).attr('aria-hidden', 'false').removeAttr('tabindex');
       settings.callback(tab);
-      target.triggerHandler('toggled', [tab]);
-      tabs.triggerHandler('toggled', [target]);
+      target.triggerHandler('toggled', [target]);
+      tabs.triggerHandler('toggled', [tab]);
 
       tab_link.off('keydown').on('keydown', interpret_keyup_action );
     },
@@ -3282,7 +3597,7 @@
   Foundation.libs.tooltip = {
     name : 'tooltip',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       additional_inheritable_classes : [],
@@ -3291,6 +3606,8 @@
       touch_close_text : 'Tap To Close',
       disable_for_touch : false,
       hover_delay : 200,
+      fade_in_duration : 150,
+      fade_out_duration : 150,
       show_on : 'all',
       tip_template : function (selector, content) {
         return '<span data-selector="' + selector + '" id="' + selector + '" class="'
@@ -3335,6 +3652,31 @@
 
       self.create(this.S(instance));
 
+      function _startShow(elt, $this, immediate) {
+        if (elt.timer) {
+          return;
+        }
+
+        if (immediate) {
+          elt.timer = null;
+          self.showTip($this);
+        } else {
+          elt.timer = setTimeout(function () {
+            elt.timer = null;
+            self.showTip($this);
+          }.bind(elt), self.settings.hover_delay);
+        }
+      }
+
+      function _startHide(elt, $this) {
+        if (elt.timer) {
+          clearTimeout(elt.timer);
+          elt.timer = null;
+        }
+
+        self.hide($this);
+      }
+
       $(this.scope)
         .off('.tooltip')
         .on('mouseenter.fndtn.tooltip mouseleave.fndtn.tooltip touchstart.fndtn.tooltip MSPointerDown.fndtn.tooltip',
@@ -3350,7 +3692,7 @@
           if (/mouse/i.test(e.type) && self.ie_touch(e)) {
             return false;
           }
-
+          
           if ($this.hasClass('open')) {
             if (Modernizr.touch && /touchstart|MSPointerDown/i.test(e.type)) {
               e.preventDefault();
@@ -3363,17 +3705,20 @@
               e.preventDefault();
               S(settings.tooltip_class + '.open').hide();
               is_touch = true;
+              // close other open tooltips on touch
+              if ($('.open[' + self.attr_name() + ']').length > 0) {
+               var prevOpen = S($('.open[' + self.attr_name() + ']')[0]);
+               self.hide(prevOpen);
+              }
             }
 
             if (/enter|over/i.test(e.type)) {
-              this.timer = setTimeout(function () {
-                var tip = self.showTip($this);
-              }.bind(this), self.settings.hover_delay);
+              _startShow(this, $this);
+
             } else if (e.type === 'mouseout' || e.type === 'mouseleave') {
-              clearTimeout(this.timer);
-              self.hide($this);
+              _startHide(this, $this);
             } else {
-              self.showTip($this);
+              _startShow(this, $this, true);
             }
           }
         })
@@ -3387,11 +3732,11 @@
           } else if ($(this).data('tooltip-open-event-type') == 'mouse' && /MSPointerDown|touchstart/i.test(e.type)) {
             self.convert_to_touch($(this));
           } else {
-            self.hide($(this));
+            _startHide(this, $(this));
           }
         })
         .on('DOMNodeRemoved DOMAttrModified', '[' + this.attr_name() + ']:not(a)', function (e) {
-          self.hide(S(this));
+          _startHide(this, S(this));
         });
     },
 
@@ -3421,17 +3766,16 @@
     },
 
     selector : function ($target) {
-      var id = $target.attr('id'),
-          dataSelector = $target.attr(this.attr_name()) || $target.attr('data-selector');
+      var dataSelector = $target.attr(this.attr_name()) || $target.attr('data-selector');
 
-      if ((id && id.length < 1 || !id) && typeof dataSelector != 'string') {
+      if (typeof dataSelector != 'string') {
         dataSelector = this.random_str(6);
         $target
           .attr('data-selector', dataSelector)
           .attr('aria-describedby', dataSelector);
       }
 
-      return (id && id.length > 0) ? id : dataSelector;
+      return dataSelector;
     },
 
     create : function ($target) {
@@ -3459,14 +3803,14 @@
     },
 
     reposition : function (target, tip, classes) {
-      var width, nub, nubHeight, nubWidth, column, objPos;
+      var width, nub, nubHeight, nubWidth, objPos;
 
       tip.css('visibility', 'hidden').show();
 
       width = target.data('width');
       nub = tip.children('.nub');
       nubHeight = nub.outerHeight();
-      nubWidth = nub.outerHeight();
+      nubWidth = nub.outerWidth();
 
       if (this.small()) {
         tip.css({'width' : '100%'});
@@ -3482,33 +3826,46 @@
           'right' : (right) ? right : 'auto'
         }).end();
       };
+      
+      var o_top = target.offset().top;
+      var o_left = target.offset().left;
+      var outerHeight = target.outerHeight();
 
-      objPos(tip, (target.offset().top + target.outerHeight() + 10), 'auto', 'auto', target.offset().left);
+      objPos(tip, (o_top + outerHeight + 10), 'auto', 'auto', o_left);
 
       if (this.small()) {
-        objPos(tip, (target.offset().top + target.outerHeight() + 10), 'auto', 'auto', 12.5, $(this.scope).width());
+        objPos(tip, (o_top + outerHeight + 10), 'auto', 'auto', 12.5, $(this.scope).width());
         tip.addClass('tip-override');
-        objPos(nub, -nubHeight, 'auto', 'auto', target.offset().left);
+        objPos(nub, -nubHeight, 'auto', 'auto', o_left);
       } else {
-        var left = target.offset().left;
+        
         if (Foundation.rtl) {
           nub.addClass('rtl');
-          left = target.offset().left + target.outerWidth() - tip.outerWidth();
+          o_left = o_left + target.outerWidth() - tip.outerWidth();
         }
-        objPos(tip, (target.offset().top + target.outerHeight() + 10), 'auto', 'auto', left);
+
+        objPos(tip, (o_top + outerHeight + 10), 'auto', 'auto', o_left);
+        // reset nub from small styles, if they've been applied
+        if (nub.attr('style')) {
+          nub.removeAttr('style');
+        }
+        
         tip.removeClass('tip-override');
+        
+        var tip_outerHeight = tip.outerHeight();
+        
         if (classes && classes.indexOf('tip-top') > -1) {
           if (Foundation.rtl) {
             nub.addClass('rtl');
           }
-          objPos(tip, (target.offset().top - tip.outerHeight()), 'auto', 'auto', left)
+          objPos(tip, (o_top - tip_outerHeight), 'auto', 'auto', o_left)
             .removeClass('tip-override');
         } else if (classes && classes.indexOf('tip-left') > -1) {
-          objPos(tip, (target.offset().top + (target.outerHeight() / 2) - (tip.outerHeight() / 2)), 'auto', 'auto', (target.offset().left - tip.outerWidth() - nubHeight))
+          objPos(tip, (o_top + (outerHeight / 2) - (tip_outerHeight / 2)), 'auto', 'auto', (o_left - tip.outerWidth() - nubHeight))
             .removeClass('tip-override');
           nub.removeClass('rtl');
         } else if (classes && classes.indexOf('tip-right') > -1) {
-          objPos(tip, (target.offset().top + (target.outerHeight() / 2) - (tip.outerHeight() / 2)), 'auto', 'auto', (target.offset().left + target.outerWidth() + nubHeight))
+          objPos(tip, (o_top + (outerHeight / 2) - (tip_outerHeight / 2)), 'auto', 'auto', (o_left + target.outerWidth() + nubHeight))
             .removeClass('tip-override');
           nub.removeClass('rtl');
         }
@@ -3552,20 +3909,19 @@
 
     show : function ($target) {
       var $tip = this.getTip($target);
-
       if ($target.data('tooltip-open-event-type') == 'touch') {
         this.convert_to_touch($target);
       }
 
       this.reposition($target, $tip, $target.attr('class'));
       $target.addClass('open');
-      $tip.fadeIn(150);
+      $tip.fadeIn(this.settings.fade_in_duration);
     },
 
     hide : function ($target) {
       var $tip = this.getTip($target);
 
-      $tip.fadeOut(150, function () {
+      $tip.fadeOut(this.settings.fade_out_duration, function () {
         $tip.find('.tap-to-close').remove();
         $tip.off('click.fndtn.tooltip.tapclose MSPointerDown.fndtn.tapclose');
         $target.removeClass('open');
@@ -3590,17 +3946,19 @@
   Foundation.libs.topbar = {
     name : 'topbar',
 
-    version : '5.5.1',
+    version : '5.5.3',
 
     settings : {
       index : 0,
+      start_offset : 0,
       sticky_class : 'sticky',
       custom_back_text : true,
       back_text : 'Back',
       mobile_show_parent_link : true,
       is_hover : true,
       scrolltop : true, // jump to top when sticky nav menu toggle is clicked
-      sticky_on : 'all'
+      sticky_on : 'all',
+      dropdown_autoclose: true
     },
 
     init : function (section, method, options) {
@@ -3651,24 +4009,20 @@
       var smallMatch = matchMedia(Foundation.media_queries.small).matches;
       var medMatch   = matchMedia(Foundation.media_queries.medium).matches;
       var lrgMatch   = matchMedia(Foundation.media_queries.large).matches;
-      
-       if (sticky && settings.sticky_on === 'all') {
-          return true;
-       }
-       if (sticky && this.small() && settings.sticky_on.indexOf('small') !== -1) {
-           if (smallMatch && !medMatch && !lrgMatch) { return true; }
-       }
-       if (sticky && this.medium() && settings.sticky_on.indexOf('medium') !== -1) {
-           if (smallMatch && medMatch && !lrgMatch) { return true; }
-       }
-       if (sticky && this.large() && settings.sticky_on.indexOf('large') !== -1) {
-           if (smallMatch && medMatch && lrgMatch) { return true; }
-       }
 
-       // fix for iOS browsers
-       if (sticky && navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
+      if (sticky && settings.sticky_on === 'all') {
         return true;
-       }
+      }
+      if (sticky && this.small() && settings.sticky_on.indexOf('small') !== -1) {
+        if (smallMatch && !medMatch && !lrgMatch) { return true; }
+      }
+      if (sticky && this.medium() && settings.sticky_on.indexOf('medium') !== -1) {
+        if (smallMatch && medMatch && !lrgMatch) { return true; }
+      }
+      if (sticky && this.large() && settings.sticky_on.indexOf('large') !== -1) {
+        if (smallMatch && medMatch && lrgMatch) { return true; }
+      }
+
        return false;
     },
 
@@ -3752,11 +4106,19 @@
           e.preventDefault();
           self.toggle(this);
         })
-        .on('click.fndtn.topbar', '.top-bar .top-bar-section li a[href^="#"],[' + this.attr_name() + '] .top-bar-section li a[href^="#"]', function (e) {
-            var li = $(this).closest('li');
-            if (self.breakpoint() && !li.hasClass('back') && !li.hasClass('has-dropdown')) {
-              self.toggle();
-            }
+        .on('click.fndtn.topbar contextmenu.fndtn.topbar', '.top-bar .top-bar-section li a[href^="#"],[' + this.attr_name() + '] .top-bar-section li a[href^="#"]', function (e) {
+          var li = $(this).closest('li'),
+              topbar = li.closest('[' + self.attr_name() + ']'),
+              settings = topbar.data(self.attr_name(true) + '-init');
+
+          if (settings.dropdown_autoclose && settings.is_hover) {
+            var hoverLi = $(this).closest('.hover');
+            hoverLi.removeClass('hover');
+          }
+          if (self.breakpoint() && !li.hasClass('back') && !li.hasClass('has-dropdown')) {
+            self.toggle();
+          }
+
         })
         .on('click.fndtn.topbar', '[' + this.attr_name() + '] li.has-dropdown', function (e) {
           var li = S(this),
@@ -3825,7 +4187,7 @@
 
       S(window).off('.topbar').on('resize.fndtn.topbar', self.throttle(function () {
           self.resize.call(self);
-      }, 50)).trigger('resize').trigger('resize.fndtn.topbar').load(function () {
+      }, 50)).trigger('resize.fndtn.topbar').load(function () {
           // Ensure that the offset is calculated after all of the pages resources have loaded
           S(this).trigger('resize.fndtn.topbar');
       });
@@ -3958,7 +4320,7 @@
         if (!$dropdown.find('.title.back').length) {
 
           if (settings.mobile_show_parent_link == true && url) {
-            $titleLi = $('<li class="title back js-generated"><h5><a href="javascript:void(0)"></a></h5></li><li class="parent-link hide-for-large-up"><a class="parent-link js-generated" href="' + url + '">' + $link.html() +'</a></li>');
+            $titleLi = $('<li class="title back js-generated"><h5><a href="javascript:void(0)"></a></h5></li><li class="parent-link hide-for-medium-up"><a class="parent-link js-generated" href="' + url + '">' + $link.html() +'</a></li>');
           } else {
             $titleLi = $('<li class="title back js-generated"><h5><a href="javascript:void(0)"></a></h5>');
           }
@@ -4010,8 +4372,8 @@
           $window = this.S(window),
           self = this;
 
-      if (self.settings.sticky_topbar && self.is_sticky(this.settings.sticky_topbar, this.settings.sticky_topbar.parent(), this.settings)) {
-        var distance = this.settings.sticky_topbar.data('stickyoffset');
+      if (self.settings.sticky_topbar && self.is_sticky(this.settings.sticky_topbar,this.settings.sticky_topbar.parent(), this.settings)) {
+        var distance = this.settings.sticky_topbar.data('stickyoffset') + this.settings.start_offset;
         if (!self.S(klass).hasClass('expanded')) {
           if ($window.scrollTop() > (distance)) {
             if (!self.S(klass).hasClass('fixed')) {

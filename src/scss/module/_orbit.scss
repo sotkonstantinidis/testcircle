@@ -1,8 +1,20 @@
-.orbit-image {
-  background-color: $color-brown;
-  background-repeat:no-repeat;
-  background-position:top center;
-  background-size: cover;
-  max-width: 100%;
-  height: 576px;
+.orbit-container {
+  height:576px;
+}
+.orbit-caption {
+  height:192px;
+  text-align:center;
+}
+.orbit-slides-container img {
+  width:100%;
+}
+.orbit-slides-container > * .orbit-caption {
+
+}
+.orbit-caption-title {
+  color:#fff;
+  font-family: OpenSans-Semibold;
+}
+.orbit-caption-text {
+  font-family: OpenSans-Light;
 }
