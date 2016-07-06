@@ -37,6 +37,7 @@
   </figure>
 
   <div class="tech-item-content">
+    <span class="tech-item-status label">Draft</span>
     <header>
       <h2 class="tech-item-title">
         <a href="{% url 'technologies:questionnaire_details' item.code %}">
@@ -44,23 +45,27 @@
         </a>
       </h2>
     </header>
-    <main>
-      <p>{{ item.tech_definition|truncatewords:50 }}</p>
+    <main class="tech-item-description">
+      <p>{{ item.tech_definition|truncatewords:50 }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto a ad obcaecati doloremque saepe laboriosam eveniet facere repudiandae incidunt excepturi officia, veritatis, fugit similique quis provident dolorum vitae quia voluptas.</p>
+      <ul class="tech-item-infos is-light is-muted">
+        <li>{% if item.compilers|length > 1 %}{% trans "Compilers:" %}{% else %}{% trans "Compiler:" %}{% endif %} {% for compiler in item.compilers %}{{ compiler.name }}{% if not forloop.last %}, {% endif %}{% empty %}&ndash;{% endfor %}</li>
+        <li><time datetime="{{ item.created|date:"c" }}" pubdate="pubdate">{{ item.created|date:"SHORT_DATETIME_FORMAT"|default:"&ndash;" }}</time></li>
+      </ul>
     </main>
-    <footer>
+    <footer class="tech-item-footer">
       {% if item.links|length > 0 or item.translations %}
-        <p class="is-light">
-          {% include "details/includes/link_items.html" with links=item.links %}
-          {% if item.translations %}
-            <em>{% trans "This article is also available in:" %}
-              {% for translation in item.translations %}
-                {% language translation.0 %}
-                <a href="{% url 'technologies:questionnaire_details' item.code %}" class="link">{{ translation.1 }}</a>{% if not forloop.last %}, {% endif %}
-                {% endlanguage %}
-              {% endfor %}
-            </em>
-          {% endif %}
-        </p>
+        {% include "details/includes/link_items.html" with links=item.links %}
+        {% if item.translations %}
+        <ul class="left tech-lang-list">
+          {% for translation in item.translations %}
+            <li>
+              {% language translation.0 %}
+              <a href="{% url 'technologies:questionnaire_details' item.code %}" title="{% trans "This article is also available in:" %} {{ translation.1 }}">EN</a>{% if not forloop.last %}, {% endif %}
+              {% endlanguage %}
+            </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       {% endif %}
     </footer>
   </div>

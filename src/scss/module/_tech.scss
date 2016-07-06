@@ -1,23 +1,42 @@
 
+// List
+// -----------------------------------------------------------------------------
 .tech-list {
   margin-top: rem-calc(24);
 }
+
+
+// Item
+// -----------------------------------------------------------------------------
 
 .tech-item {
   display: flex;
   margin-top: rem-calc(6);
   background: white;
-
-  &.is-tech .tech-item-title > a {
-    color: $color-tech;
-  }
-  &.is-approach .tech-item-title > a {
-    color: $color-approach;
-  }
 }
 
 .tech-item-content {
+  position: relative;
   padding: rem-calc(18 24 0);
+}
+
+.tech-item-footer {
+  margin-top: rem-calc(6);
+}
+
+.tech-item-title {
+  line-height: rem-calc(30);
+
+  & > a:hover,
+  & > a:focus, {
+    text-decoration: underline;
+  }
+}
+.is-tech .tech-item-title > a {
+  color: $color-tech;
+}
+.is-approach .tech-item-title > a {
+  color: $color-approach;
 }
 
 .no-flexbox {
@@ -29,11 +48,41 @@
   }
 }
 
+.tech-item-description {
+  margin-top: rem-calc(12);
+}
+
+.tech-item-infos {
+  @include reset-list;
+  margin-top: rem-calc(6);
+  & > li {
+    display: inline-block;
+    margin-left: rem-calc(12);
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.tech-item-status {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+// Thumbnail
+// -----------------------------------------------------------------------------
+
 .tech-thumbnail {
   position: relative;
   margin: 0;
-  width: rem-calc(240);
+  min-width: rem-calc(240);
 }
+
+
+// Status
+// -----------------------------------------------------------------------------
 
 .tech-status {
   display: block;
@@ -92,6 +141,48 @@
 }
 
 
+// Lang
+// -----------------------------------------------------------------------------
+
+.tech-lang-list {
+  @include reset-list;
+  & > li {
+    display: inline-block;
+    margin-left: rem-calc(1);
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  a {
+    display: block;
+    padding: rem-calc(6);
+    min-width: rem-calc(36);
+    min-height: rem-calc(36);
+    font-size: rem-calc(12);
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: rem-calc(24);
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.10);
+    background-color: rgba($color-brown, 0.8);
+    opacity: 0.8;
+    transition: opacity 300ms ease;
+  }
+  a:hover,
+  a:focus {
+    opacity: 1;
+  }
+}
+.is-tech .tech-lang-list a {
+  background-color: rgba($color-tech, 0.8);
+}
+.is-approach .tech-lang-list a {
+  background-color: rgba($color-approach, 0.8);
+}
+
+// Icons
+// -----------------------------------------------------------------------------
 
 /* .tech-icons {
   @include reset-list;
@@ -120,8 +211,8 @@
 a:hover .tech-icon {
   color: $color-brown-light;
   background: white;
-} */
-
+}
+*/
 .tech-infos {
   padding-bottom: rem-calc(12);
   dl,

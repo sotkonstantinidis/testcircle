@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5, h6 {
   @include rhythm(2);
 }
 p, dl, ol, ul {
-  @include rhythm;
+  @include rhythm(0.5);
 }
 h1, h2, h3, h4, h5, h6 {
   &.is-group {
@@ -18,7 +18,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
   }
 }
-
 p.is-large {
   font-size: rem-calc(16);
 }
