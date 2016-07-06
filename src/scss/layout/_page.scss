@@ -1,6 +1,10 @@
 .page-header {
   background: $color-brown;
-  padding: rem-calc(0 24);
+  padding: rem-calc(0 12);
+
+  & > .row {
+    position: relative;
+  }
 }
 
 .page-footer {

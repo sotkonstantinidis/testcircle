@@ -101,9 +101,9 @@
 
       <nav class="top-bar {% block navclass %}is-wocat{% endblock %} row" role="navigation" data-topbar="" data-options="is_hover: false">
         <ul class="title-area">
+          <li class="name show-for-small-only"></li>
           <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
         </ul>
-
         <section class="top-bar-section">
           <ul class="right">
             {% if user.is_authenticated %}
@@ -156,7 +156,7 @@
             <li><a href="">Add SLM Data</a></li>
             <li><a href="">My SLM Data</a></li>
           </ul>
-          
+
           {% comment %}
             {% block header %}
             {% endblock %}
