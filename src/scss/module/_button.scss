@@ -5,7 +5,7 @@ button,
   @include rhythm;
   box-shadow: 0 0 0 0 $button-bg-color;
   transition: all 200ms ease-out;
-  //border-radius:2px;
+  border-radius:$button-radius;
 
   &.secondary {
     box-shadow: 0 0 0 0 $secondary-color;
