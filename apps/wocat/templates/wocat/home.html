@@ -7,210 +7,190 @@
 
 <section class="home-slider row       ">
 
-  <div class="home-slider-img"></div>
+<div class="home-slider-img"></div>
 
-  <!-- TODO: Replace this block with a Slider
-  {% comment %}
-  <div class="row large-collapse" data-equalizer-watch>
-    <div class="medium-4 large-5 columns">
-      <div id="unccd-hero-left" class="show-for-xlarge-up">
+<!-- TODO: Replace this block with a Slider
+{% comment %}
+<div class="row large-collapse" data-equalizer-watch>
+  <div class="medium-4 large-5 columns">
+    <div id="unccd-hero-left" class="show-for-xlarge-up">
+      <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
+      <p>{% trans "Primary recommended database" %}</p>
+    </div>
+    <h1 class="is-wocat">{% trans "Global Database on SLM" %}</h1>
+    <p class="is-large">{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
+    <div class="row">
+      <div class="medium-6 columns button-column">
+        <a href="{% url 'technologies:questionnaire_list' %}" class="button is-technologies">{% trans "View SLM Technologies" %}</a>
+      </div>
+      <div class="medium-6 columns button-column">
+        <a href="{% url 'approaches:questionnaire_list' %}" class="button is-approaches">{% trans "View SLM Approaches" %}</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="medium-12 columns button-column">
+        <a href="{% url 'wocat:questionnaire_list' %}" class="button light">{% trans "View WOCAT and UNCCD SLM practices" %}</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="medium-6 columns button-column">
+        <a href="{% url 'technologies:questionnaire_new' %}" class="button is-technologies">{% trans "Add new SLM Technology" %}</a>
+      </div>
+      <div class="medium-6 columns button-column">
+        <a href="{% url 'approaches:questionnaire_new' %}" class="button is-approaches">{% trans "Add new SLM Approach" %}</a>
+      </div>
+    </div>
+    <div id="unccd-hero-center" class="row hide-for-xlarge-up">
+      <div class="small-12 columns">
         <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
         <p>{% trans "Primary recommended database" %}</p>
       </div>
-      <h1 class="is-wocat">{% trans "Global Database on SLM" %}</h1>
-      <p class="is-large">{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
-      <div class="row">
-        <div class="medium-6 columns button-column">
-          <a href="{% url 'technologies:questionnaire_list' %}" class="button is-technologies">{% trans "View SLM Technologies" %}</a>
-        </div>
-        <div class="medium-6 columns button-column">
-          <a href="{% url 'approaches:questionnaire_list' %}" class="button is-approaches">{% trans "View SLM Approaches" %}</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="medium-12 columns button-column">
-          <a href="{% url 'wocat:questionnaire_list' %}" class="button light">{% trans "View WOCAT and UNCCD SLM practices" %}</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="medium-6 columns button-column">
-          <a href="{% url 'technologies:questionnaire_new' %}" class="button is-technologies">{% trans "Add new SLM Technology" %}</a>
-        </div>
-        <div class="medium-6 columns button-column">
-          <a href="{% url 'approaches:questionnaire_new' %}" class="button is-approaches">{% trans "Add new SLM Approach" %}</a>
-        </div>
-      </div>
-      <div id="unccd-hero-center" class="row hide-for-xlarge-up">
-        <div class="small-12 columns">
-          <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
-          <p>{% trans "Primary recommended database" %}</p>
-        </div>
-      </div>
     </div>
   </div>
-  <div class="hero-media" id="wocat-hero-image" data-equalizer-watch>
-  </div>
-  {% endcomment %}
-  -->
+</div>
+<div class="hero-media" id="wocat-hero-image" data-equalizer-watch>
+</div>
+{% endcomment %}
+-->
 </section>
 
 <main class="home-main row large-collapse" role="main">
-
-  <div class="small-12 medium-9 columns">
-    <ul class="tabs" data-tab role="tablist">
-      <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">Search SLM Data</a></li>
-      <li class="tab-title" role="presentation"><a href="#panel2-2" role="tab" tabindex="0" aria-selected="false" aria-controls="panel2-2">Add SLM Data</a></li>
-    </ul>
-    <div class="tabs-content">
-      <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
-        <div class="search">Hier kommt die Suche</div>
-
-
-        <div class="home-search">
-          <div class="row">
-            <div class="small-10 small-centered medium-12 columns">
-              <form action="" role="search" class="search">
-
-                <div class="search-field">
-
-                  <input type="search" placeholder="Search">
-                  <div class="search-category dropdown">
-                    <a href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">All SLM Data</a>
-                    <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
-                      <li><a href="#">This is a link</a></li>
-                      <li><a href="#">This is another</a></li>
-                      <li><a href="#">Yet another</a></li>
-                    </ul>
-                  </div>
-                  <input type="submit" class="search-submit button is-blue" value="Search">
+<div class="small-12 medium-9 columns">
+  <ul class="tabs" data-tab role="tablist">
+    <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">Search SLM Data</a></li>
+    <li class="tab-title" role="presentation"><a href="#panel2-2" role="tab" tabindex="0" aria-selected="false" aria-controls="panel2-2">Add SLM Data</a></li>
+  </ul>
+  <div class="tabs-content">
+    <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
+      <div class="home-search">
+        <div class="row">
+          <div class="small-10 small-centered medium-12 columns">
+            <form action="" role="search" class="search">
+              <div class="search-field">
+                <input type="search" placeholder="Search">
+                <div class="search-category dropdown">
+                  <a href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">All SLM Data</a>
+                  <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
+                    <li><a href="#">This is a link</a></li>
+                    <li><a href="#">This is another</a></li>
+                    <li><a href="#">Yet another</a></li>
+                  </ul>
                 </div>
-
-                <div class="search-option is-padded">
-                  <a href="#" data-toggle="search-advanced">Advanced filter</a>
-                </div>
-
-              </form>
-            </div>
+                <input type="submit" class="search-submit button is-blue" value="Search">
+              </div>
+              <div class="search-option is-padded">
+                <a href="#" data-toggle="search-advanced">Advanced filter</a>
+              </div>
+            </form>
           </div>
         </div>
-
-
-        <hr />
-
-          <div class="row is-flex">
-            <div class="small-12 medium-4 columns">
-              <div class="card">
-                <div class="card-image-holder">
-                  <img class="card-image" src="/static/assets/img/card_slm_technologies.jpg">
-                  <span class="card-image-overlay is-tech">
-                    <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-technology"></use></svg>
-                  </span>
-                </img>
-              </div>
-              <div class="card-well">
-                <h2 class="card-title">SLM Technologies</h2>
-                <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic incidunt itaque officia minima tenetur, id repellendus provident veniam quod, at, atque voluptatum laudantium esse quas. Aut et fugiat animi?</p>
-                <a href="#" class="button expand is-blue">View All</a>
-              </div>
-            </div>
-          </div>
+      </div>
+        <div class="row is-padded is-flex">
           <div class="small-12 medium-4 columns">
             <div class="card">
               <div class="card-image-holder">
-                <img class="card-image" src="/static/assets/img/card_slm_approaches.jpg">
-                <span class="card-image-overlay is-approach">
-                  <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-approach"></use></svg>
+                <img class="card-image" src="/static/assets/img/card_slm_technologies.jpg">
+                <span class="card-image-overlay is-tech">
+                  <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-technology"></use></svg>
                 </span>
-              </img>
             </div>
             <div class="card-well">
-              <h2 class="card-title">SLM Approaches</h2>
+              <h2 class="card-title">SLM Technologies</h2>
               <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic incidunt itaque officia minima tenetur, id repellendus provident veniam quod, at, atque voluptatum laudantium esse quas. Aut et fugiat animi?</p>
-              <a href="#" class="button expand is-blue ">View All</a>
+              <a href="#" class="button expand is-blue">View All</a>
             </div>
           </div>
         </div>
         <div class="small-12 medium-4 columns">
           <div class="card">
             <div class="card-image-holder">
-              <img class="card-image" src="/static/assets/img/card_maps.jpg">
-              <span class="card-image-overlay is-map">
-                <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-map"></use></svg>
+              <img class="card-image" src="/static/assets/img/card_slm_approaches.jpg">
+              <span class="card-image-overlay is-approach">
+                <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-approach"></use></svg>
               </span>
-            </img>
           </div>
           <div class="card-well">
-            <h2 class="card-title">Maps</h2>
+            <h2 class="card-title">SLM Approaches</h2>
             <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic incidunt itaque officia minima tenetur, id repellendus provident veniam quod, at, atque voluptatum laudantium esse quas. Aut et fugiat animi?</p>
             <a href="#" class="button expand is-blue ">View All</a>
           </div>
         </div>
       </div>
+      <div class="small-12 medium-4 columns">
+        <div class="card">
+          <div class="card-image-holder">
+            <img class="card-image" src="/static/assets/img/card_maps.jpg">
+            <span class="card-image-overlay is-map">
+              <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-map"></use></svg>
+            </span>
+        </div>
+        <div class="card-well">
+          <h2 class="card-title">Maps</h2>
+          <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic incidunt itaque officia minima tenetur, id repellendus provident veniam quod, at, atque voluptatum laudantium esse quas. Aut et fugiat animi?</p>
+          <a href="#" class="button expand is-blue ">View All</a>
+        </div>
+      </div>
     </div>
-
-    <hr>
-
-        <div class="row">
-            <div class="small-12 medium-6 columns">
-                <div class="card">
-                  <div class="card-image-holder">
-                    <img class="card-image" src="/static/assets/img/card_climate_change_adaption.jpg">
-                    <span class="card-image-overlay">
-                      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-climate"></use></svg>
-                    </span>
-                  </img>
-                </div>
-                <div class="card-well">
-                  <h2 class="card-title">Maps</h2>
-                  <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic incidunt itaque officia minima tenetur, id repellendus provident veniam quod, at, atque voluptatum laudantium esse quas. Aut et fugiat animi?</p>
-                  <a href="#" class="button expand is-blue ">View All</a>
-                </div>
-              </div>
-            </div>
+  </div>
+      <div class="row is-padded">
           <div class="small-12 medium-6 columns">
-            <div class="card">
-              <div class="card-image-holder">
-                <img class="card-image" src="/static/assets/img/card_watershed_technology.jpg">
-                <span class="card-image-overlay">
-                  <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-combination"></use></svg>
-                </span>
-              </img>
+              <div class="card">
+                <div class="card-image-holder">
+                  <img class="card-image" src="/static/assets/img/card_climate_change_adaption.jpg">
+                  <span class="card-image-overlay">
+                    <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-climate"></use></svg>
+                  </span>
               </div>
               <div class="card-well">
                 <h2 class="card-title">Maps</h2>
                 <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic incidunt itaque officia minima tenetur, id repellendus provident veniam quod, at, atque voluptatum laudantium esse quas. Aut et fugiat animi?</p>
-                <a href="#" class="button button-lrg expand is-blue ">View All</a>
+                <a href="#" class="button expand is-blue ">View All</a>
               </div>
             </div>
           </div>
+        <div class="small-12 medium-6 columns">
+          <div class="card">
+            <div class="card-image-holder">
+              <img class="card-image" src="/static/assets/img/card_watershed_technology.jpg">
+              <span class="card-image-overlay">
+                <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-combination"></use></svg>
+              </span>
+            </div>
+            <div class="card-well">
+              <h2 class="card-title">Maps</h2>
+              <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione hic incidunt itaque officia minima tenetur, id repellendus provident veniam quod, at, atque voluptatum laudantium esse quas. Aut et fugiat animi?</p>
+              <a href="#" class="button button-lrg expand is-blue ">View All</a>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
-        <h2>Cards ADD</h2>
+    <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
+      <h2>Cards ADD</h2>
 
-      </section>
-    </div>
+    </section>
   </div>
+</div>
 
-  <div class="small-12 medium-3 columns">
-    <div class="home-keynumbers">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta voluptatibus ea dolorem dignissimos ratione qui earum, laudantium rem quaerat, officia quis non, iusto quasi expedita deserunt voluptatem sequi vero quibusdam.
-    </div>
+<div class="small-12 medium-3 columns">
+  <div class="home-keynumbers">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta voluptatibus ea dolorem dignissimos ratione qui earum, laudantium rem quaerat, officia quis non, iusto quasi expedita deserunt voluptatem sequi vero quibusdam.
   </div>
+</div>
 
-  <!-- TODO: Replace this List on Search SLM Data Page
-  {% comment %}
-  <section class="tech-list small-12 columns">
-    <div class="tech-group">
-      <h2 class="is-group">{% trans "All SLM data" %}</h2>
-      {% include "wocat/questionnaire/partial/list.html" %}
-    </div>
-    <div id="pagination" class="is-rhythmed-2">
-      {% include "pagination.html" %}
-    </div>
-  </section>
-  {% endcomment %} -->
+<!-- TODO: Replace this List on Search SLM Data Page
+{% comment %}
+<section class="tech-list small-12 columns">
+  <div class="tech-group">
+    <h2 class="is-group">{% trans "All SLM data" %}</h2>
+    {% include "wocat/questionnaire/partial/list.html" %}
+  </div>
+  <div id="pagination" class="is-rhythmed-2">
+    {% include "pagination.html" %}
+  </div>
+</section>
+{% endcomment %} -->
 </main>
 
 {% endblock %}
