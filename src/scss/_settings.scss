@@ -115,34 +115,46 @@ $font-weight-bold: 600;
 // $jet         : #222222;
 // $black       : #000000;
 
-$color-wocat      : #DC7D35;
-$color-wocat-dark : #D26929;
-$color-wocat-light: #F78F50;
+$color-orange      : #DC7D35;
+$color-orange-dark : #D26929;
+$color-orange-light: #F78F50;
 
 $color-unccd      : #2592B7;
 $color-unccd-dark : #136C8B;
 $color-unccd-light: #55BFE3;
 
-$color-approach   : #D26929;
-$color-tech       : #4A6D22;
+$color-orange       : #DC7D35;
+$color-orange-dark  : #D26929;
+$color-orange-light : #F78F50;
 
-$color-brown      : #3E3B34;
+$color-brown        : #3E3B34;
+$color-brown-dark   : #3E3B34;
+$color-brown-light  : #5F594F;
 
-$color-brown-dark : #3E3B34;
-$color-brown-light: #5F594F;
+$color-beige        : #D9D6CC;
+$color-beige-dark   : #A09889;
+$color-beige-light  : #EAE8DF;
 
-$color-beige      : #D9D6CC;
-$color-beige-dark : #A09889;
-$color-beige-light: #EAE8DF;
+$color-green        : #557431;
+$color-green-dark   : #4A6D22;
+$color-green-light  : #6E8A4E;
 
-$color-blue      : #2592B7;
-$color-blue-dark : #136C8B;
-$color-blue-light: #55BFE3;
+$color-blue         : #2592B7;
+$color-blue-dark    : #136C8B;
+$color-blue-light   : #55BFE3;
+
+$color-violet       : #9a618c;
+$color-violet-dark  : #834173;
+$color-violet-light : #BB86AE;
+
+$color-tech         : $color-green;
+$color-approach     : $color-orange-dark;
+$color-map          : $color-violet;
 
 $color-yellow     : #FEFFEC;
 
 // We use these as default colors throughout
-$primary-color    : $color-wocat;
+$primary-color    : $color-orange;
 $secondary-color  : $color-brown-light;
 
 $draft-color: #D8343C;
@@ -154,7 +166,7 @@ $success-color    : #417505;
 $warning-color    : #F5A623;
 $info-color       : #2592B7;
 
-$primary-bg-color : $color-wocat-dark;
+$primary-bg-color : $color-orange-dark;
 $secondary-bg-color: $color-unccd-dark;
 
 $alert-bg-color   : darker($alert-color, 5%);
@@ -669,7 +681,7 @@ $input-font-size: rem-calc(14);
 // $input-bg-color: $white;
 $input-focus-bg-color: $color-yellow;
 $input-border-color: $color-beige;
-$input-focus-border-color: $color-wocat;
+$input-focus-border-color: $color-orange;
 // $input-border-style: solid;
 // $input-border-width: 1px;
 // $input-border-radius: $global-radius;

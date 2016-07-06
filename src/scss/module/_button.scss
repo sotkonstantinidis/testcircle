@@ -14,8 +14,8 @@ button,
     @include button-style($bg:#fff, $bg-hover:$color-beige-light, $border-color:$color-beige-light);
   }
   &.is-wocat {
-    background-color: $color-wocat;
-    box-shadow: 0 0 0 0 $color-wocat;
+    background-color: $color-orange;
+    box-shadow: 0 0 0 0 $color-orange;
   }
   &.is-approaches {
     background-color: $color-approach;
@@ -51,13 +51,13 @@ button,
   }
   &:hover.is-wocat,
   &:focus.is-wocat {
-    background-color: $color-wocat-dark;
-    box-shadow: 0 0 0 $button-shadow-effect $color-wocat-dark;
+    background-color: $color-orange-dark;
+    box-shadow: 0 0 0 $button-shadow-effect $color-orange-dark;
   }
   &:hover.is-unccd,
   &:focus.is-unccd {
-    background-color: $color-unccd-dark;
-    box-shadow: 0 0 0 $button-shadow-effect $color-unccd-dark;
+    background-color: $color-blue-dark;
+    box-shadow: 0 0 0 $button-shadow-effect $color-blue-dark;
   }
 }
 .button-switch {
@@ -191,9 +191,9 @@ button,
     color: white;
   }
   &.is-wocat .tech-icon {
-    background-color: $color-wocat-dark;
+    background-color: $color-orange-dark;
   }
   &.is-unccd .tech-icon {
-    background-color: $color-unccd-dark;
+    background-color: $color-blue-dark;
   }
 }

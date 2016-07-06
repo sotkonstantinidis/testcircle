@@ -49,11 +49,11 @@
     font-weight: 300;
     &.is-wocat,
     & span.is-wocat {
-      color: $color-wocat-light;
+      color: $color-orange-light;
     }
     &.is-unccd,
     & span.is-unccd {
-      color: $color-unccd-light;
+      color: $color-blue-light;
     }
   }
 }

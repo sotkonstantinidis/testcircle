@@ -22,12 +22,13 @@ ul.sub-nav-square {
   }
   a {
     display: block;
+    padding: rem-calc(6);
     min-width: rem-calc(36);
     height: rem-calc(36);
     font-size: rem-calc(12);
     font-weight: 600;
     color: #FFFFFF;
-    line-height: rem-calc(36);
+    line-height: rem-calc(24);
     text-align: center;
     text-transform: uppercase;
     text-shadow: 0px 1px 1px rgba(0,0,0,0.10);
@@ -47,8 +48,8 @@ ul.sub-nav-square {
   }
   a > .icon {
     float: left;
-    width: rem-calc(36);
-    height: rem-calc(36);
+    width: rem-calc(24);
+    height: rem-calc(24);
   }
   a > .number {
     display: inline-block;

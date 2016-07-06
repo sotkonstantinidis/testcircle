@@ -17,8 +17,21 @@
   position:absolute;
   left:0;
   bottom:0;
-  width:72px;
-  height:72px;
+  width: rem-calc(72);
+  height: rem-calc(72);
+  padding: rem-calc(12);
+  color: white;
+  background-color: rgba($color-brown, 0.8);
+  &.is-tech {
+    background-color: rgba($color-tech, 0.8);
+  }
+  &.is-approach {
+    background-color: rgba($color-approach, 0.8);
+  }
+  & > .icon {
+    width: rem-calc(48);
+    height: rem-calc(48);
+  }
 }
 
 .card-well {
