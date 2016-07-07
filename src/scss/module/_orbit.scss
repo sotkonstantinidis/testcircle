@@ -1,15 +1,14 @@
 .orbit-container {
   height:576px;
 }
+
 .orbit-caption {
   height:192px;
   text-align:center;
 }
-.orbit-slides-container img {
-  width:100%;
-}
-.orbit-slides-container > * .orbit-caption {
 
+p.orbit-caption-text {
+  line-height:lineHeight(3);
 }
 .orbit-caption-title {
   color:#fff;
@@ -17,4 +16,10 @@
 }
 .orbit-caption-text {
   font-family: OpenSans-Light;
+}
+.orbit-container .orbit-slides-container img {
+  width:100%;
+}
+.orbit-container .orbit-slides-container>* .orbit-caption {
+  bottom:63px;
 }

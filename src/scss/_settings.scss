@@ -936,7 +936,7 @@ $orbit-caption-bg: rgba(37, 146, 183, 0.8);
 $orbit-caption-font-color: #fff;
 $orbit-caption-font-size: rem-calc(36);
 // $orbit-caption-position: "bottom"; // Supported values: "bottom", "under"
-// $orbit-caption-padding: rem-calc(10 14);
+$orbit-caption-padding: rem-calc(42 72);
 $orbit-caption-height: 192px;
 
 // We use these to control the left/right nav styles
@@ -960,7 +960,7 @@ $orbit-caption-height: 192px;
 // $orbit-slide-number-padding: rem-calc(5);
 
 // Hide controls on small
-// $orbit-nav-hide-for-small: true;
+$orbit-nav-hide-for-small: true;
 // $orbit-bullet-hide-for-small: true;
 // $orbit-timer-hide-for-small: true;
 
