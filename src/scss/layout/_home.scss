@@ -21,7 +21,21 @@
 //  min-width: 100%;
 //  height: 576px;
 //}
-.home-keynumbers {
+.home-keynumbers-container {
   padding: rem-calc(12);
-  background-color: $color-beige;
+  background-color: #f5f4ef;
+}
+
+.keynumbers-heading {color:#4c3d28;}
+
+.keynumber, .keynumber-text {
+  color:$color-brown;
+}
+
+.keynumber {
+  font-size:rem-calc(36);
+}
+
+.keynumbers-text {
+  font-size:rem-calc(14);
 }
