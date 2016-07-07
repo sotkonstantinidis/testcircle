@@ -19,25 +19,18 @@
         <span class="is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
       </figcaption>
     {% endif %}
-    {% for flag in item.flags_property %}
-      <figcaption class="tech-status is-{{ flag.flag }}">
-        <span>{{ flag.name }}</span>
-      </figcaption>
-    {% endfor %}
-    {% for flag in item.flags %}
-      <figcaption class="tech-status is-{{ flag.flag }}">
-        <span>{{ flag.name }}</span>
-      </figcaption>
-    {% endfor %}
-    {% if item.status.0 and item.status.0 != 'public' %}
-      <figcaption class="tech-status is-{{ item.status.0 }}">
-        <span >{{ item.status.1 }}</span>
-      </figcaption>
-    {% endif %}
   </figure>
 
   <div class="tech-item-content">
-    <span class="tech-item-status label secondary">Draft</span>
+    {% for flag in item.flags_property %}
+      <span class="tech-item-status label is-{{ flag.flag }}">{{ flag.name }}</span>
+    {% endfor %}
+    {% for flag in item.flags %}
+      <span class="tech-item-status label is-{{ flag.flag }}">{{ flag.name }}</span>
+    {% endfor %}
+    {% if item.status.0 and item.status.0 != 'public' %}
+      <span class="tech-item-status label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
+    {% endif %}
     <header>
       <h2 class="tech-item-title">
         <a href="{% url 'technologies:questionnaire_details' item.code %}">
