@@ -1,7 +1,11 @@
 .review-panel-container {
-  max-width: none;
-  background-color: $color-beige-dark;
-  position: relative;
+
+  @media #{$medium-up} {
+    position: absolute;
+    top: rem-calc(120);
+    left: 0;
+    right: 0;
+  }
 
   #unccd-hero-left img {
     -webkit-filter: brightness(3);
@@ -10,7 +14,7 @@
 }
 
 .review-panel-content {
-  background-color: $color-beige-light;
+  background-color: white;
   padding: 1rem;
 }
 

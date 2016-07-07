@@ -53,23 +53,6 @@
   padding: rem-calc(12 24 0 0);
 }
 
-.tech-item-infos {
-  @include reset-list;
-  margin-top: rem-calc(6);
-  & > li {
-    display: inline-block;
-    margin-left: rem-calc(12);
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-}
-
-.tech-item-status {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
 
 // Thumbnail
@@ -78,14 +61,28 @@
 .tech-thumbnail {
   position: relative;
   margin: 0;
-  min-width: rem-calc(240);
+  background: $color-beige;
+
+  & > a {
+    display: block;
+    overflow: hidden;
+    width: rem-calc(240);
+    height: rem-calc(180);
+    min-height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 
-// Status
+// Type
 // -----------------------------------------------------------------------------
 
-.tech-status {
+.tech-type {
   display: block;
   position: absolute;
   top: 0;
@@ -103,23 +100,13 @@
   &.is-approach {
     background-color: rgba($color-approach, 0.8);
   }
-  &.is-unccd,
-  &.is-unccd_bp {
-    background-color: rgba($color-unccd, 0.8);
-    color: #ffffff;
-  }
-  &.is-draft {
-    background-color: rgba($draft-color, 0.8);
-  }
-  &.is-submitted {
-    background-color: rgba($submitted-color, 0.8);
-  }
-  &.is-reviewed {
-    background-color: rgba($reviewed-color, 0.8);
+  &.is-maps,
+  &.is-map {
+    background-color: rgba($color-approach, 0.8);
   }
 }
 
-.tech-status > span {
+.tech-type > span {
   display: block;
   position: absolute;
   width: rem-calc(180);
@@ -139,6 +126,15 @@
 
   transform-origin: center center;
   transform: rotate(-90deg);
+}
+
+
+// Status
+// -----------------------------------------------------------------------------
+.tech-status {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 
@@ -181,19 +177,26 @@ a:hover .tech-icon {
   background: white;
 }
 */
+
+
+// Infos
+// -----------------------------------------------------------------------------
+
 .tech-infos {
-  padding-bottom: rem-calc(12);
-  dl,
-  dd {
-    margin: 0;
-  }
-  dt {
-    float: left;
-    color: $color-beige-dark;
-    font-weight: 400;
-    margin: 0 rem-calc(6) 0 0;
+  @include reset-list;
+  margin-top: rem-calc(6);
+  & > li {
+    display: inline-block;
+    margin-left: rem-calc(12);
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
+
+
+// Figure
+// -----------------------------------------------------------------------------
 
 .tech-figure {
   position: relative;
@@ -201,10 +204,21 @@ a:hover .tech-icon {
   background-color: $color-beige;
   overflow: hidden;
 
-  @media #{$medium-up} {
-    height: 60vh;
-    max-height: 60vw;
+  width: 100%;
+  height: 60vh;
+  max-height: 60vw;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
+
+  @media #{$medium-up} {
+    margin-bottom: rem-calc(-180);
+  }
+
+  /*
 
   .row {
     @media #{$medium-up} {
@@ -229,9 +243,9 @@ a:hover .tech-icon {
     p:last-child {
       margin-bottom: 0;
     }
-  }
+  } */
 }
-.tech-figure-container {
+/* .tech-figure-container {
   position: relative;
   max-height: 60vh;
   overflow: hidden;
@@ -243,22 +257,34 @@ a:hover .tech-icon {
     }
   }
 }
+ */
+
+ // Output (Detail view)
+ // -----------------------------------------------------------------------------
+
+.tech-output {
+
+}
 
 .tech-output-header {
   position: relative;
-  padding-top: rem-calc(48);
-
-  .tech-status {
-    position: absolute;
-    top: 0;
-    line-height: 0;
-  }
+  background: white;
+  /* margin-top: rem-calc(-180); */
+  min-height: rem-calc(180);
+  padding: rem-calc(0 48);
 }
 .tech-output-title {
-  font-size: rem-calc(36);
-  color: #3E3A35;
-  line-height: rem-calc(48);
-  margin-top: rem-calc(16);
+  font-size: rem-calc(30);
+  line-height: rem-calc(36);
+}
+.is-technology .tech-output-title {
+  color: $color-tech;
+}
+.is-approach .tech-output-title {
+  color: $color-approach;
+}
+.is-map .tech-output-title {
+  color: $color-map;
 }
 .tech-output-infos {
   @include reset-list;
