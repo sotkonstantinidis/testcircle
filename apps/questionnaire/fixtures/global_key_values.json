@@ -1049,11 +1049,17 @@
         "approaches": {
           "label": {
             "en": "Name of project which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
         },
         "technologies": {
           "label": {
             "en": "Name of project which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
         }
       }
@@ -1068,11 +1074,17 @@
         "approaches": {
           "label": {
             "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
         },
         "technologies": {
           "label": {
             "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
         }
       }
@@ -1237,6 +1249,44 @@
     },
     "model": "configuration.translation",
     "pk": 5062
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Address"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Address"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5063
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Map"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Map"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5064
   },
   {
     "fields": {
@@ -5139,7 +5189,7 @@
             "en": "land user"
           },
           "helptext": {
-            "en": "the person/ entity who implements/ maintains the Technology. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+            "en": "the person/ entity who implements/ maintains the Technology/ Technologies associated with this Approach. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
         }
       }
@@ -5165,6 +5215,20 @@
     },
     "model": "configuration.translation",
     "pk": 5901
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "helptext": {
+            "en": "Specify the centre of the area in which the Approach has been applied."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5902
   },
   {
     "fields": {
@@ -6088,7 +6152,8 @@
       "configuration": {
         "type": "display_only",
         "form_options": {
-          "template": "no_label"
+          "template": "no_label",
+          "helptext_position": "none"
         }
       }
     },
@@ -6102,7 +6167,8 @@
       "configuration": {
         "type": "display_only",
         "form_options": {
-          "template": "no_label"
+          "template": "no_label",
+          "helptext_position": "none"
         }
       }
     },
@@ -6152,6 +6218,28 @@
     },
     "model": "configuration.key",
     "pk": 55
+  },
+  {
+    "fields": {
+      "keyword": "person_address",
+      "translation": 5063,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 56
+  },
+  {
+    "fields": {
+      "keyword": "location_map",
+      "translation": 5064,
+      "configuration": {
+        "type": "map"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 57
   },
   {
     "fields": {
@@ -8598,6 +8686,19 @@
     },
     "model": "configuration.questiongroup",
     "pk": 22
+  },
+  {
+    "fields": {
+      "keyword": "qg_location_map",
+      "translation": 5902,
+      "configuration": {
+        "form_options": {
+          "template": "map"
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 23
   },
   {
     "fields": {

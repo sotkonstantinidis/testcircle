@@ -84,21 +84,29 @@
 
                   {% if forloop.counter >= 4 %}
 
-                    {% if forloop.counter == 4 %}
-                      <div class="row single-item">
-                    {% elif forloop.counter == 7 or forloop.counter == 8 %}
-                      <div class="row single-item">
-                    {% elif forloop.counter >= 9 and not forloop.counter|divisibleby:2 %}
-                      <div class="row single-item">
-                    {% endif %}
+                    {% with 'original_person_lastname original_person_institution_name original_person_address original_person_phone_1 original_person_email_1' as new_line %}
+                      {% if field.name in new_line.split %}
+                        <div class="row single-item">
+                      {% endif %}
+                    {% endwith %}
 
-                    {% if forloop.counter >= 4 and forloop.counter <= 6 %}
-                      <div class="small-4 columns">
-                    {% elif forloop.counter == 7 or forloop.counter == 8 %}
-                      <div class="small-12 columns">
-                    {% else %}
-                      <div class="small-6 columns">
-                    {% endif %}
+                    {% with 'original_person_institution_name original_person_address' as full_line %}
+                      {% if field.name in full_line.split %}
+                        <div class="small-12 columns">
+                      {% endif %}
+                    {% endwith %}
+
+                    {% with 'original_person_lastname original_person_firstname person_gender' as cols %}
+                      {% if field.name in cols.split %}
+                        <div class="small-4 columns">
+                      {% endif %}
+                    {% endwith %}
+
+                    {% with 'original_person_phone_1 original_person_phone_2 original_person_email_1 original_person_email_2' as cols %}
+                      {% if field.name in cols.split %}
+                        <div class="small-6 columns">
+                      {% endif %}
+                    {% endwith %}
 
                     {% if forloop.last %}{% formconfig row with hidden_fields=f.hidden_fields %}{% endif %}
 
@@ -110,19 +118,30 @@
                       {% endif %}
                     {% endwith %}
 
-                    {% if forloop.counter >= 4 and forloop.counter <= 6 %}
-                      </div>
-                    {% else %}
-                      </div>
-                    {% endif %}
+                    {% with 'original_person_lastname original_person_firstname person_gender' as cols %}
+                      {% if field.name in cols.split %}
+                        </div>
+                      {% endif %}
+                    {% endwith %}
 
-                    {% if forloop.counter == 6 %}
-                      </div>
-                    {% elif forloop.counter == 7 or forloop.counter == 8 %}
-                      </div>
-                    {% elif forloop.counter >= 10 and forloop.counter|divisibleby:2 %}
-                      </div>
-                    {% endif %}
+                    {% with 'original_person_phone_1 original_person_phone_2 original_person_email_1 original_person_email_2' as cols %}
+                      {% if field.name in cols.split %}
+                        </div>
+                      {% endif %}
+                    {% endwith %}
+
+                    {% with 'original_person_institution_name original_person_address' as full_line %}
+                      {% if field.name in full_line.split %}
+                        </div>
+                      {% endif %}
+                    {% endwith %}
+
+                    {% with 'person_gender original_person_institution_name original_person_address original_person_phone_2 original_person_email_2' as new_line %}
+                      {% if field.name in new_line.split %}
+                        </div>
+                      {% endif %}
+                    {% endwith %}
+
                   {% endif %}
                 {% endfor %}
               </div>

@@ -25953,25 +25953,7 @@
                             }
                           },
                           {
-                            "keyword": "person_institution_address",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_postal_code",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_city",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_state",
+                            "keyword": "person_address",
                             "view_options": {
                               "template": "value_only"
                             }
@@ -26290,13 +26272,10 @@
                         ]
                       },
                       {
-                        "keyword": "tech_qg_224",
-                        "form_options": {
-                          "template": "map"
-                        },
+                        "keyword": "qg_location_map",
                         "questions": [
                           {
-                            "keyword": "tech_location_map",
+                            "keyword": "location_map",
                             "form_options": {
                               "template": "no_label"
                             },
