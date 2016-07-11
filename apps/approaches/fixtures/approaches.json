@@ -1779,7 +1779,10 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Indicate the annual budget for the SLM component of the Approach (including training and extension, research, implementation of Technology/ Technologies) in US$"
+            "en": "Indicate the annual budget for the SLM component of the Approach in US$"
+          },
+          "helptext": {
+            "en": "Including training and extension, research, implementation of Technology/ Technologies"
           }
         }
       }
@@ -3518,6 +3521,34 @@
     },
     "model": "configuration.translation",
     "pk": 7613
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "local"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7614
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "capacity building/ training"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7615
   },
   {
     "fields": {
@@ -7044,7 +7075,7 @@
   {
     "fields": {
       "keyword": "app_research_details",
-      "translation": 7130,
+      "translation": 7127,
       "configuration": {
         "type": "text"
       }
@@ -7418,7 +7449,7 @@
   {
     "fields": {
       "keyword": "app_inst_level_community",
-      "translation": 7537,
+      "translation": 7614,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -7454,7 +7485,7 @@
   {
     "fields": {
       "keyword": "app_inst_support_training",
-      "translation": 7541,
+      "translation": 7615,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -9741,6 +9772,9 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_location",
+                        "form_options": {
+                          "row_class": "bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "country",
@@ -11106,7 +11140,10 @@
                         "keyword": "app_qg_24",
                         "questions": [
                           {
-                            "keyword": "app_annual_budget"
+                            "keyword": "app_annual_budget",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            }
                           },
                           {
                             "keyword": "app_annual_budget_range"

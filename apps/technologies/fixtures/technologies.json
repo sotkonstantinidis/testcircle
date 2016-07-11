@@ -4056,6 +4056,9 @@
         "technologies": {
           "label": {
             "en": "Specify how the Technology was introduced"
+          },
+          "helptext": {
+            "en": "The terms <strong>traditional</strong> and <strong>innovation</strong> refer to the land users’ own technologies. They cover technologies that have been in use for generations, as well as those developed more recently by innovative land users in response to changing circumstances. Use “other” when the Technology does not fit any of the given categories and specify why it does not fit."
           }
         }
       }
@@ -4491,6 +4494,37 @@
     },
     "model": "configuration.translation",
     "pk": 1337
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Main animal species and products"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1338
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "(Semi-)natural forests/ woodlands"
+          },
+          "helptext": {
+            "en": "<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of indigenous trees, not planted by man"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1339
   },
   {
     "fields": {
@@ -10788,6 +10822,48 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Traffic: roads, railways"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1936
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Energy: pipelines, power lines"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1937
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Drainage lines, waterways"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1938
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "technologies": {
@@ -15166,7 +15242,7 @@
   {
     "fields": {
       "keyword": "tech_lu_forest_natural",
-      "translation": 1239,
+      "translation": 1339,
       "configuration": {
         "type": "checkbox"
       },
@@ -15991,7 +16067,13 @@
       "keyword": "tech_rainfall_annual",
       "translation": 1291,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "field_options": {
+            "min": 0,
+            "decimals": 2
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -18509,7 +18591,7 @@
   {
     "fields": {
       "keyword": "tech_lu_grazingland_specify",
-      "translation": 1237,
+      "translation": 1338,
       "configuration": {
         "type": "text"
       }
@@ -18636,8 +18718,7 @@
         1301,
         1246,
         1347,
-        1357,
-        1302
+        1357
       ]
     },
     "model": "configuration.key",
@@ -19718,6 +19799,17 @@
     },
     "model": "configuration.key",
     "pk": 1373
+  },
+  {
+    "fields": {
+      "keyword": "tech_slm_group_other",
+      "translation": 1008,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1374
   },
   {
     "fields": {
@@ -22108,7 +22200,7 @@
   {
     "fields": {
       "keyword": "tech_lu_settlements_traffic",
-      "translation": 1773,
+      "translation": 1936,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -22117,7 +22209,7 @@
   {
     "fields": {
       "keyword": "tech_lu_settlements_energy",
-      "translation": 1774,
+      "translation": 1937,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -22126,7 +22218,7 @@
   {
     "fields": {
       "keyword": "tech_lu_waterways_drainage",
-      "translation": 1775,
+      "translation": 1938,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -26331,7 +26423,10 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_who_implemented"
+                            "keyword": "tech_who_implemented",
+                            "form_options": {
+                              "helptext_length": 500
+                            }
                           },
                           {
                             "keyword": "tech_who_implemented_other",
@@ -26488,7 +26583,8 @@
                           {
                             "keyword": "tech_lu_grazingland_intensive",
                             "form_options": {
-                              "helptext_position": "tooltip"
+                              "helptext_position": "tooltip",
+                              "row_class": "top-margin"
                             }
                           },
                           {
@@ -26524,21 +26620,25 @@
                           {
                             "keyword": "tech_lu_forest_plantation",
                             "form_options": {
-                              "helptext_position": "tooltip"
+                              "helptext_position": "tooltip",
+                              "row_class": "top-margin"
                             }
                           },
                           {
                             "keyword": "tech_lu_sub_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "row_class": "top-margin"
                             },
                             "view_options": {
                               "template": "checkbox_other"
                             }
                           },
                           {
-                            "keyword": "tech_lu_forest_products"
+                            "keyword": "tech_lu_forest_products",
+                            "form_options": {
+                              "row_class": "top-margin"
+                            }
                           },
                           {
                             "keyword": "tech_lu_forest_other",
@@ -26746,13 +26846,19 @@
                             "keyword": "tech_watersupply_comments"
                           },
                           {
-                            "keyword": "tech_growing_seasons"
+                            "keyword": "tech_growing_seasons",
+                            "form_options": {
+                              "row_class": "top-margin"
+                            }
                           },
                           {
                             "keyword": "tech_growing_seasons_specify"
                           },
                           {
-                            "keyword": "tech_livestock_density"
+                            "keyword": "tech_livestock_density",
+                            "form_options": {
+                              "row_class": "top-margin"
+                            }
                           }
                         ]
                       }
@@ -26774,6 +26880,16 @@
                             },
                             "view_options": {
                               "label_position": "none"
+                            }
+                          },
+                          {
+                            "keyword": "tech_slm_group_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
                             }
                           }
                         ]
@@ -27390,10 +27506,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -27417,10 +27533,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -27444,10 +27560,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -27471,10 +27587,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -27498,10 +27614,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -27525,10 +27641,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -27652,10 +27768,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -27679,10 +27795,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -27706,10 +27822,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -27733,10 +27849,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -27760,10 +27876,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -27787,10 +27903,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
