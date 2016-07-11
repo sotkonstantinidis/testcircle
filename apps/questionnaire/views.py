@@ -274,6 +274,21 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
 
         return '{url}#{step}'.format(url=url, step=step)
 
+    def get_edit_url(self, step):
+        """
+        The edit view of the current object with #top as anchor.
+
+        Returns: string
+        """
+        if self.has_object:
+            url = reverse('{}:questionnaire_edit'.format(self.url_namespace),
+                          args=[self.object.code])
+        else:
+            url = reverse('{}:questionnaire_new'.format(self.url_namespace))
+
+        return '{url}#{step}'.format(url=url, step=step)
+
+
     def get_context_data(self, **kwargs):
         """
         The context data of the view. The required content is based on the previously existing views and the template
@@ -863,7 +878,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             'config': self.category_config,
             'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
             'title': _('QCAT Form'),
-            'overview_url': self.get_detail_url(self.kwargs['step']),
+            'overview_url': self.get_edit_url(self.kwargs['step']),
             'valid': True,
             'configuration_name': self.category_config.get('configuration', self.url_namespace),
             'edit_mode': self.edit_mode,

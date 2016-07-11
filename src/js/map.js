@@ -80,7 +80,7 @@
                 visible: false,
                 source: new ol.source.XYZ({
                     attributions: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-                    url: 'http://a.tile.komoot.de/komoot-2/{z}/{x}/{y}.png'
+                    url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
                 })
             }),
             new ol.layer.Tile({

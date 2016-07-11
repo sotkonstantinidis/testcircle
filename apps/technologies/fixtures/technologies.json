@@ -26480,10 +26480,16 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_grazingland_extensive"
+                            "keyword": "tech_lu_grazingland_extensive",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            }
                           },
                           {
-                            "keyword": "tech_lu_grazingland_intensive"
+                            "keyword": "tech_lu_grazingland_intensive",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            }
                           },
                           {
                             "keyword": "tech_lu_sub_other",
@@ -26510,10 +26516,16 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_forest_natural"
+                            "keyword": "tech_lu_forest_natural",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            }
                           },
                           {
-                            "keyword": "tech_lu_forest_plantation"
+                            "keyword": "tech_lu_forest_plantation",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            }
                           },
                           {
                             "keyword": "tech_lu_sub_other",
