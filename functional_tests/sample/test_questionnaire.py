@@ -1,6 +1,5 @@
 import time
 
-from PIL._imaging import radial_gradient
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.test.utils import override_settings
@@ -17,7 +16,6 @@ from sample.tests.test_views import (
     route_questionnaire_new,
     route_questionnaire_new_step,
     get_category_count,
-    get_position_of_category,
 )
 from samplemulti.tests.test_views import route_questionnaire_details as \
     route_questionnaire_details_samplemulti

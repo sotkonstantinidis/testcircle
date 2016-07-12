@@ -44,7 +44,7 @@
   </div>
   <div class="content medium-8 columns">
     <header>
-       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations_property|join:"|" }}]</small> {% endif %}<a href="{% url 'sample:questionnaire_details' item.code %}" title="" class="link">{{ item.key_1|default:""|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
+       <h1>{% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}<a href="{% url 'sample:questionnaire_details' item.code %}" title="" class="link">{{ item.key_1|default:""|truncatewords:8 }}</a> <small>{{ item.country }}</small></h1>
     </header>
     <aside class="tech-infos row collapse">
       <dl class="medium-6 columns">
