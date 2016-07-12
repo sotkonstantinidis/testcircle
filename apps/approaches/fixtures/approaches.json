@@ -9741,9 +9741,12 @@
                         "form_options": {
                           "max_num": 3
                         },
+                        "view_options": {
+                          "template": "video_questiongroup"
+                        },
                         "questions": [
                           {
-                            "keyword": "video_link"
+                            "keyword": "video_vimeo_id"
                           },
                           {
                             "keyword": "video_description"
