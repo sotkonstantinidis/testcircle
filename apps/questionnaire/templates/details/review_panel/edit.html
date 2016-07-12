@@ -3,7 +3,7 @@
 <div class="row">
   <div class="medium-12 columns">
     <h3>{% trans "Edit version" %}</h3>
-    <p>{% trans "Create a new release of this questionnaire. The current version of the questionnaire remains public until the new version was published." %}</p>
+    <p>{% trans "If you want to make changes to a published SLM Technology / Approach you can create a new release of this SLM Technology / Approach. The current version of the questionnaire remains public until the new version is published. The previous / old version will be archived and remains available to public users." %}</p>
   </div>
 </div>
 
@@ -15,11 +15,11 @@
       </p>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'Create a new draft based on the published questionnaire. Next status will be "draft" and the publication workflow starts again.' %}</p>
+      <p>{% trans 'Create a new SLM Technology / Approach draft based on the published questionnaire. The publication workflow will start again.' %}</p>
     </div>
     <div id="confirm-edit" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm submission." %}</h2>
-      <p>{% trans "By submitting, a new version of this questionnaire with the status 'draft' will be created, for you and all editors to work on." %}</p>
+      <p>{% trans 'If you submit a new version of this SLM Technology / Approach, a new version (status: "draft") will be created. It can be edited by you and all editors.' %}</p>
       <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>

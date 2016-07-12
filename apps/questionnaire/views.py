@@ -21,6 +21,7 @@ from django.shortcuts import (
 )
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin
@@ -272,6 +273,21 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
             url = reverse('{}:questionnaire_new'.format(self.url_namespace))
 
         return '{url}#{step}'.format(url=url, step=step)
+
+    def get_edit_url(self, step):
+        """
+        The edit view of the current object with #top as anchor.
+
+        Returns: string
+        """
+        if self.has_object:
+            url = reverse('{}:questionnaire_edit'.format(self.url_namespace),
+                          args=[self.object.code])
+        else:
+            url = reverse('{}:questionnaire_new'.format(self.url_namespace))
+
+        return '{url}#{step}'.format(url=url, step=step)
+
 
     def get_context_data(self, **kwargs):
         """
@@ -576,6 +592,7 @@ class GenericQuestionnaireMapView(TemplateResponseMixin, View):
             raise Http404()
         return questionnaire_object
 
+    @xframe_options_exempt
     def get(self, request, *args, **kwargs):
         questionnaire_object = self.get_object()
 
@@ -861,7 +878,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             'config': self.category_config,
             'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
             'title': _('QCAT Form'),
-            'overview_url': self.get_detail_url(self.kwargs['step']),
+            'overview_url': self.get_edit_url(self.kwargs['step']),
             'valid': True,
             'configuration_name': self.category_config.get('configuration', self.url_namespace),
             'edit_mode': self.edit_mode,

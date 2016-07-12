@@ -123,6 +123,7 @@ class QuestionnaireModelTest(TestCase):
 
     @patch('configuration.utils.create_new_code')
     def test_create_new_calls_create_code(self, mock_create_new_code):
+        mock_create_new_code.return_value = 'foo'
         get_valid_questionnaire(self.user)
         mock_create_new_code.assert_called_once_with('sample', {'foo': 'bar'})
 
@@ -394,7 +395,8 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire_2.links.count(), 0)
         self.assertEqual(QuestionnaireLink.objects.count(), 0)
 
-    def test_protect_published_item(self):
+    @patch.object(Questionnaire, 'update_geometry')
+    def test_protect_published_item(self, mock_update_geometry):
         questionnaire = Questionnaire.create_new(
             configuration_code='sample', data={}, user=self.user, status=4
         )

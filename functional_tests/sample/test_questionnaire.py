@@ -783,6 +783,75 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
 
+    def test_selects_with_chosen_repeating(self, mock_get_user_id):
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_0'}))
+        self.rearrangeFormHeader()
+
+        # She clicks the button to add a non-registered person
+        create_radio = self.findBy(
+            'xpath', '//input[@name="form-user-radio" and @value="create"]')
+        create_radio.click()
+
+        # She sees Key 4, which is a select, rendered with Chosen.
+        # Initially, no value is selected.
+        self.findBy('xpath', '//select[@name="qg_31-0-key_4"]')
+        chosen_fields = self.findManyBy('xpath', '//div[contains(@class, "form-user-tab-create")]//a[@class="chosen-single"]')
+        self.assertEqual(len(chosen_fields), 1)
+        self.assertEqual(chosen_fields[0].text, '-')
+
+        # She sees that she can select a Value by mouse click
+        self.findBy(
+            'xpath', '//div[contains(@class, "chosen-container")]').click()
+        self.findBy(
+            'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]') \
+            .click()
+        self.assertEqual(chosen_fields[0].text, 'Afghanistan')
+
+        # She adds another questiongroup
+        self.findBy('xpath', '//a[@data-questiongroup-keyword="qg_31"]').click()
+
+        # She clicks the tab to add a non-registered person
+        create_radios = self.findManyBy(
+            'xpath', '//input[@name="form-user-radio" and @value="create"]')
+        create_radios[1].click()
+        # No idea why 2 clicks are necessary
+        create_radios[1].click()
+
+        # She sees another chosen field which is empty
+        self.findBy('xpath', '//select[@name="qg_31-1-key_4"]')
+        chosen_fields = self.findManyBy('xpath',
+                                        '//div[contains(@class, "form-user-tab-create")]//a[@class="chosen-single"]')
+        self.assertEqual(len(chosen_fields), 2)
+        self.assertEqual(chosen_fields[0].text, 'Afghanistan')
+        self.assertEqual(chosen_fields[1].text, '-')
+
+        self.findBy('xpath', '//div[@id="id_qg_31_1_key_4_chosen"]').click()
+        self.findBy('xpath', '//div[@id="id_qg_31_1_key_4_chosen"]//ul[@class="chosen-results"]/li[text()="Germany"]').click()
+        chosen_fields = self.findManyBy('xpath',
+                                        '//div[contains(@class, "form-user-tab-create")]//a[@class="chosen-single"]')
+        self.assertEqual(len(chosen_fields), 2)
+        self.assertEqual(chosen_fields[0].text, 'Afghanistan')
+        self.assertEqual(chosen_fields[1].text, 'Germany')
+
+        # She submits the form and sees the value was updated
+        self.submit_form_step()
+        self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Afghanistan")]]')
+
+        # She submits the entire form and sees the value is on the details page
+        self.review_action('submit')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Afghanistan")]]')
+
     def test_checkbox(self, mock_get_user_id):
 
         # Alice logs in
