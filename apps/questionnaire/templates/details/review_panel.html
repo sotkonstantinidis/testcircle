@@ -24,6 +24,27 @@
     <div class="process-status">
       <div class="row collapse">
         <form action="{{ review_config.form_action_url }}" method="POST" class="collapse" id="review_form">
+
+          {% if review_config.roles %}
+            <div class="row">
+              <div class="medium-12 columns process-roles">
+                {% for role_code, role_name in review_config.roles %}
+                  <div class="process-single-role">
+                    <p>
+                      {% blocktrans with role=role_name %}
+                        You are <strong>{{ role }}</strong> of this SLM Technology / Approach.
+                      {% endblocktrans %}
+                    </p>
+                    {% include 'wocat/help/questionnaire_roles.html' with current_role=role_code %}
+                  </div>
+                {% endfor %}
+                <span class="right">
+                  <p><a href="#" class="link">{% trans "Learn more about the review process." %}</a></p>
+                </span>
+              </div>
+            </div>
+          {% endif %}
+
           <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
           {% if review_config.review_status == 0 %}
               {% include 'details/review_panel/welcome.html' %}

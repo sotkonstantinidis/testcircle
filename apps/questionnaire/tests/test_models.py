@@ -199,28 +199,48 @@ class QuestionnaireModelTest(TestCase):
             user=self.user, previous_version=questionnaire)
         self.assertEqual(users, questionnaire_2.get_users())
 
-    def test_get_permissions_returns_empty(self):
+    def test_get_roles_permissions_returns_empty(self):
+        other_user = create_new_user(
+            id=2, email='c@d.com', lastname='faz', firstname='taz')
+        questionnaire = get_valid_questionnaire(other_user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
+        self.assertEqual(permissions, [])
+
+    def test_get_permissions_returns_empty_permission_not_found(self):
         questionnaire = get_valid_questionnaire(self.user)
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'foo'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
-    def test_get_permissions_compilers(self):
+    def test_get_roles_permissions_returns_compiler_draft(self):
         questionnaire = get_valid_questionnaire(self.user)
-        permissions = questionnaire.get_permissions(self.user)
-        self.assertIsInstance(permissions, list)
+        self.assertEqual(questionnaire.status, 1)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('compiler', 'Compiler')])
         self.assertEqual(len(permissions), 3)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('submit_questionnaire', permissions)
+        self.assertIn('assign_questionnaire', permissions)
+
+    def test_roles_permissions_returns_no_compiler_submitted(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 2
+        questionnaire.save()
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
+        self.assertEqual(permissions, [])
 
     def test_get_permissions_editors(self):
         questionnaire = get_valid_questionnaire(self.user)
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'editor'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('editor', 'Editor')])
         self.assertEqual(permissions, ['edit_questionnaire'])
 
     def test_get_permissions_reviewers_not_status(self):
@@ -228,7 +248,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'reviewer'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
     def test_get_permissions_reviewers(self):
@@ -238,7 +259,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'reviewer'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('reviewer', 'Reviewer')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('review_questionnaire', permissions)
@@ -248,7 +270,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'publisher'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
     def test_get_permissions_publishers(self):
@@ -258,7 +281,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'publisher'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('publisher', 'Publisher')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('publish_questionnaire', permissions)
@@ -270,7 +294,25 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.save()
         mock_get_all_permissions.return_value = [
             'questionnaire.review_questionnaire']
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('reviewer', 'Reviewer')])
+        self.assertEqual(len(permissions), 2)
+        self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('review_questionnaire', permissions)
+
+    @patch.object(User, 'get_all_permissions')
+    def test_get_permissions_reviewers_general_and_assigned(
+            self, mock_get_all_permissions):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 2
+        questionnaire.save()
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'reviewer'
+        membership.save()
+        mock_get_all_permissions.return_value = [
+            'questionnaire.review_questionnaire']
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('reviewer', 'Reviewer')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('review_questionnaire', permissions)
@@ -283,16 +325,30 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.save()
         mock_get_all_permissions.return_value = [
             'questionnaire.publish_questionnaire']
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('publisher', 'Publisher')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('publish_questionnaire', permissions)
+
+    @patch.object(User, 'get_all_permissions')
+    def test_get_permissions_wocat_secretariat(
+            self, mock_get_all_permissions):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 3
+        questionnaire.save()
+        mock_get_all_permissions.return_value = [
+            'questionnaire.assign_questionnaire']
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('secretariat', 'WOCAT Secretariat')])
+        self.assertEqual(permissions, ['assign_questionnaire'])
 
     def test_get_permissions_anonymous_user(self):
         # Anonymous users have no rights.
         questionnaire = get_valid_questionnaire()
         user = AnonymousUser()
-        permissions = questionnaire.get_permissions(user)
+        roles, permissions = questionnaire.get_roles_permissions(user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
     def test_get_users_returns_tuples(self):

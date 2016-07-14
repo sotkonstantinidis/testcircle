@@ -147,3 +147,25 @@
   }
 
 }
+
+.process-roles {
+  border: 1px solid $color-beige-dark;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  padding: 1rem;
+}
+
+.process-single-role {
+  &:not(:last-of-type) {
+    border-bottom: 1px solid $color-beige;
+    padding-bottom: 1rem;
+  }
+
+  &:not(:first-of-type) {
+    padding-top: 1rem;
+  }
+
+  p:first-child {
+    margin-top: 0;
+  }
+}
