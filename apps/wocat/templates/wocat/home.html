@@ -102,10 +102,10 @@
 </section>
 
 <main class="home-main row large-no-gutters" role="main">
-  <div class="small-12 medium-9 columns">
+  <div class="small-12 columns">
     <ul class="tabs" data-tab role="tablist">
-      <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">Search SLM Data</a></li>
-      <li class="tab-title" role="presentation"><a href="#panel2-2" role="tab" tabindex="0" aria-selected="false" aria-controls="panel2-2">Add SLM Data</a></li>
+      <li class="tab-title active" role="presentation"><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" aria-controls="panel2-1">{% trans "Search SLM data" %}</a></li>
+      <li class="tab-title" role="presentation"><a href="#panel2-2" role="tab" tabindex="0" aria-selected="false" aria-controls="panel2-2">{% trans "Add SLM data" %}</a></li>
     </ul>
     <div class="tabs-content">
       <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
@@ -116,7 +116,7 @@
             </div>
           </div>
         </div>
-        <div class="row is-flex">
+        <div class="row is-flex" data-equalizer>
           <div class="small-12 medium-4 columns">
             <div class="card">
               <div class="card-image-holder">
@@ -128,9 +128,9 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">SLM Technologies</h2>
-                <p class="card-desc">A SLM Technology is a land management practice that controls land degradation, enhances productivity, and/ or other ecosystem services.</p>
-                <a href="#" class="button large expand">View All</a>
+                <h2 class="card-title">{% trans "SLM Technologies" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "An <strong>SLM Technology</strong> is a land management practice that controls land degradation and enhances productivity and/ or other ecosystem services." %}</p>
+                <a href="#" class="button large expand">{% trans "View all" %}</a>
               </div>
             </div>
           </div>
@@ -145,9 +145,9 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">SLM Approaches</h2>
-                <p class="card-desc">A SLM Approach defines the ways and means used to implement a SLM Technology, including the stakeholders involved and their roles.</p>
-                <a href="#" class="button large expand">View All</a>
+                <h2 class="card-title">{% trans "SLM Approaches" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "An <strong>SLM Approach</strong> defines the ways and means used to implement an SLM Technology, including the stakeholders involved and their roles." %}</p>
+                <a href="#" class="button large expand">{% trans "View all" %}</a>
               </div>
             </div>
           </div>
@@ -162,14 +162,14 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">Maps</h2>
-                <p class="card-desc">A SLM Map analyses and depicts the spatial distribution of SLM and land degradation processes, causes, and impacts.</p>
-                <a href="#" class="button large expand">View All</a>
+                <h2 class="card-title">{% trans "SLM Maps" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "An <strong>SLM Map</strong> analyses and depicts the spatial distribution of SLM and land degradation processes, causes, and impacts." %}</p>
+                <a href="#" class="button large expand">{% trans "View all" %}</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="row ">
+        <div class="row" data-equalizer>
           <div class="small-12 medium-6 columns">
             <div class="card">
               <div class="card-image-holder">
@@ -181,9 +181,9 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">Climate change adaptation</h2>
-                <p class="card-desc">LEarth's climate has been warming a little more than one degree Fahrenheit during the past 100 years. How resilient or how vulnerable are technologies to climate change?</p>
-                <a href="#" class="button large expand">View All</a>
+                <h2 class="card-title">{% trans "Climate change adaptation" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
+                <a href="#" class="button large expand">{% trans "View all" %}</a>
               </div>
             </div>
           </div>
@@ -198,16 +198,16 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">Watershed / technology Systems</h2>
-                <p class="card-desc">Watershed Technologies utilizes a patented stormwater treatment technology. The hybrid treatment systems are comprised of both wetland and chemical components</p>
-                <a href="#" class="button large expand">View All</a>
+                <h2 class="card-title">{% trans "Watershed/ Technology Systems" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "The watershed/ technology systems tool assesses the spatial arrangement, interlinkage, and interdependency of different SLM Technologies and SLM Approaches in a watershed." %}</p>
+                <a href="#" class="button large expand">{% trans "View all" %}</a>
               </div>
             </div>
           </div>
         </div>
       </section>
       <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
-        <div class="row is-flex">
+        <div class="row is-flex" data-equalizer>
           <div class="small-12 medium-4 columns">
             <div class="card">
               <div class="card-image-holder">
@@ -222,9 +222,9 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">SLM Practices</h2>
-                <p class="card-desc">SLM practices comprise SLM Technologies and SLM Approaches</p>
-                <a href="#" class="button expand is-blue">Add</a>
+                <h2 class="card-title">{% trans "SLM Practices" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "<strong>SLM practices</strong> comprise SLM Technologies and SLM Approaches" %}</p>
+                <a href="#" class="button expand is-blue">{% trans "Add" %}</a>
               </div>
             </div>
           </div>
@@ -239,9 +239,9 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">SLM Maps</h2>
-                <p class="card-desc">A SLM Map analyses and depicts the spatial distribution of SLM and land degradation processes, causes, and impacts.</p>
-                <a href="#" class="button large expand">Add</a>
+                <h2 class="card-title">{% trans "SLM Maps" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "An <strong>SLM Map</strong> analyses and depicts the spatial distribution of SLM and land degradation processes, causes, and impacts." %}</p>
+                <a href="#" class="button large expand">{% trans "Add" %}</a>
               </div>
             </div>
           </div>
@@ -259,9 +259,9 @@
                 </span>
               </div>
               <div class="card-well">
-                <h2 class="card-title">Modules</h2>
-                <p class="card-desc">Modules provide in-depth information on specific topics related to SLM Technologies and Approaches</p>
-                <a href="#" class="button large expand">Add</a>
+                <h2 class="card-title">{% trans "Modules" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "Modules provide in-depth information on specific topics related to SLM Technologies and Approaches" %}</p>
+                <a href="#" class="button large expand">{% trans "Add" %}</a>
               </div>
             </div>
           </div>
@@ -270,6 +270,8 @@
     </div>
   </div>
 
+  {# Key numbers temporarily disabled #}
+  {% comment %}
   <div class="small-12 medium-3 columns">
     <div class="home-keynumbers-container">
       <h3 class="keynumbers-heading">Key Numbers</h3>
@@ -289,6 +291,7 @@
 
     </div>
   </div>
+  {% endcomment %}
 
   <!-- TODO: Replace this List on Search SLM Data Page
   {% comment %}
