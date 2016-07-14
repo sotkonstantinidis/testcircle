@@ -122,6 +122,20 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.fail('Elements %s were not found by %s' % (el, by))
         return f
 
+    def wait_for(self, by, el, visibility=True):
+        if by == 'class_name':
+            locator = By.CLASS_NAME
+        else:
+            self.fail('Argument "by" = "%s" is not valid.' % by)
+
+        if visibility is True:
+            condition = EC.visibility_of_element_located((locator, el))
+        else:
+            condition = EC.invisibility_of_element_located((locator, el))
+        WebDriverWait(self.browser, 10).until(condition)
+
+
+
     def changeHiddenInput(self, el, val):
         self.browser.execute_script('''
             var elem = arguments[0];

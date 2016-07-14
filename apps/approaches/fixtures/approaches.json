@@ -1427,6 +1427,500 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Short description of the Approach"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7104
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Detailed description of the Approach"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7105
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If precise year is not known, indicate approximate date when the Approach was initiated"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7106
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Year of termination (if Approach is no longer applied)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7107
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Main aims/ objectives of the Approach"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7108
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify stakeholders"
+          },
+          "helptext": {
+            "en": "If relevant, also specify gender, age, status, ethnicity, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7109
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Describe roles of stakeholders"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7110
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Involvement of local land users/ local communities"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7111
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify who was involved and describe activities"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7112
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "other (specify; e.g. research):"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7113
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify who decided on the selection of the Technology/ Technologies to be implemented"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7114
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify on what basis decisions were made"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7115
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify who was trained"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7116
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Do land users have access to an advisory service?"
+          },
+          "helptext": {
+            "en": "<p><strong>Advisory service</strong>: technical assistance provided to land users by extension workers/ advisers from government, NGOs, projects, etc.</p><p>If yes, please answer the following sub-questions.</p><p>If no, go to question 4.3.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7117
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify whether advisory service is provided"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7118
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Describe/ comments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7119
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify the level(s) at which institutions have been strengthened or established"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7120
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify type of support"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7121
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Give further details"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7122
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Was research part of the Approach?"
+          },
+          "helptext": {
+            "en": "If yes, please answer the following sub-questions."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7123
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify topics"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7124
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Is monitoring and evaluation part of the Approach?"
+          },
+          "helptext": {
+            "en": "If yes, please answer the following sub-questions."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7125
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "other (specify)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7126
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Give further details and indicate who did the research"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7127
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Indicate the annual budget for the SLM component of the Approach in US$"
+          },
+          "helptext": {
+            "en": "Including training and extension, research, implementation of Technology/ Technologies"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7128
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If precise annual budget is not known, indicate range"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7129
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Comments (e.g. main sources of funding/ major donors)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7130
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Did land users receive financial/ material support for implementing the Technology/ Technologies?"
+          },
+          "helptext": {
+            "en": "<p>E.g. tax exemptions, compensation payments, subsidies)</p><p>If no, go to question 5.4.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7131
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "If yes, specify type(s) of support, conditions, and provider(s)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7132
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify credit providers"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7133
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify credit receivers"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7134
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Did the Approach help land users to implement and maintain SLM Technologies?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7135
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Did the Approach encourage young people/ the next generation of land users to engage in SLM?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7136
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Did the Approach improve issues of land tenure/ user rights that hindered implementation of SLM Technologies?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7137
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "approaches": {
@@ -2665,6 +3159,399 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "local land users/ local communities"
+          },
+          "helptext": {
+            "en": "<strong>Local land users/ local communities:</strong> means the Approach involved local land users or local communities, but no international agencies, government bodies, or non-governmental interventions."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7589
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "SLM specialists/ agricultural advisers"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7590
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "none"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7591
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "passive"
+          },
+          "helptext": {
+            "en": "<strong>Passive:</strong> means that local people participate by being informed what will happen or has already happened. They may also participate by being consulted or by answering questions, but they do not decide."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7592
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "payment/ external support"
+          },
+          "helptext": {
+            "en": "<strong>Payment/ external support:</strong> means that local people participate in return for food, cash, or other material support."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7593
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "interactive"
+          },
+          "helptext": {
+            "en": "<strong>Interactive:</strong> means that local people and the project team jointly analyse the situation, jointly develop action plans and form institutions, and jointly decide on the use of resources."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7594
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "self-mobilization"
+          },
+          "helptext": {
+            "en": "<strong>Self-mobilization:</strong> means that local people participate by implementing their own initiatives independently of external institutions. They may interact with external institutions to obtain resources and technical advice, but they retain control over how resources are used."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7595
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "land users alone (self-initiative)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7596
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "mainly land users, supported by SLM specialists"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7597
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "all relevant actors, as part of a participatory approach"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7598
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "mainly SLM specialists, following consultation with land users"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7599
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "SLM specialists alone"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7600
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "politicians/ leaders"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7601
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "personal experience and opinions (undocumented)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7602
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "field staff/ advisers"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7603
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "site visits/ farmer-to-farmer"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7604
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "at permanent centres"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7605
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "sociology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7606
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "economics / marketing"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7607
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "ecology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7608
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7609
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "reduced land degradation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7610
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "reduced risk of disasters"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7611
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "aesthetic improvement"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7612
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "customs and beliefs, morals"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7613
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "local"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7614
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "capacity building/ training"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 7615
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "approaches": {
@@ -2892,6 +3779,90 @@
     },
     "model": "configuration.translation",
     "pk": 8216
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "land governance (decision-making, implementation and enforcement)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8217
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "knowledge about SLM, access to technical support"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8218
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "initiation/ motivation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8219
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "planning"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8220
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "implementation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8221
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "monitoring/ evaluation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8222
   },
   {
     "fields": {
@@ -3440,6 +4411,353 @@
       "data": {
         "approaches": {
           "label": {
+            "en": "Name of the SLM Approach (hereafter referred to as the Approach)"
+          },
+          "label_view": {
+            "en": "Name of the SLM Approach"
+          },
+          "helptext": {
+            "en": "Name of the SLM Approach: Do not use the exact same name as used for the corresponding Technology (QT); try to find a name that reflects the main characteristic of the Approach (name of project/ programme/ initiative, name of implementation/ extension/ promotion method used, etc.)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8736
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Reference(s) to Questionnaire(s) on SLM Technologies"
+          },
+          "helptext": {
+            "en": "<p>Indicate SLM Technologies which were promoted by and implemented through this Approach.</p><p>The major Technologies promoted by and implemented through this Approach must be described in separate SLM Technology questionnaires. WOCAT recommends that you first fill in the Technology questionnaire and that you focus your description of the Approach on the Technology/ Technologies documented.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8737
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Short description of the Approach"
+          },
+          "helptext": {
+            "en": "Summarize the Approach in 1-2 sentences. Make sure this short description is precise and contains relevant key words. It is the lead text of this documentation and provides an important basis for searching the database."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8738
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Detailed description of the Approach"
+          },
+          "helptext": {
+            "en": "<p>The detailed description should provide a concise but comprehensive picture of the Approach to outsiders. It should therefore address key questions such as:</p><ol><li>What are the main characteristics/ distinct features of the Approach?</li><li>What are the aims/ objectives of the Approach?</li><li>Which methods were used?</li><li>Which were the stages of implementation?</li><li>Which stakeholders were involved, and what were their roles?</li><li>What did land users like/ dislike about the Approach?</li></ol><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents. Fill in the description at the beginning, but revise it when you have completed the questionnaire.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8739
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Photos showing impressions of the Approach"
+          },
+          "helptext": {
+            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing measures/ undergoing training, etc.</p><p>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</p><p>Maximum file size: 3 MB.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8740
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Videos of the Approach"
+          },
+          "helptext": {
+            "en": "If video files presenting activities of the Approach are available, upload them to a public platform (e.g. vimeo.com, youtube.com) and indicate a link and a short description for each file in the table below."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8741
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Country/ region/ locations where the Approach has been applied"
+          },
+          "helptext": {
+            "en": "If you have already filled in Questionnaires on SLM Technologies that were implemented under this Approach, refer to the information given in section QT 2.5."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8742
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Type of Approach"
+          },
+          "helptext": {
+            "en": "Specify implementing agencies in question 3.1."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8743
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Main aims/ objectives of the Approach"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8744
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Conditions enabling or hindering implementation of the Technology/ Technologies applied under the Approach"
+          },
+          "helptext": {
+            "en": "Several answers possible. If there are both enabling and hindering factors for a given condition, tick and specify both."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8745
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Involvement of local land users/ local communities in the different phases of the Approach"
+          },
+          "helptext": {
+            "en": "Specify how local land users/ local communities were involved in the various phases of the Approach as listed below."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8746
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Flow chart (if available)"
+          },
+          "helptext": {
+            "en": "<p>Provide a visual summary pointing out important actors, activities, key stages of implementation, etc. Consider using different colours to distinguish the different stakeholders from each other.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8747
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Decision-making on the selection of SLM Technology/ Technologies"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8748
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Capacity building/ training"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8749
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Institution strengthening (organizational development)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8750
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Research"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8751
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Impacts of the Approach"
+          },
+          "helptext": {
+            "en": "<p>The term Approach refers to the implementation of one or several Technologies. It may have been introduced through a project/ programme, or be part of an indigenous system, or refer to a spontaneous adoption/ adaptation based on individual initiative.</p><p>First, tick relevant impacts. Then, for each selected impact, tick the extent and specify / indicate reasons.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8752
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Main motivation of land users to implement SLM"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8753
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Weaknesses/ disadvantages of the Approach and ways of overcoming them"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8754
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Methods/ sources of information"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8755
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "References to available publications"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8756
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Links to relevant information which is available online"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8757
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
             "en": "General information"
           }
         }
@@ -3560,8 +4878,59 @@
   },
   {
     "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Description of the SLM Approach"
+          },
+          "helptext": {
+            "en": "<p>An <strong>SLM Approach</strong> (hereafter referred to as Approach) defines the ways and means used to implement one or several SLM Technologies. It includes technical and material support, involvement and roles of different stakeholders, etc. This questionnaire may be used to document any type of Approach: Besides SLM Technologies introduced through projects or programmes, WOCAT includes traditional SLM practices and cases of spontaneous adoption or adaptation of Technologies. <strong>If the Approach to be documented involves a project, WOCAT asks you to document only those components or activities of the project that are relevant to SLM.</strong></p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8909
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Financing and external material support"
+          },
+          "helptext": {
+            "en": "<p><strong>External material support</strong>: includes in-kind and financial support or incentives provided by government or private organizations.</p><p>Questions about financing concern all costs of the Approach, including implementation of the Technology/ Technologies.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8910
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Impact analysis and concluding statements"
+          },
+          "helptext": {
+            "en": "<p>Impact analysis is crucial to assessing investments made in SLM, which are often poorly assessed and documented; please provide as much information as possible. Note: Impacts of the Technology/ Technologies on natural resources, production, etc. must be specified in the respective questionnaire(s) on SLM Technologies.</p><p>The concluding statements should focus on the Approach you described in this document. Concluding statements concerning the Technologies associated with this Approach are to be made in the separate Questionnaire on SLM Technologies.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8911
+  },
+  {
+    "fields": {
       "keyword": "app_definition",
-      "translation": 7001,
+      "translation": 7104,
       "configuration": {
         "type": "text"
       }
@@ -3617,7 +4986,7 @@
   {
     "fields": {
       "keyword": "app_stakeholders_comments",
-      "translation": 7005,
+      "translation": 7109,
       "configuration": {
         "type": "text",
         "form_options": {
@@ -3692,7 +5061,7 @@
   {
     "fields": {
       "keyword": "app_initiation",
-      "translation": 7011,
+      "translation": 7106,
       "configuration": {
         "type": "radio"
       },
@@ -3708,7 +5077,7 @@
   {
     "fields": {
       "keyword": "app_termination_year",
-      "translation": 7012,
+      "translation": 7107,
       "configuration": {
         "type": "int",
         "form_options": {
@@ -3831,7 +5200,7 @@
   {
     "fields": {
       "keyword": "app_decisions_by",
-      "translation": 7018,
+      "translation": 7114,
       "configuration": {
         "type": "radio"
       },
@@ -3872,7 +5241,7 @@
   {
     "fields": {
       "keyword": "app_decisions_based",
-      "translation": 7020,
+      "translation": 7115,
       "configuration": {
         "type": "checkbox"
       },
@@ -3910,7 +5279,7 @@
   {
     "fields": {
       "keyword": "app_training_who",
-      "translation": 7022,
+      "translation": 7116,
       "configuration": {
         "type": "checkbox"
       },
@@ -3998,7 +5367,7 @@
   {
     "fields": {
       "keyword": "app_advisory",
-      "translation": 7031,
+      "translation": 7117,
       "configuration": {
         "type": "bool"
       }
@@ -4009,7 +5378,7 @@
   {
     "fields": {
       "keyword": "app_advisory_service",
-      "translation": 7092,
+      "translation": 7118,
       "configuration": {
         "type": "checkbox"
       },
@@ -4035,7 +5404,7 @@
   {
     "fields": {
       "keyword": "app_advisory_describe",
-      "translation": 7034,
+      "translation": 7119,
       "configuration": {
         "type": "text"
       }
@@ -4063,7 +5432,7 @@
   {
     "fields": {
       "keyword": "app_institutions_level",
-      "translation": 7036,
+      "translation": 7120,
       "configuration": {
         "type": "checkbox"
       },
@@ -4101,7 +5470,7 @@
   {
     "fields": {
       "keyword": "app_institutions_support",
-      "translation": 7039,
+      "translation": 7121,
       "configuration": {
         "type": "checkbox"
       },
@@ -4128,7 +5497,7 @@
   {
     "fields": {
       "keyword": "app_institutions_support_specify",
-      "translation": 7041,
+      "translation": 7122,
       "configuration": {
         "type": "text"
       }
@@ -4139,7 +5508,7 @@
   {
     "fields": {
       "keyword": "app_annual_budget",
-      "translation": 7042,
+      "translation": 7128,
       "configuration": {
         "type": "float",
         "form_options": {
@@ -4156,7 +5525,7 @@
   {
     "fields": {
       "keyword": "app_annual_budget_range",
-      "translation": 7043,
+      "translation": 7129,
       "configuration": {
         "type": "radio"
       },
@@ -4796,7 +6165,7 @@
   {
     "fields": {
       "keyword": "app_credit_provider",
-      "translation": 7055,
+      "translation": 7133,
       "configuration": {
         "type": "text"
       }
@@ -4807,7 +6176,7 @@
   {
     "fields": {
       "keyword": "app_credit_receiver",
-      "translation": 7056,
+      "translation": 7134,
       "configuration": {
         "type": "text"
       }
@@ -4896,7 +6265,7 @@
   {
     "fields": {
       "keyword": "app_impacts_implement",
-      "translation": 7062,
+      "translation": 7135,
       "configuration": {
         "type": "measure"
       },
@@ -5120,7 +6489,7 @@
   {
     "fields": {
       "keyword": "app_impacts_landtenure",
-      "translation": 7070,
+      "translation": 7137,
       "configuration": {
         "type": "measure"
       },
@@ -5306,6 +6675,8 @@
       "values": [
         3072,
         3073,
+        3097,
+        3098,
         3074,
         3075,
         3076,
@@ -5439,7 +6810,7 @@
   {
     "fields": {
       "keyword": "app_monitoring",
-      "translation": 7089,
+      "translation": 7125,
       "configuration": {
         "type": "bool"
       }
@@ -5472,7 +6843,7 @@
   {
     "fields": {
       "keyword": "app_description",
-      "translation": 7091,
+      "translation": 7105,
       "configuration": {
         "type": "text"
       }
@@ -5494,7 +6865,7 @@
   {
     "fields": {
       "keyword": "app_financial_support",
-      "translation": 7096,
+      "translation": 7131,
       "configuration": {
         "type": "bool"
       }
@@ -5505,7 +6876,7 @@
   {
     "fields": {
       "keyword": "app_financial_support_specify",
-      "translation": 7097,
+      "translation": 7132,
       "configuration": {
         "type": "text"
       }
@@ -5599,8 +6970,162 @@
   },
   {
     "fields": {
+      "keyword": "app_main_aims",
+      "translation": 7108,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3163
+  },
+  {
+    "fields": {
+      "keyword": "app_stakeholders_roles",
+      "translation": 7110,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3164
+  },
+  {
+    "fields": {
+      "keyword": "app_involvement_type",
+      "translation": 7111,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        3088,
+        3089,
+        3090,
+        3091,
+        3092
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3165
+  },
+  {
+    "fields": {
+      "keyword": "app_involvement_who",
+      "translation": 7112,
+      "configuration": {
+        "type": "text",
+        "form_options": {
+          "num_rows": 7
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3166
+  },
+  {
+    "fields": {
+      "keyword": "app_involvement_specify",
+      "translation": 7113,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3167
+  },
+  {
+    "fields": {
+      "keyword": "app_research",
+      "translation": 7123,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3168
+  },
+  {
+    "fields": {
+      "keyword": "app_research_topics",
+      "translation": 7124,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        3093,
+        3094,
+        3095,
+        3096
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3169
+  },
+  {
+    "fields": {
+      "keyword": "app_research_topics_other",
+      "translation": 7126,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3170
+  },
+  {
+    "fields": {
+      "keyword": "app_research_details",
+      "translation": 7127,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3171
+  },
+  {
+    "fields": {
+      "keyword": "app_annual_budget_comments",
+      "translation": 7130,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3172
+  },
+  {
+    "fields": {
+      "keyword": "app_impacts_youth",
+      "translation": 7136,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        3068,
+        3069,
+        3070,
+        3071
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 3173
+  },
+  {
+    "fields": {
+      "keyword": "app_impacts_youth_specify",
+      "translation": 7099,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 3174
+  },
+  {
+    "fields": {
       "keyword": "stakeholder_local",
-      "translation": 7501,
+      "translation": 7589,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -5618,7 +7143,7 @@
   {
     "fields": {
       "keyword": "stakeholder_specialist",
-      "translation": 7503,
+      "translation": 7590,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -5726,7 +7251,7 @@
   {
     "fields": {
       "keyword": "app_decisions_by_lu",
-      "translation": 7515,
+      "translation": 7596,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -5735,7 +7260,7 @@
   {
     "fields": {
       "keyword": "app_decisions_by_lu_slm",
-      "translation": 7516,
+      "translation": 7597,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -5744,7 +7269,7 @@
   {
     "fields": {
       "keyword": "app_decisions_by_participatory",
-      "translation": 7517,
+      "translation": 7598,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -5753,7 +7278,7 @@
   {
     "fields": {
       "keyword": "app_decisions_by_slm_lu",
-      "translation": 7518,
+      "translation": 7599,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -5762,7 +7287,7 @@
   {
     "fields": {
       "keyword": "app_decisions_by_slm",
-      "translation": 7519,
+      "translation": 7600,
       "order_value": 5
     },
     "model": "configuration.value",
@@ -5771,7 +7296,7 @@
   {
     "fields": {
       "keyword": "app_decisions_by_politicians",
-      "translation": 7520,
+      "translation": 7601,
       "order_value": 6
     },
     "model": "configuration.value",
@@ -5798,7 +7323,7 @@
   {
     "fields": {
       "keyword": "app_decisions_based_experience",
-      "translation": 7523,
+      "translation": 7602,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -5816,7 +7341,7 @@
   {
     "fields": {
       "keyword": "app_training_who_field_staff",
-      "translation": 7525,
+      "translation": 7603,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -5834,7 +7359,7 @@
   {
     "fields": {
       "keyword": "app_training_form_sitevisits",
-      "translation": 7527,
+      "translation": 7604,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -5879,7 +7404,7 @@
   {
     "fields": {
       "keyword": "app_advisory_centres",
-      "translation": 7532,
+      "translation": 7605,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -5924,7 +7449,7 @@
   {
     "fields": {
       "keyword": "app_inst_level_community",
-      "translation": 7537,
+      "translation": 7614,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -5960,7 +7485,7 @@
   {
     "fields": {
       "keyword": "app_inst_support_training",
-      "translation": 7541,
+      "translation": 7615,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -6258,7 +7783,7 @@
     "fields": {
       "keyword": "app_motivation_workload",
       "translation": 7574,
-      "order_value": 3
+      "order_value": 5
     },
     "model": "configuration.value",
     "pk": 3074
@@ -6267,7 +7792,7 @@
     "fields": {
       "keyword": "app_motivation_payments",
       "translation": 7575,
-      "order_value": 4
+      "order_value": 6
     },
     "model": "configuration.value",
     "pk": 3075
@@ -6276,7 +7801,7 @@
     "fields": {
       "keyword": "app_motivation_rules",
       "translation": 7576,
-      "order_value": 5
+      "order_value": 7
     },
     "model": "configuration.value",
     "pk": 3076
@@ -6285,7 +7810,7 @@
     "fields": {
       "keyword": "app_motivation_prestige",
       "translation": 7577,
-      "order_value": 6
+      "order_value": 8
     },
     "model": "configuration.value",
     "pk": 3077
@@ -6294,7 +7819,7 @@
     "fields": {
       "keyword": "app_motivation_affiliation",
       "translation": 7578,
-      "order_value": 7
+      "order_value": 9
     },
     "model": "configuration.value",
     "pk": 3078
@@ -6303,7 +7828,7 @@
     "fields": {
       "keyword": "app_motivation_consciousness",
       "translation": 7579,
-      "order_value": 8
+      "order_value": 10
     },
     "model": "configuration.value",
     "pk": 3079
@@ -6311,8 +7836,8 @@
   {
     "fields": {
       "keyword": "app_motivation_customs",
-      "translation": 7580,
-      "order_value": 9
+      "translation": 7613,
+      "order_value": 11
     },
     "model": "configuration.value",
     "pk": 3080
@@ -6321,7 +7846,7 @@
     "fields": {
       "keyword": "app_motivation_knowledge",
       "translation": 7581,
-      "order_value": 10
+      "order_value": 12
     },
     "model": "configuration.value",
     "pk": 3081
@@ -6329,8 +7854,8 @@
   {
     "fields": {
       "keyword": "app_motivation_aesthetic",
-      "translation": 7582,
-      "order_value": 11
+      "translation": 7612,
+      "order_value": 13
     },
     "model": "configuration.value",
     "pk": 3082
@@ -6339,7 +7864,7 @@
     "fields": {
       "keyword": "app_motivation_conflict",
       "translation": 7583,
-      "order_value": 12
+      "order_value": 14
     },
     "model": "configuration.value",
     "pk": 3083
@@ -6379,6 +7904,105 @@
     },
     "model": "configuration.value",
     "pk": 3087
+  },
+  {
+    "fields": {
+      "keyword": "involvement_type_none",
+      "translation": 7591,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3088
+  },
+  {
+    "fields": {
+      "keyword": "involvement_type_passive",
+      "translation": 7592,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 3089
+  },
+  {
+    "fields": {
+      "keyword": "involvement_type_payment",
+      "translation": 7593,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 3090
+  },
+  {
+    "fields": {
+      "keyword": "involvement_type_interactive",
+      "translation": 7594,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 3091
+  },
+  {
+    "fields": {
+      "keyword": "involvement_type_selfmobilization",
+      "translation": 7595,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 3092
+  },
+  {
+    "fields": {
+      "keyword": "research_sociology",
+      "translation": 7606,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 3093
+  },
+  {
+    "fields": {
+      "keyword": "research_economics",
+      "translation": 7607,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 3094
+  },
+  {
+    "fields": {
+      "keyword": "research_ecology",
+      "translation": 7608,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 3095
+  },
+  {
+    "fields": {
+      "keyword": "research_technology",
+      "translation": 7609,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 3096
+  },
+  {
+    "fields": {
+      "keyword": "app_motivation_degradation",
+      "translation": 7610,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 3097
+  },
+  {
+    "fields": {
+      "keyword": "app_motivation_disasters",
+      "translation": 7611,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 3098
   },
   {
     "fields": {
@@ -6482,7 +8106,7 @@
   {
     "fields": {
       "keyword": "app_qg_12",
-      "translation": 8207,
+      "translation": 8217,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -6491,7 +8115,7 @@
   {
     "fields": {
       "keyword": "app_qg_13",
-      "translation": 8208,
+      "translation": 8218,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -7210,8 +8834,125 @@
   },
   {
     "fields": {
+      "keyword": "app_qg_111",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3112
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_112",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3113
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_113",
+      "translation": 8219,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3114
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_114",
+      "translation": 8220,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3115
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_115",
+      "translation": 8221,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3116
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_116",
+      "translation": 8222,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3117
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_117",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3118
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_118",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3119
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_119",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3120
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_120",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3121
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_121",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3122
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_122",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3123
+  },
+  {
+    "fields": {
+      "keyword": "app_qg_123",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 3124
+  },
+  {
+    "fields": {
       "keyword": "app__1__1",
-      "translation": 8701
+      "translation": 8736
     },
     "model": "configuration.category",
     "pk": 3001
@@ -7219,7 +8960,7 @@
   {
     "fields": {
       "keyword": "app__2__1",
-      "translation": 8702
+      "translation": 8738
     },
     "model": "configuration.category",
     "pk": 3002
@@ -7251,7 +8992,7 @@
   {
     "fields": {
       "keyword": "app__2__5",
-      "translation": 8733
+      "translation": 8742
     },
     "model": "configuration.category",
     "pk": 3006
@@ -7259,7 +9000,7 @@
   {
     "fields": {
       "keyword": "app__2__2",
-      "translation": 8732
+      "translation": 8739
     },
     "model": "configuration.category",
     "pk": 3007
@@ -7275,7 +9016,7 @@
   {
     "fields": {
       "keyword": "app__2__3",
-      "translation": 8709
+      "translation": 8740
     },
     "model": "configuration.category",
     "pk": 3009
@@ -7291,7 +9032,7 @@
   {
     "fields": {
       "keyword": "app__2__7",
-      "translation": 8711
+      "translation": 8743
     },
     "model": "configuration.category",
     "pk": 3011
@@ -7299,7 +9040,7 @@
   {
     "fields": {
       "keyword": "app__2__8",
-      "translation": 8734
+      "translation": 8744
     },
     "model": "configuration.category",
     "pk": 3012
@@ -7307,7 +9048,7 @@
   {
     "fields": {
       "keyword": "app__3__2",
-      "translation": 8713
+      "translation": 8746
     },
     "model": "configuration.category",
     "pk": 3013
@@ -7315,7 +9056,7 @@
   {
     "fields": {
       "keyword": "app__3__3",
-      "translation": 8714
+      "translation": 8747
     },
     "model": "configuration.category",
     "pk": 3014
@@ -7323,7 +9064,7 @@
   {
     "fields": {
       "keyword": "app__4__1",
-      "translation": 8715
+      "translation": 8749
     },
     "model": "configuration.category",
     "pk": 3015
@@ -7339,7 +9080,7 @@
   {
     "fields": {
       "keyword": "app__4__3",
-      "translation": 8717
+      "translation": 8750
     },
     "model": "configuration.category",
     "pk": 3017
@@ -7395,7 +9136,7 @@
   {
     "fields": {
       "keyword": "app__6__1",
-      "translation": 8724
+      "translation": 8752
     },
     "model": "configuration.category",
     "pk": 3024
@@ -7403,7 +9144,7 @@
   {
     "fields": {
       "keyword": "app__7__1",
-      "translation": 8725
+      "translation": 8755
     },
     "model": "configuration.category",
     "pk": 3025
@@ -7411,7 +9152,7 @@
   {
     "fields": {
       "keyword": "app__7__2",
-      "translation": 8726
+      "translation": 8756
     },
     "model": "configuration.category",
     "pk": 3026
@@ -7419,7 +9160,7 @@
   {
     "fields": {
       "keyword": "app__7__3",
-      "translation": 8727
+      "translation": 8757
     },
     "model": "configuration.category",
     "pk": 3027
@@ -7435,7 +9176,7 @@
   {
     "fields": {
       "keyword": "app__1__4",
-      "translation": 8729
+      "translation": 8737
     },
     "model": "configuration.category",
     "pk": 3029
@@ -7443,7 +9184,7 @@
   {
     "fields": {
       "keyword": "app__2__4",
-      "translation": 8730
+      "translation": 8741
     },
     "model": "configuration.category",
     "pk": 3030
@@ -7458,6 +9199,62 @@
   },
   {
     "fields": {
+      "keyword": "app__2__9",
+      "translation": 8745
+    },
+    "model": "configuration.category",
+    "pk": 3032
+  },
+  {
+    "fields": {
+      "keyword": "app__3__4",
+      "translation": 8748
+    },
+    "model": "configuration.category",
+    "pk": 3033
+  },
+  {
+    "fields": {
+      "keyword": "app__4__5",
+      "translation": 8751
+    },
+    "model": "configuration.category",
+    "pk": 3034
+  },
+  {
+    "fields": {
+      "keyword": "app__6__2",
+      "translation": 8753
+    },
+    "model": "configuration.category",
+    "pk": 3035
+  },
+  {
+    "fields": {
+      "keyword": "app__6__3",
+      "translation": 8726
+    },
+    "model": "configuration.category",
+    "pk": 3036
+  },
+  {
+    "fields": {
+      "keyword": "app__6__4",
+      "translation": 8727
+    },
+    "model": "configuration.category",
+    "pk": 3037
+  },
+  {
+    "fields": {
+      "keyword": "app__6__5",
+      "translation": 8754
+    },
+    "model": "configuration.category",
+    "pk": 3038
+  },
+  {
+    "fields": {
       "keyword": "app__1",
       "translation": 8901
     },
@@ -7467,7 +9264,7 @@
   {
     "fields": {
       "keyword": "app__2",
-      "translation": 8902
+      "translation": 8909
     },
     "model": "configuration.category",
     "pk": 3702
@@ -7491,7 +9288,7 @@
   {
     "fields": {
       "keyword": "app__5",
-      "translation": 8905
+      "translation": 8910
     },
     "model": "configuration.category",
     "pk": 3705
@@ -7499,7 +9296,7 @@
   {
     "fields": {
       "keyword": "app__6",
-      "translation": 8906
+      "translation": 8911
     },
     "model": "configuration.category",
     "pk": 3706
@@ -7507,7 +9304,7 @@
   {
     "fields": {
       "keyword": "app__7",
-      "translation": 8907
+      "translation": 8908
     },
     "model": "configuration.category",
     "pk": 3707
@@ -7715,25 +9512,7 @@
                             }
                           },
                           {
-                            "keyword": "person_institution_address",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_postal_code",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_city",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_state",
+                            "keyword": "person_address",
                             "view_options": {
                               "template": "value_only"
                             }
@@ -7771,17 +9550,6 @@
                         ]
                       },
                       {
-                        "keyword": "qg_funding_project",
-                        "questions": [
-                          {
-                            "keyword": "funding_project"
-                          },
-                          {
-                            "keyword": "funding_project_display"
-                          }
-                        ]
-                      },
-                      {
                         "keyword": "qg_funding_institution",
                         "questions": [
                           {
@@ -7789,6 +9557,17 @@
                           },
                           {
                             "keyword": "funding_institution_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_project_display"
                           }
                         ]
                       }
@@ -7802,6 +9581,9 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_accept_conditions",
+                        "form_options": {
+                          "helptext_position": "bottom"
+                        },
                         "questions": [
                           {
                             "keyword": "date_documentation"
@@ -7893,7 +9675,7 @@
                             "form_options": {
                               "label_position": "none",
                               "num_rows": 10,
-                              "max_length": 2500
+                              "max_length": 3500
                             }
                           }
                         ]
@@ -7959,9 +9741,12 @@
                         "form_options": {
                           "max_num": 3
                         },
+                        "view_options": {
+                          "template": "video_questiongroup"
+                        },
                         "questions": [
                           {
-                            "keyword": "video_link"
+                            "keyword": "video_vimeo_id"
                           },
                           {
                             "keyword": "video_description"
@@ -7984,31 +9769,60 @@
                     "form_options": {
                       "numbering": "2.5"
                     },
+                    "view_options": {
+                      "template": "map_subcategory"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "qg_location",
+                        "form_options": {
+                          "row_class": "bottom-margin"
+                        },
                         "questions": [
                           {
                             "keyword": "country",
                             "view_options": {
-                              "template": "inline_6",
+                              "template": "inline",
                               "in_list": true
                             }
                           },
                           {
                             "keyword": "state_province",
                             "view_options": {
-                              "template": "inline_6"
+                              "template": "inline"
                             }
                           },
                           {
                             "keyword": "further_location",
                             "view_options": {
-                              "template": "inline_6"
+                              "template": "inline"
                             }
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_location_map",
+                        "questions": [
                           {
-                            "keyword": "location_comments"
+                            "keyword": "location_map",
+                            "form_options": {
+                              "template": "no_label"
+                            },
+                            "view_options": {
+                              "is_geometry": true,
+                              "configuration": "approaches"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_112",
+                        "questions": [
+                          {
+                            "keyword": "location_comments",
+                            "view_options": {
+                              "template": "inline"
+                            }
                           }
                         ]
                       }
@@ -8090,6 +9904,28 @@
                     "keyword": "app__2__8",
                     "form_options": {
                       "numbering": "2.8"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_111",
+                        "questions": [
+                          {
+                            "keyword": "app_main_aims",
+                            "form_options": {
+                              "template": "no_label"
+                            },
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__2__9",
+                    "form_options": {
+                      "numbering": "2.9"
                     },
                     "questiongroups": [
                       {
@@ -8599,6 +10435,12 @@
                             "view_options": {
                               "label_position": "none"
                             }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
+                            "view_options": {
+                              "label_position": "none"
+                            }
                           }
                         ]
                       },
@@ -8613,6 +10455,12 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
                             "view_options": {
                               "label_position": "none"
                             }
@@ -8633,6 +10481,12 @@
                             "view_options": {
                               "label_position": "none"
                             }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
+                            "view_options": {
+                              "label_position": "none"
+                            }
                           }
                         ]
                       },
@@ -8647,6 +10501,12 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
                             "view_options": {
                               "label_position": "none"
                             }
@@ -8667,6 +10527,12 @@
                             "view_options": {
                               "label_position": "none"
                             }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
+                            "view_options": {
+                              "label_position": "none"
+                            }
                           }
                         ]
                       },
@@ -8681,6 +10547,12 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
                             "view_options": {
                               "label_position": "none"
                             }
@@ -8701,6 +10573,12 @@
                             "view_options": {
                               "label_position": "none"
                             }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
+                            "view_options": {
+                              "label_position": "none"
+                            }
                           }
                         ]
                       },
@@ -8715,6 +10593,12 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_comments",
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
                             "view_options": {
                               "label_position": "none"
                             }
@@ -8735,6 +10619,12 @@
                             "view_options": {
                               "label_position": "none"
                             }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
+                            "view_options": {
+                              "label_position": "none"
+                            }
                           }
                         ]
                       },
@@ -8752,13 +10642,19 @@
                             "view_options": {
                               "label_position": "none"
                             }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
+                            "view_options": {
+                              "label_position": "none"
+                            }
                           }
                         ]
                       },
                       {
                         "keyword": "app_qg_91",
                         "form_options": {
-                          "template": "columns_e6_e6",
+                          "template": "columns_o6_r6",
                           "row_class": "no-top-margin"
                         },
                         "questions": [
@@ -8783,6 +10679,15 @@
                             "view_options": {
                               "label_position": "none"
                             }
+                          },
+                          {
+                            "keyword": "app_stakeholders_roles",
+                            "form_options": {
+                              "question_condition": "app_sh_other_comments"
+                            },
+                            "view_options": {
+                              "label_position": "none"
+                            }
                           }
                         ]
                       },
@@ -8791,9 +10696,6 @@
                         "questions": [
                           {
                             "keyword": "app_stakeholders_lead_agency"
-                          },
-                          {
-                            "keyword": "app_stakeholders_project"
                           }
                         ]
                       }
@@ -8803,6 +10705,94 @@
                     "keyword": "app__3__2",
                     "form_options": {
                       "numbering": "3.2",
+                      "template": "table_4"
+                    },
+                    "view_options": {
+                      "template": "table_4",
+                      "table_grouping": [
+                        [
+                          "app_qg_113",
+                          "app_qg_114",
+                          "app_qg_115",
+                          "app_qg_116",
+                          "app_qg_117"
+                        ]
+                      ]
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_113",
+                        "questions": [
+                          {
+                            "keyword": "app_involvement_type"
+                          },
+                          {
+                            "keyword": "app_involvement_who"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_114",
+                        "questions": [
+                          {
+                            "keyword": "app_involvement_type"
+                          },
+                          {
+                            "keyword": "app_involvement_who"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_115",
+                        "questions": [
+                          {
+                            "keyword": "app_involvement_type"
+                          },
+                          {
+                            "keyword": "app_involvement_who"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_116",
+                        "questions": [
+                          {
+                            "keyword": "app_involvement_type"
+                          },
+                          {
+                            "keyword": "app_involvement_who"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_117",
+                        "form_options": {
+                          "layout": "no_label_row"
+                        },
+                        "view_options": {
+                          "layout": "no_label_row"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_involvement_specify",
+                            "form_options": {
+                              "label_position": "placeholder"
+                            }
+                          },
+                          {
+                            "keyword": "app_involvement_type"
+                          },
+                          {
+                            "keyword": "app_involvement_who"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__3__3",
+                    "form_options": {
+                      "numbering": "3.3",
                       "helptext_length": 30
                     },
                     "questiongroups": [
@@ -8826,9 +10816,9 @@
                     ]
                   },
                   {
-                    "keyword": "app__3__3",
+                    "keyword": "app__3__4",
                     "form_options": {
-                      "numbering": "3.3"
+                      "numbering": "3.4"
                     },
                     "questiongroups": [
                       {
@@ -9062,16 +11052,74 @@
                         "keyword": "app_qg_105",
                         "questions": [
                           {
-                            "keyword": "app_monitoring"
+                            "keyword": "app_monitoring",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|app_qg_118"
+                              ]
+                            }
                           },
                           {
                             "keyword": "app_monitoring_comment"
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_118",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_118"
+                        },
+                        "questions": [
                           {
                             "keyword": "app_documentation_systematic"
                           },
                           {
                             "keyword": "app_documentation_comment"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__4__5",
+                    "form_options": {
+                      "numbering": "4.5"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "app_qg_119",
+                        "questions": [
+                          {
+                            "keyword": "app_research",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|app_qg_120"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_120",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_120"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_research_topics"
+                          },
+                          {
+                            "keyword": "app_research_topics_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
+                            }
+                          },
+                          {
+                            "keyword": "app_research_details"
                           }
                         ]
                       }
@@ -9095,10 +11143,16 @@
                         "keyword": "app_qg_24",
                         "questions": [
                           {
-                            "keyword": "app_annual_budget"
+                            "keyword": "app_annual_budget",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            }
                           },
                           {
                             "keyword": "app_annual_budget_range"
+                          },
+                          {
+                            "keyword": "app_annual_budget_comments"
                           }
                         ]
                       }
@@ -9875,6 +11929,36 @@
                         ]
                       },
                       {
+                        "keyword": "app_qg_121",
+                        "form_options": {
+                          "template": "cb_toggle_inline",
+                          "row_class": "no-top-margin"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_impacts_youth",
+                            "form_options": {
+                              "template": "no_label"
+                            },
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "app_impacts_youth_specify",
+                            "form_options": {
+                              "template": "no_label",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "inline_6",
+                              "label_position": "none"
+                            }
+                          }
+                        ]
+                      },
+                      {
                         "keyword": "app_qg_49",
                         "form_options": {
                           "template": "cb_toggle_inline",
@@ -10135,23 +12219,17 @@
                         ]
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "keyword": "app__7",
-                "form_options": {
-                  "numbering": "7."
-                },
-                "subcategories": [
+                  },
                   {
-                    "keyword": "app__7__1",
+                    "keyword": "app__6__2",
                     "form_options": {
-                      "numbering": "7.1",
+                      "numbering": "6.2",
                       "template": "checkbox_questiongroups",
                       "questiongroup_conditions": [
                         "=='app_motivation_production'|app_qg_71",
                         "=='app_motivation_profit'|app_qg_72",
+                        "=='app_motivation_degradation'|app_qg_122",
+                        "=='app_motivation_disasters'|app_qg_123",
                         "=='app_motivation_workload'|app_qg_73",
                         "=='app_motivation_payments'|app_qg_74",
                         "=='app_motivation_rules'|app_qg_75",
@@ -10182,6 +12260,8 @@
                               "questiongroup_conditions": [
                                 "=='app_motivation_production'|app_qg_71",
                                 "=='app_motivation_profit'|app_qg_72",
+                                "=='app_motivation_degradation'|app_qg_122",
+                                "=='app_motivation_disasters'|app_qg_123",
                                 "=='app_motivation_workload'|app_qg_73",
                                 "=='app_motivation_payments'|app_qg_74",
                                 "=='app_motivation_rules'|app_qg_75",
@@ -10225,6 +12305,40 @@
                         },
                         "view_options": {
                           "conditional_question": "app_motivation_profit"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_motivation_comments",
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_122",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_122"
+                        },
+                        "view_options": {
+                          "conditional_question": "app_motivation_degradation"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "app_motivation_comments",
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "app_qg_123",
+                        "form_options": {
+                          "questiongroup_condition": "app_qg_123"
+                        },
+                        "view_options": {
+                          "conditional_question": "app_motivation_disasters"
                         },
                         "questions": [
                           {
@@ -10440,9 +12554,9 @@
                     ]
                   },
                   {
-                    "keyword": "app__7__2",
+                    "keyword": "app__6__3",
                     "form_options": {
-                      "numbering": "7.2"
+                      "numbering": "6.3"
                     },
                     "questiongroups": [
                       {
@@ -10484,9 +12598,9 @@
                     ]
                   },
                   {
-                    "keyword": "app__7__3",
+                    "keyword": "app__6__4",
                     "form_options": {
-                      "numbering": "7.3"
+                      "numbering": "6.4"
                     },
                     "questiongroups": [
                       {
@@ -10508,9 +12622,9 @@
                     ]
                   },
                   {
-                    "keyword": "app__7__4",
+                    "keyword": "app__6__5",
                     "form_options": {
-                      "numbering": "7.4"
+                      "numbering": "6.5"
                     },
                     "questiongroups": [
                       {
@@ -10540,11 +12654,15 @@
                 ]
               },
               {
-                "keyword": "app__refs",
+                "keyword": "app__7",
+                "form_options": {
+                  "numbering": "7."
+                },
                 "subcategories": [
                   {
-                    "keyword": "app__refs__sources",
+                    "keyword": "app__7__1",
                     "form_options": {
+                      "numbering": "7.1",
                       "template": "checkbox_questiongroups",
                       "questiongroup_conditions": [
                         "=='source_field'|qg_sources_field",
@@ -10663,6 +12781,44 @@
                             "form_options": {
                               "question_condition": "sources_other"
                             }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__7__2",
+                    "form_options": {
+                      "numbering": "7.2"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_references",
+                        "questions": [
+                          {
+                            "keyword": "references_title"
+                          },
+                          {
+                            "keyword": "references_source"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "app__7__3",
+                    "form_options": {
+                      "numbering": "7.3"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_links",
+                        "questions": [
+                          {
+                            "keyword": "links_title"
+                          },
+                          {
+                            "keyword": "links_url"
                           }
                         ]
                       }

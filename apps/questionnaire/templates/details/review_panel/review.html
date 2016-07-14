@@ -2,8 +2,8 @@
 
 <div class="row">
   <div class="medium-12 columns">
-    <h3>{% trans "Pending for review" %}</h3>
-    <p>{% trans "This questionnaire is currently waiting to be reviewed before it can be published." %}</p>
+    <h3>{% trans "Pending review" %}</h3>
+    <p>{% trans "This questionnaire is currently waiting for review before it can be published." %}</p>
   </div>
 </div>
 
@@ -16,7 +16,7 @@
         </p>
       </div>
       <div class="medium-10 columns">
-        <p>{% trans 'Edit the questionnaire. If big changes need to be made, you can also "reject" the questionnaire so editors can revise it.' %}</p>
+        <p>{% trans 'As a reviewer you can edit the SLM Technology / Approach. If the SLM Technology / Approach is not complete you have to “reject” it and the compiler / editor(s) have to revise it.' %}</p>
       </div>
     </div>
   {% elif review_config.mode == 'edit' %}
@@ -27,7 +27,7 @@
         </p>
       </div>
       <div class="medium-10 columns">
-        <p>{% trans 'View this questionnaire.' %}</p>
+        <p>{% trans 'View this SLM Technology / Approach.' %}</p>
       </div>
     </div>
   {% endif %}
@@ -39,12 +39,12 @@
       </p>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'The questionnaire is ready to be checked for publishing. Next status will be 'reviewed' and publishers will be notified.' %}</p>
+      <p>{% trans 'As a reviewer you can approve the SLM Technology / Approach once the data is complete. The publisher will be notified.' %}</p>
     </div>
     <!-- The modal for approval -->
     <div id="confirm-review" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm approval." %}</h2>
-      <p>{% trans "By submitting this, a publisher will review the questionnaire and make it available for public users." %}</p>
+      <p>{% trans "If you approve this SLM Technology / Approach the publisher will be notified. After final approval by the publisher the SLM Technology / Approach will be published and available to public users." %}</p>
       <button name='review' value='true' class="button" type="submit" form="review_form">{% trans "Approve" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
@@ -58,12 +58,12 @@
       </p>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'The questionnaire is not acceptable and it needs to be edited again. Next status will be 'draft' and editors will be notified.' %}</p>
+      <p>{% trans 'As a reviewer you can reject the SLM Technology / Approach if the data is not complete and the compiler / editor(s) will be notified that they have to revise it.' %}</p>
     </div>
     <!-- the modal for rejection -->
     <div id="confirm-reject" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm rejection." %}</h2>
-      <p>{% trans "By rejecting this, the compiler (and editors) can edit the questionnaire again, before re-submitting it." %}</p>
+      <p>{% trans "If you reject this SLM Technology / Approach the compiler and the editor(s) will be notified that they have to revise the SLM Technology / Approach before re-submitting it." %}</p>
       <button name='reject' value='true' class="button" type="submit" form="review_form">{% trans "Reject" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
@@ -73,7 +73,7 @@
 
 {% if 'assign_questionnaire' in review_config.permissions %}
   {% trans "Assign reviewer" as assign_header %}
-  {% trans 'Reviewers can be assigned to this questionnaire. They will have the permissions to review (approve or reject) the questionnaire. A questionnaire can have more than one reviewer, but only one decision is needed for the review.' as assign_description %}
+  {% trans 'Reviewers can be assigned to this SLM Technology / Approach. They will have the permission to review (approve or reject) the SLM Technology / Approach. An SLM Technology / Approach can have more than one reviewer and all reviewers can approve / reject an SLM Technology / Approach for publication.' as assign_description %}
   {% trans "Assigned reviewers:" as assign_assigned %}
   {% trans "There are no reviewers assigned to this questionnaire." as assign_empty %}
   {% trans "Edit assigned reviewers. Click the button to update the assigned reviewers." as assign_edit %}

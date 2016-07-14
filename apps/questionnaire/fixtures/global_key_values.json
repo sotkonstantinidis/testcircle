@@ -1025,6 +1025,296 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify the key resource person"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Specify the key resource person"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5052
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5053
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5054
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5055
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Specify (e.g. number of informants)"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Specify (e.g. number of informants)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5056
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Title, author, year, ISBN"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Title, author, year, ISBN"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5057
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Available from where? Costs?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Available from where? Costs?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5058
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Title/ description"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Title/ description"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5059
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "URL"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "URL"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5060
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5061
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5062
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Address"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Address"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5063
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Map"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Map"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5064
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Vimeo ID"
+          },
+          "helptext": {
+            "en": "Indicate only the ID of the Vimeo video. The ID contains only numbers and can be found in the URL of the video, e.g. https://vimeo.com/<strong><u>97415985</u></strong>."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Vimeo ID"
+          },
+          "helptext": {
+            "en": "Indicate only the ID of the Vimeo video. The ID contains only numbers and can be found in the URL of the video, e.g. https://vimeo.com/<strong><u>97415985</u></strong>."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5065
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "wocat": {
@@ -4909,6 +5199,31 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "land user"
+          },
+          "helptext": {
+            "en": "the person/ entity who implements/ maintains the Technology. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        },
+        "approaches": {
+          "label": {
+            "en": "land user"
+          },
+          "helptext": {
+            "en": "the person/ entity who implements/ maintains the Technology/ Technologies associated with this Approach. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5773
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "approaches": {
@@ -4925,6 +5240,20 @@
     },
     "model": "configuration.translation",
     "pk": 5901
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "helptext": {
+            "en": "Specify the centre of the area in which the Approach has been applied."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5902
   },
   {
     "fields": {
@@ -5382,7 +5711,7 @@
   {
     "fields": {
       "keyword": "funding_project",
-      "translation": 5050,
+      "translation": 5053,
       "configuration": {
         "type": "select_model",
         "form_options": {
@@ -5397,7 +5726,7 @@
   {
     "fields": {
       "keyword": "accept_conditions",
-      "translation": 5013,
+      "translation": 5062,
       "configuration": {
         "type": "bool",
         "form_options": {
@@ -5569,7 +5898,7 @@
   {
     "fields": {
       "keyword": "user_resourceperson_type",
-      "translation": 5047,
+      "translation": 5052,
       "configuration": {
         "type": "radio"
       },
@@ -5665,7 +5994,7 @@
   {
     "fields": {
       "keyword": "date_documentation",
-      "translation": 5048,
+      "translation": 5061,
       "configuration": {
         "type": "date"
       }
@@ -5751,7 +6080,7 @@
   {
     "fields": {
       "keyword": "sources_specify",
-      "translation": 5042,
+      "translation": 5056,
       "configuration": {
         "type": "text",
         "view_options": {
@@ -5829,7 +6158,7 @@
   {
     "fields": {
       "keyword": "funding_institution",
-      "translation": 5051,
+      "translation": 5054,
       "configuration": {
         "type": "select_model",
         "form_options": {
@@ -5844,11 +6173,12 @@
   {
     "fields": {
       "keyword": "funding_institution_display",
-      "translation": 5051,
+      "translation": 5054,
       "configuration": {
         "type": "display_only",
         "form_options": {
-          "template": "no_label"
+          "template": "no_label",
+          "helptext_position": "none"
         }
       }
     },
@@ -5858,16 +6188,97 @@
   {
     "fields": {
       "keyword": "funding_project_display",
-      "translation": 5050,
+      "translation": 5053,
       "configuration": {
         "type": "display_only",
         "form_options": {
-          "template": "no_label"
+          "template": "no_label",
+          "helptext_position": "none"
         }
       }
     },
     "model": "configuration.key",
     "pk": 51
+  },
+  {
+    "fields": {
+      "keyword": "references_title",
+      "translation": 5057,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "keyword": "references_source",
+      "translation": 5058,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "keyword": "links_title",
+      "translation": 5059,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "keyword": "links_url",
+      "translation": 5060,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "keyword": "person_address",
+      "translation": 5063,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 56
+  },
+  {
+    "fields": {
+      "keyword": "location_map",
+      "translation": 5064,
+      "configuration": {
+        "type": "map"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 57
+  },
+  {
+    "fields": {
+      "keyword": "video_vimeo_id",
+      "translation": 5065,
+      "configuration": {
+        "type": "int",
+        "view_options": {
+          "template": "vimeo_video"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 58
   },
   {
     "fields": {
@@ -7990,7 +8401,7 @@
   {
     "fields": {
       "keyword": "resourceperson_landuser",
-      "translation": 5764,
+      "translation": 5773,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -8286,6 +8697,47 @@
     },
     "model": "configuration.questiongroup",
     "pk": 20
+  },
+  {
+    "fields": {
+      "keyword": "qg_references",
+      "translation": null,
+      "configuration": {
+        "form_options": {
+          "template": "columns_e6_e6",
+          "max_num": 10
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "keyword": "qg_links",
+      "translation": null,
+      "configuration": {
+        "form_options": {
+          "template": "columns_e6_e6",
+          "max_num": 10
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "keyword": "qg_location_map",
+      "translation": 5902,
+      "configuration": {
+        "form_options": {
+          "template": "map"
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 23
   },
   {
     "fields": {

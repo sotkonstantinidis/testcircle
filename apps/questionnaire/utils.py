@@ -1180,7 +1180,10 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         ``None`` or ``HttpResponse``. Returns either a HttpResponse
         (typically a redirect) or None.
     """
-    permissions = questionnaire_object.get_permissions(request.user)
+    roles_permissions = questionnaire_object.get_roles_permissions(request.user)
+    roles = roles_permissions.roles
+    permissions = roles_permissions.permissions
+
     if request.POST.get('submit'):
 
         # Previous status must be "draft"
@@ -1318,7 +1321,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Query the permissions again, if the user does not have
         # edit rights on the now draft questionnaire, then route him
         # back to home in order to prevent a 404 page.
-        permissions = questionnaire_object.get_permissions(request.user)
+        roles, permissions = questionnaire_object.get_roles_permissions(
+            request.user)
         if 'edit_questionnaire' not in permissions:
             return redirect('{}:home'.format(configuration_code))
 
@@ -1571,11 +1575,14 @@ def prepare_list_values(data, config, **kwargs):
     return data
 
 
-def get_review_config_dict(status, token, permissions, view_mode, url, is_blocked, blocked_by, form_url, has_release):
+def get_review_config_dict(
+        status, token, permissions, roles, view_mode, url, is_blocked,
+        blocked_by, form_url, has_release):
     return {
         'review_status': status,
         'csrf_token_value': token,
         'permissions': permissions,
+        'roles': roles,
         'mode': view_mode,
         'url': url,
         'is_blocked': is_blocked,

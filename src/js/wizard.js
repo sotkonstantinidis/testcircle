@@ -442,6 +442,8 @@ $(function () {
             // Update the dropzones
             updateDropzones(true);
 
+            updateChosen();
+
             currentCount++;
             $('#id_' + qg + '-TOTAL_FORMS').val(currentCount);
             $(this).toggle(currentCount < maxCount);
@@ -668,31 +670,35 @@ $(function () {
     });
 
     // Select inputs with chosen
-    if ($.fn.chosen) {
-        $(".chosen-select").chosen({
-            width: '100%',
-            search_contains: true
-        }).on('change', function(evt, params) {
-            // If there is a display field, populate it with the selected value
-            var $t = $(this);
-            if ($t.data('select-display-field')) {
-                var displayKey = $t.data('select-display-field');
-                var displayText = '';
-                if (params.selected) {
-                    displayText = $t.find('option:selected').html();
+    function updateChosen() {
+        if ($.fn.chosen) {
+            $(".chosen-select").chosen({
+                width: '100%',
+                search_contains: true
+            }).on('change', function(evt, params) {
+                // If there is a display field, populate it with the selected value
+                var $t = $(this);
+                if ($t.data('select-display-field')) {
+                    var displayKey = $t.data('select-display-field');
+                    var displayText = '';
+                    if (params.selected) {
+                        displayText = $t.find('option:selected').html();
+                    }
+                    // Find the display field: Replace the key in the element's ID
+                    // with the key of the display field. Important: Replace only
+                    // last occurrence of string as qg can contain the key.
+                    var displayId = this.id.replace(
+                        new RegExp($t.data('key-keyword') + '$'), displayKey);
+                    var displayField = $('#' + displayId);
+                    if (displayField.length) {
+                        displayField.val(displayText);
+                    }
                 }
-                // Find the display field: Replace the key in the element's ID
-                // with the key of the display field. Important: Replace only
-                // last occurrence of string as qg can contain the key.
-                var displayId = this.id.replace(
-                    new RegExp($t.data('key-keyword') + '$'), displayKey);
-                var displayField = $('#' + displayId);
-                if (displayField.length) {
-                    displayField.val(displayText);
-                }
-            }
-        });
+            });
+        }
     }
+    updateChosen();
+
 
     if ($.fn.datepicker) {
         var datepickerOptions = {
@@ -1300,6 +1306,10 @@ function updateFieldsetElement(element, prefix, index, reset) {
             $(this).attr('for', newFor);
         }
     });
+
+    // Remove all selects created by chosen, they will be newly created.
+    element.find('.chosen-container').remove();
+
     if (reset) {
         clearQuestiongroup(element);
         element.find('.form-user-tab-search').hide();
