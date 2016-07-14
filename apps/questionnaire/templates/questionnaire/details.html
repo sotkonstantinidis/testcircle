@@ -7,8 +7,6 @@
 {% load staticfiles %}
 
 
-{% block bodyclass %}layout-tech is-technology{% endblock %}
-
 {% block content %}
 
   {% if 'assign_questionnaire' in permissions %}
@@ -21,7 +19,7 @@
     {% endaddtoblock %}
   {% endif %}
 
-  <!-- {% comment %}
+  {% comment %}
   <div id="scroll-fixed-top" class="sticky-menu-outer">
     {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode=view_mode %}
     {% addtoblock 'js' %}
@@ -30,7 +28,7 @@
       {% endcompress %}
     {% endaddtoblock %}
   </div>
-  {% endcomment %} -->
+  {% endcomment %}
 
   <figure class="tech-figure">
     {% if images|length %}
