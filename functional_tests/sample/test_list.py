@@ -1,6 +1,7 @@
 import time
 
 import re
+from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,6 +9,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from unittest.mock import patch
 
+from accounts.tests.test_models import create_new_user
+from accounts.tests.test_views import accounts_route_questionnaires
 from functional_tests.base import FunctionalTest
 
 from accounts.client import Typo3Client
@@ -19,7 +22,7 @@ from sample.tests.test_views import (
     route_questionnaire_details,
     route_questionnaire_list,
     route_questionnaire_new,
-)
+    route_questionnaire_new_step)
 from samplemulti.tests.test_views import (
     route_home as route_samplemulti_home,
     route_questionnaire_list as route_samplemulti_list,
@@ -1749,6 +1752,46 @@ class ListTestStatus(FunctionalTest):
     def tearDown(self):
         super(ListTestStatus, self).tearDown()
         delete_all_indices()
+
+    # def test_unknown_name(self, mock_get_user_id):
+    #     user = create_new_user()
+    #     user.groups = [
+    #         Group.objects.get(pk=3), Group.objects.get(pk=4)]
+    #     user.save()
+    #
+    #     # Alice logs in
+    #     self.doLogin(user=user)
+    #
+    #     # She creates an empty questionnaire
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_new_step,
+    #         kwargs={'identifier': 'new', 'step': 'cat_0'}))
+    #     self.submit_form_step()
+    #
+    #     url = self.browser.current_url
+    #
+    #     # She goes to "my data" and sees it is listed there, no name indicated
+    #     self.browser.get(self.live_server_url + reverse(
+    #         accounts_route_questionnaires, kwargs={'user_id': user.id}))
+    #
+    #     self.findByNot('xpath', '//a[contains(text(), "{}")]'.format(
+    #         "{'en': 'Unknown name'}"))
+    #
+    #     # She publishes the questionnaire
+    #     self.browser.get(url)
+    #     self.wait_for('class_name', 'review-panel-content')
+    #
+    #     self.review_action('submit')
+    #     self.review_action('review')
+    #     self.review_action('publish')
+    #
+    #     # She goes to the list and sees the data is listed there, "unknown name"
+    #     # correctly displayed
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_list))
+    #
+    #     self.findByNot('xpath', '//a[contains(text(), "{}")]'.format(
+    #         "{'en': 'Unknown name'}"))
 
     def test_list_status_public(self, mock_get_user_id):
 

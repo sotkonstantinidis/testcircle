@@ -9,6 +9,9 @@ urlpatterns = patterns(
     url(r'^help/questionnaire/$', TemplateView.as_view(
         template_name='wocat/help/questionnaire_introduction.html'),
         name='help_questionnaire_introduction'),
+    url(r'^help/review/$', TemplateView.as_view(
+        template_name='wocat/help/review_process.html'),
+        name='help_review_process'),
     url(r'^view/(?P<identifier>[^/]+)/$', 'wocat.views.questionnaire_details',
         name='questionnaire_details'),
     url(r'^list/$', 'wocat.views.questionnaire_list',

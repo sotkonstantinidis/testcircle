@@ -388,3 +388,7 @@ div.inline-linked-questionnaires article {
     font-weight: 300;
   }
 }
+
+.tech-output-columns .video-additional-info h5:not(:first-of-type) {
+  margin-top: rem-calc(8);
+}

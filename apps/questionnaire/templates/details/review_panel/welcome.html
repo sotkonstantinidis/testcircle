@@ -2,7 +2,7 @@
 {% load static %}
 
 
-<div class="small-12 columns">
+<div class="medium-9 columns">
   <h2>
     <span class="is-wocat">{% trans "Hello" %} {{ request.user.firstname }}.</span>
     {% trans "Welcome to the SLM Technology / Approach data entry form." %}
@@ -21,4 +21,18 @@
     <a class="button" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
     <a class="button is-{{ review_config.data_type }}" href="{{ review_config.first_section_url }}" class="link">{% trans "Start data entry" %}</a>
   </p>
+</div>
+<div class="medium-3 columns">
+  {% with small_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'.png' %}
+    <a href="#" class="th" role="button" aria-label="{% trans "Review process" %}" data-reveal-id="review_process_modal">
+      <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
+    </a>
+    <div id="review_process_modal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <a href="{% static large_url %}">
+        <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
+      </a>
+      <a href="{% static large_url %}" class="link">Click the image for a larger version of it.</a>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+  {% endwith %}
 </div>

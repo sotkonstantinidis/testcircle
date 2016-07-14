@@ -38,7 +38,7 @@ from questionnaire.upload import (
 from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
-from .models import Questionnaire, File
+from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
 from .utils import (
     clean_questionnaire_data,
     compare_questionnaire_data,
@@ -623,7 +623,15 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             questionnaire_data=self.questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
         )
-        permissions = ['edit_questionnaire'] if not self.has_object else self.object.get_permissions(self.request.user)
+
+        if self.has_object:
+            roles, permissions = self.object.get_roles_permissions(
+                self.request.user)
+        else:
+            # User is always compiler of new questionnaires.
+            role = settings.QUESTIONNAIRE_COMPILER
+            roles = [(role, dict(QUESTIONNAIRE_ROLES).get(role))]
+            permissions = ['edit_questionnaire']
 
         csrf_token = get_token(self.request) if 'edit_questionnaire' in permissions else None
 
@@ -658,7 +666,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         url = self.get_detail_url(step='') if self.has_object else ''
 
         review_config = self.get_review_config(
-            permissions=permissions, url=url,
+            permissions=permissions, roles=roles, url=url,
             blocked_by=blocked_by if not can_edit else False,
             view_mode='edit'
         )
@@ -691,7 +699,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     def get_detail_url(self, step):
         return super().get_detail_url(step='top')
 
-    def get_review_config(self, permissions, url, **kwargs):
+    def get_review_config(self, permissions, roles, url, **kwargs):
         """
         Create a dict with the review_config, this is required for proper display
         of the review panel.
@@ -708,6 +716,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             status=self.object.status if self.has_object else 0,
             token=get_token(self.request),
             permissions=permissions,
+            roles=roles,
             view_mode=kwargs.get('view_mode', 'view'),
             url=url,
             is_blocked=bool(kwargs.get('blocked_by', False)),
@@ -928,7 +937,9 @@ def generic_questionnaire_details(
             '{}:questionnaire_details'.format(url_namespace),
             questionnaire_object.code)
 
-    permissions = questionnaire_object.get_permissions(request.user)
+    roles_permissions = questionnaire_object.get_roles_permissions(request.user)
+    roles = roles_permissions.roles
+    permissions = roles_permissions.permissions
 
     review_config = {}
     if request.user.is_authenticated():
@@ -946,6 +957,7 @@ def generic_questionnaire_details(
             status=questionnaire_object.status,
             token=get_token(request),
             permissions=permissions,
+            roles=roles,
             view_mode='view',
             url=reverse('{}:questionnaire_edit'.format(url_namespace),
                         kwargs={'identifier': questionnaire_object.code}),

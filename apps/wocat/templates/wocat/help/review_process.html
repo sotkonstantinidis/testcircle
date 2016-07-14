@@ -1,0 +1,35 @@
+{% extends 'wocat/base.html' %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Review process" %}{% endblock %}
+
+{% block content %}
+
+  <main class="row large-collapse" role="main">
+    <section class="small-12 columns">
+
+      <h1 class="help-title">
+        {% trans "Review process" %}
+      </h1>
+
+      <h3 class="help-subtitle">
+        {% trans "Process" %}
+      </h3>
+      {% with small_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'.png' %}
+        <a class="th" role="button" aria-label="{% trans "Review process" %}" href="{% static large_url %}">
+          <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
+        </a>
+      {% endwith %}
+
+      <h3 class="help-subtitle">
+        {% trans "Roles" %}
+      </h3>
+      {% include 'wocat/help/questionnaire_roles.html' %}
+
+    </section>
+  </main>
+
+
+{% endblock %}

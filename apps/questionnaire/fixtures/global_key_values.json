@@ -1290,6 +1290,31 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Vimeo ID"
+          },
+          "helptext": {
+            "en": "Indicate only the ID of the Vimeo video. The ID contains only numbers and can be found in the URL of the video, e.g. https://vimeo.com/<strong><u>97415985</u></strong>."
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Vimeo ID"
+          },
+          "helptext": {
+            "en": "Indicate only the ID of the Vimeo video. The ID contains only numbers and can be found in the URL of the video, e.g. https://vimeo.com/<strong><u>97415985</u></strong>."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5065
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "wocat": {
@@ -6240,6 +6265,20 @@
     },
     "model": "configuration.key",
     "pk": 57
+  },
+  {
+    "fields": {
+      "keyword": "video_vimeo_id",
+      "translation": 5065,
+      "configuration": {
+        "type": "int",
+        "view_options": {
+          "template": "vimeo_video"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 58
   },
   {
     "fields": {
