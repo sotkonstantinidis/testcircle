@@ -1,0 +1,14 @@
+{% extends 'wocat/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+  <main class="row" role="main">
+    <h1>{% trans "Add SLM data" %}</h1>
+    <div class="tabs-content">
+      <section class="content active">
+        {% include 'wocat/partial/add.html' %}
+      </section>
+    </div>
+  </main>
+{% endblock %}

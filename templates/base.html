@@ -151,9 +151,9 @@
           </ul>
 
           <ul class="left">
-            <li class="active"><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'wocat:questionnaire_list' %}">Search SLM Data</a></li>
-            <li><a href="{% url 'technologies:questionnaire_new' %}">Add SLM Data</a></li>
+            <li class="active"><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+            <li><a href="{% url 'wocat:questionnaire_list' %}">{% trans "Search SLM Data" %}</a></li>
+            <li><a href="{% url 'wocat:add' %}">{% trans "Add SLM data" %}</a></li>
             <li><a href="">My SLM Data</a></li>
           </ul>
 

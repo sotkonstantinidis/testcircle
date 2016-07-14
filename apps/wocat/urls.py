@@ -12,6 +12,15 @@ urlpatterns = patterns(
     url(r'^help/review/$', TemplateView.as_view(
         template_name='wocat/help/review_process.html'),
         name='help_review_process'),
+    url(r'^add/$', TemplateView.as_view(
+        template_name='wocat/add.html'),
+        name='add'),
+    url(r'^add/practice/$', TemplateView.as_view(
+        template_name='wocat/add_practice.html'),
+        name='add_practice'),
+    url(r'^add/module/$', TemplateView.as_view(
+        template_name='wocat/add_module.html'),
+        name='add_module'),
     url(r'^view/(?P<identifier>[^/]+)/$', 'wocat.views.questionnaire_details',
         name='questionnaire_details'),
     url(r'^list/$', 'wocat.views.questionnaire_list',

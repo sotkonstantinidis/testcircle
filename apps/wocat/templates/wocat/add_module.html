@@ -1,0 +1,13 @@
+{% extends 'wocat/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+  <main class="row" role="main">
+    <a href="{% url 'wocat:add' %}">< (back)</a>
+    <h1>{% trans "Add SLM Module" %}</h1>
+    <p>
+      {% trans "Currently two modules are in preparation: “Climate Change Adaptation” and “Watershed/ Technology Systems”. (Further modules are in discussion: “Climate Change Mitigation/ Carbon Benefits” and “Disaster Risk Reduction”)" %}
+    </p>
+  </main>
+{% endblock %}
