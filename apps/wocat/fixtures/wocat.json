@@ -28,6 +28,22 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "tech__1__2",
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_project_display"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }

@@ -3,6 +3,7 @@ import json
 import logging
 from uuid import UUID
 
+from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
@@ -637,6 +638,19 @@ def get_active_filters(questionnaire_configuration, query_dict):
             value_label = next(
                 (v[1] for v in question.choices if v[0] == filter_value),
                 filter_value)
+
+            if question.field_type == 'select_model':
+                try:
+                    model = apps.get_model(
+                        app_label='configuration',
+                        model_name=question.form_options.get('model'))
+                    try:
+                        object = model.objects.get(pk=filter_value)
+                        value_label = str(object)
+                    except model.DoesNotExist:
+                        continue
+                except LookupError:
+                    continue
 
             active_filters.append({
                 'questiongroup': filter_questiongroup,

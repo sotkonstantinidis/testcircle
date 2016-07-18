@@ -12,7 +12,7 @@
       <div class="row large-no-gutters">
         <div class="medium-4 columns">
           <label for="filter-country">{% trans "Country" %}</label>
-          <input type="text" placeholder="{% trans 'Select or type a Country name' %}" list="filter-country-list" id="filter-country">
+          <input type="text" class="js-search-datalist" placeholder="{% trans 'Select or type a country name' %}" list="filter-country-list" id="filter-country">
           <datalist id="filter-country-list">
             {% for country in filter_configuration.countries %}
             <option data-value="{{ country.0 }}">{{ country.1 }}</option>
@@ -29,10 +29,14 @@
           </select>
         </div>
         <div class="medium-4 columns">
-          <label>&nbsp;</label>
-          {% for flag in filter_configuration.flags %}
-          <label class="filter-checkbox-only inline"><input type="checkbox" id="flag_{{ flag.0 }}" data-value="{{ flag.0 }}" data-key="flag" data-questiongroup> {{ flag.1 }}</label>
-          {% endfor %}
+          <label for="filter-project">{% trans "Project" %}</label>
+          <input type="text" class="js-search-datalist" placeholder="{% trans 'Select or type a project name' %}" list="filter-project-list" id="filter-project">
+          <datalist id="filter-project-list">
+            {% for project in filter_configuration.projects %}
+            <option data-value="{{ project.0 }}">{{ project.1 }}</option>
+            {% endfor %}
+          </datalist>
+          <input type="hidden" name="filter-project" id="filter-project-hidden" data-questiongroup="qg_funding_project" data-key="funding_project">
         </div>
       </div>
       <div class="row large-no-gutters is-rhythmed">

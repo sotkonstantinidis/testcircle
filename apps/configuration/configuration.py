@@ -13,7 +13,7 @@ from configuration.models import (
     Configuration,
     Key,
     Questiongroup,
-)
+    Project)
 from configuration.utils import get_choices_from_model
 from qcat.errors import (
     ConfigurationError,
@@ -2218,6 +2218,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if country_question:
             countries = country_question.choices[1:]
 
+        projects = []
+        for project in Project.objects.all():
+            projects.append((project.id, str(project)))
+
         flags = []
         for flag in Flag.objects.all():
             flags.append((flag.flag, flag.get_flag_display()))
@@ -2226,6 +2230,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             'sections': filter_configuration,
             'countries': countries,
             'flags': flags,
+            'projects': projects,
         }
 
     def get_list_data(self, questionnaire_data_list):

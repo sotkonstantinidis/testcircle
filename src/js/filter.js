@@ -2,7 +2,7 @@ $(function () {
 
     // Overwrite the normal functionality of the datalist to be able to
     // use internal submit values other than the display values.
-    $('body').on('input', '#filter-country', function () {
+    $('body').on('input', '.js-search-datalist', function () {
         var input = this;
         var options = $('#' + $(this).attr('list') + ' option');
         var hiddenInput = $('#' + input.id + '-hidden');
@@ -314,7 +314,7 @@ function removeFilter(questiongroup, key, value) {
     }
     var p = parseQueryString();
     if (keyParameter in p) {
-        var i = p[keyParameter].indexOf(value);
+        var i = p[keyParameter].indexOf(String(value));
         if (i > -1) {
             p[keyParameter].splice(i, 1);
         }
