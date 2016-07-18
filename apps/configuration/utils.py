@@ -52,7 +52,8 @@ def get_configuration_query_filter(configuration, only_current=False):
     return Q(configurations__code=configuration)
 
 
-def get_configuration_index_filter(configuration, only_current=False):
+def get_configuration_index_filter(
+        configuration, only_current=False, query_param_filter=()):
     """
     Return the name of the index / indices to be searched by
     Elasticsearch based on their configuration code.
@@ -72,10 +73,22 @@ def get_configuration_index_filter(configuration, only_current=False):
         ``only_current`` (bool): If ``True``, always only the current
         configuration_code is returned. Defaults to ``False``.
 
+        ``query_param_filter`` (tuple): If provided, takes precedence over the
+        default rules.
+
     Returns:
         ``list``. A list of configuration codes (the index/indices) to
         be searched.
     """
+    if query_param_filter:
+        configurations = []
+        for q in query_param_filter:
+            if q == 'all':
+                configurations.extend(['unccd', 'technologies', 'approaches'])
+            else:
+                configurations.append(q)
+        return list(set(configurations))
+
     if only_current is True:
         return [configuration]
 

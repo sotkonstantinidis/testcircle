@@ -44,13 +44,13 @@
             <div class="search-field">
               <input type="search" tabindex="1" placeholder="{% trans "Search SLM Data" %}" name="q">
               <div class="search-category">
-                <a href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">All SLM Data</a>
-                <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
-                  <li><a href="#">{% trans "All SLM Data" %}</a></li>
-                  <li><a href="#">{% trans "SLM Technologies" %}</a></li>
-                  <li><a href="#">{% trans "SLM Approaches" %}</a></li>
-                  <li><a href="#">{% trans "SLM Maps" %}</a></li>
+                <a href="#" id="search-type-display" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">{% trans "All SLM Data" %}</a>
+                <ul id="drop1" data-dropdown-content class="f-dropdown search-type-select" aria-hidden="true">
+                  <li><a href="#" data-type="all">{% trans "All SLM Data" %}</a></li>
+                  <li><a href="#" data-type="technologies">{% trans "SLM Technologies" %}</a></li>
+                  <li><a href="#" data-type="approaches">{% trans "SLM Approaches" %}</a></li>
                 </ul>
+                <input type="hidden" name="type" id="search-type" value="all">
               </div>
               <input type="submit" class="search-submit button is-blue" value="Search">
             </div>

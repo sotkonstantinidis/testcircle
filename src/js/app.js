@@ -122,6 +122,17 @@ $(function () {
             }
         })
 
+        // Changing the type of the search (all / technologies / approaches)
+        .on('click', '.search-type-select a', function(e) {
+            e.preventDefault();
+
+            // Set hidden value
+            $('#search-type').val($(this).data('type'));
+
+            // Set display
+            $('#search-type-display').text($(this).text());
+        })
+
         .on('click', '.js-sticky-entry-link-toggle', function(e) {
             e.preventDefault();
             $(this).closest('.sticky-entry').toggleClass('sticky-entry-active');

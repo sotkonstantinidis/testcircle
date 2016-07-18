@@ -97,6 +97,12 @@ $(function () {
         // Always delete the paging parameter if the filter was modified
         delete p['page'];
 
+        // Type (all, technologies, approaches)
+        var type_ = $('#search-type').val();
+        if (type_) {
+            p = addFilter(p, null, 'type', type_);
+        }
+
         // Checkboxes
         $('#search-advanced input:checkbox').each(function () {
             var $t = $(this);
@@ -268,6 +274,11 @@ function updateFilterInputs() {
     for (var k in p.flag) {
         $('#flag_' + p.flag[k]).prop('checked', true);
     }
+
+    // Type
+    for (var k in p.type) {
+        $('a[data-type="' + p.type[k] + '"]').click();
+    }
 }
 
 
@@ -391,7 +402,7 @@ function changeUrl(url) {
  */
 function removeFilterParams(p) {
     for (var k in p) {
-        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag') {
+        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag' || k == 'type') {
             delete p[k];
         }
     }

@@ -1163,7 +1163,8 @@ def generic_questionnaire_list(
     offset = page * limit - limit
 
     search_configuration_codes = get_configuration_index_filter(
-        configuration_code, only_current=only_current)
+        configuration_code, only_current=only_current,
+        query_param_filter=tuple(request.GET.getlist('type')))
 
     search = advanced_search(
         filter_params=filter_params, query_string=query_string,
