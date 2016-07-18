@@ -8,20 +8,20 @@
 
 <form action="{% if current == 'technologies' %}{% url 'technologies:questionnaire_list' %}{% elif current == 'approaches' %}{% url 'approaches:questionnaire_list' %}{% else %}{% url 'wocat:questionnaire_list' %}{% endif %}" method="GET" role="search" class="search">
   <div class="search-field">
-    <input type="search" placeholder="Search">
+    <input type="search" tabindex="1" placeholder="{% trans "Search SLM Data" %}" name="q">
     <div class="search-category">
       <a href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">All SLM Data</a>
       <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
-        <li><a href="#">All SLM Data</a></li>
-        <li><a href="#">SLM Technologies</a></li>
-        <li><a href="#">SLM Approaches</a></li>
-        <li><a href="#">SLM Maps</a></li>
+        <li><a href="#">{% trans "All SLM Data" %}</a></li>
+        <li><a href="#">{% trans "SLM Technologies" %}</a></li>
+        <li><a href="#">{% trans "SLM Approaches" %}</a></li>
+        <li><a href="#">{% trans "SLM Maps" %}</a></li>
       </ul>
     </div>
     <input type="submit" class="search-submit button is-blue" value="Search">
   </div>
   <div class="search-option">
-    <a href="#" data-toggle="search-advanced">Advanced filter</a>
+    <a href="{% url 'wocat:questionnaire_list' %}" data-toggle="search-advanced">{% trans "Advanced filter" %}</a>
   </div>
 </form>
 
