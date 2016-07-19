@@ -28,6 +28,7 @@ from django.views.generic.base import TemplateResponseMixin
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
+from configuration.utils import get_filter_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
@@ -645,9 +646,6 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             links=self.get_links()
         )
 
-        # Add the configuration of the filter
-        filter_configuration = self.questionnaire_configuration.get_filter_configuration()
-
         can_edit = None
         blocked_by = None
         # Display a message regarding the state for editing (locked / available)
@@ -683,7 +681,6 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             'sections': sections,
             'questionnaire_identifier': self.identifier,
             'url_namespace': self.url_namespace,
-            'filter_configuration': filter_configuration,
             'permissions': permissions,
             'edited_questiongroups': edited_questiongroups,
             'view_mode': 'edit',
@@ -1012,15 +1009,10 @@ def generic_questionnaire_details(
         data=data, permissions=permissions, review_config=review_config,
         questionnaire_object=questionnaire_object, links=link_display)
 
-    # Add the configuration of the filter
-    filter_configuration = questionnaire_configuration.\
-        get_filter_configuration()
-
     return render(request, 'questionnaire/details.html', {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'filter_configuration': filter_configuration,
         'permissions': permissions,
         'view_mode': 'view',
         'toc_content': questionnaire_configuration.get_toc_data(),
@@ -1181,8 +1173,7 @@ def generic_questionnaire_list(
         configuration_code=configuration_code, es_hits=questionnaires)
 
     # Add the configuration of the filter
-    filter_configuration = questionnaire_configuration.\
-        get_filter_configuration()
+    filter_configuration = get_filter_configuration(configuration_code)
 
     template_values = {
         'list_values': list_values,

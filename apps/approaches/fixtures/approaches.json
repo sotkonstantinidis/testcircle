@@ -9881,7 +9881,8 @@
                               "has_other": "app_type"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {

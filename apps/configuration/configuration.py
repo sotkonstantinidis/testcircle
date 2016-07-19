@@ -12,8 +12,7 @@ from configuration.models import (
     Category,
     Configuration,
     Key,
-    Questiongroup,
-    Project)
+    Questiongroup)
 from configuration.utils import get_choices_from_model
 from qcat.errors import (
     ConfigurationError,
@@ -28,7 +27,7 @@ from qcat.utils import (
     find_dict_in_list,
     is_empty_list_of_dicts,
 )
-from questionnaire.models import File, Flag
+from questionnaire.models import File
 
 User = get_user_model()
 
@@ -2149,7 +2148,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_filter_configuration(self):
         """
         Return the data needed to create the filter panels. Loops the
-        sections and within them the fields can be filtered.
+        sections and within them the fields can be filtered. Only returns the
+        filters from the current configuration.
 
         Returns:
             ``dict``. A dictionary with a list entry for section filters
@@ -2212,26 +2212,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                                 'questiongroup': questiongroup.keyword,
                             })
 
-        countries = []
-        country_question = self.get_question_by_keyword(
-            'qg_location', 'country')
-        if country_question:
-            countries = country_question.choices[1:]
-
-        projects = []
-        for project in Project.objects.all():
-            projects.append((project.id, str(project)))
-
-        flags = []
-        for flag in Flag.objects.all():
-            flags.append((flag.flag, flag.get_flag_display()))
-
-        return {
-            'sections': filter_configuration,
-            'countries': countries,
-            'flags': flags,
-            'projects': projects,
-        }
+        return filter_configuration
 
     def get_list_data(self, questionnaire_data_list):
         """
