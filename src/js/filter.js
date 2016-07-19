@@ -55,7 +55,13 @@ $(function () {
 
     .on('change', '#search-advanced input[data-toggle-sub]', function() {
         // Show or hide sub filters.
-        $('#' + $(this).data('toggle-sub')).toggle($(this).is(':checked'));
+        var checked = $(this).is(':checked');
+        var subfilter = $('#' + $(this).data('toggle-sub'));
+        if (!checked) {
+            // If unselected, uncheck all sub filters
+            subfilter.find('input').prop('checked', false)
+        }
+        subfilter.toggle(checked);
     });
 
     // Initially update the filter input fields
