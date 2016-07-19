@@ -147,6 +147,96 @@
                   </li>
                 </ul>
               {% endwith %}
+
+              {# 3.6 SLM measures #}
+              {% with filter=section.filters.tech_measures %}
+                <ul role="tablist" data-accordion="" class="accordion is-light">
+                  <li class="accordion-navigation">
+                    <a aria-controls="{{ filter.keyword }}-heading" id="{{ filter.keyword }}-heading" role="tab" href="#{{ filter.keyword }}-filter">
+                      <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                      {{ filter.label }}
+                    </a>
+                    <div aria-labelledby="{{ filter.keyword }}-heading" role="tabpanel" class="content" id="{{ filter.keyword }}-filter">
+                      <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                        {% for value in filter.values %}
+                          <li>
+                            <div class="list-gallery-item">
+                              <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}" data-toggle-sub="{{ value.0 }}_sub">
+                              <label for="{{ filter.keyword }}_{{ value.0 }}">
+                                {{ value.1 }}
+                                <figure class="list-gallery-icon">
+                                  <img alt="{{ value.1 }}" src="{% static filter.images|get_by_index:forloop.counter0 %}">
+                                </figure>
+                              </label>
+
+                              {# All subcategories #}
+                              <ul class="list-gallery small-block-grid-1 large-block-grid-2" id="{{ value.0 }}_sub" style="display:none;">
+                                {% with subkeyword=value.0|add:'_sub' %}
+                                  {% with filter=section.filters|keyvalue:subkeyword %}
+                                    {% for value in filter.values %}
+                                      <li>
+                                        <label class="input-multiline" for="{{ filter.keyword }}_{{ value.0 }}">
+                                          <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                                          <span>{{ value.1 }}</span>
+                                        </label>
+                                      </li>
+                                    {% endfor %}
+                                  {% endwith %}
+                                {% endwith %}
+                              </ul>
+                            </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              {% endwith %}
+
+              {# 3.7 Land degradation #}
+              {% with filter=section.filters.tech_degradation %}
+                <ul role="tablist" data-accordion="" class="accordion is-light">
+                  <li class="accordion-navigation">
+                    <a aria-controls="{{ filter.keyword }}-heading" id="{{ filter.keyword }}-heading" role="tab" href="#{{ filter.keyword }}-filter">
+                      <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                      {{ filter.label }}
+                    </a>
+                    <div aria-labelledby="{{ filter.keyword }}-heading" role="tabpanel" class="content" id="{{ filter.keyword }}-filter">
+                      <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                        {% for value in filter.values %}
+                          <li>
+                            <div class="list-gallery-item">
+                              <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}" data-toggle-sub="{{ value.0 }}_sub">
+                              <label for="{{ filter.keyword }}_{{ value.0 }}">
+                                {{ value.1 }}
+                                <figure class="list-gallery-icon">
+                                  <img alt="{{ value.1 }}" src="{% static filter.images|get_by_index:forloop.counter0 %}">
+                                </figure>
+                              </label>
+
+                              {# All subcategories #}
+                              <ul class="list-gallery small-block-grid-1 large-block-grid-2" id="{{ value.0 }}_sub" style="display:none;">
+                                {% with subkeyword=value.0|add:'_sub' %}
+                                  {% with filter=section.filters|keyvalue:subkeyword %}
+                                    {% for value in filter.values %}
+                                      <li>
+                                        <label class="input-multiline" for="{{ filter.keyword }}_{{ value.0 }}">
+                                          <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                                          <span>{{ value.1 }}</span>
+                                        </label>
+                                      </li>
+                                    {% endfor %}
+                                  {% endwith %}
+                                {% endwith %}
+                              </ul>
+                            </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              {% endwith %}
             </div>
           </li>
         {% endwith %}
