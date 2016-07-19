@@ -2199,18 +2199,18 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                                 s = {
                                     'keyword': cat.keyword,
                                     'label': cat.label,
-                                    'filters': [],
+                                    'filters': {},
                                 }
                                 filter_configuration.append(s)
 
-                            s['filters'].append({
+                            s['filters'][question.keyword] = {
                                 'keyword': question.keyword,
                                 'label': question.label,
                                 'values': question.choices,
                                 'type': question.field_type,
                                 'images': question.images,
                                 'questiongroup': questiongroup.keyword,
-                            })
+                            }
 
         return filter_configuration
 

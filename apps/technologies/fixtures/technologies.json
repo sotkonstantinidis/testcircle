@@ -26550,7 +26550,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -26581,6 +26582,9 @@
                             "keyword": "tech_lu_grazingland_extensive",
                             "form_options": {
                               "helptext_position": "tooltip"
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           },
                           {
@@ -26588,6 +26592,9 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "row_class": "top-margin"
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           },
                           {

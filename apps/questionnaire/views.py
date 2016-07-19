@@ -1127,11 +1127,12 @@ def generic_questionnaire_list(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = get_configuration(configuration_code)
+    configuration_codes = get_configuration_index_filter(configuration_code)
+    configurations = [get_configuration(code) for code in configuration_codes]
+
 
     # Get the filters and prepare them to be passed to the search.
-    active_filters = get_active_filters(
-        questionnaire_configuration, request.GET)
+    active_filters = get_active_filters(configurations, request.GET)
     query_string = ''
     filter_params = []
     for active_filter in active_filters:

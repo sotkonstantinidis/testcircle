@@ -506,7 +506,7 @@ def get_questiongroup_data_from_translation_form(
     return questiongroup_data_cleaned
 
 
-def get_active_filters(questionnaire_configuration, query_dict):
+def get_active_filters(questionnaire_configurations, query_dict):
     """
     Get the currently active filters based on the query dict (eg. from
     the request). Only valid filters (correct format, based on
@@ -533,9 +533,9 @@ def get_active_filters(questionnaire_configuration, query_dict):
         q=search&filter__qg_11__key_14=value_14_1
 
     Args:
-        ``questionnaire_configuration``
-        (:class:`configuration.configuration.QuestionnaireConfiguration`):
-        The questionnaire configuration.
+        ``questionnaire_configurations``
+        (list of :class:`configuration.configuration.QuestionnaireConfiguration`):
+        A list of questionnaire configurations.
 
         ``query_dict`` (Nested Multidict): A nested multidict object,
         eg. ``request.GET``.
@@ -628,8 +628,11 @@ def get_active_filters(questionnaire_configuration, query_dict):
         filter_questiongroup = params[1]
         filter_key = params[2]
 
-        question = questionnaire_configuration.get_question_by_keyword(
-            filter_questiongroup, filter_key)
+        question = None
+        for configuration in questionnaire_configurations:
+            if question is None:
+                question = configuration.get_question_by_keyword(
+                    filter_questiongroup, filter_key)
 
         if question is None:
             continue

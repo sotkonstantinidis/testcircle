@@ -16,9 +16,6 @@ $(function () {
         });
     });
 
-    // Initially update the filter input fields
-    updateFilterInputs();
-
     // Button to remove a filter. As the filter buttons are added
     // dynamically, the event needs to be attached to an element which is
     // already there.
@@ -36,10 +33,10 @@ $(function () {
         updateFilterInputs();
 
         return false;
-    });
+    })
 
     // Button to reset all filters
-    $('body').on('click', '#filter-reset', function () {
+    .on('click', '#filter-reset', function () {
 
         var p = parseQueryString();
 
@@ -54,7 +51,15 @@ $(function () {
         updateList(s);
         updateFilterInputs();
         return false;
+    })
+
+    .on('change', '#search-advanced input[data-toggle-sub]', function() {
+        // Show or hide sub filters.
+        $('#' + $(this).data('toggle-sub')).toggle($(this).is(':checked'));
     });
+
+    // Initially update the filter input fields
+    updateFilterInputs();
 
     // Top search bar
     // $('.top-bar-search').submit(function (e) {
@@ -217,7 +222,7 @@ function updateFilterInputs() {
         for (var v in values) {
             var el = $('input[data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"][data-value="' + values[v] + '"]');
             if (el.length !== 1) continue;
-            el.prop('checked', true);
+            el.prop('checked', true).trigger('change');
         }
 
         // Datalist

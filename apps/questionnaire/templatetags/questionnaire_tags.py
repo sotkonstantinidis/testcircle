@@ -105,3 +105,8 @@ def prepare_image(image):
 @register.simple_tag
 def link_display(configuration_code, name, identifier):
     return get_link_display(configuration_code, name, identifier)
+
+
+@register.filter
+def keyvalue(dict, key):
+    return dict.get(key)
