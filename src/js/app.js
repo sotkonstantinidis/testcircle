@@ -74,9 +74,17 @@ $(function () {
         }
     });
 
-    $('#submit-search').click(function () {
-        $(this).closest('form').submit();
-        return false;
+    $('#submit-search').click(function(e) {
+        // For the search on the landing page, do not submit the search
+        // parameter (q) if it is empty.
+        e.preventDefault();
+        var form = $(this).closest('form');
+        var search_field = form.find('input[name="q"]');
+        if (!search_field.val()) {
+            console.log("foo");
+            search_field.remove();
+        }
+        form.submit();
     });
 
     // Context switcher (WOCAT vs. Approaches vs. Technologies)
