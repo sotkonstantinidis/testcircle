@@ -132,6 +132,9 @@
         "technologies": {
           "label": {
             "en": "Select land use type"
+          },
+          "label_view": {
+            "en": "Land use type"
           }
         }
       }

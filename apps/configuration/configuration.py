@@ -2205,7 +2205,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
                             s['filters'][question.keyword] = {
                                 'keyword': question.keyword,
-                                'label': question.label,
+                                'label': question.label_view,
                                 'values': question.choices,
                                 'type': question.field_type,
                                 'images': question.images,
