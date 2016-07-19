@@ -204,7 +204,7 @@ function updateFilterInputs() {
     var p = parseQueryString();
 
     // Uncheck all input fields first
-    $('input[data-questiongroup]').prop('checked', false);
+    $('input[data-questiongroup]').prop('checked', false).trigger('change');
 
     // Reset Sliders
     $('.nstSlider').each(function () {

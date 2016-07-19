@@ -149,6 +149,9 @@
         "technologies": {
           "label": {
             "en": "Select category(ies) / code(s)"
+          },
+          "label_view": {
+            "en": "Land use type"
           }
         }
       }
@@ -3081,6 +3084,9 @@
         "technologies": {
           "label": {
             "en": "SLM group to which the Technology belongs"
+          },
+          "label_view": {
+            "en": "SLM group"
           }
         }
       }
@@ -26628,6 +26634,9 @@
                             "keyword": "tech_lu_forest_natural",
                             "form_options": {
                               "helptext_position": "tooltip"
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           },
                           {
@@ -26635,6 +26644,9 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "row_class": "top-margin"
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           },
                           {
@@ -26680,7 +26692,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -26713,7 +26726,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -26746,7 +26760,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -26892,7 +26907,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {

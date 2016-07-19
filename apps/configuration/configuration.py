@@ -2183,7 +2183,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             Each special filter (eg. ``countries``) contains a list of
             tuples with [0] the internal value and the [1] display value.
         """
-        filter_configuration = []
+        filter_configuration = {}
 
         for section in self.sections:
             for cat in section.categories:
@@ -2191,17 +2191,14 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     for question in questiongroup.questions:
                         if question.filterable is True:
 
-                            s = next((
-                                item for item in filter_configuration if
-                                item["keyword"] == cat.keyword), None)
-
+                            s = filter_configuration.get(cat.keyword)
                             if not s:
                                 s = {
                                     'keyword': cat.keyword,
                                     'label': cat.label,
                                     'filters': {},
                                 }
-                                filter_configuration.append(s)
+                                filter_configuration[cat.keyword] = s
 
                             s['filters'][question.keyword] = {
                                 'keyword': question.keyword,
