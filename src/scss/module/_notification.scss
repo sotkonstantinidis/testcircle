@@ -1,21 +1,32 @@
-.notification {
+.notification-group {
   position: fixed;
-  bottom: rem-calc(12);
+  bottom: rem-calc(6);
   right: rem-calc(12);
   z-index: 999;
-  animation-duration: 1s;
+}
+
+.notification {
+  margin-bottom: rem-calc(6);
+  animation-duration: 5s;
   animation-fill-mode: both;
   animation-name: fadeInUp;
 }
 
 @keyframes fadeInUp {
-  from {
+  0% {
     opacity: 0;
     transform: translate3d(0, 100%, 0);
   }
-
-  to {
+  20% {
     opacity: 1;
     transform: none;
+  }
+  95% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
   }
 }
