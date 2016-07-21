@@ -1815,6 +1815,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'configuration_name': configuration,
                 'questionnaire_identifier': questionnaire_identifier,
                 'has_changes': has_changes,
+                'review_config': review_config,
             })
 
     def get_raw_category_data(self, questionnaire_data):

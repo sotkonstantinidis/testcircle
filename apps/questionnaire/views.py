@@ -638,14 +638,6 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
 
         images = self.questionnaire_configuration.get_image_data(data).get('content', [])
 
-        sections = self.questionnaire_configuration.get_details(
-            data, permissions=permissions,
-            edit_step_route='{}:questionnaire_new_step'.format(self.url_namespace),
-            questionnaire_object=self.object or None, csrf_token=csrf_token,
-            edited_questiongroups=self.get_edited_questiongroups(), view_mode='edit',
-            links=self.get_links()
-        )
-
         can_edit = None
         blocked_by = None
         # Display a message regarding the state for editing (locked / available)
@@ -675,6 +667,17 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
                     'identifier': self.identifier, 'step': self.get_steps()[0]
                 })
             })
+
+        sections = self.questionnaire_configuration.get_details(
+            data, permissions=permissions,
+            edit_step_route='{}:questionnaire_new_step'.format(
+                self.url_namespace),
+            questionnaire_object=self.object or None, csrf_token=csrf_token,
+            edited_questiongroups=self.get_edited_questiongroups(),
+            view_mode='edit',
+            links=self.get_links(),
+            review_config=review_config,
+        )
 
         context = {
             'images': images,

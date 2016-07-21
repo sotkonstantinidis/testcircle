@@ -1,70 +1,101 @@
 {% load i18n %}
 
-  <section id="{{ keyword }}" class="row tech-section" data-magellan-destination="{{ keyword }}">
-    <a name="{{ keyword }}"></a>
+  <header class="tech-output-header row">
 
-    {% if review_config %}
-      <header class="tech-output-header medium-12 columns">
-        <div class="tech-status">
-          {% if metadata.configurations.0 %}
-            <span class="label is-{{ metadata.configurations.0 }}">{% trans "Approach" %}</span>
-          {% endif %}
-          {% for flag in metadata.flags %}
-            <span class="label is-{{ flag.flag }}">{{ flag.name }}</span>
-          {% endfor %}
-          {% if metadata.status.0 and metadata.status.0 != 'public' %}
-            <span class="label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
-          {% endif %}
-        </div>
-      </header>
-    {% endif %}
-
-    <header class="tech-output-header medium-7 columns">
-      {% if not review_config %}
-        <div class="tech-status">
-          {% if metadata.configurations.0 %}
-            <span class="label is-{{ metadata.configurations.0 }}">{{ metadata.configurations.0 }}</span>
-          {% endif %}
-          {% for flag in metadata.flags %}
-            <span class="label is-{{ flag.0 }}">{{ flag.1 }}</span>
-          {% endfor %}
-          {% if metadata.status.0 and metadata.status.0 != 'public' %}
-            <span class="label is-{{ metadata.status.0 }}">{{ metadata.status.1 }}</span>
-          {% endif %}
+    {% if not review_config %}
+      {% if metadata.configurations.0 %}
+        <div class="tech-type is-{{ metadata.configurations.0 }}">
+          <span>{{ metadata.configurations.0 }}</span>
         </div>
       {% endif %}
-      <h1 class="tech-output-title">{{ raw_data.name|default:'' }}</h1>
-      <p class="is-large subheader">{{ raw_data.name_local|default:""|linebreaksbr }}</p>
-      <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }}{% endif %}{% if metadata.code and additional_data.country.0.0 %} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
-    </header>
-    <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">
-      <ul class="tech-output-infos">
-        <li>
-          <span class="is-muted">{% trans "Creation:" %}</span>
-          <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
-        </li>
-        <li>
-          <span class="is-muted">{% trans "Update:" %}</span>
-          <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
-        </li>
-        <li>
-          <span class="is-muted">{% if metadata.compilers|length > 1 %}{% trans "Compilers:" %}{% else %}{% trans "Compiler:" %}{% endif %}</span>
-          {% for compiler in metadata.compilers %}
-            <a rel="author" href="#" class="link">{{ compiler.name }}</a>{% if not forloop.last %}, {% endif %}
-          {% empty %}
-            &ndash;
-          {% endfor %}
-        </li>
-        <li>
-          <span class="is-muted">{% if metadata.editors|length > 1 %}{% trans "Editors:" %}{% else %}{% trans "Editor:" %}{% endif %}</span>
-          {% for editor in metadata.editors %}
-            <a rel="author" href="#" class="link">{{ editor.name }}</a>{% if not forloop.last %}, {% endif %}
-          {% empty %}
-            &ndash;
-          {% endfor %}
-        </li>
-      </ul>
-    </aside>
+
+      {% for flag in metadata.flags %}
+        <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
+      {% endfor %}
+      {% if metadata.status.0 and metadata.status.0 != 'public' %}
+        <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
+      {% endif %}
+    {% endif %}
+
+    {% if review_config %}
+      {% if metadata.configurations.0 %}
+        <span class="tech-status label is-{{ metadata.configurations.0 }}">{% trans "Approach" %}</span>
+      {% endif %}
+      {% for flag in metadata.flags %}
+        <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
+      {% endfor %}
+      {% if metadata.status.0 and metadata.status.0 != 'public' %}
+        <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
+      {% endif %}
+    {% endif %}
+
+    <h1 class="tech-output-title">{{ raw_data.name|default:'' }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
+
+    <ul class="tech-infos">
+      <li>
+        <span class="is-muted">{% trans "Creation:" %}</span>
+        <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
+      </li>
+      <li>
+        <span class="is-muted">{% trans "Update:" %}</span>
+        <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
+      </li>
+      <li>
+        <span class="is-muted">{% if metadata.compilers|length > 1 %}{% trans "Compilers:" %}{% else %}{% trans "Compiler:" %}{% endif %}</span>
+        {% for compiler in metadata.compilers %}
+          <a rel="author" href="#" class="link">{{ compiler.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% empty %}
+          &ndash;
+        {% endfor %}
+      </li>
+      <li>
+        <span class="is-muted">{% if metadata.editors|length > 1 %}{% trans "Editors:" %}{% else %}{% trans "Editor:" %}{% endif %}</span>
+        {% for editor in metadata.editors %}
+          <a rel="author" href="#" class="link">{{ editor.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% empty %}
+          &ndash;
+        {% endfor %}
+      </li>
+    </ul>
+    <p class="is-large subheader">{{ raw_data.name_local|default:""|linebreaksbr }}</p>
+    <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }}{% endif %}{% if metadata.code and additional_data.country.0.0 %} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
+  </header>
+
+{#    {% if review_config %}#}
+{#      {% include 'details/review_panel.html' with review_config=review_config %}#}
+{#    {% endif %}#}
+
+{#    <aside class="tech-output-aside medium-4 medium-offset-1 columns" role="contentinfo">#}
+{#      <ul class="tech-output-infos">#}
+{#        <li>#}
+{#          <span class="is-muted">{% trans "Creation:" %}</span>#}
+{#          <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>#}
+{#        </li>#}
+{#        <li>#}
+{#          <span class="is-muted">{% trans "Update:" %}</span>#}
+{#          <time datetime="{{ metadata.updated|date:"c" }}">{{ metadata.updated|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>#}
+{#        </li>#}
+{#        <li>#}
+{#          <span class="is-muted">{% if metadata.compilers|length > 1 %}{% trans "Compilers:" %}{% else %}{% trans "Compiler:" %}{% endif %}</span>#}
+{#          {% for compiler in metadata.compilers %}#}
+{#            <a rel="author" href="#" class="link">{{ compiler.name }}</a>{% if not forloop.last %}, {% endif %}#}
+{#          {% empty %}#}
+{#            &ndash;#}
+{#          {% endfor %}#}
+{#        </li>#}
+{#        <li>#}
+{#          <span class="is-muted">{% if metadata.editors|length > 1 %}{% trans "Editors:" %}{% else %}{% trans "Editor:" %}{% endif %}</span>#}
+{#          {% for editor in metadata.editors %}#}
+{#            <a rel="author" href="#" class="link">{{ editor.name }}</a>{% if not forloop.last %}, {% endif %}#}
+{#          {% empty %}#}
+{#            &ndash;#}
+{#          {% endfor %}#}
+{#        </li>#}
+{#      </ul>#}
+{#    </aside>#}
+
+  <section id="{{ keyword }}" class="row tech-section" data-magellan-destination="{{ keyword }}">
+    <a name="{{ keyword }}"></a>
 
     {% if 'edit_questionnaire' in permissions and view_mode == 'edit' %}
       <div class="medium-9 columns is-rhythmed">

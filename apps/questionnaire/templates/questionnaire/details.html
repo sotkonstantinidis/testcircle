@@ -50,10 +50,6 @@
     {% endif %}
   </figure>
 
-  {% if review_config %}
-    {% include 'details/review_panel.html' with review_config=review_config %}
-  {% endif %}
-
   <article role="main" class="tech-output">
     <main class="is-rhythmed-4">
       {% for section in sections %}

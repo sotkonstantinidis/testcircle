@@ -2,31 +2,17 @@
 
   <header class="tech-output-header row">
 
-    {% if not review_config %}
-      {% if metadata.configurations.0 %}
-        <div class="tech-type is-{{ metadata.configurations.0 }}">
-          <span>{{ metadata.configurations.0 }}</span>
-        </div>
-      {% endif %}
-
-      {% for flag in metadata.flags %}
-        <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
-      {% endfor %}
-      {% if metadata.status.0 and metadata.status.0 != 'public' %}
-        <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
-      {% endif %}
+    {% if metadata.configurations.0 %}
+      <div class="tech-type is-{{ metadata.configurations.0 }}">
+        <span>{{ metadata.configurations.0 }}</span>
+      </div>
     {% endif %}
 
-    {% if review_config %}
-      {% if metadata.configurations.0 %}
-        <span class="tech-status label is-{{ metadata.configurations.0 }}">{% trans "Technology" %}</span>
-      {% endif %}
-      {% for flag in metadata.flags %}
-        <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
-      {% endfor %}
-      {% if metadata.status.0 and metadata.status.0 != 'public' %}
-        <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
-      {% endif %}
+    {% for flag in metadata.flags %}
+      <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
+    {% endfor %}
+    {% if metadata.status.0 and metadata.status.0 != 'public' %}
+      <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
     {% endif %}
 
     <h1 class="tech-output-title">{{ raw_data.name|default:'' }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
@@ -63,9 +49,12 @@
 
   </header>
 
+  {% if review_config %}
+    {% include 'details/review_panel.html' with review_config=review_config %}
+  {% endif %}
+
   <section id="{{ keyword }}" class="row tech-section" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
-
 
     {% if 'edit_questionnaire' in permissions and view_mode == 'edit' %}
       <div class="medium-9 columns is-rhythmed">
