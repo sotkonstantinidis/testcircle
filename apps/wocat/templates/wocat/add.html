@@ -4,11 +4,7 @@
 
 {% block content %}
   <main class="row" role="main">
-    <h1>{% trans "Add SLM data" %}</h1>
-    <div class="tabs-content">
-      <section class="content active">
-        {% include 'wocat/partial/add.html' %}
-      </section>
-    </div>
+    <h1 class="is-title">{% trans "Add SLM data" %}</h1>
+    {% include 'wocat/partial/add.html' %}
   </main>
 {% endblock %}
