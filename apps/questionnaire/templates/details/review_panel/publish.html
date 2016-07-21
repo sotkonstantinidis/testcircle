@@ -9,7 +9,7 @@
 
 {% if 'publish_questionnaire' in review_config.permissions %}
   {% if review_config.mode == 'view' and 'edit_questionnaire' in review_config.permissions %}
-    <div class="row workflow-action">
+    <div class="row process-action">
       <div class="medium-2 columns">
         <p>
           <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
@@ -20,10 +20,10 @@
       </div>
     </div>
   {% elif review_config.mode == 'edit' %}
-    <div class="row workflow-action">
+    <div class="row process-action">
       <div class="medium-2 columns">
         <p>
-          <a class="button is-ok" href="{{ review_config.url }}">{% trans "View" %}</a>
+          <a class="button success" href="{{ review_config.url }}">{% trans "View" %}</a>
         </p>
       </div>
       <div class="medium-10 columns">
@@ -32,7 +32,7 @@
     </div>
   {% endif %}
 
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
       <p>
         <a id="button-publish" name="publish" class="button small is-ok" data-reveal-id="confirm-publish">{% trans "Publish" %}</a>
@@ -51,10 +51,10 @@
     <!-- endmodal -->
   </div>
 
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
       <p>
-        <a id="button-reject" name="reject" class="button is-dangerous" data-reveal-id="confirm-reject">{% trans "Reject" %}</a>
+        <a id="button-reject" name="reject" class="button alert" data-reveal-id="confirm-reject">{% trans "Reject" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">

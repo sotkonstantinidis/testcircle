@@ -17,6 +17,12 @@ button,
   &.light {
     @include button-style($bg:#fff, $bg-hover:$color-beige-light, $border-color:$color-beige-light);
   }
+  &.success {
+    box-shadow: 0 0 0 0 $success-button-bg-hover;
+  }
+  &.alert {
+    box-shadow: 0 0 0 0 $alert-button-bg-hover;
+  }
   &.is-approaches {
     background-color: $color-approach;
     box-shadow: 0 0 0 0 $color-approach;
@@ -41,6 +47,14 @@ button,
   &:hover.secondary,
   &:focus.secondary {
     box-shadow: 0 0 0 $button-shadow-effect $secondary-button-bg-hover;
+  }
+  &:hover.success,
+  &:focus.success {
+    box-shadow: 0 0 0 $button-shadow-effect $success-button-bg-hover;
+  }
+  &:hover.alert,
+  &:focus.alert {
+    box-shadow: 0 0 0 $button-shadow-effect $alert-button-bg-hover;
   }
   &:hover.is-wocat,
   &:focus.is-wocat {

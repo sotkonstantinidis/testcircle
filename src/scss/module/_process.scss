@@ -60,7 +60,7 @@
   }
 }
 
-.process-status {
+/* .process-status {
   background: white;
   border-radius: $global-radius;
   padding: rem-calc(12) rem-calc(24);
@@ -86,7 +86,7 @@
   .is-ok {
     background-color: $success-color;
   }
-  .workflow-action{
+  .process-action{
     border-top: 1px solid $color-beige;
     margin: rem-calc(10) rem-calc(5);
 
@@ -137,6 +137,12 @@
     }
   }
 
+}
+ */
+.process-action{
+  overflow: hidden;
+  padding-top: rem-calc(12);
+  min-height: rem-calc(60);
 }
 
 .process-roles {

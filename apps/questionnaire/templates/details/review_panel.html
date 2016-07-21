@@ -2,68 +2,54 @@
 {% load compress %}
 {% load static %}
 
-<div class="review-panel-container" id="review-panel">
-  <section class="row review-panel-content{% if review_css_class %} {{ review_css_class }}{% endif %}">
-  <div class="small-12 columns">
-    <div id="unccd-hero-left" class="show-for-xlarge-up">
-      <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank">
-        <img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}">
-      </a>
-      <p>{% trans "Primary recommended database" %}</p>
-    </div>
+<div class="row is-rhythmed">
+  <div class="review-panel {% if review_css_class %} {{ review_css_class }}{% endif %}" id="review-panel">
     <ol class="process clearfix">
       {% if review_config.has_release %}
-        <li class="{% if review_config.review_status == 4 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
+      <li class="{% if review_config.review_status == 4 %}is-current{% else %}is-done{% endif %}">{% trans "Edit" %}</li>
       {% else %}
-        <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
+      <li class="{% if review_config.review_status == 0 %}is-current{% else %}is-done{% endif %}">{% trans "Welcome" %}</li>
       {% endif %}
       <li class="{% if review_config.review_status == 1 %}is-current{% else %}is-done{% endif %}">{% trans "Draft" %}</li>
       <li class="{% if review_config.review_status == 2 %}is-current{% else %}is-done{% endif %}">{% trans "Review" %}</li>
       <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
     </ol>
-    <div class="process-status">
-      <div class="row collapse">
-        <form action="{{ review_config.form_action_url }}" method="POST" class="collapse" id="review_form">
+    <div class="review-panel-content">
+      <form action="{{ review_config.form_action_url }}" method="POST" id="review_form">
 
-          {% if review_config.roles %}
-            <div class="row">
-              <div class="medium-12 columns process-roles">
-                {% for role_code, role_name in review_config.roles %}
-                  <div class="process-single-role">
-                    <p>
-                      {% blocktrans with role=role_name %}
-                        You are <strong>{{ role }}</strong> of this SLM Technology / Approach.
-                      {% endblocktrans %}
-                    </p>
-                    {% include 'wocat/help/questionnaire_roles.html' with current_role=role_code %}
-                  </div>
-                {% endfor %}
-                <span class="right">
-                  <p><a href="{% url 'wocat:help_review_process' %}" class="link">{% trans "Learn more about the review process." %}</a></p>
-                </span>
-              </div>
-            </div>
-          {% endif %}
+        {% if review_config.roles %}
+        <div data-alert class="alert-box success" tabindex="0" aria-live="assertive" role="alertdialog">
+          {% for role_code, role_name in review_config.roles %}
+          <div class="process-single-role">
+            <h3 class="alert-box-title">
+              {% blocktrans with role=role_name %}
+              You are <strong>{{ role }}</strong> of this SLM Technology / Approach.
+              {% endblocktrans %}
+            </h3>
+            {% include 'wocat/help/questionnaire_roles.html' with current_role=role_code %}
+          </div>
+          {% endfor %}
+          <p><a href="{% url 'wocat:help_review_process' %}" class="link">{% trans "Learn more about the review process." %}</a></p>
+        </div>
+        {% endif %}
 
-          <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
-          {% if review_config.review_status == 0 %}
-              {% include 'details/review_panel/welcome.html' %}
-          {% elif review_config.review_status == 1 %}
-            {# Edit #}
-            {% include 'details/review_panel/draft.html' %}
-          {% elif review_config.review_status == 2 %}
-            {# Review #}
-            {% include 'details/review_panel/review.html' %}
-          {% elif review_config.review_status == 3 %}
-            {# Publish #}
-            {% include 'details/review_panel/publish.html' %}
-          {% elif review_config.review_status == 4 %}
-            {# Edit published questionnaire #}
-            {% include 'details/review_panel/edit.html' %}
-          {% endif %}
-        </form>
-      </div>
+        <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ review_config.csrf_token_value }}'/></div>
+        {% if review_config.review_status == 0 %}
+        {% include 'details/review_panel/welcome.html' %}
+        {% elif review_config.review_status == 1 %}
+        {# Edit #}
+        {% include 'details/review_panel/draft.html' %}
+        {% elif review_config.review_status == 2 %}
+        {# Review #}
+        {% include 'details/review_panel/review.html' %}
+        {% elif review_config.review_status == 3 %}
+        {# Publish #}
+        {% include 'details/review_panel/publish.html' %}
+        {% elif review_config.review_status == 4 %}
+        {# Edit published questionnaire #}
+        {% include 'details/review_panel/edit.html' %}
+        {% endif %}
+      </form>
     </div>
   </div>
-</section>
 </div>

@@ -1,21 +1,7 @@
-.review-panel-container {
-
-  @media #{$medium-up} {
-    position: absolute;
-    top: rem-calc(120);
-    left: 0;
-    right: 0;
-  }
-
-  #unccd-hero-left img {
-    -webkit-filter: brightness(3);
-    filter: brightness(3)
-  }
-}
-
 .review-panel-content {
   background-color: white;
-  padding: 1rem;
+  padding: rem-calc(24);
+  margin-top: 2px;
 }
 
 .review-header {

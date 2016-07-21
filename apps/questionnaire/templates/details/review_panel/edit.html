@@ -8,10 +8,10 @@
 </div>
 
 {% if 'edit_questionnaire' in review_config.permissions %}
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
       <p>
-        <a class="button is-ok" data-reveal-id="confirm-edit">{% trans "Edit" %}</a>
+        <a class="button success" data-reveal-id="confirm-edit">{% trans "Edit" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">
@@ -27,10 +27,10 @@
 {% endif %}
 
 {% if 'flag_unccd_questionnaire' in review_config.permissions %}
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
       <p>
-        <a class="button is-ok" data-reveal-id="confirm-flag-unccd">{% trans "Focal point" %}</a>
+        <a class="button success" data-reveal-id="confirm-flag-unccd">{% trans "Focal point" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">
@@ -46,10 +46,10 @@
 {% endif %}
 
 {% if 'unflag_unccd_questionnaire' in review_config.permissions %}
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
       <p>
-        <a class="button is-ok" data-reveal-id="confirm-unflag-unccd">{% trans "Unflag as UNCCD best practice" %}</a>
+        <a class="button success" data-reveal-id="confirm-unflag-unccd">{% trans "Unflag as UNCCD best practice" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">
