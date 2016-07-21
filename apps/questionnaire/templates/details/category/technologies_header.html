@@ -49,6 +49,13 @@
 
   </header>
 
+    <div class="row tech-output-header-buttons">
+      <a href="#" class="button">{% trans "View full content" %}</a>
+      <a href="#" class="button has-dropdown">{% trans "Print summary" %}</a>
+      <a href="#" class="button has-dropdown">{% trans "Export" %}</a>
+      <span class="right">ICON</span>
+    </div>
+
   {% if review_config %}
     {% include 'details/review_panel.html' with review_config=review_config %}
   {% endif %}
