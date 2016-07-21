@@ -25,6 +25,8 @@
     <div class="small-12 columns output hide tech-section-content" id="{{ keyword }}-content">
       {% for subcategory, subcategory_config in subcategories %}
         {{ subcategory }}
+      {% empty %}
+        <p>{% trans "Empty section" %}</p>
       {% endfor %}
     </div>
   </section>

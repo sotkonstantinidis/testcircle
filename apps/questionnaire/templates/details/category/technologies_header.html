@@ -94,6 +94,8 @@
         {% if subcategory_config.keyword != 'tech__0__1' and subcategory_config.keyword != 'tech__1__1' %}
           {{ subcategory }}
         {% endif %}
+      {% empty %}
+        <p>{% trans "Empty section" %}</p>
       {% endfor %}
     </div>
   </section>
