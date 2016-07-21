@@ -70,11 +70,20 @@
     </div>
   </header>
 
-    <div class="row tech-output-header-buttons">
-      <a href="#" class="button">{% trans "View full content" %}</a>
-      <a href="#" class="button has-dropdown">{% trans "Print summary" %}</a>
-      <a href="#" class="button has-dropdown">{% trans "Export" %}</a>
-      <span class="right">ICON</span>
+    <div class="row tech-output-actions">
+      <svg class="icon right"><use xlink:href="#icon-technology" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+      <a href="#" class="button">
+        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
+        {% trans "View full content" %}
+      </a>
+      <a href="#" class="button has-dropdown">
+        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
+        {% trans "Print summary" %}
+      </a>
+      <a href="#" class="button has-dropdown">
+        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-export"></use></svg>
+        {% trans "Export" %}
+      </a>
     </div>
 
   {% if review_config %}

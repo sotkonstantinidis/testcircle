@@ -284,6 +284,10 @@ a:hover .tech-icon {
   /* margin-top: rem-calc(-180); */
   min-height: rem-calc(180);
   padding: rem-calc(0 48);
+
+  .tech-type + .tech-status {
+    margin-left: rem-calc(24);
+  }
 }
 .tech-output-title {
   font-size: rem-calc(30);
@@ -310,6 +314,46 @@ a:hover .tech-icon {
   border: 2px solid $color-beige;
 }
 
+.tech-output-actions {
+  padding: rem-calc(0 12 12);
+
+  & > .icon {
+    margin-top: rem-calc(12);
+    width: rem-calc(36);
+    height: rem-calc(36);
+    color: white;
+  }
+
+  .button > .icon {
+    float: left;
+    margin-right: 0.5em;
+    height: rem-calc(20);
+    width: rem-calc(20);
+  }
+}
+.is-technologies .tech-output-actions {
+  background-color: rgba($color-tech, 0.8);
+
+  .button {
+    background-color: $color-green-dark;
+    box-shadow: 0 0 0 0 $color-green-dark;
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 $button-shadow-effect $color-green-dark;
+    }
+  }
+}
+.is-approaches .tech-output-actions {
+  background-color: rgba($color-approach, 0.8);
+  .button {
+    background-color: $color-orange-dark;
+    box-shadow: 0 0 0 0 $color-orange-dark;
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 $button-shadow-effect $color-orange-dark;
+    }
+  }
+}
 
 
 // Section
