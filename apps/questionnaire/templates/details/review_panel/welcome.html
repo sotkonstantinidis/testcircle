@@ -23,8 +23,8 @@
     </p>
   </div>
   <div class="medium-3 columns">
-    {% with small_url='assets/img/infographics/review_process_en_small.png' large_url='assets/img/infographics/review_process_en.png' %}
-  {#  {% with small_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'.png' %}#}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% with small_url='assets/img/infographics/review_process_'|add:LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:LANGUAGE_CODE|add:'.png' %}
       <a href="#" class="th" role="button" aria-label="{% trans "Review process" %}" data-reveal-id="review_process_modal">
         <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
       </a>
@@ -32,7 +32,7 @@
         <a href="{% static large_url %}">
           <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
         </a>
-        <a href="{% static large_url %}" class="link">Click the image for a larger version of it.</a>
+        <p><a href="{% static large_url %}" class="link">{% trans "Click the image for a larger version of it." %}</a></p>
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
       </div>
     {% endwith %}
