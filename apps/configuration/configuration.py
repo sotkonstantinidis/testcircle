@@ -1721,7 +1721,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
             self, data={}, permissions=[], edit_step_route='',
             questionnaire_object=None, csrf_token=None,
             edited_questiongroups=[], view_mode='view', links=None,
-            review_config=None):
+            review_config=None, user=None):
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1816,6 +1816,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'questionnaire_identifier': questionnaire_identifier,
                 'has_changes': has_changes,
                 'review_config': review_config,
+                'user': user,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -1926,7 +1927,7 @@ class QuestionnaireSection(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None):
+            edited_questiongroups=[], view_mode='view', links=None, user=None):
 
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
@@ -1938,7 +1939,8 @@ class QuestionnaireSection(BaseConfigurationObject):
                 questionnaire_object=questionnaire_object,
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
-                view_mode=view_mode, links=links, review_config=review_config))
+                view_mode=view_mode, links=links, review_config=review_config,
+                user=user))
 
         media_content = []
         media_additional = {}
@@ -2060,7 +2062,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None):
+            edited_questiongroups=[], view_mode='view', links=None, user=None):
         rendered_sections = []
         for section in self.sections:
             rendered_sections.append(section.get_details(
@@ -2070,7 +2072,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
                 view_mode=view_mode,
-                links=links))
+                links=links,
+                user=user))
         return rendered_sections
 
     def get_toc_data(self):

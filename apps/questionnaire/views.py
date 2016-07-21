@@ -677,6 +677,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             view_mode='edit',
             links=self.get_links(),
             review_config=review_config,
+            user=request.user,
         )
 
         context = {
