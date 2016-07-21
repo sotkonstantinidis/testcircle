@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load sekizai_tags %}
 
-{% if subcategories or 'edit_questionnaire' in permissions %}
+{% if subcategories or 'edit_questionnaire' in permissions and 'edit' in view_mode %}
   <section id="{{ keyword }}" class="row tech-section {% if not subcategories %} is-empty-section{% endif %}" data-magellan-destination="{{ keyword }}">
     <a name="{{ keyword }}"></a>
 

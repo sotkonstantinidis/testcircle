@@ -19,7 +19,7 @@
     {#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
     <p>
       <a class="button" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
-      <a class="button is-{{ review_config.data_type }}" href="{{ review_config.first_section_url }}" class="link">{% trans "Start data entry" %}</a>
+      <a class="button success" href="{{ review_config.first_section_url }}" class="link">{% trans "Start data entry" %}</a>
     </p>
   </div>
   <div class="medium-3 columns">
