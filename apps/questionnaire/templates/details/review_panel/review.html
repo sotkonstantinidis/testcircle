@@ -12,7 +12,7 @@
     <div class="row process-action">
       <div class="medium-2 columns">
         <p>
-          <a class="button" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
+          <a class="button expand" type="submit" href="{{ review_config.url }}">{% trans "Edit" %}</a>
         </p>
       </div>
       <div class="medium-10 columns">
@@ -23,7 +23,7 @@
     <div class="row process-action">
       <div class="medium-2 columns">
         <p>
-          <a class="button success" href="{{ review_config.url }}">{% trans "View" %}</a>
+          <a class="button expand success" href="{{ review_config.url }}">{% trans "View" %}</a>
         </p>
       </div>
       <div class="medium-10 columns">
@@ -35,7 +35,7 @@
   <div class="row process-action">
     <div class="medium-2 columns">
       <p>
-        <a id="button-review" name="review" class="button small is-ok" data-reveal-id="confirm-review">{% trans "Approve" %}</a>
+        <a id="button-review" name="review" class="button expand success" data-reveal-id="confirm-review">{% trans "Approve" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">
@@ -45,7 +45,7 @@
     <div id="confirm-review" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm approval." %}</h2>
       <p>{% trans "If you approve this SLM Technology / Approach the publisher will be notified. After final approval by the publisher the SLM Technology / Approach will be published and available to public users." %}</p>
-      <button name='review' value='true' class="button" type="submit" form="review_form">{% trans "Approve" %}</button>
+      <button name='review' value='true' class="button success" type="submit" form="review_form">{% trans "Approve" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
     <!-- endmodal -->
@@ -54,7 +54,7 @@
   <div class="row process-action">
     <div class="medium-2 columns">
       <p>
-        <a id="button-reject" name="reject" class="button alert" data-reveal-id="confirm-reject">{% trans "Reject" %}</a>
+        <a id="button-reject" name="reject" class="button expand alert" data-reveal-id="confirm-reject">{% trans "Reject" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">
@@ -64,7 +64,7 @@
     <div id="confirm-reject" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm rejection." %}</h2>
       <p>{% trans "If you reject this SLM Technology / Approach the compiler and the editor(s) will be notified that they have to revise the SLM Technology / Approach before re-submitting it." %}</p>
-      <button name='reject' value='true' class="button" type="submit" form="review_form">{% trans "Reject" %}</button>
+      <button name='reject' value='true' class="button alert" type="submit" form="review_form">{% trans "Reject" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
     <!-- endmodal -->

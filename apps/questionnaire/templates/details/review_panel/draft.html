@@ -23,7 +23,7 @@
         {% if review_config.blocked_by %}
         <p>{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}</p>
         {% endif %}
-        <button name='submit' value='true' class="button" type="submit" form="review_form">{% trans "Submit" %}</button>
+        <button name='submit' value='true' class="button success" type="submit" form="review_form">{% trans "Submit" %}</button>
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
       </div>
     </div>
@@ -61,7 +61,7 @@
     <div id="confirm-delete" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm removal." %}</h2>
       <p>{% trans "This SLM Technology / Approach will be deleted." %}</p>
-      <button name='delete' value='true' class="button expand" type="submit" form="review_form">{% trans "Delete" %}</button>
+      <button name='delete' value='true' class="button alert" type="submit" form="review_form">{% trans "Delete" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
   </div>
