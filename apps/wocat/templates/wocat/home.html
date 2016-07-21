@@ -4,101 +4,42 @@
 {% load i18n %}
 
 {% block content %}
-<!-- <div class="row is-padded">
-<div class="large-12">
-<div class="home-slider-img"></div>
-</div>
-</div> -->
 
 <section class="home-slider row large-no-gutters">
-
-  <!-- KITCHEN SINK ORIGINAL -->
   <div class="row">
     <div class="large-12 columns">
       <div class="orbit-container">
-        <ul id="featured1" data-orbit="" data-options="timer_speed:5000;" class="orbit-slides-container" style="height: 576px;">
-          <li class="active" style="z-index: 4; margin-left: 100%;">
-            <img src="/static/assets/img/orbit_1.jpg">
-            <div class="orbit-caption">
-              <h1 class="orbit-caption-title">The Global Databse on Sustainable Land Management</h1>
-              Caption One. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-            </div>
-          </li>
-          <li style="z-index: 2; margin-left: 0%;">
-            <img src="/static/assets/img/orbit_2.jpg">
-            <div class="orbit-caption">
-              <h1 class="orbit-caption-title">The Global Databse on Sustainable Land Management</h1>
-              <p class="orbit-caption-text">...for the documentation and assessment of SLM practices</p>
-            </div>
-          </li>
+
+        <ul data-orbit data-options="
+          animation:slide;
+          pause_on_hover:true;
+          timer_speed:5000;
+          animation_speed:1000;
+          navigation_arrows:true;
+          bullets:false;
+          slide_number:false;
+          autoplay:true;
+          resume_on_mouseout: false;">
+          {# Orbit 1 #}
           <li>
-            <img src="/static/assets/img/orbit_2.jpg">
+            <img src="{% static 'assets/img/orbit_1.jpg' %}" alt="slide 1" />
             <div class="orbit-caption">
-              <h1 class="orbit-caption-title">The Global Databse on Sustainable Land Management</h1>
-              <p class="orbit-caption-text">...for blabla</p>
+              <h1 class="orbit-caption-title">The Global Database on Sustainable Land Management</h1>
+              <p class="orbit-caption-text">Caption One. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+            </div>
+          </li>
+          {# Orbit 2 #}
+          <li>
+            <img src="{% static 'assets/img/orbit_2.jpg' %}" alt="slide 2" />
+            <div class="orbit-caption">
+              <h1 class="orbit-caption-title">The Global Database on Sustainable Land Management</h1>
+              <p class="orbit-caption-text">Caption Two. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
             </div>
           </li>
         </ul>
-        <a href="#" class="orbit-prev"><span></span></a>
-        <a href="#" class="orbit-next"><span></span></a>
-        <!-- <div class="orbit-timer paused"><span></span>
-        <div class="orbit-progress" style="width: 63.62%;"></div>
-      </div> -->
-      <!-- <div class="orbit-slide-number"><span>2</span> of <span>3</span>
-    </div> -->
-    <!-- <div class="orbit-bullets-container">
-    <ol class="orbit-bullets"><li data-orbit-slide="0" class=""></li><li data-orbit-slide="1" class="active"></li><li data-orbit-slide="2"></li>
-  </ol>
-</div> -->
-</div>
-</div>
-</div>
-
-<!-- <div class="home-slider-img"></div> -->
-
-<!-- TODO: Replace this block with a Slider
-{% comment %}
-<div class="row large-collapse" data-equalizer-watch>
-<div class="medium-4 large-5 columns">
-<div id="unccd-hero-left" class="show-for-xlarge-up">
-<a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
-<p>{% trans "Primary recommended database" %}</p>
-</div>
-<h1 class="is-wocat">{% trans "Global Database on SLM" %}</h1>
-<p class="is-large">{% trans "The WOCAT database on SLM practices (Technologies and Approaches) contains a vast range of good practices from all over the world." %}</p>
-<div class="row">
-<div class="medium-6 columns button-column">
-<a href="{% url 'technologies:questionnaire_list' %}" class="button is-technologies">{% trans "View SLM Technologies" %}</a>
-</div>
-<div class="medium-6 columns button-column">
-<a href="{% url 'approaches:questionnaire_list' %}" class="button is-approaches">{% trans "View SLM Approaches" %}</a>
-</div>
-</div>
-<div class="row">
-<div class="medium-12 columns button-column">
-<a href="{% url 'wocat:questionnaire_list' %}" class="button light">{% trans "View WOCAT and UNCCD SLM practices" %}</a>
-</div>
-</div>
-<div class="row">
-<div class="medium-6 columns button-column">
-<a href="{% url 'technologies:questionnaire_new' %}" class="button is-technologies">{% trans "Add new SLM Technology" %}</a>
-</div>
-<div class="medium-6 columns button-column">
-<a href="{% url 'approaches:questionnaire_new' %}" class="button is-approaches">{% trans "Add new SLM Approach" %}</a>
-</div>
-</div>
-<div id="unccd-hero-center" class="row hide-for-xlarge-up">
-<div class="small-12 columns">
-<a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
-<p>{% trans "Primary recommended database" %}</p>
-</div>
-</div>
-</div>
-</div>
-<div class="hero-media" id="wocat-hero-image" data-equalizer-watch>
-</div>
-{% endcomment %}
--->
+      </div>
+    </div>
+  </div>
 </section>
 
 <main class="home-main row large-no-gutters" role="main">
@@ -235,18 +176,6 @@
   </div>
   {% endcomment %}
 
-  <!-- TODO: Replace this List on Search SLM Data Page
-  {% comment %}
-  <section class="tech-list small-12 columns">
-  <div class="tech-group">
-  <h2 class="is-group">{% trans "All SLM data" %}</h2>
-  {% include "wocat/questionnaire/partial/list.html" %}
-</div>
-<div id="pagination" class="is-rhythmed-2">
-{% include "pagination.html" %}
-</div>
-</section>
-{% endcomment %} -->
 </main>
 
 {% endblock %}
