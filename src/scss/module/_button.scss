@@ -186,3 +186,29 @@ button,
     background-color: $color-blue-dark;
   }
 }
+
+.button-back {
+  display: inline-block;
+  float: left;
+  background: $color-brown;
+  color: white;
+  opacity: 0.5;
+  width: rem-calc(48);
+  line-height: rem-calc(48);
+  text-align: center;
+  transition: opacity 200ms ease;
+
+  .icon {
+    width: rem-calc(24);
+    height: rem-calc(24);
+  }
+
+  &:hover,
+  &:focus {
+    color: white;
+    opacity: 0.8;
+  }
+}
+h1 > .button-back {
+  margin: rem-calc(3 24 3 0);
+}

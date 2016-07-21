@@ -3,13 +3,19 @@
 {% load i18n %}
 
 {% block content %}
-  <main class="row" role="main">
-    <a href="{% url 'wocat:add' %}">< (back)</a>
-    <h1 class="is-title">{% trans "Add SLM Practice" %}</h1>
-    <p>
-      {% trans "Technologies and approaches are usually combined to provide a comprehensive picture of an SLM practice. Ideally you would fill in both the Technology and Approach sections, and then link them. However, it is also possible to add a Technology or an Approach without its counterpart." %}
-    </p>
-    <div class="row is-flex" data-equalizer>
+  <main role="main">
+    <div class="row large-no-gutters">
+      <div class="small-12 columns">
+        <h1 class="is-title">
+          <a href="{% url 'wocat:add' %}" title="Back" class="button-back"><svg class="icon"><use xlink:href="#icon-caret_left"></use></svg></a>
+          {% trans "Add SLM Practice" %}
+        </h1>
+        <p>
+          {% trans "Technologies and approaches are usually combined to provide a comprehensive picture of an SLM practice. Ideally you would fill in both the Technology and Approach sections, and then link them. However, it is also possible to add a Technology or an Approach without its counterpart." %}
+        </p>
+      </div>
+    </div>
+    <div class="row large-no-gutters is-flex" data-equalizer>
       <div class="small-12 medium-4 columns">
         <div class="card">
           <div class="card-image-holder">
@@ -23,7 +29,7 @@
           <div class="card-well">
             <h2 class="card-title">{% trans "SLM Technology" %}</h2>
             <p class="card-desc" data-equalizer-watch>{% trans "An <strong>SLM Technology</strong> is a land management practice that controls land degradation and enhances productivity and/ or other ecosystem services." %}</p>
-            <a href="{% url 'technologies:questionnaire_new' %}" class="button expand is-blue">{% trans "Add" %}</a>
+            <a href="{% url 'technologies:questionnaire_new' %}" class="button large expand">{% trans "Add" %}</a>
           </div>
         </div>
       </div>
