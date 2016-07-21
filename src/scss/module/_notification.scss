@@ -1,0 +1,21 @@
+.notification {
+  position: fixed;
+  bottom: rem-calc(12);
+  right: rem-calc(12);
+  z-index: 999;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadeInUp;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

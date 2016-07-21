@@ -1,4 +1,4 @@
-.alert-box {
+.alert-box:not(.notification) {
   background: transparent !important;
   .alert-box-title {
     color: scale-color($primary-color, $lightness: $alert-function-factor);
