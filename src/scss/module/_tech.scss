@@ -11,17 +11,23 @@
 
 .tech-item {
   display: flex;
+  align-items: stretch;
   margin-top: rem-calc(6);
   background: white;
 }
 
 .tech-item-content {
   position: relative;
-  padding: rem-calc(18 0 0 24);
+  flex-grow: 1;
+  position: relative;
+  padding: rem-calc(18 12 42 24);
 }
 
 .tech-item-footer {
-  margin-top: rem-calc(6);
+  position: absolute;
+  bottom: 0;
+  left: rem-calc(24);
+  right: 0;
 }
 
 .tech-item-title {
