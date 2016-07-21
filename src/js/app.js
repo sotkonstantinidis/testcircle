@@ -140,6 +140,11 @@ $(function () {
             // Set display
             $('#search-type-display').text($(this).text());
         })
+        
+        .on('click', '.js-expand-all-sections', function(e) {
+            e.preventDefault();
+            $('.tech-section-content').slideToggle(true);
+        })
 
         .on('click', '.js-sticky-entry-link-toggle', function(e) {
             e.preventDefault();

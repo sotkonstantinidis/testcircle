@@ -545,6 +545,20 @@ div.inline-linked-questionnaires article {
   }
 }
 
+.tech-section-header {
+  margin-top: 1rem;
+  background: white;
+}
+
+.tech-section-title {
+  background: white;
+  cursor: pointer;
+}
+
+.tech-section-content {
+  background: white;
+}
+
 .tech-output-columns .video-additional-info h5:not(:first-of-type) {
   margin-top: rem-calc(8);
 }
