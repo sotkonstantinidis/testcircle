@@ -2,11 +2,9 @@
 
   <header class="tech-output-header row">
 
-    {% if metadata.configurations.0 %}
-      <div class="tech-type is-{{ metadata.configurations.0 }}">
-        <span>{{ metadata.configurations.0 }}</span>
-      </div>
-    {% endif %}
+    <div class="tech-type is-technologies">
+      <span>technologies</span>
+    </div>
 
     {% for flag in metadata.flags %}
       <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
@@ -15,12 +13,14 @@
       <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
     {% endif %}
 
-    <h1 class="tech-output-title">{{ raw_data.name|default:'' }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
+    {% trans "New SLM Technology" as empty_name %}
+    <h1 class="tech-output-title">{{ raw_data.name|default:empty_name }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
 
     <ul class="tech-infos">
       <li>
         <span class="is-muted">{% trans "Creation:" %}</span>
-        <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT"|default:'&ndash;' }}</time>
+        {% now "SHORT_DATETIME_FORMAT" as now %}
+        <time datetime="{{ metadata.created|date:"c" }}">{{ metadata.created|date:"SHORT_DATETIME_FORMAT"|default:now }}</time>
       </li>
       <li>
         <span class="is-muted">{% trans "Update:" %}</span>
@@ -31,7 +31,7 @@
         {% for compiler in metadata.compilers %}
           <a rel="author" href="#" class="link">{{ compiler.name }}</a>{% if not forloop.last %}, {% endif %}
         {% empty %}
-          &ndash;
+          <a rel="author" href="#" class="link">{{ user }}</a>
         {% endfor %}
       </li>
       <li>
