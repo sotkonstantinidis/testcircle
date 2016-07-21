@@ -9,7 +9,7 @@
   clear: both;
 }
 
-.top-bar-section ul li {
+.top-bar-section > ul > li {
   margin-left: rem-calc(24);
   &:first-child{
     margin-left: 0;
@@ -27,6 +27,15 @@
 .top-bar-search {
   background-color: $color-beige;
   padding: rem-calc(24 0);
+}
+
+.top-bar-section .dropdown li:not(.has-form)>a:not(.button) {
+  font-size: rem-calc(14);
+  padding: 0 rem-calc(12);
+}
+.top-bar-section .dropdown li:not(.has-form).active>a:not(.button) {
+  background-color: $primary-color;
+  color: white;
 }
 
 /**
