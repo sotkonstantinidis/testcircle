@@ -28,6 +28,10 @@
   bottom: 0;
   left: rem-calc(24);
   right: 0;
+
+  &.tech-item-footer-details {
+    left: rem-calc(48);
+  }
 }
 
 .tech-item-title {
