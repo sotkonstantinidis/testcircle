@@ -23,14 +23,6 @@ button,
   &.alert {
     box-shadow: 0 0 0 0 $alert-button-bg-hover;
   }
-  &.is-approaches {
-    background-color: $color-approach;
-    box-shadow: 0 0 0 0 $color-approach;
-  }
-  &.is-technologies {
-    background-color: $color-tech;
-    box-shadow: 0 0 0 0 $color-tech;
-  }
   &.is-wizard-next {
     margin-top: rem-calc(5);
     margin-left: 0;
@@ -55,16 +47,6 @@ button,
   &:hover.alert,
   &:focus.alert {
     box-shadow: 0 0 0 $button-shadow-effect $alert-button-bg-hover;
-  }
-  &:hover.is-wocat,
-  &:focus.is-wocat {
-    background-color: $color-orange-dark;
-    box-shadow: 0 0 0 $button-shadow-effect $color-orange-dark;
-  }
-  &:hover.is-unccd,
-  &:focus.is-unccd {
-    background-color: $color-blue-dark;
-    box-shadow: 0 0 0 $button-shadow-effect $color-blue-dark;
   }
 }
 .button-switch {

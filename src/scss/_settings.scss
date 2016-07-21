@@ -249,7 +249,7 @@ $xlarge-range: (90.063em, 120em); // 1441 > 1920
 // $header-font-family: $body-font-family;
 $header-font-weight: 400;
 // $header-font-style: normal;
-// $header-font-color: $jet;
+$header-font-color: $body-font-color;
 $header-line-height: 1.5;
 $header-top-margin: 0;
 $header-bottom-margin: 0;

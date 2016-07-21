@@ -262,7 +262,10 @@ a:hover .tech-icon {
  // -----------------------------------------------------------------------------
 
 .tech-output {
-
+  font-size: 0.875em;
+  h3, h4, h5, h6 {
+    font-weight: 600;
+  }
 }
 
 .tech-output-header {
@@ -297,84 +300,116 @@ a:hover .tech-icon {
   border: 2px solid $color-beige;
 }
 
+
+
+// Section
+// -----------------------------------------------------------------------------
+.tech-section {
+  background: white;
+  border-top: 1px solid white;
+}
+
+.tech-section-group {
+  background: white;
+  padding: rem-calc(36);
+  margin-top: 1rem;
+
+  .link {
+    line-height: rem-calc(33);
+    font-size: rem-calc(14);
+  }
+}
+.is-technologies .tech-section-group-title {
+  color: $color-tech;
+}
+.is-approaches .tech-section-group-title {
+  color: $color-approach;
+}
+
+.tech-section-header {
+  overflow: hidden;
+  padding: 0 rem-calc(24);
+}
+.is-technologies .tech-section-header {
+  background-color: rgba($color-tech, 0.1);
+}
+.is-approaches .tech-section-header {
+  background-color: rgba($color-approach, 0.1);
+}
+
+.tech-section-title {
+  cursor: pointer;
+  padding: rem-calc(12) 0;
+
+  h2 {
+    font-size: rem-calc(18);
+    line-height: rem-calc(24);
+    color: #5F594F;
+  }
+}
+.tech-section-action {
+  display: flex;
+}
+.tech-section-action > .button {
+  margin: 0;
+  padding-top: rem-calc(12);
+  padding-bottom: rem-calc(12);
+  line-height: rem-calc(24);
+  border-radius: 0;
+}
 .tech-section-progress {
-  margin-top: rem-calc(2);
-  margin-bottom: rem-calc(12);
-}
+  position: relative;
+  flex: 1;
+  display: block;
+  height: rem-calc(48);
+  padding: 0;
+  margin-bottom: 0;
 
-table.output-table {
-  table-layout: fixed;
-  margin-top: rem-calc(4);
-  margin-bottom: rem-calc(8);
-}
+  .steps {
+    display: inline-block;
+    position: absolute;
+    text-align: right;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: rem-calc(24);
+    line-height: rem-calc(48);
+    margin-top: rem-calc(-24);
 
-table.output-table thead tr th {
-  width: 100%;
-  padding: rem-calc(8) rem-calc(10);
-}
-
-.output .tech-item-inline h5 {
-  line-height: 1.5rem;
-}
-
-.output .tech-output-columns:first-of-type, .output .tech-output-columns.top-margin {
-  margin-top: rem-calc(4);
-}
-
-.output ul.checkbox-other-output {
-  margin-top: 0;
-}
-
-h4.output-subcategory {
-  margin-top: rem-calc(8);
-}
-.output>h5.output-subcategory {
-  margin-top: rem-calc(4);
-  margin-bottom: rem-calc(4);
-}
-.output>h5 {
-  margin-top: rem-calc(12);
-}
-.output>h5, .output>h3, .output .tech-output-columns .columns>h5 {
-  + p, + ul {
-    margin-top: rem-calc(4);
+    font-weight: 600;
+    font-size: rem-calc(12);
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.50);
+  }
+  .meter {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    right: 0;
   }
 }
-.output>h3 + h5 {
-  margin-top: rem-calc(6);
+.is-technologies .tech-section-progress .meter {
+  background-color: rgba($color-tech, 0.3);
+}
+.is-approaches .tech-section-progress .meter {
+  background-color: rgba($color-approach, 0.3);
+}
+.is-technologies .tech-section-progress .steps {
+  color: $color-tech;
+}
+.is-approaches .tech-section-progress .steps {
+  color: $color-approach;
 }
 
-.output>h3 {
-  margin-top: rem-calc(16);
-}
-.output>h3:first-of-type {
-  margin-top: rem-calc(12);
+
+.tech-section-content {
+  padding: rem-calc(36);
 }
 
-.output-impacts {
-  margin-bottom: rem-calc(4);
-
-  .tech-item-inline {
-    margin-top: rem-calc(4);
-  }
-}
-.output-has-images {
-  clear: left;
-  margin-top: rem-calc(8);
-
-  + h3, + h5 {
-    clear: left;
-  }
-}
-
-.full-width {
-  width: 100%;
-}
-
-.row.tech-item-inline.measure-bar, .row.tech-output-columns.measure-bar {
+/* .row.tech-item-inline.measure-bar, .row.tech-output-columns.measure-bar {
   margin-top: 1rem;
 }
-
+ */
 .row:last-child .user-details {
   margin-bottom: 0;
 }
@@ -516,47 +551,7 @@ div.inline-linked-questionnaires article {
   pointer-events: none;
 }
 
-.tech-section {
-  h2 {
-    font-weight: 400;
-  }
-  h3 {
-    font-weight: 400;
-    font-size: 1.25rem;
-  }
 
-  h4 {
-    font-weight: 400;
-    font-size: 1.1rem;
-  }
-
-  h5 {
-    font-weight: 400;
-    font-size: 0.9rem
-  }
-
-  p {
-    font-weight: 300;
-  }
-
-  .output ul > li {
-    font-weight: 300;
-  }
-}
-
-.tech-section-header {
-  margin-top: 1rem;
-  background: white;
-}
-
-.tech-section-title {
-  background: white;
-  cursor: pointer;
-}
-
-.tech-section-content {
-  background: white;
-}
 
 .tech-output-columns .video-additional-info h5:not(:first-of-type) {
   margin-top: rem-calc(8);
