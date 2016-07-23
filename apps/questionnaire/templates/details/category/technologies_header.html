@@ -3,7 +3,7 @@
   <header class="tech-output-header row">
 
     <div class="tech-type is-technologies">
-      <span>technologies</span>
+      <span>{% trans "Technologies" %}</span>
     </div>
 
     {% for flag in metadata.flags %}
@@ -48,25 +48,29 @@
     <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }}{% endif %}{% if metadata.code and additional_data.country.0.0 %} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
 
     <div class="tech-item-footer tech-item-footer-details">
-      <!-- Attaches DATA and Modules -->
-      <ul class="right tech-attached sub-nav-square">
-        <li>
-          <a href="" class="is-approach"><svg class="icon"><use xlink:href="#icon-approach"></use></svg> <span class="number">1</span></a>
-        </li>
-      </ul>
 
-      <!-- Translations -->
+      {# Translations #}
       {% if metadata.translations %}
         <ul class="left tech-lang-list sub-nav-square">
           {% for translation in metadata.translations %}
             <li>
-              {% language translation.0 %}
-              <a href="{% url 'technologies:questionnaire_details' metadata.code %}" class="is-tech" title="{% trans "This article is also available in:" %} {{ translation.1 }}">EN</a>
+              {% language translation %}
+                <a href="{% url 'technologies:questionnaire_details' metadata.code %}" class="is-tech">{{ translation }}</a>
               {% endlanguage %}
             </li>
           {% endfor %}
         </ul>
       {% endif %}
+
+      {# Links and modules #}
+      {# TODO: Temporarily disabled as link data not easily accessible so far #}
+      {% comment %}
+      <ul class="right tech-attached sub-nav-square">
+        <li>
+          <a href="" class="is-approach"><svg class="icon"><use xlink:href="#icon-approach"></use></svg> <span class="number">1</span></a>
+        </li>
+      </ul>
+      {% endcomment %}
     </div>
   </header>
 

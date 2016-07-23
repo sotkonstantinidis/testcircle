@@ -47,27 +47,33 @@
       </ul>
     </main>
     <footer class="tech-item-footer">
-      <!-- Attaches DATA and Modules -->
-      <ul class="right tech-attached sub-nav-square">
-        <li>
-          <a href="" class="is-approach"><svg class="icon"><use xlink:href="#icon-approach"></use></svg> <span class="number">1</span></a>
-        </li>
-      </ul>
 
-      <!-- Translations -->
-      {% if item.links|length > 0 or item.translations %}
-        {% include "details/includes/link_items.html" with links=item.links %}
-        {% if item.translations %}
+      {# Translations #}
+      {% if item.translations %}
         <ul class="left tech-lang-list sub-nav-square">
           {% for translation in item.translations %}
             <li>
+              {% trans "This article is also available in:" as translation_text %}
               {% language translation.0 %}
-              <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-tech" title="{% trans "This article is also available in:" %} {{ translation.1 }}">EN</a>{% if not forloop.last %}, {% endif %}
+                <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-tech" title="{{ translation_text }} {{ translation.1 }}" data-tooltip="">{{ translation.0 }}</a>{% if not forloop.last %}, {% endif %}
               {% endlanguage %}
             </li>
           {% endfor %}
         </ul>
-        {% endif %}
+      {% endif %}
+
+      {# Links and modules #}
+      {# TODO: For the time being, this shows all links as Approaches. This should be improved. #}
+      {% if item.links %}
+        <ul class="right tech-attached sub-nav-square">
+          <li>
+            <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-approach"><svg class="icon"><use xlink:href="#icon-approach"></use></svg>
+              {% if item.links|length > 1 %}
+                <span class="number">{{ item.links|length }}</span>
+              {% endif %}
+            </a>
+          </li>
+        </ul>
       {% endif %}
     </footer>
   </div>
