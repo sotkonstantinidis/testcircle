@@ -114,6 +114,9 @@
   &.is-map {
     background-color: rgba($color-approach, 0.8);
   }
+  &.is-unccd {
+    background-color: rgba($color-unccd, 0.8)
+  }
 }
 
 .tech-type > span {
