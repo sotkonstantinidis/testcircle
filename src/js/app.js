@@ -146,10 +146,13 @@ $(function () {
             $('.tech-section-content').slideToggle(true);
         })
 
+        .on('click', 'a.disabled', function(e) {
+            e.preventDefault();
+        })
+
         .on('click', '.js-sticky-entry-link-toggle', function(e) {
             e.preventDefault();
             $(this).closest('.sticky-entry').toggleClass('sticky-entry-active');
-
         });
 
     // Update the numbering of the questiongroups

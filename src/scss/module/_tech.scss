@@ -357,6 +357,18 @@ a:hover .tech-icon {
     }
   }
 }
+.is-unccd .tech-output-actions {
+  background-color: rgba($color-unccd, 0.8);
+}
+
+.is-unccd {
+  .tech-figure {
+    display: none;
+  }
+  .tech-output-header {
+    margin-top: rem-calc(12);
+  }
+}
 
 
 // Section
@@ -392,6 +404,13 @@ a:hover .tech-icon {
 }
 .is-approaches .tech-section-header {
   background-color: rgba($color-approach, 0.1);
+}
+.is-unccd .tech-section-header {
+  background-color: rgba($color-unccd, 0.1);
+}
+
+.tech-section-main-title {
+  padding: rem-calc(12);
 }
 
 .tech-section-title {
