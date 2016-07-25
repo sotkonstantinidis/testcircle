@@ -301,7 +301,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', function(arg) {
     // Default mode is 'dev'
     var mode = (arg && arg === 'deploy') ? 'deploy' : 'dev';
-    grunt.task.run(['sass:' + mode, 'svgstore', 'imagemin', 'concat', 'uglify', 'copy', 'assemble']);
+    grunt.task.run(['sass:' + mode, 'postcss', 'svgstore', 'imagemin', 'concat', 'uglify', 'copy', 'assemble']);
   });
   grunt.registerTask('server', ['connect:server', 'watch']);
   grunt.registerTask('default', ['build', 'server']);
