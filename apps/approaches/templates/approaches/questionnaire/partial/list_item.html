@@ -29,7 +29,7 @@
       <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
     {% endfor %}
     {% if item.status.0 and item.status.0 != 'public' %}
-      <span class="tech-status label   is-{{ item.status.0 }}">{{ item.status.1 }}</span>
+      <span class="tech-status label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
     {% endif %}
     <header>
       <h2 class="tech-item-title">
@@ -47,30 +47,35 @@
       </ul>
     </main>
     <footer class="tech-item-footer">
-      <!-- Attaches DATA and Modules -->
-      <ul class="right tech-attached sub-nav-square">
-        <li>
-          <a href="" class="is-tech"><svg class="icon"><use xlink:href="#icon-technology"></use></svg> <span class="number">2</span></a>
-        </li>
-        <li>
-          <a href=""><svg class="icon"><use xlink:href="#icon-climate"></use></svg></a>
-        </li>
-      </ul>
 
-      <!-- Translations -->
-      {% if item.links|length > 0 or item.translations %}
-        {% include "details/includes/link_items.html" with links=item.links %}
-        {% if item.translations %}
+      {# Translations #}
+      {% if item.translations %}
         <ul class="left tech-lang-list sub-nav-square">
           {% for translation in item.translations %}
             <li>
               {% language translation.0 %}
-              <a href="{% url 'approaches:questionnaire_details' item.code %}" class="is-approach" title="{% trans "This article is also available in:" %} {{ translation.1 }}">ES</a>{% if not forloop.last %}, {% endif %}
+                <a href="{% url 'approaches:questionnaire_details' item.code %}" class="is-approach" title="{% trans "This SLM practice is also available in:" %} {% trans translation.1 %}" data-tooltip="">{{ translation.0 }}</a>
               {% endlanguage %}
             </li>
           {% endfor %}
         </ul>
-        {% endif %}
+      {% endif %}
+
+      {# Links and modules #}
+      {# TODO: For the time being, this shows all links as Technologies. This should be improved. #}
+      {% if item.links %}
+        <ul class="right tech-attached sub-nav-square">
+          <li>
+            <a href="{% url 'approaches:questionnaire_details' item.code %}" class="is-tech" title="{% trans "This SLM Approach is linked to SLM Technologies" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-technology"></use></svg>
+              {% if item.links|length > 1 %}
+                <span class="number">{{ item.links|length }}</span>
+              {% endif %}
+            </a>
+          </li>
+{#          <li>#}
+{#            <a href=""><svg class="icon"><use xlink:href="#icon-climate"></use></svg></a>#}
+{#          </li>#}
+        </ul>
       {% endif %}
     </footer>
   </div>

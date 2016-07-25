@@ -53,9 +53,8 @@
         <ul class="left tech-lang-list sub-nav-square">
           {% for translation in item.translations %}
             <li>
-              {% trans "This article is also available in:" as translation_text %}
               {% language translation.0 %}
-                <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-tech" title="{{ translation_text }} {{ translation.1 }}" data-tooltip="">{{ translation.0 }}</a>{% if not forloop.last %}, {% endif %}
+                <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-tech" title="{% trans "This SLM practice is also available in:" %} {% trans translation.1 %}" data-tooltip="">{{ translation.0 }}</a>
               {% endlanguage %}
             </li>
           {% endfor %}
@@ -67,7 +66,7 @@
       {% if item.links %}
         <ul class="right tech-attached sub-nav-square">
           <li>
-            <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-approach"><svg class="icon"><use xlink:href="#icon-approach"></use></svg>
+            <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-approach" title="{% trans "This SLM Technology is linked to SLM Approaches" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-approach"></use></svg>
               {% if item.links|length > 1 %}
                 <span class="number">{{ item.links|length }}</span>
               {% endif %}

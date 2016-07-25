@@ -2,12 +2,6 @@
   background: $color-brown-light;
 }
 
-.sub-nav-footer {
-  a {
-    color: $body-font-color;
-  }
-}
-
 ul.sub-nav-square {
   @include reset-list;
   @include clearfix;

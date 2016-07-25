@@ -529,8 +529,11 @@ class Questionnaire(models.Model):
 
         geometry_changed = self.geom != geometry
 
-        self.geom = geometry
-        self.save()
+        try:
+            self.geom = geometry
+            self.save()
+        except ValidationError:
+            return
 
         if self.geom is None or not geometry_changed:
             # If there is no geometry or if it did not change, there is no need
