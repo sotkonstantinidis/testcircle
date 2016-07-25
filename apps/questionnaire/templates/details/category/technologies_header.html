@@ -74,28 +74,28 @@
     </div>
   </header>
 
-    <div class="row tech-output-actions">
-      <svg class="icon right"><use xlink:href="#icon-technology" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
-      <a href="#" class="button{% if not metadata.code %} disabled{% endif %}">
-        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
-        {% trans "View full content" %}
-      </a>
-      <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
-        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
-        {% trans "Print summary" %}
-      </button>
-      <ul id="tech-details-print" data-dropdown-content class="f-dropdown" aria-hidden="true">
-        <li><a href="#">Short summary</a></li>
-        <li><a href="#">Full output</a></li>
-      </ul>
-      <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">
-        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-export"></use></svg>
-        {% trans "Export" %}
-      </button>
-      <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">
-        <li><a href="#">PDF</a></li>
-      </ul>
-    </div>
+  <div class="row tech-output-actions">
+    <svg class="icon right"><use xlink:href="#icon-technology" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+    <a href="#" class="button{% if not metadata.code %} disabled{% endif %}">
+      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
+      {% trans "View full content" %}
+    </a>
+    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
+      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
+      {% trans "Print summary" %}
+    </button>
+    <ul id="tech-details-print" data-dropdown-content class="f-dropdown" aria-hidden="true">
+      <li><a href="#">Short summary</a></li>
+      <li><a href="#">Full output</a></li>
+    </ul>
+    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">
+      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-export"></use></svg>
+      {% trans "Export" %}
+    </button>
+    <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">
+      <li><a href="#">PDF</a></li>
+    </ul>
+  </div>
 
   {% if review_config %}
     {% include 'details/review_panel.html' with review_config=review_config %}
