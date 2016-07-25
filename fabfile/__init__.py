@@ -215,6 +215,7 @@ def _access_project():
         for lang in settings.LANGUAGES:
             with contextlib.closing(urllib.request.urlopen(env.url.format(lang[0]))) as request:
                 request.read()
+                print('Read response from: {}'.format(request.url))
 
 
 @task
