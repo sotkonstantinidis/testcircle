@@ -6,7 +6,7 @@
 }
 
 @function lineHeight($lines) {
-  @return $lines * $base-line-height;
+  @return $lines * ($base-line-height / 2);
 }
 
 @mixin rhythm($lines: 1) {

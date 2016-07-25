@@ -1,7 +1,7 @@
 @import "settings";
 
 // Import font Open Sans
-@import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 
 // Behold, here are all the Foundation components.
 @import "foundation/components/grid",
@@ -60,7 +60,7 @@
 
   a,
   a:hover {
-    color: $color-wocat-light;
+    color: $color-orange-light;
   }
 }
 
@@ -72,12 +72,15 @@
 @import "layout/home";
 @import "layout/page";
 @import "layout/wizard";
+@import "layout/help";
 
 
 // Modules
 // ---------------------------
 @import 'module/accordion';
+@import 'module/alert-box';
 @import 'module/brand';
+@import 'module/card';
 @import 'module/chart';
 @import 'module/dropzone';
 @import 'module/filter';
@@ -88,10 +91,15 @@
 @import 'module/button';
 @import 'module/process';
 @import 'module/label';
+@import 'module/logo';
 @import 'module/list';
+@import 'module/notification';
 @import 'module/hero';
+@import 'module/tabs';
 @import 'module/toc';
 @import 'module/offcanvas';
+@import 'module/orbit';
+@import 'module/output';
 @import 'module/top-bar';
 @import 'module/tech';
 @import 'module/search';
@@ -99,6 +107,7 @@
 @import 'module/slider';
 @import 'module/sticky-menu';
 @import 'module/help-tour';
+@import 'module/map';
 @import 'module/welcome-notice';
 @import 'module/user';
 @import 'module/review_panel';

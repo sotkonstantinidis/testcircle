@@ -50,7 +50,14 @@ def get_category_count():
 
 def get_categories():
     return (
-        ('app__1', 'First Approaches Section'),
+        ('app__1', 'General information'),
+        ('app__2', 'Description of the SLM Approach'),
+        ('app__3', 'Participation and roles of stakeholders involved'),
+        ('app__4', 'Technical support, capacity building, and knowledge '
+                   'management'),
+        ('app__5', 'Financing and external material support'),
+        ('app__6', 'Impact analysis and concluding statements'),
+        ('app__7', 'References and links'),
     )
 
 

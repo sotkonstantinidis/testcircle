@@ -320,7 +320,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'questionnaire_identifier': 'foo',
                 'images': img.get.return_value,
                 'filter_configuration': mfc,
-                'permissions': mock_q_obj.get_permissions.return_value,
+                'permissions': mock_q_obj.get_roles_permissions.return_value.permissions,
                 'view_mode': 'view',
                 'toc_content': mock_conf.return_value.get_toc_data.return_value,
                 'base_template': 'sample/base.html',
@@ -678,9 +678,8 @@ class GenericQuestionnaireStepViewTest(TestCase):
         response = view.form_valid({})
         self.assertEqual(response.url, "/en/sample/edit/bar/#cat_0")
 
-
     def test_get_locale_info(self):
         self.view.set_attributes()
         original_locale, show_translation = self.view.get_locale_info()
-        self.assertIsNone(original_locale)
+        self.assertIsNotNone(original_locale)
         self.assertFalse(show_translation)

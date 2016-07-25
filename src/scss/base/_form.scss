@@ -35,6 +35,11 @@ select {
   }
 }
 
+label.inline {
+  margin: 0;
+  padding: rem-calc(6 0);
+}
+
 .input-multiline {
   position: relative;
   margin-top: rem-calc(6);
@@ -191,7 +196,6 @@ img.output-image-cb {
   width: 100px;
   height: 100px;
   float: left;
-  margin-bottom: rem-calc(24);
 }
 img.output-image-cb-sub {
   width: 75px;

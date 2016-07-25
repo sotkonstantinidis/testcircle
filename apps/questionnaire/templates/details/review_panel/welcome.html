@@ -1,57 +1,40 @@
 {% load i18n %}
 {% load static %}
 
-
-<div class="small-12 columns">
-  <h2>
-    <span class="is-wocat">{% trans "Hello" %} {{ request.user.firstname }}.</span>
-    {% trans "Welcome to the SLM data entry form." %}
-  </h2>
-  <p>
-    {% trans "You are about to add a new Questionnaire. If this is the first time editing a questionnaire, <a class='link' href='#' onclick='return startIntro();'>please follow the tour to start off.</a>" %}
-  </p>
-  <div class="row">
-    <div class="medium-8 columns">
-      <ul>
-        <li>
-          <p><strong>{% trans "Welcome:" %}</strong> {% trans "You are currently at the 'welcome' part, explaining the most important steps." %}</p>
-        </li>
-        <li>
-          <p><strong>{% trans "Draft:" %}</strong> {% trans "The created questionnaire has the status 'draft', you can keep editing it without anyone else seeing it, or invite editors to collaborate." %}</p>
-          <p>{% trans "Only the person that started a questionnaire ('compiler') may submit it for review." %}</p>
-        </li>
-        <li>
-          <p><strong>{% trans "Review:" %} </strong>{% trans "The reviewer may reject the questionnaire. In this case, the questionnaires goes back to 'draft' again, and the editors can apply changes." %}</p>
-          <p>{% trans "If the reviewer accepted the questionnaire, it must be released for publication by a publisher." %}</p>
-        </li>
-        <li>
-          <p>
-            <strong>{% trans "Publish:" %} </strong>{% trans "The publisher can reject the questionnaire, sending it back to 'draft' again, or make it public." %}
-            {% trans "By publishing the questionnaire, it is listed on the website and API for external partners." %}
-          </p>
-        </li>
-        <li>
-          <p><strong>{% trans "Edit:" %} </strong>{% trans "For various reasons (update, more detail, etc.), the need to revise or extend a questionnaire after its publication may arise."  %}</p>
-          <p>{% trans "A new version is copied based on the public verion, starting the same workflow again. The previous version remains published until the new version is set public, replacing the previous version."  %}</p>
-        </li>
-      </ul>
-    </div>
-      <div class="medium-4 columns">
-        <!-- todo: better image: dimension, colors, clarity -->
-        <img src="{% static 'assets/img/publish-workflow.png' %}" alt="{% trans "Workflow description" %}">
-    </div>
+<div class="row">
+  <div class="medium-9 columns">
+    <h2>
+      <span class="is-wocat">{% trans "Hello" %} {{ user.firstname }}.</span>
+      {% trans "Welcome to the SLM Technology / Approach data entry form." %}
+    </h2>
+    <p>{% trans "You are about to add data from the Core Questionnaire on SLM Technologies (QT) / Approaches (QA)." %}</p>
+    <p>
+      {% url 'wocat:help_questionnaire_introduction' as intro_url %}
+      {% blocktrans with start_tour_link="<a class='link' href='#' onclick='return startIntro();'>" end_link="</a>" %}If this is the first time you are using the data entry form {{ start_tour_link }}please visit the help tour{{ end_link }} and <a href="{{ intro_url }}" class="link">read the introduction to the questionnaire{{ end_link }}.{% endblocktrans %}
+    </p>
+    {% comment %}
+      Deactivated list of questionnaires with status draft from current user during unccd testing, as requested by
+      Isabelle.
+    {% endcomment %}
+    {#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
+    <p>
+      <a class="button" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
+      <a class="button success" href="{{ review_config.first_section_url }}" class="link">{% trans "Start data entry" %}</a>
+    </p>
   </div>
-<p>
-  {% trans "Only one person can edit the questionnaire at a time." %}
-  {% trans "Depending on the status of the questionnaire (draft, in review, published) and your role (compiler, editor, reviewer, publisher) you may not be allowed to change it." %}
-</p>
-  {% comment %}
-    Deactivated list of questionnaires with status draft from current user during unccd testing, as requested by
-    Isabelle.
-  {% endcomment %}
-  {#              {% include 'details/section/list_in_progress.html' with questionnaires_in_progress=questionnaires_in_progress %}#}
-  <p>
-    <a class="button" id="show_help" class="link" onclick="return startIntro();">{% trans "Take a tour" %}</a>
-    <a class="button is-{{ review_config.data_type }}" href="{{ review_config.first_section_url }}" class="link">{% trans "Start editing" %}</a>
-  </p>
+  <div class="medium-3 columns">
+    {% get_current_language as LANGUAGE_CODE %}
+    {% with small_url='assets/img/infographics/review_process_'|add:LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:LANGUAGE_CODE|add:'.png' %}
+      <a href="#" class="th" role="button" aria-label="{% trans "Review process" %}" data-reveal-id="review_process_modal">
+        <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
+      </a>
+      <div id="review_process_modal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <a href="{% static large_url %}">
+          <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
+        </a>
+        <p><a href="{% static large_url %}" class="link">{% trans "Click the image for a larger version of it." %}</a></p>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      </div>
+    {% endwith %}
+  </div>
 </div>

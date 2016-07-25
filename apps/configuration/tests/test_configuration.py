@@ -53,6 +53,17 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
             self.assertIn('key_1', d)
 
 
+class QuestionnaireConfigurationGeometryTest(TestCase):
+
+    fixtures = ['global_key_values', 'sample']
+
+    def test_get_questionnaire_geometry_returns_geometry(self):
+        conf = QuestionnaireConfiguration('sample')
+        data = {'qg_39': [{'key_56': 'geometry'}]}
+        geometry = conf.get_questionnaire_geometry(data)
+        self.assertEqual(geometry, data['qg_39'][0]['key_56'])
+
+
 class QuestionnaireConfigurationReadConfigurationTest(TestCase):
 
     def test_raises_error_if_no_configuration_object(self):

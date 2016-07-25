@@ -86,21 +86,24 @@
 
     {% block banner %}
     <header class="page-header inner-wrap" role="banner">
-      <nav class="top-bar {% block navclass %}is-wocat{% endblock %}" role="navigation" data-topbar="" data-options="is_hover: false">
-        <ul class="title-area">
-          <li class="name">
-            {% block logo %}
-              <h1>
-                <a href="{% url 'home' %}">
-                  <img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}" class="hide-on-print"><img src="{% static 'assets/img/wocat_logo_print.svg' %}" alt="{% trans "WOCAT" %}" class="print-only">
-                </a>
-              </h1>
-            {% endblock %}
-          </li>
 
+      {% block logo %}
+        <div class="row">
+          <h1 class="logo">
+            <a href="{% url 'home' %}">
+              <img src="{% static 'assets/img/wocat_logo.svg' %}" alt="{% trans "WOCAT" %}" class="hide-on-print logo-img">
+              <img src="{% static 'assets/img/wocat_logo_print.svg' %}" alt="{% trans "WOCAT" %}" class="print-only logo-img">
+              <span class="logo-title">SLM Database</span>
+            </a>
+          </h1>
+        </div>
+      {% endblock %}
+
+      <nav class="top-bar {% block navclass %}is-wocat{% endblock %} row" role="navigation" data-topbar="" data-options="is_hover: false">
+        <ul class="title-area">
+          <li class="name show-for-small-only"></li>
           <li class="toggle-topbar menu-icon"><a href="#"><span>{% trans "Menu" %}</span></a></li>
         </ul>
-
         <section class="top-bar-section">
           <ul class="right">
             {% if user.is_authenticated %}
@@ -146,8 +149,18 @@
               </ul>
             </li>
           </ul>
-          {% block header %}
-          {% endblock %}
+
+          <ul class="left">
+            <li{% if request.resolver_match.view_name == 'wocat:home' %} class="active"{% endif %}><a href="{% url 'wocat:home' %}">{% trans "Home" %}</a></li>
+            <li{% if request.resolver_match.view_name == 'wocat:questionnaire_list' %} class="active"{% endif %}><a href="{% url 'wocat:questionnaire_list' %}">{% trans "Search SLM Data" %}</a></li>
+            <li{% if request.resolver_match.view_name == 'wocat:add' or request.resolver_match.view_name == 'wocat:add_practice' or request.resolver_match.view_name == 'wocat:add_module' or request.resolver_match.view_name == 'technologies:questionnaire_new' or request.resolver_match.view_name == 'approaches:questionnaire_new' %} class="active"{% endif %}><a href="{% url 'wocat:add' %}">{% trans "Add SLM data" %}</a></li>
+            <li{% if request.resolver_match.view_name == 'account_questionnaires' %} class="active"{% endif %}><a href="{% if user.is_authenticated %}{% url 'account_questionnaires' user.id %}{% else %}{% url 'login' %}{% endif %}">{% trans "My SLM Data" %}</a></li>
+          </ul>
+
+          {% comment %}
+            {% block header %}
+            {% endblock %}
+          {% endcomment %}
         </section>
       </nav>
 
@@ -162,9 +175,11 @@
 
     {% block messages %}
       {% if messages %}
-        {% for message in messages %}
-        <div class="notice alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
-        {% endfor %}
+        <div class="notification-group">
+          {% for message in messages %}
+          <div class="notification alert-box{% if message.level_tag %} {{ message.level_tag }}{% endif %}">{% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}</div>
+          {% endfor %}
+        </div>
       {% endif %}
     {% endblock %}
 
@@ -180,19 +195,21 @@
     <!-- Block for js within specific templates. Add compress in the template.  -->
     {% render_block "js" %}
 
-    <footer class="row page-footer large-collapse" role="contentinfo">
-      <nav class="sub-nav-footer medium-4 columns">
-        <a href="" class="link">{% trans "About" %}</a> | <a href="" class="link">{% trans "FAQ" %}</a> | <a href="" class="link">{% trans "Contact" %}</a>
-      </nav>
-      <div class="medium-4 columns text-center">
-          <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
-          <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
-      </div>
-      <div class="page-footer-copy medium-4 columns">
-        © 2015 - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
-      </div>
+    {% block footer %}
+      <footer class="row page-footer large-collapse" role="contentinfo">
+        <nav class="sub-nav-footer medium-4 columns">
+          <a href="" class="link">{% trans "About" %}</a> | <a href="" class="link">{% trans "FAQ" %}</a> | <a href="" class="link">{% trans "Contact" %}</a>
+        </nav>
+        <div class="medium-4 columns text-center">
+            <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
+            <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
+        </div>
+        <div class="page-footer-copy medium-4 columns">
+          &copy; {% now "Y" %} - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
+        </div>
 
-    </footer>
+      </footer>
+    {% endblock %}
 
     {% block help_tour %}{% endblock %}
     {% block bottom %}

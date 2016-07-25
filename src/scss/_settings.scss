@@ -79,9 +79,9 @@ $include-html-global-classes: $include-html-classes;
 // $include-html-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
-// $row-width: rem-calc(1000);
+$row-width: rem-calc(1280);
 // $total-columns: 12;
-// $column-gutter: rem-calc(30);
+$column-gutter: rem-calc(24);
 
 // c. Global
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -115,41 +115,54 @@ $font-weight-bold: 600;
 // $jet         : #222222;
 // $black       : #000000;
 
-$color-wocat      : #DC7D35;
-$color-wocat-dark : #D26929;
-$color-wocat-light: #F78F50;
-
 $color-unccd      : #2592B7;
 $color-unccd-dark : #136C8B;
 $color-unccd-light: #55BFE3;
 
-$color-approach   : #DC7D35;
-$color-tech       : #4A6D22;
+$color-orange       : #DC7D35;
+$color-orange-dark  : #D26929;
+$color-orange-light : #F78F50;
 
-$color-brown      : #3E3B34;
-$color-brown-dark : #2B261A;
-$color-brown-light: #5F594F;
+$color-brown        : #5F594F;
+$color-brown-dark   : #3E3B34;
+$color-brown-light  : #7D7768;
 
-$color-beige      : #D9D6CC;
-$color-beige-dark : #A09889;
-$color-beige-light: #EAE8DF;
+$color-beige        : #CAC5BA;
+$color-beige-dark   : #A09889;
+$color-beige-light  : #EAE8DF;
+
+$color-green        : #557431;
+$color-green-dark   : #4A6D22;
+$color-green-light  : #6E8A4E;
+
+$color-blue         : #2592B7;
+$color-blue-dark    : #136C8B;
+$color-blue-light   : #55BFE3;
+
+$color-violet       : #9a618c;
+$color-violet-dark  : #834173;
+$color-violet-light : #BB86AE;
+
+$color-tech         : $color-green;
+$color-approach     : $color-orange-dark;
+$color-map          : $color-violet;
 
 $color-yellow     : #FEFFEC;
 
 // We use these as default colors throughout
-$primary-color    : $color-wocat;
+$primary-color    : $color-orange;
 $secondary-color  : $color-brown-light;
 
 $draft-color: #D8343C;
 $submitted-color: #218780;
 $reviewed-color: #2E5093;
 
-$alert-color      : #F5A623;
+$alert-color      : #D8343C;
 $success-color    : #417505;
 $warning-color    : #F5A623;
 $info-color       : #2592B7;
 
-$primary-bg-color : $color-wocat-dark;
+$primary-bg-color : $color-orange-dark;
 $secondary-bg-color: $color-unccd-dark;
 
 $alert-bg-color   : darker($alert-color, 5%);
@@ -185,11 +198,11 @@ $global-radius: 2px;
 // d. Media Query Ranges
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// $small-range: (0em, 40em);
-// $medium-range: (40.063em, 64em);
-// $large-range: (64.063em, 90em);
-// $xlarge-range: (90.063em, 120em);
-// $xxlarge-range: (120.063em, 99999999em);
+$small-range: (0em, 50em); // 0 > 800
+$medium-range: (50.063em, 80em); // 801 > 1280
+$large-range: (80.063em, 90em); // 1281 > 1440
+$xlarge-range: (90.063em, 120em); // 1441 > 1920
+/* $xxlarge-range: (120.063em, 99999999em); */
 
 // $screen: "only screen";
 
@@ -230,26 +243,26 @@ $global-radius: 2px;
 
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
-$header-font-weight: 100;
+$header-font-weight: 400;
 // $header-font-style: normal;
-// $header-font-color: $jet;
+$header-font-color: $body-font-color;
 $header-line-height: 1.5;
 $header-top-margin: 0;
 $header-bottom-margin: 0;
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-$h1-font-size: rem-calc(32);
-$h2-font-size: rem-calc(28);
+$h1-font-size: rem-calc(36);
+$h2-font-size: rem-calc(22);
 $h3-font-size: rem-calc(18);
 $h4-font-size: rem-calc(16);
 $h5-font-size: rem-calc(14);
 $h6-font-size: rem-calc(14);
 
 // We use these to control header size reduction on small screens
-// $h1-font-reduction: rem-calc(10) !default;
-// $h2-font-reduction: rem-calc(10) !default;
-// $h3-font-reduction: rem-calc(5) !default;
+$h1-font-reduction: 0.0875;
+$h2-font-reduction: 0.0875;
+$h3-font-reduction: 0.0875;
 // $h4-font-reduction: rem-calc(5) !default;
 // $h5-font-reduction: 0 !default;
 // $h6-font-reduction: 0 !default;
@@ -268,7 +281,7 @@ $h6-font-size: rem-calc(14);
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
 $paragraph-font-weight: 400;
-$paragraph-font-size: rem-calc(14);
+$paragraph-font-size: inherit;
 $paragraph-line-height: rem-calc(24);
 $paragraph-margin-bottom: 0;
 // $paragraph-aside-font-size: rem-calc(14);
@@ -287,10 +300,10 @@ $paragraph-margin-bottom: 0;
 // $code-padding: rem-calc(2) rem-calc(5) rem-calc(1);
 
 // We use these to style anchors
-// $anchor-text-decoration: none;
-// $anchor-text-decoration-hover: none;
-$anchor-font-color: $body-font-color;
-$anchor-font-color-hover: #000;
+$anchor-text-decoration: none;
+$anchor-text-decoration-hover: none;
+$anchor-font-color: $color-blue;
+$anchor-font-color-hover: $color-blue-dark;
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
@@ -368,15 +381,15 @@ $accordion-content-padding: rem-calc(12 24);
 // $include-html-alert-classes: $include-html-classes;
 
 // We use this to control alert padding.
-// $alert-padding-top: rem-calc(14);
+$alert-padding-top: rem-calc(12);
 // $alert-padding-default-float: $alert-padding-top;
 // $alert-padding-opposite-direction: $alert-padding-top + rem-calc(10);
 // $alert-padding-bottom: $alert-padding-top;
 
 // We use these to control text style.
 // $alert-font-weight: $font-weight-normal;
-// $alert-font-size: rem-calc(13);
-// $alert-font-color: $white;
+$alert-font-size: rem-calc(16);
+$alert-font-color: white;
 // $alert-font-color-alt: scale-color($secondary-color, $lightness: -66%);
 
 // We use this for close hover effect.
@@ -384,9 +397,9 @@ $accordion-content-padding: rem-calc(12 24);
 
 // We use these to control border styles.
 // $alert-border-style: solid;
-// $alert-border-width: 1px;
+$alert-border-width: 2px;
 // $alert-border-color: scale-color($primary-color, $lightness: $alert-function-factor);
-// $alert-bottom-margin: rem-calc(20);
+$alert-bottom-margin: rem-calc(24);
 
 // We use these to style the close buttons
 // $alert-close-color: $oil;
@@ -459,8 +472,8 @@ $button-shadow-effect: rem-calc(2);
 // We use these to build padding for buttons.
 $button-tny: rem-calc(0);
 $button-sml: rem-calc(6);
-$button-med: rem-calc(10);
-$button-lrg: rem-calc(16);
+$button-med: rem-calc(8);
+$button-lrg: rem-calc(12);
 
 // We use this to control the display property.
 // $button-display: inline-block;
@@ -473,8 +486,8 @@ $button-margin-bottom: 0;
 $button-font-tny: rem-calc(10);
 $button-font-sml: rem-calc(12);
 $button-font-med: rem-calc(14);
-$button-font-lrg: rem-calc(18);
-$button-font-weight: 300;
+$button-font-lrg: rem-calc(16);
+$button-font-weight: 500;
 // $button-font-align: center;
 
 // We use these to control various hover effects.
@@ -483,18 +496,18 @@ $button-function-factor: 20%;
 // We use these to control button border and hover styles.
 // $button-border-width: 0px;
 // $button-border-style: solid;
-$button-bg-color: $color-brown;
-// $button-bg-hover: scale-color($button-bg-color, $lightness: $button-function-factor);
+$button-bg-color: $color-blue;
+$button-bg-hover: $color-unccd-dark;
 // $button-border-color: $button-bg-hover;
 $secondary-button-bg-hover: scale-color($color-brown-light, $lightness: $button-function-factor);
 // $secondary-button-border-color: $secondary-button-bg-hover;
-// $success-button-bg-hover: scale-color($success-color, $lightness: $button-function-factor);
+$success-button-bg-hover: $color-green-dark;
 // $success-button-border-color: $success-button-bg-hover;
-// $alert-button-bg-hover: scale-color($alert-color, $lightness: $button-function-factor);
+$alert-button-bg-hover: #D8343C;
 // $alert-button-border-color: $alert-button-bg-hover;
 
 // We use this to set the default radius used throughout the core.
-// $button-radius: $global-radius;
+ $button-radius: $global-radius;
 // $button-round: $global-rounded;
 
 // We use this to set default opacity and cursor for disabled buttons.
@@ -664,7 +677,7 @@ $input-font-size: rem-calc(14);
 // $input-bg-color: $white;
 $input-focus-bg-color: $color-yellow;
 $input-border-color: $color-beige;
-$input-focus-border-color: $color-wocat;
+$input-focus-border-color: $color-orange;
 // $input-border-style: solid;
 // $input-border-width: 1px;
 // $input-border-radius: $global-radius;
@@ -914,16 +927,16 @@ $off-canvas-overlay-background-hover: rgba(black, 0.15);
 // $include-html-orbit-classes: $include-html-classes;
 
 // We use these to control the caption styles
-// $orbit-container-bg: none;
-// $orbit-caption-bg: rgba(51,51,51, 0.8);
-// $orbit-caption-font-color: $white;
-// $orbit-caption-font-size: rem-calc(14);
+$orbit-container-bg: none;
+$orbit-caption-bg: rgba(37, 146, 183, 0.8);
+$orbit-caption-font-color: #fff;
+$orbit-caption-font-size: rem-calc(36);
 // $orbit-caption-position: "bottom"; // Supported values: "bottom", "under"
-// $orbit-caption-padding: rem-calc(10 14);
-// $orbit-caption-height: auto;
+$orbit-caption-padding: rem-calc(42 72);
+$orbit-caption-height: 192px;
 
 // We use these to control the left/right nav styles
-// $orbit-nav-bg: transparent;
+ //$orbit-nav-bg: transparent;
 // $orbit-nav-bg-hover: rgba(0,0,0,0.3);
 // $orbit-nav-arrow-color: $white;
 // $orbit-nav-arrow-color-hover: $white;
@@ -943,7 +956,7 @@ $off-canvas-overlay-background-hover: rgba(black, 0.15);
 // $orbit-slide-number-padding: rem-calc(5);
 
 // Hide controls on small
-// $orbit-nav-hide-for-small: true;
+$orbit-nav-hide-for-small: true;
 // $orbit-bullet-hide-for-small: true;
 // $orbit-timer-hide-for-small: true;
 
@@ -1338,16 +1351,16 @@ $sub-nav-font-color-hover: #000;
 // $include-html-tabs-classes: $include-html-classes;
 
 $tabs-navigation-padding: rem-calc(12);
-$tabs-navigation-bg-color: #fff;
-$tabs-navigation-active-bg-color: #f5f5f5;
+$tabs-navigation-bg-color: $color-beige;
+$tabs-navigation-active-bg-color: #fff;
 // $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
-$tabs-navigation-font-color: #999;
-$tabs-navigation-active-font-color: #000;
+$tabs-navigation-font-color: $color-brown;
+$tabs-navigation-active-font-color: $color-brown;
 // $tabs-navigation-font-size: rem-calc(16);
 // $tabs-navigation-font-family: $body-font-family;
 
-// $tabs-content-margin-bottom: rem-calc(24);
-$tabs-content-padding: 0 rem-calc(6);
+$tabs-content-margin-bottom: 0;
+$tabs-content-padding: rem-calc(24);
 
 // $tabs-vertical-navigation-margin-bottom: 1.25rem;
 
@@ -1400,11 +1413,11 @@ $has-tip-font-weight: $font-weight-normal;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: $color-brown-light;
+$topbar-bg-color: $color-brown;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: rem-calc(36);
+$topbar-height: rem-calc(44);
 $topbar-input-height: rem-calc(36);
 // $topbar-margin-bottom: 0;
 
@@ -1423,21 +1436,21 @@ $topbar-dropdown-link-bg-hover: $color-beige;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
-// $topbar-link-color: $white;
-// $topbar-link-color-hover: $white;
-// $topbar-link-color-active: $white;
-// $topbar-link-color-active-hover: $white;
-// $topbar-link-weight: $font-weight-normal;
-$topbar-link-font-size: rem-calc(14);
+$topbar-link-color: $color-beige-light;
+$topbar-link-color-hover: white;
+$topbar-link-color-active: white;
+$topbar-link-color-active-hover: white;
+$topbar-link-weight: 300;
+$topbar-link-font-size: rem-calc(16);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 $topbar-link-bg: transparent;
-$topbar-link-bg-color-hover: $color-brown-light;
-$topbar-link-bg-hover: $color-brown;
-// $topbar-link-bg-active: $primary-color;
-// $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
+$topbar-link-bg-color-hover: transparent;
+$topbar-link-bg-hover: transparent;
+$topbar-link-bg-active: transparent;
+$topbar-link-bg-active-hover: transparent;
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
-$topbar-link-padding: rem-calc(24);
+$topbar-link-padding: 0;
 // $topbar-back-link-size: $h5-font-size;
 $topbar-link-dropdown-padding: rem-calc(24);
 

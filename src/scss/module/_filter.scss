@@ -1,6 +1,8 @@
 .filter {
-  padding-bottom: rem-calc(12);
-  background: #34312C;
+  font-size: rem-calc(12);
+  line-height: rem-calc(36);
+  padding-bottom: rem-calc(6);
+  background: darken($color-brown-dark, 5%);
 }
 .filter-list {
   @include reset-list;
@@ -10,17 +12,21 @@
   a {
     display: inline-block;
     padding: rem-calc(6 8 6 12);
-    margin: rem-calc(12 12 0 0);
+    margin: rem-calc(6 6 0 0);
     background-color: $color-brown;
     color: $color-beige;
+  }
+  [class^=icon].is-inline,
+  [class*=" icon"].is-inline {
+    margin-top: 0;
+    height: rem-calc(24);
   }
 }
 .filter-value {
   color: white;
 }
 .filter-action {
-  font-size: rem-calc(12);
-  margin-top: rem-calc(18);
+  margin-top: rem-calc(6);
   color: #D9D6CC;
   a {
     color: #D9D6CC;

@@ -1,12 +1,16 @@
 from django.conf.urls import url, patterns
 
-from questionnaire.views import GenericQuestionnaireView, GenericQuestionnaireStepView
+from questionnaire.views import GenericQuestionnaireView, GenericQuestionnaireStepView, \
+    GenericQuestionnaireMapView
 
 urlpatterns = patterns(
     '',
     url(r'^$', 'sample.views.home', name='home'),
     url(r'^view/(?P<identifier>[^/]+)/$', 'sample.views.questionnaire_details',
         name='questionnaire_details'),
+    url(r'^view/(?P<identifier>[^/]+)/map/$',
+        GenericQuestionnaireMapView.as_view(url_namespace=__package__),
+        name='questionnaire_view_map'),
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         'sample.views.questionnaire_view_step',
         name='questionnaire_view_step'),

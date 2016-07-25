@@ -83,7 +83,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'src/partial/svg_icons.hbs': ['src/assets/icons/*.svg']
+          // 'src/partial/svg.html': ['src/assets/icons/*.svg']
+          'templates/svg.html': ['src/assets/icons/*.svg']
         }
       },
     },
@@ -108,7 +109,7 @@ module.exports = function(grunt) {
           // 'bower_components/foundation/js/foundation/foundation.joyride.js',
           'bower_components/foundation/js/foundation/foundation.magellan.js',
           'bower_components/foundation/js/foundation/foundation.offcanvas.js',
-          // 'bower_components/foundation/js/foundation/foundation.orbit.js',
+          'bower_components/foundation/js/foundation/foundation.orbit.js',
           'bower_components/foundation/js/foundation/foundation.reveal.js',
           // 'bower_components/foundation/js/foundation/foundation.slider.js',
           'bower_components/foundation/js/foundation/foundation.tab.js',
@@ -145,6 +146,11 @@ module.exports = function(grunt) {
           'static/js/wizard.min.js': ['src/js/wizard.js']
         }
       },
+      map: {
+        files: {
+          'static/js/map.min.js': ['src/js/map.js']
+        }
+      },
       review: {
         files: {
           'static/js/review.min.js': ['src/js/review.js']
@@ -171,10 +177,12 @@ module.exports = function(grunt) {
           'static/js/review.js': 'src/js/review.js',
           'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
           'static/js/intro.min.js': 'bower_components/intro.js/minified/intro.min.js',
+          'static/js/ol.min.js': 'bower_components/openlayers/ol.js',
           'static/css/introjs.min.css': 'bower_components/intro.js/minified/introjs.min.css',
           'static/css/chosen.min.css': 'bower_components/chosen/chosen.min.css',
           'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png',
-          'static/css/jquery-ui.min.css': 'bower_components/jquery-ui/themes/base/jquery-ui.min.css'
+          'static/css/jquery-ui.min.css': 'bower_components/jquery-ui/themes/base/jquery-ui.min.css',
+          'static/css/ol.css': 'bower_components/openlayers/ol.css'
         }
         ,{
           expand: true,
@@ -262,7 +270,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           hostname: '0.0.0.0',
-          port: 8000,
+          port: 3000,
           livereload: true,
           open: true,
           base: 'static'
@@ -293,7 +301,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', function(arg) {
     // Default mode is 'dev'
     var mode = (arg && arg === 'deploy') ? 'deploy' : 'dev';
-    grunt.task.run(['sass:' + mode, 'svgstore', 'imagemin', 'concat', 'uglify', 'copy', 'assemble']);
+    grunt.task.run(['sass:' + mode, 'postcss', 'svgstore', 'imagemin', 'concat', 'uglify', 'copy', 'assemble']);
   });
   grunt.registerTask('server', ['connect:server', 'watch']);
   grunt.registerTask('default', ['build', 'server']);

@@ -4,7 +4,8 @@ import string
 from django.apps import apps
 from django.db.models import Q
 from configuration.cache import get_configuration
-from questionnaire.models import Questionnaire
+from configuration.models import Project
+from questionnaire.models import Questionnaire, Flag
 
 
 def get_configuration_query_filter(configuration, only_current=False):
@@ -52,7 +53,8 @@ def get_configuration_query_filter(configuration, only_current=False):
     return Q(configurations__code=configuration)
 
 
-def get_configuration_index_filter(configuration, only_current=False):
+def get_configuration_index_filter(
+        configuration, only_current=False, query_param_filter=()):
     """
     Return the name of the index / indices to be searched by
     Elasticsearch based on their configuration code.
@@ -72,10 +74,22 @@ def get_configuration_index_filter(configuration, only_current=False):
         ``only_current`` (bool): If ``True``, always only the current
         configuration_code is returned. Defaults to ``False``.
 
+        ``query_param_filter`` (tuple): If provided, takes precedence over the
+        default rules.
+
     Returns:
         ``list``. A list of configuration codes (the index/indices) to
         be searched.
     """
+    if query_param_filter:
+        configurations = []
+        for q in query_param_filter:
+            if q == 'all':
+                configurations.extend(['unccd', 'technologies', 'approaches'])
+            else:
+                configurations.append(q)
+        return list(set(configurations))
+
     if only_current is True:
         return [configuration]
 
@@ -163,3 +177,48 @@ def get_choices_from_model(model_name, only_active=True):
     except LookupError:
         pass
     return choices
+
+
+def get_filter_configuration(configuration_code):
+    """
+    Return the filters for *all* configurations visible by the current one.
+    Also returns "global" filters such as country, project etc.
+
+    Args:
+        configuration_code: (str) The code of the configuration.
+
+    Returns:
+        dict. A dictionary containing the filters for the configurations and
+        "global" filters.
+    """
+
+    configurations = get_configuration_index_filter(configuration_code)
+
+    filter_configuration = {}
+    countries = []
+
+    for code in configurations:
+        configuration = get_configuration(code)
+        filter_configuration[code] = configuration.get_filter_configuration()
+
+        if not countries:
+            country_question = configuration.get_question_by_keyword(
+                'qg_location', 'country')
+            if country_question:
+                countries = country_question.choices[1:]
+
+    projects = []
+    for project in Project.objects.all():
+        projects.append((project.id, str(project)))
+
+    flags = []
+    for flag in Flag.objects.all():
+        flags.append((flag.flag, flag.get_flag_display()))
+
+    filter_configuration.update({
+        'countries': countries,
+        'projects': projects,
+        'flags': flags,
+    })
+
+    return filter_configuration

@@ -1,5 +1,11 @@
 import contextlib
 import json
+import collections
+
+import os
+import requests
+from django.contrib.gis.gdal.error import GDALException
+from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from os.path import join
 from uuid import uuid4
 
@@ -13,6 +19,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language, activate
 from django.utils import timezone
 from django_pgjson.fields import JsonBField
+from staticmap import StaticMap, CircleMarker, Polygon
 
 from accounts.models import User
 from configuration.cache import get_configuration
@@ -28,7 +35,7 @@ from questionnaire.upload import (
     get_url_by_file_name,
     get_file_path,
     store_file,
-    get_upload_folder_structure)
+    get_upload_folder_structure, get_upload_folder_path)
 
 STATUSES = (
     (settings.QUESTIONNAIRE_DRAFT, _('Draft')),
@@ -53,6 +60,8 @@ QUESTIONNAIRE_ROLES = (
     (settings.QUESTIONNAIRE_EDITOR, _('Editor')),
     (settings.QUESTIONNAIRE_REVIEWER, _('Reviewer')),
     (settings.QUESTIONNAIRE_PUBLISHER, _('Publisher')),
+    (settings.QUESTIONNAIRE_SECRETARIAT, _('WOCAT Secretariat')),
+    (settings.ACCOUNTS_UNCCD_ROLE_NAME, _('UNCCD Focal Point')),
     # Content roles only, no privileges attached
     (settings.QUESTIONNAIRE_LANDUSER, _('Land User')),
     (settings.QUESTIONNAIRE_RESOURCEPERSON, _('Key resource person')),
@@ -75,6 +84,7 @@ class Questionnaire(models.Model):
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
+    geom = models.GeometryField(null=True, blank=True)
     blocked = models.ForeignKey(
         settings.AUTH_USER_MODEL, blank=True, null=True,
         related_name='blocks_questionnaire',
@@ -160,6 +170,8 @@ class Questionnaire(models.Model):
             blocked=None
         )
 
+        self.update_geometry(configuration_code=configuration_code)
+
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
 
@@ -209,7 +221,7 @@ class Questionnaire(models.Model):
 
         if previous_version:
             created = previous_version.created
-            permissions = previous_version.get_permissions(user)
+            roles, permissions = previous_version.get_roles_permissions(user)
             code = previous_version.code
             version = previous_version.version
             uuid = previous_version.uuid
@@ -288,6 +300,8 @@ class Questionnaire(models.Model):
             reviewer=user
         )
 
+        questionnaire.update_geometry(configuration_code=configuration_code)
+
         # TODO: Not all configurations should be the original ones!
         QuestionnaireConfiguration.objects.create(
             questionnaire=questionnaire, configuration=configuration,
@@ -320,31 +334,50 @@ class Questionnaire(models.Model):
     def get_id(self):
         return self.id
 
-    def get_permissions(self, current_user):
+    def get_roles_permissions(self, current_user):
         """
-        Return the permissions of a given user for the current
+        Return the roles and permissions of a given user for the current
         questionnaire.
 
         The following rules apply:
-            * Compilers and editors can edit questionnaires.
+            * Compilers and editors can edit questionnaires if the status is
+              either draft or public.
+            * Compilers can submit and assign questionnaires if the status is
+              draft.
+            * Reviewers can edit and review questionnaires if the status is
+              submitted.
+            * Publishers can edit and review questionnaires if the status is
+              reviewed.
+            * Secretariat members can assign questionnaires if the status is
+              submitted (assign reviewers) or published (assign publishers).
 
         Permissions to be returned are:
             * ``edit_questionnaire``
             * ``submit_questionnaire``
             * ``review_questionnaire``
             * ``publish_questionnaire``
+            * ``assign_questionnaire``
 
         Args:
             ``current_user`` (User): The user.
 
         Returns:
-            ``list``. A list with the permissions of the user for this
-            questionnaire object.
+            ``namedtuple``. A named tuple with
+                - roles: A list of roles of the user for this questionnaire
+                  object as tuple (role_code, role_name)
+                - permissions. A list of permissions of the user for this
+                  questionnaire object.
         """
+        roles = []
         permissions = []
-        if not isinstance(current_user, get_user_model()):
-            return permissions
 
+        RolesPermissions = collections.namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+
+        if not isinstance(current_user, get_user_model()):
+            return RolesPermissions(roles=roles, permissions=permissions)
+
+        # Permissions based on role of current user in questionnaire
         permission_groups = {
             settings.QUESTIONNAIRE_COMPILER: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
@@ -368,28 +401,41 @@ class Questionnaire(models.Model):
                 'permissions': ['edit_questionnaire', 'publish_questionnaire']
             }]
         }
-        # Check if defined rules apply to user and set a list with all
-        # permissions
         for member_role, user in self.get_users(user=current_user):
             permission_group = permission_groups.get(member_role)
             if not permission_group:
                 continue
 
+            add_role = False
             for access_level in permission_group:
                 if self.status in access_level['status']:
                     permissions.extend(access_level['permissions'])
+                    add_role = True
 
+            if add_role is True:
+                roles.append((member_role, dict(QUESTIONNAIRE_ROLES).get(member_role)))
+
+        # General permissions of user
         user_permissions = current_user.get_all_permissions()
         if ('questionnaire.review_questionnaire' in user_permissions
                 and self.status in [settings.QUESTIONNAIRE_SUBMITTED]):
             permissions.extend(['review_questionnaire', 'edit_questionnaire'])
+            role = settings.QUESTIONNAIRE_REVIEWER
+            roles.append(
+                (role, dict(QUESTIONNAIRE_ROLES).get(role)))
         if ('questionnaire.publish_questionnaire' in user_permissions
                 and self.status in [settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['publish_questionnaire', 'edit_questionnaire'])
+            role = settings.QUESTIONNAIRE_PUBLISHER
+            roles.append(
+                (role, dict(QUESTIONNAIRE_ROLES).get(role)))
         if ('questionnaire.assign_questionnaire' in user_permissions
                 and self.status in [settings.QUESTIONNAIRE_SUBMITTED,
                                     settings.QUESTIONNAIRE_REVIEWED]):
             permissions.extend(['assign_questionnaire'])
+            role = settings.QUESTIONNAIRE_SECRETARIAT
+            roles.append(
+                (role, dict(QUESTIONNAIRE_ROLES).get(role)))
 
         # UNCCD Flagging
         questionnaire_country = self.get_question_data('qg_location', 'country')
@@ -397,6 +443,11 @@ class Questionnaire(models.Model):
                 and self.status in [settings.QUESTIONNAIRE_PUBLIC]:
             for country in current_user.get_unccd_countries():
                 if country.keyword == questionnaire_country[0]:
+
+                    role = settings.ACCOUNTS_UNCCD_ROLE_NAME
+                    roles.append(
+                        (role, dict(QUESTIONNAIRE_ROLES).get(role)))
+
                     try:
                         self.flags.get(flag=settings.QUESTIONNAIRE_FLAG_UNCCD)
                         # Flag already exists
@@ -405,14 +456,16 @@ class Questionnaire(models.Model):
                         # No flag yet
                         permissions.extend(['flag_unccd_questionnaire'])
 
+        # Remove duplicates
         permissions = list(set(permissions))
+        roles = list(set(roles))
 
         # If questionnaire is blocked, remove 'edit' permissions.
         if 'edit_questionnaire' in permissions and \
                 not self.can_edit(current_user):
             permissions.remove('edit_questionnaire')
 
-        return permissions
+        return RolesPermissions(roles=roles, permissions=permissions)
 
     def get_question_data(self, qg_keyword, q_keyword):
         """
@@ -434,6 +487,120 @@ class Questionnaire(models.Model):
                     if key == q_keyword:
                         data.append(value)
         return data
+
+    def update_geometry(self, configuration_code):
+        """
+        Update the geometry of a questionnaire based on the GeoJSON found in the
+        data json.
+
+        Args:
+            configuration_code:
+
+        Returns:
+            -
+        """
+        def get_geometry_from_string(geometry_string):
+            """
+            Extract and convert the geometry from a (GeoJSON) string.
+
+            Args:
+                geometry_string: The geometry as (GeoJSON) string.
+
+            Returns:
+                A GeometryCollection or None.
+            """
+
+            if geometry_string is None:
+                return None
+
+            try:
+                geometry_json = json.loads(geometry_string)
+            except json.decoder.JSONDecodeError:
+                return None
+            geoms = []
+            for feature in geometry_json.get('features', []):
+                try:
+                    feature_geom = GEOSGeometry(
+                        json.dumps(feature.get('geometry')))
+                except ValueError:
+                    continue
+                except GDALException:
+                    continue
+                geoms.append(feature_geom)
+
+            if geoms:
+                return GeometryCollection(tuple(geoms))
+
+            else:
+                return None
+
+        conf_object = get_configuration(configuration_code)
+        geometry_value = conf_object.get_questionnaire_geometry(self.data)
+        geometry = get_geometry_from_string(geometry_value)
+
+        geometry_changed = self.geom != geometry
+
+        try:
+            self.geom = geometry
+            self.save()
+        except ValidationError:
+            return
+
+        if self.geom is None or not geometry_changed:
+            # If there is no geometry or if it did not change, there is no need
+            # to create the static map image (again)
+            return
+
+        # Create static map
+        width = 500
+        height = 400
+        marker_color = '#0036FF'
+
+        m = StaticMap(width, height)
+
+        for point in iter(self.geom):
+            m.add_marker(CircleMarker((point.x,  point.y), marker_color, 12))
+
+        bbox = None
+        questionnaire_country = self.get_question_data('qg_location', 'country')
+
+        if len(questionnaire_country) == 1:
+            country_iso3 = questionnaire_country[0].replace('country_', '')
+            country_iso2 = settings.CONFIGURATION_COUNTRY_ISO_MAPPING.get(
+                country_iso3)
+
+            if country_iso2:
+                r = requests.get(
+                    'http://api.geonames.org/countryInfoJSON?username=wocat_webdev&country={}'.format(
+                        country_iso2))
+                geonames_country = r.json().get('geonames')
+
+                if len(geonames_country) == 1:
+                    ctry = geonames_country[0]
+                    poly_coords = [
+                        [ctry.get('west'), ctry.get('north')],
+                        [ctry.get('west'), ctry.get('south')],
+                        [ctry.get('east'), ctry.get('south')],
+                        [ctry.get('east'), ctry.get('north')],
+                        [ctry.get('west'), ctry.get('north')]
+                    ]
+
+                    bbox = Polygon(poly_coords, None, None)
+
+        if bbox:
+            m.add_polygon(bbox)
+            image = m.render()
+        else:
+            # No bbox found, guess zoom level
+            image = m.render(zoom=6)
+
+        map_folder = get_upload_folder_path(str(self.uuid), subfolder='maps')
+        if not os.path.exists(map_folder):
+            os.makedirs(map_folder)
+
+        filename = '{}_{}.jpg'.format(self.uuid, self.version)
+        image.save(os.path.join(map_folder, filename))
+
 
     def add_flag(self, flag):
         """

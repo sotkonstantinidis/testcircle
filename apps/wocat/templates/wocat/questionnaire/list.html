@@ -6,11 +6,77 @@
 
 {% block content %}
 
-  <main class="row large-collapse" role="main">
+  <!-- Top Bar Search -->
+  <form action="" data-url="{{ filter_url }}" data-list-url="{% url 'wocat:questionnaire_list' %}" id="search-advanced">
+    <div class="top-bar-search">
+      <div class="row large-no-gutters">
+        <div class="medium-4 columns">
+          <label for="filter-country">{% trans "Country" %}</label>
+          <input type="text" class="js-search-datalist" placeholder="{% trans 'Select or type a country name' %}" list="filter-country-list" id="filter-country">
+          <datalist id="filter-country-list">
+            {% for country in filter_configuration.countries %}
+            <option data-value="{{ country.0 }}">{{ country.1 }}</option>
+            {% endfor %}
+          </datalist>
+          <input type="hidden" name="filter-country" id="filter-country-hidden" data-questiongroup="qg_location" data-key="country">
+        </div>
+        <div class="medium-4 columns">
+          <label for="language">Language</label>
+          <select id="language" disabled="disabled">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </div>
+        <div class="medium-4 columns">
+          <label for="filter-project">{% trans "Project" %}</label>
+          <input type="text" class="js-search-datalist" placeholder="{% trans 'Select or type a project name' %}" list="filter-project-list" id="filter-project">
+          <datalist id="filter-project-list">
+            {% for project in filter_configuration.projects %}
+            <option data-value="{{ project.0 }}">{{ project.1 }}</option>
+            {% endfor %}
+          </datalist>
+          <input type="hidden" name="filter-project" id="filter-project-hidden" data-questiongroup="qg_funding_project" data-key="funding_project">
+        </div>
+      </div>
+      <div class="row large-no-gutters is-rhythmed">
+        <div class="medium-12 columns">
+          <div class="search-field">
+            <input type="search" tabindex="1" placeholder="{% trans "Search SLM Data" %}" name="q">
+            <div class="search-category">
+              <a href="#" id="search-type-display" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">{% trans "All SLM Data" %}</a>
+              <ul id="drop1" data-dropdown-content class="f-dropdown search-type-select" aria-hidden="true">
+                <li><a href="#" data-type="all">{% trans "All SLM Data" %}</a></li>
+                <li><a href="#" data-type="technologies">{% trans "SLM Technologies" %}</a></li>
+                <li><a href="#" data-type="approaches">{% trans "SLM Approaches" %}</a></li>
+              </ul>
+              <input type="hidden" name="type" id="search-type" value="all">
+            </div>
+            <input type="submit" class="search-submit button" value="Search">
+          </div>
+          <div class="search-option">
+            <a href="#" data-toggle="search-advanced-options">{% trans "Advanced filter" %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="search-advanced-options" class="search-advanced-options hide">
+      <div class="row large-no-gutters">
+        {% include 'wocat/partial/advanced_filter.html' %}
+      </div>
+    </div>
+    <div id="active-filters" class="search-filters">
+      {% include "active_filters.html" %}
+    </div>
+  </form>
+
+  <main class="row large-collapse is-padded-2" role="main">
     {% comment %}
       TODO: COP12
     {% endcomment %}
-    <p class="help-bloc">{% trans "Only data declared as public are visible. Please note that the WOCAT datasets have not been migrated to this test version yet. Only a few examples are available for illustration of the new database." %}</p>
+    <div class="small-12 columns">
+      <p class="help-bloc">{% trans "Only data declared as public are visible. Please note that the WOCAT datasets have not been migrated to this test version yet. Only a few examples are available for illustration of the new database." %}</p>
+    </div>
     <section class="tech-list small-12 columns">
       <div class="tech-group">
         <h2 class="is-group">{% trans "WOCAT and UNCCD SLM practices" %} (<span id="questionnaire-count">{{ count }}</span>)</h2>

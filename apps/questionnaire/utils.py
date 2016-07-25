@@ -1,7 +1,9 @@
 import ast
+import json
 import logging
 from uuid import UUID
 
+from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
@@ -208,6 +210,18 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                 elif question.field_type in ['link_video']:
                     # TODO: This should be properly checked!
                     pass
+                elif question.field_type in ['map']:
+                    # A very rough check if the value is a GeoJSON.
+                    try:
+                        geojson = json.loads(value)
+                    except ValueError:
+                        errors.append('Invalid geometry: "{}"'.format(value))
+                        continue
+                    for feature in geojson.get('features', []):
+                        geom = feature.get('geometry', {})
+                        if 'coordinates' not in geom or 'type' not in geom:
+                            errors.append('Invalid geometry: "{}"'.format(value))
+                            continue
                 else:
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(
@@ -493,7 +507,7 @@ def get_questiongroup_data_from_translation_form(
     return questiongroup_data_cleaned
 
 
-def get_active_filters(questionnaire_configuration, query_dict):
+def get_active_filters(questionnaire_configurations, query_dict):
     """
     Get the currently active filters based on the query dict (eg. from
     the request). Only valid filters (correct format, based on
@@ -520,9 +534,9 @@ def get_active_filters(questionnaire_configuration, query_dict):
         q=search&filter__qg_11__key_14=value_14_1
 
     Args:
-        ``questionnaire_configuration``
-        (:class:`configuration.configuration.QuestionnaireConfiguration`):
-        The questionnaire configuration.
+        ``questionnaire_configurations``
+        (list of :class:`configuration.configuration.QuestionnaireConfiguration`):
+        A list of questionnaire configurations.
 
         ``query_dict`` (Nested Multidict): A nested multidict object,
         eg. ``request.GET``.
@@ -615,8 +629,11 @@ def get_active_filters(questionnaire_configuration, query_dict):
         filter_questiongroup = params[1]
         filter_key = params[2]
 
-        question = questionnaire_configuration.get_question_by_keyword(
-            filter_questiongroup, filter_key)
+        question = None
+        for configuration in questionnaire_configurations:
+            if question is None:
+                question = configuration.get_question_by_keyword(
+                    filter_questiongroup, filter_key)
 
         if question is None:
             continue
@@ -626,10 +643,23 @@ def get_active_filters(questionnaire_configuration, query_dict):
                 (v[1] for v in question.choices if v[0] == filter_value),
                 filter_value)
 
+            if question.field_type == 'select_model':
+                try:
+                    model = apps.get_model(
+                        app_label='configuration',
+                        model_name=question.form_options.get('model'))
+                    try:
+                        object = model.objects.get(pk=filter_value)
+                        value_label = str(object)
+                    except model.DoesNotExist:
+                        continue
+                except LookupError:
+                    continue
+
             active_filters.append({
                 'questiongroup': filter_questiongroup,
                 'key': filter_key,
-                'key_label': question.label,
+                'key_label': question.label_view,
                 'value': filter_value,
                 'value_label': value_label,
                 'type': question.field_type,
@@ -1168,7 +1198,9 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         ``None`` or ``HttpResponse``. Returns either a HttpResponse
         (typically a redirect) or None.
     """
-    permissions = questionnaire_object.get_permissions(request.user)
+    roles_permissions = questionnaire_object.get_roles_permissions(request.user)
+    roles = roles_permissions.roles
+    permissions = roles_permissions.permissions
 
     if request.POST.get('submit'):
 
@@ -1331,7 +1363,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Query the permissions again, if the user does not have
         # edit rights on the now draft questionnaire, then route him
         # back to home in order to prevent a 404 page.
-        permissions = questionnaire_object.get_permissions(request.user)
+        roles, permissions = questionnaire_object.get_roles_permissions(
+            request.user)
         if 'edit_questionnaire' not in permissions:
             return redirect('{}:home'.format(configuration_code))
 
@@ -1609,11 +1642,14 @@ def prepare_list_values(data, config, **kwargs):
     return data
 
 
-def get_review_config_dict(status, token, permissions, view_mode, url, is_blocked, blocked_by, form_url, has_release):
+def get_review_config_dict(
+        status, token, permissions, roles, view_mode, url, is_blocked,
+        blocked_by, form_url, has_release):
     return {
         'review_status': status,
         'csrf_token_value': token,
         'permissions': permissions,
+        'roles': roles,
         'mode': view_mode,
         'url': url,
         'is_blocked': is_blocked,

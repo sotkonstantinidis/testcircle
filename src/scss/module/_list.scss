@@ -15,7 +15,7 @@
       display: block;
       width: 2px;
       height: rem-calc(36);
-      background: $color-wocat;
+      background: $color-orange;
     }
   }
   &.row:not(:first-of-type) {
@@ -77,7 +77,7 @@
 
   input[type=radio]:checked + label img,
   input[type=checkbox]:checked + label img {
-    border-color: $color-wocat;
+    border-color: $color-orange;
     border-width: rem-calc(2);
   }
 }

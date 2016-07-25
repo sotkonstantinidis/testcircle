@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import copy
 from unittest.mock import patch, Mock, call, MagicMock
+
+from collections import namedtuple
 from django.http import QueryDict
 from django.test.utils import override_settings
 from django.utils.translation import ugettext_lazy as _
@@ -1027,7 +1029,10 @@ class HandleReviewActionsTest(TestCase):
         self.request = Mock()
         self.request.user = Mock()
         self.obj = Mock(spec=Questionnaire)
-        self.obj.get_permissions.return_value = []
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=[])
         self.obj.links.all.return_value = []
 
     def test_submit_error_if_previous_status_wrong(self, mock_messages):
@@ -1051,7 +1056,10 @@ class HandleReviewActionsTest(TestCase):
             'permission to do so.')
 
     def test_submit_updates_status(self, mock_messages):
-        self.obj.get_permissions.return_value = ['submit_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['submit_questionnaire'])
         self.obj.status = 1
         self.request.POST = {'submit': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
@@ -1081,7 +1089,10 @@ class HandleReviewActionsTest(TestCase):
             'permission to do so.')
 
     def test_review_updates_status(self, mock_messages):
-        self.obj.get_permissions.return_value = ['review_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['review_questionnaire'])
         self.obj.status = 2
         self.request.POST = {'review': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
@@ -1117,7 +1128,10 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_delete_data, mock_Questionnaire,
             mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
@@ -1135,7 +1149,10 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_delete_data, mock_Questionnaire,
             mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
@@ -1148,7 +1165,10 @@ class HandleReviewActionsTest(TestCase):
     @patch('questionnaire.utils.put_questionnaire_data')
     def test_publish_updates_status(self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
@@ -1163,7 +1183,10 @@ class HandleReviewActionsTest(TestCase):
     def test_publish_calls_put_questionnaire_data(
             self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
-        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()
@@ -1176,7 +1199,10 @@ class HandleReviewActionsTest(TestCase):
             self, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         mock_link = Mock()
-        self.obj.get_permissions.return_value = ['publish_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['publish_questionnaire'])
         self.obj.links.all.return_value = [mock_link]
         self.obj.status = 3
         self.obj.code = 'code'
@@ -1213,7 +1239,10 @@ class HandleReviewActionsTest(TestCase):
             'assign': 'foo',
             'user-id': 'foo,bar',
         }
-        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
         self.obj.get_users_by_role.return_value = []
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.success.assert_called_once_with(
@@ -1227,7 +1256,10 @@ class HandleReviewActionsTest(TestCase):
             'assign': 'foo',
             'user-id': '98',
         }
-        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
         self.obj.get_users_by_role.return_value = []
         mock_typo3_client.get_user_information.return_value = {
             'username': 'user'
@@ -1246,7 +1278,10 @@ class HandleReviewActionsTest(TestCase):
             'assign': 'foo',
             'user-id': '98',
         }
-        self.obj.get_permissions.return_value = ['assign_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
         mock_user = Mock()
         self.obj.get_users_by_role.return_value = [mock_user]
         handle_review_actions(self.request, self.obj, 'sample')
@@ -1261,7 +1296,10 @@ class UnccdFlagTest(TestCase):
 
     def setUp(self):
         self.obj = Mock(spec=Questionnaire)
-        self.obj.get_permissions.return_value = []
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=[])
         self.obj.links.all.return_value = []
         self.user = create_new_user()
         self.user.update(usergroups=[{
@@ -1279,7 +1317,10 @@ class UnccdFlagTest(TestCase):
 
     def test_flag_unccd_requires_valid_flag(self, mock_messages):
         Flag.objects.get(flag='unccd_bp').delete()
-        self.obj.get_permissions.return_value = ['flag_unccd_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['flag_unccd_questionnaire'])
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request, 'The flag could not be set.')
@@ -1328,7 +1369,6 @@ class UnccdFlagTest(TestCase):
         mock_messages.success.assert_called_once_with(
             self.request, 'The flag was successfully set.')
 
-
 @patch('questionnaire.utils.messages')
 class UnccdUnflagTest(TestCase):
 
@@ -1337,7 +1377,10 @@ class UnccdUnflagTest(TestCase):
 
     def setUp(self):
         self.obj = Mock(spec=Questionnaire)
-        self.obj.get_permissions.return_value = []
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=[])
         self.obj.links.all.return_value = []
         self.user = create_new_user()
         self.user.update(usergroups=[{
@@ -1358,7 +1401,10 @@ class UnccdUnflagTest(TestCase):
 
     def test_unflag_unccd_requires_valid_flag(self, mock_messages):
         Flag.objects.get(flag='unccd_bp').delete()
-        self.obj.get_permissions.return_value = ['unflag_unccd_questionnaire']
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['unflag_unccd_questionnaire'])
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request, 'The flag could not be removed.')

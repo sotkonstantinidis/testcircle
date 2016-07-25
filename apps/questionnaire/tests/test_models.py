@@ -1,7 +1,9 @@
+import json
 import uuid
 from datetime import datetime
 
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from django.core.exceptions import ValidationError
 from django.utils.translation import activate
 from unittest.mock import patch, Mock
@@ -121,6 +123,7 @@ class QuestionnaireModelTest(TestCase):
 
     @patch('configuration.utils.create_new_code')
     def test_create_new_calls_create_code(self, mock_create_new_code):
+        mock_create_new_code.return_value = 'foo'
         get_valid_questionnaire(self.user)
         mock_create_new_code.assert_called_once_with('sample', {'foo': 'bar'})
 
@@ -196,28 +199,48 @@ class QuestionnaireModelTest(TestCase):
             user=self.user, previous_version=questionnaire)
         self.assertEqual(users, questionnaire_2.get_users())
 
-    def test_get_permissions_returns_empty(self):
+    def test_get_roles_permissions_returns_empty(self):
+        other_user = create_new_user(
+            id=2, email='c@d.com', lastname='faz', firstname='taz')
+        questionnaire = get_valid_questionnaire(other_user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
+        self.assertEqual(permissions, [])
+
+    def test_get_permissions_returns_empty_permission_not_found(self):
         questionnaire = get_valid_questionnaire(self.user)
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'foo'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
-    def test_get_permissions_compilers(self):
+    def test_get_roles_permissions_returns_compiler_draft(self):
         questionnaire = get_valid_questionnaire(self.user)
-        permissions = questionnaire.get_permissions(self.user)
-        self.assertIsInstance(permissions, list)
+        self.assertEqual(questionnaire.status, 1)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('compiler', 'Compiler')])
         self.assertEqual(len(permissions), 3)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('submit_questionnaire', permissions)
+        self.assertIn('assign_questionnaire', permissions)
+
+    def test_roles_permissions_returns_no_compiler_submitted(self):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 2
+        questionnaire.save()
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
+        self.assertEqual(permissions, [])
 
     def test_get_permissions_editors(self):
         questionnaire = get_valid_questionnaire(self.user)
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'editor'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('editor', 'Editor')])
         self.assertEqual(permissions, ['edit_questionnaire'])
 
     def test_get_permissions_reviewers_not_status(self):
@@ -225,7 +248,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'reviewer'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
     def test_get_permissions_reviewers(self):
@@ -235,7 +259,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'reviewer'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('reviewer', 'Reviewer')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('review_questionnaire', permissions)
@@ -245,7 +270,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'publisher'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
     def test_get_permissions_publishers(self):
@@ -255,7 +281,8 @@ class QuestionnaireModelTest(TestCase):
         membership = questionnaire.questionnairemembership_set.first()
         membership.role = 'publisher'
         membership.save()
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('publisher', 'Publisher')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('publish_questionnaire', permissions)
@@ -267,7 +294,25 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.save()
         mock_get_all_permissions.return_value = [
             'questionnaire.review_questionnaire']
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('reviewer', 'Reviewer')])
+        self.assertEqual(len(permissions), 2)
+        self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('review_questionnaire', permissions)
+
+    @patch.object(User, 'get_all_permissions')
+    def test_get_permissions_reviewers_general_and_assigned(
+            self, mock_get_all_permissions):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 2
+        questionnaire.save()
+        membership = questionnaire.questionnairemembership_set.first()
+        membership.role = 'reviewer'
+        membership.save()
+        mock_get_all_permissions.return_value = [
+            'questionnaire.review_questionnaire']
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('reviewer', 'Reviewer')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('review_questionnaire', permissions)
@@ -280,16 +325,30 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.save()
         mock_get_all_permissions.return_value = [
             'questionnaire.publish_questionnaire']
-        permissions = questionnaire.get_permissions(self.user)
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('publisher', 'Publisher')])
         self.assertEqual(len(permissions), 2)
         self.assertIn('edit_questionnaire', permissions)
         self.assertIn('publish_questionnaire', permissions)
+
+    @patch.object(User, 'get_all_permissions')
+    def test_get_permissions_wocat_secretariat(
+            self, mock_get_all_permissions):
+        questionnaire = get_valid_questionnaire(self.user)
+        questionnaire.status = 3
+        questionnaire.save()
+        mock_get_all_permissions.return_value = [
+            'questionnaire.assign_questionnaire']
+        roles, permissions = questionnaire.get_roles_permissions(self.user)
+        self.assertEqual(roles, [('secretariat', 'WOCAT Secretariat')])
+        self.assertEqual(permissions, ['assign_questionnaire'])
 
     def test_get_permissions_anonymous_user(self):
         # Anonymous users have no rights.
         questionnaire = get_valid_questionnaire()
         user = AnonymousUser()
-        permissions = questionnaire.get_permissions(user)
+        roles, permissions = questionnaire.get_roles_permissions(user)
+        self.assertEqual(roles, [])
         self.assertEqual(permissions, [])
 
     def test_get_users_returns_tuples(self):
@@ -392,7 +451,8 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire_2.links.count(), 0)
         self.assertEqual(QuestionnaireLink.objects.count(), 0)
 
-    def test_protect_published_item(self):
+    @patch.object(Questionnaire, 'update_geometry')
+    def test_protect_published_item(self, mock_update_geometry):
         questionnaire = Questionnaire.create_new(
             configuration_code='sample', data={}, user=self.user, status=4
         )
@@ -431,6 +491,103 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.lock_questionnaire(questionnaire.code, self.user)
         user_2 = create_new_user(id=2, email='foo@bar.com')
         self.assertFalse(questionnaire.can_edit(user_2))
+
+    def test_update_geometry_updates_geometry(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': json.dumps({
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            7.5,
+                            47
+                        ]
+                    },
+                },
+               {
+                   "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            8.5,
+                            48
+                        ]
+                    },
+               }
+            ]
+        })}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        geojson = json.loads(questionnaire.geom.geojson)
+        self.assertEqual(len(geojson['geometries']), 2)
+        self.assertEqual(geojson['geometries'][0]['coordinates'], [7.5, 47.0])
+        self.assertEqual(geojson['geometries'][1]['coordinates'], [8.5, 48.0])
+
+    def test_update_geometry_handles_no_geometry(self):
+        questionnaire = get_valid_questionnaire()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_handles_invalid_geometry(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': 'invalid geometry'}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_handles_invalid_geojson(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': json.dumps({'foo': 'bar'})}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_handles_invalid_geojson_2(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.data = {'qg_39': [{'key_56': json.dumps({
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": "invalid",
+                },
+               {
+                   "type": "Foo",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            "foo",
+                            "bar"
+                        ]
+                    },
+               }
+            ]
+        })}]}
+        questionnaire.save()
+        self.assertIsNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
+
+    def test_update_geometry_deletes_geometry(self):
+        questionnaire = get_valid_questionnaire()
+
+        geojson = {'coordinates': [7.435190677642821, 46.952664413488606],
+                   'type': 'Point'}
+        questionnaire.geom = GeometryCollection(
+            GEOSGeometry(json.dumps(geojson)),)
+        questionnaire.save()
+        questionnaire.data = {}
+        questionnaire.save()
+        self.assertIsNotNone(questionnaire.geom)
+        questionnaire.update_geometry('sample')
+        self.assertIsNone(questionnaire.geom)
 
 
 class FileModelTest(TestCase):

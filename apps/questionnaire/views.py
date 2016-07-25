@@ -21,12 +21,14 @@ from django.shortcuts import (
 )
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, get_language
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
+from configuration.utils import get_filter_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
@@ -37,7 +39,7 @@ from questionnaire.upload import (
 from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
-from .models import Questionnaire, File
+from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
 from .utils import (
     clean_questionnaire_data,
     compare_questionnaire_data,
@@ -272,6 +274,21 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
             url = reverse('{}:questionnaire_new'.format(self.url_namespace))
 
         return '{url}#{step}'.format(url=url, step=step)
+
+    def get_edit_url(self, step):
+        """
+        The edit view of the current object with #top as anchor.
+
+        Returns: string
+        """
+        if self.has_object:
+            url = reverse('{}:questionnaire_edit'.format(self.url_namespace),
+                          args=[self.object.code])
+        else:
+            url = reverse('{}:questionnaire_new'.format(self.url_namespace))
+
+        return '{url}#{step}'.format(url=url, step=step)
+
 
     def get_context_data(self, **kwargs):
         """
@@ -561,6 +578,36 @@ class QuestionnaireSaveMixin(StepsMixin):
                 self.object.add_link(link)
 
 
+class GenericQuestionnaireMapView(TemplateResponseMixin, View):
+    """
+    A generic view to show the map of a questionnaire (in a modal)
+    """
+    http_method_names = ['get']
+    template_name = 'details/modal_map.html'
+    url_namespace = None
+
+    def get_object(self):
+        questionnaire_object = query_questionnaire(
+            self.request, self.kwargs.get('identifier')).first()
+        if questionnaire_object is None:
+            raise Http404()
+        return questionnaire_object
+
+    @xframe_options_exempt
+    def get(self, request, *args, **kwargs):
+        questionnaire_object = self.get_object()
+
+        configuration = get_configuration(configuration_code=self.url_namespace)
+        geometry = configuration.get_questionnaire_geometry(
+            questionnaire_object.data)
+
+        context = {
+            'geometry': geometry,
+        }
+
+        return self.render_to_response(context=context)
+
+
 class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     """
     Refactored function based view: generic_questionnaire_new
@@ -577,22 +624,19 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             questionnaire_data=self.questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
         )
-        permissions = ['edit_questionnaire'] if not self.has_object else self.object.get_permissions(self.request.user)
+
+        if self.has_object:
+            roles, permissions = self.object.get_roles_permissions(
+                self.request.user)
+        else:
+            # User is always compiler of new questionnaires.
+            role = settings.QUESTIONNAIRE_COMPILER
+            roles = [(role, dict(QUESTIONNAIRE_ROLES).get(role))]
+            permissions = ['edit_questionnaire']
 
         csrf_token = get_token(self.request) if 'edit_questionnaire' in permissions else None
 
         images = self.questionnaire_configuration.get_image_data(data).get('content', [])
-
-        sections = self.questionnaire_configuration.get_details(
-            data, permissions=permissions,
-            edit_step_route='{}:questionnaire_new_step'.format(self.url_namespace),
-            questionnaire_object=self.object or None, csrf_token=csrf_token,
-            edited_questiongroups=self.get_edited_questiongroups(), view_mode='edit',
-            links=self.get_links()
-        )
-
-        # Add the configuration of the filter
-        filter_configuration = self.questionnaire_configuration.get_filter_configuration()
 
         can_edit = None
         blocked_by = None
@@ -612,7 +656,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         url = self.get_detail_url(step='') if self.has_object else ''
 
         review_config = self.get_review_config(
-            permissions=permissions, url=url,
+            permissions=permissions, roles=roles, url=url,
             blocked_by=blocked_by if not can_edit else False,
             view_mode='edit'
         )
@@ -624,12 +668,23 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
                 })
             })
 
+        sections = self.questionnaire_configuration.get_details(
+            data, permissions=permissions,
+            edit_step_route='{}:questionnaire_new_step'.format(
+                self.url_namespace),
+            questionnaire_object=self.object or None, csrf_token=csrf_token,
+            edited_questiongroups=self.get_edited_questiongroups(),
+            view_mode='edit',
+            links=self.get_links(),
+            review_config=review_config,
+            user=request.user,
+        )
+
         context = {
             'images': images,
             'sections': sections,
             'questionnaire_identifier': self.identifier,
             'url_namespace': self.url_namespace,
-            'filter_configuration': filter_configuration,
             'permissions': permissions,
             'edited_questiongroups': edited_questiongroups,
             'view_mode': 'edit',
@@ -645,7 +700,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     def get_detail_url(self, step):
         return super().get_detail_url(step='top')
 
-    def get_review_config(self, permissions, url, **kwargs):
+    def get_review_config(self, permissions, roles, url, **kwargs):
         """
         Create a dict with the review_config, this is required for proper display
         of the review panel.
@@ -662,6 +717,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             status=self.object.status if self.has_object else 0,
             token=get_token(self.request),
             permissions=permissions,
+            roles=roles,
             view_mode=kwargs.get('view_mode', 'view'),
             url=url,
             is_blocked=bool(kwargs.get('blocked_by', False)),
@@ -832,7 +888,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             'config': self.category_config,
             'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
             'title': _('QCAT Form'),
-            'overview_url': self.get_detail_url(self.kwargs['step']),
+            'overview_url': self.get_edit_url(self.kwargs['step']),
             'valid': True,
             'configuration_name': self.category_config.get('configuration', self.url_namespace),
             'edit_mode': self.edit_mode,
@@ -882,7 +938,9 @@ def generic_questionnaire_details(
             '{}:questionnaire_details'.format(url_namespace),
             questionnaire_object.code)
 
-    permissions = questionnaire_object.get_permissions(request.user)
+    roles_permissions = questionnaire_object.get_roles_permissions(request.user)
+    roles = roles_permissions.roles
+    permissions = roles_permissions.permissions
 
     review_config = {}
     if request.user.is_authenticated():
@@ -900,6 +958,7 @@ def generic_questionnaire_details(
             status=questionnaire_object.status,
             token=get_token(request),
             permissions=permissions,
+            roles=roles,
             view_mode='view',
             url=reverse('{}:questionnaire_edit'.format(url_namespace),
                         kwargs={'identifier': questionnaire_object.code}),
@@ -954,15 +1013,10 @@ def generic_questionnaire_details(
         data=data, permissions=permissions, review_config=review_config,
         questionnaire_object=questionnaire_object, links=link_display)
 
-    # Add the configuration of the filter
-    filter_configuration = questionnaire_configuration.\
-        get_filter_configuration()
-
     return render(request, 'questionnaire/details.html', {
         'images': images,
         'sections': sections,
         'questionnaire_identifier': identifier,
-        'filter_configuration': filter_configuration,
         'permissions': permissions,
         'view_mode': 'view',
         'toc_content': questionnaire_configuration.get_toc_data(),
@@ -1077,11 +1131,12 @@ def generic_questionnaire_list(
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    questionnaire_configuration = get_configuration(configuration_code)
+    configuration_codes = get_configuration_index_filter(configuration_code)
+    configurations = [get_configuration(code) for code in configuration_codes]
+
 
     # Get the filters and prepare them to be passed to the search.
-    active_filters = get_active_filters(
-        questionnaire_configuration, request.GET)
+    active_filters = get_active_filters(configurations, request.GET)
     query_string = ''
     filter_params = []
     for active_filter in active_filters:
@@ -1089,7 +1144,8 @@ def generic_questionnaire_list(
         if filter_type in ['_search']:
             query_string = active_filter.get('value', '')
         elif filter_type in [
-                'checkbox', 'image_checkbox', '_date', '_flag', 'select_type']:
+                'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
+                'select_model']:
             filter_params.append(
                 (active_filter.get('questiongroup'),
                  active_filter.get('key'), active_filter.get('value'), None,
@@ -1104,7 +1160,8 @@ def generic_questionnaire_list(
     offset = page * limit - limit
 
     search_configuration_codes = get_configuration_index_filter(
-        configuration_code, only_current=only_current)
+        configuration_code, only_current=only_current,
+        query_param_filter=tuple(request.GET.getlist('type')))
 
     search = advanced_search(
         filter_params=filter_params, query_string=query_string,
@@ -1121,8 +1178,7 @@ def generic_questionnaire_list(
         configuration_code=configuration_code, es_hits=questionnaires)
 
     # Add the configuration of the filter
-    filter_configuration = questionnaire_configuration.\
-        get_filter_configuration()
+    filter_configuration = get_filter_configuration(configuration_code)
 
     template_values = {
         'list_values': list_values,

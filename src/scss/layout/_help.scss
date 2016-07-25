@@ -1,0 +1,15 @@
+.help-title, .help-title:first-child {
+  margin-top: 2rem;
+}
+
+.help-subtitle {
+  margin-top: 1rem;
+}
+
+.help-subtitle-small {
+  margin-top: 1rem;
+
+  + p {
+    margin-top: 0.5rem;
+  }
+}

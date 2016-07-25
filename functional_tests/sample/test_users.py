@@ -18,9 +18,6 @@ from sample.tests.test_views import (
     route_questionnaire_new_step,
 )
 
-from nose.plugins.attrib import attr  # noqa
-# @attr('foo')
-
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
