@@ -42,6 +42,13 @@ class LoginView(FormView):
             return redirect(self.get_success_url())
         return super(LoginView, self).dispatch(*args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        # Add next_url to context to show notification in login form.
+        kwargs.update({
+            'next_url': self.request.GET.get('next'),
+        })
+        return kwargs
+
     def form_valid(self, form):
         # Put the user on the request, and add a welcome message.
         user = form.get_user()
