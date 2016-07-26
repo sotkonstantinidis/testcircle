@@ -64,8 +64,7 @@ class LinkTests(FunctionalTest):
         self.doLogin(user=user)
 
         # She goes to the SAMPLE questionnaire and sees the link
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        self.open_questionnaire_details('sample', identifier='sample_1')
         self.findBy(
             'xpath', '//a[contains(text(), "This is key 1a")]').click()
 
@@ -91,6 +90,7 @@ class LinkTests(FunctionalTest):
         links = self.findManyBy(
             'xpath', '//a[contains(text(), "This is the first key.")]')
         self.assertEqual(len(links), 1)
+        self.toggle_all_sections()
 
         # She goes to the SAMPLE questionnaire and sees only one version
         # is linked (the pending one)
@@ -120,6 +120,7 @@ class LinkTests(FunctionalTest):
         user = User.objects.get(pk=102)
         self.doLogin(user=user)
         self.browser.get(url)
+        self.toggle_all_sections()
         links = self.findManyBy(
             'xpath', '//a[contains(text(), "This is key 1a")]')
         self.assertEqual(len(links), 1)

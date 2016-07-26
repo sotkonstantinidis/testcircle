@@ -5,31 +5,11 @@
 
 {% block title %}SAMPLE{% endblock %}
 
-{% block bodyclass %}layout-sample{% endblock %}
+{% block bodyclass %}layout-tech is-sample{% endblock %}
 {% block navclass %}is-sample{% endblock %}
 
-{% block logo %}
-  <h1><a href="{% url 'sample:home' %}">{% trans "SAMPLE" %}</a></h1>
-{% endblock %}
-
 {% block header %}
-<form action="{% url 'sample:questionnaire_list' %}" method="GET" role="search" class="top-bar-search">
-  <div class="search-group">
-    <div class="search-input radius">
-      <input type="search" tabindex="1" name="q" placeholder="{% trans 'Search SLM data ...' %}">
-      <div class="search-btn postfix light">
-        <a href="#" id="submit-search"><svg class="icon"><use xlink:href="#icon-search"></use></svg></a>
-      </div>
-    </div>
-  </div>
-  <div class="search-option">
-    <a href="#" class="link" data-toggle="search-advanced">{% trans "Advanced filter" %}</a> | <a href="{% url 'sample:questionnaire_list' %}" class="link">{% trans "Show all Technologies" %}</a>
-  </div>
-</form>
-{% endblock %}
-
-{% block filter %}
-  {% include "filter.html" with list_route="sample:questionnaire_list" %}
+  {% include "wocat/partial/top.html" with current='sample' %}
 {% endblock %}
 
 {% block bottom %}

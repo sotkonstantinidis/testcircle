@@ -1145,7 +1145,7 @@ def generic_questionnaire_list(
             query_string = active_filter.get('value', '')
         elif filter_type in [
                 'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
-                'select_model']:
+                'select_model', 'radio', 'bool']:
             filter_params.append(
                 (active_filter.get('questiongroup'),
                  active_filter.get('key'), active_filter.get('value'), None,
