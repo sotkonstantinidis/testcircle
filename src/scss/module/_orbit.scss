@@ -5,7 +5,7 @@
 .orbit-caption {
   text-align:center;
 
-  @media #{$medium-up} {
+  @media #{$large-up} {
     min-height:192px;
   }
 }
@@ -21,6 +21,10 @@ p.orbit-caption-text {
     font-size: rem-calc(24);
   }
 
+  @media #{$medium-up} {
+    font-size: rem-calc(28);
+  }
+
   @media #{$large-up} {
     font-size: inherit;
   }
@@ -32,14 +36,21 @@ p.orbit-caption-text {
     font-size: rem-calc(16);
   }
 
+  @media #{$medium-up} {
+    font-size: rem-calc(20);
+  }
+
   @media #{$large-up} {
-    font-size: inherit;
+    font-size: rem-calc(28);
   }
 }
 .orbit-container .orbit-slides-container img {
   width:100%;
 }
 .orbit-container .orbit-slides-container>* .orbit-caption {
+  background-color: #dc7d35;
+  opacity: 0.8;
+
   @media #{$large-up} {
     bottom:63px;
   }
