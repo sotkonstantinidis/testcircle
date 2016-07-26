@@ -396,7 +396,7 @@ function updateList(queryParam) {
             $('.loading-indicator').hide();
         },
         error: function (data) {
-            alert('Something went wrong');
+            // alert('Something went wrong');
             $('.loading-indicator').hide();
         }
     });
