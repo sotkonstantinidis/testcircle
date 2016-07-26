@@ -9,3 +9,4 @@ create_questionnaire = django.dispatch.Signal(providing_args=["questionnaire", "
 delete_questionnaire = django.dispatch.Signal(providing_args=["questionnaire", "reviewer"])
 change_status = django.dispatch.Signal(providing_args=["questionnaire", "reviewer"])
 change_member = django.dispatch.Signal(providing_args=["questionnaire", "reviewer", "person", "role"])
+change_questionnaire_data = django.dispatch.Signal(providing_args=["questionnaire", "user"])

@@ -32,6 +32,7 @@ from configuration.utils import get_filter_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
+from questionnaire.signals import change_questionnaire_data
 from questionnaire.upload import (
     retrieve_file,
     UPLOAD_THUMBNAIL_CONTENT_TYPE,
@@ -441,8 +442,10 @@ class QuestionnaireSaveMixin(StepsMixin):
         else:
             return self.form_valid(data)
 
-    def form_valid(self, data):
-
+    def form_valid(self, data: dict):
+        """
+        Save the new questionnaire data and create a log for the change.
+        """
         diff_qgs = []
         # Recalculate difference between the two diffs
         if self.has_object:
@@ -462,6 +465,11 @@ class QuestionnaireSaveMixin(StepsMixin):
         self.save_questionnaire_links()
         questionnaire.unlock_questionnaire()
         messages.success(self.request, _('Data successfully saved.'))
+        change_questionnaire_data.send(
+            sender=settings.NOTIFICATIONS_EDIT_CONTENT,
+            questionnaire=questionnaire,
+            user=self.request.user
+        )
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self):

@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import Message
+from .models import Log
 
 
-@admin.register(Message)
+@admin.register(Log)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'action', 'created']
+    list_display = ['__str__', 'action', 'catalyst', 'created']
     list_filter = ['questionnaire']

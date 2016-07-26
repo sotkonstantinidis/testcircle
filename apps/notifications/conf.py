@@ -11,11 +11,13 @@ class NotificationsConf(AppConf):
     CHANGE_STATUS = 3
     ADD_MEMBER = 4
     REMOVE_MEMBER = 5
+    EDIT_CONTENT = 6
 
     ACTIONS = (
         (CREATE, _('created questionnaire')),
         (DELETE, _('deleted questionnaire')),
         (CHANGE_STATUS, _('changed status')),
         (ADD_MEMBER, _('added member')),
-        (REMOVE_MEMBER, _('removed member'))
+        (REMOVE_MEMBER, _('removed member')),
+        (EDIT_CONTENT, _('edited content'))
     )
