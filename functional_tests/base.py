@@ -19,6 +19,10 @@ from qcat.tests import TEST_CACHES
 from unittest.mock import patch
 from accounts.tests.test_models import create_new_user
 
+from sample.tests.test_views import route_questionnaire_details as \
+    route_questionnaire_details_sample
+
+
 loginRouteName = 'login'
 
 
@@ -235,6 +239,15 @@ class FunctionalTest(StaticLiveServerTestCase):
             return btn
         btn.click()
         self.rearrangeFormHeader()
+
+    def toggle_all_sections(self):
+        self.findBy('class_name', 'js-expand-all-sections').click()
+
+    def open_questionnaire_details(self, configuration, identifier=None):
+        route = route_questionnaire_details_sample
+        self.browser.get(self.live_server_url + reverse(
+            route, kwargs={'identifier': identifier}))
+        self.toggle_all_sections()
 
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)
