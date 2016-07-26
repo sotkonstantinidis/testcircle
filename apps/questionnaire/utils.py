@@ -639,7 +639,7 @@ def get_active_filters(questionnaire_configurations, query_dict):
 
         for filter_value in filter_values:
             value_label = next(
-                (v[1] for v in question.choices if v[0] == filter_value),
+                (v[1] for v in question.choices if str(v[0]) == filter_value),
                 filter_value)
 
             if question.field_type == 'select_model':

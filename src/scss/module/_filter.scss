@@ -47,3 +47,22 @@
   z-index: 20;
   background: url('/static/assets/img/ajax-loader.gif') 50% 25% no-repeat rgb(249,249,249)
 }
+
+.filter-measure {
+  .button-switch {
+    float: left;
+  }
+  .filter-measure-label {
+    padding-top: rem-calc(2);
+
+    span {
+      margin-left: rem-calc(8);
+
+    }
+  }
+}
+
+.filter-measure .button-switch input[type=radio]:checked+.button {
+  background: $color-beige;
+  color: #3e3b34;
+}

@@ -114,13 +114,32 @@ $(function () {
             p = addFilter(p, null, 'type', type_);
         }
 
-        // Checkboxes
-        $('#search-advanced input:checkbox').each(function () {
-            var $t = $(this);
-            if ($t.is(':checked')) {
-                p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
-            }
-        });
+        $('#search-advanced')
+
+            // Radio
+            .find('input:radio').each(function() {
+                var $t = $(this);
+                if ($t.is(':checked')) {
+                    p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
+                }
+            })
+
+            // Checkboxes
+            .find('input:checkbox').each(function() {
+                var $t = $(this);
+                if ($t.is(':checked')) {
+                    p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
+                }
+            })
+
+            // Search
+            .find('input[type=search]').each(function() {
+                var $t = $(this);
+                var val = $t.val();
+                if (val) {
+                    p = addFilter(p, null, 'q', val);
+                }
+            });
 
         // Sliders
         $('.nstSlider').each(function () {
@@ -145,15 +164,6 @@ $(function () {
             }
         });
 
-        // Search
-        $('#search-advanced input[type=search]').each(function() {
-            var $t = $(this);
-            var val = $t.val();
-            if (val) {
-                p = addFilter(p, null, 'q', val);
-            }
-        });
-
         var s = ['?', $.param(p, traditional = true)].join('');
         changeUrl(s);
         updateList(s);
@@ -165,6 +175,21 @@ $(function () {
         changeUrl(s);
         updateList(s);
         return false;
+    })
+
+    // Deselectable radio buttons
+    .on('click', '#search-advanced input:radio', function () {
+        var previousValue = $(this).attr('previousValue');
+        var name = $(this).attr('name');
+        var initiallyChecked = $(this).attr('checked');
+
+        if (previousValue == 'checked' || (!previousValue && initiallyChecked == 'checked')) {
+            $(this).removeAttr('checked');
+            $(this).attr('previousValue', false);
+        } else {
+            $("input[name=" + name + "]:radio").attr('previousValue', false);
+            $(this).attr('previousValue', 'checked');
+        }
     });
 
     // Slider
