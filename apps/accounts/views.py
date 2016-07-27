@@ -116,16 +116,18 @@ class ProfileView(LoginRequiredMixin, DetailView):
             limit=None, user=self.object
         )
 
-    def get_context_data(self, **kwargs):
+    def get_status_list(self) -> list:
         """
-        Additional template values:
-        - all (distinct) statuses that at least one questionnaire of the current user has
+        Fetch all (distinct) statuses that at least one questionnaire of the current user has
         """
-        context = super().get_context_data(**kwargs)
         questionnaires = self.get_questionnaires()
         statuses = questionnaires.order_by('status').distinct('status').values_list('status', flat=True)
         status_choices = dict(STATUSES)  # cast to dict for easier access.
-        context['statuses'] = {status: status_choices[status] for status in statuses}
+        return {status: status_choices[status] for status in statuses}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['statuses'] = self.get_status_list()
         return context
 
 
@@ -145,7 +147,7 @@ class QuestionnaireStatusListView(LoginRequiredMixin, ListView):
         """
         try:
             status = int(self.request.GET.get('status'))
-        except ValueError:
+        except (TypeError, ValueError):
             raise Http404()
 
         if status not in dict(STATUSES).keys():
