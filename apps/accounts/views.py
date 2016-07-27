@@ -150,7 +150,8 @@ class ProfileView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         questionnaires = self.get_questionnaires()
         statuses = questionnaires.order_by('status').distinct('status').values_list('status', flat=True)
-        context['statuses'] = [dict(STATUSES)[status] for status in statuses]
+        status_choices = dict(STATUSES)  # cast to dict for easier access.
+        context['statuses'] = {status: status_choices[status] for status in statuses}
         return context
 
 
