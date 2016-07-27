@@ -5,6 +5,8 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.http import Http404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
@@ -19,8 +21,9 @@ from django.views.generic import FormView
 
 from braces.views import LoginRequiredMixin
 from configuration.configuration import QuestionnaireConfiguration
+from django.views.generic import ListView
 from questionnaire.models import STATUSES
-from questionnaire.utils import query_questionnaires
+from questionnaire.utils import query_questionnaires, get_list_values
 from .client import typo3_client
 from .conf import settings
 from .forms import WocatAuthenticationForm
@@ -92,35 +95,6 @@ class LoginView(FormView):
         return redirect_to
 
 
-def logout(request):
-    """
-    Log the user out. The actual logout is handled by the authentication
-    backend as specified in the settings (``settings.AUTH_LOGIN_FORM``).
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    url = reverse('home')
-
-    django_logout(request)
-
-    ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
-    if ses_id is not None:
-        response = HttpResponseRedirect(
-            typo3_client.get_logout_url(request.build_absolute_uri(url))
-        )
-        # The cookie is not always removed on wocat.net
-        response.delete_cookie(settings.AUTH_COOKIE_NAME)
-    else:
-        response = HttpResponseRedirect(url)
-
-    response.delete_cookie(settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME)
-    return response
-
-
 class ProfileView(LoginRequiredMixin, DetailView):
     """
     Display the users questionnaires (and in future: notifications).
@@ -153,6 +127,80 @@ class ProfileView(LoginRequiredMixin, DetailView):
         status_choices = dict(STATUSES)  # cast to dict for easier access.
         context['statuses'] = {status: status_choices[status] for status in statuses}
         return context
+
+
+class QuestionnaireStatusListView(LoginRequiredMixin, ListView):
+    """
+    Display all questionnaires for the requested status.
+    Results are paginated, the paginator shows a specified (paginator_quicklink_range) number of pages before and after
+    the current page.
+    """
+
+    template_name = 'questionnaire_status_list.html'
+    paginate_by = 3
+
+    def get_status(self) -> int:
+        """
+        Validate status from request.
+        """
+        try:
+            status = int(self.request.GET.get('status'))
+        except ValueError:
+            raise Http404()
+
+        if status not in dict(STATUSES).keys():
+            raise Http404()
+
+        return status
+
+    def get_queryset(self):
+        """
+        Fetch all questionnaires from the current user with the requested status.
+        """
+        return query_questionnaires(
+            request=self.request, configuration_code='all', only_current=False, limit=None, user=self.request.user
+        ).filter(status=self.get_status())
+
+    def get_context_data(self, **kwargs) -> dict:
+        """
+        Provide context data in qcats default way.
+        Pagination happens in the parents get_context_data method.
+        """
+        context = super().get_context_data(**kwargs)
+        context['list_values'] = get_list_values(
+            questionnaire_objects=context['object_list'], status_filter=Q()
+        )
+        context['status'] = self.get_status()
+        return context
+
+
+def logout(request):
+    """
+    Log the user out. The actual logout is handled by the authentication
+    backend as specified in the settings (``settings.AUTH_LOGIN_FORM``).
+
+    Args:
+        ``request`` (django.http.HttpRequest): The request object.
+
+    Returns:
+        ``HttpResponse``. A rendered Http Response.
+    """
+    url = reverse('home')
+
+    django_logout(request)
+
+    ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
+    if ses_id is not None:
+        response = HttpResponseRedirect(
+            typo3_client.get_logout_url(request.build_absolute_uri(url))
+        )
+        # The cookie is not always removed on wocat.net
+        response.delete_cookie(settings.AUTH_COOKIE_NAME)
+    else:
+        response = HttpResponseRedirect(url)
+
+    response.delete_cookie(settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME)
+    return response
 
 
 def user_search(request):

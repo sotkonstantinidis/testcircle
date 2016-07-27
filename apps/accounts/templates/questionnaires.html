@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
+{% load compress %}
 {% load i18n %}
+{% load sekizai_tags %}
+{% load static %}
 
 {% block bodyclass %}layout-wocat{% endblock %}
 {% block navclass %}is-wocat{% endblock %}
@@ -19,11 +22,47 @@
         <section class="tech-list small-12 columns">
           <div class="tech-group">
             <h2 class="is-group">{{ name }}</h2>
-              <div id="questionnaire-list">
-                {{ status }}
+              <div id="questionnaire-list" data-status="{{ status }}">
+                <div id="status-{{ status }}" class="questionnaire-status-list"></div>
               </div>
             </div>
           </section>
         {% endfor %}
     </main>
+    {% addtoblock 'js' %}
+      {% compress js %}
+        <script>
+          $(document).ready(function() {
+
+            // helper to execute the ajax call and replace the container with the response.
+            var loadQuestionnaires = function(status, page) {
+              $.ajax({
+                url: '{% url 'questionnaires_status_list' %}?status=' + status + '&page=' + page,
+                method: 'GET'
+              }).done(function(data) {
+                $('#status-' + status).html(data);
+              });
+            };
+
+            // load data when initializing the dom. display a spinner, as this may require loading the configuration
+            // thus may take some time.
+            const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
+            $('[data-status]').each(function() {
+              var status = $(this).data('status');
+              $('#status-' + status).html(spinner);
+              loadQuestionnaires(status, 1);
+            });
+
+            // load data on click on paginator
+            $('.questionnaire-status-list').on('click', 'ul.pagination li a', function() {
+              var page = $(this).data('page');
+              if (page.length !== 0) {
+                loadQuestionnaires($(this).data('status'), page)
+              }
+              return false;
+            });
+          });
+        </script>
+      {% endcompress %}
+    {% endaddtoblock %}
 {% endblock %}

@@ -1,0 +1,17 @@
+{% comment %}
+  This wraps the default wocat list template and the pagination template for djangos default pagination.
+{% endcomment %}
+
+{% include 'wocat/questionnaire/partial/list.html' %}
+
+<div class="pagination-centered">
+  <ul class="pagination">
+    <li class="arrow{% if not page_obj.has_previous %} unavailable{% endif %}">
+      <a href="#" {% if page_obj.has_previous %}data-page="{{ page_obj.previous_page_number }}"{% endif %} data-status="{{ status }}">&laquo;</a>
+    </li>
+    <li>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</li>
+    <li class="arrow{% if not page_obj.has_next %} unavailable{% endif %}">
+      <a href="#" {% if page_obj.has_next %}data-page="{{ page_obj.next_page_number }}"{% endif %} data-status="{{ status }}">&raquo;</a>
+    </li>
+  </ul>
+</div>
