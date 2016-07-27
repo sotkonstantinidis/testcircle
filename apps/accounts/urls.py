@@ -4,8 +4,7 @@ app.
 """
 from django.conf.urls import patterns, url
 
-from .views import LoginView
-
+from .views import LoginView, ProfileView
 
 urlpatterns = patterns(
     '',
@@ -14,8 +13,5 @@ urlpatterns = patterns(
     url(r'^search/$', 'accounts.views.user_search', name='user_search'),
     url(r'^update/$', 'accounts.views.user_update', name='user_update'),
     url(r'^user/(?P<id>\d+)/$', 'accounts.views.details', name='user_details'),
-    url(r'^moderation$', 'accounts.views.moderation',
-        name='account_moderation'),
-    url(r'^user/(?P<user_id>[0-9]+)/questionnaires/$',
-        'accounts.views.questionnaires', name='account_questionnaires'),
+    url(r'^questionnaires/$', ProfileView.as_view(), name='account_questionnaires'),
 )

@@ -6,7 +6,7 @@ from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Q
 from django.http import (
     Http404,
@@ -1318,6 +1318,7 @@ class QuestionnaireDeleteView(DeleteView):
     model = Questionnaire
     slug_field = 'code'
     slug_url_kwarg = 'identifier'
+    success_url = reverse_lazy('account_questionnaires')
 
     def delete(self, request, *args, **kwargs):
         """
@@ -1331,11 +1332,3 @@ class QuestionnaireDeleteView(DeleteView):
         self.object.is_deleted=True
         self.object.save()
         return HttpResponseRedirect(success_url)
-
-    def get_success_url(self):
-        """
-        Go to the users list of slm data in case of success.
-        """
-        return reverse(
-            'account_questionnaires', kwargs={'user_id': self.request.user.id}
-        )

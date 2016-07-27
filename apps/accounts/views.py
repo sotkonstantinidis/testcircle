@@ -4,7 +4,6 @@ from django.contrib.auth import (
     login as django_login,
 )
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
@@ -15,13 +14,15 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
+from django.views.generic import DetailView
 from django.views.generic import FormView
 
+from braces.views import LoginRequiredMixin
 from configuration.configuration import QuestionnaireConfiguration
-from questionnaire.views import generic_questionnaire_list_no_config
+from questionnaire.models import STATUSES
+from questionnaire.utils import query_questionnaires
 from .client import typo3_client
 from .conf import settings
-from .decorators import force_login_check
 from .forms import WocatAuthenticationForm
 from .models import User
 
@@ -120,44 +121,37 @@ def logout(request):
     return response
 
 
-def questionnaires(request, user_id):
+class ProfileView(LoginRequiredMixin, DetailView):
     """
-    View to show the Questionnaires of a user.
+    Display the users questionnaires (and in future: notifications).
 
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
+    Questionnaires are loaded from the template (asynchronously).
     """
-    user = get_object_or_404(User, pk=user_id)
+    template_name = 'questionnaires.html'
 
-    list_template_values = generic_questionnaire_list_no_config(
-        request, user=user)
+    def get_object(self, queryset=None):
+        return self.request.user
 
-    return render(request, 'questionnaires.html', list_template_values)
+    def get_questionnaires(self):
+        """
+        Fetch questionnaires for current user.
+        """
+        # discuss: everything with moderation mode and such is omitted!
+        return query_questionnaires(
+            request=self.request, configuration_code='all', only_current=False,
+            limit=None, user=self.object
+        )
 
-
-@login_required
-@force_login_check
-def moderation(request):
-    """
-    View to show only pending Questionnaires to a moderator. Moderation
-    permission (``review_questionnaire``) is needed for this view.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    if request.user.has_perm('questionnaire.review_questionnaire') is False:
-        raise PermissionDenied()
-
-    list_template_values = generic_questionnaire_list_no_config(
-        request, moderation_mode='review')
-
-    return render(request, 'questionnaires.html', list_template_values)
+    def get_context_data(self, **kwargs):
+        """
+        Additional template values:
+        - all (distinct) statuses that at least one questionnaire of the current user has
+        """
+        context = super().get_context_data(**kwargs)
+        questionnaires = self.get_questionnaires()
+        statuses = questionnaires.order_by('status').distinct('status').values_list('status', flat=True)
+        context['statuses'] = [dict(STATUSES)[status] for status in statuses]
+        return context
 
 
 def user_search(request):
