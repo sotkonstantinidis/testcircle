@@ -10,13 +10,10 @@
 
 {% block content %}
     <main class="row" role="main">
-      <div class="row">
-        <div class="small-10 columns">
-          <h1 class="is-title">{% trans "My SLM data" %}</h1>
-        </div>
-        <div class="small-2 columns">
-          <a href="{% url 'wocat:add' %}" class="button large expand">{% trans "Add SLM data" %}</a>
-        </div>
+      <div class="small-12 columns">
+        <h1 class="is-title">{% trans "My SLM data" %}
+          <a href="{% url 'wocat:add' %}" class="button large right">{% trans "Add SLM data" %}</a>
+        </h1>
       </div>
       {% for status, name in statuses.items %}
         <section class="tech-list small-12 columns">

@@ -110,7 +110,6 @@ class ProfileView(LoginRequiredMixin, DetailView):
         """
         Fetch questionnaires for current user.
         """
-        # discuss: everything with moderation mode and such is omitted!
         return query_questionnaires(
             request=self.request, configuration_code='all', only_current=False,
             limit=None, user=self.object
