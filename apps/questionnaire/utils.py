@@ -845,7 +845,7 @@ def query_questionnaires(
     return query
 
 
-def get_query_status_filter(request, moderation_mode=''):
+def get_query_status_filter(request):
     """
     Creates a filter object based on the statuses of the Questionnaires,
     to be used for database queries.
@@ -864,18 +864,6 @@ def get_query_status_filter(request, moderation_mode=''):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
-    Kwargs:
-        ``moderation_mode`` (string): Can be used for special status
-        filters needed by moderators. Possible values can be:
-
-          * ``review``: Showing only submitted questionnaires
-
-          * ``publish``: Showing only reviewed questionnaires.
-
-        This is only meaningful if the user actually has the correct
-        permissions (``questionnaire.review_questionnaire`` or
-        ``questionnaire.publish_questionnaire``).
-
     Returns:
         ``django.db.models.Q``. A Django filter object.
     """
@@ -887,23 +875,11 @@ def get_query_status_filter(request, moderation_mode=''):
 
         # Reviewers see all Questionnaires with status "submitted".
         if 'questionnaire.review_questionnaire' in permissions:
-
-            if moderation_mode == '' or not moderation_mode != 'review':
-                status_filter |= Q(
-                    status__in=[settings.QUESTIONNAIRE_SUBMITTED]
-                )
-
-            if moderation_mode == 'review':
-                return status_filter
+                status_filter |= Q(status__in=[settings.QUESTIONNAIRE_SUBMITTED])
 
         # Publishers see all Questionnaires with status "reviewed".
         if 'questionnaire.publish_questionnaire' in permissions:
-
-            if moderation_mode == '' or not moderation_mode != 'publish':
-                status_filter |= Q(status__in=[settings.QUESTIONNAIRE_REVIEWED])
-
-            if moderation_mode == 'publish':
-                return status_filter
+            status_filter |= Q(status__in=[settings.QUESTIONNAIRE_REVIEWED])
 
         # Users see Questionnaires with status "draft", "submitted" and
         # "reviewed" if they are "compiler" or "editor".

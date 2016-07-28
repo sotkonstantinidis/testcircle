@@ -89,125 +89,137 @@ class UserTest(FunctionalTest):
         self.clickUserMenu(user_alice)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
-            'contains(@href, "accounts/user/101/questionnaires")]').click()
+            'contains(@href, "accounts/questionnaires")]').click()
 
         # She sees here Questionnaires are listed, even those with
         # status draft or submitted
+        self.wait_for(
+            'xpath', '//img[@src="/static/assets/img/ajax-loader.gif"]',
+            visibility=False)
+
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 7)
+        self.assertEqual(len(list_entries), 6)
+
+        # The questionnaires are grouped by status
+        # Draft
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[1]'
+                             '/h2[text()="Draft"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 1")]')
+
+        # Submitted
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[2]'
+                             '/h2[text()="Submitted"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 8")]')
+
+        # Reviewed
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[3]'
+                             '/h2[text()="Reviewed"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+                     'contains(text(), "Foo 7")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
+                     'contains(text(), "Foo 9")]')
+
+        # Public
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[4]'
+                             '/h2[text()="Public"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[5]//a['
             'contains(text(), "Foo 3")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
-            'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[6]//a['
             'contains(text(), "Foo 5")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[5]//h1/a['
-            'contains(text(), "Foo 7")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[6]//h1/a['
-            'contains(text(), "Foo 8")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[7]//h1/a['
-            'contains(text(), "Foo 9")]')
 
-        # She sees a customized title of the list
-        self.findBy('xpath', '//h2[contains(text(), "Your SLM practices")]')
-        self.findByNot(
-            'xpath', '//h2[contains(text(), "SLM practices by Foo Bar")]')
+        # # She goes to the questionnaire page of Bob and sees the
+        # # Questionnaires of Bob but only the "public" ones.
+        # self.browser.get(self.live_server_url + reverse(
+        #     accounts_route_questionnaires, kwargs={'user_id': 102}))
+        # list_entries = self.findManyBy(
+        #     'xpath', '//article[contains(@class, "tech-item")]')
+        # self.assertEqual(len(list_entries), 2)
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+        #     'contains(text(), "Foo 3")]')
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+        #     'contains(text(), "Foo 8")]')
 
-        # She goes to the questionnaire page of Bob and sees the
-        # Questionnaires of Bob but only the "public" ones.
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 102}))
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 3")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 8")]')
-
-        # She logs out and sees the link in the menu is no longer visible.
-        self.doLogout()
-        self.findByNot(
-            'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
-            'contains(@href, "accounts/101/questionnaires")]')
-
-        # On her Questionnaire page only the "public" Questionnaires are
-        # visible.
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 101}))
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 3")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 5")]')
+        # # She logs out and sees the link in the menu is no longer visible.
+        # self.doLogout()
+        # self.findByNot(
+        #     'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
+        #     'contains(@href, "accounts/101/questionnaires")]')
+        #
+        # # On her Questionnaire page only the "public" Questionnaires are
+        # # visible.
+        # self.browser.get(self.live_server_url + reverse(
+        #     accounts_route_questionnaires, kwargs={'user_id': 101}))
+        # list_entries = self.findManyBy(
+        #     'xpath', '//article[contains(@class, "tech-item")]')
+        # self.assertEqual(len(list_entries), 2)
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+        #     'contains(text(), "Foo 3")]')
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+        #     'contains(text(), "Foo 5")]')
 
         # Bob logs in and goes to his Questionnaire page. He sees all
         # versions of his Questionnaires.
         self.doLogin(user=user_bob)
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 102}))
+        self.clickUserMenu(user_bob)
+        self.findBy(
+            'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
+                     'contains(@href, "accounts/questionnaires")]').click()
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
+        self.assertEqual(len(list_entries), 2)
+
+        # The questionnaires are grouped by status
+
+        # Submitted
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[1]'
+                             '/h2[text()="Submitted"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 2")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 3")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 8")]')
 
-        # He goes to the Questionnaire page of Alice and only sees the
-        # "public" Questionnaires.
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 101}))
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 3")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 5")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
-            'contains(text(), "Foo 8")]')
+        # # He goes to the Questionnaire page of Alice and only sees the
+        # # "public" Questionnaires.
+        # self.browser.get(self.live_server_url + reverse(
+        #     accounts_route_questionnaires, kwargs={'user_id': 101}))
+        # list_entries = self.findManyBy(
+        #     'xpath', '//article[contains(@class, "tech-item")]')
+        # self.assertEqual(len(list_entries), 3)
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+        #     'contains(text(), "Foo 3")]')
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+        #     'contains(text(), "Foo 5")]')
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+        #     'contains(text(), "Foo 8")]')
 
-        # He sees that the customized title of the list now changed.
-        self.findByNot(
-            'xpath', '//h2[contains(text(), "Your SLM practices")]')
-        self.findBy(
-            'xpath', '//h2[contains(text(), "SLM practices by Foo Bar")]')
-
-        # He goes to the Questionnaire page of Chris and sees no
-        # "public" Questionnaires with an appropriate message.
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 103}))
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 0)
-        self.findBy(
-            'xpath', '//p[@class="questionnaire-list-empty" and contains('
-            'text(), "No WOCAT and UNCCD SLM practices found.")]')
+        # # He goes to the Questionnaire page of Chris and sees no
+        # # "public" Questionnaires with an appropriate message.
+        # self.browser.get(self.live_server_url + reverse(
+        #     accounts_route_questionnaires, kwargs={'user_id': 103}))
+        # list_entries = self.findManyBy(
+        #     'xpath', '//article[contains(@class, "tech-item")]')
+        # self.assertEqual(len(list_entries), 0)
+        # self.findBy(
+        #     'xpath', '//p[@class="questionnaire-list-empty" and contains('
+        #     'text(), "No WOCAT and UNCCD SLM practices found.")]')
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -839,12 +851,12 @@ class UserTest3(FunctionalTest):
         self.clickUserMenu(user)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
-            'contains(@href, "accounts/user/1/questionnaires")]').click()
+                     'contains(@href, "accounts/questionnaires")]').click()
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 1")]')
 
         # She submits, reviews and publishes the questionnaire
@@ -857,13 +869,13 @@ class UserTest3(FunctionalTest):
         self.clickUserMenu(user)
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
-            'contains(@href, "accounts/user/1/questionnaires")]').click()
+                     'contains(@href, "accounts/questionnaires")]').click()
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 1")]')
 
 
