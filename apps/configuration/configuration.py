@@ -2338,6 +2338,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if question_keyword:
             for x in questionnaire_data.get(questiongroup_keyword, []):
                 return x.get(question_keyword)
+        # fixme: what should happen in case no name is set? as of now, "{'en': 'Unknown name'}" is displayed, which is
+        # fixme: ugly, but should not happen, as the name is validated by the publishers.
         return {'en': _('Unknown name')}
 
     def get_questionnaire_geometry(self, questionnaire_data):

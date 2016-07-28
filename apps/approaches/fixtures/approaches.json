@@ -34,6 +34,9 @@
         "approaches": {
           "label": {
             "en": "What stakeholders / implementing bodies were involved in the Approach?"
+          },
+          "label_view": {
+            "en": "Involved stakeholders"
           }
         }
       }
@@ -10417,7 +10420,8 @@
                             },
                             "view_options": {
                               "template": "raw",
-                              "with_raw_values": true
+                              "with_raw_values": true,
+                              "filter": true
                             }
                           }
                         ]
@@ -10885,6 +10889,9 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_19"
                               ]
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           }
                         ]
@@ -10952,6 +10959,9 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_21"
                               ]
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           }
                         ]
@@ -10997,6 +11007,9 @@
                               "questiongroup_conditions": [
                                 "!='app_institutions_no'|app_qg_23"
                               ]
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           }
                         ]
@@ -11058,6 +11071,9 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_118"
                               ]
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           },
                           {
@@ -11096,6 +11112,9 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_120"
                               ]
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           }
                         ]

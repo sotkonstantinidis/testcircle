@@ -34,7 +34,7 @@ ENVIRONMENTS = {
         'host_string': settings.HOST_STRING_LIVE,
         'opbeat_url': settings.OPBEAT_URL_LIVE,
         'opbeat_bearer': settings.OPBEAT_BEARER_LIVE,
-        'url': 'https://qcat.wocat.net/{}/wocat/',
+        'url': 'https://qcat.wocat.net/{}/wocat/list/?type=all',
     },
     'common': {
         'project_name': 'qcat',

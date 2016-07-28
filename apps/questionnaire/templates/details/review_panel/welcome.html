@@ -12,6 +12,13 @@
       {% url 'wocat:help_questionnaire_introduction' as intro_url %}
       {% blocktrans with start_tour_link="<a class='link' href='#' onclick='return startIntro();'>" end_link="</a>" %}If this is the first time you are using the data entry form {{ start_tour_link }}please visit the help tour{{ end_link }} and <a href="{{ intro_url }}" class="link">read the introduction to the questionnaire{{ end_link }}.{% endblocktrans %}
     </p>
+    <p>
+    {% if review_config.data_type == 'approaches' %}
+      {% blocktrans with start_link='<a href="#" target="_blank" class="link">' endlink='</a>' %}A PDF version of the paper questionnaire can be {{ start_link }}downloaded here{{ end_link }}.{% endblocktrans %}
+    {% else %}
+      {% blocktrans with start_link='<a href="#" target="_blank" class="link">' endlink='</a>' %}A PDF version of the paper questionnaire can be {{ start_link }}downloaded here{{ end_link }}.{% endblocktrans %}
+    {% endif %}
+    </p>
     {% comment %}
       Deactivated list of questionnaires with status draft from current user during unccd testing, as requested by
       Isabelle.

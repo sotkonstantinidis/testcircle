@@ -62,7 +62,9 @@
     </div>
     <div id="search-advanced-options" class="search-advanced-options hide">
       <div class="row large-no-gutters">
-        {% include 'wocat/partial/advanced_filter.html' %}
+        <div class="columns small-12">
+          {% include 'wocat/partial/advanced_filter.html' %}
+        </div>
       </div>
     </div>
     <div id="active-filters" class="search-filters">
@@ -71,6 +73,7 @@
   </form>
 
   <main class="row large-collapse is-padded-2" role="main">
+    <div class="loading-indicator hide"></div>
     {% comment %}
       TODO: COP12
     {% endcomment %}

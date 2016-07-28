@@ -24,19 +24,26 @@ class QuestionnaireTest(FunctionalTest):
         # Alice logs in
         self.doLogin()
 
-        # She goes to the technologies app
+        # She goes to the landing page
         self.browser.get(self.live_server_url + reverse(route_home))
 
-        # She sees a link to enter a new questionnaire and clicks it
+        # She clicks "Add SLM data" in the top menu
+        self.findBy('xpath', '//section[contains(@class, "top-bar-section")]//'
+                             'a[contains(@href, "/wocat/add")]').click()
+
+        # She is taken to a page where she can select what to add. She wants to
+        # add SLM Practices
+        self.findBy('xpath', '//div[contains(@class, "card")]//'
+                             'a[contains(@href, "/add/practice")]').click()
+
+        # She is taken to a page where she can click "add new Tech"
         self.findBy(
-            'xpath',
-            '//a[contains(@href, "/technologies/edit/") and '
-            'contains(@class, "button")]'
-        ).click()
+            'xpath', '//div[contains(@class, "card")]//a[contains('
+                     '@href, "/technologies/edit/new")]').click()
 
         # She is taken to the form and sees the steps
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="tech-section-progress progress"]')
+            'xpath', '//div[@class="tech-section-progress"]')
 
         self.assertEqual(len(progress_indicators), get_category_count())
 
@@ -57,5 +64,5 @@ class QuestionnaireTest(FunctionalTest):
 
         self.findBy('id', 'button-submit').click()
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="tech-section-progress progress"]')
+            'xpath', '//div[@class="tech-section-progress"]')
         self.assertEqual(len(progress_indicators), get_category_count())
