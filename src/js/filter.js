@@ -114,32 +114,33 @@ $(function () {
             p = addFilter(p, null, 'type', type_);
         }
 
-        $('#search-advanced')
+        var search_div = $('#search-advanced');
 
-            // Radio
-            .find('input:radio').each(function() {
-                var $t = $(this);
-                if ($t.is(':checked')) {
-                    p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
-                }
-            })
+        // Radio
+        search_div.find('input:radio').each(function() {
+            var $t = $(this);
+            if ($t.is(':checked')) {
+                p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
+            }
+        });
 
-            // Checkboxes
-            .find('input:checkbox').each(function() {
-                var $t = $(this);
-                if ($t.is(':checked')) {
-                    p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
-                }
-            })
+        // Checkboxes
+        search_div.find('input:checkbox').each(function() {
+            var $t = $(this);
+            if ($t.is(':checked')) {
+                p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
+            }
+        });
 
-            // Search
-            .find('input[type=search]').each(function() {
-                var $t = $(this);
-                var val = $t.val();
-                if (val) {
-                    p = addFilter(p, null, 'q', val);
-                }
-            });
+        // Search
+        search_div.find('input[type=search]').each(function() {
+            var $t = $(this);
+            var val = $t.val();
+            if (val) {
+                p = addFilter(p, null, 'q', val);
+                $t.val('');
+            }
+        });
 
         // Sliders
         $('.nstSlider').each(function () {
@@ -396,7 +397,7 @@ function updateList(queryParam) {
             $('.loading-indicator').hide();
         },
         error: function (data) {
-            alert('Something went wrong');
+            // alert('Something went wrong');
             $('.loading-indicator').hide();
         }
     });

@@ -46,5 +46,20 @@
         <li><time datetime="{{ item.created|date:"c" }}" pubdate="pubdate">{{ item.created|date:"SHORT_DATETIME_FORMAT"|default:"&ndash;" }}</time></li>
       </ul>
     </main>
+    <footer class="tech-item-footer">
+
+      {# Translations #}
+      {% if item.translations %}
+        <ul class="left tech-lang-list sub-nav-square">
+          {% for translation in item.translations %}
+            <li>
+              {% language translation.0 %}
+                <a href="{% url 'technologies:questionnaire_details' item.code %}" class="is-tech" title="{% trans "This SLM practice is also available in:" %} {% trans translation.1 %}" data-tooltip="">{{ translation.0 }}</a>
+              {% endlanguage %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </footer>
   </div>
 </article>

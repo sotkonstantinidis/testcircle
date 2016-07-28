@@ -10,7 +10,7 @@
         <h1 class="is-title">{% trans "Login" %}</h1>
 
         {% if next_url %}
-          <div class="alert-box info is-rhythmed-2">{% trans "Please log in to access" %} {{ next_url }}</div>
+          <div class="alert-box info is-rhythmed-2">{% trans "Please log in to access this page." %}</div>
         {% endif %}
 
         <form action="{{ login_url }}" method="post">

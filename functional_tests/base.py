@@ -249,6 +249,11 @@ class FunctionalTest(StaticLiveServerTestCase):
             route, kwargs={'identifier': identifier}))
         self.toggle_all_sections()
 
+    def apply_filter(self):
+        self.findBy(
+            'xpath', '//input[contains(@class, "search-submit")]').click()
+        self.wait_for('class_name', 'loading-indicator', visibility=False)
+
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)
         WebDriverWait(self.browser, 10).until(
