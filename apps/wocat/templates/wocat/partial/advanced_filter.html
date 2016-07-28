@@ -388,25 +388,25 @@
                           </div>
                         </li>
                       {% endwith %}
-                      {% with filter=section.filters.app_institutions %}
-                        <li>
-                          <div class="filter-measure">
-                            <ul class="button-switch radius">
-                              {% for value in filter.values %}
-                                <li>
-                                  <input type="radio" id="{{ filter.keyword }}_{{ value.0 }}" name="{{ filter.keyword }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
-                                  <label for="{{ filter.keyword }}_{{ value.0 }}" class="button small secondary">
-                                    <span>{{ value.1 }}</span>
-                                  </label>
-                                </li>
-                              {% endfor %}
-                            </ul>
-                            <label class="filter-measure-label">
-                              <span>{{ filter.label }}</span>
-                            </label>
-                          </div>
-                        </li>
-                      {% endwith %}
+{#                      {% with filter=section.filters.app_institutions %}#}
+{#                        <li>#}
+{#                          <div class="filter-measure">#}
+{#                            <ul class="button-switch radius">#}
+{#                              {% for value in filter.values %}#}
+{#                                <li>#}
+{#                                  <input type="radio" id="{{ filter.keyword }}_{{ value.0 }}" name="{{ filter.keyword }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">#}
+{#                                  <label for="{{ filter.keyword }}_{{ value.0 }}" class="button small secondary">#}
+{#                                    <span>{{ value.1 }}</span>#}
+{#                                  </label>#}
+{#                                </li>#}
+{#                              {% endfor %}#}
+{#                            </ul>#}
+{#                            <label class="filter-measure-label">#}
+{#                              <span>{{ filter.label }}</span>#}
+{#                            </label>#}
+{#                          </div>#}
+{#                        </li>#}
+{#                      {% endwith %}#}
                       {% with filter=section.filters.app_monitoring %}
                         <li>
                           <div class="filter-measure">

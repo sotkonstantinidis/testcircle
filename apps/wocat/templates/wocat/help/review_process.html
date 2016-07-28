@@ -14,18 +14,18 @@
         {% trans "Review process" %}
       </h1>
 
-      <h3 class="help-subtitle">
+      <h2 class="is-group">
         {% trans "Process" %}
-      </h3>
+      </h2>
       {% with small_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'.png' %}
         <a class="th" role="button" aria-label="{% trans "Review process" %}" href="{% static large_url %}">
           <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
         </a>
       {% endwith %}
 
-      <h3 class="help-subtitle">
+      <h2 class="is-group">
         {% trans "Roles" %}
-      </h3>
+      </h2>
       {% include 'wocat/help/questionnaire_roles.html' %}
 
     </section>
