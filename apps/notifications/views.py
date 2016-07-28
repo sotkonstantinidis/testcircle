@@ -1,6 +1,8 @@
 from typing import Iterable
 
+from django.db.models import Q
 from django.views.generic import ListView
+from django.conf import settings
 
 from braces.views import LoginRequiredMixin
 
@@ -13,6 +15,7 @@ class LogListView(LoginRequiredMixin, ListView):
     """
     template_name = 'notifications/log_list.html'
     context_object_name = 'logs'
+    is_teaser = None
 
     def add_user_aware_data(self, logs: list) -> Iterable:
         """
@@ -29,5 +32,9 @@ class LogListView(LoginRequiredMixin, ListView):
         """
         Fetch notifications for the current user.
         """
-        # .filter(subscribers=self.request.user)
-        return self.add_user_aware_data(logs=Log.actions.my_profile())
+        logs = Log.actions.my_profile().filter(
+            Q(subscribers=self.request.user) | Q(catalyst=self.request.user)
+        )
+        if self.is_teaser:
+            logs = logs[:settings.NOTIFICATIONS_TEASER_SLICE]
+        return self.add_user_aware_data(logs=logs)

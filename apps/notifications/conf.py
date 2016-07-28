@@ -27,3 +27,5 @@ class NotificationsConf(AppConf):
 
     # All actions that should trigger an email
     EMAIL_ACTIONS = [CHANGE_STATUS]
+
+    TEASER_SLICE = 5
