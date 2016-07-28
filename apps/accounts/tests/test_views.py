@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test.client import RequestFactory
 from qcat.tests import TestCase
+from questionnaire.models import Questionnaire
 
 from ..forms import WocatAuthenticationForm
 from ..tests.test_models import create_new_user
@@ -110,6 +111,14 @@ class ProfileViewTest(TestCase):
         self.request.user = self.user
         self.view = self.setup_view(view, self.request)
 
+    def create_questionnaire(self, status, user=None):
+        Questionnaire.create_new(
+            configuration_code='sample',
+            data={'foo': 'bar'},
+            user=user or self.user,
+            status=status
+        )
+
     def test_renders_correct_template(self):
         self.assertEqual(self.view.get_template_names(), ['questionnaires.html'])
 
@@ -117,25 +126,37 @@ class ProfileViewTest(TestCase):
     def test_get_questionnaires(self, mock_query_questionnaires):
         self.view.get(self.request)
         mock_query_questionnaires.assert_called_once_with(
-            configuration_code='all', limit=None, only_current=False, request=self.request, user=self.user
+            configuration_code='all', limit=None, only_current=False, request=self.request
         )
 
     def test_user_required(self):
         self.assertTrue(issubclass(ProfileView, LoginRequiredMixin))
 
-    def test_get_empty_status_list(self):
-        self.view.object = self.user
-        empty_status_list = self.view.get_status_list()
-        self.assertDictEqual(empty_status_list, {})
-
-    def test_get_status_list(self):
-        self.view.object = User.objects.get(id=101)
+    def test_get_status_list_only_public(self):
         status_list = self.view.get_status_list()
         self.assertDictEqual(status_list, {4: 'Public'})
 
+    def test_get_status_list_own_questionnaire(self):
+        self.create_questionnaire(2)
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {2: 'Submitted', 4: 'Public'})
+
+    def test_get_status_list_other_questionnaire(self):
+        self.create_questionnaire(3, user=create_new_user(id=2, email='c@d.com'))
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {4: 'Public'})
+
+    def test_get_status_list_other_questionnaire_with_permissions(self):
+        self.create_questionnaire(3, user=create_new_user(id=3, email='d@e.com'))
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {4: 'Public'})
+        # add permission group, pseudo wocat-secretariat.
+        self.request.user.get_all_permissions = lambda : ['questionnaire.publish_questionnaire']
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {3: 'Reviewed', 4: 'Public'})
+
 
 class QuestionnaireStatusListViewTest(TestCase):
-    # fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -172,11 +193,15 @@ class QuestionnaireStatusListViewTest(TestCase):
     def test_get_queryset(self, mock_query_questionnaires):
         self.valid_request.user = self.user
         view = self.setup_view(QuestionnaireStatusListView(), self.valid_request)
+        view.status = settings.QUESTIONNAIRE_PUBLIC
         view.get_queryset()
 
         mock_query_questionnaires.assert_called_once_with(
             configuration_code='all', limit=None, only_current=False, request=self.valid_request, user=self.user
         )
+
+    def test_get_filter_user(self):
+        pass
 
     @patch('accounts.views.get_list_values')
     def test_get_context_data(self, mock_get_list_values):
