@@ -110,10 +110,7 @@ class ProfileView(LoginRequiredMixin, DetailView):
         """
         Fetch questionnaires for current user.
         """
-        return query_questionnaires(
-            request=self.request, configuration_code='all', only_current=False,
-            limit=None, user=self.object
-        )
+        return query_questionnaires(request=self.request, configuration_code='all', only_current=False, limit=None)
 
     def get_status_list(self) -> list:
         """
@@ -140,6 +137,10 @@ class QuestionnaireStatusListView(LoginRequiredMixin, ListView):
     template_name = 'questionnaire_status_list.html'
     paginate_by = 3
 
+    def get(self, request, *args, **kwargs):
+        self.status = self.get_status()
+        return super().get(request, *args, **kwargs)
+
     def get_status(self) -> int:
         """
         Validate status from request.
@@ -159,19 +160,29 @@ class QuestionnaireStatusListView(LoginRequiredMixin, ListView):
         Fetch all questionnaires from the current user with the requested status.
         """
         return query_questionnaires(
-            request=self.request, configuration_code='all', only_current=False, limit=None, user=self.request.user
-        ).filter(status=self.get_status())
+            request=self.request, configuration_code='all', only_current=False, limit=None, **self.get_filter_user()
+        ).filter(
+            status=self.status
+        )
+
+    def get_filter_user(self):
+        """
+        If no user is set, questionnaires are fetched according to permissions. This is the specified behaviour for all
+        statuses (except 'public'), as questionnaires that require some kind of action should be listed.
+
+        For published questionnaires, only the questionnaires that the user has worked on must be shown - so the user,
+        not the permissions (roles) are important.
+        """
+        return {'user': self.request.user if self.status is settings.QUESTIONNAIRE_PUBLIC else None}
 
     def get_context_data(self, **kwargs) -> dict:
         """
-        Provide context data in qcats default way.
-        Pagination happens in the parents get_context_data method.
+        Provide context data in qcats default way. Pagination happens in the parents get_context_data method.
         """
         context = super().get_context_data(**kwargs)
         context['list_values'] = get_list_values(
             questionnaire_objects=context['object_list'], status_filter=Q()
         )
-        context['status'] = self.get_status()
         return context
 
 
