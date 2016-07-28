@@ -5,9 +5,6 @@ from unittest.mock import patch
 from accounts.client import Typo3Client
 from accounts.models import User
 from functional_tests.base import FunctionalTest
-from sample.tests.test_views import (
-    route_questionnaire_details,
-)
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
@@ -64,8 +61,7 @@ class LinkTests(FunctionalTest):
         self.doLogin(user=user)
 
         # She goes to the SAMPLE questionnaire and sees the link
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        self.open_questionnaire_details('sample', identifier='sample_1')
         self.findBy(
             'xpath', '//a[contains(text(), "This is key 1a")]').click()
 
@@ -91,6 +87,7 @@ class LinkTests(FunctionalTest):
         links = self.findManyBy(
             'xpath', '//a[contains(text(), "This is the first key.")]')
         self.assertEqual(len(links), 1)
+        self.toggle_all_sections()
 
         # She goes to the SAMPLE questionnaire and sees only one version
         # is linked (the pending one)
@@ -120,8 +117,28 @@ class LinkTests(FunctionalTest):
         user = User.objects.get(pk=102)
         self.doLogin(user=user)
         self.browser.get(url)
+        self.toggle_all_sections()
         links = self.findManyBy(
             'xpath', '//a[contains(text(), "This is key 1a")]')
         self.assertEqual(len(links), 1)
         self.findByNot(
             'xpath', '//a[contains(text(), "This is key 1a (changed)")]')
+
+    # def test_show_correct_link_count_in_list(self, mock_get_user_id):
+    #
+    #     # This is to test a bugfix where the number of links in the list view
+    #     # increased with each status change (resulting in 3 links for a public
+    #     # questionnaire)
+    #
+    #     # Alice goes to the list view of SAMPLE and sees the questionnaire with
+    #     # a linked SAMPLEMULTI questionnaire. It shows only one link.
+    #     self.browser.get(self.live_server_url + reverse(
+    #         route_questionnaire_list))
+    #
+    #     list_entries = self.findManyBy(
+    #         'xpath', '//article[contains(@class, "tech-item")]')
+    #     self.assertEqual(len(list_entries), 2)
+    #
+    #     linked_questionnaires = self.findBy(
+    #         'xpath', '//article[2]//ul[contains(@class, "tech-attached")]')
+    #     self.assertEqual(linked_questionnaires.text, '1')

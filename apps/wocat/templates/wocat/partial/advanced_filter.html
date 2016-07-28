@@ -252,50 +252,207 @@
     </a>
     <div aria-labelledby="approaches-heading" role="tabpanel" class="content" id="approaches-filter">
       <ul role="tablist" data-accordion="" class="accordion is-dark">
-        {% for section in filter_configuration.approaches %}
+
+        {# 2. Description of the SLM Approach #}
+        {% with section=filter_configuration.approaches.app__2 %}
           <li class="accordion-navigation">
             <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}-filter">
               <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
               {{ section.label }}
             </a>
             <div aria-labelledby="{{ section.keyword }}-heading" role="tabpanel" class="content" id="{{ section.keyword }}-filter">
-              {% for filter in section.filters %}
-                {% if filter.type == 'image_checkbox' %}
-                  <h5>{{ filter.label }}</h5>
-                  <ul class="list-gallery small-block-grid-1 medium-block-grid-2">
-                    {% for value in filter.values %}
-                      <li>
-                        <div class="list-gallery-item">
-                          <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
-                          <label for="{{ filter.keyword }}_{{ value.0 }}">
-                            {{ value.1 }}
-                            <figure class="list-gallery-icon">
-                              <img alt="{{ value.1 }}" src="{% static filter.images|get_by_index:forloop.counter0 %}">
-                            </figure>
-                          </label>
-                        </div>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% elif filter.type == 'checkbox' %}
-                  <h5>{{ filter.label }}</h5>
-                  <ul class="list-gallery small-block-grid-1 large-block-grid-2">
-                    {% for value in filter.values %}
-                      <li>
-                        <label class="input-multiline" for="{{ filter.keyword }}_{{ value.0 }}">
-                          <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
-                          <span>{{ value.1 }}</span>
-                        </label>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% else %}
-                  <p>Filter for type {{ filter.type }} not implemented</p>
-                {% endif %}
-              {% endfor %}
+
+              {# 2.7 Type of Approach #}
+              {% with filter=section.filters.app_type %}
+                <ul role="tablist" data-accordion="" class="accordion is-dark">
+                  <li class="accordion-navigation">
+                    <a aria-controls="{{ filter.keyword }}-heading" id="{{ filter.keyword }}-heading" role="tab" href="#{{ filter.keyword }}-filter">
+                      <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                      {{ filter.label }}
+                    </a>
+                    <div aria-labelledby="{{ filter.keyword }}-heading" role="tabpanel" class="content" id="{{ filter.keyword }}-filter">
+                      <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                        {% for value in filter.values %}
+                          <li>
+                            <label class="input-multiline" for="{{ filter.keyword }}_{{ value.0 }}">
+                              <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                              <span>{{ value.1 }}</span>
+                            </label>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              {% endwith %}
+
             </div>
           </li>
-        {% endfor %}
+        {% endwith %}
+
+        {# 3. Participation and roles of stakeholders involved #}
+        {% with section=filter_configuration.approaches.app__3 %}
+          <li class="accordion-navigation">
+            <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}-filter">
+              <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+              {{ section.label }}
+            </a>
+            <div aria-labelledby="{{ section.keyword }}-heading" role="tabpanel" class="content" id="{{ section.keyword }}-filter">
+
+              {# 3.1 Stakeholders involved in the Approach and their roles #}
+              {% with filter=section.filters.app_stakeholders %}
+                <ul role="tablist" data-accordion="" class="accordion is-dark">
+                  <li class="accordion-navigation">
+                    <a aria-controls="{{ filter.keyword }}-heading" id="{{ filter.keyword }}-heading" role="tab" href="#{{ filter.keyword }}-filter">
+                      <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                      {{ filter.label }}
+                    </a>
+                    <div aria-labelledby="{{ filter.keyword }}-heading" role="tabpanel" class="content" id="{{ filter.keyword }}-filter">
+                      <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                        {% for value in filter.values %}
+                          <li>
+                            <label class="input-multiline" for="{{ filter.keyword }}_{{ value.0 }}">
+                              <input type="checkbox" id="{{ filter.keyword }}_{{ value.0 }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                              <span>{{ value.1 }}</span>
+                            </label>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              {% endwith %}
+
+            </div>
+          </li>
+        {% endwith %}
+
+        {# 4. Technical support, capacity building, and knowledge management #}
+        {% with section=filter_configuration.approaches.app__4 %}
+          <li class="accordion-navigation">
+            <a aria-controls="{{ section.keyword }}" id="{{ section.keyword }}-heading" role="tab" href="#{{ section.keyword }}-filter">
+              <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+              {{ section.label }}
+            </a>
+            <div aria-labelledby="{{ section.keyword }}-heading" role="tabpanel" class="content" id="{{ section.keyword }}-filter">
+
+              {# "Technical support" consisting of #}
+              {# 4.1 Capacity building/ training #}
+              {# 4.2 Advisory service #}
+              {# 4.3 Institution strengthening (organizational development) #}
+              {# 4.4 Monitoring and evaluation #}
+              {# 4.5 Research #}
+              <ul role="tablist" data-accordion="" class="accordion is-dark">
+                <li class="accordion-navigation">
+                  <a aria-controls="tech_support-heading" id="tech_support-heading" role="tab" href="#tech_support-filter">
+                    <svg class="icon is-inline"><use xlink:href="#icon-chevron-thin-right" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                    {% trans "Technical support" %}
+                  </a>
+                  <div aria-labelledby="tech_support-heading" role="tabpanel" class="content" id="tech_support-filter">
+                    <ul class="list-gallery small-block-grid-1 large-block-grid-2">
+                      {% with filter=section.filters.app_training %}
+                        <li>
+                          <div class="filter-measure">
+                            <ul class="button-switch radius">
+                              {% for value in filter.values %}
+                                <li>
+                                  <input type="radio" id="{{ filter.keyword }}_{{ value.0 }}" name="{{ filter.keyword }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                                  <label for="{{ filter.keyword }}_{{ value.0 }}" class="button small secondary">
+                                    <span>{{ value.1 }}</span>
+                                  </label>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                            <label class="filter-measure-label">
+                              <span>{{ filter.label }}</span>
+                            </label>
+                          </div>
+                        </li>
+                      {% endwith %}
+                      {% with filter=section.filters.app_advisory %}
+                        <li>
+                          <div class="filter-measure">
+                            <ul class="button-switch radius">
+                              {% for value in filter.values %}
+                                <li>
+                                  <input type="radio" id="{{ filter.keyword }}_{{ value.0 }}" name="{{ filter.keyword }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                                  <label for="{{ filter.keyword }}_{{ value.0 }}" class="button small secondary">
+                                    <span>{{ value.1 }}</span>
+                                  </label>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                            <label class="filter-measure-label">
+                              <span>{{ filter.label }}</span>
+                            </label>
+                          </div>
+                        </li>
+                      {% endwith %}
+{#                      {% with filter=section.filters.app_institutions %}#}
+{#                        <li>#}
+{#                          <div class="filter-measure">#}
+{#                            <ul class="button-switch radius">#}
+{#                              {% for value in filter.values %}#}
+{#                                <li>#}
+{#                                  <input type="radio" id="{{ filter.keyword }}_{{ value.0 }}" name="{{ filter.keyword }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">#}
+{#                                  <label for="{{ filter.keyword }}_{{ value.0 }}" class="button small secondary">#}
+{#                                    <span>{{ value.1 }}</span>#}
+{#                                  </label>#}
+{#                                </li>#}
+{#                              {% endfor %}#}
+{#                            </ul>#}
+{#                            <label class="filter-measure-label">#}
+{#                              <span>{{ filter.label }}</span>#}
+{#                            </label>#}
+{#                          </div>#}
+{#                        </li>#}
+{#                      {% endwith %}#}
+                      {% with filter=section.filters.app_monitoring %}
+                        <li>
+                          <div class="filter-measure">
+                            <ul class="button-switch radius">
+                              {% for value in filter.values %}
+                                <li>
+                                  <input type="radio" id="{{ filter.keyword }}_{{ value.0 }}" name="{{ filter.keyword }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                                  <label for="{{ filter.keyword }}_{{ value.0 }}" class="button small secondary">
+                                    <span>{{ value.1 }}</span>
+                                  </label>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                            <label class="filter-measure-label">
+                              <span>{{ filter.label }}</span>
+                            </label>
+                          </div>
+                        </li>
+                      {% endwith %}
+                      {% with filter=section.filters.app_research %}
+                        <li>
+                          <div class="filter-measure">
+                            <ul class="button-switch radius">
+                              {% for value in filter.values %}
+                                <li>
+                                  <input type="radio" id="{{ filter.keyword }}_{{ value.0 }}" name="{{ filter.keyword }}" data-questiongroup="{{ filter.questiongroup }}" data-key="{{ filter.keyword }}" data-value="{{ value.0 }}">
+                                  <label for="{{ filter.keyword }}_{{ value.0 }}" class="button small secondary">
+                                    <span>{{ value.1 }}</span>
+                                  </label>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                            <label class="filter-measure-label">
+                              <span>{{ filter.label }}</span>
+                            </label>
+                          </div>
+                        </li>
+                      {% endwith %}
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </li>
+        {% endwith %}
       </ul>
     </div>
   </li>
