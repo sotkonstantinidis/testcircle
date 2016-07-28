@@ -4577,6 +4577,20 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If available, attach full soil description or specify the available information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, nitrogen, salinity etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1342
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "technologies": {
@@ -10913,6 +10927,23 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "per Technology area"
+          },
+          "helptext": {
+            "en": "e.g. 24 acres"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1939
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "technologies": {
@@ -15533,7 +15564,8 @@
         1136,
         1137,
         1138,
-        1139
+        1139,
+        1380
       ]
     },
     "model": "configuration.key",
@@ -17188,7 +17220,7 @@
   {
     "fields": {
       "keyword": "tech_soil_comments",
-      "translation": 1295,
+      "translation": 1342,
       "configuration": {
         "type": "text"
       }
@@ -22858,7 +22890,7 @@
   {
     "fields": {
       "keyword": "tech_input_calc_per_area",
-      "translation": 1903,
+      "translation": 1939,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -23136,6 +23168,18 @@
   },
   {
     "fields": {
+      "keyword": "degradation_other",
+      "translation": 1802,
+      "order_value": 7,
+      "configuration": {
+        "image_name": "landuse_empty.png"
+      }
+    },
+    "model": "configuration.value",
+    "pk": 1380
+  },
+  {
+    "fields": {
       "keyword": "tech_qg_1",
       "translation": null,
       "configuration": {}
@@ -23173,7 +23217,7 @@
   {
     "fields": {
       "keyword": "tech_qg_5",
-      "translation": 2365,
+      "translation": null,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -25176,6 +25220,15 @@
     },
     "model": "configuration.questiongroup",
     "pk": 1251
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_231",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1252
   },
   {
     "fields": {
@@ -27302,6 +27355,17 @@
                               "label_position": "none",
                               "filter": true
                             }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_231",
+                        "form_options": {
+                          "template": "empty"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "tech_stub"
                           }
                         ]
                       },
