@@ -1,0 +1,11 @@
+{% comment %}
+  template for 'delete questionnaire'
+{% endcomment %}
+
+{% load i18n %}
+
+{% spaceless %}
+{% if user == log.catalyst %}{% trans "You" %}{% else %}<a href="{% url 'user_details' log.catalyst_id %}">{{ log.catalyst.get_display_name }}</a>{% endif %}
+{% trans "deleted the questionnaire:" %}
+<a href="{{ log.questionnaire.get_absolute_url }}">{{ log.questionnaire.code }}</a>
+{% endspaceless %}

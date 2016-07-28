@@ -1,0 +1,14 @@
+{% comment %}
+  template for 'invite member'
+{% endcomment %}
+
+{% load i18n %}
+
+{% spaceless %}
+  {% if user == log.catalyst %}{% trans "You" %}{% else %}<a href="{% url 'user_details' log.catalyst_id %}">{{ log.catalyst.get_display_name }}</a>{% endif %}
+  {{ log.get_action_display }}
+  {% if user == log.memberupdate.affected %}{% trans "you" %}{% else %}<a href="{{ log.memberupdate.get_affected_display }}">{{ log.memberupdate.affected.get_display_name }}</a>{% endif %}
+  {% trans "as" %}
+  {{ log.memberupdate.role }}
+  {% trans "for the questionnaire" %} <a href="{{ log.questionnaire.get_absolute_url }}">{{ log.questionnaire.code }}</a>
+{% endspaceless %}

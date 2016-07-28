@@ -17,7 +17,13 @@ class NotificationsConf(AppConf):
         (CREATE, _('created questionnaire')),
         (DELETE, _('deleted questionnaire')),
         (CHANGE_STATUS, _('changed status')),
-        (ADD_MEMBER, _('added member')),
-        (REMOVE_MEMBER, _('removed member')),
+        (ADD_MEMBER, _('invited')),
+        (REMOVE_MEMBER, _('removed')),
         (EDIT_CONTENT, _('edited content'))
     )
+
+    # All actions that should be listed on 'my slm data' -> notifications
+    USER_PROFILE_ACTIONS = [CREATE, DELETE, CHANGE_STATUS, ADD_MEMBER, REMOVE_MEMBER]
+
+    # All actions that should trigger an email
+    EMAIL_ACTIONS = [CHANGE_STATUS]

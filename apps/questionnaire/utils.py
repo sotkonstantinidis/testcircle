@@ -1418,7 +1418,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                     sender=settings.NOTIFICATIONS_ADD_MEMBER,
                     questionnaire=questionnaire_object,
                     reviewer=request.user,
-                    person=user,
+                    affected=user,
                     role=role
                 )
 
@@ -1428,14 +1428,15 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Remove remaining previous users
         for user in previous_users:
-            questionnaire_object.remove_user(user, role)
+            # send signal while user is still related.
             change_member.send(
                 sender=settings.NOTIFICATIONS_REMOVE_MEMBER,
                 questionnaire=questionnaire_object,
                 reviewer=request.user,
-                person=user,
+                affected=user,
                 role=role
             )
+            questionnaire_object.remove_user(user, role)
 
         if not user_error:
             messages.success(
