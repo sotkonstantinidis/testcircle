@@ -146,7 +146,15 @@ $(function () {
             $('.tech-section-content').slideToggle(true);
         })
 
+        .on('submit', '.js-submit-once', function(e) {
+            $(this).find('input[type=submit]').addClass('disabled');
+        })
+
         .on('click', 'a.disabled', function(e) {
+            e.preventDefault();
+        })
+
+        .on('click', 'input[type=submit].disabled', function(e) {
             e.preventDefault();
         })
 
