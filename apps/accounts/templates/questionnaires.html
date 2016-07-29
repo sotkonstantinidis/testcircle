@@ -15,21 +15,44 @@
           <a href="{% url 'wocat:add' %}" class="button large right">{% trans "Add SLM data" %}</a>
         </h1>
       </div>
+      <div class="small-12 columns">
+        <section class="tech-list small-12 columns">
+          <div class="tech-group">
+            <h2 class="is-group">{% trans "Latest updates" %}</h2>
+            <div id="latest-updates"></div>
+            <div><a href="{% url 'notification_list' %}">{% trans "See all updates" %}</a></div>
+          </div>
+        </section>
+      </div>
+      <div class="small-12 columns">
       {% for status, name in statuses.items %}
         <section class="tech-list small-12 columns">
           <div class="tech-group">
             <h2 class="is-group">{{ name }}</h2>
-              <div id="questionnaire-list" data-status="{{ status }}">
-                <div id="status-{{ status }}" class="questionnaire-status-list"></div>
-              </div>
+            <div id="questionnaire-list" data-status="{{ status }}">
+              <div id="status-{{ status }}" class="questionnaire-status-list"></div>
             </div>
-          </section>
-        {% endfor %}
+          </div>
+        </section>
+      {% endfor %}
+      </div>
     </main>
     {% addtoblock 'js' %}
       {% compress js %}
         <script>
           $(document).ready(function() {
+
+            const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
+            const latestUpdatesContainer = $('#latest-updates');
+
+            // load latest updates
+            latestUpdatesContainer.html(spinner);
+            $.ajax({
+              url: '{% url 'notification_list_teaser' %}',
+              method: 'GET'
+            }).done(function(data) {
+              latestUpdatesContainer.html(data);
+            });
 
             // helper to execute the ajax call and replace the container with the response.
             var loadQuestionnaires = function(status, page) {
@@ -43,7 +66,6 @@
 
             // load data when initializing the dom. display a spinner, as this may require loading the configuration
             // thus may take some time.
-            const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
             $('[data-status]').each(function() {
               var status = $(this).data('status');
               $('#status-' + status).html(spinner);

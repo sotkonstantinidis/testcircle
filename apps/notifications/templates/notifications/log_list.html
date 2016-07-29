@@ -1,20 +1,16 @@
+{% extends 'base.html' %}
+
 {% load i18n %}
 
 
-<ul>
-{% for log in logs %}
-  <li>
-    <div>
-      {{ log.created|date:"SHORT_DATE_FORMAT" }}
-    </div>
-    <div>
-      {{ log.text|safe }}
-    </div>
-    <div>
-      <input type="checkbox" value="{{ log.id }}">{% trans "Done" %}
-    </div>
-  </li>
-{% empty %}
-  {% trans "No new updates." %}
-{% endfor %}
-</ul>
+{% block bodyclass %}layout-wocat{% endblock %}
+{% block navclass %}is-wocat{% endblock %}
+
+{% block content %}
+    <main class="row" role="main">
+      <div class="small-12 columns">
+        <h1 class="is-title">{% trans "Latest updates" %}</h1>
+        {% include 'notifications/partial/list.html' with logs=logs %}
+      </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% load i18n %}
+
+
+<ul>
+{% for log in logs %}
+  <li>
+    <div>
+      {{ log.created|date:"SHORT_DATE_FORMAT" }}
+    </div>
+    <div>
+      {{ log.text|safe }}
+    </div>
+    <div>
+      <input type="checkbox" value="{{ log.id }}">{% trans "Done" %}
+    </div>
+  </li>
+{% empty %}
+  {% trans "No new updates." %}
+{% endfor %}
+</ul>

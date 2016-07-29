@@ -13,7 +13,6 @@ class LogListView(LoginRequiredMixin, ListView):
     """
     Display logs which the current user is a reciepient of.
     """
-    template_name = 'notifications/log_list.html'
     context_object_name = 'logs'
     is_teaser = None
 
@@ -38,3 +37,9 @@ class LogListView(LoginRequiredMixin, ListView):
         if self.is_teaser:
             logs = logs[:settings.NOTIFICATIONS_TEASER_SLICE]
         return self.add_user_aware_data(logs=logs)
+
+    def get_template_names(self):
+        if self.is_teaser:
+            return ['notifications/partial/list.html']
+        else:
+            return ['notifications/log_list.html']
