@@ -1,20 +1,19 @@
 {% load i18n %}
 
 
-<ul>
 {% for log in logs %}
-  <li>
-    <div>
+  <div class="notification-list row">
+    <div class="is-light is-muted small-1 columns">
       {{ log.created|date:"SHORT_DATE_FORMAT" }}
     </div>
-    <div>
+    <div class="small-10 columns">
       {{ log.text|safe }}
     </div>
-    <div>
-      <input type="checkbox" value="{{ log.id }}">{% trans "Done" %}
+    <div class="small-1 columns action-hide">
+      <input type="checkbox" value="{{ log.id }}" class="mark-done">{% trans "Done" %}
     </div>
-  </li>
+  </div>
 {% empty %}
-  {% trans "No new updates." %}
+  <div class="row">{% trans "No new updates." %}</div>
 {% endfor %}
-</ul>
+

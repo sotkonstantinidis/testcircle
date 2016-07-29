@@ -19,7 +19,7 @@
         <section class="tech-list small-12 columns">
           <div class="tech-group">
             <h2 class="is-group">{% trans "Latest updates" %}</h2>
-            <div id="latest-updates"></div>
+            <div id="latest-notification-updates"></div>
             <div><a href="{% url 'notification_list' %}">{% trans "See all updates" %}</a></div>
           </div>
         </section>
@@ -43,7 +43,7 @@
           $(document).ready(function() {
 
             const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
-            const latestUpdatesContainer = $('#latest-updates');
+            const latestUpdatesContainer = $('#latest-notification-updates');
 
             // load latest updates
             latestUpdatesContainer.html(spinner);

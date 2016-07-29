@@ -1,3 +1,4 @@
+// notifications from the django message framework.
 .notification-group {
   position: fixed;
   bottom: rem-calc(6);
@@ -28,5 +29,29 @@
   100% {
     opacity: 0;
     transform: translate3d(0, 100%, 0);
+  }
+}
+
+// notifications on 'my slm data'
+#latest-notification-updates {
+  margin-top: rem-calc(5);
+}
+
+.notification-list {
+
+  margin: 0 !important;
+  background-color: #fff;
+  border-bottom: 1px solid $color-beige;
+
+  div {
+    padding: rem-calc(10);
+  }
+
+  .action-hide {
+    background-color: rgba($color-beige, 0.3);
+
+    .mark-done {
+      margin: rem-calc(10);
+    }
   }
 }
