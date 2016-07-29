@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, url
 
-from .views import LogListView
+from .views import LogListView, LogListTeaserView
 
 
 urlpatterns = patterns(
     '',
     url(r'^$', LogListView.as_view(), name='notification_list'),
-    url(r'^teaser/$', LogListView.as_view(is_teaser=True), name='notification_list_teaser'),
+    url(r'^teaser/$', LogListTeaserView.as_view(), name='notification_list_teaser'),
 )
