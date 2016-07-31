@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
+{% load compress %}
 {% load i18n %}
+{% load sekizai_tags %}
+{% load static %}
 
 
 {% block bodyclass %}layout-wocat{% endblock %}
@@ -10,7 +13,9 @@
     <main class="row" role="main">
       <div class="small-12 columns">
         <h1 class="is-title">{% trans "Latest updates" %}</h1>
-        {% include 'notifications/partial/list.html' with logs=logs %}
+        <div id="notifications-list">
+          {% include 'notifications/partial/list.html' with logs=logs %}
+        </div>
         {% if logs %}
           <div class="pagination">
             <ul class="pagination">
@@ -30,4 +35,18 @@
         {% endif %}
       </div>
     </main>
+    {% addtoblock 'js' %}
+      {% compress js %}
+        <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
+        <script src="{% static 'notifications/js/isRead.js' %}"></script>
+        <script>
+          $(document).ready(function() {
+            $('#notifications-list').bindIsReadAction({
+              url: '{% url 'notification_read' %}',
+              user: '{{ request.user.id }}'
+            });
+          });
+        </script>
+      {% endcompress %}
+    {% endaddtoblock %}
 {% endblock %}

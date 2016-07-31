@@ -39,6 +39,8 @@
     </main>
     {% addtoblock 'js' %}
       {% compress js %}
+        <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
+        <script src="{% static 'notifications/js/isRead.js' %}"></script>
         <script>
           $(document).ready(function() {
 
@@ -52,6 +54,11 @@
               method: 'GET'
             }).done(function(data) {
               latestUpdatesContainer.html(data);
+            });
+            // initialize isRead plugin.
+            latestUpdatesContainer.bindIsReadAction({
+              url: '{% url 'notification_read' %}',
+              user: '{{ request.user.id }}'
             });
 
             // helper to execute the ajax call and replace the container with the response.

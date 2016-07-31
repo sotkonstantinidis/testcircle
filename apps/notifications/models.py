@@ -72,16 +72,16 @@ class Log(models.Model):
                 person=self.catalyst.get_display_name(), code=self.questionnaire.code
             ))
         else:
+            # todo: this is not always correct - member changes. fix this as soon as this method is used to send mails.
             return _('{questionnaire} has a new status: {status}'.format(
                 questionnaire=self.questionnaire.code, status=self.statusupdate.get_status_display()
             ))
 
-    @cached_property
-    def message(self) -> str:
+    def message(self, user: User) -> str:
         """
         Fetch the message from the related model depending on the action.
         """
-        return self.contentupdate.difference if self.is_content_update else self.statusupdate.get_status_display()
+        return self.contentupdate.difference if self.is_content_update else self.get_linked_subject(user)
 
     @cached_property
     def is_content_update(self) -> bool:
@@ -132,3 +132,17 @@ class ContentUpdate(models.Model):
             # calculate diff here.
             return self.data
         return {}
+
+
+class ReadLog(models.Model):
+    """
+    Store the 'is_done' state for each user. This is more or less equivalent to the 'read' state in any email program.
+    This can't be handled in the 'through' model of the subscriber, as the status must also be stored for the catalyst.
+    """
+    log = models.ForeignKey(Log, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    is_read = models.BooleanField(default=False)
+
+    class Meta:
+        # only one read status per user and log, preventing a race condition.
+        unique_together = ['log', 'user']

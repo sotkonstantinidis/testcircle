@@ -2,15 +2,15 @@
 
 
 {% for log in logs %}
-  <div class="notification-list row">
+  <div class="notification-list row{% if log.is_read %} is-read{% endif %}">
     <div class="is-light is-muted small-1 columns">
       {{ log.created|date:"SHORT_DATE_FORMAT" }}
     </div>
     <div class="small-10 columns">
       {{ log.text|safe }}
     </div>
-    <div class="small-1 columns action-hide">
-      <input type="checkbox" value="{{ log.id }}" class="mark-done">{% trans "Done" %}
+    <div class="small-1 columns read-toggle">
+      <input type="checkbox" value="{{ log.id }}" class="mark-done" {% if log.is_read %}checked="checked"{% endif %}>{% trans "Done" %}
     </div>
   </div>
 {% empty %}

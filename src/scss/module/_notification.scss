@@ -43,11 +43,15 @@
   background-color: #fff;
   border-bottom: 1px solid $color-beige;
 
+  &.is-read {
+    opacity: 0.4;
+  }
+
   div {
     padding: rem-calc(10);
   }
 
-  .action-hide {
+  .read-toggle {
     background-color: rgba($color-beige, 0.3);
 
     .mark-done {
