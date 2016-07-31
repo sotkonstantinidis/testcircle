@@ -40,9 +40,7 @@ class LogListView(LoginRequiredMixin, ListView):
         """
         Use own method, so the teaser view can slice the queryset.
         """
-        return Log.actions.my_profile().filter(
-            Q(subscribers=self.request.user) | Q(catalyst=self.request.user)
-        ).distinct('id').order_by('id')
+        return Log.actions.my_profile(user=self.request.user)
 
     def get_queryset(self) -> list:
         """

@@ -2,6 +2,7 @@
 import contextlib
 
 from django.db import models
+from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.utils.functional import cached_property
@@ -17,8 +18,15 @@ class ActionContextQuerySet(models.QuerySet):
     """
     Filters actions according to context. E.g. get actions for my profile notifications, get actions for emails.
     """
-    def my_profile(self):
-        return self.filter(action__in=settings.NOTIFICATIONS_USER_PROFILE_ACTIONS)
+    def my_profile(self, user: User):
+        """
+        Fetch all logs where given user is either catalyst or subscriber.
+        """
+        return self.filter(
+            action__in=settings.NOTIFICATIONS_USER_PROFILE_ACTIONS
+        ).filter(
+            Q(subscribers=user) | Q(catalyst=user)
+        ).distinct()
 
     def email(self):
         return self.filter(action__in=settings.NOTIFICATIONS_EMAIL_ACTIONS)
