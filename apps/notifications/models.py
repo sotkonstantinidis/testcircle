@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import contextlib
+import functools
+import operator
 
 from django.db import models
 from django.db.models import Q
@@ -18,14 +20,33 @@ class ActionContextQuerySet(models.QuerySet):
     """
     Filters actions according to context. E.g. get actions for my profile notifications, get actions for emails.
     """
-    def my_profile(self, user: User):
+    def get_questionnaires_for_permissions(self, *user_permissions) -> list:
         """
-        Fetch all logs where given user is either catalyst or subscriber.
+        Create filters for questionnaire statuses according to permissions.
         """
+        filters = []
+        for permission, status in settings.NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS.items():
+            if permission in user_permissions:
+                filters.append(
+                    Q(questionnaire__status=status, action=settings.NOTIFICATIONS_CHANGE_STATUS)
+                )
+        return filters
+
+    def user_log_list(self, user: User):
+        """
+        Fetch all logs where given user is
+        - either catalyst or subscriber of the log (set the moment the log was created)
+        - permitted to see the log as defined by the role.
+        """
+        # construct filters depending on the users permissions.
+        status_filters = self.get_questionnaires_for_permissions(*user.get_all_permissions())
+        # extend basic filters according to catalyst / subscriber
+        status_filters.extend([Q(subscribers=user), Q(catalyst=user)])
+
         return self.filter(
             action__in=settings.NOTIFICATIONS_USER_PROFILE_ACTIONS
         ).filter(
-            Q(subscribers=user) | Q(catalyst=user)
+            functools.reduce(operator.or_, status_filters)
         ).distinct()
 
     def email(self):

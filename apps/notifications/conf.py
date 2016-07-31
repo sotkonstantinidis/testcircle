@@ -22,6 +22,14 @@ class NotificationsConf(AppConf):
         (EDIT_CONTENT, _('edited content'))
     )
 
+    # Mapping of user permissions and allowed questionnaire statuses
+    # to discuss: what about wocat secretariat? they can only 'assign', but are probably also reviewer and publisher.
+    QUESTIONNAIRE_STATUS_PERMISSIONS = {
+        'questionnaire.change_questionnaire': settings.QUESTIONNAIRE_DRAFT,
+        'questionnaire.review_questionnaire': settings.QUESTIONNAIRE_SUBMITTED,
+        'questionnaire.publish_questionnaire': settings.QUESTIONNAIRE_REVIEWED
+    }
+
     # All actions that should be listed on 'my slm data' -> notifications
     USER_PROFILE_ACTIONS = [CREATE, DELETE, CHANGE_STATUS, ADD_MEMBER, REMOVE_MEMBER]
 

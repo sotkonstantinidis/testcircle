@@ -23,6 +23,9 @@ class LogListView(LoginRequiredMixin, ListView):
     template_name = 'notifications/log_list.html'
     paginate_by = settings.NOTIFICATIONS_LIST_PAGINATE_BY
 
+    def get_log_ids(self, logs) -> list:
+        return logs.values_list('id', flat=True)
+
     def get_readlog_list(self, logs) -> list:
         """
         Create a list with all log_ids that are 'read' for the current user. By creating this list, the db is hit only
@@ -31,7 +34,7 @@ class LogListView(LoginRequiredMixin, ListView):
         return ReadLog.objects.only(
             'log__id'
         ).filter(
-            log__id__in=logs.values_list('id', flat=True), user=self.request.user, is_read=True
+            log__id__in=self.get_log_ids(logs), user=self.request.user, is_read=True
         ).values_list(
             'log__id', flat=True
         )
@@ -53,7 +56,7 @@ class LogListView(LoginRequiredMixin, ListView):
         """
         Use own method, so the teaser view can slice the queryset.
         """
-        return Log.actions.my_profile(user=self.request.user)
+        return Log.actions.user_log_list(user=self.request.user)
 
     def get_queryset(self) -> list:
         """
@@ -68,6 +71,9 @@ class LogListTeaserView(LogListView):
     """
     template_name = 'notifications/partial/list.html'
     paginate_by = 0
+
+    def get_log_ids(self, logs) -> list:
+        return [log.id for log in logs]
 
     def get_logs(self):
         return super().get_logs()[:settings.NOTIFICATIONS_TEASER_SLICE]
