@@ -1,7 +1,6 @@
 import logging
 from typing import Iterable
 
-from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -24,16 +23,30 @@ class LogListView(LoginRequiredMixin, ListView):
     template_name = 'notifications/log_list.html'
     paginate_by = settings.NOTIFICATIONS_LIST_PAGINATE_BY
 
-    def add_user_aware_data(self, logs: list) -> Iterable:
+    def get_readlog_list(self, logs) -> list:
+        """
+        Create a list with all log_ids that are 'read' for the current user. By creating this list, the db is hit only
+        once instead of n (paginate_by) times.
+        """
+        return ReadLog.objects.only(
+            'log__id'
+        ).filter(
+            log__id__in=logs.values_list('id', flat=True), user=self.request.user, is_read=True
+        ).values_list(
+            'log__id', flat=True
+        )
+
+    def add_user_aware_data(self, logs) -> Iterable:
         """
         The method 'get_linked_subject' requires a user. Provide all info required for the template.
         """
+        readlog_list = self.get_readlog_list(logs=logs)
         for log in logs:
             yield {
                 'id': log.id,
                 'created': log.created,
                 'text': log.get_linked_subject(user=self.request.user),
-                'is_read': log.readlog_set.filter(user=self.request.user, is_read=True).exists()
+                'is_read': log.id in readlog_list
             }
 
     def get_logs(self):
