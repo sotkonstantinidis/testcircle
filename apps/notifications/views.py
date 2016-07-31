@@ -22,6 +22,7 @@ class LogListView(LoginRequiredMixin, ListView):
     context_object_name = 'logs'
     template_name = 'notifications/log_list.html'
     paginate_by = settings.NOTIFICATIONS_LIST_PAGINATE_BY
+    queryset_method = 'user_log_list'
 
     def get_log_ids(self, logs) -> list:
         return logs.values_list('id', flat=True)
@@ -54,9 +55,10 @@ class LogListView(LoginRequiredMixin, ListView):
 
     def get_logs(self):
         """
-        Use own method, so the teaser view can slice the queryset.
+        Use own method (not get_queryset), so the teaser view can slice the queryset.
+        Use the method as set by the views instance variable.
         """
-        return Log.actions.user_log_list(user=self.request.user)
+        return getattr(Log.actions, self.queryset_method, 'user_log_list')(user=self.request.user)
 
     def get_queryset(self) -> list:
         """
