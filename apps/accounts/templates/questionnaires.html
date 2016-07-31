@@ -24,6 +24,15 @@
           </div>
         </section>
       </div>
+    <div class="small-12 columns">
+        <section class="tech-list small-12 columns">
+          <div class="tech-group">
+            <h2 class="is-group">{% trans "Todo: publication workflow action required:" %}</h2>
+            <div id="workflow-action-required"></div>
+            <div><a href="{% url 'workflow_todo_list' %}">{% trans "See complete todo list" %}</a></div>
+          </div>
+        </section>
+      </div>
       <div class="small-12 columns">
       {% for status, name in statuses.items %}
         <section class="tech-list small-12 columns">
@@ -46,6 +55,7 @@
 
             const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
             const latestUpdatesContainer = $('#latest-notification-updates');
+            const workflowActionContainer = $('#workflow-action-required');
 
             // load latest updates
             latestUpdatesContainer.html(spinner);
@@ -55,6 +65,15 @@
             }).done(function(data) {
               latestUpdatesContainer.html(data);
             });
+            // required workflow actions
+            workflowActionContainer.html(spinner);
+            $.ajax({
+              url: '{% url 'workflow_todo_list_teaser' %}',
+              method: 'GET'
+            }).done(function(data) {
+              workflowActionContainer.html(data);
+            });
+
             // initialize isRead plugin.
             latestUpdatesContainer.bindIsReadAction({
               url: '{% url 'notification_read' %}',
