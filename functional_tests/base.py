@@ -129,6 +129,8 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for(self, by, el, visibility=True):
         if by == 'class_name':
             locator = By.CLASS_NAME
+        elif by == 'xpath':
+            locator = By.XPATH
         else:
             self.fail('Argument "by" = "%s" is not valid.' % by)
 
@@ -262,6 +264,12 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def scroll_to_element(self, el):
         self.browser.execute_script("return arguments[0].scrollIntoView();", el)
+
+    def set_input_value(self, el_id, value):
+        self.browser.execute_script(
+            "document.getElementById('{}').setAttribute('value', '{}')".format(
+                el_id, value
+            ))
 
     def clickUserMenu(self, user):
         self.findBy(
