@@ -676,8 +676,9 @@ class Questionnaire(models.Model):
             ``role`` (str): The role of the user.
         """
         user = self.get_user(user, role)
-        if user is not None:
-            user.delete()
+        QuestionnaireMembership.objects.filter(
+            questionnaire=self, user=user, role=role
+        ).delete()
 
     def update_users_from_data(self, configuration_code):
         """
