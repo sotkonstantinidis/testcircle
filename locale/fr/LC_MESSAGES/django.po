@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-30 23:12+0200\n"
-"PO-Revision-Date: 2016-07-19 12:36+0000\n"
+"POT-Creation-Date: 2016-08-02 11:10+0200\n"
+"PO-Revision-Date: 2016-07-30 21:12+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
@@ -80,10 +80,8 @@ msgid "Login"
 msgstr "Identifiant"
 
 #: apps/accounts/templates/login.html:13
-#, fuzzy
-#| msgid "Please log in to access"
 msgid "Please log in to access this page."
-msgstr "Veuillez vous connecter pour avoir accès"
+msgstr ""
 
 #: apps/accounts/templates/login.html:34
 msgid "If you do not yet have a login, please visit "
@@ -112,10 +110,8 @@ msgid " and reset your password."
 msgstr "et réinitialiser votre mot de passe."
 
 #: apps/accounts/templates/questionnaires.html:14
-#, fuzzy
-#| msgid "My SLM practices"
 msgid "My SLM data"
-msgstr "Mes pratiques de GDT"
+msgstr ""
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:7
@@ -145,6 +141,7 @@ msgstr ""
 "nouvelle base de données."
 
 #: apps/approaches/templates/approaches/questionnaire/list.html:17
+#: apps/sample/templates/sample/questionnaire/list.html:51
 #: apps/wocat/templates/wocat/home.html:113
 #: apps/wocat/templates/wocat/partial/search.html:17
 #: apps/wocat/templates/wocat/questionnaire/list.html:51
@@ -198,16 +195,12 @@ msgstr "Compilateur:"
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:57
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:57
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:57
-#, fuzzy
-#| msgid "This article is also available in:"
 msgid "This SLM practice is also available in:"
-msgstr "Cet article est également disponible en:"
+msgstr ""
 
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:69
-#, fuzzy
-#| msgid "No linked SLM Technologies"
 msgid "This SLM Approach is linked to SLM Technologies"
-msgstr "Aucune technologie de GDT liée"
+msgstr ""
 
 #: apps/approaches/views.py:48
 #: apps/questionnaire/templates/details/category/approaches_header.html:6
@@ -299,7 +292,7 @@ msgstr ""
 "technologie"
 
 #: apps/configuration/configuration_translations.py:1015
-#: apps/configuration/configuration_translations.py:1673
+#: apps/configuration/configuration_translations.py:1674
 msgctxt "technologies label"
 msgid "Grazing land"
 msgstr "Pâturages"
@@ -366,12 +359,9 @@ msgstr "Mesures de GDT constituant la technologie"
 
 #: apps/configuration/configuration_translations.py:1024
 #: apps/configuration/configuration_translations.py:1497
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other measures"
 msgctxt "technologies label_view"
 msgid "SLM measures"
-msgstr "autres mesures"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:1026
 msgctxt "technologies label"
@@ -380,12 +370,9 @@ msgstr "Sélectionnez le type de dégradation"
 
 #: apps/configuration/configuration_translations.py:1027
 #: apps/configuration/configuration_translations.py:1499
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Select degradation type"
 msgctxt "technologies label_view"
 msgid "Degradation type"
-msgstr "Sélectionnez le type de dégradation"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:1032
 msgctxt "technologies label"
@@ -1772,12 +1759,9 @@ msgid "SLM group to which the Technology belongs"
 msgstr "Groupe de GDT auquel appartient la technologie "
 
 #: apps/configuration/configuration_translations.py:1364
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "group"
 msgctxt "technologies label_view"
 msgid "SLM group"
-msgstr "groupe"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:1365
 msgctxt "technologies helptext"
@@ -2501,26 +2485,43 @@ msgid "(Semi-)natural forests/ woodlands"
 msgstr "Forêts (semi-)naturelles / bois"
 
 #: apps/configuration/configuration_translations.py:1500
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid ""
+#| "If available, attach full soil description or specify the available "
+#| "information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, "
+#| "nitrogen, salinity etc.)"
+msgctxt "technologies label"
+msgid ""
+"If available, attach full soil description or specify the available "
+"information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, "
+"nitrogen, salinity etc."
+msgstr ""
+"Si disponible, joignez une description complète du sol ou précisez les "
+"informations disponibles, par ex.,  type de sol, pH/ acidité du sol, "
+"capacité d'échange cationique, azote, salinité, etc.)"
+
+#: apps/configuration/configuration_translations.py:1501
 msgctxt "technologies label"
 msgid "land users' innovation"
 msgstr "de l'innovation d'exploitants des terres"
 
-#: apps/configuration/configuration_translations.py:1501
+#: apps/configuration/configuration_translations.py:1502
 msgctxt "technologies label"
 msgid "a traditional system (>50 years)"
 msgstr "d'un système traditionnel (> 50 ans)"
 
-#: apps/configuration/configuration_translations.py:1502
+#: apps/configuration/configuration_translations.py:1503
 msgctxt "technologies label"
 msgid "experiments/ research"
 msgstr "d'expérimentations/ de la recherche"
 
-#: apps/configuration/configuration_translations.py:1503
+#: apps/configuration/configuration_translations.py:1504
 msgctxt "technologies label"
 msgid "projects/ external interventions"
 msgstr "de projets/ d'interventions extérieures"
 
-#: apps/configuration/configuration_translations.py:1504
+#: apps/configuration/configuration_translations.py:1505
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Ca: Annual cropping</strong>: land under temporary/ annual crops "
@@ -2531,12 +2532,12 @@ msgstr ""
 "annuelles récoltées en général dans l’année et au maximum sur deux ans (ex: "
 "maïs, riz paddy, blé, légumes, cultures fourragères)"
 
-#: apps/configuration/configuration_translations.py:1505
+#: apps/configuration/configuration_translations.py:1506
 msgctxt "technologies label"
 msgid "Annual cropping"
 msgstr "Cultures annuelles"
 
-#: apps/configuration/configuration_translations.py:1506
+#: apps/configuration/configuration_translations.py:1507
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Cp: Perennial (non-woody) cropping</strong>: land under permanent "
@@ -2548,12 +2549,12 @@ msgstr ""
 "plus ou que l’on peut récolter en partie (ex: canne à sucre, banane, sisal, "
 "ananas)"
 
-#: apps/configuration/configuration_translations.py:1507
+#: apps/configuration/configuration_translations.py:1508
 msgctxt "technologies label"
 msgid "Perennial (non-woody) cropping"
 msgstr "Cultures pérennes (non ligneuses)"
 
-#: apps/configuration/configuration_translations.py:1508
+#: apps/configuration/configuration_translations.py:1509
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Ct: Tree and shrub cropping</strong>: permanent woody plants with "
@@ -2566,70 +2567,70 @@ msgstr ""
 "généralement sur une durée de plus de 5 ans (ex: vergers/ arbres fruitiers, "
 "café, thé, vigne, huile de palme, cacao, noix de coco, arbres fourragers)"
 
-#: apps/configuration/configuration_translations.py:1509
+#: apps/configuration/configuration_translations.py:1510
 msgctxt "technologies label"
 msgid "Tree and shrub cropping"
 msgstr "Plantations d’arbres ou de buissons"
 
-#: apps/configuration/configuration_translations.py:1510
+#: apps/configuration/configuration_translations.py:1511
 msgctxt "technologies label"
 msgid "Selective felling"
 msgstr "Coupes sélectives"
 
-#: apps/configuration/configuration_translations.py:1511
+#: apps/configuration/configuration_translations.py:1512
 msgctxt "technologies helptext"
 msgid "felling the whole forest at one time"
 msgstr "abattage de l'ensemble de la forêt en une seule fois"
 
-#: apps/configuration/configuration_translations.py:1512
+#: apps/configuration/configuration_translations.py:1513
 msgctxt "technologies label"
 msgid "Clear felling"
 msgstr "Coupes à blanc"
 
-#: apps/configuration/configuration_translations.py:1513
+#: apps/configuration/configuration_translations.py:1514
 msgctxt "technologies helptext"
 msgid "felling (harvesting) only certain valuable trees within a forest"
 msgstr ""
 "abattage (récolte) de seulement certains arbres de valeur dans la forêt"
 
-#: apps/configuration/configuration_translations.py:1514
+#: apps/configuration/configuration_translations.py:1515
 msgctxt "technologies label"
 msgid "Shifting cultivation"
 msgstr "Cultures itinérantes"
 
-#: apps/configuration/configuration_translations.py:1515
+#: apps/configuration/configuration_translations.py:1516
 msgctxt "technologies helptext"
 msgid "no cutting of trees"
 msgstr "pas de coupe d'arbres"
 
-#: apps/configuration/configuration_translations.py:1516
+#: apps/configuration/configuration_translations.py:1517
 msgctxt "technologies label"
 msgid "Dead wood/ prunings removal"
 msgstr "Enlèvement du bois mort/ bois de taille"
 
-#: apps/configuration/configuration_translations.py:1517
+#: apps/configuration/configuration_translations.py:1518
 msgctxt "technologies helptext"
 msgid "e.g. fruit, nuts, mushrooms, honey, medicinal plants, etc."
 msgstr ""
 "par ex., pour les fruits, les noix, les champignons, le miel, les plantes "
 "médicinales, etc."
 
-#: apps/configuration/configuration_translations.py:1518
+#: apps/configuration/configuration_translations.py:1519
 msgctxt "technologies label"
 msgid "Non-wood forest use"
 msgstr "Utilisation de la forêt non liée au bois "
 
-#: apps/configuration/configuration_translations.py:1519
+#: apps/configuration/configuration_translations.py:1520
 msgctxt "technologies helptext"
 msgid "<strong>Mf: Agroforestry</strong>: cropland and trees"
 msgstr "<strong>Mf: Agroforesterie</strong>: cultures agricoles et forestières"
 
-#: apps/configuration/configuration_translations.py:1520
+#: apps/configuration/configuration_translations.py:1521
 msgctxt "technologies label"
 msgid "Agroforestry"
 msgstr "Agroforesterie"
 
-#: apps/configuration/configuration_translations.py:1521
+#: apps/configuration/configuration_translations.py:1522
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Mp: Agro-pastoralism</strong>: cropland and grazing land (including "
@@ -2638,12 +2639,12 @@ msgstr ""
 "<strong>Mp: Agro-pastoralisme</strong>: cultures agricoles et pâturages "
 "(incluant le changement saisonnier entre les cultures et l’élevage) "
 
-#: apps/configuration/configuration_translations.py:1522
+#: apps/configuration/configuration_translations.py:1523
 msgctxt "technologies label"
 msgid "Agro-pastoralism"
 msgstr "Agro-pastoralisme"
 
-#: apps/configuration/configuration_translations.py:1523
+#: apps/configuration/configuration_translations.py:1524
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Ma: Agro-silvopastoralism</strong>: cropland, grazing land and trees "
@@ -2652,39 +2653,39 @@ msgstr ""
 "<strong>Ma: Agro-sylvo-pastoralisme</strong>: cultures agricoles, pâturages "
 "et arbres (incluant le changement saisonnier entre les cultures et l’élevage)"
 
-#: apps/configuration/configuration_translations.py:1524
+#: apps/configuration/configuration_translations.py:1525
 msgctxt "technologies label"
 msgid "Agro-silvopastoralism"
 msgstr "Agro-sylvo-pastoralisme"
 
-#: apps/configuration/configuration_translations.py:1525
+#: apps/configuration/configuration_translations.py:1526
 msgctxt "technologies helptext"
 msgid "<strong>Ms: Silvo-pastoralism</strong>: forest and grazing land"
 msgstr "<strong>Ms: Sylvo-pastoralisme</strong>: forêts et pâturages"
 
-#: apps/configuration/configuration_translations.py:1526
+#: apps/configuration/configuration_translations.py:1527
 msgctxt "technologies label"
 msgid "Silvo-pastoralism"
 msgstr "Sylvo-pastoralisme"
 
-#: apps/configuration/configuration_translations.py:1527
+#: apps/configuration/configuration_translations.py:1528
 msgctxt "technologies label"
 msgid "A6: Others"
 msgstr "A6: Autres"
 
-#: apps/configuration/configuration_translations.py:1528
+#: apps/configuration/configuration_translations.py:1529
 msgctxt "technologies helptext"
 msgid "Examples: mixed cropping, intercropping, relay cropping, cover cropping"
 msgstr ""
 "Exemples: polyculture, cultures intercalaires, cultures dérobées en sous-"
 "semis, cultures de couverture"
 
-#: apps/configuration/configuration_translations.py:1529
+#: apps/configuration/configuration_translations.py:1530
 msgctxt "technologies label"
 msgid "A1: Vegetation/ soil cover"
 msgstr "A1: Couverture végétale/ du sol"
 
-#: apps/configuration/configuration_translations.py:1530
+#: apps/configuration/configuration_translations.py:1531
 msgctxt "technologies helptext"
 msgid ""
 "Examples: conservation agriculture, production and application of compost/ "
@@ -2694,24 +2695,24 @@ msgstr ""
 "fumier, paillage/mulching, ligne de débris végétaux, engrais vert, rotation "
 "des cultures"
 
-#: apps/configuration/configuration_translations.py:1531
+#: apps/configuration/configuration_translations.py:1532
 msgctxt "technologies label"
 msgid "A2: Organic matter/ soil fertility"
 msgstr "A2: Matière organique/ fertilité du sol "
 
-#: apps/configuration/configuration_translations.py:1532
+#: apps/configuration/configuration_translations.py:1533
 msgctxt "technologies helptext"
 msgid "Examples: Zero tillage (no-till), minimum tillage, contour tillage"
 msgstr ""
 "Exemples: semi direct (sans labour), travail minimum du sol, travail du sol "
 "isohypse"
 
-#: apps/configuration/configuration_translations.py:1533
+#: apps/configuration/configuration_translations.py:1534
 msgctxt "technologies label"
 msgid "A3: Soil surface treatment"
 msgstr "A3: Traitement de la couche superficielle du sol"
 
-#: apps/configuration/configuration_translations.py:1534
+#: apps/configuration/configuration_translations.py:1535
 msgctxt "technologies helptext"
 msgid ""
 "Examples: Breaking compacted subsoil (hard pans), deep ripping, double "
@@ -2720,12 +2721,12 @@ msgstr ""
 "Exemples: sous-sol compacté brisé, scarifiage (griffure) profond du sol, "
 "bêchage double-profondeur"
 
-#: apps/configuration/configuration_translations.py:1535
+#: apps/configuration/configuration_translations.py:1536
 msgctxt "technologies label"
 msgid "A4: Subsurface treatment"
 msgstr "A4: Traitement de la couche profonde du sol"
 
-#: apps/configuration/configuration_translations.py:1536
+#: apps/configuration/configuration_translations.py:1537
 msgctxt "technologies helptext"
 msgid ""
 "Examples: Production of seeds and seedlings, seed selection, seed banks, "
@@ -2734,22 +2735,22 @@ msgstr ""
 "Exemples: production de semences et de plants, sélection de semences, "
 "banques de semences, développement/ production de variétés améliorées"
 
-#: apps/configuration/configuration_translations.py:1537
+#: apps/configuration/configuration_translations.py:1538
 msgctxt "technologies label"
 msgid "A5: Seed management, improved varieties"
 msgstr "A5: Gestion des semences, amélioration des variétés"
 
-#: apps/configuration/configuration_translations.py:1538
+#: apps/configuration/configuration_translations.py:1539
 msgctxt "technologies helptext"
 msgid "Examples: agroforestry, windbreaks, afforestation, hedges, live fences"
 msgstr "Exemples: agroforesterie, brise-vent, reboisement, haies, haies vives"
 
-#: apps/configuration/configuration_translations.py:1539
+#: apps/configuration/configuration_translations.py:1540
 msgctxt "technologies label"
 msgid "V1: Tree and shrub cover"
 msgstr "V1: Couverture d’arbres et d’arbustes"
 
-#: apps/configuration/configuration_translations.py:1540
+#: apps/configuration/configuration_translations.py:1541
 msgctxt "technologies helptext"
 msgid ""
 "Examples: grass strips along the contour, vegetation strips along riverbanks"
@@ -2757,34 +2758,34 @@ msgstr ""
 "Exemples: bandes enherbées le long des courbes de niveau, bandes de "
 "végétation sur les berges des rivières "
 
-#: apps/configuration/configuration_translations.py:1541
+#: apps/configuration/configuration_translations.py:1542
 msgctxt "technologies label"
 msgid "V2: Grasses and perennial herbaceous plants"
 msgstr "V2: Herbes et plantes herbacées pérennes "
 
-#: apps/configuration/configuration_translations.py:1542
+#: apps/configuration/configuration_translations.py:1543
 msgctxt "technologies helptext"
 msgid "Examples: fire breaks, reduced fuel for forest fires"
 msgstr ""
 "Exemples: coupe-feu, réduction des combustibles pour limiter les feux de "
 "forêt "
 
-#: apps/configuration/configuration_translations.py:1543
+#: apps/configuration/configuration_translations.py:1544
 msgctxt "technologies label"
 msgid "V3: Clearing of vegetation"
 msgstr "V3: Défrichement de la végétation"
 
-#: apps/configuration/configuration_translations.py:1544
+#: apps/configuration/configuration_translations.py:1545
 msgctxt "technologies helptext"
 msgid "Examples: Tree nurseries"
 msgstr "Exemples: pépinières"
 
-#: apps/configuration/configuration_translations.py:1545
+#: apps/configuration/configuration_translations.py:1546
 msgctxt "technologies label"
 msgid "V5: Others"
 msgstr "V5: Autres"
 
-#: apps/configuration/configuration_translations.py:1546
+#: apps/configuration/configuration_translations.py:1547
 #, python-format
 msgctxt "technologies helptext"
 msgid ""
@@ -2795,12 +2796,12 @@ msgstr ""
 "terrasses en pente inclinées vers l'avant (pente de l'intérieur de la "
 "terrasse  >6%%)"
 
-#: apps/configuration/configuration_translations.py:1547
+#: apps/configuration/configuration_translations.py:1548
 msgctxt "technologies label"
 msgid "S1: Terraces"
 msgstr "S1: Terrasses"
 
-#: apps/configuration/configuration_translations.py:1548
+#: apps/configuration/configuration_translations.py:1549
 msgctxt "technologies helptext"
 msgid ""
 "Examples: Earth bunds, stone bunds (along the contour or graded), semi-"
@@ -2809,24 +2810,24 @@ msgstr ""
 "Exemples: cordons de terre, cordons pierreux (le long des courbes de niveau "
 "ou selon des talus en gradin), diguettes semi-circulaires (“demi-lunes”)"
 
-#: apps/configuration/configuration_translations.py:1549
+#: apps/configuration/configuration_translations.py:1550
 msgctxt "technologies label"
 msgid "S2: Bunds, banks"
 msgstr "S2: Diguettes, digues "
 
-#: apps/configuration/configuration_translations.py:1550
+#: apps/configuration/configuration_translations.py:1551
 msgctxt "technologies helptext"
 msgid "Examples: Diversion/drainage ditch, waterways to drain and convey water"
 msgstr ""
 "Exemples: fossé de dérivation/drainage, voies d'eau pour le drainage et le "
 "transport de l'eau"
 
-#: apps/configuration/configuration_translations.py:1551
+#: apps/configuration/configuration_translations.py:1552
 msgctxt "technologies label"
 msgid "S3: Graded ditches, channels, waterways"
 msgstr "S3: Fossés étagés, canaux, voies d'eau"
 
-#: apps/configuration/configuration_translations.py:1552
+#: apps/configuration/configuration_translations.py:1553
 msgctxt "technologies helptext"
 msgid ""
 "Examples: Retention / infiltration ditches, planting holes, micro-catchments"
@@ -2834,24 +2835,24 @@ msgstr ""
 "Exemples: fossés de rétention/d'infiltration, trous de plantation, micro-"
 "captages"
 
-#: apps/configuration/configuration_translations.py:1553
+#: apps/configuration/configuration_translations.py:1554
 msgctxt "technologies label"
 msgid "S4: Level ditches, pits"
 msgstr "S4: Fossés isohypses, trous"
 
-#: apps/configuration/configuration_translations.py:1554
+#: apps/configuration/configuration_translations.py:1555
 msgctxt "technologies helptext"
 msgid "Examples: Dams for flood control, dams for irrigation, sand dams"
 msgstr ""
 "Exemples: barrages pour contrôler les inondations, pour l'irrigation, "
 "barrages de sable"
 
-#: apps/configuration/configuration_translations.py:1555
+#: apps/configuration/configuration_translations.py:1556
 msgctxt "technologies label"
 msgid "S5: Dams, pans, ponds"
 msgstr "S5: Barrages/retenues, micro-bassins, étangs"
 
-#: apps/configuration/configuration_translations.py:1556
+#: apps/configuration/configuration_translations.py:1557
 msgctxt "technologies helptext"
 msgid ""
 "Examples: Sand dune stabilization, rotational grazing (using fences), area "
@@ -2861,46 +2862,46 @@ msgstr ""
 "clôtures), zone fermée/clôturée, protection de ravines (barrages/digues de "
 "correction) "
 
-#: apps/configuration/configuration_translations.py:1557
+#: apps/configuration/configuration_translations.py:1558
 msgctxt "technologies label"
 msgid "S6: Walls, barriers, palisades, fences"
 msgstr "S6: Murs, barrières, palissades, clôtures"
 
-#: apps/configuration/configuration_translations.py:1558
+#: apps/configuration/configuration_translations.py:1559
 msgctxt "technologies helptext"
 msgid "Examples: Rooftop water harvesting, water intakes, pipes, tanks, etc."
 msgstr ""
 "Exemples: collecte des eaux de pluie à partir des toits, prises d'eau, "
 "conduites, réservoirs, etc."
 
-#: apps/configuration/configuration_translations.py:1559
+#: apps/configuration/configuration_translations.py:1560
 msgctxt "technologies label"
 msgid "S7: Water harvesting/ supply/ irrigation equipment"
 msgstr "S7: Collecte de l'eau/ approvisionnent en eau/ équipement d'irrigation"
 
-#: apps/configuration/configuration_translations.py:1560
+#: apps/configuration/configuration_translations.py:1561
 msgctxt "technologies helptext"
 msgid "Examples: Compost toilet, septic tanks, constructed treatment wetlands"
 msgstr ""
 "Exemples: toilettes à compostage, fosses septiques, marais artificiel de "
 "traitement"
 
-#: apps/configuration/configuration_translations.py:1561
+#: apps/configuration/configuration_translations.py:1562
 msgctxt "technologies label"
 msgid "S8: Sanitation/ waste water structures"
 msgstr "S8: Structures d'assainissement/ de gestion des eaux usées "
 
-#: apps/configuration/configuration_translations.py:1562
+#: apps/configuration/configuration_translations.py:1563
 msgctxt "technologies helptext"
 msgid "Examples: Greenhouses, stables, shelters for plant nurseries"
 msgstr "Exemples: serres, étables/écuries, abris pour les pépinières"
 
-#: apps/configuration/configuration_translations.py:1563
+#: apps/configuration/configuration_translations.py:1564
 msgctxt "technologies label"
 msgid "S9: Shelters for plants and animals"
 msgstr "S9: Abris pour plantes et animaux"
 
-#: apps/configuration/configuration_translations.py:1564
+#: apps/configuration/configuration_translations.py:1565
 msgctxt "technologies helptext"
 msgid ""
 "Examples: area closure/ resting, protection, change from cropland to grazing "
@@ -2909,12 +2910,12 @@ msgstr ""
 "Exemples: zones fermées/ de repos, protection, changement des terres "
 "cultivées en pâturages, des forêts en agroforesterie, boisement"
 
-#: apps/configuration/configuration_translations.py:1565
+#: apps/configuration/configuration_translations.py:1566
 msgctxt "technologies label"
 msgid "M1: Change of land use type"
 msgstr "M1: Changement du type d’utilisation des terres"
 
-#: apps/configuration/configuration_translations.py:1566
+#: apps/configuration/configuration_translations.py:1567
 msgctxt "technologies helptext"
 msgid ""
 "Examples: change from grazing to cutting (for stall feeding), farm "
@@ -2932,12 +2933,12 @@ msgstr ""
 "(pâturages, forêts), du gardiennage à l'utilisation de clôtures pour "
 "l'élevage, ajustement des taux de charge, pâturages tournants"
 
-#: apps/configuration/configuration_translations.py:1567
+#: apps/configuration/configuration_translations.py:1568
 msgctxt "technologies label"
 msgid "M2: Change of management/ intensity level"
 msgstr "M2: Changement du niveau de gestion / d'intensification"
 
-#: apps/configuration/configuration_translations.py:1568
+#: apps/configuration/configuration_translations.py:1569
 msgctxt "technologies helptext"
 msgid ""
 "exclusion of natural waterways and hazardous areas, separation of grazing "
@@ -2949,22 +2950,22 @@ msgstr ""
 "à lécher, enclos à bestiaux, bains (terres de pâturage); augmentation de la "
 "diversité des paysages, allées forestières"
 
-#: apps/configuration/configuration_translations.py:1569
+#: apps/configuration/configuration_translations.py:1570
 msgctxt "technologies label"
 msgid "M3: Layout according to natural and human environment"
 msgstr "M3: Disposition/plan en fonction de l'environnement naturel et humain "
 
-#: apps/configuration/configuration_translations.py:1570
+#: apps/configuration/configuration_translations.py:1571
 msgctxt "technologies helptext"
 msgid "land preparation, planting, cutting of vegetation"
 msgstr "Exemples: préparation du sol, plantation, coupe de la végétation "
 
-#: apps/configuration/configuration_translations.py:1571
+#: apps/configuration/configuration_translations.py:1572
 msgctxt "technologies label"
 msgid "M4: Major change in timing of activities"
 msgstr "M4: Changement majeur dans le calendrier des activités"
 
-#: apps/configuration/configuration_translations.py:1572
+#: apps/configuration/configuration_translations.py:1573
 msgctxt "technologies helptext"
 msgid ""
 "<p>if annually or in a rotational sequence as done e.g. on cropland &rarr; "
@@ -2978,13 +2979,13 @@ msgstr ""
 "souhaitées/ introduites, brûlage dirigé (par ex., feux prescrits dans les "
 "forêts/ sur les pâturages)/ brûlage des résidus</p>"
 
-#: apps/configuration/configuration_translations.py:1573
-#: apps/configuration/configuration_translations.py:2034
+#: apps/configuration/configuration_translations.py:1574
+#: apps/configuration/configuration_translations.py:2035
 msgctxt "technologies label"
 msgid "M5: Control/ change of species composition"
 msgstr "M5: Contrôle/ changement de la composition des espèces"
 
-#: apps/configuration/configuration_translations.py:1574
+#: apps/configuration/configuration_translations.py:1575
 msgctxt "technologies helptext"
 msgid ""
 "Exapmles: includes both artificial and natural methods for waste management"
@@ -2992,17 +2993,17 @@ msgstr ""
 "Exemples: comprend à la fois des méthodes artificielles et naturelles de "
 "gestion des déchets "
 
-#: apps/configuration/configuration_translations.py:1575
+#: apps/configuration/configuration_translations.py:1576
 msgctxt "technologies label"
 msgid "M6: Waste management (recycling, re-use or reduce)"
 msgstr "M6: Gestion des déchets (recyclage, réutilisation ou réduction)"
 
-#: apps/configuration/configuration_translations.py:1576
+#: apps/configuration/configuration_translations.py:1577
 msgctxt "technologies label"
 msgid "M7: Others"
 msgstr "M7: Autres"
 
-#: apps/configuration/configuration_translations.py:1577
+#: apps/configuration/configuration_translations.py:1578
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Loss of topsoil/ surface erosion:</strong> even removal of top soil, "
@@ -3011,34 +3012,34 @@ msgstr ""
 "<strong>perte de la couche superficielle des sols (couche arable)/ érosion "
 "de surface:</strong>"
 
-#: apps/configuration/configuration_translations.py:1578
+#: apps/configuration/configuration_translations.py:1579
 msgctxt "technologies label"
 msgid "Wt: loss of topsoil/ surface erosion"
 msgstr ""
 "Wt: perte de la couche superficielle des sols (couche arable)/ érosion de "
 "surface"
 
-#: apps/configuration/configuration_translations.py:1579
+#: apps/configuration/configuration_translations.py:1580
 msgctxt "technologies label"
 msgid "Wg: gully erosion/ gullying"
 msgstr "Wg: ravinement/ érosion en ravines"
 
-#: apps/configuration/configuration_translations.py:1580
+#: apps/configuration/configuration_translations.py:1581
 msgctxt "technologies label"
 msgid "Wm: mass movements/ landslides"
 msgstr "Wm: mouvements de masse/ glissements de terrain"
 
-#: apps/configuration/configuration_translations.py:1581
+#: apps/configuration/configuration_translations.py:1582
 msgctxt "technologies label"
 msgid "Wr: riverbank erosion"
 msgstr "Wr: érosion des berges"
 
-#: apps/configuration/configuration_translations.py:1582
+#: apps/configuration/configuration_translations.py:1583
 msgctxt "technologies label"
 msgid "Wc: coastal erosion"
 msgstr "Wc: érosion côtière"
 
-#: apps/configuration/configuration_translations.py:1583
+#: apps/configuration/configuration_translations.py:1584
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Offsite degradation effects:</strong> deposition of sediments, "
@@ -3049,24 +3050,24 @@ msgstr ""
 "inondations en aval, envasement des réservoirs et des cours d'eau, et "
 "pollution des plans d'eau avec des sédiments érodés"
 
-#: apps/configuration/configuration_translations.py:1584
+#: apps/configuration/configuration_translations.py:1585
 msgctxt "technologies label"
 msgid "Wo: offsite degradation effects"
 msgstr "Wo: effets hors-site de la dégradation: "
 
-#: apps/configuration/configuration_translations.py:1585
+#: apps/configuration/configuration_translations.py:1586
 msgctxt "technologies helptext"
 msgid "<strong>Loss of topsoil:</strong> uniform displacement"
 msgstr ""
 "<strong>Perte de la couche superficielle des sols (couche arable): </"
 "strong>déplacement uniforme"
 
-#: apps/configuration/configuration_translations.py:1586
+#: apps/configuration/configuration_translations.py:1587
 msgctxt "technologies label"
 msgid "Et: loss of topsoil"
 msgstr "Et: perte de la couche superficielle des sols (couche arable)"
 
-#: apps/configuration/configuration_translations.py:1587
+#: apps/configuration/configuration_translations.py:1588
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Deflation and deposition:</strong> uneven removal of soil material"
@@ -3074,12 +3075,12 @@ msgstr ""
 "<strong>Déflation et déposition: </strong>disparition irrégulière des "
 "matériaux des sols"
 
-#: apps/configuration/configuration_translations.py:1588
+#: apps/configuration/configuration_translations.py:1589
 msgctxt "technologies label"
 msgid "Ed: deflation and deposition"
 msgstr "Ed: déflation et déposition"
 
-#: apps/configuration/configuration_translations.py:1589
+#: apps/configuration/configuration_translations.py:1590
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Offsite degradation effects:</strong> covering of the terrain with "
@@ -3089,12 +3090,12 @@ msgstr ""
 "terres par des particules de sables transportées par le vent et d’origine "
 "lointaine (\"overblowing\")"
 
-#: apps/configuration/configuration_translations.py:1590
+#: apps/configuration/configuration_translations.py:1591
 msgctxt "technologies label"
 msgid "Eo: offsite degradation effects"
 msgstr "Eo: effets hors site de la dégradation"
 
-#: apps/configuration/configuration_translations.py:1591
+#: apps/configuration/configuration_translations.py:1592
 msgctxt "technologies helptext"
 msgid ""
 "e.g. leaching, soil fertility mining, nutrient oxidation and volatilization "
@@ -3103,7 +3104,7 @@ msgstr ""
 "par ex., lessivage, lixiviation, oxydation et volatilisation des nutriments "
 "(N)"
 
-#: apps/configuration/configuration_translations.py:1592
+#: apps/configuration/configuration_translations.py:1593
 msgctxt "technologies label"
 msgid ""
 "Cn: fertility decline and reduced organic matter content (not caused by "
@@ -3112,17 +3113,17 @@ msgstr ""
 "Cn: baisse de la fertilité des sols et réduction du niveau de matière "
 "organique (non causée par l’érosion)"
 
-#: apps/configuration/configuration_translations.py:1593
+#: apps/configuration/configuration_translations.py:1594
 msgctxt "technologies helptext"
 msgid "<strong>Acidification</strong>: lowering of the soil pH"
 msgstr "<strong>Acidification</strong>: baisse du pH du sol "
 
-#: apps/configuration/configuration_translations.py:1594
+#: apps/configuration/configuration_translations.py:1595
 msgctxt "technologies label"
 msgid "Ca: acidification"
 msgstr "Ca: acidification"
 
-#: apps/configuration/configuration_translations.py:1595
+#: apps/configuration/configuration_translations.py:1596
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Soil pollution</strong>: contamination of the soil with toxic "
@@ -3131,12 +3132,12 @@ msgstr ""
 "<strong>Pollution des sols</strong>: contamination des sols par des "
 "matériaux toxiques"
 
-#: apps/configuration/configuration_translations.py:1596
+#: apps/configuration/configuration_translations.py:1597
 msgctxt "technologies label"
 msgid "Cp: soil pollution"
 msgstr "Cp: pollution des sols"
 
-#: apps/configuration/configuration_translations.py:1597
+#: apps/configuration/configuration_translations.py:1598
 msgctxt "technologies helptext"
 msgid ""
 "<strong>salinization/ alkalinization</strong>: a net increase of the salt "
@@ -3146,12 +3147,12 @@ msgstr ""
 "teneur en sel du sol (de la couche arable) conduit à une baisse de la "
 "productivité"
 
-#: apps/configuration/configuration_translations.py:1598
+#: apps/configuration/configuration_translations.py:1599
 msgctxt "technologies label"
 msgid "Cs: salinization/ alkalinization"
 msgstr "Cs: salinisation/ alcalinisation"
 
-#: apps/configuration/configuration_translations.py:1599
+#: apps/configuration/configuration_translations.py:1600
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Compaction</strong>: deterioration of soil structure by trampling or "
@@ -3160,12 +3161,12 @@ msgstr ""
 "<strong>Compaction</strong>: détérioration de la structure du sol par le "
 "piétinement ou le poids et/ou l’utilisation fréquente de machines"
 
-#: apps/configuration/configuration_translations.py:1600
+#: apps/configuration/configuration_translations.py:1601
 msgctxt "technologies label"
 msgid "Pc: compaction"
 msgstr "Pc: compaction"
 
-#: apps/configuration/configuration_translations.py:1601
+#: apps/configuration/configuration_translations.py:1602
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Slaking and crusting</strong>: clogging of pores with fine soil "
@@ -3176,12 +3177,12 @@ msgstr ""
 "des matériaux fins et développement d’une fine couche imperméable à la "
 "surface empêchant l’infiltration des eaux de pluie"
 
-#: apps/configuration/configuration_translations.py:1602
+#: apps/configuration/configuration_translations.py:1603
 msgctxt "technologies label"
 msgid "Pk: slaking and crusting"
 msgstr "Pk: scellage et encroûtement "
 
-#: apps/configuration/configuration_translations.py:1603
+#: apps/configuration/configuration_translations.py:1604
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Waterlogging</strong>: effects of human induced water saturation of "
@@ -3190,23 +3191,23 @@ msgstr ""
 "<strong>Saturation en eau des sols (engorgement hydrique)</strong>: effets "
 "de l’hydromorphisme induit par l’homme (à l’exclusion des rizières)"
 
-#: apps/configuration/configuration_translations.py:1604
+#: apps/configuration/configuration_translations.py:1605
 msgctxt "technologies label"
 msgid "Pw: waterlogging"
 msgstr "Pw: saturation en eau des sols "
 
-#: apps/configuration/configuration_translations.py:1605
+#: apps/configuration/configuration_translations.py:1606
 msgctxt "technologies label"
 msgid "Ps: subsidence of organic soils, settling of soil"
 msgstr "Ps: affaissement des sols organiques, tassement des sols"
 
-#: apps/configuration/configuration_translations.py:1606
+#: apps/configuration/configuration_translations.py:1607
 msgctxt "technologies label"
 msgid "Pu: loss of bio-productive function due to other activities"
 msgstr ""
 "Pu: perte de la fonction de bio-production en raison d’autres activités "
 
-#: apps/configuration/configuration_translations.py:1607
+#: apps/configuration/configuration_translations.py:1608
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Reduction of vegetation cover</strong>: increase of bare/ "
@@ -3215,12 +3216,12 @@ msgstr ""
 "<strong>Réduction de la couverture végétale</strong>: augmentation de sols "
 "nus/ non protégés"
 
-#: apps/configuration/configuration_translations.py:1608
+#: apps/configuration/configuration_translations.py:1609
 msgctxt "technologies label"
 msgid "Bc: reduction of vegetation cover"
 msgstr "Bc: réduction de la couverture végétale"
 
-#: apps/configuration/configuration_translations.py:1609
+#: apps/configuration/configuration_translations.py:1610
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Loss of habitats</strong>: decreasing vegetation diversity (fallow "
@@ -3230,12 +3231,12 @@ msgstr ""
 "(jachères, systèmes mixtes, bordures des champs), augmentation de la "
 "fragmentation des habitats"
 
-#: apps/configuration/configuration_translations.py:1610
+#: apps/configuration/configuration_translations.py:1611
 msgctxt "technologies label"
 msgid "Bh: loss of habitats"
 msgstr "Bh: perte d’habitats"
 
-#: apps/configuration/configuration_translations.py:1611
+#: apps/configuration/configuration_translations.py:1612
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Quantity/ biomass decline</strong>: reduced vegetative production "
@@ -3244,12 +3245,12 @@ msgstr ""
 "<strong>Baisse de la quantité/ biomasse</strong>: réduction de la production "
 "végétale pour les différentes utilisations des terres"
 
-#: apps/configuration/configuration_translations.py:1612
+#: apps/configuration/configuration_translations.py:1613
 msgctxt "technologies label"
 msgid "Bq: quantity/ biomass decline"
 msgstr "Bq: baisse de la quantité/ biomasse"
 
-#: apps/configuration/configuration_translations.py:1613
+#: apps/configuration/configuration_translations.py:1614
 msgctxt "technologies helptext"
 msgid ""
 "<strong>detrimental effects of fires (includes low/ high severity of fires)</"
@@ -3260,12 +3261,12 @@ msgstr ""
 "intensité)</strong>: sur les forêts (par ex., cultures sur brûlis), la "
 "brousse, les pâturages, les terres cultivées (brûlage des résidus)"
 
-#: apps/configuration/configuration_translations.py:1614
+#: apps/configuration/configuration_translations.py:1615
 msgctxt "technologies label"
 msgid "Bf: detrimental effects of fires"
 msgstr "Bf: effets néfastes des feux "
 
-#: apps/configuration/configuration_translations.py:1615
+#: apps/configuration/configuration_translations.py:1616
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Quality and species composition/ diversity decline</strong>: loss of "
@@ -3277,12 +3278,12 @@ msgstr ""
 "des herbes pérennes appétentes; diffusion d'espèces/de mauvaises herbes "
 "envahissantes, tolérantes au sel, inappétentes "
 
-#: apps/configuration/configuration_translations.py:1616
+#: apps/configuration/configuration_translations.py:1617
 msgctxt "technologies label"
 msgid "Bs: quality and species composition/ diversity decline"
 msgstr "Bs: baisse de la qualité et de la composition/ diversité des espèces"
 
-#: apps/configuration/configuration_translations.py:1617
+#: apps/configuration/configuration_translations.py:1618
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Loss of soil life</strong>: decline of soil macro-organisms and "
@@ -3291,12 +3292,12 @@ msgstr ""
 "<strong>Perte de la vie des sols</strong>: baisse de la quantité et de la "
 "qualité des macro-organismes et micro-organismes dans les sols "
 
-#: apps/configuration/configuration_translations.py:1618
+#: apps/configuration/configuration_translations.py:1619
 msgctxt "technologies label"
 msgid "Bl: loss of soil life"
 msgstr "Bl: perte de la vie des sols"
 
-#: apps/configuration/configuration_translations.py:1619
+#: apps/configuration/configuration_translations.py:1620
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Increase of pests/ diseases, loss of predators</strong>: reduction "
@@ -3305,26 +3306,26 @@ msgstr ""
 "<strong>augmentation des insectes nuisibles (ravageurs)/ maladies, baisse "
 "des prédateurs</strong>: réduction de la lutte biologique"
 
-#: apps/configuration/configuration_translations.py:1620
+#: apps/configuration/configuration_translations.py:1621
 msgctxt "technologies label"
 msgid "Bp: increase of pests/ diseases, loss of predators"
 msgstr ""
 "Bp: augmentation des insectes nuisibles (ravageurs)/ maladies, baisse des "
 "prédateurs"
 
-#: apps/configuration/configuration_translations.py:1621
+#: apps/configuration/configuration_translations.py:1622
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Aridification</strong>: decrease of average soil moisture content"
 msgstr ""
 "<strong>aridification</strong>: baisse du degré moyen d’humidité du sol"
 
-#: apps/configuration/configuration_translations.py:1622
+#: apps/configuration/configuration_translations.py:1623
 msgctxt "technologies label"
 msgid "Ha: aridification"
 msgstr "Ha: aridification"
 
-#: apps/configuration/configuration_translations.py:1623
+#: apps/configuration/configuration_translations.py:1624
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Change in quantity of surface water</strong>: change of the flow "
@@ -3334,12 +3335,12 @@ msgstr ""
 "régime d’écoulement des eaux (inondations, crues, débits faibles, "
 "assèchement des rivières et des lacs)"
 
-#: apps/configuration/configuration_translations.py:1624
+#: apps/configuration/configuration_translations.py:1625
 msgctxt "technologies label"
 msgid "Hs: change in quantity of surface water"
 msgstr "Hs: changement de la quantité d’eau de surface"
 
-#: apps/configuration/configuration_translations.py:1625
+#: apps/configuration/configuration_translations.py:1626
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Change in groundwater/aquifer level</strong>: lowering of "
@@ -3353,14 +3354,14 @@ msgstr ""
 "augmentation de la nappe phréatique causant l'engorgement et/ou la "
 "salinisation des sols"
 
-#: apps/configuration/configuration_translations.py:1626
+#: apps/configuration/configuration_translations.py:1627
 msgctxt "technologies label"
 msgid "Hg: change in groundwater/aquifer level"
 msgstr ""
 "Hg: changement du niveau des nappes phréatiques (eaux souterraines) et des "
 "aquifères"
 
-#: apps/configuration/configuration_translations.py:1627
+#: apps/configuration/configuration_translations.py:1628
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Decline of surface water quality</strong>: increased sediments and "
@@ -3371,12 +3372,12 @@ msgstr ""
 "sédiments et des polluants dans les plans d'eau douce en raison de "
 "pollutions ponctuelles ou de pollutions terrestres"
 
-#: apps/configuration/configuration_translations.py:1628
+#: apps/configuration/configuration_translations.py:1629
 msgctxt "technologies label"
 msgid "Hp: decline of surface water quality"
 msgstr "Hp: baisse de la qualité des eaux de surface"
 
-#: apps/configuration/configuration_translations.py:1629
+#: apps/configuration/configuration_translations.py:1630
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Decline of groundwater quality</strong>: due to pollutants "
@@ -3385,12 +3386,12 @@ msgstr ""
 "<strong>Baisse de la qualité des eaux souterraines</strong>: en raison "
 "d'infiltrations de polluants dans les aquifères"
 
-#: apps/configuration/configuration_translations.py:1630
+#: apps/configuration/configuration_translations.py:1631
 msgctxt "technologies label"
 msgid "Hq: decline of groundwater quality"
 msgstr "Hq: baisse de la qualité des eaux souterraines"
 
-#: apps/configuration/configuration_translations.py:1631
+#: apps/configuration/configuration_translations.py:1632
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Reduction of the buffering capacity of wetland areas</strong>: to "
@@ -3399,219 +3400,219 @@ msgstr ""
 "<strong>Réduction de la capacité tampon des zones humides<strong>: pour "
 "faire face aux inondations et aux pollutions"
 
-#: apps/configuration/configuration_translations.py:1632
+#: apps/configuration/configuration_translations.py:1633
 msgctxt "technologies label"
 msgid "Hw: reduction of the buffering capacity of wetland areas"
 msgstr "Hw: réduction de la capacité tampon des zones humides "
 
-#: apps/configuration/configuration_translations.py:1633
-#: apps/configuration/configuration_translations.py:1816
+#: apps/configuration/configuration_translations.py:1634
+#: apps/configuration/configuration_translations.py:1817
 msgctxt "technologies label"
 msgid "0"
 msgstr "0"
 
-#: apps/configuration/configuration_translations.py:1634
+#: apps/configuration/configuration_translations.py:1635
 msgctxt "technologies label"
 msgid "1-10"
 msgstr "1-10"
 
-#: apps/configuration/configuration_translations.py:1635
+#: apps/configuration/configuration_translations.py:1636
 msgctxt "technologies label"
 msgid "11-50"
 msgstr "11-50"
 
-#: apps/configuration/configuration_translations.py:1636
+#: apps/configuration/configuration_translations.py:1637
 msgctxt "technologies label"
 msgid "51-100"
 msgstr "51-100"
 
-#: apps/configuration/configuration_translations.py:1637
+#: apps/configuration/configuration_translations.py:1638
 msgctxt "technologies label"
 msgid "101-250"
 msgstr "101-250"
 
-#: apps/configuration/configuration_translations.py:1638
+#: apps/configuration/configuration_translations.py:1639
 msgctxt "technologies label"
 msgid "251-500"
 msgstr "251-500"
 
-#: apps/configuration/configuration_translations.py:1639
+#: apps/configuration/configuration_translations.py:1640
 msgctxt "technologies label"
 msgid "501-1000"
 msgstr "501-1000"
 
-#: apps/configuration/configuration_translations.py:1640
+#: apps/configuration/configuration_translations.py:1641
 msgctxt "technologies label"
 msgid ">1000"
 msgstr ">1000"
 
-#: apps/configuration/configuration_translations.py:1641
+#: apps/configuration/configuration_translations.py:1642
 msgctxt "technologies helptext"
 msgid "<strong>Convex</strong>: ridge (diversion of water flow)"
 msgstr "<strong>Convexe</strong>: crête (dérivation de l’écoulement de l’eau) "
 
-#: apps/configuration/configuration_translations.py:1642
+#: apps/configuration/configuration_translations.py:1643
 msgctxt "technologies label"
 msgid "convex situations"
 msgstr "situations convexes"
 
-#: apps/configuration/configuration_translations.py:1643
+#: apps/configuration/configuration_translations.py:1644
 msgctxt "technologies helptext"
 msgid "<strong>Concave</strong>: depression (conversion of water flow)"
 msgstr ""
 "<strong>Concave</strong>: dépression (conversion de l’écoulement de l’eau)"
 
-#: apps/configuration/configuration_translations.py:1644
+#: apps/configuration/configuration_translations.py:1645
 msgctxt "technologies label"
 msgid "concave situations"
 msgstr "situations concaves"
 
-#: apps/configuration/configuration_translations.py:1645
+#: apps/configuration/configuration_translations.py:1646
 msgctxt "technologies label"
 msgid "small-scale land users"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1646
+#: apps/configuration/configuration_translations.py:1647
 msgctxt "technologies label"
 msgid "medium-scale land users"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1647
+#: apps/configuration/configuration_translations.py:1648
 msgctxt "technologies label"
 msgid "large-scale land users"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1648
+#: apps/configuration/configuration_translations.py:1649
 msgctxt "technologies label"
 msgid "individual/ household"
 msgstr "individu/ ménage  "
 
-#: apps/configuration/configuration_translations.py:1649
+#: apps/configuration/configuration_translations.py:1650
 msgctxt "technologies label"
 msgid "groups/ community"
 msgstr "groupe/ communauté "
 
-#: apps/configuration/configuration_translations.py:1650
+#: apps/configuration/configuration_translations.py:1651
 msgctxt "technologies label"
 msgid "cooperative"
 msgstr "coopérative"
 
-#: apps/configuration/configuration_translations.py:1651
+#: apps/configuration/configuration_translations.py:1652
 msgctxt "technologies label"
 msgid "employee (company, government)"
 msgstr "employé (entreprise, gouvernement)"
 
-#: apps/configuration/configuration_translations.py:1652
+#: apps/configuration/configuration_translations.py:1653
 #, python-format
 msgctxt "technologies label"
 msgid "less than 10%% of all income"
 msgstr "moins de 10%% de tous les revenus"
 
-#: apps/configuration/configuration_translations.py:1653
+#: apps/configuration/configuration_translations.py:1654
 #, python-format
 msgctxt "technologies label"
 msgid "10-50%% of all income"
 msgstr "10-50%% de tous les revenus"
 
-#: apps/configuration/configuration_translations.py:1654
+#: apps/configuration/configuration_translations.py:1655
 #, python-format
 msgctxt "technologies label"
 msgid "> 50%% of all income"
 msgstr "> 50%% de tous les revenus"
 
-#: apps/configuration/configuration_translations.py:1655
+#: apps/configuration/configuration_translations.py:1656
 msgctxt "technologies label"
 msgid "manual work"
 msgstr "travail manuel"
 
-#: apps/configuration/configuration_translations.py:1656
+#: apps/configuration/configuration_translations.py:1657
 msgctxt "technologies label"
 msgid "animal traction"
 msgstr "traction  animale"
 
-#: apps/configuration/configuration_translations.py:1657
+#: apps/configuration/configuration_translations.py:1658
 msgctxt "technologies label"
 msgid "mechanized/ motorized"
 msgstr "mécanisé/ motorisé"
 
-#: apps/configuration/configuration_translations.py:1658
+#: apps/configuration/configuration_translations.py:1659
 msgctxt "technologies label"
 msgid "mainly women"
 msgstr "principalement des femmes"
 
-#: apps/configuration/configuration_translations.py:1659
+#: apps/configuration/configuration_translations.py:1660
 msgctxt "technologies label"
 msgid "mainly men"
 msgstr "principalement des hommes"
 
-#: apps/configuration/configuration_translations.py:1660
+#: apps/configuration/configuration_translations.py:1661
 msgctxt "technologies label"
 msgid "mixed"
 msgstr "les deux"
 
-#: apps/configuration/configuration_translations.py:1661
+#: apps/configuration/configuration_translations.py:1662
 msgctxt "technologies helptext"
 msgid "E.g. ethnic, religious"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1662
+#: apps/configuration/configuration_translations.py:1663
 msgctxt "technologies label"
 msgid "land users belonging to a disadvantaged group"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1663
+#: apps/configuration/configuration_translations.py:1664
 msgctxt "technologies label"
 msgid "common/ average land users"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1664
+#: apps/configuration/configuration_translations.py:1665
 msgctxt "technologies label"
 msgid "leaders/ privileged"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1665
+#: apps/configuration/configuration_translations.py:1666
 msgctxt "technologies label"
 msgid "single site"
 msgstr "site unique"
 
-#: apps/configuration/configuration_translations.py:1666
+#: apps/configuration/configuration_translations.py:1667
 msgctxt "technologies label"
 msgid "2-10 sites"
 msgstr "2-10 sites"
 
-#: apps/configuration/configuration_translations.py:1667
+#: apps/configuration/configuration_translations.py:1668
 msgctxt "technologies label"
 msgid "10-100 sites"
 msgstr "10-100 sites"
 
-#: apps/configuration/configuration_translations.py:1668
+#: apps/configuration/configuration_translations.py:1669
 msgctxt "technologies label"
 msgid "100-1000 sites"
 msgstr "100-1000 sites"
 
-#: apps/configuration/configuration_translations.py:1669
+#: apps/configuration/configuration_translations.py:1670
 msgctxt "technologies label"
 msgid "> 1000 sites"
 msgstr "> 1000 sites"
 
-#: apps/configuration/configuration_translations.py:1670
+#: apps/configuration/configuration_translations.py:1671
 msgctxt "technologies helptext"
 msgid "Land used for cultivation of crops (field crops, orchards)"
 msgstr ""
 "terres utilisées pour les cultures / productions agricoles (cultures de "
 "plein champ, vergers)"
 
-#: apps/configuration/configuration_translations.py:1671
+#: apps/configuration/configuration_translations.py:1672
 msgctxt "technologies label"
 msgid "Cropland"
 msgstr "Terres cultivées"
 
-#: apps/configuration/configuration_translations.py:1672
+#: apps/configuration/configuration_translations.py:1673
 msgctxt "technologies helptext"
 msgid "Land used for animal production"
 msgstr "terres utilisées pour la production animale"
 
-#: apps/configuration/configuration_translations.py:1674
+#: apps/configuration/configuration_translations.py:1675
 msgctxt "technologies helptext"
 msgid ""
 "land used mainly for wood production, other forest products, recreation, "
@@ -3620,12 +3621,12 @@ msgstr ""
 "terres utilisées principalement pour la production de bois et de dérivés "
 "forestiers, les loisirs, la protection"
 
-#: apps/configuration/configuration_translations.py:1675
+#: apps/configuration/configuration_translations.py:1676
 msgctxt "technologies label"
 msgid "Forest/ woodlands"
 msgstr "Forêts/ bois"
 
-#: apps/configuration/configuration_translations.py:1676
+#: apps/configuration/configuration_translations.py:1677
 msgctxt "technologies helptext"
 msgid ""
 "mixture of land use types within the same land unit (includes agroforestry)"
@@ -3633,32 +3634,32 @@ msgstr ""
 "combinaison de différents types d’utilisation des terres sur une même unité "
 "de sol (incluant l'agroforesterie)"
 
-#: apps/configuration/configuration_translations.py:1677
+#: apps/configuration/configuration_translations.py:1678
 msgctxt "technologies label"
 msgid "Mixed (crops/ grazing/ trees), incl. agroforestry"
 msgstr "Mixte (cultures/ pâturages/ arbres), incluant l'agroforesterie"
 
-#: apps/configuration/configuration_translations.py:1678
+#: apps/configuration/configuration_translations.py:1679
 msgctxt "technologies label"
 msgid "Settlements, infrastructure"
 msgstr "Implantations, infrastructures "
 
-#: apps/configuration/configuration_translations.py:1679
+#: apps/configuration/configuration_translations.py:1680
 msgctxt "technologies label"
 msgid "Waterways, waterbodies, wetlands"
 msgstr "Voies d'eau, plans d'eau, zones humides"
 
-#: apps/configuration/configuration_translations.py:1680
+#: apps/configuration/configuration_translations.py:1681
 msgctxt "technologies label"
 msgid "Mines, extractive industries"
 msgstr "Mines, industries extractives"
 
-#: apps/configuration/configuration_translations.py:1681
+#: apps/configuration/configuration_translations.py:1682
 msgctxt "technologies label"
 msgid "Unproductive land"
 msgstr "Terres improductives"
 
-#: apps/configuration/configuration_translations.py:1682
+#: apps/configuration/configuration_translations.py:1683
 msgctxt "technologies helptext"
 msgid ""
 "crop(s) establishment and development is completely determined by rainfall."
@@ -3666,12 +3667,12 @@ msgstr ""
 "La mise en place et le développement de la (des) culture(s) sont "
 "complètement déterminés par l’eau de pluie."
 
-#: apps/configuration/configuration_translations.py:1683
+#: apps/configuration/configuration_translations.py:1684
 msgctxt "technologies label"
 msgid "rainfed"
 msgstr "pluvial"
 
-#: apps/configuration/configuration_translations.py:1684
+#: apps/configuration/configuration_translations.py:1685
 msgctxt "technologies helptext"
 msgid ""
 "the application of a limited amount of water to the crop when rainfall fails "
@@ -3683,12 +3684,12 @@ msgstr ""
 "croissance des plantes, pour augmenter et stabiliser le rendement; l'eau "
 "supplémentaire seule ne suffit pas à la production agricole."
 
-#: apps/configuration/configuration_translations.py:1685
+#: apps/configuration/configuration_translations.py:1686
 msgctxt "technologies label"
 msgid "mixed rainfed-irrigated"
 msgstr "mixte: pluvial-irrigué"
 
-#: apps/configuration/configuration_translations.py:1686
+#: apps/configuration/configuration_translations.py:1687
 msgctxt "technologies helptext"
 msgid ""
 "any of several means of an artificial regular supply of water, in addition "
@@ -3697,12 +3698,12 @@ msgstr ""
 "Nombreux moyens d'approvisionnement artificiel et régulier en eau, en "
 "complément de l’eau de pluie, au niveau des cultures."
 
-#: apps/configuration/configuration_translations.py:1687
+#: apps/configuration/configuration_translations.py:1688
 msgctxt "technologies label"
 msgid "full irrigation"
 msgstr "pleine irrigation"
 
-#: apps/configuration/configuration_translations.py:1688
+#: apps/configuration/configuration_translations.py:1689
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Agronomic measures</strong><ul><li>are usually associated with "
@@ -3718,12 +3719,12 @@ msgstr ""
 "profil de la pente</li><li>sont normalement indépendantes de la pente</li></"
 "ul>"
 
-#: apps/configuration/configuration_translations.py:1689
+#: apps/configuration/configuration_translations.py:1690
 msgctxt "technologies label"
 msgid "agronomic measures"
 msgstr "Pratiques agronomiques"
 
-#: apps/configuration/configuration_translations.py:1690
+#: apps/configuration/configuration_translations.py:1691
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Vegetative measures</strong><ul><li>involve the use of perennial "
@@ -3739,12 +3740,12 @@ msgstr ""
 "direction du vent dominant<ul><li>sont souvent espacées en fonction de la "
 "pente<ul></ul>"
 
-#: apps/configuration/configuration_translations.py:1691
+#: apps/configuration/configuration_translations.py:1692
 msgctxt "technologies label"
 msgid "vegetative measures"
 msgstr "Pratiques végétales"
 
-#: apps/configuration/configuration_translations.py:1692
+#: apps/configuration/configuration_translations.py:1693
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Structural measures</strong><ul><li>are of long duration or "
@@ -3767,13 +3768,13 @@ msgstr ""
 "direction du vent dominant</li><li>sont souvent espacées en fonction de la "
 "pente<</li></ul>"
 
-#: apps/configuration/configuration_translations.py:1693
-#: apps/configuration/configuration_translations.py:2032
+#: apps/configuration/configuration_translations.py:1694
+#: apps/configuration/configuration_translations.py:2033
 msgctxt "technologies label"
 msgid "structural measures"
 msgstr "Structures physiques "
 
-#: apps/configuration/configuration_translations.py:1694
+#: apps/configuration/configuration_translations.py:1695
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Management measures</strong><ul><li>involve a fundamental change in "
@@ -3787,44 +3788,44 @@ msgstr ""
 "souvent l’amélioration de la couverture végétale</li><li>réduisent souvent "
 "l’intensité d’utilisation</li></ul>"
 
-#: apps/configuration/configuration_translations.py:1695
+#: apps/configuration/configuration_translations.py:1696
 msgctxt "technologies label"
 msgid "management measures"
 msgstr "Modes de gestion"
 
-#: apps/configuration/configuration_translations.py:1696
+#: apps/configuration/configuration_translations.py:1697
 msgctxt "technologies label"
 msgid "soil erosion by water"
 msgstr "érosion hydrique des sols"
 
-#: apps/configuration/configuration_translations.py:1697
+#: apps/configuration/configuration_translations.py:1698
 msgctxt "technologies label"
 msgid "soil erosion by wind"
 msgstr "érosion éolienne des sols"
 
-#: apps/configuration/configuration_translations.py:1698
+#: apps/configuration/configuration_translations.py:1699
 msgctxt "technologies label"
 msgid "chemical soil deterioration"
 msgstr "dégradation chimique des sols"
 
-#: apps/configuration/configuration_translations.py:1699
+#: apps/configuration/configuration_translations.py:1700
 msgctxt "technologies label"
 msgid "physical soil deterioration"
 msgstr "dégradation physique des sols"
 
-#: apps/configuration/configuration_translations.py:1700
+#: apps/configuration/configuration_translations.py:1701
 msgctxt "technologies label"
 msgid "biological degradation"
 msgstr "dégradation biologique"
 
-#: apps/configuration/configuration_translations.py:1701
+#: apps/configuration/configuration_translations.py:1702
 msgctxt "technologies label"
 msgid "water degradation"
 msgstr "dégradation hydrique"
 
-#: apps/configuration/configuration_translations.py:1702
-#: apps/configuration/configuration_translations.py:1981
-#: apps/configuration/configuration_translations.py:2035
+#: apps/configuration/configuration_translations.py:1703
+#: apps/configuration/configuration_translations.py:1982
+#: apps/configuration/configuration_translations.py:2036
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Prevention:</strong> good land management practices are already in "
@@ -3836,15 +3837,15 @@ msgstr ""
 "Elles maintiennent les ressources naturelles et leurs fonctions "
 "environnementales et productives."
 
-#: apps/configuration/configuration_translations.py:1703
-#: apps/configuration/configuration_translations.py:2036
+#: apps/configuration/configuration_translations.py:1704
+#: apps/configuration/configuration_translations.py:2037
 msgctxt "technologies label"
 msgid "prevent land degradation"
 msgstr "prévenir la dégradation des terres?"
 
-#: apps/configuration/configuration_translations.py:1704
-#: apps/configuration/configuration_translations.py:1983
-#: apps/configuration/configuration_translations.py:2037
+#: apps/configuration/configuration_translations.py:1705
+#: apps/configuration/configuration_translations.py:1984
+#: apps/configuration/configuration_translations.py:2038
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Reduction:</strong> interventions intended to reduce ongoing "
@@ -3858,15 +3859,15 @@ msgstr ""
 "leurs fonctions. Leurs impacts ont tendance à être perceptibles à court et "
 "moyen terme."
 
-#: apps/configuration/configuration_translations.py:1705
-#: apps/configuration/configuration_translations.py:2038
+#: apps/configuration/configuration_translations.py:1706
+#: apps/configuration/configuration_translations.py:2039
 msgctxt "technologies label"
 msgid "reduce land degradation"
 msgstr "réduire la dégradation des terres?"
 
-#: apps/configuration/configuration_translations.py:1706
-#: apps/configuration/configuration_translations.py:1985
-#: apps/configuration/configuration_translations.py:2039
+#: apps/configuration/configuration_translations.py:1707
+#: apps/configuration/configuration_translations.py:1986
+#: apps/configuration/configuration_translations.py:2040
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Rehabilitation/ restoration</strong> required when the land is "
@@ -3880,95 +3881,95 @@ msgstr ""
 "improductives. Ici, des investissements à plus long terme et plus coûteux "
 "sont nécessaires pour démontrer tout impact."
 
-#: apps/configuration/configuration_translations.py:1707
-#: apps/configuration/configuration_translations.py:2040
+#: apps/configuration/configuration_translations.py:1708
+#: apps/configuration/configuration_translations.py:2041
 msgctxt "technologies label"
 msgid "restore/ rehabilitate severely degraded land"
 msgstr "restaurer/ réhabiliter des terres sévèrement dégradées?"
 
-#: apps/configuration/configuration_translations.py:1708
+#: apps/configuration/configuration_translations.py:1709
 msgctxt "technologies label"
 msgid "Agronomic"
 msgstr "pratiques agronomiques"
 
-#: apps/configuration/configuration_translations.py:1709
+#: apps/configuration/configuration_translations.py:1710
 msgctxt "technologies label"
 msgid "Vegetative"
 msgstr "pratiques végétales"
 
-#: apps/configuration/configuration_translations.py:1710
+#: apps/configuration/configuration_translations.py:1711
 msgctxt "technologies label"
 msgid "Structural"
 msgstr "structures physiques"
 
-#: apps/configuration/configuration_translations.py:1711
+#: apps/configuration/configuration_translations.py:1712
 msgctxt "technologies label"
 msgid "Management"
 msgstr "modes de gestion"
 
-#: apps/configuration/configuration_translations.py:1712
+#: apps/configuration/configuration_translations.py:1713
 msgctxt "technologies label"
 msgid "Other measures"
 msgstr "autres mesures"
 
-#: apps/configuration/configuration_translations.py:1713
+#: apps/configuration/configuration_translations.py:1714
 msgctxt "technologies label"
 msgid "< 250 mm"
 msgstr "< 250 mm"
 
-#: apps/configuration/configuration_translations.py:1714
+#: apps/configuration/configuration_translations.py:1715
 msgctxt "technologies label"
 msgid "251-500 mm"
 msgstr "251-500 mm"
 
-#: apps/configuration/configuration_translations.py:1715
+#: apps/configuration/configuration_translations.py:1716
 msgctxt "technologies label"
 msgid "501-750 mm"
 msgstr "501-750 mm"
 
-#: apps/configuration/configuration_translations.py:1716
+#: apps/configuration/configuration_translations.py:1717
 msgctxt "technologies label"
 msgid "751-1000 mm"
 msgstr "751-1000 mm"
 
-#: apps/configuration/configuration_translations.py:1717
+#: apps/configuration/configuration_translations.py:1718
 msgctxt "technologies label"
 msgid "1001-1500 mm"
 msgstr "1001-1500 mm"
 
-#: apps/configuration/configuration_translations.py:1718
+#: apps/configuration/configuration_translations.py:1719
 msgctxt "technologies label"
 msgid "1501-2000 mm"
 msgstr "1501-2000 mm"
 
-#: apps/configuration/configuration_translations.py:1719
+#: apps/configuration/configuration_translations.py:1720
 msgctxt "technologies label"
 msgid "2001-3000 mm"
 msgstr "2001-3000 mm"
 
-#: apps/configuration/configuration_translations.py:1720
+#: apps/configuration/configuration_translations.py:1721
 msgctxt "technologies label"
 msgid "3001-4000 mm"
 msgstr "3001-4000 mm"
 
-#: apps/configuration/configuration_translations.py:1721
+#: apps/configuration/configuration_translations.py:1722
 msgctxt "technologies label"
 msgid "> 4000 mm"
 msgstr "> 4000 mm"
 
-#: apps/configuration/configuration_translations.py:1722
+#: apps/configuration/configuration_translations.py:1723
 msgctxt "technologies helptext"
 msgid "<strong>Humid</strong>: Length of growing period (LGP) > 270 days"
 msgstr ""
 "<strong>humide</strong>: durée de la période de croissance (Length of "
 "Growing Period, LGP) >270 jours"
 
-#: apps/configuration/configuration_translations.py:1723
+#: apps/configuration/configuration_translations.py:1724
 msgctxt "technologies label"
 msgid "humid"
 msgstr "humide"
 
-#: apps/configuration/configuration_translations.py:1724
+#: apps/configuration/configuration_translations.py:1725
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Sub-humid</strong>: Length of growing period (LGP) 180 - 269 days"
@@ -3976,12 +3977,12 @@ msgstr ""
 "<strong>subhumide</strong>: durée de la période de croissance (LGP) comprise "
 "entre 180-269 jours"
 
-#: apps/configuration/configuration_translations.py:1725
+#: apps/configuration/configuration_translations.py:1726
 msgctxt "technologies label"
 msgid "sub-humid"
 msgstr "subhumide"
 
-#: apps/configuration/configuration_translations.py:1726
+#: apps/configuration/configuration_translations.py:1727
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Semi-arid</strong>: Length of growing period (LGP) 75 - 179 days"
@@ -3989,422 +3990,422 @@ msgstr ""
 "<strong>semi-aride</strong> : durée de la période de croissance (LGP) "
 "comprise entre 75-179 jours"
 
-#: apps/configuration/configuration_translations.py:1727
+#: apps/configuration/configuration_translations.py:1728
 msgctxt "technologies label"
 msgid "semi-arid"
 msgstr "semi-aride"
 
-#: apps/configuration/configuration_translations.py:1728
+#: apps/configuration/configuration_translations.py:1729
 msgctxt "technologies helptext"
 msgid "<strong>Arid</strong>: Length of growing period (LGP) 0 - 74 days"
 msgstr ""
 "<strong>aride</strong>: durée de la période de croissance (LGP) comprise "
 "entre 0-74 jours"
 
-#: apps/configuration/configuration_translations.py:1729
+#: apps/configuration/configuration_translations.py:1730
 msgctxt "technologies label"
 msgid "arid"
 msgstr "aride"
 
-#: apps/configuration/configuration_translations.py:1730
+#: apps/configuration/configuration_translations.py:1731
 #, python-format
 msgctxt "technologies label"
 msgid "flat (0-2%%)"
 msgstr "plat (0-2 %%)"
 
-#: apps/configuration/configuration_translations.py:1731
+#: apps/configuration/configuration_translations.py:1732
 #, python-format
 msgctxt "technologies label"
 msgid "gentle (3-5%%)"
 msgstr "faible (3-5%%)"
 
-#: apps/configuration/configuration_translations.py:1732
+#: apps/configuration/configuration_translations.py:1733
 #, python-format
 msgctxt "technologies label"
 msgid "moderate (6-10%%)"
 msgstr "modéré (6-10%%)"
 
-#: apps/configuration/configuration_translations.py:1733
+#: apps/configuration/configuration_translations.py:1734
 #, python-format
 msgctxt "technologies label"
 msgid "rolling (11-15%%)"
 msgstr "onduleux (11-15%%)"
 
-#: apps/configuration/configuration_translations.py:1734
+#: apps/configuration/configuration_translations.py:1735
 #, python-format
 msgctxt "technologies label"
 msgid "hilly (16-30%%)"
 msgstr "vallonné (16-30%%)"
 
-#: apps/configuration/configuration_translations.py:1735
+#: apps/configuration/configuration_translations.py:1736
 #, python-format
 msgctxt "technologies label"
 msgid "steep (31-60%%)"
 msgstr "raide (31-60%%)"
 
-#: apps/configuration/configuration_translations.py:1736
+#: apps/configuration/configuration_translations.py:1737
 #, python-format
 msgctxt "technologies label"
 msgid "very steep (>60%%)"
 msgstr "très raide (>60%%)"
 
-#: apps/configuration/configuration_translations.py:1737
+#: apps/configuration/configuration_translations.py:1738
 msgctxt "technologies label"
 msgid "plateau/plains"
 msgstr "plateaux/ plaines"
 
-#: apps/configuration/configuration_translations.py:1738
+#: apps/configuration/configuration_translations.py:1739
 msgctxt "technologies label"
 msgid "ridges"
 msgstr "crêtes"
 
-#: apps/configuration/configuration_translations.py:1739
+#: apps/configuration/configuration_translations.py:1740
 msgctxt "technologies label"
 msgid "mountain slopes"
 msgstr "flancs/ pentes de montagne"
 
-#: apps/configuration/configuration_translations.py:1740
+#: apps/configuration/configuration_translations.py:1741
 msgctxt "technologies label"
 msgid "hill slopes"
 msgstr "flancs/ pentes de colline"
 
-#: apps/configuration/configuration_translations.py:1741
+#: apps/configuration/configuration_translations.py:1742
 msgctxt "technologies label"
 msgid "footslopes"
 msgstr "piémonts/ glacis (bas de pente)"
 
-#: apps/configuration/configuration_translations.py:1742
+#: apps/configuration/configuration_translations.py:1743
 msgctxt "technologies label"
 msgid "valley floors"
 msgstr "fonds de vallée/bas-fonds"
 
-#: apps/configuration/configuration_translations.py:1743
+#: apps/configuration/configuration_translations.py:1744
 msgctxt "technologies label"
 msgid "0-100 m a.s.l."
 msgstr "0-100 m"
 
-#: apps/configuration/configuration_translations.py:1744
+#: apps/configuration/configuration_translations.py:1745
 msgctxt "technologies label"
 msgid "100-500 m a.s.l."
 msgstr "100-500 m"
 
-#: apps/configuration/configuration_translations.py:1745
+#: apps/configuration/configuration_translations.py:1746
 msgctxt "technologies label"
 msgid "500-1000 m a.s.l."
 msgstr "500-1000 m"
 
-#: apps/configuration/configuration_translations.py:1746
+#: apps/configuration/configuration_translations.py:1747
 msgctxt "technologies label"
 msgid "1000-1500 m a.s.l."
 msgstr "1000-1500 m"
 
-#: apps/configuration/configuration_translations.py:1747
+#: apps/configuration/configuration_translations.py:1748
 msgctxt "technologies label"
 msgid "1500-2000 m a.s.l."
 msgstr "1500-2000 m"
 
-#: apps/configuration/configuration_translations.py:1748
+#: apps/configuration/configuration_translations.py:1749
 msgctxt "technologies label"
 msgid "2000-2500 m a.s.l."
 msgstr "2000-2500 m"
 
-#: apps/configuration/configuration_translations.py:1749
+#: apps/configuration/configuration_translations.py:1750
 msgctxt "technologies label"
 msgid "2500-3000 m a.s.l."
 msgstr "2500-3000 m"
 
-#: apps/configuration/configuration_translations.py:1750
+#: apps/configuration/configuration_translations.py:1751
 msgctxt "technologies label"
 msgid "3000-4000 m a.s.l."
 msgstr "3000-4000 m"
 
-#: apps/configuration/configuration_translations.py:1751
+#: apps/configuration/configuration_translations.py:1752
 msgctxt "technologies label"
 msgid "> 4000 m a.s.l."
 msgstr "> 4000 m"
 
-#: apps/configuration/configuration_translations.py:1752
+#: apps/configuration/configuration_translations.py:1753
 msgctxt "technologies label"
 msgid "very shallow (0-20 cm)"
 msgstr "très superficiel (0-20 cm)"
 
-#: apps/configuration/configuration_translations.py:1753
+#: apps/configuration/configuration_translations.py:1754
 msgctxt "technologies label"
 msgid "shallow (21-50 cm)"
 msgstr "superficiel (21-50 cm)"
 
-#: apps/configuration/configuration_translations.py:1754
+#: apps/configuration/configuration_translations.py:1755
 msgctxt "technologies label"
 msgid "moderately deep (51-80 cm)"
 msgstr "modérément profond (51-80 cm)"
 
-#: apps/configuration/configuration_translations.py:1755
+#: apps/configuration/configuration_translations.py:1756
 msgctxt "technologies label"
 msgid "deep (81-120 cm)"
 msgstr "profond (81-120 cm)"
 
-#: apps/configuration/configuration_translations.py:1756
+#: apps/configuration/configuration_translations.py:1757
 msgctxt "technologies label"
 msgid "very deep (> 120 cm)"
 msgstr "très profond (>120 cm)"
 
-#: apps/configuration/configuration_translations.py:1757
+#: apps/configuration/configuration_translations.py:1758
 msgctxt "technologies label"
 msgid "coarse/ light (sandy)"
 msgstr "grossier/ léger (sablonneux)"
 
-#: apps/configuration/configuration_translations.py:1758
+#: apps/configuration/configuration_translations.py:1759
 msgctxt "technologies label"
 msgid "medium (loamy, silty)"
 msgstr "moyen (limoneux)"
 
-#: apps/configuration/configuration_translations.py:1759
+#: apps/configuration/configuration_translations.py:1760
 msgctxt "technologies label"
 msgid "fine/ heavy (clay)"
 msgstr "fin/ lourd (argile)"
 
-#: apps/configuration/configuration_translations.py:1760
+#: apps/configuration/configuration_translations.py:1761
 #, python-format
 msgctxt "technologies label"
 msgid "high (>3%%)"
 msgstr "abondant (>3%%)"
 
-#: apps/configuration/configuration_translations.py:1761
+#: apps/configuration/configuration_translations.py:1762
 #, python-format
 msgctxt "technologies label"
 msgid "medium (1-3%%)"
 msgstr "moyen (1-3%%)"
 
-#: apps/configuration/configuration_translations.py:1762
+#: apps/configuration/configuration_translations.py:1763
 #, python-format
 msgctxt "technologies label"
 msgid "low (<1%%)"
 msgstr "faible (<1%%)"
 
-#: apps/configuration/configuration_translations.py:1763
+#: apps/configuration/configuration_translations.py:1764
 msgctxt "technologies label"
 msgid "on surface"
 msgstr "en surface"
 
-#: apps/configuration/configuration_translations.py:1764
+#: apps/configuration/configuration_translations.py:1765
 msgctxt "technologies label"
 msgid "< 5 m"
 msgstr "< 5 m"
 
-#: apps/configuration/configuration_translations.py:1765
+#: apps/configuration/configuration_translations.py:1766
 msgctxt "technologies label"
 msgid "5-50 m"
 msgstr "5-50 m"
 
-#: apps/configuration/configuration_translations.py:1766
+#: apps/configuration/configuration_translations.py:1767
 msgctxt "technologies label"
 msgid "> 50 m"
 msgstr "> 50 m"
 
-#: apps/configuration/configuration_translations.py:1767
+#: apps/configuration/configuration_translations.py:1768
 msgctxt "technologies helptext"
 msgid "E.g. frequent waterlogging, high runoff"
 msgstr "Par ex. engorgement des sols en eau fréquent, fort ruissellement"
 
-#: apps/configuration/configuration_translations.py:1768
+#: apps/configuration/configuration_translations.py:1769
 msgctxt "technologies label"
 msgid "excess"
 msgstr "excès"
 
-#: apps/configuration/configuration_translations.py:1769
+#: apps/configuration/configuration_translations.py:1770
 msgctxt "technologies helptext"
 msgid "E.g. available year-round"
 msgstr "Par ex., disponible toute l'année"
 
-#: apps/configuration/configuration_translations.py:1770
-#: apps/configuration/configuration_translations.py:2074
+#: apps/configuration/configuration_translations.py:1771
+#: apps/configuration/configuration_translations.py:2075
 msgctxt "technologies label"
 msgid "good"
 msgstr "bonne"
 
-#: apps/configuration/configuration_translations.py:1771
+#: apps/configuration/configuration_translations.py:1772
 msgctxt "technologies helptext"
 msgid "E.g. not available year-round"
 msgstr "Par ex., non disponible toute l'année"
 
-#: apps/configuration/configuration_translations.py:1772
+#: apps/configuration/configuration_translations.py:1773
 #: apps/configuration/configuration_translations.py:5751
 msgctxt "technologies label"
 msgid "medium"
 msgstr "moyenne"
 
-#: apps/configuration/configuration_translations.py:1773
+#: apps/configuration/configuration_translations.py:1774
 msgctxt "technologies label"
 msgid "poor/ none"
 msgstr "faible/ absente"
 
-#: apps/configuration/configuration_translations.py:1774
+#: apps/configuration/configuration_translations.py:1775
 msgctxt "technologies label"
 msgid "good drinking water"
 msgstr "eau potable"
 
-#: apps/configuration/configuration_translations.py:1775
+#: apps/configuration/configuration_translations.py:1776
 msgctxt "technologies label"
 msgid "poor drinking water (treatment required)"
 msgstr "faiblement potable (traitement nécessaire)"
 
-#: apps/configuration/configuration_translations.py:1776
+#: apps/configuration/configuration_translations.py:1777
 msgctxt "technologies label"
 msgid "for agricultural use only (irrigation)"
 msgstr "uniquement pour usage agricole (irrigation)"
 
-#: apps/configuration/configuration_translations.py:1777
+#: apps/configuration/configuration_translations.py:1778
 msgctxt "technologies label"
 msgid "unusable"
 msgstr "eau inutilisable"
 
-#: apps/configuration/configuration_translations.py:1778
+#: apps/configuration/configuration_translations.py:1779
 msgctxt "technologies label"
 msgid "frequently"
 msgstr "fréquemment"
 
-#: apps/configuration/configuration_translations.py:1779
+#: apps/configuration/configuration_translations.py:1780
 msgctxt "technologies label"
 msgid "episodically"
 msgstr "épisodiquement"
 
-#: apps/configuration/configuration_translations.py:1780
+#: apps/configuration/configuration_translations.py:1781
 msgctxt "technologies label"
 msgid "subsistence (self-supply)"
 msgstr "subsistance (auto-approvisionnement) "
 
-#: apps/configuration/configuration_translations.py:1781
+#: apps/configuration/configuration_translations.py:1782
 msgctxt "technologies label"
 msgid "mixed (subsistence/ commercial"
 msgstr "mixte (de subsistance/ commercial)"
 
-#: apps/configuration/configuration_translations.py:1782
+#: apps/configuration/configuration_translations.py:1783
 msgctxt "technologies label"
 msgid "commercial/ market"
 msgstr "commercial/ de marché  "
 
-#: apps/configuration/configuration_translations.py:1783
+#: apps/configuration/configuration_translations.py:1784
 msgctxt "technologies label"
 msgid "very poor"
 msgstr "très pauvre"
 
-#: apps/configuration/configuration_translations.py:1784
-#: apps/configuration/configuration_translations.py:2072
+#: apps/configuration/configuration_translations.py:1785
+#: apps/configuration/configuration_translations.py:2073
 msgctxt "technologies label"
 msgid "poor"
 msgstr "pauvre"
 
-#: apps/configuration/configuration_translations.py:1785
+#: apps/configuration/configuration_translations.py:1786
 msgctxt "technologies label"
 msgid "average"
 msgstr "moyen"
 
-#: apps/configuration/configuration_translations.py:1786
+#: apps/configuration/configuration_translations.py:1787
 msgctxt "technologies label"
 msgid "rich"
 msgstr "riche"
 
-#: apps/configuration/configuration_translations.py:1787
+#: apps/configuration/configuration_translations.py:1788
 msgctxt "technologies label"
 msgid "very rich"
 msgstr "très riche"
 
-#: apps/configuration/configuration_translations.py:1788
+#: apps/configuration/configuration_translations.py:1789
 msgctxt "technologies label"
 msgid "< 0.5 ha"
 msgstr "< 0,5 ha"
 
-#: apps/configuration/configuration_translations.py:1789
+#: apps/configuration/configuration_translations.py:1790
 msgctxt "technologies label"
 msgid "0.5-1 ha"
 msgstr "0,5-1 ha"
 
-#: apps/configuration/configuration_translations.py:1790
+#: apps/configuration/configuration_translations.py:1791
 msgctxt "technologies label"
 msgid "1-2 ha"
 msgstr "1-2 ha"
 
-#: apps/configuration/configuration_translations.py:1791
+#: apps/configuration/configuration_translations.py:1792
 msgctxt "technologies label"
 msgid "2-5 ha"
 msgstr "2-5 ha"
 
-#: apps/configuration/configuration_translations.py:1792
+#: apps/configuration/configuration_translations.py:1793
 msgctxt "technologies label"
 msgid "5-15 ha"
 msgstr "5-15 ha"
 
-#: apps/configuration/configuration_translations.py:1793
+#: apps/configuration/configuration_translations.py:1794
 msgctxt "technologies label"
 msgid "15-50 ha"
 msgstr "15-50 ha"
 
-#: apps/configuration/configuration_translations.py:1794
+#: apps/configuration/configuration_translations.py:1795
 msgctxt "technologies label"
 msgid "50-100 ha"
 msgstr "50-100 ha"
 
-#: apps/configuration/configuration_translations.py:1795
+#: apps/configuration/configuration_translations.py:1796
 msgctxt "technologies label"
 msgid "100-500 ha"
 msgstr "100-500 ha"
 
-#: apps/configuration/configuration_translations.py:1796
+#: apps/configuration/configuration_translations.py:1797
 msgctxt "technologies label"
 msgid "500-1,000 ha"
 msgstr "500-1 000 ha"
 
-#: apps/configuration/configuration_translations.py:1797
+#: apps/configuration/configuration_translations.py:1798
 msgctxt "technologies label"
 msgid "1,000-10,000 ha"
 msgstr "1 000-10 000 ha"
 
-#: apps/configuration/configuration_translations.py:1798
+#: apps/configuration/configuration_translations.py:1799
 msgctxt "technologies label"
 msgid "> 10,000 ha"
 msgstr "> 10 000 ha"
 
-#: apps/configuration/configuration_translations.py:1799
+#: apps/configuration/configuration_translations.py:1800
 msgctxt "technologies label"
 msgid "state"
 msgstr "état"
 
-#: apps/configuration/configuration_translations.py:1800
+#: apps/configuration/configuration_translations.py:1801
 msgctxt "technologies label"
 msgid "company"
 msgstr "entreprise"
 
-#: apps/configuration/configuration_translations.py:1801
+#: apps/configuration/configuration_translations.py:1802
 msgctxt "technologies label"
 msgid "communal/ village"
 msgstr "communauté/ village"
 
-#: apps/configuration/configuration_translations.py:1802
+#: apps/configuration/configuration_translations.py:1803
 msgctxt "technologies label"
 msgid "group"
 msgstr "groupe"
 
-#: apps/configuration/configuration_translations.py:1803
+#: apps/configuration/configuration_translations.py:1804
 msgctxt "technologies label"
 msgid "individual, not titled"
 msgstr "individu, sans titre de propriété "
 
-#: apps/configuration/configuration_translations.py:1804
+#: apps/configuration/configuration_translations.py:1805
 msgctxt "technologies label"
 msgid "individual, titled"
 msgstr "individu, avec titre de propriété "
 
-#: apps/configuration/configuration_translations.py:1805
+#: apps/configuration/configuration_translations.py:1806
 msgctxt "technologies helptext"
 msgid "<strong>Open access</strong>: means free for all."
 msgstr "<strong>Accès libre</strong>: signifie libre pour tous."
 
-#: apps/configuration/configuration_translations.py:1806
+#: apps/configuration/configuration_translations.py:1807
 msgctxt "technologies label"
 msgid "open access (unorganized)"
 msgstr "accès libre (non organisé)"
 
-#: apps/configuration/configuration_translations.py:1807
+#: apps/configuration/configuration_translations.py:1808
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Communal (organized)</strong>: means subject to community-agreed "
@@ -4413,12 +4414,12 @@ msgstr ""
 "<strong>Communautaire (organisé)</strong>: signifie soumis à des règles de "
 "gestion convenues au niveau communautaire."
 
-#: apps/configuration/configuration_translations.py:1808
+#: apps/configuration/configuration_translations.py:1809
 msgctxt "technologies label"
 msgid "communal (organized)"
 msgstr "communautaire (organisé)"
 
-#: apps/configuration/configuration_translations.py:1809
+#: apps/configuration/configuration_translations.py:1810
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Leased</strong>: right to use land for a limited period of time "
@@ -4427,67 +4428,67 @@ msgstr ""
 "<strong>Loué</strong>: droit d’utilisation des terres pour une période "
 "limitée et contre un paiement (contrat)."
 
-#: apps/configuration/configuration_translations.py:1810
+#: apps/configuration/configuration_translations.py:1811
 msgctxt "technologies label"
 msgid "leased"
 msgstr "loué"
 
-#: apps/configuration/configuration_translations.py:1811
+#: apps/configuration/configuration_translations.py:1812
 msgctxt "technologies helptext"
 msgid "<strong>Individual</strong>: right of use by single user."
 msgstr ""
 "<strong>Individuel</strong>: droits d’utilisation par un seul utilisateur."
 
-#: apps/configuration/configuration_translations.py:1812
-#: apps/configuration/configuration_translations.py:2071
+#: apps/configuration/configuration_translations.py:1813
+#: apps/configuration/configuration_translations.py:2072
 msgctxt "technologies label"
 msgid "individual"
 msgstr "individuel"
 
-#: apps/configuration/configuration_translations.py:1813
+#: apps/configuration/configuration_translations.py:1814
 msgctxt "technologies label"
 msgid "-3"
 msgstr "-3"
 
-#: apps/configuration/configuration_translations.py:1814
+#: apps/configuration/configuration_translations.py:1815
 msgctxt "technologies label"
 msgid "-2"
 msgstr "-2"
 
-#: apps/configuration/configuration_translations.py:1815
+#: apps/configuration/configuration_translations.py:1816
 msgctxt "technologies label"
 msgid "-1"
 msgstr "-1"
 
-#: apps/configuration/configuration_translations.py:1817
-#: apps/configuration/configuration_translations.py:2009
+#: apps/configuration/configuration_translations.py:1818
+#: apps/configuration/configuration_translations.py:2010
 msgctxt "technologies label"
 msgid "1"
 msgstr "1"
 
-#: apps/configuration/configuration_translations.py:1818
-#: apps/configuration/configuration_translations.py:2010
+#: apps/configuration/configuration_translations.py:1819
+#: apps/configuration/configuration_translations.py:2011
 msgctxt "technologies label"
 msgid "2"
 msgstr "2"
 
-#: apps/configuration/configuration_translations.py:1819
-#: apps/configuration/configuration_translations.py:2011
+#: apps/configuration/configuration_translations.py:1820
+#: apps/configuration/configuration_translations.py:2012
 msgctxt "technologies label"
 msgid "3"
 msgstr "3"
 
-#: apps/configuration/configuration_translations.py:1820
+#: apps/configuration/configuration_translations.py:1821
 msgctxt "technologies label"
 msgid "Monoculture exotic variety"
 msgstr "Variété exotique en monoculture"
 
-#: apps/configuration/configuration_translations.py:1821
+#: apps/configuration/configuration_translations.py:1822
 msgctxt "technologies label"
 msgid "Mixed varieties"
 msgstr "Variétés mixtes"
 
-#: apps/configuration/configuration_translations.py:1822
+#: apps/configuration/configuration_translations.py:1823
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Home gardens</strong> (also called backyard or kitchen gardens): are "
@@ -4503,17 +4504,17 @@ msgstr ""
 "légumes, fruits, herbes, animaux et poissons). Ils fournissent également un "
 "espace de récréation, de loisir et de détente."
 
-#: apps/configuration/configuration_translations.py:1823
+#: apps/configuration/configuration_translations.py:1824
 msgctxt "technologies label"
 msgid "home gardens"
 msgstr "Jardins/ potagers familiaux"
 
-#: apps/configuration/configuration_translations.py:1824
+#: apps/configuration/configuration_translations.py:1825
 msgctxt "technologies label"
 msgid "conserve ecosystem"
 msgstr "préserver l'écosystème "
 
-#: apps/configuration/configuration_translations.py:1825
+#: apps/configuration/configuration_translations.py:1826
 msgctxt "technologies label"
 msgid ""
 "protect a watershed/ downstream areas – in combination with other "
@@ -4522,115 +4523,115 @@ msgstr ""
 "protéger un bassin versant/ des zones situées en aval - en combinaison avec "
 "d'autres technologies "
 
-#: apps/configuration/configuration_translations.py:1826
+#: apps/configuration/configuration_translations.py:1827
 msgctxt "technologies helptext"
 msgid "crop, fodder, wood/ fibre, water, energy"
 msgstr "cultures, fourrage, bois/fibres, eau, énergie"
 
-#: apps/configuration/configuration_translations.py:1827
+#: apps/configuration/configuration_translations.py:1828
 msgctxt "technologies label"
 msgid "improve production"
 msgstr "améliorer la production"
 
-#: apps/configuration/configuration_translations.py:1828
+#: apps/configuration/configuration_translations.py:1829
 msgctxt "technologies helptext"
 msgid "soil, water, vegetation"
 msgstr "sols, eau, végétation"
 
-#: apps/configuration/configuration_translations.py:1829
+#: apps/configuration/configuration_translations.py:1830
 msgctxt "technologies label"
 msgid "reduce, prevent, restore land degradation"
 msgstr "réduire, prévenir, restaurer les terres dégradées"
 
-#: apps/configuration/configuration_translations.py:1830
+#: apps/configuration/configuration_translations.py:1831
 msgctxt "technologies helptext"
 msgid ""
 "<p>For detailed assessment fill in questionnaire module on \"Biodiversity\"</"
 "p>"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1831
-#: apps/configuration/configuration_translations.py:1960
+#: apps/configuration/configuration_translations.py:1832
+#: apps/configuration/configuration_translations.py:1961
 msgctxt "technologies label"
 msgid "preserve/ improve biodiversity"
 msgstr "conserver/ améliorer la biodiversité "
 
-#: apps/configuration/configuration_translations.py:1832
+#: apps/configuration/configuration_translations.py:1833
 msgctxt "technologies helptext"
 msgid ""
 "<p>e.g. droughts, floods, landslides, etc.</p><p>For detailed assessment "
 "fill in questionnaire module on \"Climate change adaptation\"</p>"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1833
+#: apps/configuration/configuration_translations.py:1834
 msgctxt "technologies label"
 msgid "reduce risk of natural disasters"
 msgstr "réduire les risques de catastrophes "
 
-#: apps/configuration/configuration_translations.py:1834
+#: apps/configuration/configuration_translations.py:1835
 msgctxt "technologies helptext"
 msgid ""
 "<p>e.g. resilience to droughts, storms.</p><p>For detailed assessment fill "
 "in questionnaire module on \"Climate change adaptation\"</p>"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1835
-#: apps/configuration/configuration_translations.py:1964
+#: apps/configuration/configuration_translations.py:1836
+#: apps/configuration/configuration_translations.py:1965
 msgctxt "technologies label"
 msgid "adapt to climate change/ extremes and its impacts"
 msgstr ""
 "s'adapter au changement et aux extrêmes climatiques et à leurs impacts "
 
-#: apps/configuration/configuration_translations.py:1836
+#: apps/configuration/configuration_translations.py:1837
 msgctxt "technologies helptext"
 msgid ""
 "<p>e.g. through carbon sequestration</p><p>For detailed assessment fill in "
 "questionnaire module on \"Climate change adaptation/ Carbon benefits\"</p>"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1837
-#: apps/configuration/configuration_translations.py:1966
+#: apps/configuration/configuration_translations.py:1838
+#: apps/configuration/configuration_translations.py:1967
 msgctxt "technologies label"
 msgid "mitigate climate change and its impacts"
 msgstr "atténuer le changement climatique et ses impacts "
 
-#: apps/configuration/configuration_translations.py:1838
+#: apps/configuration/configuration_translations.py:1839
 msgctxt "technologies helptext"
 msgid ""
 "<p>e.g. increase income/ employment opportunities</p><p>For detailed "
 "assessment fill in questionnaire module on \"Economics of SLM\"</p>"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1839
-#: apps/configuration/configuration_translations.py:1968
+#: apps/configuration/configuration_translations.py:1840
+#: apps/configuration/configuration_translations.py:1969
 msgctxt "technologies label"
 msgid "create beneficial economic impact"
 msgstr "créer un impact social positif "
 
-#: apps/configuration/configuration_translations.py:1840
+#: apps/configuration/configuration_translations.py:1841
 msgctxt "technologies helptext"
 msgid "e.g. reduce conflicts on natural resources, support marginalized groups"
 msgstr ""
 "par ex., réduire les conflits à propos des ressources naturelles, soutenir "
 "des groupes marginalisés"
 
-#: apps/configuration/configuration_translations.py:1841
+#: apps/configuration/configuration_translations.py:1842
 msgctxt "technologies label"
 msgid "create beneficial social impact"
 msgstr "créer un impact social positif "
 
-#: apps/configuration/configuration_translations.py:1842
+#: apps/configuration/configuration_translations.py:1843
 msgctxt "technologies helptext"
 msgid "<strong>Nomadism</strong>: people move with animals"
 msgstr ""
 "<strong>Nomadisme</strong>: les personnes se déplacent avec les animaux."
 
-#: apps/configuration/configuration_translations.py:1843
+#: apps/configuration/configuration_translations.py:1844
 msgctxt "technologies label"
 msgid "Nomadism"
 msgstr "Nomadisme"
 
-#: apps/configuration/configuration_translations.py:1844
+#: apps/configuration/configuration_translations.py:1845
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Semi-nomadism/ pastoralism</strong>: animal owners have a permanent "
@@ -4641,12 +4642,12 @@ msgstr ""
 "ont un lieu permanent de résidence où ils réalisent des cultures "
 "complémentaires. Les troupeaux sont déplacés vers des pâturages éloignés."
 
-#: apps/configuration/configuration_translations.py:1845
+#: apps/configuration/configuration_translations.py:1846
 msgctxt "technologies label"
 msgid "Semi-nomadism/ pastoralism"
 msgstr "Semi-nomadisme/ pastoralisme"
 
-#: apps/configuration/configuration_translations.py:1846
+#: apps/configuration/configuration_translations.py:1847
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Ranching</strong>: grazing within well-defined boundaries, movements "
@@ -4657,12 +4658,12 @@ msgstr ""
 "définies, les mouvements couvrent des distances plus petites et les intrants "
 "de gestion sont plus élevés par rapport au semi-nomadisme."
 
-#: apps/configuration/configuration_translations.py:1847
+#: apps/configuration/configuration_translations.py:1848
 msgctxt "technologies label"
 msgid "Ranching"
 msgstr "Ranching"
 
-#: apps/configuration/configuration_translations.py:1848
+#: apps/configuration/configuration_translations.py:1849
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Cut-and-carry/ zero grazing</strong>: Carrying fodder to animals "
@@ -4674,12 +4675,12 @@ msgstr ""
 "ou dans des zones restreintes; dans les systèmes de zéro-pâturage, le bétail "
 "n'est autorisé à paître à aucun moment."
 
-#: apps/configuration/configuration_translations.py:1849
+#: apps/configuration/configuration_translations.py:1850
 msgctxt "technologies label"
 msgid "Cut-and-carry/ zero grazing"
 msgstr "Affouragement en vert/ zéro-pâturage "
 
-#: apps/configuration/configuration_translations.py:1850
+#: apps/configuration/configuration_translations.py:1851
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Improved pastures</strong>: pasture that is sown with a mixture of "
@@ -4690,104 +4691,104 @@ msgstr ""
 "mélange de graminées et de légumineuses introduites (peuvent être fertilisés "
 "et/ou inoculés par des rhizobiums pour fixer l'azote)."
 
-#: apps/configuration/configuration_translations.py:1851
+#: apps/configuration/configuration_translations.py:1852
 msgctxt "technologies label"
 msgid "Improved pastures"
 msgstr "Prairies améliorées"
 
-#: apps/configuration/configuration_translations.py:1852
+#: apps/configuration/configuration_translations.py:1853
 msgctxt "technologies label"
 msgid "Monoculture local variety"
 msgstr "Variété locale en monoculture"
 
-#: apps/configuration/configuration_translations.py:1853
+#: apps/configuration/configuration_translations.py:1854
 msgctxt "technologies label"
 msgid "Timber"
 msgstr "Bois d'œuvre (de construction)"
 
-#: apps/configuration/configuration_translations.py:1854
+#: apps/configuration/configuration_translations.py:1855
 msgctxt "technologies label"
 msgid "Fuelwood"
 msgstr "Bois de chauffage"
 
-#: apps/configuration/configuration_translations.py:1855
+#: apps/configuration/configuration_translations.py:1856
 msgctxt "technologies label"
 msgid "Fruits and nuts"
 msgstr "Fruits et noix"
 
-#: apps/configuration/configuration_translations.py:1856
+#: apps/configuration/configuration_translations.py:1857
 msgctxt "technologies helptext"
 msgid "honey, medicinal plants, etc."
 msgstr "miel, plantes médicinales, etc."
 
-#: apps/configuration/configuration_translations.py:1857
+#: apps/configuration/configuration_translations.py:1858
 msgctxt "technologies label"
 msgid "Other forest products"
 msgstr "Autres produits forestiers"
 
-#: apps/configuration/configuration_translations.py:1858
+#: apps/configuration/configuration_translations.py:1859
 msgctxt "technologies label"
 msgid "Grazing/ browsing"
 msgstr "Pâturage/ broutage"
 
-#: apps/configuration/configuration_translations.py:1859
+#: apps/configuration/configuration_translations.py:1860
 msgctxt "technologies label"
 msgid "Nature conservation/ protection"
 msgstr "Conservation/ protection de la nature"
 
-#: apps/configuration/configuration_translations.py:1860
+#: apps/configuration/configuration_translations.py:1861
 msgctxt "technologies label"
 msgid "Recreation/ tourism"
 msgstr "Loisirs/ tourisme"
 
-#: apps/configuration/configuration_translations.py:1861
+#: apps/configuration/configuration_translations.py:1862
 msgctxt "technologies label"
 msgid "Protection against natural hazards"
 msgstr "Protection contre les aléas naturels "
 
-#: apps/configuration/configuration_translations.py:1862
+#: apps/configuration/configuration_translations.py:1863
 msgctxt "technologies label"
 msgid "Settlements, buildings"
 msgstr "Habitats, buildings"
 
-#: apps/configuration/configuration_translations.py:1863
+#: apps/configuration/configuration_translations.py:1864
 msgctxt "technologies label"
 msgid "Traffic lines: roads, railways"
 msgstr "Trafic: routes, réseaux ferroviaires"
 
-#: apps/configuration/configuration_translations.py:1864
+#: apps/configuration/configuration_translations.py:1865
 msgctxt "technologies label"
 msgid "Energy lines: pipe lines, power lines"
 msgstr "Energie: pipelines, lignes haute tension "
 
-#: apps/configuration/configuration_translations.py:1865
+#: apps/configuration/configuration_translations.py:1866
 msgctxt "technologies label"
 msgid "Drainage lines waterways"
 msgstr "Voies de drainage"
 
-#: apps/configuration/configuration_translations.py:1866
+#: apps/configuration/configuration_translations.py:1867
 msgctxt "technologies label"
 msgid "Ponds, dams"
 msgstr "Etangs, barrages, retenues d'eau"
 
-#: apps/configuration/configuration_translations.py:1867
+#: apps/configuration/configuration_translations.py:1868
 msgctxt "technologies label"
 msgid "Swamps, wetlands"
 msgstr "Marécages, zones humides"
 
-#: apps/configuration/configuration_translations.py:1868
+#: apps/configuration/configuration_translations.py:1869
 msgctxt "technologies helptext"
 msgid "Recreation areas, etc."
 msgstr "Zones de loisirs, etc."
 
-#: apps/configuration/configuration_translations.py:1869
+#: apps/configuration/configuration_translations.py:1870
 #: apps/configuration/configuration_translations.py:2341
 #: apps/configuration/configuration_translations.py:2342
 msgctxt "technologies label"
 msgid "Other"
 msgstr "Autre"
 
-#: apps/configuration/configuration_translations.py:1870
+#: apps/configuration/configuration_translations.py:1871
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Natural and semi-natural forest management:</strong> encompasses "
@@ -4798,12 +4799,12 @@ msgstr ""
 "les aspects administratifs, juridiques, techniques, économiques, sociaux et "
 "environnementaux de la conservation et de l'utilisation des forêts."
 
-#: apps/configuration/configuration_translations.py:1871
+#: apps/configuration/configuration_translations.py:1872
 msgctxt "technologies label"
 msgid "natural and semi-natural forest management"
 msgstr "gestion des forêts naturelles et semi-naturelles"
 
-#: apps/configuration/configuration_translations.py:1872
+#: apps/configuration/configuration_translations.py:1873
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Plantation management:</strong> plantation forests comprise even-"
@@ -4817,12 +4818,12 @@ msgstr ""
 "généralement gérées de manière intensive et ont des taux de croissance et "
 "une productivité relativement élevés."
 
-#: apps/configuration/configuration_translations.py:1873
+#: apps/configuration/configuration_translations.py:1874
 msgctxt "technologies label"
 msgid "plantation management"
 msgstr "gestion des plantations forestières"
 
-#: apps/configuration/configuration_translations.py:1874
+#: apps/configuration/configuration_translations.py:1875
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Agroforestry:</strong>integrates the use of woody perennials with "
@@ -4836,12 +4837,12 @@ msgstr ""
 "ressources en sols et en eau; multiples combustibles, fourrages et produits "
 "alimentaires; et habitats pour les espèces associées."
 
-#: apps/configuration/configuration_translations.py:1875
+#: apps/configuration/configuration_translations.py:1876
 msgctxt "technologies label"
 msgid "agroforestry"
 msgstr "agroforesterie"
 
-#: apps/configuration/configuration_translations.py:1876
+#: apps/configuration/configuration_translations.py:1877
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Windbreak:</strong> or shelterbelt is a plantation usually made up "
@@ -4855,12 +4856,12 @@ msgstr ""
 "sols contre l'érosion. Elles sont communément plantées au bord des champs "
 "des exploitations."
 
-#: apps/configuration/configuration_translations.py:1877
+#: apps/configuration/configuration_translations.py:1878
 msgctxt "technologies label"
 msgid "windbreak/ shelterbelt"
 msgstr "brise-vent/ plantations abris"
 
-#: apps/configuration/configuration_translations.py:1878
+#: apps/configuration/configuration_translations.py:1879
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Area closure (stop use, support restoration):</strong> enclosing and "
@@ -4874,12 +4875,12 @@ msgstr ""
 "réhabilitation naturelle, renforcée par des pratiques supplémentaires de "
 "conservation de type pratiques végétales et structures physiques."
 
-#: apps/configuration/configuration_translations.py:1879
+#: apps/configuration/configuration_translations.py:1880
 msgctxt "technologies label"
 msgid "area closure (stop use, support restoration)"
 msgstr "fermeture de zones (arrêt de tout usage, appui à la réhabilitation)"
 
-#: apps/configuration/configuration_translations.py:1880
+#: apps/configuration/configuration_translations.py:1881
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Rotational systems (crop rotation, fallows, shifting cultivation):</"
@@ -4899,13 +4900,13 @@ msgstr ""
 "végétation naturelle, tandis que le cultivateur se déplace sur une autre "
 "parcelle."
 
-#: apps/configuration/configuration_translations.py:1881
+#: apps/configuration/configuration_translations.py:1882
 msgctxt "technologies label"
 msgid "rotational systems (crop rotation, fallows, shifting cultivation)"
 msgstr ""
 "système de rotation (rotation des cultures, jachères, agriculture itinérante)"
 
-#: apps/configuration/configuration_translations.py:1882
+#: apps/configuration/configuration_translations.py:1883
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Pastoralism and grazing land management:</strong>is the grazing of "
@@ -4920,12 +4921,12 @@ msgstr ""
 "déplacé vers des pâturages éloignés, en fonction de la disponibilité des "
 "ressources."
 
-#: apps/configuration/configuration_translations.py:1883
+#: apps/configuration/configuration_translations.py:1884
 msgctxt "technologies label"
 msgid "pastoralism and grazing land management"
 msgstr "Pastoralisme et gestion des pâturages"
 
-#: apps/configuration/configuration_translations.py:1884
+#: apps/configuration/configuration_translations.py:1885
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Integrated crop-livestock management:</strong> optimizes the uses of "
@@ -4936,12 +4937,12 @@ msgstr ""
 "des ressources végétales et animales par des interactions et la création de "
 "synergies."
 
-#: apps/configuration/configuration_translations.py:1885
+#: apps/configuration/configuration_translations.py:1886
 msgctxt "technologies label"
 msgid "integrated crop-livestock management"
 msgstr "Gestion intégrée cultures-élevage"
 
-#: apps/configuration/configuration_translations.py:1886
+#: apps/configuration/configuration_translations.py:1887
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Improved ground/ vegetation cover:</strong> any measures that aim to "
@@ -4951,12 +4952,12 @@ msgstr ""
 "mesure qui vise à améliorer la couverture du sol, que ce soit avec de la "
 "matière morte, du paillis ou de la végétation."
 
-#: apps/configuration/configuration_translations.py:1887
+#: apps/configuration/configuration_translations.py:1888
 msgctxt "technologies label"
 msgid "improved ground/ vegetation cover"
 msgstr "Amélioration de la couverture végétale/ du sol"
 
-#: apps/configuration/configuration_translations.py:1888
+#: apps/configuration/configuration_translations.py:1889
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Minimal soil disturbance</strong> refers to no-tillage or low soil "
@@ -4966,12 +4967,12 @@ msgstr ""
 "labour ou à faible perturbation du sol seulement en petites bandes et/ou à "
 "faible profondeur et au semis direct."
 
-#: apps/configuration/configuration_translations.py:1889
+#: apps/configuration/configuration_translations.py:1890
 msgctxt "technologies label"
 msgid "minimal soil disturbance"
 msgstr "Perturbation minimale du sol"
 
-#: apps/configuration/configuration_translations.py:1890
+#: apps/configuration/configuration_translations.py:1891
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Integrated soil fertility management</strong> (IFSM) aims at "
@@ -4991,12 +4992,12 @@ msgstr ""
 "judicieusement les engrais inorganiques selon les besoins et la "
 "disponibilité économique."
 
-#: apps/configuration/configuration_translations.py:1891
+#: apps/configuration/configuration_translations.py:1892
 msgctxt "technologies label"
 msgid "integrated soil fertility management"
 msgstr "Gestion intégrée de la fertilité des sols"
 
-#: apps/configuration/configuration_translations.py:1892
+#: apps/configuration/configuration_translations.py:1893
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Cross-slope measures:</strong> are constructed on sloping lands in "
@@ -5008,12 +5009,12 @@ msgstr ""
 "ou de bandes de végétation, etc., dans le but de réduire la vitesse de "
 "ruissellement et l'érosion des sols."
 
-#: apps/configuration/configuration_translations.py:1893
+#: apps/configuration/configuration_translations.py:1894
 msgctxt "technologies label"
 msgid "cross-slope measure"
 msgstr "Mesures en travers de la pente"
 
-#: apps/configuration/configuration_translations.py:1894
+#: apps/configuration/configuration_translations.py:1895
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Integrated pest and disease management (incl. organic agriculture):</"
@@ -5025,14 +5026,14 @@ msgstr ""
 "problèmes des ravageurs et des maladies tout en minimisant les risques pour "
 "les personnes et l'environnement."
 
-#: apps/configuration/configuration_translations.py:1895
+#: apps/configuration/configuration_translations.py:1896
 msgctxt "technologies label"
 msgid "integrated pest and disease management (incl. organic agriculture)"
 msgstr ""
 "Lutte intégrée contre les ravageurs et les maladies (incluant l'agriculture "
 "biologique)"
 
-#: apps/configuration/configuration_translations.py:1896
+#: apps/configuration/configuration_translations.py:1897
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Improved plant varieties, animal breeds:</strong> Development of new "
@@ -5047,12 +5048,12 @@ msgstr ""
 "conditions environnementales changeantes et aux besoins des exploitants des "
 "terres."
 
-#: apps/configuration/configuration_translations.py:1897
+#: apps/configuration/configuration_translations.py:1898
 msgctxt "technologies label"
 msgid "improved plant varieties, animal breeds"
 msgstr "Amélioration des variétés végétales, des races animales"
 
-#: apps/configuration/configuration_translations.py:1898
+#: apps/configuration/configuration_translations.py:1899
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Water harvesting:</strong>is the collection and management of "
@@ -5064,12 +5065,12 @@ msgstr ""
 "d'augmenter la disponibilité de l'eau pour les usages domestiques et "
 "agricoles ainsi que pour la subsistance de l'écosystème."
 
-#: apps/configuration/configuration_translations.py:1899
+#: apps/configuration/configuration_translations.py:1900
 msgctxt "technologies label"
 msgid "water harvesting"
 msgstr "Récupération/ collecte de l'eau"
 
-#: apps/configuration/configuration_translations.py:1900
+#: apps/configuration/configuration_translations.py:1901
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Irrigation management (incl. water supply, greenhouses)</strong> "
@@ -5082,13 +5083,13 @@ msgstr ""
 "l'utilisation de l'eau grâce à la collecte et au captage, au stockage, à la "
 "distribution et à l'application de l'eau d'une manière plus efficace."
 
-#: apps/configuration/configuration_translations.py:1901
+#: apps/configuration/configuration_translations.py:1902
 msgctxt "technologies label"
 msgid "irrigation management (incl. water supply, greenhouses)"
 msgstr ""
 "Gestion de l'irrigation (incl. l'approvisionnement en eau, le drainage) "
 
-#: apps/configuration/configuration_translations.py:1902
+#: apps/configuration/configuration_translations.py:1903
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Water diversion and drainage:</strong> is the natural or artificial "
@@ -5098,12 +5099,12 @@ msgstr ""
 "l'enlèvement, naturel ou artificiel, des eaux superficielles et souterraines "
 "d'une zone."
 
-#: apps/configuration/configuration_translations.py:1903
+#: apps/configuration/configuration_translations.py:1904
 msgctxt "technologies label"
 msgid "water diversion and drainage"
 msgstr "Dérivation et drainage de l'eau"
 
-#: apps/configuration/configuration_translations.py:1904
+#: apps/configuration/configuration_translations.py:1905
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Surface water management (spring, river, lakes):</strong> involves "
@@ -5117,12 +5118,12 @@ msgstr ""
 "négatifs issus des plans d'eau (par ex., érosion des berges des rivières, "
 "inondations, érosion des marées)."
 
-#: apps/configuration/configuration_translations.py:1905
+#: apps/configuration/configuration_translations.py:1906
 msgctxt "technologies label"
 msgid "surface water management (spring, river, lakes)"
 msgstr "Gestion des eaux de surface (sources, rivières, lacs, mers)"
 
-#: apps/configuration/configuration_translations.py:1906
+#: apps/configuration/configuration_translations.py:1907
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Ground water management:</strong> involves securing the recharge and "
@@ -5134,13 +5135,13 @@ msgstr ""
 "pollution et la surexploitation/utilisation excessive ou d'augmenter les "
 "niveaux des nappes souterraines conduisant à la salinisation."
 
-#: apps/configuration/configuration_translations.py:1907
-#: apps/configuration/configuration_translations.py:2015
+#: apps/configuration/configuration_translations.py:1908
+#: apps/configuration/configuration_translations.py:2016
 msgctxt "technologies label"
 msgid "ground water management"
 msgstr "Gestion des eaux souterraines"
 
-#: apps/configuration/configuration_translations.py:1908
+#: apps/configuration/configuration_translations.py:1909
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Wetland protection/ management:</strong> managing wetland typically "
@@ -5151,12 +5152,12 @@ msgstr ""
 "généralement la manipulation des niveaux d'eau et de la végétation dans les "
 "zones humides, et fournit une protection (zone tampon) des hautes terres."
 
-#: apps/configuration/configuration_translations.py:1909
+#: apps/configuration/configuration_translations.py:1910
 msgctxt "technologies label"
 msgid "wetland protection/ management"
 msgstr "Gestion/ protection des zones humides"
 
-#: apps/configuration/configuration_translations.py:1910
+#: apps/configuration/configuration_translations.py:1911
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Waste management/ waste water management:</strong> is a set of "
@@ -5169,12 +5170,12 @@ msgstr ""
 "traitement et l'élimination des déchets, la prévention de la production de "
 "déchets et la modification et réutilisation/ recyclage des déchets."
 
-#: apps/configuration/configuration_translations.py:1911
+#: apps/configuration/configuration_translations.py:1912
 msgctxt "technologies label"
 msgid "waste management/ waste water management"
 msgstr "Gestion des déchets/ gestion des eaux usées"
 
-#: apps/configuration/configuration_translations.py:1912
+#: apps/configuration/configuration_translations.py:1913
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Energy efficiency technologies:</strong> reduce the amount of energy "
@@ -5186,13 +5187,13 @@ msgstr ""
 "pour cuisiner, pour le chauffage en réduisant la demande en combustible "
 "(combustibles fossiles, bois)."
 
-#: apps/configuration/configuration_translations.py:1913
-#: apps/configuration/configuration_translations.py:2017
+#: apps/configuration/configuration_translations.py:1914
+#: apps/configuration/configuration_translations.py:2018
 msgctxt "technologies label"
 msgid "energy efficiency technologies"
 msgstr "Technologies d'efficacité énergétique"
 
-#: apps/configuration/configuration_translations.py:1914
+#: apps/configuration/configuration_translations.py:1915
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Beekeeping, aquaculture, poultry, rabbit farming, silkworm farming, "
@@ -5203,20 +5204,20 @@ msgstr ""
 "soie, etc.: </strong> permettent la production de produits alimentaires et "
 "agricoles nécessitant de petites surfaces de terre."
 
-#: apps/configuration/configuration_translations.py:1915
+#: apps/configuration/configuration_translations.py:1916
 msgctxt "technologies label"
 msgid ""
 "beekeeping, aquaculture, poultry, rabbit farming, silkworm farming, etc."
 msgstr ""
 "Apiculture, aquaculture, élevage de volailles, de lapins, du ver à soie, etc."
 
-#: apps/configuration/configuration_translations.py:1916
+#: apps/configuration/configuration_translations.py:1917
 #: apps/configuration/configuration_translations.py:2343
 msgctxt "technologies label"
 msgid "other"
 msgstr "Autre"
 
-#: apps/configuration/configuration_translations.py:1917
+#: apps/configuration/configuration_translations.py:1918
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Other measures</strong><ul><li>Any measures which do not fit into "
@@ -5225,19 +5226,19 @@ msgid ""
 "harvest loss reduction)"
 msgstr "-"
 
-#: apps/configuration/configuration_translations.py:1918
+#: apps/configuration/configuration_translations.py:1919
 msgctxt "technologies label"
 msgid "other measures"
 msgstr "autres mesures"
 
-#: apps/configuration/configuration_translations.py:1919
+#: apps/configuration/configuration_translations.py:1920
 msgctxt "technologies label"
 msgid "not applicable"
 msgstr "non applicable"
 
-#: apps/configuration/configuration_translations.py:1920
-#: apps/configuration/configuration_translations.py:1987
-#: apps/configuration/configuration_translations.py:2041
+#: apps/configuration/configuration_translations.py:1921
+#: apps/configuration/configuration_translations.py:1988
+#: apps/configuration/configuration_translations.py:2042
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Adaptation:</strong> applied when rehabilitation/ restoration of the "
@@ -5254,23 +5255,23 @@ msgstr ""
 "dégradation des sols (par ex., adaptation à la salinité des sols en "
 "introduisant des plantes tolérantes au sel)."
 
-#: apps/configuration/configuration_translations.py:1921
-#: apps/configuration/configuration_translations.py:2042
+#: apps/configuration/configuration_translations.py:1922
+#: apps/configuration/configuration_translations.py:2043
 msgctxt "technologies label"
 msgid "adapt to land degradation"
 msgstr "s'adapter à la dégradation des terres?"
 
-#: apps/configuration/configuration_translations.py:1922
+#: apps/configuration/configuration_translations.py:1923
 msgctxt "technologies helptext"
 msgid "Examples: Cutting of undesired trees and bushes"
 msgstr "Exemples: Coupes des arbres et buissons indésirables"
 
-#: apps/configuration/configuration_translations.py:1923
+#: apps/configuration/configuration_translations.py:1924
 msgctxt "technologies label"
 msgid "V4: Replacement or removal of alien/ invasive species"
 msgstr "V4: Remplacement ou suppression des espèces étrangères envahissantes"
 
-#: apps/configuration/configuration_translations.py:1924
+#: apps/configuration/configuration_translations.py:1925
 msgctxt "technologies helptext"
 msgid ""
 "Examples: Wood-saving stoves, insulation of buildings, renewable energy "
@@ -5279,24 +5280,24 @@ msgstr ""
 "Exemples: Poêles à économie de bois, isolation des bâtiments, sources "
 "d'énergie renouvelable (énergie solaire, éolienne, hydraulique, biogaz)"
 
-#: apps/configuration/configuration_translations.py:1925
+#: apps/configuration/configuration_translations.py:1926
 msgctxt "technologies label"
 msgid "S10: Energy saving measures"
 msgstr "S10: Mesures d'économie d'énergie"
 
-#: apps/configuration/configuration_translations.py:1926
+#: apps/configuration/configuration_translations.py:1927
 msgctxt "technologies helptext"
 msgid "Examples: Compost production pits; reshaping surface (reducing slope)"
 msgstr ""
 "Exemples: Fosses de production de compost; remodelage de la surface "
 "(réduction de la pente)"
 
-#: apps/configuration/configuration_translations.py:1927
+#: apps/configuration/configuration_translations.py:1928
 msgctxt "technologies label"
 msgid "S11: Others"
 msgstr "S11: Autres"
 
-#: apps/configuration/configuration_translations.py:1928
+#: apps/configuration/configuration_translations.py:1929
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Soil sealing</strong>: covering of the ground by an impermeable "
@@ -5305,77 +5306,77 @@ msgstr ""
 "<strong>Imperméabilisation des sols</strong>: couverture du sol par un "
 "matériau imperméable (par ex., constructions, mines, routes, etc.)"
 
-#: apps/configuration/configuration_translations.py:1929
+#: apps/configuration/configuration_translations.py:1930
 msgctxt "technologies label"
 msgid "Pi: soil sealing"
 msgstr "Pi: imperméabilisation des sols"
 
-#: apps/configuration/configuration_translations.py:1930
+#: apps/configuration/configuration_translations.py:1931
 msgctxt "technologies label"
 msgid "not well at all"
 msgstr "Pas bien du  tout"
 
-#: apps/configuration/configuration_translations.py:1931
+#: apps/configuration/configuration_translations.py:1932
 msgctxt "technologies label"
 msgid "not well"
 msgstr "Pas bien"
 
-#: apps/configuration/configuration_translations.py:1932
+#: apps/configuration/configuration_translations.py:1933
 msgctxt "technologies label"
 msgid "not known"
 msgstr "Pas connu"
 
-#: apps/configuration/configuration_translations.py:1933
+#: apps/configuration/configuration_translations.py:1934
 msgctxt "technologies label"
 msgid "very negative"
 msgstr "très négative"
 
-#: apps/configuration/configuration_translations.py:1934
+#: apps/configuration/configuration_translations.py:1935
 msgctxt "technologies label"
 msgid "negative"
 msgstr "négative"
 
-#: apps/configuration/configuration_translations.py:1935
+#: apps/configuration/configuration_translations.py:1936
 msgctxt "technologies label"
 msgid "slightly negative"
 msgstr "légèrement négative "
 
-#: apps/configuration/configuration_translations.py:1936
+#: apps/configuration/configuration_translations.py:1937
 msgctxt "technologies label"
 msgid "neutral/ balanced"
 msgstr "neutre / équilibrée "
 
-#: apps/configuration/configuration_translations.py:1937
+#: apps/configuration/configuration_translations.py:1938
 msgctxt "technologies label"
 msgid "slightly positive"
 msgstr "légèrement positive"
 
-#: apps/configuration/configuration_translations.py:1938
+#: apps/configuration/configuration_translations.py:1939
 msgctxt "technologies label"
 msgid "positive"
 msgstr "positive "
 
-#: apps/configuration/configuration_translations.py:1939
+#: apps/configuration/configuration_translations.py:1940
 msgctxt "technologies label"
 msgid "very positive"
 msgstr "très positive "
 
-#: apps/configuration/configuration_translations.py:1940
-#: apps/configuration/configuration_translations.py:1977
-#: apps/configuration/configuration_translations.py:2020
+#: apps/configuration/configuration_translations.py:1941
+#: apps/configuration/configuration_translations.py:1978
+#: apps/configuration/configuration_translations.py:2021
 msgctxt "technologies helptext"
 msgid "e.g. mulching, series of terraces, afforestation, micro-catchments"
 msgstr "par ex., paillage, ensemble de terrasses, boisement, micro-retenues"
 
-#: apps/configuration/configuration_translations.py:1941
-#: apps/configuration/configuration_translations.py:2021
+#: apps/configuration/configuration_translations.py:1942
+#: apps/configuration/configuration_translations.py:2022
 msgctxt "technologies label"
 msgid "evenly spread over an area"
 msgstr "répartie uniformément sur une zone?"
 
-#: apps/configuration/configuration_translations.py:1942
-#: apps/configuration/configuration_translations.py:1979
-#: apps/configuration/configuration_translations.py:2022
+#: apps/configuration/configuration_translations.py:1943
+#: apps/configuration/configuration_translations.py:1980
+#: apps/configuration/configuration_translations.py:2023
 msgctxt "technologies helptext"
 msgid ""
 "e.g. water points, dams, compost production pits, smallstock stables, "
@@ -5384,124 +5385,124 @@ msgstr ""
 "par ex., points d'eau, barrages, fosses de compostage, abris/bergeries à "
 "petit bétail, centrales hydroélectriques"
 
-#: apps/configuration/configuration_translations.py:1943
-#: apps/configuration/configuration_translations.py:2023
+#: apps/configuration/configuration_translations.py:1944
+#: apps/configuration/configuration_translations.py:2024
 msgctxt "technologies label"
 msgid "applied at specific points/ concentrated on a small area"
 msgstr ""
 "appliquée en des points spécifiques ou concentrée sur une petite surface?"
 
-#: apps/configuration/configuration_translations.py:1944
+#: apps/configuration/configuration_translations.py:1945
 msgctxt "technologies label"
 msgid "moderately"
 msgstr "Modérément"
 
-#: apps/configuration/configuration_translations.py:1945
+#: apps/configuration/configuration_translations.py:1946
 msgctxt "technologies label"
 msgid "well"
 msgstr "Bien"
 
-#: apps/configuration/configuration_translations.py:1946
+#: apps/configuration/configuration_translations.py:1947
 msgctxt "technologies label"
 msgid "very well"
 msgstr "Très bien"
 
-#: apps/configuration/configuration_translations.py:1947
+#: apps/configuration/configuration_translations.py:1948
 msgctxt "technologies label"
 msgid "winter"
 msgstr "hiver"
 
-#: apps/configuration/configuration_translations.py:1948
+#: apps/configuration/configuration_translations.py:1949
 msgctxt "technologies label"
 msgid "spring"
 msgstr "printemps"
 
-#: apps/configuration/configuration_translations.py:1949
+#: apps/configuration/configuration_translations.py:1950
 msgctxt "technologies label"
 msgid "summer"
 msgstr "été"
 
-#: apps/configuration/configuration_translations.py:1950
+#: apps/configuration/configuration_translations.py:1951
 msgctxt "technologies label"
 msgid "autumn"
 msgstr "automne"
 
-#: apps/configuration/configuration_translations.py:1951
+#: apps/configuration/configuration_translations.py:1952
 msgctxt "technologies label"
 msgid "wet/ rainy season"
 msgstr "saison des pluies/ humide"
 
-#: apps/configuration/configuration_translations.py:1952
+#: apps/configuration/configuration_translations.py:1953
 msgctxt "technologies label"
 msgid "dry season"
 msgstr "saison sèche"
 
-#: apps/configuration/configuration_translations.py:1953
+#: apps/configuration/configuration_translations.py:1954
 msgctxt "technologies label"
 msgid "single cases/ experimental"
 msgstr "cas isolés/ expérimentaux"
 
-#: apps/configuration/configuration_translations.py:1954
+#: apps/configuration/configuration_translations.py:1955
 #, python-format
 msgctxt "technologies label"
 msgid "less than 10%%"
 msgstr "moins de 10%%"
 
-#: apps/configuration/configuration_translations.py:1955
-#: apps/configuration/configuration_translations.py:2077
+#: apps/configuration/configuration_translations.py:1956
+#: apps/configuration/configuration_translations.py:2078
 #, python-format
 msgctxt "technologies label"
 msgid "10-50%%"
 msgstr "10-50%%"
 
-#: apps/configuration/configuration_translations.py:1956
+#: apps/configuration/configuration_translations.py:1957
 #, python-format
 msgctxt "technologies label"
 msgid "more than 50%%"
 msgstr "plus de 50%%"
 
-#: apps/configuration/configuration_translations.py:1957
+#: apps/configuration/configuration_translations.py:1958
 msgctxt "technologies label"
 msgid "climatic change/ extremes"
 msgstr "aux changements/ extrêmes climatiques?"
 
-#: apps/configuration/configuration_translations.py:1958
+#: apps/configuration/configuration_translations.py:1959
 msgctxt "technologies label"
 msgid "changing markets"
 msgstr "à l'évolution des marchés?"
 
-#: apps/configuration/configuration_translations.py:1959
+#: apps/configuration/configuration_translations.py:1960
 msgctxt "technologies label"
 msgid "labour availability (e.g. due to migration)"
 msgstr ""
 "à la disponibilité de la main-d'œuvre (par ex., en raison de migrations)?"
 
-#: apps/configuration/configuration_translations.py:1961
+#: apps/configuration/configuration_translations.py:1962
 msgctxt "technologies helptext"
 msgid "e.g. droughts, floods, landslides, etc."
 msgstr "par ex., sécheresses, inondations, glissements de terrain, etc."
 
-#: apps/configuration/configuration_translations.py:1962
+#: apps/configuration/configuration_translations.py:1963
 msgctxt "technologies label"
 msgid "reduce risk of disasters"
 msgstr "réduire les risques de catastrophes"
 
-#: apps/configuration/configuration_translations.py:1963
+#: apps/configuration/configuration_translations.py:1964
 msgctxt "technologies helptext"
 msgid "e.g. resilience to droughts, storms."
 msgstr "par ex., résilience aux sécheresses, aux tempêtes"
 
-#: apps/configuration/configuration_translations.py:1965
+#: apps/configuration/configuration_translations.py:1966
 msgctxt "technologies helptext"
 msgid "e.g. through carbon sequestration"
 msgstr "par ex., par le biais de la séquestration du carbone"
 
-#: apps/configuration/configuration_translations.py:1967
+#: apps/configuration/configuration_translations.py:1968
 msgctxt "technologies helptext"
 msgid "e.g. increase income/ employment opportunities"
 msgstr "par ex., augmenter les revenus/ possibilités d'emploi"
 
-#: apps/configuration/configuration_translations.py:1969
+#: apps/configuration/configuration_translations.py:1970
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Forest plantation management:</strong> plantation forests comprise "
@@ -5515,12 +5516,12 @@ msgstr ""
 "généralement gérées de manière intensive et ont des taux de croissance et "
 "une productivité relativement élevés."
 
-#: apps/configuration/configuration_translations.py:1970
+#: apps/configuration/configuration_translations.py:1971
 msgctxt "technologies label"
 msgid "forest plantation management"
 msgstr "gestion des plantations forestières"
 
-#: apps/configuration/configuration_translations.py:1971
+#: apps/configuration/configuration_translations.py:1972
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Irrigation management (incl. water supply, drainage)</strong> aims "
@@ -5533,13 +5534,13 @@ msgstr ""
 "l'utilisation de l'eau grâce à la collecte et au captage, au stockage, à la "
 "distribution et à l'application de l'eau d'une manière plus efficace."
 
-#: apps/configuration/configuration_translations.py:1972
+#: apps/configuration/configuration_translations.py:1973
 msgctxt "technologies label"
 msgid "irrigation management (incl. water supply, drainage)"
 msgstr ""
 "Gestion de l'irrigation (incl. l'approvisionnement en eau, le drainage)"
 
-#: apps/configuration/configuration_translations.py:1973
+#: apps/configuration/configuration_translations.py:1974
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Surface water management (spring, river, lakes, sea):</strong> "
@@ -5555,12 +5556,12 @@ msgstr ""
 "négatifs issus des plans d'eau (par ex., érosion des berges des rivières, "
 "inondations, érosion des marées)."
 
-#: apps/configuration/configuration_translations.py:1974
+#: apps/configuration/configuration_translations.py:1975
 msgctxt "technologies label"
 msgid "surface water management (spring, river, lakes, sea)"
 msgstr "Gestion des eaux de surface (sources, rivières, lacs, mers)"
 
-#: apps/configuration/configuration_translations.py:1975
+#: apps/configuration/configuration_translations.py:1976
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Ecosystem-based Disaster Risk Reduction:</strong> is the sustainable "
@@ -5573,145 +5574,146 @@ msgstr ""
 "écosystèmes afin de réduire les risques de catastrophe et de sauvegarder les "
 "avantages directs et indirects que les populations tirent des écosystèmes."
 
-#: apps/configuration/configuration_translations.py:1976
+#: apps/configuration/configuration_translations.py:1977
 msgctxt "technologies label"
 msgid "ecosystem-based disaster risk reduction"
 msgstr "Réduction des risques de catastrophe fondée sur les écosystèmes"
 
-#: apps/configuration/configuration_translations.py:1978
+#: apps/configuration/configuration_translations.py:1979
 msgctxt "technologies label"
 msgid "evenly spread over an area?"
 msgstr "répartie uniformément sur une zone?"
 
-#: apps/configuration/configuration_translations.py:1980
+#: apps/configuration/configuration_translations.py:1981
 msgctxt "technologies label"
 msgid "applied at specific points/ concentrated on a small area?"
 msgstr ""
 "appliquée en des points spécifiques ou concentrée sur une petite surface?"
 
-#: apps/configuration/configuration_translations.py:1982
+#: apps/configuration/configuration_translations.py:1983
 msgctxt "technologies label"
 msgid "prevent land degradation?"
 msgstr "prévenir la dégradation des terres?"
 
-#: apps/configuration/configuration_translations.py:1984
+#: apps/configuration/configuration_translations.py:1985
 msgctxt "technologies label"
 msgid "reduce land degradation?"
 msgstr "réduire la dégradation des terres?"
 
-#: apps/configuration/configuration_translations.py:1986
+#: apps/configuration/configuration_translations.py:1987
 msgctxt "technologies label"
 msgid "restore/ rehabilitate severely degraded land?"
 msgstr "restaurer/ réhabiliter des terres sévèrement dégradées?"
 
-#: apps/configuration/configuration_translations.py:1988
+#: apps/configuration/configuration_translations.py:1989
 msgctxt "technologies label"
 msgid "adapt to land degradation?"
 msgstr "s'adapter à la dégradation des terres?"
 
-#: apps/configuration/configuration_translations.py:1989
-#: apps/configuration/configuration_translations.py:2043
+#: apps/configuration/configuration_translations.py:1990
+#: apps/configuration/configuration_translations.py:2044
 msgctxt "technologies helptext"
 msgid "e.g. watering point, energy saving stove, stone line"
 msgstr "par ex., point d'eau, poêle à économie d'énergie, ligne de pierre"
 
-#: apps/configuration/configuration_translations.py:1990
+#: apps/configuration/configuration_translations.py:1991
 msgctxt "technologies label"
 msgid "per technology unit"
 msgstr "par entité de la technologie"
 
-#: apps/configuration/configuration_translations.py:1991
-#: apps/configuration/configuration_translations.py:2045
+#: apps/configuration/configuration_translations.py:1992
+#: apps/configuration/configuration_translations.py:2046
+#: apps/configuration/configuration_translations.py:2084
 msgctxt "technologies helptext"
 msgid "e.g. 24 acres"
 msgstr "par ex., 24 acres"
 
-#: apps/configuration/configuration_translations.py:1992
+#: apps/configuration/configuration_translations.py:1993
 msgctxt "technologies label"
 msgid "per technology area"
 msgstr "par superficie de la technologie"
 
-#: apps/configuration/configuration_translations.py:1993
+#: apps/configuration/configuration_translations.py:1994
 msgctxt "technologies label"
 msgid "101-500 m a.s.l."
 msgstr "101-500 m"
 
-#: apps/configuration/configuration_translations.py:1994
+#: apps/configuration/configuration_translations.py:1995
 msgctxt "technologies label"
 msgid "501-1000 m a.s.l."
 msgstr "501-1000 m"
 
-#: apps/configuration/configuration_translations.py:1995
+#: apps/configuration/configuration_translations.py:1996
 msgctxt "technologies label"
 msgid "1001-1500 m a.s.l."
 msgstr "1001-1500 m"
 
-#: apps/configuration/configuration_translations.py:1996
+#: apps/configuration/configuration_translations.py:1997
 msgctxt "technologies label"
 msgid "1501-2000 m a.s.l."
 msgstr "1501-2000 m"
 
-#: apps/configuration/configuration_translations.py:1997
+#: apps/configuration/configuration_translations.py:1998
 msgctxt "technologies label"
 msgid "2001-2500 m a.s.l."
 msgstr "2001-2500 m"
 
-#: apps/configuration/configuration_translations.py:1998
+#: apps/configuration/configuration_translations.py:1999
 msgctxt "technologies label"
 msgid "2501-3000 m a.s.l."
 msgstr "2501-3000 m"
 
-#: apps/configuration/configuration_translations.py:1999
+#: apps/configuration/configuration_translations.py:2000
 msgctxt "technologies label"
 msgid "3001-4000 m a.s.l."
 msgstr "3001-4000 m"
 
-#: apps/configuration/configuration_translations.py:2000
+#: apps/configuration/configuration_translations.py:2001
 msgctxt "technologies label"
 msgid "not relevant"
 msgstr "non pertinent"
 
-#: apps/configuration/configuration_translations.py:2001
+#: apps/configuration/configuration_translations.py:2002
 msgctxt "technologies label"
 msgid "Sedentary"
 msgstr "sédentaire   "
 
-#: apps/configuration/configuration_translations.py:2002
+#: apps/configuration/configuration_translations.py:2003
 msgctxt "technologies label"
 msgid "Semi-nomadic"
 msgstr "semi-nomade "
 
-#: apps/configuration/configuration_translations.py:2003
+#: apps/configuration/configuration_translations.py:2004
 msgctxt "technologies label"
 msgid "Nomadic"
 msgstr "nomade"
 
-#: apps/configuration/configuration_translations.py:2004
+#: apps/configuration/configuration_translations.py:2005
 msgctxt "technologies label"
 msgid "both"
 msgstr "les deux"
 
-#: apps/configuration/configuration_translations.py:2005
+#: apps/configuration/configuration_translations.py:2006
 msgctxt "technologies label"
 msgid "through land users' innovation"
 msgstr "grâce à l'innovation d'exploitants des terres"
 
-#: apps/configuration/configuration_translations.py:2006
+#: apps/configuration/configuration_translations.py:2007
 msgctxt "technologies label"
 msgid "as part of a traditional system (> 50 years)"
 msgstr "dans le cadre d'un système traditionnel (> 50 ans)"
 
-#: apps/configuration/configuration_translations.py:2007
+#: apps/configuration/configuration_translations.py:2008
 msgctxt "technologies label"
 msgid "during experiments/ research"
 msgstr "au cours d'expérimentations / de recherches"
 
-#: apps/configuration/configuration_translations.py:2008
+#: apps/configuration/configuration_translations.py:2009
 msgctxt "technologies label"
 msgid "through projects/ external interventions"
 msgstr "par le biais de projets/ d'interventions extérieures"
 
-#: apps/configuration/configuration_translations.py:2012
+#: apps/configuration/configuration_translations.py:2013
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Improved plant varieties/ animal breeds:</strong> refers to the "
@@ -5727,12 +5729,12 @@ msgstr ""
 "sécheresse, en réponse à l'évolution des conditions environnementales et des "
 "besoins des exploitants des terres."
 
-#: apps/configuration/configuration_translations.py:2013
+#: apps/configuration/configuration_translations.py:2014
 msgctxt "technologies label"
 msgid "improved plant varieties/ animal breeds"
 msgstr "amélioration des variétés végétales, des races animales"
 
-#: apps/configuration/configuration_translations.py:2014
+#: apps/configuration/configuration_translations.py:2015
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Groundwater management:</strong> involves securing the recharge of "
@@ -5744,7 +5746,7 @@ msgstr ""
 "pollution et la surexploitation/utilisation excessive ou d'augmenter les "
 "niveaux des nappes souterraines conduisant à la salinisation."
 
-#: apps/configuration/configuration_translations.py:2016
+#: apps/configuration/configuration_translations.py:2017
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Energy efficiency technologies:</strong> reduce the amount of energy "
@@ -5756,7 +5758,7 @@ msgstr ""
 "pour cuisiner, pour se chauffer en réduisant la demande en combustible "
 "(combustibles fossiles, bois)."
 
-#: apps/configuration/configuration_translations.py:2018
+#: apps/configuration/configuration_translations.py:2019
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Post-harvest measures:</strong> encompasses activities to deliver a "
@@ -5770,47 +5772,47 @@ msgstr ""
 "étapes - telles que le séchage, le stockage, le refroidissement, le "
 "nettoyage, le tri et l'emballage."
 
-#: apps/configuration/configuration_translations.py:2019
+#: apps/configuration/configuration_translations.py:2020
 msgctxt "technologies label"
 msgid "post-harvest measures"
 msgstr "mesures post-récoltes"
 
-#: apps/configuration/configuration_translations.py:2024
+#: apps/configuration/configuration_translations.py:2025
 msgctxt "technologies label"
 msgid "< 0.1 km2 (10 ha)"
 msgstr "< 0,1 km2 (10 ha)"
 
-#: apps/configuration/configuration_translations.py:2025
+#: apps/configuration/configuration_translations.py:2026
 msgctxt "technologies label"
 msgid "0.1-1 km2"
 msgstr "0,1-1 km2"
 
-#: apps/configuration/configuration_translations.py:2026
+#: apps/configuration/configuration_translations.py:2027
 msgctxt "technologies label"
 msgid "1-10 km2"
 msgstr "1-10 km2"
 
-#: apps/configuration/configuration_translations.py:2027
+#: apps/configuration/configuration_translations.py:2028
 msgctxt "technologies label"
 msgid "10-100 km2"
 msgstr "10-100 km2"
 
-#: apps/configuration/configuration_translations.py:2028
+#: apps/configuration/configuration_translations.py:2029
 msgctxt "technologies label"
 msgid "100-1,000 km2"
 msgstr "100-1 000 km2"
 
-#: apps/configuration/configuration_translations.py:2029
+#: apps/configuration/configuration_translations.py:2030
 msgctxt "technologies label"
 msgid "1,000-10,000 km2"
 msgstr "1 000-10 000 km2"
 
-#: apps/configuration/configuration_translations.py:2030
+#: apps/configuration/configuration_translations.py:2031
 msgctxt "technologies label"
 msgid "> 10,000 km2"
 msgstr "> 10 000 km2"
 
-#: apps/configuration/configuration_translations.py:2031
+#: apps/configuration/configuration_translations.py:2032
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Structural measures</strong><ul><li>are of long duration or "
@@ -5835,7 +5837,7 @@ msgstr ""
 "pente</li></ul><p>Si les structures sont stabilisées par de la végétation, "
 "sélectionnez également les pratiques végétales pertinentes!</p>"
 
-#: apps/configuration/configuration_translations.py:2033
+#: apps/configuration/configuration_translations.py:2034
 msgctxt "technologies helptext"
 msgid ""
 "<p>if annually or in a rotational sequence as done e.g. on cropland &rarr; "
@@ -5849,177 +5851,185 @@ msgstr ""
 "souhaitées/ introduites, brûlage dirigé (par ex., feux prescrits dans les "
 "forêts/ sur les pâturages)/ brûlage des résidus</p>"
 
-#: apps/configuration/configuration_translations.py:2044
-#: apps/configuration/configuration_translations.py:2046
+#: apps/configuration/configuration_translations.py:2045
+#: apps/configuration/configuration_translations.py:2047
 msgctxt "technologies label"
 msgid "per Technology unit"
 msgstr "par entité de la technologie"
 
-#: apps/configuration/configuration_translations.py:2047
+#: apps/configuration/configuration_translations.py:2048
 msgctxt "technologies label"
 msgid "US Dollars"
 msgstr "dollars US"
 
-#: apps/configuration/configuration_translations.py:2048
+#: apps/configuration/configuration_translations.py:2049
 msgctxt "technologies label"
 msgid "751-1,000 mm"
 msgstr "751-1000 mm"
 
-#: apps/configuration/configuration_translations.py:2049
+#: apps/configuration/configuration_translations.py:2050
 msgctxt "technologies label"
 msgid "1,001-1,500 mm"
 msgstr "1001-1500 mm"
 
-#: apps/configuration/configuration_translations.py:2050
+#: apps/configuration/configuration_translations.py:2051
 msgctxt "technologies label"
 msgid "1,501-2,000 mm"
 msgstr "1501-2000 mm"
 
-#: apps/configuration/configuration_translations.py:2051
+#: apps/configuration/configuration_translations.py:2052
 msgctxt "technologies label"
 msgid "2,001-3,000 mm"
 msgstr "2001-3000 mm"
 
-#: apps/configuration/configuration_translations.py:2052
+#: apps/configuration/configuration_translations.py:2053
 msgctxt "technologies label"
 msgid "3,001-4,000 mm"
 msgstr "3001-4000 mm"
 
-#: apps/configuration/configuration_translations.py:2053
+#: apps/configuration/configuration_translations.py:2054
 msgctxt "technologies label"
 msgid "> 4,000 mm"
 msgstr "> 4000 mm"
 
-#: apps/configuration/configuration_translations.py:2054
+#: apps/configuration/configuration_translations.py:2055
 msgctxt "technologies label"
 msgid "501-1,000 m a.s.l."
 msgstr "501-1000 m"
 
-#: apps/configuration/configuration_translations.py:2055
+#: apps/configuration/configuration_translations.py:2056
 msgctxt "technologies label"
 msgid "1,001-1,500 m a.s.l."
 msgstr "1001-1500 m"
 
-#: apps/configuration/configuration_translations.py:2056
+#: apps/configuration/configuration_translations.py:2057
 msgctxt "technologies label"
 msgid "1,501-2,000 m a.s.l."
 msgstr "1501-2000 m"
 
-#: apps/configuration/configuration_translations.py:2057
+#: apps/configuration/configuration_translations.py:2058
 msgctxt "technologies label"
 msgid "2,001-2,500 m a.s.l."
 msgstr "2001-2500 m"
 
-#: apps/configuration/configuration_translations.py:2058
+#: apps/configuration/configuration_translations.py:2059
 msgctxt "technologies label"
 msgid "2,501-3,000 m a.s.l."
 msgstr "2501-3000 m"
 
-#: apps/configuration/configuration_translations.py:2059
+#: apps/configuration/configuration_translations.py:2060
 msgctxt "technologies label"
 msgid "3,001-4,000 m a.s.l."
 msgstr "3001-4000 m"
 
-#: apps/configuration/configuration_translations.py:2060
+#: apps/configuration/configuration_translations.py:2061
 msgctxt "technologies label"
 msgid "> 4,000 m a.s.l."
 msgstr "> 4000 m"
 
-#: apps/configuration/configuration_translations.py:2061
+#: apps/configuration/configuration_translations.py:2062
 msgctxt "technologies label"
 msgid "women"
 msgstr "femmes"
 
-#: apps/configuration/configuration_translations.py:2062
+#: apps/configuration/configuration_translations.py:2063
 msgctxt "technologies label"
 msgid "men"
 msgstr "hommes"
 
-#: apps/configuration/configuration_translations.py:2063
+#: apps/configuration/configuration_translations.py:2064
 msgctxt "technologies label"
 msgid "children"
 msgstr "enfants"
 
-#: apps/configuration/configuration_translations.py:2064
+#: apps/configuration/configuration_translations.py:2065
 msgctxt "technologies label"
 msgid "youth"
 msgstr "jeunes"
 
-#: apps/configuration/configuration_translations.py:2065
+#: apps/configuration/configuration_translations.py:2066
 msgctxt "technologies label"
 msgid "middle-aged"
 msgstr "personnes d'âge moyen"
 
-#: apps/configuration/configuration_translations.py:2066
+#: apps/configuration/configuration_translations.py:2067
 msgctxt "technologies label"
 msgid "elderly"
 msgstr "personnes âgées"
 
-#: apps/configuration/configuration_translations.py:2067
+#: apps/configuration/configuration_translations.py:2068
 msgctxt "technologies label"
 msgid "small-scale"
 msgstr "petite dimension           "
 
-#: apps/configuration/configuration_translations.py:2068
+#: apps/configuration/configuration_translations.py:2069
 msgctxt "technologies label"
 msgid "medium-scale"
 msgstr "moyenne dimension       "
 
-#: apps/configuration/configuration_translations.py:2069
+#: apps/configuration/configuration_translations.py:2070
 msgctxt "technologies label"
 msgid "large-scale"
 msgstr "grande dimension"
 
-#: apps/configuration/configuration_translations.py:2070
+#: apps/configuration/configuration_translations.py:2071
 msgctxt "technologies helptext"
 msgid "<strong>Individual</strong>: right of use pertains to single user."
 msgstr ""
 "<strong>Individuel</strong>: le droit d’utilisation se rapporte à un seul "
 "utilisateur"
 
-#: apps/configuration/configuration_translations.py:2073
+#: apps/configuration/configuration_translations.py:2074
 msgctxt "technologies label"
 msgid "moderate"
 msgstr "modéré"
 
-#: apps/configuration/configuration_translations.py:2075
+#: apps/configuration/configuration_translations.py:2076
 #, python-format
 msgctxt "technologies label"
 msgid "1-10%%"
 msgstr "1-10%%"
 
-#: apps/configuration/configuration_translations.py:2076
+#: apps/configuration/configuration_translations.py:2077
 #, python-format
 msgctxt "technologies label"
 msgid "0-10%%"
 msgstr "0-10%%"
 
-#: apps/configuration/configuration_translations.py:2078
+#: apps/configuration/configuration_translations.py:2079
 #, python-format
 msgctxt "technologies label"
 msgid "50-90%%"
 msgstr "50-90%%"
 
-#: apps/configuration/configuration_translations.py:2079
+#: apps/configuration/configuration_translations.py:2080
 #, python-format
 msgctxt "technologies label"
 msgid "90-100%%"
 msgstr "90-100%%"
 
-#: apps/configuration/configuration_translations.py:2080
+#: apps/configuration/configuration_translations.py:2081
 msgctxt "technologies label"
 msgid "Traffic: roads, railways"
 msgstr "Trafic: routes, réseaux ferroviaires"
 
-#: apps/configuration/configuration_translations.py:2081
+#: apps/configuration/configuration_translations.py:2082
 msgctxt "technologies label"
 msgid "Energy: pipelines, power lines"
 msgstr "Energie: pipelines, lignes haute tension"
 
-#: apps/configuration/configuration_translations.py:2082
+#: apps/configuration/configuration_translations.py:2083
 msgctxt "technologies label"
 msgid "Drainage lines, waterways"
 msgstr "Voies de drainage, voies d'eau"
+
+#: apps/configuration/configuration_translations.py:2085
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "per technology area"
+msgctxt "technologies label"
+msgid "per Technology area"
+msgstr "par superficie de la technologie"
 
 #: apps/configuration/configuration_translations.py:2201
 msgctxt "technologies helptext"
@@ -7984,6 +7994,14 @@ msgstr "Références des publications disponibles"
 msgctxt "technologies label"
 msgid "Links to relevant information which is available online"
 msgstr "Liens vers les informations pertinentes disponibles en ligne"
+
+#: apps/configuration/configuration_translations.py:2861
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Indicate the main purpose(s) of the SLM technology"
+msgctxt "technologies label"
+msgid "Main purpose(s) of the Technology"
+msgstr "Indiquez le(s) principal(aux) objectif(s) de la technologie de GDT"
 
 #: apps/configuration/configuration_translations.py:2901
 msgctxt "technologies label"
@@ -10910,12 +10928,9 @@ msgstr ""
 "Quels acteurs/ organismes d'exécution ont été impliqués dans l'approche?"
 
 #: apps/configuration/configuration_translations.py:7004
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Roles of involved stakeholders"
 msgctxt "approaches label_view"
 msgid "Involved stakeholders"
-msgstr "Rôles des parties prenantes impliquées"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:7006
 #: apps/configuration/configuration_translations.py:7123
@@ -12993,6 +13008,7 @@ msgstr ""
 "fois le questionnaire complété.</p>"
 
 #: apps/configuration/configuration_translations.py:8762
+#: apps/configuration/configuration_translations.py:8788
 msgctxt "approaches helptext"
 msgid ""
 "<p>Provide photos showing stakeholders interacting with each other/ "
@@ -13163,6 +13179,14 @@ msgstr "Références des publications disponibles"
 msgctxt "approaches label"
 msgid "Links to relevant information which is available online"
 msgstr "Liens vers les informations pertinentes disponibles en ligne"
+
+#: apps/configuration/configuration_translations.py:8789
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Videos of the Approach"
+msgctxt "approaches label"
+msgid "Photos of the Approach"
+msgstr "Vidéos de l'approche"
 
 #: apps/configuration/configuration_translations.py:8901
 msgctxt "approaches label"
@@ -13463,10 +13487,8 @@ msgid "Reset all"
 msgstr "Tout réinitialiser"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:16
-#, fuzzy
-#| msgid "SLM Approaches"
 msgid "New SLM Approach"
-msgstr "Approches de GDT"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:21
 #: apps/questionnaire/templates/details/category/technologies_header.html:21
@@ -13518,10 +13540,8 @@ msgstr "Patienter"
 #: apps/questionnaire/templates/details/category/technologies_header.html:83
 #: apps/questionnaire/templates/details/category/unccd_header.html:61
 #: apps/questionnaire/templates/details/category/with_metadata.html:82
-#, fuzzy
-#| msgid "Table of Content"
 msgid "View full content"
-msgstr "Table des matières"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:88
 #: apps/questionnaire/templates/details/category/technologies_header.html:88
@@ -13534,20 +13554,15 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/technologies_header.html:97
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/with_metadata.html:96
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Exposure"
 msgid "Export"
-msgstr "Exposition"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:109
 #: apps/questionnaire/templates/details/category/technologies_header.html:109
 #: apps/questionnaire/templates/details/category/unccd_header.html:83
 #: apps/questionnaire/templates/details/category/with_metadata.html:108
-#, fuzzy
-#| msgid "View old version"
 msgid "View sections"
-msgstr "Voir l'ancienne version"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:110
 #: apps/questionnaire/templates/details/category/technologies_header.html:110
@@ -13569,10 +13584,8 @@ msgstr "Editer cette section"
 #: apps/questionnaire/templates/details/category/technologies_header.html:144
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/with_metadata.html:141
-#, fuzzy
-#| msgid "Edit this section"
 msgid "Empty section"
-msgstr "Editer cette section"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
 #: apps/technologies/views.py:48 apps/wocat/templates/wocat/partial/top.html:14
@@ -13580,11 +13593,8 @@ msgid "Technologies"
 msgstr "Technologies"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:16
-#, fuzzy
-#| msgctxt "technologies label_view"
-#| msgid "Name of the SLM Technology"
 msgid "New SLM Technology"
-msgstr "Nom de la technologie de GDT"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/unccd_header.html:53
 msgid "Comments"
@@ -14203,6 +14213,7 @@ msgid "other"
 msgstr "autre"
 
 #: apps/questionnaire/templates/filter.html:25
+#: apps/sample/templates/sample/questionnaire/list.html:14
 #: apps/wocat/templates/wocat/questionnaire/list.html:14
 msgid "Country"
 msgstr "Pays"
@@ -14756,12 +14767,57 @@ msgstr "Non ou plusieurs fichiers fournis."
 msgid "Successfully removed questionnaire"
 msgstr "Questionnaire supprimé avec succès"
 
-#: apps/sample/templates/sample/questionnaire/list.html:11
+#: apps/sample/templates/sample/questionnaire/list.html:15
+#: apps/wocat/templates/wocat/questionnaire/list.html:15
+msgid "Select or type a country name"
+msgstr ""
+
+#: apps/sample/templates/sample/questionnaire/list.html:32
+#: apps/wocat/templates/wocat/questionnaire/list.html:32
+msgid "Project"
+msgstr ""
+
+#: apps/sample/templates/sample/questionnaire/list.html:33
+#: apps/wocat/templates/wocat/questionnaire/list.html:33
+msgid "Select or type a project name"
+msgstr ""
+
+#: apps/sample/templates/sample/questionnaire/list.html:45
+#: apps/wocat/templates/wocat/partial/search.html:11
+#: apps/wocat/templates/wocat/questionnaire/list.html:45
+#: templates/base.html:151
+msgid "Search SLM Data"
+msgstr ""
+
+#: apps/sample/templates/sample/questionnaire/list.html:47
+#: apps/sample/templates/sample/questionnaire/list.html:49
+#: apps/wocat/templates/wocat/partial/search.html:13
+#: apps/wocat/templates/wocat/partial/search.html:15
+#: apps/wocat/templates/wocat/questionnaire/list.html:47
+#: apps/wocat/templates/wocat/questionnaire/list.html:49
+msgid "All SLM Data"
+msgstr ""
+
+#: apps/sample/templates/sample/questionnaire/list.html:50
+#: apps/technologies/templates/technologies/questionnaire/list.html:17
+#: apps/wocat/templates/wocat/home.html:96
+#: apps/wocat/templates/wocat/partial/search.html:16
+#: apps/wocat/templates/wocat/questionnaire/list.html:50
+msgid "SLM Technologies"
+msgstr "Technologies de GDT"
+
+#: apps/sample/templates/sample/questionnaire/list.html:58
+#: apps/wocat/templates/wocat/partial/top.html:33
+#: apps/wocat/templates/wocat/questionnaire/list.html:58
+msgid "Advanced filter"
+msgstr "Filtre avançé"
+
+#: apps/sample/templates/sample/questionnaire/list.html:78
 #: apps/samplemulti/templates/samplemulti/questionnaire/list.html:11
 msgid "Only public questionnaires are visible in this list view."
 msgstr "Seuls les questionnaires publics sont visibles dans cette liste."
 
-#: apps/sample/templates/sample/questionnaire/list.html:15
+#: apps/sample/templates/sample/questionnaire/list.html:82
 msgid "[SAMPLE] All technologies"
 msgstr "Toutes les technologies [ECHANTILLON]"
 
@@ -14772,10 +14828,8 @@ msgstr "ECHANTILLON"
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:69
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:69
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:69
-#, fuzzy
-#| msgid "View this SLM Technology / Approach"
 msgid "This SLM Technology is linked to SLM Approaches"
-msgstr "Voir cette technologie/ approche de GDT"
+msgstr ""
 
 #: apps/samplemulti/templates/samplemulti/questionnaire/list.html:15
 msgid "[SAMPLEMULTI] All technologies"
@@ -14788,13 +14842,6 @@ msgstr "MULTIECHANTILLON"
 #: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
 msgstr "Technologies WOCAT de GDT"
-
-#: apps/technologies/templates/technologies/questionnaire/list.html:17
-#: apps/wocat/templates/wocat/home.html:96
-#: apps/wocat/templates/wocat/partial/search.html:16
-#: apps/wocat/templates/wocat/questionnaire/list.html:50
-msgid "SLM Technologies"
-msgstr "Technologies de GDT"
 
 #: apps/technologies/templates/technologies/questionnaire/partial/link.html:16
 msgid "Technology"
@@ -15144,10 +15191,8 @@ msgid "the Global Database on Sustainable Land Management"
 msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:28
-#, fuzzy
-#| msgid "Primary recommended database"
 msgid "is the primary recommended database by UNCCD"
-msgstr "Base de données primaire recommandée"
+msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:36
 msgid "is open access and contains over 500 SLM practices"
@@ -15158,13 +15203,8 @@ msgid "is a standardized and modular system"
 msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:52
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Did the Approach enable evidence-based decision-making?"
 msgid "supports knowledge sharing and evidence-based decision-making"
 msgstr ""
-"Est-ce que l'approche a permis la prise de décisions fondées sur des données "
-"probantes?"
 
 #: apps/wocat/templates/wocat/home.html:60
 msgid "welcomes you to join!"
@@ -15238,23 +15278,7 @@ msgid "Filter for SLM Approaches"
 msgstr ""
 
 #: apps/wocat/templates/wocat/partial/advanced_filter.html:349
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify support"
 msgid "Technical support"
-msgstr "Précisez le type de soutien"
-
-#: apps/wocat/templates/wocat/partial/search.html:11
-#: apps/wocat/templates/wocat/questionnaire/list.html:45
-#: templates/base.html:151
-msgid "Search SLM Data"
-msgstr ""
-
-#: apps/wocat/templates/wocat/partial/search.html:13
-#: apps/wocat/templates/wocat/partial/search.html:15
-#: apps/wocat/templates/wocat/questionnaire/list.html:47
-#: apps/wocat/templates/wocat/questionnaire/list.html:49
-msgid "All SLM Data"
 msgstr ""
 
 #: apps/wocat/templates/wocat/partial/top.html:22
@@ -15276,11 +15300,6 @@ msgid "Search SLM data ..."
 msgstr "Rechercher des données de GDT..."
 
 #: apps/wocat/templates/wocat/partial/top.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:58
-msgid "Advanced filter"
-msgstr "Filtre avançé"
-
-#: apps/wocat/templates/wocat/partial/top.html:33
 msgid "Show all Technologies"
 msgstr "Afficher toutes les technologies"
 
@@ -15291,18 +15310,6 @@ msgstr "Afficher toutes les approches"
 #: apps/wocat/templates/wocat/partial/top.html:33
 msgid "Show all SLM practices"
 msgstr "Afficher toutes les pratiques de GDT"
-
-#: apps/wocat/templates/wocat/questionnaire/list.html:15
-msgid "Select or type a country name"
-msgstr ""
-
-#: apps/wocat/templates/wocat/questionnaire/list.html:32
-msgid "Project"
-msgstr ""
-
-#: apps/wocat/templates/wocat/questionnaire/list.html:33
-msgid "Select or type a project name"
-msgstr ""
 
 #: apps/wocat/templates/wocat/questionnaire/list.html:86
 msgid "WOCAT and UNCCD SLM practices"
@@ -15524,33 +15531,3 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
-
-#~ msgid "No login?"
-#~ msgstr "Pas d'identifiant?"
-
-#~ msgid "Pending SLM practices"
-#~ msgstr "Dans l'attente de pratiques de GDT"
-
-#~ msgid "Your SLM practices"
-#~ msgstr "Vos pratiques de GDT"
-
-#~ msgid "SLM practices by"
-#~ msgstr "Pratiques de GDT par "
-
-#~ msgid "Under construction"
-#~ msgstr "En construction"
-
-#~ msgid "Show all SLM best practices"
-#~ msgstr "Afficher toutes les bonnes pratiques de GDT"
-
-#~ msgid ""
-#~ "To standardize the documentation of SLM practices, WOCAT has developed a "
-#~ "<strong>modular questionnaire system</strong> addressing the needs of "
-#~ "different user groups:"
-#~ msgstr ""
-#~ "Afin d'uniformiser la documentation des pratiques de GDT, WOCAT a "
-#~ "développé un <strong>système de questionnaires modulaires (modules)</"
-#~ "strong> répondant aux besoins de différents groupes d'utilisateurs: "
-
-#~ msgid "FAQ"
-#~ msgstr "FAQ"
