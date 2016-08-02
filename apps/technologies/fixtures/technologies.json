@@ -14780,6 +14780,20 @@
       "data": {
         "technologies": {
           "label": {
+            "en": "Main purpose(s) of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2806
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
             "en": "General information"
           }
         }
@@ -25273,7 +25287,7 @@
   {
     "fields": {
       "keyword": "tech__3__1",
-      "translation": 2770
+      "translation": 2806
     },
     "model": "configuration.category",
     "pk": 1006
