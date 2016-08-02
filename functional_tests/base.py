@@ -223,10 +223,12 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.findBy('xpath', btn_xpath).click()
         self.findBy(
             'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
+        self.toggle_all_sections()
 
     def submit_form_step(self):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.toggle_all_sections()
 
     def click_edit_section(
             self, section_identifier, return_button=False, exists_not=False):
