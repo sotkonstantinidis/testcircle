@@ -19,6 +19,10 @@ from qcat.tests import TEST_CACHES
 from unittest.mock import patch
 from accounts.tests.test_models import create_new_user
 
+from sample.tests.test_views import route_questionnaire_details as \
+    route_questionnaire_details_sample
+
+
 loginRouteName = 'login'
 
 
@@ -122,6 +126,20 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.fail('Elements %s were not found by %s' % (el, by))
         return f
 
+    def wait_for(self, by, el, visibility=True):
+        if by == 'class_name':
+            locator = By.CLASS_NAME
+        elif by == 'xpath':
+            locator = By.XPATH
+        else:
+            self.fail('Argument "by" = "%s" is not valid.' % by)
+
+        if visibility is True:
+            condition = EC.visibility_of_element_located((locator, el))
+        else:
+            condition = EC.invisibility_of_element_located((locator, el))
+        WebDriverWait(self.browser, 10).until(condition)
+
     def changeHiddenInput(self, el, val):
         self.browser.execute_script('''
             var elem = arguments[0];
@@ -146,9 +164,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         certain elements, namely when using headless browser for testing. Sets
         it to "position: relative".
         """
-        sticky = self.findBy('class_name', 'sticky-menu-outer')
-        self.browser.execute_script(
-            'arguments[0].style.position = "absolute";', sticky)
+        pass
+        # sticky = self.findBy('class_name', 'sticky-menu-outer')
+        # self.browser.execute_script(
+        #     'arguments[0].style.position = "absolute";', sticky)
 
     def screenshot(self):
         self.browser.save_screenshot('screenshot.png')
@@ -203,10 +222,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.findBy('xpath', btn_xpath).click()
         self.findBy(
             'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
+        if action != 'reject':
+            self.toggle_all_sections()
 
     def submit_form_step(self):
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.toggle_all_sections()
 
     def click_edit_section(
             self, section_identifier, return_button=False, exists_not=False):
@@ -222,6 +244,21 @@ class FunctionalTest(StaticLiveServerTestCase):
         btn.click()
         self.rearrangeFormHeader()
 
+    def toggle_all_sections(self):
+        self.wait_for('class_name', 'js-expand-all-sections')
+        self.findBy('class_name', 'js-expand-all-sections').click()
+
+    def open_questionnaire_details(self, configuration, identifier=None):
+        route = route_questionnaire_details_sample
+        self.browser.get(self.live_server_url + reverse(
+            route, kwargs={'identifier': identifier}))
+        self.toggle_all_sections()
+
+    def apply_filter(self):
+        self.findBy(
+            'xpath', '//input[contains(@class, "search-submit")]').click()
+        self.wait_for('class_name', 'loading-indicator', visibility=False)
+
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)
         WebDriverWait(self.browser, 10).until(
@@ -230,6 +267,12 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def scroll_to_element(self, el):
         self.browser.execute_script("return arguments[0].scrollIntoView();", el)
+
+    def set_input_value(self, el_id, value):
+        self.browser.execute_script(
+            "document.getElementById('{}').setAttribute('value', '{}')".format(
+                el_id, value
+            ))
 
     def clickUserMenu(self, user):
         self.findBy(

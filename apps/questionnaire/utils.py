@@ -3,6 +3,7 @@ import json
 import logging
 from uuid import UUID
 
+from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
 from django.template.loader import render_to_string
@@ -505,7 +506,7 @@ def get_questiongroup_data_from_translation_form(
     return questiongroup_data_cleaned
 
 
-def get_active_filters(questionnaire_configuration, query_dict):
+def get_active_filters(questionnaire_configurations, query_dict):
     """
     Get the currently active filters based on the query dict (eg. from
     the request). Only valid filters (correct format, based on
@@ -532,9 +533,9 @@ def get_active_filters(questionnaire_configuration, query_dict):
         q=search&filter__qg_11__key_14=value_14_1
 
     Args:
-        ``questionnaire_configuration``
-        (:class:`configuration.configuration.QuestionnaireConfiguration`):
-        The questionnaire configuration.
+        ``questionnaire_configurations``
+        (list of :class:`configuration.configuration.QuestionnaireConfiguration`):
+        A list of questionnaire configurations.
 
         ``query_dict`` (Nested Multidict): A nested multidict object,
         eg. ``request.GET``.
@@ -627,21 +628,37 @@ def get_active_filters(questionnaire_configuration, query_dict):
         filter_questiongroup = params[1]
         filter_key = params[2]
 
-        question = questionnaire_configuration.get_question_by_keyword(
-            filter_questiongroup, filter_key)
+        question = None
+        for configuration in questionnaire_configurations:
+            if question is None:
+                question = configuration.get_question_by_keyword(
+                    filter_questiongroup, filter_key)
 
         if question is None:
             continue
 
         for filter_value in filter_values:
             value_label = next(
-                (v[1] for v in question.choices if v[0] == filter_value),
+                (v[1] for v in question.choices if str(v[0]) == filter_value),
                 filter_value)
+
+            if question.field_type == 'select_model':
+                try:
+                    model = apps.get_model(
+                        app_label='configuration',
+                        model_name=question.form_options.get('model'))
+                    try:
+                        object = model.objects.get(pk=filter_value)
+                        value_label = str(object)
+                    except model.DoesNotExist:
+                        continue
+                except LookupError:
+                    continue
 
             active_filters.append({
                 'questiongroup': filter_questiongroup,
                 'key': filter_key,
-                'key_label': question.label,
+                'key_label': question.label_view,
                 'value': filter_value,
                 'value_label': value_label,
                 'type': question.field_type,
@@ -828,7 +845,7 @@ def query_questionnaires(
     return query
 
 
-def get_query_status_filter(request, moderation_mode=''):
+def get_query_status_filter(request):
     """
     Creates a filter object based on the statuses of the Questionnaires,
     to be used for database queries.
@@ -847,18 +864,6 @@ def get_query_status_filter(request, moderation_mode=''):
     Args:
         ``request`` (django.http.HttpRequest): The request object.
 
-    Kwargs:
-        ``moderation_mode`` (string): Can be used for special status
-        filters needed by moderators. Possible values can be:
-
-          * ``review``: Showing only submitted questionnaires
-
-          * ``publish``: Showing only reviewed questionnaires.
-
-        This is only meaningful if the user actually has the correct
-        permissions (``questionnaire.review_questionnaire`` or
-        ``questionnaire.publish_questionnaire``).
-
     Returns:
         ``django.db.models.Q``. A Django filter object.
     """
@@ -870,23 +875,11 @@ def get_query_status_filter(request, moderation_mode=''):
 
         # Reviewers see all Questionnaires with status "submitted".
         if 'questionnaire.review_questionnaire' in permissions:
-
-            if moderation_mode == '' or not moderation_mode != 'review':
-                status_filter |= Q(
-                    status__in=[settings.QUESTIONNAIRE_SUBMITTED]
-                )
-
-            if moderation_mode == 'review':
-                return status_filter
+                status_filter |= Q(status__in=[settings.QUESTIONNAIRE_SUBMITTED])
 
         # Publishers see all Questionnaires with status "reviewed".
         if 'questionnaire.publish_questionnaire' in permissions:
-
-            if moderation_mode == '' or not moderation_mode != 'publish':
-                status_filter |= Q(status__in=[settings.QUESTIONNAIRE_REVIEWED])
-
-            if moderation_mode == 'publish':
-                return status_filter
+            status_filter |= Q(status__in=[settings.QUESTIONNAIRE_REVIEWED])
 
         # Users see Questionnaires with status "draft", "submitted" and
         # "reviewed" if they are "compiler" or "editor".
@@ -1180,7 +1173,10 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         ``None`` or ``HttpResponse``. Returns either a HttpResponse
         (typically a redirect) or None.
     """
-    permissions = questionnaire_object.get_permissions(request.user)
+    roles_permissions = questionnaire_object.get_roles_permissions(request.user)
+    roles = roles_permissions.roles
+    permissions = roles_permissions.permissions
+
     if request.POST.get('submit'):
 
         # Previous status must be "draft"
@@ -1318,7 +1314,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Query the permissions again, if the user does not have
         # edit rights on the now draft questionnaire, then route him
         # back to home in order to prevent a 404 page.
-        permissions = questionnaire_object.get_permissions(request.user)
+        roles, permissions = questionnaire_object.get_roles_permissions(
+            request.user)
         if 'edit_questionnaire' not in permissions:
             return redirect('{}:home'.format(configuration_code))
 
@@ -1571,11 +1568,14 @@ def prepare_list_values(data, config, **kwargs):
     return data
 
 
-def get_review_config_dict(status, token, permissions, view_mode, url, is_blocked, blocked_by, form_url, has_release):
+def get_review_config_dict(
+        status, token, permissions, roles, view_mode, url, is_blocked,
+        blocked_by, form_url, has_release):
     return {
         'review_status': status,
         'csrf_token_value': token,
         'permissions': permissions,
+        'roles': roles,
         'mode': view_mode,
         'url': url,
         'is_blocked': is_blocked,

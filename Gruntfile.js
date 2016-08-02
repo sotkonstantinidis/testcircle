@@ -83,7 +83,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'src/partial/svg_icons.hbs': ['src/assets/icons/*.svg']
+          // 'src/partial/svg.html': ['src/assets/icons/*.svg']
+          'templates/svg.html': ['src/assets/icons/*.svg']
         }
       },
     },
@@ -108,7 +109,7 @@ module.exports = function(grunt) {
           // 'bower_components/foundation/js/foundation/foundation.joyride.js',
           'bower_components/foundation/js/foundation/foundation.magellan.js',
           'bower_components/foundation/js/foundation/foundation.offcanvas.js',
-          // 'bower_components/foundation/js/foundation/foundation.orbit.js',
+          'bower_components/foundation/js/foundation/foundation.orbit.js',
           'bower_components/foundation/js/foundation/foundation.reveal.js',
           // 'bower_components/foundation/js/foundation/foundation.slider.js',
           'bower_components/foundation/js/foundation/foundation.tab.js',
@@ -269,7 +270,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           hostname: '0.0.0.0',
-          port: 8000,
+          port: 3000,
           livereload: true,
           open: true,
           base: 'static'
@@ -300,7 +301,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', function(arg) {
     // Default mode is 'dev'
     var mode = (arg && arg === 'deploy') ? 'deploy' : 'dev';
-    grunt.task.run(['sass:' + mode, 'svgstore', 'imagemin', 'concat', 'uglify', 'copy', 'assemble']);
+    grunt.task.run(['sass:' + mode, 'postcss', 'svgstore', 'imagemin', 'concat', 'uglify', 'copy', 'assemble']);
   });
   grunt.registerTask('server', ['connect:server', 'watch']);
   grunt.registerTask('default', ['build', 'server']);

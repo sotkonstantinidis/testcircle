@@ -320,7 +320,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
                 'questionnaire_identifier': 'foo',
                 'images': img.get.return_value,
                 'filter_configuration': mfc,
-                'permissions': mock_q_obj.get_permissions.return_value,
+                'permissions': mock_q_obj.get_roles_permissions.return_value.permissions,
                 'view_mode': 'view',
                 'toc_content': mock_conf.return_value.get_toc_data.return_value,
                 'base_template': 'sample/base.html',

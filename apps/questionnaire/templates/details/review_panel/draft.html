@@ -2,84 +2,74 @@
 
 <div class="row">
   <div class="medium-12 columns">
-    <h3>{% trans "Draft version" %}</h3>
-    <p>{% trans "The version is saved as a draft. Editors can work on the draft. The compiler can submit it for review." %}</p>
+    <h2>{% trans "Draft version" %}</h2>
+    <p>{% trans "The SLM Technology / Approach data entry form is saved as a draft. The compiler is responsible for this data entry and can invite editors (WOCAT users) to help create it. Once the data entry is complete the compiler can submit it for review." %}</p>
   </div>
 </div>
 
 {% if 'submit_questionnaire' in review_config.permissions %}
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
-      <p>
-        <a class="button is-ok" data-reveal-id="confirm-submit">{% trans "Submit" %}</a>
-      </p>
+      <a class="button expand success" data-reveal-id="confirm-submit">{% trans "Submit" %}</a>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'All edits have been made and the questionnaire is ready to be submitted. Next status will be "submitted" and reviewers will be notified.' %}</p>
+      <p>{% trans 'All edits have been made, the data entry is complete, and the SLM Technology / Approach is ready to be submitted. After submission a reviewer is selected.' %}</p>
       {% if review_config.blocked_by %}
         <p>{{ review_config.blocked_by }}</p>
       {% endif %}
-    </div>
-    <div id="confirm-submit" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2>{% trans "Please confirm submission." %}</h2>
-      <p>{% trans "By submitting this, a the defined reviewer will check your questionnaire. In that time, you will not be able to modify it." %}</p>
-      {% if review_config.blocked_by %}
+      <div id="confirm-submit" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <h2>{% trans "Please confirm submission." %}</h2>
+        <p>{% trans "After submission of the SLM Technology / Approach a reviewer will be assigned to check your data. During this time you cannot edit your data entry. If the data is not complete you must revise it. If the data is complete the reviewer submits it for publication." %}</p>
+        {% if review_config.blocked_by %}
         <p>{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}</p>
-      {% endif %}
-      <button name='submit' value='true' class="button" type="submit" form="review_form">{% trans "Submit" %}</button>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        {% endif %}
+        <button name='submit' value='true' class="button success" type="submit" form="review_form">{% trans "Submit" %}</button>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      </div>
     </div>
   </div>
 {% endif %}
 
 {% if review_config.mode == 'view' and 'edit_questionnaire' in review_config.permissions %}
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
-      <p>
-        <a class="button is-ok" href="{{ review_config.url }}">{% trans "Edit" %}</a>
-      </p>
+      <a class="button expand success" href="{{ review_config.url }}">{% trans "Edit" %}</a>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'Start editing this questionnaire.' %}</p>
+      <p>{% trans 'Start editing the questionnaire.' %}</p>
     </div>
   </div>
 {% elif review_config.mode == 'edit' %}
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
-      <p>
-        <a class="button is-ok" href="{{ review_config.url }}">{% trans "View" %}</a>
-      </p>
+      <a class="button expand success" href="{{ review_config.url }}">{% trans "View" %}</a>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'View this questionnaire.' %}</p>
+      <p>{% trans 'View this SLM Technology / Approach' %}</p>
     </div>
   </div>
 {% endif %}
 
 {% if 'submit_questionnaire' in review_config.permissions %}
-  <div class="row workflow-action">
+  <div class="row process-action">
     <div class="medium-2 columns">
-      <p>
-        <a class="button is-dangerous" data-reveal-id="confirm-delete">{% trans "Delete" %}</a>
-      </p>
+      <a class="button expand alert" data-reveal-id="confirm-delete">{% trans "Delete" %}</a>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'Delete this questionnaire. This is only possible for the compiler and while it is still in the draft mode.' %}</p>
+      <p>{% trans 'Delete this SLM Technology / Approach. Only the compiler can delete an SLM Technology / Approach while it is in draft mode.' %}</p>
     </div>
     <div id="confirm-delete" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm removal." %}</h2>
-      <p>{% trans "By submitting this the questionnaire will be deleted." %}</p>
-      <button name='delete' value='true' class="button" type="submit" form="review_form">{% trans "Delete" %}</button>
+      <p>{% trans "This SLM Technology / Approach will be deleted." %}</p>
+      <button name='delete' value='true' class="button alert" type="submit" form="review_form">{% trans "Delete" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
   </div>
 {% endif %}
 
-
-
 {% if 'assign_questionnaire' in review_config.permissions %}
   {% trans "Manage editors" as assign_header %}
-  {% trans "Users can be invited to work on the questionnaire as editors. Editors can edit the questionnaire but not submit it for review or invite other editors." as assign_description %}
+  {% trans "WOCAT users can be invited to work on a SLM Technology / Approach as editors. Editors can edit the SLM Technology / Approach, but they cannot submit it for review or invite other editors." as assign_description %}
   {% trans "Invited editors:" as assign_assigned %}
   {% trans "There are no editors invited to this questionnaire." as assign_empty %}
   {% trans "Edit invited editors. Click the button to update the invited editors." as assign_edit %}

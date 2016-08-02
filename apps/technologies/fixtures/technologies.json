@@ -132,6 +132,9 @@
         "technologies": {
           "label": {
             "en": "Select land use type"
+          },
+          "label_view": {
+            "en": "Land use type"
           }
         }
       }
@@ -146,6 +149,9 @@
         "technologies": {
           "label": {
             "en": "Select category(ies) / code(s)"
+          },
+          "label_view": {
+            "en": "Land use type"
           }
         }
       }
@@ -275,6 +281,9 @@
         "technologies": {
           "label": {
             "en": "SLM measures comprising the Technology"
+          },
+          "label_view": {
+            "en": "SLM measures"
           }
         }
       }
@@ -289,6 +298,9 @@
         "technologies": {
           "label": {
             "en": "Select degradation type"
+          },
+          "label_view": {
+            "en": "Degradation type"
           }
         }
       }
@@ -3078,6 +3090,9 @@
         "technologies": {
           "label": {
             "en": "SLM group to which the Technology belongs"
+          },
+          "label_view": {
+            "en": "SLM group"
           }
         }
       }
@@ -4020,6 +4035,559 @@
     },
     "model": "configuration.translation",
     "pk": 1304
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Is the Technology described here problematic with regard to land degradation, so that it cannot be declared a sustainable land management technology?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1305
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If precise year is not known, indicate approximate date"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1306
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify how the Technology was introduced"
+          },
+          "helptext": {
+            "en": "The terms <strong>traditional</strong> and <strong>innovation</strong> refer to the land users’ own technologies. They cover technologies that have been in use for generations, as well as those developed more recently by innovative land users in response to changing circumstances. Use “other” when the Technology does not fit any of the given categories and specify why it does not fit."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1307
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Number of growing seasons per year"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1308
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Livestock density (if relevant)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1309
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify the spread of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1310
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If the Technology is evenly spread over an area, indicate approximate area covered"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1311
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify the goal of the Technology with regard to land degradation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1312
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If using a local area unit, indicate conversion factor: 1 hectare ="
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1313
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify how costs and inputs were calculated"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1314
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "other/ national currency (specify)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1315
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Specify currency used for cost calculations"
+          },
+          "helptext": {
+            "en": "You can use US dollars (USD) or any other national currency. Indicate all costs using the same currency."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1316
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Indicate exchange rate from USD to local currency (if relevant): 1 USD ="
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1317
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Indicate average wage cost of hired labour per day"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1318
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If possible, break down the costs of establishment according to the following table, specifying inputs and costs per input. If you are unable to break down the costs, give an estimation of the total costs of establishing the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1319
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If land user bore less than 100% of costs, indicate who covered the remaining costs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1320
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If possible, break down the costs of maintenance according to the following table, specifying inputs and costs per input. If you are unable to break down the costs, give an estimation of the total costs of maintaining the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1321
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Age of land users"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1322
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Is this considered small-, medium- or large-scale (referring to local context)?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1323
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "health"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1324
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "education"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1325
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "technical assistance"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1326
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "employment (e.g. off-farm)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1327
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "markets"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1328
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "energy"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1329
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "roads and transport"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1330
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "drinking water and sanitation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1331
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "financial services"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1332
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "landslides/ debris flows"
+          },
+          "label_left": {
+            "en": "increased"
+          },
+          "label_right": {
+            "en": "decreased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1333
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Comments regarding impact assessment"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1334
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Of all those who have adopted the Technology, how many have did so spontaneously, i.e. without receiving any material incentives/ payments?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1335
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Has the Technology been modified recently to adapt to changing conditions?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1336
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If yes, indicate to which changing conditions it was adapted"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1337
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Main animal species and products"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1338
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "(Semi-)natural forests/ woodlands"
+          },
+          "helptext": {
+            "en": "<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of indigenous trees, not planted by man"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1339
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Select category(ies) / code(s)"
+          },
+          "label_view": {
+            "en": "SLM measures"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1340
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Select category(ies) / code(s)"
+          },
+          "label_view": {
+            "en": "Degradation type"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1341
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "If available, attach full soil description or specify the available information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, nitrogen, salinity etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1342
   },
   {
     "fields": {
@@ -9432,6 +10000,950 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "through land users' innovation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1876
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "as part of a traditional system (> 50 years)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1877
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "during experiments/ research"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1878
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "through projects/ external interventions"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1879
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1880
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1881
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1882
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "improved plant varieties/ animal breeds"
+          },
+          "helptext": {
+            "en": "<strong>Improved plant varieties/ animal breeds:</strong> refers to the development of new plant varieties or animal breeds that offer benefits such as improved production, resistance to pests and diseases, or drought tolerance, in response to changing environmental conditions and land users’ needs."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1883
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "ground water management"
+          },
+          "helptext": {
+            "en": "<strong>Groundwater management:</strong> involves securing the recharge of groundwater reserves and their protection from pollution, overexploitation/ overuse, and rising groundwater levels leading to salinization."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1884
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "energy efficiency technologies"
+          },
+          "helptext": {
+            "en": "<strong>Energy efficiency technologies:</strong> reduce the amount of energy required to provide products and services, e.g. for cooking and heating, reducing the demand for fuel (fossil, wood)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1885
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "post-harvest measures"
+          },
+          "helptext": {
+            "en": "<strong>Post-harvest measures:</strong> encompasses activities to deliver a crop from harvest to consumption with minimum loss, maximum efficiency, and maximum return for all involved – such as drying, storage, cooling, cleaning, sorting, and packing."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1886
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "evenly spread over an area"
+          },
+          "helptext": {
+            "en": "e.g. mulching, series of terraces, afforestation, micro-catchments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1887
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "applied at specific points/ concentrated on a small area"
+          },
+          "helptext": {
+            "en": "e.g. water points, dams, compost production pits, smallstock stables, hydropower stations"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1888
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "< 0.1 km2 (10 ha)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1889
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "0.1-1 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1890
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1-10 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1891
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "10-100 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1892
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "100-1,000 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1893
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1,000-10,000 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1894
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "> 10,000 km2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1895
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "structural measures"
+          },
+          "helptext": {
+            "en": "<strong>Structural measures</strong><ul><li>are of long duration or permanent</li><li>often require substantial inputs of labour or money when first installed</li><li>involve major earth movements and/ or construction with wood, stone, concrete, etc. are often carried out to control runoff, erosion and wind velocity and to harvest rainwater</li><li>often lead to a change in slope profile</li><li>are often aligned along the contour/ against prevailing wind direction</li><li>are often spaced according to slope</li></ul><p>If structures are stabilized by means of vegetation, also select relevant vegetative measures!</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1896
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "M5: Control/ change of species composition"
+          },
+          "helptext": {
+            "en": "<p>if annually or in a rotational sequence as done e.g. on cropland &rarr; A1</p><p>Examples: Reduction of invasive species, selective clearing, encouragement of desired/ introduction of new species,  controlled burning (e.g. prescribed fires in forests/ on grazing land)/ residue burning</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1897
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "prevent land degradation"
+          },
+          "helptext": {
+            "en": "<strong>Prevention:</strong> good land management practices are already in place on land that may be prone to land degradation. They maintain natural resources and their environmental and productive functions."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1898
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "reduce land degradation"
+          },
+          "helptext": {
+            "en": "<strong>Reduction:</strong> interventions intended to reduce ongoing degradation and/ or halt further degradation. They start improving natural resources and their functions. Impacts tend to be noticeable in the short to medium term."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1899
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "restore/ rehabilitate severely degraded land"
+          },
+          "helptext": {
+            "en": "<strong>Rehabilitation/ restoration</strong> required when the land is already degraded to such an extent that the original use is no longer possible, and land has become practically unproductive. Here, longer-term and more costly investments are needed to show any impact."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1900
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "adapt to land degradation"
+          },
+          "helptext": {
+            "en": "<strong>Adaptation:</strong> applied when rehabilitation/ restoration of the original state of the land is no longer possible or requires resources beyond the means of land users. This means the state of land degradation is “accepted”, but land management is adapted to suit land degradation (e.g. adapting to soil salinity by introducing salt-tolerant plants)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1901
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "per Technology unit"
+          },
+          "helptext": {
+            "en": "e.g. watering point, energy saving stove, stone line"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1902
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "per Technology unit"
+          },
+          "helptext": {
+            "en": "e.g. 24 acres"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1903
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "US Dollars"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1904
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "751-1,000 mm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1905
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1,001-1,500 mm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1906
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1,501-2,000 mm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1907
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "2,001-3,000 mm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1908
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "3,001-4,000 mm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1909
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "> 4,000 mm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1910
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "501-1,000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1911
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1,001-1,500 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1912
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1,501-2,000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1913
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "2,001-2,500 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1914
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "2,501-3,000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1915
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "3,001-4,000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1916
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "> 4,000 m a.s.l."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1917
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "women"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1918
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "men"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1919
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "children"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1920
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "youth"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1921
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "middle-aged"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1922
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "elderly"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1923
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "small-scale"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1924
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "medium-scale"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1925
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "large-scale"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1926
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "individual"
+          },
+          "helptext": {
+            "en": "<strong>Individual</strong>: right of use pertains to single user."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1927
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "poor"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1928
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "moderate"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1929
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "good"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1930
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "1-10%"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1931
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "0-10%"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1932
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "10-50%"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1933
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "50-90%"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1934
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "90-100%"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1935
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Traffic: roads, railways"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1936
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Energy: pipelines, power lines"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1937
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Drainage lines, waterways"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1938
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "per Technology area"
+          },
+          "helptext": {
+            "en": "e.g. 24 acres"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1939
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "technologies": {
@@ -11547,6 +13059,99 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Key resource person(s)"
+          },
+          "helptext": {
+            "en": "Person(s) who provided most of the information documented in this questionnaire. These can be land users, SLM specialists (e.g. technical advisers, researchers), or any other persons."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2364
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "helptext": {
+            "en": "The terms <strong>traditional and innovation</strong> refer to the land users’ own technologies. They cover technologies that have been in use for generations, as well as those developed more recently by innovative land users in response to changing circumstances. Use “other” when the Technology does not fit any of the given categories and specify why it does not fit."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2365
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "helptext": {
+            "en": "<p><strong>Land ownership</strong> refers to the type of entity possessing the land, whereas <strong>land use rights</strong> refer to the type of entity having a right to access the land.</p><p>Maximum two answers per question.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2366
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "landslides/ debris flows"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2367
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "downstream flooding"
+          },
+          "helptext": {
+            "en": "Downstream flooding and downstream siltation can be desired or undesired. Please specify in comments column and indicate whether an increase is positive or negative."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2368
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "downstream siltation"
+          },
+          "helptext": {
+            "en": "Downstream flooding and downstream siltation can be desired or undesired. Please specify in comments column and indicate whether an increase is positive or negative."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2369
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "technologies": {
@@ -12799,6 +14404,396 @@
       "data": {
         "technologies": {
           "label": {
+            "en": "Declaration on sustainability of the described Technology"
+          },
+          "helptext": {
+            "en": "Note that WOCAT questionnaires focus on the documentation and assessment of SLM practices. However, this questionnaire can also be used to describe a non-sustainable land management practice if you wish to compare this practice with specific SLM Technologies. In this case, indicate reference to those SLM Technologies in question 1.6."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2783
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Reference to/ comparison with other Technologies"
+          },
+          "helptext": {
+            "en": "If the Technology described in this questionnaire is part of a comparative assessment of different Technologies/ situations, please indicate details."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2784
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Short description of the Technology"
+          },
+          "helptext": {
+            "en": "Summarize the Technology in 1-2 sentences. Make sure this short description is precise and contains relevant keywords. It is the lead text of this documentation and provides an important basis for searching the database."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2785
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Detailed description of the Technology"
+          },
+          "helptext": {
+            "en": "<p>The detailed description should provide a concise but comprehensive picture of the Technology to outsiders. It should therefore address key questions such as:</p><ol><li>Where is the Technology applied (natural and human environment)?</li><li>What are the main characteristics/ elements of the Technology (including technical specifications)?</li><li>What are the purposes/ functions of the Technology?</li><li>What major activities/ inputs are needed to establish/ maintain the Technology?</li><li>What are the benefits/ impacts of the Technology?</li><li>What do land users like / dislike about the Technology?</ol><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents. Fill in the description at the beginning, but revise it when you have completed the questionnaire.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2786
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Videos of the Technology"
+          },
+          "helptext": {
+            "en": "If video files presenting the Technology are available, upload them to a public platform (e.g. vimeo.com, youtube.com) and indicate a link and a short description for each file in the table below."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2787
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Further information about land use"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2788
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Main types of land degradation addressed by the Technology"
+          },
+          "helptext": {
+            "en": "<p><strong>Land degradation:</strong> Degradation of land resources, including soils, water, vegetation, and animals.</p><p>Use the degradation types and subcategories listed below</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2789
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Technical drawing of the Technology"
+          },
+          "helptext": {
+            "en": "<p>Please provide a comprehensive and detailed drawing (including dimensions) of the Technology and indicate technical specifications, measurements, spacing, gradient, etc. You can also provide several drawings showing (a) a temporal sequence of operations or (b) different elements or details of the Technology. Alternatively you can also provide one or several photographs with technical specifications drawn and/ or written onto the photograph(s). Include as much technical information as possible on the drawings (or photographs).</p><p>Keep the drawing simple and schematic. The technical drawing is crucial for understanding the Technology! Scan the drawing and upload the scan.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Technical drawing indicating technical specifications, dimensions, spacing<br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2790
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "General information regarding the calculation of inputs and costs"
+          },
+          "helptext": {
+            "en": "<p>Notes on implementation activities, inputs, and costs:</p><ul><li>It may be very difficult to determine the costs of a Technology. Nevertheless, we ask you to give your best estimate!</li><li>A distinction is made between initial establishment (construction, initiation) and maintenance/ recurrent annual activities.</li><li>All costs should be calculated based on market prices. If labour is provided by land users themselves, indicate equivalent cost of hired labour. If inputs are provided/ produced by land users themselves, indicate equivalent market price.</li><li>Exclude costs of awareness creation, planning, training, research, and financial/ material support (these will be addressed in the Approach questionnaire).</li><li>If the objective is to compare two situations, i.e. the situation after/ with SLM measures (e.g. conservation agriculture) and the situation before/ without SLM measures (e.g. conventional agriculture), fill in two questionnaires.</li><li>Preferably, activities, inputs, and costs should be calculated per area on which the Technology is applied. If you use a local area unit, indicate conversion factor between local unit and hectares. Include not only the area which is immediately covered by SLM measures (e.g. the area covered by stone walls, tree lines, ditches) but also the area that is affected/ protected by the SLM measures (e.g. the area between stone walls, tree lines, ditches).</li><li>Alternatively, if it is not possible to calculate activities, inputs, and costs per area, they may be calculated per unit (e.g. dam, animal watering point, energy saving stove) or per length (e.g. metre of stone line)</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2791
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Costs and inputs needed for establishment"
+          },
+          "helptext": {
+            "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.3 and to the activities listed in 4.4. Use the currency indicated in 4.3.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2792
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Costs and inputs needed for maintenance/ recurrent activities (per year)"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.3, and to the activities listed in 4.6. Use the currency indicated in 4.3."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2793
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Characteristics of land users applying the Technology"
+          },
+          "helptext": {
+            "en": "Specify the characteristics of the average/ typical land users who apply the Technology. Tick max. two answers per question. Indicate characteristics relative to your region/ country standards."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2794
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Average area of land owned or leased by land users applying the Technology"
+          },
+          "helptext": {
+            "en": "Indicate the total area owned or leased by land users, including the land where no Technology is applied. Tick max. two answers."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2795
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Land ownership, land use rights, and water use rights"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2796
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Access to services and infrastructure"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2797
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "On-site impacts the Technology has shown"
+          },
+          "helptext": {
+            "en": "<p>First, tick relevant impacts (tick boxes on the left). Then for each selected impact, tick the extent and specify/quantify if possible.</p><ul><li><strong>-3</strong>: Very negative (- 50-100%)</li><li><strong>-2</strong>: Negative (- 20-50%)</li><li><strong>-1</strong>: Slightly negative (- 5-20%)</li><li><strong>0</strong>: Negligible impact</li><li><strong>1</strong>: Slightly positive (+5-20%)</li><li><strong>2</strong>: Positive (+20-50%)</li><li><strong>3</strong>: Very positive (+50-100%)</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2798
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes/ disasters (as perceived by land users)"
+          },
+          "helptext": {
+            "en": "<p>Indicate gradual changes in climate and climate-related extremes as observed by land users in the last 10 years (trend). Note: for a more detailed assessment, fill in questionnaire module on climate change adaptation.</p><p>Tick all gradual changes in climate and climate-related extremes/ disasters to which the Technology is exposed</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2799
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Cost-benefit analysis"
+          },
+          "helptext": {
+            "en": "Refer to questions 4.5 and 4.7 (where costs for establishment and maintenance have been specified)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2800
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Adoption of the Technology"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: For information on adoption barriers and adoption drivers (motivation of land users to implement the Technology), refer to the WOCAT Questionnaire on SLM Approaches."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2801
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities of the Technology"
+          },
+          "helptext": {
+            "en": "Give a concluding statement about the Technology."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2802
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Methods/ sources of information"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2803
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "References to available publications"
+          },
+          "helptext": {
+            "en": "List relevant publications relating to the Technology (reports, manuals, training materials, case studies, etc.). Upload those publications that are available as soft copies to the database."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2804
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Links to relevant information which is available online"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2805
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Main purpose(s) of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2806
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
             "en": "General information"
           }
         }
@@ -13018,6 +15013,88 @@
   },
   {
     "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Description of the SLM Technology"
+          },
+          "helptext": {
+            "en": "<p><strong>An SLM Technology</strong> is a practice applied in the field that controls land degradation and/ or enhances productivity. A Technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures.</p><p>A single SLM Technology should cover a homogeneous set of natural (biophysical) and human (socio-economic) conditions. This means that the Technology is not applied or applicable to different, very dissimilar climatic or altitudinal zones or slope categories, or under very dissimilar land tenure arrangements. A Technology may consist of one or several <strong>SLM measures</strong> (agronomic, vegetative, structural, and management measures); e.g. terraces combined with grass strips and contour ploughing.</p><p><strong>Site-specific information</strong>: Information provided in this questionnaire should strictly refer to the sites that were assessed/ analysed during the documentation of the Technology (e.g. through interviews with land users, field surveys, etc.), although the Technology might be applied or be applicable in a wider area.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2915
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Technical specifications, implementation activities, inputs, and costs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2916
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Natural and human environment"
+          },
+          "helptext": {
+            "en": "<p>Give details of the natural (biophysical) conditions where the Technology is applied. Make specific reference to the sites where the documented Technology has been assessed and analysed. Tick one box per question only, except for slope and soil parameters (see indications below). Use comment sections to specify your answers and provide additional information.</p><p><strong>Note:</strong> Some of the environmental conditions (e.g. slope angle, soil characteristics, water quality/ availability, etc.) may change as a result of the Technology! However, you are requested to <strong>describe the conditions as they were without any impact of sustainable land management!</strong></p><p>In exceptional cases, certain questions might not be relevant for the Technology. In such cases, skip the question but use the comment sections to explain why you are skipping it.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2917
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "Impacts and concluding statements"
+          },
+          "helptext": {
+            "en": "<p>Assess relevant impacts in the table below. If data based on measurements are not available, give your best estimate. Negligible means “no significant benefit nor disadvantage”. Make use of the “Quantify before SLM/ after SLM” and “Comments/ specify” columns to show evidence and justify your selection as far as possible. Choose adequate indicators to quantify impacts (e.g. t/ha for crop production, coliform measurement for water quality, etc.). Even if a 10% increase (e.g. in yield) might be judged as a great improvement, please nonetheless tick the category “Slightly positive (+5-20%)”, and use “Comments” to explain. Only indicate “Quantify (before/ after)” if impacts were measured in the field or determined by means of a survey. Impacts that are not ticked are considered “not relevant” or “not applicable”.</p><p><strong>On-site</strong>: concerns the area where the Technology is applied.<br><strong>Off-site</strong>: concerns adjacent areas or areas further away from the area where the Technology is applied</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2918
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "References and links"
+          },
+          "helptext": {
+            "en": "Indicate sources of information used for the compilation of information in this questionnaire."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2919
+  },
+  {
+    "fields": {
       "keyword": "tech_definition",
       "translation": 1001,
       "configuration": {
@@ -13063,7 +15140,7 @@
   {
     "fields": {
       "keyword": "tech_who_implemented",
-      "translation": 1004,
+      "translation": 1307,
       "configuration": {
         "type": "checkbox"
       },
@@ -13259,7 +15336,7 @@
   {
     "fields": {
       "keyword": "tech_lu_forest_natural",
-      "translation": 1239,
+      "translation": 1339,
       "configuration": {
         "type": "checkbox"
       },
@@ -13399,7 +15476,7 @@
   {
     "fields": {
       "keyword": "tech_measures_agronomic_sub",
-      "translation": 1011,
+      "translation": 1340,
       "configuration": {
         "type": "checkbox"
       },
@@ -13418,7 +15495,7 @@
   {
     "fields": {
       "keyword": "tech_measures_vegetative_sub",
-      "translation": 1011,
+      "translation": 1340,
       "configuration": {
         "type": "checkbox"
       },
@@ -13436,7 +15513,7 @@
   {
     "fields": {
       "keyword": "tech_measures_structural_sub",
-      "translation": 1011,
+      "translation": 1340,
       "configuration": {
         "type": "checkbox"
       },
@@ -13460,7 +15537,7 @@
   {
     "fields": {
       "keyword": "tech_measures_management_sub",
-      "translation": 1011,
+      "translation": 1340,
       "configuration": {
         "type": "checkbox"
       },
@@ -13501,7 +15578,8 @@
         1136,
         1137,
         1138,
-        1139
+        1139,
+        1380
       ]
     },
     "model": "configuration.key",
@@ -13510,7 +15588,7 @@
   {
     "fields": {
       "keyword": "degradation_erosion_water_sub",
-      "translation": 1011,
+      "translation": 1341,
       "configuration": {
         "type": "checkbox"
       },
@@ -13529,7 +15607,7 @@
   {
     "fields": {
       "keyword": "degradation_erosion_wind_sub",
-      "translation": 1011,
+      "translation": 1341,
       "configuration": {
         "type": "checkbox"
       },
@@ -13545,7 +15623,7 @@
   {
     "fields": {
       "keyword": "degradation_chemical_sub",
-      "translation": 1011,
+      "translation": 1341,
       "configuration": {
         "type": "checkbox"
       },
@@ -13562,7 +15640,7 @@
   {
     "fields": {
       "keyword": "degradation_physical_sub",
-      "translation": 1011,
+      "translation": 1341,
       "configuration": {
         "type": "checkbox"
       },
@@ -13581,7 +15659,7 @@
   {
     "fields": {
       "keyword": "degradation_biological_sub",
-      "translation": 1011,
+      "translation": 1341,
       "configuration": {
         "type": "checkbox"
       },
@@ -13612,7 +15690,7 @@
   {
     "fields": {
       "keyword": "degradation_water_sub",
-      "translation": 1011,
+      "translation": 1341,
       "configuration": {
         "type": "checkbox"
       },
@@ -13642,7 +15720,7 @@
   {
     "fields": {
       "keyword": "tech_prevention",
-      "translation": 1032,
+      "translation": 1312,
       "configuration": {
         "type": "checkbox",
         "form_options": {
@@ -13665,7 +15743,7 @@
   {
     "fields": {
       "keyword": "tech_input_area_unit",
-      "translation": 1033,
+      "translation": 1313,
       "configuration": {
         "type": "char"
       }
@@ -13866,7 +15944,7 @@
   {
     "fields": {
       "keyword": "tech_input_est_remaining_costs",
-      "translation": 1289,
+      "translation": 1320,
       "configuration": {
         "type": "char"
       }
@@ -13877,7 +15955,7 @@
   {
     "fields": {
       "keyword": "tech_input_national_currency",
-      "translation": 1285,
+      "translation": 1315,
       "configuration": {
         "type": "char"
       }
@@ -13888,7 +15966,7 @@
   {
     "fields": {
       "keyword": "tech_input_average_wage",
-      "translation": 1046,
+      "translation": 1318,
       "configuration": {
         "type": "char"
       }
@@ -14008,7 +16086,7 @@
   {
     "fields": {
       "keyword": "tech_input_maint_remaining_costs",
-      "translation": 1289,
+      "translation": 1320,
       "configuration": {
         "type": "char"
       }
@@ -14084,7 +16162,13 @@
       "keyword": "tech_rainfall_annual",
       "translation": 1291,
       "configuration": {
-        "type": "char"
+        "type": "float",
+        "form_options": {
+          "field_options": {
+            "min": 0,
+            "decimals": 2
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15150,7 +17234,7 @@
   {
     "fields": {
       "keyword": "tech_soil_comments",
-      "translation": 1295,
+      "translation": 1342,
       "configuration": {
         "type": "text"
       }
@@ -15500,12 +17584,11 @@
       "keyword": "tech_gender",
       "translation": 1141,
       "configuration": {
-        "type": "radio"
+        "type": "checkbox"
       },
       "values": [
         1096,
-        1097,
-        1098
+        1097
       ]
     },
     "model": "configuration.key",
@@ -16526,7 +18609,7 @@
   {
     "fields": {
       "keyword": "tech_sustainability",
-      "translation": 1278,
+      "translation": 1305,
       "configuration": {
         "type": "bool"
       }
@@ -16576,7 +18659,7 @@
   {
     "fields": {
       "keyword": "tech_implementation_decades",
-      "translation": 1235,
+      "translation": 1306,
       "configuration": {
         "type": "radio"
       },
@@ -16603,7 +18686,7 @@
   {
     "fields": {
       "keyword": "tech_lu_grazingland_specify",
-      "translation": 1237,
+      "translation": 1338,
       "configuration": {
         "type": "text"
       }
@@ -16730,7 +18813,7 @@
         1301,
         1246,
         1347,
-        1302
+        1357
       ]
     },
     "model": "configuration.key",
@@ -16956,7 +19039,7 @@
   {
     "fields": {
       "keyword": "tech_spread_tech",
-      "translation": 1280,
+      "translation": 1310,
       "configuration": {
         "type": "radio"
       },
@@ -17253,7 +19336,7 @@
   {
     "fields": {
       "keyword": "tech_adaptation_modification",
-      "translation": 1276,
+      "translation": 1337,
       "configuration": {
         "type": "radio"
       },
@@ -17302,7 +19385,7 @@
   {
     "fields": {
       "keyword": "tech_cost_calculation_base",
-      "translation": 1281,
+      "translation": 1314,
       "configuration": {
         "type": "radio"
       },
@@ -17339,7 +19422,7 @@
   {
     "fields": {
       "keyword": "tech_input_est_total_estimation",
-      "translation": 1286,
+      "translation": 1319,
       "configuration": {
         "type": "float",
         "field_options": {
@@ -17353,7 +19436,7 @@
   {
     "fields": {
       "keyword": "tech_input_maint_total_estimation",
-      "translation": 1288,
+      "translation": 1321,
       "configuration": {
         "type": "float",
         "field_options": {
@@ -17458,8 +19541,375 @@
   },
   {
     "fields": {
+      "keyword": "tech_growing_seasons",
+      "translation": 1308,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        1354,
+        1355,
+        1356
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1351
+  },
+  {
+    "fields": {
+      "keyword": "tech_growing_seasons_specify",
+      "translation": 1018,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1352
+  },
+  {
+    "fields": {
+      "keyword": "tech_livestock_density",
+      "translation": 1309,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1353
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_area",
+      "translation": 1311,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        1358,
+        1359,
+        1360,
+        1361,
+        1362,
+        1363,
+        1364
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1354
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_dollar",
+      "translation": 1316,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        1365
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1355
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_exchange_rate",
+      "translation": 1317,
+      "configuration": {
+        "type": "float"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1356
+  },
+  {
+    "fields": {
+      "keyword": "tech_age_landusers",
+      "translation": 1322,
+      "configuration": {
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
+      },
+      "values": [
+        1366,
+        1367,
+        1368,
+        1369
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1357
+  },
+  {
+    "fields": {
+      "keyword": "tech_land_size_relative",
+      "translation": 1323,
+      "configuration": {
+        "type": "checkbox",
+        "form_options": {
+          "field_options": {
+            "data-cb-max-choices": 2
+          }
+        }
+      },
+      "values": [
+        1370,
+        1371,
+        1372
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1358
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_health",
+      "translation": 1324,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1359
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_education",
+      "translation": 1325,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1360
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_techassistance",
+      "translation": 1326,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1361
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_employment",
+      "translation": 1327,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1362
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_markets",
+      "translation": 1328,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1363
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_energy",
+      "translation": 1329,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1364
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_roads",
+      "translation": 1330,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1365
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_water",
+      "translation": 1331,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1366
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_financial",
+      "translation": 1332,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1367
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_other_specify",
+      "translation": 1008,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1368
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_other_measure",
+      "translation": 1008,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1373,
+        1374,
+        1375
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1369
+  },
+  {
+    "fields": {
+      "keyword": "tech_impacts_landslides",
+      "translation": 1333,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        1237,
+        1238,
+        1239,
+        1240,
+        1241,
+        1242,
+        1243
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1370
+  },
+  {
+    "fields": {
+      "keyword": "tech_impacts_comments",
+      "translation": 1334,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1371
+  },
+  {
+    "fields": {
+      "keyword": "tech_adoption_spontaneously",
+      "translation": 1335,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        1376,
+        1377,
+        1378,
+        1379
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 1372
+  },
+  {
+    "fields": {
+      "keyword": "tech_adaptation_yes",
+      "translation": 1336,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1373
+  },
+  {
+    "fields": {
+      "keyword": "tech_slm_group_other",
+      "translation": 1008,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 1374
+  },
+  {
+    "fields": {
       "keyword": "implementation_innovation",
-      "translation": 1500,
+      "translation": 1876,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -17468,7 +19918,7 @@
   {
     "fields": {
       "keyword": "implementation_traditional",
-      "translation": 1501,
+      "translation": 1877,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -17477,7 +19927,7 @@
   {
     "fields": {
       "keyword": "implementation_experiments",
-      "translation": 1502,
+      "translation": 1878,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -17486,7 +19936,7 @@
   {
     "fields": {
       "keyword": "implementation_externally",
-      "translation": 1503,
+      "translation": 1879,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -17810,7 +20260,7 @@
   {
     "fields": {
       "keyword": "measures_management_m5",
-      "translation": 1539,
+      "translation": 1897,
       "order_value": 5
     },
     "model": "configuration.value",
@@ -18315,7 +20765,7 @@
   {
     "fields": {
       "keyword": "gender_women",
-      "translation": 1596,
+      "translation": 1918,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -18324,7 +20774,7 @@
   {
     "fields": {
       "keyword": "gender_men",
-      "translation": 1597,
+      "translation": 1919,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -18561,7 +21011,7 @@
   {
     "fields": {
       "keyword": "tech_measures_structural",
-      "translation": 1632,
+      "translation": 1896,
       "order_value": 3,
       "configuration": {
         "image_name": "pictos/swc_1_struc.png"
@@ -18657,7 +21107,7 @@
   {
     "fields": {
       "keyword": "intervention_prevent_ld",
-      "translation": 1858,
+      "translation": 1898,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -18666,7 +21116,7 @@
   {
     "fields": {
       "keyword": "intervention_reduce_ld",
-      "translation": 1859,
+      "translation": 1899,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -18675,7 +21125,7 @@
   {
     "fields": {
       "keyword": "intervention_rehabilitate",
-      "translation": 1860,
+      "translation": 1900,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -18756,7 +21206,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_751_1000",
-      "translation": 1651,
+      "translation": 1905,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -18765,7 +21215,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_1001_1500",
-      "translation": 1652,
+      "translation": 1906,
       "order_value": 5
     },
     "model": "configuration.value",
@@ -18774,7 +21224,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_1501_2000",
-      "translation": 1653,
+      "translation": 1907,
       "order_value": 6
     },
     "model": "configuration.value",
@@ -18783,7 +21233,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_2001_3000",
-      "translation": 1654,
+      "translation": 1908,
       "order_value": 7
     },
     "model": "configuration.value",
@@ -18792,7 +21242,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_3001_4000",
-      "translation": 1655,
+      "translation": 1909,
       "order_value": 8
     },
     "model": "configuration.value",
@@ -18801,7 +21251,7 @@
   {
     "fields": {
       "keyword": "tech_rainfall_4001_plus",
-      "translation": 1656,
+      "translation": 1910,
       "order_value": 9
     },
     "model": "configuration.value",
@@ -18981,7 +21431,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_500_1000",
-      "translation": 1865,
+      "translation": 1911,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -18990,7 +21440,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_1000_1500",
-      "translation": 1866,
+      "translation": 1912,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -18999,7 +21449,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_1500_2000",
-      "translation": 1867,
+      "translation": 1913,
       "order_value": 5
     },
     "model": "configuration.value",
@@ -19008,7 +21458,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_2000_2500",
-      "translation": 1868,
+      "translation": 1914,
       "order_value": 6
     },
     "model": "configuration.value",
@@ -19017,7 +21467,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_2500_3000",
-      "translation": 1869,
+      "translation": 1915,
       "order_value": 7
     },
     "model": "configuration.value",
@@ -19026,7 +21476,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_3000_4000",
-      "translation": 1870,
+      "translation": 1916,
       "order_value": 8
     },
     "model": "configuration.value",
@@ -19035,7 +21485,7 @@
   {
     "fields": {
       "keyword": "tech_altitudinalzone_4000_plus",
-      "translation": 1682,
+      "translation": 1917,
       "order_value": 9
     },
     "model": "configuration.value",
@@ -19521,7 +21971,7 @@
   {
     "fields": {
       "keyword": "tech_userights_individual",
-      "translation": 1736,
+      "translation": 1927,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -19845,7 +22295,7 @@
   {
     "fields": {
       "keyword": "tech_lu_settlements_traffic",
-      "translation": 1773,
+      "translation": 1936,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -19854,7 +22304,7 @@
   {
     "fields": {
       "keyword": "tech_lu_settlements_energy",
-      "translation": 1774,
+      "translation": 1937,
       "order_value": 3
     },
     "model": "configuration.value",
@@ -19863,7 +22313,7 @@
   {
     "fields": {
       "keyword": "tech_lu_waterways_drainage",
-      "translation": 1775,
+      "translation": 1938,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -20019,7 +22469,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_varieties",
-      "translation": 1792,
+      "translation": 1883,
       "order_value": 14
     },
     "model": "configuration.value",
@@ -20064,7 +22514,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_groundwater",
-      "translation": 1797,
+      "translation": 1884,
       "order_value": 19
     },
     "model": "configuration.value",
@@ -20091,7 +22541,7 @@
   {
     "fields": {
       "keyword": "tech_slm_group_energy",
-      "translation": 1800,
+      "translation": 1885,
       "order_value": 22
     },
     "model": "configuration.value",
@@ -20110,7 +22560,7 @@
     "fields": {
       "keyword": "tech_slm_group_other",
       "translation": 1802,
-      "order_value": 26
+      "order_value": 27
     },
     "model": "configuration.value",
     "pk": 1302
@@ -20139,7 +22589,7 @@
   {
     "fields": {
       "keyword": "intervention_adapt",
-      "translation": 1861,
+      "translation": 1901,
       "order_value": 4
     },
     "model": "configuration.value",
@@ -20274,7 +22724,7 @@
   {
     "fields": {
       "keyword": "tech_spread_evenly",
-      "translation": 1856,
+      "translation": 1887,
       "order_value": 1
     },
     "model": "configuration.value",
@@ -20283,7 +22733,7 @@
   {
     "fields": {
       "keyword": "tech_spread_points",
-      "translation": 1857,
+      "translation": 1888,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -20382,7 +22832,7 @@
   {
     "fields": {
       "keyword": "adoption_percentage_less_10",
-      "translation": 1841,
+      "translation": 1931,
       "order_value": 2
     },
     "model": "configuration.value",
@@ -20445,8 +22895,8 @@
   {
     "fields": {
       "keyword": "tech_input_calc_per_unit",
-      "translation": 1862,
-      "order_value": 1
+      "translation": 1902,
+      "order_value": 2
     },
     "model": "configuration.value",
     "pk": 1348
@@ -20454,8 +22904,8 @@
   {
     "fields": {
       "keyword": "tech_input_calc_per_area",
-      "translation": 1863,
-      "order_value": 2
+      "translation": 1939,
+      "order_value": 1
     },
     "model": "configuration.value",
     "pk": 1349
@@ -20498,6 +22948,252 @@
   },
   {
     "fields": {
+      "keyword": "growing_season_1",
+      "translation": 1880,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1354
+  },
+  {
+    "fields": {
+      "keyword": "growing_season_2",
+      "translation": 1881,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1355
+  },
+  {
+    "fields": {
+      "keyword": "growing_season_3",
+      "translation": 1882,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1356
+  },
+  {
+    "fields": {
+      "keyword": "tech_slm_group_postharvest",
+      "translation": 1886,
+      "order_value": 26
+    },
+    "model": "configuration.value",
+    "pk": 1357
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_less_01",
+      "translation": 1889,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1358
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_01_1",
+      "translation": 1890,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1359
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_1_10",
+      "translation": 1891,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1360
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_10_100",
+      "translation": 1892,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1361
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_100_1000",
+      "translation": 1893,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 1362
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_1000_10000",
+      "translation": 1894,
+      "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 1363
+  },
+  {
+    "fields": {
+      "keyword": "tech_spread_10000_plus",
+      "translation": 1895,
+      "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 1364
+  },
+  {
+    "fields": {
+      "keyword": "tech_input_dollars",
+      "translation": 1904,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1365
+  },
+  {
+    "fields": {
+      "keyword": "tech_age_children",
+      "translation": 1920,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1366
+  },
+  {
+    "fields": {
+      "keyword": "tech_age_youth",
+      "translation": 1921,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1367
+  },
+  {
+    "fields": {
+      "keyword": "tech_age_middle",
+      "translation": 1922,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1368
+  },
+  {
+    "fields": {
+      "keyword": "tech_age_elderly",
+      "translation": 1923,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1369
+  },
+  {
+    "fields": {
+      "keyword": "tech_size_smallscale",
+      "translation": 1924,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1370
+  },
+  {
+    "fields": {
+      "keyword": "tech_size_mediumscale",
+      "translation": 1925,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1371
+  },
+  {
+    "fields": {
+      "keyword": "tech_size_largescale",
+      "translation": 1926,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1372
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_poor",
+      "translation": 1928,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1373
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_moderate",
+      "translation": 1929,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1374
+  },
+  {
+    "fields": {
+      "keyword": "tech_access_good",
+      "translation": 1930,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1375
+  },
+  {
+    "fields": {
+      "keyword": "tech_adoption_spont_0_10",
+      "translation": 1932,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 1376
+  },
+  {
+    "fields": {
+      "keyword": "tech_adoption_spont_10_50",
+      "translation": 1933,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 1377
+  },
+  {
+    "fields": {
+      "keyword": "tech_adoption_spont_50_90",
+      "translation": 1934,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 1378
+  },
+  {
+    "fields": {
+      "keyword": "tech_adoption_spont_90_100",
+      "translation": 1935,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 1379
+  },
+  {
+    "fields": {
+      "keyword": "degradation_other",
+      "translation": 1802,
+      "order_value": 7,
+      "configuration": {
+        "image_name": "landuse_empty.png"
+      }
+    },
+    "model": "configuration.value",
+    "pk": 1380
+  },
+  {
+    "fields": {
       "keyword": "tech_qg_1",
       "translation": null,
       "configuration": {}
@@ -20535,7 +23231,7 @@
   {
     "fields": {
       "keyword": "tech_qg_5",
-      "translation": 2201,
+      "translation": null,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -21147,7 +23843,7 @@
   {
     "fields": {
       "keyword": "tech_qg_73",
-      "translation": 2231,
+      "translation": 2366,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -21786,7 +24482,7 @@
   {
     "fields": {
       "keyword": "tech_qg_147",
-      "translation": 2298,
+      "translation": 2368,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -21804,7 +24500,7 @@
   {
     "fields": {
       "keyword": "tech_qg_149",
-      "translation": 2300,
+      "translation": 2369,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -22083,7 +24779,7 @@
   {
     "fields": {
       "keyword": "tech_qg_181",
-      "translation": 2362,
+      "translation": 2323,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -22092,7 +24788,7 @@
   {
     "fields": {
       "keyword": "tech_qg_182",
-      "translation": 2363,
+      "translation": 2324,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -22110,7 +24806,7 @@
   {
     "fields": {
       "keyword": "tech_qg_184",
-      "translation": 2352,
+      "translation": 2364,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -22496,6 +25192,60 @@
   },
   {
     "fields": {
+      "keyword": "tech_qg_226",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1247
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_227",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1248
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_228",
+      "translation": 2367,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1249
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_229",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1250
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_230",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1251
+  },
+  {
+    "fields": {
+      "keyword": "tech_qg_231",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 1252
+  },
+  {
+    "fields": {
       "keyword": "tech__0__1",
       "translation": 2701
     },
@@ -22513,7 +25263,7 @@
   {
     "fields": {
       "keyword": "tech__2__1",
-      "translation": 2703
+      "translation": 2785
     },
     "model": "configuration.category",
     "pk": 1003
@@ -22521,7 +25271,7 @@
   {
     "fields": {
       "keyword": "tech__2__2",
-      "translation": 2769
+      "translation": 2786
     },
     "model": "configuration.category",
     "pk": 1004
@@ -22537,7 +25287,7 @@
   {
     "fields": {
       "keyword": "tech__3__1",
-      "translation": 2770
+      "translation": 2806
     },
     "model": "configuration.category",
     "pk": 1006
@@ -22553,7 +25303,7 @@
   {
     "fields": {
       "keyword": "tech__3__3",
-      "translation": 2708
+      "translation": 2788
     },
     "model": "configuration.category",
     "pk": 1008
@@ -22585,7 +25335,7 @@
   {
     "fields": {
       "keyword": "tech__5__2",
-      "translation": 2712
+      "translation": 2717
     },
     "model": "configuration.category",
     "pk": 1012
@@ -22593,7 +25343,7 @@
   {
     "fields": {
       "keyword": "tech__5__3",
-      "translation": 2772
+      "translation": 2718
     },
     "model": "configuration.category",
     "pk": 1013
@@ -22601,7 +25351,7 @@
   {
     "fields": {
       "keyword": "tech__5__4",
-      "translation": 2714
+      "translation": 2719
     },
     "model": "configuration.category",
     "pk": 1014
@@ -22609,7 +25359,7 @@
   {
     "fields": {
       "keyword": "tech__5__5",
-      "translation": 2773
+      "translation": 2720
     },
     "model": "configuration.category",
     "pk": 1015
@@ -22617,7 +25367,7 @@
   {
     "fields": {
       "keyword": "tech__6__1",
-      "translation": 2716
+      "translation": 2798
     },
     "model": "configuration.category",
     "pk": 1016
@@ -22625,7 +25375,7 @@
   {
     "fields": {
       "keyword": "tech__6__2",
-      "translation": 2717
+      "translation": 2741
     },
     "model": "configuration.category",
     "pk": 1017
@@ -22633,7 +25383,7 @@
   {
     "fields": {
       "keyword": "tech__6__3",
-      "translation": 2718
+      "translation": 2799
     },
     "model": "configuration.category",
     "pk": 1018
@@ -22641,7 +25391,7 @@
   {
     "fields": {
       "keyword": "tech__6__4",
-      "translation": 2719
+      "translation": 2800
     },
     "model": "configuration.category",
     "pk": 1019
@@ -22649,7 +25399,7 @@
   {
     "fields": {
       "keyword": "tech__6__5",
-      "translation": 2720
+      "translation": 2801
     },
     "model": "configuration.category",
     "pk": 1020
@@ -22657,7 +25407,7 @@
   {
     "fields": {
       "keyword": "tech__7__1",
-      "translation": 2775
+      "translation": 2803
     },
     "model": "configuration.category",
     "pk": 1021
@@ -22665,7 +25415,7 @@
   {
     "fields": {
       "keyword": "tech__7__2",
-      "translation": 2776
+      "translation": 2804
     },
     "model": "configuration.category",
     "pk": 1022
@@ -22673,7 +25423,7 @@
   {
     "fields": {
       "keyword": "tech__7__3",
-      "translation": 2723
+      "translation": 2805
     },
     "model": "configuration.category",
     "pk": 1023
@@ -22697,7 +25447,7 @@
   {
     "fields": {
       "keyword": "tech__3__7",
-      "translation": 2710
+      "translation": 2789
     },
     "model": "configuration.category",
     "pk": 1026
@@ -22705,7 +25455,7 @@
   {
     "fields": {
       "keyword": "tech__4__1",
-      "translation": 2727
+      "translation": 2790
     },
     "model": "configuration.category",
     "pk": 1027
@@ -22713,7 +25463,7 @@
   {
     "fields": {
       "keyword": "tech__5__1",
-      "translation": 2771
+      "translation": 2716
     },
     "model": "configuration.category",
     "pk": 1028
@@ -22905,7 +25655,7 @@
   {
     "fields": {
       "keyword": "tech__1__4",
-      "translation": 2768
+      "translation": 2783
     },
     "model": "configuration.category",
     "pk": 1054
@@ -22929,7 +25679,7 @@
   {
     "fields": {
       "keyword": "tech__5__6",
-      "translation": 2774
+      "translation": 2794
     },
     "model": "configuration.category",
     "pk": 1057
@@ -22961,7 +25711,7 @@
   {
     "fields": {
       "keyword": "tech__2__4",
-      "translation": 2761
+      "translation": 2787
     },
     "model": "configuration.category",
     "pk": 1061
@@ -23032,6 +25782,110 @@
   },
   {
     "fields": {
+      "keyword": "tech__1__6",
+      "translation": 2784
+    },
+    "model": "configuration.category",
+    "pk": 1070
+  },
+  {
+    "fields": {
+      "keyword": "tech__4__3",
+      "translation": 2791
+    },
+    "model": "configuration.category",
+    "pk": 1071
+  },
+  {
+    "fields": {
+      "keyword": "tech__4__4",
+      "translation": 2712
+    },
+    "model": "configuration.category",
+    "pk": 1072
+  },
+  {
+    "fields": {
+      "keyword": "tech__4__5",
+      "translation": 2792
+    },
+    "model": "configuration.category",
+    "pk": 1073
+  },
+  {
+    "fields": {
+      "keyword": "tech__4__6",
+      "translation": 2714
+    },
+    "model": "configuration.category",
+    "pk": 1074
+  },
+  {
+    "fields": {
+      "keyword": "tech__4__7",
+      "translation": 2793
+    },
+    "model": "configuration.category",
+    "pk": 1075
+  },
+  {
+    "fields": {
+      "keyword": "tech__4__8",
+      "translation": 2774
+    },
+    "model": "configuration.category",
+    "pk": 1076
+  },
+  {
+    "fields": {
+      "keyword": "tech__5__7",
+      "translation": 2795
+    },
+    "model": "configuration.category",
+    "pk": 1077
+  },
+  {
+    "fields": {
+      "keyword": "tech__5__8",
+      "translation": 2796
+    },
+    "model": "configuration.category",
+    "pk": 1078
+  },
+  {
+    "fields": {
+      "keyword": "tech__5__9",
+      "translation": 2797
+    },
+    "model": "configuration.category",
+    "pk": 1079
+  },
+  {
+    "fields": {
+      "keyword": "tech__6__6",
+      "translation": 2751
+    },
+    "model": "configuration.category",
+    "pk": 1080
+  },
+  {
+    "fields": {
+      "keyword": "tech__6__7",
+      "translation": 2802
+    },
+    "model": "configuration.category",
+    "pk": 1081
+  },
+  {
+    "fields": {
+      "keyword": "tech__6__8",
+      "translation": 2760
+    },
+    "model": "configuration.category",
+    "pk": 1082
+  },
+  {
+    "fields": {
       "keyword": "tech__1",
       "translation": 2901
     },
@@ -23041,7 +25895,7 @@
   {
     "fields": {
       "keyword": "tech__2",
-      "translation": 2912
+      "translation": 2915
     },
     "model": "configuration.category",
     "pk": 1702
@@ -23057,7 +25911,7 @@
   {
     "fields": {
       "keyword": "tech__4",
-      "translation": 2904
+      "translation": 2916
     },
     "model": "configuration.category",
     "pk": 1704
@@ -23065,7 +25919,7 @@
   {
     "fields": {
       "keyword": "tech__5",
-      "translation": 2913
+      "translation": 2917
     },
     "model": "configuration.category",
     "pk": 1705
@@ -23073,7 +25927,7 @@
   {
     "fields": {
       "keyword": "tech__6",
-      "translation": 2906
+      "translation": 2918
     },
     "model": "configuration.category",
     "pk": 1706
@@ -23081,7 +25935,7 @@
   {
     "fields": {
       "keyword": "tech__7",
-      "translation": 2907
+      "translation": 2919
     },
     "model": "configuration.category",
     "pk": 1707
@@ -23307,25 +26161,7 @@
                             }
                           },
                           {
-                            "keyword": "person_institution_address",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_postal_code",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_city",
-                            "view_options": {
-                              "template": "value_only"
-                            }
-                          },
-                          {
-                            "keyword": "person_state",
+                            "keyword": "person_address",
                             "view_options": {
                               "template": "value_only"
                             }
@@ -23363,17 +26199,6 @@
                         ]
                       },
                       {
-                        "keyword": "qg_funding_project",
-                        "questions": [
-                          {
-                            "keyword": "funding_project"
-                          },
-                          {
-                            "keyword": "funding_project_display"
-                          }
-                        ]
-                      },
-                      {
                         "keyword": "qg_funding_institution",
                         "questions": [
                           {
@@ -23381,6 +26206,17 @@
                           },
                           {
                             "keyword": "funding_institution_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_project_display"
                           }
                         ]
                       }
@@ -23394,6 +26230,9 @@
                     "questiongroups": [
                       {
                         "keyword": "qg_accept_conditions",
+                        "form_options": {
+                          "helptext_position": "bottom"
+                        },
                         "questions": [
                           {
                             "keyword": "date_documentation"
@@ -23448,6 +26287,13 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "tech__1__6",
+                    "form_options": {
+                      "template": "comingsoon",
+                      "numbering": "1.6"
+                    }
                   }
                 ]
               }
@@ -23502,7 +26348,7 @@
                             "form_options": {
                               "label_position": "none",
                               "num_rows": 10,
-                              "max_length": 2500
+                              "max_length": 3500
                             }
                           }
                         ]
@@ -23568,9 +26414,12 @@
                         "form_options": {
                           "max_num": 3
                         },
+                        "view_options": {
+                          "template": "video_questiongroup"
+                        },
                         "questions": [
                           {
-                            "keyword": "video_link"
+                            "keyword": "video_vimeo_id"
                           },
                           {
                             "keyword": "video_description"
@@ -23634,13 +26483,10 @@
                         ]
                       },
                       {
-                        "keyword": "tech_qg_224",
-                        "form_options": {
-                          "template": "map"
-                        },
+                        "keyword": "qg_location_map",
                         "questions": [
                           {
-                            "keyword": "tech_location_map",
+                            "keyword": "location_map",
                             "form_options": {
                               "template": "no_label"
                             },
@@ -23696,7 +26542,10 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_who_implemented"
+                            "keyword": "tech_who_implemented",
+                            "form_options": {
+                              "helptext_length": 500
+                            }
                           },
                           {
                             "keyword": "tech_who_implemented_other",
@@ -23817,7 +26666,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -23845,10 +26695,23 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_grazingland_extensive"
+                            "keyword": "tech_lu_grazingland_extensive",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            },
+                            "view_options": {
+                              "filter": true
+                            }
                           },
                           {
-                            "keyword": "tech_lu_grazingland_intensive"
+                            "keyword": "tech_lu_grazingland_intensive",
+                            "form_options": {
+                              "helptext_position": "tooltip",
+                              "row_class": "top-margin"
+                            },
+                            "view_options": {
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "tech_lu_sub_other",
@@ -23875,23 +26738,39 @@
                         },
                         "questions": [
                           {
-                            "keyword": "tech_lu_forest_natural"
+                            "keyword": "tech_lu_forest_natural",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            },
+                            "view_options": {
+                              "filter": true
+                            }
                           },
                           {
-                            "keyword": "tech_lu_forest_plantation"
+                            "keyword": "tech_lu_forest_plantation",
+                            "form_options": {
+                              "helptext_position": "tooltip",
+                              "row_class": "top-margin"
+                            },
+                            "view_options": {
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "tech_lu_sub_other",
                             "form_options": {
                               "template": "checkbox_other",
-                              "label_position": "placeholder"
+                              "row_class": "top-margin"
                             },
                             "view_options": {
                               "template": "checkbox_other"
                             }
                           },
                           {
-                            "keyword": "tech_lu_forest_products"
+                            "keyword": "tech_lu_forest_products",
+                            "form_options": {
+                              "row_class": "top-margin"
+                            }
                           },
                           {
                             "keyword": "tech_lu_forest_other",
@@ -23920,7 +26799,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -23953,7 +26833,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -23986,7 +26867,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           },
                           {
@@ -24080,11 +26962,7 @@
                           {
                             "keyword": "tech_watersupply",
                             "form_options": {
-                              "template": "no_label",
                               "has_other": "tech_watersupply"
-                            },
-                            "view_options": {
-                              "label_position": "none"
                             }
                           },
                           {
@@ -24101,6 +26979,21 @@
                           },
                           {
                             "keyword": "tech_watersupply_comments"
+                          },
+                          {
+                            "keyword": "tech_growing_seasons",
+                            "form_options": {
+                              "row_class": "top-margin"
+                            }
+                          },
+                          {
+                            "keyword": "tech_growing_seasons_specify"
+                          },
+                          {
+                            "keyword": "tech_livestock_density",
+                            "form_options": {
+                              "row_class": "top-margin"
+                            }
                           }
                         ]
                       }
@@ -24121,7 +27014,18 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
+                            }
+                          },
+                          {
+                            "keyword": "tech_slm_group_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
                             }
                           }
                         ]
@@ -24139,8 +27043,16 @@
                         "questions": [
                           {
                             "keyword": "tech_spread_tech",
-                            "view_options": {
-                              "label_position": "none"
+                            "form_options": {
+                              "question_conditions": [
+                                "=='tech_spread_evenly'|tech_spread_area"
+                              ]
+                            }
+                          },
+                          {
+                            "keyword": "tech_spread_area",
+                            "form_options": {
+                              "question_condition": "tech_spread_area"
                             }
                           },
                           {
@@ -24203,7 +27115,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24223,7 +27136,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24243,7 +27157,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24263,7 +27178,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24324,7 +27240,8 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw"
+                              "template": "raw",
+                              "filter": true
                             }
                           }
                         ]
@@ -24344,7 +27261,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24364,7 +27282,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24384,7 +27303,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24404,7 +27324,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24424,7 +27345,8 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
                           }
                         ]
@@ -24444,8 +27366,20 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none"
+                              "label_position": "none",
+                              "filter": true
                             }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_231",
+                        "form_options": {
+                          "template": "empty"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "tech_stub"
                           }
                         ]
                       },
@@ -24536,19 +27470,11 @@
                         ]
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "keyword": "tech__5",
-                "form_options": {
-                  "numbering": "5."
-                },
-                "subcategories": [
+                  },
                   {
-                    "keyword": "tech__5__1",
+                    "keyword": "tech__4__3",
                     "form_options": {
-                      "numbering": "5.1"
+                      "numbering": "4.3"
                     },
                     "questiongroups": [
                       {
@@ -24561,6 +27487,31 @@
                                 "=='tech_input_calc_per_unit'|tech_qg_162",
                                 "=='tech_input_calc_per_area'|tech_qg_163"
                               ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_163",
+                        "form_options": {
+                          "questiongroup_condition": "tech_qg_163",
+                          "template": "columns_custom",
+                          "columns_custom": [["6", "6"]]
+                        },
+                        "questions": [
+                          {
+                            "keyword": "tech_perarea_size",
+                            "form_options": {
+                              "helptext_position": "tooltip"
+                            },
+                            "view_options": {
+                              "template": "inline_6"
+                            }
+                          },
+                          {
+                            "keyword": "tech_area_unit_conversion",
+                            "view_options": {
+                              "template": "inline_6"
                             }
                           }
                         ]
@@ -24594,38 +27545,24 @@
                         ]
                       },
                       {
-                        "keyword": "tech_qg_163",
-                        "form_options": {
-                          "questiongroup_condition": "tech_qg_163",
-                          "template": "columns_custom",
-                          "columns_custom": [["6", "6"]]
-                        },
-                        "questions": [
-                          {
-                            "keyword": "tech_perarea_size",
-                            "form_options": {
-                              "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          },
-                          {
-                            "keyword": "tech_area_unit_conversion",
-                            "view_options": {
-                              "template": "inline_6"
-                            }
-                          }
-                        ]
-                      },
-                      {
                         "keyword": "tech_qg_164",
                         "questions": [
                           {
-                            "keyword": "tech_input_national_currency",
-                            "view_options": {
-                              "template": "inline_6"
+                            "keyword": "tech_input_dollar",
+                            "form_options": {
+                              "has_other": "tech_input_currency"
                             }
+                          },
+                          {
+                            "keyword": "tech_input_national_currency",
+                            "form_options": {
+                              "template": "radio_other",
+                              "label_position": "placeholder",
+                              "other_radio": "tech_input_currency"
+                            }
+                          },
+                          {
+                            "keyword": "tech_input_exchange_rate"
                           },
                           {
                             "keyword": "tech_input_average_wage",
@@ -24638,9 +27575,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__5__2",
+                    "keyword": "tech__4__4",
                     "form_options": {
-                      "numbering": "5.2",
+                      "numbering": "4.4",
                       "template": "table_2"
                     },
                     "view_options": {
@@ -24680,9 +27617,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__5__3",
+                    "keyword": "tech__4__5",
                     "form_options": {
-                      "numbering": "5.3",
+                      "numbering": "4.5",
                       "template": "table_input"
                     },
                     "view_options": {
@@ -24727,10 +27664,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -24754,10 +27691,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -24781,10 +27718,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -24808,10 +27745,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -24835,10 +27772,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -24862,10 +27799,10 @@
                             "keyword": "tech_input_est_specify"
                           },
                           {
-                            "keyword": "tech_input_est_quantity"
+                            "keyword": "tech_input_est_unit"
                           },
                           {
-                            "keyword": "tech_input_est_unit"
+                            "keyword": "tech_input_est_quantity"
                           },
                           {
                             "keyword": "tech_input_est_costs"
@@ -24900,9 +27837,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__5__4",
+                    "keyword": "tech__4__6",
                     "form_options": {
-                      "numbering": "5.4",
+                      "numbering": "4.6",
                       "template": "table_2"
                     },
                     "view_options": {
@@ -24942,9 +27879,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__5__5",
+                    "keyword": "tech__4__7",
                     "form_options": {
-                      "numbering": "5.5",
+                      "numbering": "4.7",
                       "template": "table_input"
                     },
                     "view_options": {
@@ -24989,10 +27926,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -25016,10 +27953,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -25043,10 +27980,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -25070,10 +28007,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -25097,10 +28034,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -25124,10 +28061,10 @@
                             "keyword": "tech_input_maint_specify"
                           },
                           {
-                            "keyword": "tech_input_maint_quantity"
+                            "keyword": "tech_input_maint_unit"
                           },
                           {
-                            "keyword": "tech_input_maint_unit"
+                            "keyword": "tech_input_maint_quantity"
                           },
                           {
                             "keyword": "tech_input_maint_costs"
@@ -25162,9 +28099,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__5__6",
+                    "keyword": "tech__4__8",
                     "form_options": {
-                      "numbering": "5.6"
+                      "numbering": "4.8"
                     },
                     "questiongroups": [
                       {
@@ -25184,15 +28121,15 @@
                 ]
               },
               {
-                "keyword": "tech__6",
+                "keyword": "tech__5",
                 "form_options": {
-                  "numbering": "6."
+                  "numbering": "5."
                 },
                 "subcategories": [
                   {
-                    "keyword": "tech__6__1",
+                    "keyword": "tech__5__1",
                     "form_options": {
-                      "numbering": "6.1"
+                      "numbering": "5.1"
                     },
                     "questiongroups": [
                       {
@@ -25262,9 +28199,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__6__2",
+                    "keyword": "tech__5__2",
                     "form_options": {
-                      "numbering": "6.2"
+                      "numbering": "5.2"
                     },
                     "questiongroups": [
                       {
@@ -25331,9 +28268,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__6__3",
+                    "keyword": "tech__5__3",
                     "form_options": {
-                      "numbering": "6.3"
+                      "numbering": "5.3"
                     },
                     "questiongroups": [
                       {
@@ -25377,9 +28314,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__6__4",
+                    "keyword": "tech__5__4",
                     "form_options": {
-                      "numbering": "6.4"
+                      "numbering": "5.4"
                     },
                     "questiongroups": [
                       {
@@ -25473,9 +28410,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__6__5",
+                    "keyword": "tech__5__5",
                     "form_options": {
-                      "numbering": "6.5"
+                      "numbering": "5.5"
                     },
                     "questiongroups": [
                       {
@@ -25510,19 +28447,11 @@
                         ]
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "keyword": "tech__7",
-                "form_options": {
-                  "numbering": "7."
-                },
-                "subcategories": [
+                  },
                   {
-                    "keyword": "tech__7__1",
+                    "keyword": "tech__5__6",
                     "form_options": {
-                      "numbering": "7.1"
+                      "numbering": "5.6"
                     },
                     "questiongroups": [
                       {
@@ -25570,6 +28499,9 @@
                             "form_options": {
                               "helptext_position": "tooltip"
                             }
+                          },
+                          {
+                            "keyword": "tech_age_landusers"
                           }
                         ]
                       },
@@ -25587,9 +28519,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__7__2",
+                    "keyword": "tech__5__7",
                     "form_options": {
-                      "numbering": "7.2"
+                      "numbering": "5.7"
                     },
                     "questiongroups": [
                       {
@@ -25613,6 +28545,9 @@
                             }
                           },
                           {
+                            "keyword": "tech_land_size_relative"
+                          },
+                          {
                             "keyword": "tech_land_comments"
                           }
                         ]
@@ -25620,9 +28555,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__7__3",
+                    "keyword": "tech__5__8",
                     "form_options": {
-                      "numbering": "7.3"
+                      "numbering": "5.8"
                     },
                     "questiongroups": [
                       {
@@ -25681,19 +28616,126 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "tech__5__9",
+                    "form_options": {
+                      "numbering": "5.9"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "tech_qg_226",
+                        "questions": [
+                          {
+                            "keyword": "tech_access_health",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_education",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_techassistance",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_employment",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_markets",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_energy",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_roads",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_water",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_financial",
+                            "view_options": {
+                              "template": "measure_bar",
+                              "layout": "stacked"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "tech_qg_227",
+                        "form_options": {
+                          "template": "columns_custom",
+                          "columns_custom": [["3", "9"]]
+                        },
+                        "view_options": {
+                          "template": "measure_other"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "tech_access_other_specify",
+                            "form_options": {
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "as_header"
+                            }
+                          },
+                          {
+                            "keyword": "tech_access_other_measure",
+                            "form_options": {
+                              "template": "no_label"
+                            },
+                            "view_options": {
+                              "template": "measure_bar_nolabel",
+                              "layout": "stacked"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
               {
-                "keyword": "tech__8",
+                "keyword": "tech__6",
                 "form_options": {
-                  "numbering": "8."
+                  "numbering": "6."
                 },
                 "subcategories": [
                   {
-                    "keyword": "tech__8__1",
+                    "keyword": "tech__6__1",
                     "form_options": {
-                      "numbering": "8.1",
+                      "numbering": "6.1",
                       "template": "has_subcategories"
                     },
                     "subcategories": [
@@ -27747,6 +30789,36 @@
                                 ]
                               },
                               {
+                                "keyword": "tech_qg_228",
+                                "form_options": {
+                                  "template": "checkbox_toggle"
+                                },
+                                "view_options": {
+                                  "template": "impacts"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "tech_impacts_landslides",
+                                    "form_options": {
+                                      "template": "no_label"
+                                    },
+                                    "view_options": {
+                                      "template": "measure_labelled",
+                                      "layout": "stacked"
+                                    }
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_before"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_quant_after"
+                                  },
+                                  {
+                                    "keyword": "tech_impacts_specify"
+                                  }
+                                ]
+                              },
+                              {
                                 "keyword": "tech_qg_220",
                                 "form_options": {
                                   "template": "checkbox_toggle"
@@ -27980,9 +31052,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__8__2",
+                    "keyword": "tech__6__2",
                     "form_options": {
-                      "numbering": "8.2"
+                      "numbering": "6.2"
                     },
                     "questiongroups": [
                       {
@@ -28318,13 +31390,24 @@
                             "keyword": "tech_impacts_specify"
                           }
                         ]
+                      },
+                      {
+                        "keyword": "tech_qg_229",
+                        "questions": [
+                          {
+                            "keyword": "tech_impacts_comments",
+                            "form_options": {
+                              "label_class": "top-margin"
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
                   {
-                    "keyword": "tech__8__3",
+                    "keyword": "tech__6__3",
                     "form_options": {
-                      "numbering": "8.3",
+                      "numbering": "6.3",
                       "template": "has_subcategories"
                     },
                     "subcategories": [
@@ -28924,9 +32007,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__8__4",
+                    "keyword": "tech__6__4",
                     "form_options": {
-                      "numbering": "8.4"
+                      "numbering": "6.4"
                     },
                     "questiongroups": [
                       {
@@ -28996,19 +32079,11 @@
                         ]
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "keyword": "tech__9",
-                "form_options": {
-                  "numbering": "9."
-                },
-                "subcategories": [
+                  },
                   {
-                    "keyword": "tech__9__1",
+                    "keyword": "tech__6__5",
                     "form_options": {
-                      "numbering": "9.1"
+                      "numbering": "6.5"
                     },
                     "questiongroups": [
                       {
@@ -29024,6 +32099,9 @@
                             "keyword": "tech_adoption_quantify"
                           },
                           {
+                            "keyword": "tech_adoption_spontaneously"
+                          },
+                          {
                             "keyword": "tech_adoption_comments"
                           }
                         ]
@@ -29031,13 +32109,29 @@
                     ]
                   },
                   {
-                    "keyword": "tech__9__2",
+                    "keyword": "tech__6__6",
                     "form_options": {
-                      "numbering": "9.2"
+                      "numbering": "6.6"
                     },
                     "questiongroups": [
                       {
+                        "keyword": "tech_qg_230",
+                        "questions": [
+                          {
+                            "keyword": "tech_adaptation_yes",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|tech_qg_192"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
                         "keyword": "tech_qg_192",
+                        "form_options": {
+                          "questiongroup_condition": "tech_qg_192"
+                        },
                         "questions": [
                           {
                             "keyword": "tech_adaptation_modification",
@@ -29059,19 +32153,11 @@
                         ]
                       }
                     ]
-                  }
-                ]
-              },
-              {
-                "keyword": "tech__10",
-                "form_options": {
-                  "numbering": "10."
-                },
-                "subcategories": [
+                  },
                   {
-                    "keyword": "tech__10__1",
+                    "keyword": "tech__6__7",
                     "form_options": {
-                      "numbering": "10.1"
+                      "numbering": "6.7"
                     },
                     "questiongroups": [
                       {
@@ -29093,9 +32179,9 @@
                     ]
                   },
                   {
-                    "keyword": "tech__10__2",
+                    "keyword": "tech__6__8",
                     "form_options": {
-                      "numbering": "10.2"
+                      "numbering": "6.8"
                     },
                     "questiongroups": [
                       {
@@ -29125,11 +32211,15 @@
                 ]
               },
               {
-                "keyword": "tech__refs",
+                "keyword": "tech__7",
+                "form_options": {
+                  "numbering": "7."
+                },
                 "subcategories": [
                   {
-                    "keyword": "tech__refs__sources",
+                    "keyword": "tech__7__1",
                     "form_options": {
+                      "numbering": "7.1",
                       "template": "checkbox_questiongroups",
                       "questiongroup_conditions": [
                         "=='source_field'|qg_sources_field",
@@ -29248,6 +32338,44 @@
                             "form_options": {
                               "question_condition": "sources_other"
                             }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "tech__7__2",
+                    "form_options": {
+                      "numbering": "7.2"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_references",
+                        "questions": [
+                          {
+                            "keyword": "references_title"
+                          },
+                          {
+                            "keyword": "references_source"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "tech__7__3",
+                    "form_options": {
+                      "numbering": "7.3"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_links",
+                        "questions": [
+                          {
+                            "keyword": "links_title"
+                          },
+                          {
+                            "keyword": "links_url"
                           }
                         ]
                       }

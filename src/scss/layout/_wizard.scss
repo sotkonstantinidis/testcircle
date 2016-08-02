@@ -33,8 +33,8 @@
   padding-top: rem-calc(24);
 
   .button.expand:hover {
-    background-color: $color-wocat-dark;
-    box-shadow: 0 0 0 $button-shadow-effect $color-wocat-dark;
+    background-color: $color-orange-dark;
+    box-shadow: 0 0 0 $button-shadow-effect $color-orange-dark;
   }
 
   .button-icon {
@@ -139,7 +139,7 @@ form .row.top-margin {
   margin-top: 0;
 }
 
-.bottom-margin, a.bottom-margin {
+.bottom-margin, a.bottom-margin, .row.list-item.bottom-margin {
   margin-bottom: 1rem;
 }
 
@@ -201,6 +201,9 @@ form .single-item.single-item-checkbox-other {
 }
 .form-user-tab-search, .form-user-tab-create {
   padding: 1rem;
+}
+input[type=search].user-search-field {
+  border: 1px solid silver;
 }
 .form-user-tabs .tab-title>a, .form-user-tabs-content span {
   font-size: 0.875rem;

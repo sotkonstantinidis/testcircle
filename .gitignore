@@ -3,16 +3,12 @@
 __pycache__
 *.pyc
 
-# Ignore setting files
-qcat/settings/*
-!qcat/settings/base.py
-!qcat/settings/sample.py.dist
+# Ignore virtual environments
+qcat_virtualenv
+qcat
 
 # Ignore CodeIntel files
 .codeintel
-
-# Ignore local setting file
-qcat/settings_local.py
 
 # Ignore documentation builds
 /docs/_build/*

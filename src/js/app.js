@@ -8,6 +8,12 @@ $(document).foundation({
             mediumretina: 'only screen and (min-width: 641px) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-width: 641px) and (min--moz-device-pixel-ratio: 2), only screen and (min-width: 641px) and (-o-min-device-pixel-ratio: 2/1), only screen and (min-width: 641px) and (min-device-pixel-ratio: 2), only screen and (min-width: 641px) and (min-resolution: 192dpi), only screen and (min-width: 641px) and (min-resolution: 2dppx)',
             largeretina: 'only screen and (min-width: 1025px) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-width: 1025px) and (min--moz-device-pixel-ratio: 2), only screen and (min-width: 1025px) and (-o-min-device-pixel-ratio: 2/1), only screen and (min-width: 1025px) and (min-device-pixel-ratio: 2), only screen and (min-width: 1025px) and (min-resolution: 192dpi), only screen and (min-width: 1025px) and (min-resolution: 2dppx)'
         }
+    },
+    tab: {
+      callback : function (tab) {
+        // (Re-)apply equalizer
+        $(document).foundation('equalizer', 'reflow');
+      }
     }
 });
 
@@ -68,9 +74,17 @@ $(function () {
         }
     });
 
-    $('#submit-search').click(function () {
-        $(this).closest('form').submit();
-        return false;
+    $('#submit-search').click(function(e) {
+        // For the search on the landing page, do not submit the search
+        // parameter (q) if it is empty.
+        e.preventDefault();
+        var form = $(this).closest('form');
+        var search_field = form.find('input[name="q"]');
+        if (!search_field.val()) {
+            console.log("foo");
+            search_field.remove();
+        }
+        form.submit();
     });
 
     // Context switcher (WOCAT vs. Approaches vs. Technologies)
@@ -116,10 +130,37 @@ $(function () {
             }
         })
 
+        // Changing the type of the search (all / technologies / approaches)
+        .on('click', '.search-type-select a', function(e) {
+            e.preventDefault();
+
+            // Set hidden value
+            $('#search-type').val($(this).data('type'));
+
+            // Set display
+            $('#search-type-display').text($(this).text());
+        })
+        
+        .on('click', '.js-expand-all-sections', function(e) {
+            e.preventDefault();
+            $('.tech-section-content').slideToggle(true);
+        })
+
+        .on('submit', '.js-submit-once', function(e) {
+            $(this).find('input[type=submit]').addClass('disabled');
+        })
+
+        .on('click', 'a.disabled', function(e) {
+            e.preventDefault();
+        })
+
+        .on('click', 'input[type=submit].disabled', function(e) {
+            e.preventDefault();
+        })
+
         .on('click', '.js-sticky-entry-link-toggle', function(e) {
             e.preventDefault();
             $(this).closest('.sticky-entry').toggleClass('sticky-entry-active');
-
         });
 
     // Update the numbering of the questiongroups

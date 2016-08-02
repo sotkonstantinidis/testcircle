@@ -1,0 +1,73 @@
+{% extends 'wocat/base.html' %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Introduction to the questionnaire" %}{% endblock %}
+
+{% block content %}
+
+  <main class="row large-collapse" role="main">
+    <section class="small-12 columns">
+
+      <h1 class="help-title">
+        {% trans "Introduction to the questionnaire" %}
+      </h1>
+
+      <h2 class="is-group">
+        {% trans "Definitions" %}
+      </h2>
+
+      <p class="is-rhythmed-2">
+        {% trans "<strong>Sustainable Land Management (SLM)</strong> in the context of WOCAT is defined as the use of land resources – including soils, water, vegetation, and animals – to produce goods and provide services to meet changing human needs, while simultaneously ensuring the long-term productive potential of these resources and the maintenance of their environmental functions." %}
+      </p>
+
+      <p class="is-rhythmed-2">
+        {% trans "An <strong>SLM Technology</strong> is a physical practice in the field that controls land degradation and/ or enhances productivity. A Technology consists of one or several measures, such as agronomic, vegetative, structural, and management measures." %}
+      </p>
+
+      <p class="is-rhythmed-2">
+        {% trans "An <strong>SLM Approach</strong> defines the ways and means used to implement one or several SLM Technologies. It includes technical and material support, involvement and roles of different stakeholders, etc. An Approach can refer to a project/ programme or to activities initiated by land users themselves." %}
+      </p>
+
+      <h2 class="is-group">
+        {% trans "A modular framework for the documentation and assessment of SLM practices" %}
+      </h2>
+
+      <p class="is-rhythmed-2">
+        {% trans "The ultimate goal of documenting and assessing land management practices is to share and spread valuable knowledge in land management, support evidence-based decision-making, and scale up identified good/ best practices. To achieve this, it is important to analyse field experiences and gain a better understanding of the reasons behind successful SLM practices, regardless of whether they were introduced by projects or whether they are found in traditional systems." %}
+      </p>
+
+      <p class="is-rhythmed-2">
+        {% trans "WOCAT focuses on efforts to prevent and reduce land degradation and restore degraded land through improved <strong>land management technologies and approaches to implement these</strong>. All practices may be considered, whether they are traditional or indigenous, newly introduced through projects or programmes, adopted and/ or adapted by land users, or recent innovations." %}
+      </p>
+
+      <p class="is-rhythmed-2">
+        {% trans "The <strong>Core Questionnaire on SLM Technologies (QT)</strong> helps to describe and understand the land management practice by addressing the following questions: <strong>what</strong> are the specifications of the Technology, what are the inputs and costs, <strong>where</strong> is it used (natural and human environment), and what <strong>impact</strong> does it have?" %}
+      </p>
+
+      <p class="is-rhythmed-2">
+        {% trans "The <strong>Core Questionnaire on SLM Approaches (QA)</strong> addresses the questions of <strong>how</strong> implementation was achieved (including capacity building, decision-making, technical and material support, change of legal framework and policies) and <strong>who</strong> achieved it (including all stakeholders involved and their roles). <strong>In the case of projects, WOCAT asks you to document only those components or activities of the project that are relevant to SLM.</strong>" %}
+      </p>
+
+      <p class="is-rhythmed-2"><i>
+        {% trans "The Core questionnaires on SLM Technologies (QT core) and on SLM Approaches (QA core) contain the key questions on sustainable land management. They are the foundation of the WOCAT knowledge base. They are shorter and less time-consuming to fill in than the formerly used “basic” questionnaires." %}
+      </i></p>
+
+      <p class="is-rhythmed-2">
+        {% trans "<strong>The WOCAT framework is flexible and open.</strong> It enables users to include specific topics, depending on their interests and needs, to expand the standardized WOCAT Core questionnaires. Development of the following <strong>modules</strong> has been completed or initiated: <strong>Climate change adaptation</strong> (QC), <strong>Climate Change Mitigation</strong>/ Carbon Benefits, <strong>Economics of SLM</strong> and <strong>Biodiversity</strong>. The realization of additional modules depends on the initiative of interested partners and the mobilization of resources. WOCAT is open for collaboration, joint projects, and further development of the knowledge base. All modules will be docked onto the core version of QT and QA." %}
+      </p>
+
+      <p class="is-rhythmed-2">
+        {% trans "A further tool, the <strong>questionnaire on SLM Mapping (QM)</strong>, has been developed to analyse and depict the spatial distribution of SLM and land degradation processes, causes, and impacts." %}
+      </p>
+
+      <p class="is-rhythmed-2">
+        {% trans "The questionnaires mentioned above complement each other. All information documented through WOCAT questionnaires is made available in an open-access <strong>online database</strong> and can be used to disseminate SLM knowledge and improve decision-making for further implementation and spreading of SLM practices." %}
+      </p>
+
+    </section>
+  </main>
+
+
+{% endblock %}

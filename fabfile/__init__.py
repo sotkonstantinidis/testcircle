@@ -34,7 +34,7 @@ ENVIRONMENTS = {
         'host_string': settings.HOST_STRING_LIVE,
         'opbeat_url': settings.OPBEAT_URL_LIVE,
         'opbeat_bearer': settings.OPBEAT_BEARER_LIVE,
-        'url': 'https://qcat.wocat.net/{}/wocat/',
+        'url': 'https://qcat.wocat.net/{}/wocat/list/?type=all',
     },
     'common': {
         'project_name': 'qcat',
@@ -215,6 +215,7 @@ def _access_project():
         for lang in settings.LANGUAGES:
             with contextlib.closing(urllib.request.urlopen(env.url.format(lang[0]))) as request:
                 request.read()
+                print('Read response from: {}'.format(request.url))
 
 
 @task

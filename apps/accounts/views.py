@@ -4,8 +4,9 @@ from django.contrib.auth import (
     login as django_login,
 )
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.http import Http404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
@@ -15,13 +16,16 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
+from django.views.generic import DetailView
 from django.views.generic import FormView
 
+from braces.views import LoginRequiredMixin
 from configuration.configuration import QuestionnaireConfiguration
-from questionnaire.views import generic_questionnaire_list_no_config
+from django.views.generic import ListView
+from questionnaire.models import STATUSES
+from questionnaire.utils import query_questionnaires, get_list_values
 from .client import typo3_client
 from .conf import settings
-from .decorators import force_login_check
 from .forms import WocatAuthenticationForm
 from .models import User
 
@@ -41,6 +45,14 @@ class LoginView(FormView):
                 self.request.user.is_authenticated():
             return redirect(self.get_success_url())
         return super(LoginView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        # Add next_url to context to show notification in login form.
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'next_url': self.request.GET.get('next'),
+        })
+        return context
 
     def form_valid(self, form):
         # Put the user on the request, and add a welcome message.
@@ -83,6 +95,97 @@ class LoginView(FormView):
         return redirect_to
 
 
+class ProfileView(LoginRequiredMixin, DetailView):
+    """
+    Display the users questionnaires (and in future: notifications).
+
+    Questionnaires are loaded from the template (asynchronously).
+    """
+    template_name = 'questionnaires.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_questionnaires(self):
+        """
+        Fetch questionnaires for current user.
+        """
+        return query_questionnaires(request=self.request, configuration_code='all', only_current=False, limit=None)
+
+    def get_status_list(self) -> list:
+        """
+        Fetch all (distinct) statuses that at least one questionnaire of the current user has
+        """
+        questionnaires = self.get_questionnaires()
+        statuses = questionnaires.order_by('status').distinct('status').values_list('status', flat=True)
+        status_choices = dict(STATUSES)  # cast to dict for easier access.
+        return {status: status_choices[status] for status in statuses}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['statuses'] = self.get_status_list()
+        return context
+
+
+class QuestionnaireStatusListView(LoginRequiredMixin, ListView):
+    """
+    Display all questionnaires for the requested status.
+    Results are paginated, the paginator shows a specified (paginator_quicklink_range) number of pages before and after
+    the current page.
+    """
+
+    template_name = 'questionnaire_status_list.html'
+    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        self.status = self.get_status()
+        return super().get(request, *args, **kwargs)
+
+    def get_status(self) -> int:
+        """
+        Validate status from request.
+        """
+        try:
+            status = int(self.request.GET.get('status'))
+        except (TypeError, ValueError):
+            raise Http404()
+
+        if status not in dict(STATUSES).keys():
+            raise Http404()
+
+        return status
+
+    def get_queryset(self):
+        """
+        Fetch all questionnaires from the current user with the requested status.
+        """
+        return query_questionnaires(
+            request=self.request, configuration_code='all', only_current=False, limit=None, **self.get_filter_user()
+        ).filter(
+            status=self.status
+        )
+
+    def get_filter_user(self):
+        """
+        If no user is set, questionnaires are fetched according to permissions. This is the specified behaviour for all
+        statuses (except 'public'), as questionnaires that require some kind of action should be listed.
+
+        For published questionnaires, only the questionnaires that the user has worked on must be shown - so the user,
+        not the permissions (roles) are important.
+        """
+        return {'user': self.request.user if self.status is settings.QUESTIONNAIRE_PUBLIC else None}
+
+    def get_context_data(self, **kwargs) -> dict:
+        """
+        Provide context data in qcats default way. Pagination happens in the parents get_context_data method.
+        """
+        context = super().get_context_data(**kwargs)
+        context['list_values'] = get_list_values(
+            questionnaire_objects=context['object_list'], status_filter=Q()
+        )
+        return context
+
+
 def logout(request):
     """
     Log the user out. The actual logout is handled by the authentication
@@ -110,46 +213,6 @@ def logout(request):
 
     response.delete_cookie(settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME)
     return response
-
-
-def questionnaires(request, user_id):
-    """
-    View to show the Questionnaires of a user.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    user = get_object_or_404(User, pk=user_id)
-
-    list_template_values = generic_questionnaire_list_no_config(
-        request, user=user)
-
-    return render(request, 'questionnaires.html', list_template_values)
-
-
-@login_required
-@force_login_check
-def moderation(request):
-    """
-    View to show only pending Questionnaires to a moderator. Moderation
-    permission (``review_questionnaire``) is needed for this view.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    if request.user.has_perm('questionnaire.review_questionnaire') is False:
-        raise PermissionDenied()
-
-    list_template_values = generic_questionnaire_list_no_config(
-        request, moderation_mode='review')
-
-    return render(request, 'questionnaires.html', list_template_values)
 
 
 def user_search(request):

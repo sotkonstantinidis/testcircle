@@ -1,19 +1,24 @@
 import json
 from unittest.mock import patch, MagicMock
+
+from braces.views import LoginRequiredMixin
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test.client import RequestFactory
 from qcat.tests import TestCase
+from questionnaire.models import Questionnaire
 
 from ..forms import WocatAuthenticationForm
 from ..tests.test_models import create_new_user
 from accounts.views import (
     details,
-    questionnaires,
     user_update,
-    LoginView)
+    LoginView,
+    ProfileView, QuestionnaireStatusListView
+)
 
 User = get_user_model()
 accounts_route_login = 'login'
@@ -95,38 +100,115 @@ class LoginViewTest(TestCase):
         return view
 
 
-class QuestionnairesTest(TestCase):
+class ProfileViewTest(TestCase):
+    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
 
     def setUp(self):
         self.factory = RequestFactory()
+        view = ProfileView()
+        self.request = self.factory.get(reverse('account_questionnaires'))
         self.user = create_new_user()
-        self.url = reverse(
-            accounts_route_questionnaires, kwargs={'user_id': 1})
-        self.request = self.factory.get(self.url)
+        self.request.user = self.user
+        self.view = self.setup_view(view, self.request)
+
+    def create_questionnaire(self, status, user=None):
+        Questionnaire.create_new(
+            configuration_code='sample',
+            data={'foo': 'bar'},
+            user=user or self.user,
+            status=status
+        )
 
     def test_renders_correct_template(self):
-        res = self.client.get(self.url)
-        self.assertTemplateUsed(res, 'questionnaires.html')
+        self.assertEqual(self.view.get_template_names(), ['questionnaires.html'])
 
-    def test_returns_404_if_user_not_existing(self):
+    @patch('accounts.views.query_questionnaires')
+    def test_get_questionnaires(self, mock_query_questionnaires):
+        self.view.get(self.request)
+        mock_query_questionnaires.assert_called_once_with(
+            configuration_code='all', limit=None, only_current=False, request=self.request
+        )
+
+    def test_user_required(self):
+        self.assertTrue(issubclass(ProfileView, LoginRequiredMixin))
+
+    def test_get_status_list_only_public(self):
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {4: 'Public'})
+
+    def test_get_status_list_own_questionnaire(self):
+        self.create_questionnaire(2)
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {2: 'Submitted', 4: 'Public'})
+
+    def test_get_status_list_other_questionnaire(self):
+        self.create_questionnaire(3, user=create_new_user(id=2, email='c@d.com'))
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {4: 'Public'})
+
+    def test_get_status_list_other_questionnaire_with_permissions(self):
+        self.create_questionnaire(3, user=create_new_user(id=3, email='d@e.com'))
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {4: 'Public'})
+        # add permission group, pseudo wocat-secretariat.
+        self.request.user.get_all_permissions = lambda : ['questionnaire.publish_questionnaire']
+        status_list = self.view.get_status_list()
+        self.assertDictEqual(status_list, {3: 'Reviewed', 4: 'Public'})
+
+
+class QuestionnaireStatusListViewTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        view = QuestionnaireStatusListView()
+        self.request = self.factory.get(reverse('questionnaires_status_list'))
+        self.valid_request = self.factory.get('{}?status={}'.format(
+            reverse('questionnaires_status_list'),
+            settings.QUESTIONNAIRE_PUBLIC
+        ))
+        self.user = create_new_user()
+        self.request.user = self.user
+        self.view = self.setup_view(view, self.request)
+
+    def test_user_required(self):
+        self.assertTrue(issubclass(ProfileView, LoginRequiredMixin))
+
+    def test_get_no_status(self):
         with self.assertRaises(Http404):
-            questionnaires(self.request, -1)
+            self.view.get_status()
 
-    @patch('accounts.views.generic_questionnaire_list_no_config')
-    @patch('accounts.views.get_object_or_404')
-    def test_calls_generic_function(
-            self, mock_object_or_404, mock_generic_list):
-        questionnaires(self.request, 1)
-        mock_generic_list.assert_called_once_with(
-            self.request, user=mock_object_or_404.return_value)
+    def test_get_invalid_status(self):
+        request = self.factory.get('?status=12345'.format(
+            reverse('questionnaires_status_list')
+        ))
+        view = self.setup_view(QuestionnaireStatusListView(), request)
+        with self.assertRaises(Http404):
+            view.get_status()
 
-    @patch('accounts.views.render')
-    @patch('accounts.views.generic_questionnaire_list_no_config')
-    def test_calls_render(self, mock_generic_list, mock_render):
-        questionnaires(self.request, 1)
-        mock_render.assert_called_once_with(
-            self.request, 'questionnaires.html',
-            mock_generic_list.return_value)
+    def test_get_valid_status(self):
+        view = self.setup_view(QuestionnaireStatusListView(), self.valid_request)
+        self.assertEqual(view.get_status(), settings.QUESTIONNAIRE_PUBLIC)
+
+    @patch('accounts.views.query_questionnaires')
+    def test_get_queryset(self, mock_query_questionnaires):
+        self.valid_request.user = self.user
+        view = self.setup_view(QuestionnaireStatusListView(), self.valid_request)
+        view.status = settings.QUESTIONNAIRE_PUBLIC
+        view.get_queryset()
+
+        mock_query_questionnaires.assert_called_once_with(
+            configuration_code='all', limit=None, only_current=False, request=self.valid_request, user=self.user
+        )
+
+    def test_get_filter_user(self):
+        pass
+
+    @patch('accounts.views.get_list_values')
+    def test_get_context_data(self, mock_get_list_values):
+        view = self.setup_view(QuestionnaireStatusListView(), self.valid_request)
+        view.object_list = []
+        view.get_context_data()
+        self.assertTrue(mock_get_list_values.called)
 
 
 class UserUpdateTest(TestCase):

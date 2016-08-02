@@ -7,8 +7,6 @@
 {% load staticfiles %}
 
 
-{% block bodyclass %}layout-tech{% endblock %}
-
 {% block content %}
 
   {% if 'assign_questionnaire' in permissions %}
@@ -21,6 +19,7 @@
     {% endaddtoblock %}
   {% endif %}
 
+  {% comment %}
   <div id="scroll-fixed-top" class="sticky-menu-outer">
     {% include 'details/sticky_menu.html' with toc_content=toc_content view_mode=view_mode %}
     {% addtoblock 'js' %}
@@ -29,13 +28,12 @@
       {% endcompress %}
     {% endaddtoblock %}
   </div>
+  {% endcomment %}
 
-  {% if images|length %}
-    <figure class="tech-figure">
-      <div class="tech-figure-container">
-        {% prepare_image images.0 as prepared_image %}
-        <img alt="{{ images.0.caption }}" data-interchange="{{ prepared_image.interchange }}" src="{{ prepared_image.src }}">
-      </div>
+  <figure class="tech-figure">
+    {% if images|length %}
+      {% prepare_image images.0 as prepared_image %}
+      <img alt="{{ images.0.caption }}" data-interchange="{{ prepared_image.interchange }}" src="{{ prepared_image.src }}">
       {% if images.0.caption or images.0.photographer %}
         <div class="row hide-for-small-only">
           <figcaption class="medium-4 medium-offset-8 columns">
@@ -49,12 +47,8 @@
           </figcaption>
         </div>
       {% endif %}
-    </figure>
-  {% endif %}
-
-  {% if review_config %}
-    {% include 'details/review_panel.html' with review_config=review_config %}
-  {% endif %}
+    {% endif %}
+  </figure>
 
   <article role="main">
     <main class="is-rhythmed-4">

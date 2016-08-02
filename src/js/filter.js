@@ -2,7 +2,7 @@ $(function () {
 
     // Overwrite the normal functionality of the datalist to be able to
     // use internal submit values other than the display values.
-    $('body').on('input', '#filter-country', function () {
+    $('body').on('input', '.js-search-datalist', function () {
         var input = this;
         var options = $('#' + $(this).attr('list') + ' option');
         var hiddenInput = $('#' + input.id + '-hidden');
@@ -15,9 +15,6 @@ $(function () {
             }
         });
     });
-
-    // Initially update the filter input fields
-    updateFilterInputs();
 
     // Button to remove a filter. As the filter buttons are added
     // dynamically, the event needs to be attached to an element which is
@@ -36,10 +33,10 @@ $(function () {
         updateFilterInputs();
 
         return false;
-    });
+    })
 
     // Button to reset all filters
-    $('body').on('click', '#filter-reset', function () {
+    .on('click', '#filter-reset', function () {
 
         var p = parseQueryString();
 
@@ -54,30 +51,50 @@ $(function () {
         updateList(s);
         updateFilterInputs();
         return false;
+    })
+
+    .on('change', '#search-advanced input[data-toggle-sub]', function() {
+        // Show or hide sub filters.
+        var checked = $(this).is(':checked');
+        var subfilter = $('#' + $(this).data('toggle-sub'));
+        if (!checked) {
+            // If unselected, uncheck all sub filters
+            subfilter.find('input').prop('checked', false)
+        }
+        subfilter.toggle(checked);
     });
+
+    // Initially update the filter input fields
+    updateFilterInputs();
 
     // Top search bar
-    $('.top-bar-search').submit(function (e) {
-        e.preventDefault();
-
-        // Update the search term in the filter parameters
-        var search_term = $(this).find('input[name="q"]').val();
-        var p = parseQueryString();
-        p['q'] = search_term;
-
-        // track search
-        if (typeof _paq !== 'undefined') {
-            // the variable is defined
-            _paq.push(['trackEvent', 'Search', 'Value', search_term]);
-        }
-
-        var s = ['?', $.param(p, traditional = true)].join('');
-        changeUrl(s);
-        updateList(s);
-    });
+    // $('.top-bar-search').submit(function (e) {
+    //     e.preventDefault();
+    //
+    //     console.log("foo");
+    //
+    //     // Update the search term in the filter parameters
+    //     var search_term = $(this).find('input[name="q"]').val();
+    //     var p = parseQueryString();
+    //     p['q'] = search_term;
+    //
+    //     // track search
+    //     if (typeof _paq !== 'undefined') {
+    //         // the variable is defined
+    //         _paq.push(['trackEvent', 'Search', 'Value', search_term]);
+    //     }
+    //
+    //     var s = ['?', $.param(p, traditional = true)].join('');
+    //     changeUrl(s);
+    //     updateList(s);
+    // });
 
     // Button to submit the filter
-    $('#submit-filter').click(function () {
+    // $('#submit-filter').click(function () {
+    $('#search-advanced').submit(function (e) {
+
+        e.preventDefault();
+
         var p = parseQueryString();
 
         // track search
@@ -91,11 +108,37 @@ $(function () {
         // Always delete the paging parameter if the filter was modified
         delete p['page'];
 
-        // Checkboxes
-        $('#search-advanced input:checkbox').each(function () {
+        // Type (all, technologies, approaches)
+        var type_ = $('#search-type').val();
+        if (type_) {
+            p = addFilter(p, null, 'type', type_);
+        }
+
+        var search_div = $('#search-advanced');
+
+        // Radio
+        search_div.find('input:radio').each(function() {
             var $t = $(this);
             if ($t.is(':checked')) {
                 p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
+            }
+        });
+
+        // Checkboxes
+        search_div.find('input:checkbox').each(function() {
+            var $t = $(this);
+            if ($t.is(':checked')) {
+                p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
+            }
+        });
+
+        // Search
+        search_div.find('input[type=search]').each(function() {
+            var $t = $(this);
+            var val = $t.val();
+            if (val) {
+                p = addFilter(p, null, 'q', val);
+                $t.val('');
             }
         });
 
@@ -133,6 +176,21 @@ $(function () {
         changeUrl(s);
         updateList(s);
         return false;
+    })
+
+    // Deselectable radio buttons
+    .on('click', '#search-advanced input:radio', function () {
+        var previousValue = $(this).attr('previousValue');
+        var name = $(this).attr('name');
+        var initiallyChecked = $(this).attr('checked');
+
+        if (previousValue == 'checked' || (!previousValue && initiallyChecked == 'checked')) {
+            $(this).removeAttr('checked');
+            $(this).attr('previousValue', false);
+        } else {
+            $("input[name=" + name + "]:radio").attr('previousValue', false);
+            $(this).attr('previousValue', 'checked');
+        }
     });
 
     // Slider
@@ -172,7 +230,7 @@ function updateFilterInputs() {
     var p = parseQueryString();
 
     // Uncheck all input fields first
-    $('input[data-questiongroup]').prop('checked', false);
+    $('input[data-questiongroup]').prop('checked', false).trigger('change');
 
     // Reset Sliders
     $('.nstSlider').each(function () {
@@ -196,7 +254,7 @@ function updateFilterInputs() {
         for (var v in values) {
             var el = $('input[data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"][data-value="' + values[v] + '"]');
             if (el.length !== 1) continue;
-            el.prop('checked', true);
+            el.prop('checked', true).trigger('change');
         }
 
         // Datalist
@@ -253,6 +311,11 @@ function updateFilterInputs() {
     for (var k in p.flag) {
         $('#flag_' + p.flag[k]).prop('checked', true);
     }
+
+    // Type
+    for (var k in p.type) {
+        $('a[data-type="' + p.type[k] + '"]').click();
+    }
 }
 
 
@@ -299,7 +362,7 @@ function removeFilter(questiongroup, key, value) {
     }
     var p = parseQueryString();
     if (keyParameter in p) {
-        var i = p[keyParameter].indexOf(value);
+        var i = p[keyParameter].indexOf(String(value));
         if (i > -1) {
             p[keyParameter].splice(i, 1);
         }
@@ -334,7 +397,7 @@ function updateList(queryParam) {
             $('.loading-indicator').hide();
         },
         error: function (data) {
-            alert('Something went wrong');
+            // alert('Something went wrong');
             $('.loading-indicator').hide();
         }
     });
@@ -376,7 +439,7 @@ function changeUrl(url) {
  */
 function removeFilterParams(p) {
     for (var k in p) {
-        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag') {
+        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag' || k == 'type') {
             delete p[k];
         }
     }

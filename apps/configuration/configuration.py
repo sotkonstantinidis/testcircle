@@ -12,8 +12,7 @@ from configuration.models import (
     Category,
     Configuration,
     Key,
-    Questiongroup,
-)
+    Questiongroup)
 from configuration.utils import get_choices_from_model
 from qcat.errors import (
     ConfigurationError,
@@ -28,7 +27,7 @@ from qcat.utils import (
     find_dict_in_list,
     is_empty_list_of_dicts,
 )
-from questionnaire.models import File, Flag
+from questionnaire.models import File
 
 User = get_user_model()
 
@@ -1722,7 +1721,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
             self, data={}, permissions=[], edit_step_route='',
             questionnaire_object=None, csrf_token=None,
             edited_questiongroups=[], view_mode='view', links=None,
-            review_config=None):
+            review_config=None, user=None):
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1816,6 +1815,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'configuration_name': configuration,
                 'questionnaire_identifier': questionnaire_identifier,
                 'has_changes': has_changes,
+                'review_config': review_config,
+                'user': user,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -1926,7 +1927,7 @@ class QuestionnaireSection(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None):
+            edited_questiongroups=[], view_mode='view', links=None, user=None):
 
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
@@ -1938,7 +1939,8 @@ class QuestionnaireSection(BaseConfigurationObject):
                 questionnaire_object=questionnaire_object,
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
-                view_mode=view_mode, links=links, review_config=review_config))
+                view_mode=view_mode, links=links, review_config=review_config,
+                user=user))
 
         media_content = []
         media_additional = {}
@@ -2060,7 +2062,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None):
+            edited_questiongroups=[], view_mode='view', links=None, user=None):
         rendered_sections = []
         for section in self.sections:
             rendered_sections.append(section.get_details(
@@ -2070,7 +2072,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
                 view_mode=view_mode,
-                links=links))
+                links=links,
+                user=user))
         return rendered_sections
 
     def get_toc_data(self):
@@ -2149,7 +2152,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     def get_filter_configuration(self):
         """
         Return the data needed to create the filter panels. Loops the
-        sections and within them the fields can be filtered.
+        sections and within them the fields can be filtered. Only returns the
+        filters from the current configuration.
 
         Returns:
             ``dict``. A dictionary with a list entry for section filters
@@ -2183,7 +2187,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             Each special filter (eg. ``countries``) contains a list of
             tuples with [0] the internal value and the [1] display value.
         """
-        filter_configuration = []
+        filter_configuration = {}
 
         for section in self.sections:
             for cat in section.categories:
@@ -2191,42 +2195,25 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     for question in questiongroup.questions:
                         if question.filterable is True:
 
-                            s = next((
-                                item for item in filter_configuration if
-                                item["keyword"] == cat.keyword), None)
-
+                            s = filter_configuration.get(cat.keyword)
                             if not s:
                                 s = {
                                     'keyword': cat.keyword,
                                     'label': cat.label,
-                                    'filters': [],
+                                    'filters': {},
                                 }
-                                filter_configuration.append(s)
+                                filter_configuration[cat.keyword] = s
 
-                            s['filters'].append({
+                            s['filters'][question.keyword] = {
                                 'keyword': question.keyword,
-                                'label': question.label,
+                                'label': question.label_view,
                                 'values': question.choices,
                                 'type': question.field_type,
                                 'images': question.images,
                                 'questiongroup': questiongroup.keyword,
-                            })
+                            }
 
-        countries = []
-        country_question = self.get_question_by_keyword(
-            'qg_location', 'country')
-        if country_question:
-            countries = country_question.choices[1:]
-
-        flags = []
-        for flag in Flag.objects.all():
-            flags.append((flag.flag, flag.get_flag_display()))
-
-        return {
-            'sections': filter_configuration,
-            'countries': countries,
-            'flags': flags,
-        }
+        return filter_configuration
 
     def get_list_data(self, questionnaire_data_list):
         """
@@ -2351,6 +2338,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if question_keyword:
             for x in questionnaire_data.get(questiongroup_keyword, []):
                 return x.get(question_keyword)
+        # fixme: what should happen in case no name is set? as of now, "{'en': 'Unknown name'}" is displayed, which is
+        # fixme: ugly, but should not happen, as the name is validated by the publishers.
         return {'en': _('Unknown name')}
 
     def get_questionnaire_geometry(self, questionnaire_data):
