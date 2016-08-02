@@ -1477,7 +1477,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
         messages.success(request, _('The questionnaire was succesfully removed'))
-        return redirect('{}:home'.format(configuration_code))
+        return redirect('account_questionnaires')
 
 
 def compare_questionnaire_data(data_1, data_2):

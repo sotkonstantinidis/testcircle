@@ -45,7 +45,7 @@ class SearchTest(FunctionalTest):
 
         # She enters a search value and submits the search form
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
-        self.findBy('id', 'submit-search').click()
+        self.apply_filter()
 
         # She sees that she has been taken to the WOCAT configuration
         # where the search results are listed
@@ -57,7 +57,7 @@ class SearchTest(FunctionalTest):
         # She sees that this is the same result as when searching in
         # WOCAT (at the top of the page)
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
-        self.findBy('id', 'submit-search').click()
+        self.apply_filter()
 
         self.assertIn('/wocat/list', self.browser.current_url)
         results = self.findManyBy(
@@ -72,7 +72,8 @@ class SearchTest(FunctionalTest):
 
         # She enters a search value and submits the search form
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
-        self.findBy('id', 'submit-search').click()
+        self.set_input_value('search-type', 'sample')
+        self.apply_filter()
 
         # She sees that she has been taken to the SAMPLE configuration
         # where the search results are listed
@@ -86,8 +87,8 @@ class SearchTest(FunctionalTest):
         self.browser.get(
             self.live_server_url + reverse(samplemulti_route_home))
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
-        self.findBy('id', 'submit-search').click()
-        self.assertIn('/samplemulti/list', self.browser.current_url)
+        self.set_input_value('search-type', 'samplemulti')
+        self.apply_filter()
         results = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(results), 1)

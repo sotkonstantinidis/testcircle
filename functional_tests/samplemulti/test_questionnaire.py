@@ -42,7 +42,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She is taken to the form and sees the steps
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="tech-section-progress progress"]')
+            'xpath',
+            '//div[@class="tech-section-progress"]/span[@class="steps"]')
         self.assertEqual(len(progress_indicators), get_category_count())
 
         # She goes to the first step and sees the link works.
@@ -50,9 +51,10 @@ class QuestionnaireTest(FunctionalTest):
             route_questionnaire_new_step, kwargs={
                 'identifier': 'new', 'step': get_categories()[0][0]}))
 
-        self.findBy('id', 'button-submit').click()
+        self.submit_form_step()
         progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="tech-section-progress progress"]')
+            'xpath',
+            '//div[@class="tech-section-progress"]/span[@class="steps"]')
         self.assertEqual(len(progress_indicators), get_category_count())
 
     def test_questionnaire_can_be_entered(self, mock_questionnaire_list,
@@ -73,8 +75,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('name', 'mqg_01-0-original_mkey_01').send_keys('Foo')
 
         # She submits the form and sees the values are in the overview
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        self.submit_form_step()
 
         self.findBy('xpath', '//*[text()[contains(.,"MKey 1")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
