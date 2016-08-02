@@ -49,16 +49,10 @@ class ActionContextQuerySet(models.QuerySet):
             functools.reduce(operator.or_, status_filters)
         ).distinct()
 
-    def user_action_list(self, user: User):
-        """
-        Get workflow relevant logs that the user must handle.
-        """
-        status_permissions = self.get_questionnaires_for_permissions(*user.get_all_permissions())
-        if not status_permissions:
-            return self.none()
-        return self.filter(functools.reduce(operator.or_, status_permissions)).distinct()
-
     def email(self):
+        """
+        stub.
+        """
         return self.filter(action__in=settings.NOTIFICATIONS_EMAIL_ACTIONS)
 
 

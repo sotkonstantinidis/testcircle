@@ -25,6 +25,9 @@ class LogListView(LoginRequiredMixin, ListView):
     queryset_method = 'user_log_list'
 
     def get_log_ids(self, logs) -> list:
+        """
+        Returns a list with all ids for given logs. Used to filter the readlogs.
+        """
         return logs.values_list('id', flat=True)
 
     def get_readlog_list(self, logs) -> list:
@@ -40,25 +43,37 @@ class LogListView(LoginRequiredMixin, ListView):
             'log__id', flat=True
         )
 
+    def get_is_todo(self, status: int, action: int) -> bool:
+        """
+        For all actions that are a status change, check if current user has permissions to handle the questionnaire.
+        """
+        return action is settings.NOTIFICATIONS_CHANGE_STATUS and status in self.todo_statuses
+
     def add_user_aware_data(self, logs) -> Iterable:
         """
         The method 'get_linked_subject' requires a user. Provide all info required for the template.
         """
         readlog_list = self.get_readlog_list(logs=logs)
+        # A list with all statuses that the current user is allowed to handle.
+        self.todo_statuses = [
+            status for permission, status in settings.NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS.items()
+            if permission in self.request.user.get_all_permissions()
+            ]
+
         for log in logs:
             yield {
                 'id': log.id,
                 'created': log.created,
                 'text': log.get_linked_subject(user=self.request.user),
-                'is_read': log.id in readlog_list
+                'is_read': log.id in readlog_list,
+                'is_todo': self.get_is_todo(status=log.questionnaire.status, action=log.action)
             }
 
     def get_logs(self):
         """
         Use own method (not get_queryset), so the teaser view can slice the queryset.
-        Use the method as set by the views instance variable.
         """
-        return getattr(Log.actions, self.queryset_method, 'user_log_list')(user=self.request.user)
+        return Log.actions.user_log_list(user=self.request.user)
 
     def get_queryset(self) -> list:
         """

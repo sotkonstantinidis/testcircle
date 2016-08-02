@@ -1193,9 +1193,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 ' do not have permission to do so.')
             return
 
-        # Delete the old data and update the status
+        # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_SUBMITTED
-        questionnaire_object.data_old = None
         questionnaire_object.save()
 
         messages.success(

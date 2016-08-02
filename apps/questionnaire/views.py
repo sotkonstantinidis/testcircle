@@ -43,7 +43,6 @@ from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
 from .utils import (
     clean_questionnaire_data,
-    compare_questionnaire_data,
     get_active_filters,
     get_link_data,
     get_list_values,
@@ -446,12 +445,6 @@ class QuestionnaireSaveMixin(StepsMixin):
         """
         Save the new questionnaire data and create a log for the change.
         """
-        diff_qgs = []
-        # Recalculate difference between the two diffs
-        if self.has_object:
-            q_obj = self.object
-            diff_qgs = compare_questionnaire_data(q_obj.data_old, data)
-
         try:
             questionnaire = Questionnaire.create_new(
                 configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
@@ -749,12 +742,6 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
                 settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
             ]
         )
-
-    def get_edited_questiongroups(self):
-        """
-        ?
-        """
-        return compare_questionnaire_data(self.object.data, self.object.data_old) if self.has_object else []
 
     def get_links(self):
         """

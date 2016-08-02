@@ -79,7 +79,6 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
-    data_old = JsonBField(null=True)
     created = models.DateTimeField()
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
@@ -140,7 +139,7 @@ class Questionnaire(models.Model):
                 ), kwargs={'identifier': self.code})
         return None
 
-    def update_data(self, data, updated, configuration_code, old_data=None):
+    def update_data(self, data, updated, configuration_code):
         """
         Helper function to just update the data of the questionnaire
         without creating a new instance.
@@ -152,15 +151,11 @@ class Questionnaire(models.Model):
 
             ``configuration_code`` (str): The configuration code.
 
-            ``old_data`` (dict): The data dictionary containing the old data of
-            the questionnaire.
-
         Returns:
             ``Questionnaire``
         """
         self.data = data
         self.updated = updated
-        self.data_old = old_data
         self.save()
         # Unblock all questionnaires with this code, as all questionnaires with
         # this code are blocked for editing.
@@ -687,12 +682,9 @@ class Questionnaire(models.Model):
             ``role`` (str): The role of the user.
         """
         user = self.get_user(user, role)
-        # dicsuss: was the method below correct?
         QuestionnaireMembership.objects.filter(
             questionnaire=self, user=user, role=role
         ).delete()
-        # if user is not None:
-        #    user.delete()
 
     def update_users_from_data(self, configuration_code):
         """
