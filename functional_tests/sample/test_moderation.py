@@ -58,9 +58,7 @@ class ModerationTest(FunctionalTest):
         # She creates a questionnaire and saves it
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new))
-        edit_buttons = self.findManyBy(
-            'xpath', '//main//a[contains(@href, "edit/new/cat")]')
-        edit_buttons[cat_1_position].click()
+        self.click_edit_section('cat_1')
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
         self.findBy('id', 'button-submit').click()
@@ -72,6 +70,7 @@ class ModerationTest(FunctionalTest):
 
         # She refreshes the page and sees the questionnaire
         self.browser.get(url)
+        self.toggle_all_sections()
         self.checkOnPage('Foo')
 
         # She logs out and cannot see the questionnaire
@@ -116,6 +115,7 @@ class ModerationTest(FunctionalTest):
         # The moderator logs in and sees the questionnaire
         self.doLogin(user=user_moderator)
         self.browser.get(url)
+        self.toggle_all_sections()
         self.checkOnPage('Foo')
 
         # He publishes the questionnaire
@@ -128,6 +128,7 @@ class ModerationTest(FunctionalTest):
         # Logged out users can see the questionnaire
         self.doLogout()
         self.browser.get(url)
+        self.toggle_all_sections()
         self.checkOnPage('Foo')
 
         # Logged out users cannot edit the questionnaire
@@ -141,6 +142,7 @@ class ModerationTest(FunctionalTest):
         # Alice can edit the questionnaire
         self.doLogin(user=user_alice)
         self.browser.get(url)
+        self.toggle_all_sections()
         self.checkOnPage('Foo')
         self.review_action('edit', exists_only=True)
 

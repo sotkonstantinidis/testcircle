@@ -4761,6 +4761,23 @@
       "data": {
         "approaches": {
           "label": {
+            "en": "Photos of the Approach"
+          },
+          "helptext": {
+            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing measures/ undergoing training, etc.</p><p>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</p><p>Maximum file size: 3 MB.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 8758
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "approaches": {
+          "label": {
             "en": "General information"
           }
         }
@@ -9019,7 +9036,7 @@
   {
     "fields": {
       "keyword": "app__2__3",
-      "translation": 8740
+      "translation": 8758
     },
     "model": "configuration.category",
     "pk": 3009

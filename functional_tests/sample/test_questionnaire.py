@@ -2611,7 +2611,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy(
             'xpath', '//input[contains(@class, "link-search-field")]'
             '[1]').send_keys('key')
-        time.sleep(1)
+        self.wait_for('xpath', '//li[@class="ui-menu-item"]')
         self.findBy(
             'xpath',
             '//li[@class="ui-menu-item"]//strong[text()="This is key 1b"]')

@@ -140,8 +140,6 @@ class FunctionalTest(StaticLiveServerTestCase):
             condition = EC.invisibility_of_element_located((locator, el))
         WebDriverWait(self.browser, 10).until(condition)
 
-
-
     def changeHiddenInput(self, el, val):
         self.browser.execute_script('''
             var elem = arguments[0];
@@ -166,9 +164,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         certain elements, namely when using headless browser for testing. Sets
         it to "position: relative".
         """
-        sticky = self.findBy('class_name', 'sticky-menu-outer')
-        self.browser.execute_script(
-            'arguments[0].style.position = "absolute";', sticky)
+        pass
+        # sticky = self.findBy('class_name', 'sticky-menu-outer')
+        # self.browser.execute_script(
+        #     'arguments[0].style.position = "absolute";', sticky)
 
     def screenshot(self):
         self.browser.save_screenshot('screenshot.png')
@@ -223,7 +222,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.findBy('xpath', btn_xpath).click()
         self.findBy(
             'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
-        self.toggle_all_sections()
+        if action != 'reject':
+            self.toggle_all_sections()
 
     def submit_form_step(self):
         self.findBy('id', 'button-submit').click()
@@ -245,6 +245,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.rearrangeFormHeader()
 
     def toggle_all_sections(self):
+        self.wait_for('class_name', 'js-expand-all-sections')
         self.findBy('class_name', 'js-expand-all-sections').click()
 
     def open_questionnaire_details(self, configuration, identifier=None):
@@ -266,6 +267,12 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def scroll_to_element(self, el):
         self.browser.execute_script("return arguments[0].scrollIntoView();", el)
+
+    def set_input_value(self, el_id, value):
+        self.browser.execute_script(
+            "document.getElementById('{}').setAttribute('value', '{}')".format(
+                el_id, value
+            ))
 
     def clickUserMenu(self, user):
         self.findBy(
