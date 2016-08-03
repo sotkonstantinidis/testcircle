@@ -13,6 +13,10 @@
     <main class="row" role="main">
       <div class="small-12 columns">
         <h1 class="is-title">{% trans "Latest updates" %}</h1>
+        <div class="panel callout radius">
+          <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
+          <label for="is-pending">{% trans "Show pending notifications only" %}</label>
+        </div>
         <div id="notifications-list"></div>
       </div>
     </main>
@@ -21,11 +25,22 @@
         <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
         <script src="{% static 'notifications/js/notificationActions.js' %}"></script>
         <script>
-          $(document).ready(function() {
-            $('#notifications-list').bindNotificationActions({
+          $(function() {
+            const notificationList = $('#notifications-list');
+            notificationList.bindNotificationActions({
               read_url: '{% url 'notification_read' %}',
               notifications_url: '{% url 'notification_partial_list' %}?{{ request.GET.keys|join:"&" }}',
               user: '{{ request.user.id }}'
+            });
+
+            $('#is-pending').on('click', function() {
+              var isPending = $(this).is(':checked') ? '?is_pending' : '';
+              $.ajax({
+                url: '{% url 'notification_partial_list' %}' + isPending,
+                method: 'GET'
+              }).done(function(data) {
+                notificationList.html(data);
+              });
             });
           });
         </script>
