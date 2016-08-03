@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-02 11:10+0200\n"
-"PO-Revision-Date: 2016-07-30 21:12+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2016-08-03 15:21+0200\n"
+"PO-Revision-Date: 2016-08-02 21:36+0000\n"
+"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -81,7 +81,7 @@ msgstr "Iniciar sesión"
 
 #: apps/accounts/templates/login.html:13
 msgid "Please log in to access this page."
-msgstr ""
+msgstr "Por favor inicie sesión para acceder"
 
 #: apps/accounts/templates/login.html:34
 msgid "If you do not yet have a login, please visit "
@@ -111,13 +111,13 @@ msgstr "y actualice su contraseña."
 
 #: apps/accounts/templates/questionnaires.html:14
 msgid "My SLM data"
-msgstr ""
+msgstr "Mis datos MST"
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:7
 #: apps/wocat/templates/wocat/home.html:73 templates/base.html:152
 msgid "Add SLM data"
-msgstr ""
+msgstr "Agregue datos MST"
 
 #: apps/accounts/views.py:61
 msgid "Welcome {}"
@@ -162,7 +162,7 @@ msgstr "No se hallaron enfoques MST"
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:42
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:42
 msgid "No description available."
-msgstr ""
+msgstr "No existe descripción disponible"
 
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:45
 #: apps/questionnaire/templates/details/category/approaches_header.html:30
@@ -196,11 +196,11 @@ msgstr "Compilador:"
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:57
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:57
 msgid "This SLM practice is also available in:"
-msgstr ""
+msgstr "Esta práctica MST también se halla disponible en:"
 
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:69
 msgid "This SLM Approach is linked to SLM Technologies"
-msgstr ""
+msgstr "Este enfoque MST se vincula a Tecnologías MST"
 
 #: apps/approaches/views.py:48
 #: apps/questionnaire/templates/details/category/approaches_header.html:6
@@ -274,7 +274,7 @@ msgstr "Seleccione tipo de uso de la tierra"
 #: apps/configuration/configuration_translations.py:1013
 msgctxt "technologies label_view"
 msgid "Land use type"
-msgstr ""
+msgstr "Tipo de uso de la tierra"
 
 #: apps/configuration/configuration_translations.py:1012
 #: apps/configuration/configuration_translations.py:1496
@@ -358,7 +358,7 @@ msgstr "Medidas MST que componen la Tecnología"
 #: apps/configuration/configuration_translations.py:1497
 msgctxt "technologies label_view"
 msgid "SLM measures"
-msgstr ""
+msgstr "Medidas MST"
 
 #: apps/configuration/configuration_translations.py:1026
 msgctxt "technologies label"
@@ -369,7 +369,7 @@ msgstr "Elija el tipo de degradación"
 #: apps/configuration/configuration_translations.py:1499
 msgctxt "technologies label_view"
 msgid "Degradation type"
-msgstr ""
+msgstr "Tipo de degradación"
 
 #: apps/configuration/configuration_translations.py:1032
 msgctxt "technologies label"
@@ -1364,7 +1364,7 @@ msgid ""
 "Number of sites considered/analysed in the documentation of this technology"
 msgstr ""
 "Número de sitios considerados/ analizados en la documentación de esta "
-"tecnología:"
+"Tecnología:"
 
 #: apps/configuration/configuration_translations.py:1228
 msgctxt "technologies label"
@@ -1759,7 +1759,7 @@ msgstr "Grupo MST al que pertenece la Tecnología"
 #: apps/configuration/configuration_translations.py:1364
 msgctxt "technologies label_view"
 msgid "SLM group"
-msgstr ""
+msgstr "Grupo MST"
 
 #: apps/configuration/configuration_translations.py:1365
 msgctxt "technologies helptext"
@@ -2475,12 +2475,6 @@ msgid "(Semi-)natural forests/ woodlands"
 msgstr "Bosques/ zonas boscosas (semi) naturales"
 
 #: apps/configuration/configuration_translations.py:1500
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "If available, attach full soil description or specify the available "
-#| "information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, "
-#| "nitrogen, salinity etc.)"
 msgctxt "technologies label"
 msgid ""
 "If available, attach full soil description or specify the available "
@@ -2489,7 +2483,7 @@ msgid ""
 msgstr ""
 "Si se halla disponible, adjunte una descripción completa de los suelos o "
 "especifique la información disponible, por ej., tipo de suelo, pH/ acidez de "
-"suelo, capacidad de intercambio catiónico, nitrógeno, salinidad, etc.): \t"
+"suelo, capacidad de intercambio catiónico, nitrógeno, salinidad, etc. \t"
 
 #: apps/configuration/configuration_translations.py:1501
 msgctxt "technologies label"
@@ -5977,12 +5971,9 @@ msgid "Drainage lines, waterways"
 msgstr "Líneas de drenaje, vías fluviales"
 
 #: apps/configuration/configuration_translations.py:2085
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "per technology area"
 msgctxt "technologies label"
 msgid "per Technology area"
-msgstr "por área de tecnología"
+msgstr "por área de Tecnología"
 
 #: apps/configuration/configuration_translations.py:2201
 msgctxt "technologies helptext"
@@ -6814,7 +6805,7 @@ msgstr ""
 "li><li>ángulo de pendiente (antes y luego de implementar Tecnología);</"
 "li><li>pendiente lateral de las estructuras;</li><li>capacidad de los "
 "diques, estanques, etc.;</li><li>área de captación y área benéfica de "
-"diques, estanques, otros sistemas de cosecha de agua; material de "
+"diques, estanques, otros sistemas de cosecha de agua</li><li>material de "
 "construcción utilizado;</li><li>especies usadas;</li><li>\tcantidad/ "
 "densidad de plantas (por ha. )</li></ul>\n"
 " "
@@ -7609,11 +7600,12 @@ msgid ""
 "practice with specific SLM Technologies. In this case, indicate reference to "
 "those SLM Technologies in question 1.6."
 msgstr ""
-"Note que los cuestionarios that WOCAT questionnaires focus on the "
-"documentation and assessment of SLM practices. However, this questionnaire "
-"can also be used to describe a non-sustainable land management practice if "
-"you wish to compare this practice with specific SLM Technologies. In this "
-"case, indicate reference to those SLM Technologies in question 1.6."
+"Nótese que los cuestionarios WOCAT se enfocan en la documentación y la "
+"evaluación de prácticas MST. Sin embargo, este cuestionario también puede "
+"ser usado para describir una práctica de manejo de la tierra no sostenible, "
+"si es que desea comparar esta práctica con otras Tecnologías MST "
+"específicas. En este caso, indique la referencia a aquellas tecnologías MST "
+"en la pregunta 1.6."
 
 #: apps/configuration/configuration_translations.py:2822
 msgctxt "technologies helptext"
@@ -7666,12 +7658,12 @@ msgid ""
 msgstr ""
 "<p>La descripción detallada debe proporcionar un cuadro conciso pero "
 "completo de la Tecnología a las personas externas. Por ello, debe encarar "
-"encara preguntas claves como: </p><ol><li>¿Dónde se aplica la tecnología "
-"(entorno natural y humano)?</li><li> ¿Cuáles son las características/ "
-"elementos principales de la Tecnología (incluyendo especificaciones "
-"técnicas)? </li><li> ¿Cuáles son los propósitos/ funciones de la Tecnología?"
-"</li><li> ¿Qué actividades/insumos principales se requieren para establecer/ "
-"mantener la Tecnología? </li><li>¿Cuáles son los beneficios/ impactos de la "
+"preguntas claves como: </p><ol><li>¿Dónde se aplica la tecnología (entorno "
+"natural y humano)?</li><li> ¿Cuáles son las características/ elementos "
+"principales de la Tecnología (incluyendo especificaciones técnicas)? </"
+"li><li> ¿Cuáles son los propósitos/ funciones de la Tecnología?</li><li> "
+"¿Qué actividades/insumos principales se requieren para establecer/ mantener "
+"la Tecnología? </li><li>¿Cuáles son los beneficios/ impactos de la "
 "Tecnología?</li><li>¿Qué es lo que los usuarios de tierras gustan o no de la "
 "tecnología?</ol><p> Idealmente, la descripción deberá tener una extensión de "
 "entre  2500 -3000 caracteres. El máximo es 3500 caracteres. Se pueden subir "
@@ -7737,8 +7729,8 @@ msgstr ""
 "dibujadas y/o escritas sobre la(s) fotografía(s). Incluya toda la "
 "información técnica posible en los dibujos (o fotografías).</p><p>Mantenga "
 "el dibujo simple y esquemático. ¡El dibujo técnico es crucial para entender "
-"la Tecnología!. Escanee el dibujo y cargue el escaneado.</p><p>\n"
-"111111"
+"la Tecnología! Escanee el dibujo y cargue el escaneado.</p><p><img src=\"/"
+"static/assets/img/qt_technical_drawing.jpg\"></img></p>"
 
 #: apps/configuration/configuration_translations.py:2835
 msgctxt "technologies helptext"
@@ -7942,12 +7934,9 @@ msgid "Links to relevant information which is available online"
 msgstr "Vínculos a la información relevante disponible en línea"
 
 #: apps/configuration/configuration_translations.py:2861
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate the main purpose(s) of the SLM technology"
 msgctxt "technologies label"
 msgid "Main purpose(s) of the Technology"
-msgstr "Indique el/los propósito(s) principales de la Tecnología MST"
+msgstr "Propósito(s) principal(es) de la Tecnología"
 
 #: apps/configuration/configuration_translations.py:2901
 msgctxt "technologies label"
@@ -9182,11 +9171,14 @@ msgid ""
 "can be found in the URL of the video, e.g. https://vimeo.com/"
 "<strong><u>97415985</u></strong>."
 msgstr ""
+"Indique solamente el código ID del video en Vimeo. El ID contiene solamente "
+"números y se puede hallar en la dirección URL del video, por ej., https://"
+"vimeo.com/<strong><u>97415985</u></strong>."
 
 #: apps/configuration/configuration_translations.py:5149
 msgctxt "approaches label"
 msgid "Vimeo ID"
-msgstr ""
+msgstr "Vimeo ID"
 
 #: apps/configuration/configuration_translations.py:5150
 msgctxt "technologies helptext"
@@ -9195,11 +9187,14 @@ msgid ""
 "can be found in the URL of the video, e.g. https://vimeo.com/"
 "<strong><u>97415985</u></strong>."
 msgstr ""
+"Indique solamente el código ID del video en Vimeo. El ID contiene solamente "
+"números y se puede hallar en la dirección URL del video, por ej., https://"
+"vimeo.com/<strong><u>97415985</u></strong>."
 
 #: apps/configuration/configuration_translations.py:5151
 msgctxt "technologies label"
 msgid "Vimeo ID"
-msgstr ""
+msgstr "Vimeo ID"
 
 #: apps/configuration/configuration_translations.py:5501
 msgctxt "wocat label"
@@ -10495,12 +10490,12 @@ msgstr "100%%"
 #: apps/configuration/configuration_translations.py:5759
 msgctxt "approaches label"
 msgid "more than 50 years ago (traditional)"
-msgstr "más de 50 años atrás (tradicional)"
+msgstr "hace más de 50 años atrás (tradicional)"
 
 #: apps/configuration/configuration_translations.py:5760
 msgctxt "technologies label"
 msgid "more than 50 years ago (traditional)"
-msgstr "más de 50 años atrás (tradicional)"
+msgstr "hace más de 50 años atrás (tradicional)"
 
 #: apps/configuration/configuration_translations.py:5761
 msgctxt "approaches label"
@@ -10882,7 +10877,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:7004
 msgctxt "approaches label_view"
 msgid "Involved stakeholders"
-msgstr ""
+msgstr "Partes interesadas involucradas"
 
 #: apps/configuration/configuration_translations.py:7006
 #: apps/configuration/configuration_translations.py:7123
@@ -11861,7 +11856,7 @@ msgstr "áreas de demostración"
 #: apps/configuration/configuration_translations.py:7530
 msgctxt "approaches label"
 msgid "public meetings"
-msgstr "reuniones públicas"
+msgstr "reuniones públicas"
 
 #: apps/configuration/configuration_translations.py:7531
 msgctxt "approaches label"
@@ -13115,12 +13110,9 @@ msgid "Links to relevant information which is available online"
 msgstr "Vínculos a la información relevante disponible en línea"
 
 #: apps/configuration/configuration_translations.py:8789
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Videos of the Approach"
 msgctxt "approaches label"
 msgid "Photos of the Approach"
-msgstr "Videos del Enfoque"
+msgstr "Fotos del Enfoque"
 
 #: apps/configuration/configuration_translations.py:8901
 msgctxt "approaches label"
@@ -13366,7 +13358,7 @@ msgstr "Publicado por"
 #: apps/questionnaire/models.py:62
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:46
 msgid "WOCAT Secretariat"
-msgstr ""
+msgstr "Secretaría WOCAT"
 
 #: apps/questionnaire/models.py:65
 msgid "Land User"
@@ -13384,11 +13376,11 @@ msgstr "Mejores prácticas UNCCD"
 msgid "Set with the method: lock_questionnaire."
 msgstr "Según el método: lock_questionnaire."
 
-#: apps/questionnaire/models.py:900
+#: apps/questionnaire/models.py:901
 msgid "This questionnaire can be edited."
 msgstr "Este cuestionario puede editarse."
 
-#: apps/questionnaire/models.py:902
+#: apps/questionnaire/models.py:903
 msgid "This questionnaire is locked for editing by {}."
 msgstr "Las ediciones de este cuestionario son bloqueadas por {}"
 
@@ -13414,7 +13406,7 @@ msgstr "Resetear todo"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:16
 msgid "New SLM Approach"
-msgstr ""
+msgstr "Nuevo Enfoque MST"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:21
 #: apps/questionnaire/templates/details/category/technologies_header.html:21
@@ -13467,35 +13459,35 @@ msgstr "Próximamente"
 #: apps/questionnaire/templates/details/category/unccd_header.html:61
 #: apps/questionnaire/templates/details/category/with_metadata.html:82
 msgid "View full content"
-msgstr ""
+msgstr "Vea todo el contenido"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:88
 #: apps/questionnaire/templates/details/category/technologies_header.html:88
 #: apps/questionnaire/templates/details/category/unccd_header.html:66
 #: apps/questionnaire/templates/details/category/with_metadata.html:87
 msgid "Print summary"
-msgstr ""
+msgstr "Imprima el sumario"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:97
 #: apps/questionnaire/templates/details/category/technologies_header.html:97
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/with_metadata.html:96
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:109
 #: apps/questionnaire/templates/details/category/technologies_header.html:109
 #: apps/questionnaire/templates/details/category/unccd_header.html:83
 #: apps/questionnaire/templates/details/category/with_metadata.html:108
 msgid "View sections"
-msgstr ""
+msgstr "Visualizar secciones"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:110
 #: apps/questionnaire/templates/details/category/technologies_header.html:110
 #: apps/questionnaire/templates/details/category/unccd_header.html:84
 #: apps/questionnaire/templates/details/category/with_metadata.html:109
 msgid "Expand all"
-msgstr ""
+msgstr "Expandir todo"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:128
 #: apps/questionnaire/templates/details/category/default.html:19
@@ -13511,7 +13503,7 @@ msgstr "Editar esta sección"
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/with_metadata.html:141
 msgid "Empty section"
-msgstr ""
+msgstr "Sección vacía"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
 #: apps/technologies/views.py:48 apps/wocat/templates/wocat/partial/top.html:14
@@ -13520,7 +13512,7 @@ msgstr "Tecnologías"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:16
 msgid "New SLM Technology"
-msgstr ""
+msgstr "Nueva Tecnología MST"
 
 #: apps/questionnaire/templates/details/category/unccd_header.html:53
 msgid "Comments"
@@ -13590,10 +13582,14 @@ msgid ""
 "Approach.\n"
 "              "
 msgstr ""
+"\n"
+"              Usted es <strong>%(role)s</strong> de esta Tecnología/ "
+"Enfpoque MST.\n"
+"              "
 
 #: apps/questionnaire/templates/details/review_panel.html:32
 msgid "Learn more about the review process."
-msgstr ""
+msgstr "Aprenda más del proceso de revisión."
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:49
 msgid "Search user"
@@ -14083,6 +14079,8 @@ msgid ""
 "A PDF version of the paper questionnaire can be %(start_link)sdownloaded here"
 "%(end_link)s."
 msgstr ""
+"Se puede descargar una versión en PDF del documento impreso "
+"%(start_link)saquí%(end_link)s."
 
 #: apps/questionnaire/templates/details/review_panel/welcome.html:29
 msgid "Take a tour"
@@ -14097,11 +14095,11 @@ msgstr "Comience a ingresar datos"
 #: apps/wocat/templates/wocat/help/review_process.html:14
 #: apps/wocat/templates/wocat/help/review_process.html:21
 msgid "Review process"
-msgstr ""
+msgstr "Proceso de revisión"
 
 #: apps/questionnaire/templates/details/review_panel/welcome.html:43
 msgid "Click the image for a larger version of it."
-msgstr ""
+msgstr "Haga clic en la imagen para tener una versión más grande de ella. "
 
 #: apps/questionnaire/templates/details/section/list_in_progress.html:4
 msgid ""
@@ -14683,24 +14681,24 @@ msgstr "El cuestionario fue exitosamente eliminado"
 #: apps/sample/templates/sample/questionnaire/list.html:15
 #: apps/wocat/templates/wocat/questionnaire/list.html:15
 msgid "Select or type a country name"
-msgstr ""
+msgstr "Elija o escriba el nombre de un país"
 
 #: apps/sample/templates/sample/questionnaire/list.html:32
 #: apps/wocat/templates/wocat/questionnaire/list.html:32
 msgid "Project"
-msgstr ""
+msgstr "Proyecto"
 
 #: apps/sample/templates/sample/questionnaire/list.html:33
 #: apps/wocat/templates/wocat/questionnaire/list.html:33
 msgid "Select or type a project name"
-msgstr ""
+msgstr "Elija o escriba el nombre de un proyecto"
 
 #: apps/sample/templates/sample/questionnaire/list.html:45
 #: apps/wocat/templates/wocat/partial/search.html:11
 #: apps/wocat/templates/wocat/questionnaire/list.html:45
 #: templates/base.html:151
 msgid "Search SLM Data"
-msgstr ""
+msgstr "Busque datos MST "
 
 #: apps/sample/templates/sample/questionnaire/list.html:47
 #: apps/sample/templates/sample/questionnaire/list.html:49
@@ -14709,7 +14707,7 @@ msgstr ""
 #: apps/wocat/templates/wocat/questionnaire/list.html:47
 #: apps/wocat/templates/wocat/questionnaire/list.html:49
 msgid "All SLM Data"
-msgstr ""
+msgstr "Todos los datos MST"
 
 #: apps/sample/templates/sample/questionnaire/list.html:50
 #: apps/technologies/templates/technologies/questionnaire/list.html:17
@@ -14744,7 +14742,7 @@ msgstr "MUESTRA"
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:69
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:69
 msgid "This SLM Technology is linked to SLM Approaches"
-msgstr ""
+msgstr "Esta Tecnología MST está vinculada a Enfoques MST"
 
 #: apps/samplemulti/templates/samplemulti/questionnaire/list.html:15
 msgid "[SAMPLEMULTI] All technologies"
@@ -14806,7 +14804,7 @@ msgstr "No se hallaron mejores prácticas MST."
 
 #: apps/wocat/templates/wocat/add_module.html:9
 msgid "Add SLM Module"
-msgstr ""
+msgstr "Agregue Módulo MST "
 
 #: apps/wocat/templates/wocat/add_module.html:12
 msgid ""
@@ -14814,10 +14812,14 @@ msgid ""
 "“Watershed/ Technology Systems”. (Further modules are in discussion: "
 "“Climate Change Mitigation/ Carbon Benefits” and “Disaster Risk Reduction”)"
 msgstr ""
+"Actualmente, hay dos módulos en preparación: “Adaptación al cambio "
+"climático” y “Sistemas de cuencas/Tecnología”. (Se están discutiendo otros "
+"módulos adicionales: “Mitigación del cambio climático/ beneficios de "
+"carbono” y “Reducción de riesgos de desastre”)"
 
 #: apps/wocat/templates/wocat/add_practice.html:12
 msgid "Add SLM Practice"
-msgstr ""
+msgstr "Agregue práctica MST"
 
 #: apps/wocat/templates/wocat/add_practice.html:15
 msgid ""
@@ -14826,10 +14828,14 @@ msgid ""
 "and Approach sections, and then link them. However, it is also possible to "
 "add a Technology or an Approach without its counterpart."
 msgstr ""
+"Las Tecnologías y Enfoques usualmente se combinan para proporcionar un "
+"cuadro comprensivo de una práctica MST. Idealmente, usted llenaría tanto las "
+"secciones de Tecnología y Enfoque, y luego las vincularía.  Sin embargo, "
+"también es posible agregar una Tecnología o un Enfoque sin su contraparte. "
 
 #: apps/wocat/templates/wocat/add_practice.html:31
 msgid "SLM Technology"
-msgstr ""
+msgstr "Tecnología MST"
 
 #: apps/wocat/templates/wocat/add_practice.html:32
 #: apps/wocat/templates/wocat/home.html:97
@@ -14838,6 +14844,9 @@ msgid ""
 "controls land degradation and enhances productivity and/ or other ecosystem "
 "services."
 msgstr ""
+"Una <strong>Tecnología MST</strong> es una práctica de manejo de tierras que "
+"controla la degradación de las tierras y fortalece la productividad y/ u "
+"otros servicios de ecosistemas."
 
 #: apps/wocat/templates/wocat/add_practice.html:33
 #: apps/wocat/templates/wocat/add_practice.html:50
@@ -14845,11 +14854,11 @@ msgstr ""
 #: apps/wocat/templates/wocat/partial/add.html:39
 #: apps/wocat/templates/wocat/partial/add.html:61
 msgid "Add"
-msgstr ""
+msgstr "Agregar"
 
 #: apps/wocat/templates/wocat/add_practice.html:48
 msgid "SLM Approach"
-msgstr ""
+msgstr "Enfoque MST"
 
 #: apps/wocat/templates/wocat/add_practice.html:49
 msgid ""
@@ -14857,6 +14866,9 @@ msgid ""
 "implement a SLM Technology, including the stakeholders involved and their "
 "roles."
 msgstr ""
+"Un <strong>Enfoque MST</strong> define las maneras y medios usados para "
+"implementar una Tecnología MST, e incluye a las partes interesadas "
+"involucradas y sus roles."
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:6
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
@@ -15053,6 +15065,8 @@ msgid ""
 "Editors can edit the SLM Technology / Approach, but they cannot submit it "
 "for review or invite other editors."
 msgstr ""
+"Los editores pueden editar la Tecnología/ el Enfoque MST, pero no pueden "
+"enviarla para ser revisada ni invitar a otros editores."
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:22
 msgid ""
@@ -15060,32 +15074,42 @@ msgid ""
 "(WOCAT users) to help create it. Once the data entry is complete the "
 "compiler can submit it for review."
 msgstr ""
+"El compilador es responsable de ingresar estos datos y puede invitar a "
+"editores (usuarios WOCAT) para que ayuden a crearlo. Una vez que el ingreso "
+"de datos se haya completado, el compilador puede enviarlos para que sean "
+"revisados. "
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:31
 msgid ""
 "The reviewer can approve or reject the SLM Technology / Approach and can "
 "edit it."
 msgstr ""
+"El revisor puede aprobar o rechazar la Tecnología/ el Enfoque MST y puede "
+"editarlo."
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:40
 msgid ""
 "The publisher can approve or reject the SLM Technology / Approach and can "
 "edit it."
 msgstr ""
+"El publicador puede aprobar o rechazar la Tecnología/ el Enfoque MST y puede "
+"editarlo."
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:49
 msgid ""
 "The WOCAT Secretariat can review and publish the SLM Technology / Approach. "
 "The secretariat can also assign reviewers and publishers."
 msgstr ""
+"La Secretaría de WOCAT puede revisar y publicar la Tecnología/ el Enfoque "
+"MST. La secretaría también puede asignar revisores y publicadores."
 
 #: apps/wocat/templates/wocat/help/review_process.html:18
 msgid "Process"
-msgstr ""
+msgstr "Proceso"
 
 #: apps/wocat/templates/wocat/help/review_process.html:27
 msgid "Roles"
-msgstr ""
+msgstr "Roles"
 
 #: apps/wocat/templates/wocat/home.html:27
 #: apps/wocat/templates/wocat/home.html:35
@@ -15093,37 +15117,39 @@ msgstr ""
 #: apps/wocat/templates/wocat/home.html:51
 #: apps/wocat/templates/wocat/home.html:59
 msgid "the Global Database on Sustainable Land Management"
-msgstr ""
+msgstr "la base de datos Mundial de Manejo Sostenible de Tierras"
 
 #: apps/wocat/templates/wocat/home.html:28
 msgid "is the primary recommended database by UNCCD"
-msgstr ""
+msgstr "es la principal base de datos recomendada por CLD"
 
 #: apps/wocat/templates/wocat/home.html:36
 msgid "is open access and contains over 500 SLM practices"
-msgstr ""
+msgstr "es de acceso libre y contiene más de 500 prácticas MST"
 
 #: apps/wocat/templates/wocat/home.html:44
 msgid "is a standardized and modular system"
-msgstr ""
+msgstr "es un sistema estandarizado y modular"
 
 #: apps/wocat/templates/wocat/home.html:52
 msgid "supports knowledge sharing and evidence-based decision-making"
 msgstr ""
+"apoya el intercambio de conocimiento y la toma de decisiones basada en "
+"evidencias"
 
 #: apps/wocat/templates/wocat/home.html:60
 msgid "welcomes you to join!"
-msgstr ""
+msgstr "lo invita a unirse!"
 
 #: apps/wocat/templates/wocat/home.html:72
 msgid "Search SLM data"
-msgstr ""
+msgstr "Busque datos MST"
 
 #: apps/wocat/templates/wocat/home.html:98
 #: apps/wocat/templates/wocat/home.html:115
 #: apps/wocat/templates/wocat/home.html:133
 msgid "View all"
-msgstr ""
+msgstr "Visualizar todo"
 
 #: apps/wocat/templates/wocat/home.html:114
 msgid ""
@@ -15131,11 +15157,14 @@ msgid ""
 "implement an SLM Technology, including the stakeholders involved and their "
 "roles."
 msgstr ""
+"Un <strong>Enfoque MST</strong> define las maneras y medios usados para "
+"implementar una Tecnología MST, e incluye a las partes interesadas "
+"involucradas y sus roles.  "
 
 #: apps/wocat/templates/wocat/home.html:130
 #: apps/wocat/templates/wocat/partial/add.html:36
 msgid "SLM Maps"
-msgstr ""
+msgstr "Mapas MST"
 
 #: apps/wocat/templates/wocat/home.html:131
 #: apps/wocat/templates/wocat/partial/add.html:37
@@ -15143,6 +15172,8 @@ msgid ""
 "An <strong>SLM Map</strong> analyses and depicts the spatial distribution of "
 "SLM and land degradation processes, causes, and impacts."
 msgstr ""
+"Un <strong>Mapa MST</strong> analiza y representa la distribución espacial "
+"de procesos MST y de degradación de las tierras, causas e impactos.  "
 
 #: apps/wocat/templates/wocat/home.html:132
 #: apps/wocat/templates/wocat/partial/add.html:38
@@ -15150,41 +15181,47 @@ msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
 "or added in the old database (QM)."
 msgstr ""
+"Actualmente, los mapas todavía no se hallan disponibles en la nueva base de "
+"datos. Se pueden visualizar o agregar los mapas en la antigua base de datos "
+"(QM).  "
 
 #: apps/wocat/templates/wocat/partial/add.html:19
 msgid "SLM Practices"
-msgstr ""
+msgstr "Prácticas MST"
 
 #: apps/wocat/templates/wocat/partial/add.html:20
 msgid ""
 "<strong>SLM practices</strong> comprise SLM Technologies and SLM Approaches"
 msgstr ""
+"Las <strong>prácticas MST</strong> comprenden Tecnologías MST y Enfoques MST "
 
 #: apps/wocat/templates/wocat/partial/add.html:58
 msgid "Modules"
-msgstr ""
+msgstr "Módulos"
 
 #: apps/wocat/templates/wocat/partial/add.html:59
 msgid ""
 "Modules provide in-depth information on specific topics related to SLM "
 "Technologies and Approaches"
 msgstr ""
+"Los módulos proporcionan información en profundidad sobre temas específicos "
+"relacionados a Tecnologías y Enfoques MST."
 
 #: apps/wocat/templates/wocat/partial/add.html:60
 msgid "Modules will be coming soon to the new database."
-msgstr ""
+msgstr "Pronto se introducirán módulos a la nueva base de datos."
 
 #: apps/wocat/templates/wocat/partial/advanced_filter.html:12
 msgid "Filter for SLM Technologies"
-msgstr ""
+msgstr "Filtro para Tecnologías SLM"
 
 #: apps/wocat/templates/wocat/partial/advanced_filter.html:251
 msgid "Filter for SLM Approaches"
-msgstr ""
+msgstr "Filtro para Enfoques MST"
 
 #: apps/wocat/templates/wocat/partial/advanced_filter.html:349
 msgid "Technical support"
-msgstr ""
+msgstr "Apoyo Técnico"
 
 #: apps/wocat/templates/wocat/partial/top.html:22
 msgid "All SLM practices"
@@ -15276,7 +15313,7 @@ msgstr "Salir"
 
 #: templates/base.html:153
 msgid "My SLM Data"
-msgstr ""
+msgstr "Mis Datos MST"
 
 #: templates/base.html:198
 msgid "About"

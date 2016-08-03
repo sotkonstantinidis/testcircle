@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-02 11:10+0200\n"
+"POT-Creation-Date: 2016-08-03 15:21+0200\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11742,11 +11742,11 @@ msgstr ""
 msgid "Set with the method: lock_questionnaire."
 msgstr ""
 
-#: apps/questionnaire/models.py:900
+#: apps/questionnaire/models.py:901
 msgid "This questionnaire can be edited."
 msgstr ""
 
-#: apps/questionnaire/models.py:902
+#: apps/questionnaire/models.py:903
 msgid "This questionnaire is locked for editing by {}."
 msgstr ""
 
