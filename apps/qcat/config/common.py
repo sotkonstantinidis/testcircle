@@ -178,6 +178,9 @@ class BaseSettings(Configuration):
         ('en', 'english'),
         ('es', 'spanish'),
     )
+    # https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-query-string-query.html#_reserved_characters
+    ES_QUERY_RESERVED_CHARS = ['\\', '+', '-', '=', '&&', '||', '>', '<', '!', '(', ')', '{', '}', '[', ']', '^', '"',
+                               '~', '*', '?', ':', '/']
 
     MESSAGE_TAGS = {
         messages.INFO: 'secondary',
