@@ -40,11 +40,12 @@ class LogListView(LoginRequiredMixin, ListView):
             'log__id', flat=True
         )
 
-    def get_is_todo(self, status: int, action: int) -> bool:
+    def get_is_todo(self, status: int, action: int, log_status: int) -> bool:
         """
-        For all actions that are a status change, check if current user has permissions to handle the questionnaire.
+        For all actions that are a status change, check if current user has permissions to handle the questionnaire and
+        the questionnaires status is still the same as when the log was created (=no one reviewed the questionnaire).
         """
-        return action is settings.NOTIFICATIONS_CHANGE_STATUS and status in self.todo_statuses
+        return action is settings.NOTIFICATIONS_CHANGE_STATUS and status is log_status and status in self.todo_statuses
 
     def add_user_aware_data(self, logs) -> Iterable:
         """
@@ -65,7 +66,10 @@ class LogListView(LoginRequiredMixin, ListView):
                 'created': log.created,
                 'text': log.get_linked_subject(user=self.request.user),
                 'is_read': log.id in readlog_list,
-                'is_todo': self.get_is_todo(status=log.questionnaire.status, action=log.action)
+                'is_todo': self.get_is_todo(
+                    status=log.questionnaire.status, action=log.action,
+                    log_status=log.statusupdate.status if hasattr(log, 'statusupdate') else None
+                )
             }
 
     @property
@@ -144,3 +148,14 @@ class ReadLogUpdateView(LoginRequiredMixin, View):
         else:
             logging.error('Invalid attempt to update a ReadLog (data: {})'.format(data))
             raise Http404()
+
+
+class LogCountView(View):
+    """
+    Get the current number of 'pending' notifications for the current user. Used to display the indicator with
+    number next to the username in the menu.
+    """
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse(content=Log.actions.user_log_count(user=self.request.user))

@@ -24,7 +24,7 @@
           $(document).ready(function() {
             $('#notifications-list').bindNotificationActions({
               read_url: '{% url 'notification_read' %}',
-              notifications_url: '{% url 'notification_partial_list' %}',
+              notifications_url: '{% url 'notification_partial_list' %}?{{ request.GET.keys|join:"&" }}',
               user: '{{ request.user.id }}'
             });
           });

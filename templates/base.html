@@ -107,7 +107,7 @@
         <section class="top-bar-section">
           <ul class="right">
             {% if user.is_authenticated %}
-              <li class="has-dropdown">
+              <li class="has-dropdown user-menu">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
                   <li><a href="{% url 'account_questionnaires' %}">{% trans "My SLM practices" %}</a></li>
@@ -186,6 +186,23 @@
       <script src="{% static 'js/foundation.min.js' %}"></script>
       <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
       <script src="{% static 'js/main.min.js' %}"></script>
+      <script>
+      $(function() {
+        // load indicator for new pending tasks - if any (not zero) are available.
+        const userMenu = $('.user-menu');
+        if (userMenu.length !== 0) {
+          $.ajax({
+            url: '{% url 'notification_new_count' %}',
+            method: 'GET'
+          }).done(function(data) {
+            if (data !== '0') {
+              var element = '<a href="{% url 'notification_list' %}?is_pending" class="notification-indicator"><span class="label is-pending round">' + data +'</span></a>';
+             userMenu.before('<li>' + element + '</li>');
+            }
+          });
+        }
+      });
+      </script>
     {% endcompress %}
     <!-- Block for js within specific templates. Add compress in the template.  -->
     {% render_block "js" %}
