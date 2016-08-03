@@ -18,7 +18,8 @@ from .conf import settings
 
 class ActionContextQuerySet(models.QuerySet):
     """
-    Filters actions according to context. E.g. get actions for my profile notifications, get actions for emails.
+    Filters actions according to context. E.g. get actions for my profile
+    notifications, get actions for emails.
     """
     def get_questionnaires_for_permissions(self, *user_permissions) -> list:
         """
@@ -35,11 +36,14 @@ class ActionContextQuerySet(models.QuerySet):
     def user_log_list(self, user: User):
         """
         Fetch all logs where given user is
-        - either catalyst or subscriber of the log (set the moment the log was created)
+        - either catalyst or subscriber of the log (set the moment the log was
+          created)
         - permitted to see the log as defined by the role.
         """
         # construct filters depending on the users permissions.
-        status_filters = self.get_questionnaires_for_permissions(*user.get_all_permissions())
+        status_filters = self.get_questionnaires_for_permissions(
+            *user.get_all_permissions()
+        )
         # extend basic filters according to catalyst / subscriber
         status_filters.extend([Q(subscribers=user), Q(catalyst=user)])
 
@@ -52,21 +56,26 @@ class ActionContextQuerySet(models.QuerySet):
     def user_pending_list(self, user: User):
         """
         Get logs that the user has to work on. Defined by:
-        - the questionnaire still has the same status as when the log was created (=no one else gave the 'ok' for the
+        - the questionnaire still has the same status as when the log was
+          created (=no one else gave the 'ok' for the
           next step)
-        - user has the permissions to 'ok' the questionnaire for the next review step
+        - user has the permissions to 'ok' the questionnaire for the next
+          review step
         - notification is not marked as read
         """
-        status_filters = self.get_questionnaires_for_permissions(*user.get_all_permissions())
+        status_filters = self.get_questionnaires_for_permissions(
+            *user.get_all_permissions()
+        )
         if not status_filters:
             return self.none()
 
         return self.filter(
-            action=settings.NOTIFICATIONS_CHANGE_STATUS, statusupdate__status=F('questionnaire__status')
+            action=settings.NOTIFICATIONS_CHANGE_STATUS,
+            statusupdate__status=F('questionnaire__status')
         ).filter(
             functools.reduce(operator.or_, status_filters)
         ).exclude(
-            id__in=self._read_ids(user=user)
+            id__in=self.read_ids(user=user)
         )
 
     def email(self):
@@ -82,38 +91,54 @@ class ActionContextQuerySet(models.QuerySet):
         qs = self.user_pending_list(
             user=user
         ).exclude(
-            id__in=self._read_ids(user=user)
+            id__in=self.read_ids(user=user)
         ).only(
             'id'
         )
         return qs.count()
 
-    def _read_ids(self, user: User):
-        return ReadLog.objects.filter(user=user, is_read=True).values_list('log__id', flat=True)
+    def read_ids(self, user: User, **filters) -> list:
+        """
+        Return a list with all log_ids that are read for given user.
+        """
+        return ReadLog.objects.only(
+            'log__id'
+        ).filter(
+            user=user, is_read=True, **filters
+        ).values_list(
+            'log__id', flat=True
+        )
 
 
 class Log(models.Model):
     """
-    Represent a change of the questionnaire. This may be an update of the content or a change in the status.
-    New logs should be created only by the receivers only.
+    Represent a change of the questionnaire. This may be an update of the
+    content or a change in the status. New logs should be created only by the
+    receivers only.
 
     If the triggering action is a status change, a StatusUpdate is created.
     If the triggering action is a content change, a ContentUpdate is created.
     If the triggering action is a membership change, a MemberUpdate is created.
 
     These models are structured in this way that:
-    - emails can be sent easily (sender, receivers, subject, message are available)
-    - all logs for a questionnaire can be found easily (Log.objects.filter(questionnaire__code='foo')
+    - emails can be sent easily (sender, receivers, subject, message are
+      available)
+    - all logs for a questionnaire can be found easily
+      (Log.objects.filter(questionnaire__code='foo')
     - all logs for a user can be found easily
 
-    Dividing StatusUpdate, MemberUpdate and ContentUpdate is a heuristic choice in order to prevent many empty cells
-    on the db. It is expected that more ContentUpdates are created.
+    Dividing StatusUpdate, MemberUpdate and ContentUpdate is a heuristic choice
+    in order to prevent many empty cells on the db. It is expected that more
+    ContentUpdates are created.
 
     """
     created = models.DateTimeField(auto_now_add=True)
-    catalyst = models.ForeignKey(User, related_name='catalyst', help_text='Person triggering the log')
+    catalyst = models.ForeignKey(
+        User, related_name='catalyst', help_text='Person triggering the log'
+    )
     subscribers = models.ManyToManyField(
-        User, related_name='subscribers', help_text='All people that are members of the questionnaire'
+        User, related_name='subscribers',
+        help_text='All people that are members of the questionnaire'
     )
     questionnaire = models.ForeignKey(Questionnaire)
     action = models.PositiveIntegerField(choices=settings.NOTIFICATIONS_ACTIONS)
@@ -137,19 +162,22 @@ class Log(models.Model):
         """
         if self.is_content_update:
             return _('{person} edited the questionnaire {code}'.format(
-                person=self.catalyst.get_display_name(), code=self.questionnaire.code
+                person=self.catalyst.get_display_name(),
+                code=self.questionnaire.code
             ))
         else:
-            # todo: this is not always correct - member changes. fix this as soon as this method is used to send mails.
+            # todo: this is not always correct - member changes. fix this as
+            # soon as this method is used to send mails.
             return _('{questionnaire} has a new status: {status}'.format(
-                questionnaire=self.questionnaire.code, status=self.statusupdate.get_status_display()
+                questionnaire=self.questionnaire.code,
+                status=self.statusupdate.get_status_display()
             ))
 
     def message(self, user: User) -> str:
         """
         Fetch the message from the related model depending on the action.
         """
-        return self.contentupdate.difference if self.is_content_update else self.get_linked_subject(user)
+        return self.contentupdate.difference if self.is_content_update else self.get_linked_subject(user)  # noqa
 
     @cached_property
     def is_content_update(self) -> bool:
@@ -157,21 +185,26 @@ class Log(models.Model):
 
     def get_linked_subject(self, user: User) -> str:
         """
-        The subject with links to questionnaire and catalyst, according to the type of the action.
-        Use the integer as template name, as this value is fixed (opposed to the verbose name).
+        The subject with links to questionnaire and catalyst, according to the
+        type of the action. Use the integer as template name, as this value is
+        fixed (opposed to the verbose name).
         """
         if self.action in settings.NOTIFICATIONS_USER_PROFILE_ACTIONS:
-            return render_to_string('notifications/subject/{}.html'.format(self.action), {'log': self, 'user': user})
+            return render_to_string('notifications/subject/{}.html'.format(
+                self.action
+            ), {'log': self, 'user': user})
 
 
 class StatusUpdate(models.Model):
     """
-    Store the status of the questionnaire in the moment that the log is created for all changes regarding the
-    publication cycle.
+    Store the status of the questionnaire in the moment that the log is created
+    for all changes regarding the publication cycle.
 
     """
     log = models.OneToOneField(Log)
-    status = models.PositiveIntegerField(choices=STATUSES, null=True, blank=True)
+    status = models.PositiveIntegerField(
+        choices=STATUSES, null=True, blank=True
+    )
 
 
 class MemberUpdate(models.Model):
@@ -192,11 +225,14 @@ class ContentUpdate(models.Model):
 
     def difference(self) -> dict:
         """
-        If the selected package provides consistent results, we may store the diff only. Until then, store the whole
-        data and calculate the diff when required.
+        If the selected package provides consistent results, we may store the
+        diff only. Until then, store the whole data and calculate the diff when
+        required.
         """
         with contextlib.suppress(Log.DoesNotExist):
-            previous = self.log.get_previous_by_created(contentupdate__isnull=False)
+            previous = self.log.get_previous_by_created(
+                contentupdate__isnull=False
+            )
             # calculate diff here.
             return self.data
         return {}
@@ -204,8 +240,10 @@ class ContentUpdate(models.Model):
 
 class ReadLog(models.Model):
     """
-    Store the 'is_done' state for each user. This is more or less equivalent to the 'read' state in any email program.
-    This can't be handled in the 'through' model of the subscriber, as the status must also be stored for the catalyst.
+    Store the 'is_done' state for each user. This is more or less equivalent to
+    the 'read' state in any email program. This can't be handled in the
+    'through' model of the subscriber, as the status must also be stored for
+        the catalyst.
     """
     log = models.ForeignKey(Log, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
