@@ -27,6 +27,9 @@
         <script>
           $(function() {
             const notificationList = $('#notifications-list');
+            const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
+
+            notificationList.html(spinner);
             notificationList.bindNotificationActions({
               read_url: '{% url 'notification_read' %}',
               notifications_url: '{% url 'notification_partial_list' %}?{{ request.GET.keys|join:"&" }}',
@@ -34,7 +37,9 @@
             });
 
             $('#is-pending').on('click', function() {
+              notificationList.html(spinner);
               var isPending = $(this).is(':checked') ? '?is_pending' : '';
+              notificationList.html();
               $.ajax({
                 url: '{% url 'notification_partial_list' %}' + isPending,
                 method: 'GET'
