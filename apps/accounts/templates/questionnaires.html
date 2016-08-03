@@ -9,22 +9,23 @@
 {% block navclass %}is-wocat{% endblock %}
 
 {% block content %}
-    <main class="row" role="main">
-      <div class="small-12 columns">
-        <h1 class="is-title">{% trans "My SLM data" %}
-          <a href="{% url 'wocat:add' %}" class="button large right">{% trans "Add SLM data" %}</a>
-        </h1>
-      </div>
-      <div class="small-12 columns">
-        <section class="tech-list small-12 columns">
-          <div class="tech-group">
-            <h2 class="is-group">{% trans "Latest updates" %}</h2>
-            <div id="latest-notification-updates"></div>
-            <div><a href="{% url 'notification_list' %}">{% trans "See all updates" %}</a></div>
-          </div>
-        </section>
-      </div>
-      <div class="small-12 columns">
+  <main class="row" role="main">
+    <div class="small-12 columns">
+      <h1 class="is-title">{% trans "My SLM data" %}
+        <a href="{% url 'wocat:add' %}" class="button large right">{% trans "Add SLM data" %}</a>
+      </h1>
+    </div>
+    <div class="small-12 columns">
+      <section class="tech-list small-12 columns">
+        <div class="tech-group">
+          <h2 class="is-group">{% trans "Latest updates" %}
+            <a class="right" href="{% url 'notification_list' %}">{% trans "All updates" %}</a>
+          </h2>
+          <div id="latest-notification-updates"></div>
+        </div>
+      </section>
+    </div>
+    <div class="small-12 columns">
       {% for status, name in statuses.items %}
         <section class="tech-list small-12 columns">
           <div class="tech-group">
@@ -35,62 +36,53 @@
           </div>
         </section>
       {% endfor %}
-      </div>
-    </main>
-    {% addtoblock 'js' %}
-      {% compress js %}
-        <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
-        <script src="{% static 'notifications/js/isRead.js' %}"></script>
-        <script>
-          $(document).ready(function() {
+    </div>
+  </main>
+  {% addtoblock 'js' %}
+    {% compress js %}
+      <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
+      <script src="{% static 'notifications/js/notificationActions.js' %}"></script>
+      <script>
+        $(document).ready(function() {
 
-            const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
-            const latestUpdatesContainer = $('#latest-notification-updates');
-            const workflowActionContainer = $('#workflow-action-required');
+          const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
+          const latestUpdatesContainer = $('#latest-notification-updates');
 
-            // load latest updates
-            latestUpdatesContainer.html(spinner);
+          // initialize isRead plugin.
+          latestUpdatesContainer.bindNotificationActions({
+            read_url: '{% url 'notification_read' %}',
+            notifications_url: '{% url 'notification_partial_list' %}?is_teaser',
+            user: '{{ request.user.id }}'
+          });
+
+          // helper to execute the ajax call and replace the container with the response.
+          var loadQuestionnaires = function(status, page) {
             $.ajax({
-              url: '{% url 'notification_list_teaser' %}',
+              url: '{% url 'questionnaires_status_list' %}?status=' + status + '&page=' + page,
               method: 'GET'
             }).done(function(data) {
-              latestUpdatesContainer.html(data);
+              $('#status-' + status).html(data);
             });
+          };
 
-            // initialize isRead plugin.
-            latestUpdatesContainer.bindIsReadAction({
-              url: '{% url 'notification_read' %}',
-              user: '{{ request.user.id }}'
-            });
-
-            // helper to execute the ajax call and replace the container with the response.
-            var loadQuestionnaires = function(status, page) {
-              $.ajax({
-                url: '{% url 'questionnaires_status_list' %}?status=' + status + '&page=' + page,
-                method: 'GET'
-              }).done(function(data) {
-                $('#status-' + status).html(data);
-              });
-            };
-
-            // load data when initializing the dom. display a spinner, as this may require loading the configuration
-            // thus may take some time.
-            $('[data-status]').each(function() {
-              var status = $(this).data('status');
-              $('#status-' + status).html(spinner);
-              loadQuestionnaires(status, 1);
-            });
-
-            // load data on click on paginator
-            $('.questionnaire-status-list').on('click', 'ul.pagination li a', function() {
-              var page = $(this).data('page');
-              if (page.length !== 0) {
-                loadQuestionnaires($(this).data('status'), page)
-              }
-              return false;
-            });
+          // load data when initializing the dom. display a spinner, as this may require loading the configuration
+          // thus may take some time.
+          $('[data-status]').each(function() {
+            var status = $(this).data('status');
+            $('#status-' + status).html(spinner);
+            loadQuestionnaires(status, 1);
           });
-        </script>
-      {% endcompress %}
-    {% endaddtoblock %}
+
+          // load data on click on paginator
+          $('.questionnaire-status-list').on('click', 'ul.pagination li a', function() {
+            var page = $(this).data('page');
+            if (page.length !== 0) {
+              loadQuestionnaires($(this).data('status'), page)
+            }
+            return false;
+          });
+        });
+      </script>
+    {% endcompress %}
+  {% endaddtoblock %}
 {% endblock %}

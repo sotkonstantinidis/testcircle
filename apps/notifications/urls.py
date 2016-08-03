@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, url
+from django.views.generic import TemplateView
 
-from .views import LogListView, LogListTeaserView, ReadLogUpdateView
+from .views import LogListView, ReadLogUpdateView
 
 
 urlpatterns = patterns(
     '',
-    url(r'^$', LogListView.as_view(), name='notification_list'),
-    url(r'^teaser/$', LogListTeaserView.as_view(), name='notification_list_teaser'),
+    url(r'^$', TemplateView.as_view(template_name='notifications/log_list.html'), name='notification_list'),
+    url(r'^partial/$', LogListView.as_view(), name='notification_partial_list'),
     url(r'^read/$', ReadLogUpdateView.as_view(), name='notification_read'),
 )

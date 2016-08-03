@@ -1,13 +1,13 @@
 import logging
 from typing import Iterable
 
+from django.conf import settings
 from django.http import Http404
 from django.http import HttpResponse
-from django.views.generic import ListView
-from django.conf import settings
+from django.views.generic import ListView, View
 
 from braces.views import LoginRequiredMixin
-from django.views.generic import View
+from qcat.utils import url_with_querystring
 
 from .models import Log, ReadLog
 
@@ -17,20 +17,17 @@ logger = logging.getLogger(__name__)
 
 class LogListView(LoginRequiredMixin, ListView):
     """
-    Display logs which the current user is a reciepient of.
+    Display logs for the current user.
+
+    This view accepts following parameters as get-querystrings:
+    - page (default django pagination)
+    - is_teaser: smaller pagination size
+    - is_pending: only logs that are 'to do' for the user
+
     """
-    context_object_name = 'logs'
-    template_name = 'notifications/log_list.html'
-    paginate_by = settings.NOTIFICATIONS_LIST_PAGINATE_BY
-    queryset_method = 'user_log_list'
+    template_name = 'notifications/partial/list.html'
 
-    def get_log_ids(self, logs) -> list:
-        """
-        Returns a list with all ids for given logs. Used to filter the readlogs.
-        """
-        return logs.values_list('id', flat=True)
-
-    def get_readlog_list(self, logs) -> list:
+    def get_readlog_list(self, *log_ids) -> list:
         """
         Create a list with all log_ids that are 'read' for the current user. By creating this list, the db is hit only
         once instead of n (paginate_by) times.
@@ -38,7 +35,7 @@ class LogListView(LoginRequiredMixin, ListView):
         return ReadLog.objects.only(
             'log__id'
         ).filter(
-            log__id__in=self.get_log_ids(logs), user=self.request.user, is_read=True
+            user=self.request.user, is_read=True, log__id__in=log_ids
         ).values_list(
             'log__id', flat=True
         )
@@ -51,9 +48,11 @@ class LogListView(LoginRequiredMixin, ListView):
 
     def add_user_aware_data(self, logs) -> Iterable:
         """
-        The method 'get_linked_subject' requires a user. Provide all info required for the template.
+        Provide all info required for the template, so as little logic as possible is required within the template.
         """
-        readlog_list = self.get_readlog_list(logs=logs)
+        # All logs with the status 'read' for the logs on display.
+        readlog_list = self.get_readlog_list(*logs.values_list('id', flat=True))
+
         # A list with all statuses that the current user is allowed to handle.
         self.todo_statuses = [
             status for permission, status in settings.NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS.items()
@@ -69,31 +68,45 @@ class LogListView(LoginRequiredMixin, ListView):
                 'is_todo': self.get_is_todo(status=log.questionnaire.status, action=log.action)
             }
 
-    def get_logs(self):
+    @property
+    def queryset_method(self):
         """
-        Use own method (not get_queryset), so the teaser view can slice the queryset.
+        Get the proper method name according to the GET request.
         """
-        return Log.actions.user_log_list(user=self.request.user)
+        return 'user_pending_list' if 'is_pending' in self.request.GET.keys() else 'user_log_list'
 
-    def get_queryset(self) -> list:
+    def get_paginate_by(self, queryset) -> int:
         """
-        Fetch notifications for the current user.
+        Return the setting variable according to the GET querystring.
         """
-        return list(self.add_user_aware_data(logs=self.get_logs()))
+        return getattr(settings, 'NOTIFICATIONS_{}_PAGINATE_BY'.format(
+            'TEASER' if 'is_teaser' in self.request.GET.keys() else 'LIST'
+        ))
 
+    def get_queryset(self):
+        """
+        Fetch notifications for the current user. Use the method as defined by the instance variable.
+        """
+        return getattr(Log.actions, self.queryset_method)(user=self.request.user)
 
-class LogListTeaserView(LogListView):
-    """
-    Get only a small number of notifications without pagination to display on the 'My SLM data' page.
-    """
-    template_name = 'notifications/partial/list.html'
-    paginate_by = 0
+    def get_context_data(self, **kwargs):
+        """
+        Enrich the paginated queryset with values as required by the template.
+        Provide the 'path' with the same querystring as provided, plus 'page='.
+        """
+        context = super().get_context_data(**kwargs)
+        context['logs'] = self.add_user_aware_data(context['object_list'])
 
-    def get_log_ids(self, logs) -> list:
-        return [log.id for log in logs]
-
-    def get_logs(self):
-        return super().get_logs()[:settings.NOTIFICATIONS_TEASER_SLICE]
+        get_params = {}
+        if 'is_teaser' in self.request.GET.keys():
+            get_params['is_teaser'] = True
+        if 'is_pending' in self.request.GET.keys():
+            get_params['is_pending'] = True
+        context['path'] = '{path}{symbol}page='.format(
+            path=url_with_querystring(self.request.path, **get_params),
+            symbol='&' if get_params else ''
+        )
+        return context
 
 
 class ReadLogUpdateView(LoginRequiredMixin, View):

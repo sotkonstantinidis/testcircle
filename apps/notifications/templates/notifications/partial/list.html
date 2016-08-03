@@ -1,6 +1,5 @@
 {% load i18n %}
 
-
 {% for log in logs %}
   <div class="notification-list row{% if log.is_read %} is-read{% endif %}">
     <div class="is-light is-muted small-1 columns">
@@ -9,8 +8,10 @@
     <div class="small-9 columns">
       {{ log.text|safe }}
     </div>
-    <div class="small-1 columns{% if log.is_todo %} todo{% endif %}">
-      {{ log.is_todo|yesno:"todo," }}
+    <div class="small-1 columns">
+      {% if log.is_todo %}
+        <span class="label is-pending">{% trans "Pending" %}</span>
+      {% endif %}
     </div>
     <div class="small-1 columns read-toggle">
       <input type="checkbox" value="{{ log.id }}" class="mark-done" {% if log.is_read %}checked="checked"{% endif %}>{% trans "Done" %}
@@ -19,4 +20,21 @@
 {% empty %}
   <div>{% trans "No notifications." %}</div>
 {% endfor %}
+{% if logs %}
+  <div class="pagination-centered">
+    <ul class="pagination">
+      <li class="arrow{% if not page_obj.has_previous %} unavailable{% endif %}">
+        <a href="{% if page_obj.has_previous %}{{ path }}{{ page_obj.previous_page_number }}{% else %}#{% endif %}">&laquo;</a>
+      </li>
+      {% for page in page_obj.paginator.page_range %}
+        <li {% if page == page_obj.number %}class="current"{% endif %}>
+          <a href="{{ path }}{{ page }}">{{ page }}</a>
+        </li>
+      {% endfor %}
+      <li class="arrow{% if not page_obj.has_next %} unavailable{% endif %}">
+        <a href="{% if page_obj.has_next %}{{ path }}{{ page_obj.next_page_number }}{% else %}#{% endif %}">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+{% endif %}
 

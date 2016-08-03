@@ -49,6 +49,19 @@ class ActionContextQuerySet(models.QuerySet):
             functools.reduce(operator.or_, status_filters)
         ).distinct()
 
+    def user_pending_list(self, user: User):
+        """
+
+        """
+        status_filters = self.get_questionnaires_for_permissions(*user.get_all_permissions())
+        if not status_filters:
+            return self.none()
+        return self.filter(
+            action=settings.NOTIFICATIONS_CHANGE_STATUS
+        ).filter(
+            functools.reduce(operator.or_, status_filters)
+        )
+
     def email(self):
         """
         stub.

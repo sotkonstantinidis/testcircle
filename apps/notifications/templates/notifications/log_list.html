@@ -13,36 +13,18 @@
     <main class="row" role="main">
       <div class="small-12 columns">
         <h1 class="is-title">{% trans "Latest updates" %}</h1>
-        <div id="notifications-list">
-          {% include 'notifications/partial/list.html' with logs=logs %}
-        </div>
-        {% if logs %}
-          <div class="pagination">
-            <ul class="pagination">
-              <li class="arrow{% if not page_obj.has_previous %} unavailable{% endif %}">
-                <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}">&laquo;</a>
-              </li>
-              {% for page in page_obj.paginator.page_range %}
-                <li {% if page == page_obj.number %}class="current"{% endif %}>
-                  <a href="?page={{ page }}">{{ page }}</a>
-                </li>
-              {% endfor %}
-              <li class="arrow{% if not page_obj.has_next %} unavailable{% endif %}">
-                <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}">&raquo;</a>
-              </li>
-            </ul>
-          </div>
-        {% endif %}
+        <div id="notifications-list"></div>
       </div>
     </main>
     {% addtoblock 'js' %}
       {% compress js %}
         <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
-        <script src="{% static 'notifications/js/isRead.js' %}"></script>
+        <script src="{% static 'notifications/js/notificationActions.js' %}"></script>
         <script>
           $(document).ready(function() {
-            $('#notifications-list').bindIsReadAction({
-              url: '{% url 'notification_read' %}',
+            $('#notifications-list').bindNotificationActions({
+              read_url: '{% url 'notification_read' %}',
+              notifications_url: '{% url 'notification_partial_list' %}',
               user: '{{ request.user.id }}'
             });
           });

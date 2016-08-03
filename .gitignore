@@ -21,4 +21,4 @@ coverage_html
 # Ignore bower components, node modules and static files
 bower_components
 node_modules
-static
+/static
