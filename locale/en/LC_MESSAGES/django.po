@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 15:21+0200\n"
+"POT-Creation-Date: 2016-08-03 19:28+0200\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -121,16 +121,7 @@ msgstr ""
 msgid "WOCAT SLM Approaches"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/list.html:14
-#: apps/technologies/templates/technologies/questionnaire/list.html:14
-#: apps/wocat/templates/wocat/questionnaire/list.html:82
-msgid ""
-"Only data declared as public are visible. Please note that the WOCAT "
-"datasets have not been migrated to this test version yet. Only a few "
-"examples are available for illustration of the new database."
-msgstr ""
-
-#: apps/approaches/templates/approaches/questionnaire/list.html:17
+#: apps/approaches/templates/approaches/questionnaire/list.html:13
 #: apps/sample/templates/sample/questionnaire/list.html:51
 #: apps/wocat/templates/wocat/home.html:113
 #: apps/wocat/templates/wocat/partial/search.html:17
@@ -12922,7 +12913,7 @@ msgid "All SLM Data"
 msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/list.html:50
-#: apps/technologies/templates/technologies/questionnaire/list.html:17
+#: apps/technologies/templates/technologies/questionnaire/list.html:13
 #: apps/wocat/templates/wocat/home.html:96
 #: apps/wocat/templates/wocat/partial/search.html:16
 #: apps/wocat/templates/wocat/questionnaire/list.html:50
@@ -12960,6 +12951,16 @@ msgstr ""
 
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/link.html:15
 msgid "SAMPLEMULTI"
+msgstr ""
+
+#: apps/search/templates/search/help_text.html:3
+msgid ""
+"Only data declared as public are visible. Please note that the WOCAT "
+"datasets have not been migrated yet. Currently, the database only contains "
+"the UNCCD PRAIS data. Therefore, searching for existing SLM Practices still "
+"needs to be done in the old database. The migration of the WOCAT data from "
+"the old to the new database will take place later this year and is planned "
+"to be finalized latest by December 2016."
 msgstr ""
 
 #: apps/technologies/templates/technologies/base.html:6
@@ -13351,7 +13352,7 @@ msgstr ""
 msgid "Show all SLM practices"
 msgstr ""
 
-#: apps/wocat/templates/wocat/questionnaire/list.html:86
+#: apps/wocat/templates/wocat/questionnaire/list.html:82
 msgid "WOCAT and UNCCD SLM practices"
 msgstr ""
 
