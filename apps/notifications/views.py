@@ -61,12 +61,13 @@ class LogListView(LoginRequiredMixin, ListView):
             ]
 
         for log in logs:
+            is_read = log.id in readlog_list
             yield {
                 'id': log.id,
                 'created': log.created,
                 'text': log.get_linked_subject(user=self.request.user),
-                'is_read': log.id in readlog_list,
-                'is_todo': self.get_is_todo(
+                'is_read': is_read,
+                'is_todo': not is_read and self.get_is_todo(
                     status=log.questionnaire.status, action=log.action,
                     log_status=log.statusupdate.status if hasattr(log, 'statusupdate') else None
                 )

@@ -52,17 +52,21 @@ class ActionContextQuerySet(models.QuerySet):
     def user_pending_list(self, user: User):
         """
         Get logs that the user has to work on. Defined by:
-        - user has the permissions to 'ok' the questionnaire for the next review step
         - the questionnaire still has the same status as when the log was created (=no one else gave the 'ok' for the
           next step)
+        - user has the permissions to 'ok' the questionnaire for the next review step
+        - notification is not marked as read
         """
         status_filters = self.get_questionnaires_for_permissions(*user.get_all_permissions())
         if not status_filters:
             return self.none()
+
         return self.filter(
             action=settings.NOTIFICATIONS_CHANGE_STATUS, statusupdate__status=F('questionnaire__status')
         ).filter(
             functools.reduce(operator.or_, status_filters)
+        ).exclude(
+            id__in=self._read_ids(user=user)
         )
 
     def email(self):
@@ -78,11 +82,14 @@ class ActionContextQuerySet(models.QuerySet):
         qs = self.user_pending_list(
             user=user
         ).exclude(
-            id__in=ReadLog.objects.filter(log_id=F('id'), is_read=True).values_list('log__id')
+            id__in=self._read_ids(user=user)
         ).only(
             'id'
         )
         return qs.count()
+
+    def _read_ids(self, user: User):
+        return ReadLog.objects.filter(user=user, is_read=True).values_list('log__id', flat=True)
 
 
 class Log(models.Model):
