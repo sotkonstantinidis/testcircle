@@ -4591,6 +4591,23 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "technologies": {
+          "label": {
+            "en": "How many land users in the area have adopted/implemented the Technology?"
+          },
+          "helptext": {
+            "en": "<strong>Area</strong>: Refer to the country/ region/ locations defined in 2.5. and to the land use types described in 3.2."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 1343
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "technologies": {
@@ -19297,7 +19314,7 @@
   {
     "fields": {
       "keyword": "tech_adoption_percentage",
-      "translation": 1304,
+      "translation": 1343,
       "configuration": {
         "type": "radio"
       },

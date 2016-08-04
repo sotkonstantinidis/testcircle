@@ -1,5 +1,5 @@
 .orbit-container {
-  height:576px;
+  max-height:576px;
 }
 
 .orbit-caption {
@@ -10,15 +10,12 @@
   }
 }
 
-p.orbit-caption-text {
-  line-height:lineHeight(3);
-}
 .orbit-caption-title {
   color:#fff;
   font-weight: 600;
 
   @media #{$small} {
-    font-size: rem-calc(24);
+    font-size: rem-calc(20);
   }
 
   @media #{$medium-up} {
@@ -33,11 +30,13 @@ p.orbit-caption-text {
   font-weight: 300;
 
   @media #{$small} {
-    font-size: rem-calc(16);
+    font-size: rem-calc(14);
+    line-height: lineHeight(1.5);
   }
 
   @media #{$medium-up} {
     font-size: rem-calc(20);
+    line-height: lineHeight(3);
   }
 
   @media #{$large-up} {
@@ -50,6 +49,10 @@ p.orbit-caption-text {
 .orbit-container .orbit-slides-container>* .orbit-caption {
   background-color: #dc7d35;
   opacity: 0.8;
+
+  @media #{$small-only} {
+    padding: rem-calc(16);
+  }
 
   @media #{$large-up} {
     bottom:63px;
