@@ -426,13 +426,15 @@ class Project(models.Model):
         primary_key=True,
         help_text="The ID must be exactly the same as on the WOCAT website!")
     name = models.CharField(max_length=255)
-    abbreviation = models.CharField(max_length=63)
+    abbreviation = models.CharField(max_length=63, null=True, blank=True)
     active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['name']
 
     def __str__(self):
+        if not self.abbreviation:
+            return self.name
         return '{} ({})'.format(self.name, self.abbreviation)
 
 
@@ -447,7 +449,7 @@ class Institution(models.Model):
         primary_key=True,
         help_text="The ID must be exactly the same as on the WOCAT website!")
     name = models.CharField(max_length=255)
-    abbreviation = models.CharField(max_length=63)
+    abbreviation = models.CharField(max_length=63, null=True, blank=True)
     country = models.ForeignKey(
         'Value', null=True, blank=True,
         limit_choices_to=Q(key__keyword='country'))
@@ -457,7 +459,10 @@ class Institution(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        name = '{} ({})'.format(self.name, self.abbreviation)
+        if not self.abbreviation:
+            name = self.name
+        else:
+            name = '{} ({})'.format(self.name, self.abbreviation)
         if self.country:
             name = '{} - {}'.format(name, self.country)
         return name
