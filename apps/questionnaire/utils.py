@@ -84,9 +84,11 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
     for qg_keyword, qg_data_list in data.items():
         questiongroup = configuration.get_questiongroup_by_keyword(qg_keyword)
         if questiongroup is None:
-            errors.append(
-                'Questiongroup with keyword "{}" does not exist'.format(
-                    qg_keyword))
+            # If the questiongroup is not part of the current configuration
+            # (because the data is based on an old configuration or the
+            # questionnaire also has other configurations - modules?), it is
+            # stored as it is.
+            cleaned_data[qg_keyword] = qg_data_list
             continue
         if questiongroup.max_num < len(qg_data_list):
             errors.append(
@@ -1477,7 +1479,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
         messages.success(request, _('The questionnaire was succesfully removed'))
-        return redirect('{}:home'.format(configuration_code))
+        return redirect('account_questionnaires')
 
 
 def compare_questionnaire_data(data_1, data_2):

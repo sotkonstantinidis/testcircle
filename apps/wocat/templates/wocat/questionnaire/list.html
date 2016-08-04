@@ -74,11 +74,8 @@
 
   <main class="row large-collapse is-padded-2" role="main">
     <div class="loading-indicator hide"></div>
-    {% comment %}
-      TODO: COP12
-    {% endcomment %}
     <div class="small-12 columns">
-      <p class="help-bloc">{% trans "Only data declared as public are visible. Please note that the WOCAT datasets have not been migrated to this test version yet. Only a few examples are available for illustration of the new database." %}</p>
+      {% include 'search/help_text.html' %}
     </div>
     <section class="tech-list small-12 columns">
       <div class="tech-group">

@@ -5,21 +5,21 @@
 
 {% load i18n %}
 
-{% if not current_role or current_role == 'editor' %}
-  {% if not current_role %}
-    <h5 class="help-subtitle-small">{% trans "Editor" %}</h5>
-  {% endif %}
-  <p>
-    {% trans "Editors can edit the SLM Technology / Approach, but they cannot submit it for review or invite other editors." %}
-  </p>
-{% endif %}
-
 {% if not current_role or current_role == 'compiler' %}
   {% if not current_role %}
     <h5 class="help-subtitle-small">{% trans "Compiler" %}</h5>
   {% endif %}
   <p>
     {% trans "The compiler is responsible for this data entry and can invite editors (WOCAT users) to help create it. Once the data entry is complete the compiler can submit it for review." %}
+  </p>
+{% endif %}
+
+{% if not current_role or current_role == 'editor' %}
+  {% if not current_role %}
+    <h5 class="help-subtitle-small">{% trans "Editor" %}</h5>
+  {% endif %}
+  <p>
+    {% trans "Editors can edit the SLM Technology / Approach, but they cannot submit it for review or invite other editors." %}
   </p>
 {% endif %}
 
