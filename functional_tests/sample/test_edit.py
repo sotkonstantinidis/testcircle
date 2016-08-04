@@ -354,11 +354,14 @@ class EditTest(FunctionalTest):
         # She goes to see her own questionnaire and sees sample_3 appears only
         # once
         self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': user.id}))
+            accounts_route_questionnaires))
+        self.wait_for(
+            'xpath', '//img[@src="/static/assets/img/ajax-loader.gif"]',
+            visibility=False)
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 7)
+        self.assertEqual(len(list_entries), 6)
 
         self.findBy(
             'xpath', '//a[contains(text(), "asdf")]', base=list_entries[0])

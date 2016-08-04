@@ -54,7 +54,9 @@
           {% for translation in metadata.translations %}
             <li>
               {% language translation %}
-                <a href="{% url 'sample:questionnaire_details' metadata.code %}" class="is-tech">{{ translation }}</a>
+                {% with url=configuration_name|add:':questionnaire_details' %}
+                  <a href="{% url url metadata.code %}" class="is-tech">{{ translation }}</a>
+                {% endwith %}
               {% endlanguage %}
             </li>
           {% endfor %}

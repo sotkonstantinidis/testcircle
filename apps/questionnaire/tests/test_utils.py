@@ -65,12 +65,19 @@ class CleanQuestionnaireDataTest(TestCase):
         cleaned, errors = clean_questionnaire_data(data, None)
         self.assertEqual(len(errors), 1)
 
-    def test_adds_error_if_questiongroup_by_keyword_not_found(self):
+    def test_does_not_add_error_if_questiongroup_by_keyword_not_found(self):
         data = {
             "foo": [{"key_12": "1"}]
         }
         cleaned, errors = clean_questionnaire_data(data, self.conf)
-        self.assertEqual(len(errors), 1)
+        self.assertEqual(len(errors), 0)
+
+    def test_keeps_questiongroup_data_if_keyword_not_found(self):
+        data = {
+            "foo": [{"key_12": "1"}]
+        }
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(cleaned, data)
 
     def test_adds_error_if_key_not_valid_in_questiongroup(self):
         data = {
@@ -454,13 +461,13 @@ class GetActiveFiltersTest(TestCase):
     def test_skips_filter_with_unknown_questiongroup_or_key(self):
         query_dict = QueryDict(
             'filter__qg_1__unknown_key=1&filter__inv_qg__key_1=2')
-        filters = get_active_filters(self.conf, query_dict)
+        filters = get_active_filters([self.conf], query_dict)
         self.assertEqual(filters, [])
 
     def test_returns_single_query_dict(self):
         query_dict = QueryDict(
             'filter__qg_11__key_14=value_14_1')
-        filters = get_active_filters(self.conf, query_dict)
+        filters = get_active_filters([self.conf], query_dict)
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
@@ -475,7 +482,7 @@ class GetActiveFiltersTest(TestCase):
     def test_returns_multiple_filters(self):
         query_dict = QueryDict(
             'filter__qg_11__key_14=value_14_1&filter__qg_19__key_5=Faz')
-        filters = get_active_filters(self.conf, query_dict)
+        filters = get_active_filters([self.conf], query_dict)
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
@@ -492,7 +499,7 @@ class GetActiveFiltersTest(TestCase):
         query_dict = QueryDict(
             'filter__qg_11__key_14=value_14_1&filter__qg_11__key_14='
             'value_14_2')
-        filters = get_active_filters(self.conf, query_dict)
+        filters = get_active_filters([self.conf], query_dict)
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
@@ -574,7 +581,7 @@ class GetActiveFiltersTest(TestCase):
 
     def test_returns_mixed_filters(self):
         query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
-        filters = get_active_filters(self.conf, query_dict)
+        filters = get_active_filters([self.conf], query_dict)
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
