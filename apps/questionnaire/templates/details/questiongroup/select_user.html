@@ -4,6 +4,8 @@
   column.
 {% endcomment %}
 
+{% load list_to_columns %}
+
 {% for questiongroup in questiongroups %}
   <div class="row tech-output-columns">
     {% if config.label and forloop.first %}
@@ -19,22 +21,30 @@
       {% endfor %}
     </div>
     <div class="columns medium-8 user-details">
-      {# User link (with ID)#}
-      {{ questiongroup.2 }}
-
-      {# Address details of a non-registered user #}
-      <div class="row">
-        <div class="columns medium-6">
-          <p>{{ questiongroup.3 }} {{ questiongroup.4 }}</p>
-          <p>{{ questiongroup.9 }}{% if questiongroup.10 %} / {% endif %}{{ questiongroup.10 }}</p>
-          <p>{{ questiongroup.11 }}{% if questiongroup.12 %} / {% endif %}{{ questiongroup.12 }}</p>
-        </div>
-        <div class="columns medium-6">
-          <p>{{ questiongroup.6 }}</p>
-          <p>{{ questiongroup.7 }}</p>
-          <p>{{ questiongroup.8 }}</p>
-        </div>
-      </div>
+      {% with data=raw_questions|get_by_index:forloop.counter0 %}
+        {% if data.user_id %}
+          {# User link (with ID)#}
+          {{ questiongroup.2 }}
+        {% else %}
+          {# Address details of a non-registered user #}
+          <div class="row">
+            <div class="columns medium-6">
+              <p>{{ data.person_lastname }} {{ data.person_firstname }}</p>
+              {% if data.person_phone_1 or data.person_phone_2 %}
+                <p>{{ data.person_phone_1|default:"" }}{% if data.person_phone_1 and data.person_phone_2 %} / {% endif %}{{ data.person_phone_2|default:"" }}</p>
+              {% endif %}
+              {% if data.person_email_1 or data.person_email_2 %}
+                <p>{{ data.person_email_1|default:"" }}{% if data.person_email_1 and data.person_email_2 %} / {% endif %}{{ data.person_email_2|default:"" }}</p>
+              {% endif %}
+            </div>
+            <div class="columns medium-6">
+              <p>{{ data.person_institution_name }}</p>
+              <p>{{ data.person_address }}</p>
+              <p>{{ data.country.0 }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endwith %}
     </div>
   </div>
 {% endfor %}
