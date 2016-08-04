@@ -84,9 +84,11 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
     for qg_keyword, qg_data_list in data.items():
         questiongroup = configuration.get_questiongroup_by_keyword(qg_keyword)
         if questiongroup is None:
-            errors.append(
-                'Questiongroup with keyword "{}" does not exist'.format(
-                    qg_keyword))
+            # If the questiongroup is not part of the current configuration
+            # (because the data is based on an old configuration or the
+            # questionnaire also has other configurations - modules?), it is
+            # stored as it is.
+            cleaned_data[qg_keyword] = qg_data_list
             continue
         if questiongroup.max_num < len(qg_data_list):
             errors.append(

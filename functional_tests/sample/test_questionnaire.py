@@ -2733,8 +2733,9 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findBy(
             'xpath', '//a[contains(@href, "samplemulti/view/")]').click()
         self.toggle_all_sections()
-        self.wait_for('xpath', '//a[contains(@href, "sample/view/")]')
-        self.findBy('xpath', '//a[contains(@href, "sample/view/")]').click()
+        self.wait_for('xpath', '//div[contains(@class, "tech-item-content")]')
+        self.findBy('xpath', '//div[contains(@class, "tech-item-content")]//a['
+                             'contains(@href, "sample/view/")]').click()
 
         # She decides to edit the questionnaire
         self.review_action('edit')
