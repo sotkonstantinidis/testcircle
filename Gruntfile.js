@@ -222,6 +222,11 @@ module.exports = function(grunt) {
           cwd: 'src/assets/img',
           src: ['*.svg'],
           dest: 'static/assets/img'
+        }, {
+          expand: true,
+          cwd: 'src/assets/favicons',
+          src: ['*'],
+          dest: 'static/assets/favicons'
         }]
       }
     },
