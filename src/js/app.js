@@ -216,5 +216,8 @@ function detectIE() {
 
 var ie_version = detectIE();
 if (ie_version !== false && ie_version < 12) {
+    // IE: Add class to HTML element which allows overwriting certain styles.
+    $('html').addClass('ie');
+    
     $('.ie-warning').show();
 }
