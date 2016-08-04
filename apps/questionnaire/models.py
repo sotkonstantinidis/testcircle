@@ -973,16 +973,23 @@ class Questionnaire(models.Model):
             except AttributeError:
                 original_language = settings.LANGUAGES[0][0]  # 'en'
 
+            names = {}
+            urls = {}
             for code, language in settings.LANGUAGES:
                 activate(code)
-                name = name_data.get(code, name_data.get(original_language))
-                links.append({
-                    code: {
-                        'code': link.code,
-                        'configuration': link_configuration.keyword,
-                        'name': name,
-                        'url': link.get_absolute_url()
-                }})
+                names[code] = name_data.get(code, name_data.get(original_language))
+                urls[code] = link.get_absolute_url()
+
+                if code == original_language:
+                    names['default'] = names[code]
+                    urls['default'] = urls[code]
+
+            links.append({
+                'code': link.code,
+                'configuration': link_configuration.keyword,
+                'name': names,
+                'url': urls,
+            })
 
         activate(current_language)
         return links

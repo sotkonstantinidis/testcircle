@@ -3307,7 +3307,8 @@
                           "max_num": 3
                         },
                         "view_options": {
-                          "template": "select_user"
+                          "template": "select_user_sample",
+                          "raw_questions": true
                         },
                         "questions": [
                           {

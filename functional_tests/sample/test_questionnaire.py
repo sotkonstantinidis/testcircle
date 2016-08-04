@@ -2611,6 +2611,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.submit_form_step()
 
         # She goes to the part where she can edit linked questionnaires
+        self.rearrange_notifications()
         self.click_edit_section('cat_5')
 
         # She sees there is a hidden field for the ID but it is empty
@@ -2668,6 +2669,7 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She goes back to the form and sees the one she linked is still
         # in the form.
+        self.rearrange_notifications()
         self.click_edit_section('cat_5')
         id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
         self.assertEqual(id_field.get_attribute('value'), '3')
