@@ -47,7 +47,7 @@
     <header class="wizard-header-outer" role="banner">
       <div class="wizard-header">
         <div class="row" data-equalizer>
-          <div class="columns small-12 medium-8" data-equalizer-watch>
+          <div class="columns small-12 medium-6" data-equalizer-watch>
             {% if edit_mode == 'edit' %}
               <a class="wizard-header-back" href="{{ overview_url }}">{% trans "Go Back without saving" %}</a>
             {% elif edit_mode == 'view' %}
@@ -59,13 +59,13 @@
             </div>
           </div>
           {% if edit_mode == 'edit' %}
-            <div class="columns small-12 medium-2 panel" data-equalizer-watch>
+            <div class="columns small-12 medium-3 panel" data-equalizer-watch>
               <a id="button-submit" class="button nobr expand is-{{ configuration_name }}" onclick="document.getElementById('wizard-form').submit();">
                 <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-left"></use></svg>
                 {% trans "Save and back" %}
               </a>
             </div>
-            <div class="columns small-12 medium-2 panel" data-equalizer-watch>
+            <div class="columns small-12 medium-3 panel" data-equalizer-watch>
               <a class="button nbr expand is-{{ configuration_name }} button-submit-goto-next-section">
                 {% trans "Save and next" %}
                 <svg class="icon-lines is-small"><use xlink:href="#icon-chevron-thin-right"></use></svg>
@@ -148,40 +148,40 @@
   <script>
     function startIntro() {
       introJs().setOptions({
-          skipLabel: '{% trans "Close" %}',
-          nextLabel: '{% trans 'Next' %}' + ' &#8594;',
-          prevLabel: '{% trans 'Back' %}' + ' &#8592;',
-          doneLabel: '{% trans 'Done' %}',
+          skipLabel: '{% trans "Close"|escapejs %}',
+          nextLabel: '{% trans 'Next'|escapejs %}' + ' &#8594;',
+          prevLabel: '{% trans 'Back'|escapejs %}' + ' &#8592;',
+          doneLabel: '{% trans 'Done'|escapejs %}',
           showStepNumbers: false,
           highlightClass: 'intro-dark-background',
           steps: [
             {
-              intro: '{% trans '<p>Welcome to the help section of the form!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
+              intro: '{% trans '<p>Welcome to the help section of the form!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>'|escapejs %}',
               element: document.querySelector('#show_help')
             },
             {
-              intro: '{% trans "<p>The bar indicates the name of the section you are currently editing.</p>" %}',
+              intro: '{% trans "<p>The bar indicates the name of the section you are currently editing.</p>"|escapejs %}',
               element: document.querySelector('h2.wizard-header-title')
             },
             {
-              intro: '{% trans '<p>Click "Save and back" to save your changes and go back to the overview to view them in the output.</p><p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
+              intro: '{% trans '<p>Click "Save and back" to save your changes and go back to the overview to view them in the output.</p><p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>'|escapejs %}',
               element: document.querySelector('a#button-submit')
             },
             {
-              intro: '{% trans '<p>Click "Save and next" to save the current section and directly continue to the next section.<p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>' %}',
+              intro: '{% trans '<p>Click "Save and next" to save the current section and directly continue to the next section.<p><strong>Important:</strong> You need to click "Save" in the output again to permanently save the Questionnaire!</p>'|escapejs %}',
               element: document.querySelector('a.button-submit-goto-next-section')
             },
             {
-              intro: '{% trans '<p>Both options "save and back to overview" and "save and next section" are also available on the bottom of the page.</p>' %}',
+              intro: '{% trans '<p>Both options "save and back to overview" and "save and next section" are also available on the bottom of the page.</p>'|escapejs %}',
 {#              element: document.querySelector('div.submit-buttons-bottom'),  - doesn't seem to work #}
-              position: 'top',
+              position: 'top'
             },
             {
-              intro: '{% trans "<p>Use this link if you want to go back to the output without saving any changes.</p>" %}',
+              intro: '{% trans "<p>Use this link if you want to go back to the output without saving any changes.</p>"|escapejs %}',
               element: document.querySelector('a.wizard-header-back')
             },
             {
-              intro: '{% trans "<p>The progress bar indicates how many questions are already filled out.</p>" %}',
+              intro: '{% trans "<p>The progress bar indicates how many questions are already filled out.</p>"|escapejs %}',
               element: document.querySelector('div.progress')
             }
           ]

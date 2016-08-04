@@ -55,7 +55,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         Use FF as browser for functional tests.
         Create a virtual display, so the browser doesn't keep popping up.
         """
-        self.display = Display(visible=0)
+        self.display = Display(visible=0, size=(1600, 900))
         self.display.start()
         self.browser = webdriver.Firefox(
             firefox_binary=FirefoxBinary(settings.TESTING_FIREFOX_PATH))

@@ -84,35 +84,35 @@
     <script>
       function startIntro() {
         introJs().setOptions({
-            skipLabel: '{% trans "Close" %}',
-            nextLabel: '{% trans 'Next' %}' + ' &#8594;',
-            prevLabel: '{% trans 'Back' %}' + ' &#8592;',
-            doneLabel: '{% trans 'Done' %}',
+            skipLabel: '{% trans "Close"|escapejs %}',
+            nextLabel: '{% trans 'Next'|escapejs %}' + ' &#8594;',
+            prevLabel: '{% trans 'Back'|escapejs %}' + ' &#8592;',
+            doneLabel: '{% trans 'Done'|escapejs %}',
             showStepNumbers: false,
             steps: [
               {
-                intro: '{% trans '<p>Welcome to the help section of the Questionnaire!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>' %}',
+                intro: '{% trans '<p>Welcome to the help section of the Questionnaire!</p><p>Click "Next" to take a tour explaining the functions on this page.</p>'|escapejs %}',
               },
               {
-                intro: '{% trans "<p>This is the output page where you can see all the data you entered in the form.</p>" %}',
+                intro: '{% trans "<p>This is the output page where you can see all the data you entered in the form.</p>"|escapejs %}',
                 element: document.querySelector('main section')
               },
               {
-                intro: '{% trans "<p>The Questionnaire consists of multiple sections. You can use the Table of Content for navigation.</p>" %}',
+                intro: '{% trans "<p>The Questionnaire consists of multiple sections. You can use the Table of Content for navigation.</p>"|escapejs %}',
                 element: document.querySelector('.js-sticky-entry-help-toc')
               },
               {
-                intro: '{% trans "<p>Each section is also visible in the output, any data you enter will appear here.</p>" %}',
+                intro: '{% trans "<p>Each section is also visible in the output, any data you enter will appear here.</p>"|escapejs %}',
                 element: document.querySelectorAll('main section')[1],
                 position: 'top'
               },
               {
-                intro: '{% trans "<p>Click on the button to edit a section and enter your data.</p><p>The numbers indicate how many questions are already filled out in this section.</p>" %}',
+                intro: '{% trans "<p>Click on the button to edit a section and enter your data.</p><p>The numbers indicate how many questions are already filled out in this section.</p>"|escapejs %}',
                 element: document.querySelectorAll('main section div a')[1],
                 position: 'top'
               },
               {
-                intro: '{% trans "<p>The metadata will be filled out automatically once you saved the Questionnaire.</p>" %}',
+                intro: '{% trans "<p>The metadata will be filled out automatically once you saved the Questionnaire.</p>"|escapejs %}',
                 element: document.querySelector('ul.tech-output-infos')
               }
             ]

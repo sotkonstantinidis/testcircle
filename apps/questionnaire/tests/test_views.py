@@ -312,14 +312,12 @@ class GenericQuestionnaireDetailsTest(TestCase):
         mock_q_obj.data = {}
         generic_questionnaire_details(
             self.request, *get_valid_details_values())
-        mfc = mock_conf.return_value.get_filter_configuration.return_value
         img = mock_conf.return_value.get_image_data.return_value
         mock_render.assert_called_once_with(
             self.request, 'questionnaire/details.html', {
                 'sections': mock_conf.return_value.get_details.return_value,
                 'questionnaire_identifier': 'foo',
                 'images': img.get.return_value,
-                'filter_configuration': mfc,
                 'permissions': mock_q_obj.get_roles_permissions.return_value.permissions,
                 'view_mode': 'view',
                 'toc_content': mock_conf.return_value.get_toc_data.return_value,
@@ -351,7 +349,7 @@ class GenericQuestionnaireListTest(TestCase):
             mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_active_filters.assert_called_once_with(
-            mock_conf.return_value, self.request.GET)
+            [mock_conf.return_value], self.request.GET)
 
     @patch('questionnaire.views.get_limit_parameter')
     def test_calls_get_limit_parameter(
@@ -378,8 +376,10 @@ class GenericQuestionnaireListTest(TestCase):
             self, mock_get_configuration_index_filter, mock_advanced_search,
             mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
-        mock_get_configuration_index_filter.assert_called_once_with(
-            'sample', only_current=False)
+        self.assertEqual(mock_get_configuration_index_filter.call_count, 2)
+        mock_get_configuration_index_filter.assert_any_call(
+            'sample', only_current=False, query_param_filter=())
+        mock_get_configuration_index_filter.assert_any_call('sample')
 
     def test_es_calls_advanced_search(self, mock_advanced_search, mock_render):
         generic_questionnaire_list(self.request, *get_valid_list_values())
@@ -422,16 +422,14 @@ class GenericQuestionnaireListTest(TestCase):
         mock_get_pagination_parameters.assert_called_once_with(
             self.request, None, None)
 
-    @patch('questionnaire.views.get_configuration')
+    @patch('questionnaire.views.get_filter_configuration')
     def test_calls_render(
-            self, mock_conf, mock_advanced_search, mock_render):
+            self, mock_filter_conf, mock_advanced_search, mock_render):
         mock_advanced_search.return_value = {}
         generic_questionnaire_list(self.request, *get_valid_list_values())
         ret = {
             'list_values': [],
-            'filter_configuration':
-                mock_conf.return_value.get_filter_configuration
-                                      .return_value,
+            'filter_configuration': mock_filter_conf.return_value,
             'filter_url': '',
             'active_filters': [],
         }
