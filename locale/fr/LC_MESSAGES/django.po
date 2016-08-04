@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 19:28+0200\n"
+"POT-Creation-Date: 2016-08-04 10:41+0200\n"
 "PO-Revision-Date: 2016-08-03 17:27+0000\n"
 "Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -39,7 +39,7 @@ msgstr "Mot de passe"
 msgid "Updated {} users"
 msgstr "Utilisateurs {} mis à jour"
 
-#: apps/accounts/templates/details.html:12 templates/base.html:115
+#: apps/accounts/templates/details.html:12 templates/base.html:118
 msgid "User Details"
 msgstr "Informations sur l'utilisateur"
 
@@ -63,7 +63,7 @@ msgstr "Point focal UNCCD"
 #: apps/accounts/templates/details.html:30
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
 #: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:66
-#: templates/base.html:202
+#: templates/base.html:205
 msgid "UNCCD"
 msgstr "UNCCD"
 
@@ -72,10 +72,10 @@ msgid "UNCCD Focal Point for country:"
 msgstr "Point focal UNCCD du pays:"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:1013
-#: apps/questionnaire/tests/test_utils.py:1021
+#: apps/questionnaire/tests/test_utils.py:1020
+#: apps/questionnaire/tests/test_utils.py:1028
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
-#: templates/base.html:131
+#: templates/base.html:134
 msgid "Login"
 msgstr "Identifiant"
 
@@ -88,8 +88,8 @@ msgid "If you do not yet have a login, please visit "
 msgstr "Si vous n'avez pas encore d'identifiant, veuillez visiter"
 
 #: apps/accounts/templates/login.html:36 apps/accounts/templates/login.html:41
-#: apps/wocat/templates/wocat/base.html:6 templates/base.html:95
-#: templates/base.html.py:96 templates/base.html:205
+#: apps/wocat/templates/wocat/base.html:6 templates/base.html:98
+#: templates/base.html.py:99 templates/base.html:208
 msgid "WOCAT"
 msgstr "WOCAT"
 
@@ -115,7 +115,7 @@ msgstr "Mes données de GDT"
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:7
-#: apps/wocat/templates/wocat/home.html:73 templates/base.html:152
+#: apps/wocat/templates/wocat/home.html:73 templates/base.html:155
 msgid "Add SLM data"
 msgstr "Ajouter des données de GDT"
 
@@ -13404,12 +13404,12 @@ msgid "Inactive"
 msgstr "Inactif"
 
 #: apps/questionnaire/models.py:58
-#: apps/wocat/templates/wocat/help/questionnaire_roles.html:19
+#: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr "Compilateur"
 
 #: apps/questionnaire/models.py:59
-#: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
+#: apps/wocat/templates/wocat/help/questionnaire_roles.html:19
 msgid "Editor"
 msgstr "Rédacteur"
 
@@ -13517,9 +13517,9 @@ msgstr "Rédacteur:"
 #: apps/questionnaire/templates/details/category/unccd_header.html:59
 #: apps/questionnaire/templates/details/category/unccd_header.html:64
 #: apps/questionnaire/templates/details/category/unccd_header.html:73
-#: apps/questionnaire/templates/details/category/with_metadata.html:80
-#: apps/questionnaire/templates/details/category/with_metadata.html:85
-#: apps/questionnaire/templates/details/category/with_metadata.html:94
+#: apps/questionnaire/templates/details/category/with_metadata.html:82
+#: apps/questionnaire/templates/details/category/with_metadata.html:87
+#: apps/questionnaire/templates/details/category/with_metadata.html:96
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
 msgid "Coming soon"
 msgstr "Patienter"
@@ -13527,35 +13527,35 @@ msgstr "Patienter"
 #: apps/questionnaire/templates/details/category/approaches_header.html:83
 #: apps/questionnaire/templates/details/category/technologies_header.html:83
 #: apps/questionnaire/templates/details/category/unccd_header.html:61
-#: apps/questionnaire/templates/details/category/with_metadata.html:82
+#: apps/questionnaire/templates/details/category/with_metadata.html:84
 msgid "View full content"
 msgstr "Voir tout le contenu"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:88
 #: apps/questionnaire/templates/details/category/technologies_header.html:88
 #: apps/questionnaire/templates/details/category/unccd_header.html:66
-#: apps/questionnaire/templates/details/category/with_metadata.html:87
+#: apps/questionnaire/templates/details/category/with_metadata.html:89
 msgid "Print summary"
 msgstr "Imprimer le résumé"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:97
 #: apps/questionnaire/templates/details/category/technologies_header.html:97
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
-#: apps/questionnaire/templates/details/category/with_metadata.html:96
+#: apps/questionnaire/templates/details/category/with_metadata.html:98
 msgid "Export"
 msgstr "Exporter"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:109
 #: apps/questionnaire/templates/details/category/technologies_header.html:109
 #: apps/questionnaire/templates/details/category/unccd_header.html:83
-#: apps/questionnaire/templates/details/category/with_metadata.html:108
+#: apps/questionnaire/templates/details/category/with_metadata.html:110
 msgid "View sections"
 msgstr "Voir les sections"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:110
 #: apps/questionnaire/templates/details/category/technologies_header.html:110
 #: apps/questionnaire/templates/details/category/unccd_header.html:84
-#: apps/questionnaire/templates/details/category/with_metadata.html:109
+#: apps/questionnaire/templates/details/category/with_metadata.html:111
 msgid "Expand all"
 msgstr "Agrandir tout"
 
@@ -13563,7 +13563,7 @@ msgstr "Agrandir tout"
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/technologies_header.html:128
 #: apps/questionnaire/templates/details/category/unccd_header.html:102
-#: apps/questionnaire/templates/details/category/with_metadata.html:127
+#: apps/questionnaire/templates/details/category/with_metadata.html:129
 msgid "Edit this section"
 msgstr "Editer cette section"
 
@@ -13571,7 +13571,7 @@ msgstr "Editer cette section"
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/technologies_header.html:144
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
-#: apps/questionnaire/templates/details/category/with_metadata.html:141
+#: apps/questionnaire/templates/details/category/with_metadata.html:143
 msgid "Empty section"
 msgstr "Section vide"
 
@@ -14671,43 +14671,43 @@ msgstr "Type de fichier non pris en charge"
 msgid "File is too big"
 msgstr "Le fichier est trop gros"
 
-#: apps/questionnaire/utils.py:572
+#: apps/questionnaire/utils.py:574
 msgid "Search Terms"
 msgstr "Termes de la recherche"
 
-#: apps/questionnaire/utils.py:592
+#: apps/questionnaire/utils.py:594
 msgid "Created"
 msgstr "Créé"
 
-#: apps/questionnaire/utils.py:594
+#: apps/questionnaire/utils.py:596
 msgid "Updated"
 msgstr "Mis à jour"
 
-#: apps/questionnaire/utils.py:611
+#: apps/questionnaire/utils.py:613
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: apps/questionnaire/utils.py:1201
+#: apps/questionnaire/utils.py:1203
 msgid "The questionnaire was successfully submitted."
 msgstr "Le questionnaire a été soumis avec succès."
 
-#: apps/questionnaire/utils.py:1227
+#: apps/questionnaire/utils.py:1229
 msgid "The questionnaire was successfully reviewed."
 msgstr "Le questionnaire a été examiné avec succès."
 
-#: apps/questionnaire/utils.py:1279
+#: apps/questionnaire/utils.py:1281
 msgid "The questionnaire was successfully set public."
 msgstr "Le questionnaire a été rendu public avec succès."
 
-#: apps/questionnaire/utils.py:1312
+#: apps/questionnaire/utils.py:1314
 msgid "The questionnaire was successfully rejected."
 msgstr "Le questionnaire a été rejeté avec succès."
 
-#: apps/questionnaire/utils.py:1379
+#: apps/questionnaire/utils.py:1381
 msgid "Assigned users were successfully updated"
 msgstr "Les utilisateurs attribués ont été mis à jour avec succès."
 
-#: apps/questionnaire/utils.py:1407
+#: apps/questionnaire/utils.py:1409
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -14717,11 +14717,11 @@ msgstr ""
 "est déjà dans le processus d'examen et doit être d'abord publié. Veuillez "
 "réessayer plus tard."
 
-#: apps/questionnaire/utils.py:1427
+#: apps/questionnaire/utils.py:1429
 msgid "The flag was successfully set."
 msgstr "Le signalement a été défini avec succès."
 
-#: apps/questionnaire/utils.py:1451
+#: apps/questionnaire/utils.py:1453
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -14731,7 +14731,7 @@ msgstr ""
 "questionnaire est déjà dans le processus d'examen et doit être d'abord "
 "publié. Veuillez réessayer plus tard."
 
-#: apps/questionnaire/utils.py:1472
+#: apps/questionnaire/utils.py:1474
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -14741,7 +14741,7 @@ msgstr ""
 "une nouvelle version qui doit être examinée. En attendant, vous pouvez "
 "visualiser la version publique qui est encore signalée."
 
-#: apps/questionnaire/utils.py:1479
+#: apps/questionnaire/utils.py:1481
 msgid "The questionnaire was succesfully removed"
 msgstr "Le questionnaire a été supprimé avec succès."
 
@@ -14779,7 +14779,7 @@ msgstr "Sélectionnez ou saisissez un projet"
 #: apps/sample/templates/sample/questionnaire/list.html:45
 #: apps/wocat/templates/wocat/partial/search.html:11
 #: apps/wocat/templates/wocat/questionnaire/list.html:45
-#: templates/base.html:151
+#: templates/base.html:154
 msgid "Search SLM Data"
 msgstr "Rechercher des données de GDT"
 
@@ -15172,15 +15172,6 @@ msgstr ""
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:13
 msgid ""
-"Editors can edit the SLM Technology / Approach, but they cannot submit it "
-"for review or invite other editors."
-msgstr ""
-"Les rédacteurs peuvent éditer/modifier une Technologie / Approche de GDT, "
-"mais ils ne peuvent pas la soumettre pour examen ou inviter d'autres "
-"rédacteurs."
-
-#: apps/wocat/templates/wocat/help/questionnaire_roles.html:22
-msgid ""
 "The compiler is responsible for this data entry and can invite editors "
 "(WOCAT users) to help create it. Once the data entry is complete the "
 "compiler can submit it for review."
@@ -15189,6 +15180,15 @@ msgstr ""
 "des rédacteurs (utilisateurs de WOCAT) à contribuer à sa création. Une fois "
 "la saisie des données terminée, le compilateur peut soumettre les données "
 "pour examen."
+
+#: apps/wocat/templates/wocat/help/questionnaire_roles.html:22
+msgid ""
+"Editors can edit the SLM Technology / Approach, but they cannot submit it "
+"for review or invite other editors."
+msgstr ""
+"Les rédacteurs peuvent éditer/modifier une Technologie / Approche de GDT, "
+"mais ils ne peuvent pas la soumettre pour examen ou inviter d'autres "
+"rédacteurs."
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:31
 msgid ""
@@ -15235,7 +15235,9 @@ msgid "is the primary recommended database by UNCCD"
 msgstr "est la base de données primaire recommandée par l'UNCCD"
 
 #: apps/wocat/templates/wocat/home.html:36
-msgid "is open access and contains over 500 SLM practices"
+#, fuzzy
+#| msgid "is open access and contains over 500 SLM practices"
+msgid "is open access and contains over 800 SLM practices"
 msgstr "est en accès libre et contient plus de 500 pratiques de GDT"
 
 #: apps/wocat/templates/wocat/home.html:44
@@ -15406,39 +15408,44 @@ msgstr ""
 msgid "WOCAT SLM practices"
 msgstr "Pratiques WOCAT de GDT"
 
-#: templates/404.html:20 templates/base.html:150
+#: templates/404.html:20 templates/base.html:153
 msgid "Home"
 msgstr "Accueil"
 
-#: templates/base.html:106
+#: templates/base.html:82
+#, python-format
+msgid "Optimized for %(chrome)s and %(firefox)s."
+msgstr ""
+
+#: templates/base.html:109
 msgid "Menu"
 msgstr "Menu"
 
-#: templates/base.html:114
+#: templates/base.html:117
 msgid "My SLM practices"
 msgstr "Mes pratiques de GDT"
 
-#: templates/base.html:118
+#: templates/base.html:121
 msgid "Administration"
 msgstr "Administration"
 
-#: templates/base.html:126
+#: templates/base.html:129
 msgid "Logout"
 msgstr "Déconnecter"
 
-#: templates/base.html:153
+#: templates/base.html:156
 msgid "My SLM Data"
 msgstr "Mes données de GDT"
 
-#: templates/base.html:198
+#: templates/base.html:201
 msgid "About"
 msgstr "Au sujet de"
 
-#: templates/base.html:198
+#: templates/base.html:201
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/base.html:201
+#: templates/base.html:204
 msgid "Primary recommended database"
 msgstr "Base de données primaire recommandée"
 
