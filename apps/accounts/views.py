@@ -110,14 +110,24 @@ class ProfileView(LoginRequiredMixin, DetailView):
         """
         Fetch questionnaires for current user.
         """
-        return query_questionnaires(request=self.request, configuration_code='all', only_current=False, limit=None)
+        return query_questionnaires(
+            request=self.request, configuration_code='all', only_current=False,
+            limit=None
+        )
 
     def get_status_list(self) -> list:
         """
-        Fetch all (distinct) statuses that at least one questionnaire of the current user has
+        Fetch all (distinct) statuses that at least one questionnaire of the
+        current user has.
         """
         questionnaires = self.get_questionnaires()
-        statuses = questionnaires.order_by('status').distinct('status').values_list('status', flat=True)
+        statuses = questionnaires.order_by(
+            'status'
+        ).distinct(
+            'status'
+        ).values_list(
+            'status', flat=True
+        )
         status_choices = dict(STATUSES)  # cast to dict for easier access.
         return {status: status_choices[status] for status in statuses}
 
@@ -127,21 +137,101 @@ class ProfileView(LoginRequiredMixin, DetailView):
         return context
 
 
-class QuestionnaireStatusListView(LoginRequiredMixin, ListView):
+class UserDetailView(DetailView):
     """
-    Display all questionnaires for the requested status.
-    Results are paginated, the paginator shows a specified (paginator_quicklink_range) number of pages before and after
-    the current page.
-    """
+    Show some information about the requested user:
+    - information (name)
+    - focal point countries
+    - public questionnaires
 
+    """
+    context_object_name = 'detail_user'
+    model = User
+    template_name = 'details.html'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        # Update the user details
+        user_info = typo3_client.get_user_information(obj.id)
+        typo3_client.update_user(obj, user_info)
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        unccd_countries_list = []
+        unccd_countries = self.object.get_unccd_countries()
+        for country in unccd_countries:
+            unccd_countries_list.append((
+                country,
+                '{}?{}'.format(
+                    reverse('wocat:questionnaire_list'),
+                    QuestionnaireConfiguration.get_country_filter(
+                        country.keyword))
+            ))
+        context['unccd_countries'] = unccd_countries_list
+        return context
+
+
+class QuestionnaireListMixin(ListView):
+    """
+    Mixin for paginated questionnaires.
+    """
     template_name = 'questionnaire_status_list.html'
     paginate_by = 3
 
-    def get(self, request, *args, **kwargs):
-        self.status = self.get_status()
-        return super().get(request, *args, **kwargs)
+    @property
+    def status(self):
+        raise NotImplementedError
 
-    def get_status(self) -> int:
+    def get_filter_user(self):
+        raise NotImplementedError
+
+    def get_queryset(self):
+        """
+        Fetch all questionnaires from the current user with the requested
+        status.
+        """
+        return query_questionnaires(
+            request=self.request, configuration_code='all', only_current=False,
+            limit=None, **self.get_filter_user()
+        ).filter(
+            status=self.status
+        )
+
+    def get_context_data(self, **kwargs) -> dict:
+        """
+        Provide context data in qcats default way. Pagination happens in the
+        parents get_context_data method.
+        """
+        context = super().get_context_data(**kwargs)
+        context['list_values'] = get_list_values(
+            questionnaire_objects=context['object_list'], status_filter=Q()
+        )
+        return context
+
+
+class PublicQuestionnaireListView(QuestionnaireListMixin):
+    """
+    Get public questionnaires the user defined in the url.
+    """
+    @property
+    def status(self):
+        return settings.QUESTIONNAIRE_PUBLIC
+
+    def get_filter_user(self):
+        user = get_object_or_404(User, id=self.kwargs['user_id'])
+        return {'user': user}
+
+
+class QuestionnaireStatusListView(LoginRequiredMixin, QuestionnaireListMixin):
+    """
+    Display all questionnaires for the requested status. Results are paginated,
+    the paginator shows a specified (paginator_quicklink_range) number of pages
+    before and after the current page.
+    """
+
+    @property
+    def status(self):
         """
         Validate status from request.
         """
@@ -155,35 +245,17 @@ class QuestionnaireStatusListView(LoginRequiredMixin, ListView):
 
         return status
 
-    def get_queryset(self):
-        """
-        Fetch all questionnaires from the current user with the requested status.
-        """
-        return query_questionnaires(
-            request=self.request, configuration_code='all', only_current=False, limit=None, **self.get_filter_user()
-        ).filter(
-            status=self.status
-        )
-
     def get_filter_user(self):
         """
-        If no user is set, questionnaires are fetched according to permissions. This is the specified behaviour for all
-        statuses (except 'public'), as questionnaires that require some kind of action should be listed.
+        If no user is set, questionnaires are fetched according to permissions.
+        This is the specified behaviour for all statuses (except 'public'), as
+        questionnaires that require some kind of action should be listed.
 
-        For published questionnaires, only the questionnaires that the user has worked on must be shown - so the user,
-        not the permissions (roles) are important.
+        For published questionnaires, only the questionnaires that the user has
+        worked on must be shown - so the user, not the permissions (roles) are
+        important.
         """
-        return {'user': self.request.user if self.status is settings.QUESTIONNAIRE_PUBLIC else None}
-
-    def get_context_data(self, **kwargs) -> dict:
-        """
-        Provide context data in qcats default way. Pagination happens in the parents get_context_data method.
-        """
-        context = super().get_context_data(**kwargs)
-        context['list_values'] = get_list_values(
-            questionnaire_objects=context['object_list'], status_filter=Q()
-        )
-        return context
+        return {'user': self.request.user if self.status is settings.QUESTIONNAIRE_PUBLIC else None}  # noqa
 
 
 def logout(request):
@@ -278,38 +350,3 @@ def user_update(request):
         'success': True,
     }
     return JsonResponse(ret)
-
-
-def details(request, id):
-    """
-    View for the details of a user. Also does an update of the user
-    information against the authentication backend.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-        ``id`` (int): The ID of the user.
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    user = get_object_or_404(User, pk=id)
-
-    # Update the user details
-    user_info = typo3_client.get_user_information(user.id)
-    typo3_client.update_user(user, user_info)
-
-    unccd_countries_list = []
-    unccd_countries = user.get_unccd_countries()
-    for country in unccd_countries:
-        unccd_countries_list.append((
-            country,
-            '{}?{}'.format(
-                reverse('wocat:questionnaire_list'),
-                QuestionnaireConfiguration.get_country_filter(country.keyword))
-        ))
-
-    return render(request, 'details.html', {
-        'detail_user': user,
-        'unccd_countries': unccd_countries_list,
-    })
