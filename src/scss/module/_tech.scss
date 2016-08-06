@@ -14,6 +14,10 @@
   align-items: stretch;
   margin-top: rem-calc(6);
   background: white;
+
+  @media #{$small-only} {
+    max-height: rem-calc(180);
+  }
 }
 
 .tech-item-content {
@@ -38,6 +42,27 @@
   line-height: rem-calc(30);
   padding-right: rem-calc(24);
 
+  @media #{$small-only} {
+
+    $lines-to-show: 1;
+    $font-size: 18px;
+    $line-height: 1.6;
+
+    font-size: $font-size;
+
+    a {
+      display: block; /* Fallback for non-webkit */
+      display: -webkit-box;
+      height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
+      font-size: $font-size;
+      line-height: $line-height;
+      -webkit-line-clamp: $lines-to-show;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   & > a:hover,
   & > a:focus {
     text-decoration: underline;
@@ -61,6 +86,45 @@
 
 .tech-item-description {
   padding: rem-calc(12 24 0 0);
+
+  @media #{$small-only} {
+    font-size: 80%;
+    padding-top: 0;
+
+    $font-size: 14px;
+    $line-height: 1.6;
+    $lines-to-show: 3;
+
+    p {
+      display: block; /* Fallback for non-webkit */
+      display: -webkit-box;
+      height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
+      font-size: $font-size;
+      line-height: $line-height;
+      -webkit-line-clamp: $lines-to-show;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    $lines-to-show: 1;
+
+    ul {
+      display: block; /* Fallback for non-webkit */
+      display: -webkit-box;
+      height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
+      font-size: $font-size;
+      line-height: $line-height;
+      -webkit-line-clamp: $lines-to-show;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    ul li:not(:first-of-type) {
+      display: none;
+    }
+  }
 }
 
 
@@ -79,6 +143,10 @@
     width: rem-calc(240);
     height: rem-calc(180);
     min-height: 100%;
+
+    @media #{$small-only} {
+      width: rem-calc(120);
+    }
   }
 
   img {
