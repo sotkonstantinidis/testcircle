@@ -47,19 +47,17 @@ class LogListView(LoginRequiredMixin, ListView):
             log_id__in=list(logs.values_list('id', flat=True))
         )
 
-        # A list with all statuses that the current user is allowed to handle.
-        self.todo_statuses = [
-            status for permission, status in settings.NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS.items()
-            if permission in self.request.user.get_all_permissions()
-        ]
+        # A list with all logs that are pending for the user
+        pending_questionnaires = Log.actions.user_pending_list(
+            user=self.request.user
+        ).values_list(
+            'id', flat=True
+        )
 
         for log in logs:
             is_read = log.id in readlog_list
             # if a notification is read, it is assumed that it is resolved.
-            is_todo = not is_read and self.get_is_todo(
-                status=log.questionnaire.status, action=log.action,
-                log_status=log.statusupdate.status if hasattr(log, 'statusupdate') else None
-            )
+            is_todo = not is_read and log.id in pending_questionnaires
             yield {
                 'id': log.id,
                 'created': log.created,

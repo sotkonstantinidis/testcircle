@@ -62,6 +62,12 @@ class ActionContextQuerySet(models.QuerySet):
         - user has the permissions to 'ok' the questionnaire for the next
           review step
         - notification is not marked as read
+        - if a questionnaire was rejected once, two logs for the same status
+          exist. Get only the more current one.
+
+        Only distinct questionnaires are epxected. However, this doesnt play
+        nice with order_by.
+
         """
         status_filters = self.get_questionnaires_for_permissions(
             *user.get_all_permissions()
@@ -69,14 +75,29 @@ class ActionContextQuerySet(models.QuerySet):
         if not status_filters:
             return self.none()
 
-        return self.filter(
+        logs = self.filter(
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             statusupdate__status=F('questionnaire__status')
         ).filter(
             functools.reduce(operator.or_, status_filters)
         ).exclude(
             id__in=self.read_ids(user=user)
+        ).only(
+            'id', 'questionnaire_id'
         )
+        return self.filter(
+            id__in=[log.id for log in self._unique_questionnaire(logs)]
+        )
+
+    def _unique_questionnaire(sel, logs):
+        """
+        Pseudo 'unique' for questionnaire_id for given logs.
+        """
+        questionnaire_ids = []
+        for log in logs:
+            if log.questionnaire_id not in questionnaire_ids:
+                questionnaire_ids.append(log.questionnaire_id)
+                yield log
 
     def email(self):
         """
