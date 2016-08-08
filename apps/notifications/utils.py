@@ -43,11 +43,12 @@ class StatusLog(CreateLog):
     """
     Helper to create logs for changed review cycle status.
     """
-    def create(self, is_rejected=False):
+    def create(self, is_rejected: bool, message: str):
         StatusUpdate.objects.create(
             log=self.log,
             status=self.questionnaire.status,
-            is_rejected=is_rejected
+            is_rejected=is_rejected,
+            message=message
         )
 
 

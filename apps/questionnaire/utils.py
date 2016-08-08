@@ -1176,7 +1176,6 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         (typically a redirect) or None.
     """
     roles_permissions = questionnaire_object.get_roles_permissions(request.user)
-    roles = roles_permissions.roles
     permissions = roles_permissions.permissions
 
     if request.POST.get('submit'):
@@ -1203,7 +1202,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user
+            reviewer=request.user,
+            message=request.POST.get('message', '')
         )
 
     elif request.POST.get('review'):
@@ -1234,7 +1234,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user
+            reviewer=request.user,
+            message=request.POST.get('message', '')
         )
 
     elif request.POST.get('publish'):
@@ -1266,7 +1267,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             change_status.send(
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_object,
-                reviewer=request.user
+                reviewer=request.user,
+                message=_('New version was published')
             )
 
         questionnaire_object.status = settings.QUESTIONNAIRE_PUBLIC
@@ -1295,7 +1297,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user
+            reviewer=request.user,
+            message=request.POST.get('message', '')
         )
 
     elif request.POST.get('reject'):
@@ -1334,7 +1337,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
             reviewer=request.user,
-            is_rejected=True
+            is_rejected=True,
+            message=request.POST.get('message', '')
         )
 
         # Query the permissions again, if the user does not have
@@ -1463,6 +1467,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Then flag it
         new_version.add_flag(flag)
 
+        # todo: if this feature is used, add a notification.
+
         # Add the user who flagged it
         new_version.add_user(request.user, settings.QUESTIONNAIRE_FLAGGER)
 
@@ -1517,7 +1523,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=new_version,
-            reviewer=request.user
+            reviewer=request.user,
+            message=_('New version due to unccd flagging')
         )
 
     elif request.POST.get('delete'):

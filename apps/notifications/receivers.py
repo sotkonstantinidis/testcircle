@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 
 from accounts.models import User
@@ -11,7 +13,11 @@ from .utils import ContentLog, MemberLog, StatusLog
 def create_status_notification(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
     StatusLog(
         action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
-    ).create(kwargs.get('is_rejected', False))
+    ).create(
+        is_rejected=kwargs.get('is_rejected', False),
+        message=kwargs.get('message')
+
+    )
 
 
 @receiver(signals.change_member)
@@ -27,14 +33,20 @@ def modify_member(sender: int, questionnaire: Questionnaire, reviewer: User, aff
 def create_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
     StatusLog(
         action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
-    ).create()
+    ).create(
+        is_rejected=False,
+        message=_('Created')
+    )
 
 
 @receiver(signals.delete_questionnaire)
 def delete_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
     StatusLog(
         action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
-    ).create()
+    ).create(
+        is_rejected=False,
+        message=_('Deleted')
+    )
 
 
 @receiver(signals.change_questionnaire_data)
