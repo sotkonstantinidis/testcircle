@@ -128,18 +128,18 @@ class FlaggingTest(FunctionalTest):
 
         # He goes to the page where he sees the questionnaires of user UNCCD
         # and sees the flag there as well.
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': unccd_user.id}))
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]'
-                     '//span[contains(@class, "is-unccd_bp")]')
+        # self.browser.get(self.live_server_url + reverse(
+        #     accounts_route_questionnaires, kwargs={'user_id': unccd_user.id}))
+        # self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[1]'
+        #              '//span[contains(@class, "is-unccd_bp")]')
 
         # UNCCD user logs in and goes to the page where he sees his own
         # questionnaires (this one queries the database) and sees the
         # questionnaire with the flag there as well.
         self.doLogin(user=unccd_user)
         self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': unccd_user.id}))
+            accounts_route_questionnaires))
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]'
                      '//span[contains(@class, "is-unccd_bp")]')
@@ -183,7 +183,7 @@ class FlaggingTest(FunctionalTest):
 
         # She sees a notice that the new version is now reviewed and it is
         # waiting to be published
-        self.findBy('xpath', '//div[contains(@class, "process-status")]')
+        self.findBy('xpath', '//div[contains(@class, "review-panel")]')
         self.findByNot('xpath', '//input[@name="publish"]')
 
         # An editor logs in and sees the flag. He cannot edit the questionnaire.

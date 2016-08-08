@@ -7,7 +7,7 @@ from accounts.authentication import WocatAuthenticationBackend
 from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
-from accounts.tests.test_views import accounts_route_moderation
+from accounts.tests.test_views import accounts_route_questionnaires
 
 
 @patch('wocat.views.generic_questionnaire_list')
@@ -220,28 +220,34 @@ class ModerationTest(FunctionalTest):
         self.doLogin(user=user_alice)
 
         # She tries to access the moderation view but permission is denied
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_moderation))
-        self.checkOnPage('403 Forbidden')
+        # self.browser.get(self.live_server_url + reverse(
+        #     accounts_route_moderation))
+        # self.checkOnPage('403 Forbidden')
 
         # She logs in as moderator and sees that she can access the view
         self.doLogin(user=user_moderator)
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_moderation))
 
-        # She sees all the Questionnaires which are pending.
+        self.browser.get(self.live_server_url + reverse(
+            accounts_route_questionnaires))
+        self.wait_for(
+            'xpath', '//img[@src="/static/assets/img/ajax-loader.gif"]',
+            visibility=False)
+
+        # She sees all the Questionnaires which are submitted.
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+        self.assertEqual(len(list_entries), 4)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 2")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 8")]')
 
-        # She also sees a customized title of the list
-        self.findByNot(
-            'xpath', '//h2[contains(text(), "SLM practices by")]')
+        # She also sees all Questionnaires which are reviewed
         self.findBy(
-            'xpath', '//h2[contains(text(), "Pending SLM practices")]')
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+                     'contains(text(), "Foo 7")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
+                     'contains(text(), "Foo 9")]')

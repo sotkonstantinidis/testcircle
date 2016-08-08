@@ -27,7 +27,6 @@ from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
 )
-
 from .conf import settings
 from .models import Questionnaire, Flag
 from .signals import change_status, change_member, delete_questionnaire
@@ -85,9 +84,11 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
     for qg_keyword, qg_data_list in data.items():
         questiongroup = configuration.get_questiongroup_by_keyword(qg_keyword)
         if questiongroup is None:
-            errors.append(
-                'Questiongroup with keyword "{}" does not exist'.format(
-                    qg_keyword))
+            # If the questiongroup is not part of the current configuration
+            # (because the data is based on an old configuration or the
+            # questionnaire also has other configurations - modules?), it is
+            # stored as it is.
+            cleaned_data[qg_keyword] = qg_data_list
             continue
         if questiongroup.max_num < len(qg_data_list):
             errors.append(
@@ -1527,7 +1528,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             questionnaire=questionnaire_object,
             reviewer=request.user
         )
-        return redirect('{}:home'.format(configuration_code))
+        return redirect('account_questionnaires')
 
 
 def compare_questionnaire_data(data_1, data_2):

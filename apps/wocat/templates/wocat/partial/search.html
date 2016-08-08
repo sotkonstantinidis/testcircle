@@ -6,7 +6,7 @@
 
 {% load i18n %}
 
-<form action="{% if current == 'technologies' %}{% url 'technologies:questionnaire_list' %}{% elif current == 'approaches' %}{% url 'approaches:questionnaire_list' %}{% else %}{% url 'wocat:questionnaire_list' %}{% endif %}" method="GET" role="search" class="search">
+<form action="{% if current == 'technologies' %}{% url 'technologies:questionnaire_list' %}{% elif current == 'approaches' %}{% url 'approaches:questionnaire_list' %}{% elif current == 'sample' %}{% url 'sample:questionnaire_list' %}{% else %}{% url 'wocat:questionnaire_list' %}{% endif %}" method="GET" role="search" class="search">
   <div class="search-field">
     <input type="search" tabindex="1" placeholder="{% trans "Search SLM Data" %}" name="q">
     <div class="search-category">

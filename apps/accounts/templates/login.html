@@ -13,7 +13,7 @@
           <div class="alert-box info is-rhythmed-2">{% trans "Please log in to access this page." %}</div>
         {% endif %}
 
-        <form action="{{ login_url }}" method="post">
+        <form action="{{ login_url }}" method="post" class="user-login js-submit-once">
             {% csrf_token %}
             {% formrow form.username %}
             {% formrow form.password %}

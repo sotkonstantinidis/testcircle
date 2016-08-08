@@ -1,3 +1,4 @@
+from django.conf import settings
 from elasticsearch import TransportError
 
 from .index import get_elasticsearch
@@ -26,7 +27,7 @@ def simple_search(query_string, configuration_codes=[]):
         ``elasticsearch.Elasticsearch.search``.
     """
     alias = get_alias(configuration_codes)
-    return es.search(index=alias, q=query_string)
+    return es.search(index=alias, q=get_escaped_string(query_string))
 
 
 def advanced_search(
@@ -134,11 +135,10 @@ def advanced_search(
                 }
             })
 
-    # Query string: Full text search
     if query_string:
         must.append({
             "query_string": {
-                "query": query_string
+                "query": get_escaped_string(query_string)
             }
         })
 
@@ -184,3 +184,12 @@ def get_element(object_id: int, *configuration_codes) -> dict:
         return es.get_source(index=alias, id=object_id, doc_type='questionnaire')
     except TransportError:
         return {}
+
+
+def get_escaped_string(query_string: str) -> str:
+    """
+    Replace all reserved characters when searching the ES index.
+    """
+    for char in settings.ES_QUERY_RESERVED_CHARS:
+        query_string = query_string.replace(char, '\\{}'.format(char))
+    return query_string

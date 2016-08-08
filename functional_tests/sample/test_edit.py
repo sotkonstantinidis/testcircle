@@ -185,7 +185,7 @@ class EditTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
         dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
         self.assertEqual(len(dates), 2)
         creation_date = dates[0].text
         update_date = dates[1].text
@@ -208,7 +208,7 @@ class EditTest(FunctionalTest):
         # She notices that the creation date did not change while the
         # update date changed.
         dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
         self.assertEqual(len(dates), 2)
         self.assertEqual(creation_date, dates[0].text)
         self.assertTrue(update_date != dates[1].text)
@@ -222,7 +222,7 @@ class EditTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
         dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
         self.assertEqual(len(dates), 2)
         creation_date = dates[0].text
         update_date = dates[1].text
@@ -245,7 +245,7 @@ class EditTest(FunctionalTest):
         # She notices that the creation date did not change while the
         # update date changed.
         dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-output-infos")]/li/time')
+            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
         self.assertEqual(len(dates), 2)
         self.assertEqual(creation_date, dates[0].text)
         self.assertTrue(update_date != dates[1].text)
@@ -354,11 +354,14 @@ class EditTest(FunctionalTest):
         # She goes to see her own questionnaire and sees sample_3 appears only
         # once
         self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires, kwargs={'user_id': user.id}))
+            accounts_route_questionnaires))
+        self.wait_for(
+            'xpath', '//img[@src="/static/assets/img/ajax-loader.gif"]',
+            visibility=False)
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 7)
+        self.assertEqual(len(list_entries), 6)
 
         self.findBy(
             'xpath', '//a[contains(text(), "asdf")]', base=list_entries[0])
@@ -368,8 +371,9 @@ class EditTest(FunctionalTest):
         # She clicks the first entry and sees that she is taken to the
         # details page of the latest (pending) version.
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "asdf")]').click()
+        self.toggle_all_sections()
         self.checkOnPage('asdf')
 
     def test_edit_questionnaire(self, mock_get_user_id):
@@ -384,9 +388,8 @@ class EditTest(FunctionalTest):
         # She enters a Questionnaire
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_new))
-        edit_buttons = self.findManyBy(
-            'xpath', '//main//a[contains(@href, "edit/new/cat")]')
-        edit_buttons[cat_1_position].click()
+        self.click_edit_section('cat_1')
+
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
         self.findBy('id', 'button-submit').click()

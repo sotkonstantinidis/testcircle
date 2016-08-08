@@ -67,19 +67,19 @@ class ListTest(FunctionalTest):
         # The entries are ordered with the latest changes on top and
         # each entry contains Keys 1 and 5 of the questionnaires.
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
             'text()="Faz 4"]')
         link = self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
             'text()="Faz 3"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
             'contains(text(), "Foo 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
@@ -88,11 +88,12 @@ class ListTest(FunctionalTest):
         # Each entry has a placeholder because there is no image
         for e in list_entries:
             self.findBy(
-                'xpath', '//div[contains(@style, "height: 180px")]', base=e)
+                'xpath', '//img[contains(@src, "picture.svg")]', base=e)
 
         # She clicks a link and sees she is taken to the detail page of the
         # questionnaire
         link.click()
+        self.toggle_all_sections()
         self.checkOnPage('Key 3')
 
         # She goes to the list page and sees all 4 questionnaires available.
@@ -105,25 +106,25 @@ class ListTest(FunctionalTest):
         # The entries are also ordered and each entry contains Keys 1 and 5 of
         # the questionnaires.
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
             'text()="Faz 4"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
             'text()="Faz 3"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
             'contains(text(), "Foo 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
             'text()="Faz 2"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
             'contains(text(), "Foo 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
@@ -132,7 +133,7 @@ class ListTest(FunctionalTest):
         # Each entry has a placeholder because there is no image
         for e in list_entries:
             self.findBy(
-                'xpath', '//div[contains(@style, "height: 180px")]', base=e)
+                'xpath', '//img[contains(@src, "picture.svg")]', base=e)
 
     def test_pagination(self):
 
@@ -155,7 +156,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
 
         # Now the pagination is visible
@@ -179,7 +180,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 3")]')
 
         # She adds a filter
@@ -188,8 +189,9 @@ class ListTest(FunctionalTest):
             EC.visibility_of_element_located(
                 (By.ID, "cat_4-heading")))
         self.findBy('id', 'cat_4-heading').click()
+        self.findBy('id', 'key_14-heading').click()
         self.findBy('id', 'key_14_value_14_3').click()
-        self.findBy('id', 'submit-filter').click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -201,7 +203,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
 
         pagination = self.findManyBy(
@@ -219,7 +221,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 3")]')
 
         pagination = self.findManyBy(
@@ -260,7 +262,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
 
         pagination = self.findManyBy(
@@ -273,8 +275,9 @@ class ListTest(FunctionalTest):
             EC.visibility_of_element_located(
                 (By.ID, "cat_4-heading")))
         self.findBy('id', 'cat_4-heading').click()
+        self.findBy('id', 'key_14-heading').click()
         self.findBy('id', 'key_14_value_14_1').click()
-        self.findBy('id', 'submit-filter').click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -284,7 +287,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
 
         pagination = self.findManyBy(
@@ -302,7 +305,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 1")]')
 
         # She removes all filters
@@ -317,7 +320,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
 
         pagination = self.findManyBy(
@@ -349,25 +352,25 @@ class ListTest(FunctionalTest):
         #     'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
         #     'text()="Faz 5"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
             'text()="Faz 4"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
             'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
             'text()="Faz 3"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
             'contains(text(), "Foo 2")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
             'text()="Faz 2"]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[5]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[5]//a['
             'contains(text(), "Foo 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[5]//p['
@@ -380,22 +383,13 @@ class ListTest(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(route_home))
 
         entry_xpath = '//article[contains(@class, "tech-item")][1]'
-        code = self.findBy(
-            'xpath', '{}//dl/dt[text()="ID:"]/following::dd[1]'.format(
-                entry_xpath))
-        self.assertEqual(code.text, 'sample_4')
         creation = self.findBy(
-            'xpath', '{}//dl/dt[text()="Creation:"]/following::dd[1]'.format(
-                entry_xpath))
+            'xpath', '{}//time'.format(entry_xpath))
         self.assertEqual(creation.text, '02/13/2014 5:08 p.m.')
-        update = self.findBy(
-            'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
-                entry_xpath))
-        self.assertEqual(update.text, '02/13/2014 5:08 p.m.')
         compiler = self.findBy(
-            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
+            'xpath', '{}//li[contains(text(), "Compiler")]'.format(
                 entry_xpath))
-        self.assertEqual(compiler.text, 'Foo Bar')
+        self.assertIn('Foo Bar', compiler.text)
 
         html_1 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
         # Nasty regex replacement of automatically generated tooltip IDs
@@ -405,9 +399,9 @@ class ListTest(FunctionalTest):
         # but only the compiler is shown
         entry_xpath = '//article[contains(@class, "tech-item")][2]'
         compiler = self.findBy(
-            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
+            'xpath', '{}//li[contains(text(), "Compiler")]'.format(
                 entry_xpath))
-        self.assertEqual(compiler.text, 'Foo Bar')
+        self.assertIn('Foo Bar', compiler.text)
 
         # She goes to the WOCAT list and sees the list (retrieved from
         # elasticsearch) also contains metadata information and is
@@ -416,22 +410,13 @@ class ListTest(FunctionalTest):
             route_questionnaire_list))
 
         entry_xpath = '//article[contains(@class, "tech-item")][1]'
-        code = self.findBy(
-            'xpath', '{}//dl/dt[text()="ID:"]/following::dd[1]'.format(
-                entry_xpath))
-        self.assertEqual(code.text, 'sample_4')
         creation = self.findBy(
-            'xpath', '{}//dl/dt[text()="Creation:"]/following::dd[1]'.format(
-                entry_xpath))
+            'xpath', '{}//time'.format(entry_xpath))
         self.assertEqual(creation.text, '02/13/2014 5:08 p.m.')
-        update = self.findBy(
-            'xpath', '{}//dl/dt[text()="Update:"]/following::dd[1]'.format(
-                entry_xpath))
-        self.assertEqual(update.text, '02/13/2014 5:08 p.m.')
         compiler = self.findBy(
-            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
+            'xpath', '{}//li[contains(text(), "Compiler")]'.format(
                 entry_xpath))
-        self.assertEqual(compiler.text, 'Foo Bar')
+        self.assertIn('Foo Bar', compiler.text)
 
         html_2 = self.findBy('xpath', entry_xpath).get_attribute('innerHTML')
         html_2 = re.sub(r'(?<=tooltip-)(.*)(?=")', '', html_2)
@@ -440,18 +425,18 @@ class ListTest(FunctionalTest):
         # but only the compiler is shown
         entry_xpath = '//article[contains(@class, "tech-item")][2]'
         compiler = self.findBy(
-            'xpath', '{}//dl/dt[text()="Compiler:"]/following::dd[1]'.format(
+            'xpath', '{}//li[contains(text(), "Compiler")]'.format(
                 entry_xpath))
-        self.assertEqual(compiler.text, 'Foo Bar')
+        self.assertIn('Foo Bar', compiler.text)
 
         # She sees that both list entries are exactly the same
         self.assertEqual(html_1, html_2)
 
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 3")]').click()
 
-        info = self.findBy('xpath', '//ul[@class="tech-output-infos"]')
+        info = self.findBy('xpath', '//ul[@class="tech-infos"]')
         self.assertIn('Foo Bar', info.text)
         self.assertIn('Faz Taz', info.text)
 
@@ -481,7 +466,7 @@ class ListTest(FunctionalTest):
 
         # She sees a link for advanced filtering which opens the filter
         # panel
-        filter_panel = self.findBy('id', 'search-advanced')
+        filter_panel = self.findBy('id', 'search-advanced-options')
         self.assertFalse(filter_panel.is_displayed())
         self.findBy('link_text', 'Advanced filter').click()
         self.assertTrue(filter_panel.is_displayed())
@@ -489,6 +474,7 @@ class ListTest(FunctionalTest):
         # She sees section 2 and below the image checkboxes for values
         # 14_1, 14_2 and 14_3
         self.findBy('id', 'cat_4-heading').click()
+        self.findBy('id', 'key_14-heading').click()
         val_1 = self.findBy('id', 'key_14_value_14_1')
         val_2 = self.findBy('id', 'key_14_value_14_2')
         val_3 = self.findBy('id', 'key_14_value_14_3')
@@ -497,8 +483,7 @@ class ListTest(FunctionalTest):
         val_2.click()
 
         # She clicks the button to apply the filter
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -508,7 +493,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 2")]')
 
         # The number of Questionnaires in the title is updated
@@ -528,7 +513,7 @@ class ListTest(FunctionalTest):
 
         # She unchecks the checkbox and updates the filter
         val_2.click()
-        filter_button.click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -546,7 +531,7 @@ class ListTest(FunctionalTest):
 
         # She selects the first checkbox and updates the filter
         val_1.click()
-        filter_button.click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -556,10 +541,10 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 1")]')
 
         # The number of Questionnaires in the title is updated
@@ -579,7 +564,7 @@ class ListTest(FunctionalTest):
 
         # She also selects value 3 and updates the filter
         val_3.click()
-        filter_button.click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -589,7 +574,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
 
         # The filter was added to the list of active filters
@@ -616,10 +601,10 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 3")]')
 
         # The filter was removed from the list of active filters
@@ -635,7 +620,7 @@ class ListTest(FunctionalTest):
         # She adds another filter: She also selects value 3 and updates the
         # filter
         val_2.click()
-        filter_button.click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -663,7 +648,7 @@ class ListTest(FunctionalTest):
 
         # She adds a first filter again
         self.findBy('id', 'key_14_value_14_3').click()
-        self.findBy('id', 'submit-filter').click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -680,7 +665,7 @@ class ListTest(FunctionalTest):
         # She removes the first filter and adds another filter instead
         self.findBy('id', 'key_14_value_14_3').click()
         self.findBy('id', 'key_14_value_14_2').click()
-        self.findBy('id', 'submit-filter').click()
+        self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -721,10 +706,13 @@ class ListTest(FunctionalTest):
 
         # She sees a link for advanced filtering which opens the filter
         # panel
-        filter_panel = self.findBy('id', 'search-advanced')
+        filter_panel = self.findBy('id', 'search-advanced-options')
         self.assertFalse(filter_panel.is_displayed())
         self.findBy('link_text', 'Advanced filter').click()
         self.assertTrue(filter_panel.is_displayed())
+
+        # She expands the flag section
+        self.findBy('id', 'filter-flags-heading').click()
 
         # She sees a checkbox to filter by flag
         WebDriverWait(self.browser, 10).until(
@@ -733,8 +721,7 @@ class ListTest(FunctionalTest):
 
         url = self.browser.current_url
         # She submits the filter and sees the flag values were not submitted
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -745,7 +732,7 @@ class ListTest(FunctionalTest):
         flag_cb.click()
 
         # She submits the filter
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -755,7 +742,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
                      'contains(text(), "Foo 4")]')
 
         # The filter is in the list of active filters
@@ -789,7 +776,7 @@ class ListTest(FunctionalTest):
 
         # She applies the filter once again
         flag_cb.click()
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -806,7 +793,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
                      'contains(text(), "Foo 4")]')
 
         # The filter is in the list of active filters
@@ -826,8 +813,7 @@ class ListTest(FunctionalTest):
         # She clicks "filter" again and sees the filter is not added twice.
         url = self.browser.current_url
         self.findBy('link_text', 'Advanced filter').click()
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -854,10 +840,13 @@ class ListTest(FunctionalTest):
 
         # She sees a link for advanced filtering which opens the filter
         # panel
-        filter_panel = self.findBy('id', 'search-advanced')
+        filter_panel = self.findBy('id', 'search-advanced-options')
         self.assertFalse(filter_panel.is_displayed())
         self.findBy('link_text', 'Advanced filter').click()
         self.assertTrue(filter_panel.is_displayed())
+
+        # She opens the date filter section
+        self.findBy('id', 'filter-dates-heading').click()
 
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located(
@@ -876,8 +865,7 @@ class ListTest(FunctionalTest):
         url = self.browser.current_url
 
         # She submits the filter and sees the slider values were not submitted
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -888,7 +876,7 @@ class ListTest(FunctionalTest):
             'xpath', '//input[contains(@class, "filter-created") and '
             'contains(@class, "min")]')
         self.changeHiddenInput(created_slider_min, '2014')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -899,7 +887,7 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
 
         # The filter was added to the list of active filters
@@ -917,7 +905,7 @@ class ListTest(FunctionalTest):
             'xpath', '//input[contains(@class, "filter-updated") and '
             'contains(@class, "max")]')
         self.changeHiddenInput(updated_slider_max, '2012')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -938,10 +926,10 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 2")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 1")]')
 
         # She hits the button to remove all filters
@@ -979,7 +967,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(
             created_left_handle.get_attribute('style'), 'left: 0px;')
 
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -987,6 +975,7 @@ class ListTest(FunctionalTest):
         self.browser.get(url)
 
         self.findBy('link_text', 'Advanced filter').click()
+        self.findBy('id', 'filter-dates-heading').click()
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located(
                 (By.CLASS_NAME, "filter-created")))
@@ -996,10 +985,10 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 3")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 2")]')
 
         # The filter was added to the list of active filters
@@ -1032,8 +1021,7 @@ class ListTest(FunctionalTest):
         # She clicks "filter" again (slider not being set) and sees that
         # nothing is happening.
         # She submits the filter and sees the slider values were not submitted
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         self.assertEqual(
             self.browser.current_url, '{}?'.format(
                 self.live_server_url + reverse(route_questionnaire_list)))
@@ -1064,12 +1052,12 @@ class ListTest(FunctionalTest):
 
         # She filters by checkbox Value 2
         self.findBy('id', 'cat_4-heading').click()
+        self.findBy('id', 'key_14-heading').click()
         val_2 = self.findBy('id', 'key_14_value_14_1')
         val_2.click()
 
         # She clicks the button to apply the filter
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1080,15 +1068,15 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
 
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 1")]')
 
         # She also searches for a word
         self.findBy('xpath', '//input[@type="search"]').send_keys('Foo')
-        self.findBy('id', 'submit-search').click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1098,10 +1086,10 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 1")]')
 
         # The filter was added to the list of active filters
@@ -1143,6 +1131,7 @@ class ListTest(FunctionalTest):
 
         # She enters a search term there
         self.findBy('xpath', '//input[@type="search"]').send_keys('Foo')
+        self.set_input_value('search-type', 'sample')
         self.findBy('id', 'submit-search').click()
 
         # She sees she is taken to the list view with the filter set
@@ -1167,12 +1156,12 @@ class ListTest(FunctionalTest):
 
         # She filters by checkbox Value 2
         self.findBy('id', 'cat_4-heading').click()
+        self.findBy('id', 'key_14-heading').click()
         val_2 = self.findBy('id', 'key_14_value_14_1')
         val_2.click()
 
         # She clicks the button to apply the filter
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1182,10 +1171,10 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 1")]')
 
         # The filter was added to the list of active filters
@@ -1229,25 +1218,13 @@ class ListTest(FunctionalTest):
             'xpath', '//div[@id="active-filters"]//li')
         self.assertEqual(len(active_filters), 0)
 
-        # She sees a link for advanced filtering which opens the filter
-        # panel
-        filter_panel = self.findBy('id', 'search-advanced')
-        self.assertFalse(filter_panel.is_displayed())
-        self.findBy('link_text', 'Advanced filter').click()
-        self.assertTrue(filter_panel.is_displayed())
-
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, "filter-created")))
-
         # She sees a datalist to filter by country
         country_filter = self.findBy('id', 'filter-country')
 
         url = self.browser.current_url
 
         # She submits the filter and sees no values were submitted
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         self.assertEqual(self.browser.current_url, '{}?'.format(url))
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
@@ -1255,7 +1232,7 @@ class ListTest(FunctionalTest):
 
         # She enters a country
         country_filter.send_keys('Switzerland')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1266,13 +1243,13 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 3)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
             'contains(text(), "Foo 2")]')
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
             'contains(text(), "Foo 1")]')
 
         # The filter was added to the list of active filters
@@ -1288,7 +1265,7 @@ class ListTest(FunctionalTest):
         # She enters another country which does not exist
         country_filter.clear()
         country_filter.send_keys('Foo Country')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1322,7 +1299,7 @@ class ListTest(FunctionalTest):
 
         # She sets a filter again and reloads the page
         country_filter.send_keys('Afghanistan')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1330,17 +1307,12 @@ class ListTest(FunctionalTest):
         url = self.browser.current_url
         self.browser.get(url)
 
-        self.findBy('link_text', 'Advanced filter').click()
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, "filter-created")))
-
         # She sees the filter is set
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 3")]')
 
         # The filter was added to the list of active filters
@@ -1367,8 +1339,7 @@ class ListTest(FunctionalTest):
 
         # She clicks "filter" again and sees that nothing is happening.
         # She submits the filter and sees no values were submitted
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1380,7 +1351,7 @@ class ListTest(FunctionalTest):
         # She enters some imaginary country again and reloads the page
         country_filter = self.findBy('id', 'filter-country')
         country_filter.send_keys('Bar Country')
-        filter_button.click()
+        self.apply_filter()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
@@ -1394,162 +1365,9 @@ class ListTest(FunctionalTest):
         # Fix it if you like.
         self.assertEqual(country_filter.get_attribute('value'), 'Bar+Country')
 
-    @patch.object(Typo3Client, 'get_user_id')
-    def test_filter_routes_to_list(self, mock_get_user_id):
-
-        # Alice goes to the home view
-        self.browser.get(self.live_server_url + reverse(route_home))
-
-        # She sees that she can also apply a filter from there
-        filter_panel = self.findBy('id', 'search-advanced')
-        self.assertFalse(filter_panel.is_displayed())
-        self.findBy('link_text', 'Advanced filter').click()
-        self.assertTrue(filter_panel.is_displayed())
-
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, "filter-created")))
-
-        # She filters by country and clicks the button to filter
-        country_filter = self.findBy('id', 'filter-country')
-        country_filter.send_keys('Switzerland')
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
-
-        WebDriverWait(self.browser, 10).until(
-            EC.invisibility_of_element_located(
-                (By.CLASS_NAME, "loading-indicator")))
-
-        # She sees that she is redirected to the list view where she
-        # sees the filtered results
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
-            'contains(text(), "Foo 1")]')
-
-        # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertEqual(filter_1.text, 'Country: Switzerland')
-
-        #
-        # She also goes to the detail page of a questionnaire and sees
-        # that she can filter from there
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
-
-        # She sees that she can also apply a filter from there
-        filter_panel = self.findBy('id', 'search-advanced')
-        self.assertFalse(filter_panel.is_displayed())
-        self.findBy('link_text', 'Advanced filter').click()
-        self.assertTrue(filter_panel.is_displayed())
-
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, "filter-created")))
-
-        # She filters by country and clicks the button to filter
-        country_filter = self.findBy('id', 'filter-country')
-        country_filter.send_keys('Switzerland')
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
-
-        WebDriverWait(self.browser, 10).until(
-            EC.invisibility_of_element_located(
-                (By.CLASS_NAME, "loading-indicator")))
-
-        # She sees that she is redirected to the list view where she
-        # sees the filtered results
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
-            'contains(text(), "Foo 1")]')
-
-        # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertEqual(filter_1.text, 'Country: Switzerland')
-
-        # The same is possible from the overview page to create a new
-        # questionnaire
-        self.doLogin()
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new))
-
-        # She sees that she can also apply a filter from there
-        filter_panel = self.findBy('id', 'search-advanced')
-        self.assertFalse(filter_panel.is_displayed())
-        self.findBy('link_text', 'Advanced filter').click()
-        self.assertTrue(filter_panel.is_displayed())
-
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, "filter-created")))
-
-        # She filters by country and clicks the button to filter
-        country_filter = self.findBy('id', 'filter-country')
-        country_filter.send_keys('Switzerland')
-        filter_button = self.findBy('id', 'submit-filter')
-        filter_button.click()
-
-        WebDriverWait(self.browser, 10).until(
-            EC.invisibility_of_element_located(
-                (By.CLASS_NAME, "loading-indicator")))
-
-        # She sees that she is redirected to the list view where she
-        # sees the filtered results
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//h1/a['
-            'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//h1/a['
-            'contains(text(), "Foo 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//h1/a['
-            'contains(text(), "Foo 1")]')
-
-        # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertEqual(filter_1.text, 'Country: Switzerland')
-        time.sleep(0.5)
-
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@patch.object(Typo3Client, 'get_user_id')
 class ListTestLinks(FunctionalTest):
 
     fixtures = [
@@ -1591,149 +1409,99 @@ class ListTestLinks(FunctionalTest):
         super(ListTestLinks, self).tearDown()
         delete_all_indices()
 
-    def test_list_displays_links_home(self):
+    def test_list_displays_links_user_questionnaires(self, mock_get_user_id):
 
-        # Alice is not logged in. She goes to the SAMPLE landing page
-        # and sees the latest updates. These are: 2 and 1 (with link)
-        self.browser.get(self.live_server_url + reverse(route_home))
+        user_alice = User.objects.get(pk=101)
 
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+        # Alice logs in
+        self.doLogin(user=user_alice)
 
-        # She sees that the second one (1) contains the link to
-        # SAMPLEMULTI 2.
+        # She enters a new questionnaire with some basic data
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.submit_form_step()
+
+        # She also links another questionnaire
+        self.click_edit_section('cat_5')
         self.findBy(
-            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+            'xpath', '//input[contains(@class, "link-search-field")]'
+                     '[1]').send_keys('key')
+        self.wait_for('xpath', '//li[@class="ui-menu-item"]')
         self.findBy(
-            'xpath', '//a[contains(text(), "This is key 1a")]',
-            base=list_entries[1])
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1a"'
+            ']').click()
+        self.submit_form_step()
 
-        # She goes to the SAMPLEMULTI landing page and sees the reverse.
-        # Latest updates: 4 and 3 (with link)
-        self.browser.get(
-            self.live_server_url + reverse(route_samplemulti_home))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        # She sees that the first one (2) does not have a link
-        self.assertNotIn('Linked Questionnaires: ', list_entries[0].text)
-
-        # She also sees that the second one (1) contains the link to
-        # SAMPLEMULTI 2.
-        self.assertIn('Linked Questionnaires: ', list_entries[1].text)
+        # She goes to the page where she can see her own questionnaires
+        self.clickUserMenu(user_alice)
         self.findBy(
-            'xpath', '//a[contains(text(), "This is the first key")]',
-            base=list_entries[1])
+            'xpath', '//li[contains(@class, "has-dropdown")]/ul/li/a['
+             'contains(@href, "accounts/questionnaires")]').click()
 
-        # She changes the language to "Spanish"
-        self.changeLanguage('es')
+        # She sees the newly created questionnaire and that it contains only one
+        # link
+        self.findBy('xpath', '(//article[contains(@class, "tech-item")])[1]//a'
+                             '[contains(text(), "Foo")]')
+        link_count = self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//ul['
+                     'contains(@class, "tech-attached")]/li/a')
+        self.assertEqual(link_count.text, '')  # No number
 
-        # She sees that the questionnaires are now listed in Spanish
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+    def test_list_displays_links_search(self, mock_get_user_id):
 
-        # She sees that the second one (1) contains the link to
-        # SAMPLEMULTI 2.
+        # Alice logs in and creates a new questionnaire with some basic data and
+        # a linked questionnaire
+        user_alice = User.objects.get(pk=101)
+        user_alice.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
+        self.doLogin(user=user_alice)
+
+        # She submits and publishes the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_1'}))
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
+        self.submit_form_step()
+        self.click_edit_section('cat_5')
         self.findBy(
-            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
+            'xpath', '//input[contains(@class, "link-search-field")]'
+                     '[1]').send_keys('key')
+        self.wait_for('xpath', '//li[@class="ui-menu-item"]')
         self.findBy(
-            'xpath', '//a[contains(text(), "Esto es la clave 1")]',
-            base=list_entries[1])
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="This is key 1a"'
+            ']').click()
+        self.submit_form_step()
 
-        # Also for SAMPLE, the link is now translated
-        self.browser.get(self.live_server_url + reverse(route_home))
-        self.changeLanguage('es')
+        self.review_action('submit')
+        self.review_action('review')
+        self.review_action('publish')
 
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        self.findBy(
-            'xpath', '//a[contains(text(), "Esto es clave 1a")]',
-            base=list_entries[1])
-
-        # She also goes to the details to see if the link is translated
-        # there
-        self.findBy(
-            'xpath', '//article[contains(@class, "tech-item")][2]//a[contains('
-            'text(), "Esto es la clave 1")]').click()
-
-        self.findBy('xpath', '//a[contains(text(), "Esto es clave 1a")]')
-
-    def test_list_displays_links_search(self):
-
-        # Alice is not logged in. She goes to the SAMPLE search page
-        # and sees the questionnaires. These are: 2 and 1 (with link)
+        # She goes to the SAMPLE search page and sees the questionnaires. These
+        # are: 3 (newly created, with link), 2 and 1 (with link)
         self.browser.get(
             self.live_server_url + reverse(route_questionnaire_list))
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+        self.assertEqual(len(list_entries), 3)
 
-        # She sees that the second one (1) contains the link to
-        # SAMPLEMULTI 2.
-        self.findBy(
-            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        self.findBy(
-            'xpath', '//a[contains(text(), "This is key 1a")]',
-            base=list_entries[1])
+        # She sees that the first one contains a link to SAMPLEMULTI. The link
+        # count is only one!
+        # link_count_1 = self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[1]//ul['
+        #              'contains(@class, "tech-attached")]/li/a')
+        # self.assertEqual(link_count_1.text, '')
 
-        # She goes to the SAMPLEMULTI landing page and sees the reverse.
-        # Latest updates: 4 and 3 (with link)
-        self.browser.get(
-            self.live_server_url + reverse(route_samplemulti_list))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        # She sees that the first one (2) does not have a link
-        self.assertNotIn('Linked Questionnaires: ', list_entries[0].text)
-
-        # She also sees that the second one (1) contains the link to
-        # SAMPLEMULTI 2.
-        self.assertIn('Linked Questionnaires: ', list_entries[1].text)
-        self.findBy(
-            'xpath', '//a[contains(text(), "This is the first key")]',
-            base=list_entries[1])
-
-        # She changes the language to "Spanish"
-        self.changeLanguage('es')
-
-        # She sees that the questionnaires are now listed in Spanish
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        # She sees that the second one (1) contains the link to
-        # SAMPLEMULTI 2.
-        self.findBy(
-            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        self.findBy(
-            'xpath', '//a[contains(text(), "Esto es la clave 1")]',
-            base=list_entries[1])
-
-        # Also for SAMPLE, the link is now translated
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_list))
-        self.changeLanguage('es')
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '//article[contains(@class, "tech-item")][2]//footer')
-        self.findBy(
-            'xpath', '//a[contains(text(), "Esto es clave 1a")]',
-            base=list_entries[1])
+        # Same for the third entry of the list
+        # link_count_3 = self.findBy(
+        #     'xpath', '(//article[contains(@class, "tech-item")])[3]//ul['
+        #              'contains(@class, "tech-attached")]/li/a')
+        # self.assertEqual(link_count_3.text, '')
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -1804,10 +1572,20 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 5")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
 
         # She goes to the list view and sees the same questionnaires
         self.browser.get(self.live_server_url + reverse(
@@ -1817,14 +1595,20 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-
-        # Since she is not logged in, she does not see a note about
-        # seeing only public questionnaires.
-        self.findByNot('xpath', '//p[contains(@class, "help-bloc")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 5")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
 
     def test_list_status_logged_in(self, mock_get_user_id):
 
@@ -1843,10 +1627,20 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 5")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
 
         # # She goes to the SAMPLE landing page and sees the latest
         # # updates. These are: 1 (draft), 3 (public) and 6 (public)
@@ -1872,14 +1666,20 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-
-        # She also sees a note saying that only public questionnaires
-        # are visible
-        self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 5")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
 
         # She logs in as user 2
         user = User.objects.get(pk=102)
@@ -1896,10 +1696,20 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 5")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
 
         # # She goes to the SAMPLE landing page and sees the latest
         # # updates. These are: 2 (pending), 3 (public) and 6
@@ -1926,66 +1736,20 @@ class ListTestStatus(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-
-        # She also sees a note saying that only public questionnaires
-        # are visible
-        self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
-
-    def test_list_status_moderator(self, mock_get_user_id):
-
-        # Alice logs in as user 3 (moderator).
-        user = User.objects.get(pk=103)
-        self.doLogin(user=user)
-
-        # Design change: Home also shows only public questionnaires
-
-        # She goes to the SAMPLE landing page and sees only the public
-        # questionnaires
-        self.browser.get(self.live_server_url + reverse(route_home))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-
-        # # She goes to the SAMPLE landing page and sees the latest
-        # # updates. These are: 7 (draft), 2 (pending), 3 (public)
-        # self.browser.get(self.live_server_url + reverse(route_home))
-        #
-        # list_entries = self.findManyBy(
-        #     'xpath', '//article[contains(@class, "tech-item")]')
-        # self.assertEqual(len(list_entries), 3)
-        #
-        # self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
-        # self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
-        # self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        # self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        # self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
-        # self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
-
-        # She goes to the list view and sees only the public
-        # questionnaires
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_list))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy('xpath', '//article[1]//h1/a[text()="Foo 3"]')
-        self.findByNot('xpath', '//article[1]//figcaption[text()="Public"]')
-        self.findBy('xpath', '//article[2]//h1/a[text()="Foo 5"]')
-        self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-
-        # She also sees a note saying that only public questionnaires
-        # are visible
-        self.findBy('xpath', '//p[contains(@class, "help-bloc")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 5")]')
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
+                     'contains(@class, "tech-status") and contains(text(), '
+                     '"Public")]')
 
     def test_list_shows_only_one_public(self, mock_get_user_id):
 
@@ -2044,6 +1808,7 @@ class ListTestStatus(FunctionalTest):
         # draft version.
         self.findBy(
             'xpath', '//a[contains(text(), "Foo 3")]').click()
+        self.toggle_all_sections()
         self.checkOnPage('asdf')
 
         # She submits the questionnaire
