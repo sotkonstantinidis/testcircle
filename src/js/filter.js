@@ -138,7 +138,6 @@ $(function () {
             var val = $t.val();
             if (val) {
                 p = addFilter(p, null, 'q', val);
-                $t.val('');
             }
         });
 
@@ -316,6 +315,14 @@ function updateFilterInputs() {
     for (var k in p.type) {
         $('a[data-type="' + p.type[k] + '"]').click();
     }
+
+    // Search
+    var search_field = $('input[type=search]');
+    if (p.q) {
+        search_field.val(decodeURIComponent(p.q[0].replace('+', ' ')));
+    } else {
+        search_field.val('')
+    }
 }
 
 
@@ -355,6 +362,7 @@ function removeFilter(questiongroup, key, value) {
     var keyParameter;
     if (key == '_search') {
         keyParameter = 'q';
+        value = encodeURIComponent(value).replace('%20', '+');
     } else if (key == 'created' || key == 'updated' || key == 'flag') {
         keyParameter = key;
     } else if (key == 'funding_project_display') {
@@ -442,7 +450,7 @@ function changeUrl(url) {
  */
 function removeFilterParams(p) {
     for (var k in p) {
-        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag' || k == 'type') {
+        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag' || k == 'type' || k == 'q') {
             delete p[k];
         }
     }

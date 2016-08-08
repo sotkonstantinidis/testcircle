@@ -131,6 +131,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             locator = By.CLASS_NAME
         elif by == 'xpath':
             locator = By.XPATH
+        elif by == 'id':
+            locator = By.ID
         else:
             self.fail('Argument "by" = "%s" is not valid.' % by)
 

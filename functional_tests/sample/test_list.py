@@ -1308,6 +1308,7 @@ class ListTest(FunctionalTest):
 
         # She filters by checkbox Value 2
         self.findBy('id', 'cat_4-heading').click()
+        self.wait_for('id', 'key_14-heading')
         self.findBy('id', 'key_14-heading').click()
         val_2 = self.findBy('id', 'key_14_value_14_1')
         val_2.click()
@@ -1350,6 +1351,87 @@ class ListTest(FunctionalTest):
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter left
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # The search field is empty
+        search_field = self.findBy('xpath', '//input[@type="search"]')
+        self.assertEqual(search_field.get_attribute('value'), '')
+
+        # She searches again by keyword, this time entering two words
+        search_field.send_keys('Foo Bar')
+        self.apply_filter()
+
+        # The filter is set correctly
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Search Terms: Foo Bar')
+
+        # She refreshes the page and sees the text in the search bar did not
+        # change
+        self.browser.get(self.browser.current_url)
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Search Terms: Foo Bar')
+        search_field = self.findBy('xpath', '//input[@type="search"]')
+        self.assertEqual(search_field.get_attribute('value'), 'Foo Bar')
+
+        # She removes the filter and sees it works.
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+        search_field = self.findBy('xpath', '//input[@type="search"]')
+        self.assertEqual(search_field.get_attribute('value'), '')
+
+        # She searches again by keyword, this time entering two words
+        special_chars = ';ö$ ,_%as[df)'
+        search_field.send_keys(special_chars)
+        self.apply_filter()
+
+        # The filter is set correctly
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Search Terms: {}'.format(
+            special_chars))
+
+        # She refreshes the page and sees the text in the search bar did not
+        # change
+        self.browser.get(self.browser.current_url)
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertEqual(filter_1.text, 'Search Terms: {}'.format(
+            special_chars))
+        search_field = self.findBy('xpath', '//input[@type="search"]')
+        self.assertEqual(search_field.get_attribute('value'), special_chars)
+
+        # She removes the filter and sees it works.
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+        search_field = self.findBy('xpath', '//input[@type="search"]')
+        self.assertEqual(search_field.get_attribute('value'), '')
+
 
     def test_filter_country(self):
 
