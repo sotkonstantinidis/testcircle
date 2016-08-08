@@ -115,15 +115,12 @@ class Questionnaire(models.Model):
             ("unflag_unccd_questionnaire", "Can unflag UNCCD questionnaire"),
         )
 
-    def get_absolute_url(self):
+    def _get_url_from_configured_app(self, url_name: str) -> str:
         """
         Try to resolve the proper code for the object, using it as namespace.
 
         If some day, the configurations code is not the exact same string as
         the application name, a 'mapping' dict is required.
-
-        Returns:
-            string: detail url of the questionnaire.
         """
         conf = self.configurations.filter(
             active=True
@@ -134,10 +131,23 @@ class Questionnaire(models.Model):
         )
         if conf.exists() and conf.count() == 1:
             with contextlib.suppress(NoReverseMatch):
-                return reverse('{app_name}:questionnaire_details'.format(
-                    app_name=conf.first().code
+                return reverse('{app_name}:{url_name}'.format(
+                    app_name=conf.first().code,
+                    url_name=url_name
                 ), kwargs={'identifier': self.code})
         return None
+
+    def get_absolute_url(self) -> str:
+        """
+        Detail view url of the questionnaire
+        """
+        return self._get_url_from_configured_app('questionnaire_details')
+
+    def get_edit_url(self) -> str:
+        """
+        Edit view url of the questionnaire
+        """
+        return self._get_url_from_configured_app('questionnaire_edit')
 
     def update_data(self, data, updated, configuration_code):
         """

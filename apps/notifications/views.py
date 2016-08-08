@@ -55,15 +55,18 @@ class LogListView(LoginRequiredMixin, ListView):
 
         for log in logs:
             is_read = log.id in readlog_list
+            # if a notification is read, it is assumed that it is resolved.
+            is_todo = not is_read and self.get_is_todo(
+                status=log.questionnaire.status, action=log.action,
+                log_status=log.statusupdate.status if hasattr(log, 'statusupdate') else None
+            )
             yield {
                 'id': log.id,
                 'created': log.created,
                 'text': log.get_linked_subject(user=self.request.user),
                 'is_read': is_read,
-                'is_todo': not is_read and self.get_is_todo(
-                    status=log.questionnaire.status, action=log.action,
-                    log_status=log.statusupdate.status if hasattr(log, 'statusupdate') else None
-                )
+                'is_todo': is_todo,
+                'edit_url': log.questionnaire.get_edit_url() if is_todo else ''
             }
 
     @property

@@ -10,7 +10,7 @@
     </div>
     <div class="small-1 columns">
       {% if log.is_todo %}
-        <span class="label is-pending">{% trans "Pending" %}</span>
+        <a href="{{ log.edit_url }}"><span class="label is-pending">{% trans "Pending" %}</span></a>
       {% endif %}
     </div>
     <div class="small-1 columns read-toggle nobr">
@@ -36,5 +36,6 @@
       </li>
     </ul>
   </div>
+  <script type="text/javascript">$(document).foundation();</script>
 {% endif %}
 
