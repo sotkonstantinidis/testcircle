@@ -3293,6 +3293,17 @@
                             "keyword": "country"
                           }
                         ]
+                      },
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_project_display"
+                          }
+                        ]
                       }
                     ]
                   },

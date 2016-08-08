@@ -652,8 +652,12 @@ def get_active_filters(questionnaire_configurations, query_dict):
                     try:
                         object = model.objects.get(pk=filter_value)
                         value_label = str(object)
-                    except model.DoesNotExist:
-                        continue
+                    except (model.DoesNotExist, ValueError):
+                        # If no object was found by ID or the value is not a
+                        # valid ID, try to find the (supposed string) value in
+                        # the name of the object.
+                        filter_key = '{}_display'.format(filter_key)
+                        value_label = filter_value
                 except LookupError:
                     continue
 

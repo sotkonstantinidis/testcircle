@@ -357,6 +357,9 @@ function removeFilter(questiongroup, key, value) {
         keyParameter = 'q';
     } else if (key == 'created' || key == 'updated' || key == 'flag') {
         keyParameter = key;
+    } else if (key == 'funding_project_display') {
+        key = key.replace('_display', '');
+        keyParameter = keyParameter = createKeyParameter(questiongroup, key);
     } else {
         keyParameter = createKeyParameter(questiongroup, key);
     }

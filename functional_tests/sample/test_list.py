@@ -40,7 +40,8 @@ class ListTest(FunctionalTest):
 
     fixtures = [
         'global_key_values.json', 'flags.json', 'sample.json', 'unccd.json',
-        'sample_questionnaires_5.json']
+        'sample_questionnaires_5.json', 'sample_projects.json',
+        'sample_institutions.json']
 
     def setUp(self):
         super(ListTest, self).setUp()
@@ -1026,6 +1027,157 @@ class ListTest(FunctionalTest):
             self.browser.current_url, '{}?'.format(
                 self.live_server_url + reverse(route_questionnaire_list)))
         time.sleep(0.5)
+
+    def test_filter_project(self):
+
+        # Alice goes to the list view
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She sees a datalist to filter by project
+        project_filter = self.findBy('id', 'filter-project')
+
+        url = self.browser.current_url
+
+        # She submits the filter and sees no values were submitted
+        self.apply_filter()
+        self.assertEqual(self.browser.current_url, '{}?'.format(url))
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She enters a project
+        project_filter.send_keys('The first Project (TFP)')
+        self.apply_filter()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees that the filter was submitted in the url and the results
+        # are filtered
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertIn('The first Project (TFP)', filter_1.text)
+
+        # She enters another project which does not exist
+        project_filter.clear()
+        project_filter.send_keys('Foo')
+        self.apply_filter()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # Nothing is visible with this filter
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 0)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertIn('Foo', filter_1.text)
+
+        # She hits the button to remove all filters
+        self.findBy('id', 'filter-reset').click()
+
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # There is no active filter set
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertFalse(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 0)
+
+        # She sets a filter again and reloads the page
+        project_filter.send_keys('first')
+        self.apply_filter()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        url = self.browser.current_url
+        self.browser.get(url)
+
+        # She sees the filter is set
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 3")]')
+
+        # The filter was added to the list of active filters
+        active_filter_panel = self.findBy(
+            'xpath', '//div[@id="active-filters"]/div')
+        self.assertTrue(active_filter_panel.is_displayed())
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        self.assertEqual(len(active_filters), 1)
+        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
+        self.assertIn('first', filter_1.text)
+
+        # She sees the text in the input field matches the project
+        project_filter = self.findBy('id', 'filter-project')
+        self.assertEqual(project_filter.get_attribute('value'), 'first')
+
+        # She removes the filter and sees that the input field has been
+        # reset
+        self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+        self.assertEqual(project_filter.get_attribute('value'), '')
+
+        # She clicks "filter" again and sees that nothing is happening.
+        # She submits the filter and sees no values were submitted
+        self.apply_filter()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
+
+        self.assertEqual(
+            self.browser.current_url, '{}?'.format(
+                self.live_server_url + reverse(route_questionnaire_list)))
+
+        # She enters some imaginary project again and reloads the page
+        project_filter = self.findBy('id', 'filter-project')
+        project_filter.send_keys('Nonsense')
+        self.apply_filter()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
     def test_filter_search(self):
 
