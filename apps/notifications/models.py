@@ -205,6 +205,8 @@ class StatusUpdate(models.Model):
     status = models.PositiveIntegerField(
         choices=STATUSES, null=True, blank=True
     )
+    is_rejected = models.BooleanField(default=False)
+    message = models.TextField()
 
 
 class MemberUpdate(models.Model):

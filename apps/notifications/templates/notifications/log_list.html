@@ -15,7 +15,7 @@
         <h1 class="is-title">{% trans "Latest updates" %}</h1>
         <div class="panel callout radius">
           <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
-          <label for="is-pending">{% trans "Show pending notifications only" %}</label>
+          <label for="is-pending">{% trans 'Show notifications for questionnaires which I can approve only ("pending").' %}</label>
         </div>
         <div id="notifications-list"></div>
       </div>

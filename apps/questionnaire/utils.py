@@ -1333,7 +1333,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user
+            reviewer=request.user,
+            is_rejected=True
         )
 
         # Query the permissions again, if the user does not have

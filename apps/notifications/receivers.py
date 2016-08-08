@@ -9,24 +9,32 @@ from .utils import ContentLog, MemberLog, StatusLog
 
 @receiver(signals.change_status)
 def create_status_notification(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
-    StatusLog(action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs).create()
+    StatusLog(
+        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+    ).create(kwargs.get('is_rejected', False))
 
 
 @receiver(signals.change_member)
 def modify_member(sender: int, questionnaire: Questionnaire, reviewer: User, affected: User, role: str, **kwargs):
-    MemberLog(action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs).create(
+    MemberLog(
+        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+    ).create(
         affected=affected, role=role
     )
 
 
 @receiver(signals.create_questionnaire)
 def create_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
-    StatusLog(action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs).create()
+    StatusLog(
+        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+    ).create()
 
 
 @receiver(signals.delete_questionnaire)
 def delete_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
-    StatusLog(action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs).create()
+    StatusLog(
+        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+    ).create()
 
 
 @receiver(signals.change_questionnaire_data)
