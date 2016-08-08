@@ -1265,8 +1265,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # It is important to also put the data of the linked
         # questionnaires so changes (eg. name change) appear in their
         # links.
+        # However, do this only where the linked questionnaire is "public"!
+        # Otherwise, "draft" questionnaires would appear in the list.
         links_by_configuration = {}
-        for link in questionnaire_object.links.all():
+        for link in questionnaire_object.links.filter(
+                status=settings.QUESTIONNAIRE_PUBLIC):
             configuration_object = link.configurations.first()
             if configuration_object is None:
                 continue

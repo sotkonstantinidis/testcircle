@@ -963,7 +963,8 @@ class Questionnaire(models.Model):
         config_list = ConfigurationList()
         current_language = get_language()
 
-        for link in self.links.filter(configurations__isnull=False):
+        for link in self.links.filter(configurations__isnull=False).filter(
+                status=settings.QUESTIONNAIRE_PUBLIC):
 
             link_configuration = config_list.get(link.configurations.first().code)
             name_data = link_configuration.get_questionnaire_name(link.data)

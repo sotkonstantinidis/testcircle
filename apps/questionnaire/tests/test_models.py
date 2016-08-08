@@ -596,12 +596,16 @@ class QuestionnaireModelTest(TestCase):
         questionnaire_2 = get_valid_questionnaire()
         questionnaire_1.add_link(questionnaire_2)
         links_property = questionnaire_1.links_property
-        self.assertEqual(len(links_property), 1)
+        self.assertTrue(isinstance(links_property, list))
 
     @override_settings(LANGUAGES=(('en', 'English'), ('es', 'Spanish')))
     def test_links_property_adds_each_name(self):
         questionnaire_1 = get_valid_questionnaire()
+        questionnaire_1.status = 4
+        questionnaire_1.save()
         questionnaire_2 = get_valid_questionnaire()
+        questionnaire_2.status = 4
+        questionnaire_2.save()
         questionnaire_1.add_link(questionnaire_2)
         links_property = questionnaire_1.links_property
         link_names = links_property[0]['name']
@@ -613,7 +617,11 @@ class QuestionnaireModelTest(TestCase):
     @override_settings(LANGUAGES=(('en', 'English'), ('es', 'Spanish')))
     def test_links_property_adds_each_url(self):
         questionnaire_1 = get_valid_questionnaire()
+        questionnaire_1.status = 4
+        questionnaire_1.save()
         questionnaire_2 = get_valid_questionnaire()
+        questionnaire_2.status = 4
+        questionnaire_2.save()
         questionnaire_1.add_link(questionnaire_2)
         links_property = questionnaire_1.links_property
         link_urls = links_property[0]['url']
@@ -627,6 +635,20 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(link_urls['default'], en_url)
         self.assertEqual(link_urls['en'], en_url)
 
+    def test_links_property_only_returns_public_links(self):
+        questionnaire_1 = get_valid_questionnaire()
+        questionnaire_1.status = 4
+        questionnaire_1.save()
+        questionnaire_2 = get_valid_questionnaire()
+        questionnaire_2.status = 4
+        questionnaire_2.save()
+        questionnaire_3 = get_valid_questionnaire()
+        questionnaire_3.status = 1
+        questionnaire_3.save()
+        questionnaire_1.add_link(questionnaire_2)
+        questionnaire_1.add_link(questionnaire_3)
+        links_property = questionnaire_1.links_property
+        self.assertEqual(len(links_property), 1)
 
 class FileModelTest(TestCase):
 

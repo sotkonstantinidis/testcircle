@@ -174,8 +174,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.execute_script(
             'arguments[0].style.position = "relative";', notifications)
 
-    def screenshot(self):
-        self.browser.save_screenshot('screenshot.png')
+    def screenshot(self, filename='screenshot.png'):
+        self.browser.save_screenshot(filename)
 
     def review_action(
             self, action, exists_only=False, exists_not=False,

@@ -19,6 +19,8 @@ class SerializerTest(TestCase):
     def setUp(self):
         self.questionnaire = get_valid_questionnaire()
         linked_questionnaire = get_valid_questionnaire()
+        linked_questionnaire.status = 4
+        linked_questionnaire.save()
         self.questionnaire.add_link(linked_questionnaire)
         self.questionnaire.save()
         self.serialized = QuestionnaireSerializer(self.questionnaire).data  # noqa
