@@ -1141,6 +1141,7 @@ class HandleReviewActionsTest(TestCase):
             roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
+        self.obj.links.filter.return_value = []
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         prev = Mock()
@@ -1162,6 +1163,7 @@ class HandleReviewActionsTest(TestCase):
             roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
+        self.obj.links.filter.return_value = []
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         prev = Mock()
@@ -1178,6 +1180,7 @@ class HandleReviewActionsTest(TestCase):
             roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
+        self.obj.links.filter.return_value = []
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
@@ -1196,6 +1199,7 @@ class HandleReviewActionsTest(TestCase):
             roles=[], permissions=['publish_questionnaire'])
         self.obj.status = 3
         self.obj.code = 'code'
+        self.obj.links.filter.return_value = []
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
@@ -1210,7 +1214,7 @@ class HandleReviewActionsTest(TestCase):
             'RolesPermissions', ['roles', 'permissions'])
         self.obj.get_roles_permissions.return_value = RolesPermissions(
             roles=[], permissions=['publish_questionnaire'])
-        self.obj.links.all.return_value = [mock_link]
+        self.obj.links.filter.return_value = [mock_link]
         self.obj.status = 3
         self.obj.code = 'code'
         self.request.user = Mock()

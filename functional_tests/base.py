@@ -131,6 +131,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             locator = By.CLASS_NAME
         elif by == 'xpath':
             locator = By.XPATH
+        elif by == 'id':
+            locator = By.ID
         else:
             self.fail('Argument "by" = "%s" is not valid.' % by)
 
@@ -169,8 +171,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         # self.browser.execute_script(
         #     'arguments[0].style.position = "absolute";', sticky)
 
-    def screenshot(self):
-        self.browser.save_screenshot('screenshot.png')
+    def rearrange_notifications(self):
+        notifications = self.findBy('class_name', 'notification-group')
+        self.browser.execute_script(
+            'arguments[0].style.position = "relative";', notifications)
+
+    def screenshot(self, filename='screenshot.png'):
+        self.browser.save_screenshot(filename)
 
     def review_action(
             self, action, exists_only=False, exists_not=False,

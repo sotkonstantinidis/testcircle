@@ -9478,7 +9478,8 @@
                           "label_class": "bottom-margin"
                         },
                         "view_options": {
-                          "template": "select_user"
+                          "template": "select_user",
+                          "raw_questions": true
                         },
                         "questions": [
                           {

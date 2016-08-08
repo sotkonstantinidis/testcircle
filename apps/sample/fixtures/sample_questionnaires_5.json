@@ -331,6 +331,12 @@
           {
             "country": "country_AFG"
           }
+        ],
+        "qg_funding_project": [
+          {
+            "funding_project": 1,
+            "funding_project_display": "The first Project (TFP)"
+          }
         ]
       },
       "code": "sample_3",
@@ -421,7 +427,7 @@
       },
       "code": "sample_4",
       "flags": [
-          1
+        1
       ],
       "status": 4,
       "version": 1,
