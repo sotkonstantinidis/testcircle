@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+from django.test.utils import override_settings
+
 from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
@@ -8,6 +10,8 @@ from questionnaire.serializers import QuestionnaireSerializer
 from .test_models import get_valid_questionnaire
 
 
+@override_settings(LANGUAGES=(
+        ('en', 'English'), ('es', 'Spanish'), ('fr', 'French')))
 class SerializerTest(TestCase):
 
     fixtures = ['sample.json', 'sample_global_key_values.json']
@@ -15,6 +19,8 @@ class SerializerTest(TestCase):
     def setUp(self):
         self.questionnaire = get_valid_questionnaire()
         linked_questionnaire = get_valid_questionnaire()
+        linked_questionnaire.status = 4
+        linked_questionnaire.save()
         self.questionnaire.add_link(linked_questionnaire)
         self.questionnaire.save()
         self.serialized = QuestionnaireSerializer(self.questionnaire).data  # noqa
@@ -28,24 +34,23 @@ class SerializerTest(TestCase):
             'list_data': {},
             'editors': [],
             'links': [
-                {'en': {
-                    'url': '/en/sample/view/sample_1/',
+                {
                     'code': 'sample_1',
-                    'name': 'Unknown name',
-                    'configuration': 'sample'}
-                },
-                {'es': {
-                    'url': '/es/sample/view/sample_1/',
-                    'code': 'sample_1',
-                    'name': 'Unknown name',
-                    'configuration': 'sample'}
-                },
-                {'fr': {
-                    'url': '/fr/sample/view/sample_1/',
-                    'code': 'sample_1',
-                    'name': 'Unknown name',
-                    'configuration': 'sample'}
-                }],
+                    'configuration': 'sample',
+                    'name': {
+                        'default': 'Unknown name',
+                        'en': 'Unknown name',
+                        'fr': 'Unknown name',
+                        'es': 'Unknown name',
+                    },
+                    'url': {
+                        'default': '/en/sample/view/sample_1/',
+                        'en': '/en/sample/view/sample_1/',
+                        'fr': '/fr/sample/view/sample_1/',
+                        'es': '/es/sample/view/sample_1/',
+                    }
+                }
+            ],
             'url': '/en/sample/view/sample_0/',
             'serializer_config': 'sample',
             'translations': ['en'],
