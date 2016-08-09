@@ -449,12 +449,17 @@ class Questionnaire(models.Model):
         permissions = list(set(permissions))
         roles = list(set(roles))
 
+        # Do the translation of the role names
+        translated_roles = []
+        for role_keyword, role_name in roles:
+            translated_roles.append((role_keyword, _(role_name)))
+
         # If questionnaire is blocked, remove 'edit' permissions.
         if 'edit_questionnaire' in permissions and \
                 not self.can_edit(current_user):
             permissions.remove('edit_questionnaire')
 
-        return RolesPermissions(roles=roles, permissions=permissions)
+        return RolesPermissions(roles=translated_roles, permissions=permissions)
 
     def get_question_data(self, qg_keyword, q_keyword):
         """
