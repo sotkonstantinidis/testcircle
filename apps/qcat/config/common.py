@@ -275,10 +275,3 @@ class BaseSettings(Configuration):
 
     # google webdeveloper verification
     GOOGLE_WEBMASTER_TOOLS_KEY = values.Value(environ_prefix='')
-
-    # all variables for offline compression:
-    # https://django-compressor.readthedocs.io/en/latest/usage/#offline-compression
-    # e.g: accounts/templates/details.html
-    COMPRESS_OFFLINE_CONTEXT = {
-        'detail_user': type('user', (object, ), {'id': 1}),
-    }
