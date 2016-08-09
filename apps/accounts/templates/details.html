@@ -53,7 +53,7 @@
       <div class="tech-group">
         <h2 class="is-group">{% trans "Public questionnaires" %}</h2>
         <div class="row">
-          <div class="small-12 columns" id="public-questionnaires">
+          <div class="small-12 columns" id="public-questionnaires" data-url="{% url 'questionnaires_public_list' user_id=detail_user.id %}">
           </div>
         </div>
       </div>
@@ -66,12 +66,13 @@
       $(function() {
 
         const questionnairesContainer = $('#public-questionnaires');
+        const url = questionnairesContainer.data('url');
         const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
 
         var loadQuestionnaires = function(page) {
           questionnairesContainer.html(spinner);
           $.ajax({
-            url: '{% url 'questionnaires_public_list' user_id=detail_user.id %}?status=4&page=' + page
+            url: url + '?status=4&page=' + page
           }).done(function(data) {
             questionnairesContainer.html(data);
           });

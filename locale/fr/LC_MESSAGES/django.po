@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-04 14:50+0200\n"
-"PO-Revision-Date: 2016-08-04 12:49+0000\n"
+"POT-Creation-Date: 2016-08-09 09:49+0200\n"
+"PO-Revision-Date: 2016-08-09 07:47+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
@@ -40,37 +40,44 @@ msgstr "Mot de passe"
 msgid "Updated {} users"
 msgstr "Utilisateurs {} mis à jour"
 
-#: apps/accounts/templates/details.html:12 templates/base.html:125
+#: apps/accounts/templates/details.html:14 templates/base.html:125
 msgid "User Details"
 msgstr "Informations sur l'utilisateur"
 
-#: apps/accounts/templates/details.html:14
+#: apps/accounts/templates/details.html:18
+msgid "Information"
+msgstr "Informations"
+
+#: apps/accounts/templates/details.html:20
 msgid "First name:"
 msgstr "Prénom:"
 
-#: apps/accounts/templates/details.html:18
+#: apps/accounts/templates/details.html:24
 msgid "Last name:"
 msgstr "Nom:"
 
-#: apps/accounts/templates/details.html:23
+#: apps/accounts/templates/details.html:29
 msgid "Email:"
 msgstr "Email:"
 
-#: apps/accounts/templates/details.html:29 apps/configuration/models.py:15
-#: apps/questionnaire/models.py:63
-msgid "UNCCD Focal Point"
-msgstr "Point focal UNCCD"
+#: apps/accounts/templates/details.html:38
+msgid "Focal Point"
+msgstr "Point focal"
 
-#: apps/accounts/templates/details.html:30
+#: apps/accounts/templates/details.html:41
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
 #: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:66
 #: templates/base.html:212
 msgid "UNCCD"
 msgstr "UNCCD"
 
-#: apps/accounts/templates/details.html:31
+#: apps/accounts/templates/details.html:42
 msgid "UNCCD Focal Point for country:"
 msgstr "Point focal UNCCD du pays:"
+
+#: apps/accounts/templates/details.html:54
+msgid "Public questionnaires"
+msgstr "Questionnaires publiés"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
 #: apps/questionnaire/tests/test_utils.py:1020
@@ -83,6 +90,10 @@ msgstr "Identifiant"
 #: apps/accounts/templates/login.html:13
 msgid "Please log in to access this page."
 msgstr "Veuillez vous identifier pour accéder à cette page."
+
+#: apps/accounts/templates/login.html:33
+msgid "No login?"
+msgstr "Pas d’identifiant?"
 
 #: apps/accounts/templates/login.html:34
 msgid "If you do not yet have a login, please visit "
@@ -119,6 +130,10 @@ msgstr "Mes données de GDT"
 #: apps/wocat/templates/wocat/home.html:73 templates/base.html:162
 msgid "Add SLM data"
 msgstr "Ajouter des données de GDT"
+
+#: apps/accounts/templates/questionnaires.html:30
+msgid "No SLM data found."
+msgstr "Aucunes données de GDT trouvées."
 
 #: apps/accounts/views.py:61
 msgid "Welcome {}"
@@ -13369,6 +13384,10 @@ msgctxt "approaches label"
 msgid "Impact analysis and concluding statements"
 msgstr "Analyses d'impact et conclusions"
 
+#: apps/configuration/models.py:15 apps/questionnaire/models.py:63
+msgid "UNCCD Focal Point"
+msgstr "Point focal UNCCD"
+
 #: apps/configuration/views.py:62
 msgid "Built configuration caches."
 msgstr "Elaboration des caches de configuration."
@@ -13455,11 +13474,11 @@ msgstr "Meilleures pratiques de l'UNCCD"
 msgid "Set with the method: lock_questionnaire."
 msgstr "Installer la méthode: lock_questionnaire"
 
-#: apps/questionnaire/models.py:901
+#: apps/questionnaire/models.py:906
 msgid "This questionnaire can be edited."
 msgstr "Ce questionnaire peut être modifié."
 
-#: apps/questionnaire/models.py:903
+#: apps/questionnaire/models.py:908
 msgid "This questionnaire is locked for editing by {}."
 msgstr "Ce questionnaire est verrouillé pour modification par {}."
 
@@ -13568,7 +13587,7 @@ msgstr "Voir les sections"
 #: apps/questionnaire/templates/details/category/unccd_header.html:84
 #: apps/questionnaire/templates/details/category/with_metadata.html:111
 msgid "Expand all"
-msgstr "Agrandir tout"
+msgstr "Développer tout"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:128
 #: apps/questionnaire/templates/details/category/default.html:19
@@ -14304,7 +14323,7 @@ msgid ""
 "tour explaining the functions on this page.</p>"
 msgstr ""
 "<p>Bienvenue dans la section d'aide du formulaire! </p> Cliquez sur \"Suivant"
-"\" pour les avoir des explications sur les fonctionnalités de cette page.</p>"
+"\" pour avoir des explications sur les fonctionnalités de cette page.</p>"
 
 #: apps/questionnaire/templates/form/category.html:163
 msgid ""
@@ -14314,25 +14333,18 @@ msgstr "<p>La barre indique le nom de la section en cours d'édition.</ P>"
 #: apps/questionnaire/templates/form/category.html:167
 msgid ""
 "<p>Click \"Save and back\" to save your changes and go back to the overview "
-"to view them in the output.</p><p><strong>Important:</strong> You need to "
-"click \"Save\" in the output again to permanently save the Questionnaire!</p>"
+"to view them in the output.</p>"
 msgstr ""
 "<p>Cliquer sur \"Enregistrer et retour\" pour sauvegarder vos modifications "
-"et revenir à l'aperçu pour afficher les résultats</p><p><strong>Important:</"
-"Strong> Vous devez cliquer à nouveau sur \"Enregistrer\" dans les résultats "
-"pour enregistrer de façon permanente le questionnaire!</p>"
+"et revenir à l'aperçu pour afficher les résultats</p>"
 
 #: apps/questionnaire/templates/form/category.html:171
 msgid ""
 "<p>Click \"Save and next\" to save the current section and directly continue "
-"to the next section.<p><strong>Important:</strong> You need to click \"Save"
-"\" in the output again to permanently save the Questionnaire!</p>"
+"to the next section.</p>"
 msgstr ""
 "<p>Cliquer sur \"Enregistrer et suivant\" pour sauvegarder votre section "
-"actuelle et pour continuer directement dans la prochaine section. </"
-"p><p><strong>Important:</Strong> Vous devez cliquer à nouveau sur "
-"\"Enregistrer\" dans les résultats pour enregistrer de façon permanente le "
-"questionnaire!</p>"
+"actuelle et pour continuer directement dans la prochaine section. </p>"
 
 #: apps/questionnaire/templates/form/category.html:175
 msgid ""
@@ -14634,21 +14646,13 @@ msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/details.html:102
 msgid ""
-"<p>The Questionnaire consists of multiple sections. You can use the Table of "
-"Content for navigation.</p>"
-msgstr ""
-"<P> Le questionnaire se compose de plusieurs sections. Vous pouvez utiliser "
-"la table des matières naviguer. </ P>"
-
-#: apps/questionnaire/templates/questionnaire/details.html:106
-msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr ""
 "<p>Chaque section est également visible dans les résultats, toutes les "
 "données saisies apparaissent ici.</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:111
+#: apps/questionnaire/templates/questionnaire/details.html:107
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -14657,14 +14661,6 @@ msgstr ""
 "<P> Cliquer sur le bouton pour éditer une section et saisir vos données. </ "
 "P> <p> Le nombre indique à combien de questions vous avez déjà répondu dans "
 "cette section. </ P>"
-
-#: apps/questionnaire/templates/questionnaire/details.html:116
-msgid ""
-"<p>The metadata will be filled out automatically once you saved the "
-"Questionnaire.</p>"
-msgstr ""
-"<P> Les métadonnées sont automatiquement remplies une fois que le "
-"questionnaire est enregistré. </ P>"
 
 #: apps/questionnaire/templates/questionnaire/questionnaire_confirm_delete.html:12
 msgid "Confirm removal"
@@ -14698,27 +14694,27 @@ msgstr "Mis à jour"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: apps/questionnaire/utils.py:1203
+#: apps/questionnaire/utils.py:1207
 msgid "The questionnaire was successfully submitted."
 msgstr "Le questionnaire a été soumis avec succès."
 
-#: apps/questionnaire/utils.py:1229
+#: apps/questionnaire/utils.py:1233
 msgid "The questionnaire was successfully reviewed."
 msgstr "Le questionnaire a été examiné avec succès."
 
-#: apps/questionnaire/utils.py:1281
+#: apps/questionnaire/utils.py:1288
 msgid "The questionnaire was successfully set public."
 msgstr "Le questionnaire a été rendu public avec succès."
 
-#: apps/questionnaire/utils.py:1314
+#: apps/questionnaire/utils.py:1321
 msgid "The questionnaire was successfully rejected."
 msgstr "Le questionnaire a été rejeté avec succès."
 
-#: apps/questionnaire/utils.py:1381
+#: apps/questionnaire/utils.py:1388
 msgid "Assigned users were successfully updated"
 msgstr "Les utilisateurs attribués ont été mis à jour avec succès."
 
-#: apps/questionnaire/utils.py:1409
+#: apps/questionnaire/utils.py:1416
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -14728,11 +14724,11 @@ msgstr ""
 "est déjà dans le processus d'examen et doit être d'abord publié. Veuillez "
 "réessayer plus tard."
 
-#: apps/questionnaire/utils.py:1429
+#: apps/questionnaire/utils.py:1436
 msgid "The flag was successfully set."
 msgstr "Le signalement a été défini avec succès."
 
-#: apps/questionnaire/utils.py:1453
+#: apps/questionnaire/utils.py:1460
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -14742,7 +14738,7 @@ msgstr ""
 "questionnaire est déjà dans le processus d'examen et doit être d'abord "
 "publié. Veuillez réessayer plus tard."
 
-#: apps/questionnaire/utils.py:1474
+#: apps/questionnaire/utils.py:1481
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -14752,7 +14748,7 @@ msgstr ""
 "une nouvelle version qui doit être examinée. En attendant, vous pouvez "
 "visualiser la version publique qui est encore signalée."
 
-#: apps/questionnaire/utils.py:1481
+#: apps/questionnaire/utils.py:1488
 msgid "The questionnaire was succesfully removed"
 msgstr "Le questionnaire a été supprimé avec succès."
 
@@ -14940,7 +14936,7 @@ msgid ""
 "add a Technology or an Approach without its counterpart."
 msgstr ""
 "Technologies et Approches sont généralement combinées pour fournir une image "
-"complète d'une pratique de GDT. Idéalement, vous devrez remplir les deux "
+"complète d'une pratique de GDT. Idéalement, vous devez remplir les deux "
 "sections, Technologie et Approche, puis les relier entre elles. Cependant, "
 "il est également possible d'ajouter une Technologie ou une Approche sans sa "
 "contrepartie."
@@ -14985,7 +14981,7 @@ msgstr ""
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:6
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
 msgid "Introduction to the questionnaire"
-msgstr "Introduction au questionnaire"
+msgstr "Introduction du questionnaire"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:18
 msgid "Definitions"
@@ -15239,7 +15235,7 @@ msgstr "Rôles"
 #: apps/wocat/templates/wocat/home.html:51
 #: apps/wocat/templates/wocat/home.html:59
 msgid "the Global Database on Sustainable Land Management"
-msgstr "Base de données mondiale sur la gestion durable des terres"
+msgstr "La Base de données mondiale sur la gestion durable des terres"
 
 #: apps/wocat/templates/wocat/home.html:28
 msgid "is the primary recommended database by UNCCD"
@@ -15332,7 +15328,7 @@ msgstr ""
 "liés aux Technologies et aux Approches de GDT."
 
 #: apps/wocat/templates/wocat/partial/add.html:60
-msgid "Modules will be coming soon to the new database."
+msgid "Modules will be added soon to the new database."
 msgstr "Les modules arriveront prochainement dans la nouvelle base de données."
 
 #: apps/wocat/templates/wocat/partial/advanced_filter.html:12

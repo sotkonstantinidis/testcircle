@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-04 14:50+0200\n"
+"POT-Creation-Date: 2016-08-09 09:49+0200\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -33,36 +33,43 @@ msgstr ""
 msgid "Updated {} users"
 msgstr ""
 
-#: apps/accounts/templates/details.html:12 templates/base.html:125
+#: apps/accounts/templates/details.html:14 templates/base.html:125
 msgid "User Details"
 msgstr ""
 
-#: apps/accounts/templates/details.html:14
+#: apps/accounts/templates/details.html:18
+msgid "Information"
+msgstr ""
+
+#: apps/accounts/templates/details.html:20
 msgid "First name:"
 msgstr ""
 
-#: apps/accounts/templates/details.html:18
+#: apps/accounts/templates/details.html:24
 msgid "Last name:"
 msgstr ""
 
-#: apps/accounts/templates/details.html:23
+#: apps/accounts/templates/details.html:29
 msgid "Email:"
 msgstr ""
 
-#: apps/accounts/templates/details.html:29 apps/configuration/models.py:15
-#: apps/questionnaire/models.py:63
-msgid "UNCCD Focal Point"
+#: apps/accounts/templates/details.html:38
+msgid "Focal Point"
 msgstr ""
 
-#: apps/accounts/templates/details.html:30
+#: apps/accounts/templates/details.html:41
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
 #: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:66
 #: templates/base.html:212
 msgid "UNCCD"
 msgstr ""
 
-#: apps/accounts/templates/details.html:31
+#: apps/accounts/templates/details.html:42
 msgid "UNCCD Focal Point for country:"
+msgstr ""
+
+#: apps/accounts/templates/details.html:54
+msgid "Public questionnaires"
 msgstr ""
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
@@ -75,6 +82,10 @@ msgstr ""
 
 #: apps/accounts/templates/login.html:13
 msgid "Please log in to access this page."
+msgstr ""
+
+#: apps/accounts/templates/login.html:33
+msgid "No login?"
 msgstr ""
 
 #: apps/accounts/templates/login.html:34
@@ -111,6 +122,10 @@ msgstr ""
 #: apps/wocat/templates/wocat/add.html:7
 #: apps/wocat/templates/wocat/home.html:73 templates/base.html:162
 msgid "Add SLM data"
+msgstr ""
+
+#: apps/accounts/templates/questionnaires.html:30
+msgid "No SLM data found."
 msgstr ""
 
 #: apps/accounts/views.py:61
@@ -11655,6 +11670,10 @@ msgctxt "approaches label"
 msgid "Impact analysis and concluding statements"
 msgstr ""
 
+#: apps/configuration/models.py:15 apps/questionnaire/models.py:63
+msgid "UNCCD Focal Point"
+msgstr ""
+
 #: apps/configuration/views.py:62
 msgid "Built configuration caches."
 msgstr ""
@@ -11741,11 +11760,11 @@ msgstr ""
 msgid "Set with the method: lock_questionnaire."
 msgstr ""
 
-#: apps/questionnaire/models.py:901
+#: apps/questionnaire/models.py:906
 msgid "This questionnaire can be edited."
 msgstr ""
 
-#: apps/questionnaire/models.py:903
+#: apps/questionnaire/models.py:908
 msgid "This questionnaire is locked for editing by {}."
 msgstr ""
 
@@ -12491,15 +12510,13 @@ msgstr ""
 #: apps/questionnaire/templates/form/category.html:167
 msgid ""
 "<p>Click \"Save and back\" to save your changes and go back to the overview "
-"to view them in the output.</p><p><strong>Important:</strong> You need to "
-"click \"Save\" in the output again to permanently save the Questionnaire!</p>"
+"to view them in the output.</p>"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:171
 msgid ""
 "<p>Click \"Save and next\" to save the current section and directly continue "
-"to the next section.<p><strong>Important:</strong> You need to click \"Save"
-"\" in the output again to permanently save the Questionnaire!</p>"
+"to the next section.</p>"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:175
@@ -12769,27 +12786,15 @@ msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/details.html:102
 msgid ""
-"<p>The Questionnaire consists of multiple sections. You can use the Table of "
-"Content for navigation.</p>"
-msgstr ""
-
-#: apps/questionnaire/templates/questionnaire/details.html:106
-msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:111
+#: apps/questionnaire/templates/questionnaire/details.html:107
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
 "p>"
-msgstr ""
-
-#: apps/questionnaire/templates/questionnaire/details.html:116
-msgid ""
-"<p>The metadata will be filled out automatically once you saved the "
-"Questionnaire.</p>"
 msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/questionnaire_confirm_delete.html:12
@@ -12824,52 +12829,52 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1203
+#: apps/questionnaire/utils.py:1207
 msgid "The questionnaire was successfully submitted."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1229
+#: apps/questionnaire/utils.py:1233
 msgid "The questionnaire was successfully reviewed."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1281
+#: apps/questionnaire/utils.py:1288
 msgid "The questionnaire was successfully set public."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1314
+#: apps/questionnaire/utils.py:1321
 msgid "The questionnaire was successfully rejected."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1381
+#: apps/questionnaire/utils.py:1388
 msgid "Assigned users were successfully updated"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1409
+#: apps/questionnaire/utils.py:1416
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
 "later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1429
+#: apps/questionnaire/utils.py:1436
 msgid "The flag was successfully set."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1453
+#: apps/questionnaire/utils.py:1460
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
 "again later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1474
+#: apps/questionnaire/utils.py:1481
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
 "public version which still shows the flag."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1481
+#: apps/questionnaire/utils.py:1488
 msgid "The questionnaire was succesfully removed"
 msgstr ""
 
@@ -13317,7 +13322,7 @@ msgid ""
 msgstr ""
 
 #: apps/wocat/templates/wocat/partial/add.html:60
-msgid "Modules will be coming soon to the new database."
+msgid "Modules will be added soon to the new database."
 msgstr ""
 
 #: apps/wocat/templates/wocat/partial/advanced_filter.html:12
