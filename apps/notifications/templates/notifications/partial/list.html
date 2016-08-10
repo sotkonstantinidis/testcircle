@@ -1,9 +1,11 @@
 {% load i18n %}
+{% load humanize %}
+
 
 {% for log in logs %}
   <div class="notification-list row{% if log.is_read %} is-read{% endif %}">
     <div class="is-light is-muted small-1 columns nobr">
-      {{ log.created|date:"SHORT_DATE_FORMAT" }}
+      <span title="{{ log.created|naturaltime }}">{{ log.created|date:"SHORT_DATE_FORMAT" }}</span>
     </div>
     <div class="small-9 columns">
       {{ log.text|safe }}

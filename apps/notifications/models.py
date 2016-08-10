@@ -63,7 +63,7 @@ class ActionContextQuerySet(models.QuerySet):
           review step
         - notification is not marked as read
         - if a questionnaire was rejected once, two logs for the same status
-          exist. Get only the more current one.
+          exist. Return only the more current log
 
         Only distinct questionnaires are epxected. However, this doesnt play
         nice with order_by.
@@ -80,18 +80,42 @@ class ActionContextQuerySet(models.QuerySet):
             statusupdate__status=F('questionnaire__status')
         ).filter(
             functools.reduce(operator.or_, status_filters)
-        ).exclude(
-            id__in=self.read_ids(user=user)
         ).only(
             'id', 'questionnaire_id'
         )
+
+        read_logs = self.read_logs(user=user)
+        if read_logs.exists():
+            # If a log is marked as read, exclude all previous logs for the
+            # same questionnaire and the same status from the 'pending'
+            # elements.
+            logs = logs.exclude(
+                functools.reduce(
+                    operator.or_,
+                    list(self._exclude_previous_logs(read_logs=read_logs))
+                )
+            ).exclude(
+                id__in=read_logs.values_list('id', flat=True)
+            )
+
         return self.filter(
             id__in=[log.id for log in self._unique_questionnaire(logs)]
         )
 
+    def _exclude_previous_logs(self, read_logs):
+        """
+        Helper to exclude logs that are not read, but are also not pending.
+        """
+        for read_log in read_logs:
+            yield Q(created__lte=read_log.log.created,
+                    questionnaire_id=read_log.log.questionnaire_id,
+                    questionnaire__status=read_log.log.statusupdate.status
+                    )
+
     def _unique_questionnaire(sel, logs):
         """
-        Pseudo 'unique' for questionnaire_id for given logs.
+        Pseudo 'unique' for questionnaire_id for given logs. Required to get
+        the first (regarding time) log for each questionnaire.
         """
         questionnaire_ids = []
         for log in logs:
@@ -109,16 +133,13 @@ class ActionContextQuerySet(models.QuerySet):
         """
         Count all unread logs that the user has to work on.
         """
-        qs = self.user_pending_list(
+        return self.user_pending_list(
             user=user
-        ).exclude(
-            id__in=self.read_ids(user=user)
         ).only(
             'id'
-        )
-        return qs.count()
+        ).count()
 
-    def read_ids(self, user: User, **filters) -> list:
+    def read_logs(self, user: User, **filters):
         """
         Return a list with all log_ids that are read for given user.
         """
@@ -126,6 +147,11 @@ class ActionContextQuerySet(models.QuerySet):
             'log__id'
         ).filter(
             user=user, is_read=True, **filters
+        )
+
+    def read_id_list(self, user: User, **filters) -> list:
+        return self.read_logs(
+            user=user, **filters
         ).values_list(
             'log__id', flat=True
         )

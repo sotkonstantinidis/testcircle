@@ -4,7 +4,7 @@ from typing import Iterable
 from django.conf import settings
 from django.http import Http404
 from django.http import HttpResponse
-from django.views.generic import ListView, View
+from django.views.generic import ListView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
 from qcat.utils import url_with_querystring
@@ -13,6 +13,10 @@ from .models import Log, ReadLog
 
 
 logger = logging.getLogger(__name__)
+
+
+class LogListTemplateView(LoginRequiredMixin, TemplateView):
+    template_name='notifications/log_list.html'
 
 
 class LogListView(LoginRequiredMixin, ListView):
@@ -27,22 +31,13 @@ class LogListView(LoginRequiredMixin, ListView):
     """
     template_name = 'notifications/partial/list.html'
 
-    def get_is_todo(self, status: int, action: int, log_status: int) -> bool:
-        """
-        For all actions that are a status change, check if current user has
-        permissions to handle the questionnaire and the questionnaires status
-        is still the same as when the log was created (=no one reviewed the
-        questionnaire).
-        """
-        return action is settings.NOTIFICATIONS_CHANGE_STATUS and status is log_status and status in self.todo_statuses
-
     def add_user_aware_data(self, logs) -> Iterable:
         """
         Provide all info required for the template, so as little logic as
         possible is required within the template.
         """
         # All logs with the status 'read' for the logs on display.
-        readlog_list = Log.actions.read_ids(
+        readlog_list = Log.actions.read_id_list(
             user=self.request.user,
             log_id__in=list(logs.values_list('id', flat=True))
         )
@@ -147,7 +142,7 @@ class ReadLogUpdateView(LoginRequiredMixin, View):
             raise Http404()
 
 
-class LogCountView(View):
+class LogCountView(LoginRequiredMixin, View):
     """
     Get the current number of 'pending' notifications for the current user.
     Used to display the indicator with

@@ -8,7 +8,7 @@
   {% if user == log.catalyst %}{% trans "You" %}{% else %}<a href="{% url 'user_details' log.catalyst_id %}" class="link">{{ log.catalyst.get_display_name }}</a>{% endif %}
   {{ log.get_action_display }}
   {% if user == log.memberupdate.affected %}{% trans "you" %}{% else %}<a href="{{ log.memberupdate.get_affected_display }}" class="link">{{ log.memberupdate.affected.get_display_name }}</a>{% endif %}
-  {% trans "as" %}
+  {% trans "as" context "You removed Jay 'as' reviewer." %}
   {{ log.memberupdate.role }}
-  {% trans "for the questionnaire" %} <a href="{{ log.questionnaire.get_absolute_url }}" class="link">{{ log.questionnaire.code }}</a>
+  {% trans "for the questionnaire" context "You added Jay as reviewer 'for the questionnaire'." %} <a href="{{ log.questionnaire.get_absolute_url }}" class="link">{{ log.questionnaire.code }}</a>
 {% endspaceless %}

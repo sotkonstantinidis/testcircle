@@ -23,8 +23,6 @@ class NotificationsConf(AppConf):
     )
 
     # Mapping of user permissions and allowed questionnaire statuses
-    # to discuss: what about wocat secretariat? they can only 'assign', but are
-    # probably also reviewer and publisher.
     QUESTIONNAIRE_STATUS_PERMISSIONS = {
         'questionnaire.change_questionnaire': settings.QUESTIONNAIRE_DRAFT,
         'questionnaire.review_questionnaire': settings.QUESTIONNAIRE_SUBMITTED,

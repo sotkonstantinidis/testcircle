@@ -3,15 +3,17 @@
 {% endcomment %}
 
 {% load i18n %}
+{% load static %}
+
 
 {% spaceless %}
   <a href="{{ log.questionnaire.get_absolute_url }}" class="link">{{ log.questionnaire.code }}</a>
-  {% if log.statusupdate.is_rejected %}{% trans "was rejected by" %}{% else %}{% trans "was approved by" %}{% endif %}
+  {% if log.statusupdate.is_rejected %}{% trans "was rejected by" context "A questionnaire was rejected by..." %}{% else %}{% trans "was approved by" context "A questionnaire was approved by..." %}{% endif %}
   {% if user == log.catalyst %}{% trans "you" %}{% else %}<a href="{% url 'user_details' log.catalyst_id %}" class="link">{{ log.catalyst.get_display_name }}</a>{% endif %}
-  ({% trans "new status: " %}"{{ log.statusupdate.get_status_display|lower }}")
-  {% if log.statusupdate.message %}- <a class="link" data-reveal-id="show-message-{{ log.id }}">{% trans "view message" %}</a>
+  ({% trans "new status:" context "New status of the questionnaire, e.g. 'published'" %} "{{ log.statusupdate.get_status_display|lower }}")
+  {% if log.statusupdate.message %}- <a data-reveal-id="show-message-{{ log.id }}" style="min-width: 50px;"><img src="{% static 'assets/img/envelope.png' %}" alt="message"></a>
     <p id="show-message-{{ log.id }}" class="reveal-modal" data-reveal  aria-hidden="true" role="dialog">
-      {{ log.catalyst.get_display_name }} {% trans "wrote" %}:<br>
+      {{ log.catalyst.get_display_name }} {% trans "wrote" context "Jay wrote you a message" %}:<br>
       {{ log.statusupdate.message }}
     </p>
   {% endif %}

@@ -32,6 +32,7 @@ class BaseSettings(Configuration):
         'django.contrib.messages',
         'django.contrib.sitemaps',
         'django.contrib.staticfiles',
+        'django.contrib.humanize',
         'compressor',
         'django_nose',
         'django_extensions',
