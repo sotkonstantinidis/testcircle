@@ -41,8 +41,5 @@ class QuestionnaireConf(AppConf):
     API_CHANGE_KEYS = {
         'app_definition': 'definition',
         'tech_definition': 'definition',
-        'unccd_definition': 'definition',
-        'app_description': 'description',
-        'tech_description': 'description',
-        'unccd_description': 'description',
+        'unccd_description': 'definition',
     }
