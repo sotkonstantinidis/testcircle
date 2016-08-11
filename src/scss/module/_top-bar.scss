@@ -29,6 +29,11 @@
   padding: rem-calc(24 0);
 }
 
+.top-bar-section .dropdown {
+  border: 1px solid #5f594f;
+  border-top: none;
+}
+
 .top-bar-section .dropdown li:not(.has-form)>a:not(.button) {
   font-size: rem-calc(14);
   padding: 0 rem-calc(12);
@@ -36,6 +41,19 @@
 .top-bar-section .dropdown li:not(.has-form).active>a:not(.button) {
   background-color: $primary-color;
   color: white;
+}
+
+.top-bar-section .lang-switcher-info {
+
+  text-align: center;
+
+  a {
+    color: $color-orange !important;
+  }
+
+  svg {
+    float: none;
+  }
 }
 
 /**

@@ -151,6 +151,7 @@
                     <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% change_lang lang.0 %}" data-language="{{ lang.0 }}">{{ lang.1 }}</a></li>
                   {% endfor %}
                 </form>
+                <li class="lang-switcher-info"><a href="https://www.wocat.net/en/about-wocat/contact.html" target="_blank" data-tooltip="" title="{% trans "Would you like to help us translate the SLM Database? Please contact the WOCAT Secretariat for more information." %}"><svg class="icon-lines is-inline"><use xlink:href="#icon-info"></use></svg></a></li>
               </ul>
             </li>
           </ul>
