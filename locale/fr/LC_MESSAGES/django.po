@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-09 09:49+0200\n"
+"POT-Creation-Date: 2016-08-11 11:54+0200\n"
 "PO-Revision-Date: 2016-08-09 07:47+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -67,7 +67,7 @@ msgstr "Point focal"
 #: apps/accounts/templates/details.html:41
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
 #: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:66
-#: templates/base.html:212
+#: templates/base.html:213
 msgid "UNCCD"
 msgstr "UNCCD"
 
@@ -101,7 +101,7 @@ msgstr "Si vous n'avez pas encore d'identifiant, veuillez visiter"
 
 #: apps/accounts/templates/login.html:36 apps/accounts/templates/login.html:41
 #: apps/wocat/templates/wocat/base.html:6 templates/base.html:105
-#: templates/base.html.py:106 templates/base.html:215
+#: templates/base.html.py:106 templates/base.html:216
 msgid "WOCAT"
 msgstr "WOCAT"
 
@@ -126,8 +126,8 @@ msgid "My SLM data"
 msgstr "Mes données de GDT"
 
 #: apps/accounts/templates/questionnaires.html:15
-#: apps/wocat/templates/wocat/add.html:7
-#: apps/wocat/templates/wocat/home.html:73 templates/base.html:162
+#: apps/wocat/templates/wocat/add.html:9
+#: apps/wocat/templates/wocat/home.html:73 templates/base.html:163
 msgid "Add SLM data"
 msgstr "Ajouter des données de GDT"
 
@@ -13582,26 +13582,33 @@ msgstr "Exporter"
 msgid "View sections"
 msgstr "Voir les sections"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:110
-#: apps/questionnaire/templates/details/category/technologies_header.html:110
-#: apps/questionnaire/templates/details/category/unccd_header.html:84
-#: apps/questionnaire/templates/details/category/with_metadata.html:111
+#: apps/questionnaire/templates/details/category/approaches_header.html:111
+#: apps/questionnaire/templates/details/category/technologies_header.html:111
+#: apps/questionnaire/templates/details/category/unccd_header.html:85
+#: apps/questionnaire/templates/details/category/with_metadata.html:112
 msgid "Expand all"
 msgstr "Développer tout"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:128
+#: apps/questionnaire/templates/details/category/approaches_header.html:112
+#: apps/questionnaire/templates/details/category/technologies_header.html:112
+#: apps/questionnaire/templates/details/category/unccd_header.html:86
+#: apps/questionnaire/templates/details/category/with_metadata.html:113
+msgid "Collapse all"
+msgstr ""
+
+#: apps/questionnaire/templates/details/category/approaches_header.html:131
 #: apps/questionnaire/templates/details/category/default.html:19
-#: apps/questionnaire/templates/details/category/technologies_header.html:128
-#: apps/questionnaire/templates/details/category/unccd_header.html:102
-#: apps/questionnaire/templates/details/category/with_metadata.html:129
+#: apps/questionnaire/templates/details/category/technologies_header.html:131
+#: apps/questionnaire/templates/details/category/unccd_header.html:105
+#: apps/questionnaire/templates/details/category/with_metadata.html:132
 msgid "Edit this section"
 msgstr "Editer cette section"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:144
+#: apps/questionnaire/templates/details/category/approaches_header.html:147
 #: apps/questionnaire/templates/details/category/default.html:32
-#: apps/questionnaire/templates/details/category/technologies_header.html:144
-#: apps/questionnaire/templates/details/category/unccd_header.html:118
-#: apps/questionnaire/templates/details/category/with_metadata.html:143
+#: apps/questionnaire/templates/details/category/technologies_header.html:147
+#: apps/questionnaire/templates/details/category/unccd_header.html:121
+#: apps/questionnaire/templates/details/category/with_metadata.html:146
 msgid "Empty section"
 msgstr "Section vide"
 
@@ -13691,11 +13698,11 @@ msgstr ""
 msgid "Learn more about the review process."
 msgstr "En savoir plus sur le processus d'examen."
 
-#: apps/questionnaire/templates/details/review_panel/_assign_user.html:49
+#: apps/questionnaire/templates/details/review_panel/_assign_user.html:52
 msgid "Search user"
 msgstr "Rechercher un utilisateur"
 
-#: apps/questionnaire/templates/details/review_panel/_assign_user.html:52
+#: apps/questionnaire/templates/details/review_panel/_assign_user.html:55
 #: apps/questionnaire/templates/form/links/approaches.html:63
 #: apps/questionnaire/templates/form/links/default.html:63
 #: apps/questionnaire/templates/form/questiongroup/map.html:130
@@ -13704,7 +13711,7 @@ msgstr "Rechercher un utilisateur"
 msgid "No results found"
 msgstr "Aucun résultat trouvé"
 
-#: apps/questionnaire/templates/details/review_panel/_assign_user.html:53
+#: apps/questionnaire/templates/details/review_panel/_assign_user.html:56
 #: apps/questionnaire/templates/form/links/approaches.html:63
 #: apps/questionnaire/templates/form/links/default.html:63
 #: apps/questionnaire/templates/form/questiongroup/map.html:130
@@ -13713,7 +13720,7 @@ msgstr "Aucun résultat trouvé"
 msgid "Too many results found, please narrow the search"
 msgstr "Trop de résultats trouvés, veuillez affiner la recherche"
 
-#: apps/questionnaire/templates/details/review_panel/_assign_user.html:56
+#: apps/questionnaire/templates/details/review_panel/_assign_user.html:59
 msgid "Update users"
 msgstr "Mettre à jour les utilisateurs"
 
@@ -13836,10 +13843,30 @@ msgid "There are no editors invited to this questionnaire."
 msgstr "Il n'y a pas de rédacteurs invités pour ce questionnaire."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:75
-msgid "Edit invited editors. Click the button to update the invited editors."
+#, fuzzy
+#| msgid ""
+#| "Edit invited editors. Click the button to update the invited editors."
+msgid ""
+"Add or remove WOCAT users as editors. Click the button on the right to "
+"update the invited editors."
 msgstr ""
 "Editer les rédacteurs invités. Cliquer sur le bouton pour mettre à jour les "
 "rédacteur invités."
+
+#: apps/questionnaire/templates/details/review_panel/draft.html:76
+#, fuzzy
+#| msgid "Update users"
+msgid "Update editors"
+msgstr "Mettre à jour les utilisateurs"
+
+#: apps/questionnaire/templates/details/review_panel/draft.html:77
+#: apps/questionnaire/templates/details/review_panel/publish.html:81
+#: apps/questionnaire/templates/details/review_panel/review.html:81
+msgid ""
+"Please note that currently, invited users are not notified automatically. "
+"This feature is in development and will be added soon. For the time being, "
+"it is recommended to notify invited users via e-mail."
+msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:5
 msgid "Edit version"
@@ -14057,6 +14084,12 @@ msgstr ""
 "Editer les éditeurs attribués. Cliquer sur le bouton pour mettre à jour les "
 "éditeurs attribués."
 
+#: apps/questionnaire/templates/details/review_panel/publish.html:80
+#, fuzzy
+#| msgid "Update users"
+msgid "Update publishers"
+msgstr "Mettre à jour les utilisateurs"
+
 #: apps/questionnaire/templates/details/review_panel/review.html:5
 msgid "Pending review"
 msgstr "En attente d'examen"
@@ -14150,6 +14183,12 @@ msgid ""
 msgstr ""
 "Editer les examinateurs attribués. Cliquer sur le bouton pour mettre à jour "
 "les examinateurs attribués."
+
+#: apps/questionnaire/templates/details/review_panel/review.html:80
+#, fuzzy
+#| msgid "Update users"
+msgid "Update reviewers"
+msgstr "Mettre à jour les utilisateurs"
 
 #: apps/questionnaire/templates/details/review_panel/welcome.html:7
 msgid "Hello"
@@ -14786,7 +14825,7 @@ msgstr "Sélectionnez ou saisissez un projet"
 #: apps/sample/templates/sample/questionnaire/list.html:45
 #: apps/wocat/templates/wocat/partial/search.html:11
 #: apps/wocat/templates/wocat/questionnaire/list.html:45
-#: templates/base.html:161
+#: templates/base.html:162
 msgid "Search SLM Data"
 msgstr "Rechercher des données de GDT"
 
@@ -15413,7 +15452,7 @@ msgstr ""
 msgid "WOCAT SLM practices"
 msgstr "Pratiques WOCAT de GDT"
 
-#: templates/404.html:20 templates/base.html:160
+#: templates/404.html:20 templates/base.html:161
 msgid "Home"
 msgstr "Accueil"
 
@@ -15438,19 +15477,25 @@ msgstr "Administration"
 msgid "Logout"
 msgstr "Déconnecter"
 
-#: templates/base.html:163
+#: templates/base.html:155
+msgid ""
+"Would you like to help us translate the SLM Database? Please contact the "
+"WOCAT Secretariat for more information."
+msgstr ""
+
+#: templates/base.html:164
 msgid "My SLM Data"
 msgstr "Mes données de GDT"
 
-#: templates/base.html:208
+#: templates/base.html:209
 msgid "About"
 msgstr "Au sujet de"
 
-#: templates/base.html:208
+#: templates/base.html:209
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/base.html:211
+#: templates/base.html:212
 msgid "Primary recommended database"
 msgstr "Base de données primaire recommandée"
 
