@@ -137,9 +137,11 @@ class Questionnaire(models.Model):
                 ), kwargs={'identifier': self.code})
         return None
 
-    def get_absolute_url(self) -> str:
+    def get_absolute_url(self):
         """
-        Detail view url of the questionnaire
+        Detail view url of the questionnaire. Important: don't use type hints
+        as djangorestframework as of now throws errors
+        (https://github.com/tomchristie/django-rest-framework/pull/4076)
         """
         return self._get_url_from_configured_app('questionnaire_details')
 
@@ -254,8 +256,7 @@ class Questionnaire(models.Model):
 
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
-                previous_version.update_data(
-                    data, updated, configuration_code, old_data=old_data)
+                previous_version.update_data(data, updated, configuration_code)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_SUBMITTED:
@@ -265,8 +266,7 @@ class Questionnaire(models.Model):
                     raise ValidationError(
                         'You do not have permission to edit the '
                         'questionnaire.')
-                previous_version.update_data(
-                    data, updated, configuration_code, old_data=old_data)
+                previous_version.update_data(data, updated, configuration_code)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_REVIEWED:
@@ -276,8 +276,7 @@ class Questionnaire(models.Model):
                     raise ValidationError(
                         'You do not have permission to edit the '
                         'questionnaire.')
-                previous_version.update_data(
-                    data, updated, configuration_code, old_data=old_data)
+                previous_version.update_data(data, updated, configuration_code)
                 return previous_version
 
             else:

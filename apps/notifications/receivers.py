@@ -15,7 +15,7 @@ def create_status_notification(sender: int, questionnaire: Questionnaire, review
         action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
     ).create(
         is_rejected=kwargs.get('is_rejected', False),
-        message=kwargs.get('message')
+        message=kwargs.get('message', '')
 
     )
 
