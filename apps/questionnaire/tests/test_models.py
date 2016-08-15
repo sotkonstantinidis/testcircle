@@ -591,6 +591,34 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.update_geometry('sample')
         self.assertIsNone(questionnaire.geom)
 
+    def test_add_translation_language_original(self):
+        questionnaire = get_valid_questionnaire()
+        translations = questionnaire.translations
+        self.assertEqual(translations, ['en'])
+        activate('es')
+        questionnaire = get_valid_questionnaire()
+        translations = questionnaire.translations
+        self.assertEqual(translations, ['es'])
+        activate('en')
+
+    def test_add_translation_language_not_original(self):
+        activate('es')
+        questionnaire = get_valid_questionnaire()
+        translations = questionnaire.translations
+        self.assertEqual(translations, ['es'])
+        activate('en')
+        questionnaire.add_translation_language(original=False)
+        translations = questionnaire.translations
+        self.assertEqual(len(translations), 2)
+        self.assertEqual(translations, ['es', 'en'])
+
+    def test_add_translation_language_adds_only_once(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.add_translation_language(original=False)
+        questionnaire.add_translation_language(original=False)
+        translations = questionnaire.translations
+        self.assertEqual(len(translations), 1)
+        self.assertEqual(translations, ['en'])
     def test_links_property_returns_list(self):
         questionnaire_1 = get_valid_questionnaire()
         questionnaire_2 = get_valid_questionnaire()

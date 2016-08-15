@@ -245,6 +245,7 @@ class Questionnaire(models.Model):
                 # Edit of a draft questionnaire: Only update the data
                 previous_version.update_data(
                     data, updated, configuration_code, old_data=old_data)
+                previous_version.add_translation_language(original=False)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_SUBMITTED:
@@ -296,10 +297,7 @@ class Questionnaire(models.Model):
             questionnaire=questionnaire, configuration=configuration,
             original_configuration=True)
 
-        # TODO: Not all translations should be the original ones!
-        QuestionnaireTranslation.objects.create(
-            questionnaire=questionnaire, language=get_language(),
-            original_language=True)
+        questionnaire.add_translation_language(original=True)
 
         if previous_version:
             # Copy all the functional user roles from the old version
@@ -319,6 +317,27 @@ class Questionnaire(models.Model):
             configuration_code)
 
         return questionnaire
+
+    def add_translation_language(self, original=False):
+        """
+        Add a language as a translation of the questionnaire. Add it only once.
+
+        Args:
+            original: bool. Whether the language is the original language or not
+
+        Returns:
+
+        """
+        language = get_language()
+        if language not in self.translations:
+            QuestionnaireTranslation.objects.create(
+                questionnaire=self, language=language,
+                original_language=original)
+            # Delete cached translation property
+            try:
+                delattr(self, 'translations')
+            except AttributeError:
+                pass
 
     def get_id(self):
         return self.id
