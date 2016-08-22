@@ -37,10 +37,10 @@ class QuestionnaireConf(AppConf):
         'flags',
     ]
 
-    # Definition = one sentence, description = max. 2500 chars
+    # Mapping for consistent field names on the API. See
+    # questionnaire.api.views.QuestionnaireAPIMixin for usage.
     API_CHANGE_KEYS = {
         'app_definition': 'definition',
         'tech_definition': 'definition',
-        'app_description': 'description',
-        'tech_description': 'description',
+        'unccd_description': 'definition',
     }
