@@ -56,6 +56,7 @@ class SearchTest(FunctionalTest):
 
         # She sees that this is the same result as when searching in
         # WOCAT (at the top of the page)
+        self.findBy('xpath', '//input[@type="search"]').clear()
         self.findBy('xpath', '//input[@type="search"]').send_keys('key')
         self.apply_filter()
 

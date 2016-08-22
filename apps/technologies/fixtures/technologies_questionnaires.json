@@ -1,5 +1,21 @@
 [
   {
+    "pk": 101,
+    "model": "accounts.user",
+    "fields": {
+      "groups": [
+      ],
+      "date_joined": "2015-01-13T08:24:26.031Z",
+      "is_superuser": false,
+      "last_login": "2015-01-13T08:24:26.047Z",
+      "user_permissions": [],
+      "password": "",
+      "email": "foo@bar.com",
+      "firstname": "Foo",
+      "lastname": "Bar"
+    }
+  },
+  {
     "model": "questionnaire.questionnaire",
     "pk": 101,
     "fields": {
@@ -60,6 +76,15 @@
       "language": "en"
     },
     "model": "questionnaire.questionnairetranslation"
+  },
+  {
+    "pk": 1101,
+    "fields": {
+      "questionnaire": 101,
+      "user": 101,
+      "role": "compiler"
+    },
+    "model": "questionnaire.questionnairemembership"
   },
   {
     "model": "questionnaire.questionnaire",

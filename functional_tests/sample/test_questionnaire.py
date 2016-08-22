@@ -804,7 +804,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that she can select a Value by mouse click
         self.findBy(
-            'xpath', '//div[contains(@class, "chosen-container")]').click()
+            'xpath', '//div[contains(@class, "form-user-tab-create")]//a[@class="chosen-single"]').click()
         self.findBy(
             'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]') \
             .click()
