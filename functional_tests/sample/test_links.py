@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from unittest.mock import patch
@@ -5,6 +6,11 @@ from unittest.mock import patch
 from accounts.client import Typo3Client
 from accounts.models import User
 from functional_tests.base import FunctionalTest
+from sample.tests.test_views import route_questionnaire_list, \
+    route_questionnaire_new
+from samplemulti.tests.test_views import route_questionnaire_new as \
+    route_questionnaire_new_samplemulti, route_questionnaire_list as \
+    route_questionnaire_list_samplemulti
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
@@ -124,21 +130,131 @@ class LinkTests(FunctionalTest):
         self.findByNot(
             'xpath', '//a[contains(text(), "This is key 1a (changed)")]')
 
-    # def test_show_correct_link_count_in_list(self, mock_get_user_id):
-    #
-    #     # This is to test a bugfix where the number of links in the list view
-    #     # increased with each status change (resulting in 3 links for a public
-    #     # questionnaire)
-    #
-    #     # Alice goes to the list view of SAMPLE and sees the questionnaire with
-    #     # a linked SAMPLEMULTI questionnaire. It shows only one link.
-    #     self.browser.get(self.live_server_url + reverse(
-    #         route_questionnaire_list))
-    #
-    #     list_entries = self.findManyBy(
-    #         'xpath', '//article[contains(@class, "tech-item")]')
-    #     self.assertEqual(len(list_entries), 2)
-    #
-    #     linked_questionnaires = self.findBy(
-    #         'xpath', '//article[2]//ul[contains(@class, "tech-attached")]')
-    #     self.assertEqual(linked_questionnaires.text, '1')
+    def test_add_only_one_side_of_link_to_es_when_publishing(
+            self, mock_get_user_id):
+
+        # Alice logs in
+        user_alice = User.objects.get(pk=101)
+        user_alice.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
+        self.doLogin(user=user_alice)
+
+        # She goes to the list page
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+
+        # She sees two entries
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She goes to the SAMPLEMULTI list view and sees 2 entries
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list_samplemulti))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She enters a new SAMPLE questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        self.click_edit_section('cat_1')
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
+        self.submit_form_step()
+
+        sample_url = self.browser.current_url
+
+        # She also enters a new SAMPLEMULTI questionnaire which links to the
+        # newly created SAMPLE questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_samplemulti))
+        self.click_edit_section('mcat_1')
+        self.findBy('name', 'mqg_01-0-original_mkey_01').send_keys('Bar')
+        self.findBy(
+            'xpath', '//input[contains(@class, "link-search-field")]'
+                     '[1]').send_keys('Foo')
+        self.wait_for('xpath', '//li[@class="ui-menu-item"]')
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="Foo"'
+            ']').click()
+        self.submit_form_step()
+
+        samplemulti_url = self.browser.current_url
+
+        # She goes to the list view and sees there are still only 2 entries
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She goes to the list view of SAMPLEMULTI and sees there are still
+        # only 2 entries
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list_samplemulti))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She goes back to the SAMPLEMULTI questionnaire and publishes it
+        self.browser.get(samplemulti_url)
+        self.review_action('submit')
+        self.review_action('review')
+        self.review_action('publish')
+
+        # She goes to the list view and sees there are still 2 entries (as the
+        # SAMPLEMULTI questionnaires are not visible from SAMPLE)
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 2)
+
+        # She goes to the SAMPLEMULTI list view and sees there are now 3 entries
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list_samplemulti))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+
+        # The first of the list is the newly created one, it does not have a
+        # link attached (as the other side of the link is still "draft")
+        self.findByNot(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//ul['
+                     'contains(@class, "tech-attached")]/li/a')
+
+        # She goes to the SAMPLE questionnaire and publishes it
+        self.browser.get(sample_url)
+        self.wait_for('xpath', '//a[@data-reveal-id="confirm-submit"]')
+        self.review_action('submit')
+        self.review_action('review')
+        self.review_action('publish')
+
+        # She goes to the SAMPLE list view and sees there are now 3 entries
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+
+        # The first of the list is the newly created one and it does have a link
+        # attached
+        link_count = self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//ul['
+                     'contains(@class, "tech-attached")]/li/a')
+        self.assertEqual(link_count.text, '')
+
+        # She goes to the SAMPLEMULTI list view and sees there are 3 entries
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_list_samplemulti))
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 3)
+
+        # The first of the list is the newly created one and it does now have a
+        # link attached
+        link_count = self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//ul['
+                     'contains(@class, "tech-attached")]/li/a')
+        self.assertEqual(link_count.text, '')
+

@@ -14,11 +14,10 @@ from questionnaire.models import Questionnaire
 from ..forms import WocatAuthenticationForm
 from ..tests.test_models import create_new_user
 from accounts.views import (
-    details,
     user_update,
     LoginView,
-    ProfileView, QuestionnaireStatusListView
-)
+    ProfileView, QuestionnaireStatusListView,
+    UserDetailView)
 
 User = get_user_model()
 accounts_route_login = 'login'
@@ -162,20 +161,24 @@ class QuestionnaireStatusListViewTest(TestCase):
         self.factory = RequestFactory()
         view = QuestionnaireStatusListView()
         self.request = self.factory.get(reverse('questionnaires_status_list'))
+        self.user = create_new_user()
+        self.request.user = self.user
+        self.view = self.setup_view(view, self.request)
         self.valid_request = self.factory.get('{}?status={}'.format(
             reverse('questionnaires_status_list'),
             settings.QUESTIONNAIRE_PUBLIC
         ))
-        self.user = create_new_user()
-        self.request.user = self.user
-        self.view = self.setup_view(view, self.request)
+        self.valid_request.user = self.user
+
+    def _get_valid_view(self):
+        return self.setup_view(QuestionnaireStatusListView(), self.valid_request)
 
     def test_user_required(self):
         self.assertTrue(issubclass(ProfileView, LoginRequiredMixin))
 
     def test_get_no_status(self):
         with self.assertRaises(Http404):
-            self.view.get_status()
+            self.view.status
 
     def test_get_invalid_status(self):
         request = self.factory.get('?status=12345'.format(
@@ -183,25 +186,32 @@ class QuestionnaireStatusListViewTest(TestCase):
         ))
         view = self.setup_view(QuestionnaireStatusListView(), request)
         with self.assertRaises(Http404):
-            view.get_status()
+            view.status
 
     def test_get_valid_status(self):
         view = self.setup_view(QuestionnaireStatusListView(), self.valid_request)
-        self.assertEqual(view.get_status(), settings.QUESTIONNAIRE_PUBLIC)
+        self.assertEqual(view.status, settings.QUESTIONNAIRE_PUBLIC)
 
     @patch('accounts.views.query_questionnaires')
     def test_get_queryset(self, mock_query_questionnaires):
-        self.valid_request.user = self.user
-        view = self.setup_view(QuestionnaireStatusListView(), self.valid_request)
-        view.status = settings.QUESTIONNAIRE_PUBLIC
-        view.get_queryset()
-
+        self._get_valid_view().get_queryset()
         mock_query_questionnaires.assert_called_once_with(
-            configuration_code='all', limit=None, only_current=False, request=self.valid_request, user=self.user
+            configuration_code='all', limit=None, only_current=False,
+            request=self.valid_request, user=self.user
         )
 
     def test_get_filter_user(self):
-        pass
+        filter = self._get_valid_view().get_filter_user()
+        self.assertDictEqual(filter, {'user': self.user})
+
+    def test_get_filter_user_non_public(self):
+        request = self.factory.get('{}?status={}'.format(
+            reverse('questionnaires_status_list'),
+            settings.QUESTIONNAIRE_SUBMITTED
+        ))
+        view = self.setup_view(QuestionnaireStatusListView(), request)
+        filter = view.get_filter_user()
+        self.assertDictEqual(filter, {'user': None})
 
     @patch('accounts.views.get_list_values')
     def test_get_context_data(self, mock_get_list_values):
@@ -282,18 +292,26 @@ class UserUpdateTest(TestCase):
 class UserDetailsTest(TestCase):
 
     def setUp(self):
-        self.request = RequestFactory().get('/en/accounts/user/1')
         self.user = create_new_user()
+        self.request = RequestFactory().get(reverse('user_details', kwargs={'pk': self.user.id}))
+        self.view = self.setup_view(UserDetailView(), request=self.request, pk=self.user.id)
 
-    @patch('accounts.views.get_object_or_404')
-    def test_calls_get_object_or_404(self, mock_get_object_or_404):
-        details(self.request, 0)
-        mock_get_object_or_404.assert_called_once_with(User, pk=0)
+    def test_raise_404(self):
+        request = RequestFactory().get(reverse('user_details', kwargs={'pk': 123}))
+        view = self.setup_view(UserDetailView(), request=request, pk=123)
+        with self.assertRaises(Http404):
+            view.get(self.request)
+
+    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.typo3_client.update_user')
+    def test_returns_user(self, mock_update_user, mock_get_information):
+        mock_get_information.return_value = []
+        self.assertEqual(self.view.get_object(), self.user)
 
     @patch('accounts.client.typo3_client.get_user_information')
     def test_calls_get_user_information(self, mock_get_user_information):
         mock_get_user_information.return_value = {}
-        details(self.request, self.user.id)
+        self.view.get_object()
         mock_get_user_information.assert_called_once_with(self.user.id)
 
     @patch('accounts.client.typo3_client.get_user_information')
@@ -302,18 +320,17 @@ class UserDetailsTest(TestCase):
             'first_name': 'Faz',
             'last_name': 'Taz',
         }
-        details(self.request, self.user.id)
+        self.view.get_object()
         users = User.objects.all()
         self.assertEqual(len(users), 1)
         self.assertEqual(users[0].email, 'a@b.com')
         self.assertEqual(users[0].firstname, 'Faz')
         self.assertEqual(users[0].lastname, 'Taz')
 
-    @patch('accounts.views.render')
-    @patch('accounts.client.typo3_client.get_user_information')
-    def test_calls_render(self, mock_get_user_information, mock_render):
-        mock_get_user_information.return_value = {}
-        details(self.request, self.user.id)
-        mock_render.assert_called_once_with(self.request, 'details.html', {
-            'detail_user': self.user, 'unccd_countries': []
-        })
+    def test_get_unccd_countries(self):
+        self.view.object = MagicMock()
+        get_unccd_countries = MagicMock(return_value=[])
+        self.view.object.get_unccd_countries = get_unccd_countries
+        self.view.get_context_data()
+        get_unccd_countries.assert_called_once_with()
+

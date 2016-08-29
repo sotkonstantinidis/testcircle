@@ -35,6 +35,12 @@
             </div>
           </div>
         </section>
+      {% empty %}
+        <section class="tech-list small-12 columns">
+        <div class="tech-group">
+          <p>{% trans "No SLM data found." %}</p>
+        </div>
+        </section>
       {% endfor %}
     </div>
   </main>

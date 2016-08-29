@@ -5,6 +5,8 @@ from datetime import datetime
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 from django.utils.translation import activate
 from unittest.mock import patch, Mock
 
@@ -589,6 +591,92 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.update_geometry('sample')
         self.assertIsNone(questionnaire.geom)
 
+    def test_add_translation_language_original(self):
+        questionnaire = get_valid_questionnaire()
+        translations = questionnaire.translations
+        self.assertEqual(translations, ['en'])
+        activate('es')
+        questionnaire = get_valid_questionnaire()
+        translations = questionnaire.translations
+        self.assertEqual(translations, ['es'])
+        activate('en')
+
+    def test_add_translation_language_not_original(self):
+        activate('es')
+        questionnaire = get_valid_questionnaire()
+        translations = questionnaire.translations
+        self.assertEqual(translations, ['es'])
+        activate('en')
+        questionnaire.add_translation_language(original=False)
+        translations = questionnaire.translations
+        self.assertEqual(len(translations), 2)
+        self.assertEqual(translations, ['es', 'en'])
+
+    def test_add_translation_language_adds_only_once(self):
+        questionnaire = get_valid_questionnaire()
+        questionnaire.add_translation_language(original=False)
+        questionnaire.add_translation_language(original=False)
+        translations = questionnaire.translations
+        self.assertEqual(len(translations), 1)
+        self.assertEqual(translations, ['en'])
+    def test_links_property_returns_list(self):
+        questionnaire_1 = get_valid_questionnaire()
+        questionnaire_2 = get_valid_questionnaire()
+        questionnaire_1.add_link(questionnaire_2)
+        links_property = questionnaire_1.links_property
+        self.assertTrue(isinstance(links_property, list))
+
+    @override_settings(LANGUAGES=(('en', 'English'), ('es', 'Spanish')))
+    def test_links_property_adds_each_name(self):
+        questionnaire_1 = get_valid_questionnaire()
+        questionnaire_1.status = 4
+        questionnaire_1.save()
+        questionnaire_2 = get_valid_questionnaire()
+        questionnaire_2.status = 4
+        questionnaire_2.save()
+        questionnaire_1.add_link(questionnaire_2)
+        links_property = questionnaire_1.links_property
+        link_names = links_property[0]['name']
+        self.assertEqual(len(link_names), 3)
+        self.assertEqual(link_names['default'], 'Unknown name')
+        self.assertEqual(link_names['en'], 'Unknown name')
+        self.assertEqual(link_names['es'], 'Unknown name')
+
+    @override_settings(LANGUAGES=(('en', 'English'), ('es', 'Spanish')))
+    def test_links_property_adds_each_url(self):
+        questionnaire_1 = get_valid_questionnaire()
+        questionnaire_1.status = 4
+        questionnaire_1.save()
+        questionnaire_2 = get_valid_questionnaire()
+        questionnaire_2.status = 4
+        questionnaire_2.save()
+        questionnaire_1.add_link(questionnaire_2)
+        links_property = questionnaire_1.links_property
+        link_urls = links_property[0]['url']
+        self.assertEqual(len(link_urls), 3)
+        activate('es')
+        self.assertEqual(link_urls['es'], reverse(
+            'sample:questionnaire_details', kwargs={'identifier': 'sample_1'}))
+        activate('en')
+        en_url = reverse(
+            'sample:questionnaire_details', kwargs={'identifier': 'sample_1'})
+        self.assertEqual(link_urls['default'], en_url)
+        self.assertEqual(link_urls['en'], en_url)
+
+    def test_links_property_only_returns_public_links(self):
+        questionnaire_1 = get_valid_questionnaire()
+        questionnaire_1.status = 4
+        questionnaire_1.save()
+        questionnaire_2 = get_valid_questionnaire()
+        questionnaire_2.status = 4
+        questionnaire_2.save()
+        questionnaire_3 = get_valid_questionnaire()
+        questionnaire_3.status = 1
+        questionnaire_3.save()
+        questionnaire_1.add_link(questionnaire_2)
+        questionnaire_1.add_link(questionnaire_3)
+        links_property = questionnaire_1.links_property
+        self.assertEqual(len(links_property), 1)
 
 class FileModelTest(TestCase):
 

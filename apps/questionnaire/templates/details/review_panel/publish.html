@@ -85,5 +85,7 @@
   {% trans "Assigned publishers:" as assign_assigned %}
   {% trans "There are no publishers assigned to this questionnaire." as assign_empty %}
   {% trans "Edit assigned publishers. Click the button to update the assigned publishers." as assign_edit %}
+  {% trans "Update publishers" as assign_button %}
+  {% trans "Please note that currently, invited users are not notified automatically. This feature is in development and will be added soon. For the time being, it is recommended to notify invited users via e-mail." as assign_notice %}
   {% include 'details/review_panel/_assign_user.html' with users=review_config.publishers %}
 {% endif %}

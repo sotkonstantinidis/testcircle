@@ -257,6 +257,7 @@ class Questionnaire(models.Model):
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
                 previous_version.update_data(data, updated, configuration_code)
+                previous_version.add_translation_language(original=False)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_SUBMITTED:
@@ -311,10 +312,7 @@ class Questionnaire(models.Model):
             questionnaire=questionnaire, configuration=configuration,
             original_configuration=True)
 
-        # TODO: Not all translations should be the original ones!
-        QuestionnaireTranslation.objects.create(
-            questionnaire=questionnaire, language=get_language(),
-            original_language=True)
+        questionnaire.add_translation_language(original=True)
 
         if previous_version:
             # Copy all the functional user roles from the old version
@@ -334,6 +332,27 @@ class Questionnaire(models.Model):
             configuration_code)
 
         return questionnaire
+
+    def add_translation_language(self, original=False):
+        """
+        Add a language as a translation of the questionnaire. Add it only once.
+
+        Args:
+            original: bool. Whether the language is the original language or not
+
+        Returns:
+
+        """
+        language = get_language()
+        if language not in self.translations:
+            QuestionnaireTranslation.objects.create(
+                questionnaire=self, language=language,
+                original_language=original)
+            # Delete cached translation property
+            try:
+                delattr(self, 'translations')
+            except AttributeError:
+                pass
 
     def get_id(self):
         return self.id
@@ -464,12 +483,17 @@ class Questionnaire(models.Model):
         permissions = list(set(permissions))
         roles = list(set(roles))
 
+        # Do the translation of the role names
+        translated_roles = []
+        for role_keyword, role_name in roles:
+            translated_roles.append((role_keyword, _(role_name)))
+
         # If questionnaire is blocked, remove 'edit' permissions.
         if 'edit_questionnaire' in permissions and \
                 not self.can_edit(current_user):
             permissions.remove('edit_questionnaire')
 
-        return RolesPermissions(roles=roles, permissions=permissions)
+        return RolesPermissions(roles=translated_roles, permissions=permissions)
 
     def get_question_data(self, qg_keyword, q_keyword):
         """
@@ -978,7 +1002,8 @@ class Questionnaire(models.Model):
         config_list = ConfigurationList()
         current_language = get_language()
 
-        for link in self.links.filter(configurations__isnull=False):
+        for link in self.links.filter(configurations__isnull=False).filter(
+                status=settings.QUESTIONNAIRE_PUBLIC):
 
             link_configuration = config_list.get(link.configurations.first().code)
             name_data = link_configuration.get_questionnaire_name(link.data)
@@ -988,16 +1013,23 @@ class Questionnaire(models.Model):
             except AttributeError:
                 original_language = settings.LANGUAGES[0][0]  # 'en'
 
+            names = {}
+            urls = {}
             for code, language in settings.LANGUAGES:
                 activate(code)
-                name = name_data.get(code, name_data.get(original_language))
-                links.append({
-                    code: {
-                        'code': link.code,
-                        'configuration': link_configuration.keyword,
-                        'name': name,
-                        'url': link.get_absolute_url()
-                }})
+                names[code] = name_data.get(code, name_data.get(original_language))
+                urls[code] = link.get_absolute_url()
+
+                if code == original_language:
+                    names['default'] = names[code]
+                    urls['default'] = urls[code]
+
+            links.append({
+                'code': link.code,
+                'configuration': link_configuration.keyword,
+                'name': names,
+                'url': urls,
+            })
 
         activate(current_language)
         return links

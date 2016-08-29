@@ -76,6 +76,8 @@
   {% trans "WOCAT users can be invited to work on a SLM Technology / Approach as editors. Editors can edit the SLM Technology / Approach, but they cannot submit it for review or invite other editors." as assign_description %}
   {% trans "Invited editors:" as assign_assigned %}
   {% trans "There are no editors invited to this questionnaire." as assign_empty %}
-  {% trans "Edit invited editors. Click the button to update the invited editors." as assign_edit %}
+  {% trans "Add or remove WOCAT users as editors. Click the button on the right to update the invited editors." as assign_edit %}
+  {% trans "Update editors" as assign_button %}
+  {% trans "Please note that currently, invited users are not notified automatically. This feature is in development and will be added soon. For the time being, it is recommended to notify invited users via e-mail." as assign_notice %}
   {% include 'details/review_panel/_assign_user.html' with users=review_config.editors %}
 {% endif %}

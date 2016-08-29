@@ -98,22 +98,14 @@
                 element: document.querySelector('main section')
               },
               {
-                intro: '{% trans "<p>The Questionnaire consists of multiple sections. You can use the Table of Content for navigation.</p>"|escapejs %}',
-                element: document.querySelector('.js-sticky-entry-help-toc')
-              },
-              {
                 intro: '{% trans "<p>Each section is also visible in the output, any data you enter will appear here.</p>"|escapejs %}',
                 element: document.querySelectorAll('main section')[1],
                 position: 'top'
               },
               {
                 intro: '{% trans "<p>Click on the button to edit a section and enter your data.</p><p>The numbers indicate how many questions are already filled out in this section.</p>"|escapejs %}',
-                element: document.querySelectorAll('main section div a')[1],
+                element: document.querySelectorAll('main section div.tech-section-action')[1],
                 position: 'top'
-              },
-              {
-                intro: '{% trans "<p>The metadata will be filled out automatically once you saved the Questionnaire.</p>"|escapejs %}',
-                element: document.querySelector('ul.tech-output-infos')
               }
             ]
           }).onbeforechange(function(targetElement) {

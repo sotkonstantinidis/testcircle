@@ -84,10 +84,10 @@ class FlaggingTest(FunctionalTest):
         # She goes to her user profile and sees that she is identified as UNCCD
         # focal point for her country.
         self.browser.get(self.live_server_url + reverse(
-            accounts_route_user, kwargs={'id': unccd_user.id}))
+            accounts_route_user, kwargs={'pk': unccd_user.id}))
 
-        self.findBy('xpath', '//h3[contains(text(), "UNCCD Focal Point")]')
-        self.findBy('xpath', '//strong/a[contains(text(), "Switzerland")]')
+        self.findBy('xpath', '//*[contains(text(), "UNCCD Focal Point")]')
+        self.findBy('xpath', '//a[contains(text(), "Switzerland")]')
 
     def test_unccd_flag_elasticsearch(self, mock_get_user_id):
         unccd_user = create_new_user(id=1, email='a@b.com')

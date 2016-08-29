@@ -11,6 +11,7 @@ from rest_framework.reverse import reverse
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
 from api.views import LogUserMixin, PermissionMixin
+from configuration.cache import get_configuration
 from search.search import advanced_search, get_element
 from ..conf import settings
 from ..models import Questionnaire
@@ -34,21 +35,56 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
 
     def update_dict_keys(self, items):
         """
-        Some keys need to be updated (e.g. description has a different key depending on the config) for a more
-        consistent behavior of the APIs data.
-        This cannot be done when indexing (elasticsearch) the data, as the templates expect the variable names in
-        the 'original' format.
+        Some keys need to be updated (e.g. description has a different key
+        depending on the config) for a more consistent behavior of the APIs
+        data.
+        This cannot be done when indexing (elasticsearch) the data, as the
+        templates expect the variable names in the 'original' format.
+        After discussion with the people consuming the api, the language of
+        the content is used as key, i.e.: 'unccd_description': 'a title' becomes
+        'definition: {'en': 'a title'}
         """
         for item in items:
             yield self.replace_keys(item)
 
+    def language_text_mapping(self, **item) -> dict:
+        """
+        The consumers of the API require the text values in the format:
+        {
+            'language': 'en',
+            'text': 'my text'
+        }
+        """
+        return [{'language': key, 'text': value} for key, value in item.items()]
+
     def replace_keys(self, item):
+        """
+        Replace all keys as defined by the configuration. Also, list all
+        translated versions. This was requested by the consumers of the API.
+        To access description and name in all versions, the config must be
+        loaded again.
+        """
         matching_keys = self.setting_keys.intersection(item.keys())
+        config = get_configuration(item['serializer_config'])
         if matching_keys:
             for key in matching_keys:
-                item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = item.pop(key)
+                definition = self.language_text_mapping(
+                    **config.get_questionnaire_description(item['data'], key)
+                )
+                del item[key]
+                item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = definition
+
+        # Special case: 'name' must include all translations.
+        if item.get('name'):
+            item['name'] = self.language_text_mapping(
+                **config.get_questionnaire_name(item['data'])
+            )
+
         if self.add_detail_url:
-            item['api_url'] = reverse('questionnaires-api-detail', kwargs={'identifier': item['code']})
+            item['api_url'] = reverse(
+                'questionnaires-api-detail',
+                kwargs={'identifier': item['code']}
+            )
         return item
 
 

@@ -10,6 +10,11 @@
 .home-search {
   background: #f5f4ef;
   padding: rem-calc(24);
+
+  @media #{$small-only} {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 .home-slider,
 .home-main {

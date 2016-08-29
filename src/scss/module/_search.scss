@@ -28,6 +28,16 @@
   background-color: $color-brown-dark;
 }
 
+.search-type-dropdown.dropdown.button {
+  @media #{$small-only} {
+    padding-right: 1rem;
+    width: 3.3rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: transparent;
+  }
+}
+
 //
 //.search-input {
 //  padding-right: rem-calc(36);

@@ -34,6 +34,9 @@
         <svg class="icon"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
       </a>
       <p>{{ assign_edit }}</p>
+      {% if assign_notice %}
+        <p data-alert class="alert-box info review-assign-notice">{{ assign_notice }}</p>
+      {% endif %}
       <div class="row">
         <div class="medium-9 columns">
           <div id="review-new-user" class="user-display">
@@ -53,7 +56,8 @@
                  data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}">
         </div>
         <div class="medium-2 medium-offset-1 columns">
-          <input id="button-assign" name="assign" class="button" type="submit" value="{% trans "Update users" %}">
+          {% trans "Update users" as default_button_text %}
+          <input id="button-assign" name="assign" class="button expand" type="submit" value="{{ assign_button|default:default_button_text }}">
         </div>
       </div>
     </div>

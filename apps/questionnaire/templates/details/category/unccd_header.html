@@ -29,9 +29,9 @@
       <li>
         <span class="is-muted">{% if metadata.compilers|length > 1 %}{% trans "Compilers:" %}{% else %}{% trans "Compiler:" %}{% endif %}</span>
         {% for compiler in metadata.compilers %}
-          <a rel="author" href="#" class="link">{{ compiler.name }}</a>{% if not forloop.last %}, {% endif %}
+          <a rel="author" href="{% url 'user_details' compiler.id %}" class="link">{{ compiler.name }}</a>{% if not forloop.last %}, {% endif %}
         {% empty %}
-          <a rel="author" href="#" class="link">{{ user }}</a>
+          <a rel="author" href="{% url 'user_details' user.id %}" class="link">{{ user }}</a>
         {% endfor %}
       </li>
       <li>
@@ -81,7 +81,10 @@
 
   <div class="row tech-section-group">
     <h2 class="tech-section-group-title left">{% trans "View sections" %}</h2>
-    <a href="#" class="link right js-expand-all-sections">{% trans "Expand all" %}</a>
+    <a href="#" class="link right js-expand-all-sections" data-is-collapsed="true">
+      <span class="js-is-expanded">{% trans "Expand all" %}</span>
+      <span class="js-is-collapsed hide">{% trans "Collapse all" %}</span>
+    </a>
   </div>
 
   {% if subcategories or 'edit_questionnaire' in permissions and 'edit' in view_mode %}

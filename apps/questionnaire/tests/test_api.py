@@ -3,6 +3,7 @@ from unittest.mock import patch, MagicMock
 from django.conf import settings
 from django.http import Http404
 from django.test import RequestFactory
+from django.test import override_settings
 from rest_framework.test import force_authenticate, APIRequestFactory
 from rest_framework.response import Response
 
@@ -83,6 +84,31 @@ class QuestionnaireListViewTest(TestCase):
         mock_advanced_search.return_value = {}
         response = self.view.get(self.request)
         self.assertIsInstance(response, Response)
+
+    @override_settings(QUESTIONNAIRE_API_CHANGE_KEYS={'foo': 'bar'})
+    @patch('questionnaire.api.views.get_configuration')
+    def test_replace_keys(self, mock_get_configuration):
+        config = MagicMock()
+        config.get_questionnaire_description.return_value = {'en': 'foo'}
+        config.get_questionnaire_name.return_value = {'en': 'name'}
+        mock_get_configuration.return_value = config
+        item = self.view.replace_keys(dict(
+            name='name', foo='bar', serializer_config='', data={},
+            code='sample_1')
+        )
+        self.assertEqual(
+            item['bar'], [{'language': 'en', 'text': 'foo'}]
+        )
+
+    def test_language_text_mapping(self):
+        data = {'a': 'foo'}
+        self.assertEqual(
+            self.view.language_text_mapping(**data),
+            [{'language': 'a', 'text': 'foo'}]
+        )
+
+
+
 
 
 class QuestionnaireDetailViewTest(TestCase):

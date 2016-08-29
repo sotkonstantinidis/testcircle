@@ -652,8 +652,12 @@ def get_active_filters(questionnaire_configurations, query_dict):
                     try:
                         object = model.objects.get(pk=filter_value)
                         value_label = str(object)
-                    except model.DoesNotExist:
-                        continue
+                    except (model.DoesNotExist, ValueError):
+                        # If no object was found by ID or the value is not a
+                        # valid ID, try to find the (supposed string) value in
+                        # the name of the object.
+                        filter_key = '{}_display'.format(filter_key)
+                        value_label = filter_value
                 except LookupError:
                     continue
 
@@ -1280,8 +1284,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # It is important to also put the data of the linked
         # questionnaires so changes (eg. name change) appear in their
         # links.
+        # However, do this only where the linked questionnaire is "public"!
+        # Otherwise, "draft" questionnaires would appear in the list.
         links_by_configuration = {}
-        for link in questionnaire_object.links.all():
+        for link in questionnaire_object.links.filter(
+                status=settings.QUESTIONNAIRE_PUBLIC):
             configuration_object = link.configurations.first()
             if configuration_object is None:
                 continue

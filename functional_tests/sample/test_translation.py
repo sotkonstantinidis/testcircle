@@ -66,3 +66,8 @@ class TranslationTest(FunctionalTest):
         self.changeLanguage('es')
         self.findBy(
             'xpath', '//*[text()[contains(.,"Foo content in Spanish")]]')
+
+        # She sees that both languages are available in the tech info metadata
+        translations = self.findManyBy(
+            'xpath', '//ul[contains(@class, "tech-lang-list")]/li')
+        self.assertEqual(len(translations), 2)

@@ -804,7 +804,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She sees that she can select a Value by mouse click
         self.findBy(
-            'xpath', '//div[contains(@class, "chosen-container")]').click()
+            'xpath', '//div[contains(@class, "form-user-tab-create")]//a[@class="chosen-single"]').click()
         self.findBy(
             'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]') \
             .click()
@@ -2611,6 +2611,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.submit_form_step()
 
         # She goes to the part where she can edit linked questionnaires
+        self.rearrange_notifications()
         self.click_edit_section('cat_5')
 
         # She sees there is a hidden field for the ID but it is empty
@@ -2668,6 +2669,7 @@ class QuestionnaireLinkTest(FunctionalTest):
 
         # She goes back to the form and sees the one she linked is still
         # in the form.
+        self.rearrange_notifications()
         self.click_edit_section('cat_5')
         id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
         self.assertEqual(id_field.get_attribute('value'), '3')
@@ -2730,12 +2732,17 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.toggle_all_sections()
 
         self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+        self.wait_for('xpath', '//figure[contains(@class, "tech-thumbnail")]')
         self.findBy(
-            'xpath', '//a[contains(@href, "samplemulti/view/")]').click()
+            'xpath',
+            '//figure[contains(@class, "tech-thumbnail")]/a[contains(@href, '
+            '"samplemulti/view/")]').click()
+
         self.toggle_all_sections()
-        self.wait_for('xpath', '//div[contains(@class, "tech-item-content")]')
-        self.findBy('xpath', '//div[contains(@class, "tech-item-content")]//a['
-                             'contains(@href, "sample/view/")]').click()
+        self.wait_for('xpath', '//figure[contains(@class, "tech-thumbnail")]')
+        self.findBy(
+            'xpath', '//figure[contains(@class, "tech-thumbnail")]/a[contains('
+                     '@href, "sample/view/")]').click()
 
         # She decides to edit the questionnaire
         self.review_action('edit')

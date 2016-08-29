@@ -1,7 +1,10 @@
+from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 
 from accounts.tests.test_models import create_new_user
+from questionnaire.tests.test_models import get_valid_questionnaire
+
 from functional_tests.base import FunctionalTest
 
 from accounts.client import Typo3Client
@@ -878,6 +881,81 @@ class UserTest3(FunctionalTest):
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 1")]')
 
+
+class UserDetailTest(FunctionalTest):
+
+    fixtures = ['global_key_values', 'sample']
+
+    def setUp(self):
+        super().setUp()
+        self.user = create_new_user()
+        self.detail_view_user = create_new_user(
+            id=2, email='c@d.com', firstname='abc', lastname='cde'
+        )
+        self.url = self.live_server_url + reverse(
+            'user_details', kwargs={'pk': self.detail_view_user.id}
+        )
+
+    def test_user_detail_basic(self):
+        # Jay opens the users detail page
+        self.browser.get(self.url)
+
+        # The users details are listed
+        self.findBy('xpath', '//*[contains(text(), "{}")]'.format(
+            self.detail_view_user.firstname)
+        )
+        self.findBy('xpath', '//*[contains(text(), "{}")]'.format(
+            self.detail_view_user.lastname)
+        )
+        # But not the email address
+        self.findByNot('xpath', '//*[contains(text(), "{}")]'.format(
+            self.detail_view_user.email)
+        )
+        # The user is no unccd focal point
+        self.findByNot('xpath', '//*[contains(text(), "{}")]'.format(
+            'Focal Point')
+        )
+        # The user has no public questionnaires
+        self.findBy('xpath', '//*[contains(text(), "No WOCAT and UNCCD SLM '
+                             'practices found.")]')
+
+        # Now jay logs in
+        self.doLogin(user=self.user)
+
+        # And can see the users email address
+        self.browser.get(self.url)
+        self.findBy('xpath', '//*[contains(text(), "{}")]'.format(
+            self.detail_view_user.email)
+        )
+
+    def test_user_details_full(self):
+        # The detail user is now a unccd focal point and hast two public
+        # questionnaires
+        public = get_valid_questionnaire(user=self.detail_view_user)
+        public.status = settings.QUESTIONNAIRE_PUBLIC
+        public.save()
+        public = get_valid_questionnaire(user=self.detail_view_user)
+        public.status = settings.QUESTIONNAIRE_DRAFT
+        public.save()
+        self.detail_view_user.update(
+            email=self.detail_view_user.email,
+            usergroups=[{'name': 'UNCCD Focal Point', 'unccd_country': 'CHE'}]
+        )
+        self.browser.get(self.url)
+
+        # The public questionnaire is now listed.
+        self.findBy('xpath', '(//article[contains(@class, "tech-item")])[1]//*'
+                             '[contains(text(), "No description available.")]')
+
+        # The list is exactly one element long, the draft is not visible
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 1)
+
+        # And finally, the unccd focal point country switzerland is listed.
+        self.findBy('xpath', '//*[contains(text(), "Focal Point")]')
+        self.findBy('xpath', '//div[contains(@class, "user-unccd-focal-point")]')
+        self.findBy('xpath', '//a[text()="Switzerland"]')
 
 # @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 # @patch.object(Typo3Client, 'get_user_id')
