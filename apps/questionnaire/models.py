@@ -179,7 +179,7 @@ class Questionnaire(models.Model):
     @staticmethod
     def create_new(
             configuration_code, data, user, previous_version=None, status=1,
-            created=None, updated=None, old_data=None):
+            created=None, updated=None, old_data=None, languages=None):
         """
         Create and return a new Questionnaire.
 
@@ -205,6 +205,10 @@ class Questionnaire(models.Model):
 
             ``old_data`` (dict): The data dictionary containing the old data of
             the questionnaire.
+
+            ``languages`` (list): An optional list of languages in which a newly
+            created questionnaire is available. Should only be used when
+            importing data.
 
         Returns:
             ``questionnaire.models.Questionnaire``. The created
@@ -297,7 +301,13 @@ class Questionnaire(models.Model):
             questionnaire=questionnaire, configuration=configuration,
             original_configuration=True)
 
-        questionnaire.add_translation_language(original=True)
+        if not languages:
+            questionnaire.add_translation_language(original=True)
+        else:
+            for i, language in enumerate(languages):
+                original = i == 0
+                questionnaire.add_translation_language(
+                    original=original, language=language)
 
         if previous_version:
             # Copy all the functional user roles from the old version
@@ -318,17 +328,21 @@ class Questionnaire(models.Model):
 
         return questionnaire
 
-    def add_translation_language(self, original=False):
+    def add_translation_language(self, original=False, language=None):
         """
         Add a language as a translation of the questionnaire. Add it only once.
 
         Args:
             original: bool. Whether the language is the original language or not
 
+            language: string. Manually set the language of the translation. If
+            not provided, it is looked up using get_language().
+
         Returns:
 
         """
-        language = get_language()
+        if language is None:
+            language = get_language()
         if language not in self.translations:
             QuestionnaireTranslation.objects.create(
                 questionnaire=self, language=language,

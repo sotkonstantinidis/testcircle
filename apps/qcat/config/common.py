@@ -90,6 +90,9 @@ class BaseSettings(Configuration):
         ('en', _('English')),
         ('es', _('Spanish')),
         ('fr', _('French')),
+        # TODO: Add all languages in which imported Questionnaires are
+        # available.
+        # ('ru', _('Russian')),
     )
 
     TIME_ZONE = 'Europe/Zurich'
@@ -275,3 +278,5 @@ class BaseSettings(Configuration):
 
     # google webdeveloper verification
     GOOGLE_WEBMASTER_TOOLS_KEY = values.Value(environ_prefix='')
+
+    WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')

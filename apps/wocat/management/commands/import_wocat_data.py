@@ -1,0 +1,1044 @@
+import re
+from datetime import datetime
+import json
+import pprint
+import psycopg2
+import petl as etl
+from django.conf import settings
+from django.core.management.base import BaseCommand
+from fabric.colors import green, yellow, red
+
+from accounts.models import User
+from configuration.cache import get_configuration
+from questionnaire.models import Questionnaire
+from questionnaire.utils import clean_questionnaire_data
+from wocat.management.commands.qt_mapping import qt_mapping
+
+pp = pprint.PrettyPrinter(indent=2)
+
+
+# Date format used in WOCAT database: 2010-04-20
+WOCAT_DATE_FORMAT = '%Y-%m-%d'
+
+# Date format expected by QCAT: 20/04/2010
+QCAT_DATE_FORMAT = '%d/%m/%Y'
+
+# Characters used when merging multiple text entries into single (comments)
+# field
+TEXT_VALUES_MERGE_CHAR = '\n\n'
+
+# Language mapping, mostly used to lookup translations (column named 'english')
+# for Questionnaire with language code 'en'.
+LANGUAGE_MAPPING = {
+    'en': 'english',
+    'es': 'spanish',
+    'fr': 'french',
+    'af': 'afrikaans',
+    'ru': 'russian',
+    'fa': 'dari',
+    'pt': 'portuguese',
+
+    # Languages with lookup values but no QT Questionnaire is available in this
+    # language.
+    'mn': 'mongolian',
+    'tg': 'tajik',
+    'el': 'greek',
+}
+
+
+class Command(BaseCommand):
+    help = 'Imports the data from the old WOCAT database.'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--dry-run',
+            action='store_true',
+            dest='dry-run',
+            default=False,
+            help='Only extract and transform the data, do not import anything.',
+        )
+        parser.add_argument(
+            '--error-list',
+            action='store_true',
+            dest='error-list',
+            default=False,
+            help='Print a list of questionnaires which contain errors.',
+        )
+
+    def handle(self, *args, **options):
+        qt_import = QTImport(options)
+        qt_import.collect_import_objects()
+        qt_import.filter_import_objects()
+        qt_import.check_translations()
+        qt_import.do_mapping()
+        qt_import.save_objects()
+        print("End of import.")
+
+
+class Logger:
+    """
+    A mixin used to log output.
+    """
+    command_options = {}
+
+    def output(self, msg, v=None, l=None, pretty=False):
+        """
+        Print output.
+
+        Args:
+            msg: The message to be printed.
+            v: Verbosity level (1 - 3)
+            l: Level of the output, used to format the output. Use one of
+                'error', 'warning' or 'success' to apply styling.
+            pretty: Set to true to prettify output.
+
+        Returns:
+            -
+        """
+        if l == 'error':
+            msg = red(msg)
+        elif l == 'warning':
+            msg = yellow(msg)
+        elif l == 'success':
+            msg = green(msg)
+        if not v or v <= self.command_options['verbosity']:
+            if pretty is True:
+                pp.pprint(msg)
+            else:
+                print(msg)
+
+
+class ImportObject(Logger):
+    """
+    Represents an object of the WOCAT database to be imported.
+    """
+
+    def __init__(self, identifier, command_options, lookup_table):
+        self.identifier = identifier
+        self.command_options = command_options
+        self.lookup_table = lookup_table
+
+        # Data will be stored as
+        # {
+        #   "table_name": [
+        #       { _table_content_ }
+        #   ]
+        # }
+        self.wocat_data = {}
+
+        self.data_json = {}
+        self.data_json_cleaned = {}
+
+        # These values will be set/overwritten after reading the data.
+        self.created = None
+        self.code_wocat = ''
+        self.code = ''
+        self.language = 'en'
+
+        # A list of ImportObjects which are translations of the current object.
+        self.translations = []
+
+        # Error messages
+        self.mapping_errors = []
+        self.validation_errors = []
+
+        # Mapping messages: Informs about special procedures which took place
+        # during mapping of the data.
+        self.mapping_messages = []
+
+    def __str__(self):
+        return '[{} | {}]'.format(self.identifier, self.code_wocat)
+
+    def set_code(self, code_wocat):
+        """
+        Set the WOCAT code of the current Questionnaire. Also extract the base
+        code and the language of the Questionnaire.
+
+        Args:
+            code_wocat: The WOCAT code in the form of T_MOR010en.
+
+        Returns:
+            -
+        """
+        self.code_wocat = code_wocat
+
+        # Assumption: Code always of form
+        # [Type]_[COUNTRY][3 Integers][LANGUAGE]
+        # Example:
+        # T_MOR010en
+        code_parts = re.findall('[a-zA-Z_]+\d{3}', self.code_wocat)
+        if not len(code_parts) == 1:
+            raise Exception('Invalid code: {}'.format(self.code_wocat))
+        code = code_parts[0]
+        self.code = code
+
+        language = self.code_wocat.replace(code, '')
+        if language not in LANGUAGE_MAPPING:
+            raise Exception('Invalid language code: {}'.format(self.code_wocat))
+        self.language = language
+
+    def add_error(self, error_type, error_msg):
+        if error_type == 'mapping':
+            self.mapping_errors.append(error_msg)
+        elif error_type == 'validation':
+            self.validation_errors.append(error_msg)
+        else:
+            raise NotImplementedError('Error type {} not supported.'.format(
+                error_type))
+
+    def print_errors(self):
+        self.output('\nErrors for object {}:\n'.format(self))
+
+        if self.mapping_errors:
+            self.output('Mapping errors:')
+        for error in self.mapping_errors:
+            self.output(error)
+
+        if self.validation_errors:
+            self.output('Validation errors:')
+        for error in self.validation_errors:
+            self.output(error)
+
+    def get_error_count(self):
+        return len(self.mapping_errors) + len(self.validation_errors)
+
+    def has_errors(self):
+        return self.get_error_count() > 0
+
+    def add_wocat_data(self, table_name, new_table_data):
+        """
+        Add data from a WOCAT table to the internal collection of WOCAT data.
+
+        # Data will be stored as
+        # {
+        #   "table_name": [
+        #       { _table_content_ }
+        #   ]
+        # }
+
+        Args:
+            table_name: The name of the WOCAT table.
+            new_table_data: A dictionary to be added to the table_content list.
+
+        Returns:
+            -
+        """
+        table_data = self.get_wocat_table_data(table_name)
+        if table_data is None:
+            table_data = []
+        table_data.append(new_table_data)
+        self.wocat_data[table_name] = table_data
+
+    def get_wocat_table_data(self, table_name):
+        return self.wocat_data.get(table_name)
+
+    def get_wocat_attribute_data(self, table_name, attribute_name):
+        """
+        Return a list of attributes found in the WOCAT data.
+
+        Args:
+            table_name: The WOCAT table name.
+            attribute_name: The WOCAT attribute name (the table column).
+
+        Returns:
+            list. A list of attributes.
+        """
+        wocat_table_data = self.get_wocat_table_data(table_name)
+        if wocat_table_data is None:
+            return []
+        attribute_data = []
+        for wocat_table_d in wocat_table_data:
+            attribute_d = wocat_table_d.get(attribute_name)
+            if attribute_d:
+                attribute_data.append(attribute_d)
+        return attribute_data
+
+    def check(self, configuration):
+        """
+        Clean and check the data (data_json) against the configuration. If it
+        is valid, save the cleaned data json (data_json_cleaned). Else collect
+        the error messages.
+
+        Args:
+            configuration: The name of the current configuration.
+
+        Returns:
+            -
+        """
+        cleaned_data, errors = clean_questionnaire_data(
+            self.data_json, configuration)
+
+        for error in errors:
+            self.add_error('validation', error)
+
+        if not errors:
+            self.data_json_cleaned = cleaned_data
+
+    def save(self, configuration, import_user):
+        """
+        Actually insert the object in the QCAT database.
+
+        Args:
+            configuration: The name of the current configuration.
+            import_user: The compiler.
+
+        Returns:
+            -
+        """
+        # First language is always the original
+        languages = [self.language]
+        for translation in self.translations:
+            languages.append(translation.language)
+        questionnaire = Questionnaire.create_new(
+            configuration_code=configuration.configuration_keyword,
+            data=self.data_json, user=import_user, previous_version=None,
+            old_data=None, languages=languages)
+        questionnaire.update_geometry(configuration.configuration_keyword)
+        return questionnaire
+
+    def add_mapping_message(self, message):
+        if message and message not in self.mapping_messages:
+            self.mapping_messages.append(message)
+
+    def check_conditions(self, conditions, condition_message, conditions_join):
+        """
+        Check conditions defined in the mapping.
+
+        Args:
+            conditions: A list of condition dicts. Each condition must contain
+                - mapping
+                - operator (contains / contains_not, len_gte, ...)
+                - value
+            condition_message: The message to be added if the condition is true.
+            conditions_join: An operator declaring how to join multiple
+                conditions. Use 'and' (all conditions must be true) or 'or'
+                ([default] - only one condition must be true).
+
+        Returns:
+            Boolean.
+        """
+        evaluated = []
+
+        for condition in conditions:
+            condition_values = self.collect_mapping(
+                mappings=condition.get('mapping', []), return_list=True)
+
+            # Actually check the condition
+            condition_operator = condition.get('operator')
+            condition_value = condition.get('value')
+
+            if condition_operator == 'contains':
+                evaluated.append(condition_value in condition_values)
+            elif condition_operator == 'contains_not':
+                evaluated.append(condition_value not in condition_values)
+            elif condition_operator == 'len_lte':
+                evaluated.append(len(condition_values) <= int(condition_value))
+            elif condition_operator == 'len_gte':
+                evaluated.append(len(condition_values) >= int(condition_value))
+            elif condition_operator == 'is_empty':
+                evaluated.append(len(condition_values) == 0)
+            else:
+                raise NotImplementedError(
+                    'Condition operator not specified or not valid')
+
+        if conditions_join == 'and':
+            conditions_fulfilled = all(evaluated)
+        else:
+            conditions_fulfilled = any(evaluated)
+
+        if conditions_fulfilled is True:
+            self.add_mapping_message(condition_message)
+
+        return conditions_fulfilled
+
+    def collect_mapping(
+            self, mappings, separator=None, value_mapping_list=None,
+            return_list=False, value_prefix=''):
+        """
+        Collect the values defined in the mapping.
+
+        Args:
+            mappings: A list of mapping dicts. Each mapping must contain
+                - wocat_table: The name of the WOCAT table
+                - wocat_column: The name of the WOCAT table column.
+                - mapping_prefix (optional): A prefix to be added to each value.
+                - mapping_suffix (optional): A suffix to be added to each value.
+                - conditions (optional): A list of conditions.
+            separator: A separator to be used if multiple values are joined (if
+                not specified, the default is used).
+            value_mapping_list: A dict of values to be used for the mapping.
+            return_list: Boolean. Returns the values as list if true.
+            value_prefix: A prefix to be added to the final value.
+
+        Returns:
+            String. (or list if return_list=True)
+        """
+
+        def do_value_mapping(v):
+            """
+            Helper function to do the mapping of a value, such as adding prefix
+            and suffix, look up values etc.
+
+            Args:
+                v: -
+
+            Returns:
+                string.
+            """
+            value_mapping = mapping.get('value_mapping')
+            if value_mapping:
+                v = value_mapping
+
+            v = '{}{}{}'.format(
+                mapping.get('mapping_prefix', ''),
+                v,
+                mapping.get('mapping_suffix', ''))
+
+            if value_mapping_list:
+                try:
+                    v = value_mapping_list.get(int(v), v)
+                except ValueError:
+                    v = value_mapping_list.get(v, v)
+
+            if mapping.get('lookup_table') is True:
+                try:
+                    v = int(v)
+                    lookup_value = self.lookup_table.get(v)
+                except ValueError:
+                    lookup_value = None
+
+                if lookup_value:
+                    v = lookup_value.get(
+                        LANGUAGE_MAPPING[self.language], v)
+
+            if return_list is True:
+                return v
+            else:
+                return str(v)
+
+        values = []
+        
+        for mapping in mappings:
+
+            sub_mappings = mapping.get('mapping')
+            if sub_mappings:
+                sub_value = self.collect_mapping(
+                    sub_mappings,
+                    separator=mapping.get('composite', {}).get('separator'),
+                    value_mapping_list=mapping.get(
+                        'value_mapping_list', value_mapping_list),
+                    return_list=return_list,
+                    value_prefix=mapping.get('value_prefix', ''))
+                if sub_value:
+
+                    if mapping.get('conditions'):
+                        if self.check_conditions(
+                                mapping.get('conditions'),
+                                mapping.get('condition_message'),
+                                mapping.get('conditions_join')) is False:
+                            continue
+
+                    values.append(sub_value)
+                continue
+
+            wocat_table = mapping.get('wocat_table')
+            wocat_column = mapping.get('wocat_column')
+            wocat_attribute = self.get_wocat_attribute_data(
+                table_name=wocat_table, attribute_name=wocat_column)
+
+            if not wocat_attribute:
+                continue
+
+            if mapping.get('conditions'):
+                if self.check_conditions(
+                        mapping.get('conditions'),
+                        mapping.get('condition_message'),
+                        mapping.get('conditions_join')) is False:
+                    continue
+
+            if mapping.get('mapping_message'):
+                self.add_mapping_message(mapping.get('mapping_message'))
+
+            for value in wocat_attribute:
+                values.append(do_value_mapping(value))
+
+        if return_list is True:
+            return values
+
+        if separator is None:
+            separator = TEXT_VALUES_MERGE_CHAR
+
+        values = separator.join(values)
+
+        if values:
+            return '{}{}'.format(value_prefix, values)
+
+    def question_mapping(self, qcat_question_keyword, question_properties):
+        """
+        Do the mapping of a single or multiple WOCAT questions into a single
+        QCAT question.
+
+        Args:
+            qcat_question_keyword: string.
+            question_properties: dict.
+
+        Returns:
+            dict.
+        """
+        q_type = question_properties.get('type')
+        if q_type is None:
+            raise Exception('No type specified for question {}'.format(
+                qcat_question_keyword))
+
+        if q_type == 'constant':
+            value = question_properties.get('value')
+            return {
+                qcat_question_keyword: value
+            }
+
+        mappings = question_properties.get('mapping')
+        if mappings is None:
+            raise Exception('No mapping specified for question {}'.format(
+                qcat_question_keyword))
+
+        if question_properties.get('conditions'):
+            if self.check_conditions(
+                    question_properties.get('conditions'),
+                    question_properties.get('condition_message'),
+                    question_properties.get('conditions_join')) is False:
+                return {}
+
+        value = self.collect_mapping(
+            mappings,
+            separator=question_properties.get('composite', {}).get('separator'),
+            value_mapping_list=question_properties.get('value_mapping_list'),
+            value_prefix=question_properties.get('value_prefix', ''))
+
+        if q_type == 'string':
+            # For string values, also collect translations.
+
+            values = []
+            if value:
+                values.append((self.language, value))
+
+            # Collect translations
+            for translated_import_object in self.translations:
+
+                translated_value = translated_import_object.collect_mapping(
+                    mappings,
+                    separator=question_properties.get(
+                        'composite', {}).get('separator'),
+                    value_mapping_list=question_properties.get(
+                        'value_mapping_list'),
+                    value_prefix=question_properties.get('value_prefix', ''))
+
+                if translated_value:
+                    values.append(
+                        (translated_import_object.language, translated_value))
+
+            if not values:
+                return {}
+
+            ret_dict = {}
+            for language, v in values:
+                ret_dict[language] = v
+            return {
+                qcat_question_keyword: ret_dict
+            }
+
+        if not value:
+            return {}
+
+        if q_type == 'dropdown':
+            return {
+                qcat_question_keyword: value
+            }
+
+        elif q_type == 'date':
+            try:
+                value = datetime.strptime(
+                    value, WOCAT_DATE_FORMAT).strftime(
+                    QCAT_DATE_FORMAT)
+            except ValueError:
+                return {}
+
+            return {
+                qcat_question_keyword: value
+            }
+
+        else:
+            raise NotImplementedError('Type {} is not valid'.format(q_type))
+
+    def question_mapping_geom_point(
+            self, qcat_question_keyword, question_properties):
+        """
+        Do the mapping of WOCAT questions into a geometry point GEOJSON question
+        for QCAT.
+
+        Args:
+            qcat_question_keyword: string.
+            question_properties: dict.
+
+        Returns:
+            dict.
+        """
+        mappings = question_properties.get('mapping')
+        if mappings is None:
+            raise Exception('No mapping specified for question {}'.format(
+                qcat_question_keyword))
+
+        values = self.collect_mapping(mappings, return_list=True)
+
+        parsed_values = []
+        for v in values:
+            try:
+                v = float(v)
+            except ValueError:
+                # Special cases
+
+                int_values = [int(s) for s in re.findall(r'\b\d+\b', v)]
+                if len(int_values) == 4:
+                    # 38°35'52.48"N
+                    v = int_values[0] + int_values[1] / 60 + \
+                        (int_values[2] + int_values[3] / 100) / 3600
+                elif len(int_values) == 3:
+                    # 46 16 33
+                    v = int_values[0] + int_values[1] / 60 + \
+                        int_values[2] / 3600
+                else:
+                    self.output(
+                        'Invalid coordinates ({}) of object {}'.format(
+                            v, self.identifier),
+                        v=1, l='error')
+                    continue
+
+            parsed_values.append(v)
+
+        if len(parsed_values) == 2:
+            geojson = {
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [parsed_values[1], parsed_values[0]]
+                        },
+                        'properties': None
+                    }
+                ]
+            }
+            return {
+                qcat_question_keyword: json.dumps(geojson)
+            }
+
+        return {}
+
+    def question_mapping_checkbox(
+            self, qcat_question_keyword, question_properties):
+        """
+        Do the mapping of WOCAT questions into a checkbox question for QCAT.
+
+        Args:
+            qcat_question_keyword: string.
+            question_properties: dict.
+
+        Returns:
+            dict.
+        """
+        mappings = question_properties.get('mapping')
+        if mappings is None:
+            raise Exception('No mapping specified for question {}'.format(
+                qcat_question_keyword))
+
+        values = self.collect_mapping(
+            mappings,
+            value_mapping_list=question_properties.get('value_mapping_list'),
+            return_list=True)
+
+        # Remove duplicates
+        values = list(set(values))
+
+        # Composite mapping options
+        composite_mapping_option = question_properties.get(
+            'composite', {}).get('mapping')
+
+        if composite_mapping_option == 'exclusive':
+            # Exclusive mapping means values which are not mapped will be
+            # ignored.
+            values = [v for v in values if v in question_properties.get(
+                'value_mapping_list', {}).values()]
+
+        if values:
+            return {
+                qcat_question_keyword: values
+            }
+
+    def questiongroup_mapping(
+            self, qcat_questiongroup_keyword, questiongroup_properties):
+        """
+        Map an entire Questiongroup of QCAT. Map each question and add the
+        mapped data to the data json (data_json).
+
+        Args:
+            qcat_questiongroup_keyword: string.
+            questiongroup_properties: dict.
+
+        Returns:
+            -
+        """
+        qg_conditions = questiongroup_properties.get('conditions')
+        if qg_conditions:
+            if not self.check_conditions(
+                    qg_conditions,
+                    questiongroup_properties.get('condition_message'),
+                    questiongroup_properties.get('conditions_join')):
+                return
+
+        qg_data = {}
+        for q_name, q_properties in questiongroup_properties.get(
+                'questions', {}).items():
+
+            composite_type = q_properties.get('composite', {}).get('type')
+            if composite_type is None or composite_type == 'merge':
+                q_data = self.question_mapping(q_name, q_properties)
+
+            elif composite_type == 'geom_point':
+                q_data = self.question_mapping_geom_point(q_name, q_properties)
+
+            elif composite_type == 'checkbox':
+                q_data = self.question_mapping_checkbox(q_name, q_properties)
+
+            else:
+                raise NotImplementedError()
+
+            if q_data:
+                qg_data.update(q_data)
+
+        existing_qg_data = self.data_json.get(qcat_questiongroup_keyword, [])
+        if qg_data:
+            existing_qg_data.append(qg_data)
+        if existing_qg_data:
+            self.data_json[qcat_questiongroup_keyword] = existing_qg_data
+
+
+class WOCATImport(Logger):
+
+    import_objects_filter = []
+    configuration_code = ''
+    schema = ''
+    lookup_table_name = ''
+    questionnaire_identifier = ''
+    questionnaire_code = ''
+    tables = []
+    mapping = {}
+
+    def __init__(self, command_options):
+        self.command_options = command_options
+        self.connection = psycopg2.connect(settings.WOCAT_IMPORT_DATABASE_URL)
+        self.query_limit = 'NULL'
+
+        # A collection of all objects to be imported.
+        self.import_objects = []
+
+        # TODO: Do not always use the same user as compiler.
+        self.import_user = User.objects.get(pk=2365)
+
+        self.configuration = get_configuration(
+            configuration_code=self.configuration_code)
+
+    def collect_import_objects(self):
+        """
+        Collect all the objects to be imported. Query all WOCAT objects and
+        collect all WOCAT data (wocat_data).
+
+        Returns:
+
+        """
+        def get_tables(mappings):
+            """
+            Recursively collect all WOCAT tables of the mappings.
+
+            Args:
+                mappings: list.
+
+            Returns:
+                list. A list of tables.
+            """
+            tables = []
+            for mapping in mappings:
+                table = mapping.get('wocat_table')
+                if table:
+                    tables.append(table)
+                tables.extend(get_tables(mapping.get('mapping', [])))
+            return tables
+
+        self.output('Fetching data from WOCAT database.', v=1)
+
+        # Try to query the lookup table and collect its values.
+        try:
+            lookup_query = """
+                SELECT *
+                FROM {schema}.{table_name};
+            """.format(schema=self.schema, table_name=self.lookup_table_name)
+            lookup_table = {}
+            for row in etl.dicts(etl.fromdb(self.connection, lookup_query)):
+                lookup_table[row.get('id')] = row
+        except AttributeError:
+            lookup_table = {}
+
+        # Determine all tables which need to be queried.
+        all_tables = self.tables
+        for qg_properties in self.mapping.values():
+            questions = qg_properties.get('questions', {})
+            for q_properties in questions.values():
+                all_tables.extend(get_tables(q_properties.get('mapping', [])))
+
+        # Remove duplicates
+        all_tables = list(set(all_tables))
+
+        # Query each table and collect the values.
+        for table_name in all_tables:
+            query = """
+                SELECT {tables}
+                FROM {schema}.{table_name}
+                LIMIT {limit};
+            """.format(
+                tables='*', schema=self.schema, table_name=table_name,
+                limit=self.query_limit
+            )
+
+            queried_table = etl.fromdb(self.connection, query)
+            for row in etl.dicts(queried_table):
+                identifier = row.get(self.questionnaire_identifier)
+
+                import_object = self.get_import_object(identifier)
+
+                if import_object is None:
+                    import_object = ImportObject(
+                        identifier, self.command_options, lookup_table)
+                    self.import_objects.append(import_object)
+
+                # If the code is available in the current table data, set it.
+                code = row.get(self.questionnaire_code)
+                if code:
+                    import_object.set_code(code)
+
+                # If the creation date is available in the current table data,
+                # set it.
+                created = row.get('insert_date')
+                if created:
+                    import_object.created = created
+
+                import_object.add_wocat_data(table_name, row)
+
+        self.output('{} objects found.'.format(
+            len(self.import_objects)), v=1)
+
+    def filter_import_objects(self):
+        """
+        Filter the import objects based on status and custom filters.
+
+        Returns:
+            -
+        """
+        # Status filter: qt.qt_quality_review.quality_review = 372 | 373
+        # 372: Complete
+        # 373: Incomplete
+        status_objects = []
+        for import_object in self.import_objects:
+            not_review_content = import_object.get_wocat_attribute_data(
+                table_name='qt_quality_review',
+                attribute_name='not_review_content')
+            if 372 in not_review_content or 373 in not_review_content:
+                status_objects.append(import_object)
+        self.import_objects = status_objects
+
+        # Custom filter
+        if self.import_objects_filter:
+            import_objects = []
+            for filter_identifier in self.import_objects_filter:
+                import_object = self.get_import_object(filter_identifier)
+                if import_object:
+                    import_objects.append(import_object)
+            self.import_objects = import_objects
+
+        self.output('{} objects remained after filtering.'.format(
+            len(self.import_objects)), v=1)
+
+    def check_translations(self):
+        """
+        Check if an import object has translations, determine the original and
+        link its translations. Keep only originals in import_objects.
+
+        Returns:
+            -
+        """
+        processed_codes = []
+        original_import_objects = []
+
+        for import_object in self.import_objects:
+
+            code = import_object.code
+
+            # Process each code only once
+            if code in processed_codes:
+                continue
+            processed_codes.append(code)
+
+            same_code_objects = [
+                io for io in self.import_objects if io.code == code]
+
+            if len(same_code_objects) == 1:
+                # Only one translation available -> it is already the original
+                original_import_objects.append(import_object)
+                continue
+
+            same_code_objects_sorted = sorted(
+                same_code_objects, key=lambda el: el.created)
+
+            original = same_code_objects_sorted[0]
+            translations = same_code_objects_sorted[1:]
+
+            for translation in translations:
+                original.translations.append(translation)
+
+            original_import_objects.append(original)
+
+        self.import_objects = original_import_objects
+
+        self.output('{} objects remained after merging translations.'.format(
+            len(self.import_objects)), v=1)
+
+    def get_import_object(self, identifier):
+        """
+        Access a single import object by its identifier.
+
+        Args:
+            identifier:
+
+        Returns:
+            ImportObject.
+        """
+        return next((item for item in self.import_objects if
+                     item.identifier == identifier), None)
+
+    def do_mapping(self):
+        """
+        Do the mapping of each ImportObject.
+
+        Returns:
+            -
+        """
+        self.output('Starting mapping of data ...', v=1)
+        for import_object in self.import_objects:
+            for qg_name, qg_properties in self.mapping.items():
+                import_object.questiongroup_mapping(qg_name, qg_properties)
+
+    def print_errors(self):
+        """
+        Print all errors of each ImportObject encountered.
+
+        Returns:
+            -
+        """
+        error_objects_count = 0
+        error_count = 0
+        for import_object in self.import_objects:
+            if import_object.has_errors():
+                import_object.print_errors()
+                error_objects_count += 1
+                error_count += import_object.get_error_count()
+        if error_objects_count > 0:
+            self.output('{} errors found in {} objects. Not importing.'.format(
+                error_count, error_objects_count), l='error')
+
+    def print_error_list(self):
+        """
+        Print a list of all ImportObjects which contain errors.
+
+        Returns:
+            -
+        """
+        self.output('Error list:')
+        for import_object in self.import_objects:
+            if import_object.has_errors():
+                print(import_object)
+
+    def save_objects(self):
+        """
+        Handle the actual insert of the ImportObjects. Only insert if there are
+        no errors.
+
+        Returns:
+            -
+        """
+        has_errors = False
+
+        # Check the objects first.
+        self.output('Checking data ...', v=1)
+        for import_object in self.import_objects:
+            import_object.check(self.configuration)
+            self.output('\nData JSON of {} | {}'.format(
+                import_object.identifier, import_object.code), v=3)
+            self.output(import_object.data_json, v=3, pretty=True)
+            has_errors |= import_object.has_errors()
+
+        if has_errors:
+            self.output('Errors listed below.', l='error')
+            self.print_errors()
+            if self.command_options.get('error-list'):
+                self.print_error_list()
+            return
+
+        else:
+            self.output('No errors encountered.', v=1)
+
+        mapping_messages_count = 0
+        for import_object in self.import_objects:
+            if import_object.mapping_messages:
+                mapping_messages_count += 1
+                self.output('\nMapping messages for {}:\n{}'.format(
+                    import_object, '\n'.join(import_object.mapping_messages)), v=3)
+        self.output('{} objects with mapping messages.'.format(mapping_messages_count), v=2)
+
+        dry_run = self.command_options['dry-run']
+        if not dry_run:
+            inserted = []
+            self.output('Starting insert of objects ...', v=1)
+            for import_object in self.import_objects:
+                inserted.append(import_object.save(
+                    self.configuration, self.import_user))
+            self.output('{} objects inserted.'.format(len(inserted)), v=0, l='success')
+        else:
+            self.output(
+                'Dry-run mode is on, not importing anything.', v=0, l='warning')
+
+
+class QTImport(WOCATImport):
+    """
+    Contains all the specifications for the import of the WOCAT QT data.
+    """
+
+    schema = 'qt'
+
+    # Tables of the mapping are collected automatically.
+    tables = [
+        'qt_questionnaire_info',
+        'qt_quality_review',
+        'qt_1'
+    ]
+    lookup_table_name = 'qt_lk_general'
+
+    questionnaire_identifier = 'qt_id'
+    questionnaire_code = 'technology_code'
+    configuration_code = 'technologies'
+
+    mapping = qt_mapping
+
+    # Optionally specify a list of IDs (qt_id) to filter the QT Questionnaires.
+    import_objects_filter = []
+
+    def __init__(self, command_options):
+        super().__init__(command_options)
+        self.output("\n-- WOCAT QT.\n", v=1)
