@@ -199,7 +199,7 @@ class BaseSettings(Configuration):
         ),
         'DEFAULT_THROTTLE_RATES': {
             'anon': '10/day',
-            'user': '200/day',
+            'user': '2000/day',
         },
         'PAGE_SIZE': 25,
     }
