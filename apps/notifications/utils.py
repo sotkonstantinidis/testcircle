@@ -12,7 +12,7 @@ class CreateLog:
         self.log = self.create_log(sender, action, questionnaire)
         self.questionnaire = questionnaire
 
-    def create_log(self, sender, action, questionnaire):
+    def create_log(self, sender: User, action: int, questionnaire: Questionnaire) -> Log:
         log = Log.objects.create(
             catalyst=sender,
             action=action,
