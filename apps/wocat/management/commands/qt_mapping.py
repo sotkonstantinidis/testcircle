@@ -1572,42 +1572,42 @@ tech_qg_7 = {
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'timber',
-                                'value_mapping': 'timber'
+                                'lookup_text': 961,
                             },
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'fuelwood',
-                                'value_mapping': 'fuelwood'
+                                'lookup_text': 962,
                             },
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'fruits_nuts',
-                                'value_mapping': 'fruits and nuts'
+                                'lookup_text': 963,
                             },
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'grazing',
-                                'value_mapping': 'grazing / browsing'
+                                'lookup_text': 964,
                             },
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'other_forest',
-                                'value_mapping': 'other forest products / uses (honey, medical, etc.)'
+                                'lookup_text': 965,
                             },
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'nature_conservation',
-                                'value_mapping': 'nature conservation / protection'
+                                'lookup_text': 966,
                             },
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'recreation',
-                                'value_mapping': 'recreation / tourism'
+                                'lookup_text': 967,
                             },
                             {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'protection',
-                                'value_mapping': 'protection against natural hazards'
+                                'lookup_text': 968,
                             },
                         ],
                         'value_prefix': 'Forest products and services: ',
@@ -1832,32 +1832,32 @@ tech_qg_19 = {
                             {
                                 'wocat_table': 'qt_2_8_8_4',
                                 'wocat_column': 'rainfed',
-                                'value_mapping': 'rainfed'
+                                'lookup_text': 895,
                             },
                             {
                                 'wocat_table': 'qt_2_8_8_4',
                                 'wocat_column': 'mixed',
-                                'value_mapping': 'mixed rainfed - irrigated'
+                                'lookup_text': 897,
                             },
                             {
                                 'wocat_table': 'qt_2_8_8_4',
                                 'wocat_column': 'full_irrigation',
-                                'value_mapping': 'full irrigation'
+                                'lookup_text': 898,
                             },
                             {
                                 'wocat_table': 'qt_2_8_9_3',
                                 'wocat_column': 'rainfed',
-                                'value_mapping': 'rainfed'
+                                'lookup_text': 895,
                             },
                             {
                                 'wocat_table': 'qt_2_8_9_3',
                                 'wocat_column': 'mixed',
-                                'value_mapping': 'mixed rainfed - irrigated'
+                                'lookup_text': 897,
                             },
                             {
                                 'wocat_table': 'qt_2_8_9_3',
                                 'wocat_column': 'full_irrigation',
-                                'value_mapping': 'full irrigation'
+                                'lookup_text': 898,
                             },
                         ],
                         'type': 'string',
@@ -1905,12 +1905,12 @@ tech_qg_19 = {
                             {
                                 'wocat_table': 'qt_2_8_8_4',
                                 'wocat_column': 'post_flooding',
-                                'value_mapping': 'post-flooding'
+                                'lookup_text': 896,
                             },
                             {
                                 'wocat_table': 'qt_2_8_9_3',
                                 'wocat_column': 'post_flooding',
-                                'value_mapping': 'post-flooding'
+                                'lookup_text': 896,
                             }
                         ],
                         'type': 'string',
@@ -4277,6 +4277,1942 @@ tech_qg_34 = {
                             'separator': ', '
                         }
                     },
+                    # QT 2.2.2.5: Main causes of land degradation
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'soil_management',
+                                        'lookup_text': 408
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'soil_management_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'soil_management',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'crop_management',
+                                        'lookup_text': 409
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'crop_management_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'crop_management',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'deforestation',
+                                        'lookup_text': 410
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'deforestation_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'deforestation',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'domestic_use',
+                                        'lookup_text': 411
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'domestic_use_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'domestic_use',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'overgrazing',
+                                        'lookup_text': 412
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'overgrazing_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'overgrazing',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'industrial',
+                                        'lookup_text': 413
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'industrial_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'industrial',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'urbanisation',
+                                        'lookup_text': 414
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'urbanisation_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'urbanisation',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'discharges',
+                                        'lookup_text': 415
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'discharges_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'discharges',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'airborne_pollutants',
+                                        'lookup_text': 416
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'airborne_pollutants_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'airborne_pollutants',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'disturbance_water_cycle',
+                                        'lookup_text': 417
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'disturbance_water_cycle_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'disturbance_water_cycle',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'over_abstraction',
+                                        'lookup_text': 418
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'over_abstraction_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'over_abstraction',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_human',
+                                        'lookup_text': 419
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_human_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other_human',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'temperature_change',
+                                        'lookup_text': 420
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'temperature_change_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'temperature_change',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'rainfall_change',
+                                        'lookup_text': 421
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'rainfall_change_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'rainfall_change',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'heavy_rainfall',
+                                        'lookup_text': 422
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'heavy_rainfall_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'heavy_rainfall',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'wind_storms',
+                                        'lookup_text': 423
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'wind_storms_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'wind_storms',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'floods',
+                                        'lookup_text': 424
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'floods_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'floods',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'droughts',
+                                        'lookup_text': 425
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'droughts_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'droughts',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_natural',
+                                        'lookup_text': 426
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_natural_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other_natural',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'population',
+                                        'lookup_text': 427
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'population_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'population',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'land_tenure',
+                                        'lookup_text': 428
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'land_tenure_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'land_tenure',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'poverty_wealth',
+                                        'lookup_text': 429
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'poverty_wealth_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'poverty_wealth',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'labour',
+                                        'lookup_text': 430
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'labour_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'labour',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'infrastructure',
+                                        'lookup_text': 431
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'infrastructure_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'infrastructure',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'education',
+                                        'lookup_text': 432
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'education_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'education',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'war',
+                                        'lookup_text': 433
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'war_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'war',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'governance',
+                                        'lookup_text': 434
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'governance_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'governance',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other1_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other1_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other1',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other2_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other2_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other2',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other3_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other3_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other3',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other4_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other4_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other4',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Main causes of degradation: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        }
+                    },
+                    # QT 2.2.2.5: Secondary causes of land degradation
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'soil_management',
+                                        'lookup_text': 408,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'soil_management_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'soil_management',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'crop_management',
+                                        'lookup_text': 409,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'crop_management_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'crop_management',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'deforestation',
+                                        'lookup_text': 410,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'deforestation_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'deforestation',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'domestic_use',
+                                        'lookup_text': 411,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'domestic_use_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'domestic_use',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'overgrazing',
+                                        'lookup_text': 412,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'overgrazing_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'overgrazing',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'industrial',
+                                        'lookup_text': 413,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'industrial_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'industrial',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'urbanisation',
+                                        'lookup_text': 414,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'urbanisation_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'urbanisation',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'discharges',
+                                        'lookup_text': 415,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'discharges_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'discharges',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'airborne_pollutants',
+                                        'lookup_text': 416,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'airborne_pollutants_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'airborne_pollutants',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'disturbance_water_cycle',
+                                        'lookup_text': 417,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'disturbance_water_cycle_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'disturbance_water_cycle',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'over_abstraction',
+                                        'lookup_text': 418,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'over_abstraction_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'over_abstraction',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_human',
+                                        'lookup_text': 419,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_human_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other_human',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'temperature_change',
+                                        'lookup_text': 420,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'temperature_change_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'temperature_change',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'rainfall_change',
+                                        'lookup_text': 421,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'rainfall_change_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'rainfall_change',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'heavy_rainfall',
+                                        'lookup_text': 422,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'heavy_rainfall_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'heavy_rainfall',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'wind_storms',
+                                        'lookup_text': 423,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'wind_storms_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'wind_storms',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'floods',
+                                        'lookup_text': 424,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'floods_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'floods',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'droughts',
+                                        'lookup_text': 425,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'droughts_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'droughts',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_natural',
+                                        'lookup_text': 426,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other_natural_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other_natural',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'population',
+                                        'lookup_text': 427,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'population_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'population',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'land_tenure',
+                                        'lookup_text': 428,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'land_tenure_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'land_tenure',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'poverty_wealth',
+                                        'lookup_text': 429,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'poverty_wealth_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'poverty_wealth',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'labour',
+                                        'lookup_text': 430,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'labour_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'labour',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'infrastructure',
+                                        'lookup_text': 431,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'infrastructure_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'infrastructure',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'education',
+                                        'lookup_text': 432,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'education_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'education',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'war',
+                                        'lookup_text': 433,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'war_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'war',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'governance',
+                                        'lookup_text': 434,
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'governance_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'governance',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other1_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other1_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other1',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other2_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other2_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other2',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other3_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other3_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other3',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other4_description',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_2_2_5',
+                                        'wocat_column': 'other4_specify',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ' ',
+                                },
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_5',
+                                                'wocat_column': 'other4',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Secondary causes of degradation: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        }
+                    },
                 ],
                 'type': 'string',
             }
@@ -4445,6 +6381,1155 @@ tech_qg_35 = {
     }
 }
 
+# 4.2: Technical specifications/ explanations of technical drawing
+tech_qg_161 = {
+    'tech_qg_161': {
+        'questions': {
+            'tech_specifications': {
+                'mapping': [
+                    # How ... combat LD: Rank 131
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'raindrop_splash',
+                                'lookup_text': 435,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'raindrop_splash',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'dispersed_runoff_retain',
+                                'lookup_text': 436,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'dispersed_runoff_retain',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'dispersed_runoff_impede',
+                                'lookup_text': 437,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'dispersed_runoff_impede',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'concentrated_runoff_retain',
+                                'lookup_text': 438,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'concentrated_runoff_retain',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'concentrated_runoff_impede',
+                                'lookup_text': 439,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'concentrated_runoff_impede',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'concentrated_runoff_drain',
+                                'lookup_text': 440,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'concentrated_runoff_drain',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'slope_angle',
+                                'lookup_text': 441,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'slope_angle',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'slope_length',
+                                'lookup_text': 442,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'slope_length',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'ground_cover',
+                                'lookup_text': 443,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'ground_cover',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'surface_roughness',
+                                'lookup_text': 444,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'surface_roughness',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'surface_structure',
+                                'lookup_text': 445,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'surface_structure',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'topsoil_structure',
+                                'lookup_text': 446,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'topsoil_structure',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'subsoil_structure',
+                                'lookup_text': 447,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'subsoil_structure',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'soil_stabilisation',
+                                'lookup_text': 448,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'soil_stabilisation',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'organic_matter',
+                                'lookup_text': 449,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'organic_matter',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'nutrient_availability',
+                                'lookup_text': 450,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'nutrient_availability',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'infiltration',
+                                'lookup_text': 451,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'infiltration',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_stored',
+                                'lookup_text': 452,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_stored',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'groundwater_level',
+                                'lookup_text': 453,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'groundwater_level',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_supply',
+                                'lookup_text': 454,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_supply',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_spreading',
+                                'lookup_text': 455,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_spreading',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_quality',
+                                'lookup_text': 456,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_quality',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'sedement_retention',
+                                'lookup_text': 457,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'sedement_retention',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'wind_speed',
+                                'lookup_text': 458,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'wind_speed',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'biomass',
+                                'lookup_text': 459,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'biomass',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'vegetation',
+                                'lookup_text': 460,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'vegetation',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'fire_control',
+                                'lookup_text': 461,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'fire_control',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'dry_material',
+                                'lookup_text': 462,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'dry_material',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'land_use',
+                                'lookup_text': 463,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'land_use',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other1_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other1',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other2_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other2',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other3_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other3',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other4_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other4',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Main technical functions: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        },
+                    },
+                    # How ... combat LD: Rank 132 and 133
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'raindrop_splash',
+                                'lookup_text': 435,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'raindrop_splash',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'dispersed_runoff_retain',
+                                'lookup_text': 436,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'dispersed_runoff_retain',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'dispersed_runoff_impede',
+                                'lookup_text': 437,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'dispersed_runoff_impede',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'concentrated_runoff_retain',
+                                'lookup_text': 438,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'concentrated_runoff_retain',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'concentrated_runoff_impede',
+                                'lookup_text': 439,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'concentrated_runoff_impede',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'concentrated_runoff_drain',
+                                'lookup_text': 440,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'concentrated_runoff_drain',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'slope_angle',
+                                'lookup_text': 441,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'slope_angle',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'slope_length',
+                                'lookup_text': 442,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'slope_length',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'ground_cover',
+                                'lookup_text': 443,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'ground_cover',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'surface_roughness',
+                                'lookup_text': 444,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'surface_roughness',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'surface_structure',
+                                'lookup_text': 445,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'surface_structure',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'topsoil_structure',
+                                'lookup_text': 446,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'topsoil_structure',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'subsoil_structure',
+                                'lookup_text': 447,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'subsoil_structure',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'soil_stabilisation',
+                                'lookup_text': 448,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'soil_stabilisation',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'organic_matter',
+                                'lookup_text': 449,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'organic_matter',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'nutrient_availability',
+                                'lookup_text': 450,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'nutrient_availability',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'infiltration',
+                                'lookup_text': 451,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'infiltration',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_stored',
+                                'lookup_text': 452,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_stored',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'groundwater_level',
+                                'lookup_text': 453,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'groundwater_level',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_supply',
+                                'lookup_text': 454,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_supply',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_spreading',
+                                'lookup_text': 455,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_spreading',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'water_quality',
+                                'lookup_text': 456,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'water_quality',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'sedement_retention',
+                                'lookup_text': 457,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'sedement_retention',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'wind_speed',
+                                'lookup_text': 458,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'wind_speed',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'biomass',
+                                'lookup_text': 459,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'biomass',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'vegetation',
+                                'lookup_text': 460,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'vegetation',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'fire_control',
+                                'lookup_text': 461,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'fire_control',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'dry_material',
+                                'lookup_text': 462,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'dry_material',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'land_use',
+                                'lookup_text': 463,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'land_use',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other1_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other1',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other2_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other2',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other3_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other3',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_6',
+                                'wocat_column': 'other4_specify',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_6',
+                                                'wocat_column': 'other4',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['132', '133']
+                                    }
+                                ]
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Secondary technical functions: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        },
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
 
 questiongroups = [
     qg_name,
@@ -4477,6 +7562,7 @@ questiongroups = [
     tech_qg_32,  # Main type of land degradation: Biological
     tech_qg_33,  # Main type of land degradation: Water
     tech_qg_34,  # Main type of land degradation: Comments
+    tech_qg_161,  # Technical specifications
 ]
 
 qt_mapping = {}

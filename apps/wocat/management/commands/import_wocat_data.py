@@ -113,10 +113,12 @@ class ImportObject(Logger):
     Represents an object of the WOCAT database to be imported.
     """
 
-    def __init__(self, identifier, command_options, lookup_table):
+    def __init__(
+            self, identifier, command_options, lookup_table, lookup_table_text):
         self.identifier = identifier
         self.command_options = command_options
         self.lookup_table = lookup_table
+        self.lookup_table_text = lookup_table_text
 
         # Data will be stored as
         # {
@@ -342,6 +344,14 @@ class ImportObject(Logger):
             elif operator == 'is_empty':
                 return len(ref_value) == 0
             elif operator == 'one_of':
+                if isinstance(ref_value, list):
+                    if len(ref_value) == 0:
+                        return False
+                    elif len(ref_value) > 1:
+                        raise Exception(
+                            'List for one_of ({}) should contain exactly 1 '
+                            'element.'.format(ref_value))
+                    ref_value = ref_value[0]
                 return ref_value in cond_value
             else:
                 raise NotImplementedError(
@@ -454,12 +464,22 @@ class ImportObject(Logger):
                 except ValueError:
                     v = value_mapping_list.get(v, v)
 
-            if mapping.get('lookup_table') is True:
-                try:
-                    v = int(v)
-                    lookup_value = self.lookup_table.get(v)
-                except ValueError:
-                    lookup_value = None
+            lookup_table = mapping.get('lookup_table')
+            lookup_text = mapping.get('lookup_text')
+            if lookup_table is True or lookup_text is not None:
+
+                if lookup_table is True:
+                    try:
+                        v = int(v)
+                        lookup_value = self.lookup_table.get(v)
+                    except ValueError:
+                        lookup_value = None
+                else:
+                    try:
+                        v = int(lookup_text)
+                        lookup_value = self.lookup_table_text.get(v)
+                    except ValueError:
+                        lookup_value = None
 
                 if lookup_value:
                     v = lookup_value.get(
@@ -791,6 +811,7 @@ class WOCATImport(Logger):
     configuration_code = ''
     schema = ''
     lookup_table_name = ''
+    lookup_table_name_text = ''
     questionnaire_identifier = ''
     questionnaire_code = ''
     tables = []
@@ -851,6 +872,20 @@ class WOCATImport(Logger):
         except AttributeError:
             lookup_table = {}
 
+        # Try to query the TEXT lookup table and collect its values.
+        try:
+            lookup_query_text = """
+                SELECT *
+                FROM {schema}.{table_name};
+            """.format(schema=self.schema,
+                       table_name=self.lookup_table_name_text)
+            lookup_table_text = {}
+            for row in etl.dicts(
+                    etl.fromdb(self.connection, lookup_query_text)):
+                lookup_table_text[row.get('id')] = row
+        except AttributeError:
+            lookup_table_text = {}
+
         # Determine all tables which need to be queried.
         all_tables = self.tables
         for qg_properties in self.mapping.values():
@@ -880,7 +915,8 @@ class WOCATImport(Logger):
 
                 if import_object is None:
                     import_object = ImportObject(
-                        identifier, self.command_options, lookup_table)
+                        identifier, self.command_options, lookup_table,
+                        lookup_table_text)
                     self.import_objects.append(import_object)
 
                 # If the code is available in the current table data, set it.
@@ -1093,6 +1129,10 @@ class QTImport(WOCATImport):
         'qt_1'
     ]
     lookup_table_name = 'qt_lk_general'
+    lookup_table_name_text = 'qt_lk_text'
+    """
+    SELECT * FROM qt.qt_lk_text WHERE english LIKE '%FOO%';
+    """
 
     questionnaire_identifier = 'qt_id'
     questionnaire_code = 'technology_code'

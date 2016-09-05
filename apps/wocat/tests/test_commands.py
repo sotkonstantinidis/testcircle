@@ -1478,4 +1478,3 @@ class DoMappingTest(TestCase):
         ])
         import_object_2 = self.imprt.import_objects[1]
         self.assertIsNone(import_object_2.data_json.get('qg_22'))
-        self.fail()
