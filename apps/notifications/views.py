@@ -114,7 +114,9 @@ class ReadLogUpdateView(LoginRequiredMixin, View):
         """
         Validate required keys and user from the request.
         """
-        if not all([key in ['checked', 'log', 'user'] for key in kwargs.keys()]):
+        # lambda is a workaround to access the 'kwargs.keys()' scope.
+        if not all((lambda keys=kwargs.keys():
+                    [key in keys for key in ['checked', 'log', 'user']])()):
             return False
         try:
             user_id = int(kwargs['user'])

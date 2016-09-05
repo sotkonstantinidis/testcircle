@@ -5,7 +5,7 @@ from model_mommy import mommy
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire, QuestionnaireMembership
 
-from ..utils import CreateLog, ContentLog, StatusLog, MemberLog
+from notifications.utils import CreateLog, ContentLog, StatusLog, MemberLog
 
 
 class CreateLogTest(TestCase):
