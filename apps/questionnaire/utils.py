@@ -1206,7 +1206,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user,
+            user=request.user,
             message=request.POST.get('message', '')
         )
 
@@ -1238,7 +1238,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user,
+            user=request.user,
             message=request.POST.get('message', '')
         )
 
@@ -1271,7 +1271,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             change_status.send(
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_object,
-                reviewer=request.user,
+                user=request.user,
                 message=_('New version was published')
             )
 
@@ -1304,7 +1304,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user,
+            user=request.user,
             message=request.POST.get('message', '')
         )
 
@@ -1343,7 +1343,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
-            reviewer=request.user,
+            user=request.user,
             is_rejected=True,
             message=request.POST.get('message', '')
         )
@@ -1405,7 +1405,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 change_member.send(
                     sender=settings.NOTIFICATIONS_ADD_MEMBER,
                     questionnaire=questionnaire_object,
-                    reviewer=request.user,
+                    user=request.user,
                     affected=user,
                     role=role
                 )
@@ -1420,7 +1420,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             change_member.send(
                 sender=settings.NOTIFICATIONS_REMOVE_MEMBER,
                 questionnaire=questionnaire_object,
-                reviewer=request.user,
+                user=request.user,
                 affected=user,
                 role=role
             )
@@ -1530,7 +1530,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         change_status.send(
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=new_version,
-            reviewer=request.user,
+            user=request.user,
             message=_('New version due to unccd flagging')
         )
 
@@ -1541,7 +1541,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         delete_questionnaire.send(
             sender=settings.NOTIFICATIONS_DELETE,
             questionnaire=questionnaire_object,
-            reviewer=request.user
+            user=request.user
         )
         return redirect('account_questionnaires')
 

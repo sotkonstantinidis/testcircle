@@ -247,7 +247,7 @@ class Questionnaire(models.Model):
             change_status.send(
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_version,
-                reviewer=user
+                user=user
             )
             if previous_version.status == settings.QUESTIONNAIRE_PUBLIC:
                 # Edit of a public questionnaire: Create new version
@@ -302,7 +302,7 @@ class Questionnaire(models.Model):
         create_questionnaire.send(
             sender=settings.NOTIFICATIONS_CREATE,
             questionnaire=questionnaire,
-            reviewer=user
+            user=user
         )
 
         questionnaire.update_geometry(configuration_code=configuration_code)

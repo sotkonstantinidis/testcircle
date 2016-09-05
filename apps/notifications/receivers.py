@@ -10,9 +10,9 @@ from .utils import ContentLog, MemberLog, StatusLog
 
 
 @receiver(signals.change_status)
-def create_status_notification(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
+def create_status_notification(sender: int, questionnaire: Questionnaire, user: User, **kwargs):
     StatusLog(
-        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+        action=sender, sender=user, questionnaire=questionnaire, **kwargs
     ).create(
         is_rejected=kwargs.get('is_rejected', False),
         message=kwargs.get('message', '')
@@ -21,18 +21,18 @@ def create_status_notification(sender: int, questionnaire: Questionnaire, review
 
 
 @receiver(signals.change_member)
-def modify_member(sender: int, questionnaire: Questionnaire, reviewer: User, affected: User, role: str, **kwargs):
+def modify_member(sender: int, questionnaire: Questionnaire, user: User, affected: User, role: str, **kwargs):
     MemberLog(
-        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+        action=sender, sender=user, questionnaire=questionnaire, **kwargs
     ).create(
         affected=affected, role=role
     )
 
 
 @receiver(signals.create_questionnaire)
-def create_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
+def create_questionnaire(sender: int, questionnaire: Questionnaire, user: User, **kwargs):
     StatusLog(
-        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+        action=sender, sender=user, questionnaire=questionnaire, **kwargs
     ).create(
         is_rejected=False,
         message=_('Created')
@@ -40,9 +40,9 @@ def create_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: Us
 
 
 @receiver(signals.delete_questionnaire)
-def delete_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: User, **kwargs):
+def delete_questionnaire(sender: int, questionnaire: Questionnaire, user: User, **kwargs):
     StatusLog(
-        action=sender, sender=reviewer, questionnaire=questionnaire, **kwargs
+        action=sender, sender=user, questionnaire=questionnaire, **kwargs
     ).create(
         is_rejected=False,
         message=_('Deleted')
@@ -51,4 +51,4 @@ def delete_questionnaire(sender: int, questionnaire: Questionnaire, reviewer: Us
 
 @receiver(signals.change_questionnaire_data)
 def change_questionnaire_data(sender: int, questionnaire: Questionnaire, user: User, **kwargs):
-    ContentLog(action=sender, sender=user, questionnaire=questionnaire).create()
+    ContentLog(action=sender, sender=user, questionnaire=questionnaire, **kwargs).create()

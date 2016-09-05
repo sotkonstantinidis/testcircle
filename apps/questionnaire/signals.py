@@ -6,8 +6,8 @@ method. Sending a signal each time results in more code, but should be more expl
 """
 import django.dispatch
 
-create_questionnaire = django.dispatch.Signal(providing_args=["questionnaire", "reviewer"])
-delete_questionnaire = django.dispatch.Signal(providing_args=["questionnaire", "reviewer"])
-change_status = django.dispatch.Signal(providing_args=["questionnaire", "reviewer"])
-change_member = django.dispatch.Signal(providing_args=["questionnaire", "reviewer", "affected", "role"])
+create_questionnaire = django.dispatch.Signal(providing_args=["questionnaire", "user"])
+delete_questionnaire = django.dispatch.Signal(providing_args=["questionnaire", "user"])
+change_status = django.dispatch.Signal(providing_args=["questionnaire", "user"])
+change_member = django.dispatch.Signal(providing_args=["questionnaire", "user", "affected", "role"])
 change_questionnaire_data = django.dispatch.Signal(providing_args=["questionnaire", "user"])
