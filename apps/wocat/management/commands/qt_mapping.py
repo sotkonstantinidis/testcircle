@@ -141,6 +141,82 @@ MEASURE_MANAGEMENT_MAPPING = {
     157: 'measures_management_m6',
     158: 'measures_management_m7',
 }
+DEGRADATION_TYPE_MAPPING = {
+    165: 'degradation_erosion_water',
+    166: 'degradation_erosion_water',
+    167: 'degradation_erosion_water',
+    168: 'degradation_erosion_water',
+    169: 'degradation_erosion_water',
+    170: 'degradation_erosion_water',
+    171: 'degradation_erosion_wind',
+    172: 'degradation_erosion_wind',
+    173: 'degradation_erosion_wind',
+    174: 'degradation_chemical',
+    175: 'degradation_chemical',
+    176: 'degradation_chemical',
+    177: 'degradation_chemical',
+    178: 'degradation_physical',
+    179: 'degradation_physical',
+    180: 'degradation_physical',
+    181: 'degradation_physical',
+    182: 'degradation_physical',
+    183: 'degradation_biological',
+    184: 'degradation_biological',
+    185: 'degradation_biological',
+    186: 'degradation_biological',
+    187: 'degradation_biological',
+    188: 'degradation_biological',
+    189: 'degradation_biological',
+    190: 'degradation_water',
+    191: 'degradation_water',
+    192: 'degradation_water',
+    193: 'degradation_water',
+    194: 'degradation_water',
+    195: 'degradation_water',
+}
+DEGRADATION_TYPE_MAPPING_WATER_EROSION = {
+    165: 'degradation_wt',
+    166: 'degradation_wg',
+    167: 'degradation_wm',
+    168: 'degradation_wr',
+    169: 'degradation_wc',
+    170: 'degradation_wo',
+}
+DEGRADATION_TYPE_MAPPING_WIND_EROSION = {
+    171: 'degradation_et',
+    172: 'degradation_ed',
+    173: 'degradation_eo',
+}
+DEGRADATION_TYPE_MAPPING_CHEMICAL = {
+    174: 'degradation_cn',
+    175: 'degradation_ca',
+    176: 'degradation_cp',
+    177: 'degradation_cs',
+}
+DEGRADATION_TYPE_MAPPING_PHYSICAL = {
+    178: 'degradation_pc',
+    179: 'degradation_pk',
+    180: 'degradation_pw',
+    181: 'degradation_ps',
+    182: 'degradation_pu',
+}
+DEGRADATION_TYPE_MAPPING_BIOLOGICAL = {
+    183: 'degradation_bc',
+    184: 'degradation_bh',
+    185: 'degradation_bq',
+    186: 'degradation_bf',
+    187: 'degradation_bs',
+    188: 'degradation_bl',
+    189: 'degradation_bp',
+}
+DEGRADATION_TYPE_MAPPING_WATER = {
+    190: 'degradation_ha',
+    191: 'degradation_hs',
+    192: 'degradation_hg',
+    193: 'degradation_hp',
+    194: 'degradation_hq',
+    195: 'degradation_hw',
+}
 
 qg_name = {
     'qg_name': {
@@ -2222,6 +2298,1992 @@ tech_qg_26 = {
     }
 }
 
+# 3.7 Main types of land degradation
+tech_qg_27 = {
+    'tech_qg_27': {
+        'questions': {
+            'tech_degradation': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_4',
+                        'wocat_column': 'degradation',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                },
+                'value_mapping_list': DEGRADATION_TYPE_MAPPING,
+            }
+        }
+    }
+}
+
+# 3.7 Main type of land degradation: Water erosion
+tech_qg_28 = {
+    'tech_qg_28': {
+        'questions': {
+            'degradation_erosion_water_sub': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_4',
+                        'wocat_column': 'degradation',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': DEGRADATION_TYPE_MAPPING_WATER_EROSION,
+            }
+        }
+    }
+}
+
+# 3.7 Main type of land degradation: Wind erosion
+tech_qg_29 = {
+    'tech_qg_29': {
+        'questions': {
+            'degradation_erosion_wind_sub': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_4',
+                        'wocat_column': 'degradation',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': DEGRADATION_TYPE_MAPPING_WIND_EROSION,
+            }
+        }
+    }
+}
+
+# 3.7 Main type of land degradation: Chemical
+tech_qg_30 = {
+    'tech_qg_30': {
+        'questions': {
+            'degradation_chemical_sub': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_4',
+                        'wocat_column': 'degradation',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': DEGRADATION_TYPE_MAPPING_CHEMICAL,
+            }
+        }
+    }
+}
+
+# 3.7 Main type of land degradation: Physical
+tech_qg_31 = {
+    'tech_qg_31': {
+        'questions': {
+            'degradation_physical_sub': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_4',
+                        'wocat_column': 'degradation',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': DEGRADATION_TYPE_MAPPING_PHYSICAL,
+            }
+        }
+    }
+}
+
+# 3.7 Main type of land degradation: Biological
+tech_qg_32 = {
+    'tech_qg_32': {
+        'questions': {
+            'degradation_biological_sub': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_4',
+                        'wocat_column': 'degradation',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': DEGRADATION_TYPE_MAPPING_BIOLOGICAL,
+            }
+        }
+    }
+}
+
+# 3.7 Main type of land degradation: Water
+tech_qg_33 = {
+    'tech_qg_33': {
+        'questions': {
+            'degradation_water_sub': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_4',
+                        'wocat_column': 'degradation',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': DEGRADATION_TYPE_MAPPING_WATER,
+            }
+        }
+    }
+}
+
+# 3.7 Main type of land degradation: Comments
+tech_qg_34 = {
+    'tech_qg_34': {
+        'questions': {
+            'degradation_comments': {
+                'mapping': [
+                    # Rank: 131
+                    {
+                        'mapping': [
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 165,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [165],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 166,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [166],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 167,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [167],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 168,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [168],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 169,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [169],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 170,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [170],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 171,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [171],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 172,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [172],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 173,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [173],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 174,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [174],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 175,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [175],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 176,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [176],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 177,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [177],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 178,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [178],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 179,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [179],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 180,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [180],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 181,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [181],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 182,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [182],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 183,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [183],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 184,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [184],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 185,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [185],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 186,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [186],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 187,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [187],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 188,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [188],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 189,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [189],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 190,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [190],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 191,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [191],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 192,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [192],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 193,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [193],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 194,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [194],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 195,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [131],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [195],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Main type of degradation addressed: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        }
+                    },
+                    # Rank: 132 or 133
+                    {
+                        'mapping': [
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 165,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [165],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 166,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [166],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 167,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [167],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 168,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [168],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 169,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [169],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 170,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [170],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 171,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [171],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 172,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [172],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 173,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [173],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 174,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [174],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 175,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [175],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 176,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [176],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 177,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [177],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 178,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [178],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 179,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [179],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 180,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [180],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 181,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [181],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 182,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [182],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 183,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [183],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 184,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [184],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 185,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [185],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 186,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [186],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 187,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [187],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 188,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [188],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 189,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [189],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 190,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [190],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 191,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [191],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 192,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [192],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 193,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [193],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 194,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [194],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                            {
+                                # Using a table/column which appears only 1x.
+                                'wocat_table': 'qt_questionnaire_info',
+                                'wocat_column': 'qt_id',
+                                'value_mapping': 195,
+                                'lookup_table': True,
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_2_2_4',
+                                            },
+                                        ],
+                                        'operator': 'custom',
+                                        'custom': [
+                                            {
+                                                'key': 'rank',
+                                                'value': [132, 133],
+                                                'operator': 'one_of',
+                                            },
+                                            {
+                                                'key': 'degradation',
+                                                'value': [195],
+                                                'operator': 'one_of',
+                                            }
+                                        ]
+                                    },
+                                ]
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Secondary types of degradation addressed: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        }
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
 # 3.8 Prevention of land degradation
 tech_qg_35 = {
     'tech_qg_35': {
@@ -2407,6 +4469,14 @@ questiongroups = [
     tech_qg_24,  # SLM measures: Management
     tech_qg_26,  # SLM measures: comments
     # tech_qg_35,  # Prevention of land degradation
+    tech_qg_27,  # Main types of land degradation
+    tech_qg_28,  # Main type of land degradation: Water erosion
+    tech_qg_29,  # Main type of land degradation: Wind erosion
+    tech_qg_30,  # Main type of land degradation: Chemical
+    tech_qg_31,  # Main type of land degradation: Physical
+    tech_qg_32,  # Main type of land degradation: Biological
+    tech_qg_33,  # Main type of land degradation: Water
+    tech_qg_34,  # Main type of land degradation: Comments
 ]
 
 qt_mapping = {}

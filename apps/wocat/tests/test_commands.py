@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from qcat.tests import TestCase
 from wocat.management.commands.import_wocat_data import QTImport, WOCATImport, \
@@ -628,6 +629,43 @@ class TestImport(WOCATImport):
                     }
                 }
             }
+        },
+        'qg_22': {
+            'questions': {
+                'question_22_1': {
+                    'mapping': [
+                        {
+                            # Using a table where the value for sure only appears once!
+                            'wocat_table': 'table_1_1',
+                            'wocat_column': 'column_1_1',
+                            'value_mapping': 'True',
+                            'conditions': [
+                                {
+                                    'mapping': [
+                                        {
+                                            'wocat_table': 'table_22_1',
+                                        },
+                                    ],
+                                    'operator': 'custom',
+                                    'custom': [
+                                        {
+                                            'key': 'column_22_condition_1',
+                                            'value': ['val_1'],
+                                            'operator': 'one_of',
+                                        },
+                                        {
+                                            'key': 'column_22_condition_2',
+                                            'value': ['true'],
+                                            'operator': 'one_of',
+                                        }
+                                    ]
+                                },
+                            ]
+                        }
+                    ],
+                    'type': 'string'
+                }
+            }
         }
     }
     configuration_code = 'sample'
@@ -664,6 +702,7 @@ class DoMappingTest(TestCase):
 
         import_object_1 = ImportObject(
             identifier=1, command_options={}, lookup_table=lookup_table)
+        import_object_1.code = 'code_1'
         import_object_1.wocat_data = {
             'table_1_1': [
                 {
@@ -788,9 +827,27 @@ class DoMappingTest(TestCase):
                     'column_21_3': 'foo',
                 }
             ],
+            'table_22_1': [
+                {
+                    'column_22_1': 'Foo',
+                    'column_22_condition_1': 'val_1',
+                    'column_22_condition_2': 'true',
+                },
+                {
+                    'column_22_1': 'Bar',
+                    'column_22_condition_1': 'val_2',
+                    'column_22_condition_2': 'true',
+                },
+                {
+                    'column_22_1': 'Faz',
+                    'column_22_condition_1': 'val_1',
+                    'column_22_condition_2': 'false',
+                },
+            ]
         }
         import_object_2 = ImportObject(
             identifier=2, command_options={}, lookup_table=lookup_table)
+        import_object_2.code = 'code_2'
         import_object_2.wocat_data = {
             'table_1_1': [
                 {
@@ -918,11 +975,59 @@ class DoMappingTest(TestCase):
                     'column_21_3': 'bar',
                 }
             ],
+            'table_22_1': [
+                {
+                    'column_22_1': 'Foo',
+                    'column_22_condition_1': 'val_1',
+                    'column_22_condition_2': 'false',
+                },
+                {
+                    'column_22_1': 'Bar',
+                    'column_22_condition_1': 'val_2',
+                    'column_22_condition_2': 'true',
+                },
+            ]
+        }
+        # Original
+        import_object_3 = ImportObject(
+            identifier=3, command_options={}, lookup_table=lookup_table)
+        import_object_3.set_code('T_MOR010en')
+        import_object_3.created = datetime.now()
+        import_object_3.wocat_data = {
+            'table_1_1': [
+                {
+                    'column_1_1': 'English'
+                }
+            ],
+            'table_3_1': [
+                {
+                    'column_3_1': 'wocat_value_3_1'
+                }
+            ],
+        }
+        # Translation of 3
+        import_object_4 = ImportObject(
+            identifier=4, command_options={}, lookup_table=lookup_table)
+        import_object_4.set_code('T_MOR010fr')
+        import_object_4.created = datetime.now()
+        import_object_4.wocat_data = {
+            'table_1_1': [
+                {
+                    'column_1_1': 'French'
+                }
+            ],
+            'table_3_1': [
+                {
+                    'column_3_1': 'wocat_value_3_2'
+                }
+            ],
         }
 
         self.imprt.import_objects = [
             import_object_1,
             import_object_2,
+            import_object_3,
+            import_object_4,
         ]
 
     def tearDown(self):
@@ -1098,7 +1203,8 @@ class DoMappingTest(TestCase):
                             'type': 'Feature',
                             'geometry': {
                                 'type': 'Point',
-                                'coordinates': [38.59791111111112, 38.59791111111112]
+                                'coordinates': [
+                                    38.59791111111112, 38.59791111111112]
                             },
                             'properties': None
                         }
@@ -1333,3 +1439,43 @@ class DoMappingTest(TestCase):
                 }
             }
         ])
+
+    def test_translation(self):
+        initial_import_objects = len(self.imprt.import_objects)
+        self.imprt.check_translations()
+        # One import object (the translation) is removed
+        self.assertEqual(
+            len(self.imprt.import_objects), initial_import_objects - 1)
+        self.imprt.do_mapping()
+        import_object_3 = self.imprt.import_objects[2]
+        self.assertEqual(import_object_3.data_json.get('qg_1'), [
+            {
+                'question_1_1': {
+                    'en': 'English',
+                    'fr': 'French'
+                }
+            }
+        ])
+
+    def test_translation_uses_dropdown_of_original(self):
+        self.imprt.do_mapping()
+        import_object_3 = self.imprt.import_objects[2]
+        self.assertEqual(import_object_3.data_json.get('qg_3'), [
+            {
+                'question_3_1': 'qcat_value_3_1'
+            }
+        ])
+
+    def test_conditional_row(self):
+        self.imprt.do_mapping()
+        import_object_1 = self.imprt.import_objects[0]
+        self.assertEqual(import_object_1.data_json.get('qg_22'), [
+            {
+                'question_22_1': {
+                    'en': 'True'
+                }
+            }
+        ])
+        import_object_2 = self.imprt.import_objects[1]
+        self.assertIsNone(import_object_2.data_json.get('qg_22'))
+        self.fail()

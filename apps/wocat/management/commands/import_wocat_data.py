@@ -317,29 +317,81 @@ class ImportObject(Logger):
         Returns:
             Boolean.
         """
+
+        def evaluate_condition(operator, cond_value, ref_value):
+            """
+            Evaluate a condition.
+
+            Args:
+                operator: The operator of the evaluation, eg. "contains".
+                cond_value: The value used for the condition. Usually a single
+                    value.
+                ref_value: The value used as reference. Usually a list.
+
+            Returns:
+                bool.
+            """
+            if operator == 'contains':
+                return cond_value in ref_value
+            elif operator == 'contains_not':
+                return cond_value not in ref_value
+            elif operator == 'len_lte':
+                return len(ref_value) <= int(cond_value)
+            elif operator == 'len_gte':
+                return len(ref_value) >= int(cond_value)
+            elif operator == 'is_empty':
+                return len(ref_value) == 0
+            elif operator == 'one_of':
+                return ref_value in cond_value
+            else:
+                raise NotImplementedError(
+                    'Condition operator "{}" not specified or not valid'.format(
+                        operator))
+
         evaluated = []
 
         for condition in conditions:
+            condition_operator = condition.get('operator')
+
+            return_row_values = False
+            if condition_operator == 'custom':
+                return_row_values = True
+
             condition_values = self.collect_mapping(
-                mappings=condition.get('mapping', []), return_list=True)
+                mappings=condition.get('mapping', []), return_list=True,
+                return_row_values=return_row_values)
 
             # Actually check the condition
-            condition_operator = condition.get('operator')
             condition_value = condition.get('value')
 
-            if condition_operator == 'contains':
-                evaluated.append(condition_value in condition_values)
-            elif condition_operator == 'contains_not':
-                evaluated.append(condition_value not in condition_values)
-            elif condition_operator == 'len_lte':
-                evaluated.append(len(condition_values) <= int(condition_value))
-            elif condition_operator == 'len_gte':
-                evaluated.append(len(condition_values) >= int(condition_value))
-            elif condition_operator == 'is_empty':
-                evaluated.append(len(condition_values) == 0)
+            if condition_operator != 'custom':
+                evaluated.append(evaluate_condition(
+                    condition_operator, condition_value, condition_values))
+
             else:
-                raise NotImplementedError(
-                    'Condition operator not specified or not valid')
+                # Custom evaluation
+                custom_evaluated = []
+                custom_conditions = condition.get('custom', [])
+                if not custom_conditions:
+                    raise Exception('No "custom" directive indicated.')
+
+                for condition_value in condition_values:
+
+                    row_evaluated = []
+                    for custom_condition in custom_conditions:
+                        custom_operator = custom_condition.get('operator')
+                        custom_key = custom_condition.get('key')
+                        custom_value = custom_condition.get('value')
+
+                        row_evaluated.append(evaluate_condition(
+                            custom_operator, custom_value,
+                            condition_value.get(custom_key)))
+
+                    # All conditions for one row must be True.
+                    custom_evaluated.append(all(row_evaluated))
+
+                # Any custom evaluated row needs to be true.
+                evaluated.append(any(custom_evaluated))
 
         if conditions_join == 'and':
             conditions_fulfilled = all(evaluated)
@@ -353,7 +405,7 @@ class ImportObject(Logger):
 
     def collect_mapping(
             self, mappings, separator=None, value_mapping_list=None,
-            return_list=False, value_prefix=''):
+            return_list=False, value_prefix='', return_row_values=False):
         """
         Collect the values defined in the mapping.
 
@@ -369,6 +421,8 @@ class ImportObject(Logger):
             value_mapping_list: A dict of values to be used for the mapping.
             return_list: Boolean. Returns the values as list if true.
             value_prefix: A prefix to be added to the final value.
+            return_row_values: Return the entire row values of the mapping (
+                wocat_column is not respected). It is returned as list of dicts.
 
         Returns:
             String. (or list if return_list=True)
@@ -417,7 +471,7 @@ class ImportObject(Logger):
                 return str(v)
 
         values = []
-        
+
         for mapping in mappings:
 
             sub_mappings = mapping.get('mapping')
@@ -443,6 +497,15 @@ class ImportObject(Logger):
 
             wocat_table = mapping.get('wocat_table')
             wocat_column = mapping.get('wocat_column')
+
+            if return_row_values is True:
+                # If the entire row values are to be returned, query only the
+                # table data and return it as such (as dict).
+                wocat_data = self.get_wocat_table_data(wocat_table)
+                if wocat_data:
+                    values.extend(wocat_data)
+                continue
+
             wocat_attribute = self.get_wocat_attribute_data(
                 table_name=wocat_table, attribute_name=wocat_column)
 
@@ -771,6 +834,7 @@ class WOCATImport(Logger):
                 if table:
                     tables.append(table)
                 tables.extend(get_tables(mapping.get('mapping', [])))
+                tables.extend(get_tables(mapping.get('conditions', [])))
             return tables
 
         self.output('Fetching data from WOCAT database.', v=1)
