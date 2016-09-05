@@ -1219,6 +1219,11 @@
           "label": {
             "en": "When were the data compiled (in the field)?"
           }
+        },
+        "cca": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
         }
       }
     },
@@ -1238,6 +1243,14 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."
+          }
+        },
+        "cca": {
           "label": {
             "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
           },

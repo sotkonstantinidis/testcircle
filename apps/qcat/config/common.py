@@ -57,6 +57,7 @@ class BaseSettings(Configuration):
         'technologies',
         'unccd',
         'wocat',
+        'cca',
     )
 
     MIDDLEWARE_CLASSES = (
