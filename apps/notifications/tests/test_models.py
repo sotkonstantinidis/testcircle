@@ -17,7 +17,7 @@ class ActionContextTest(TestCase):
     def make_user(*permissions, **attributes):
         """
         Helper for user creation, as the method 'get_all_permissions' is crucial,
-        but creating receipes for permissions is too much overhead.
+        but creating groups and permissions is too much overhead.
         """
         user = mommy.make(
             model=get_user_model(),
