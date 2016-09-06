@@ -275,3 +275,6 @@ class BaseSettings(Configuration):
 
     # google webdeveloper verification
     GOOGLE_WEBMASTER_TOOLS_KEY = values.Value(environ_prefix='')
+
+    # TODO: Temporary test of UNCCD flagging.
+    TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

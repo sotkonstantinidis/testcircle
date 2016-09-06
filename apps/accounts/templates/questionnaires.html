@@ -44,6 +44,9 @@
                 method: 'GET'
               }).done(function(data) {
                 $('#status-' + status).html(data);
+
+                // Initialize foundation elements (again), eg. tooltips
+                $(document).foundation();
               });
             };
 
