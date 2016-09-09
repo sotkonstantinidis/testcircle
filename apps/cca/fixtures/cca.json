@@ -1,6 +1,23 @@
 [
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Key resource person(s)"
+          },
+          "helptext": {
+            "en": "Person(s) who provided most of the information documented in this questionnaire. These can be land users, SLM specialists (e.g. technical advisers, researchers), or any other persons."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 21210
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "cca": {
@@ -19,6 +36,34 @@
       "data": {
         "cca": {
           "label": {
+            "en": "Name of the SLM Technology (hereafter referred to as the Technology) as per Core Questionnaire on SLM Technologies Question QT Core 1.1"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 21100
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Contact details of resource persons and institutions involved in the assessment and documentation of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 21200
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Conditions regarding the use of data documented through WOCAT"
           }
         }
@@ -29,11 +74,36 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_1",
+      "translation": 21210,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 21210
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
     "model": "configuration.category",
     "pk": 21000
+  },
+  {
+    "fields": {
+      "keyword": "cca__1__1",
+      "translation": 21100
+    },
+    "model": "configuration.category",
+    "pk": 21100
+  },
+  {
+    "fields": {
+      "keyword": "cca__1__2",
+      "translation": 21200
+    },
+    "model": "configuration.category",
+    "pk": 21200
   },
   {
     "fields": {
@@ -73,6 +143,193 @@
                   }
                 },
                 "subcategories": [
+                  {
+                    "keyword": "cca__1__1",
+                    "form_options": {
+                      "numbering": "1.1"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_name",
+                        "questions": [
+                          {
+                            "keyword": "name",
+                            "view_options": {
+                              "in_list": true,
+                              "is_name": true
+                            }
+                          },
+                          {
+                            "keyword": "name_local"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_location",
+                        "questions": [
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "inline_6",
+                              "in_list": true
+                            }
+                          },
+                          {
+                            "keyword": "state_province",
+                            "form_options": {
+                              "template": "hidden"
+                            }
+                          },
+                          {
+                            "keyword": "further_location",
+                            "form_options": {
+                              "template": "hidden"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_import",
+                        "questions": [
+                          {
+                            "keyword": "import_old_code"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__1__2",
+                    "form_options": {
+                      "numbering": "1.2"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_1",
+                        "form_options": {
+                          "template": "select_user",
+                          "user_role": "resourceperson",
+                          "max_num": 3,
+                          "row_class": "no-top-margin",
+                          "label_class": "bottom-margin"
+                        },
+                        "view_options": {
+                          "template": "select_user",
+                          "raw_questions": true
+                        },
+                        "questions": [
+                          {
+                            "keyword": "user_resourceperson_type",
+                            "form_options": {
+                              "has_other": "user_resourceperson_type"
+                            },
+                            "view_options": {
+                              "template": "values_as_header"
+                            }
+                          },
+                          {
+                            "keyword": "user_resourceperson_other",
+                            "form_options": {
+                              "template": "radio_other",
+                              "label_position": "placeholder",
+                              "other_radio": "user_resourceperson_type"
+                            },
+                            "view_options": {
+                              "template": "as_header"
+                            }
+                          },
+                          {
+                            "keyword": "user_id",
+                            "form_options": {
+                              "template": "no_label"
+                            }
+                          },
+                          {
+                            "keyword": "person_lastname",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_firstname",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_gender",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_institution_name",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_address",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_phone_1",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_phone_2",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_email_1",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_email_2",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_institution",
+                        "questions": [
+                          {
+                            "keyword": "funding_institution"
+                          },
+                          {
+                            "keyword": "funding_institution_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_project_display"
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   {
                     "keyword": "cca__1__3",
                     "form_options": {

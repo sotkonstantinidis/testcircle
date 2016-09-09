@@ -178,6 +178,9 @@
   &.is-approach {
     background-color: rgba($color-approach, 0.8);
   }
+  &.is-cca {
+    background-color: rgba($color-cca, 0.8);
+  }
   &.is-maps,
   &.is-map {
     background-color: rgba($color-approach, 0.8);
@@ -370,6 +373,9 @@ a:hover .tech-icon {
 .is-approaches .tech-output-title {
   color: $color-approach;
 }
+.is-cca .tech-output-title {
+  color: $color-cca;
+}
 .is-map .tech-output-title {
   color: $color-map;
 }
@@ -425,6 +431,17 @@ a:hover .tech-icon {
     }
   }
 }
+.is-cca .tech-output-actions {
+  background-color: rgba($color-cca, 0.8);
+  .button {
+    background-color: $color-blue-dark;
+    box-shadow: 0 0 0 0 $color-blue-dark;
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 $button-shadow-effect $color-blue-dark;
+    }
+  }
+}
 .is-unccd .tech-output-actions {
   background-color: rgba($color-unccd, 0.8);
 }
@@ -462,6 +479,9 @@ a:hover .tech-icon {
 .is-approaches .tech-section-group-title {
   color: $color-approach;
 }
+.is-cca .tech-section-group-title {
+  color: $color-cca;
+}
 
 .tech-section-header {
   overflow: hidden;
@@ -472,6 +492,9 @@ a:hover .tech-icon {
 }
 .is-approaches .tech-section-header {
   background-color: rgba($color-approach, 0.1);
+}
+.is-cca .tech-section-header {
+  background-color: rgba($color-cca, 0.1);
 }
 .is-unccd .tech-section-header {
   background-color: rgba($color-unccd, 0.1);
@@ -538,11 +561,17 @@ a:hover .tech-icon {
 .is-approaches .tech-section-progress .meter {
   background-color: rgba($color-approach, 0.3);
 }
+.is-cca .tech-section-progress .meter {
+  background-color: rgba($color-cca, 0.3);
+}
 .is-technologies .tech-section-progress .steps {
   color: $color-tech;
 }
 .is-approaches .tech-section-progress .steps {
   color: $color-approach;
+}
+.is-cca .tech-section-progress .steps {
+  color: $color-cca;
 }
 
 

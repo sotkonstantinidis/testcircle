@@ -5,7 +5,6 @@ from questionnaire.views import GenericQuestionnaireView, GenericQuestionnaireSt
 
 urlpatterns = patterns(
     '',
-    url(r'^test$', 'cca.views.test', name='test'),
     # The 'home' route points to the list
     url(r'^$', 'cca.views.questionnaire_list', name='home'),
     url(r'^view/(?P<identifier>[^/]+)/$',

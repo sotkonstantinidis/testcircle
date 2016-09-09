@@ -12,11 +12,6 @@ from questionnaire.views import (
     generic_questionnaire_view_step,
 )
 
-from django.http import HttpResponse
-
-def test(request):
-    return HttpResponse('Hello world! It is Test!')
-
 def questionnaire_link_search(request):
     """
     Return the results of the search used for adding linked
