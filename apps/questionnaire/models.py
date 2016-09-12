@@ -71,8 +71,8 @@ QUESTIONNAIRE_FLAGS = (
 )
 
 QUESTIONNAIRE_FLAGS_HELPTEXT = (
-    # (settings.QUESTIONNAIRE_FLAG_UNCCD, _(
-    #     'Submitted as SLM Best Practice to UNCCD by country focal point')),
+    (settings.QUESTIONNAIRE_FLAG_UNCCD, _(
+        'Submitted as SLM Best Practice to UNCCD by country focal point')),
 )
 
 
