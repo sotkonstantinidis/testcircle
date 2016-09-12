@@ -22,27 +22,11 @@
   </figure>
 
   <div class="tech-item-content">
-    {% if item.flags %}
-      <span class="tech-flag is-technologies">
-        <span class="ribbon"></span>
-        <svg class="icon" title="
-          {% for flag in item.flags %}
-            {{ flag.name }}<br>
-          {% endfor %}
-        " data-tooltip=""><use xlink:href="#icon-thumbup"></use></svg>
+    {% for flag in item.flags %}
+      <span class="label tech-flag is-technologies"{% if flag.helptext %} data-tooltip="" title="{{ flag.helptext }}"{% endif %}>
+        {{ flag.name }}
       </span>
-    {% endif %}
-    {% if item.flags_property %}
-      <span class="tech-flag is-technologies">
-        <span class="ribbon"></span>
-        <svg class="icon" title="
-          {% for flag in item.flags_property %}
-            {{ flag.name }}<br>
-          {% endfor %}
-        " data-tooltip=""><use xlink:href="#icon-thumbup"></use></svg>
-      </span>
-    {% endif %}
-
+    {% endfor %}
     {% if item.status.0 and item.status.0 != 'public' %}
       <span class="tech-status label is-{{ item.status.0 }}">{{ item.status.1 }}</span>
     {% endif %}

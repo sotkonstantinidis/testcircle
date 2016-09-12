@@ -28,63 +28,9 @@ h1 .label.is-unccd {
   margin-right: 0.5rem;
 }
 
-$flag-ribbon-width: 3rem;
-$flag-icon-size: $flag-ribbon-width/3;
-$flag-icon-margin: $flag-icon-size/3;
-
 .tech-flag {
-  display: block;
   position: absolute;
-  width: $flag-ribbon-width;
-  height: $flag-ribbon-width;
   top: 0;
   right: 0;
-
-  svg {
-    position: relative;
-    height: $flag-icon-size;
-    width: $flag-icon-size;
-    color: white;
-    margin-top: $flag-icon-margin;
-    margin-left: $flag-ribbon-width - $flag-icon-size - $flag-icon-margin;
-    cursor: pointer;
-  }
-}
-
-.ribbon:before, .ribbon:after {
-  display: block;
-  position: absolute;
-  width: $flag-ribbon-width;
-  height: $flag-ribbon-width;
-  top: 0;
-  right: 0;
-  content: "";
-}
-
-.ribbon:before {
-  border-top: solid $flag-ribbon-width/2 #fff;
-  border-right: solid $flag-ribbon-width/2 #fff;
-  border-left: solid $flag-ribbon-width/2 transparent;
-  border-bottom: solid $flag-ribbon-width/2 transparent;
-}
-
-.ribbon:after {
-  border-top: solid $flag-ribbon-width/2 #5b7093;
-  border-right: solid $flag-ribbon-width/2 #5b7093;
-  border-left: solid $flag-ribbon-width/2 transparent;
-  border-bottom: solid $flag-ribbon-width/2 transparent;
-}
-
-.tech-flag {
-  &.is-technologies .ribbon:after {
-    border-top: solid $flag-ribbon-width/2 $color-tech;
-    border-right: solid $flag-ribbon-width/2 $color-tech;
-  }
-}
-
-.tech-flag {
-  &.is-approaches .ribbon:after {
-    border-top: solid $flag-ribbon-width/2 $color-approach;
-    border-right: solid $flag-ribbon-width/2 $color-approach;
-  }
+  cursor: pointer;
 }

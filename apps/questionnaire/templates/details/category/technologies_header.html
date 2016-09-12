@@ -9,16 +9,12 @@
     {% if metadata.status.0 and metadata.status.0 != 'public' %}
       <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
     {% endif %}
-    {% if metadata.flags %}
-      <span class="tech-flag is-technologies">
-        <span class="ribbon"></span>
-        <svg class="icon" title="
-          {% for flag in metadata.flags %}
-            {{ flag.name }}<br>
-          {% endfor %}
-        " data-tooltip=""><use xlink:href="#icon-thumbup"></use></svg>
+
+    {% for flag in metadata.flags %}
+      <span class="label tech-flag is-technologies"{% if flag.helptext %} data-tooltip="" title="{{ flag.helptext }}"{% endif %}>
+        {{ flag.name }}
       </span>
-    {% endif %}
+    {% endfor %}
 
     {% trans "New SLM Technology" as empty_name %}
     <h1 class="tech-output-title">{{ raw_data.name|default:empty_name }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
