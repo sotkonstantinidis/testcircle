@@ -315,6 +315,80 @@ qg_accept_conditions = {
     },
 }
 
+# 2.3 Photos of the Technology.
+qg_photos = {
+    'qg_photos': {
+        'questions': {
+            'image': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_1_3',
+                        'wocat_column': 'blob_id',
+                    }
+                ],
+                'type': 'file'
+            },
+            'image_caption': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_1_3',
+                        'wocat_column': 'description'
+                    },
+                ],
+                'type': 'string',
+            },
+            'image_date': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_1_3',
+                        'wocat_column': 'date'
+                    }
+                ],
+                'type': 'date'
+            },
+            'image_location': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_1_3',
+                        'wocat_column': 'location'
+                    },
+                    {
+                        'wocat_table': 'qt_2_1_3',
+                        'wocat_column': 'area'
+                    }
+                ],
+                'type': 'string',
+                'composite': {
+                    'type': 'merge',
+                    'separator': ', '
+                }
+            },
+            'image_photographer': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_1_3',
+                        'wocat_column': 'author'
+                    },
+                    {
+                        'wocat_table': 'qt_2_1_3',
+                        'wocat_column': 'address',
+                        'mapping_prefix': '(',
+                        'mapping_suffix': ')',
+                    }
+                ],
+                'type': 'string',
+                'composite': {
+                    'type': 'merge',
+                    'separator': ' '
+                }
+            },
+        },
+        'repeating': True,
+        'sort_function': 'sort_by_key(k, "photo_h_position", none_value=1000)',
+        'wocat_table': 'qt_2_1_3'
+    }
+}
+
 # Definition
 tech_qg_1 = {
     'tech_qg_1': {
@@ -410,6 +484,495 @@ tech_qg_225 = {
             }
         }
     },
+}
+
+# 2.6 Date of implementation
+tech_qg_160 = {
+    'tech_qg_160': {
+        'questions': {
+            'tech_implementation_decades': {
+                # TODO: This creates errors.
+                'mapping': [
+                    # Less than 10 years ago (recently): 198
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'land_user_initiative',
+                        'value_mapping': 'implemenation_less_10',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '198'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'experiments',
+                        'value_mapping': 'implemenation_less_10',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'experiments_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'experiments'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '198'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'externally',
+                        'value_mapping': 'implemenation_less_10',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'externally_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'externally'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '198'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'other1',
+                        'value_mapping': 'implemenation_less_10',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'other1_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'other1'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '198'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    # 10-50 years ago: 197
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'land_user_initiative',
+                        'value_mapping': 'implemenation_10_50',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '197'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'experiments',
+                        'value_mapping': 'implemenation_10_50',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'experiments_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'experiments'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '197'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'externally',
+                        'value_mapping': 'implemenation_10_50',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'externally_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'externally'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '197'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'other1',
+                        'value_mapping': 'implemenation_10_50',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'other1_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'other1'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '197'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    # More than 50 years ago (traditional): 196
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'land_user_initiative',
+                        'value_mapping': 'implemenation_50_plus',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '196'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'experiments',
+                        'value_mapping': 'implemenation_50_plus',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'experiments_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'experiments'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '196'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'externally',
+                        'value_mapping': 'implemenation_50_plus',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'externally_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'externally'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '196'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'other1',
+                        'value_mapping': 'implemenation_50_plus',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'other1_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'other1'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '196'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                ],
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 2.7 Introduction of the Technology
+tech_qg_5 = {
+    'tech_qg_5': {
+        'questions': {
+            'tech_who_implemented': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'land_user_initiative_rank',
+                        'value_mapping': 'implementation_innovation',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative'
+                                    }
+                                ],
+                                'operator': 'one_of',
+                                'value': ['197', '198']
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'land_user_initiative_rank',
+                        'value_mapping': 'implementation_traditional',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'land_user_initiative'
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '196'
+                            }
+                        ],
+                        'conditions_join': 'and'
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'experiments_rank',
+                        'value_mapping': 'implementation_experiments',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'experiments_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            }
+                        ]
+                    },
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'externally_rank',
+                        'value_mapping': 'implementation_externally',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_3_1',
+                                        'wocat_column': 'externally_rank',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '131',
+                            }
+                        ]
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'tech_who_implemented_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'other1_description',
+                    }
+                ],
+                'type': 'string',
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_3_1',
+                                'wocat_column': 'other1_rank',
+                            }
+                        ],
+                        'operator': 'contains',
+                        'value': '131'
+                    }
+                ]
+            },
+            'tech_who_implemented_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_3_1',
+                        'wocat_column': 'comment',
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
 }
 
 # Land use types
@@ -6381,12 +6944,192 @@ tech_qg_35 = {
     }
 }
 
+# 4.1 Technical drawing
+tech_qg_185 = {
+    'tech_qg_185': {
+        'questions': {
+            'tech_drawing': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_4',
+                        'wocat_column': 'blob_id',
+                    }
+                ],
+                'type': 'file'
+            },
+            # 'tech_drawing_author': {},
+            # 'tech_drawing_date': {},
+        }
+    }
+}
+
 # 4.2: Technical specifications/ explanations of technical drawing
 tech_qg_161 = {
     'tech_qg_161': {
         'questions': {
             'tech_specifications': {
                 'mapping': [
+                    {
+                        'wocat_table': 'qt_2_4',
+                        'wocat_column': 'description',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_4',
+                                'wocat_column': 'location',
+                                'mapping_prefix': 'Location: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_4',
+                                'wocat_column': 'area'
+                            }
+                        ],
+                        'composite': {
+                            'separator': '. '
+                        }
+                    },
+                    # What level of technical knowledge is required ...
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'advisor',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'advisor_remark',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')'
+                            }
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ' '
+                        },
+                        'value_prefix': 'Technical knowledge required for field staff / advisors: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'land_user',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'land_user_remark',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')'
+                            }
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ' '
+                        },
+                        'value_prefix': 'Technical knowledge required for land users: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other11_description',
+                                'mapping_suffix': ':'
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other11',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other11_remark',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')'
+                            }
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ' '
+                        },
+                        'value_prefix': 'Technical knowledge required for ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other21_description',
+                                'mapping_suffix': ':'
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other21',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other21_remark',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')'
+                            }
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ' '
+                        },
+                        'value_prefix': 'Technical knowledge required for ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other31_description',
+                                'mapping_suffix': ':'
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other31',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other31_remark',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')'
+                            }
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ' '
+                        },
+                        'value_prefix': 'Technical knowledge required for ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other41_description',
+                                'mapping_suffix': ':'
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other41',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'qt_2_3_2',
+                                'wocat_column': 'other41_remark',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')'
+                            }
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ' '
+                        },
+                        'value_prefix': 'Technical knowledge required for ',
+                    },
                     # How ... combat LD: Rank 131
                     {
                         'mapping': [
@@ -7536,10 +8279,13 @@ questiongroups = [
     qg_location,
     qg_import,
     qg_accept_conditions,
+    qg_photos,
     tech_qg_1,  # Definition
     # tech_qg_2,  # Description
-    qg_location_map,
+    # qg_location_map,
     tech_qg_225,  # Location comments
+    # tech_qg_160,  # 2.6 Date of implementation
+    tech_qg_5,  # 2.7 Introduction of the Technology
     tech_qg_9,  # Land use types
     tech_qg_10,  # Land use subcategory: Cropland
     tech_qg_11,  # Land use subcategory: Grazing land
@@ -7562,6 +8308,7 @@ questiongroups = [
     tech_qg_32,  # Main type of land degradation: Biological
     tech_qg_33,  # Main type of land degradation: Water
     tech_qg_34,  # Main type of land degradation: Comments
+    tech_qg_185,  # Technical drawing
     tech_qg_161,  # Technical specifications
 ]
 

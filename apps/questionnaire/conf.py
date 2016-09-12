@@ -35,6 +35,7 @@ class QuestionnaireConf(AppConf):
         'translations',
         'status',
         'flags',
+        'original_locale',
     ]
 
     # Definition = one sentence, description = max. 2500 chars

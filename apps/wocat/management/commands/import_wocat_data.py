@@ -4,13 +4,16 @@ import json
 import pprint
 import psycopg2
 import petl as etl
+import requests
 from django.conf import settings
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import UploadedFile
 from django.core.management.base import BaseCommand
 from fabric.colors import green, yellow, red
 
 from accounts.models import User
 from configuration.cache import get_configuration
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, File
 from questionnaire.utils import clean_questionnaire_data
 from wocat.management.commands.qt_mapping import qt_mapping
 
@@ -45,6 +48,27 @@ LANGUAGE_MAPPING = {
     'el': 'greek',
 }
 
+FILE_CONTENT_MAPPING = {
+    'image/pjpeg': 'image/jpeg',
+    'image/x-png': 'image/png',
+}
+
+
+def sort_by_key(entry, key, none_value=0):
+    """
+    Helper function to sort a dictionary by a given key.
+
+    Args:
+        entry: dict.
+        key: str.
+        none_value: int. The default value to be used if the key is not present
+            in the dict.
+    """
+    v = entry.get(key)
+    if not v:
+        return none_value
+    return v
+
 
 class Command(BaseCommand):
     help = 'Imports the data from the old WOCAT database.'
@@ -66,13 +90,15 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        start_time = datetime.now()
         qt_import = QTImport(options)
         qt_import.collect_import_objects()
         qt_import.filter_import_objects()
         qt_import.check_translations()
         qt_import.do_mapping()
         qt_import.save_objects()
-        print("End of import.")
+        end_time = datetime.now()
+        print("End of import. Duration: {}.".format(end_time - start_time))
 
 
 class Logger:
@@ -114,11 +140,14 @@ class ImportObject(Logger):
     """
 
     def __init__(
-            self, identifier, command_options, lookup_table, lookup_table_text):
+            self, identifier, command_options, lookup_table, lookup_table_text,
+            file_infos, image_url):
         self.identifier = identifier
         self.command_options = command_options
         self.lookup_table = lookup_table
         self.lookup_table_text = lookup_table_text
+        self.file_infos = file_infos
+        self.image_url = image_url
 
         # Data will be stored as
         # {
@@ -291,12 +320,77 @@ class ImportObject(Logger):
         languages = [self.language]
         for translation in self.translations:
             languages.append(translation.language)
+        self.output('Saving object {}'.format(self), v=2)
         questionnaire = Questionnaire.create_new(
             configuration_code=configuration.configuration_keyword,
             data=self.data_json, user=import_user, previous_version=None,
             old_data=None, languages=languages)
         questionnaire.update_geometry(configuration.configuration_keyword)
         return questionnaire
+
+    def handle_file(self, file_id):
+
+        try:
+            file_id = int(file_id)
+        except ValueError:
+            return None
+
+        if file_id in [
+            902,
+            1014,
+            1515,
+            3202,
+        ]:
+            self.add_mapping_message('File {} not found.'.format(file_id))
+            return None
+
+        if file_id in [
+            4752,
+        ]:
+            self.add_mapping_message(
+                'There was a problem with the file {}.'.format(file_id))
+            return None
+
+        file_info = self.file_infos.get(int(file_id))
+        if file_info is None:
+            self.add_error(
+                'mapping', 'No file info found with ID {} for object {}'.format(
+                    file_id, self))
+
+        content_type = file_info.get('blob_content_type')
+        mapped_content_type = FILE_CONTENT_MAPPING.get(
+            content_type, content_type)
+
+        if mapped_content_type in [
+            'image/jpeg',
+            'image/gif',
+            'image/png',
+                ]:
+            # Image
+            url = self.image_url.format(file_id)
+
+            dry_run = self.command_options['dry-run']
+            if dry_run:
+                return None
+
+            self.output(
+                'Processing file {} for object {}'.format(file_id, self), v=2)
+
+            response = requests.get(url)
+            file = ContentFile(response.content)
+            uploaded_file = UploadedFile(
+                file=file, content_type=mapped_content_type, size=file.size)
+            file_object = File.handle_upload(uploaded_file)
+
+            return file_object.uuid
+
+        # TODO: This is only temporary, remove it after TIFF has been converted
+        elif mapped_content_type in ['image/tiff']:
+            return None
+
+        else:
+            self.add_error('mapping', 'Unsupported content type: {}'.format(
+                mapped_content_type))
 
     def add_mapping_message(self, message):
         if message and message not in self.mapping_messages:
@@ -415,7 +509,8 @@ class ImportObject(Logger):
 
     def collect_mapping(
             self, mappings, separator=None, value_mapping_list=None,
-            return_list=False, value_prefix='', return_row_values=False):
+            return_list=False, value_prefix='', return_row_values=False,
+            no_duplicates=False, table_data=None):
         """
         Collect the values defined in the mapping.
 
@@ -433,6 +528,11 @@ class ImportObject(Logger):
             value_prefix: A prefix to be added to the final value.
             return_row_values: Return the entire row values of the mapping (
                 wocat_column is not respected). It is returned as list of dicts.
+            no_duplicates: Boolean. Whether to remove duplicates from values
+                list or not.
+            table_data: Dict. Optionally already provide a dictionary of WOCAT
+                table data. In this case, the mapping needs only the
+                wocat_column entries to access the values from the dict.
 
         Returns:
             String. (or list if return_list=True)
@@ -502,7 +602,8 @@ class ImportObject(Logger):
                     value_mapping_list=mapping.get(
                         'value_mapping_list', value_mapping_list),
                     return_list=return_list,
-                    value_prefix=mapping.get('value_prefix', ''))
+                    value_prefix=mapping.get('value_prefix', ''),
+                    table_data=table_data)
                 if sub_value:
 
                     if mapping.get('conditions'):
@@ -526,8 +627,14 @@ class ImportObject(Logger):
                     values.extend(wocat_data)
                 continue
 
-            wocat_attribute = self.get_wocat_attribute_data(
-                table_name=wocat_table, attribute_name=wocat_column)
+            if table_data is None:
+                wocat_attribute = self.get_wocat_attribute_data(
+                    table_name=wocat_table, attribute_name=wocat_column)
+            else:
+                table_attribute = table_data.get(wocat_column)
+                if not table_attribute:
+                    continue
+                wocat_attribute = [table_attribute]
 
             if not wocat_attribute:
                 continue
@@ -545,6 +652,9 @@ class ImportObject(Logger):
             for value in wocat_attribute:
                 values.append(do_value_mapping(value))
 
+        if no_duplicates is True:
+            values = list(set(values))
+
         if return_list is True:
             return values
 
@@ -556,7 +666,8 @@ class ImportObject(Logger):
         if values:
             return '{}{}'.format(value_prefix, values)
 
-    def question_mapping(self, qcat_question_keyword, question_properties):
+    def question_mapping(
+            self, qcat_question_keyword, question_properties, table_data=None):
         """
         Do the mapping of a single or multiple WOCAT questions into a single
         QCAT question.
@@ -564,6 +675,8 @@ class ImportObject(Logger):
         Args:
             qcat_question_keyword: string.
             question_properties: dict.
+            table_data: dict. An optional dictionary of WOCAT table data to be
+                passed to the function collecting the mapping data.
 
         Returns:
             dict.
@@ -591,11 +704,14 @@ class ImportObject(Logger):
                     question_properties.get('conditions_join')) is False:
                 return {}
 
+        no_duplicates = True if q_type in ['dropdown'] else False
+
         value = self.collect_mapping(
             mappings,
             separator=question_properties.get('composite', {}).get('separator'),
             value_mapping_list=question_properties.get('value_mapping_list'),
-            value_prefix=question_properties.get('value_prefix', ''))
+            value_prefix=question_properties.get('value_prefix', ''),
+            no_duplicates=no_duplicates, table_data=table_data)
 
         if q_type == 'string':
             # For string values, also collect translations.
@@ -613,7 +729,8 @@ class ImportObject(Logger):
                         'composite', {}).get('separator'),
                     value_mapping_list=question_properties.get(
                         'value_mapping_list'),
-                    value_prefix=question_properties.get('value_prefix', ''))
+                    value_prefix=question_properties.get('value_prefix', ''),
+                    table_data=table_data)
 
                 if translated_value:
                     values.append(
@@ -643,6 +760,16 @@ class ImportObject(Logger):
                     value, WOCAT_DATE_FORMAT).strftime(
                     QCAT_DATE_FORMAT)
             except ValueError:
+                return {}
+
+            return {
+                qcat_question_keyword: value
+            }
+
+        elif q_type == 'file':
+            value = self.handle_file(value)
+
+            if not value:
                 return {}
 
             return {
@@ -696,6 +823,15 @@ class ImportObject(Logger):
                     continue
 
             parsed_values.append(v)
+
+        for v in parsed_values:
+            # Basic coordinates test.
+            if not -180 <= float(v) <= 180:
+                self.add_error(
+                    'mapping',
+                    'Coordinates of object {} are not valid: {}'.format(
+                        self, values))
+                return None
 
         if len(parsed_values) == 2:
             geojson = {
@@ -770,6 +906,37 @@ class ImportObject(Logger):
         Returns:
             -
         """
+        def single_questiongroup_mapping(
+                qcat_qg_keyword, qg_properties, table_data=None):
+            qg_data = {}
+            for q_name, q_properties in qg_properties.get(
+                    'questions', {}).items():
+
+                composite_type = q_properties.get('composite', {}).get('type')
+                if composite_type is None or composite_type == 'merge':
+                    q_data = self.question_mapping(
+                        q_name, q_properties, table_data=table_data)
+
+                elif composite_type == 'geom_point':
+                    q_data = self.question_mapping_geom_point(
+                        q_name, q_properties)
+
+                elif composite_type == 'checkbox':
+                    q_data = self.question_mapping_checkbox(
+                        q_name, q_properties)
+
+                else:
+                    raise NotImplementedError()
+
+                if q_data:
+                    qg_data.update(q_data)
+
+            existing_qg_data = self.data_json.get(qcat_qg_keyword, [])
+            if qg_data:
+                existing_qg_data.append(qg_data)
+            if existing_qg_data:
+                self.data_json[qcat_qg_keyword] = existing_qg_data
+
         qg_conditions = questiongroup_properties.get('conditions')
         if qg_conditions:
             if not self.check_conditions(
@@ -778,31 +945,30 @@ class ImportObject(Logger):
                     questiongroup_properties.get('conditions_join')):
                 return
 
-        qg_data = {}
-        for q_name, q_properties in questiongroup_properties.get(
-                'questions', {}).items():
+        if questiongroup_properties.get('repeating', False) is True:
 
-            composite_type = q_properties.get('composite', {}).get('type')
-            if composite_type is None or composite_type == 'merge':
-                q_data = self.question_mapping(q_name, q_properties)
+            wocat_table = questiongroup_properties.get('wocat_table')
+            if not wocat_table:
+                raise Exception(
+                    'Repeating questiongroups need to define a "wocat_table" '
+                    'for the entire questiongroup.')
 
-            elif composite_type == 'geom_point':
-                q_data = self.question_mapping_geom_point(q_name, q_properties)
+            wocat_table_data = self.get_wocat_table_data(wocat_table)
+            if wocat_table_data is None:
+                return
 
-            elif composite_type == 'checkbox':
-                q_data = self.question_mapping_checkbox(q_name, q_properties)
+            if questiongroup_properties.get('sort_function'):
+                wocat_table_data = sorted(wocat_table_data, key=lambda k: eval(
+                    questiongroup_properties.get('sort_function')))
 
-            else:
-                raise NotImplementedError()
+            for data in wocat_table_data:
+                single_questiongroup_mapping(
+                    qcat_questiongroup_keyword, questiongroup_properties,
+                    table_data=data)
 
-            if q_data:
-                qg_data.update(q_data)
-
-        existing_qg_data = self.data_json.get(qcat_questiongroup_keyword, [])
-        if qg_data:
-            existing_qg_data.append(qg_data)
-        if existing_qg_data:
-            self.data_json[qcat_questiongroup_keyword] = existing_qg_data
+        else:
+            single_questiongroup_mapping(
+                qcat_questiongroup_keyword, questiongroup_properties)
 
 
 class WOCATImport(Logger):
@@ -812,6 +978,8 @@ class WOCATImport(Logger):
     schema = ''
     lookup_table_name = ''
     lookup_table_name_text = ''
+    file_info_table = ''
+    image_url = ''
     questionnaire_identifier = ''
     questionnaire_code = ''
     tables = []
@@ -886,6 +1054,20 @@ class WOCATImport(Logger):
         except AttributeError:
             lookup_table_text = {}
 
+        # Try to query file infos
+        try:
+            lookup_query_files = """
+                SELECT *
+                FROM {schema}.{table_name};
+            """.format(schema=self.schema,
+                       table_name=self.file_info_table)
+            file_infos = {}
+            for row in etl.dicts(
+                    etl.fromdb(self.connection, lookup_query_files)):
+                file_infos[row.get('blob_id')] = row
+        except AttributeError:
+            file_infos = {}
+
         # Determine all tables which need to be queried.
         all_tables = self.tables
         for qg_properties in self.mapping.values():
@@ -916,7 +1098,7 @@ class WOCATImport(Logger):
                 if import_object is None:
                     import_object = ImportObject(
                         identifier, self.command_options, lookup_table,
-                        lookup_table_text)
+                        lookup_table_text, file_infos, self.image_url)
                     self.import_objects.append(import_object)
 
                 # If the code is available in the current table data, set it.
@@ -1133,6 +1315,8 @@ class QTImport(WOCATImport):
     """
     SELECT * FROM qt.qt_lk_text WHERE english LIKE '%FOO%';
     """
+    file_info_table = 'qt_blob_info'
+    image_url = 'https://qt.wocat.net/thumbnail.php?blob_id={}'
 
     questionnaire_identifier = 'qt_id'
     questionnaire_code = 'technology_code'

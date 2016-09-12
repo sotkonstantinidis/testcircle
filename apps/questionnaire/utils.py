@@ -180,10 +180,19 @@ def clean_questionnaire_data(
                         if translation:
                             if (not no_limit_check and question.max_length and
                                     len(translation) > question.max_length):
-                                errors.append(
-                                    'Value "{}" of key "{}" exceeds the '
-                                    'max_length of {}.'.format(
-                                        translation, key, question.max_length))
+
+                                subcategory = questiongroup.get_top_subcategory()
+                                subcategory_name = '{} {}'.format(
+                                    subcategory.form_options.get('numbering'),
+                                    subcategory.label)
+                                error_msg = 'Value of question "{}" of ' \
+                                            'subcategory "{}" is too long. It ' \
+                                            'can only contain {} ' \
+                                            'characters.'.format(
+                                                question.label,
+                                                subcategory_name,
+                                                question.max_length)
+                                errors.append(error_msg)
                                 continue
                             translations[locale] = translation
                     value = translations

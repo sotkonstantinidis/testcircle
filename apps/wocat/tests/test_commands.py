@@ -666,6 +666,28 @@ class TestImport(WOCATImport):
                     'type': 'string'
                 }
             }
+        },
+        'qg_23': {
+            'questions': {
+                'question_23_1': {
+                    'mapping': [
+                        {
+                            'wocat_column': 'column_23_1'
+                        }
+                    ],
+                    'type': 'string',
+                },
+                'question_23_2': {
+                    'mapping': [
+                        {
+                            'wocat_column': 'column_23_2'
+                        }
+                    ],
+                    'type': 'string',
+                }
+            },
+            'repeating': True,
+            'wocat_table': 'table_23_1'
         }
     }
     configuration_code = 'sample'
@@ -699,9 +721,14 @@ class DoMappingTest(TestCase):
                 'spanish': 'Spanish 3'  # es
             }
         }
+        lookup_table_text = {}
+        file_infos = {}
+        image_url = ''
 
         import_object_1 = ImportObject(
-            identifier=1, command_options={}, lookup_table=lookup_table)
+            identifier=1, command_options={}, lookup_table=lookup_table,
+            lookup_table_text=lookup_table_text, file_infos=file_infos,
+            image_url=image_url)
         import_object_1.code = 'code_1'
         import_object_1.wocat_data = {
             'table_1_1': [
@@ -843,10 +870,27 @@ class DoMappingTest(TestCase):
                     'column_22_condition_1': 'val_1',
                     'column_22_condition_2': 'false',
                 },
+            ],
+            'table_23_1': [
+                {
+                    'column_23_1': 'Foo 1',
+                    'column_23_2': 'Faz 1',
+                },
+                {
+                    'column_23_1': 'Foo 2',
+                    'column_23_2': 'Faz 2',
+                }
             ]
         }
+        lookup_table_text = {}
+        file_infos = {}
+        image_url = ''
+
         import_object_2 = ImportObject(
-            identifier=2, command_options={}, lookup_table=lookup_table)
+            identifier=2, command_options={}, lookup_table=lookup_table,
+            lookup_table_text=lookup_table_text, file_infos=file_infos,
+            image_url=image_url)
+
         import_object_2.code = 'code_2'
         import_object_2.wocat_data = {
             'table_1_1': [
@@ -988,9 +1032,16 @@ class DoMappingTest(TestCase):
                 },
             ]
         }
+        lookup_table_text = {}
+        file_infos = {}
+        image_url = ''
+
         # Original
         import_object_3 = ImportObject(
-            identifier=3, command_options={}, lookup_table=lookup_table)
+            identifier=3, command_options={}, lookup_table=lookup_table,
+            lookup_table_text=lookup_table_text, file_infos=file_infos,
+            image_url=image_url)
+
         import_object_3.set_code('T_MOR010en')
         import_object_3.created = datetime.now()
         import_object_3.wocat_data = {
@@ -1005,9 +1056,15 @@ class DoMappingTest(TestCase):
                 }
             ],
         }
+        lookup_table_text = {}
+        file_infos = {}
+        image_url = ''
+
         # Translation of 3
         import_object_4 = ImportObject(
-            identifier=4, command_options={}, lookup_table=lookup_table)
+            identifier=4, command_options={}, lookup_table=lookup_table,
+            lookup_table_text=lookup_table_text, file_infos=file_infos,
+            image_url=image_url)
         import_object_4.set_code('T_MOR010fr')
         import_object_4.created = datetime.now()
         import_object_4.wocat_data = {
@@ -1478,3 +1535,25 @@ class DoMappingTest(TestCase):
         ])
         import_object_2 = self.imprt.import_objects[1]
         self.assertIsNone(import_object_2.data_json.get('qg_22'))
+
+    def test_repeating_questiongroup(self):
+        self.imprt.do_mapping()
+        import_object_1 = self.imprt.import_objects[0]
+        qg_data_1 = import_object_1.data_json.get('qg_23')
+        self.assertEqual(len(qg_data_1), 2)
+        self.assertEqual(qg_data_1[0], {
+            'question_23_1': {
+                'en': 'Foo 1',
+            },
+            'question_23_2': {
+                'en': 'Faz 1',
+            }
+        })
+        self.assertEqual(qg_data_1[1], {
+            'question_23_1': {
+                'en': 'Foo 2',
+            },
+            'question_23_2': {
+                'en': 'Faz 2',
+            }
+        })
