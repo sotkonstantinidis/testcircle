@@ -5,5 +5,7 @@ from .models import Log
 
 @admin.register(Log)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'action', 'catalyst', 'created']
-    list_filter = ['questionnaire']
+    date_hierarchy = 'created'
+    list_display = ['id', '__str__', 'action', 'catalyst', 'created']
+    list_display_links = ['id', '__str__']
+    list_filter = ['created', 'action', 'questionnaire']
