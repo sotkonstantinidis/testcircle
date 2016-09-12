@@ -66,7 +66,8 @@ class LogUserMixin:
     be created.
 
     """
-    throttle_classes = (UserRateThrottle, )
+    # deactivated after issues during testing from skbp.
+    # throttle_classes = (UserRateThrottle, )
 
     def finalize_response(self, request, response, *args, **kwargs):
         try:

@@ -71,6 +71,11 @@ QUESTIONNAIRE_FLAGS = (
     (settings.QUESTIONNAIRE_FLAG_UNCCD, _('UNCCD Best Practice')),
 )
 
+QUESTIONNAIRE_FLAGS_HELPTEXT = (
+    (settings.QUESTIONNAIRE_FLAG_UNCCD, _(
+        'Submitted as SLM Best Practice to UNCCD by country focal point')),
+)
+
 
 class Questionnaire(models.Model):
     """
@@ -1041,6 +1046,7 @@ class Questionnaire(models.Model):
             flags.append({
                 'flag': flag.flag,
                 'name': flag.get_flag_display(),
+                'helptext': flag.get_helptext(),
             })
         return flags
 
@@ -1089,6 +1095,11 @@ class QuestionnaireTranslation(models.Model):
 
 class Flag(models.Model):
     flag = models.CharField(max_length=64, choices=QUESTIONNAIRE_FLAGS)
+
+    def get_helptext(self):
+        return next((
+            helptext for flag, helptext in QUESTIONNAIRE_FLAGS_HELPTEXT
+            if flag == self.flag), None)
 
 
 class QuestionnaireLink(models.Model):

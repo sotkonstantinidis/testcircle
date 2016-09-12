@@ -30,15 +30,15 @@
   <div class="row process-action">
     <div class="medium-2 columns">
       <p>
-        <a class="button expand success" data-reveal-id="confirm-flag-unccd">{% trans "Focal point" %}</a>
+        <a class="button expand success" data-reveal-id="confirm-flag-unccd">{% trans "Flag as UNCCD best practice" %}</a>
       </p>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'Set this questionnaire as a unccd focal point.' %}</p>
+      <p>{% trans 'Flag this questionnaire as a UNCCD best practice.' %}</p>
     </div>
     <div id="confirm-flag-unccd" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2>{% trans "Please confirm focal point." %}</h2>
-      <p>{% trans "By submitting, this questionnaire will be set as UNCCD focal point." %}</p>
+      <h2>{% trans "Please confirm flagging as a UNCCD best practice." %}</h2>
+      <p>{% trans "By submitting, this questionnaire will be flagged as a UNCCD focal point. This will create a new version of the quetsionnaire which will go through the review process before it is publicly visible." %}</p>
       <button name='flag-unccd' value='true' class="button success" type="submit" form="review_form">{% trans "Confirm" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
@@ -53,11 +53,11 @@
       </p>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'This questionnaire is flagged as a UNCCD best practice. As a UNCCD focal point, you can remove this flag. This will create a new version of the questionnaire which will go through the review process before it is publicly visible.' %}</p>
+      <p>{% trans 'This questionnaire is flagged as a UNCCD best practice. As a UNCCD focal point, you can remove this flag.' %}</p>
     </div>
     <div id="confirm-unflag-unccd" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2>{% trans "Please confirm unflag." %}</h2>
-      <p>{% trans "By submitting, this questionnaire will be unflagged as UNCCD focal point." %}</p>
+      <h2>{% trans "Please confirm unflagging as a UNCCD best practice." %}</h2>
+      <p>{% trans "By submitting, this questionnaire will be unflagged as UNCCD focal point. This will create a new version of the questionnaire which will go through the review process before it is publicly visible." %}</p>
       <button name='unflag-unccd' value='true' class="button success" type="submit" form="review_form">{% trans "Confirm" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>

@@ -201,7 +201,7 @@ class BaseSettings(Configuration):
         ),
         'DEFAULT_THROTTLE_RATES': {
             'anon': '10/day',
-            'user': '200/day',
+            'user': '2000/day',
         },
         'PAGE_SIZE': 25,
     }
@@ -280,3 +280,6 @@ class BaseSettings(Configuration):
 
     # Global switch to prevent sending mails.
     SEND_MAILS = values.BooleanValue(default=False)
+
+    # TODO: Temporary test of UNCCD flagging.
+    TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

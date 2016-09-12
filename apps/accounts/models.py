@@ -177,6 +177,15 @@ class User(AbstractBaseUser, PermissionsMixin):
                 firstname == self.firstname):
             return
 
+        # TODO: Temporary test of UNCCD flagging.
+        if email in settings.TEMP_UNCCD_TEST:
+            usergroups.append(
+                {
+                    'name': 'UNCCD Focal Point',
+                    'unccd_country': 'CHE',
+                }
+            )
+
         """
         UNCCD Focal Points
         {
