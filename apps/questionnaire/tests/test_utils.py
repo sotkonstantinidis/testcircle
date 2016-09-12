@@ -1062,7 +1062,8 @@ class HandleReviewActionsTest(TestCase):
             'The questionnaire could not be submitted because you do not have '
             'permission to do so.')
 
-    def test_submit_updates_status(self, mock_messages):
+    @patch('questionnaire.signals.change_status.send')
+    def test_submit_updates_status(self, moc_change_status, mock_messages):
         RolesPermissions = namedtuple(
             'RolesPermissions', ['roles', 'permissions'])
         self.obj.get_roles_permissions.return_value = RolesPermissions(
@@ -1095,7 +1096,8 @@ class HandleReviewActionsTest(TestCase):
             'The questionnaire could not be reviewed because you do not have '
             'permission to do so.')
 
-    def test_review_updates_status(self, mock_messages):
+    @patch('questionnaire.signals.change_status.send')
+    def test_review_updates_status(self, mock_change_status, mock_messages):
         RolesPermissions = namedtuple(
             'RolesPermissions', ['roles', 'permissions'])
         self.obj.get_roles_permissions.return_value = RolesPermissions(
@@ -1131,9 +1133,10 @@ class HandleReviewActionsTest(TestCase):
     @patch('questionnaire.utils.Questionnaire')
     @patch('questionnaire.utils.delete_questionnaires_from_es')
     @patch('questionnaire.utils.put_questionnaire_data')
+    @patch('questionnaire.signals.change_status.send')
     def test_publish_updates_status_of_previously_public(
-            self, mock_put_data, mock_delete_data, mock_Questionnaire,
-            mock_messages):
+            self, mock_change_status, mock_put_data, mock_delete_data,
+            mock_Questionnaire, mock_messages):
         mock_put_data.return_value = None, []
         RolesPermissions = namedtuple(
             'RolesPermissions', ['roles', 'permissions'])
@@ -1153,9 +1156,10 @@ class HandleReviewActionsTest(TestCase):
     @patch('questionnaire.utils.Questionnaire')
     @patch('questionnaire.utils.delete_questionnaires_from_es')
     @patch('questionnaire.utils.put_questionnaire_data')
+    @patch('questionnaire.signals.change_status.send')
     def test_publish_removes_previously_public_from_es(
-            self, mock_put_data, mock_delete_data, mock_Questionnaire,
-            mock_messages):
+            self, mock_change_status, mock_put_data, mock_delete_data,
+            mock_Questionnaire, mock_messages):
         mock_put_data.return_value = None, []
         RolesPermissions = namedtuple(
             'RolesPermissions', ['roles', 'permissions'])
@@ -1172,7 +1176,9 @@ class HandleReviewActionsTest(TestCase):
         mock_delete_data.assert_called_once_with('sample', [prev])
 
     @patch('questionnaire.utils.put_questionnaire_data')
-    def test_publish_updates_status(self, mock_put_data, mock_messages):
+    @patch('questionnaire.signals.change_status.send')
+    def test_publish_updates_status(self, mock_change_status, mock_put_data,
+                                    mock_messages):
         mock_put_data.return_value = None, []
         RolesPermissions = namedtuple(
             'RolesPermissions', ['roles', 'permissions'])
@@ -1190,8 +1196,9 @@ class HandleReviewActionsTest(TestCase):
             'The questionnaire was successfully set public.')
 
     @patch('questionnaire.utils.put_questionnaire_data')
+    @patch('questionnaire.signals.change_status.send')
     def test_publish_calls_put_questionnaire_data(
-            self, mock_put_data, mock_messages):
+            self, mock_change_status, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         RolesPermissions = namedtuple(
             'RolesPermissions', ['roles', 'permissions'])
@@ -1206,8 +1213,9 @@ class HandleReviewActionsTest(TestCase):
         mock_put_data.assert_called_once_with('sample', [self.obj])
 
     @patch('questionnaire.utils.put_questionnaire_data')
+    @patch('questionnaire.signals.change_status.send')
     def test_publish_calls_put_questionnaire_data_for_all_links(
-            self, mock_put_data, mock_messages):
+            self, mock_change_status, mock_put_data, mock_messages):
         mock_put_data.return_value = None, []
         mock_link = Mock()
         RolesPermissions = namedtuple(
@@ -1261,7 +1269,8 @@ class HandleReviewActionsTest(TestCase):
             'Assigned users were successfully updated')
 
     @patch('questionnaire.utils.typo3_client')
-    def test_assign_adds_new_user(self, mock_typo3_client, mock_messages):
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_adds_new_user(self, mock_change_member, mock_typo3_client, mock_messages):
         self.obj.status = 2
         self.request.POST = {
             'assign': 'foo',
@@ -1283,7 +1292,8 @@ class HandleReviewActionsTest(TestCase):
             self.request,
             'Assigned users were successfully updated')
 
-    def test_assign_removes_user(self, mock_messages):
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_removes_user(self, mock_change_member, mock_messages):
         self.obj.status = 2
         self.request.POST = {
             'assign': 'foo',

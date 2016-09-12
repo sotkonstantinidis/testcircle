@@ -9,9 +9,9 @@ from rest_framework.response import Response
 
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
-from ..models import Questionnaire
-from ..serializers import QuestionnaireSerializer
-from ..api.views import QuestionnaireListView, QuestionnaireDetailView
+from questionnaire.models import Questionnaire
+from questionnaire.serializers import QuestionnaireSerializer
+from questionnaire.api.views import QuestionnaireListView, QuestionnaireDetailView
 
 
 class QuestionnaireListViewTest(TestCase):
