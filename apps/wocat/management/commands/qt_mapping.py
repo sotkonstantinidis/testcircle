@@ -6787,7 +6787,6 @@ tech_qg_34 = {
 tech_qg_35 = {
     'tech_qg_35': {
         'questions': {
-            # TODO: This results in an Error
             'tech_prevention': {
                 'mapping': [
                     {
@@ -6809,7 +6808,31 @@ tech_qg_35 = {
                 'type': 'checkbox',
                 'composite': {
                     'type': 'checkbox',
-                }
+                },
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_2_2_3',
+                                'wocat_column': 'prevention_rank',
+                                'value_mapping': 'intervention_prevent_ld',
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_3',
+                                'wocat_column': 'mitigation_rank',
+                                'value_mapping': 'intervention_reduce_ld',
+                            },
+                            {
+                                'wocat_table': 'qt_2_2_2_3',
+                                'wocat_column': 'rehabilitation_rank',
+                                'value_mapping': 'intervention_rehabilitate',
+                            },
+                        ],
+                        'operator': 'len_lte',
+                        'value': 2
+                    }
+                ],
+                'condition_message_opposite': 'Too many values for checkbox 3.8 "Prevention, reduction or restoration of land degradation".'
             },
             'tech_prevention_comments': {
                 'mapping': [
@@ -6988,6 +7011,15 @@ tech_qg_161 = {
                         'composite': {
                             'separator': '. '
                         }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_4',
+                                'wocat_column': 'date',
+                                'mapping_prefix': 'Date: ',
+                            }
+                        ]
                     },
                     # What level of technical knowledge is required ...
                     {
@@ -8299,7 +8331,7 @@ questiongroups = [
     tech_qg_23,  # SLM measures: Structural
     tech_qg_24,  # SLM measures: Management
     tech_qg_26,  # SLM measures: comments
-    # tech_qg_35,  # Prevention of land degradation
+    tech_qg_35,  # Prevention of land degradation
     tech_qg_27,  # Main types of land degradation
     tech_qg_28,  # Main type of land degradation: Water erosion
     tech_qg_29,  # Main type of land degradation: Wind erosion

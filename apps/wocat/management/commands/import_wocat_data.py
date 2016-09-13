@@ -396,7 +396,9 @@ class ImportObject(Logger):
         if message and message not in self.mapping_messages:
             self.mapping_messages.append(message)
 
-    def check_conditions(self, conditions, condition_message, conditions_join):
+    def check_conditions(
+            self, conditions, condition_message, condition_message_opposite,
+            conditions_join):
         """
         Check conditions defined in the mapping.
 
@@ -406,6 +408,8 @@ class ImportObject(Logger):
                 - operator (contains / contains_not, len_gte, ...)
                 - value
             condition_message: The message to be added if the condition is true.
+            condition_message_opposite: The message to be added if the condition
+                is false!
             conditions_join: An operator declaring how to join multiple
                 conditions. Use 'and' (all conditions must be true) or 'or'
                 ([default] - only one condition must be true).
@@ -504,6 +508,8 @@ class ImportObject(Logger):
 
         if conditions_fulfilled is True:
             self.add_mapping_message(condition_message)
+        else:
+            self.add_mapping_message(condition_message_opposite)
 
         return conditions_fulfilled
 
@@ -610,6 +616,7 @@ class ImportObject(Logger):
                         if self.check_conditions(
                                 mapping.get('conditions'),
                                 mapping.get('condition_message'),
+                                mapping.get('condition_message_opposite'),
                                 mapping.get('conditions_join')) is False:
                             continue
 
@@ -643,6 +650,7 @@ class ImportObject(Logger):
                 if self.check_conditions(
                         mapping.get('conditions'),
                         mapping.get('condition_message'),
+                        mapping.get('condition_message_opposite'),
                         mapping.get('conditions_join')) is False:
                     continue
 
@@ -701,6 +709,7 @@ class ImportObject(Logger):
             if self.check_conditions(
                     question_properties.get('conditions'),
                     question_properties.get('condition_message'),
+                    question_properties.get('condition_message_opposite'),
                     question_properties.get('conditions_join')) is False:
                 return {}
 
@@ -912,6 +921,14 @@ class ImportObject(Logger):
             for q_name, q_properties in qg_properties.get(
                     'questions', {}).items():
 
+                if q_properties.get('conditions'):
+                    if self.check_conditions(
+                            q_properties.get('conditions'),
+                            q_properties.get('condition_message'),
+                            q_properties.get('condition_message_opposite'),
+                            q_properties.get('conditions_join')) is False:
+                        continue
+
                 composite_type = q_properties.get('composite', {}).get('type')
                 if composite_type is None or composite_type == 'merge':
                     q_data = self.question_mapping(
@@ -942,6 +959,7 @@ class ImportObject(Logger):
             if not self.check_conditions(
                     qg_conditions,
                     questiongroup_properties.get('condition_message'),
+                    questiongroup_properties.get('condition_message_opposite'),
                     questiongroup_properties.get('conditions_join')):
                 return
 
