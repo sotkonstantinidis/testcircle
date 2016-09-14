@@ -24,7 +24,7 @@ class NotificationsConf(AppConf):
 
     # Mapping of user permissions and allowed questionnaire statuses
     QUESTIONNAIRE_STATUS_PERMISSIONS = {
-        'questionnaire.change_questionnaire': settings.QUESTIONNAIRE_DRAFT,
+        'questionnaire.submit_questionnaire': settings.QUESTIONNAIRE_DRAFT,
         'questionnaire.review_questionnaire': settings.QUESTIONNAIRE_SUBMITTED,
         'questionnaire.publish_questionnaire': settings.QUESTIONNAIRE_REVIEWED
     }

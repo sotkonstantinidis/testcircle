@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from qcat.tests import TestCase
 from questionnaire.signals import create_questionnaire, delete_questionnaire, \
@@ -13,27 +14,33 @@ class ReceiverTest(TestCase):
     in test_utils.py
     """
 
+    def setUp(self):
+        super().setUp()
+        self.questionnaire = MagicMock(status=3)
+
     def _test_init_call(self, signal, log_type, **kwargs):
         with patch('notifications.receivers.{}'.format(log_type)) as mock_status_log:
             getattr(signal, 'send')(
                 sender='sender',
-                questionnaire='questionnaire',
+                questionnaire=self.questionnaire,
                 user='user',
                 **kwargs
             )
             mock_status_log.assert_called_once_with(
                 action='sender', sender='user',
-                questionnaire='questionnaire',
+                questionnaire=self.questionnaire,
                 signal=signal,
             )
 
     def _test_create_call(self, signal, log_type, do_assert_call=True, **kwargs):
+        questionnaire = kwargs.pop('questionnaire', self.questionnaire)
+
         with patch('notifications.receivers.{}.create_log'.format(log_type)) as init:
             init.return_value = {}
             with patch('notifications.receivers.{}.create'.format(log_type)) as create:
                 getattr(signal, 'send')(
                     sender='sender',
-                    questionnaire='questionnaire',
+                    questionnaire=questionnaire,
                     user='user',
                     **kwargs
                 )
@@ -63,6 +70,15 @@ class ReceiverTest(TestCase):
 
     def test_change_status(self):
         self._test_init_call(signal=change_status, log_type='StatusLog')
+
+    def test_change_status_draft_no_notifiction(self):
+        create = self._test_create_call(
+            signal=change_status,
+            log_type='StatusLog',
+            do_assert_call=False,
+            questionnaire=MagicMock(status=settings.QUESTIONNAIRE_DRAFT)
+        )
+        create.assert_not_called()
 
     def test_change_status_create(self):
         self._test_create_call(

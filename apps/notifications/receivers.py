@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 
@@ -11,13 +11,17 @@ from .utils import ContentLog, MemberLog, StatusLog
 
 @receiver(signals.change_status)
 def create_status_notification(sender: int, questionnaire: Questionnaire, user: User, **kwargs):
-    StatusLog(
-        action=sender, sender=user, questionnaire=questionnaire, **kwargs
-    ).create(
-        is_rejected=kwargs.get('is_rejected', False),
-        message=kwargs.get('message', '')
+    # Don't create status logs for draft questionnaires - unless the were
+    # rejected back to the draft status.
+    is_rejected = kwargs.get('is_rejected', False)
+    if questionnaire.status != settings.QUESTIONNAIRE_DRAFT or is_rejected:
+        StatusLog(
+            action=sender, sender=user, questionnaire=questionnaire, **kwargs
+        ).create(
+            is_rejected=is_rejected,
+            message=kwargs.get('message', '')
 
-    )
+        )
 
 
 @receiver(signals.change_member)
