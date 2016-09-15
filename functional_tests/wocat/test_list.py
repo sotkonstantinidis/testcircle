@@ -66,6 +66,43 @@ class ListTest(FunctionalTest):
             'contains(text(), "This is the definition of the first WOCAT '
             'Technology.")]')
 
+    def test_list_handles_invalid_type(self):
+
+        # Alice goes to the WOCAT list and sees no value (= "All SLM Data") is
+        # selected as type filter by default.
+        self.browser.get(self.live_server_url + reverse(route_wocat_list))
+        self.assertEqual(
+            self.findBy('id', 'search-type').get_attribute('value'), '')
+
+        # Alice manually enters type "technologies" in the URL. She sees that
+        # the search type has changed.
+        self.browser.get(
+            self.live_server_url + reverse(
+                route_wocat_list) + '?type=technologies')
+        self.assertEqual(
+            self.findBy('id', 'search-type').get_attribute('value'),
+            'technologies')
+
+        # Alice goes to the WOCAT list but manually enters a type which is not
+        # valid.
+        self.browser.get(
+            self.live_server_url + reverse(
+                route_wocat_list) + '?type=foo')
+
+        # She sees there is no error message
+        self.findByNot('xpath', '//*[contains(text(), "Error")]')
+
+        # The default search type ("All SLM Data") is selected.
+        self.assertEqual(
+            self.findBy('id', 'search-type').get_attribute('value'), '')
+
+        # She manually enters UNCCD (uppercase) as type. She sees that there is
+        # no error.
+        self.browser.get(
+            self.live_server_url + reverse(
+                route_wocat_list) + '?type=UNCCD')
+        self.findByNot('xpath', '//*[contains(text(), "Error")]')
+
     def test_list_is_multilingual(self):
 
         # Alice goes to the list view and sees the questionnaires
