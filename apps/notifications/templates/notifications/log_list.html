@@ -32,7 +32,7 @@
             notificationList.html(spinner);
             notificationList.bindNotificationActions({
               read_url: '{% url 'notification_read' %}',
-              notifications_url: '{% url 'notification_partial_list' %}?{{ request.GET.keys|join:"&" }}',
+              notifications_url: '{{ path|safe }}',
               user: '{{ request.user.id }}'
             });
 

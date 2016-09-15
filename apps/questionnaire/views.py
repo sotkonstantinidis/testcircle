@@ -1006,7 +1006,9 @@ def generic_questionnaire_details(
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,
-        questionnaire_object=questionnaire_object, links=link_display)
+        questionnaire_object=questionnaire_object, links=link_display,
+        user=request.user if request.user.is_authenticated() else None
+    )
 
     return render(request, 'questionnaire/details.html', {
         'images': images,

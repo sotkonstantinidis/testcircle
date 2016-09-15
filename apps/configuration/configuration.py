@@ -14,6 +14,7 @@ from configuration.models import (
     Key,
     Questiongroup)
 from configuration.utils import get_choices_from_model
+from notifications.models import Log
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -1817,6 +1818,10 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,
+                'notifications_href': Log.actions.get_url_for_questionnaire(
+                    user=user,
+                    questionnaire_code=questionnaire_object.code if questionnaire_object else None
+                )
             })
 
     def get_raw_category_data(self, questionnaire_data):

@@ -2,8 +2,10 @@ import logging
 from typing import Iterable
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http import HttpResponse
+from django.utils.functional import cached_property
 from django.views.generic import ListView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
@@ -15,11 +17,48 @@ from .models import Log, ReadLog
 logger = logging.getLogger(__name__)
 
 
-class LogListTemplateView(LoginRequiredMixin, TemplateView):
+class GetQueryStringMixin:
+    """
+    Helper to build the proper url with all get-params.
+    """
+
+    @cached_property
+    def requested_questionnaire(self):
+        request_questionnaire = self.request.GET.get('questionnaire')
+        has_permissions = Log.actions.has_permissions_for_questionnaire(
+            user=self.request.user, questionnaire_code=request_questionnaire
+        )
+        if request_questionnaire and has_permissions:
+            return request_questionnaire
+        return None
+
+    def get_querystring_with_params(self):
+        get_params = {}
+        if 'is_teaser' in self.request.GET.keys():
+            get_params['is_teaser'] = True
+        if 'is_pending' in self.request.GET.keys():
+            get_params['is_pending'] = True
+        if self.requested_questionnaire:
+            get_params['questionnaire'] = self.requested_questionnaire
+
+        return '{path}{symbol}page='.format(
+            path=url_with_querystring(
+                path=reverse('notification_partial_list'), **get_params
+            ),
+            symbol='&' if get_params else ''
+        )
+
+
+class LogListTemplateView(LoginRequiredMixin, GetQueryStringMixin, TemplateView):
     template_name='notifications/log_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['path'] = self.get_querystring_with_params()
+        return context
 
-class LogListView(LoginRequiredMixin, ListView):
+
+class LogListView(LoginRequiredMixin, GetQueryStringMixin, ListView):
     """
     Display logs for the current user.
 
@@ -80,9 +119,12 @@ class LogListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         """
         Fetch notifications for the current user. Use the method as defined by
-        the instance variable.
+        the instance variable. Filter according to questionnaire if requested.
         """
-        return getattr(Log.actions, self.queryset_method)(user=self.request.user)
+        qs = getattr(Log.actions, self.queryset_method)(user=self.request.user)
+        if self.requested_questionnaire:
+            qs = qs.filter(questionnaire__code=self.requested_questionnaire)
+        return qs
 
     def get_context_data(self, **kwargs):
         """
@@ -91,16 +133,7 @@ class LogListView(LoginRequiredMixin, ListView):
         """
         context = super().get_context_data(**kwargs)
         context['logs'] = self.add_user_aware_data(context['object_list'])
-
-        get_params = {}
-        if 'is_teaser' in self.request.GET.keys():
-            get_params['is_teaser'] = True
-        if 'is_pending' in self.request.GET.keys():
-            get_params['is_pending'] = True
-        context['path'] = '{path}{symbol}page='.format(
-            path=url_with_querystring(self.request.path, **get_params),
-            symbol='&' if get_params else ''
-        )
+        context['path'] = self.get_querystring_with_params()
         return context
 
 

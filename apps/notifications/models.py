@@ -3,6 +3,7 @@ import contextlib
 import functools
 import operator
 
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import F, Q
 from django.template.loader import render_to_string
@@ -155,6 +156,40 @@ class ActionContextQuerySet(models.QuerySet):
         ).values_list(
             'log__id', flat=True
         )
+
+    def has_permissions_for_questionnaire(self, user: User, questionnaire_code: str) -> bool:
+        """
+        Check if given user is allowed to see all logs for the questionnaire.
+        This is intentionally rather permissive, only a basic 'loose' connection
+        to the questionnaire is required.
+        """
+        if not user or not questionnaire_code:
+            return False
+
+        has_global_permissions = self.get_questionnaires_for_permissions(
+            *user.get_all_permissions()
+        )
+        has_logs = Log.objects.filter(
+            questionnaire__code=questionnaire_code
+        ).filter(
+            Q(catalyst=user) |
+            Q(subscribers__in=[user]) |
+            Q(questionnaire__questionnairemembership__user__in=[user])
+        ).exists()
+        return has_global_permissions or has_logs
+
+    def get_url_for_questionnaire(self, user: User, questionnaire_code: str) -> str:
+        """
+        Returns the url with a filter to list logs from the requested
+        questionnaire only. Or an empty string.
+        """
+        if self.has_permissions_for_questionnaire(user, questionnaire_code):
+            return '{url}?questionnaire={questionnaire}'.format(
+                url=reverse('notification_list'),
+                questionnaire=questionnaire_code
+            )
+        else:
+            return ''
 
 
 class Log(models.Model):
