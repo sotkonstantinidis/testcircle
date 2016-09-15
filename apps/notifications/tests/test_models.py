@@ -9,7 +9,7 @@ from qcat.tests import TestCase
 
 from notifications.models import ActionContextQuerySet, Log, StatusUpdate, \
     ReadLog, ContentUpdate
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, QuestionnaireMembership
 
 
 class ActionContextTest(TestCase):
@@ -92,6 +92,19 @@ class ActionContextTest(TestCase):
     def test_get_questionnaires_for_permissions(self):
         permissions = self.qs.get_questionnaires_for_permissions('bar')
         self.assertEqual(permissions, [])
+
+    def test_permissions_questionnaire_membership(self):
+        user = mommy.make(get_user_model())
+        mommy.make(
+            model=QuestionnaireMembership,
+            questionnaire=self.questionnaire,
+            user=user,
+            role=settings.QUESTIONNAIRE_REVIEWER
+        )
+        self.assertEqual(
+            Log.actions.user_pending_list(user).count(),
+            1
+        )
 
     def test_user_log_list_catalyst(self):
         self.assertQuerysetEqual(

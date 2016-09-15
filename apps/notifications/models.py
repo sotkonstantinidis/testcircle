@@ -12,7 +12,8 @@ from django.utils.functional import cached_property
 
 from django_pgjson.fields import JsonBField
 from accounts.models import User
-from questionnaire.models import Questionnaire, STATUSES
+from questionnaire.models import Questionnaire, STATUSES, \
+    QuestionnaireMembership
 
 from .conf import settings
 
@@ -22,16 +23,25 @@ class ActionContextQuerySet(models.QuerySet):
     Filters actions according to context. E.g. get actions for my profile
     notifications, get actions for emails.
     """
-    def get_questionnaires_for_permissions(self, *user_permissions) -> list:
+    def get_questionnaires_for_permissions(self, user) -> list:
         """
         Create filters for questionnaire statuses according to permissions.
         """
         filters = []
+        user_permissions = user.get_all_permissions()
         for permission, status in settings.NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS.items():
             if permission in user_permissions:
                 filters.append(
-                    Q(questionnaire__status=status, action=settings.NOTIFICATIONS_CHANGE_STATUS)
+                    Q(statusupdate__status=status, action=settings.NOTIFICATIONS_CHANGE_STATUS)
                 )
+        questionnaire_memberships = QuestionnaireMembership.objects.filter(
+            user=user
+        )
+        for membership in questionnaire_memberships:
+            permissions = settings.NOTIFICATIONS_QUESTIONNAIRE_MEMBERSHIP_PERMISSIONS.get(membership.role)
+            filters.append(
+                Q(statusupdate__status__in=permissions, questionnaire=membership.questionnaire)
+            )
         return filters
 
     def user_log_list(self, user: User):
@@ -42,11 +52,11 @@ class ActionContextQuerySet(models.QuerySet):
         - permitted to see the log as defined by the role.
         """
         # construct filters depending on the users permissions.
-        status_filters = self.get_questionnaires_for_permissions(
-            *user.get_all_permissions()
-        )
+        status_filters = self.get_questionnaires_for_permissions(user)
         # extend basic filters according to catalyst / subscriber
-        status_filters.extend([Q(subscribers=user), Q(catalyst=user)])
+        status_filters.extend(
+            [Q(subscribers=user), Q(catalyst=user)]
+        )
 
         return self.filter(
             action__in=settings.NOTIFICATIONS_USER_PROFILE_ACTIONS
@@ -70,9 +80,7 @@ class ActionContextQuerySet(models.QuerySet):
         nice with order_by.
 
         """
-        status_filters = self.get_questionnaires_for_permissions(
-            *user.get_all_permissions()
-        )
+        status_filters = self.get_questionnaires_for_permissions(user)
         if not status_filters:
             return self.none()
 
@@ -166,9 +174,7 @@ class ActionContextQuerySet(models.QuerySet):
         if not user or not questionnaire_code:
             return False
 
-        has_global_permissions = self.get_questionnaires_for_permissions(
-            *user.get_all_permissions()
-        )
+        has_global_permissions = self.get_questionnaires_for_permissions(user)
         has_logs = Log.objects.filter(
             questionnaire__code=questionnaire_code
         ).filter(

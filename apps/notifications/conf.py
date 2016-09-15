@@ -28,6 +28,16 @@ class NotificationsConf(AppConf):
         'questionnaire.review_questionnaire': settings.QUESTIONNAIRE_SUBMITTED,
         'questionnaire.publish_questionnaire': settings.QUESTIONNAIRE_REVIEWED
     }
+    QUESTIONNAIRE_MEMBERSHIP_PERMISSIONS = {
+        settings.QUESTIONNAIRE_COMPILER: [settings.QUESTIONNAIRE_DRAFT],
+        settings.QUESTIONNAIRE_EDITOR: [settings.QUESTIONNAIRE_DRAFT],
+        settings.QUESTIONNAIRE_REVIEWER: [settings.QUESTIONNAIRE_SUBMITTED],
+        settings.QUESTIONNAIRE_PUBLISHER: [settings.QUESTIONNAIRE_REVIEWED],
+        settings.QUESTIONNAIRE_SECRETARIAT: [settings.QUESTIONNAIRE_SUBMITTED, settings.QUESTIONNAIRE_REVIEWED],
+        settings.ACCOUNTS_UNCCD_ROLE_NAME: [],
+        settings.QUESTIONNAIRE_LANDUSER: [],
+        settings.QUESTIONNAIRE_RESOURCEPERSON: []
+    }
 
     # All actions that should be listed on 'my slm data' -> notifications
     USER_PROFILE_ACTIONS = [
