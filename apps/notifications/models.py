@@ -50,6 +50,9 @@ class ActionContextQuerySet(models.QuerySet):
         - either catalyst or subscriber of the log (set the moment the log was
           created)
         - permitted to see the log as defined by the role.
+        - permitted to see the log as defined by the questionnaire membership
+        - the action is either a defined 'list' action, or the current user
+          is compiler / editor in which case content edits are listed also
         """
         # construct filters depending on the users permissions.
         status_filters = self.get_questionnaires_for_permissions(user)
@@ -59,7 +62,14 @@ class ActionContextQuerySet(models.QuerySet):
         )
 
         return self.filter(
-            action__in=settings.NOTIFICATIONS_USER_PROFILE_ACTIONS
+            Q(action__in=settings.NOTIFICATIONS_USER_PROFILE_ACTIONS) |
+            Q(action=settings.NOTIFICATIONS_EDIT_CONTENT,
+              questionnaire__questionnairemembership__user=user,
+              questionnaire__questionnairemembership__role__in=[
+                  settings.QUESTIONNAIRE_COMPILER,
+                  settings.QUESTIONNAIRE_EDITOR
+              ]
+            )
         ).filter(
             functools.reduce(operator.or_, status_filters)
         ).distinct()
@@ -277,10 +287,10 @@ class Log(models.Model):
         type of the action. Use the integer as template name, as this value is
         fixed (opposed to the verbose name).
         """
-        if self.action in settings.NOTIFICATIONS_USER_PROFILE_ACTIONS:
-            return render_to_string('notifications/subject/{}.html'.format(
-                self.action
-            ), {'log': self, 'user': user})
+        return render_to_string(
+            template_name='notifications/subject/{}.html'.format(self.action),
+            context={'log': self, 'user': user}
+        )
 
 
 class StatusUpdate(models.Model):
