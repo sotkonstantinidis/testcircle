@@ -249,11 +249,6 @@ class Questionnaire(models.Model):
                 raise ValidationError(
                     'You do not have permission to edit the questionnaire.')
 
-            change_status.send(
-                sender=settings.NOTIFICATIONS_CHANGE_STATUS,
-                questionnaire=previous_version,
-                user=user
-            )
             if previous_version.status == settings.QUESTIONNAIRE_PUBLIC:
                 # Edit of a public questionnaire: Create new version
                 # with the same code
