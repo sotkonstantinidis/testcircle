@@ -232,10 +232,10 @@ class Log(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     catalyst = models.ForeignKey(
-        User, related_name='catalyst', help_text='Person triggering the log'
+        settings.AUTH_USER_MODEL, related_name='catalyst', help_text='Person triggering the log'
     )
     subscribers = models.ManyToManyField(
-        User, related_name='subscribers',
+        settings.AUTH_USER_MODEL, related_name='subscribers',
         help_text='All people that are members of the questionnaire'
     )
     questionnaire = models.ForeignKey(Questionnaire)
@@ -258,24 +258,31 @@ class Log(models.Model):
         """
         Fetch the subject from the related model depending on the action.
         """
-        if self.is_content_update:
-            return _('{person} edited the questionnaire {code}'.format(
-                person=self.catalyst.get_display_name(),
-                code=self.questionnaire.code
+        if self.action == settings.NOTIFICATIONS_CREATE:
+            action_display = _('was created')
+        if self.action == settings.NOTIFICATIONS_DELETE:
+            action_display = _('was deleted')
+        if self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
+            action_display = _('has a new status: {}'.format(
+                self.statusupdate.get_status_display())
+            )
+        if self.action == settings.NOTIFICATIONS_ADD_MEMBER:
+            action_display = _('has a new member: {}'.format(
+                self.memberupdate.affected.get_display_name()
             ))
-        else:
-            # todo: this is not always correct - member changes. fix this as
-            # soon as this method is used to send mails.
-            return _('{questionnaire} has a new status: {status}'.format(
-                questionnaire=self.questionnaire.code,
-                status=self.statusupdate.get_status_display()
+        if self.action == settings.NOTIFICATIONS_REMOVE_MEMBER:
+            action_display = _('removed a member: {}'.format(
+                self.memberupdate.affected.get_display_name()
+            ))
+        if self.action == settings.NOTIFICATIONS_EDIT_CONTENT:
+            action_display = _('was edited by: {}'.format(
+                self.catalyst.get_display_name()
             ))
 
-    def message(self, user: User) -> str:
-        """
-        Fetch the message from the related model depending on the action.
-        """
-        return self.contentupdate.difference if self.is_content_update else self.get_linked_subject(user)  # noqa
+        return '{questionnaire} {action}'.format(
+            questionnaire=self.questionnaire.code,
+            action=action_display
+        )
 
     @cached_property
     def is_content_update(self) -> bool:
@@ -291,6 +298,17 @@ class Log(models.Model):
             template_name='notifications/subject/{}.html'.format(self.action),
             context={'log': self, 'user': user}
         )
+
+    def action_icon(self) -> str:
+        """
+        Icon-string for action.
+        """
+        if self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
+            direction = 'reject' if self.statusupdate.is_rejected else 'approve'
+            key = 'status-{}'.format(direction)
+        else:
+            key = self.action
+        return settings.NOTIFICATIONS_ACTION_ICON.get(key)
 
 
 class StatusUpdate(models.Model):
@@ -312,7 +330,7 @@ class MemberUpdate(models.Model):
     Invited or removed members.
     """
     log = models.OneToOneField(Log)
-    affected = models.ForeignKey(User)
+    affected = models.ForeignKey(settings.AUTH_USER_MODEL)
     role = models.CharField(max_length=50)
 
 
@@ -346,7 +364,7 @@ class ReadLog(models.Model):
         the catalyst.
     """
     log = models.ForeignKey(Log, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     is_read = models.BooleanField(default=False)
 
     class Meta:

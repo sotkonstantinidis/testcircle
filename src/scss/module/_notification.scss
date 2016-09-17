@@ -48,14 +48,19 @@
   }
 
   div {
-    padding: rem-calc(10);
+    padding: rem-calc(15) 0;
+  }
+  :first-child {
+    padding-left: rem-calc(5);
+  }
+
+  div.action-icon svg {
+    float: none;
+    display: block;
+    margin: auto;
   }
 
   .read-toggle {
     background-color: rgba($color-beige, 0.3);
-
-    .mark-done {
-      margin: rem-calc(10);
-    }
   }
 }

@@ -1,13 +1,28 @@
 {% load i18n %}
 {% load humanize %}
 
+<div class="notification-list row">
+  <div class="small-1 columns"><span>{% trans "Date" %}</span></div>
+  <div class="small-1 columns text-center">{% trans "Action" %}</div>
+  <div class="small-8 columns">
+    <input type="text" placeholder="{% trans "Filter questionnaire" %}">
+  </div>
+  <div class="small-1 columns">
+    <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
+    <label for="is-pending">{% trans 'filter' %}</label>
 
+  </div>
+  <div class="small-1 columns text-center">{% trans "Done" %}</div>
+</div>
 {% for log in logs %}
   <div class="notification-list row{% if log.is_read %} is-read{% endif %}">
-    <div class="is-light is-muted small-1 columns nobr">
+    <div class="is-light is-muted small-1 columns">
       <span title="{{ log.created|naturaltime }}">{{ log.created|date:"SHORT_DATE_FORMAT" }}</span>
     </div>
-    <div class="small-9 columns">
+    <div class="small-1 columns action-icon" title="{{ log.subject }}">
+       <svg class="icon is-inline"><use xlink:href="#{{ log.action_icon }}" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+    </div>
+    <div class="small-8 columns">
       {{ log.text|safe }}
     </div>
     <div class="small-1 columns">
@@ -15,8 +30,8 @@
         <a href="{{ log.edit_url }}"><span class="label is-pending">{% trans "Pending" %}</span></a>
       {% endif %}
     </div>
-    <div class="small-1 columns read-toggle nobr">
-      <input type="checkbox" value="{{ log.id }}" class="mark-done" {% if log.is_read %}checked="checked"{% endif %}>{% trans "Done" %}
+    <div class="small-1 columns text-center read-toggle">
+      <input type="checkbox" value="{{ log.id }}" class="mark-done" {% if log.is_read %}checked="checked"{% endif %}>
     </div>
   </div>
 {% empty %}

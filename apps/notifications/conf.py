@@ -22,6 +22,16 @@ class NotificationsConf(AppConf):
         (EDIT_CONTENT, _('edited content'))
     )
 
+    ACTION_ICON = {
+        CREATE: 'icon-plus',
+        DELETE: 'icon-minus',
+        'status-reject': 'icon-rewind',
+        'status-approve': 'icon-forward',
+        ADD_MEMBER: 'icon-member-add',
+        REMOVE_MEMBER: 'icon-member-remove',
+        EDIT_CONTENT: 'icon-pencil',
+    }
+
     # Mapping of user permissions and allowed questionnaire statuses
     QUESTIONNAIRE_STATUS_PERMISSIONS = {
         'questionnaire.submit_questionnaire': settings.QUESTIONNAIRE_DRAFT,
