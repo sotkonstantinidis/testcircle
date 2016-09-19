@@ -396,6 +396,21 @@ class ImportObject(Logger):
         if message and message not in self.mapping_messages:
             self.mapping_messages.append(message)
 
+    def apply_index_filter(self, values, index_filter):
+        index_values = self.collect_mapping(
+            index_filter.get('mapping'), return_list=True)
+
+        value = index_filter.get('value')
+        operator = index_filter.get('operator')
+
+        if operator == 'equals':
+            indices = [i for i, x in enumerate(index_values) if x == value]
+        else:
+            raise NotImplementedError(
+                'Operator {} is not valid as an index filter'.format(operator))
+
+        return [values[i] for i in indices]
+
     def check_conditions(
             self, conditions, condition_message, condition_message_opposite,
             conditions_join):
@@ -653,6 +668,16 @@ class ImportObject(Logger):
                         mapping.get('condition_message_opposite'),
                         mapping.get('conditions_join')) is False:
                     continue
+
+            if mapping.get('index_filter'):
+                index_filter = mapping.get('index_filter')
+                if not isinstance(index_filter, list) or len(index_filter) != 1:
+                    raise Exception(
+                        'Index filter must be a list of exactly 1 item!')
+
+                wocat_attribute = self.apply_index_filter(
+                    values=wocat_attribute,
+                    index_filter=index_filter[0])
 
             if mapping.get('mapping_message'):
                 self.add_mapping_message(mapping.get('mapping_message'))

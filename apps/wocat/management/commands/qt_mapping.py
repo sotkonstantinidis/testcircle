@@ -2853,6 +2853,193 @@ tech_qg_26 = {
                         ],
                         'type': 'string',
                         'value_prefix': 'Specification of other management measures: '
+                    },
+                    # Type and layout of agronomic measures
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'better_crop_cover',
+                                'lookup_text': 483
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'early_planting',
+                                'lookup_text': 484
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'relay_cropping',
+                                'lookup_text': 485
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mixed_cropping',
+                                'lookup_text': 486
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_planting',
+                                'lookup_text': 487
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'cover_cropping',
+                                'lookup_text': 488
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'retaining_cover',
+                                'lookup_text': 489
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mulching',
+                                'lookup_text': 490
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'temp_trashlines',
+                                'lookup_text': 491
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'green_manure',
+                                'lookup_text': 493
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'legume',
+                                'lookup_text': 494
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'manure',
+                                'lookup_text': 495
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mineral',
+                                'lookup_text': 496
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'conditioners',
+                                'lookup_text': 497
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'rotations',
+                                'lookup_text': 498
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_crust',
+                                'lookup_text': 500
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_topsoil',
+                                'lookup_text': 501
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'zero_tillage',
+                                'lookup_text': 502
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'minimum_tillage',
+                                'lookup_text': 503
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'non_tillage',
+                                'lookup_text': 504
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_tillage',
+                                'lookup_text': 505
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_ridging',
+                                'lookup_text': 506
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'furrows',
+                                'lookup_text': 507
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'pits',
+                                'lookup_text': 508
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_subsoil',
+                                'lookup_text': 509
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'deep_tillage',
+                                'lookup_text': 510
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Type of agronomic measures: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        }
+                    },
+                    # Type and alignment / layout of vegetative measures
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_contour',
+                                'lookup_text': 544
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_strips',
+                                'lookup_text': 545
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_wind',
+                                'lookup_text': 546
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_boundary',
+                                'lookup_text': 547
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_linear',
+                                'lookup_text': 548
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_scattered',
+                                'lookup_text': 549
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_blocks',
+                                'lookup_text': 550
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Type of vegetative measures: ',
+                        'composite': {
+                            'type': 'merge',
+                            'separator': ', '
+                        }
                     }
                 ],
                 'type': 'string'
@@ -6980,8 +7167,23 @@ tech_qg_185 = {
                 ],
                 'type': 'file'
             },
-            # 'tech_drawing_author': {},
-            # 'tech_drawing_date': {},
+            'tech_drawing_author': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_4',
+                        'wocat_column': 'author'
+                    },
+                    {
+                        'wocat_table': 'qt_2_4',
+                        'wocat_column': 'address'
+                    }
+                ],
+                'type': 'string',
+                'composite': {
+                    'type': 'merge',
+                    'separator': ', '
+                }
+            },
         }
     }
 }
@@ -8297,7 +8499,1645 @@ tech_qg_161 = {
                             'type': 'merge',
                             'separator': ', '
                         },
-                    }
+                    },
+                    # 2.5.1.1 Type and layout of agronomic measures
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'better_crop_cover_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'better_crop_cover_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'better_crop_cover_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: better crop cover\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'early_planting_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'early_planting_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'early_planting_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: early planting\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'relay_cropping_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'relay_cropping_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'relay_cropping_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: relay cropping\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mixed_cropping_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mixed_cropping_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mixed_cropping_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: mixed cropping / intercropping\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_planting_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_planting_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_planting_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: contour planting / strip cropping\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'cover_cropping_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'cover_cropping_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'cover_cropping_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: cover cropping\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'retaining_cover_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'retaining_cover_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'retaining_cover_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: retaining more vegetation cover\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mulching_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mulching_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mulching_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: mulching\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'temp_trashlines_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'temp_trashlines_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'temp_trashlines_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: temporary trashlines\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other1_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other1_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other1_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other1_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other2_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other2_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other2_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other2_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other3_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other3_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other3_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other3_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other4_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other4_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other4_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'vegetation_other4_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'green_manure_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'green_manure_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'green_manure_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: green manure\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'legume_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'legume_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'legume_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: legume inter-planting\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'manure_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'manure_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'manure_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: manure / compost / residues\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mineral_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mineral_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'mineral_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: mineral (inorganic) fertilizers\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'conditioners_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'conditioners_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'conditioners_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: soil conditioners (lime, gypsum)\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'rotations_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'rotations_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'rotations_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: rotations / fallows\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other1_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other1_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other1_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other1_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other2_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other2_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other2_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other2_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other3_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other3_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other3_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other3_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other4_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other4_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other4_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'organic_other4_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_crust_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_crust_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_crust_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: breaking crust / sealed surface\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_topsoil_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_topsoil_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_topsoil_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: breaking compacted topsoil\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'zero_tillage_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'zero_tillage_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'zero_tillage_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: zero tillage / no-till\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'minimum_tillage_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'minimum_tillage_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'minimum_tillage_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: minimum tillage\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'non_tillage_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'non_tillage_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'non_tillage_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: non-inversion tillage\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_tillage_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_tillage_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_tillage_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: contour tillage\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_ridging_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_ridging_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'contour_ridging_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: contour ridging\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'furrows_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'furrows_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'furrows_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: furrows (drainage, irrigation)\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'pits_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'pits_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'pits_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: pits\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_subsoil_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_subsoil_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'breaking_subsoil_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: breaking compacted subsoil\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'deep_tillage_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'deep_tillage_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'deep_tillage_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Agronomic measure: deep tillage / double digging\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other1_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other1_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other1_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other1_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other2_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other2_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other2_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other2_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other3_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other3_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other3_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other3_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other4_description',
+                                'mapping_prefix': 'Agronomic measure: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other4_material',
+                                'mapping_prefix': 'Material/ species: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other4_quantity',
+                                'mapping_prefix': 'Quantity/ density: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_1_1',
+                                'wocat_column': 'soil_other4_remarks',
+                                'mapping_prefix': 'Remarks: '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    # 2.5.2.1 Type and alignment / layout of vegetative measures
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '1',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_contour_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_contour_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_contour_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_contour_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_contour_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: aligned: -contour\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '2',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_strips_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_strips_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_strips_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_strips_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_strips_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: aligned: -graded strips\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '3',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_wind_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_wind_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_wind_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_wind_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_wind_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: aligned: -against wind\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '4',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_boundary_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_boundary_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_boundary_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_boundary_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_boundary_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: aligned: -along boundary\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '5',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_linear_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_linear_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_linear_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_linear_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_linear_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: aligned: -linear\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '6',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_scattered_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_scattered_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_scattered_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_scattered_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_scattered_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: scattered / dispersed\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '7',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_blocks_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_blocks_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_blocks_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_blocks_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_blocks_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: in blocks\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other1',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '8',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other1_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other1_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other1_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other1_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other1_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: ',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other2',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '8',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other2_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other2_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other2_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other2_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other2_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: ',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other3',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '8',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other3_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other3_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other3_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other3_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other3_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: ',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other4',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                        'wocat_column': 'vegetative',
+                                        'lookup_table': True,
+                                        'index_filter': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_5_2_1_vegetative',
+                                                        'wocat_column': 'vegetative_type'
+                                                    }
+                                                ],
+                                                'operator': 'equals',
+                                                'value': '8',
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'type': 'string',
+                                'value_prefix': 'Vegetative material: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other4_no_plants',
+                                'mapping_prefix': 'Number of plants per (ha): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other4_between_interval',
+                                'mapping_prefix': 'Vertical interval between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other4_between_spacing',
+                                'mapping_prefix': 'Spacing between rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other4_within_interval',
+                                'mapping_prefix': 'Vertical interval within rows / strips / blocks (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_1',
+                                'wocat_column': 'aligned_other4_within_width',
+                                'mapping_prefix': 'Width within rows / strips / blocks (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Vegetative measure: ',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
                 ],
                 'type': 'string',
             }

@@ -688,9 +688,51 @@ class TestImport(WOCATImport):
             },
             'repeating': True,
             'wocat_table': 'table_23_1'
-        }
+        },
+        'qg_24': {
+            'questions': {
+                'question_24_1': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_24_1',
+                            'wocat_column': 'column_24_1',
+                            'index_filter': [
+                                {
+                                    'mapping': [
+                                        {
+                                            'wocat_table': 'table_24_1',
+                                            'wocat_column': 'column_24_condition'
+                                        }
+                                    ],
+                                    'operator': 'equals',
+                                    'value': '1',
+                                }
+                            ]
+                        }
+                    ],
+                    'type': 'string'
+                }
+            }
+        },
     }
     configuration_code = 'sample'
+
+
+"""
+index_filter
+
+Use case:
+    qt_id   measure_type     vegetative
+    1       type_1           veg_1
+    1       type_1           veg_2
+    1       type_2           veg_3
+
+We would like to collect all "vegetative" values where "measure_type" = "type_1".
+Conditions would not work because if it evaluates to TRUE, it would also contain
+"veg_3". Use index_filter instead.
+
+See qg_24 for example.
+"""
 
 
 class DoMappingTest(TestCase):
@@ -880,6 +922,20 @@ class DoMappingTest(TestCase):
                     'column_23_1': 'Foo 2',
                     'column_23_2': 'Faz 2',
                 }
+            ],
+            'table_24_1': [
+                {
+                    'column_24_1': 'Foo',
+                    'column_24_condition': '1'
+                },
+                {
+                    'column_24_1': 'Bar',
+                    'column_24_condition': '2'
+                },
+                {
+                    'column_24_1': 'Faz',
+                    'column_24_condition': '2'
+                }
             ]
         }
         lookup_table_text = {}
@@ -1030,6 +1086,20 @@ class DoMappingTest(TestCase):
                     'column_22_condition_1': 'val_2',
                     'column_22_condition_2': 'true',
                 },
+            ],
+            'table_24_1': [
+                {
+                    'column_24_1': 'Foo',
+                    'column_24_condition': '2'
+                },
+                {
+                    'column_24_1': 'Bar',
+                    'column_24_condition': '1'
+                },
+                {
+                    'column_24_1': 'Faz',
+                    'column_24_condition': '1'
+                }
             ]
         }
         lookup_table_text = {}
@@ -1055,6 +1125,20 @@ class DoMappingTest(TestCase):
                     'column_3_1': 'wocat_value_3_1'
                 }
             ],
+            'table_24_1': [
+                {
+                    'column_24_1': 'Foo',
+                    'column_24_condition': '2'
+                },
+                {
+                    'column_24_1': 'Bar',
+                    'column_24_condition': '2'
+                },
+                {
+                    'column_24_1': 'Faz',
+                    'column_24_condition': '2'
+                }
+            ]
         }
         lookup_table_text = {}
         file_infos = {}
@@ -1557,3 +1641,24 @@ class DoMappingTest(TestCase):
                 'en': 'Faz 2',
             }
         })
+
+    def test_conditional_array(self):
+        self.imprt.do_mapping()
+        import_object_1 = self.imprt.import_objects[0]
+        self.assertEqual(import_object_1.data_json.get('qg_24'), [
+            {
+                'question_24_1': {
+                    'en': 'Foo'
+                }
+            }
+        ])
+        import_object_2 = self.imprt.import_objects[1]
+        self.assertEqual(import_object_2.data_json.get('qg_24'), [
+            {
+                'question_24_1': {
+                    'en': 'Bar\n\nFaz'
+                }
+            }
+        ])
+        import_object_3 = self.imprt.import_objects[2]
+        self.assertIsNone(import_object_3.data_json.get('qg_24'))
