@@ -384,10 +384,6 @@ class ImportObject(Logger):
 
             return file_object.uuid
 
-        # TODO: This is only temporary, remove it after TIFF has been converted
-        elif mapped_content_type in ['image/tiff']:
-            return None
-
         else:
             self.add_error('mapping', 'Unsupported content type: {}'.format(
                 mapped_content_type))

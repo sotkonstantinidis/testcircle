@@ -491,7 +491,6 @@ tech_qg_160 = {
     'tech_qg_160': {
         'questions': {
             'tech_implementation_decades': {
-                # TODO: This creates errors.
                 'mapping': [
                     # Less than 10 years ago (recently): 198
                     {
@@ -10154,9 +10153,9 @@ questiongroups = [
     qg_photos,
     tech_qg_1,  # Definition
     # tech_qg_2,  # Description
-    # qg_location_map,
+    qg_location_map,
     tech_qg_225,  # Location comments
-    # tech_qg_160,  # 2.6 Date of implementation
+    tech_qg_160,  # 2.6 Date of implementation
     tech_qg_5,  # 2.7 Introduction of the Technology
     tech_qg_9,  # Land use types
     tech_qg_10,  # Land use subcategory: Cropland
