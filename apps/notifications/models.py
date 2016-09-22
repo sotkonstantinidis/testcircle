@@ -103,7 +103,7 @@ class ActionContextQuerySet(models.QuerySet):
             'id', 'questionnaire_id'
         )
 
-        read_logs = self.read_logs(user=user)
+        read_logs = self.read_logs(user=user, log__statusupdate__isnull=False)
         if read_logs.exists():
             # If a log is marked as read, exclude all previous logs for the
             # same questionnaire and the same status from the 'pending'
@@ -152,8 +152,10 @@ class ActionContextQuerySet(models.QuerySet):
         """
         Count all unread logs that the user has to work on.
         """
-        return self.user_pending_list(
+        return self.user_log_list(
             user=user
+        ).exclude(
+            id__in=ReadLog.objects.filter(user=user, is_read=True)
         ).only(
             'id'
         ).count()

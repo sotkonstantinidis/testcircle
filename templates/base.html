@@ -207,7 +207,7 @@
             method: 'GET'
           }).done(function(data) {
             if (data !== '0') {
-              var element = '<a href="{% url 'notification_list' %}?is_pending" class="notification-indicator"><span class="label is-pending round">' + data +'</span></a>';
+              var element = '<a href="{% url 'notification_list' %}" class="notification-indicator"><span class="label is-pending round">' + data +'</span></a>';
               userMenu.before('<li>' + element + '</li>');
             }
           });

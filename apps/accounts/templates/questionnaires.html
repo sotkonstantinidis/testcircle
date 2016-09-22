@@ -18,8 +18,9 @@
     <div class="small-12 columns">
       <section class="tech-list small-12 columns">
         <div class="tech-group">
-          <h2 class="is-group">{% trans "Latest updates" %}
-            <a class="right" href="{% url 'notification_list' %}">{% trans "All updates" %}</a>
+          <h2 class="is-group">
+            {% trans "Latest notifications" %} |
+            <a href="{% url 'notification_list' %}">{% trans "All notifications" %}</a>
           </h2>
           <div id="latest-notification-updates"></div>
         </div>
