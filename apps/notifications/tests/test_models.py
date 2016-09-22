@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -82,7 +82,8 @@ class ActionContextTest(TestCase):
     @override_settings(NOTIFICATIONS_CHANGE_STATUS='baz')
     @override_settings(NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS={'foo': 'bar'})
     def test_get_questionnaires_for_permissions(self):
-        permissions = self.qs.get_questionnaires_for_permissions('foo')
+        user  = MagicMock(get_all_permissions=lambda: ['foo'])
+        permissions = self.qs.get_questionnaires_for_permissions(user=user)
         self.assertEqual(
             permissions,
             [Q(questionnaire__status='bar', action='baz')]
@@ -90,7 +91,8 @@ class ActionContextTest(TestCase):
 
     @override_settings(NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS={'foo': 'bar'})
     def test_get_questionnaires_for_permissions(self):
-        permissions = self.qs.get_questionnaires_for_permissions('bar')
+        user = MagicMock(get_all_permissions=lambda: ['bar'])
+        permissions = self.qs.get_questionnaires_for_permissions(user=user)
         self.assertEqual(permissions, [])
 
     def test_permissions_questionnaire_membership(self):
@@ -242,7 +244,8 @@ class LogTest(TestCase):
     def test_get_linked_subject(self, render_to_string):
         self.status_log.get_linked_subject(self.catalyst)
         render_to_string.assert_called_with(
-            'notifications/subject/{}.html'.format(
+            template_name='notifications/subject/{}.html'.format(
                 settings.NOTIFICATIONS_CHANGE_STATUS
-            ), {'log': self.status_log, 'user': self.catalyst}
+            ),
+            context={'log': self.status_log, 'user': self.catalyst}
         )

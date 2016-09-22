@@ -1,33 +1,58 @@
 {% load i18n %}
 {% load humanize %}
 
-<div class="notification-list row">
-  <div class="small-1 columns"><span>{% trans "Date" %}</span></div>
+<!-- header -->
+<div class="notification-list header row">
+  <div class="small-2 medium-1 columns"><span>{% trans "Date" %}</span></div>
   <div class="small-1 columns text-center">{% trans "Action" %}</div>
-  <div class="small-8 columns">
-    <input type="text" placeholder="{% trans "Filter questionnaire" %}">
+  <div class="small-6 medium-7 columns">
+    <a id="questionnaire-filter-toggler"
+       class="has-tip{% if 'questionnaire' in request.GET.keys and request.GET.questionnaire != '' %} is-active-filter{% endif %}"
+       data-tooltip aria-haspopup="true" title="{% trans "Show entries for one questionnaire only." %}">
+      <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+      {% trans "Questionnaires" %}
+    </a>
+    <div id="questionnaire-filter" class="hide is-filter">
+      <select data-placeholder="" class="chosen-select" tabindex="2">
+        <option value="">{% trans "All questionnaires" %}</option>
+        {% if 'questionnaire' in request.GET.keys %}
+          <option value="{{ request.GET.questionnaire }}" selected="selected">{{ request.GET.questionnaire }}</option>
+        {% endif %}
+      </select>
+    </div>
   </div>
-  <div class="small-1 columns">
-    <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
-    <label for="is-pending">{% trans 'filter' %}</label>
-
+  <div class="small-2 columns text-center">
+    <a data-toggle="todo-filter" class="has-tip{% if 'is_pending' in request.GET.keys %} is-active-filter{% endif %}"
+       data-tooltip aria-haspopup="true" title="{% trans "Display only notifications for pending questionnaires." %}">
+      <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+      {% trans "Todo" %}
+    </a>
+    <div id="todo-filter" class="is-filter" data-toggler=".hide">
+      <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
+      <label for="is-pending">{% trans "Only pending" %}</label>
+    </div>
   </div>
   <div class="small-1 columns text-center">{% trans "Done" %}</div>
 </div>
+<!-- end header -->
+
 {% for log in logs %}
   <div class="notification-list row{% if log.is_read %} is-read{% endif %}">
-    <div class="is-light is-muted small-1 columns">
+    <div class="small-2 medium-1 columns is-light is-muted">
       <span title="{{ log.created|naturaltime }}">{{ log.created|date:"SHORT_DATE_FORMAT" }}</span>
     </div>
     <div class="small-1 columns action-icon" title="{{ log.subject }}">
        <svg class="icon is-inline"><use xlink:href="#{{ log.action_icon }}" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
     </div>
-    <div class="small-8 columns">
+    <div class="small-6 medium-7 columns">
       {{ log.text|safe }}
     </div>
-    <div class="small-1 columns">
+    <div class="small-2 columns">
       {% if log.is_todo %}
-        <a href="{{ log.edit_url }}"><span class="label is-pending">{% trans "Pending" %}</span></a>
+        <svg class="icon alert is-inline has-tip" data-tooltip aria-haspopup="true"
+             title="{% trans "You may approve this questionnaire for the next step on the publication workflow." %}">
+          <use xlink:href="#icon-alert" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        </svg>
       {% endif %}
     </div>
     <div class="small-1 columns text-center read-toggle">
@@ -41,7 +66,7 @@
   <div class="pagination-centered">
     <ul class="pagination">
       <li class="arrow{% if not page_obj.has_previous %} unavailable{% endif %}">
-        <a href="{% if page_obj.has_previous %}{{ path }}{{ page_obj.previous_page_number }}{% else %}#{% endif %}">&laquo;</a>
+        <a href="{% if page_obj.has_previous %}{% url 'notification_partial_list' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}">&laquo;</a>
       </li>
       {% for page in page_obj.paginator.page_range %}
         <li {% if page == page_obj.number %}class="current"{% endif %}>
@@ -49,7 +74,7 @@
         </li>
       {% endfor %}
       <li class="arrow{% if not page_obj.has_next %} unavailable{% endif %}">
-        <a href="{% if page_obj.has_next %}{{ path }}{{ page_obj.next_page_number }}{% else %}#{% endif %}">&raquo;</a>
+        <a href="{% if page_obj.has_next %}{% url 'notification_partial_list' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}">&raquo;</a>
       </li>
     </ul>
   </div>

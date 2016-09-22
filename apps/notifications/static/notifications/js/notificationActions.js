@@ -1,15 +1,25 @@
 (function ($) {
     $.fn.bindNotificationActions = function(options) {
 
+        var defaults = {
+            initialParams: '',
+            questionnaire: '',
+            isTeaser: false
+        };
+        var settings = $.extend( {}, defaults, options );
         var elem = this;
+        var page = 1;
+        var isPending = false;  // see filter for pending.
+        // var questionnaire = '';  // see filter for questionnaires.
 
         // load initial data
-        elem.load(options.notifications_url);
+        elem.load(settings.notificationsUrl + settings.initialParams);
 
-        // pagination
-        $(this).on('click', 'ul.pagination li a', function(event) {
+        // load data when clicking on pagination item
+        elem.on('click', 'ul.pagination li a', function(event) {
+            page = $(this).attr('href');
             $.ajax({
-                url: event.target.href,
+                url: get_url(),
                 method: 'GET'
             }).done(function (data) {
                 elem.html(data);
@@ -18,12 +28,12 @@
         });
 
         // update 'is read' status on click
-        $(this).on('click', '.mark-done', function(event) {
+        elem.on('click', '.mark-done', function(event) {
             $.ajax({
-                url: options.read_url,
+                url: settings.readUrl,
                 method: 'POST',
                 data: ({
-                    user: options.user,
+                    user: settings.user,
                     log: $(this).val(),
                     checked: $(this).is(':checked')
                 })
@@ -32,5 +42,74 @@
             });
         });
 
+        // filter 'pending' only
+        elem.on('click', '#is-pending', function() {
+            elem.html(settings.spinner);
+            isPending = $(this).is(':checked');
+            page = 1;
+            $.ajax({
+              url: get_url(),
+              method: 'GET'
+            }).done(function(data) {
+              elem.html(data);
+            });
+        });
+
+        // handle filters for pending and questionnaires
+        elem.on('click', '#questionnaire-filter-toggler', function() {
+            $('#questionnaire-filter').toggle(
+            function() {
+                $(this).addClass('hide');
+            }, function() {
+                var select = $(this).children('select').first();
+                // only load options if not in dom already - two options may be
+                // present already ('all' and selected element).
+                if (select.children('option').length < 3) {
+                    $.ajax({
+                        url: settings.questionnairesUrl,
+                        method: 'get',
+                        contentType: 'json'
+                    }).done(function(data) {
+                        $.each(data['questionnaires'], function(i, questionnaire) {
+                            select.append(
+                                '<option value="' + questionnaire + '">' +
+                                questionnaire + '</option>'
+                            );
+                        });
+                        select.chosen();
+                        select.on('change', function(evt, params) {
+                            page = 1;
+                            settings.questionnaire = params['selected'];
+                            $.ajax({
+                              url: get_url(),
+                              method: 'GET'
+                            }).done(function(data) {
+                              elem.html(data);
+                            });
+                        });
+                    });
+                }
+                $(this).removeClass('hide');
+            });
+        });
+
+        /**
+         * Helper to create the proper url depending on state of 'pending'
+         * and 'questionnaire'
+         * @returns {string}
+         */
+        function get_url() {
+            var url = settings.notificationsUrl + '?page=' + page;
+
+            if (settings.isTeaser) url += '&is_teaser';
+
+            var isPendingDOM = $('#is-pending').is(':checked');
+            if (isPending || isPendingDOM) url += '&is_pending';
+
+            if (settings.questionnaire != '') {
+                url += '&questionnaire=' + settings.questionnaire;
+            }
+            return url
+        }
     };
 }(jQuery));

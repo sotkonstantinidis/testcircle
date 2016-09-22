@@ -41,26 +41,60 @@
 
   margin: 0 !important;
   background-color: #fff;
-  border-bottom: 1px solid $color-beige;
+  border-bottom: 1px solid $color-beige-light;
 
-  &.is-read {
-    opacity: 0.4;
+  &.header {
+    background: #fff;
+    font-weight: 300;
+    color: $color-beige-dark;
+
+    svg.icon {
+      display: inline !important;
+      height: 1em !important;
+    }
+    .chosen-select, .chosen-container {
+      padding: 0;
+    }
+    #todo-filter {
+      padding: 0;
+      display: none;
+    }
+    .is-active-filter {
+      background-color: $color-blue;
+      color: #fff !important;
+      padding: rem-calc(3) rem-calc(5) rem-calc(3) rem-calc(3);
+    }
+    .has-tip {
+      color: $color-blue;
+      cursor: default;
+    }
   }
-
   div {
     padding: rem-calc(15) 0;
   }
   :first-child {
     padding-left: rem-calc(5);
   }
-
-  div.action-icon svg {
+  svg.icon {
     float: none;
     display: block;
     margin: auto;
-  }
+    height: 1.5em;
+    width: 1.5em;
 
+    &.alert {
+      color: $color-orange-light;
+    }
+  }
   .read-toggle {
     background-color: rgba($color-beige, 0.3);
+  }
+  &.is-read {
+    opacity: 0.4;
+  }
+}
+#notifications-list {
+  .pagination-centered {
+    padding-top: rem-calc(5);
   }
 }

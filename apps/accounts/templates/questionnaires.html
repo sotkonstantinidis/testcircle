@@ -48,17 +48,22 @@
     {% compress js %}
       <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
       <script src="{% static 'notifications/js/notificationActions.js' %}"></script>
+      <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
       <script>
         $(document).ready(function() {
 
-          const spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
-          const latestUpdatesContainer = $('#latest-notification-updates');
+          var spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
+          var latestUpdatesContainer = $('#latest-notification-updates');
 
           // initialize isRead plugin.
           latestUpdatesContainer.bindNotificationActions({
-            read_url: '{% url 'notification_read' %}',
-            notifications_url: '{% url 'notification_partial_list' %}?is_teaser',
-            user: '{{ request.user.id }}'
+            readUrl: '{% url 'notification_read' %}',
+            notificationsUrl: '{% url 'notification_partial_list' %}',
+            initialParams: '?is_teaser',
+            isTeaser: true,
+            questionnairesUrl: '{% url 'notification_questionnaire_logs' %}',
+            user: '{{ request.user.id }}',
+            spinner: spinner
           });
 
           // helper to execute the ajax call and replace the container with the response.
@@ -91,6 +96,11 @@
           });
         });
       </script>
+    {% endcompress %}
+  {% endaddtoblock %}
+  {% addtoblock 'css' %}
+    {% compress css %}
+      <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
     {% endcompress %}
   {% endaddtoblock %}
 {% endblock %}

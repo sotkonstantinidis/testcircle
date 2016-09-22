@@ -1,10 +1,12 @@
 import logging
 from typing import Iterable
 
+from accounts.models import User
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.utils.functional import cached_property
 from django.views.generic import ListView, TemplateView, View
 
@@ -17,48 +19,15 @@ from .models import Log, ReadLog
 logger = logging.getLogger(__name__)
 
 
-class GetQueryStringMixin:
-    """
-    Helper to build the proper url with all get-params.
-    """
-
-    @cached_property
-    def requested_questionnaire(self):
-        request_questionnaire = self.request.GET.get('questionnaire')
-        has_permissions = Log.actions.has_permissions_for_questionnaire(
-            user=self.request.user, questionnaire_code=request_questionnaire
-        )
-        if request_questionnaire and has_permissions:
-            return request_questionnaire
-        return None
-
-    def get_querystring_with_params(self):
-        get_params = {}
-        if 'is_teaser' in self.request.GET.keys():
-            get_params['is_teaser'] = True
-        if 'is_pending' in self.request.GET.keys():
-            get_params['is_pending'] = True
-        if self.requested_questionnaire:
-            get_params['questionnaire'] = self.requested_questionnaire
-
-        return '{path}{symbol}page='.format(
-            path=url_with_querystring(
-                path=reverse('notification_partial_list'), **get_params
-            ),
-            symbol='&' if get_params else ''
-        )
-
-
-class LogListTemplateView(LoginRequiredMixin, GetQueryStringMixin, TemplateView):
+class LogListTemplateView(LoginRequiredMixin, TemplateView):
     template_name='notifications/log_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['path'] = self.get_querystring_with_params()
         return context
 
 
-class LogListView(LoginRequiredMixin, GetQueryStringMixin, ListView):
+class LogListView(LoginRequiredMixin, ListView):
     """
     Display logs for the current user.
 
@@ -118,6 +87,16 @@ class LogListView(LoginRequiredMixin, GetQueryStringMixin, ListView):
             'TEASER' if 'is_teaser' in self.request.GET.keys() else 'LIST'
         ))
 
+    @cached_property
+    def requested_questionnaire(self):
+        request_questionnaire = self.request.GET.get('questionnaire')
+        has_permissions = Log.actions.has_permissions_for_questionnaire(
+            user=self.request.user, questionnaire_code=request_questionnaire
+        )
+        if request_questionnaire and has_permissions:
+            return request_questionnaire
+        return None
+
     def get_queryset(self):
         """
         Fetch notifications for the current user. Use the method as defined by
@@ -135,7 +114,6 @@ class LogListView(LoginRequiredMixin, GetQueryStringMixin, ListView):
         """
         context = super().get_context_data(**kwargs)
         context['logs'] = self.add_user_aware_data(context['object_list'])
-        context['path'] = self.get_querystring_with_params()
         return context
 
 
@@ -191,3 +169,41 @@ class LogCountView(LoginRequiredMixin, View):
         return HttpResponse(
             content=Log.actions.user_log_count(user=self.request.user)
         )
+
+
+class LogQuestionnairesListView(LoginRequiredMixin, View):
+    """
+    Return all questionnaires that have a log for a user. Used to build the
+    select menu in the 'questionnaire' filter
+    """
+    http_method_names = ['get']
+
+    def get_questionnaire_logs(self, user: User) -> list:
+        """
+        Get all distinct questionnaires that the user has logs for.
+        """
+        return Log.actions.user_log_list(
+            user=user
+        ).values_list(
+            'questionnaire__code', flat=True
+        ).order_by(
+            'questionnaire_id'
+        ).distinct(
+            'questionnaire_id'
+        )
+
+    def questionnaire_sort(self, obj):
+        """
+        Helper for sorting.
+        """
+        name, code = obj.split('_')
+        if code.isdigit():
+            code = int(code)
+        return name, code
+
+    def get(self, request, *args, **kwargs):
+        questionnaires = sorted(
+            self.get_questionnaire_logs(user=request.user),
+            key=self.questionnaire_sort
+        )
+        return JsonResponse({'questionnaires': questionnaires})

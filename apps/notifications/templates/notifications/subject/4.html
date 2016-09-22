@@ -5,10 +5,7 @@
 {% load i18n %}
 
 {% spaceless %}
-  {% if user == log.catalyst %}{% trans "You" %}{% else %}<a href="{% url 'user_details' log.catalyst_id %}" class="link">{{ log.catalyst.get_display_name }}</a>{% endif %}
-  {{ log.get_action_display }}
-  {% if user == log.memberupdate.affected %}{% trans "you" %}{% else %}<a href="{% url 'user_details' log.memberupdate.affected.id %}" class="link">{{ log.memberupdate.affected.get_display_name }}</a>{% endif %}
-  {% trans "as" context "You removed Jay 'as' reviewer." %}
-  {{ log.memberupdate.role }}
-  {% trans "for the questionnaire" context "You added Jay as reviewer 'for the questionnaire'." %} <a href="{{ log.questionnaire.get_absolute_url }}" class="link">{{ log.questionnaire.code }}</a>
+  <a href="{{ log.questionnaire.get_absolute_url }}" class="link">{{ log.questionnaire.code }}</a>
+  {% trans "has a new" %} {{ log.memberupdate.role }}: {% if user == log.memberupdate.affected %}{% trans "you" %}{% else %}<a href="{% url 'user_details' log.memberupdate.affected.id %}" class="link">{{ log.memberupdate.affected.get_display_name }}</a>{% endif %}
+  ({% trans "invited by"  %} {% if user == log.catalyst %}{% trans "you" %}{% else %}<a href="{% url 'user_details' log.catalyst_id %}" class="link">{{ log.catalyst.get_display_name }}</a>{% endif %})
 {% endspaceless %}
