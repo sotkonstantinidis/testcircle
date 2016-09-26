@@ -154,8 +154,8 @@ class ActionContextQuerySet(models.QuerySet):
         """
         return self.user_log_list(
             user=user
-        ).exclude(
-            id__in=ReadLog.objects.filter(user=user, is_read=True)
+        ).filter(
+            Q(readlog__isnull=True) | Q(readlog__is_read=False)
         ).only(
             'id'
         ).count()
