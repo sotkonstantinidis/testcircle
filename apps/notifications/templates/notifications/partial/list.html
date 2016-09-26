@@ -43,15 +43,16 @@
 <!-- end header -->
 
 {% for log in logs %}
-  <div class="notification-list row{% if log.is_read %} is-read{% endif %}">
+  <div class="notification-list row{% if log.is_read %} is-read{% endif %}" data-equalizer>
     <div class="small-2 medium-1 columns is-light is-muted">
       <span title="{{ log.created|naturaltime }}">{{ log.created|date:"SHORT_DATE_FORMAT" }}</span>
     </div>
     <div class="small-1 columns action-icon" title="{{ log.subject }}">
        <svg class="icon is-inline"><use xlink:href="#{{ log.action_icon }}" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
     </div>
-    <div class="small-6 medium-7 columns">
+    <div class="small-6 medium-7 columns" data-equalizer-watch>
       {{ log.text|safe }}
+      {% if log.next_status_text %} {% trans "Please handle its" %} {{ log.next_status_text }}.{% endif %}
     </div>
     <div class="small-2 columns">
       {% if log.is_todo %}
@@ -62,7 +63,7 @@
           </svg>
       {% endif %}
     </div>
-    <div class="small-1 columns text-center read-toggle">
+    <div class="small-1 columns text-center read-toggle" data-equalizer-watch>
       <input type="checkbox" value="{{ log.id }}" class="mark-done" {% if log.is_read %}checked="checked"{% endif %}>
     </div>
   </div>
@@ -73,7 +74,7 @@
   <div class="pagination-centered">
     <ul class="pagination">
       <li class="arrow{% if not page_obj.has_previous %} unavailable{% endif %}">
-        <a href="{% if page_obj.has_previous %}{% url 'notification_partial_list' %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}">&laquo;</a>
+        <a href="{% if page_obj.has_previous %}{{ path }}{{ page_obj.previous_page_number }}{% else %}#{% endif %}">&laquo;</a>
       </li>
       {% for page in page_obj.paginator.page_range %}
         <li {% if page == page_obj.number %}class="current"{% endif %}>
@@ -81,7 +82,7 @@
         </li>
       {% endfor %}
       <li class="arrow{% if not page_obj.has_next %} unavailable{% endif %}">
-        <a href="{% if page_obj.has_next %}{% url 'notification_partial_list' %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}">&raquo;</a>
+        <a href="{% if page_obj.has_next %}{{ path }}{{ page_obj.next_page_number }}{% else %}#{% endif %}">&raquo;</a>
       </li>
     </ul>
   </div>

@@ -59,6 +59,7 @@ class LogListView(LoginRequiredMixin, ListView):
             is_read = log.id in readlog_list
             # if a notification is read, it is assumed that it is resolved.
             is_todo = not is_read and log.id in pending_questionnaires
+            next_status_text = settings.NOTIFICATIONS_QUESTIONNAIRE_NEXT_STATUS_TEXT.get(log.questionnaire.status) if is_todo else False
             yield {
                 'id': log.id,
                 'created': log.created,
@@ -67,7 +68,8 @@ class LogListView(LoginRequiredMixin, ListView):
                 'action_icon': log.action_icon(),
                 'is_read': is_read,
                 'is_todo': is_todo,
-                'edit_url': log.questionnaire.get_edit_url() if is_todo else ''
+                'edit_url': log.questionnaire.get_edit_url() if is_todo else '',
+                'next_status_text': next_status_text
             }
 
     @property
