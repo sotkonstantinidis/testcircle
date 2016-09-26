@@ -537,8 +537,8 @@ class ImportObject(Logger):
 
     def collect_mapping(
             self, mappings, separator=None, value_mapping_list=None,
-            return_list=False, value_prefix='', return_row_values=False,
-            no_duplicates=False, table_data=None):
+            return_list=False, value_prefix='', value_suffix='',
+            return_row_values=False, no_duplicates=False, table_data=None):
         """
         Collect the values defined in the mapping.
 
@@ -554,6 +554,7 @@ class ImportObject(Logger):
             value_mapping_list: A dict of values to be used for the mapping.
             return_list: Boolean. Returns the values as list if true.
             value_prefix: A prefix to be added to the final value.
+            value_suffix: A suffix to be added to the final value.
             return_row_values: Return the entire row values of the mapping (
                 wocat_column is not respected). It is returned as list of dicts.
             no_duplicates: Boolean. Whether to remove duplicates from values
@@ -631,6 +632,7 @@ class ImportObject(Logger):
                         'value_mapping_list', value_mapping_list),
                     return_list=return_list,
                     value_prefix=mapping.get('value_prefix', ''),
+                    value_suffix=mapping.get('value_suffix', ''),
                     table_data=table_data)
                 if sub_value:
 
@@ -704,7 +706,7 @@ class ImportObject(Logger):
         values = separator.join(values)
 
         if values:
-            return '{}{}'.format(value_prefix, values)
+            return '{}{}{}'.format(value_prefix, values, value_suffix)
 
     def question_mapping(
             self, qcat_question_keyword, question_properties, table_data=None):
@@ -752,6 +754,7 @@ class ImportObject(Logger):
             separator=question_properties.get('composite', {}).get('separator'),
             value_mapping_list=question_properties.get('value_mapping_list'),
             value_prefix=question_properties.get('value_prefix', ''),
+            value_suffix=question_properties.get('value_suffix', ''),
             no_duplicates=no_duplicates, table_data=table_data)
 
         if q_type == 'string':
@@ -771,6 +774,7 @@ class ImportObject(Logger):
                     value_mapping_list=question_properties.get(
                         'value_mapping_list'),
                     value_prefix=question_properties.get('value_prefix', ''),
+                    value_suffix=question_properties.get('value_suffix', ''),
                     table_data=table_data)
 
                 if translated_value:

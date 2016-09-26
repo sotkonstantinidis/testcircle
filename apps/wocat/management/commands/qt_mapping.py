@@ -8519,6 +8519,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: better crop cover\n',
                         'value_prefix': 'Better crop cover\n',
                         'composite': {
                             'separator': '\n'
@@ -8543,6 +8544,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: early planting\n',
                         'value_prefix': 'Early planting\n',
                         'composite': {
                             'separator': '\n'
@@ -8567,6 +8569,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: relay cropping\n',
                         'value_prefix': 'Relay cropping\n',
                         'composite': {
                             'separator': '\n'
@@ -8591,6 +8594,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: mixed cropping / intercropping\n',
                         'value_prefix': 'Mixed cropping / intercropping\n',
                         'composite': {
                             'separator': '\n'
@@ -8615,6 +8619,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: contour planting / strip cropping\n',
                         'value_prefix': 'Contour planting / strip cropping\n',
                         'composite': {
                             'separator': '\n'
@@ -8639,6 +8644,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: cover cropping\n',
                         'value_prefix': 'Cover cropping\n',
                         'composite': {
                             'separator': '\n'
@@ -8663,6 +8669,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: retaining more vegetation cover\n',
                         'value_prefix': 'Retaining more vegetation cover\n',
                         'composite': {
                             'separator': '\n'
@@ -8687,6 +8694,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: mulching\n',
                         'value_prefix': 'Mulching\n',
                         'composite': {
                             'separator': '\n'
@@ -8711,6 +8719,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: temporary trashlines\n',
                         'value_prefix': 'Temporary trashlines\n',
                         'composite': {
                             'separator': '\n'
@@ -8847,6 +8856,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: green manure\n',
                         'value_prefix': 'Green manure\n',
                         'composite': {
                             'separator': '\n'
@@ -8871,6 +8881,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: legume inter-planting\n',
                         'value_prefix': 'Legume inter-planting\n',
                         'composite': {
                             'separator': '\n'
@@ -8895,6 +8906,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: manure / compost / residues\n',
                         'value_prefix': 'Manure / compost / residues\n',
                         'composite': {
                             'separator': '\n'
@@ -8919,6 +8931,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: mineral (inorganic) fertilizers\n',
                         'value_prefix': 'Mineral (inorganic) fertilizers\n',
                         'composite': {
                             'separator': '\n'
@@ -8943,6 +8956,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: soil conditioners (lime, gypsum)\n',
                         'value_prefix': 'Soil conditioners (lime, gypsum)\n',
                         'composite': {
                             'separator': '\n'
@@ -8967,6 +8981,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: rotations / fallows\n',
                         'value_prefix': 'Rotations / fallows\n',
                         'composite': {
                             'separator': '\n'
@@ -9103,6 +9118,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: breaking crust / sealed surface\n',
                         'value_prefix': 'Breaking crust / sealed surface\n',
                         'composite': {
                             'separator': '\n'
@@ -9127,6 +9143,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: breaking compacted topsoil\n',
                         'value_prefix': 'Breaking compacted topsoil\n',
                         'composite': {
                             'separator': '\n'
@@ -9151,6 +9168,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: zero tillage / no-till\n',
                         'value_prefix': 'Zero tillage / no-till\n',
                         'composite': {
                             'separator': '\n'
@@ -9175,6 +9193,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: minimum tillage\n',
                         'value_prefix': 'Minimum tillage\n',
                         'composite': {
                             'separator': '\n'
@@ -9199,6 +9218,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: non-inversion tillage\n',
                         'value_prefix': 'Non-inversion tillage\n',
                         'composite': {
                             'separator': '\n'
@@ -9223,6 +9243,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: contour tillage\n',
                         'value_prefix': 'Contour tillage\n',
                         'composite': {
                             'separator': '\n'
@@ -9247,6 +9268,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: contour ridging\n',
                         'value_prefix': 'Contour ridging\n',
                         'composite': {
                             'separator': '\n'
@@ -9271,6 +9293,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: furrows (drainage, irrigation)\n',
                         'value_prefix': 'Furrows (drainage, irrigation)\n',
                         'composite': {
                             'separator': '\n'
@@ -9295,6 +9318,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: pits\n',
                         'value_prefix': 'Pits\n',
                         'composite': {
                             'separator': '\n'
@@ -9319,6 +9343,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: breaking compacted subsoil\n',
                         'value_prefix': 'Breaking compacted subsoil\n',
                         'composite': {
                             'separator': '\n'
@@ -9343,6 +9368,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
+                        # 'value_prefix': 'Agronomic measure: deep tillage / double digging\n',
                         'value_prefix': 'Deep tillage / double digging\n',
                         'composite': {
                             'separator': '\n'
@@ -9516,7 +9542,8 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Vegetative measure: aligned: -contour\n',
+                        # 'value_prefix': 'Vegetative measure: aligned: -contour\n',
+                        'value_prefix': 'Aligned: -contour\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9576,7 +9603,8 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Vegetative measure: aligned: -graded strips\n',
+                        # 'value_prefix': 'Vegetative measure: aligned: -graded strips\n',
+                        'value_prefix': 'Aligned: -graded strips\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9636,7 +9664,8 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Vegetative measure: aligned: -against wind\n',
+                        # 'value_prefix': 'Vegetative measure: aligned: -against wind\n',
+                        'value_prefix': 'Aligned: -against wind\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9696,7 +9725,8 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Vegetative measure: aligned: -along boundary\n',
+                        # 'value_prefix': 'Vegetative measure: aligned: -along boundary\n',
+                        'value_prefix': 'Aligned: -along boundary\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9756,7 +9786,8 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Vegetative measure: aligned: -linear\n',
+                        # 'value_prefix': 'Vegetative measure: aligned: -linear\n',
+                        'value_prefix': 'Aligned: -linear\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9816,7 +9847,8 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Vegetative measure: scattered / dispersed\n',
+                        # 'value_prefix': 'Vegetative measure: scattered / dispersed\n',
+                        'value_prefix': 'Scattered / dispersed\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9876,7 +9908,8 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Vegetative measure: in blocks\n',
+                        # 'value_prefix': 'Vegetative measure: in blocks\n',
+                        'value_prefix': 'In blocks\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -10181,6 +10214,1298 @@ tech_qg_161 = {
                         'mapping_prefix': 'Gradient along the rows / strips: ',
                         'mapping_suffix': '%',
                     },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'ditch_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: diversion ditch/ drainage\n',
+                        'value_prefix': 'Diversion ditch/ drainage\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'waterway_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: waterway\n',
+                        'value_prefix': 'Waterway\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'spilway_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: spillway\n',
+                        'value_prefix': 'Spillway\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'dam_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: dam/ pan/ pond\n',
+                        'value_prefix': 'Dam/ pan/ pond\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'wall_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: wall/ barrier\n',
+                        'value_prefix': 'Wall/ barrier\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'sediment_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: retention/infiltration ditch/pit, sediment/sand trap\n',
+                        'value_prefix': 'Retention/infiltration ditch/pit, sediment/sand trap\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_forward_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: terrace: forward sloping\n',
+                        'value_prefix': 'Terrace: forward sloping\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_bench_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: terrace: bench level\n',
+                        'value_prefix': 'Terrace: bench level\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'terrace_backward_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: terrace: backward sloping\n',
+                        'value_prefix': 'Terrace: backward sloping\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_level_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: bund/ bank: level\n',
+                        'value_prefix': 'Bund/ bank: level\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_graded_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: bund/ bank: graded\n',
+                        'value_prefix': 'Bund/ bank: graded\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'bunk_trape_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: bund/ bank: semi-circular/V shaped trapezoidal\n',
+                        'value_prefix': 'Bund/ bank: semi-circular/V shaped trapezoidal\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'reshaping_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        # 'value_prefix': 'Structural measure: reshaping surface\n',
+                        'value_prefix': 'Reshaping surface\n',
+                        'composite': {
+                            'separator': '\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1',
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other1_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        },
+                        'value_prefix': 'Structural measure: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2',
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other2_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        },
+                        'value_prefix': 'Structural measure: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3',
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other3_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        },
+                        'value_prefix': 'Structural measure: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4',
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_material',
+                                'mapping_prefix': 'Material: '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_interval',
+                                'mapping_prefix': 'Vertical interval between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_spacing',
+                                'mapping_prefix': 'Spacing between structures (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_1_depth',
+                                'mapping_prefix': 'Depth of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_1_width',
+                                'mapping_prefix': 'Width of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_1_length',
+                                'mapping_prefix': 'Length of ditches/pits/dams (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_2_height',
+                                'mapping_prefix': 'Height of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_2_width',
+                                'mapping_prefix': 'Width of bunds/banks/others (m): '
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1',
+                                'wocat_column': 'other4_2_length',
+                                'mapping_prefix': 'Length of bunds/banks/others (m): '
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        },
+                        'value_prefix': 'Structural measure: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'earth',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Construction material (earth): ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'stone',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Construction material (stone): ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'wood',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Construction material (wood): ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'concrete',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Construction material (concrete): ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'other',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Construction material (other): ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'slope',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Slope (which determines the spacing indicated above): ',
+                        'value_suffix': '%',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'slope_today',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'If the original slope has changed as a result of the Technology, the slope today is: ',
+                        'value_suffix': '%',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'gradient',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Lateral gradient along the structure: ',
+                        'value_suffix': '%',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'capacity',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Specification of dams/ pans/ ponds: Capacity ',
+                        'value_suffix': 'm3',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'catchment_area',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Catchment area: ',
+                        'value_suffix': 'm2',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'beneficial_area',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Beneficial area: ',
+                        'value_suffix': 'm2',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'slope_dam_wall_inside',
+                                'mapping_prefix': 'Slope of dam wall inside: ',
+                                'mapping_suffix': '%'
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'slope_dam_wall_outside',
+                                'mapping_prefix': 'Slope of dam wall outside: ',
+                                'mapping_suffix': '%'
+                            }
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ';\n'
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'dimensions_spillways',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Dimensions of spillways: ',
+                        'value_suffix': 'm',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'other_specifications',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Other specifications: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'harvesting_ration',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'For water harvesting: the ratio between the area where the harvested water is applied and the total area from which water is collected is: 1:',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_3_1_1',
+                                'wocat_column': 'vegetation_used',
+                                'value_mapping': 'Vegetation is used for stabilisation of structures.'
+                            }
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_5_3_1_1',
+                                        'wocat_column': 'vegetation_used',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '4',
+                            },
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'change_land_use_type',
+                                'value_mapping': 'Change of land use type',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_5_4_1',
+                                                'wocat_column': 'change_land_use_type_specify',
+                                            }
+                                        ],
+                                        'operator': 'is_empty'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'change_land_use_type_specify',
+                                'mapping_prefix': 'Change of land use type: '
+                            },
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'change_land_use_practices',
+                                'value_mapping': 'Change of land use practices / intensity level',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_5_4_1',
+                                                'wocat_column': 'change_land_use_practices_specify',
+                                            }
+                                        ],
+                                        'operator': 'is_empty'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'change_land_use_practices_specify',
+                                'mapping_prefix': 'Change of land use practices / intensity level: '
+                            },
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'layout_change',
+                                'value_mapping': 'Layout change according to natural and human environment',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_5_4_1',
+                                                'wocat_column': 'layout_change_specify',
+                                            }
+                                        ],
+                                        'operator': 'is_empty'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'layout_change_specify',
+                                'mapping_prefix': 'Layout change according to natural and human environment: '
+                            },
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'timing_changes',
+                                'value_mapping': 'Major change in timing of activities',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_5_4_1',
+                                                'wocat_column': 'timing_changes_specify',
+                                            }
+                                        ],
+                                        'operator': 'is_empty'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'timing_changes_specify',
+                                'mapping_prefix': 'Major change in timing of activities: '
+                            },
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'change_species',
+                                'value_mapping': 'Control / change of species composition',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_5_4_1',
+                                                'wocat_column': 'change_species_specify',
+                                            }
+                                        ],
+                                        'operator': 'is_empty'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'change_species_specify',
+                                'mapping_prefix': 'Control / change of species composition: '
+                            },
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'other',
+                                'value_mapping': 'Other type of management',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_5_4_1',
+                                                'wocat_column': 'other_specify',
+                                            }
+                                        ],
+                                        'operator': 'is_empty'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_4_1',
+                                'wocat_column': 'other_specify',
+                                'mapping_prefix': 'Other type of management: '
+                            },
+                        ],
+                        'type': 'string',
+                    },
                 ],
                 'type': 'string',
             }
@@ -10353,6 +11678,45 @@ tech_qg_43 = {
     }
 }
 
+# 4.7 Maintenance costs: Comments
+tech_qg_52 = {
+    'tech_qg_52': {
+        'questions': {
+            # 'tech_input_maint_remaining_costs': {},
+            'tech_input_maint_comments': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_5_1_3_2',
+                                'wocat_column': 'machinery',
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_2_2_3',
+                                'wocat_column': 'machinery',
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_3_2_3',
+                                'wocat_column': 'machinery',
+                            },
+                            {
+                                'wocat_table': 'qt_2_5_4_2_3',
+                                'wocat_column': 'machinery',
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': ', '
+                        },
+                        'value_prefix': 'Machinery/ tools: ',
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
 
 questiongroups = [
     qg_name,
@@ -10392,6 +11756,7 @@ questiongroups = [
     tech_qg_161,  # Technical specifications
     tech_qg_165,  # 4.4 Establishment activities
     tech_qg_43,  # 4.6 Maintenance/ recurrent activities
+    tech_qg_52,  # 4.7 Maintenance costs: Comments
 ]
 
 qt_mapping = {}
