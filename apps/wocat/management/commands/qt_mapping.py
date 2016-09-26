@@ -8519,7 +8519,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: better crop cover\n',
+                        'value_prefix': 'Better crop cover\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8543,7 +8543,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: early planting\n',
+                        'value_prefix': 'Early planting\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8567,7 +8567,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: relay cropping\n',
+                        'value_prefix': 'Relay cropping\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8591,7 +8591,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: mixed cropping / intercropping\n',
+                        'value_prefix': 'Mixed cropping / intercropping\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8615,7 +8615,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: contour planting / strip cropping\n',
+                        'value_prefix': 'Contour planting / strip cropping\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8639,7 +8639,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: cover cropping\n',
+                        'value_prefix': 'Cover cropping\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8663,7 +8663,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: retaining more vegetation cover\n',
+                        'value_prefix': 'Retaining more vegetation cover\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8687,7 +8687,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: mulching\n',
+                        'value_prefix': 'Mulching\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8711,7 +8711,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: temporary trashlines\n',
+                        'value_prefix': 'Temporary trashlines\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8847,7 +8847,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: green manure\n',
+                        'value_prefix': 'Green manure\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8871,7 +8871,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: legume inter-planting\n',
+                        'value_prefix': 'Legume inter-planting\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8895,7 +8895,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: manure / compost / residues\n',
+                        'value_prefix': 'Manure / compost / residues\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8919,7 +8919,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: mineral (inorganic) fertilizers\n',
+                        'value_prefix': 'Mineral (inorganic) fertilizers\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8943,7 +8943,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: soil conditioners (lime, gypsum)\n',
+                        'value_prefix': 'Soil conditioners (lime, gypsum)\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -8967,7 +8967,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: rotations / fallows\n',
+                        'value_prefix': 'Rotations / fallows\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9103,7 +9103,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: breaking crust / sealed surface\n',
+                        'value_prefix': 'Breaking crust / sealed surface\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9127,7 +9127,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: breaking compacted topsoil\n',
+                        'value_prefix': 'Breaking compacted topsoil\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9151,7 +9151,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: zero tillage / no-till\n',
+                        'value_prefix': 'Zero tillage / no-till\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9175,7 +9175,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: minimum tillage\n',
+                        'value_prefix': 'Minimum tillage\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9199,7 +9199,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: non-inversion tillage\n',
+                        'value_prefix': 'Non-inversion tillage\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9223,7 +9223,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: contour tillage\n',
+                        'value_prefix': 'Contour tillage\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9247,7 +9247,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: contour ridging\n',
+                        'value_prefix': 'Contour ridging\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9271,7 +9271,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: furrows (drainage, irrigation)\n',
+                        'value_prefix': 'Furrows (drainage, irrigation)\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9295,7 +9295,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: pits\n',
+                        'value_prefix': 'Pits\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9319,7 +9319,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: breaking compacted subsoil\n',
+                        'value_prefix': 'Breaking compacted subsoil\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -9343,7 +9343,7 @@ tech_qg_161 = {
                             },
                         ],
                         'type': 'string',
-                        'value_prefix': 'Agronomic measure: deep tillage / double digging\n',
+                        'value_prefix': 'Deep tillage / double digging\n',
                         'composite': {
                             'separator': '\n'
                         }
@@ -10361,7 +10361,7 @@ questiongroups = [
     qg_accept_conditions,
     qg_photos,
     tech_qg_1,  # Definition
-    # tech_qg_2,  # Description
+    tech_qg_2,  # Description
     qg_location_map,
     tech_qg_225,  # Location comments
     tech_qg_160,  # 2.6 Date of implementation

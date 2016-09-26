@@ -299,13 +299,22 @@ class ImportObject(Logger):
             -
         """
         cleaned_data, errors = clean_questionnaire_data(
-            self.data_json, configuration)
+            self.data_json, configuration, no_limit_check=True)
 
         for error in errors:
             self.add_error('validation', error)
 
-        if not errors:
-            self.data_json_cleaned = cleaned_data
+        if errors:
+            return
+
+        # Since max_length is ignored, add at least a mapping message that the
+        # text was too long
+        __, errors_text_limit = clean_questionnaire_data(
+            self.data_json, configuration, no_limit_check=False)
+        for error in errors_text_limit:
+            self.add_mapping_message('Ignoring max_length error: {}'.format(error))
+
+        self.data_json_cleaned = cleaned_data
 
     def save(self, configuration, import_user):
         """
