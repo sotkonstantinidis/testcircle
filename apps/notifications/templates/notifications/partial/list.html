@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load humanize %}
+{% load static %}
 
 <!-- header -->
 <div class="notification-list header row">
@@ -27,7 +28,7 @@
        data-tooltip aria-haspopup="true" data-options="disable_for_touch:true"
        title="{% trans "Display only notifications for questionnaires that can be approved by you." %}">
       <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
-      {% trans "Approval" %}
+      {% trans "Approve" %}
     </a>
     <div id="todo-filter" class="is-filter" data-toggler=".hide">
       <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
@@ -51,11 +52,19 @@
     </div>
     <div class="small-2 columns">
       {% if log.is_todo %}
-        <svg class="icon alert is-inline has-tip" data-tooltip aria-haspopup="true"
+          <svg class="icon alert is-inline has-tip" data-reveal-id="show-workflow-{{ log.id }}"
+             data-tooltip aria-haspopup="true"
              data-options="disable_for_touch:true"
-             title="{% trans "You may approve this questionnaire for the next step on the publication workflow." %}">
-          <use xlink:href="#icon-alert" xmlns:xlink="http://www.w3.org/1999/xlink"/>
-        </svg>
+             title="{% trans "You may approve this questionnaire for the next step on the publication workflow. Click for more details." %}">
+            <use xlink:href="#icon-alert" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+          </svg>
+        <div id="show-workflow-{{ log.id }}" class="reveal-modal" data-reveal aria-labelledby="workflow-{{ log.id }}" aria-hidden="true" role="dialog">
+          <h2 id="workflow-{{ log.id }}">{% trans "Workflow progress detail" %}</h2>
+          <p>{% trans "This questionnaires current status ... was approved by ... on ..." %}</p>
+          <p>{% trans "You have the permissions to ... this questionnaire, and with that progress it to the next step on the workflow to its publication." %}</p>
+          <p>{% trans "maybe: link to infographic workflow?" %}</p>
+          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
       {% endif %}
     </div>
     <div class="small-1 columns text-center read-toggle">

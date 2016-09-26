@@ -47,6 +47,7 @@
     background: #fff;
     font-weight: 300;
     color: $color-beige-dark;
+    border-bottom: 2px solid $color-beige;
 
     svg.icon {
       display: inline !important;
@@ -84,6 +85,7 @@
 
     &.alert {
       color: $color-orange-light;
+      cursor: pointer;
     }
   }
   .read-toggle {
@@ -96,5 +98,10 @@
 #notifications-list {
   .pagination-centered {
     padding-top: rem-calc(5);
+
+    a:hover {
+      background-color: $color-orange;
+      color: #fff;
+    }
   }
 }
