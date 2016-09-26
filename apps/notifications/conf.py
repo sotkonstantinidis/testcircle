@@ -65,4 +65,4 @@ class NotificationsConf(AppConf):
     EMAIL_ACTIONS = [CHANGE_STATUS]
 
     TEASER_PAGINATE_BY = 5
-    LIST_PAGINATE_BY = 20
+    LIST_PAGINATE_BY = 10

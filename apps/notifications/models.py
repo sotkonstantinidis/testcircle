@@ -154,11 +154,17 @@ class ActionContextQuerySet(models.QuerySet):
         """
         return self.user_log_list(
             user=user
-        ).filter(
-            Q(readlog__isnull=True) | Q(readlog__is_read=False)
         ).only(
             'id'
         ).count()
+
+    def only_unread_logs(self, user: User):
+        """
+        Filter out read logs.
+        """
+        return self.exclude(
+            Q(readlog__is_read=True, readlog__user=user)
+        )
 
     def read_logs(self, user: User, **filters):
         """

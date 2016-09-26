@@ -106,9 +106,7 @@ class LogListView(LoginRequiredMixin, ListView):
         if self.requested_questionnaire:
             qs = qs.filter(questionnaire__code=self.requested_questionnaire)
         if 'is_unread' in self.request.GET.keys():
-            qs = qs.filter(
-                Q(readlog__isnull=True) | Q(readlog__is_read=False)
-            )
+            qs = qs.only_unread_logs(user=self.request.user)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -172,7 +170,11 @@ class LogCountView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         return HttpResponse(
-            content=Log.actions.user_log_count(user=self.request.user)
+            content=Log.actions.only_unread_logs(
+                user=self.request.user
+            ).user_log_count(
+                user=self.request.user
+            )
         )
 
 
@@ -187,7 +189,9 @@ class LogQuestionnairesListView(LoginRequiredMixin, View):
         """
         Get all distinct questionnaires that the user has logs for.
         """
-        return Log.actions.user_log_list(
+        return Log.actions.only_unread_logs(
+            user=user
+        ).user_log_list(
             user=user
         ).values_list(
             'questionnaire__code', flat=True
