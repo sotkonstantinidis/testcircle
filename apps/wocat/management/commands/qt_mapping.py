@@ -10137,10 +10137,219 @@ tech_qg_161 = {
                             'separator': '\n'
                         }
                     },
+                    # 2.5.2.1 Species and slope/gradient
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'trees',
+                        'mapping_prefix': 'Trees/ shrubs species: '
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'fruit_trees',
+                        'mapping_prefix': 'Fruit trees / shrubs species: '
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'crops',
+                        'mapping_prefix': 'Perennial crops species: '
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'grass',
+                        'mapping_prefix': 'Grass species: '
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'other',
+                        'mapping_prefix': 'Other species: '
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'slope',
+                        'mapping_prefix': 'Slope (which determines the spacing indicated above): ',
+                        'mapping_suffix': '%',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'slope_today',
+                        'mapping_prefix': 'If the original slope has changed as a result of the Technology, the slope today is (see figure below): ',
+                        'mapping_suffix': '%',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_1_1',
+                        'wocat_column': 'gradient',
+                        'mapping_prefix': 'Gradient along the rows / strips: ',
+                        'mapping_suffix': '%',
+                    },
                 ],
                 'type': 'string',
             }
         }
+    }
+}
+
+# 4.4 Establishment activities
+tech_qg_165 = {
+    'tech_qg_165': {
+        'questions': {
+            'tech_est_activity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_5_2_2_1',
+                        'wocat_column': 'activity',
+                        'order_value': 'v',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_3_2_1',
+                        'wocat_column': 'activity',
+                        'order_value': 's',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_4_2_1',
+                        'wocat_column': 'activity',
+                        'order_value': 'm',
+                    },
+                ],
+                'type': 'string',
+            },
+            'tech_est_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_5_2_2_1',
+                        'order_value': 'v',
+                        'value_mapping': 'tech_est_type_v',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_3_2_1',
+                        'order_value': 's',
+                        'value_mapping': 'tech_est_type_s',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_4_2_1',
+                        'order_value': 'm',
+                        'value_mapping': 'tech_est_type_m',
+                    },
+                ],
+                'type': 'dropdown'
+            },
+            'tech_est_timing': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_5_2_2_1',
+                        'wocat_column': 'timing_frequency',
+                        'order_value': 'v',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_3_2_1',
+                        'wocat_column': 'timing_frequency',
+                        'order_value': 's',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_4_2_1',
+                        'wocat_column': 'timing_frequency',
+                        'order_value': 'm',
+                    },
+                ],
+                'type': 'string',
+            },
+        },
+        'repeating_rows': True,
+        'unique': True,
+        'mapping_order_column': {
+            'wocat_table': 'qt_2_2_2_2',
+            'wocat_column': 'sort_order'
+        },
+        'sort_function': 'sort_by_key(k, "sort_order", none_value=1000)',
+    }
+}
+
+# 4.6 Maintenance/ recurrent activities
+tech_qg_43 = {
+    'tech_qg_43': {
+        'questions': {
+            'tech_maint_activity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_5_1_3',
+                        'wocat_column': 'activity',
+                        'order_value': 'a',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_2_2',
+                        'wocat_column': 'activity',
+                        'order_value': 'v',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_3_2_2',
+                        'wocat_column': 'activity',
+                        'order_value': 's',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_4_2_2',
+                        'wocat_column': 'activity',
+                        'order_value': 'm',
+                    },
+                ],
+                'type': 'string',
+            },
+            'tech_maint_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_5_1_3',
+                        'order_value': 'a',
+                        'value_mapping': 'tech_est_type_a',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_2_2',
+                        'order_value': 'v',
+                        'value_mapping': 'tech_est_type_v',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_3_2_2',
+                        'order_value': 's',
+                        'value_mapping': 'tech_est_type_s',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_4_2_2',
+                        'order_value': 'm',
+                        'value_mapping': 'tech_est_type_m',
+                    },
+                ],
+                'type': 'dropdown'
+            },
+            'tech_maint_timing': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_5_1_3',
+                        'wocat_column': 'timing_frequency',
+                        'order_value': 'a',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_2_2_2',
+                        'wocat_column': 'timing_frequency',
+                        'order_value': 'v',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_3_2_2',
+                        'wocat_column': 'timing_frequency',
+                        'order_value': 's',
+                    },
+                    {
+                        'wocat_table': 'qt_2_5_4_2_2',
+                        'wocat_column': 'timing_frequency',
+                        'order_value': 'm',
+                    },
+                ],
+                'type': 'string',
+            },
+        },
+        'repeating_rows': True,
+        'unique': True,
+        'mapping_order_column': {
+            'wocat_table': 'qt_2_2_2_2',
+            'wocat_column': 'sort_order'
+        },
+        'sort_function': 'sort_by_key(k, "sort_order", none_value=1000)',
     }
 }
 
@@ -10181,6 +10390,8 @@ questiongroups = [
     tech_qg_34,  # Main type of land degradation: Comments
     tech_qg_185,  # Technical drawing
     tech_qg_161,  # Technical specifications
+    tech_qg_165,  # 4.4 Establishment activities
+    tech_qg_43,  # 4.6 Maintenance/ recurrent activities
 ]
 
 qt_mapping = {}

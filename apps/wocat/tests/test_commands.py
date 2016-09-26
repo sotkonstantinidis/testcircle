@@ -714,6 +714,79 @@ class TestImport(WOCATImport):
                 }
             }
         },
+        'qg_25': {
+            'questions': {
+                'question_25_1': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_25_1',
+                            'wocat_column': 'column_25_1_1',
+                            'order_value': 'b',
+                        },
+                        {
+                            'wocat_table': 'table_25_2',
+                            'wocat_column': 'column_25_2_1',
+                            'order_value': 'a',
+                        }
+                    ],
+                    'type': 'string',
+                },
+                'question_25_2': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_25_1',
+                            'wocat_column': 'column_25_1_2',
+                            'order_value': 'b',
+                        },
+                        {
+                            'wocat_table': 'table_25_2',
+                            'wocat_column': 'column_25_2_2',
+                            'order_value': 'a',
+                        }
+                    ],
+                    'type': 'string',
+                },
+                'question_25_3': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_25_1',
+                            'wocat_column': 'column_25_1_3',
+                            'order_value': 'b',
+                        },
+                        {
+                            'wocat_table': 'table_25_2',
+                            'wocat_column': 'column_25_2_3',
+                            'order_value': 'a',
+                        },
+                    ],
+                    'type': 'dropdown'
+                },
+                'question_25_4': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_25_1',
+                            # 'wocat_column': 'column_25_1_4',  # Not necessary
+                            'order_value': 'b',
+                            'value_mapping': 'value_1'
+                        },
+                        {
+                            'wocat_table': 'table_25_2',
+                            # 'wocat_column': 'column_25_2_4',
+                            'order_value': 'a',
+                            'value_mapping': 'value_2'
+                        }
+                    ],
+                    'type': 'dropdown'
+                }
+            },
+            'repeating_rows': True,
+            'unique': True,
+            'mapping_order_column': {
+                'wocat_table': 'table_25_3',
+                'wocat_column': 'column_25_3_1'
+            },
+            'sort_function': 'sort_by_key(k, "sort_order")',
+        }
     }
     configuration_code = 'sample'
 
@@ -936,6 +1009,43 @@ class DoMappingTest(TestCase):
                     'column_24_1': 'Faz',
                     'column_24_condition': '2'
                 }
+            ],
+            'table_25_1': [
+                {
+                    'column_25_1_1': 'Foo 1',
+                    'column_25_1_2': 'Faz 1',
+                    'column_25_1_3': '1',
+                    'sort_order': '2'
+                },
+                {
+                    'column_25_1_1': 'Foo 2',
+                    'column_25_1_2': 'Faz 2',
+                    'column_25_1_3': '2',
+                    'sort_order': '1',
+                }
+            ],
+            'table_25_2': [
+                {
+                    'column_25_2_1': 'Foo 3',
+                    'column_25_2_2': 'Faz 3',
+                    'column_25_2_3': '3',
+                },
+                {
+                    'column_25_2_1': 'Foo 4',
+                    'column_25_2_2': 'Faz 4',
+                    'column_25_2_3': '4',
+                },
+                {
+                    # Will be removed
+                    'column_25_2_1': '',
+                    'column_25_2_2': '',
+                    'column_25_2_3': '',
+                }
+            ],
+            'table_25_3': [
+                {
+                    'column_25_3_1': 'ab'
+                }
             ]
         }
         lookup_table_text = {}
@@ -1100,7 +1210,35 @@ class DoMappingTest(TestCase):
                     'column_24_1': 'Faz',
                     'column_24_condition': '1'
                 }
-            ]
+            ],
+            'table_25_1': [
+                {
+                    'id': 1,
+                    'column_25_1_1': 'Foo 1',
+                    'column_25_1_2': 'Faz 1',
+                },
+                {
+                    'id': 2,
+                    'column_25_1_1': 'Foo 2',
+                },
+                {
+                    # Duplicate entry, will be removed.
+                    'id': 3,
+                    'column_25_1_1': 'Foo 1',
+                    'column_25_1_2': 'Faz 1',
+                },
+            ],
+            'table_25_2': [
+                {
+                    'id': 1,
+                    'column_25_2_2': 'Faz 3',
+                },
+                {
+                    'id': 2,
+                    'column_25_2_1': 'Foo 4',
+                    'column_25_2_2': 'Faz 4',
+                }
+            ],
         }
         lookup_table_text = {}
         file_infos = {}
@@ -1138,7 +1276,27 @@ class DoMappingTest(TestCase):
                     'column_24_1': 'Faz',
                     'column_24_condition': '2'
                 }
-            ]
+            ],
+            'table_25_1': [
+                {
+                    'column_25_1_1': 'Foo 1 English',
+                    'column_25_1_2': 'Faz 1 English',
+                },
+                {
+                    'column_25_1_1': 'Foo 2 English',
+                    'column_25_1_2': 'Faz 2 English',
+                }
+            ],
+            'table_25_2': [
+                {
+                    'column_25_2_1': 'Foo 3 English',
+                    'column_25_2_2': 'Faz 3 English',
+                },
+                {
+                    'column_25_2_1': 'Foo 4 English',
+                    'column_25_2_2': 'Faz 4 English',
+                }
+            ],
         }
         lookup_table_text = {}
         file_infos = {}
@@ -1161,6 +1319,25 @@ class DoMappingTest(TestCase):
                 {
                     'column_3_1': 'wocat_value_3_2'
                 }
+            ],
+            'table_25_1': [
+                {
+                    'column_25_1_1': 'Foo 1 French',
+                    'column_25_1_2': 'Faz 1 French',
+                },
+                {
+                    'column_25_1_1': 'Foo 2 French',
+                    'column_25_1_2': 'Faz 2 French',
+                }
+            ],
+            'table_25_2': [
+                {
+                    'column_25_2_1': 'Foo 3 French',
+                    'column_25_2_2': 'Faz 3 French',
+                },
+                {
+                    'column_25_2_1': 'Foo 4 French',
+                },
             ],
         }
 
@@ -1662,3 +1839,82 @@ class DoMappingTest(TestCase):
         ])
         import_object_3 = self.imprt.import_objects[2]
         self.assertIsNone(import_object_3.data_json.get('qg_24'))
+
+    def test_repeating_questiongroup_multiple_tables(self):
+        self.imprt.check_translations()
+        self.imprt.do_mapping()
+        import_object_1 = self.imprt.import_objects[0]
+        qg_data_25 = import_object_1.data_json.get('qg_25')
+        self.assertEqual(len(qg_data_25), 4)
+        self.assertEqual(qg_data_25[0], {
+            'question_25_1': {'en': 'Foo 3'},
+            'question_25_2': {'en': 'Faz 3'},
+            'question_25_3': '3',
+            'question_25_4': 'value_2',
+        })
+        self.assertEqual(qg_data_25[1], {
+            'question_25_1': {'en': 'Foo 4'},
+            'question_25_2': {'en': 'Faz 4'},
+            'question_25_3': '4',
+            'question_25_4': 'value_2',
+        })
+        self.assertEqual(qg_data_25[2], {
+            'question_25_1': {'en': 'Foo 2'},
+            'question_25_2': {'en': 'Faz 2'},
+            'question_25_3': '2',
+            'question_25_4': 'value_1',
+        })
+        self.assertEqual(qg_data_25[3], {
+            'question_25_1': {'en': 'Foo 1'},
+            'question_25_2': {'en': 'Faz 1'},
+            'question_25_3': '1',
+            'question_25_4': 'value_1',
+        })
+        import_object_2 = self.imprt.import_objects[1]
+        qg_data_25 = import_object_2.data_json.get('qg_25')
+        self.assertEqual(len(qg_data_25), 4)
+        self.assertEqual(qg_data_25[0], {
+            'question_25_1': {'en': 'Foo 1'},
+            'question_25_2': {'en': 'Faz 1'},
+            'question_25_4': 'value_1',
+        })
+        self.assertEqual(qg_data_25[1], {
+            'question_25_1': {'en': 'Foo 2'},
+            'question_25_4': 'value_1',
+        })
+        self.assertEqual(qg_data_25[2], {
+            'question_25_2': {'en': 'Faz 3'},
+            'question_25_4': 'value_2',
+        })
+        self.assertEqual(qg_data_25[3], {
+            'question_25_1': {'en': 'Foo 4'},
+            'question_25_2': {'en': 'Faz 4'},
+            'question_25_4': 'value_2',
+        })
+        import_object_3 = self.imprt.import_objects[2]
+        qg_data_25 = import_object_3.data_json.get('qg_25')
+        self.assertEqual(len(qg_data_25), 4)
+        self.assertEqual(qg_data_25[0], {
+            'question_25_1': {'en': 'Foo 1 English', 'fr': 'Foo 1 French'},
+            'question_25_2': {'en': 'Faz 1 English', 'fr': 'Faz 1 French'},
+            'question_25_4': 'value_1',
+        })
+        self.assertEqual(qg_data_25[1], {
+            'question_25_1': {'en': 'Foo 2 English', 'fr': 'Foo 2 French'},
+            'question_25_2': {'en': 'Faz 2 English', 'fr': 'Faz 2 French'},
+            'question_25_4': 'value_1',
+        })
+        self.assertEqual(qg_data_25[2], {
+            'question_25_1': {'en': 'Foo 3 English', 'fr': 'Foo 3 French'},
+            'question_25_2': {'en': 'Faz 3 English', 'fr': 'Faz 3 French'},
+            'question_25_4': 'value_2',
+        })
+        self.assertEqual(qg_data_25[3], {
+            'question_25_1': {'en': 'Foo 4 English', 'fr': 'Foo 4 French'},
+            'question_25_2': {'en': 'Faz 4 English'},
+            'question_25_4': 'value_2',
+        })
+        self.assertIn(
+            'Number of translations for table_25_2 in language "fr" do not '
+            'match the number of original entries.',
+            import_object_3.mapping_messages)

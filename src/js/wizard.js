@@ -409,15 +409,16 @@ $(function () {
             otherItems.find('[data-remove-this]').show();
 
             var lastItem = container.prev('.list-item');
+            var doNumberingUpdate = false;
 
             // If the item to clone is a table row, we need to find it inside
             // the table
             var isTableRow = typeof $(this).data('add-table-row') !== 'undefined';
             if (isTableRow) {
                 lastItem = container.prev('.outer-list-item').find('.list-item:first-child');
+                doNumberingUpdate = true;
             }
 
-            var doNumberingUpdate = false;
             if (!lastItem.length) {
                 // The element might be numbered, in which case it needs to be
                 // accessed differently

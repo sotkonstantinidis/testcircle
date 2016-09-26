@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 import re
 from datetime import datetime
 import json
@@ -923,6 +925,176 @@ class ImportObject(Logger):
                 qcat_question_keyword: values
             }
 
+    def row_mapping(self, qg_properties):
+        """
+        Collect and map WOCAT data by row.
+
+        Args:
+            qg_properties: dict.
+
+        Returns:
+            list.
+        """
+
+        """
+        Transform the mapping so it is grouped by table and then by columns.
+        {
+            'questions': {
+                'question_1': {
+                    'mappings': [
+                        {
+                            'wocat_table': 'table_1',
+                            'wocat_column': 'column_1',
+                        }
+                    ]
+                }
+            }
+        }
+
+        {
+            'table_1': [
+                {
+                    'wocat_table': 'table_1',
+                    'wocat_column': 'column_1',
+                    'question': '',
+                    'type': '',
+                }
+            ]
+        }
+        """
+        mapping_order = None
+        if qg_properties.get('mapping_order_column'):
+            mapping_order = self.collect_mapping(
+                [qg_properties.get('mapping_order_column')])
+        mappings_by_table = OrderedDict()
+        for q_name, q_properties in qg_properties.get('questions', {}).items():
+            mappings = q_properties.get('mapping', [])
+
+            # Order the mapping if necessary
+            if mapping_order:
+                mappings_ordered = []
+                for order_entry in list(mapping_order):
+                    ordered_entry = next((item for item in mappings if item.get(
+                        'order_value') == order_entry), None)
+                    if ordered_entry:
+                        mappings_ordered.append(ordered_entry)
+                if len(mappings_ordered) != len(mappings):
+                    raise Exception(
+                        'Something went wrong with the ordered mapping.')
+                mappings = mappings_ordered
+
+            for mapping in mappings:
+                table_name = mapping.get('wocat_table')
+                if table_name not in mappings_by_table:
+                    mappings_by_table[table_name] = []
+                mapping.update({
+                    'question': q_name,
+                    'type': q_properties.get('type'),
+                })
+                if mapping not in mappings_by_table[table_name]:
+                    mappings_by_table[table_name].append(mapping)
+
+        values = []
+        for table_name, table_mappings in mappings_by_table.items():
+
+            # Collect the rows for each table.
+            fake_mappings = [{'wocat_table': table_name}]
+            row_values = self.collect_mapping(
+                fake_mappings, return_list=True, return_row_values=True)
+
+            # Sort the values if necessary.
+            sort_function = qg_properties.get('sort_function')
+            if sort_function:
+                row_values = sorted(
+                    row_values, key=lambda k: eval(sort_function))
+
+            # Get translations if available. Sort these values as well.
+            translated_row_values = {}
+            for translation_object in self.translations:
+                translated_row = translation_object.collect_mapping(
+                    fake_mappings, return_list=True, return_row_values=True)
+
+                sort_function = qg_properties.get('sort_function')
+                if sort_function:
+                    translated_row = sorted(
+                        translated_row, key=lambda k: eval(sort_function))
+
+                translated_row_values[
+                    translation_object.language] = translated_row
+
+            for i, row_value in enumerate(row_values):
+                # Put together the values of each row.
+
+                value_entry = {}
+                value_mapping_entries = {}
+                for table_mapping in table_mappings:
+                    column_name = table_mapping.get('wocat_column')
+                    value_mapping = table_mapping.get('value_mapping')
+                    question_name = table_mapping.get('question')
+                    question_type = table_mapping.get('type')
+
+                    if value_mapping is not None:
+                        row_value.update({'value_mapping': value_mapping})
+                        column_name = 'value_mapping'
+                        value_mapping_entries[question_name] = value_mapping
+
+                    if not column_name:
+                        continue
+
+                    single_value = row_value.get(column_name)
+                    if not single_value:
+                        continue
+
+                    if question_type == 'string':
+                        # For strings, also add the translations.
+                        text_value = {self.language: single_value}
+
+                        for lang, lang_data in translated_row_values.items():
+
+                            if len(lang_data) != len(row_values):
+                                self.add_mapping_message(
+                                    'Number of translations for {} in language '
+                                    '"{}" do not match the number of original '
+                                    'entries.'.format(
+                                        table_name,
+                                        lang))
+
+                            try:
+                                translated_row = lang_data[i]
+                            except IndexError:
+                                continue
+
+                            if len(translated_row) != len(row_value):
+                                self.add_mapping_message(
+                                    'Number of translations for {} in language '
+                                    '"{}" do not match the number of original '
+                                    'entries.'.format(
+                                        table_name,
+                                        lang))
+
+                            translated_value = translated_row.get(column_name)
+                            if translated_value is None:
+                                continue
+
+                            text_value[lang] = translated_value
+
+                        single_value = text_value
+
+                    value_entry[question_name] = single_value
+
+                # If there are only the mapping entries in the value dict, skip
+                # it.
+                if value_entry == value_mapping_entries:
+                    continue
+
+                if qg_properties.get('unique', False) is True and value_entry in values:
+                    continue
+
+                if value_entry:
+                    values.append(value_entry)
+
+        return values
+
     def questiongroup_mapping(
             self, qcat_questiongroup_keyword, questiongroup_properties):
         """
@@ -1004,6 +1176,17 @@ class ImportObject(Logger):
                 single_questiongroup_mapping(
                     qcat_questiongroup_keyword, questiongroup_properties,
                     table_data=data)
+
+        elif questiongroup_properties.get('repeating_rows', False) is True:
+            qg_data = self.row_mapping(questiongroup_properties)
+
+            existing_qg_data = self.data_json.get(
+                qcat_questiongroup_keyword, [])
+            if qg_data:
+                existing_qg_data.extend(qg_data)
+
+            if existing_qg_data:
+                self.data_json[qcat_questiongroup_keyword] = existing_qg_data
 
         else:
             single_questiongroup_mapping(
