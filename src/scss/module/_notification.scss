@@ -94,6 +94,10 @@
   }
   .read-toggle {
     background-color: rgba($color-beige, 0.3);
+    input {
+      width: 1.5em;
+      height: 1.5em;
+    }
   }
   &.is-read {
     opacity: 0.4;
