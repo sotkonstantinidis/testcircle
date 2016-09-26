@@ -103,7 +103,7 @@ class LogListView(LoginRequiredMixin, ListView):
         qs = getattr(Log.actions, self.queryset_method)(user=self.request.user)
         if self.requested_questionnaire:
             qs = qs.filter(questionnaire__code=self.requested_questionnaire)
-        if 'is_read' in self.request.GET.keys():
+        if 'is_unread' in self.request.GET.keys():
             qs = qs.filter(
                 Q(readlog__isnull=True) | Q(readlog__is_read=False)
             )

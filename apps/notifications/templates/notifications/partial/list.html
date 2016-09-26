@@ -9,7 +9,7 @@
   <div class="small-6 medium-7 columns">
     <a id="questionnaire-filter-toggler"
        class="has-tip tip-right{% if 'questionnaire' in request.GET.keys and request.GET.questionnaire != '' %} is-active-filter{% endif %}"
-       data-tooltip aria-haspopup="true" data-options="disable_for_touch:true"
+       data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
        title="{% trans "Show entries for one questionnaire only." %}">
       <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
       {% trans "Questionnaires" %}
@@ -24,28 +24,20 @@
     </div>
   </div>
   <div class="small-2 columns text-center">
-    <a data-toggle="todo-filter" class="has-tip tip-right{% if 'is_pending' in request.GET.keys %} is-active-filter{% endif %}"
-       data-tooltip aria-haspopup="true" data-options="disable_for_touch:true"
-       title="{% trans "Display only notifications for questionnaires that can be approved by you." %}">
+    <a id="is-pending" class="has-tip tip-right{% if 'is_pending' in request.GET.keys %} is-active-filter{% endif %}"
+       data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
+       title="{% trans "Click to display only notifications for questionnaires that can be approved by you." %}">
       <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
       {% trans "Approve" %}
     </a>
-    <div id="todo-filter" class="is-filter hide-filter" data-toggler=".hide">
-      <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
-      <label for="is-pending">{% trans "Pending only" %}</label>
-    </div>
   </div>
   <div class="small-1 columns text-center">
-    <a data-toggle="is-read-filter" class="has-tip tip-right"
-       data-tooltip aria-haspopup="true" data-options="disable_for_touch:true"
-       title="{% trans "Display unread notifications only." %}">
+    <a id="is-unread" class="has-tip tip-right{% if 'is_unread' in request.GET.keys %} is-active-filter{% endif %}"
+       data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
+       title="{% trans "Click to show unread notifications only." %}">
       <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
-      {% trans "Read" %}
+      {% trans "Unread" %}
     </a>
-    <div id="is-read-filter" class="is-filter hide-filter" data-toggler=".hide">
-      <input type="checkbox" id="is-read">
-      <label for="is-read">{% trans "Unread only" %}</label>
-    </div>
   </div>
 </div>
 <!-- end header -->
@@ -63,19 +55,11 @@
     </div>
     <div class="small-2 columns">
       {% if log.is_todo %}
-          <svg class="icon alert is-inline has-tip" data-reveal-id="show-workflow-{{ log.id }}"
-             data-tooltip aria-haspopup="true"
-             data-options="disable_for_touch:true"
-             title="{% trans "You may approve this questionnaire for the next step on the publication workflow. Click for more details." %}">
+          <svg class="icon alert is-inline has-tip"
+               data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
+               title="{% trans "You may approve this questionnaire for the next step on the publication workflow." %}">
             <use xlink:href="#icon-alert" xmlns:xlink="http://www.w3.org/1999/xlink"/>
           </svg>
-        <div id="show-workflow-{{ log.id }}" class="reveal-modal" data-reveal aria-labelledby="workflow-{{ log.id }}" aria-hidden="true" role="dialog">
-          <h2 id="workflow-{{ log.id }}">{% trans "Workflow progress detail" %}</h2>
-          <p>{% trans "This questionnaires current status ... was approved by ... on ..." %}</p>
-          <p>{% trans "You have the permissions to ... this questionnaire, and with that progress it to the next step on the workflow to its publication." %}</p>
-          <p>{% trans "maybe: link to infographic workflow?" %}</p>
-          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-        </div>
       {% endif %}
     </div>
     <div class="small-1 columns text-center read-toggle">
@@ -101,6 +85,4 @@
       </li>
     </ul>
   </div>
-  <script type="text/javascript">$(document).foundation();</script>
 {% endif %}
-

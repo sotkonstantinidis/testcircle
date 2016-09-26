@@ -6,14 +6,16 @@
             questionnaire: '',
             isTeaser: false,
             isPending: false,
-            isRead: true
+            isUnRead: false
         };
         var settings = $.extend( {}, defaults, options );
         var elem = this;
         var page = 1;
 
         // load initial data
-        elem.load(settings.notificationsUrl + settings.initialParams);
+        elem.load(settings.notificationsUrl + settings.initialParams, function() {
+            showTooltips();
+        });
 
         // load data when clicking on pagination item
         elem.on('click', 'ul.pagination li a', function(event) {
@@ -23,6 +25,7 @@
                 method: 'GET'
             }).done(function (data) {
                 elem.html(data);
+                showTooltips();
             });
             return false;
         });
@@ -43,21 +46,8 @@
         });
 
         // filter for 'isPending' and 'isRead'
-        function addFilter(selector, flagName) {
-            elem.on('click', selector, function() {
-                elem.html(settings.spinner);
-                settings[flagName] = $(this).is(':checked');
-                page = 1;
-                $.ajax({
-                    url: get_url(),
-                    method: 'GET'
-                }).done(function(data) {
-                    elem.html(data);
-                });
-            });
-        }
         addFilter('#is-pending', 'isPending');
-        addFilter('#is-read', 'isRead');
+        addFilter('#is-unread', 'isUnRead');
 
         // handle filters for pending and questionnaires
         elem.on('click', '#questionnaire-filter-toggler', function() {
@@ -89,6 +79,7 @@
                               method: 'GET'
                             }).done(function(data) {
                               elem.html(data);
+                              showTooltips();
                             });
                         });
                     });
@@ -96,6 +87,26 @@
                 $(this).removeClass('hide');
             });
         });
+
+        /**
+         * Helper for 'toggle' filter elements (pending, is_unread).
+         * @param selector
+         * @param flagName
+         */
+        function addFilter(selector, flagName) {
+            elem.on('click', selector, function() {
+                elem.html(settings.spinner);
+                settings[flagName] = ! $(this).hasClass('is-active-filter');
+                page = 1;
+                $.ajax({
+                    url: get_url(),
+                    method: 'GET'
+                }).done(function(data) {
+                    elem.html(data);
+                    showTooltips();
+                });
+            });
+        }
 
         /**
          * Helper to create the proper url depending on state of 'pending'
@@ -107,16 +118,27 @@
 
             if (settings.isTeaser) url += '&is_teaser';
 
-            var isPendingDOM = $('#is-pending').is(':checked');
+            var isPendingDOM = $('#is-pending').hasClass('is-active-filter');
             if (settings.isPending || isPendingDOM) url += '&is_pending';
 
-            var isReadDOM = $('#is-read').is(':checked');
-            if (settings.isRead || isReadDOM) url += '&is_read';
+            var isUnReadDOM = $('#is-unread').hasClass('is-active-filter');
+            if (settings.isUnRead || isUnReadDOM) url += '&is_unread';
 
             if (settings.questionnaire != '') {
                 url += '&questionnaire=' + settings.questionnaire;
             }
             return url
+        }
+
+        /**
+         * Foundations tooltips are appended to the body. This can be changed
+         * with the options-attribute: append_to. However, this leads to faulty
+         * display of the tips. Therefore remove old tips before loading the new
+         * ones.
+         */
+        function showTooltips() {
+            $('span[role="tooltip"]').remove();
+            elem.foundation();
         }
     };
 }(jQuery));
