@@ -208,7 +208,7 @@ class LogQuestionnairesListView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         questionnaires = sorted(
-            self.get_questionnaire_logs(user=request.user),
+            set(self.get_questionnaire_logs(user=request.user)),
             key=self.questionnaire_sort
         )
         return JsonResponse({'questionnaires': questionnaires})
