@@ -56,9 +56,13 @@
     .chosen-select, .chosen-container {
       padding: 0;
     }
-    #todo-filter {
+    .hide-filter {
       padding: 0;
       display: none;
+
+      label {
+        margin: rem-calc(3) 0;
+      }
     }
     .is-active-filter {
       background-color: $color-blue;

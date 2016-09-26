@@ -30,12 +30,23 @@
       <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
       {% trans "Approve" %}
     </a>
-    <div id="todo-filter" class="is-filter" data-toggler=".hide">
+    <div id="todo-filter" class="is-filter hide-filter" data-toggler=".hide">
       <input type="checkbox" {% if 'is_pending' in request.GET.keys %}checked="checked"{% endif %} id="is-pending">
-      <label for="is-pending">{% trans "Only pending" %}</label>
+      <label for="is-pending">{% trans "Pending only" %}</label>
     </div>
   </div>
-  <div class="small-1 columns text-center">{% trans "Read" %}</div>
+  <div class="small-1 columns text-center">
+    <a data-toggle="is-read-filter" class="has-tip tip-right"
+       data-tooltip aria-haspopup="true" data-options="disable_for_touch:true"
+       title="{% trans "Display unread notifications only." %}">
+      <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+      {% trans "Read" %}
+    </a>
+    <div id="is-read-filter" class="is-filter hide-filter" data-toggler=".hide">
+      <input type="checkbox" id="is-read">
+      <label for="is-read">{% trans "Unread only" %}</label>
+    </div>
+  </div>
 </div>
 <!-- end header -->
 

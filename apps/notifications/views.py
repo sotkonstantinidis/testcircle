@@ -1,9 +1,8 @@
 import logging
 from typing import Iterable
 
-from accounts.models import User
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -11,16 +10,15 @@ from django.utils.functional import cached_property
 from django.views.generic import ListView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
-from qcat.utils import url_with_querystring
 
+from accounts.models import User
 from .models import Log, ReadLog
-
 
 logger = logging.getLogger(__name__)
 
 
 class LogListTemplateView(LoginRequiredMixin, TemplateView):
-    template_name='notifications/log_list.html'
+    template_name = 'notifications/log_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,6 +103,10 @@ class LogListView(LoginRequiredMixin, ListView):
         qs = getattr(Log.actions, self.queryset_method)(user=self.request.user)
         if self.requested_questionnaire:
             qs = qs.filter(questionnaire__code=self.requested_questionnaire)
+        if 'is_read' in self.request.GET.keys():
+            qs = qs.filter(
+                Q(readlog__isnull=True) | Q(readlog__is_read=False)
+            )
         return qs
 
     def get_context_data(self, **kwargs):
@@ -148,7 +150,8 @@ class ReadLogUpdateView(LoginRequiredMixin, View):
         if is_valid:
             ReadLog.objects.update_or_create(
                 user_id=data['user'], log_id=data['log'],
-                defaults={'is_read': True if data['checked'] == 'true' else False}
+                defaults={
+                    'is_read': True if data['checked'] == 'true' else False}
             )
             return HttpResponse(status=200)
         else:
