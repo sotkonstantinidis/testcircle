@@ -1,13 +1,15 @@
 from unittest import mock
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.db.models import QuerySet
 from django.http import Http404
 from django.test import RequestFactory
 
 from braces.views import LoginRequiredMixin
 from model_mommy import mommy
-from notifications.models import Log
+from notifications.models import Log, StatusUpdate, MemberUpdate, ReadLog
 from notifications.views import LogListView, LogCountView, ReadLogUpdateView
 from qcat.tests import TestCase
 
@@ -23,8 +25,18 @@ class LogListViewTest(TestCase):
         self.view_instance = self.setup_view(
             view=self.view, request=self.request
         )
-        mommy.make(model=Log, id=8)
-        mommy.make(model=Log, id=42)
+        member_add_log = mommy.make(
+            model=Log,
+            id=8,
+            action=settings.NOTIFICATIONS_ADD_MEMBER
+        )
+        change_log = mommy.make(
+            model=Log,
+            id=42,
+            action=settings.NOTIFICATIONS_CHANGE_STATUS
+        )
+        mommy.make(model=StatusUpdate, log=change_log)
+        mommy.make(model=MemberUpdate, log=member_add_log)
 
     def get_view_with_get_querystring(self, param):
         request = RequestFactory().get(
@@ -75,29 +87,6 @@ class LogListViewTest(TestCase):
         self.view_instance.object_list = 'foo'
         self.view_instance.get_context_data()
         mock_add_user_aware_data.assert_called_once_with('foo')
-
-    def test_get_context_data_path(self):
-        self.view_instance.object_list = 'foo'
-        context = self.view_instance.get_context_data()
-        self.assertEqual(
-            context['path'], '{}?page='.format(self.url_path)
-        )
-
-    def test_get_context_data_path_pending(self):
-        view = self.get_view_with_get_querystring('is_pending')
-        view.object_list = ''
-        context = view.get_context_data()
-        self.assertEqual(
-            context['path'], '{}?is_pending=True&page='.format(self.url_path)
-        )
-
-    def test_get_context_data_path_teaser(self):
-        view = self.get_view_with_get_querystring('is_teaser')
-        view.object_list = ''
-        context = view.get_context_data()
-        self.assertEqual(
-            context['path'], '{}?is_teaser=True&page='.format(self.url_path)
-        )
 
     def _test_add_user_aware_data(self):
         # for faster tests, mock all the elements. elements are created here
@@ -189,16 +178,43 @@ class ReadLogUpdateViewTest(TestCase):
             self.view_instance.post(request=self.request)
 
 
-
 class LogCountViewTest(TestCase):
 
-    @mock.patch('notifications.views.Log.actions.user_log_count')
-    def test_get(self, mock_user_log_count):
-        mock_user_log_count.return_value = '123'
-        request = RequestFactory().get(reverse('notification_new_count'))
-        request.user = {}
-        view = self.setup_view(view=LogCountView(), request=request)
-        response = view.get(request=request)
-        self.assertEqual(
-            response.content, b'123'
+    def setUp(self):
+        super().setUp()
+        self.request = RequestFactory().get(reverse('notification_new_count'))
+        self.request.user = mommy.make(get_user_model())
+        self.view = self.setup_view(view=LogCountView(), request=self.request)
+        mommy.make(
+            model=Log,
+            catalyst=self.request.user,
+            action=settings.NOTIFICATIONS_CHANGE_STATUS,
+            _quantity=4
         )
+        mommy.make(
+            model=Log,
+            catalyst=self.request.user,
+            action=settings.NOTIFICATIONS_EDIT_CONTENT,
+            _quantity=2
+        )
+
+    @mock.patch('notifications.views.Log.actions.only_unread_logs')
+    def test_get_unread_only(self, mock_only_unread_logs):
+        self.view.get(request=self.request)
+        mock_only_unread_logs.assert_called_once_with(
+            user=self.request.user
+        )
+
+    def test_log_count(self):
+        response = self.view.get(request=self.request)
+        self.assertEqual(response.content, b'4')
+
+    def test_log_count_one_read(self):
+        mommy.make(
+            model=ReadLog,
+            log=Log.objects.filter(action=settings.NOTIFICATIONS_CHANGE_STATUS).first(),
+            user=self.request.user,
+            is_read=True
+        )
+        response = self.view.get(request=self.request)
+        self.assertEqual(response.content, b'3')

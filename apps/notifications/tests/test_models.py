@@ -81,17 +81,23 @@ class ActionContextTest(TestCase):
 
     @override_settings(NOTIFICATIONS_CHANGE_STATUS='baz')
     @override_settings(NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS={'foo': 'bar'})
-    def test_get_questionnaires_for_permissions(self):
-        user  = MagicMock(get_all_permissions=lambda: ['foo'])
+    @patch.object(QuestionnaireMembership, 'objects')
+    def test_get_questionnaires_for_permissions(self, mock_membership):
+        mock_membership.return_value = []
+        user = MagicMock(get_all_permissions=lambda: ['foo'])
         permissions = self.qs.get_questionnaires_for_permissions(user=user)
+        # asserting strings is a workaround. tried assertListEqual and
+        # assertQuerysetEqual, but they raise errors for unknown reasons.
         self.assertEqual(
-            permissions,
-            [Q(questionnaire__status='bar', action='baz')]
+            permissions[0].__str__(),
+            Q(statusupdate__status='bar', action='baz').__str__()
         )
 
     @override_settings(NOTIFICATIONS_QUESTIONNAIRE_STATUS_PERMISSIONS={'foo': 'bar'})
-    def test_get_questionnaires_for_permissions(self):
+    @patch.object(QuestionnaireMembership, 'objects')
+    def test_get_questionnaires_without_permissions(self, mock_membership):
         user = MagicMock(get_all_permissions=lambda: ['bar'])
+        mock_membership.return_value = []
         permissions = self.qs.get_questionnaires_for_permissions(user=user)
         self.assertEqual(permissions, [])
 
@@ -160,7 +166,7 @@ class ActionContextTest(TestCase):
         )
 
     def test_user_log_count(self):
-        # Old notification for same questionnaire
+        # Test count for all unread questionnaires
         catalyst_change_old = mommy.make(
             model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
@@ -172,24 +178,29 @@ class ActionContextTest(TestCase):
             log=catalyst_change_old,
             status=settings.QUESTIONNAIRE_SUBMITTED
         )
-        # both notifications are listed, but only one 'counts', as only one
-        # must be worked on (the new one). as the qs is ordered by creation, the
-        # old one comes first.
+
         self.assertQuerysetEqual(
             Log.actions.user_log_list(self.reviewer),
             [catalyst_change_old.id, self.catalyst_change.id],
             transform=self.transform
         )
+
         self.assertEqual(
             Log.actions.user_log_count(self.reviewer),
-            1
+            2
         )
 
-    def test_user_log_zero_subscriber(self):
-        for role in ['subscriber', 'catalyst', 'publisher']:
+    def test_only_unread_logs(self):
+        pass
+
+    def test_user_log_roles(self):
+        # subscriber and catalyst should see the log 'catalyst_change'
+        roles = {'subscriber': 1, 'catalyst': 1, 'publisher': 0}
+        for role, logs in roles.items():
             self.assertEqual(
-                Log.actions.user_log_count(getattr(self, role)), 0
+                Log.actions.user_log_count(getattr(self, role)), logs
             )
+
 
     def test_read_logs_admin(self):
         self.assertQuerysetEqual(

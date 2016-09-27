@@ -71,15 +71,6 @@ class ReceiverTest(TestCase):
     def test_change_status(self):
         self._test_init_call(signal=change_status, log_type='StatusLog')
 
-    def test_change_status_draft_no_notifiction(self):
-        create = self._test_create_call(
-            signal=change_status,
-            log_type='StatusLog',
-            do_assert_call=False,
-            questionnaire=MagicMock(status=settings.QUESTIONNAIRE_DRAFT)
-        )
-        create.assert_not_called()
-
     def test_change_status_create(self):
         self._test_create_call(
             signal=change_status, log_type='StatusLog',
