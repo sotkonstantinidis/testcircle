@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 import time
 from django.conf import settings
@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
 from notifications.models import Log, StatusUpdate, ReadLog
+from notifications.views import LogListView
 from questionnaire.models import Questionnaire
 
 from functional_tests.base import FunctionalTest
@@ -44,28 +45,36 @@ class NotificationSetupMixin:
             base=self.live_server_url,
             profile=reverse('account_questionnaires')
         )
+        self.notifications_xpath = "//div[(contains(@class, 'notification-list') " \
+                                   " and not(contains(@class, 'header')))]"
+
+    def create_status_log(self, user):
+        log = mommy.make(
+            Log,
+            catalyst=user,
+            action=settings.NOTIFICATIONS_CHANGE_STATUS
+        )
+        mommy.make(model=StatusUpdate, log=log)
 
 
 class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
 
     def test_notification_display(self):
         # From a logged in state, open the profile page
-
         self.doLogin(user=self.robin)
         self.browser.get(self.profile_url)
         # no notifications are available
         self.assertTrue(
-            self.findBy('id', 'latest-notification-updates').text.startswith(
-                'No notifications.'
-            )
+            'No notifications.' in
+            self.findBy('id', 'latest-notification-updates').text
         )
         # create a new notification
-        mommy.make(model=Log, catalyst=self.robin )
-
+        self.create_status_log(self.robin)
         # After a reload, the notification for robin is shown, displaying one
         # notification log.
         self.browser.get(self.profile_url)
-        logs = self.findManyBy('class_name', 'notification-list')
+        logs = self.findManyBy('xpath', self.notifications_xpath)
+
         self.assertEqual(len(logs), 1)
         # and the pagination is available.
         self.findBy('class_name', 'pagination-centered')
@@ -79,7 +88,7 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
         self.browser.get(self.profile_url)
 
         # Exactly one notification and the label for 'pending' is shown.
-        logs = self.findManyBy('class_name', 'notification-list')
+        logs = self.findManyBy('xpath', self.notifications_xpath)
         self.assertEqual(len(logs), 1)
         self.findBy('class_name', 'is-pending')
 
@@ -109,18 +118,17 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
         # For the compiler of this log, jay, the is-pending label is not shown.
         self.doLogin(user=self.jay)
         self.browser.get(self.profile_url)
-        logs = self.findManyBy('class_name', 'notification-list')
+        logs = self.findManyBy('xpath', self.notifications_xpath)
         self.assertEqual(len(logs), 1)
-        self.findByNot('class_name', 'is-pending')
+        self.findByNot('xpath', "//svg[(contains(@class, 'alert')]")
 
     def test_pagination(self):
-        mommy.make(
-            model=Log, _quantity=15, catalyst=self.jay
-        )
+        for i in range(9):
+            self.create_status_log(self.jay)
         # Jay has many notifications, but only a slice is shown.
         self.doLogin(user=self.jay)
         self.browser.get(self.profile_url)
-        logs = self.findManyBy('class_name', 'notification-list')
+        logs = self.findManyBy('xpath', self.notifications_xpath)
         self.assertEqual(len(logs), settings.NOTIFICATIONS_TEASER_PAGINATE_BY)
 
         # The other notifications are paginated. The 'previous' button is not
@@ -190,12 +198,10 @@ class NotificationsListTest(NotificationSetupMixin, FunctionalTest):
         # A box to select only pending notifications is shown
         self.findBy('id', 'is-pending')
 
-        # The actual list conatins one element only
+        # The actual list contains one element only
         notifications = self.findBy(
             'id', 'notifications-list'
-        ).find_elements_by_class_name(
-            'notification-list'
-        )
+        ).find_elements_by_xpath(self.notifications_xpath)
         self.assertEqual(1, len(notifications))
 
     def test_empty_notifications_list(self):
@@ -204,45 +210,51 @@ class NotificationsListTest(NotificationSetupMixin, FunctionalTest):
         self.browser.get(self.notifications_url)
         # but no notifications are shown.
         notifications = self.findBy('id', 'notifications-list')
-        self.assertTrue(
-            notifications.text.startswith('No notifications.')
-        )
+        self.assertTrue('No notifications.' in notifications.text)
 
     def test_pagination(self):
-        mommy.make(
-            model=Log, _quantity=21, catalyst=self.jay
-        )
+        # could be made nicer with recipes.
+        for i in range(18):
+            self.create_status_log(self.jay)
+
         # Jay has many notifications, but only a slice is shown.
         self.doLogin(user=self.jay)
         self.browser.get(self.notifications_url)
-        logs = self.findManyBy('class_name', 'notification-list')
+        logs = self.findManyBy('xpath', self.notifications_xpath)
         self.assertEqual(len(logs), settings.NOTIFICATIONS_LIST_PAGINATE_BY)
 
     @patch('django.contrib.auth.backends.ModelBackend.get_all_permissions')
     def test_todo_notifications(self, mock_permissions):
+        log = mommy.make(
+            Log,
+            catalyst=self.robin,
+            action=settings.NOTIFICATIONS_CHANGE_STATUS
+        )
+        mommy.make(StatusUpdate, log=log)
+
         # Robin is now also a reviewer and logs in
-        mommy.make(Log, catalyst=self.robin)
         mock_permissions.return_value = ['questionnaire.review_questionnaire']
         self.doLogin(user=self.robin)
         self.browser.get(self.notifications_url)
         # Initially, a massive amount of two notifications is shown.
-        self.assertEqual(
-            2, len(self.findManyBy('class_name', 'notification-list'))
-        )
+        elements = self.findManyBy('xpath', self.notifications_xpath)
+        self.assertEqual(2, len(elements))
         # So Robin clicks the box to filter only 'pending' logs, resulting in
         # one log only.
         self.findBy('id', 'is-pending').click()
         self.assertEqual(
-            1, len(self.findManyBy('class_name', 'notification-list'))
+            1, len(self.findManyBy('xpath', self.notifications_xpath))
         )
         # After clicking the box again, all logs are shown.
         self.findBy('id', 'is-pending').click()
         self.assertEqual(
-            2, len(self.findManyBy('class_name', 'notification-list'))
+            2, len(self.findManyBy('xpath', self.notifications_xpath))
         )
 
+    @patch.object(LogListView, 'add_user_aware_data')
     @patch('django.contrib.auth.backends.ModelBackend.get_all_permissions')
-    def test_todo_notifications_get_param(self, mock_permissions):
+    def test_todo_notifications_get_param(self, mock_permissions, mock_user_aware_data):
+        mock_user_aware_data.return_value = yield MagicMock()
         # Robin the reviewer visits the page for notifications with the
         # get-parameter to show pending logs only.
         mommy.make(Log, catalyst=self.robin, _quantity=3)

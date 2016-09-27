@@ -1,8 +1,13 @@
 from unittest.mock import patch
 
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
-from functional_tests.base import FunctionalTest
+from model_mommy import mommy
 
+
+from functional_tests.base import FunctionalTest
+from notifications.models import Log
 from wocat.tests.test_views import route_home
 
 
@@ -20,26 +25,32 @@ class MenuIndicatorTest(FunctionalTest):
         self.findByNot('class_name', 'notification-indicator')
 
         # After the login,
-        self.doLogin()
+        user = mommy.make(get_user_model())
+        self.doLogin(user=user)
         # there are not logs to be shown.
         self.findByNot('class_name', 'notification-indicator')
 
         # Someone else triggers an action which creates a new task for Alice
-        with patch('notifications.models.Log.actions.user_log_count') as count:
-            count.return_value = 42
+        mommy.make(
+            model=Log,
+            catalyst=user,
+            action=settings.NOTIFICATIONS_CHANGE_STATUS,
+            _quantity=5
+        )
 
-            # so after loading the page agein, the indicator exists
-            self.browser.get(start_site_url)
-            link_element = self.findBy('class_name', 'notification-indicator')
+        # so after loading the page agein, the indicator exists
+        self.browser.get(start_site_url)
 
-            # The proper number is displayed
-            self.assertEqual(link_element.text, str(count.return_value))
+        link_element = self.findBy('class_name', 'notification-indicator')
 
-            # The link points to the notification list view.
-            pending_url = '{base}{notification_list}?is_pending'.format(
-                base=self.live_server_url,
-                notification_list=reverse('notification_list')
-            )
-            self.assertEqual(
-                link_element.get_attribute('href'), pending_url
-            )
+        # The proper number is displayed
+        self.assertEqual(link_element.text, '5')
+
+        # The link points to the notification list view.
+        pending_url = '{base}{notification_list}?is_unread'.format(
+            base=self.live_server_url,
+            notification_list=reverse('notification_list')
+        )
+        self.assertEqual(
+            link_element.get_attribute('href'), pending_url
+        )
