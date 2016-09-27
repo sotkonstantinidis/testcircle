@@ -3,14 +3,15 @@ from unittest import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
-from django.db.models import QuerySet
 from django.http import Http404
 from django.test import RequestFactory
 
 from braces.views import LoginRequiredMixin
 from model_mommy import mommy
-from notifications.models import Log, StatusUpdate, MemberUpdate, ReadLog
-from notifications.views import LogListView, LogCountView, ReadLogUpdateView
+from notifications.models import Log, StatusUpdate, MemberUpdate, ReadLog, \
+    ActionContextQuerySet
+from notifications.views import LogListView, LogCountView, ReadLogUpdateView, \
+    LogQuestionnairesListView
 from qcat.tests import TestCase
 
 
@@ -218,3 +219,27 @@ class LogCountViewTest(TestCase):
         )
         response = self.view.get(request=self.request)
         self.assertEqual(response.content, b'3')
+
+
+class LogQuestionnairesListViewTest(TestCase):
+
+    def setUp(self):
+        super().setUp()
+        self.request = RequestFactory().get(reverse('notification_questionnaire_logs'))
+        self.request.user = 'foo'
+        self.view = self.setup_view(view=LogQuestionnairesListView(), request=self.request)
+
+    @mock.patch.object(ActionContextQuerySet, 'user_log_list')
+    def test_get_questionnaire_logs(self, mock_user_log_list):
+        self.view.get_questionnaire_logs('foo')
+        mock_user_log_list.assert_called_once_with(user='foo')
+
+
+    @mock.patch.object(LogQuestionnairesListView, 'get_questionnaire_logs')
+    def test_get(self, mock_get_questionnaire_logs):
+        mock_get_questionnaire_logs.return_value = ['foo_1', 'foo_2', 'bar_3']
+        response = self.view.get(self.request)
+        self.assertEqual(
+            response.content, b'{"questionnaires": ["bar_3", "foo_1", "foo_2"]}'
+        )
+

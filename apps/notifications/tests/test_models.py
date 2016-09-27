@@ -147,6 +147,17 @@ class ActionContextTest(TestCase):
             Log.actions.user_log_list(self.publisher).exists()
         )
 
+    def test_list_includes_edit_for_compiler(self):
+        mommy.make(
+            model=QuestionnaireMembership,
+            questionnaire=self.questionnaire,
+            user=self.catalyst,
+            role=settings.QUESTIONNAIRE_COMPILER
+        )
+        self.assertTrue(
+            self.catalyst_edit in Log.actions.user_log_list(self.catalyst)
+        )
+
     def test_user_pending_list_reviewer_has_log(self):
         self.assertQuerysetEqual(
             Log.actions.user_pending_list(self.reviewer),
@@ -191,7 +202,37 @@ class ActionContextTest(TestCase):
         )
 
     def test_only_unread_logs(self):
-        pass
+        self.assertQuerysetEqual(
+            Log.actions.only_unread_logs(self.catalyst),
+            [self.catalyst_edit.id, self.catalyst_change.id],
+            transform=self.transform
+        )
+
+    def test_only_unread_logs_is_read(self):
+        mommy.make(
+            model=ReadLog,
+            is_read=True,
+            user=self.catalyst,
+            log=self.catalyst_edit
+        )
+        self.assertQuerysetEqual(
+            Log.actions.only_unread_logs(self.catalyst),
+            [self.catalyst_change.id],
+            transform=self.transform
+        )
+
+    def test_only_unread_logs_is_not_read(self):
+        mommy.make(
+            model=ReadLog,
+            is_read=False,
+            user=self.catalyst,
+            log=self.catalyst_edit
+        )
+        self.assertQuerysetEqual(
+            Log.actions.only_unread_logs(self.catalyst),
+            [self.catalyst_edit.id, self.catalyst_change.id],
+            transform=self.transform
+        )
 
     def test_user_log_roles(self):
         # subscriber and catalyst should see the log 'catalyst_change'
@@ -200,7 +241,6 @@ class ActionContextTest(TestCase):
             self.assertEqual(
                 Log.actions.user_log_count(getattr(self, role)), logs
             )
-
 
     def test_read_logs_admin(self):
         self.assertQuerysetEqual(

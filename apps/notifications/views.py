@@ -189,9 +189,7 @@ class LogQuestionnairesListView(LoginRequiredMixin, View):
         """
         Get all distinct questionnaires that the user has logs for.
         """
-        return Log.actions.only_unread_logs(
-            user=user
-        ).user_log_list(
+        return Log.actions.user_log_list(
             user=user
         ).values_list(
             'questionnaire__code', flat=True
