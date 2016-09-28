@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
 from notifications.models import Log, StatusUpdate, ReadLog
-from notifications.views import LogListView
+from notifications.views import LogListView, LogQuestionnairesListView
 from questionnaire.models import Questionnaire
 
 from functional_tests.base import FunctionalTest
@@ -274,4 +274,94 @@ class NotificationsListTest(NotificationSetupMixin, FunctionalTest):
         time.sleep(1)
         self.assertEqual(
             4, len(self.findManyBy('class_name', 'notification-list'))
+        )
+
+    def test_filter_approve(self):
+        # Jay logs in
+        self.doLogin(user=self.jay)
+        self.browser.get(self.notifications_url)
+        # And clicks the filter for 'approve'
+        self.findBy('id', 'is-pending').click()
+        # the filter is now active, and the list empty.
+        pending = self.findBy('id', 'is-pending')
+        self.assertTrue('is-active-filter' in pending.get_attribute('class'))
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            0
+        )
+        # A new notification is created by another person
+        self.create_status_log(self.jay)
+        # jay reloads the page, applies the same filter again, and the element
+        # is visible.
+        self.browser.get(self.notifications_url)
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            Log.actions.user_log_list(self.jay).count()
+        )
+
+        # however, the element is also not pending.
+        self.findBy('id', 'is-pending').click()
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            0
+        )
+
+    def test_filter_read(self):
+        # jay just doesn't get enough of these notifications. so the page is
+        # opened.
+        self.doLogin(user=self.jay)
+        self.browser.get(self.notifications_url)
+        # the filter for 'read' is not set yet
+        self.assertFalse(
+            'is-active-filter' in
+            self.findBy('id', 'is-unread').get_attribute('class')
+        )
+        # jay clicks the filter for 'read' logs
+        self.findBy('id', 'is-unread').click()
+        # the filter is now unactive, and the list empty.
+        self.assertTrue(
+            'is-active-filter' in
+            self.findBy('id', 'is-unread').get_attribute('class'))
+        # one element is shown.
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            1
+        )
+        # jay has read this element and clicks on the indicator on the page
+        # header
+        self.findBy('class_name', 'mark-done').click()
+        self.findBy('class_name', 'notification-indicator').click()
+        # the filter is now switched on by default.
+        self.assertTrue(
+            'is-active-filter' in
+            self.findBy('id', 'is-unread').get_attribute('class')
+        )
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            0
+        )
+
+    @patch.object(LogQuestionnairesListView, 'get_questionnaire_logs')
+    def test_filter_questionnaire(self, mock_get_list):
+        mock_get_list.return_value = ['foo_1', 'bar_2']
+        # Robin opens the notifications page
+        self.doLogin(user=self.robin)
+        self.browser.get(self.notifications_url)
+        # and clicks on the filter for 'questionnaire', opening the dropdown
+        self.findBy('id', 'questionnaire-filter-toggler').click()
+        self.findBy('id', 'questionnaire-filter').is_displayed()
+        self.findBy('class_name', 'chosen-container').click()
+        select = self.findBy('class_name', 'chosen-results').find_elements_by_tag_name('li')
+        # there are three options available ('all' and the mock return_values)
+        self.assertEqual(
+            len(select),
+            3
+        )
+        # robin clicks the second element and the filter is now active
+        select[2].click()
+        # self.wait_for doesn't work, as the elemnt is in the dom already.
+        time.sleep(1)
+        self.assertTrue(
+            'is-active-filter' in
+            self.findBy('id', 'questionnaire-filter-toggler').get_attribute('class')
         )
