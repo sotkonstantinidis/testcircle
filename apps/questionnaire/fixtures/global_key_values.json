@@ -672,6 +672,11 @@
           "helptext": {
             "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
+        },
+        "cca": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities of the technology"
+          }
         }
       }
     },
@@ -716,6 +721,11 @@
           "helptext": {
             "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
+        },
+        "cca": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks"
+          }
         }
       }
     },
@@ -751,6 +761,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "How can they be overcome?"
+          }
+        },
+        "cca": {
           "label": {
             "en": "How can they be overcome?"
           }

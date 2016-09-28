@@ -1043,6 +1043,34 @@
       "data": {
         "cca": {
           "label": {
+            "en": "Conclusions and lessons learnt"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 25000
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "References and links"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 26000
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Name of the SLM Technology (hereafter referred to as the Technology) as per Core Questionnaire on SLM Technologies Question QT Core 1.1"
           }
         }
@@ -1266,6 +1294,40 @@
     },
     "model": "configuration.translation",
     "pk": 22300
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities of the Technology"
+          },
+          "helptext": {
+            "en": "Give a concluding statement about the Technology with regard to gradual climate changes and climate-related extremes (disasters)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 25100
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks of the Technology and ways of overcoming them"
+          },
+          "helptext": {
+            "en": "List the main weaknesses/ disadvantages of the Technology with regard to gradual climate changes and climate-related extremes (disasters) and suggest ways they can be overcome."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 25200
   },
   {
     "fields": {
@@ -2039,6 +2101,22 @@
   },
   {
     "fields": {
+      "keyword": "cca__5",
+      "translation": 25000
+    },
+    "model": "configuration.category",
+    "pk": 25000
+  },
+  {
+    "fields": {
+      "keyword": "cca__6",
+      "translation": 26000
+    },
+    "model": "configuration.category",
+    "pk": 26000
+  },
+  {
+    "fields": {
       "keyword": "cca__1__1",
       "translation": 21100
     },
@@ -2164,6 +2242,22 @@
     },
     "model": "configuration.category",
     "pk": 22300
+  },
+  {
+    "fields": {
+      "keyword": "cca__5__1",
+      "translation": 25100
+    },
+    "model": "configuration.category",
+    "pk": 25100
+  },
+  {
+    "fields": {
+      "keyword": "cca__5__2",
+      "translation": 25200
+    },
+    "model": "configuration.category",
+    "pk": 25200
   },
   {
     "fields": {
@@ -3886,6 +3980,49 @@
                       "template": "comingsoon",
                       "numbering": "2.3"
                     }
+                  }
+                ]
+              },
+              {
+                "keyword": "cca__5",
+                "form_options": {
+                  "numbering": "5."
+                },
+                "subcategories": [
+                  {
+                    "keyword": "cca__5__1",
+                    "form_options": {
+                      "numbering": "5.1"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_strengths_landusers",
+                        "questions": [
+                          {
+                            "keyword": "strengths_landuser"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__5__2",
+                    "form_options": {
+                      "numbering": "5.2"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_weaknesses_landusers",
+                        "questions": [
+                          {
+                            "keyword": "weaknesses_landuser"
+                          },
+                          {
+                            "keyword": "weaknesses_overcome"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
