@@ -902,6 +902,11 @@
           "label": {
             "en": "Which of the following methods/ sources of information were used?"
           }
+        },
+        "cca": {
+          "label": {
+            "en": "Which of the following methods/ sources of information were used?"
+          }
         }
       }
     },
@@ -937,6 +942,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "other (specify)"
+          }
+        },
+        "cca": {
           "label": {
             "en": "other (specify)"
           }
@@ -1235,6 +1245,11 @@
           "label": {
             "en": "Specify (e.g. number of informants)"
           }
+        },
+        "cca": {
+          "label": {
+            "en": "Specify (e.g. number of informants)"
+          }
         }
       }
     },
@@ -1251,6 +1266,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Title, author, year, ISBN"
+          }
+        },
+        "cca": {
           "label": {
             "en": "Title, author, year, ISBN"
           }
@@ -1273,6 +1293,11 @@
           "label": {
             "en": "Available from where? Costs?"
           }
+        },
+        "cca": {
+          "label": {
+            "en": "Available from where? Costs?"
+          }
         }
       }
     },
@@ -1292,6 +1317,11 @@
           "label": {
             "en": "Title/ description"
           }
+        },
+        "cca": {
+          "label": {
+            "en": "Title/ description"
+          }
         }
       }
     },
@@ -1308,6 +1338,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "URL"
+          }
+        },
+        "cca": {
           "label": {
             "en": "URL"
           }
@@ -5254,6 +5289,11 @@
           "label": {
             "en": "field visits, field surveys"
           }
+        },
+        "cca": {
+          "label": {
+            "en": "field visits, field surveys"
+          }
         }
       }
     },
@@ -5270,6 +5310,11 @@
           }
         },
         "approaches": {
+          "label": {
+            "en": "interviews with land users"
+          }
+        },
+        "cca": {
           "label": {
             "en": "interviews with land users"
           }
@@ -5292,6 +5337,11 @@
           "label": {
             "en": "interviews with SLM specialists/ experts"
           }
+        },
+        "cca": {
+          "label": {
+            "en": "interviews with SLM specialists/ experts"
+          }
         }
       }
     },
@@ -5308,6 +5358,11 @@
           }
         },
         "approaches": {
+          "label": {
+            "en": "compilation from reports and other existing documentation"
+          }
+        },
+        "cca": {
           "label": {
             "en": "compilation from reports and other existing documentation"
           }

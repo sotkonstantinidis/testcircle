@@ -1058,6 +1058,9 @@
         "cca": {
           "label": {
             "en": "References and links"
+          },
+          "helptext": {
+            "en": "Indicate sources of information used for the compilation of information in this questionnaire."
           }
         }
       }
@@ -1328,6 +1331,51 @@
     },
     "model": "configuration.translation",
     "pk": 25200
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Methods/ sources of information"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 26100
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "References to available publications"
+          },
+          "helptext": {
+            "en": "List relevant publications relating to the Technology (reports, manuals, training materials, case studies, etc.). Upload those publications that are available as soft copies to the database."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 26200
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Links to relevant information which is available online"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 26300
   },
   {
     "fields": {
@@ -2258,6 +2306,30 @@
     },
     "model": "configuration.category",
     "pk": 25200
+  },
+  {
+    "fields": {
+      "keyword": "cca__6__1",
+      "translation": 26100
+    },
+    "model": "configuration.category",
+    "pk": 26100
+  },
+  {
+    "fields": {
+      "keyword": "cca__6__2",
+      "translation": 26200
+    },
+    "model": "configuration.category",
+    "pk": 26200
+  },
+  {
+    "fields": {
+      "keyword": "cca__6__3",
+      "translation": 26300
+    },
+    "model": "configuration.category",
+    "pk": 26300
   },
   {
     "fields": {
@@ -4019,6 +4091,179 @@
                           },
                           {
                             "keyword": "weaknesses_overcome"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "keyword": "cca__6",
+                "form_options": {
+                  "numbering": "6."
+                },
+                "subcategories": [
+                  {
+                    "keyword": "cca__6__1",
+                    "form_options": {
+                      "numbering": "6.1",
+                      "template": "checkbox_questiongroups",
+                      "questiongroup_conditions": [
+                        "=='source_field'|qg_sources_field",
+                        "=='source_interviews_landusers'|qg_sources_interviews_landusers",
+                        "=='source_interviews_experts'|qg_sources_interviews_experts",
+                        "=='source_compilation'|qg_sources_compilation"
+                      ],
+                      "questiongroup_conditions_template": "checkbox_with_questiongroup_2"
+                    },
+                    "view_options": {
+                      "template": "checkbox_questiongroups_2",
+                      "raw_questions": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_sources",
+                        "form_options": {
+                          "row_class": "no-bottom-margin"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_used",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "=='source_field'|qg_sources_field",
+                                "=='source_interviews_landusers'|qg_sources_interviews_landusers",
+                                "=='source_interviews_experts'|qg_sources_interviews_experts",
+                                "=='source_compilation'|qg_sources_compilation"
+                              ]
+                            },
+                            "view_options": {
+                              "template": "raw",
+                              "with_raw_values": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_field",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_field"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_field"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_interviews_landusers",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_interviews_landusers"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_interviews_landusers"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_interviews_experts",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_interviews_experts"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_interviews_experts"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_compilation",
+                        "form_options": {
+                          "questiongroup_condition": "qg_sources_compilation"
+                        },
+                        "view_options": {
+                          "conditional_question": "source_compilation"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_specify"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_sources_other",
+                        "form_options": {
+                          "template": "columns_e6_e6",
+                          "row_class": "no-top-margin"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "sources_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder",
+                              "question_conditions": [
+                                "!=''|sources_other"
+                              ]
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
+                            }
+                          },
+                          {
+                            "keyword": "sources_specify",
+                            "form_options": {
+                              "question_condition": "sources_other"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__6__2",
+                    "form_options": {
+                      "numbering": "6.2"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_references",
+                        "questions": [
+                          {
+                            "keyword": "references_title"
+                          },
+                          {
+                            "keyword": "references_source"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__6__3",
+                    "form_options": {
+                      "numbering": "6.3"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_links",
+                        "questions": [
+                          {
+                            "keyword": "links_title"
+                          },
+                          {
+                            "keyword": "links_url"
                           }
                         ]
                       }
