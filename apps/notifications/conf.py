@@ -17,8 +17,8 @@ class NotificationsConf(AppConf):
         (CREATE, _('created questionnaire')),
         (DELETE, _('deleted questionnaire')),
         (CHANGE_STATUS, _('changed status')),
-        (ADD_MEMBER, _('invited')),
-        (REMOVE_MEMBER, _('removed')),
+        (ADD_MEMBER, _('invited member')),
+        (REMOVE_MEMBER, _('removed member')),
         (EDIT_CONTENT, _('edited content'))
     )
 

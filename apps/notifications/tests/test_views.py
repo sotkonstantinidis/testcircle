@@ -7,6 +7,7 @@ from django.http import Http404
 from django.test import RequestFactory
 
 from braces.views import LoginRequiredMixin
+from django.test import override_settings
 from model_mommy import mommy
 from notifications.models import Log, StatusUpdate, MemberUpdate, ReadLog, \
     ActionContextQuerySet
@@ -31,12 +32,12 @@ class LogListViewTest(TestCase):
             id=8,
             action=settings.NOTIFICATIONS_ADD_MEMBER
         )
-        change_log = mommy.make(
+        self.change_log = mommy.make(
             model=Log,
             id=42,
             action=settings.NOTIFICATIONS_CHANGE_STATUS
         )
-        mommy.make(model=StatusUpdate, log=change_log)
+        mommy.make(model=StatusUpdate, log=self.change_log)
         mommy.make(model=MemberUpdate, log=member_add_log)
 
     def get_view_with_get_querystring(self, param):
@@ -121,6 +122,53 @@ class LogListViewTest(TestCase):
     def test_add_user_aware_data_is_not_todo(self):
         data = self._test_add_user_aware_data()
         self.assertFalse(data[0]['is_todo'])
+
+    @override_settings(NOTIFICATIONS_ACTIONS={'foo': 'bar', 'result': '42'})
+    def test_statuses_in_context(self):
+        self.view_instance.object_list = []
+        context = self.view_instance.get_context_data()
+        self.assertDictEqual(
+            context['statuses'],
+            {'foo': 'bar', 'result': '42'}
+        )
+
+    @mock.patch('notifications.views.Log.actions.user_log_list')
+    def test_status_filter_queryset(self, mock_user_log_list):
+        mock_user_log_list.return_value = []
+        self.assertEqual(
+            [], self.view_instance.get_queryset()
+        )
+
+    @mock.patch('notifications.views.Log.actions.user_log_list')
+    def test_status_filter_queryset_for_status(self, mock_user_log_list):
+        mock_user_log_list.return_value = Log.objects.filter()
+        view = self.view
+        view.get_statuses = mock.MagicMock(return_value=[3])
+        view_instance = self.setup_view(
+            view=view, request=self.request
+        )
+        self.assertQuerysetEqual(
+            view_instance.get_queryset(),
+            [self.change_log.id],
+            transform=lambda item: item.id
+        )
+
+    def test_get_status_invalid(self):
+        request = RequestFactory().get('{}?statuses=foo'.format(self.url_path))
+        view = self.setup_view(self.view, request)
+        self.assertEqual(view.get_statuses(), [])
+
+    @override_settings(NOTIFICATIONS_ACTIONS={'2': 'bar'})
+    def test_get_status_invalid_config(self):
+        request = RequestFactory().get('{}?statuses=1'.format(self.url_path))
+        view = self.setup_view(self.view, request)
+        self.assertEqual(view.get_statuses(), [])
+
+    def test_get_status_valid(self):
+        request = RequestFactory().get('{}?statuses=1,2,3'.format(self.url_path))
+        view = self.setup_view(self.view, request)
+        self.assertEqual(view.get_statuses(), [1, 2, 3])
+
 
 class ReadLogUpdateViewTest(TestCase):
 

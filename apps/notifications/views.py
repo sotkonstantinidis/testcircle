@@ -1,8 +1,8 @@
+import contextlib
 import logging
 from typing import Iterable
 
 from django.conf import settings
-from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -19,10 +19,6 @@ logger = logging.getLogger(__name__)
 
 class LogListTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'notifications/log_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 
 class LogListView(LoginRequiredMixin, ListView):
@@ -97,16 +93,34 @@ class LogListView(LoginRequiredMixin, ListView):
             return request_questionnaire
         return None
 
+    def get_statuses(self):
+        with contextlib.suppress(ValueError):
+            query_status = self.request.GET.get('statuses', '').split(',')
+            statuses = [int(status) for status in query_status]
+            if all([status in dict(settings.NOTIFICATIONS_ACTIONS).keys() for status in statuses]):
+                return statuses
+        return []
+
     def get_queryset(self):
         """
         Fetch notifications for the current user. Use the method as defined by
         the instance variable. Filter according to questionnaire if requested.
         """
         qs = getattr(Log.actions, self.queryset_method)(user=self.request.user)
+
+        # apply filter for actions ('status' on the frontend)
+        statuses = self.get_statuses()
+        if statuses:
+            qs = qs.filter(action__in=statuses)
+
+        # apply filter for the questionnaire
         if self.requested_questionnaire:
             qs = qs.filter(questionnaire__code=self.requested_questionnaire)
+
+        # apply filter for read/unread notifications
         if 'is_unread' in self.request.GET.keys():
             qs = qs.only_unread_logs(user=self.request.user)
+
         return qs
 
     def get_context_data(self, **kwargs):
@@ -116,6 +130,7 @@ class LogListView(LoginRequiredMixin, ListView):
         """
         context = super().get_context_data(**kwargs)
         context['logs'] = self.add_user_aware_data(context['object_list'])
+        context['statuses'] = dict(settings.NOTIFICATIONS_ACTIONS)
         return context
 
 

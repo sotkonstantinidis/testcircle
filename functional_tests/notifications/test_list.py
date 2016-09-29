@@ -365,3 +365,25 @@ class NotificationsListTest(NotificationSetupMixin, FunctionalTest):
             'is-active-filter' in
             self.findBy('id', 'questionnaire-filter-toggler').get_attribute('class')
         )
+
+    def test_filter_status(self):
+        # jay logs in and visits the notifications page; one item is shown
+        self.doLogin(user=self.jay)
+        self.browser.get(self.notifications_url)
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            1
+        )
+        # after clicking the filter item for the status, the dropdown opens
+        self.findBy('class_name', 'is-status-dropdown').click()
+        dropdown = self.findBy('id', 'status-dropdown')
+        self.assertTrue(dropdown.is_displayed())
+        # jay clicks on the third element, and then the submit button
+        self.findBy('id', 'checkbox-3').click()
+        self.findBy('id', 'status-filter-submit').click()
+        # the container reloads, and the list is now empty
+        time.sleep(1)
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            0
+        )

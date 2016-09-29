@@ -8,9 +8,10 @@
             isPending: false,
             isUnRead: false
         };
-        var settings = $.extend( {}, defaults, options );
+        var settings = $.extend({}, defaults, options);
         var elem = this;
         var page = 1;
+        var statuses = [];
 
         // load initial data
         elem.load(settings.notificationsUrl + settings.initialParams, function() {
@@ -20,13 +21,7 @@
         // load data when clicking on pagination item
         elem.on('click', 'ul.pagination li a', function(event) {
             page = $(this).attr('href');
-            $.ajax({
-                url: get_url(),
-                method: 'GET'
-            }).done(function (data) {
-                elem.html(data);
-                showTooltips();
-            });
+            loadContent();
             return false;
         });
 
@@ -49,7 +44,7 @@
         addFilter('#is-pending', 'isPending');
         addFilter('#is-unread', 'isUnRead');
 
-        // handle filters for pending and questionnaires
+        // filters for pending and questionnaires
         elem.on('click', '#questionnaire-filter-toggler', function() {
             $('#questionnaire-filter').toggle(
             function() {
@@ -74,18 +69,20 @@
                         select.on('change', function(evt, params) {
                             page = 1;
                             settings.questionnaire = params['selected'];
-                            $.ajax({
-                              url: get_url(),
-                              method: 'GET'
-                            }).done(function(data) {
-                              elem.html(data);
-                              showTooltips();
-                            });
+                            loadContent();
                         });
                     });
                 }
                 $(this).removeClass('hide');
             });
+        });
+
+        // filters for statuses (actions)
+        elem.on('click', '#status-filter-submit', function() {
+            statuses = $('#status-dropdown input:checked').map(function() {
+                return this.value;
+            }).get();
+            loadContent();
         });
 
         /**
@@ -98,13 +95,7 @@
                 elem.html(settings.spinner);
                 settings[flagName] = ! $(this).hasClass('is-active-filter');
                 page = 1;
-                $.ajax({
-                    url: get_url(),
-                    method: 'GET'
-                }).done(function(data) {
-                    elem.html(data);
-                    showTooltips();
-                });
+                loadContent();
             });
         }
 
@@ -124,6 +115,8 @@
             var isUnReadDOM = $('#is-unread').hasClass('is-active-filter');
             if (settings.isUnRead || isUnReadDOM) url += '&is_unread';
 
+            if (statuses != []) url += '&statuses=' + statuses.join(',');
+
             if (settings.questionnaire != '') {
                 url += '&questionnaire=' + settings.questionnaire;
             }
@@ -139,6 +132,19 @@
         function showTooltips() {
             $('span[role="tooltip"]').remove();
             elem.foundation();
+        }
+
+        /**
+         * Reload content with fresh params.
+         */
+        function loadContent() {
+            $.ajax({
+                url: get_url(),
+                method: 'GET'
+            }).done(function(data) {
+                elem.html(data);
+                showTooltips();
+            });
         }
     };
 }(jQuery));

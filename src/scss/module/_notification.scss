@@ -73,6 +73,14 @@
       color: $color-blue;
       cursor: pointer;
     }
+
+    #status-dropdown {
+      width: rem-calc(200);
+
+      li {
+        padding-left: rem-calc(3);
+      }
+    }
   }
   div {
     padding: rem-calc(15) 0;
