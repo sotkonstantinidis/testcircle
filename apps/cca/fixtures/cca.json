@@ -175,6 +175,107 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Has the Technology been exposed to climate-related extremes (disasters) in the last 10 years or more"
+          },
+          "helptext": {
+            "en": "If <strong>yes</strong>, fill in the table below . If <strong>no</strong>, continue with chapter 3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28014
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "From Year"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28015
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "From Month"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28016
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "To Year"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28017
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "To Month"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28018
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Climate-related extreme"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28019
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Comments/ specify"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28020
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -508,6 +609,706 @@
     },
     "model": "configuration.translation",
     "pk": 29024
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2016"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29025
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2015"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29026
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2014"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29027
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2013"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29028
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2012"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29029
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2011"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29030
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2010"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29031
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2009"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29032
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2008"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29033
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2007"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29034
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2006"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29035
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2005"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29036
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2004"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29037
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2003"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29038
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2002"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29039
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "1"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29040
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29041
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29042
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "4"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29043
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "5"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29044
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "6"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29045
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "7"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29046
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "8"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29047
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "9"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29048
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "10"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29049
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "11"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29050
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "12"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29051
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Tropical storm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29052
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Extra-tropical cyclone"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29053
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Local rainstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29054
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Local thunderstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29055
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Local hailstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29056
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Local snow"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29057
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Local sandstorm/ duststorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29058
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Local windstorm"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29059
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Local tornado"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29060
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Heatwave"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29061
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Cold wave"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29062
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Extreme cold winter conditions"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29063
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Extreme mild winter conditions"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29064
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Drought"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29065
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Forest fire"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29066
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Land fire"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29067
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "General (river) flood"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29068
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Flash flood"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29069
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Storm surge/ coastal flood"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29070
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Landslide/ debris flow"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29071
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Avalanche"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29072
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Epidemic diseases"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29073
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Insect/ worm infestation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29074
   },
   {
     "fields": {
@@ -1008,6 +1809,20 @@
     },
     "model": "configuration.translation",
     "pk": 27034
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "helptext": {
+            "en": "Use the climate-related extremes (disasters) listed in 2.2 and provide further details, where possible, e.g. on the magnitude of the event. Order according to the importance of the event."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27039
   },
   {
     "fields": {
@@ -1590,6 +2405,170 @@
   },
   {
     "fields": {
+      "keyword": "technology_exposed_to_disasters",
+      "translation": 28014,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28014
+  },
+  {
+    "fields": {
+      "keyword": "from_year",
+      "translation": 28015,
+      "configuration": {
+        "type": "select_type"
+      },
+      "values": [
+        29025,
+        29026,
+        29027,
+        29028,
+        29029,
+        29030,
+        29031,
+        29032,
+        29033,
+        29034,
+        29035,
+        29036,
+        29037,
+        29038,
+        29039
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28015
+  },
+  {
+    "fields": {
+      "keyword": "from_month",
+      "translation": 28016,
+      "configuration": {
+        "type": "select_type"
+      },
+      "values": [
+        29040,
+        29041,
+        29042,
+        29043,
+        29044,
+        29045,
+        29046,
+        29047,
+        29048,
+        29049,
+        29050,
+        29051
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28016
+  },
+  {
+    "fields": {
+      "keyword": "to_year",
+      "translation": 28017,
+      "configuration": {
+        "type": "select_type"
+      },
+      "values": [
+        29025,
+        29026,
+        29027,
+        29028,
+        29029,
+        29030,
+        29031,
+        29032,
+        29033,
+        29034,
+        29035,
+        29036,
+        29037,
+        29038,
+        29039
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28017
+  },
+  {
+    "fields": {
+      "keyword": "to_month",
+      "translation": 28018,
+      "configuration": {
+        "type": "select_type"
+      },
+      "values": [
+        29040,
+        29041,
+        29042,
+        29043,
+        29044,
+        29045,
+        29046,
+        29047,
+        29048,
+        29049,
+        29050,
+        29051
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28018
+  },
+  {
+    "fields": {
+      "keyword": "climate_related_extreme",
+      "translation": 28019,
+      "configuration": {
+        "type": "select_type"
+      },
+      "values": [
+        29052,
+        29053,
+        29054,
+        29055,
+        29056,
+        29057,
+        29058,
+        29059,
+        29060,
+        29061,
+        29062,
+        29063,
+        29064,
+        29065,
+        29066,
+        29067,
+        29068,
+        29069,
+        29070,
+        29071,
+        29072,
+        29073,
+        29074
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28019
+  },
+  {
+    "fields": {
+      "keyword": "comments_specify",
+      "translation": 28020,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28020
+  },
+  {
+    "fields": {
       "keyword": "cca_decrease",
       "translation": 29001,
       "order_value": 1
@@ -1803,6 +2782,408 @@
     },
     "model": "configuration.value",
     "pk": 29024
+  },
+  {
+    "fields": {
+      "keyword": "year_2016",
+      "translation": 29025,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29025
+  },
+  {
+    "fields": {
+      "keyword": "year_2015",
+      "translation": 29026
+    },
+    "model": "configuration.value",
+    "pk": 29026
+  },
+  {
+    "fields": {
+      "keyword": "year_2014",
+      "translation": 29027
+    },
+    "model": "configuration.value",
+    "pk": 29027
+  },
+  {
+    "fields": {
+      "keyword": "year_2013",
+      "translation": 29028
+    },
+    "model": "configuration.value",
+    "pk": 29028
+  },
+  {
+    "fields": {
+      "keyword": "year_2012",
+      "translation": 29029
+    },
+    "model": "configuration.value",
+    "pk": 29029
+  },
+  {
+    "fields": {
+      "keyword": "year_2011",
+      "translation": 29030
+    },
+    "model": "configuration.value",
+    "pk": 29030
+  },
+  {
+    "fields": {
+      "keyword": "year_2010",
+      "translation": 29031
+    },
+    "model": "configuration.value",
+    "pk": 29031
+  },
+  {
+    "fields": {
+      "keyword": "year_2009",
+      "translation": 29032
+    },
+    "model": "configuration.value",
+    "pk": 29032
+  },
+  {
+    "fields": {
+      "keyword": "year_2008",
+      "translation": 29033
+    },
+    "model": "configuration.value",
+    "pk": 29033
+  },
+  {
+    "fields": {
+      "keyword": "year_2007",
+      "translation": 29034
+    },
+    "model": "configuration.value",
+    "pk": 29034
+  },
+  {
+    "fields": {
+      "keyword": "year_2006",
+      "translation": 29035
+    },
+    "model": "configuration.value",
+    "pk": 29035
+  },
+  {
+    "fields": {
+      "keyword": "year_2005",
+      "translation": 29036
+    },
+    "model": "configuration.value",
+    "pk": 29036
+  },
+  {
+    "fields": {
+      "keyword": "year_2004",
+      "translation": 29037
+    },
+    "model": "configuration.value",
+    "pk": 29037
+  },
+  {
+    "fields": {
+      "keyword": "year_2003",
+      "translation": 29038
+    },
+    "model": "configuration.value",
+    "pk": 29038
+  },
+  {
+    "fields": {
+      "keyword": "year_2002",
+      "translation": 29039
+    },
+    "model": "configuration.value",
+    "pk": 29039
+  },
+  {
+    "fields": {
+      "keyword": "month_1",
+      "translation": 29040,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29040
+  },
+  {
+    "fields": {
+      "keyword": "month_2",
+      "translation": 29041
+    },
+    "model": "configuration.value",
+    "pk": 29041
+  },
+  {
+    "fields": {
+      "keyword": "month_3",
+      "translation": 29042
+    },
+    "model": "configuration.value",
+    "pk": 29042
+  },
+  {
+    "fields": {
+      "keyword": "month_4",
+      "translation": 29043
+    },
+    "model": "configuration.value",
+    "pk": 29043
+  },
+  {
+    "fields": {
+      "keyword": "month_5",
+      "translation": 29044
+    },
+    "model": "configuration.value",
+    "pk": 29044
+  },
+  {
+    "fields": {
+      "keyword": "month_6",
+      "translation": 29045
+    },
+    "model": "configuration.value",
+    "pk": 29045
+  },
+  {
+    "fields": {
+      "keyword": "month_7",
+      "translation": 29046
+    },
+    "model": "configuration.value",
+    "pk": 29046
+  },
+  {
+    "fields": {
+      "keyword": "month_8",
+      "translation": 29047
+    },
+    "model": "configuration.value",
+    "pk": 29047
+  },
+  {
+    "fields": {
+      "keyword": "month_9",
+      "translation": 29048
+    },
+    "model": "configuration.value",
+    "pk": 29048
+  },
+  {
+    "fields": {
+      "keyword": "month_10",
+      "translation": 29049
+    },
+    "model": "configuration.value",
+    "pk": 29049
+  },
+  {
+    "fields": {
+      "keyword": "month_11",
+      "translation": 29050
+    },
+    "model": "configuration.value",
+    "pk": 29050
+  },
+  {
+    "fields": {
+      "keyword": "month_12",
+      "translation": 29051
+    },
+    "model": "configuration.value",
+    "pk": 29051
+  },
+  {
+    "fields": {
+      "keyword": "tropical_storm",
+      "translation": 29052
+    },
+    "model": "configuration.value",
+    "pk": 29052
+  },
+  {
+    "fields": {
+      "keyword": "extra_tropical_cyclone",
+      "translation": 29053
+    },
+    "model": "configuration.value",
+    "pk": 29053
+  },
+  {
+    "fields": {
+      "keyword": "local_rainstorm",
+      "translation": 29054
+    },
+    "model": "configuration.value",
+    "pk": 29054
+  },
+  {
+    "fields": {
+      "keyword": "local_thunderstorm",
+      "translation": 29055
+    },
+    "model": "configuration.value",
+    "pk": 29055
+  },
+  {
+    "fields": {
+      "keyword": "local_hailstorm",
+      "translation": 29056
+    },
+    "model": "configuration.value",
+    "pk": 29056
+  },
+  {
+    "fields": {
+      "keyword": "local_snowstorm",
+      "translation": 29057
+    },
+    "model": "configuration.value",
+    "pk": 29057
+  },
+  {
+    "fields": {
+      "keyword": "local_sandstorm_duststorm",
+      "translation": 29058
+    },
+    "model": "configuration.value",
+    "pk": 29058
+  },
+  {
+    "fields": {
+      "keyword": "local_windstorm",
+      "translation": 29059
+    },
+    "model": "configuration.value",
+    "pk": 29059
+  },
+  {
+    "fields": {
+      "keyword": "local_tornado",
+      "translation": 29060
+    },
+    "model": "configuration.value",
+    "pk": 29060
+  },
+  {
+    "fields": {
+      "keyword": "heatwave",
+      "translation": 29061
+    },
+    "model": "configuration.value",
+    "pk": 29061
+  },
+  {
+    "fields": {
+      "keyword": "cold_wave",
+      "translation": 29062
+    },
+    "model": "configuration.value",
+    "pk": 29062
+  },
+  {
+    "fields": {
+      "keyword": "extreme_cold_winter_conditions",
+      "translation": 29063
+    },
+    "model": "configuration.value",
+    "pk": 29063
+  },
+  {
+    "fields": {
+      "keyword": "extreme_mild_winter_conditions",
+      "translation": 29064
+    },
+    "model": "configuration.value",
+    "pk": 29064
+  },
+  {
+    "fields": {
+      "keyword": "drought",
+      "translation": 29065
+    },
+    "model": "configuration.value",
+    "pk": 29065
+  },
+  {
+    "fields": {
+      "keyword": "forest_fire",
+      "translation": 29066
+    },
+    "model": "configuration.value",
+    "pk": 29066
+  },
+  {
+    "fields": {
+      "keyword": "land_fire",
+      "translation": 29067
+    },
+    "model": "configuration.value",
+    "pk": 29067
+  },
+  {
+    "fields": {
+      "keyword": "general_river_flood",
+      "translation": 29068
+    },
+    "model": "configuration.value",
+    "pk": 29068
+  },
+  {
+    "fields": {
+      "keyword": "flash_flood",
+      "translation": 29069
+    },
+    "model": "configuration.value",
+    "pk": 29069
+  },
+  {
+    "fields": {
+      "keyword": "storm_surge_coastal_flood",
+      "translation": 29070
+    },
+    "model": "configuration.value",
+    "pk": 29070
+  },
+  {
+    "fields": {
+      "keyword": "landslide_debris_flow",
+      "translation": 29071
+    },
+    "model": "configuration.value",
+    "pk": 29071
+  },
+  {
+    "fields": {
+      "keyword": "avalanche",
+      "translation": 29072
+    },
+    "model": "configuration.value",
+    "pk": 29072
+  },
+  {
+    "fields": {
+      "keyword": "epidemic_diseases",
+      "translation": 29073
+    },
+    "model": "configuration.value",
+    "pk": 29073
+  },
+  {
+    "fields": {
+      "keyword": "insect_worm_infestation",
+      "translation": 29074
+    },
+    "model": "configuration.value",
+    "pk": 29074
   },
   {
     "fields": {
@@ -2136,6 +3517,37 @@
     },
     "model": "configuration.questiongroup",
     "pk": 27037
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_38",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27038
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_39",
+      "translation": 27039,
+      "configuration": {
+        "form_options": {
+          "min_num": 1,
+          "max_num": 11,
+          "template": "table",
+          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "with_keys": true
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27039
   },
   {
     "fields": {
@@ -4055,9 +5467,49 @@
                   {
                     "keyword": "cca__2__3",
                     "form_options": {
-                      "template": "comingsoon",
                       "numbering": "2.3"
-                    }
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_38",
+                        "questions": [
+                          {
+                            "keyword": "technology_exposed_to_disasters",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|cca_qg_39"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_39",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_39"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "from_year"
+                          },
+                          {
+                            "keyword": "from_month"
+                          },
+                          {
+                            "keyword": "to_year"
+                          },
+                          {
+                            "keyword": "to_month"
+                          },
+                          {
+                            "keyword": "climate_related_extreme"
+                          },
+                          {
+                            "keyword": "comments_specify"
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
