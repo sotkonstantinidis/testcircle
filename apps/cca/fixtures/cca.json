@@ -221,7 +221,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "J"
+            "en": "Jan"
           }
         }
       }
@@ -235,7 +235,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "F"
+            "en": "Feb"
           }
         }
       }
@@ -249,7 +249,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "M"
+            "en": "Mar"
           }
         }
       }
@@ -263,7 +263,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "A"
+            "en": "Apr"
           }
         }
       }
@@ -277,7 +277,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "M"
+            "en": "May"
           }
         }
       }
@@ -291,7 +291,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "J"
+            "en": "Jun"
           }
         }
       }
@@ -305,7 +305,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "J"
+            "en": "Jul"
           }
         }
       }
@@ -319,7 +319,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "A"
+            "en": "Aug"
           }
         }
       }
@@ -333,7 +333,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "S"
+            "en": "Sep"
           }
         }
       }
@@ -347,7 +347,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "O"
+            "en": "Oct"
           }
         }
       }
@@ -361,7 +361,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "N"
+            "en": "Nov"
           }
         }
       }
@@ -375,7 +375,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "D"
+            "en": "Dec"
           }
         }
       }
@@ -1398,7 +1398,10 @@
       "keyword": "cca_exposure_month",
       "translation": 28002,
       "configuration": {
-        "type": "measure"
+        "type": "checkbox",
+        "form_options": {
+          "layout": "measure"
+        }
       },
       "values": [
         29004,
@@ -1502,7 +1505,10 @@
       "keyword": "cca_exposure_month_other",
       "translation": 28008,
       "configuration": {
-        "type": "measure"
+        "type": "checkbox",
+        "form_options": {
+          "layout": "measure"
+        }
       },
       "values": [
         29004,

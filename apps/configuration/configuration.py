@@ -664,6 +664,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 required=self.required)
         elif self.field_type in ['checkbox', 'cb_bool']:
             widget = Checkbox(attrs=attrs)
+            if self.form_options.get('layout', '') == 'measure':
+                widget = MeasureCheckbox()
             widget.options = field_options
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
@@ -2620,3 +2622,6 @@ class RequiredFormSet(BaseFormSet):
         super(RequiredFormSet, self).__init__(*args, **kwargs)
         for form in self.forms:
             form.empty_permitted = True
+
+class MeasureCheckbox(forms.CheckboxSelectMultiple):
+    template_name = 'form/field/checkbox_measure.html'
