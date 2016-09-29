@@ -217,6 +217,11 @@ DEGRADATION_TYPE_MAPPING_WATER = {
     194: 'degradation_hq',
     195: 'degradation_hw',
 }
+SENSITIVY_MAPPING = {
+    233: 'cope_well',
+    234: 'cope_not_well',
+    235: 'cope_unknown',
+}
 
 qg_name = {
     'qg_name': {
@@ -11513,6 +11518,42 @@ tech_qg_161 = {
     }
 }
 
+# 4.3 General information regarding the calculation of inputs and costs
+tech_qg_164 = {
+    'tech_qg_164': {
+        'questions': {
+            # 'tech_input_dollar': {},
+            'tech_input_national_currency': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_6_1_1',
+                        'wocat_column': 'currency',
+                    }
+                ],
+                'type': 'string',
+            },
+            'tech_input_exchange_rate': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_6_1_1',
+                        'wocat_column': 'exchange_rate',
+                    }
+                ],
+                'type': 'dropdown',
+            },
+            'tech_input_average_wage': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_6_1_1',
+                        'wocat_column': 'daily_wage',
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
 # 4.4 Establishment activities
 tech_qg_165 = {
     'tech_qg_165': {
@@ -11585,6 +11626,31 @@ tech_qg_165 = {
             'wocat_column': 'sort_order'
         },
         'sort_function': 'sort_by_key(k, "sort_order", none_value=1000)',
+    }
+}
+
+# 4.5 Costs and inputs needed for establishment: Comments
+tech_qg_93 = {
+    'tech_qg_93': {
+        'questions': {
+            # 'tech_input_est_remaining_costs': {},
+            'tech_input_est_comments': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_6_1_5',
+                                'wocat_column': 'establish_duration',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Duration of establishment phase: ',
+                        'value_suffix': ' month(s)'
+                    }
+                ],
+                'type': 'string',
+            },
+        }
     }
 }
 
@@ -11710,6 +11776,15 @@ tech_qg_52 = {
                         },
                         'value_prefix': 'Machinery/ tools: ',
                     },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_6_2',
+                                'wocat_column': 'cost_indication',
+                            }
+                        ],
+                        'type': 'string',
+                    }
                 ],
                 'type': 'string',
             }
@@ -11717,6 +11792,1201 @@ tech_qg_52 = {
     }
 }
 
+# 4.8 Most important factors affecting the costs
+tech_qg_95 = {
+    'tech_qg_95': {
+        'questions': {
+            'tech_input_determinate_factors': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_6_2',
+                        'wocat_column': 'cost_affectors',
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 5.1 Climate: Rainfall
+tech_qg_54 = {
+    'tech_qg_54': {
+        'questions': {
+            'tech_rainfall': {
+                'mapping': [
+                    # Simple mapping (if no more than 2 answers)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a250',
+                                'value_mapping': 'tech_rainfall_less_250'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a250_500',
+                                'value_mapping': 'tech_rainfall_251_500'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a500_750',
+                                'value_mapping': 'tech_rainfall_501_750'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a750_1000',
+                                'value_mapping': 'tech_rainfall_751_1000'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a1000_1500',
+                                'value_mapping': 'tech_rainfall_1001_1500'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a1500_2000',
+                                'value_mapping': 'tech_rainfall_1501_2000'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a2000_3000',
+                                'value_mapping': 'tech_rainfall_2001_3000'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a3000_4000',
+                                'value_mapping': 'tech_rainfall_3001_4000'
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a4000',
+                                'value_mapping': 'tech_rainfall_4001_plus'
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250',
+                                        'value_mapping': 'tech_rainfall_less_250'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250_500',
+                                        'value_mapping': 'tech_rainfall_251_500'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a500_750',
+                                        'value_mapping': 'tech_rainfall_501_750'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a750_1000',
+                                        'value_mapping': 'tech_rainfall_751_1000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1000_1500',
+                                        'value_mapping': 'tech_rainfall_1001_1500'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1500_2000',
+                                        'value_mapping': 'tech_rainfall_1501_2000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a2000_3000',
+                                        'value_mapping': 'tech_rainfall_2001_3000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a3000_4000',
+                                        'value_mapping': 'tech_rainfall_3001_4000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a4000',
+                                        'value_mapping': 'tech_rainfall_4001_plus'
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        },
+                    },
+                    # More sophisticated mapping (if more than 2 answers provided): Get only those with measure "high" (131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a250',
+                                'value_mapping': 'tech_rainfall_less_250',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a250',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a250_500',
+                                'value_mapping': 'tech_rainfall_251_500',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a250_500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a500_750',
+                                'value_mapping': 'tech_rainfall_501_750',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a500_750',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a750_1000',
+                                'value_mapping': 'tech_rainfall_751_1000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a750_1000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a1000_1500',
+                                'value_mapping': 'tech_rainfall_1001_1500',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a1000_1500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a1500_2000',
+                                'value_mapping': 'tech_rainfall_1501_2000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a1500_2000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a2000_3000',
+                                'value_mapping': 'tech_rainfall_2001_3000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a2000_3000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a3000_4000',
+                                'value_mapping': 'tech_rainfall_3001_4000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a3000_4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a4000',
+                                'value_mapping': 'tech_rainfall_4001_plus',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250',
+                                        'value_mapping': 'tech_rainfall_less_250'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250_500',
+                                        'value_mapping': 'tech_rainfall_251_500'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a500_750',
+                                        'value_mapping': 'tech_rainfall_501_750'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a750_1000',
+                                        'value_mapping': 'tech_rainfall_751_1000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1000_1500',
+                                        'value_mapping': 'tech_rainfall_1001_1500'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1500_2000',
+                                        'value_mapping': 'tech_rainfall_1501_2000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a2000_3000',
+                                        'value_mapping': 'tech_rainfall_2001_3000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a3000_4000',
+                                        'value_mapping': 'tech_rainfall_3001_4000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a4000',
+                                        'value_mapping': 'tech_rainfall_4001_plus'
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250',
+                                        'value_mapping': 'tech_rainfall_less_250',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a250',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250_500',
+                                        'value_mapping': 'tech_rainfall_251_500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a250_500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a500_750',
+                                        'value_mapping': 'tech_rainfall_501_750',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a500_750',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a750_1000',
+                                        'value_mapping': 'tech_rainfall_751_1000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a750_1000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1000_1500',
+                                        'value_mapping': 'tech_rainfall_1001_1500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a1000_1500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1500_2000',
+                                        'value_mapping': 'tech_rainfall_1501_2000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a1500_2000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a2000_3000',
+                                        'value_mapping': 'tech_rainfall_2001_3000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a2000_3000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a3000_4000',
+                                        'value_mapping': 'tech_rainfall_3001_4000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a3000_4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a4000',
+                                        'value_mapping': 'tech_rainfall_4001_plus',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        },
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                },
+            },
+            # 'tech_rainfall_annual': {},
+            'tech_rainfall_specifications': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a250',
+                                'value_mapping': '< 250 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a250',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a250_500',
+                                'value_mapping': '250-500 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a250_500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a500_750',
+                                'value_mapping': '500-750 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a500_750',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a750_1000',
+                                'value_mapping': '750-1000 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a750_1000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a1000_1500',
+                                'value_mapping': '1000-1500 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a1000_1500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a1500_2000',
+                                'value_mapping': '1500-2000 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a1500_2000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a2000_3000',
+                                'value_mapping': '2000-3000 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a2000_3000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a3000_4000',
+                                'value_mapping': '3000-4000 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a3000_4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'a4000',
+                                'value_mapping': '> 4000 mm',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_1',
+                                                'wocat_column': 'a4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250',
+                                        'value_mapping': 'tech_rainfall_less_250'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250_500',
+                                        'value_mapping': 'tech_rainfall_251_500'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a500_750',
+                                        'value_mapping': 'tech_rainfall_501_750'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a750_1000',
+                                        'value_mapping': 'tech_rainfall_751_1000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1000_1500',
+                                        'value_mapping': 'tech_rainfall_1001_1500'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1500_2000',
+                                        'value_mapping': 'tech_rainfall_1501_2000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a2000_3000',
+                                        'value_mapping': 'tech_rainfall_2001_3000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a3000_4000',
+                                        'value_mapping': 'tech_rainfall_3001_4000'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a4000',
+                                        'value_mapping': 'tech_rainfall_4001_plus'
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250',
+                                        'value_mapping': 'tech_rainfall_less_250',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a250',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a250_500',
+                                        'value_mapping': 'tech_rainfall_251_500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a250_500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a500_750',
+                                        'value_mapping': 'tech_rainfall_501_750',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a500_750',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a750_1000',
+                                        'value_mapping': 'tech_rainfall_751_1000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a750_1000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1000_1500',
+                                        'value_mapping': 'tech_rainfall_1001_1500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a1000_1500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a1500_2000',
+                                        'value_mapping': 'tech_rainfall_1501_2000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a1500_2000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a2000_3000',
+                                        'value_mapping': 'tech_rainfall_2001_3000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a2000_3000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a3000_4000',
+                                        'value_mapping': 'tech_rainfall_3001_4000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a3000_4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_1',
+                                        'wocat_column': 'a4000',
+                                        'value_mapping': 'tech_rainfall_4001_plus',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_1',
+                                                        'wocat_column': 'a4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for checkbox 5.1 "Annual rainfall", using "Specifications/ comments on rainfall" of 5.1 for this data."',
+                        'type': 'string',
+                        'composite': {
+                            'separator': ', '
+                        },
+                        'value_prefix': 'Annual rainfall: '
+                    },
+                ],
+                'type': 'string'
+            },
+            # 'tech_rainfall_meteostation': {},
+        }
+    }
+}
+
+# 5.1 Climate: Agro-climatic zone
+tech_qg_55 = {
+    'tech_qg_55': {
+        'questions': {
+            'tech_agroclimatic_zone': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_1',
+                        'wocat_column': 'humid',
+                        'value_mapping': 'tech_agroclimatic_zone_humid',
+                    },
+                    {
+                        'wocat_table': 'qt_2_7_1',
+                        'wocat_column': 'subhumid',
+                        'value_mapping': 'tech_agroclimatic_zone_subhumid',
+                    },
+                    {
+                        'wocat_table': 'qt_2_7_1',
+                        'wocat_column': 'semi_arid',
+                        'value_mapping': 'tech_agroclimatic_zone_semiarid',
+                    },
+                    {
+                        'wocat_table': 'qt_2_7_1',
+                        'wocat_column': 'arid',
+                        'value_mapping': 'tech_agroclimatic_zone_arid',
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'tech_agroclimatic_zone_specifications': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'tropics',
+                                'value_mapping': 'tropics',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'tropics_specify',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Thermal climate class: ',
+                        'composite': {
+                            'separator': '. '
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'subtropic',
+                                'value_mapping': 'subtropics',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'subtropic_specify',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Thermal climate class: ',
+                        'composite': {
+                            'separator': '. '
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'temperate',
+                                'value_mapping': 'temperate',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'temperate_specify',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Thermal climate class: ',
+                        'composite': {
+                            'separator': '. '
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'boreal',
+                                'value_mapping': 'boreal',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'boreal_specify',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Thermal climate class: ',
+                        'composite': {
+                            'separator': '. '
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'polar',
+                                'value_mapping': 'polar/arctic',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_1',
+                                'wocat_column': 'polar_specify',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Thermal climate class: ',
+                        'composite': {
+                            'separator': '. '
+                        }
+                    },
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: Gradual climate change: annual temperature
+tech_qg_168 = {
+    'tech_qg_168': {
+        'questions': {
+            'tech_exposure_incrdecr': {
+                'type': 'constant',
+                'value': 'increase',
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_5',
+                                'wocat_column': 'temp_increase',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    }
+                ]
+            },
+            'tech_exposure_sensitivity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'temp_increase',
+                    }
+                ],
+                'value_mapping_list': SENSITIVY_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: local rainstorm
+tech_qg_179 = {
+    'tech_qg_179': {
+        'questions': {
+            'tech_exposure_sensitivity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'heavy_rain_events',
+                    }
+                ],
+                'value_mapping_list': SENSITIVY_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: local windstorm
+tech_qg_197 = {
+    'tech_qg_197': {
+        'questions': {
+            'tech_exposure_sensitivity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'windstorms',
+                    }
+                ],
+                'value_mapping_list': SENSITIVY_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: drought
+tech_qg_202 = {
+    'tech_qg_202': {
+        'questions': {
+            'tech_exposure_sensitivity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'droughts',
+                    }
+                ],
+                'value_mapping_list': SENSITIVY_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: general (river) flood
+tech_qg_205 = {
+    'tech_qg_205': {
+        'questions': {
+            'tech_exposure_sensitivity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'floods',
+                    }
+                ],
+                'value_mapping_list': SENSITIVY_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: reduced growing period
+tech_qg_214 = {
+    'tech_qg_214': {
+        'questions': {
+            'tech_exposure_sensitivity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'length_growing_period_decrease',
+                    }
+                ],
+                'value_mapping_list': SENSITIVY_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: other
+tech_qg_216 = {
+    'tech_qg_216': {
+        'questions': {
+            'tech_exposure_other_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'other1_specify',
+                    }
+                ],
+                'type': 'string',
+            },
+            'tech_exposure_sensitivity': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'other1',
+                    }
+                ],
+                'value_mapping_list': SENSITIVY_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.3 Exposure and sensitivity: Comments
+tech_qg_180 = {
+    'tech_qg_180': {
+        'questions': {
+            'tech_tolerance_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_7_5',
+                        'wocat_column': 'detail',
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
 
 questiongroups = [
     qg_name,
@@ -11754,9 +13024,22 @@ questiongroups = [
     tech_qg_34,  # Main type of land degradation: Comments
     tech_qg_185,  # Technical drawing
     tech_qg_161,  # Technical specifications
+    tech_qg_164,  # 4.3 General information regarding the calculation of inputs and costs
     tech_qg_165,  # 4.4 Establishment activities
+    tech_qg_93,  # 4.5 Costs and inputs needed for establishment: Comments
     tech_qg_43,  # 4.6 Maintenance/ recurrent activities
     tech_qg_52,  # 4.7 Maintenance costs: Comments
+    tech_qg_95,  # 4.8 Most important factors affecting the costs
+    tech_qg_54,  # 5.1 Climate: Rainfall
+    tech_qg_55,  # 5.1 Climate: Agro-climatic zone
+    tech_qg_168,  # 6.3 Exposure and sensitivity: Gradual climate change: annual temperature
+    tech_qg_179,  # 6.3 Exposure and sensitivity: local rainstorm
+    tech_qg_197,  # 6.3 Exposure and sensitivity: local windstorm
+    tech_qg_202,  # 6.3 Exposure and sensitivity: drought
+    tech_qg_205,  # 6.3 Exposure and sensitivity: general (river) flood
+    tech_qg_214,  # 6.3 Exposure and sensitivity: reduced growing period
+    tech_qg_216,  # 6.3 Exposure and sensitivity: other
+    tech_qg_180,  # 6.3 Exposure and sensitivity: Comments
 ]
 
 qt_mapping = {}

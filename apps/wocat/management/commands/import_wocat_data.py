@@ -463,6 +463,8 @@ class ImportObject(Logger):
                 return len(ref_value) >= int(cond_value)
             elif operator == 'is_empty':
                 return len(ref_value) == 0
+            elif operator == 'not_empty':
+                return len(ref_value) != 0
             elif operator == 'one_of':
                 if isinstance(ref_value, list):
                     if len(ref_value) == 0:
@@ -644,7 +646,10 @@ class ImportObject(Logger):
                                 mapping.get('conditions_join')) is False:
                             continue
 
-                    values.append(sub_value)
+                    if return_list is True:
+                        values.extend(sub_value)
+                    else:
+                        values.append(sub_value)
                 continue
 
             wocat_table = mapping.get('wocat_table')
