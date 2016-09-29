@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-11 11:54+0200\n"
-"PO-Revision-Date: 2016-08-09 07:48+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2016-09-29 13:47+0200\n"
+"PO-Revision-Date: 2016-09-07 14:05+0000\n"
+"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -13395,11 +13395,11 @@ msgstr "Mejores prácticas UNCCD"
 msgid "Set with the method: lock_questionnaire."
 msgstr "Según el método: lock_questionnaire."
 
-#: apps/questionnaire/models.py:906
+#: apps/questionnaire/models.py:925
 msgid "This questionnaire can be edited."
 msgstr "Este cuestionario puede editarse."
 
-#: apps/questionnaire/models.py:908
+#: apps/questionnaire/models.py:927
 msgid "This questionnaire is locked for editing by {}."
 msgstr "Las ediciones de este cuestionario son bloqueadas por {}"
 
@@ -13470,6 +13470,7 @@ msgstr "Editor:"
 #: apps/questionnaire/templates/details/category/with_metadata.html:87
 #: apps/questionnaire/templates/details/category/with_metadata.html:96
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
+#: apps/wocat/templates/wocat/questionnaire/list.html:59
 msgid "Coming soon"
 msgstr "Próximamente"
 
@@ -13513,7 +13514,7 @@ msgstr "Expandir todo"
 #: apps/questionnaire/templates/details/category/unccd_header.html:86
 #: apps/questionnaire/templates/details/category/with_metadata.html:113
 msgid "Collapse all"
-msgstr ""
+msgstr "Colapsar todos"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:131
 #: apps/questionnaire/templates/details/category/default.html:19
@@ -13760,21 +13761,16 @@ msgid "There are no editors invited to this questionnaire."
 msgstr "No hay editores invitados para este cuestionario."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:75
-#, fuzzy
-#| msgid ""
-#| "Edit invited editors. Click the button to update the invited editors."
 msgid ""
 "Add or remove WOCAT users as editors. Click the button on the right to "
 "update the invited editors."
 msgstr ""
-"Editar editores invitados. Haga clic en el botón para actualizar los "
-"editores invitados."
+"Agregar o eliminar usuarios WOCAT como editores. Haga clic en el botón a la "
+"derecha para actualizar los editores invitados. "
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:76
-#, fuzzy
-#| msgid "Update users"
 msgid "Update editors"
-msgstr "Actualizar usuarios"
+msgstr "Actualizar editores"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:77
 #: apps/questionnaire/templates/details/review_panel/publish.html:81
@@ -13784,6 +13780,10 @@ msgid ""
 "This feature is in development and will be added soon. For the time being, "
 "it is recommended to notify invited users via e-mail."
 msgstr ""
+"Por favor tenga en cuenta que los usuarios actualmente invitados no serán "
+"notificados automáticamente. Este rasgo se halla en desarrollo y se agregará "
+"pronto. Por ahora, se recomienda notificar a los usuarios invitados mediante "
+"correo electrónico. "
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:5
 msgid "Edit version"
@@ -13996,10 +13996,8 @@ msgstr ""
 "publicadores asignados."
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:80
-#, fuzzy
-#| msgid "Update users"
 msgid "Update publishers"
-msgstr "Actualizar usuarios"
+msgstr "Actualizar publicadores"
 
 #: apps/questionnaire/templates/details/review_panel/review.html:5
 msgid "Pending review"
@@ -14095,10 +14093,8 @@ msgstr ""
 "revisores asignados."
 
 #: apps/questionnaire/templates/details/review_panel/review.html:80
-#, fuzzy
-#| msgid "Update users"
 msgid "Update reviewers"
-msgstr "Actualizar usuarios"
+msgstr "Actualizar revisores"
 
 #: apps/questionnaire/templates/details/review_panel/welcome.html:7
 msgid "Hello"
@@ -14755,7 +14751,7 @@ msgstr "Tecnologías MST"
 
 #: apps/sample/templates/sample/questionnaire/list.html:58
 #: apps/wocat/templates/wocat/partial/top.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:58
+#: apps/wocat/templates/wocat/questionnaire/list.html:59
 msgid "Advanced filter"
 msgstr "Filtro avanzado"
 
@@ -15304,7 +15300,7 @@ msgstr "Mostrar todos los Enfoques"
 msgid "Show all SLM practices"
 msgstr "Mostrar todas las prácticas MST"
 
-#: apps/wocat/templates/wocat/questionnaire/list.html:82
+#: apps/wocat/templates/wocat/questionnaire/list.html:83
 msgid "WOCAT and UNCCD SLM practices"
 msgstr "Prácticas MST WOCAT y UNCCD "
 
@@ -15351,7 +15347,7 @@ msgstr "Inicio"
 #: templates/base.html:89
 #, python-format
 msgid "Optimized for %(chrome)s and %(firefox)s."
-msgstr ""
+msgstr "Actualizado para %(chrome)s y %(firefox)s."
 
 #: templates/base.html:116
 msgid "Menu"
@@ -15374,6 +15370,8 @@ msgid ""
 "Would you like to help us translate the SLM Database? Please contact the "
 "WOCAT Secretariat for more information."
 msgstr ""
+"?Le gustaría ayudarnos a traducir la base de datos MST? Por favor, "
+"contáctese con la Secretaría WOCAT si desea más información. "
 
 #: templates/base.html:164
 msgid "My SLM Data"
