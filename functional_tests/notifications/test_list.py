@@ -90,10 +90,10 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
         # Exactly one notification and the label for 'pending' is shown.
         logs = self.findManyBy('xpath', self.notifications_xpath)
         self.assertEqual(len(logs), 1)
-        self.findBy('class_name', 'is-pending')
+        self.findBy('class_name', 'has-unread-messages')
 
         # There is only one checkbox, so click it.
-        checkbox = self.findBy("xpath", "//input[@type='checkbox']")
+        checkbox = self.findBy('class_name', 'mark-done')
         checkbox.click()
         # After a little processing, the whole row is now marked as read and a
         # model entry is stored

@@ -256,7 +256,7 @@ class LogCountViewTest(TestCase):
 
     def test_log_count(self):
         response = self.view.get(request=self.request)
-        self.assertEqual(response.content, b'4')
+        self.assertEqual(response.content, b'True')
 
     def test_log_count_one_read(self):
         mommy.make(
@@ -266,7 +266,7 @@ class LogCountViewTest(TestCase):
             is_read=True
         )
         response = self.view.get(request=self.request)
-        self.assertEqual(response.content, b'3')
+        self.assertEqual(response.content, b'True')
 
 
 class LogQuestionnairesListViewTest(TestCase):

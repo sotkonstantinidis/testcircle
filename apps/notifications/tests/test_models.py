@@ -196,9 +196,8 @@ class ActionContextTest(TestCase):
             transform=self.transform
         )
 
-        self.assertEqual(
-            Log.actions.user_log_count(self.reviewer),
-            2
+        self.assertTrue(
+            Log.actions.user_has_logs(self.reviewer),
         )
 
     def test_only_unread_logs(self):
@@ -236,10 +235,10 @@ class ActionContextTest(TestCase):
 
     def test_user_log_roles(self):
         # subscriber and catalyst should see the log 'catalyst_change'
-        roles = {'subscriber': 1, 'catalyst': 1, 'publisher': 0}
-        for role, logs in roles.items():
+        roles = {'subscriber': True, 'catalyst': True, 'publisher': False}
+        for role, has_logs in roles.items():
             self.assertEqual(
-                Log.actions.user_log_count(getattr(self, role)), logs
+                Log.actions.user_has_logs(getattr(self, role)), has_logs
             )
 
     def test_read_logs_admin(self):

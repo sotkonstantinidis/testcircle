@@ -28,7 +28,7 @@ class MenuIndicatorTest(FunctionalTest):
         user = mommy.make(get_user_model())
         self.doLogin(user=user)
         # there are not logs to be shown.
-        self.findByNot('class_name', 'notification-indicator')
+        self.findByNot('class_name', 'has-unread-messages')
 
         # Someone else triggers an action which creates a new task for Alice
         mommy.make(
@@ -41,10 +41,7 @@ class MenuIndicatorTest(FunctionalTest):
         # so after loading the page agein, the indicator exists
         self.browser.get(start_site_url)
 
-        link_element = self.findBy('class_name', 'notification-indicator')
-
-        # The proper number is displayed
-        self.assertEqual(link_element.text, '5')
+        link_element = self.findBy('class_name', 'has-unread-messages')
 
         # The link points to the notification list view.
         pending_url = '{base}{notification_list}?is_unread'.format(
