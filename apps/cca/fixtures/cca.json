@@ -4648,7 +4648,7 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table",
+          "template": "table1",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "numbered": "display"
         },
@@ -4670,7 +4670,7 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table",
+          "template": "table1",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "numbered": "display"
         },
