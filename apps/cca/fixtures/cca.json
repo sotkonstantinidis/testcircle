@@ -276,6 +276,68 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Land degradation type addressed by the Technology listed in QT Core 3.7"
+          },
+          "helptext": {
+            "en": "List land degradation types separately for each gradual climate change/ climate-related extreme. The same change/ extreme may have several land degradation types."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28021
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Sensitivity of the Technology to land degradation type"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28022
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify/ comments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28023
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Land degradation type newly occurring due to gradual climate change/ climate-related extreme (disaster)"
+          },
+          "helptext": {
+            "en": "List one land degradation type per gradual climate change/ climate-related extreme. The same change/ extreme may have several land degradation types."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28024
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -1312,6 +1374,524 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Wt: loss of topsoil/ surface erosion"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29075
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Wg: gully erosion/ gullying"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29076
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Wm: mass movements/ landslides"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29077
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Wr: riverbank erosion"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29078
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Wc: coastal erosion"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29079
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Wo: offsite degradation effects"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29080
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Et: loss of topsoil"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29081
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Ed: deflation and deposition"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29082
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Eo: offsite degradation effects"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29083
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Cn: fertility decline and reduced soil organic matter content (not caused by erosion)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29084
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Ca: acidification"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29085
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Cp: soil pollution"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29086
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Cs: salinization/ alkalinization"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29087
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Pc: compaction"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29088
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Pk: slaking and crusting"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29089
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Pi: soil sealing"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29090
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Pw: waterlogging"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29091
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Ps: subsidence of organic soils, settling of soil"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29092
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Pu: loss of bio-productive function due to other activities"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29093
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Bc: reduction of vegetation cover"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29094
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Bh: loss of habitats"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29095
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Bq: quantity/ biomass decline"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29096
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Bf: detrimental effects of fires"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29097
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Bs: quality and species composition/ diversity decline"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29098
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Bl: loss of soil life"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29099
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Bp: increase of pests/ diseases, loss of predators"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29100
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Ha: aridification"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29101
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Hs: change in quantity of surface water"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29102
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Hg: change in groundwater/ aquifer level"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29103
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Hp: decline of surface water quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29104
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Hq: decline of groundwater quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29105
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Hw: reduction of the buffering capacity of wetland areas"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29106
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "very unfavourable influence"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29107
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "unfavourable influence"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29108
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "neutral"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29109
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "beneficial influence"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29110
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "very beneficial influence"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29111
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "cca": {
@@ -1826,6 +2406,34 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Table 1: Reassessment of land degradation types listed in QT Core 3.7"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27040
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Table 2: Assessment of newly occurring land degradation types"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27041
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "cca": {
@@ -1851,6 +2459,20 @@
     },
     "model": "configuration.translation",
     "pk": 22000
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Sensitivity (Risks and Potentials)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23000
   },
   {
     "fields": {
@@ -2112,6 +2734,23 @@
     },
     "model": "configuration.translation",
     "pk": 22300
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Land degradation types and related sensitivity of the Technology"
+          },
+          "helptext": {
+            "en": "<p><strong>Sensitivity</strong> is the degree to which the functionality of the Technology is affected by climate variability or change, either adversely (unfavourable influence) or beneficially (favourable influence) (adapted by WOCAT from IPCC 2014).</p><p>Unfavourable influence means the functioning of the Technology is negatively affected, e.g. the extra water of a storm cannot be absorbed and creates additional erosion or even landslides. Beneficial influence means that the Technology benefits from the change or the extreme, e.g. it can store the extra water and thus more water is made available for groundwater recharge. It is also important to mention land degradation processes where the influence is neutral, meaning that the Technology has a buffer to absorb the changes or shocks.</p><p>When defining the sensitivity, always compare the Technology not exposed with the same Technology exposed to gradual climate changes and climate-related extremes (disasters).</p><p>List one gradual climate change or climate-related extreme to which the Technology is exposed (refer to question 2.2.). Then, list each land degradation type / subcategory addressed by the Technology (question 3.7 of QT Core) and reassess the sensitivity of the Technology in view of the respective gradual climate change and climate-related extreme (disaster) (Table 1). Reassess the sensitivity of the Technology for each land degradation type separately.</p><p>Then repeat the same for each of the other gradual climate changes or climate-related extremes to which the Technology is exposed (as listed in question 2.2.)</p><p>If additional land degradation types (not yet listed in QT Core 3.7) are newly occurring (have impacts on the Technology) under gradual climate changes and climate-related extremes (disasters), list and assess them as well (table 2). Assess the sensitivity of the Technology for each land degradation type separately.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23100
   },
   {
     "fields": {
@@ -2566,6 +3205,125 @@
     },
     "model": "configuration.key",
     "pk": 28020
+  },
+  {
+    "fields": {
+      "keyword": "land_degradation_type",
+      "translation": 28021,
+      "configuration": {
+        "type": "select_type"
+      },
+      "values": [
+        29075,
+        29076,
+        29077,
+        29078,
+        29079,
+        29080,
+        29081,
+        29082,
+        29083,
+        29084,
+        29085,
+        29086,
+        29087,
+        29088,
+        29089,
+        29090,
+        29091,
+        29092,
+        29093,
+        29094,
+        29095,
+        29096,
+        29097,
+        29098,
+        29099,
+        29100,
+        29101,
+        29102,
+        29103,
+        29104,
+        29105,
+        29106
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28021
+  },
+  {
+    "fields": {
+      "keyword": "sensitivity_to_land_degradation_type",
+      "translation": 28022,
+      "configuration": {
+        "type": "select"
+      },
+      "values": [
+        29107,
+        29108,
+        29109,
+        29110,
+        29111
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28022
+  },
+  {
+    "fields": {
+      "keyword": "specify_comments",
+      "translation": 28023,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28023
+  },
+  {
+    "fields": {
+      "keyword": "newly_occurring_land_degradation_type",
+      "translation": 28024,
+      "configuration": {
+        "type": "select_type"
+      },
+      "values": [
+        29075,
+        29076,
+        29077,
+        29078,
+        29079,
+        29080,
+        29081,
+        29082,
+        29083,
+        29084,
+        29085,
+        29086,
+        29087,
+        29088,
+        29089,
+        29090,
+        29091,
+        29092,
+        29093,
+        29094,
+        29095,
+        29096,
+        29097,
+        29098,
+        29099,
+        29100,
+        29101,
+        29102,
+        29103,
+        29104,
+        29105,
+        29106
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28024
   },
   {
     "fields": {
@@ -3187,6 +3945,339 @@
   },
   {
     "fields": {
+      "keyword": "wt",
+      "translation": 29075,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29075
+  },
+  {
+    "fields": {
+      "keyword": "wg",
+      "translation": 29076,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29076
+  },
+  {
+    "fields": {
+      "keyword": "wm",
+      "translation": 29077,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29077
+  },
+  {
+    "fields": {
+      "keyword": "wr",
+      "translation": 29078,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 29078
+  },
+  {
+    "fields": {
+      "keyword": "wc",
+      "translation": 29079,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 29079
+  },
+  {
+    "fields": {
+      "keyword": "wo",
+      "translation": 29080,
+      "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 29080
+  },
+  {
+    "fields": {
+      "keyword": "et",
+      "translation": 29081,
+      "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 29081
+  },
+  {
+    "fields": {
+      "keyword": "ed",
+      "translation": 29082,
+      "order_value": 8
+    },
+    "model": "configuration.value",
+    "pk": 29082
+  },
+  {
+    "fields": {
+      "keyword": "eo",
+      "translation": 29083,
+      "order_value": 9
+    },
+    "model": "configuration.value",
+    "pk": 29083
+  },
+  {
+    "fields": {
+      "keyword": "cn",
+      "translation": 29084,
+      "order_value": 10
+    },
+    "model": "configuration.value",
+    "pk": 29084
+  },
+  {
+    "fields": {
+      "keyword": "ca",
+      "translation": 29085,
+      "order_value": 11
+    },
+    "model": "configuration.value",
+    "pk": 29085
+  },
+  {
+    "fields": {
+      "keyword": "cp",
+      "translation": 29086,
+      "order_value": 12
+    },
+    "model": "configuration.value",
+    "pk": 29086
+  },
+  {
+    "fields": {
+      "keyword": "cs",
+      "translation": 29087,
+      "order_value": 13
+    },
+    "model": "configuration.value",
+    "pk": 29087
+  },
+  {
+    "fields": {
+      "keyword": "pc",
+      "translation": 29088,
+      "order_value": 14
+    },
+    "model": "configuration.value",
+    "pk": 29088
+  },
+  {
+    "fields": {
+      "keyword": "pk",
+      "translation": 29089,
+      "order_value": 15
+    },
+    "model": "configuration.value",
+    "pk": 29089
+  },
+  {
+    "fields": {
+      "keyword": "pi",
+      "translation": 29090,
+      "order_value": 16
+    },
+    "model": "configuration.value",
+    "pk": 29090
+  },
+  {
+    "fields": {
+      "keyword": "pw",
+      "translation": 29091,
+      "order_value": 17
+    },
+    "model": "configuration.value",
+    "pk": 29091
+  },
+  {
+    "fields": {
+      "keyword": "ps",
+      "translation": 29092,
+      "order_value": 18
+    },
+    "model": "configuration.value",
+    "pk": 29092
+  },
+  {
+    "fields": {
+      "keyword": "pu",
+      "translation": 29093,
+      "order_value": 19
+    },
+    "model": "configuration.value",
+    "pk": 29093
+  },
+  {
+    "fields": {
+      "keyword": "bc",
+      "translation": 29094,
+      "order_value": 20
+    },
+    "model": "configuration.value",
+    "pk": 29094
+  },
+  {
+    "fields": {
+      "keyword": "bh",
+      "translation": 29095,
+      "order_value": 21
+    },
+    "model": "configuration.value",
+    "pk": 29095
+  },
+  {
+    "fields": {
+      "keyword": "bq",
+      "translation": 29096,
+      "order_value": 22
+    },
+    "model": "configuration.value",
+    "pk": 29096
+  },
+  {
+    "fields": {
+      "keyword": "bf",
+      "translation": 29097,
+      "order_value": 23
+    },
+    "model": "configuration.value",
+    "pk": 29097
+  },
+  {
+    "fields": {
+      "keyword": "bs",
+      "translation": 29098,
+      "order_value": 24
+    },
+    "model": "configuration.value",
+    "pk": 29098
+  },
+  {
+    "fields": {
+      "keyword": "bl",
+      "translation": 29099,
+      "order_value": 25
+    },
+    "model": "configuration.value",
+    "pk": 29099
+  },
+  {
+    "fields": {
+      "keyword": "bp",
+      "translation": 29100,
+      "order_value": 26
+    },
+    "model": "configuration.value",
+    "pk": 29100
+  },
+  {
+    "fields": {
+      "keyword": "ha",
+      "translation": 29101,
+      "order_value": 27
+    },
+    "model": "configuration.value",
+    "pk": 29101
+  },
+  {
+    "fields": {
+      "keyword": "hs",
+      "translation": 29102,
+      "order_value": 28
+    },
+    "model": "configuration.value",
+    "pk": 29102
+  },
+  {
+    "fields": {
+      "keyword": "hg",
+      "translation": 29103,
+      "order_value": 29
+    },
+    "model": "configuration.value",
+    "pk": 29103
+  },
+  {
+    "fields": {
+      "keyword": "hp",
+      "translation": 29104,
+      "order_value": 30
+    },
+    "model": "configuration.value",
+    "pk": 29104
+  },
+  {
+    "fields": {
+      "keyword": "hq",
+      "translation": 29105,
+      "order_value": 31
+    },
+    "model": "configuration.value",
+    "pk": 29105
+  },
+  {
+    "fields": {
+      "keyword": "hw",
+      "translation": 29106,
+      "order_value": 32
+    },
+    "model": "configuration.value",
+    "pk": 29106
+  },
+  {
+    "fields": {
+      "keyword": "very_unfavourable_influence",
+      "translation": 29107,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29107
+  },
+  {
+    "fields": {
+      "keyword": "unfavourable_influence",
+      "translation": 29108,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29108
+  },
+  {
+    "fields": {
+      "keyword": "neutral",
+      "translation": 29109,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29109
+  },
+  {
+    "fields": {
+      "keyword": "beneficial_influence",
+      "translation": 29110,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 29110
+  },
+  {
+    "fields": {
+      "keyword": "very_beneficial_influence",
+      "translation": 29111,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 29111
+  },
+  {
+    "fields": {
       "keyword": "cca_qg_1",
       "translation": 27001,
       "configuration": {}
@@ -3551,6 +4642,50 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_40",
+      "translation": 27040,
+      "configuration": {
+        "form_options": {
+          "min_num": 1,
+          "max_num": 50,
+          "template": "table",
+          "column_widths": ["20%", "30%", "20%", "30%"],
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "column_widths": ["20%", "30%", "20%", "30%"],
+          "with_keys": true
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27040
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_41",
+      "translation": 27041,
+      "configuration": {
+        "form_options": {
+          "min_num": 1,
+          "max_num": 50,
+          "template": "table",
+          "column_widths": ["20%", "30%", "20%", "30%"],
+          "numbered": "display"
+        },
+        "view_options": {
+          "template": "table",
+          "column_widths": ["20%", "30%", "20%", "30%"],
+          "with_keys": true
+        }
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27041
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -3564,6 +4699,14 @@
     },
     "model": "configuration.category",
     "pk": 22000
+  },
+  {
+    "fields": {
+      "keyword": "cca__3",
+      "translation": 23000
+    },
+    "model": "configuration.category",
+    "pk": 23000
   },
   {
     "fields": {
@@ -3708,6 +4851,14 @@
     },
     "model": "configuration.category",
     "pk": 22300
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__1",
+      "translation": 23100
+    },
+    "model": "configuration.category",
+    "pk": 23100
   },
   {
     "fields": {
@@ -5509,6 +6660,56 @@
                           }
                         ]
                       }
+                    ]
+                  }
+                ]
+              },
+              {
+                "keyword": "cca__3",
+                "form_options": {
+                  "numbering": "3."
+                },
+                "subcategories": [
+                  {
+                    "keyword": "cca__3__1",
+                    "form_options": {
+                      "numbering": "3.1"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_40",
+                        "questions": [
+                          {
+                            "keyword": "climate_related_extreme"
+                          },
+                          {
+                            "keyword": "land_degradation_type"
+                          },
+                          {
+                            "keyword": "sensitivity_to_land_degradation_type"
+                          },
+                          {
+                            "keyword": "specify_comments"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_41",
+                        "questions": [
+                          {
+                            "keyword": "climate_related_extreme"
+                          },
+                          {
+                            "keyword": "newly_occurring_land_degradation_type"
+                          },
+                          {
+                            "keyword": "sensitivity_to_land_degradation_type"
+                          },
+                          {
+                            "keyword": "specify_comments"
+                          }
+                        ]
+                      }                      
                     ]
                   }
                 ]
