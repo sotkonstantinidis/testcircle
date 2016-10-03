@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-29 13:47+0200\n"
-"PO-Revision-Date: 2016-08-26 12:27+0000\n"
-"Last-Translator: DE CHOUDENS BARBARA <barbara.dc@dimensionsud.com>\n"
+"POT-Creation-Date: 2016-10-03 14:15+0200\n"
+"PO-Revision-Date: 2016-10-03 12:09+0000\n"
+"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: apps/accounts/client.py:168
+#: apps/accounts/client.py:169
 msgid "Error when logging in and updating the user {}: {}"
 msgstr ""
 "Erreur lors de la connexion et de la mise à jour de l'utilisateur {}: {}"
@@ -14876,22 +14876,29 @@ msgid "SAMPLEMULTI"
 msgstr "MULTIECHANTILLON"
 
 #: apps/search/templates/search/help_text.html:3
+msgid "Note:"
+msgstr "Note:"
+
+#: apps/search/templates/search/help_text.html:3
 msgid ""
-"Only data declared as public are visible. Please note that the WOCAT "
-"datasets have not been migrated yet. Currently, the database only contains "
-"the UNCCD PRAIS data. Therefore, searching for existing SLM Practices still "
-"needs to be done in the old database. The migration of the WOCAT data from "
-"the old to the new database will take place later this year and is planned "
-"to be finalized latest by December 2016."
+"The WOCAT datasets have not been migrated yet. Currently, the database only "
+"contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
+"Practices still needs to be done in the old database. The migration of the "
+"WOCAT data from the old to the new database will take place later this year "
+"and is planned to be finalized latest by December 2016."
 msgstr ""
-"Seules les données déclarées publiques sont visibles. Veuillez noter que les "
-"données WOCAT n’ont pas encore été transférées ici. Actuellement, la "
+"Les données WOCAT n’ont pas encore été transférées ici. Actuellement, la "
 "présente base de données ne contient que les données de l’initiative PRAIS "
 "de l’UNCCD. Par conséquent, la recherche des pratiques de GDT existantes "
 "doit encore être faite à partir de l'ancienne base de données. La migration "
 "des données WOCAT à partir de l'ancienne base de données vers la nouvelle "
 "base de données aura lieu plus tard et il est prévu qu’elle soit finalisée "
 "d’ici décembre 2016."
+
+#: apps/search/templates/search/help_text.html:4
+#: apps/unccd/templates/unccd/questionnaire/list.html:10
+msgid "Only data declared as public are visible."
+msgstr "Seules les données déclarées publiques sont visibles."
 
 #: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
@@ -14931,10 +14938,6 @@ msgstr "Ajouter une nouvelle pratique de GDT de l'UNCCD"
 #: apps/unccd/templates/unccd/home.html:32
 msgid "Last updates"
 msgstr "Dernières mises à jour"
-
-#: apps/unccd/templates/unccd/questionnaire/list.html:10
-msgid "Only data declared as public are visible."
-msgstr "Seules les données déclarées publiques sont visibles."
 
 #: apps/unccd/templates/unccd/questionnaire/list.html:13
 msgid "SLM best practices"
