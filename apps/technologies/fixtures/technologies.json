@@ -27613,7 +27613,8 @@
                       {
                         "keyword": "tech_qg_165",
                         "form_options": {
-                          "min_num": 10
+                          "min_num": 10,
+                          "max_num": 30
                         },
                         "questions": [
                           {
@@ -27875,7 +27876,8 @@
                       {
                         "keyword": "tech_qg_43",
                         "form_options": {
-                          "min_num": 10
+                          "min_num": 10,
+                          "max_num": 30
                         },
                         "questions": [
                           {

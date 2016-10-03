@@ -12821,6 +12821,2697 @@ tech_qg_55 = {
     }
 }
 
+# 5.2 Topography
+tech_qg_56 = {
+    'tech_qg_56': {
+        'questions': {
+            'tech_slopes': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'flat',
+                                'value_mapping': 'tech_slopes_flat',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'gentle',
+                                'value_mapping': 'tech_slopes_gentle',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'moderate',
+                                'value_mapping': 'tech_slopes_moderate',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'rolling',
+                                'value_mapping': 'tech_slopes_rolling',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'hilly',
+                                'value_mapping': 'tech_slopes_hilly',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'steep',
+                                'value_mapping': 'tech_slopes_steep',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'very_steep',
+                                'value_mapping': 'tech_slopes_verysteep',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'flat',
+                                        'value_mapping': 'tech_slopes_flat',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'gentle',
+                                        'value_mapping': 'tech_slopes_gentle',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'moderate',
+                                        'value_mapping': 'tech_slopes_moderate',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'rolling',
+                                        'value_mapping': 'tech_slopes_rolling',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'hilly',
+                                        'value_mapping': 'tech_slopes_hilly',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'steep',
+                                        'value_mapping': 'tech_slopes_steep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'very_steep',
+                                        'value_mapping': 'tech_slopes_verysteep',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping (select only rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'flat',
+                                'value_mapping': 'tech_slopes_flat',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'flat',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'gentle',
+                                'value_mapping': 'tech_slopes_gentle',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'gentle',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'moderate',
+                                'value_mapping': 'tech_slopes_moderate',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'moderate',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'rolling',
+                                'value_mapping': 'tech_slopes_rolling',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'rolling',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'hilly',
+                                'value_mapping': 'tech_slopes_hilly',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'hilly',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'steep',
+                                'value_mapping': 'tech_slopes_steep',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'steep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'very_steep',
+                                'value_mapping': 'tech_slopes_verysteep',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'very_steep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'flat',
+                                        'value_mapping': 'tech_slopes_flat',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'gentle',
+                                        'value_mapping': 'tech_slopes_gentle',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'moderate',
+                                        'value_mapping': 'tech_slopes_moderate',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'rolling',
+                                        'value_mapping': 'tech_slopes_rolling',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'hilly',
+                                        'value_mapping': 'tech_slopes_hilly',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'steep',
+                                        'value_mapping': 'tech_slopes_steep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'very_steep',
+                                        'value_mapping': 'tech_slopes_verysteep',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'flat',
+                                        'value_mapping': 'tech_slopes_flat',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'flat',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'gentle',
+                                        'value_mapping': 'tech_slopes_gentle',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'gentle',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'moderate',
+                                        'value_mapping': 'tech_slopes_moderate',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'moderate',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'rolling',
+                                        'value_mapping': 'tech_slopes_rolling',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'rolling',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'hilly',
+                                        'value_mapping': 'tech_slopes_hilly',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'hilly',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'steep',
+                                        'value_mapping': 'tech_slopes_steep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'steep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'very_steep',
+                                        'value_mapping': 'tech_slopes_verysteep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'very_steep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            },
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
+            'tech_landforms': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'plateau',
+                                'value_mapping': 'tech_landforms_plateau',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'ridges',
+                                'value_mapping': 'tech_landforms_ridges',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'mountain_slopes',
+                                'value_mapping': 'tech_landforms_mountainslopes',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'hill_slopes',
+                                'value_mapping': 'tech_landforms_hillslopes',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'footslopes',
+                                'value_mapping': 'tech_landforms_footslopes',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'valley_floors',
+                                'value_mapping': 'tech_landforms_valleyfloors',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'plateau',
+                                        'value_mapping': 'tech_landforms_plateau',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'ridges',
+                                        'value_mapping': 'tech_landforms_ridges',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'mountain_slopes',
+                                        'value_mapping': 'tech_landforms_mountainslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'hill_slopes',
+                                        'value_mapping': 'tech_landforms_hillslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'footslopes',
+                                        'value_mapping': 'tech_landforms_footslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'valley_floors',
+                                        'value_mapping': 'tech_landforms_valleyfloors',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping (select only rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'plateau',
+                                'value_mapping': 'tech_landforms_plateau',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'plateau',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'ridges',
+                                'value_mapping': 'tech_landforms_ridges',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'ridges',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'mountain_slopes',
+                                'value_mapping': 'tech_landforms_mountainslopes',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'mountain_slopes',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'hill_slopes',
+                                'value_mapping': 'tech_landforms_hillslopes',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'hill_slopes',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'footslopes',
+                                'value_mapping': 'tech_landforms_footslopes',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'footslopes',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'valley_floors',
+                                'value_mapping': 'tech_landforms_valleyfloors',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'valley_floors',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'plateau',
+                                        'value_mapping': 'tech_landforms_plateau',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'ridges',
+                                        'value_mapping': 'tech_landforms_ridges',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'mountain_slopes',
+                                        'value_mapping': 'tech_landforms_mountainslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'hill_slopes',
+                                        'value_mapping': 'tech_landforms_hillslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'footslopes',
+                                        'value_mapping': 'tech_landforms_footslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'valley_floors',
+                                        'value_mapping': 'tech_landforms_valleyfloors',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'plateau',
+                                        'value_mapping': 'tech_landforms_plateau',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'plateau',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'ridges',
+                                        'value_mapping': 'tech_landforms_ridges',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'ridges',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'mountain_slopes',
+                                        'value_mapping': 'tech_landforms_mountainslopes',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'mountain_slopes',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'hill_slopes',
+                                        'value_mapping': 'tech_landforms_hillslopes',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'hill_slopes',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'footslopes',
+                                        'value_mapping': 'tech_landforms_footslopes',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'footslopes',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'valley_floors',
+                                        'value_mapping': 'tech_landforms_valleyfloors',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'valley_floors',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'tech_altitudinalzone': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a0_100',
+                                'value_mapping': 'tech_altitudinalzone_0_100',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': 'tech_altitudinalzone_100_500',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': 'tech_altitudinalzone_500_1000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a1000_1500',
+                                'value_mapping': 'tech_altitudinalzone_1000_1500',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a1500_2000',
+                                'value_mapping': 'tech_altitudinalzone_1500_2000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a2000_2500',
+                                'value_mapping': 'tech_altitudinalzone_2000_2500',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a2500_3000',
+                                'value_mapping': 'tech_altitudinalzone_2500_3000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a3000_4000',
+                                'value_mapping': 'tech_altitudinalzone_3000_4000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a4000',
+                                'value_mapping': 'tech_altitudinalzone_4000_plus',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a0_100',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a100_500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a500_1000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1000_1500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1500_2000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2000_2500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2500_3000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a3000_4000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a4000',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            },
+                        ]
+                    },
+                    # More sophisticated mapping (if more than 2 answers provided): Get only those with measure "high" (131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a0_100',
+                                'value_mapping': 'tech_altitudinalzone_0_100',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a0_100',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': 'tech_altitudinalzone_100_500',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a100_500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': 'tech_altitudinalzone_500_1000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a500_1000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a1000_1500',
+                                'value_mapping': 'tech_altitudinalzone_1000_1500',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a1000_1500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a1500_2000',
+                                'value_mapping': 'tech_altitudinalzone_1500_2000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a1500_2000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a2000_2500',
+                                'value_mapping': 'tech_altitudinalzone_2000_2500',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a2000_2500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a2500_3000',
+                                'value_mapping': 'tech_altitudinalzone_2500_3000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a2500_3000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a3000_4000',
+                                'value_mapping': 'tech_altitudinalzone_3000_4000',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a3000_4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a4000',
+                                'value_mapping': 'tech_altitudinalzone_4000_plus',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a0_100',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a100_500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a500_1000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1000_1500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1500_2000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2000_2500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2500_3000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a3000_4000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a4000',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a0_100',
+                                        'value_mapping': 'tech_altitudinalzone_0_100',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a0_100',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a100_500',
+                                        'value_mapping': 'tech_altitudinalzone_100_500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a100_500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a500_1000',
+                                        'value_mapping': 'tech_altitudinalzone_500_1000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a500_1000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1000_1500',
+                                        'value_mapping': 'tech_altitudinalzone_1000_1500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a1000_1500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1500_2000',
+                                        'value_mapping': 'tech_altitudinalzone_1500_2000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a1500_2000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2000_2500',
+                                        'value_mapping': 'tech_altitudinalzone_2000_2500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a2000_2500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2500_3000',
+                                        'value_mapping': 'tech_altitudinalzone_2500_3000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a2500_3000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a3000_4000',
+                                        'value_mapping': 'tech_altitudinalzone_3000_4000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a3000_4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a4000',
+                                        'value_mapping': 'tech_altitudinalzone_4000_plus',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        },
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+        }
+    }
+}
+
+# 5.2 Topography: Comments
+tech_qg_57 = {
+    'tech_qg_57': {
+        'questions': {
+            # 'tech_convex_concave': {},
+            'tech_topography_comments': {
+                'mapping': [
+                    # Slopes on average (if more than 2 checkboxes)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'flat',
+                                'value_mapping': 'flat (0-2%)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'flat',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'gentle',
+                                'value_mapping': 'gentle (3-5%)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'gentle',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'moderate',
+                                'value_mapping': 'moderate (6-10%)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'moderate',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'rolling',
+                                'value_mapping': 'rolling (11-15%)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'rolling',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'hilly',
+                                'value_mapping': 'hilly (16-30%)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'hilly',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'steep',
+                                'value_mapping': 'steep (31-60%)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'steep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_8',
+                                'wocat_column': 'very_steep',
+                                'value_mapping': 'very steep (>60%)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_8',
+                                                'wocat_column': 'very_steep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'flat',
+                                        'value_mapping': 'tech_slopes_flat',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'gentle',
+                                        'value_mapping': 'tech_slopes_gentle',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'moderate',
+                                        'value_mapping': 'tech_slopes_moderate',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'rolling',
+                                        'value_mapping': 'tech_slopes_rolling',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'hilly',
+                                        'value_mapping': 'tech_slopes_hilly',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'steep',
+                                        'value_mapping': 'tech_slopes_steep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'very_steep',
+                                        'value_mapping': 'tech_slopes_verysteep',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'flat',
+                                        'value_mapping': 'tech_slopes_flat',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'flat',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'gentle',
+                                        'value_mapping': 'tech_slopes_gentle',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'gentle',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'moderate',
+                                        'value_mapping': 'tech_slopes_moderate',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'moderate',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'rolling',
+                                        'value_mapping': 'tech_slopes_rolling',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'rolling',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'hilly',
+                                        'value_mapping': 'tech_slopes_hilly',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'hilly',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'steep',
+                                        'value_mapping': 'tech_slopes_steep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'steep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_8',
+                                        'wocat_column': 'very_steep',
+                                        'value_mapping': 'tech_slopes_verysteep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_8',
+                                                        'wocat_column': 'very_steep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for checkbox 5.2 "Slopes on average", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Slopes on average: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
+                    # Landforms (if more than 2 checkboxes)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'plateau',
+                                'value_mapping': 'plateau / plains',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'plateau',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'ridges',
+                                'value_mapping': 'ridges',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'ridges',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'mountain_slopes',
+                                'value_mapping': 'mountain slopes',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'mountain_slopes',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'hill_slopes',
+                                'value_mapping': 'hill slopes',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'hill_slopes',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'footslopes',
+                                'value_mapping': 'footslopes',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'footslopes',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_7',
+                                'wocat_column': 'valley_floors',
+                                'value_mapping': 'valley floors',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_7',
+                                                'wocat_column': 'valley_floors',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'plateau',
+                                        'value_mapping': 'tech_landforms_plateau',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'ridges',
+                                        'value_mapping': 'tech_landforms_ridges',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'mountain_slopes',
+                                        'value_mapping': 'tech_landforms_mountainslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'hill_slopes',
+                                        'value_mapping': 'tech_landforms_hillslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'footslopes',
+                                        'value_mapping': 'tech_landforms_footslopes',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'valley_floors',
+                                        'value_mapping': 'tech_landforms_valleyfloors',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'plateau',
+                                        'value_mapping': 'tech_landforms_plateau',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'plateau',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'ridges',
+                                        'value_mapping': 'tech_landforms_ridges',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'ridges',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'mountain_slopes',
+                                        'value_mapping': 'tech_landforms_mountainslopes',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'mountain_slopes',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'hill_slopes',
+                                        'value_mapping': 'tech_landforms_hillslopes',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'hill_slopes',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'footslopes',
+                                        'value_mapping': 'tech_landforms_footslopes',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'footslopes',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_7',
+                                        'wocat_column': 'valley_floors',
+                                        'value_mapping': 'tech_landforms_valleyfloors',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_7',
+                                                        'wocat_column': 'valley_floors',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for checkbox 5.2 "Landforms", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Landforms: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
+                    # Altitudinal zones (if more than 2 checkboxes)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a0_100',
+                                'value_mapping': '0-100 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a0_100',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': '100-500 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a100_500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': '500-1000 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a500_1000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a1000_1500',
+                                'value_mapping': '1000-1500 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a1000_1500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a1500_2000',
+                                'value_mapping': '1500-2000 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a1500_2000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a2000_2500',
+                                'value_mapping': '2000-2500 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a2000_2500',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a2500_3000',
+                                'value_mapping': '2500-3000 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a2500_3000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a3000_4000',
+                                'value_mapping': '3000-4000 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a3000_4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_6',
+                                'wocat_column': 'a4000',
+                                'value_mapping': '> 4000 m a.s.l.',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_6',
+                                                'wocat_column': 'a4000',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a0_100',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a100_500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a500_1000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1000_1500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1500_2000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2000_2500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2500_3000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a3000_4000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a4000',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a0_100',
+                                        'value_mapping': 'tech_altitudinalzone_0_100',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a0_100',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a100_500',
+                                        'value_mapping': 'tech_altitudinalzone_100_500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a100_500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a500_1000',
+                                        'value_mapping': 'tech_altitudinalzone_500_1000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a500_1000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1000_1500',
+                                        'value_mapping': 'tech_altitudinalzone_1000_1500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a1000_1500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a1500_2000',
+                                        'value_mapping': 'tech_altitudinalzone_1500_2000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a1500_2000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2000_2500',
+                                        'value_mapping': 'tech_altitudinalzone_2000_2500',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a2000_2500',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a2500_3000',
+                                        'value_mapping': 'tech_altitudinalzone_2500_3000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a2500_3000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a3000_4000',
+                                        'value_mapping': 'tech_altitudinalzone_3000_4000',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a3000_4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_6',
+                                        'wocat_column': 'a4000',
+                                        'value_mapping': 'tech_altitudinalzone_4000_plus',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_6',
+                                                        'wocat_column': 'a4000',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for checkbox 5.2 "Altitudinal zone", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Altitudinal zone: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 5.3 Soils
+tech_qg_58 = {
+    'tech_qg_58': {
+        'questions': {
+            'tech_soil_depth': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'very_shallow',
+                                'value_mapping': 'tech_soil_depth_veryshallow',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'shallow',
+                                'value_mapping': 'tech_soil_depth_shallow',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'moderately_deep',
+                                'value_mapping': 'tech_soil_depth_moderatelydeep',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'deep',
+                                'value_mapping': 'tech_soil_depth_deep',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'very_deep',
+                                'value_mapping': 'tech_soil_depth_verydeep',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_shallow',
+                                        'value_mapping': 'tech_soil_depth_veryshallow',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'shallow',
+                                        'value_mapping': 'tech_soil_depth_shallow',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'moderately_deep',
+                                        'value_mapping': 'tech_soil_depth_moderatelydeep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'deep',
+                                        'value_mapping': 'tech_soil_depth_deep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_deep',
+                                        'value_mapping': 'tech_soil_depth_verydeep',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping (select only rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'very_shallow',
+                                'value_mapping': 'tech_soil_depth_veryshallow',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'very_shallow',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'shallow',
+                                'value_mapping': 'tech_soil_depth_shallow',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'shallow',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'moderately_deep',
+                                'value_mapping': 'tech_soil_depth_moderatelydeep',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'moderately_deep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'deep',
+                                'value_mapping': 'tech_soil_depth_deep',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'deep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'very_deep',
+                                'value_mapping': 'tech_soil_depth_verydeep',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'very_deep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_shallow',
+                                        'value_mapping': 'tech_soil_depth_veryshallow',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'shallow',
+                                        'value_mapping': 'tech_soil_depth_shallow',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'moderately_deep',
+                                        'value_mapping': 'tech_soil_depth_moderatelydeep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'deep',
+                                        'value_mapping': 'tech_soil_depth_deep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_deep',
+                                        'value_mapping': 'tech_soil_depth_verydeep',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_shallow',
+                                        'value_mapping': 'tech_soil_depth_veryshallow',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'very_shallow',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'shallow',
+                                        'value_mapping': 'tech_soil_depth_shallow',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'shallow',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'moderately_deep',
+                                        'value_mapping': 'tech_soil_depth_moderatelydeep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'moderately_deep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'deep',
+                                        'value_mapping': 'tech_soil_depth_deep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'deep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_deep',
+                                        'value_mapping': 'tech_soil_depth_verydeep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'very_deep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            # 'tech_soil_texture_topsoil': {},
+            # 'tech_soil_texture_20cm': {},
+            # 'tech_topsoil_organic': {},
+        }
+    }
+}
+
+# 5.3 Soils: Comments
+tech_qg_59 = {
+    'tech_qg_59': {
+        'questions': {
+            'tech_soil_comments': {
+                'mapping': [
+                    # Soil depth (if more than 2 checkboxes)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'very_shallow',
+                                'value_mapping': 'very shallow (0-20 cm)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'very_shallow',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'shallow',
+                                'value_mapping': 'shallow (21-50 cm)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'shallow',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'moderately_deep',
+                                'value_mapping': 'moderately deep (51-80 cm)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'moderately_deep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'deep',
+                                'value_mapping': 'deep (81-120 cm)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'deep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_9',
+                                'wocat_column': 'very_deep',
+                                'value_mapping': 'very deep (> 120 cm)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_9',
+                                                'wocat_column': 'very_deep',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_shallow',
+                                        'value_mapping': 'tech_soil_depth_veryshallow',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'shallow',
+                                        'value_mapping': 'tech_soil_depth_shallow',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'moderately_deep',
+                                        'value_mapping': 'tech_soil_depth_moderatelydeep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'deep',
+                                        'value_mapping': 'tech_soil_depth_deep',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_deep',
+                                        'value_mapping': 'tech_soil_depth_verydeep',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_shallow',
+                                        'value_mapping': 'tech_soil_depth_veryshallow',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'very_shallow',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'shallow',
+                                        'value_mapping': 'tech_soil_depth_shallow',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'shallow',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'moderately_deep',
+                                        'value_mapping': 'tech_soil_depth_moderatelydeep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'moderately_deep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'deep',
+                                        'value_mapping': 'tech_soil_depth_deep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'deep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_9',
+                                        'wocat_column': 'very_deep',
+                                        'value_mapping': 'tech_soil_depth_verydeep',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_9',
+                                                        'wocat_column': 'very_deep',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for checkbox 5.3 "Soli depth on average", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Soil depth on average: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
 # 6.3 Exposure and sensitivity: Gradual climate change: annual temperature
 tech_qg_168 = {
     'tech_qg_168': {
@@ -13032,6 +15723,10 @@ questiongroups = [
     tech_qg_95,  # 4.8 Most important factors affecting the costs
     tech_qg_54,  # 5.1 Climate: Rainfall
     tech_qg_55,  # 5.1 Climate: Agro-climatic zone
+    tech_qg_56,  # 5.2 Topography: Altitudinal zone
+    tech_qg_57,  # 5.2 Topography: Comments
+    tech_qg_58,  # 5.3 Soils
+    tech_qg_59,  # 5.3 Soils: Comments
     tech_qg_168,  # 6.3 Exposure and sensitivity: Gradual climate change: annual temperature
     tech_qg_179,  # 6.3 Exposure and sensitivity: local rainstorm
     tech_qg_197,  # 6.3 Exposure and sensitivity: local windstorm
