@@ -24,6 +24,7 @@ from staticmap import StaticMap, CircleMarker, Polygon
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+from .signals import change_status, create_questionnaire
 
 from .conf import settings
 from .errors import QuestionnaireLockedException
@@ -83,7 +84,6 @@ class Questionnaire(models.Model):
     Questionnaire.
     """
     data = JsonBField()
-    data_old = JsonBField(null=True)
     created = models.DateTimeField()
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
@@ -120,15 +120,12 @@ class Questionnaire(models.Model):
             ("unflag_unccd_questionnaire", "Can unflag UNCCD questionnaire"),
         )
 
-    def get_absolute_url(self):
+    def _get_url_from_configured_app(self, url_name: str) -> str:
         """
         Try to resolve the proper code for the object, using it as namespace.
 
         If some day, the configurations code is not the exact same string as
         the application name, a 'mapping' dict is required.
-
-        Returns:
-            string: detail url of the questionnaire.
         """
         conf = self.configurations.filter(
             active=True
@@ -139,12 +136,27 @@ class Questionnaire(models.Model):
         )
         if conf.exists() and conf.count() == 1:
             with contextlib.suppress(NoReverseMatch):
-                return reverse('{app_name}:questionnaire_details'.format(
-                    app_name=conf.first().code
+                return reverse('{app_name}:{url_name}'.format(
+                    app_name=conf.first().code,
+                    url_name=url_name
                 ), kwargs={'identifier': self.code})
         return None
 
-    def update_data(self, data, updated, configuration_code, old_data=None):
+    def get_absolute_url(self):
+        """
+        Detail view url of the questionnaire. Important: don't use type hints
+        as djangorestframework as of now throws errors
+        (https://github.com/tomchristie/django-rest-framework/pull/4076)
+        """
+        return self._get_url_from_configured_app('questionnaire_details')
+
+    def get_edit_url(self) -> str:
+        """
+        Edit view url of the questionnaire
+        """
+        return self._get_url_from_configured_app('questionnaire_edit')
+
+    def update_data(self, data, updated, configuration_code):
         """
         Helper function to just update the data of the questionnaire
         without creating a new instance.
@@ -156,15 +168,11 @@ class Questionnaire(models.Model):
 
             ``configuration_code`` (str): The configuration code.
 
-            ``old_data`` (dict): The data dictionary containing the old data of
-            the questionnaire.
-
         Returns:
             ``Questionnaire``
         """
         self.data = data
         self.updated = updated
-        self.data_old = old_data
         self.save()
         # Unblock all questionnaires with this code, as all questionnaires with
         # this code are blocked for editing.
@@ -248,8 +256,7 @@ class Questionnaire(models.Model):
 
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
-                previous_version.update_data(
-                    data, updated, configuration_code, old_data=old_data)
+                previous_version.update_data(data, updated, configuration_code)
                 previous_version.add_translation_language(original=False)
                 return previous_version
 
@@ -260,8 +267,7 @@ class Questionnaire(models.Model):
                     raise ValidationError(
                         'You do not have permission to edit the '
                         'questionnaire.')
-                previous_version.update_data(
-                    data, updated, configuration_code, old_data=old_data)
+                previous_version.update_data(data, updated, configuration_code)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_REVIEWED:
@@ -271,8 +277,7 @@ class Questionnaire(models.Model):
                     raise ValidationError(
                         'You do not have permission to edit the '
                         'questionnaire.')
-                previous_version.update_data(
-                    data, updated, configuration_code, old_data=old_data)
+                previous_version.update_data(data, updated, configuration_code)
                 return previous_version
 
             else:
@@ -294,6 +299,11 @@ class Questionnaire(models.Model):
         questionnaire = Questionnaire.objects.create(
             data=data, uuid=uuid, code=code, version=version, status=status,
             created=created, updated=updated)
+        create_questionnaire.send(
+            sender=settings.NOTIFICATIONS_CREATE,
+            questionnaire=questionnaire,
+            user=user
+        )
 
         questionnaire.update_geometry(configuration_code=configuration_code)
 

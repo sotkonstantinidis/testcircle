@@ -39,6 +39,7 @@ urlpatterns += i18n_patterns(
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
     url(r'^search/', include('search.urls', namespace='search')),
     url(r'^api/v1/', include('api.urls')),
+    url(r'^notifications/', include('notifications.urls')),
 )
 
 if settings.DEBUG:

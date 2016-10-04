@@ -27,9 +27,9 @@ from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
 )
-from .models import Questionnaire, Flag
 from .conf import settings
-
+from .models import Questionnaire, Flag
+from .signals import change_status, change_member, delete_questionnaire
 
 logger = logging.getLogger(__name__)
 
@@ -1180,7 +1180,6 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         (typically a redirect) or None.
     """
     roles_permissions = questionnaire_object.get_roles_permissions(request.user)
-    roles = roles_permissions.roles
     permissions = roles_permissions.permissions
 
     if request.POST.get('submit'):
@@ -1198,13 +1197,18 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 ' do not have permission to do so.')
             return
 
-        # Delete the old data and update the status
+        # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_SUBMITTED
-        questionnaire_object.data_old = None
         questionnaire_object.save()
 
         messages.success(
             request, _('The questionnaire was successfully submitted.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            user=request.user,
+            message=request.POST.get('message', '')
+        )
 
     elif request.POST.get('review'):
 
@@ -1231,6 +1235,12 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully reviewed.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            user=request.user,
+            message=request.POST.get('message', '')
+        )
 
     elif request.POST.get('publish'):
 
@@ -1257,8 +1267,13 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         for previous_object in previously_public:
             previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
-            delete_questionnaires_from_es(
-                configuration_code, [previous_object])
+            delete_questionnaires_from_es(configuration_code, [previous_object])
+            change_status.send(
+                sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+                questionnaire=previous_object,
+                user=request.user,
+                message=_('New version was published')
+            )
 
         questionnaire_object.status = settings.QUESTIONNAIRE_PUBLIC
         questionnaire_object.save()
@@ -1286,6 +1301,12 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully set public.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            user=request.user,
+            message=request.POST.get('message', '')
+        )
 
     elif request.POST.get('reject'):
 
@@ -1319,6 +1340,13 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         messages.success(
             request, _('The questionnaire was successfully rejected.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire_object,
+            user=request.user,
+            is_rejected=True,
+            message=request.POST.get('message', '')
+        )
 
         # Query the permissions again, if the user does not have
         # edit rights on the now draft questionnaire, then route him
@@ -1373,6 +1401,14 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
             # Add the user
             questionnaire_object.add_user(user, role)
+            if user not in previous_users:
+                change_member.send(
+                    sender=settings.NOTIFICATIONS_ADD_MEMBER,
+                    questionnaire=questionnaire_object,
+                    user=request.user,
+                    affected=user,
+                    role=role
+                )
 
             # Remove user from list of previous users
             if user in previous_users:
@@ -1380,6 +1416,14 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Remove remaining previous users
         for user in previous_users:
+            # send signal while user is still related.
+            change_member.send(
+                sender=settings.NOTIFICATIONS_REMOVE_MEMBER,
+                questionnaire=questionnaire_object,
+                user=request.user,
+                affected=user,
+                role=role
+            )
             questionnaire_object.remove_user(user, role)
 
         if not user_error:
@@ -1429,6 +1473,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Then flag it
         new_version.add_flag(flag)
+
+        # todo: if this feature is used, add a notification.
 
         # Add the user who flagged it
         new_version.add_user(request.user, settings.QUESTIONNAIRE_FLAGGER)
@@ -1481,11 +1527,22 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             'The flag was successfully removed. Please note that this created '
             'a new version which needs to be reviewed. In the meantime, you '
             'are seeing the public version which still shows the flag.'))
+        change_status.send(
+            sender=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=new_version,
+            user=request.user,
+            message=_('New version due to unccd flagging')
+        )
 
     elif request.POST.get('delete'):
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
         messages.success(request, _('The questionnaire was succesfully removed'))
+        delete_questionnaire.send(
+            sender=settings.NOTIFICATIONS_DELETE,
+            questionnaire=questionnaire_object,
+            user=request.user
+        )
         return redirect('account_questionnaires')
 
 

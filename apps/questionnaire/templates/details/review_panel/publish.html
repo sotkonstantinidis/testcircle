@@ -45,6 +45,10 @@
     <div id="confirm-publish" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm publication." %}</h2>
       <p>{% trans "If you approve this SLM Technology / Approach it will be published and available to public users." %}</p>
+      <p>
+        {% trans "An optional message may be added here:" %}
+        <textarea name="message" form="review_form"></textarea>
+      </p>
       <button name='publish' value='true' class="button success" type="submit" form="review_form">{% trans "Publish" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
@@ -64,6 +68,10 @@
     <div id="confirm-reject" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h2>{% trans "Please confirm rejection." %}</h2>
       <p>{% trans "If you reject this SLM Technology / Approach the compiler and the editor(s) will be notified that they have to revise the SLM Technology / Approach before re-submitting it." %}</p>
+      <p>
+        {% trans "An optional message for the compiler may be added here:" %}
+        <textarea name="message" form="review_form"></textarea>
+      </p>
       <button name='reject' value='true' class="button alert" type="submit" form="review_form">{% trans "Reject" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>

@@ -32,6 +32,7 @@ from configuration.utils import get_filter_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
+from questionnaire.signals import change_questionnaire_data
 from questionnaire.upload import (
     retrieve_file,
     UPLOAD_THUMBNAIL_CONTENT_TYPE,
@@ -42,7 +43,6 @@ from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
 from .utils import (
     clean_questionnaire_data,
-    compare_questionnaire_data,
     get_active_filters,
     get_link_data,
     get_list_values,
@@ -441,14 +441,10 @@ class QuestionnaireSaveMixin(StepsMixin):
         else:
             return self.form_valid(data)
 
-    def form_valid(self, data):
-
-        diff_qgs = []
-        # Recalculate difference between the two diffs
-        if self.has_object:
-            q_obj = self.object
-            diff_qgs = compare_questionnaire_data(q_obj.data_old, data)
-
+    def form_valid(self, data: dict):
+        """
+        Save the new questionnaire data and create a log for the change.
+        """
         try:
             questionnaire = Questionnaire.create_new(
                 configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
@@ -462,6 +458,11 @@ class QuestionnaireSaveMixin(StepsMixin):
         self.save_questionnaire_links()
         questionnaire.unlock_questionnaire()
         messages.success(self.request, _('Data successfully saved.'))
+        change_questionnaire_data.send(
+            sender=settings.NOTIFICATIONS_EDIT_CONTENT,
+            questionnaire=questionnaire,
+            user=self.request.user
+        )
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self):
@@ -673,7 +674,7 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             edit_step_route='{}:questionnaire_new_step'.format(
                 self.url_namespace),
             questionnaire_object=self.object or None, csrf_token=csrf_token,
-            edited_questiongroups=self.get_edited_questiongroups(),
+            edited_questiongroups=edited_questiongroups,
             view_mode='edit',
             links=self.get_links(),
             review_config=review_config,
@@ -741,12 +742,6 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
                 settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
             ]
         )
-
-    def get_edited_questiongroups(self):
-        """
-        ?
-        """
-        return compare_questionnaire_data(self.object.data, self.object.data_old) if self.has_object else []
 
     def get_links(self):
         """
@@ -1011,7 +1006,9 @@ def generic_questionnaire_details(
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,
-        questionnaire_object=questionnaire_object, links=link_display)
+        questionnaire_object=questionnaire_object, links=link_display,
+        user=request.user if request.user.is_authenticated() else None
+    )
 
     return render(request, 'questionnaire/details.html', {
         'images': images,

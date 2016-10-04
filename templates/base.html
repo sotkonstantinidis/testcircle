@@ -117,7 +117,12 @@
         <section class="top-bar-section">
           <ul class="right">
             {% if user.is_authenticated %}
-              <li class="has-dropdown">
+              <li>
+                <a href="{% url 'notification_list' %}?is_unread" class="notification-indicator" title ="{% trans "See your messages." %}">
+                  <svg class="icon"><use xlink:href="#icon-mail" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                </a>
+              </li>
+              <li class="has-dropdown user-menu">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
                   <li><a href="{% url 'account_questionnaires' %}">{% trans "My SLM practices" %}</a></li>
@@ -197,6 +202,22 @@
       <script src="{% static 'js/foundation.min.js' %}"></script>
       <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
       <script src="{% static 'js/main.min.js' %}"></script>
+      <script>
+      $(function() {
+        // load indicator for new pending tasks - if any (not zero) are available.
+        const notificationIndicator = $('.notification-indicator');
+        if (notificationIndicator.length !== 0) {
+          $.ajax({
+            url: '{% url 'notification_new_count' %}',
+            method: 'GET'
+          }).done(function(data) {
+            if (data == 'True') {
+              notificationIndicator.addClass('has-unread-messages')
+            }
+          });
+        }
+      });
+      </script>
     {% endcompress %}
     <!-- Block for js within specific templates. Add compress in the template.  -->
     {% render_block "js" %}
