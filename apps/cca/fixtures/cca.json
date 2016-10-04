@@ -4952,7 +4952,12 @@
                             }
                           },
                           {
-                            "keyword": "name_local"
+                            "keyword": "name_local",
+                            "form_options": {
+                              "field_options": {
+                                "readonly": "readonly"
+                              }
+                            }
                           }
                         ]
                       },
@@ -4961,6 +4966,11 @@
                         "questions": [
                           {
                             "keyword": "country",
+                            "form_options": {
+                              "field_options": {
+                                "readonly": "readonly"
+                              }
+                            },
                             "view_options": {
                               "template": "inline_6",
                               "in_list": true
