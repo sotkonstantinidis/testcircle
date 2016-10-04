@@ -1,6 +1,5 @@
 import contextlib
 import logging
-from typing import Iterable
 
 from django.conf import settings
 from django.http import Http404
@@ -33,7 +32,7 @@ class LogListView(LoginRequiredMixin, ListView):
     """
     template_name = 'notifications/partial/list.html'
 
-    def add_user_aware_data(self, logs) -> Iterable:
+    def add_user_aware_data(self, logs):
         """
         Provide all info required for the template, so as little logic as
         possible is required within the template.
