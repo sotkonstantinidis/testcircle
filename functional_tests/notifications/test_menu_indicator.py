@@ -42,6 +42,9 @@ class MenuIndicatorTest(FunctionalTest):
         self.browser.get(start_site_url)
 
         link_element = self.findBy('class_name', 'has-unread-messages')
+        self.assertEqual(
+            link_element.text, '5'
+        )
 
         # The link points to the notification list view.
         pending_url = '{base}{notification_list}?is_unread'.format(

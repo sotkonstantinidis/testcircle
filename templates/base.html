@@ -211,7 +211,8 @@
             url: '{% url 'notification_new_count' %}',
             method: 'GET'
           }).done(function(data) {
-            if (data == 'True') {
+            if (data != 0) {
+              notificationIndicator.prepend('<strong>' + data + '</strong>');
               notificationIndicator.addClass('has-unread-messages')
             }
           });
