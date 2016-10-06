@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-11 11:54+0200\n"
+"POT-Creation-Date: 2016-10-03 14:15+0200\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: apps/accounts/client.py:168
+#: apps/accounts/client.py:169
 msgid "Error when logging in and updating the user {}: {}"
 msgstr ""
 
@@ -11760,11 +11760,11 @@ msgstr ""
 msgid "Set with the method: lock_questionnaire."
 msgstr ""
 
-#: apps/questionnaire/models.py:906
+#: apps/questionnaire/models.py:925
 msgid "This questionnaire can be edited."
 msgstr ""
 
-#: apps/questionnaire/models.py:908
+#: apps/questionnaire/models.py:927
 msgid "This questionnaire is locked for editing by {}."
 msgstr ""
 
@@ -11835,6 +11835,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/with_metadata.html:87
 #: apps/questionnaire/templates/details/category/with_metadata.html:96
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
+#: apps/wocat/templates/wocat/questionnaire/list.html:59
 msgid "Coming soon"
 msgstr ""
 
@@ -12965,7 +12966,7 @@ msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/list.html:58
 #: apps/wocat/templates/wocat/partial/top.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:58
+#: apps/wocat/templates/wocat/questionnaire/list.html:59
 msgid "Advanced filter"
 msgstr ""
 
@@ -12997,13 +12998,21 @@ msgid "SAMPLEMULTI"
 msgstr ""
 
 #: apps/search/templates/search/help_text.html:3
+msgid "Note:"
+msgstr ""
+
+#: apps/search/templates/search/help_text.html:3
 msgid ""
-"Only data declared as public are visible. Please note that the WOCAT "
-"datasets have not been migrated yet. Currently, the database only contains "
-"the UNCCD PRAIS data. Therefore, searching for existing SLM Practices still "
-"needs to be done in the old database. The migration of the WOCAT data from "
-"the old to the new database will take place later this year and is planned "
-"to be finalized latest by December 2016."
+"The WOCAT datasets have not been migrated yet. Currently, the database only "
+"contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
+"Practices still needs to be done in the old database. The migration of the "
+"WOCAT data from the old to the new database will take place later this year "
+"and is planned to be finalized latest by December 2016."
+msgstr ""
+
+#: apps/search/templates/search/help_text.html:4
+#: apps/unccd/templates/unccd/questionnaire/list.html:10
+msgid "Only data declared as public are visible."
 msgstr ""
 
 #: apps/technologies/templates/technologies/base.html:6
@@ -13039,10 +13048,6 @@ msgstr ""
 
 #: apps/unccd/templates/unccd/home.html:32
 msgid "Last updates"
-msgstr ""
-
-#: apps/unccd/templates/unccd/questionnaire/list.html:10
-msgid "Only data declared as public are visible."
 msgstr ""
 
 #: apps/unccd/templates/unccd/questionnaire/list.html:13
@@ -13395,7 +13400,7 @@ msgstr ""
 msgid "Show all SLM practices"
 msgstr ""
 
-#: apps/wocat/templates/wocat/questionnaire/list.html:82
+#: apps/wocat/templates/wocat/questionnaire/list.html:83
 msgid "WOCAT and UNCCD SLM practices"
 msgstr ""
 
