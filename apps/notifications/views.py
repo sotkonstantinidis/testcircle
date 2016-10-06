@@ -186,7 +186,7 @@ class LogCountView(LoginRequiredMixin, View):
         return HttpResponse(
             content=Log.actions.only_unread_logs(
                 user=self.request.user
-            ).user_has_logs(
+            ).user_log_count(
                 user=self.request.user
             )
         )

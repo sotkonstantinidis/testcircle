@@ -148,7 +148,7 @@ class ActionContextQuerySet(models.QuerySet):
         """
         return self.filter(action__in=settings.NOTIFICATIONS_EMAIL_ACTIONS)
 
-    def user_has_logs(self, user: User) -> int:
+    def user_log_count(self, user: User) -> int:
         """
         Count all unread logs that the user has to work on.
         """
@@ -156,7 +156,7 @@ class ActionContextQuerySet(models.QuerySet):
             user=user
         ).only(
             'id'
-        ).exists()
+        ).count()
 
     def only_unread_logs(self, user: User):
         """
