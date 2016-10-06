@@ -2758,6 +2758,23 @@
       "data": {
         "cca": {
           "label": {
+            "en": "On- and off-site ipmacts of the Technology under gradual climate changes and climate-related extremes (disasters)"
+          },
+          "helptext": {
+            "en": "<p>Below you will find the list of on- and offsite impacts from question 6.1 and 6.2 in QT Core. Fill out the list for <strong>each</strong> gradual climate change and climate-related extreme (disaster) that you have listed in question 2.2. Make as many copies of the list as the number of gradual climate changes and climate-related extremes you have listed in question 2.2 (e.g. if you have listed 3 gradual climate changes and 2 climate-related extremes, have 5 copies of the list available).</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23200
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Strengths/ advantages/ opportunities of the Technology"
           },
           "helptext": {
@@ -4686,6 +4703,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_42",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27042
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -4859,6 +4885,14 @@
     },
     "model": "configuration.category",
     "pk": 23100
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2",
+      "translation": 23200
+    },
+    "model": "configuration.category",
+    "pk": 23200
   },
   {
     "fields": {
@@ -6721,6 +6755,13 @@
                         ]
                       }                      
                     ]
+                  },
+                  {
+                    "keyword": "cca__3__2",
+                    "form_options": {
+                      "numbering": "3.2",
+                      "template": "comingsoon"
+                    }
                   }
                 ]
               },

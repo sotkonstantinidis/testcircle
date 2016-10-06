@@ -50,17 +50,249 @@ function hasContent(element) {
 }
 
 
+var disasters = [
+    {
+        "id":       "cca_qg_27",
+        "value":    "avalanche",
+        "text":     "Avalanche",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_17",
+        "value":    "cold_wave",
+        "text":     "Cold wave",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_20",
+        "value":    "drought",
+        "text":     "Drought",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_28",
+        "value":    "epidemic_diseases",
+        "text":     "Epidemic diseases",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_8",
+        "value":    "extra_tropical_cyclone",
+        "text":     "Extra-tropical cyclone",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_18",
+        "value":    "extreme_cold_winter_conditions",
+        "text":     "Extreme cold winter conditions",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_19",
+        "value":    "extreme_mild_winter_conditions",
+        "text":     "Extreme mild winter conditions",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_24",
+        "value":    "flash_flood",
+        "text":     "Flash flood",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_21",
+        "value":    "forest_fire",
+        "text":     "Forest fire",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_23",
+        "value":    "general_river_flood",
+        "text":     "General (river) flood",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_16",
+        "value":    "heatwave",
+        "text":     "Heatwave",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_29",
+        "value":    "insect_worm_infestation",
+        "text":     "Insect/ worm infestation",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_22",
+        "value":    "land_fire",
+        "text":     "Land fire",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_26",
+        "value":    "landslide_debris_flow",
+        "text":     "Landslide/ debris flow",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_11",
+        "value":    "local_hailstorm",
+        "text":     "Local hailstorm",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_9",
+        "value":    "local_rainstorm",
+        "text":     "Local rainstorm",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_13",
+        "value":    "local_sandstorm_duststorm",
+        "text":     "Local sandstorm/ duststorm",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_12",
+        "value":    "local_snowstorm",
+        "text":     "Local snow",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_10",
+        "value":    "local_thunderstorm",
+        "text":     "Local thunderstorm",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_15",
+        "value":    "local_tornado",
+        "text":     "Local tornado",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_14",
+        "value":    "local_windstorm",
+        "text":     "Local windstorm",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_25",
+        "value":    "storm_surge_coastal_flood",
+        "text":     "Storm surge/ coastal flood",
+        "active":   false
+    },
+    {
+        "id":       "cca_qg_7",
+        "value":    "tropical_storm",
+        "text":     "Tropical storm",
+        "active":   false
+    }
+];
+var previousDisasters = [];
+function clearDisasters() {
+    //alert('clearing disasters');
+    
+    for(var i=0; i<disasters.length; i++) {
+        previousDisasters[i] = disasters[i].active;
+        disasters[i].active = false;
+    }
+}
+function refreshDisasters() {
+    var count = 0;
+    for(var i=0; i<disasters.length; i++)
+        if(disasters[i].active==true)
+            count++;
+    if(count==0) {
+        for(var i=0; i<10; i++) {
+            $( "#id_cca_qg_39-"+i+"-climate_related_extreme" ).empty();
+            $( "#id_cca_qg_39-"+i+"-climate_related_extreme" ).append($("<option></option>")
+                            .attr("value","")
+                            .text("-"));
+        }
+    }    
+    var ok=false;
+    for(var i=0; i<disasters.length; i++)
+        if(previousDisasters[i]!=disasters[i].active) {
+            ok=true;
+            break;
+        }
+    //alert('ok='+ok);
+    if(ok==false) return;
+    //$( "#id_cca_qg_39-0-climate_related_extreme" ).empty();
+    //$( "#id_cca_qg_39-0-climate_related_extreme" ).append("<option value=''>-</option>");
+    // for(var i=0; i<disasters.length; i++)
+    //     if(disasters[i].active==true)
+    //         $( "#id_cca_qg_39-0-climate_related_extreme" ).append("<option value='"+disasters[i].value+"'>"+disasters[i].text+"</option>");
+
+    for(var j=0; j<10; j++) {
+        var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
+        selectDisasters.empty();
+        selectDisasters.append($("<option></option>")
+                            .attr("value","")
+                            .text("-")); 
+
+        $.each(disasters, function(i, item) {
+            if(disasters[i].active==true)   
+                selectDisasters.append($('<option>', {
+                    value:  item.value,
+                    text:   item.text
+                })); 
+        });
+
+        selectDisasters.trigger("chosen:updated");
+    }
+
+    //alert('refresh disasters');
+}
+function registerDisaster(id) {
+    for(var i=0; i<disasters.length; i++)
+        if(id==disasters[i].id)
+            disasters[i].active = true;    
+}
+function activeDisasters(element) {
+    // Textfields
+    $(element).find('div.row.single-item input:text').each(function () {
+        if ($(this).is(":visible") && $(this).val() != '') {
+            var id = $(this).parent().parent().parent().parent().attr('id');
+            //alert(id);
+            //if(id!=undefined)
+            registerDisaster(id);
+        }
+    });
+    // Checkbox
+    $(element).find('div.row.single-item input:checkbox').each(function () {
+        if ($(this).is(':checked')) {
+            var id = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id');
+            //alert(id);
+            //if(id!=undefined)
+            registerDisaster(id);
+        }
+    });
+    // Select
+    $(element).find('div.row.single-item select').each(function () {
+        if ($(this).find(':selected').val()) {
+            var id = $(this).parent().parent().parent().parent().attr('id');
+            //alert(id);
+            //if(id!=undefined)
+            registerDisaster(id);
+        }
+    });
+}
 /**
  * Updates the process indicators while entering the form. Updates the
  * number of subcategories filled out and the progress bar.
  */
 function watchFormProgress() {
+    clearDisasters();
     var completed = 0;
     $('fieldset.row').each(function () {
         var content = hasContent(this);
         if (content) {
             completed++;
         }
+        activeDisasters(this);
     });
     var stepsElement = $('.progress-completed');
     stepsElement.html(completed);
@@ -85,6 +317,7 @@ function watchFormProgress() {
     });
 
     updateAutoMultiplication();
+    refreshDisasters();
 }
 
 /**
