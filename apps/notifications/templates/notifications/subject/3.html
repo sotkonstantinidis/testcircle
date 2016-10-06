@@ -8,12 +8,12 @@
 
 {% spaceless %}<a href="{{ log.questionnaire.get_absolute_url }}" class="link">{{ log.questionnaire.code }}</a>
   {% if log.statusupdate.is_rejected %}{% trans "was rejected by" context "A questionnaire was rejected by..." %}{% else %}{% trans "was approved by" context "A questionnaire was approved by..." %}{% endif %}
-  {% if user == log.catalyst %}{% trans "you" %}{% else %}<a href="{% url 'user_details' log.catalyst_id %}" class="link">{{ log.catalyst.get_display_name }}</a>{% endif %}
+  <a href="{% url 'user_details' log.catalyst_id %}" class="link">{{ log.catalyst.get_display_name }}</a>
   {% trans "and is now" context "New status of the questionnaire, e.g. 'published'" %} {{ log.statusupdate.get_status_display|lower }}.
   {% if log.statusupdate.message %}
     <a data-reveal-id="show-message-{{ log.id }}" class="right tip-bottom"
        data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
-       title="{% trans "Click to display message from" %} {% if user == log.catalyst %}{% trans "you" %}{% else %}{{ log.catalyst.get_display_name }}{% endif %}">
+       title="{% trans "Click to display message from" %} {{ log.catalyst.get_display_name }}">
       <svg class="icon is-inline right"><use xlink:href="#icon-comment" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
     </a>
     <div id="show-message-{{ log.id }}" class="reveal-modal" data-reveal aria-labelledby="title-{{ log.id }}" aria-hidden="true" role="dialog">
