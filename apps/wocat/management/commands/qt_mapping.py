@@ -222,6 +222,54 @@ SENSITIVY_MAPPING = {
     234: 'cope_not_well',
     235: 'cope_unknown',
 }
+LANDUSER_INDIVIDUAL_MAPPING = {
+    236: 'individuals_individual',
+    237: 'individuals_groups',
+    238: 'individuals_cooperative',
+    239: 'individuals_employee',
+}
+LANDOWNED_RELATIVE_MAPPING = {
+    240: 'tech_size_smallscale',
+    241: 'tech_size_mediumscale',
+    242: 'tech_size_largescale',
+}
+LANDUSERS_LEADER_MAPPING = {
+    243: 'Leaders / privileged',
+    244: 'common / average land users',
+    245: 'disadvantaged land users',
+}
+LANDUSER_GENDER_MAPPING = {
+    246: 'gender_women',
+    247: 'gender_men',
+    # 248: ['gender_women', 'gender_men'],
+}
+POPULATION_DENSITY_MAPPING = {
+    249: '< 10 persons/km2',
+    250: '10-50 persons/km2',
+    251: '50-100 persons/km2',
+    252: '100-200 persons/km2',
+    253: '200-500 persons/km2',
+    254: '> 500 persons/km2',
+}
+POPULATION_GROWTH_MAPPING = {
+    255: 'negative',
+    256: '< 0.5%',
+    257: '0.5% - 1%',
+    258: '1% - 2%',
+    259: '2% - 3%',
+    260: '3% - 4%',
+    261: '> 4%',
+}
+OFFARM_INCOME_MAPPING = {
+    262: 'offfarm_income_0_10',
+    263: 'offfarm_income_10_50',
+    264: 'offfarm_income_50_plus',
+}
+POOR_GOOD_MAPPING = {
+    199: '1',
+    200: '2',
+    201: '3',
+}
 
 qg_name = {
     'qg_name': {
@@ -15271,9 +15319,341 @@ tech_qg_58 = {
                     'type': 'checkbox'
                 }
             },
-            # 'tech_soil_texture_topsoil': {},
+            'tech_soil_texture_topsoil': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'coarse',
+                                'value_mapping': 'tech_soil_texture_coarse',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'medium',
+                                'value_mapping': 'tech_soil_texture_medium',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'fine',
+                                'value_mapping': 'tech_soil_texture_fine',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'coarse',
+                                        'value_mapping': 'tech_soil_texture_coarse',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'tech_soil_texture_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'fine',
+                                        'value_mapping': 'tech_soil_texture_fine',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping (select only rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'coarse',
+                                'value_mapping': 'tech_soil_texture_coarse',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_10',
+                                                'wocat_column': 'coarse',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'medium',
+                                'value_mapping': 'tech_soil_texture_medium',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_10',
+                                                'wocat_column': 'medium',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'fine',
+                                'value_mapping': 'tech_soil_texture_fine',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_10',
+                                                'wocat_column': 'fine',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'coarse',
+                                        'value_mapping': 'tech_soil_texture_coarse',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'tech_soil_texture_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'fine',
+                                        'value_mapping': 'tech_soil_texture_fine',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'coarse',
+                                        'value_mapping': 'tech_soil_texture_coarse',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_10',
+                                                        'wocat_column': 'coarse',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'tech_soil_texture_medium',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_10',
+                                                        'wocat_column': 'medium',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'fine',
+                                        'value_mapping': 'tech_soil_texture_fine',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_10',
+                                                        'wocat_column': 'fine',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
             # 'tech_soil_texture_20cm': {},
-            # 'tech_topsoil_organic': {},
+            'tech_topsoil_organic': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_12',
+                                'wocat_column': 'q12_high',
+                                'value_mapping': 'tech_topsoil_organic_high',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_12',
+                                'wocat_column': 'q12_medium',
+                                'value_mapping': 'tech_topsoil_organic_medium',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_12',
+                                'wocat_column': 'q12_low',
+                                'value_mapping': 'tech_topsoil_organic_low',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_12',
+                                        'wocat_column': 'q12_high',
+                                        'value_mapping': 'tech_topsoil_organic_high',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_12',
+                                        'wocat_column': 'q12_medium',
+                                        'value_mapping': 'tech_topsoil_organic_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_12',
+                                        'wocat_column': 'q12_low',
+                                        'value_mapping': 'tech_topsoil_organic_low',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping (select only rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_12',
+                                'wocat_column': 'q12_high',
+                                'value_mapping': 'tech_topsoil_organic_high',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_12',
+                                                'wocat_column': 'q12_high',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_12',
+                                'wocat_column': 'q12_medium',
+                                'value_mapping': 'tech_topsoil_organic_medium',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_12',
+                                                'wocat_column': 'q12_medium',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_12',
+                                'wocat_column': 'q12_low',
+                                'value_mapping': 'tech_topsoil_organic_low',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_12',
+                                                'wocat_column': 'q12_low',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_12',
+                                        'wocat_column': 'q12_high',
+                                        'value_mapping': 'tech_topsoil_organic_high',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_12',
+                                        'wocat_column': 'q12_medium',
+                                        'value_mapping': 'tech_topsoil_organic_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_12',
+                                        'wocat_column': 'q12_low',
+                                        'value_mapping': 'tech_topsoil_organic_low',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
         }
     }
 }
@@ -15498,15 +15878,4326 @@ tech_qg_59 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.3 "Soli depth on average", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
+                        'condition_message': 'Too many values for checkbox 5.3 "Soil depth on average", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
                         'type': 'string',
                         'value_prefix': 'Soil depth on average: ',
                         'composite': {
                             'separator': ', '
                         }
                     },
+                    # Soil texture (topsoil) (if more than 2 checkboxes)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'coarse',
+                                'value_mapping': 'coarse/ light (sandy)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_10',
+                                                'wocat_column': 'coarse',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'medium',
+                                'value_mapping': 'medium (loamy, silty)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_10',
+                                                'wocat_column': 'medium',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_10',
+                                'wocat_column': 'fine',
+                                'value_mapping': 'fine/ heavy (clay)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_10',
+                                                'wocat_column': 'fine',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'coarse',
+                                        'value_mapping': 'tech_soil_texture_coarse',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'tech_soil_texture_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'fine',
+                                        'value_mapping': 'tech_soil_texture_fine',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'coarse',
+                                        'value_mapping': 'tech_soil_texture_coarse',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_10',
+                                                        'wocat_column': 'coarse',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'tech_soil_texture_medium',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_10',
+                                                        'wocat_column': 'medium',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_10',
+                                        'wocat_column': 'fine',
+                                        'value_mapping': 'tech_soil_texture_fine',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_10',
+                                                        'wocat_column': 'fine',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for checkbox 5.3 "Soil texture (topsoil)", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Soil texture (topsoil): ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
                 ],
                 'type': 'string',
+            },
+        }
+    }
+}
+
+# 5.4 Water availabilty and quality
+tech_qg_60 = {
+    'tech_qg_60': {
+        'questions': {
+            'tech_groundwater': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'surface',
+                                'value_mapping': 'tech_groundwater_onsurface',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a5',
+                                'value_mapping': 'tech_groundwater_less_5m',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a5_50',
+                                'value_mapping': 'tech_groundwater_5_50m',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a50',
+                                'value_mapping': 'tech_groundwater_50m_plus',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'surface',
+                                        'value_mapping': 'tech_groundwater_onsurface',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5',
+                                        'value_mapping': 'tech_groundwater_less_5m',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5_50',
+                                        'value_mapping': 'tech_groundwater_5_50m',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a50',
+                                        'value_mapping': 'tech_groundwater_50m_plus',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'type': 'dropdown',
+                    },
+                    # More complex mapping (rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'surface',
+                                'value_mapping': 'tech_groundwater_onsurface',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'surface',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a5',
+                                'value_mapping': 'tech_groundwater_less_5m',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'a5',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a5_50',
+                                'value_mapping': 'tech_groundwater_5_50m',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'a5_50',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a50',
+                                'value_mapping': 'tech_groundwater_50m_plus',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'a50',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'surface',
+                                        'value_mapping': 'tech_groundwater_onsurface',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5',
+                                        'value_mapping': 'tech_groundwater_less_5m',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5_50',
+                                        'value_mapping': 'tech_groundwater_5_50m',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a50',
+                                        'value_mapping': 'tech_groundwater_50m_plus',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'surface',
+                                        'value_mapping': 'tech_groundwater_onsurface',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'surface',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5',
+                                        'value_mapping': 'tech_groundwater_less_5m',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'a5',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5_50',
+                                        'value_mapping': 'tech_groundwater_5_50m',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'a5_50',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a50',
+                                        'value_mapping': 'tech_groundwater_50m_plus',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'a50',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'dropdown',
+                    },
+                ],
+                'type': 'dropdown',
+            },
+            'tech_surfacewater': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'excess',
+                                'value_mapping': 'tech_surfacewater_excess',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'good',
+                                'value_mapping': 'tech_surfacewater_good',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'medium16',
+                                'value_mapping': 'tech_surfacewater_medium',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'poor',
+                                'value_mapping': 'tech_surfacewater_poor',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'excess',
+                                        'value_mapping': 'tech_surfacewater_excess',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'good',
+                                        'value_mapping': 'tech_surfacewater_good',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'medium16',
+                                        'value_mapping': 'tech_surfacewater_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_surfacewater_poor',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'type': 'dropdown',
+                    },
+                    # More complex mapping (rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'excess',
+                                'value_mapping': 'tech_surfacewater_excess',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'excess',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'good',
+                                'value_mapping': 'tech_surfacewater_good',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'good',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'medium16',
+                                'value_mapping': 'tech_surfacewater_medium',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'medium16',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'poor',
+                                'value_mapping': 'tech_surfacewater_poor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'poor',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'excess',
+                                        'value_mapping': 'tech_surfacewater_excess',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'good',
+                                        'value_mapping': 'tech_surfacewater_good',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'medium16',
+                                        'value_mapping': 'tech_surfacewater_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_surfacewater_poor',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'excess',
+                                        'value_mapping': 'tech_surfacewater_excess',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'excess',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'good',
+                                        'value_mapping': 'tech_surfacewater_good',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'good',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'medium16',
+                                        'value_mapping': 'tech_surfacewater_medium',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'medium16',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_surfacewater_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'poor',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'dropdown',
+                    }
+                ],
+                'type': 'dropdown',
+            },
+            'tech_waterquality': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'good_drinking',
+                                'value_mapping': 'tech_waterquality_good',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'poor_drinking',
+                                'value_mapping': 'tech_waterquality_poor',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'agric_use',
+                                'value_mapping': 'tech_waterquality_agriculturaluse',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'unusable',
+                                'value_mapping': 'tech_waterquality_unusable',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'good_drinking',
+                                        'value_mapping': 'tech_waterquality_good',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'poor_drinking',
+                                        'value_mapping': 'tech_waterquality_poor',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'agric_use',
+                                        'value_mapping': 'tech_waterquality_agriculturaluse',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'unusable',
+                                        'value_mapping': 'tech_waterquality_unusable',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'type': 'dropdown',
+                    },
+                    # More complex mapping (rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'good_drinking',
+                                'value_mapping': 'tech_waterquality_good',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'good_drinking',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'poor_drinking',
+                                'value_mapping': 'tech_waterquality_poor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'poor_drinking',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'agric_use',
+                                'value_mapping': 'tech_waterquality_agriculturaluse',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'agric_use',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'unusable',
+                                'value_mapping': 'tech_waterquality_unusable',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'unusable',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'good_drinking',
+                                        'value_mapping': 'tech_waterquality_good',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'poor_drinking',
+                                        'value_mapping': 'tech_waterquality_poor',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'agric_use',
+                                        'value_mapping': 'tech_waterquality_agriculturaluse',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'unusable',
+                                        'value_mapping': 'tech_waterquality_unusable',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'good_drinking',
+                                        'value_mapping': 'tech_waterquality_good',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'good_drinking',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'poor_drinking',
+                                        'value_mapping': 'tech_waterquality_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'poor_drinking',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'agric_use',
+                                        'value_mapping': 'tech_waterquality_agriculturaluse',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'agric_use',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'unusable',
+                                        'value_mapping': 'tech_waterquality_unusable',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'unusable',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'dropdown',
+                    }
+                ],
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 5.4 Water availability and quality: Comments
+tech_qg_65 = {
+    'tech_qg_65': {
+        'questions': {
+            'tech_water_comments': {
+                'mapping': [
+                    # Ground water table (more than 1 radio)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'surface',
+                                'value_mapping': 'on surface',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'surface',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a5',
+                                'value_mapping': '< 5 m',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'a5',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a5_50',
+                                'value_mapping': '5-50 m',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'a5_50',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_15',
+                                'wocat_column': 'a50',
+                                'value_mapping': '> 50 m',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_15',
+                                                'wocat_column': 'a50',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'surface',
+                                        'value_mapping': 'tech_groundwater_onsurface',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5',
+                                        'value_mapping': 'tech_groundwater_less_5m',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5_50',
+                                        'value_mapping': 'tech_groundwater_5_50m',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a50',
+                                        'value_mapping': 'tech_groundwater_50m_plus',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'surface',
+                                        'value_mapping': 'tech_groundwater_onsurface',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'surface',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5',
+                                        'value_mapping': 'tech_groundwater_less_5m',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'a5',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a5_50',
+                                        'value_mapping': 'tech_groundwater_5_50m',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'a5_50',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_15',
+                                        'wocat_column': 'a50',
+                                        'value_mapping': 'tech_groundwater_50m_plus',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_15',
+                                                        'wocat_column': 'a50',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for radio 5.4 "Ground water table", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Ground water table: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
+                    # Availability of surface water
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'excess',
+                                'value_mapping': 'excess',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'excess',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'good',
+                                'value_mapping': 'good',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'good',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'medium16',
+                                'value_mapping': 'medium',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'medium16',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_16',
+                                'wocat_column': 'poor',
+                                'value_mapping': 'poor/ none',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_16',
+                                                'wocat_column': 'poor',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'excess',
+                                        'value_mapping': 'tech_surfacewater_excess',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'good',
+                                        'value_mapping': 'tech_surfacewater_good',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'medium16',
+                                        'value_mapping': 'tech_surfacewater_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_surfacewater_poor',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'excess',
+                                        'value_mapping': 'tech_surfacewater_excess',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'excess',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'good',
+                                        'value_mapping': 'tech_surfacewater_good',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'good',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'medium16',
+                                        'value_mapping': 'tech_surfacewater_medium',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'medium16',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_16',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_surfacewater_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_16',
+                                                        'wocat_column': 'poor',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for radio 5.4 "Availability of surface water", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Availability of surface water: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
+                    # Water quality
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'good_drinking',
+                                'value_mapping': 'good drinking water',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'good_drinking',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'poor_drinking',
+                                'value_mapping': 'poor drinking water (treatment required)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'poor_drinking',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'agric_use',
+                                'value_mapping': 'for agricultural use only (irrigation)',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'agric_use',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_17',
+                                'wocat_column': 'unusable',
+                                'value_mapping': 'unusable',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_17',
+                                                'wocat_column': 'unusable',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'good_drinking',
+                                        'value_mapping': 'tech_waterquality_good',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'poor_drinking',
+                                        'value_mapping': 'tech_waterquality_poor',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'agric_use',
+                                        'value_mapping': 'tech_waterquality_agriculturaluse',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'unusable',
+                                        'value_mapping': 'tech_waterquality_unusable',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'good_drinking',
+                                        'value_mapping': 'tech_waterquality_good',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'good_drinking',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'poor_drinking',
+                                        'value_mapping': 'tech_waterquality_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'poor_drinking',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'agric_use',
+                                        'value_mapping': 'tech_waterquality_agriculturaluse',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'agric_use',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_17',
+                                        'wocat_column': 'unusable',
+                                        'value_mapping': 'tech_waterquality_unusable',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_17',
+                                                        'wocat_column': 'unusable',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for radio 5.4 "Water quality (untreated)", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Water quality (untreated): ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 5.5 Biodiversity
+tech_qg_66 = {
+    'tech_qg_66': {
+        'questions': {
+            'tech_speciesdiversity': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'high',
+                                'value_mapping': 'measure_high',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'medium',
+                                'value_mapping': 'measure_medium',
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'low',
+                                'value_mapping': 'measure_low',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'high',
+                                        'value_mapping': 'measure_high',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'measure_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'low',
+                                        'value_mapping': 'measure_low',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'type': 'dropdown'
+                    },
+                    # More complex mapping (rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'high',
+                                'value_mapping': 'measure_high',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_18',
+                                                'wocat_column': 'high',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'medium',
+                                'value_mapping': 'measure_medium',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_18',
+                                                'wocat_column': 'medium',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'low',
+                                'value_mapping': 'measure_low',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_18',
+                                                'wocat_column': 'low',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'high',
+                                        'value_mapping': 'measure_high',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'measure_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'low',
+                                        'value_mapping': 'measure_low',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'high',
+                                        'value_mapping': 'measure_high',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_18',
+                                                        'wocat_column': 'high',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'measure_medium',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_18',
+                                                        'wocat_column': 'medium',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'low',
+                                        'value_mapping': 'measure_low',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_18',
+                                                        'wocat_column': 'low',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 1,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'dropdown'
+                    }
+                ],
+                'type': 'dropdown',
+            },
+            # 'tech_habitatdiversity': {},
+        }
+    }
+}
+
+# 5.5 Biodiversity: Comments
+tech_qg_67 = {
+    'tech_qg_67': {
+        'questions': {
+            'tech_biodiversity_comments': {
+                'mapping': [
+                    # Species diversity
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'high',
+                                'value_mapping': 'high',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_18',
+                                                'wocat_column': 'high',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'medium',
+                                'value_mapping': 'medium',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_18',
+                                                'wocat_column': 'medium',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_7_18',
+                                'wocat_column': 'low',
+                                'value_mapping': 'low',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_7_18',
+                                                'wocat_column': 'low',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'high',
+                                        'value_mapping': 'measure_high',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'measure_medium',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'low',
+                                        'value_mapping': 'measure_low',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'high',
+                                        'value_mapping': 'measure_high',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_18',
+                                                        'wocat_column': 'high',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'medium',
+                                        'value_mapping': 'measure_medium',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_18',
+                                                        'wocat_column': 'medium',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_7_18',
+                                        'wocat_column': 'low',
+                                        'value_mapping': 'measure_low',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_7_18',
+                                                        'wocat_column': 'low',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for radio 5.5 "Species diversity", using "Comments and further specifications on biodiversity" of 5.5 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Species diversity: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 5.6 Characteristics of land users applying the Technology
+tech_qg_71 = {
+    'tech_qg_71': {
+        'questions': {
+            # 'tech_sedentary_nomadic': {},
+            # 'tech_sedentary_other': {},
+            'tech_market_orientation': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_8_1',
+                        'wocat_column': 'subsistence',
+                        'value_mapping': 'tech_market_orientation_subsistence',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_1',
+                        'wocat_column': 'subsistence',
+                        'value_mapping': 'tech_market_orientation_subsistence',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_1',
+                        'wocat_column': 'subsistence',
+                        'value_mapping': 'tech_market_orientation_subsistence',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_1',
+                        'wocat_column': 'mixed',
+                        'value_mapping': 'tech_market_orientation_mixed',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_1',
+                        'wocat_column': 'mixed',
+                        'value_mapping': 'tech_market_orientation_mixed',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_1',
+                        'wocat_column': 'mixed',
+                        'value_mapping': 'tech_market_orientation_mixed',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_1',
+                        'wocat_column': 'commercial',
+                        'value_mapping': 'tech_market_orientation_commercial',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_1',
+                        'wocat_column': 'commercial',
+                        'value_mapping': 'tech_market_orientation_commercial',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_1',
+                        'wocat_column': 'commercial',
+                        'value_mapping': 'tech_market_orientation_commercial',
+                    },
+                ],
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_1',
+                                'wocat_column': 'subsistence',
+                                'value_mapping': 'tech_market_orientation_subsistence',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_1',
+                                'wocat_column': 'subsistence',
+                                'value_mapping': 'tech_market_orientation_subsistence',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_1',
+                                'wocat_column': 'subsistence',
+                                'value_mapping': 'tech_market_orientation_subsistence',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_1',
+                                'wocat_column': 'mixed',
+                                'value_mapping': 'tech_market_orientation_mixed',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_1',
+                                'wocat_column': 'mixed',
+                                'value_mapping': 'tech_market_orientation_mixed',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_1',
+                                'wocat_column': 'mixed',
+                                'value_mapping': 'tech_market_orientation_mixed',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_1',
+                                'wocat_column': 'commercial',
+                                'value_mapping': 'tech_market_orientation_commercial',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_1',
+                                'wocat_column': 'commercial',
+                                'value_mapping': 'tech_market_orientation_commercial',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_1',
+                                'wocat_column': 'commercial',
+                                'value_mapping': 'tech_market_orientation_commercial',
+                            },
+                        ],
+                        'operator': 'len_lte',
+                        'value': 2
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
+            'tech_offfarm_income': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'income',
+                    }
+                ],
+                'value_mapping_list': OFFARM_INCOME_MAPPING,
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
+            'tech_wealth': {
+                'mapping': [
+                    # Mapping only 131 and 132
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'very_rich',
+                                'value_mapping': 'tech_wealth_veryrich',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'very_rich',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['131', '132']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'rich',
+                                'value_mapping': 'tech_wealth_rich',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'rich',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['131', '132']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'average',
+                                'value_mapping': 'tech_wealth_average',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'average',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['131', '132']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'poor',
+                                'value_mapping': 'tech_wealth_poor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'poor',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['131', '132']
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'very_poor',
+                                'value_mapping': 'tech_wealth_verypoor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'very_poor',
+                                            }
+                                        ],
+                                        'operator': 'one_of',
+                                        'value': ['131', '132']
+                                    }
+                                ]
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich',
+                                        'value_mapping': 'tech_wealth_veryrich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_rich',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich',
+                                        'value_mapping': 'tech_wealth_rich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'rich',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average',
+                                        'value_mapping': 'tech_wealth_average',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'average',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_wealth_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'poor',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor',
+                                        'value_mapping': 'tech_wealth_verypoor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_poor',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        },
+                    },
+                    # Mapping only 131
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'very_rich',
+                                'value_mapping': 'tech_wealth_veryrich',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'very_rich',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'rich',
+                                'value_mapping': 'tech_wealth_rich',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'rich',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'average',
+                                'value_mapping': 'tech_wealth_average',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'average',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'poor',
+                                'value_mapping': 'tech_wealth_poor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'poor',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'very_poor',
+                                'value_mapping': 'tech_wealth_verypoor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'very_poor',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich',
+                                        'value_mapping': 'tech_wealth_veryrich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_rich',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich',
+                                        'value_mapping': 'tech_wealth_rich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'rich',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average',
+                                        'value_mapping': 'tech_wealth_average',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'average',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_wealth_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'poor',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor',
+                                        'value_mapping': 'tech_wealth_verypoor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_poor',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich',
+                                        'value_mapping': 'tech_wealth_veryrich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_rich',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich',
+                                        'value_mapping': 'tech_wealth_rich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'rich',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average',
+                                        'value_mapping': 'tech_wealth_average',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'average',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_wealth_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'poor',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor',
+                                        'value_mapping': 'tech_wealth_verypoor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_poor',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        },
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                },
+            },
+            'tech_individuals': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_1',
+                        'wocat_column': 'land_user1',
+                    }
+                ],
+                'value_mapping_list': LANDUSER_INDIVIDUAL_MAPPING,
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
+            # 'tech_mechanisation': {},
+            'tech_gender': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'land_user4',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_1',
+                                                'wocat_column': 'land_user4',
+                                            }
+                                        ],
+                                        'operator': 'contains_not',
+                                        'value': '248'
+                                    }
+                                ]
+                            },
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox',
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'land_user4',
+                                'value_mapping': 'gender_women',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_1',
+                                                'wocat_column': 'land_user4',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '248'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'land_user4',
+                                'value_mapping': 'gender_men',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_1',
+                                                'wocat_column': 'land_user4',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '248'
+                                    }
+                                ]
+                            },
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox',
+                        }
+                    }
+                ],
+                'value_mapping_list': LANDUSER_GENDER_MAPPING,
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
+            # 'tech_age_landusers': {},
+        }
+    }
+}
+
+# 5.6 Characteristics of land users applying the Technology: Comments
+tech_qg_77 = {
+    'tech_qg_77': {
+        'questions': {
+            'tech_landuser_comments': {
+                'mapping': [
+                    # Land users are mainly Leaders / Common people etc.
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'land_user3',
+                            }
+                        ],
+                        'value_mapping_list': LANDUSERS_LEADER_MAPPING,
+                        'value_prefix': 'Land users applying the Technology are mainly ',
+                        'type': 'string',
+                    },
+                    # Difference of involvement of women and men
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'comment',
+                            }
+                        ],
+                        'value_prefix': 'Difference in the involvement of women and men: ',
+                        'type': 'string',
+                    },
+                    # Population density
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'population',
+                            }
+                        ],
+                        'value_mapping_list': POPULATION_DENSITY_MAPPING,
+                        'value_prefix': 'Population density: ',
+                        'type': 'string',
+                    },
+                    # Annual population growth
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'population_growth'
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_1',
+                                'wocat_column': 'population_specify',
+                                'mapping_suffix': '%'
+                            }
+                        ],
+                        'value_mapping_list': POPULATION_GROWTH_MAPPING,
+                        'value_prefix': 'Annual population growth: ',
+                        'type': 'string',
+                        'composite': {
+                            'separator': '; '
+                        },
+                    },
+                    # Relative level of wealth
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'very_rich',
+                                'value_mapping': 'very rich',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'very_rich',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'rich',
+                                'value_mapping': 'rich',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'rich',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'average',
+                                'value_mapping': 'average',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'average',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'poor',
+                                'value_mapping': 'poor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'poor',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_5',
+                                'wocat_column': 'very_poor',
+                                'value_mapping': 'very poor',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_5',
+                                                'wocat_column': 'very_poor',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131'
+                                    }
+                                ]
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich',
+                                        'value_mapping': 'tech_wealth_veryrich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_rich',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich',
+                                        'value_mapping': 'tech_wealth_rich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'rich',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average',
+                                        'value_mapping': 'tech_wealth_average',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'average',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_wealth_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'poor',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor',
+                                        'value_mapping': 'tech_wealth_verypoor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_poor',
+                                                    }
+                                                ],
+                                                'operator': 'one_of',
+                                                'value': ['131', '132']
+                                            }
+                                        ]
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich',
+                                        'value_mapping': 'tech_wealth_veryrich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_rich',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich',
+                                        'value_mapping': 'tech_wealth_rich',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'rich',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average',
+                                        'value_mapping': 'tech_wealth_average',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'average',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor',
+                                        'value_mapping': 'tech_wealth_poor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'poor',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor',
+                                        'value_mapping': 'tech_wealth_verypoor',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_5',
+                                                        'wocat_column': 'very_poor',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131'
+                                            }
+                                        ]
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'condition_message': 'Too many values for checkbox 5.6 "Relative level of wealth", using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Relative level of wealth: ',
+                        'composite': {
+                            'separator': ', '
+                        }
+                    },
+                    # Relative level of wealth (very rich to very poor)
+                    {
+                        'mapping': [
+                            # Relative level of wealth (very rich)
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich_percentage',
+                                        'mapping_suffix': '% of the land users are very rich'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich_percentage_land',
+                                        'mapping_prefix': ' and own ',
+                                        'mapping_suffix': '% of the land'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_rich_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')'
+                                    },
+                                ],
+                                'type': 'string',
+                                'value_suffix': '.',
+                                'composite': {
+                                    'separator': '',
+                                }
+                            },
+                            # Relative level of wealth (rich)
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich_percentage',
+                                        'mapping_suffix': '% of the land users are rich'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich_percentage_land',
+                                        'mapping_prefix': ' and own ',
+                                        'mapping_suffix': '% of the land'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'rich_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')'
+                                    },
+                                ],
+                                'type': 'string',
+                                'value_suffix': '.',
+                                'composite': {
+                                    'separator': '',
+                                }
+                            },
+                            # Relative level of wealth (average)
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average_percentage',
+                                        'mapping_suffix': '% of the land users are average wealthy'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average_percentage_land',
+                                        'mapping_prefix': ' and own ',
+                                        'mapping_suffix': '% of the land'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'average_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')'
+                                    },
+                                ],
+                                'type': 'string',
+                                'value_suffix': '.',
+                                'composite': {
+                                    'separator': '',
+                                }
+                            },
+                            # Relative level of wealth (poor)
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor_percentage',
+                                        'mapping_suffix': '% of the land users are poor'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor_percentage_land',
+                                        'mapping_prefix': ' and own ',
+                                        'mapping_suffix': '% of the land'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'poor_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')'
+                                    },
+                                ],
+                                'type': 'string',
+                                'value_suffix': '.',
+                                'composite': {
+                                    'separator': '',
+                                }
+                            },
+                            # Relative level of wealth (very poor)
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor_percentage',
+                                        'mapping_suffix': '% of the land users are poor'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor_percentage_land',
+                                        'mapping_prefix': ' and own ',
+                                        'mapping_suffix': '% of the land'
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_5',
+                                        'wocat_column': 'very_poor_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')'
+                                    },
+                                ],
+                                'type': 'string',
+                                'value_suffix': '.',
+                                'composite': {
+                                    'separator': '',
+                                }
+                            },
+                        ],
+                        'type': 'string',
+                        'composite': {
+                            'separator': '\n'
+                        },
+                    },
+                    # Off-farm income specification
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_6',
+                                'wocat_column': 'income_specify',
+                            }
+                        ],
+                        'value_prefix': 'Off-farm income specification: ',
+                        'type': 'string',
+                    },
+                    # Market orientation of production system (if too many values)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_1',
+                                'wocat_column': 'subsistence',
+                                'value_mapping': 'subsistence (self-supply)',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_1',
+                                'wocat_column': 'subsistence',
+                                'value_mapping': 'subsistence (self-supply)',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_1',
+                                'wocat_column': 'subsistence',
+                                'value_mapping': 'subsistence (self-supply)',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_1',
+                                'wocat_column': 'mixed',
+                                'value_mapping': 'mixed (subsistence/ commercial',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_1',
+                                'wocat_column': 'mixed',
+                                'value_mapping': 'mixed (subsistence/ commercial',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_1',
+                                'wocat_column': 'mixed',
+                                'value_mapping': 'mixed (subsistence/ commercial',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_1',
+                                'wocat_column': 'commercial',
+                                'value_mapping': 'commercial/ market',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_1',
+                                'wocat_column': 'commercial',
+                                'value_mapping': 'commercial/ market',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_1',
+                                'wocat_column': 'commercial',
+                                'value_mapping': 'commercial/ market',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_8_1',
+                                        'wocat_column': 'subsistence',
+                                        'value_mapping': 'tech_market_orientation_subsistence',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_1',
+                                        'wocat_column': 'subsistence',
+                                        'value_mapping': 'tech_market_orientation_subsistence',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_1',
+                                        'wocat_column': 'subsistence',
+                                        'value_mapping': 'tech_market_orientation_subsistence',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_1',
+                                        'wocat_column': 'mixed',
+                                        'value_mapping': 'tech_market_orientation_mixed',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_1',
+                                        'wocat_column': 'mixed',
+                                        'value_mapping': 'tech_market_orientation_mixed',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_1',
+                                        'wocat_column': 'mixed',
+                                        'value_mapping': 'tech_market_orientation_mixed',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_1',
+                                        'wocat_column': 'commercial',
+                                        'value_mapping': 'tech_market_orientation_commercial',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_1',
+                                        'wocat_column': 'commercial',
+                                        'value_mapping': 'tech_market_orientation_commercial',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_1',
+                                        'wocat_column': 'commercial',
+                                        'value_mapping': 'tech_market_orientation_commercial',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            }
+                        ],
+                        'condition_message': 'Too many values for checkbox 5.6 "Market orientation of production system", using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
+                        'type': 'string',
+                        'value_prefix': 'Market orientation of production system: ',
+                        'composite': {
+                            'separator': ', ',
+                        }
+                    },
+                    # Market orientation: other
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_8_1',
+                                        'wocat_column': 'other1_specify',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_1',
+                                        'wocat_column': 'other1_comment',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'separator': ' '
+                                }
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_9_1',
+                                        'wocat_column': 'other1_specify',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_1',
+                                        'wocat_column': 'other1_comment',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'separator': ' '
+                                }
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_10_1',
+                                        'wocat_column': 'other1_specify',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_1',
+                                        'wocat_column': 'other1_comment',
+                                        'mapping_prefix': '(',
+                                        'mapping_suffix': ')',
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'separator': ' '
+                                }
+                            }
+                        ],
+                        'value_prefix': 'Market orientation of production system: ',
+                        'type': 'string',
+                        'composite': {
+                            'separator': '. '
+                        }
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 5.7 Average area of land owned or leased by land users applying the Technology
+tech_qg_72 = {
+    'tech_qg_72': {
+        'questions': {
+            # 'tech_land_size': {},
+            'tech_land_size_relative': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_1',
+                        'wocat_column': 'land_user2',
+                    }
+                ],
+                'value_mapping_list': LANDOWNED_RELATIVE_MAPPING,
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
+            # 'tech_land_comments': {},
+        }
+    }
+}
+
+# 5.8 Land ownership, land use rights, and water use rights
+tech_qg_73 = {
+    'tech_qg_73': {
+        'questions': {
+            'tech_ownership': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_state',
+                                'value_mapping': 'tech_ownership_state',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_company',
+                                'value_mapping': 'tech_ownership_company',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_communal',
+                                'value_mapping': 'tech_ownership_communal',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_group',
+                                'value_mapping': 'tech_ownership_group',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_individual',
+                                'value_mapping': 'tech_ownership_individualnottitled',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_individual_titled',
+                                'value_mapping': 'tech_ownership_individualtitled',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_state',
+                                        'value_mapping': 'tech_ownership_state',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_company',
+                                        'value_mapping': 'tech_ownership_company',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_communal',
+                                        'value_mapping': 'tech_ownership_communal',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_group',
+                                        'value_mapping': 'tech_ownership_group',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual',
+                                        'value_mapping': 'tech_ownership_individualnottitled',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual_titled',
+                                        'value_mapping': 'tech_ownership_individualtitled',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping: only rank = 131
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_state',
+                                'value_mapping': 'tech_ownership_state',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_state',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_company',
+                                'value_mapping': 'tech_ownership_company',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_company',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_communal',
+                                'value_mapping': 'tech_ownership_communal',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_communal',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_group',
+                                'value_mapping': 'tech_ownership_group',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_group',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_individual',
+                                'value_mapping': 'tech_ownership_individualnottitled',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_individual',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_owner_individual_titled',
+                                'value_mapping': 'tech_ownership_individualtitled',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_individual_titled',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_state',
+                                        'value_mapping': 'tech_ownership_state',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_company',
+                                        'value_mapping': 'tech_ownership_company',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_communal',
+                                        'value_mapping': 'tech_ownership_communal',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_group',
+                                        'value_mapping': 'tech_ownership_group',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual',
+                                        'value_mapping': 'tech_ownership_individualnottitled',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual_titled',
+                                        'value_mapping': 'tech_ownership_individualtitled',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3,
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_state',
+                                        'value_mapping': 'tech_ownership_state',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_state',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_company',
+                                        'value_mapping': 'tech_ownership_company',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_company',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_communal',
+                                        'value_mapping': 'tech_ownership_communal',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_communal',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_group',
+                                        'value_mapping': 'tech_ownership_group',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_group',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual',
+                                        'value_mapping': 'tech_ownership_individualnottitled',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_individual',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual_titled',
+                                        'value_mapping': 'tech_ownership_individualtitled',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_individual_titled',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'conditions_join': 'and',
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'tech_ownership_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_4',
+                        'wocat_column': 'land_owner_other1',
+                    }
+                ],
+                'type': 'string',
+            },
+            'tech_landuserights': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_open',
+                                'value_mapping': 'tech_userights_openaccess',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_communal',
+                                'value_mapping': 'tech_userights_communal',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_leased',
+                                'value_mapping': 'tech_userights_leased',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_individual',
+                                'value_mapping': 'tech_userights_individual',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_open',
+                                        'value_mapping': 'tech_userights_openaccess',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_communal',
+                                        'value_mapping': 'tech_userights_communal',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_leased',
+                                        'value_mapping': 'tech_userights_leased',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_individual',
+                                        'value_mapping': 'tech_userights_individual',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping (rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_open',
+                                'value_mapping': 'tech_userights_openaccess',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_use_rights_open',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_communal',
+                                'value_mapping': 'tech_userights_communal',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_use_rights_communal',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_leased',
+                                'value_mapping': 'tech_userights_leased',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_use_rights_leased',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'land_use_rights_individual',
+                                'value_mapping': 'tech_userights_individual',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_use_rights_individual',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_open',
+                                        'value_mapping': 'tech_userights_openaccess',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_communal',
+                                        'value_mapping': 'tech_userights_communal',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_leased',
+                                        'value_mapping': 'tech_userights_leased',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_use_rights_individual',
+                                        'value_mapping': 'tech_userights_individual',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'tech_landrights_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_4',
+                        'wocat_column': 'land_use_rights_other',
+                    }
+                ],
+                'type': 'string',
+            },
+            'tech_wateruserights': {
+                'mapping': [
+                    # Simple mapping
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_open',
+                                'value_mapping': 'tech_userights_openaccess',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_communal',
+                                'value_mapping': 'tech_userights_communal',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_leased',
+                                'value_mapping': 'tech_userights_leased',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_individual',
+                                'value_mapping': 'tech_userights_individual',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_open',
+                                        'value_mapping': 'tech_userights_openaccess',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_communal',
+                                        'value_mapping': 'tech_userights_communal',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_leased',
+                                        'value_mapping': 'tech_userights_leased',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_individual',
+                                        'value_mapping': 'tech_userights_individual',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    },
+                    # More complex mapping (rank = 131)
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_open',
+                                'value_mapping': 'tech_userights_openaccess',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'water_use_rights_open',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_communal',
+                                'value_mapping': 'tech_userights_communal',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'water_use_rights_communal',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_leased',
+                                'value_mapping': 'tech_userights_leased',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'water_use_rights_leased',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'water_use_rights_individual',
+                                'value_mapping': 'tech_userights_individual',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'water_use_rights_individual',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '131',
+                                    },
+                                ],
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_open',
+                                        'value_mapping': 'tech_userights_openaccess',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_communal',
+                                        'value_mapping': 'tech_userights_communal',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_leased',
+                                        'value_mapping': 'tech_userights_leased',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'water_use_rights_individual',
+                                        'value_mapping': 'tech_userights_individual',
+                                    },
+                                ],
+                                'operator': 'len_lte',
+                                'value': 2,
+                            }
+                        ],
+                        'type': 'checkbox',
+                        'composite': {
+                            'type': 'checkbox'
+                        }
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'tech_waterrights_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_4',
+                        'wocat_column': 'land_use_rights_other',
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 5.8 Land ownership, land use rights, and water use rights: Comments
+tech_qg_75 = {
+    'tech_qg_75': {
+        'questions': {
+            'tech_ownership_comments': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_4',
+                                'wocat_column': 'comment2',
+                            },
+                            # Land ownership
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_state',
+                                        'value_mapping': 'state',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_state',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_company',
+                                        'value_mapping': 'company',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_company',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_communal',
+                                        'value_mapping': 'communal / village',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_communal',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_group',
+                                        'value_mapping': 'group',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_group',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual',
+                                        'value_mapping': 'individual, not titled',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_individual',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_4',
+                                        'wocat_column': 'land_owner_individual_titled',
+                                        'value_mapping': 'individual, titled',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'qt_2_8_4',
+                                                        'wocat_column': 'land_owner_individual_titled',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '131',
+                                            },
+                                        ],
+                                    },
+                                ],
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_state',
+                                                'value_mapping': 'tech_ownership_state',
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_company',
+                                                'value_mapping': 'tech_ownership_company',
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_communal',
+                                                'value_mapping': 'tech_ownership_communal',
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_group',
+                                                'value_mapping': 'tech_ownership_group',
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_individual',
+                                                'value_mapping': 'tech_ownership_individualnottitled',
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_individual_titled',
+                                                'value_mapping': 'tech_ownership_individualtitled',
+                                            },
+                                        ],
+                                        'operator': 'len_gte',
+                                        'value': 3,
+                                    },
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_state',
+                                                'value_mapping': 'tech_ownership_state',
+                                                'conditions': [
+                                                    {
+                                                        'mapping': [
+                                                            {
+                                                                'wocat_table': 'qt_2_8_4',
+                                                                'wocat_column': 'land_owner_state',
+                                                            }
+                                                        ],
+                                                        'operator': 'contains',
+                                                        'value': '131',
+                                                    },
+                                                ],
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_company',
+                                                'value_mapping': 'tech_ownership_company',
+                                                'conditions': [
+                                                    {
+                                                        'mapping': [
+                                                            {
+                                                                'wocat_table': 'qt_2_8_4',
+                                                                'wocat_column': 'land_owner_company',
+                                                            }
+                                                        ],
+                                                        'operator': 'contains',
+                                                        'value': '131',
+                                                    },
+                                                ],
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_communal',
+                                                'value_mapping': 'tech_ownership_communal',
+                                                'conditions': [
+                                                    {
+                                                        'mapping': [
+                                                            {
+                                                                'wocat_table': 'qt_2_8_4',
+                                                                'wocat_column': 'land_owner_communal',
+                                                            }
+                                                        ],
+                                                        'operator': 'contains',
+                                                        'value': '131',
+                                                    },
+                                                ],
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_group',
+                                                'value_mapping': 'tech_ownership_group',
+                                                'conditions': [
+                                                    {
+                                                        'mapping': [
+                                                            {
+                                                                'wocat_table': 'qt_2_8_4',
+                                                                'wocat_column': 'land_owner_group',
+                                                            }
+                                                        ],
+                                                        'operator': 'contains',
+                                                        'value': '131',
+                                                    },
+                                                ],
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_individual',
+                                                'value_mapping': 'tech_ownership_individualnottitled',
+                                                'conditions': [
+                                                    {
+                                                        'mapping': [
+                                                            {
+                                                                'wocat_table': 'qt_2_8_4',
+                                                                'wocat_column': 'land_owner_individual',
+                                                            }
+                                                        ],
+                                                        'operator': 'contains',
+                                                        'value': '131',
+                                                    },
+                                                ],
+                                            },
+                                            {
+                                                'wocat_table': 'qt_2_8_4',
+                                                'wocat_column': 'land_owner_individual_titled',
+                                                'value_mapping': 'tech_ownership_individualtitled',
+                                                'conditions': [
+                                                    {
+                                                        'mapping': [
+                                                            {
+                                                                'wocat_table': 'qt_2_8_4',
+                                                                'wocat_column': 'land_owner_individual_titled',
+                                                            }
+                                                        ],
+                                                        'operator': 'contains',
+                                                        'value': '131',
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                        'operator': 'len_gte',
+                                        'value': 3,
+                                    }
+                                ],
+                                'conditions_join': 'and',
+                                'condition_message': 'Too many values for checkbox 5.8 "Land ownership", using "Comments" of 5.8 for this data."',
+                                'type': 'string',
+                                'value_prefix': 'Land ownership: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                        ]
+                    }
+                ],
+                'type': 'string'
+            }
+        }
+    }
+}
+
+# 5.9 Access to services and infrastructure
+tech_qg_226 = {
+    'tech_qg_226': {
+        'questions': {
+            'tech_access_health': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'health',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_education': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'education',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_techassistance': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'technical_assistance',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_employment': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'employment',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_markets': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'market',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_energy': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'energy',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_roads': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'roads',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_water': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'drinking_water',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_access_financial': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'fin_services',
+                    }
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# Access to services and infrastructure: Other
+tech_qg_227 = {
+    'tech_qg_227': {
+        'questions': {
+            'tech_access_other_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other1_specify',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other2_specify',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other3_specify',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other4_specify',
+                    }
+                ],
+                'type': 'string',
+            },
+            'tech_access_other_measure': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other1',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other2',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other3',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_6',
+                        'wocat_column': 'other4',
+                    },
+                ],
+                'value_mapping_list': POOR_GOOD_MAPPING,
+                'type': 'dropdown',
             },
         }
     }
@@ -15727,6 +20418,17 @@ questiongroups = [
     tech_qg_57,  # 5.2 Topography: Comments
     tech_qg_58,  # 5.3 Soils
     tech_qg_59,  # 5.3 Soils: Comments
+    tech_qg_60,  # 5.4 Water availabilty and quality
+    tech_qg_65,  # 5.4 Water availability and quality: Comments
+    tech_qg_66,  # 5.5 Biodiversity
+    tech_qg_67,  # 5.5 Biodiversity: Comments
+    tech_qg_71,  # 5.6 Characteristics of land users applying the Technology
+    tech_qg_77,  # 5.6 Characteristics of land users applying the Technology: Comments
+    tech_qg_72,  # 5.7 Average area of land owned or leased by land users applying the Technology
+    tech_qg_73,  # 5.8 Land ownership, land use rights, and water use rights
+    tech_qg_75,  # 5.8 Land ownership, land use rights, and water use rights: Comments
+    tech_qg_226,  # 5.9 Access to services and infrastructure
+    tech_qg_227,  # 5.9 Access to services and infrastructure: Other
     tech_qg_168,  # 6.3 Exposure and sensitivity: Gradual climate change: annual temperature
     tech_qg_179,  # 6.3 Exposure and sensitivity: local rainstorm
     tech_qg_197,  # 6.3 Exposure and sensitivity: local windstorm

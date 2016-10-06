@@ -786,6 +786,39 @@ class TestImport(WOCATImport):
                 'wocat_column': 'column_25_3_1'
             },
             'sort_function': 'sort_by_key(k, "sort_order")',
+        },
+        'qg_26': {
+            'questions': {
+                # other: rank
+                'question_26_1': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_26_1',
+                            'wocat_column': 'column_26_1_1'
+                        },
+                        {
+                            'wocat_table': 'table_26_1',
+                            'wocat_column': 'column_26_1_3'
+                        },
+                    ],
+                    'type': 'dropdown',
+                },
+                # other: specify
+                'question_26_2': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_26_1',
+                            'wocat_column': 'column_26_1_2'
+                        },
+                        {
+                            'wocat_table': 'table_26_1',
+                            'wocat_column': 'column_26_1_4'
+                        },
+                    ],
+                    'type': 'string',
+                }
+            },
+            'to_repeating_questiongroup': True,
         }
     }
     configuration_code = 'sample'
@@ -1045,6 +1078,14 @@ class DoMappingTest(TestCase):
             'table_25_3': [
                 {
                     'column_25_3_1': 'ab'
+                }
+            ],
+            'table_26_1': [
+                {
+                    'column_26_1_1': '1',
+                    'column_26_1_2': 'Foo',
+                    'column_26_1_3': '2',
+                    'column_26_1_4': 'Bar',
                 }
             ]
         }
@@ -1918,3 +1959,12 @@ class DoMappingTest(TestCase):
             'Number of translations for table_25_2 in language "fr" do not '
             'match the number of original entries.',
             import_object_3.mapping_messages)
+
+    # from nose.plugins.attrib import attr
+    # @attr('foo')
+    # def test_repeating_in_same_row(self):
+    #     self.imprt.do_mapping()
+    #     import_object_1 = self.imprt.import_objects[0]
+    #     qg_data_26 = import_object_1.data_json.get('qg_26')
+    #     self.assertEqual(qg_data_26, '')
+    #     self.assertEqual(len(qg_data_26), 2)

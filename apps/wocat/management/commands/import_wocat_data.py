@@ -312,7 +312,8 @@ class ImportObject(Logger):
         __, errors_text_limit = clean_questionnaire_data(
             self.data_json, configuration, no_limit_check=False)
         for error in errors_text_limit:
-            self.add_mapping_message('Ignoring max_length error: {}'.format(error))
+            self.add_mapping_message(
+                'Ignoring max_length error: {}'.format(error))
 
         self.data_json_cleaned = cleaned_data
 
@@ -635,7 +636,8 @@ class ImportObject(Logger):
                     return_list=return_list,
                     value_prefix=mapping.get('value_prefix', ''),
                     value_suffix=mapping.get('value_suffix', ''),
-                    table_data=table_data)
+                    table_data=table_data,
+                    no_duplicates=no_duplicates)
                 if sub_value:
 
                     if mapping.get('conditions'):
