@@ -338,6 +338,20 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Climate-related extreme"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28025
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -1056,7 +1070,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Tropical storm"
+            "en": "tropical storm"
           }
         }
       }
@@ -1098,7 +1112,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Local thunderstorm"
+            "en": "local thunderstorm"
           }
         }
       }
@@ -2101,7 +2115,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "tornado"
+            "en": "local tornado"
           }
         }
       }
@@ -3341,6 +3355,35 @@
     },
     "model": "configuration.key",
     "pk": 28024
+  },
+  {
+    "fields": {
+      "keyword": "climate_related_extreme_conditional",
+      "translation": 28025,
+      "configuration": {
+        "type": "select_conditional",
+        "form_options": {
+          "display_field": "climate_related_extreme_conditional_display"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28025
+  },
+  {
+    "fields": {
+      "keyword": "climate_related_extreme_conditional_display",
+      "translation": 28025,
+      "configuration": {
+        "type": "display_only",
+        "form_options": {
+          "template": "no_label",
+          "helptext_position": "none"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28026
   },
   {
     "fields": {
@@ -4670,7 +4713,7 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table",
+          "template": "table1",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "with_keys": true
         }
@@ -4692,7 +4735,7 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table",
+          "template": "table1",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "with_keys": true
         }
@@ -6724,7 +6767,10 @@
                         "keyword": "cca_qg_40",
                         "questions": [
                           {
-                            "keyword": "climate_related_extreme"
+                            "keyword": "climate_related_extreme_conditional"
+                          },
+                          {
+                            "keyword": "climate_related_extreme_conditional_display"
                           },
                           {
                             "keyword": "land_degradation_type"
@@ -6741,7 +6787,10 @@
                         "keyword": "cca_qg_41",
                         "questions": [
                           {
-                            "keyword": "climate_related_extreme"
+                            "keyword": "climate_related_extreme_conditional"
+                          },
+                          {
+                            "keyword": "climate_related_extreme_conditional_display"
                           },
                           {
                             "keyword": "newly_occurring_land_degradation_type"

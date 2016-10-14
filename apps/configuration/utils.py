@@ -4,9 +4,8 @@ import string
 from django.apps import apps
 from django.db.models import Q
 from configuration.cache import get_configuration
-from configuration.models import Project
+from configuration.models import Project, Key, Questiongroup, Translation
 from questionnaire.models import Questionnaire, Flag
-
 
 def get_configuration_query_filter(configuration, only_current=False):
     """
@@ -174,6 +173,78 @@ def get_choices_from_model(model_name, only_active=True):
             objects = model.objects.all()
         for o in objects:
             choices.append((o.id, str(o)))
+    except LookupError:
+        pass
+    return choices
+
+
+def get_choices_from_questionnaire(model_name, object_code, only_active=True):
+    """
+    Return the values of a model as choices to be used in the form.
+
+    Args:
+        model_name: (str) The name of the model inside the ``configuration`` app
+        only_active: (bool) If True, a filter is set to return only instances of
+          the model with "active" = True
+
+    Returns:
+        list. A list of tuples where
+            [0] The ID of the model instance
+            [1] The string representation of the instance
+    """
+    choices = []
+    try:
+        #model = apps.get_model(
+        #    app_label='configuration', model_name=model_name)
+        #if only_active is True:
+        #    objects = model.objects.filter(active=True).all()
+        #else:
+        #    objects = model.objects.all()
+        #for o in objects:
+        #    choices.append((o.id, str(o)))
+        key, value = object_code.split('_')
+        identifier = int(value) + 1
+        #print('identifier')
+        #print(identifier)
+        questionnaire = Questionnaire.objects.get(pk=identifier)
+        data = questionnaire.data
+        #print('data')
+        #print(data)
+        questiongroups = Questiongroup.objects.all()
+        #print('questiongroups')
+        #print(questiongroups)
+        for keyword, value in data.items():
+            #print(keyword, value)
+            #print(value[0])            
+            #print(keyword)
+            a = keyword.split('_')
+            if len(a) == 3 and a[0] == 'cca' and a[1] == 'qg':
+                qg = int(a[2])
+                if qg>=2 and qg<=34:
+                    print(qg)
+                    for questiongroup in questiongroups:
+                        if questiongroup.keyword == keyword:
+                            #translation = questiongroup.translation
+                            #if translation:
+                            #    print(translation.get_translation('label', keyword))
+                            #questiongroup1 = Questiongroup.objects.get(keyword=keyword)
+                            #print(questiongroup1.translation.get_translation('helptext', keyword))
+                            translation = Translation.objects.get(pk=questiongroup.translation_id)
+                            #print(translation.data)
+                            print(translation.data['cca']['label']['en'])
+                            #print(Translation.get_translation(translation, keyword=keyword, configuration='cca'))
+                            #print(questiongroup.translation.get_translation(configuration='label', keyword=attr))
+                            choices.append(('cca_change_extreme_'+str(qg), translation.data['cca']['label']['en']))
+
+        #for field in data._meta.get_all_field_names():
+            #print(getattr(questionnaire, field))
+            #print(field)
+            #print(getattr(data, field, None))
+        #keys = Key.objects.all()
+        #print('keys')
+        #print(keys)
+        #choices.append((1, object_code))
+        #choices.append((2, questionnaire))
     except LookupError:
         pass
     return choices

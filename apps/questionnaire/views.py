@@ -853,7 +853,12 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         )
         initial_links = get_link_data(self.questionnaire_links)
 
+        if hasattr(self.object, 'code'):
+            object_code = self.object.code
+        else:
+            object_code = None
         category_config, subcategories = self.category.get_form(
+            object_code=object_code,
             post_data=self.request.POST or None,
             initial_data=initial_data, show_translation=show_translation,
             edit_mode=self.edit_mode,

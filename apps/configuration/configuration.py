@@ -13,7 +13,7 @@ from configuration.models import (
     Configuration,
     Key,
     Questiongroup)
-from configuration.utils import get_choices_from_model
+from configuration.utils import get_choices_from_model, get_choices_from_questionnaire
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -241,6 +241,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'float',
         'map',
         'select_model',
+        'select_conditional',
         'display_only',
     ]
     translation_original_prefix = 'original_'
@@ -495,7 +496,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.required = False
 
     def add_form(
-            self, formfields, templates, options, show_translation=False,
+            self, object_code, formfields, templates, options, show_translation=False,
             edit_mode='edit'):
         """
         Adds one or more fields to a dictionary of formfields.
@@ -713,6 +714,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.ChoiceField(
                 label=self.label, widget=widget, choices=choices,
                 required=self.required)
+        elif self.field_type == 'select_conditional':
+            attrs.update({
+                'data-select-display-field': self.form_options.get('display_field'),
+                'data-key-keyword': self.keyword,
+            })
+            widget = Select(attrs=attrs)
+            widget.options = field_options
+            widget.searchable = True
+            choices = [('', '-')]
+            choices.extend(
+                get_choices_from_questionnaire(self.form_options.get('Questionnaire'), object_code))
+            field = forms.ChoiceField(
+                label=self.label, widget=widget, choices=choices,
+                required=self.required)
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -804,6 +819,17 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'key': self.label_view,
                 'value': values[0],
             })
+        elif self.field_type in ['select_conditional']:
+            # template_name = 'textinput'
+            # template_values.update({
+            #     'key': self.label_view,
+            #     'value': values[0],
+            # })
+            template_name = 'hidden'
+            # template_values.update({
+            #     'key': self.label_view,
+            #     'value': value,
+            # })
         elif self.field_type in ['measure']:
             template_name = 'measure_bar'
             level = None
@@ -1083,7 +1109,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         self.required = False
 
     def get_form(
-            self, post_data=None, initial_data=None, show_translation=False,
+            self, object_code=None, post_data=None, initial_data=None, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1106,7 +1132,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         options = {}
         for f in self.questions:
             formfields, templates, options = f.add_form(
-                formfields, templates, options, show_translation,
+                object_code, formfields, templates, options, show_translation,
                 edit_mode=edit_mode)
 
         if self.numbered != '':
@@ -1407,7 +1433,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         self.table_helptexts.append(question.helptext)
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
+            self, object_code=None, post_data=None, initial_data={}, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1436,6 +1462,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             questionset_initial_data = initial_data.get(questiongroup.keyword)
             formsets.append(
                 questiongroup.get_form(
+                    object_code=object_code,
                     post_data=post_data, initial_data=questionset_initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
@@ -1446,6 +1473,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         for subcategory in self.subcategories:
             formsets.append(
                 subcategory.get_form(
+                    object_code=object_code,
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
@@ -1682,7 +1710,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         return qg
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
+            self, object_code=None, post_data=None, initial_data={}, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1693,6 +1721,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         for subcategory in self.subcategories:
             subcategory_formsets.append(
                 subcategory.get_form(
+                    object_code=object_code,
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,

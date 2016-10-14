@@ -139,6 +139,14 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                             'questiongroup "{}").'.format(
                                 value, key, qg_keyword))
                         continue
+                elif question.field_type in ['select_conditional']:
+                    # if value not in [c[0] for c in question.choices]:
+                    #     errors.append(
+                    #         'Value "{}" is not valid for key "{}" ('
+                    #         'questiongroup "{}").'.format(
+                    #             value, key, qg_keyword))
+                    #     continue
+                    pass
                 elif question.field_type in [
                         'checkbox', 'image_checkbox', 'cb_bool']:
                     if not isinstance(value, list):
