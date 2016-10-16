@@ -202,6 +202,18 @@ def get_choices_from_questionnaire(model_name, object_code, only_active=True):
         #    objects = model.objects.all()
         #for o in objects:
         #    choices.append((o.id, str(o)))
+        if object_code is None:
+            questiongroups = Questiongroup.objects.all()
+            for questiongroup in questiongroups:
+                a = questiongroup.keyword.split('_')
+                if len(a) == 3 and a[0] == 'cca' and a[1] =='qg':
+                    qg = int(a[2])
+                    if qg>=7 and qg<=30:
+                        #if questiongroup.keyword == keyword:
+                        translation = Translation.objects.get(pk=questiongroup.translation_id)
+                        #print(translation.data['cca']['label']['en'])
+                        choices.append(('cca_change_extreme_'+str(qg), translation.data['cca']['label']['en']))
+            return choices
         key, value = object_code.split('_')
         identifier = int(value) + 1
         #print('identifier')

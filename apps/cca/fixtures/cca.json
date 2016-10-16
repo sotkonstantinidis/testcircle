@@ -3195,33 +3195,11 @@
       "keyword": "climate_related_extreme",
       "translation": 28019,
       "configuration": {
-        "type": "select_type"
-      },
-      "values": [
-        29052,
-        29053,
-        29054,
-        29055,
-        29056,
-        29057,
-        29058,
-        29059,
-        29060,
-        29061,
-        29062,
-        29063,
-        29064,
-        29065,
-        29066,
-        29067,
-        29068,
-        29069,
-        29070,
-        29071,
-        29072,
-        29073,
-        29074
-      ]
+        "type": "select_conditional",
+        "form_options": {
+          "display_field": "climate_related_extreme_display"
+        }
+      }
     },
     "model": "configuration.key",
     "pk": 28019
@@ -3384,6 +3362,21 @@
     },
     "model": "configuration.key",
     "pk": 28026
+  },
+  {
+    "fields": {
+      "keyword": "climate_related_extreme_display",
+      "translation": 28019,
+      "configuration": {
+        "type": "display_only",
+        "form_options": {
+          "template": "no_label",
+          "helptext_position": "none"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28027
   },
   {
     "fields": {
@@ -4685,13 +4678,13 @@
       "configuration": {
         "form_options": {
           "min_num": 1,
-          "max_num": 11,
-          "template": "table",
+          "max_num": 24,
+          "template": "table2",
           "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
           "numbered": "display"
         },
         "view_options": {
-          "template": "table",
+          "template": "table2",
           "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
           "with_keys": true
         }
@@ -6741,6 +6734,9 @@
                           },
                           {
                             "keyword": "climate_related_extreme"
+                          },
+                          {
+                            "keyword": "climate_related_extreme_display"
                           },
                           {
                             "keyword": "comments_specify"

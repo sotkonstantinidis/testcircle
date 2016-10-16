@@ -49,158 +49,62 @@ function hasContent(element) {
     return content;
 }
 
-
-var disasters = [
-    {
-        "id":       "cca_qg_27",
-        "value":    "avalanche",
-        "text":     "Avalanche",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_17",
-        "value":    "cold_wave",
-        "text":     "Cold wave",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_20",
-        "value":    "drought",
-        "text":     "Drought",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_28",
-        "value":    "epidemic_diseases",
-        "text":     "Epidemic diseases",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_8",
-        "value":    "extra_tropical_cyclone",
-        "text":     "Extra-tropical cyclone",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_18",
-        "value":    "extreme_cold_winter_conditions",
-        "text":     "Extreme cold winter conditions",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_19",
-        "value":    "extreme_mild_winter_conditions",
-        "text":     "Extreme mild winter conditions",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_24",
-        "value":    "flash_flood",
-        "text":     "Flash flood",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_21",
-        "value":    "forest_fire",
-        "text":     "Forest fire",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_23",
-        "value":    "general_river_flood",
-        "text":     "General (river) flood",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_16",
-        "value":    "heatwave",
-        "text":     "Heatwave",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_29",
-        "value":    "insect_worm_infestation",
-        "text":     "Insect/ worm infestation",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_22",
-        "value":    "land_fire",
-        "text":     "Land fire",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_26",
-        "value":    "landslide_debris_flow",
-        "text":     "Landslide/ debris flow",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_11",
-        "value":    "local_hailstorm",
-        "text":     "Local hailstorm",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_9",
-        "value":    "local_rainstorm",
-        "text":     "Local rainstorm",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_13",
-        "value":    "local_sandstorm_duststorm",
-        "text":     "Local sandstorm/ duststorm",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_12",
-        "value":    "local_snowstorm",
-        "text":     "Local snow",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_10",
-        "value":    "local_thunderstorm",
-        "text":     "Local thunderstorm",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_15",
-        "value":    "local_tornado",
-        "text":     "Local tornado",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_14",
-        "value":    "local_windstorm",
-        "text":     "Local windstorm",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_25",
-        "value":    "storm_surge_coastal_flood",
-        "text":     "Storm surge/ coastal flood",
-        "active":   false
-    },
-    {
-        "id":       "cca_qg_7",
-        "value":    "tropical_storm",
-        "text":     "Tropical storm",
-        "active":   false
+function remove_tr(element) {
+    $(element).parent().parent().remove();
+}
+var disasters = [];
+//var previousDisasters = [];
+function initializeDisasters() {
+    console.log('initializeDisasters');
+    for(var i=7; i<=30; i++) {
+        var text = $("input[data-container='cca_qg_"+i+"']").parent().find('span:first').map(function() {
+            return $(this).text();
+        }).get();
+        var obj = {
+            "value": "cca_change_extreme_" + i,
+            "text": text,
+            "active": false
+        }
+        disasters.push(obj);
     }
-];
-var previousDisasters = [];
+}
+initializeDisasters();
 function clearDisasters() {
-    //alert('clearing disasters');
-    
+    console.log('clearDisasters');
     for(var i=0; i<disasters.length; i++) {
-        previousDisasters[i] = disasters[i].active;
+        //previousDisasters[i] = disasters[i].active;
         disasters[i].active = false;
     }
 }
+function registerDisaster(id) {
+    //console.log(registerDisaster);
+    for(var i=0; i<disasters.length; i++) {
+        var temp = disasters[i].value.split('_');
+        if(id == 'cca_qg_'+temp[3])
+            disasters[i].active = true;    
+    }
+}
+function activeDisasters(element) {
+    //console.log('activeDisasters');
+    // Textfields
+    $(element).find('div.row.single-item input:text').each(function () {
+        if ($(this).is(":visible") && $(this).val() != '')
+            registerDisaster($(this).parent().parent().parent().parent().attr('id'));
+    });
+    // Checkbox
+    $(element).find('div.row.single-item input:checkbox').each(function () {
+        if ($(this).is(':checked'))
+            registerDisaster($(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id'));
+    });
+    // Select
+    $(element).find('div.row.single-item select').each(function () {
+        if ($(this).find(':selected').val())
+            registerDisaster($(this).parent().parent().parent().parent().attr('id'));
+    });
+}
 function refreshDisasters() {
-    var count = 0;
+    console.log('refreshDisasters');
+    /*var count = 0;
     for(var i=0; i<disasters.length; i++)
         if(disasters[i].active==true)
             count++;
@@ -211,74 +115,49 @@ function refreshDisasters() {
                             .attr("value","")
                             .text("-"));
         }
-    }    
+    }*/
+    /*
     var ok=false;
     for(var i=0; i<disasters.length; i++)
         if(previousDisasters[i]!=disasters[i].active) {
             ok=true;
             break;
         }
-    //alert('ok='+ok);
-    if(ok==false) return;
-    //$( "#id_cca_qg_39-0-climate_related_extreme" ).empty();
-    //$( "#id_cca_qg_39-0-climate_related_extreme" ).append("<option value=''>-</option>");
-    // for(var i=0; i<disasters.length; i++)
-    //     if(disasters[i].active==true)
-    //         $( "#id_cca_qg_39-0-climate_related_extreme" ).append("<option value='"+disasters[i].value+"'>"+disasters[i].text+"</option>");
+    console.log('ok='+ok);
+    if(ok==false) return;*/
 
-    for(var j=0; j<10; j++) {
-        var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
-        selectDisasters.empty();
-        selectDisasters.append($("<option></option>")
-                            .attr("value","")
-                            .text("-")); 
+    for(var j=0; j<24; j++) {
+        if($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme")[0])) {
+            var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
+            console.log(selectDisasters.val());
+            //console.log($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='cca_change_extreme_14']")[0]));
+            //console.log($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='cca_change_extreme_7']")[0]));
+            //console.log($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='cca_change_extreme_10']")[0]));
+            $.each(disasters, function(i, item) {
+                if(disasters[i].active==true && !$.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
+                    selectDisasters.append($('<option>', {
+                        value:  item.value,
+                        text:   item.text
+                    }));
+                else if(disasters[i].active==false && $.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
+                    $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']").remove();
+            });            
+            /*selectDisasters.empty();
+            selectDisasters.append($("<option></option>")
+                                .attr("value","")
+                                .text("-")); 
 
-        $.each(disasters, function(i, item) {
-            if(disasters[i].active==true)   
-                selectDisasters.append($('<option>', {
-                    value:  item.value,
-                    text:   item.text
-                })); 
-        });
+            $.each(disasters, function(i, item) {
+                if(disasters[i].active==true)   
+                    selectDisasters.append($('<option>', {
+                        value:  item.value,
+                        text:   item.text
+                    })); 
+            });*/
 
-        selectDisasters.trigger("chosen:updated");
+            selectDisasters.trigger("chosen:updated");
+        }
     }
-
-    //alert('refresh disasters');
-}
-function registerDisaster(id) {
-    for(var i=0; i<disasters.length; i++)
-        if(id==disasters[i].id)
-            disasters[i].active = true;    
-}
-function activeDisasters(element) {
-    // Textfields
-    $(element).find('div.row.single-item input:text').each(function () {
-        if ($(this).is(":visible") && $(this).val() != '') {
-            var id = $(this).parent().parent().parent().parent().attr('id');
-            //alert(id);
-            //if(id!=undefined)
-            registerDisaster(id);
-        }
-    });
-    // Checkbox
-    $(element).find('div.row.single-item input:checkbox').each(function () {
-        if ($(this).is(':checked')) {
-            var id = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id');
-            //alert(id);
-            //if(id!=undefined)
-            registerDisaster(id);
-        }
-    });
-    // Select
-    $(element).find('div.row.single-item select').each(function () {
-        if ($(this).find(':selected').val()) {
-            var id = $(this).parent().parent().parent().parent().attr('id');
-            //alert(id);
-            //if(id!=undefined)
-            registerDisaster(id);
-        }
-    });
 }
 /**
  * Updates the process indicators while entering the form. Updates the
