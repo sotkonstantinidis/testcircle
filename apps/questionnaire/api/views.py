@@ -5,6 +5,7 @@ from django.core.paginator import EmptyPage
 from django.http import Http404
 from django.utils.functional import cached_property
 from django.utils.translation import get_language
+from elasticsearch import TransportError
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -133,11 +134,23 @@ class QuestionnaireListView(QuestionnaireAPIMixin):
             ESPagination
 
         """
-        # Blank search returns all items within all indexes.
-        es_search_results = advanced_search(
-            limit=self.page_size,
-            offset=offset
-        )
+        try:
+            # Blank search returns all items within all indexes.
+            es_search_results = advanced_search(
+                limit=self.page_size, offset=offset
+            )
+        except TransportError:
+            # See https://redmine.cde.unibe.ch/issues/1098
+            es_search_results = advanced_search(limit=0)
+            total = es_search_results.get('hits', {}).get('total', 0)
+            # If the page is not within the valid total return an empty response
+            if total < offset:
+                es_search_results = {}
+            else:
+                # There really are more results than ES pagination is originally
+                # built for. Can be fixed by enabling deep pagination or such.
+                raise
+
         # Build a custom paginator.
         es_hits = es_search_results.get('hits', {})
         return ESPagination(es_hits.get('hits', []), es_hits.get('total', 0))
