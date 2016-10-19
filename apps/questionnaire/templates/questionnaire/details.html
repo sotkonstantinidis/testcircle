@@ -71,6 +71,26 @@
       {% endcompress %}
     {% endaddtoblock %}
   {% endif %}
+  {% addtoblock 'js' %}
+      {% compress js %}
+        <script>
+          if ($('html').hasClass('ie')) {
+            // fix http://caniuse.com/#search=Form%20features
+            // create a pseudo submit-button and click it for ie 10 & 11.
+            $('button[type="submit"]').on('click tap', function() {
+              var form = $('#' + $(this).attr('form'));
+              var submitBtn = $('<input>', {
+                  type: 'submit',
+                  name: $(this).attr('name'),
+                  value: $(this).attr('value')
+              });
+              submitBtn.appendTo(form);
+              submitBtn.click();
+            })
+          }
+        </script>
+      {% endcompress %}
+    {% endaddtoblock %}
 
 {% endblock %}
 
